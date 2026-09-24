@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has fourteen core packages: `app` for the game UI, `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection and the logical-solve driver, `rating` for Sudoku Explainer difficulty rating, `puzzle-forge` for technique-aware puzzle sourcing per difficulty tier, `field-core` for the headless interactive field engine and technique step-script player, `field-dom` for the React DOM board renderer, `encoder` for compact shareable game-state encoding, `hell-corpus` for the bundled, verified Hell-difficulty and Infinity puzzle corpora, and `screen-chrome` for generic screen chrome primitives.
+Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has thirteen core packages: `app` for the game UI, `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection and the logical-solve driver, `rating` for Sudoku Explainer difficulty rating, `puzzle-forge` for technique-aware puzzle sourcing per difficulty tier, `field-core` for the headless interactive field engine and technique step-script player, `field-dom` for the React DOM board renderer, `encoder` for compact shareable game-state encoding, and `hell-corpus` for the bundled, verified Hell-difficulty and Infinity puzzle corpora.
 
 ## Canonical Agent Surfaces
 
@@ -53,8 +53,7 @@ packages/
 ├── field-dom/          # React DOM board, number pad, and step-player components with plain CSS
 ├── encoder/            # Binary/LZ encoding for puzzle sharing and replay
 ├── hell-corpus/        # Bundled, verified 17-clue Hell-difficulty puzzle corpus
-├── landing/            # Static Next.js App Router content and SEO site for www.suuudokuuu.com
-└── screen-chrome/      # Raw TypeScript generic screen chrome, edge fades, and collapsible header
+└── landing/            # Static Next.js App Router content and SEO site for www.suuudokuuu.com
 tests/
 ├── app-tests/          # Maestro E2E flows
 └── web-tests/          # Playwright web E2E specs
@@ -72,7 +71,7 @@ tests/
 - Read `packages/puzzle-forge/AGENTS.md` before changing what a difficulty tier means: the per-tier technique bands, blank-cell targets, the attempt budget, or how the app asks for a new board.
 - Read `packages/hell-corpus/scripts/build-corpus.mjs` before changing the bundled Hell-difficulty puzzle corpus, its build/verification CLI, or the packed record format.
 - Read `packages/landing/AGENTS.md` before changing the landing site: App Router routes, page metadata sidecars, the metadata registry, JSON-LD schema components, `sitemap.ts`, `robots.ts`, `manifest.ts`, or landing copy.
-- Read `packages/screen-chrome/README.md` before changing `@suuudokuuu/screen-chrome`; preserve its generic, app-agnostic API.
+- Read the `@rnw-community/react-native-screen-chrome` and `@rnw-community/react-native-collapsible-header` readmes before changing screen chrome: the app consumes those published primitives and owns only the thin page wrappers in `packages/app/src/@generic/components`.
 - Read `.agents/skills/store-media/SKILL.md` before changing store listing metadata, store screenshots, release-notes generation, or `packages/app/fastlane`. It also records the App Store rules that publishing depends on, including the requirement that `packages/app/package.json` stay ahead of the version already released on the App Store; a lower version produces a listing that can never be submitted and cannot be deleted.
 - Read `tests/app-tests/AGENTS.md` before changing Maestro flows, test IDs used by flows, deep-link fixtures, or E2E app assumptions.
 - Read `tests/app-tests/docs/store-screenshot-capture.md` before changing store-screenshot capture, the seed fixture, the compose pipeline, or before capturing any store screenshots. It is the canonical capture reference: seeded-state fast path, per-platform commands, verification checklist, and the hazards that already burned one release cycle.

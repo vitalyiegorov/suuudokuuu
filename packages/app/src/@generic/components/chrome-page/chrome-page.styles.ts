@@ -1,14 +1,11 @@
-import { StyleSheet } from 'react-native-unistyles';
+import { StyleSheet } from 'react-native';
 
-export const ChromePageStyles = StyleSheet.create(() => ({
-    container: {
-        flex: 1
+export const ChromePageStyles = StyleSheet.create({
+    content: {
+        flex: 1,
+        width: '100%'
     },
-    header: {
-        left: 0,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        zIndex: 3
+    frame: {
+        flex: 1
     }
-}));
+});

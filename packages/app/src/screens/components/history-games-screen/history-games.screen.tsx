@@ -30,7 +30,6 @@ export const HistoryGamesScreen = ({ difficulty }: Props) => {
         <CollapsibleChromePage
             contentContainerStyle={resolveUnistyleForAnimated(styles.scrollViewContainer)}
             contentStyle={styles.content}
-            showsVerticalScrollIndicator={false}
             style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={HistoryGamesScreenSelectors.Root}
             title={title}

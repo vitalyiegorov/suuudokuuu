@@ -220,9 +220,12 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
    selection anyway. Tab therefore moves between genuine controls (numpad, candidate input), which keep
    their themed `:focus-visible` ring. `tests/web-tests/specs/13.cell-focus-ring-alignment.spec.ts` pins
    both halves of this.
-4. Blurred chrome on web (`EdgeFade`, the `FloatingTabBar` `BlurView` surface) attaches
-   `useBackdropRecomposite` from `@suuudokuuu/screen-chrome`. Keep that ref attached to an existing
-   wrapper element; do not introduce a new wrapper View for it, which would change tab bar layout.
+4. Blurred chrome on web (the published `EdgeFade` layers, the `FloatingTabBar` `BlurView` surface)
+   is recomposited by `useBackdropRecomposite` from `@generic/hooks/use-backdrop-recomposite`. The
+   published chrome primitives own no such hook, so the page ref lives on the outer `View` of
+   `ChromePage` and `CollapsibleChromePage`, which contains every chrome blur layer of that screen; the
+   tab bar keeps its own ref on the existing anchor. Do not introduce a new wrapper View inside the tab
+   bar for it, which would change tab bar layout.
 
 ## Web Initial Load
 

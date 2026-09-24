@@ -3,10 +3,6 @@
         "packages/app/lingui.config.js",
         "packages/app/fingerprint.config.js",
         "**/babel.config.js",
-        "**/*.web.ts",
-        "**/*.web.tsx",
-        "packages/screen-chrome/src/edge-fade/utils/edge-fade-get-backdrop-filter.util.ts",
-        "packages/screen-chrome/src/edge-fade/interface/web-edge-fade-style.interface.ts",
         "**/selectors.ts",
         "packages/hell-corpus/scripts/shared/rate-puzzle-worker.mjs"
     ],
