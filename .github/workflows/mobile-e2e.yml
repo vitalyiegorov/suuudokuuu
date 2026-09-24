@@ -43,7 +43,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.0.2 # v3.0.2
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@3890346a3e54af1d18b1a69f9d2a4b67c5b366cc # mobile-ci#166 trial
         with:
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
@@ -53,8 +53,8 @@ jobs:
             flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
             flow-retries: 1
             shard-count: 2
-            maestro-version: '2.6.1'
             simulator-device: iPhone 17 Pro
+            simulator-reduce-motion: 'true'
             xcode-version: '26.4.1'
             xcode-build: '17E202'
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
