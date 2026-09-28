@@ -32,3 +32,4 @@ executionOrder:
         - 18.daily-challenge.flow
         - 20.undo-redo.flow
         - 21.hardcore-no-undo-redo.flow
+        - 22.challenge-over-live-game.flow
