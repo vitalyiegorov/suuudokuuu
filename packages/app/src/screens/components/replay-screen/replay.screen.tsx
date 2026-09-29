@@ -4,7 +4,7 @@ import { Redirect } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getChallengeAwayRanges } from '../../../challenge/utils/get-challenge-away-ranges.util';
@@ -35,7 +35,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const [gameState] = useState(() => stringToGameState(completedGame?.encodedState));
     const { cellSize: boardCellSize, cellMargin: boardCellMargin, onBoardAreaLayout } = useBoardGeometry(0);
 
-    if (!isDefined(gameState) || !isDefined(completedGame)) {
+    if (!isDefined(completedGame) || !isNotEmptyString(gameState.sudokuString)) {
         return <Redirect href="/history" />;
     }
 

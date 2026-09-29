@@ -4,6 +4,8 @@ import LucidePlay from 'lucide-react-native/icons/play';
 import { use } from 'react';
 import { Text, View } from 'react-native';
 
+import { isNotEmptyString } from '@rnw-community/shared';
+
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
@@ -36,6 +38,7 @@ export const CompletedGameItem = ({ game }: Props) => {
     const completedDateText = completedDate.toLocaleDateString();
     const mistakesValue = game.maxMistakes >= 99 ? String(game.mistakes) : `${game.mistakes}/${game.maxMistakes}`;
     const elapsedTimeText = useTimerText(game.elapsedTime);
+    const isReplayable = isNotEmptyString(game.encodedState);
     const levelText = getLevelRatingText(t(getDifficultyMessage(game.difficulty)), game.rating, game.isRatingCeiling);
 
     return (
@@ -48,16 +51,18 @@ export const CompletedGameItem = ({ game }: Props) => {
                     </BlackText>
                 </View>
 
-                <AppLinkButton
-                    href={`/history/${game.difficulty}/${game.completedAt}`}
-                    style={replayButtonStyles}
-                    testID={CompletedGameItemSelectors.ReplayButton}
-                >
-                    <LucidePlay color={iconColor} size={18} fill={iconColor} />
-                    <Text style={replayTextStyles}>
-                        <Trans>Replay</Trans>
-                    </Text>
-                </AppLinkButton>
+                {isReplayable ? (
+                    <AppLinkButton
+                        href={`/history/${game.difficulty}/${game.completedAt}`}
+                        style={replayButtonStyles}
+                        testID={CompletedGameItemSelectors.ReplayButton}
+                    >
+                        <LucidePlay color={iconColor} size={18} fill={iconColor} />
+                        <Text style={replayTextStyles}>
+                            <Trans>Replay</Trans>
+                        </Text>
+                    </AppLinkButton>
+                ) : null}
             </View>
 
             <AppMetricStrip style={styles.metrics} variant="ghost">
