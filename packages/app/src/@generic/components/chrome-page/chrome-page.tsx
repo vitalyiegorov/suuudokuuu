@@ -1,15 +1,15 @@
-import { EdgeFade, ScreenChromeContent, ScreenChromeFrame } from '@suuudokuuu/screen-chrome';
 import { View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { EdgeFade, ScreenChromeFrame } from '@rnw-community/react-native-screen-chrome';
 import { isDefined } from '@rnw-community/shared';
 
+import { useBackdropRecomposite } from '../../hooks/use-backdrop-recomposite/use-backdrop-recomposite.hook';
 import { ScreenChromeThemeProvider } from '../screen-chrome-theme-provider/screen-chrome-theme-provider';
 import { StickyFooterBand } from '../sticky-footer-band/sticky-footer-band';
 
 import { ChromePageStyles as styles } from './chrome-page.styles';
 
-import type { EdgeFadePropsInterface } from '@suuudokuuu/screen-chrome';
+import type { EdgeFadePropsInterface } from '@rnw-community/react-native-screen-chrome';
 import type { ReactNode } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
 
@@ -19,33 +19,23 @@ interface Props {
     readonly footer?: ReactNode;
     readonly footerEdgeFadeProps?: Omit<EdgeFadePropsInterface, 'position'>;
     readonly footerStyle?: StyleProp<ViewStyle>;
-    readonly header?: ReactNode;
-    readonly headerStyle?: StyleProp<ViewStyle>;
-    readonly style?: StyleProp<ViewStyle>;
     readonly testID?: string;
     readonly topEdgeFadeProps?: Omit<EdgeFadePropsInterface, 'position'>;
 }
 
 export const ChromePage = (props: Props) => {
-    const { children, contentStyle, footer, footerEdgeFadeProps, footerStyle, header, headerStyle, style, testID, topEdgeFadeProps } =
-        props;
-    const { top } = useSafeAreaInsets();
+    const { children, contentStyle, footer, footerEdgeFadeProps, footerStyle, testID, topEdgeFadeProps } = props;
 
-    const containerStyles = [styles.container, style];
-    const headerContainerStyles = [styles.header, { paddingTop: top }];
+    const backdropRecompositeRef = useBackdropRecomposite();
+
+    const contentStyles = [styles.content, contentStyle];
 
     return (
-        <View style={containerStyles} testID={testID}>
+        <View ref={backdropRecompositeRef} style={styles.frame} testID={testID}>
             <ScreenChromeThemeProvider>
                 <ScreenChromeFrame>
-                    <ScreenChromeContent style={contentStyle}>{children}</ScreenChromeContent>
+                    <View style={contentStyles}>{children}</View>
                     <EdgeFade position="top" {...topEdgeFadeProps} />
-
-                    {isDefined(header) ? (
-                        <View pointerEvents="box-none" style={headerContainerStyles}>
-                            <View style={headerStyle}>{header}</View>
-                        </View>
-                    ) : null}
 
                     {isDefined(footer) ? (
                         <StickyFooterBand contentStyle={footerStyle} edgeFadeProps={footerEdgeFadeProps}>

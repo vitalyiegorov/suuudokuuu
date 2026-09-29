@@ -4,3 +4,4 @@ Mitten in einer Partie ein Duell angenommen? Dein Sieg zählt jetzt genau einmal
 • Die Techniken, die du genutzt hast, werden wieder mit der Partie gespeichert.
 • Die Wiederholung öffnet sofort, Zug für Zug.
 • Deine Punkte stimmen – ohne Phantom-Bonus.
+• Partien, die der alte Fehler doppelt gespeichert hat, bringen die App beim Öffnen der Wiederholung nicht mehr zum Absturz.

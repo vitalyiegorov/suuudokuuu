@@ -1,4 +1,3 @@
-import { useBackdropRecomposite } from '@suuudokuuu/screen-chrome';
 import { use } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -6,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { useBackdropRecomposite } from '../../hooks/use-backdrop-recomposite/use-backdrop-recomposite.hook';
 import { FloatingTabBarItem } from '../floating-tab-bar-item/floating-tab-bar-item';
 import { FloatingTabBarSurface } from '../floating-tab-bar-surface/floating-tab-bar-surface';
 

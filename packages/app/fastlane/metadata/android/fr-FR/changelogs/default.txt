@@ -3,3 +3,4 @@ Fini les victoires en double dans vos stats.
 Vos techniques sont de nouveau enregistrées.
 La relecture s'ouvre tout de suite.
 Le score tombe juste.
+Les anciennes parties en double ne font plus planter la relecture.

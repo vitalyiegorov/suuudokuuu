@@ -4,3 +4,4 @@ Menerima tantangan teman di tengah permainan lain? Sekarang kemenanganmu dihitun
 • Teknik yang kamu pakai kembali tersimpan bersama permainannya.
 • Putar ulang langsung terbuka, langkah demi langkah.
 • Skormu pas, tanpa poin hantu.
+• Permainan yang tersimpan dua kali karena bug lama tidak lagi membuat aplikasi crash saat kamu membuka Putar ulang.

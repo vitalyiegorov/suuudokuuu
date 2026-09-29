@@ -3,3 +3,4 @@ Tak ada lagi kemenangan ganda di statistik.
 Teknikmu kembali tersimpan di setiap permainan.
 Putar ulang langsung terbuka.
 Skor kembali pas.
+Permainan ganda lama tidak lagi membuat Putar ulang crash.

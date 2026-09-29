@@ -4,3 +4,4 @@ Aceitou o desafio de um amigo no meio de outra partida? Agora sua vitória conta
 • As técnicas que você usou voltam a ser salvas com a partida.
 • A repetição abre na hora, jogada por jogada.
 • Sua pontuação fecha certinho, sem pontos fantasmas.
+• Partidas que o bug antigo salvou duas vezes não travam mais o app ao abrir a repetição.

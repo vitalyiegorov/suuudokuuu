@@ -4,3 +4,4 @@
 • Las técnicas que usaste vuelven a guardarse con la partida.
 • La repetición se abre al instante, jugada a jugada.
 • Tu puntuación cuadra, sin puntos fantasma.
+• Las partidas que el error anterior guardó dos veces ya no cierran la app al abrir la repetición.

@@ -147,7 +147,7 @@ Never set the same style property both statically and through an animated style 
 
 ## Move Classification
 
-Every correct placement is classified exactly once, at the moment it is played, by `classifyTimelineMove`. The result rides the timeline event as `technique`, and `gameStateToString` writes those techniques into the encoded state as the encoder's technique trailer, so a finished game keeps its labels without a migration: `encodedState` is opaque to the persisted shape, and a record written by an older build simply lacks the stream.
+Every correct placement is classified exactly once by `classifyTimelineMove`, against the board as it was before the move, but never on the tap path. `useGameEngineEvents` saves the placement first, so the board, haptic and success animation never wait on the technique scan, then classifies it in a deferred task and attaches the result with `gameClassifyMoveAction`, which labels the latest matching unlabeled Cell event and counts the technique. A placement undone before its classification arrives simply stays unlabeled. The `completed` handler and the effect cleanup flush pending classifications first, so the final move is labeled before `gameFinishAction` encodes the run. The result rides the timeline event as `technique`, and `gameStateToString` writes those techniques into the encoded state as the encoder's technique trailer, so a finished game keeps its labels without a migration: `encodedState` is opaque to the persisted shape, and a record written by an older build simply lacks the stream.
 
 Consumers therefore prefer the stored technique and only fall back to re-deriving it:
 
@@ -156,7 +156,7 @@ Consumers therefore prefer the stored technique and only fall back to re-derivin
 
 `interactiveTechniqueOrder` from `@suuudokuuu/techniques` is for classification that has to answer inside a frame, not for every derivation:
 
-- `classifyTimelineMove` uses it. It runs on the tap that plays a cell, so the full registry would block the JS thread for most of a second on a hard board.
+- `classifyTimelineMove` uses it. It runs in the task right after the tap that plays a cell, so the full registry would still block the JS thread for most of a second on a hard board.
 - `getSudokuAtStep` uses it for the one step being scrubbed, for the same reason.
 - `getChallengeTechniqueEvents` does not. It is the legacy-record fallback: a whole run replayed once per screen open, off any tap budget, so it uses the full registry and keeps the labels a legacy link deserves.
 
@@ -221,9 +221,12 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
    selection anyway. Tab therefore moves between genuine controls (numpad, candidate input), which keep
    their themed `:focus-visible` ring. `tests/web-tests/specs/13.cell-focus-ring-alignment.spec.ts` pins
    both halves of this.
-4. Blurred chrome on web (`EdgeFade`, the `FloatingTabBar` `BlurView` surface) attaches
-   `useBackdropRecomposite` from `@suuudokuuu/screen-chrome`. Keep that ref attached to an existing
-   wrapper element; do not introduce a new wrapper View for it, which would change tab bar layout.
+4. Blurred chrome on web (the published `EdgeFade` layers, the `FloatingTabBar` `BlurView` surface)
+   is recomposited by `useBackdropRecomposite` from `@generic/hooks/use-backdrop-recomposite`. The
+   published chrome primitives own no such hook, so the page ref lives on the outer `View` of
+   `ChromePage` and `CollapsibleChromePage`, which contains every chrome blur layer of that screen; the
+   tab bar keeps its own ref on the existing anchor. Do not introduce a new wrapper View inside the tab
+   bar for it, which would change tab bar layout.
 
 ## Web Initial Load
 
