@@ -1,0 +1,7 @@
+Menerima tantangan teman di tengah permainan lain? Sekarang kemenanganmu dihitung sekali, lengkap dengan semua yang membuatnya milikmu.
+
+• Setiap kemenangan tantangan hanya tercatat sekali di riwayatmu, jadi statistikmu tetap jujur.
+• Teknik yang kamu pakai kembali tersimpan bersama permainannya.
+• Putar ulang langsung terbuka, langkah demi langkah.
+• Skormu pas, tanpa poin hantu.
+• Permainan yang tersimpan dua kali karena bug lama tidak lagi membuat aplikasi crash saat kamu membuka Putar ulang.

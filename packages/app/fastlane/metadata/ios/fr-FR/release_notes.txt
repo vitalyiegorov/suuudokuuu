@@ -1,0 +1,7 @@
+Vous avez relevé le défi d'un ami en pleine partie ? Votre victoire compte désormais une seule fois, avec tout ce qui la rend unique.
+
+• Chaque victoire en défi n'apparaît qu'une fois dans votre historique : vos stats restent justes.
+• Les techniques utilisées sont de nouveau enregistrées avec la partie.
+• La relecture s'ouvre tout de suite, coup par coup.
+• Votre score tombe juste, sans points fantômes.
+• Les parties enregistrées deux fois par l'ancien bug ne font plus planter l'app à l'ouverture de la relecture.

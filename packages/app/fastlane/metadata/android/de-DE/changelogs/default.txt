@@ -1,0 +1,6 @@
+Duell mitten im Spiel angenommen? Dein Sieg zählt jetzt einmal.
+Keine doppelten Siege mehr in der Statistik.
+Deine Techniken werden wieder gespeichert.
+Die Wiederholung öffnet sofort.
+Die Punkte stimmen wieder.
+Alte doppelte Partien lassen die Wiederholung nicht mehr abstürzen.
