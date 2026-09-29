@@ -19,10 +19,12 @@ import { initialGameState } from './game.state';
 
 import type { GameState } from './game.state';
 import type { GameCellCandidatePayloadInterface } from '../interface/game-cell-candidate-payload.interface';
+import type { GameClassifyMovePayloadInterface } from '../interface/game-classify-move-payload.interface';
 import type { GameFieldStatePayloadInterface } from '../interface/game-field-state-payload.interface';
 import type { GameFinishPayloadInterface } from '../interface/game-finish-payload.interface';
 import type { GameHintPayloadInterface } from '../interface/game-hint-payload.interface';
 import type { GameSavePayloadInterface } from '../interface/game-save-payload.interface';
+import type { GameCellTimelineEventInterface } from '../interface/game-timeline-event.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 const MillisecondsPerSecond = 1000;
@@ -100,7 +102,7 @@ export const gameSlice = createSlice({
             state.shouldResumeOnFocus = false;
         },
         save: (state, action: PayloadAction<GameSavePayloadInterface>) => {
-            const { sudokuString, candidates, correctCell, scoredCells, technique } = action.payload;
+            const { sudokuString, candidates, correctCell, scoredCells } = action.payload;
 
             const scoring = new SudokuScoring(defaultScoringConfig);
 
@@ -122,15 +124,25 @@ export const gameSlice = createSlice({
                 cellIndex: correctCell.y * defaultSudokuConfig.fieldSize + correctCell.x,
                 value: correctCell.value,
                 ts: getTimelineTimestampDelta(state.timelineEvents, state.elapsedTime),
-                score,
-                ...(isDefined(technique) && { technique })
+                score
             });
 
-            if (isDefined(technique)) {
-                gameApplyTechniqueUsageDelta(state.techniqueUsageCounts, technique, 1);
+            state.candidates = candidates;
+        },
+        classifyMove: (state, action: PayloadAction<GameClassifyMovePayloadInterface>) => {
+            const { cell, technique } = action.payload;
+            const cellIndex = cell.y * defaultSudokuConfig.fieldSize + cell.x;
+            const cellEvent = state.timelineEvents.findLast(
+                (event): event is GameCellTimelineEventInterface =>
+                    event.kind === TimelineEventKindEnum.Cell && event.cellIndex === cellIndex && event.value === cell.value
+            );
+
+            if (!isDefined(cellEvent) || isDefined(cellEvent.technique)) {
+                return;
             }
 
-            state.candidates = candidates;
+            cellEvent.technique = technique;
+            gameApplyTechniqueUsageDelta(state.techniqueUsageCounts, technique, 1);
         },
         hint: (state, action: PayloadAction<GameHintPayloadInterface>) => {
             const scoring = new SudokuScoring(defaultScoringConfig);

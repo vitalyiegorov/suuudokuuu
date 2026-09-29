@@ -9,9 +9,10 @@ import { createAppTestStore } from '../../@generic/utils/create-app-test-store.m
 import { SudokuScoring } from '../../scoring/classes/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/interfaces/scoring-config.interface';
 import { gameFindHintStepScript } from '../utils/game-find-hint-step-script.util';
+import { gameGetClassifyMovePayload } from '../utils/game-get-classify-move-payload.util';
 import { gameGetSavePayload } from '../utils/game-get-save-payload.util';
 
-import { gameHintAction, gameSaveAction } from './game.actions';
+import { gameClassifyMoveAction, gameHintAction, gameSaveAction } from './game.actions';
 
 import type { GameState } from './game.state';
 import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
@@ -39,7 +40,10 @@ const buildStoreWithEngine = () => {
         mistakes: game.mistakes
     });
 
-    engine.on('moveApplied', move => void store.dispatch(gameSaveAction(gameGetSavePayload(engine, move))));
+    engine.on('moveApplied', move => {
+        store.dispatch(gameSaveAction(gameGetSavePayload(engine, move)));
+        store.dispatch(gameClassifyMoveAction(gameGetClassifyMovePayload(engine.Sudoku.toString(), move.cell)));
+    });
 
     return { engine, store };
 };
