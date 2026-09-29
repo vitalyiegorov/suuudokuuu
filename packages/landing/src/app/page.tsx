@@ -46,7 +46,7 @@ const HomePage = () => (
         <h2>Why players stay</h2>
         <SoftwareApplicationSchema description={SITE_DESCRIPTION} name={SITE_NAME} path={homePageMetadata.path}>
             <SoftwareApplicationFeature>
-                Six difficulty levels from Newbie through Hell, including a bundled 17-clue Hell corpus
+                Six difficulty levels from Newbie through Hell, the top tier built from boards that need a forcing chain
             </SoftwareApplicationFeature>
             <SoftwareApplicationFeature>
                 Technique-aware hints that name the exact solving pattern, not just the next digit
@@ -122,8 +122,8 @@ const HomePage = () => (
             <Faq>
                 <FaqQuestion>What difficulty levels exist?</FaqQuestion>
                 <FaqAnswer>
-                    Six: Newbie, Easy, Medium, Hard, Nightmare and Hell. Hell puzzles come from a bundled, verified 17-clue corpus, the
-                    minimum number of clues a Sudoku can have.
+                    Six: Newbie, Easy, Medium, Hard, Nightmare and Hell. Hell puzzles come from a bundled, verified corpus of boards that
+                    each need a forcing chain, beyond anything Nightmare asks for.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

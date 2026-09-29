@@ -52,7 +52,7 @@ packages/
 ├── field-core/         # Headless sudoku field engine and technique step-script player
 ├── field-dom/          # React DOM board, number pad, and step-player components with plain CSS
 ├── encoder/            # Binary/LZ encoding for puzzle sharing and replay
-├── hell-corpus/        # Bundled, verified 17-clue Hell-difficulty puzzle corpus
+├── hell-corpus/        # Bundled, verified Hell (forcing-chain) and Infinity puzzle corpora
 └── landing/            # Static Next.js App Router content and SEO site for www.suuudokuuu.com
 tests/
 ├── app-tests/          # Maestro E2E flows

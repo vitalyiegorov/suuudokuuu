@@ -1,13 +1,13 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { HELL_CORPUS_MAXIMUM_GIVEN_COUNT, HELL_CORPUS_MINIMUM_GIVEN_COUNT } from '@suuudokuuu/hell-corpus';
 import { SE_RATING_CEILING } from '@suuudokuuu/rating';
-import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import Link from 'next/link';
 
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { TechniqueFrequencyTable } from '../../../rating/components/technique-frequency-table/technique-frequency-table';
 import { TierLadderTable } from '../../../rating/components/tier-ladder-table/tier-ladder-table';
 import { RATING_SAMPLE_SIZE, RATING_SAMPLE_TOTAL } from '../../../rating/constants/rating-sample.constant';
-import { getTechniqueUsage, getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
@@ -149,11 +149,10 @@ const SudokuDifficultyRatingPage = () => {
                 <Link href={hiddenSinglePageMetadata.path}>hidden single</Link>. They overlap on the scale only because SE prices a hidden
                 single at 1.5, below a naked single at 2.3. Medium is the intersections-and-subsets tier at SE{' '}
                 <SeRatingRange report={mediumReport} />, Hard the fish-and-wings tier at SE <SeRatingRange report={hardReport} />, and
-                Nightmare the chain tier at SE <SeRatingRange report={nightmareReport} />. Hell, drawn from a verified{' '}
-                <Link href={seventeenClueSudokuPageMetadata.path}>17-clue corpus</Link> rather than generated to a band, measures SE{' '}
-                <SeRatingRange report={hellReport} /> — a narrower band that starts higher than Nightmare and ends only slightly above it,
-                with {getTechniqueUsage(hellReport, SolutionTechniqueEnum.NishioForcingChain)} of {hellReport.sampleSize} boards reaching a
-                forcing chain.
+                Nightmare the chain tier at SE <SeRatingRange report={nightmareReport} />, capped at AIC. Hell is drawn from a verified
+                corpus rather than generated to a band, and it is selected by technique, not by{' '}
+                <Link href={seventeenClueSudokuPageMetadata.path}>clue count</Link>: every Hell board needs a forcing chain, so none of them
+                can be finished with anything Nightmare allows. Our sample measures it at SE <SeRatingRange report={hellReport} />.
             </p>
             <p>
                 That is the honest answer to “how hard is expert sudoku, actually”: the ladder rung is the difficulty, and everything else —
@@ -195,9 +194,9 @@ const SudokuDifficultyRatingPage = () => {
                     <FaqAnswer>
                         No. In our sample, {mediumReport.clueCount}-clue Medium boards measure SE <SeRatingRange report={mediumReport} />{' '}
                         and {hardReport.clueCount}-clue Hard boards measure SE <SeRatingRange report={hardReport} /> — one clue apart, a
-                        whole technique band apart. Our {hellReport.clueCount}-clue Hell boards measure SE{' '}
-                        <SeRatingRange report={hellReport} />, overlapping {nightmareReport.clueCount}-clue Nightmare at SE{' '}
-                        <SeRatingRange report={nightmareReport} />.
+                        whole technique band apart. Our Hell boards carry anywhere from {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to{' '}
+                        {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues, some of them more than {nightmareReport.clueCount}-clue Nightmare, yet
+                        every one needs a forcing chain that Nightmare never asks for.
                     </FaqAnswer>
                 </Faq>
                 <Faq>

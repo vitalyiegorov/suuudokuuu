@@ -1,7 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
 import { GRID_CELL_COUNT } from '@suuudokuuu/solver-core';
 
-import { HELL_CORPUS_CLUE_COUNT, HELL_CORPUS_RECORD_BYTES } from '../constants/hell-corpus.constant';
+import { HELL_CORPUS_MINIMUM_GIVEN_COUNT, HELL_CORPUS_RECORD_BYTES } from '../constants/hell-corpus.constant';
 
 import { decodeHellCorpusRecord } from './decode-hell-corpus-record.util';
 
@@ -19,7 +19,7 @@ const RATING_EIGHT_POINT_FIVE_BYTE = 85;
 const RATING_EIGHT_POINT_FIVE = 8.5;
 
 const buildSpreadGivensPuzzle = (): string => {
-    const cells = Array.from({ length: HELL_CORPUS_CLUE_COUNT }, (_, given) => given * GIVEN_CELL_STRIDE);
+    const cells = Array.from({ length: HELL_CORPUS_MINIMUM_GIVEN_COUNT }, (_, given) => given * GIVEN_CELL_STRIDE);
     const grid = new Array<string>(GRID_CELL_COUNT).fill('0');
 
     cells.forEach((cell, given) => {

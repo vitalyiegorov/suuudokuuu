@@ -5,6 +5,7 @@ import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 export interface TierTechniqueReportInterface {
     difficulty: LandingDifficultyType;
     clueCount: number;
+    highestClueCount: number;
     simplerLadderMaxTechnique: SolutionTechniqueEnum | null;
     bandLadderMaxTechnique: SolutionTechniqueEnum | null;
     sampleSize: number;

@@ -12,29 +12,34 @@ interface Props {
     report: TierTechniqueReportInterface;
 }
 
-export const TierLadderRow = ({ report }: Props) => (
-    <tr>
-        <th scope="row">
-            <Link href={DIFFICULTY_PAGE_PATHS[report.difficulty]}>{DIFFICULTY_NAMES[report.difficulty]}</Link>
-        </th>
-        <td>{report.clueCount}</td>
-        <td>
-            <TierBandRequirement report={report} />
-        </td>
-        <td>
-            <SeRatingRange report={report} />
-        </td>
-        <td>
-            {report.singlesOnlyPuzzleCount} of {report.sampleSize}
-        </td>
-        <td>
-            <TechniqueLink technique={report.typicalHardestTechnique} />
-        </td>
-        <td>
-            <TechniqueLink technique={report.hardestTechniqueReached} />
-        </td>
-        <td>
-            {report.beyondLadderPuzzleCount} of {report.sampleSize}
-        </td>
-    </tr>
-);
+export const TierLadderRow = ({ report }: Props) => {
+    const clueCountText =
+        report.highestClueCount > report.clueCount ? `${report.clueCount}–${report.highestClueCount}` : String(report.clueCount);
+
+    return (
+        <tr>
+            <th scope="row">
+                <Link href={DIFFICULTY_PAGE_PATHS[report.difficulty]}>{DIFFICULTY_NAMES[report.difficulty]}</Link>
+            </th>
+            <td>{clueCountText}</td>
+            <td>
+                <TierBandRequirement report={report} />
+            </td>
+            <td>
+                <SeRatingRange report={report} />
+            </td>
+            <td>
+                {report.singlesOnlyPuzzleCount} of {report.sampleSize}
+            </td>
+            <td>
+                <TechniqueLink technique={report.typicalHardestTechnique} />
+            </td>
+            <td>
+                <TechniqueLink technique={report.hardestTechniqueReached} />
+            </td>
+            <td>
+                {report.beyondLadderPuzzleCount} of {report.sampleSize}
+            </td>
+        </tr>
+    );
+};

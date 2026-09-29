@@ -1,3 +1,4 @@
+import { HELL_CORPUS_MAXIMUM_GIVEN_COUNT, HELL_CORPUS_MINIMUM_GIVEN_COUNT } from '@suuudokuuu/hell-corpus';
 import Link from 'next/link';
 
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
@@ -77,25 +78,25 @@ const SeventeenClueSudokuPage = () => (
             quickly; plenty do. What actually drives difficulty is how far a solver has to reason once the obvious placements run out — a
             question of technique depth, not starting digit count. Our{' '}
             <Link href={sudokuCluesVsDifficultyPageMetadata.path}>clues versus difficulty guide</Link> measures the gap directly across six
-            clue counts, and the <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest sudoku puzzles in the world</Link> page profiles
-            grids that are far harder than a typical 17-clue puzzle despite carrying more givens, including one with 23.
+            difficulty tiers, and the <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest sudoku puzzles in the world</Link> page
+            profiles grids that are far harder than a typical 17-clue puzzle despite carrying more givens, including one with 23.
         </p>
-        <h2>Real 17-clue puzzles, verified twice</h2>
+        <h2>Why our Hell tier does not use clue count</h2>
         <p>
-            Suuudokuuu’s <Link href={hellSudokuPageMetadata.path}>Hell tier</Link> does not generate 17-clue puzzles on demand — they are
-            too rare and too expensive to search for at runtime. Instead it draws from a bundled corpus built from the tdoku project’s
-            published 17-clue catalog, one of the largest known collections of minimum-clue sudokus. Every puzzle in that catalog is
-            re-verified before it ships: a bitmask solver confirms each grid has exactly one solution and a Dancing Links exact-cover solver
-            cross-checks a sample of those results independently.
+            It would be easy to build a hardest tier out of 17-clue puzzles, and Suuudokuuu’s{' '}
+            <Link href={hellSudokuPageMetadata.path}>Hell tier</Link> once did exactly that, drawing from the tdoku project’s published
+            17-clue catalog, one of the largest known collections of minimum-clue sudokus. Rated on the SE scale, those boards measured no
+            harder than the generated tier below them, which is this page’s argument proven on our own ladder: seventeen clues guarantees
+            that a grid is rare and minimal, and on its own says nothing about which techniques the solve will need.
         </p>
         <p>
-            Uniqueness is not difficulty, though, and this is where the myth would sneak back in. Seventeen clues guarantees that a grid is
-            rare and minimal; on its own it says nothing about which techniques the solve will need, and a corpus selected on clue count
-            alone contains plenty of grids that fold to intersections and subsets. So the corpus is rated as well as verified: every puzzle
-            is scored on the SE scale as it is packed, and anything below the tier’s minimum rating is dropped. What survives needs the
-            chain and coloring techniques described on the <Link href={techniquesPageMetadata.path}>technique index</Link> —{' '}
-            <Link href={xChainPageMetadata.path}>X-Chain</Link> and <Link href={aicPageMetadata.path}>AIC</Link> among them — because the
-            rating filter selected for exactly that, not because the clue count implies it.
+            So Hell now selects on technique instead. Its corpus draws from the same 17-clue catalog and from the magictour “top1465”
+            hard-puzzle list, and keeps only boards whose hardest step needs a forcing chain — reasoning that goes past every chain and
+            coloring technique on the <Link href={techniquesPageMetadata.path}>technique index</Link>, including{' '}
+            <Link href={xChainPageMetadata.path}>X-Chain</Link> and <Link href={aicPageMetadata.path}>AIC</Link>. The survivors carry
+            anywhere from {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues. Every one is still verified before
+            it ships: a bitmask solver confirms each grid has exactly one solution and a Dancing Links exact-cover solver cross-checks a
+            sample of those results independently.
         </p>
         <FaqPage>
             <FaqHeading>17-Clue Sudoku FAQ</FaqHeading>
@@ -124,11 +125,12 @@ const SeventeenClueSudokuPage = () => (
                 </FaqAnswer>
             </Faq>
             <Faq>
-                <FaqQuestion>Does Suuudokuuu’s Hell tier use real 17-clue puzzles?</FaqQuestion>
+                <FaqQuestion>Does Suuudokuuu’s Hell tier use 17-clue puzzles?</FaqQuestion>
                 <FaqAnswer>
-                    Yes. Hell draws from a bundled corpus sourced from the tdoku project’s 17-clue catalog, with every puzzle verified for a
-                    unique solution by a bitmask solver, cross-checked by an independent Dancing Links solver, and rated on the SE scale so
-                    that grids too easy for the tier are dropped rather than shipped on their clue count alone.
+                    Some, but not because of their clue count. Hell keeps only boards that need a forcing chain, drawn from the tdoku
+                    project’s 17-clue catalog and the magictour top1465 list, so its puzzles carry between {HELL_CORPUS_MINIMUM_GIVEN_COUNT}{' '}
+                    and {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues. Each one is verified for a unique solution by a bitmask solver and
+                    cross-checked by an independent Dancing Links solver.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

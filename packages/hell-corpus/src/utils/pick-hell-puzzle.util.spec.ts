@@ -2,7 +2,7 @@ import { describe, expect, it } from '@jest/globals';
 import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
 import { GRID_CELL_COUNT, UNIQUENESS_COUNT_LIMIT, createSeededRandom, parseGridString } from '@suuudokuuu/solver-core';
 
-import { HELL_CORPUS_CLUE_COUNT } from '../constants/hell-corpus.constant';
+import { HELL_CORPUS_MAXIMUM_GIVEN_COUNT, HELL_CORPUS_MINIMUM_GIVEN_COUNT } from '../constants/hell-corpus.constant';
 
 import { pickHellPuzzle } from './pick-hell-puzzle.util';
 
@@ -26,12 +26,13 @@ describe('pickHellPuzzle', () => {
         expect(outputs.size).toBeGreaterThan(1);
     });
 
-    it('returns a 17-clue, uniquely-solvable puzzle', () => {
+    it('returns a uniquely-solvable puzzle', () => {
         const puzzle = pickHellPuzzle(createSeededRandom(SAMPLE_SEED));
         const bitmaskSolver = new BitmaskSolver();
 
         expect(puzzle).toHaveLength(GRID_CELL_COUNT);
-        expect(countGivens(puzzle)).toBe(HELL_CORPUS_CLUE_COUNT);
+        expect(countGivens(puzzle)).toBeGreaterThanOrEqual(HELL_CORPUS_MINIMUM_GIVEN_COUNT);
+        expect(countGivens(puzzle)).toBeLessThanOrEqual(HELL_CORPUS_MAXIMUM_GIVEN_COUNT);
         expect(bitmaskSolver.countSolutions(parseGridString(puzzle), UNIQUENESS_COUNT_LIMIT)).toBe(1);
     });
 });

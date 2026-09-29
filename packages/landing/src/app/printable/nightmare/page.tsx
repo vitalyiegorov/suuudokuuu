@@ -95,7 +95,7 @@ const PrintableNightmareSudokuPage = () => (
         <h2>Where to go next</h2>
         <p>
             Chains falling into place? The <Link href={printableHellSudokuPageMetadata.path}>printable Hell sudoku booklet</Link> is the
-            last tier, built from a verified 17-clue corpus. Step back to{' '}
+            last tier, where every puzzle needs a forcing chain. Step back to{' '}
             <Link href={printableHardSudokuPageMetadata.path}>printable Hard sudoku</Link> for fish and wings only, or play Nightmare on a
             screen at the <Link href={nightmareSudokuPageMetadata.path}>Nightmare sudoku lander</Link>.
         </p>

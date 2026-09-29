@@ -119,7 +119,8 @@ const HowToPlayPage = () => (
                 <strong>Nightmare.</strong> Always stalls on fish and wings and always yields to chain or coloring logic.
             </li>
             <li>
-                <strong>Hell.</strong> Drawn from a bundled, verified 17-clue corpus — the minimum number of clues a Sudoku can have.
+                <strong>Hell.</strong> Always stalls on chains and AIC and always needs a forcing chain, drawn from a bundled, verified
+                corpus.
             </li>
         </ul>
         <p>
