@@ -194,8 +194,9 @@ any headless engine (see the note below), so there is no symptom to assert. Inst
 `visibilitychange` and `pageshow`/`persisted`, and asserts the computed `backdrop-filter` collapsed to
 `none` and then came back across frames — proving `useBackdropRecomposite` actually ran. Assert the
 computed value, never the inline one: whether the filter reaches the element inline or through a
-generated class is a styling detail that changes with the chrome implementation. It fails if the hook
-is unwired from `ChromePage`, `CollapsibleChromePage`, or `FloatingTabBar`. Do not rewrite it to assert pixels; headless
+generated class is a styling detail that changes with the chrome implementation. Both tests run on
+Home, so it fails if the hook is unwired from `ChromePage` or `FloatingTabBar`. `CollapsibleChromePage`
+wires the same hook but no spec here drives a collapsible screen through a visibility change. Do not rewrite it to assert pixels; headless
 WebKit never reproduces the compositor fault this guards against.
 
 ## Known Landing Issues Affecting This Suite
