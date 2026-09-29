@@ -120,6 +120,12 @@ yarn workspace @suuudokuuu/web-tests lint
   clearing and the candidate's `data-present` attribute flipping to `false`, when a spec applies an
   elimination-only technique's step script.
 
+- `openSharedChallengeOverGame` is the web stand-in for a native deep link arriving while a run is live.
+  Browser navigation cannot reproduce it: `page.goto` reloads the app, and an unknown `popstate` entry makes
+  expo-router reset the whole stack instead of pushing. The helper therefore finds the game screen's stack
+  navigation through the React fiber of `GameScreenSelectors.Root` and pushes `shared/[url]` onto it, which is
+  the same stack shape a native deep link produces. `14.challenge-over-live-game.spec.ts` depends on it.
+
 ## Browser Projects
 
 `chromium` and `mobile-chromium` run the whole suite. `mobile-webkit` (iPhone 14) is scoped via
