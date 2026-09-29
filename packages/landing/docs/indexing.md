@@ -94,6 +94,8 @@ yarn workspace @suuudokuuu/landing submit:indexnow --dry-run     # prints the UR
 INDEXNOW_KEY=<key> yarn workspace @suuudokuuu/landing submit:indexnow
 ```
 
+Before it submits, `submit-indexnow.ts` fetches its own key location and fails if the file is not served with status 200 or its content is not the key, so a failed run names the broken half instead of IndexNow's bare `403 Forbidden`.
+
 Both scripts no-op with an explanatory message when `INDEXNOW_KEY` is absent, and exit `0`. That is deliberate: forks, contributors and preview builds must be able to run the full build and the full validation sequence without the secret. A build without the key produces a complete site minus the key file, and `generate-indexing-files.ts` removes a stale key file left behind by an earlier keyed build so an export can never advertise a key the environment no longer holds.
 
 `--dry-run` needs no key at all, which makes it usable as a CI assertion that the submitted list is the sitemap list.
