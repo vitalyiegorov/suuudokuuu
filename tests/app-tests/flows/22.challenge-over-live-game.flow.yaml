@@ -1,0 +1,74 @@
+appId: ${APP_ID}
+---
+- startRecording:
+      path: '22.challenge-over-live-game'
+      optional: true
+
+# A challenge link opened while a run is live lands on top of that run's game
+# screen. Accepting it must reuse that screen instead of stacking a second one:
+# two mounted game screens both handle every engine event, so each move is saved
+# twice, the run is recorded twice, and the doubled timeline cannot be encoded,
+# which leaves the record without techniques or a replay.
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- runFlow: subflows/game/start-new-game.flow.yaml
+- runFlow:
+      file: subflows/shared/complete-winning-shared-challenge.flow.yaml
+      env:
+          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARgH-IAABCg
+- scrollUntilVisible:
+      element:
+          id: 'ChallengeResultFooterSelectors.HomeButton'
+      direction: DOWN
+      timeout: 3000
+- tapOn:
+      id: 'ChallengeResultFooterSelectors.HomeButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000
+- tapOn: 'Stats'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 3000
+- scrollUntilVisible:
+      element:
+          text: '.*completed game.*'
+      direction: DOWN
+- scroll
+- tapOn:
+      id: 'HistoryDifficultySelectors.Card.Newbie'
+- extendedWaitUntil:
+      visible:
+          id: 'CompletedGameTechniqueSummarySelectors.Root'
+      timeout: 5000
+# Completed games are listed newest first, so the first Replay button is this run.
+- tapOn:
+      id: 'CompletedGameItemSelectors.ReplayButton'
+      index: 0
+- extendedWaitUntil:
+      visible: 'Move 0 / 1'
+      timeout: 15000
+- tapOn:
+      id: 'ReplayControlsSelectors.NextButton'
+- extendedWaitUntil:
+      visible: 'Move 1 / 1'
+      timeout: 15000
+- tapOn:
+      id: 'ReplayActionsSelectors.BackButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryGamesScreenSelectors.Root'
+      timeout: 3000
+- tapOn:
+      id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 3000
+- tapOn:
+      id: 'HeaderBackButtonSelectors.Root'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 3000

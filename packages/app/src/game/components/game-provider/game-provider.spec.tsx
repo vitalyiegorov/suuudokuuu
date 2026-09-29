@@ -14,13 +14,13 @@ import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { ReactNode } from 'react';
 
 const mockPush = jest.fn();
-const mockReplace = jest.fn();
+const mockDismissTo = jest.fn();
 const mockDispatch = jest.fn();
 const mockAlert = jest.fn();
 
 let mockPathname = '/';
 
-jest.mock('expo-router', () => ({ usePathname: () => mockPathname, useRouter: () => ({ push: mockPush, replace: mockReplace }) }));
+jest.mock('expo-router', () => ({ usePathname: () => mockPathname, useRouter: () => ({ push: mockPush, dismissTo: mockDismissTo }) }));
 jest.mock('../../../@generic/app-root.store', () => ({ appRootStore: { dispatch: jest.fn(), getState: jest.fn() } }));
 jest.mock('../../../@generic/components/alert/alert', () => ({ Alert: (title: string) => mockAlert(title) }));
 jest.mock('../../../@generic/hooks/use-app-dispatch.hook', () => ({ useAppDispatch: () => mockDispatch }));
@@ -68,7 +68,7 @@ const createSingleGame = async (options: GameSetupInterface) => {
     const { result } = await renderGameContext();
 
     await act(() => void result.current.create(options));
-    await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+    await waitFor(() => void expect(mockDismissTo).toHaveBeenCalledTimes(1));
 };
 
 const buildChallengeState = () => {
@@ -94,11 +94,11 @@ describe('GameProvider', () => {
             result.current.create(newbieGameOptions);
         });
 
-        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+        await waitFor(() => void expect(mockDismissTo).toHaveBeenCalledTimes(1));
 
         expect(mockForgePuzzle).toHaveBeenCalledTimes(1);
         expect(mockDispatch).toHaveBeenCalledTimes(1);
-        expect(mockReplace).toHaveBeenCalledWith('/game');
+        expect(mockDismissTo).toHaveBeenCalledWith('/game');
         expect(mockPush).not.toHaveBeenCalled();
     });
 
@@ -111,7 +111,7 @@ describe('GameProvider', () => {
             result.current.create(hellGameOptions);
         });
 
-        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+        await waitFor(() => void expect(mockDismissTo).toHaveBeenCalledTimes(1));
 
         expect(mockDispatch).toHaveBeenCalledTimes(1);
     });
@@ -135,7 +135,7 @@ describe('GameProvider', () => {
             result.current.create(infinityGameOptions);
         });
 
-        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+        await waitFor(() => void expect(mockDismissTo).toHaveBeenCalledTimes(1));
 
         expect(mockDispatch).toHaveBeenCalledTimes(1);
     });
@@ -160,13 +160,13 @@ describe('GameProvider', () => {
         const { result } = await renderGameContext();
 
         await act(() => void result.current.create(newbieGameOptions));
-        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+        await waitFor(() => void expect(mockDismissTo).toHaveBeenCalledTimes(1));
 
         await act(() => void result.current.create(newbieGameOptions));
 
         expect(result.current.isCreatingGame).toBe(true);
         expect(mockForgePuzzle).toHaveBeenCalledTimes(1);
-        expect(mockReplace).toHaveBeenCalledTimes(1);
+        expect(mockDismissTo).toHaveBeenCalledTimes(1);
     });
 
     it('should load and navigate once for repeated createFromState calls', async () => {
@@ -178,7 +178,7 @@ describe('GameProvider', () => {
             result.current.createFromState(challengeState);
         });
 
-        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+        await waitFor(() => void expect(mockDismissTo).toHaveBeenCalledTimes(1));
 
         expect(mockDispatch).toHaveBeenCalledTimes(2);
         expect(mockPush).not.toHaveBeenCalled();
@@ -196,10 +196,10 @@ describe('GameProvider', () => {
         await waitFor(() => void expect(mockAlert).toHaveBeenCalledTimes(1));
 
         expect(result.current.isCreatingGame).toBe(false);
-        expect(mockReplace).not.toHaveBeenCalled();
+        expect(mockDismissTo).not.toHaveBeenCalled();
 
         await act(() => void result.current.create(newbieGameOptions));
 
-        await waitFor(() => void expect(mockReplace).toHaveBeenCalledTimes(1));
+        await waitFor(() => void expect(mockDismissTo).toHaveBeenCalledTimes(1));
     });
 });
