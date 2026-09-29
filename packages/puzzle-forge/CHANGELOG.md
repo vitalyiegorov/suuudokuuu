@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.13.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.12.10...v2.13.0) (2026-09-29)
+
+### Features
+
+- **hell-corpus:** make Hell a forcing-chain tier instead of a 17-clue tier ([#408](https://github.com/vitalyiegorov/suuudokuuu/issues/408)) ([e565ba4](https://github.com/vitalyiegorov/suuudokuuu/commit/e565ba4ca73608acccad8aed01328beb5c3ece7b)), closes [#334](https://github.com/vitalyiegorov/suuudokuuu/issues/334)
+
 ## [2.11.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.11.3...v2.11.4) (2026-09-02)
 
 ### Performance Improvements
