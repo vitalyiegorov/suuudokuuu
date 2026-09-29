@@ -40,7 +40,7 @@ export const GameProvider = ({ children }: Props) => {
 
             dispatch(gameResumeAction());
 
-            router.replace('/game');
+            router.dismissTo('/game');
         });
 
     const startForgedGame = (
@@ -52,7 +52,7 @@ export const GameProvider = ({ children }: Props) => {
         setEngine(new FieldEngine({ sudokuString, difficulty: setup.difficulty }));
 
         dispatch(gameStartAction({ ...setup, sudokuString, rating, isRatingCeiling }));
-        router.replace('/game');
+        router.dismissTo('/game');
     };
 
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
