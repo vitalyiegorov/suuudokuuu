@@ -40,6 +40,18 @@ const USAGE_TEXT = `Usage: yarn build:corpus --source <path> [--source <path>...
 Download data.zip from https://raw.githubusercontent.com/t-dillon/tdoku/master/data.zip, unzip it, and pass
 --source path/to/data/puzzles2_17_clue --source path/to/data/puzzles3_magictour_top1465.`;
 
+const readOperand = (argv, index) => {
+    const operand = argv[index];
+
+    if (typeof operand !== 'string' || operand.length === 0 || operand.startsWith('--')) {
+        throw new Error(USAGE_TEXT);
+    }
+
+    return operand;
+};
+
+const isPositiveInteger = value => Number.isInteger(value) && value >= 1;
+
 const parseArguments = argv => {
     const options = { sourcePaths: [], crossCheckStride: DEFAULT_CROSS_CHECK_STRIDE, workerCount: availableParallelism() };
 
@@ -48,13 +60,13 @@ const parseArguments = argv => {
 
         if (argument === '--source') {
             index += 1;
-            options.sourcePaths.push(argv[index]);
+            options.sourcePaths.push(readOperand(argv, index));
         } else if (argument === '--cross-check-stride') {
             index += 1;
-            options.crossCheckStride = Number(argv[index]);
+            options.crossCheckStride = Number(readOperand(argv, index));
         } else if (argument === '--workers') {
             index += 1;
-            options.workerCount = Number(argv[index]);
+            options.workerCount = Number(readOperand(argv, index));
         }
     }
 
@@ -62,7 +74,7 @@ const parseArguments = argv => {
         throw new Error(USAGE_TEXT);
     }
 
-    if (!Number.isInteger(options.workerCount) || options.workerCount < 1) {
+    if (!isPositiveInteger(options.workerCount) || !isPositiveInteger(options.crossCheckStride)) {
         throw new Error(USAGE_TEXT);
     }
 
