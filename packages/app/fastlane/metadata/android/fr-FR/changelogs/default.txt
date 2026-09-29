@@ -1,6 +1,5 @@
-Les indices expliquent : ils nomment la technique et montrent les cases décisives. Le panneau a une hauteur fixe sous la grille : texte plus grand, sans saut.
-Annuler et rétablir avec un score honnête ; aucun indice sur les grilles les plus dures sans accord.
-Défi du jour avec séries, dans son onglet.
-Chaque niveau exige vraiment ses techniques.
-Zones tactiles et chiffres agrandis, jeu apaisé, thèmes contraste et daltonisme, lecteurs d'écran.
-Corrigé : cases gardant une ancienne couleur.
+Défi accepté en pleine partie ? Votre victoire compte une fois.
+Fini les victoires en double dans vos stats.
+Vos techniques sont de nouveau enregistrées.
+La relecture s'ouvre tout de suite.
+Le score tombe juste.

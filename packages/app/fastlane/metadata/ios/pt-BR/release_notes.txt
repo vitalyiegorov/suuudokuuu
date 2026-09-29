@@ -1,12 +1,6 @@
-As dicas agora ensinam em vez de entregar a resposta. Cada uma nomeia a técnica, destaca as casas que forçam a jogada e conduz o raciocínio passo a passo antes de preencher qualquer coisa. No celular, o painel de dica ocupa o espaço abaixo do tabuleiro com altura fixa: texto maior e nada pula de um passo para outro.
+Aceitou o desafio de um amigo no meio de outra partida? Agora sua vitória conta uma vez só e guarda tudo o que é seu.
 
-• Desfazer e refazer, com pontuação honesta: desfazer devolve exatamente os pontos que a jogada rendeu, então repetir a mesma casa nunca paga duas vezes.
-• As dicas não aparecem em Pesadelo, Inferno e Infinito a menos que você as ligue, e no Hardcore tanto as dicas quanto o desfazer ficam ocultos.
-• Desafio diário na própria aba: o mesmo sudoku para todo mundo a cada dia, com sequência atual, melhor sequência e suas partidas recentes.
-• A dificuldade agora significa o que promete: cada tabuleiro é gerado até realmente exigir as técnicas do seu nível.
-• Mais gentil com as mãos e os olhos: áreas de toque maiores no tabuleiro e no teclado, ajuste de redução de movimento, dígitos maiores, Jogo tranquilo sem placar e respeito total ao tamanho de texto do aparelho.
-• Novos temas Alto contraste e Seguro para daltônicos, com cada par de cores do tabuleiro dentro do WCAG AA e estados distinguidos por luminosidade e contornos, não por matiz.
-• Suporte completo a leitores de tela: casas, dígitos e controles anunciam função e estado, e os passos da dica, os erros e as vitórias são falados na hora.
-• O botão de anotações ficou sozinho na borda do polegar, espelhado para canhotos, e no desktop o painel de dica enfim tem tamanho legível.
-• Corrigido: jogadas montadas com vários passos lógicos são creditadas à técnica por trás delas em vez de contar como chute, os candidatos automáticos agora descartam o que a dica eliminou, as casas não guardam mais o destaque de uma seleção anterior e o dígito branco na casa selecionada voltou.
-• Mais rápido: a versão web aparece na hora em vez de esperar o download inteiro, e o app ficou 5,5 MB menor.
+• Cada vitória em desafio aparece uma única vez no seu histórico, e suas estatísticas ficam certinhas.
+• As técnicas que você usou voltam a ser salvas com a partida.
+• A repetição abre na hora, jogada por jogada.
+• Sua pontuação fecha certinho, sem pontos fantasmas.

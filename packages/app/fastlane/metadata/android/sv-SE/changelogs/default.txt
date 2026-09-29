@@ -1,6 +1,5 @@
-Ledtrådar undervisar nu: de namnger tekniken, lyfter fram rutorna som tvingar fram draget och förklarar varför. Ledtrådspanelen har fast höjd under brädet: större text, inga hopp.
-Ångra och gör om med ärlig poängsättning; på de svåraste nivåerna bara om du slår på dem.
-Dagens utmaning med sviter, i egen flik.
-Varje nivå kräver verkligen sina tekniker.
-Större tryckytor och siffror, lugnt spel, teman för hög kontrast och färgblindhet, skärmläsare.
-Fixat: rutor behöll en gammal markering.
+Antog du en utmaning mitt i spelet? Vinsten räknas en gång.
+Inga dubbla vinster i statistiken längre.
+Dina tekniker sparas med varje spel igen.
+Reprisen öppnas direkt.
+Poängen stämmer.

@@ -1,6 +1,5 @@
-Hinweise erklären jetzt: Sie nennen die Technik und heben die Zellen hervor, die den Zug erzwingen. Die Hinweiskarte unter dem Brett hat feste Höhe: größere Schrift, kein Sprung.
-Rückgängig und Wiederherstellen mit ehrlicher Wertung; auf harten Stufen nur auf Wunsch.
-Tägliche Herausforderung mit Serien im eigenen Tab.
-Jede Stufe braucht wirklich ihre Techniken.
-Größere Trefferflächen und Zahlen, ruhiges Spiel, Kontrast-/Farbenblind-Themen, Screenreader.
-Behoben: alte Hervorhebung in Zellen.
+Duell mitten im Spiel angenommen? Dein Sieg zählt jetzt einmal.
+Keine doppelten Siege mehr in der Statistik.
+Deine Techniken werden wieder gespeichert.
+Die Wiederholung öffnet sofort.
+Die Punkte stimmen wieder.

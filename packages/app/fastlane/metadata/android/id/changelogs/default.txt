@@ -1,6 +1,5 @@
-Petunjuk kini mengajari: menyebut tekniknya, menyorot sel penentu, dan menjelaskan alasannya. Panel petunjuk bertinggi tetap di bawah papan: teks lebih besar, tanpa loncat.
-Urungkan dan ulangi dengan skor jujur; di level tersulit petunjuk hanya bila diminta.
-Tantangan harian dengan rentetan, di tab sendiri.
-Setiap level benar-benar butuh tekniknya.
-Area sentuh dan angka lebih besar, permainan tenang, tema kontras tinggi dan ramah buta warna, pembaca layar.
-Diperbaiki: sorotan lama pada sel.
+Menerima tantangan di tengah permainan? Kemenanganmu dihitung sekali.
+Tak ada lagi kemenangan ganda di statistik.
+Teknikmu kembali tersimpan di setiap permainan.
+Putar ulang langsung terbuka.
+Skor kembali pas.
