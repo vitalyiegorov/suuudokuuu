@@ -30,6 +30,7 @@
         },
         "@suuudokuuu/landing#build": {
             "dependsOn": ["^build"],
+            "env": ["INDEXNOW_KEY"],
             "outputs": ["out/**", ".next/**", "!.next/cache/**"]
         },
         "test": {},

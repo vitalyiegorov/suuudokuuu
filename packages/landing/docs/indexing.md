@@ -77,6 +77,7 @@ IndexNow accepts 8 to 128 characters of `a-z`, `A-Z`, `0-9` and `-`; `resolveInd
 Store it as `INDEXNOW_KEY`:
 
 - in the CI provider's secret store, exposed to both the build job and the post-deploy submission job;
+- in `turbo.json` under `@suuudokuuu/landing#build` `env`, because Turborepo's strict env mode strips undeclared variables from the build, which silently drops the key file and makes the post-deploy submission fail with `403 Forbidden`;
 - locally in a shell profile or a `.env` file you load yourself, only when you need to run the scripts from your machine.
 
 Never print it, never paste it into a PR, an issue or a commit. Check for presence by name only:
