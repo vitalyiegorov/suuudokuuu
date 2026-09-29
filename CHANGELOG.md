@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.12.10](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.12.9...v2.12.10) (2026-09-29)
+
+### Performance Improvements
+
+- **app:** classify placements after the tap instead of before its feedback ([#405](https://github.com/vitalyiegorov/suuudokuuu/issues/405)) ([d06c875](https://github.com/vitalyiegorov/suuudokuuu/commit/d06c8755ff8469aba59e29d2e301f826173296a4)), closes [#340](https://github.com/vitalyiegorov/suuudokuuu/issues/340)
+
 ## [2.12.9](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.12.8...v2.12.9) (2026-09-29)
 
 ### Bug Fixes
