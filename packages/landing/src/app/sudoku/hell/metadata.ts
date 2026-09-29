@@ -10,9 +10,9 @@ export const hellSudokuPageMetadata: PageMetadataInterface = {
     headline: 'Evil Sudoku Puzzles (Hell Level)',
     metaTitle: 'Evil Sudoku (Hell Level) — The Hardest Free Puzzles Online',
     metaDescription:
-        'Free evil, extreme Sudoku drawn from a verified 17-clue corpus, solved with chains, coloring and AIC. Play the hardest Hell-level Sudoku online for free.',
+        'Free evil, extreme Sudoku where every board needs a forcing chain, beyond chains, coloring and AIC. Play the hardest Hell-level Sudoku online for free.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-23T00:00:00.000Z',
+    updatedAt: '2026-09-29T00:00:00.000Z',
     changeFrequency: 'weekly',
     priority: 0.8
 };

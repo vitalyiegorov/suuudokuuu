@@ -20,12 +20,9 @@ const generatedDifficulties = [
 ];
 const forgeTimeoutMs = 120_000;
 const generousAttemptBudget = 200;
-const hellClueCount = 17;
 const sampleSeed = 20_260_823;
 const otherSeed = 20_260_824;
 const unseededSampleCount = 3;
-
-const getClueCount = (puzzleString: string): number => puzzleString.split('').filter(character => character !== '.').length;
 
 const getBlankCellCount = (puzzleString: string): number => puzzleString.split('').filter(character => character === '.').length;
 
@@ -61,15 +58,14 @@ describe('forgePuzzle', () => {
         }
     });
 
-    it('should serve Hell from the bundled seventeen-clue corpus', () => {
+    it('should serve Hell from the corpus with a board that Nightmare techniques cannot solve', () => {
         expect.assertions(3);
 
-        const { isInBand, sudoku } = forgePuzzle(DifficultyEnum.Hell);
-        const puzzleString = sudoku.toString();
+        const { isInBand, isRatingCeiling, sudoku } = forgePuzzle(DifficultyEnum.Hell);
 
         expect(isInBand).toBe(true);
-        expect(getClueCount(puzzleString)).toBe(hellClueCount);
-        expect(isSolvableWithLadder(puzzleString, SolutionTechniqueEnum.HiddenSingle)).toBe(false);
+        expect(isRatingCeiling).toBe(false);
+        expect(isTooEasyForBand(sudoku.toString(), DIFFICULTY_BANDS[DifficultyEnum.Hell])).toBe(false);
     });
 
     it('should serve Infinity from the curated corpus with its published rating', () => {

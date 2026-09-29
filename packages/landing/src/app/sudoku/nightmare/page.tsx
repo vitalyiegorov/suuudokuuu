@@ -87,18 +87,19 @@ const NightmareSudokuPage = () => {
             <p>
                 Our sample of {nightmareReport.sampleSize} Nightmare boards measures SE (Sudoku Explainer){' '}
                 <SeRatingRange report={nightmareReport} />, with the <TechniqueLink technique={nightmareReport.typicalHardestTechnique} />{' '}
-                as the most common hardest step. That upper end sits in the same territory as our 17-clue{' '}
-                <Link href={hellSudokuPageMetadata.path}>Hell tier</Link>, which is the clearest evidence on the site that clue count and
-                difficulty are separate facts: Nightmare hands you eight more givens and asks for the same reasoning. The measured tables
-                live in our <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link>. Qualitatively, this
-                is where difficulty stops being about speed and becomes about holding an entire line of implication in your head without
-                losing track of it.
+                as the most common hardest step. AIC is the ceiling here: every Nightmare board falls to it, and the{' '}
+                <Link href={hellSudokuPageMetadata.path}>Hell tier</Link> begins exactly where it stops, with boards that need a forcing
+                chain. Some of those Hell boards carry more givens than Nightmare does, which is the clearest evidence on the site that clue
+                count and difficulty are separate facts. The measured tables live in our{' '}
+                <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link>. Qualitatively, this is where
+                difficulty stops being about speed and becomes about holding an entire line of implication in your head without losing track
+                of it.
             </p>
             <h2>Where to go next</h2>
             <p>
-                Cleared a few Nightmare boards? <Link href={hellSudokuPageMetadata.path}>Hell Sudoku</Link> is the last tier, built from a
-                bundled 17-clue corpus. Step back to <Link href={hardSudokuPageMetadata.path}>Hard Sudoku</Link> if fish and wings still
-                feel unreliable. Prefer paper? Download the{' '}
+                Cleared a few Nightmare boards? <Link href={hellSudokuPageMetadata.path}>Hell Sudoku</Link> is the last tier, where every
+                board needs a forcing chain. Step back to <Link href={hardSudokuPageMetadata.path}>Hard Sudoku</Link> if fish and wings
+                still feel unreliable. Prefer paper? Download the{' '}
                 <Link href={printableNightmareSudokuPageMetadata.path}>printable Nightmare sudoku booklet</Link>. Browse the{' '}
                 <Link href={techniquesPageMetadata.path}>technique index</Link>, the{' '}
                 <Link href={howToPlayPageMetadata.path}>how to play guide</Link>, every tier on the{' '}

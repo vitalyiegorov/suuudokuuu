@@ -7,7 +7,7 @@ INFINI : LES SUDOKUS LES PLUS DURS DU MONDE
 Une sélection de 100 grilles record du monde notées de SE 10.4 à 11.9. L'Everest et AI Escargot d'Arto Inkala. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Ce sont les grilles que la communauté des solveurs a rendues célèbres, et la plupart des joueurs n'en terminent jamais une seule.
 
 L'ENFER, RECOMPOSÉ
-L'Enfer, ce sont désormais 1 544 grilles vérifiées à 17 indices, toutes notées SE 6.6 ou plus. Dix-sept indices, c'est le minimum pour qu'un Sudoku garde une solution unique, mais le nombre d'indices ne fait pas la difficulté : nous avons noté tout le corpus et gardé uniquement les grilles qui résistent.
+L'Enfer, ce sont désormais 958 grilles vérifiées qui exigent toutes une chaîne forcée : aucune ne se résout avec les techniques qu'autorise le niveau Cauchemar, et toutes sont notées SE 7.5 à 8.5. Le nombre d'indices ne fait pas la difficulté : nous choisissons les grilles de l'Enfer selon le raisonnement qu'elles exigent, pas selon le peu d'indices qu'elles donnent.
 
 VOTRE JEU, MESURÉ
 L'écran de statistiques repensé affiche votre grille la plus dure, la difficulté moyenne de vos dernières parties et le niveau que vous jouez le plus. Le spectre SE place chaque grille terminée le long de l'échelle. Votre arsenal compte chaque technique que vous avez réellement utilisée — paire nue, X-Wing, swordfish et au-delà — pour voir votre répertoire s'étoffer.

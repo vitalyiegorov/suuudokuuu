@@ -155,7 +155,7 @@ const PrintableSudokuPage = () => (
                 <Link href={printableHellSudokuPageMetadata.path}>Hell</Link>
             </h3>
             <p>
-                {getDifficultyClueCount(DifficultyEnum.Hell)} clues, drawn from our bundled, verified 17-clue corpus. See the{' '}
+                Every puzzle needs a forcing chain, drawn from our bundled, verified Hell corpus. See the{' '}
                 <Link href={hellSudokuPageMetadata.path}>Hell sudoku lander</Link> to play it digitally.
             </p>
             <PrintableDownloadCard fileName="hell.pdf" title="Hell Sudoku">

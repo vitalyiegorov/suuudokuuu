@@ -5612,6 +5612,7 @@ __metadata:
     "@suuudokuuu/solver-bitmask": "workspace:*"
     "@suuudokuuu/solver-core": "workspace:*"
     "@suuudokuuu/solver-dlx": "workspace:*"
+    "@suuudokuuu/techniques": "workspace:*"
   languageName: unknown
   linkType: soft
 

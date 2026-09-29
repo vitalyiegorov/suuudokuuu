@@ -33,6 +33,7 @@
     "devDependencies": {
         "@suuudokuuu/rating": "workspace:*",
         "@suuudokuuu/solver-bitmask": "workspace:*",
-        "@suuudokuuu/solver-dlx": "workspace:*"
+        "@suuudokuuu/solver-dlx": "workspace:*",
+        "@suuudokuuu/techniques": "workspace:*"
     }
 }

@@ -1,4 +1,5 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { HELL_CORPUS_MAXIMUM_GIVEN_COUNT, HELL_CORPUS_MINIMUM_GIVEN_COUNT, hellCorpusSize } from '@suuudokuuu/hell-corpus';
 import Link from 'next/link';
 
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
@@ -49,25 +50,25 @@ const HellSudokuPage = () => {
                 <BreadcrumbListItem>Hell</BreadcrumbListItem>
             </PageHeader>
             <p>
-                Hell is Suuudokuuu’s hardest tier — what most competitors call evil or extreme. A Hell board carries just{' '}
-                {getDifficultyClueCount(DifficultyEnum.Hell)} clues out of 81 cells, the minimum number of clues a sudoku can have and still
-                keep a unique solution. Unlike every other tier, Hell is not generated to a technique band: it is drawn from a bundled
-                corpus of real minimum-clue puzzles, verified by two independent solvers and filtered by SE rating before it ships. In
-                practice that means chains and coloring — <Link href={xChainPageMetadata.path}>X-Chain</Link>,{' '}
+                Hell is Suuudokuuu’s hardest tier — what most competitors call evil or extreme. A Hell board is defined by the reasoning it
+                demands, not by how few clues it starts with: no Hell board can be finished with any technique Nightmare allows, so every
+                one needs a forcing chain. Unlike the generated tiers, Hell is drawn from a bundled corpus of published hard puzzles,
+                verified by two independent solvers before it ships, and every board still solves on our technique ladder without guessing.
+                Expect to use every chain and coloring pattern first — <Link href={xChainPageMetadata.path}>X-Chain</Link>,{' '}
                 <Link href={xyChainPageMetadata.path}>XY-Chain</Link>, <Link href={simpleColoringPageMetadata.path}>simple coloring</Link>{' '}
-                and <Link href={aicPageMetadata.path}>AIC</Link>, the technique that generalises all three.
+                and <Link href={aicPageMetadata.path}>AIC</Link> — before a forcing chain breaks the deadlock.
             </p>
             <TechniqueSummary>
                 <ul>
+                    <li>Every Hell board needs a forcing chain: none can be solved with the techniques Nightmare allows, up to AIC.</li>
                     <li>
-                        Hell boards carry {getDifficultyClueCount(DifficultyEnum.Hell)} clues, the proven minimum for a unique-solution
-                        sudoku, drawn from a bundled and independently verified 17-clue corpus rather than generated fresh.
+                        {hellCorpusSize} verified puzzles with {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues,
+                        drawn from the tdoku 17-clue catalog and the magictour top1465 list rather than generated fresh.
                     </li>
-                    <li>Chain and coloring techniques: X-Chain, XY-Chain, simple coloring and AIC.</li>
                     <li>
                         Our sample of {hellReport.sampleSize} Hell boards measures SE <SeRatingRange report={hellReport} />.
                     </li>
-                    <li>Hardness here comes from the SE rating filter applied to the corpus, not from the clue count.</li>
+                    <li>Hardness here comes from the technique each board requires, not from the clue count.</li>
                 </ul>
             </TechniqueSummary>
             <a className="hero__cta" href={SITE_PLAY_URL}>
@@ -79,20 +80,21 @@ const HellSudokuPage = () => {
                 proves an elimination or a placement no matter which branch turns out to be true. X-Chain works on a single digit; XY-Chain
                 follows a path of bivalue cells instead. Simple coloring assigns two alternating colours to a network of strong links on one
                 digit and clears any candidate that sees both colours, and AIC generalises the whole family, mixing digits and cell types
-                along one continuous chain. Seventeen clues is not an arbitrary number: it is the smallest clue count mathematically proven
-                to still guarantee a unique solution, which is why the corpus behind this tier is fixed and verified rather than generated
-                fresh for every puzzle.
+                along one continuous chain. Hell starts where all of that runs out. A forcing chain assumes a candidate, a cell’s
+                possibilities or a house’s placements, follows every consequence, and keeps only what holds in every branch. A board makes
+                the Hell corpus only if its hardest step on the rating-optimal path is a forcing chain, and only if our ladder can still
+                finish it, so no Hell board ever asks you to guess.
             </p>
             <h2>How hard is it, honestly</h2>
             <p>
                 Our sample of {hellReport.sampleSize} Hell boards measures SE (Sudoku Explainer) <SeRatingRange report={hellReport} />, with
                 the <TechniqueLink technique={hellReport.typicalHardestTechnique} /> as the most common hardest step and the{' '}
                 <TechniqueLink technique={hellReport.hardestTechniqueReached} /> as the hardest step anything in the sample reached. Be
-                careful about what the clue count is doing here, though: the same sample puts{' '}
+                careful not to read the clue count as the cause: the same sample puts{' '}
                 <Link href={nightmareSudokuPageMetadata.path}>Nightmare</Link> at SE <SeRatingRange report={nightmareReport} /> with{' '}
-                {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues, which reaches nearly as high while starting with more givens.
-                Seventeen clues makes a puzzle rare and hard to construct; what makes these particular boards hard is the rating filter
-                applied to the corpus, not the number of givens. Our{' '}
+                {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues, and some Hell boards start with more givens than that. This tier
+                used to be built from 17-clue puzzles alone, and it rated no harder than Nightmare; selecting on the required technique
+                instead is what separates the two. Our{' '}
                 <Link href={sudokuCluesVsDifficultyPageMetadata.path}>clues versus difficulty guide</Link> takes that argument apart
                 properly, and the <Link href={sudokuDifficultyRatingPageMetadata.path}>rating guide</Link> publishes the per-tier tables.
             </p>
@@ -112,30 +114,31 @@ const HellSudokuPage = () => {
                 <Faq>
                     <FaqQuestion>What techniques do I need for Hell level?</FaqQuestion>
                     <FaqAnswer>
-                        Chains and coloring: X-Chain, XY-Chain, Simple Coloring and AIC, layered on top of every fish, wing and subset
-                        technique the earlier tiers already require. A minority of boards in our sample also needed a forcing chain.
+                        A forcing chain, on every board, layered on top of the chains, coloring, fish, wings and subsets the earlier tiers
+                        already require. X-Chain, XY-Chain, Simple Coloring and AIC will carry you far, but never all the way through.
                     </FaqAnswer>
                 </Faq>
                 <Faq>
                     <FaqQuestion>How many clues does a Hell sudoku have?</FaqQuestion>
                     <FaqAnswer>
-                        {getDifficultyClueCount(DifficultyEnum.Hell)} clues, the proven minimum for a sudoku with a unique solution.
+                        Anywhere from {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT}. Hell does not use clue count
+                        to choose its puzzles; a board qualifies by needing a forcing chain, whatever its number of givens.
                     </FaqAnswer>
                 </Faq>
                 <Faq>
                     <FaqQuestion>Is Hell harder than Nightmare?</FaqQuestion>
                     <FaqAnswer>
-                        Only slightly, and not because of the clue count. Our sample measures Hell at SE{' '}
-                        <SeRatingRange report={hellReport} /> and Nightmare at SE <SeRatingRange report={nightmareReport} /> — Hell has the
-                        higher floor, but the two tiers reach almost the same ceiling.
+                        Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our
+                        sample measures Hell at SE <SeRatingRange report={hellReport} /> and Nightmare at SE{' '}
+                        <SeRatingRange report={nightmareReport} />.
                     </FaqAnswer>
                 </Faq>
                 <Faq>
                     <FaqQuestion>Why does Hell use a fixed puzzle corpus instead of generating puzzles?</FaqQuestion>
                     <FaqAnswer>
-                        17-clue puzzles are rare and expensive to search for on demand, so Suuudokuuu ships a bundled corpus that has
-                        already been checked by a Dancing Links exact-cover solver and a bitmask solver, rated, and filtered by that rating
-                        before it is packed.
+                        Boards that need a forcing chain are rare and expensive to search for on demand, so Suuudokuuu ships a bundled
+                        corpus that has already been checked by a Dancing Links exact-cover solver and a bitmask solver, rated, and filtered
+                        to forcing-chain boards before it is packed.
                     </FaqAnswer>
                 </Faq>
             </FaqPage>

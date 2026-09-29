@@ -7,7 +7,7 @@ TAK TERHINGGA: SUDOKU TERSULIT SEDUNIA
 Kumpulan pilihan berisi 100 sudoku rekor dunia dengan peringkat SE 10.4 sampai 11.9. Everest dan AI Escargot karya Arto Inkala. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Inilah papan-papan yang dijadikan legenda oleh komunitas pemecah sudoku, dan kebanyakan orang tidak pernah menyelesaikan satu pun.
 
 NERAKA, DIKURASI ULANG
-Neraka kini berisi 1.544 sudoku 17 petunjuk yang terverifikasi, semuanya berperingkat SE 6.6 atau lebih tinggi. Tujuh belas petunjuk adalah jumlah paling sedikit yang masih menyisakan tepat satu solusi, tapi sedikitnya petunjuk saja tidak membuat sebuah sudoku jadi sulit. Jadi kami menilai seluruh korpusnya dan hanya menyimpan papan yang benar-benar melawan.
+Neraka kini berisi 958 sudoku terverifikasi yang semuanya menuntut rantai paksa: tidak satu pun bisa diselesaikan dengan teknik yang diizinkan Mimpi buruk, dan semuanya berperingkat SE 7.5 sampai 8.5. Sedikitnya petunjuk saja tidak membuat sebuah sudoku jadi sulit, jadi kami memilih Neraka berdasarkan penalaran yang dituntut tiap papan, bukan dari seberapa sedikit petunjuknya.
 
 PERMAINANMU, TERUKUR
 Layar statistik yang dirancang ulang menampilkan Sudoku tersulit yang pernah kamu pecahkan, rata-rata kesulitan permainan terakhirmu, dan level yang paling sering kamu mainkan. Spektrum SE menempatkan setiap sudoku yang sudah kamu selesaikan di sepanjang skala. Arsenalmu menghitung setiap teknik yang benar-benar kamu pakai — Pasangan Telanjang, X-Wing, Swordfish, dan seterusnya — jadi kamu bisa melihat sendiri repertoarmu bertambah.

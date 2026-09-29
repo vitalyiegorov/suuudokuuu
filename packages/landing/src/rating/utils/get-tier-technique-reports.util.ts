@@ -19,6 +19,8 @@ const SINGLES_CEILING = SolutionTechniqueEnum.HiddenSingle;
 const isSinglesOnly = (result: LogicalSolveResultInterface): boolean =>
     !result.isBeyondTechniqueLadder && result.hardestTechnique <= SINGLES_CEILING;
 
+const countGivens = (puzzle: string): number => puzzle.length - puzzle.replaceAll(/[^.]/gu, '').length;
+
 const findTypicalHardestTechnique = (results: LogicalSolveResultInterface[]): SolutionTechniqueEnum => {
     const ranked = TECHNIQUE_LADDER.map(technique => ({
         technique,
@@ -39,6 +41,7 @@ const buildTierTechniqueReport = (difficulty: LandingDifficultyType): TierTechni
     return {
         difficulty,
         clueCount: getDifficultyClueCount(difficulty),
+        highestClueCount: Math.max(...sample.map(entry => countGivens(entry.puzzle))),
         simplerLadderMaxTechnique: band.simplerLadderMaxTechnique,
         bandLadderMaxTechnique: band.bandLadderMaxTechnique,
         lowestRating: Math.min(...ratings),

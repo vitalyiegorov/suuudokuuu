@@ -1,4 +1,5 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { HELL_CORPUS_MAXIMUM_GIVEN_COUNT, HELL_CORPUS_MINIMUM_GIVEN_COUNT } from '@suuudokuuu/hell-corpus';
 import Link from 'next/link';
 
 import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
@@ -42,7 +43,6 @@ const SudokuCluesVsDifficultyPage = () => {
     const hellReport = getTierTechniqueReport(DifficultyEnum.Hell);
     const newbieToMediumClueDrop = newbieReport.clueCount - mediumReport.clueCount;
     const newbieToNightmareClueDrop = newbieReport.clueCount - nightmareReport.clueCount;
-    const nightmareToHellClueGap = nightmareReport.clueCount - hellReport.clueCount;
 
     return (
         <main>
@@ -72,9 +72,9 @@ const SudokuCluesVsDifficultyPage = () => {
                         band apart: SE <SeRatingRange report={mediumReport} /> against SE <SeRatingRange report={hardReport} />.
                     </li>
                     <li>
-                        The seventeen-clue minimum is barely ahead of the tier above it: {hellReport.clueCount}-clue Hell measures SE{' '}
-                        <SeRatingRange report={hellReport} /> against SE <SeRatingRange report={nightmareReport} /> for{' '}
-                        {nightmareReport.clueCount}-clue Nightmare.
+                        Our hardest tier ignores clue count entirely: Hell boards carry {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to{' '}
+                        {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues and measure SE <SeRatingRange report={hellReport} /> against SE{' '}
+                        <SeRatingRange report={nightmareReport} /> for {nightmareReport.clueCount}-clue Nightmare.
                     </li>
                     <li>
                         Clue count is a weak lower bound, not a ranking: {newbieReport.singlesOnlyPuzzleCount} of {newbieReport.sampleSize}{' '}
@@ -134,13 +134,14 @@ const SudokuCluesVsDifficultyPage = () => {
             </p>
             <h2>The seventeen-clue minimum is not the ceiling</h2>
             <p>
-                <Link href={hellSudokuPageMetadata.path}>Hell</Link> is the one tier drawn from a fixed corpus of {hellReport.clueCount}
-                -clue puzzles rather than generated to a band, and it is the clue-count argument at its extreme: it measures SE{' '}
-                <SeRatingRange report={hellReport} /> against Nightmare at SE <SeRatingRange report={nightmareReport} /> with{' '}
-                {nightmareReport.clueCount} clues. {nightmareToHellClueGap} extra givens buy a tier that reaches almost as high. Fewer clues
-                do shift the odds — the pool of very easy grids at seventeen clues is thin — but the corpus behind that tier is filtered by
-                rating before it ships, precisely because the clue count alone would not have guaranteed a hard puzzle. Rarity and
-                difficulty are different properties, and only one of them is visible in the clue count.
+                <Link href={hellSudokuPageMetadata.path}>Hell</Link> is the one tier drawn from a fixed corpus rather than generated to a
+                band, and it is where we tested the clue-count argument on ourselves. It used to be built from 17-clue puzzles alone, and
+                rated, those minimum-clue boards measured no harder than Nightmare. So Hell now selects on technique instead: it keeps only
+                boards that need a forcing chain, which no Nightmare board ever does, whatever their clue count. The survivors carry{' '}
+                {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues — some of them more than{' '}
+                {nightmareReport.clueCount}-clue Nightmare — and measure SE <SeRatingRange report={hellReport} /> against Nightmare at SE{' '}
+                <SeRatingRange report={nightmareReport} />. Rarity and difficulty are different properties, and only one of them is visible
+                in the clue count.
             </p>
             <h2>How to judge difficulty instead</h2>
             <p>

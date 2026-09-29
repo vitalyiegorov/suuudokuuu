@@ -41,8 +41,8 @@ export const ratePuzzlesInParallel = async (lines, requestedWorkerCount = availa
     const shardResults = await Promise.all(shards.map(runShard));
     const ratingsByCandidateIndex = new Array(lines.length);
 
-    shardResults.flat().forEach(({ candidateIndex, rating, isCeiling }) => {
-        ratingsByCandidateIndex[candidateIndex] = { rating, isCeiling };
+    shardResults.flat().forEach(({ candidateIndex, rating, isCeiling, hardestTechnique }) => {
+        ratingsByCandidateIndex[candidateIndex] = { rating, isCeiling, hardestTechnique };
     });
 
     return ratingsByCandidateIndex;

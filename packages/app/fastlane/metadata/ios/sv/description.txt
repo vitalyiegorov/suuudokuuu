@@ -7,7 +7,7 @@ OÄNDLIGHET: VÄRLDENS SVÅRASTE SUDOKU
 En handplockad samling med 100 världsrekordpussel med SE 10.4 till 11.9. Arto Inkalas Everest och AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Det här är rutnäten som lösargemenskapen gjorde berömda, och de flesta löser aldrig ett enda.
 
 HELVETE, OMGJORT
-Helvete består nu av 1 544 verifierade pussel med 17 ledtrådar, vart och ett betygsatt SE 6.6 eller högre. Sjutton ledtrådar är det minsta ett sudoku kan ha och ändå ha exakt en lösning – men få ledtrådar gör inte i sig ett pussel svårt, så vi betygsatte hela samlingen och behöll bara de bräden som bjuder motstånd.
+Helvete består nu av 958 verifierade pussel som alla kräver en tvingande kedja: inget av dem går att lösa med de tekniker som Mardröm tillåter, och vart och ett är betygsatt SE 7.5 till 8.5. Få ledtrådar gör inte i sig ett pussel svårt, så vi väljer Helvete efter det resonemang varje bräde kräver, inte efter hur få ledtrådar det börjar med.
 
 DITT SPEL, MÄTT
 Den omgjorda statistiken visar din svåraste lösning, din snittsvårighet på sistone och nivån du spelar mest. SE-spektrumet placerar varje avklarat pussel längs skalan. Din arsenal räknar varje teknik du faktiskt använt – naket par, X-Wing, Swordfish och vidare – så att du ser din repertoar växa.
