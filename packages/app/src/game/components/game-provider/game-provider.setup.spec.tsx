@@ -19,7 +19,8 @@ import type { GameSetupInterface } from '../../interface/game-setup.interface';
 jest.mock('../../../@generic/app-root.store', () => ({ appRootStore: { dispatch: jest.fn(), getState: jest.fn() } }));
 
 const createTriggerTestID = 'game-provider-create-trigger';
-const HellPuzzleGivenCellCount = 17;
+const MinimumHellGivenCellCount = 17;
+const MaximumHellGivenCellCount = 28;
 const MinimumInfinityGivenCellCount = 20;
 const MaximumInfinityGivenCellCount = 23;
 
@@ -103,13 +104,13 @@ describe('GameProvider', () => {
         expect(isNakedSinglesOnly(gameState.sudokuString)).toBe(false);
     });
 
-    it('starts a Hell run with a genuine 17-clue puzzle', async () => {
+    it('starts a Hell run with a corpus puzzle', async () => {
         const gameState = await startGame({ difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes: 3 });
         const givenCellCount = gameState.sudokuString.split('').filter(character => character !== '.').length;
 
         expect(gameState).toMatchObject({ difficulty: DifficultyEnum.Hell, isChallengeRun: false, maxMistakes: 3 });
-        expect(givenCellCount).toBe(HellPuzzleGivenCellCount);
-        expect(Sudoku.fromString(gameState.sudokuString, defaultSudokuConfig).Difficulty).toBe(DifficultyEnum.Hell);
+        expect(givenCellCount).toBeGreaterThanOrEqual(MinimumHellGivenCellCount);
+        expect(givenCellCount).toBeLessThanOrEqual(MaximumHellGivenCellCount);
     });
 
     it('produces a different Hell puzzle for each run', async () => {

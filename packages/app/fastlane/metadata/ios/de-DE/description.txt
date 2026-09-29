@@ -7,7 +7,7 @@ UNENDLICH: DIE SCHWERSTEN SUDOKUS DER WELT
 Eine kuratierte Sammlung aus 100 Weltrekord-Rätseln mit SE 10.4 bis 11.9. Arto Inkalas Everest und AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Das sind die Gitter, die die Löser-Community berühmt gemacht hat – die meisten Menschen lösen nie eines davon.
 
 HÖLLE, NEU KURATIERT
-Die Hölle besteht jetzt aus 1.544 geprüften Rätseln mit 17 Vorgaben, jedes einzelne mit SE 6.6 oder höher bewertet. Siebzehn Vorgaben sind das Minimum, mit dem ein Sudoku noch genau eine Lösung hat – aber wenige Vorgaben allein machen ein Rätsel nicht schwer. Also haben wir den gesamten Bestand bewertet und nur die Bretter behalten, die wirklich zurückschlagen.
+Die Hölle besteht jetzt aus 958 geprüften Rätseln, die alle eine Zwangskette verlangen: Keines lässt sich mit den Techniken lösen, die der Albtraum erlaubt, und jedes ist mit SE 7.5 bis 8.5 bewertet. Wenige Vorgaben allein machen ein Rätsel nicht schwer – deshalb wählen wir die Hölle nach dem Denken aus, das jedes Brett verlangt, nicht danach, wie wenige Vorgaben es hat.
 
 DEIN SPIEL, GEMESSEN
 Die neu gestalteten Statistiken zeigen dein schwerstes Rätsel, deine durchschnittliche Schwierigkeit der letzten Spiele und die Stufe, die du am häufigsten spielst. Das SE-Spektrum trägt jedes abgeschlossene Rätsel auf der Skala ab. Dein Arsenal zählt jede Technik, die du wirklich eingesetzt hast – Nacktes Paar, X-Wing, Swordfish und weiter – damit du dein Repertoire wachsen siehst.

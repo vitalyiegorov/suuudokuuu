@@ -116,12 +116,13 @@ const HardestSudokuPuzzlesPage = () => (
         <h2>Play the hardest tier Suuudokuuu has today</h2>
         <p>
             Suuudokuuu does not yet serve these exact record puzzles — that is on the roadmap. What it serves today is{' '}
-            <Link href={hellSudokuPageMetadata.path}>Hell tier</Link>, drawn from a bundled 17-clue corpus that is verified for uniqueness
-            and then filtered by SE rating, so the tier is hard because of the rating filter rather than because of the clue count.
-            Seventeen clues is a different fact about a puzzle than “hardest,” and the two get confused constantly — see the{' '}
+            <Link href={hellSudokuPageMetadata.path}>Hell tier</Link>, drawn from a bundled corpus that is verified for uniqueness and then
+            filtered to boards that need a forcing chain — the same family of reasoning described above, in shorter doses. The tier is hard
+            because of the technique it requires rather than the clue count; seventeen clues is a different fact about a puzzle than
+            “hardest,” and the two get confused constantly — see the{' '}
             <Link href={seventeenClueSudokuPageMetadata.path}>17-clue sudoku guide</Link> for why minimal and hard are not the same
-            property. Measured on our own scale, Hell barely edges past the generated Nightmare tier and sits far below the puzzles on this
-            page.
+            property. Measured on our own scale, Hell sits clearly past the generated Nightmare tier and still well below the puzzles on
+            this page.
         </p>
         <FaqPage>
             <FaqHeading>Hardest Sudoku FAQ</FaqHeading>
@@ -152,9 +153,9 @@ const HardestSudokuPuzzlesPage = () => (
             <Faq>
                 <FaqQuestion>Can I play a hardest-tier sudoku on Suuudokuuu?</FaqQuestion>
                 <FaqAnswer>
-                    Today, <Link href={hellSudokuPageMetadata.path}>Hell tier</Link> is Suuudokuuu’s hardest, serving verified 17-clue
-                    puzzles that are filtered by SE rating and solved with chains, coloring and AIC. It is not in the same league as the
-                    record puzzles on this page; a future tier hosting curated record grids is on the roadmap.
+                    Today, <Link href={hellSudokuPageMetadata.path}>Hell tier</Link> is Suuudokuuu’s hardest, serving verified puzzles that
+                    each need a forcing chain after chains, coloring and AIC run out. It is not in the same league as the record puzzles on
+                    this page; a future tier hosting curated record grids is on the roadmap.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

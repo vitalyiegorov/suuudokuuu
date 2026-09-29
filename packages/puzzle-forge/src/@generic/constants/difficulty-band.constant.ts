@@ -37,7 +37,7 @@ export const DIFFICULTY_BANDS: Record<DifficultyEnum, DifficultyBandInterface> =
     [DifficultyEnum.Hell]: {
         blankCells: 64,
         corpus: 'hell',
-        simplerLadderMaxTechnique: SolutionTechniqueEnum.HiddenSingle,
+        simplerLadderMaxTechnique: SolutionTechniqueEnum.AIC,
         bandLadderMaxTechnique: null
     },
     [DifficultyEnum.Infinity]: {

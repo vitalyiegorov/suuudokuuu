@@ -6,9 +6,9 @@ export const seventeenClueSudokuPageMetadata: PageMetadataInterface = {
     headline: '17-Clue Sudoku: The Proven Minimum',
     metaTitle: '17-Clue Sudoku — The Minimum Clue Count, Explained',
     metaDescription:
-        'Why 17 is the proven minimum number of clues for a sudoku with a unique solution, and how to play real, verified 17-clue puzzles for free.',
+        'Why 17 is the proven minimum number of clues for a sudoku with a unique solution, and why fewer clues does not make a harder puzzle.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-23T00:00:00.000Z',
+    updatedAt: '2026-09-29T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.8
 };

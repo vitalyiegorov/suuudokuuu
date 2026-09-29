@@ -79,8 +79,8 @@ const SudokuDifficultiesPage = () => (
                 guaranteed to stall on wings and to yield to chains and coloring.
             </li>
             <li>
-                <Link href={hellSudokuPageMetadata.path}>Hell</Link> — {getDifficultyClueCount(DifficultyEnum.Hell)} clues, drawn from a
-                bundled, verified minimum-clue corpus rather than generated to a band.
+                <Link href={hellSudokuPageMetadata.path}>Hell</Link> — guaranteed to stall on AIC and to need a forcing chain, drawn from a
+                bundled, verified corpus rather than generated to a band.
             </li>
         </ul>
         <h2>How the ladder is built</h2>

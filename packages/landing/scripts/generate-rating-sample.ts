@@ -2,7 +2,7 @@ import { writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { getHellCorpusRecord } from '@suuudokuuu/hell-corpus';
+import { getHellCorpusRecord, hellCorpusSize } from '@suuudokuuu/hell-corpus';
 import { forgePuzzle } from '@suuudokuuu/puzzle-forge';
 
 import { DIFFICULTY_LADDER, DIFFICULTY_NAMES } from '../src/difficulty/constants/difficulty-name.constant';
@@ -29,7 +29,9 @@ const forgeInBandPuzzle = (difficulty: LandingDifficultyType): RatedSamplePuzzle
 
 const buildTierSample = (difficulty: LandingDifficultyType): RatedSamplePuzzleInterface[] => {
     if (difficulty === DifficultyEnum.Hell) {
-        return Array.from({ length: RATING_SAMPLE_SIZE }, (_, index) => getHellCorpusRecord(index)).map(record => ({
+        return Array.from({ length: RATING_SAMPLE_SIZE }, (_, index) =>
+            getHellCorpusRecord(Math.floor((index * hellCorpusSize) / RATING_SAMPLE_SIZE))
+        ).map(record => ({
             puzzle: Sudoku.fromString(record.puzzle, defaultSudokuConfig).toString(),
             rating: record.rating,
             isRatingCeiling: record.isCeiling

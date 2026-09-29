@@ -4,7 +4,7 @@ import { GRID_CELL_COUNT, UNIQUENESS_COUNT_LIMIT, parseGridString } from '@suuud
 import { DLXSolver } from '@suuudokuuu/solver-dlx';
 
 import { HELL_CORPUS_SIZE } from '../constants/hell-corpus-data.constant';
-import { HELL_CORPUS_CLUE_COUNT } from '../constants/hell-corpus.constant';
+import { HELL_CORPUS_MAXIMUM_GIVEN_COUNT, HELL_CORPUS_MINIMUM_GIVEN_COUNT } from '../constants/hell-corpus.constant';
 
 import { getHellCorpusPuzzle } from './get-hell-corpus-puzzle.util';
 
@@ -13,7 +13,7 @@ const CROSS_CHECK_SAMPLE_COUNT = 25;
 const SINGLES_SAMPLE_COUNT = 150;
 const NEGATIVE_INDEX = -1;
 const NON_INTEGER_INDEX = 1.5;
-const EXPECTED_CORPUS_SIZE = 1544;
+const EXPECTED_CORPUS_SIZE = 958;
 const GRID_SIZE = 9;
 const BOX_SIZE = 3;
 const DIGITS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -121,7 +121,7 @@ const createSpreadIndices = (count: number): number[] => {
 const countGivens = (puzzle: string): number => puzzle.split('').filter(character => character !== '0').length;
 
 describe('getHellCorpusPuzzle', () => {
-    it('reports a corpus of exactly 1544 puzzles', () => {
+    it('reports a corpus of exactly 958 puzzles', () => {
         expect(HELL_CORPUS_SIZE).toBe(EXPECTED_CORPUS_SIZE);
     });
 
@@ -129,12 +129,13 @@ describe('getHellCorpusPuzzle', () => {
         expect(isSolvableWithSinglesOnly(SINGLES_SOLVABLE_PUZZLE)).toBe(true);
     });
 
-    it.each(createSpreadIndices(SAMPLE_COUNT))('decodes a valid 17-clue, uniquely-solvable puzzle at index %i', index => {
+    it.each(createSpreadIndices(SAMPLE_COUNT))('decodes a valid, uniquely-solvable puzzle at index %i', index => {
         const puzzle = getHellCorpusPuzzle(index);
         const bitmaskSolver = new BitmaskSolver();
 
         expect(puzzle).toHaveLength(GRID_CELL_COUNT);
-        expect(countGivens(puzzle)).toBe(HELL_CORPUS_CLUE_COUNT);
+        expect(countGivens(puzzle)).toBeGreaterThanOrEqual(HELL_CORPUS_MINIMUM_GIVEN_COUNT);
+        expect(countGivens(puzzle)).toBeLessThanOrEqual(HELL_CORPUS_MAXIMUM_GIVEN_COUNT);
         expect(bitmaskSolver.countSolutions(parseGridString(puzzle), UNIQUENESS_COUNT_LIMIT)).toBe(1);
     });
 

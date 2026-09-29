@@ -4,7 +4,7 @@ import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
 import { GRID_CELL_COUNT, UNIQUENESS_COUNT_LIMIT, createSeededRandom, parseGridString } from '@suuudokuuu/solver-core';
 
 import { HELL_CORPUS_SIZE } from '../constants/hell-corpus-data.constant';
-import { HELL_CORPUS_CLUE_COUNT, HELL_CORPUS_MINIMUM_RATING } from '../constants/hell-corpus.constant';
+import { HELL_CORPUS_MINIMUM_RATING } from '../constants/hell-corpus.constant';
 
 import { getHellCorpusPuzzle } from './get-hell-corpus-puzzle.util';
 import { getHellCorpusRecord } from './get-hell-corpus-record.util';
@@ -57,7 +57,7 @@ describe('transformPuzzle', () => {
         const bitmaskSolver = new BitmaskSolver();
 
         expect(transformed).toHaveLength(GRID_CELL_COUNT);
-        expect(countGivens(transformed)).toBe(HELL_CORPUS_CLUE_COUNT);
+        expect(countGivens(transformed)).toBe(countGivens(BASE_PUZZLE));
         expect(bitmaskSolver.countSolutions(parseGridString(transformed), UNIQUENESS_COUNT_LIMIT)).toBe(1);
     });
 

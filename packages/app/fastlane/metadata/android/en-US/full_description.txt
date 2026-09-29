@@ -7,7 +7,7 @@ INFINITY: THE WORLD'S HARDEST SUDOKU
 A curated set of 100 world-record puzzles rated SE 10.4 to 11.9. Arto Inkala's Everest and AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. These are the grids the solving community made famous, and most people never finish one.
 
 HELL, RE-CURATED
-Hell is now 1,544 verified 17-clue puzzles, every one rated SE 6.6 or higher. Seventeen clues is the fewest a Sudoku can have and still have exactly one solution — but a low clue count alone doesn't make a puzzle hard, so we rated the whole corpus and kept only the boards that fight back.
+Hell is now 958 verified puzzles that all need a forcing chain: none of them can be finished with the techniques Nightmare allows, and every one is rated SE 7.5 to 8.5. A low clue count alone doesn't make a puzzle hard, so Hell is chosen by the reasoning each board demands, not by how few clues it starts with.
 
 YOUR SOLVING, MEASURED
 The redesigned statistics screen shows your hardest solve, your recent average difficulty and the level you play most. The SE spectrum plots every puzzle you've finished across the scale. Your arsenal counts every technique you've actually used — naked pairs, X-Wing, swordfish and further — so you can watch your repertoire grow.
