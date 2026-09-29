@@ -28,7 +28,6 @@ export const HistoryScreen = () => {
         <CollapsibleChromePage
             contentContainerStyle={resolveUnistyleForAnimated(HistoryScreenStyles.scrollViewContainer)}
             contentStyle={HistoryScreenStyles.content}
-            showsVerticalScrollIndicator={false}
             style={resolveUnistyleForAnimated(HistoryScreenStyles.scrollView)}
             testID={HistoryScreenSelectors.Root}
             title={t`Statistics`}

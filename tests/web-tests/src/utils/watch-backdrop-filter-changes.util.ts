@@ -21,9 +21,12 @@ export const watchBackdropFilterChanges = async (page: Page): Promise<number> =>
 
         blurredElements.forEach((element, index) => {
             const observer = new MutationObserver(() => {
-                const inlineValue = element instanceof HTMLElement ? element.style.getPropertyValue('backdrop-filter') : '';
+                const computedStyle = getComputedStyle(element);
+                const standardValue = computedStyle.getPropertyValue('backdrop-filter');
+                const webkitValue = computedStyle.getPropertyValue('-webkit-backdrop-filter');
+                const appliedValue = standardValue === '' ? webkitValue : standardValue;
 
-                window.backdropFilterChanges.push(`${index}:${inlineValue === '' ? 'restored' : inlineValue}`);
+                window.backdropFilterChanges.push(`${index}:${appliedValue === 'none' ? 'cleared' : 'restored'}`);
             });
 
             observer.observe(element, { attributes: true, attributeFilter: ['style'] });
