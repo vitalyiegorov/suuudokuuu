@@ -25,6 +25,7 @@ import { gameGetInputStatePayload } from '../utils/game-get-input-state-payload.
 
 import {
     gameChallengeClockSyncAction,
+    gameClassifyMoveAction,
     gameFinishAction,
     gameLoadAction,
     gameMistakeAction,
@@ -348,7 +349,7 @@ describe('gameSlice', () => {
         expect(savedState.techniqueUsageCounts).toStrictEqual({});
     });
 
-    it('increments the technique usage count for a classified correct placement', () => {
+    it('attaches a deferred classification to its placement and counts the technique once', () => {
         const sudoku = new Sudoku();
         sudoku.create(DifficultyEnum.Easy);
 
@@ -360,30 +361,27 @@ describe('gameSlice', () => {
 
         const correctCell = { ...blankCell, value: sudoku.getCorrectValue(blankCell) };
         const scoredCells = { ...emptyScoredCells, ...sudoku.setCellValue(correctCell), values: [correctCell.value] };
+        const classification = { cell: correctCell, technique: SolutionTechniqueEnum.NakedSingle };
 
         const savedState = gameSlice.reducer(
             initialGameState,
-            gameSaveAction({
-                sudokuString: sudoku.toString(),
-                candidates: {},
-                correctCell,
-                scoredCells,
-                technique: SolutionTechniqueEnum.NakedSingle
-            })
+            gameSaveAction({ sudokuString: sudoku.toString(), candidates: {}, correctCell, scoredCells })
         );
-        const savedAgainState = gameSlice.reducer(
-            savedState,
-            gameSaveAction({
-                sudokuString: sudoku.toString(),
-                candidates: {},
-                correctCell,
-                scoredCells,
-                technique: SolutionTechniqueEnum.NakedSingle
-            })
+        const classifiedState = gameSlice.reducer(savedState, gameClassifyMoveAction(classification));
+        const reclassifiedState = gameSlice.reducer(classifiedState, gameClassifyMoveAction(classification));
+
+        expect(savedState.techniqueUsageCounts).toStrictEqual({});
+        expect(classifiedState.timelineEvents[0]).toHaveProperty('technique', SolutionTechniqueEnum.NakedSingle);
+        expect(reclassifiedState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 1 });
+    });
+
+    it('ignores a deferred classification whose placement was undone before it arrived', () => {
+        const classifiedState = gameSlice.reducer(
+            initialGameState,
+            gameClassifyMoveAction({ cell: { x: 0, y: 0, group: 0, value: 1 }, technique: SolutionTechniqueEnum.NakedSingle })
         );
 
-        expect(savedState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 1 });
-        expect(savedAgainState.techniqueUsageCounts).toStrictEqual({ [SolutionTechniqueEnum.NakedSingle]: 2 });
+        expect(classifiedState).toStrictEqual(initialGameState);
     });
 
     it('scores a save with the authoritative stored difficulty even when the restored sudoku reports a degraded difficulty', () => {
