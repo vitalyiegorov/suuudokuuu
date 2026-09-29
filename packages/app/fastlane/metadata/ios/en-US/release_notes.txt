@@ -4,3 +4,4 @@ Took on a friend's challenge in the middle of another game? Your win now counts 
 • The techniques you used are saved with the game again.
 • Replay opens straight away, move by move.
 • Your score adds up right, with no phantom points.
+• Games the old bug saved twice no longer crash the app when you open Replay.

@@ -3,3 +3,4 @@ No more doubled wins in your stats.
 Your techniques are saved with every game again.
 Replay opens straight away.
 Scores add up right.
+Old doubled games no longer crash Replay.
