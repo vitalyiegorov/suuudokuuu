@@ -94,7 +94,7 @@ yarn workspace @suuudokuuu/landing submit:indexnow --dry-run     # prints the UR
 INDEXNOW_KEY=<key> yarn workspace @suuudokuuu/landing submit:indexnow
 ```
 
-The production workflow runs the submission with `continue-on-error`: the site is already deployed by then, so an IndexNow rejection shows as a failed step without failing the deploy. After rotating `INDEXNOW_KEY`, the next production deploy publishes the new key file before it submits.
+The production workflow runs the submission with `continue-on-error`: the site is already deployed by then, so an IndexNow rejection is logged in that step's output without failing the deploy. After rotating `INDEXNOW_KEY`, the next production deploy publishes the new key file before it submits.
 
 Before it submits, `submit-indexnow.ts` fetches its own key location and fails if the file is not served with status 200 or its content is not the key, so a failed run names the broken half instead of IndexNow's bare `403 Forbidden`.
 
