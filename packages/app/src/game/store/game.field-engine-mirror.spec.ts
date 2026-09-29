@@ -18,11 +18,13 @@ jest.mock('@suuudokuuu/encoder', () => {
 
 import { createAppTestStore } from '../../@generic/utils/create-app-test-store.mock';
 import { gameGetCellCandidatePayload } from '../utils/game-get-cell-candidate-payload.util';
+import { gameGetClassifyMovePayload } from '../utils/game-get-classify-move-payload.util';
 import { gameGetFieldStatePayload } from '../utils/game-get-field-state-payload.util';
 import { gameGetInputStatePayload } from '../utils/game-get-input-state-payload.util';
 import { gameGetSavePayload } from '../utils/game-get-save-payload.util';
 
 import {
+    gameClassifyMoveAction,
     gameFinishAction,
     gameMistakeAction,
     gameRedoAction,
@@ -131,7 +133,10 @@ describe('field engine and persisted game state', () => {
         });
         const engine = buildEngine(store.getState().game);
 
-        engine.on('moveApplied', appliedMove => void store.dispatch(gameSaveAction(gameGetSavePayload(engine, appliedMove))));
+        engine.on('moveApplied', appliedMove => {
+            store.dispatch(gameSaveAction(gameGetSavePayload(engine, appliedMove)));
+            store.dispatch(gameClassifyMoveAction(gameGetClassifyMovePayload(engine.Sudoku.toString(), appliedMove.cell)));
+        });
         engine.on('mistake', mistake => void store.dispatch(gameMistakeAction(mistake.cell)));
 
         const blankCell = findBlankCell(engine.Sudoku);

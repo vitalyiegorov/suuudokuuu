@@ -6,6 +6,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { classifyTimelineMove } from '../../challenge/utils/classify-timeline-move.util';
 
+import { gameGetClassifyMovePayload } from './game-get-classify-move-payload.util';
 import { gameGetSavePayload } from './game-get-save-payload.util';
 
 import type { CellInterface } from '@suuudokuuu/generator';
@@ -46,7 +47,7 @@ describe('gameGetSavePayload', () => {
 
             expect(payload.correctCell).toStrictEqual(legacyCell);
             expect(payload.scoredCells).toStrictEqual(legacyScoredCells);
-            expect(payload.technique).toBe(legacyTechnique);
+            expect(gameGetClassifyMovePayload(payload.sudokuString, move.cell).technique).toBe(legacyTechnique);
             expect(payload.sudokuString).toBe(legacySudoku.toString());
             expect(payload.candidates).toStrictEqual(engine.serialize().candidates);
         }

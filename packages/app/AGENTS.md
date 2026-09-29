@@ -147,7 +147,7 @@ Never set the same style property both statically and through an animated style 
 
 ## Move Classification
 
-Every correct placement is classified exactly once, at the moment it is played, by `classifyTimelineMove`. The result rides the timeline event as `technique`, and `gameStateToString` writes those techniques into the encoded state as the encoder's technique trailer, so a finished game keeps its labels without a migration: `encodedState` is opaque to the persisted shape, and a record written by an older build simply lacks the stream.
+Every correct placement is classified exactly once by `classifyTimelineMove`, against the board as it was before the move, but never on the tap path. `useGameEngineEvents` saves the placement first, so the board, haptic and success animation never wait on the technique scan, then classifies it in a deferred task and attaches the result with `gameClassifyMoveAction`, which labels the latest matching unlabeled Cell event and counts the technique. A placement undone before its classification arrives simply stays unlabeled. The `completed` handler and the effect cleanup flush pending classifications first, so the final move is labeled before `gameFinishAction` encodes the run. The result rides the timeline event as `technique`, and `gameStateToString` writes those techniques into the encoded state as the encoder's technique trailer, so a finished game keeps its labels without a migration: `encodedState` is opaque to the persisted shape, and a record written by an older build simply lacks the stream.
 
 Consumers therefore prefer the stored technique and only fall back to re-deriving it:
 
@@ -156,7 +156,7 @@ Consumers therefore prefer the stored technique and only fall back to re-derivin
 
 `interactiveTechniqueOrder` from `@suuudokuuu/techniques` is for classification that has to answer inside a frame, not for every derivation:
 
-- `classifyTimelineMove` uses it. It runs on the tap that plays a cell, so the full registry would block the JS thread for most of a second on a hard board.
+- `classifyTimelineMove` uses it. It runs in the task right after the tap that plays a cell, so the full registry would still block the JS thread for most of a second on a hard board.
 - `getSudokuAtStep` uses it for the one step being scrubbed, for the same reason.
 - `getChallengeTechniqueEvents` does not. It is the legacy-record fallback: a whole run replayed once per screen open, off any tap budget, so it uses the full registry and keeps the labels a legacy link deserves.
 
