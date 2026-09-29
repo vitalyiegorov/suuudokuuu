@@ -3,3 +3,4 @@ Inga dubbla vinster i statistiken längre.
 Dina tekniker sparas med varje spel igen.
 Reprisen öppnas direkt.
 Poängen stämmer.
+Gamla dubbla spel kraschar inte längre reprisen.
