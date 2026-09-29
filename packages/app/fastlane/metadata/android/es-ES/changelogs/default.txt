@@ -1,6 +1,5 @@
-Las sugerencias enseñan: nombran la técnica, iluminan las casillas que obligan la jugada y lo explican paso a paso. El panel tiene altura fija bajo el tablero: texto mayor, sin saltos.
-Deshacer y rehacer con puntuación honesta; en los niveles duros solo si las activas.
-Reto diario con rachas, en su pestaña.
-Cada nivel exige de verdad sus técnicas.
-Toques y dígitos mayores, juego tranquilo, temas de alto contraste y daltónicos, lectores de pantalla.
-Corregido: casillas con resaltado anterior.
+¿Aceptaste un desafío en plena partida? Tu victoria cuenta una vez.
+Se acabaron las victorias duplicadas en tus estadísticas.
+Tus técnicas vuelven a guardarse en cada partida.
+La repetición se abre al instante.
+La puntuación cuadra.

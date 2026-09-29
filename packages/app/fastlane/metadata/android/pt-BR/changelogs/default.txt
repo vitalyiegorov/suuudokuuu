@@ -1,6 +1,5 @@
-As dicas ensinam: nomeiam a técnica, destacam as casas que forçam a jogada e explicam o porquê. O painel de dica tem altura fixa abaixo do tabuleiro: texto maior, sem saltos.
-Desfazer e refazer com pontuação honesta; nos níveis mais duros só se você ligar.
-Desafio diário com sequências, na sua aba.
-Cada nível exige de verdade suas técnicas.
-Áreas de toque e dígitos maiores, jogo tranquilo, temas de alto contraste e para daltônicos, leitores de tela.
-Corrigido: casas com destaque antigo.
+Aceitou um desafio no meio da partida? Sua vitória conta uma vez.
+Nada de vitórias duplicadas nas estatísticas.
+Suas técnicas voltam a ser salvas.
+A repetição abre na hora.
+A pontuação fecha certinho.
