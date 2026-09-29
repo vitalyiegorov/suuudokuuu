@@ -21,14 +21,34 @@ const handleSubmitError = (error: unknown): void => {
     process.exitCode = 1;
 };
 
+const assertKeyFileServed = async (keyLocation: string, key: string): Promise<void> => {
+    const response = await fetch(keyLocation, { cache: 'no-store' });
+    const body = await response.text();
+
+    if (response.status !== 200) {
+        throw new Error(
+            `${keyLocation} answered ${response.status}, so IndexNow cannot verify the key. Check that the deployed export contains it.`
+        );
+    }
+
+    if (body.trim() !== key) {
+        throw new Error(
+            `${keyLocation} is served as ${response.headers.get('content-type') ?? 'unknown content'} but its ${body.length} characters are not the key.`
+        );
+    }
+};
+
 const submitToIndexNow = (key: string): void => {
     const keyLocation = buildIndexNowKeyLocation(key);
 
-    fetch(INDEXNOW_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json; charset=utf-8' },
-        body: JSON.stringify({ host, key, keyLocation, urlList })
-    })
+    assertKeyFileServed(keyLocation, key)
+        .then(() =>
+            fetch(INDEXNOW_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                body: JSON.stringify({ host, key, keyLocation, urlList })
+            })
+        )
         .then(response => {
             if (!ACCEPTED_STATUS_CODES.includes(response.status)) {
                 throw new Error(
