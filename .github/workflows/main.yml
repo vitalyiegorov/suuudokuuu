@@ -131,6 +131,7 @@ jobs:
               run: pnpm dlx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
 
             - name: Submit changed pages to IndexNow
+              continue-on-error: true
               env:
                   INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
               run: pnpm --filter @suuudokuuu/landing submit:indexnow
