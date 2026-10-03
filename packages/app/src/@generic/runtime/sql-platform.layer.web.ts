@@ -11,4 +11,10 @@ const sqliteWorker = Effect.acquireRelease(
         })
 );
 
-export const sqlPlatformLayer = SqliteClient.layer({ worker: sqliteWorker, ...SqlNameTransforms }).pipe(Layer.orDie);
+const isOpfsAvailable = Effect.isSuccess(Effect.tryPromise(() => window.navigator.storage.getDirectory()));
+
+export const sqlPlatformLayer = Layer.unwrap(
+    Effect.map(isOpfsAvailable, isAvailable =>
+        isAvailable ? SqliteClient.layer({ worker: sqliteWorker, ...SqlNameTransforms }) : SqliteClient.layerMemory(SqlNameTransforms)
+    )
+).pipe(Layer.orDie);
