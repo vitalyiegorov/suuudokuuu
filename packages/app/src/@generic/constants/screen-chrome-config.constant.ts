@@ -1,10 +1,11 @@
 import { ContentWidthConstant } from '@suuudokuuu/ui';
+import { Platform } from 'react-native';
 
 import { SCREEN_CHROME_DEFAULT_CONFIG } from '@rnw-community/react-native-screen-chrome';
 
 import { PageHorizontalPaddingConstant } from './page-horizontal-padding.constant';
 
-export const AppScreenChromeWashAlpha = 0;
+export const AppScreenChromeWashAlpha = Platform.OS === 'android' ? 1 : 0;
 
 export const AppScreenChromeLayoutConfig = {
     contentHorizontalPadding: PageHorizontalPaddingConstant,

@@ -1,26 +1,25 @@
 import { AppSettingsRow, AppToggle } from '@suuudokuuu/ui';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
-import { settingsSetAction } from '../../store/settings.actions';
-import { settingsKeySelector } from '../../store/settings.selectors';
+import { useSettings } from '../../query/use-settings.query';
+import { updateSettings } from '../../utils/update-settings.util';
+
+import type { SettingsType } from '@suuudokuuu/progress';
 
 interface Props {
-    readonly setting: Parameters<typeof settingsKeySelector>[0];
+    readonly setting: { [Key in keyof SettingsType]: SettingsType[Key] extends boolean ? Key : never }[keyof SettingsType];
     readonly title: string;
     readonly description?: string;
     readonly testID?: string;
 }
 
 export const SettingsSwitch = ({ setting, title, description, testID }: Props) => {
-    const settingValue = useAppSelector(settingsKeySelector(setting));
-    const dispatch = useAppDispatch();
+    const settingValue = useSettings()[setting];
     const [, hapticImpact] = useVibration();
     const handleValueChange = (newValue: boolean) => {
         hapticImpact(ImpactFeedbackStyle.Light);
-        dispatch(settingsSetAction({ [setting]: newValue }));
+        void updateSettings({ [setting]: newValue });
     };
     const trailing = <AppToggle onValueChange={handleValueChange} testID={testID} value={settingValue} />;
 

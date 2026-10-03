@@ -3,9 +3,8 @@ import { use } from 'react';
 import { View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
-import { settingsLanguageSelector } from '../../../settings/store/settings.selectors';
+import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { dailyGetCompletedDays } from '../../utils/daily-get-completed-days.util';
 import { dailyGetDateText } from '../../utils/daily-get-date-text.util';
@@ -20,7 +19,7 @@ interface Props {
 export const DailyHistoryList = ({ completedDayNumbers }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
-    const language = useAppSelector(settingsLanguageSelector);
+    const { language } = useSettings();
     const completedDays = dailyGetCompletedDays(completedDayNumbers);
     const hasSolves = completedDays.length > 0;
 

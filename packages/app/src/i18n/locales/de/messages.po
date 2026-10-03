@@ -58,8 +58,8 @@ msgid "{foregroundLabel} on {backgroundLabel}: {contrastRatioText} — minimum {
 msgstr "{foregroundLabel} auf {backgroundLabel}: {contrastRatioText} — Minimum {minimumRatio}"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
-msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
-msgstr "{gamesCompleted, plural, one {# abgeschlossenes Spiel} other {# abgeschlossene Spiele}}"
+msgid "{gamesCompleted, plural, one {# game played} other {# games played}}"
+msgstr "{gamesCompleted, plural, one {# Spiel gespielt} other {# Spiele gespielt}}"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
@@ -77,10 +77,13 @@ msgstr "{remaining, plural, one {{value} eintragen, noch # zu setzen} other {{va
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {{value} notieren, noch # zu setzen} other {{value} notieren, noch # zu setzen}}"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Serie: # Tag} other {Serie: # Tage}}"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}}"
+msgstr "{streak, plural, one {Tagesrätsel in Folge gelöst} other {Tagesrätsel in Folge gelöst}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -186,6 +189,7 @@ msgstr "Alle Felder einer Zahl (1-9)"
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "Alle Fortschritte gehen verloren"
 
@@ -434,10 +438,6 @@ msgstr "Fehlerfrei"
 msgid "Clean black-and-white board"
 msgstr "Klares Schwarz-Weiß-Brett"
 
-#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
-msgid "Clean run"
-msgstr "Saubere Partie"
-
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Sauberer Sieg"
@@ -587,6 +587,10 @@ msgstr "Schwierigkeitsbewertung {ratingLabel}"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "Abgeschlossene Zahl im Nummernblock abdunkeln statt sie zu entfernen"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Discard changes?"
+msgstr "Änderungen verwerfen?"
 
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Dismiss"
@@ -1164,6 +1168,7 @@ msgstr "Hinweise auch in Rätseln der Stufen Albtraum, Hölle und Unendlich anbi
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "OK"
 msgstr "OK"
 
@@ -1265,6 +1270,10 @@ msgstr "Spiele kostenloses Sudoku online mit sechs Schwierigkeitsgraden, Hinweis
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "Spiele auf höheren Schwierigkeitsgraden für größere Multiplikatoren"
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Play streak"
+msgstr "Spielserie"
 
 #: src/app/game.tsx
 #: src/app/play.tsx
@@ -1670,6 +1679,10 @@ msgstr "Statistiken"
 msgid "Stats"
 msgstr "Statistik"
 
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Stayed in app"
+msgstr "In der App geblieben"
+
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Schritt {currentStepNumber} von {stepCount}"
@@ -1688,10 +1701,6 @@ msgstr "Aktuelle Partie beenden?"
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Stop this run"
 msgstr "Partie beenden"
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Streak"
-msgstr "Serie"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"

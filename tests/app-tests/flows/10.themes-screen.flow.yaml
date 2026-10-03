@@ -17,19 +17,14 @@ appId: ${APP_ID}
                 visible:
                     id: 'SettingsScreenSelectors.Root'
                 timeout: 5000
+# Center the row so it clears both the collapsed header band and the floating
+# tab bar: an edge row registers the tap on whichever chrome overlaps it.
 - scrollUntilVisible:
       element:
           id: 'SettingsScreenSelectors.ThemeOption'
       direction: DOWN
-# Overscroll past the target so the row sits above the floating tab bar;
-# a bottom-edge row registers the tap on the bar's blur surface on Android.
-# Target the Animations row by id: iOS merges the row into one accessibility
-# element whose label is "title, description", so its bare title text never
-# matches there.
-- scrollUntilVisible:
-      element:
-          id: 'SettingsScreenSelectors.MotionOption'
-      direction: DOWN
+      centerElement: true
+      visibilityPercentage: 100
 - tapOn:
       id: 'SettingsScreenSelectors.ThemeOption'
 - extendedWaitUntil:
@@ -81,8 +76,7 @@ appId: ${APP_ID}
       element:
           text: 'Maestro theme'
       direction: DOWN
-- tapOn:
-      id: 'HeaderBackButtonSelectors.Root'
+- tapOn: 'Play'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'

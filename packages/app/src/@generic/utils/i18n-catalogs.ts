@@ -4,9 +4,9 @@ import { emptyFn } from '@rnw-community/shared';
 
 import { messages as enMessages } from '../../i18n/locales/en/messages';
 
-import type { SettingsState } from '../../settings/store/settings.state';
+import type { SettingsType } from '@suuudokuuu/progress';
 
-const catalogLoaders: Record<SettingsState['language'], () => Promise<{ messages: typeof enMessages }>> = {
+const catalogLoaders: Record<SettingsType['language'], () => Promise<{ messages: typeof enMessages }>> = {
     ar: () => import('../../i18n/locales/ar/messages'),
     bn: () => import('../../i18n/locales/bn/messages'),
     de: () => import('../../i18n/locales/de/messages'),
@@ -25,9 +25,9 @@ const catalogLoaders: Record<SettingsState['language'], () => Promise<{ messages
 i18n.load({ en: enMessages });
 i18n.activate('en');
 
-let requestedLanguage: SettingsState['language'] = 'en';
+let requestedLanguage: SettingsType['language'] = 'en';
 
-export const i18nActivateLanguage = (language: SettingsState['language']): Promise<void> => {
+export const i18nActivateLanguage = (language: SettingsType['language']): Promise<void> => {
     requestedLanguage = language;
 
     if (language === i18n.locale) {

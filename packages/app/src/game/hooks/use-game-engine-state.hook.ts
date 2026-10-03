@@ -3,28 +3,15 @@ import { useState } from 'react';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
 import { GameEmptySudokuStringConstant } from '../constant/empty-sudoku-string.constant';
-import {
-    gameCandidatesSelector,
-    gameDifficultySelector,
-    gameInputModeSelector,
-    gameMistakesSelector,
-    gameShowAutoCandidatesSelector,
-    gameSudokuStringSelector
-} from '../store/game.selectors';
+import { useCurrentRun } from '../query/use-current-run.query';
 import { gameCreateEngine } from '../utils/game-create-engine.util';
 
 import type { OnEventFn } from '@rnw-community/shared';
 import type { Dispatch, SetStateAction } from 'react';
 
 export const useGameEngineState = (onInvalidState: OnEventFn<unknown>): [FieldEngine, Dispatch<SetStateAction<FieldEngine>>] => {
-    const sudokuString = useAppSelector(gameSudokuStringSelector);
-    const difficulty = useAppSelector(gameDifficultySelector);
-    const candidates = useAppSelector(gameCandidatesSelector);
-    const inputMode = useAppSelector(gameInputModeSelector);
-    const showAutoCandidates = useAppSelector(gameShowAutoCandidatesSelector);
-    const mistakes = useAppSelector(gameMistakesSelector);
+    const { candidates, difficulty, inputMode, mistakes, showAutoCandidates, sudokuString } = useCurrentRun();
 
     return useState(() => {
         if (isNotEmptyString(sudokuString)) {

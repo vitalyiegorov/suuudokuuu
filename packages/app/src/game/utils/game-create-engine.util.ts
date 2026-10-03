@@ -1,7 +1,11 @@
 import { FieldEngine } from '@suuudokuuu/field-core';
 
-import type { GameState } from '../store/game.state';
+import type { CurrentRunType } from '@suuudokuuu/progress';
 
 export const gameCreateEngine = (
-    state: Pick<GameState, 'candidates' | 'difficulty' | 'inputMode' | 'mistakes' | 'showAutoCandidates' | 'sudokuString'>
-): FieldEngine => new FieldEngine({ ...state });
+    state: Pick<CurrentRunType, 'candidates' | 'difficulty' | 'inputMode' | 'mistakes' | 'showAutoCandidates' | 'sudokuString'>
+): FieldEngine =>
+    new FieldEngine({
+        ...state,
+        candidates: Object.fromEntries(Object.entries(state.candidates).map(([cellKey, values]) => [cellKey, [...values]]))
+    });

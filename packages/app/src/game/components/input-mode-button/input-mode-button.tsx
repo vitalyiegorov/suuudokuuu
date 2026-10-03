@@ -3,11 +3,9 @@ import LucidePencil from 'lucide-react-native/icons/pencil';
 import { use } from 'react';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
-import { gameToggleInputModeAction } from '../../store/game.actions';
-import { gameGetInputStatePayload } from '../../utils/game-get-input-state-payload.util';
+import { gameToggleInputMode } from '../../utils/game-toggle-input-mode.util';
 
 import { InputModeButtonSelectors } from './input-mode-button.selectors';
 
@@ -22,11 +20,8 @@ export const InputModeButton = ({ sizeStyle }: Props) => {
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
 
-    const dispatch = useAppDispatch();
-
     const handleToggle = () => {
-        engine.toggleInputMode();
-        dispatch(gameToggleInputModeAction(gameGetInputStatePayload(engine)));
+        gameToggleInputMode(engine);
     };
 
     const isCandidateMode = snapshot.inputMode === 'candidate';

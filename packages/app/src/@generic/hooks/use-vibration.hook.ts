@@ -1,10 +1,10 @@
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle, NotificationFeedbackType } from 'expo-haptics';
 
-import { useAppSelector } from './use-app-selector.hook';
+import { useSettings } from '../../settings/query/use-settings.query';
 
 export const useVibration = (): [notification: (type: NotificationFeedbackType) => void, impact: (style: ImpactFeedbackStyle) => void] => {
-    const { hasVibration } = useAppSelector(state => state.settings);
+    const { hasVibration } = useSettings();
 
     const hapticNotification = (type: NotificationFeedbackType = NotificationFeedbackType.Success) => {
         if (hasVibration) {

@@ -4,9 +4,7 @@ import { View } from 'react-native';
 
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { gameHistoryDifficultySelector } from '../../../game/store/game.selectors';
 import { HistoryMissingValueText } from '../../constants/history-missing-value-text.constant';
 import { historyGetWinRate } from '../../utils/history-get-win-rate.util';
 import { HistoryMetric } from '../history-metric/history-metric';
@@ -14,13 +12,13 @@ import { HistoryMetric } from '../history-metric/history-metric';
 import { HistoryGamesSummaryBandSelectors } from './history-games-summary-band.selectors';
 import { HistoryGamesSummaryBandStyles as styles } from './history-games-summary-band.styles';
 
-import type { DifficultyEnum } from '@suuudokuuu/generator';
+import type { DifficultyStatsType } from '@suuudokuuu/progress';
 
 interface Props {
-    readonly difficulty: DifficultyEnum;
+    readonly stats: DifficultyStatsType;
 }
 
-export const HistoryGamesSummaryBand = ({ difficulty }: Props) => {
+export const HistoryGamesSummaryBand = ({ stats }: Props) => {
     const { t } = useLingui();
     const {
         bestScore,
@@ -33,7 +31,7 @@ export const HistoryGamesSummaryBand = ({ difficulty }: Props) => {
         hardcoreWon,
         challengesWon,
         challengesLost
-    } = useAppSelector(gameHistoryDifficultySelector(difficulty));
+    } = stats;
 
     const bestTimeText = useTimerText(bestTime);
     const averageTimeText = useTimerText(averageTime);

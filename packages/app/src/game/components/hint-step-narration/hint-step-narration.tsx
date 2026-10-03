@@ -28,7 +28,7 @@ export const HintStepNarration = ({ isRoomyLayout, lineCount, step, value }: Pro
     const techniqueName = _(techniqueLabelsConstant[step.narration.technique]);
     const narrationText = _(gameGetStepNarration(step, techniqueName));
 
-    const techniqueStyles = [styles.technique(isRoomyLayout), { color: theme.colors.accent }];
+    const techniqueStyles = [styles.technique(isRoomyLayout), { color: theme.colors.text.hint }];
     const narrationStyles = [styles.narration(isRoomyLayout), { color: theme.colors.surface.raisedText }];
     const chipStyles = [styles.chip(isRoomyLayout), { backgroundColor: theme.colors.ink }];
     const chipTextStyles = [styles.chipText(isRoomyLayout), { color: theme.colors.inkText }];

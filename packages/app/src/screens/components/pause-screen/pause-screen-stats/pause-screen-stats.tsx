@@ -1,8 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
 
-import { useAppSelector } from '../../../../@generic/hooks/use-app-selector.hook';
-import { settingsKeySelector } from '../../../../settings/store/settings.selectors';
+import { useSettings } from '../../../../settings/query/use-settings.query';
 import { PauseScreenSelectors } from '../pause-screen.selectors';
 
 import { PauseScreenStatsStyles as styles } from './pause-screen-stats.styles';
@@ -15,7 +14,7 @@ interface Props {
 
 export const PauseScreenStats = ({ timeText, scoreText, mistakesText }: Props) => {
     const { t } = useLingui();
-    const isCalmMode = useAppSelector(settingsKeySelector('calmMode'));
+    const isCalmMode = useSettings().calmMode;
 
     return (
         <AppMetricStrip separatorStyle={styles.separator} style={styles.strip} variant="ghost">

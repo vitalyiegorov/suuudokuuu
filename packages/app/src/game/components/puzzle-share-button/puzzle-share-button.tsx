@@ -4,10 +4,10 @@ import LucideShare2 from 'lucide-react-native/icons/share-2';
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { useShareGameState } from '../../hooks/use-share-game-state/use-share-game-state.hook';
 
-import type { GameState } from '../../store/game.state';
+import type { CurrentRunType } from '@suuudokuuu/progress';
 
 interface Props {
-    readonly gameState: GameState;
+    readonly gameState: CurrentRunType;
     readonly testID?: string;
     readonly text: string;
 }

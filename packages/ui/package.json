@@ -29,22 +29,25 @@
     "module": "src/index.ts",
     "types": "src/index.ts",
     "scripts": {
-        "lint": "run -T eslint --fix src",
-        "test": "run -T jest",
-        "test:coverage": "run -T jest --coverage",
-        "ts": "run -T tsc -p ."
+        "lint": "run -T eslint --fix src test",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"
     },
     "dependencies": {
-        "@rnw-community/shared": "^2.2.0"
+        "@rnw-community/shared": "^2.15.0"
     },
     "devDependencies": {
-        "@testing-library/react-native": "^14.0.1"
+        "@suuudokuuu/test-kit": "workspace:*",
+        "@vitest/coverage-v8": "5.0.3",
+        "vite": "^8.3.2",
+        "vitest": "5.0.3"
     },
     "peerDependencies": {
-        "lucide-react-native": "^1.38.0",
-        "react": "19.2.3",
-        "react-native": "0.86.0",
-        "react-native-reanimated": "4.5.0",
+        "lucide-react-native": "^1.49.0",
+        "react": "19.3.0",
+        "react-native": "0.88.0-rc.3",
+        "react-native-reanimated": "4.7.0",
         "react-native-unistyles": "^3.2.5"
     }
 }

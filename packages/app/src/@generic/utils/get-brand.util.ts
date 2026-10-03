@@ -1,6 +1,6 @@
+import { ThemeEnum } from '@suuudokuuu/progress';
 import Constants from 'expo-constants';
 
-import { ThemeEnum } from '../../theme/enum/theme.enum';
 import { BrandSchema } from '../schema/brand.schema';
 
 import type { BrandType } from '../schema/brand.schema';

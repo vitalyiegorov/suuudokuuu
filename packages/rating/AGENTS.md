@@ -15,7 +15,7 @@ yarn build              # Build ESM + CommonJS
 yarn build:esm         # TypeScript -> ESM /dist/esm
 yarn build:cjs         # TypeScript -> CommonJS /dist/cjs
 yarn lint              # ESLint fix
-yarn test              # Jest tests
+yarn test              # Vitest tests
 yarn test:coverage     # With coverage report
 yarn ts                # TypeScript check
 ```
@@ -208,7 +208,7 @@ Closing the remaining 3.3% needs a tie-break that does not read cell coordinates
 
 ## Testing
 
-- Tests colocated with source files (`.spec.ts` suffix)
+- Tests live in `test/**/*.test.ts` (Vitest); the spec file names below are historical
 - Fixtures are fixed 81-character board strings fed through `Sudoku.fromString`; never `Sudoku.create`, which uses unseeded randomness
 - `rate-puzzle.util.spec.ts` guards known-technique boards against their SE values, max-over-path aggregation, ceiling reporting for an Infinity-corpus board no technique can finish, an exact rating for a board that only the uniqueness techniques unblock, one that only a forcing chain unblocks, a hell-corpus board priced above the XY-Chain base by its chain length, and determinism across repeated calls
 - `get-step-rating.util.spec.ts` guards the length ladder: every band boundary for both chain bases and all three forcing chain bases, the 7.6 and 8.5 clamps, monotonicity in the chain length, the fallback to the table value when a step carries no length, and flat pricing for every other technique

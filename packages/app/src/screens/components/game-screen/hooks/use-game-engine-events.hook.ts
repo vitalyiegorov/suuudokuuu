@@ -5,23 +5,19 @@ import { useRouter } from 'expo-router';
 import { use, useEffect } from 'react';
 import { AccessibilityInfo } from 'react-native';
 
+import { isNotEmptyString } from '@rnw-community/shared';
+
 import { animationDurationConstant } from '../../../../@generic/constants/animation.constant';
-import { useAppDispatch } from '../../../../@generic/hooks/use-app-dispatch.hook';
-import { useAppSelector } from '../../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../../@generic/hooks/use-vibration.hook';
+import { classifyTimelineMove } from '../../../../challenge/utils/classify-timeline-move.util';
 import { WinConfettiContext } from '../../../../confetti/context/win-confetti.context';
 import { GameContext } from '../../../../game/context/game.context';
-import { gameClassifyMoveAction, gameFinishAction, gameMistakeAction, gameSaveAction } from '../../../../game/store/game.actions';
-import {
-    gameChallengeTimeSelector,
-    gameDifficultySelector,
-    gameElapsedTimeSelector,
-    gameHasRivalSelector,
-    gameMaxMistakesSelector
-} from '../../../../game/store/game.selectors';
+import { useCurrentRun } from '../../../../game/query/use-current-run.query';
+import { useElapsedTime } from '../../../../game/query/use-elapsed-time.query';
 import { gameCreateDeferredTaskQueue } from '../../../../game/utils/game-create-deferred-task-queue.util';
-import { gameGetClassifyMovePayload } from '../../../../game/utils/game-get-classify-move-payload.util';
-import { gameGetSavePayload } from '../../../../game/utils/game-get-save-payload.util';
+import { gameGetFieldStatePayload } from '../../../../game/utils/game-get-field-state-payload.util';
+import { gameGetPreMoveSudoku } from '../../../../game/utils/game-get-pre-move-sudoku.util';
+import { runCurrentRunCommand } from '../../../../game/utils/run-current-run-command.util';
 import { gameScreenGetLostRoute, gameScreenGetWonRoute } from '../utils/game-screen-get-result-route.util';
 import { gameScreenMaybeStartWinConfetti } from '../utils/game-screen-maybe-start-win-confetti.util';
 
@@ -36,13 +32,9 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
     const startWinConfetti = use(WinConfettiContext);
 
     const [hapticNotification, hapticImpact] = useVibration();
-
-    const dispatch = useAppDispatch();
-    const maxMistakes = useAppSelector(gameMaxMistakesSelector);
-    const hasRival = useAppSelector(gameHasRivalSelector);
-    const challengeTime = useAppSelector(gameChallengeTimeSelector);
-    const difficulty = useAppSelector(gameDifficultySelector);
-    const elapsedTime = useAppSelector(gameElapsedTimeSelector);
+    const { challengeState, challengeTime, maxMistakes } = useCurrentRun();
+    const elapsedTime = useElapsedTime();
+    const hasRival = isNotEmptyString(challengeState);
 
     useEffect(() => {
         const deferredClassifications = gameCreateDeferredTaskQueue();
@@ -50,13 +42,15 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
         const finishLostGame = () => {
             hapticImpact(ImpactFeedbackStyle.Heavy);
 
-            dispatch(gameFinishAction({ difficulty, isWon: false, isChallenge: hasRival }));
+            void runCurrentRunCommand(currentRunService => currentRunService.finish(false, hasRival));
 
             router.replace(gameScreenGetLostRoute(hasRival));
         };
 
         const unsubscribeMoveApplied = engine.on('moveApplied', move => {
-            dispatch(gameSaveAction(gameGetSavePayload(engine, move)));
+            void runCurrentRunCommand(currentRunService =>
+                currentRunService.save({ ...gameGetFieldStatePayload(engine), correctCell: move.cell, scoredCells: move.scoredCells })
+            );
 
             hapticNotification(Haptics.NotificationFeedbackType.Success);
 
@@ -66,12 +60,18 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
             const postMoveSudokuString = engine.Sudoku.toString();
 
             deferredClassifications.schedule(
-                () => void dispatch(gameClassifyMoveAction(gameGetClassifyMovePayload(postMoveSudokuString, move.cell)))
+                () =>
+                    void runCurrentRunCommand(currentRunService =>
+                        currentRunService.classifyMove({
+                            cell: move.cell,
+                            technique: classifyTimelineMove(gameGetPreMoveSudoku(postMoveSudokuString, move.cell), move.cell)
+                        })
+                    )
             );
         });
 
         const unsubscribeMistake = engine.on('mistake', mistake => {
-            dispatch(gameMistakeAction(mistake.cell));
+            void runCurrentRunCommand(currentRunService => currentRunService.mistake(mistake.cell));
 
             const mistakeCount = mistake.mistakes;
 
@@ -92,7 +92,7 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
 
             gameScreenMaybeStartWinConfetti(hasRival, wonChallenge, startWinConfetti);
             deferredClassifications.flush();
-            dispatch(gameFinishAction({ difficulty, isWon: true, isChallenge: wonChallenge }));
+            void runCurrentRunCommand(currentRunService => currentRunService.finish(true, wonChallenge));
             // HINT: We need to wait for the animation to finish, animation finish event would fix it?
             setTimeout(() => void router.replace(gameScreenGetWonRoute(hasRival, wonChallenge)), 10 * animationDurationConstant);
         });
@@ -105,8 +105,6 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
         };
     }, [
         challengeTime,
-        difficulty,
-        dispatch,
         elapsedTime,
         engine,
         fieldRef,

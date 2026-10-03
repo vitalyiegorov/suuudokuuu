@@ -4,8 +4,7 @@ import Reanimated from 'react-native-reanimated';
 
 import { cs } from '@rnw-community/shared';
 
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { useCandidateFontSize } from '../../hooks/use-candidate-font-size.hook';
 
@@ -34,7 +33,7 @@ export const FieldCellCandidates = ({ candidates, activeValue, cellSize, elimina
     const { theme } = use(ThemeContext);
 
     const fontSize = useCandidateFontSize(cellSize);
-    const showActiveCandidates = useAppSelector(settingsKeySelector('showActiveCandidates'));
+    const { showActiveCandidates } = useSettings();
 
     const getCandidateTextStyles = (candidate: number) => {
         const textCandidatePositionStyle = textCandidatePositionStyles[candidate as keyof typeof textCandidatePositionStyles];

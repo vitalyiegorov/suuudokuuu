@@ -4,13 +4,13 @@ import { getChallengeAwayRanges } from './get-challenge-away-ranges.util';
 import { getChallengeAwaySeconds } from './get-challenge-away-seconds.util';
 import { getTapeTechniqueEvents } from './get-tape-technique-events.util';
 
-import type { GameTimelineEventInterface } from '../../game/interface/game-timeline-event.interface';
 import type { ChallengeRunSummaryInterface } from '../interfaces/challenge-run-summary.interface';
+import type { TimelineEventType } from '@suuudokuuu/progress';
 
-const countEventsOfKind = (events: GameTimelineEventInterface[], kind: TimelineEventKindEnum): number =>
+const countEventsOfKind = (events: readonly TimelineEventType[], kind: TimelineEventKindEnum): number =>
     events.filter(event => event.kind === kind).length;
 
-export const getChallengeRecordingSummary = (events: GameTimelineEventInterface[], totalTime: number): ChallengeRunSummaryInterface => {
+export const getChallengeRecordingSummary = (events: readonly TimelineEventType[], totalTime: number): ChallengeRunSummaryInterface => {
     const awayRanges = getChallengeAwayRanges(events, totalTime);
 
     return {

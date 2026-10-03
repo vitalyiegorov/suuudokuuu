@@ -18,12 +18,12 @@ import { HistoryRatingBandSegment } from '../history-rating-band-segment/history
 import { HistorySolverProfileSelectors } from './history-solver-profile.selectors';
 import { HistorySolverProfileStyles as styles } from './history-solver-profile.styles';
 
-import type { CompletedGameInterface } from '../../interfaces/completed-game.interface';
 import type { HistorySeProfileInterface } from '../../interfaces/history-se-profile.interface';
+import type { CompletedGameType } from '@suuudokuuu/progress';
 
 interface Props {
     readonly profile: HistorySeProfileInterface;
-    readonly completedGames: readonly CompletedGameInterface[];
+    readonly completedGames: readonly CompletedGameType[];
 }
 
 export const HistorySolverProfile = ({ profile, completedGames }: Props) => {

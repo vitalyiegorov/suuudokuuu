@@ -3,8 +3,7 @@ import { useEffect } from 'react';
 
 import { emptyFn } from '@rnw-community/shared';
 
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { gameIsChallengeRunSelector } from '../../store/game.selectors';
+import { useCurrentRun } from '../../query/use-current-run.query';
 import { useGameHistoryControls } from '../use-game-history-controls.hook';
 
 import type { FieldEngine } from '@suuudokuuu/field-core';
@@ -13,7 +12,7 @@ const isHistoryShortcut = (event: KeyboardEvent): boolean => event.code === 'Key
 
 export const useHistoryShortcut = (engine: FieldEngine) => {
     const isFocused = useIsFocused();
-    const isChallengeRun = useAppSelector(gameIsChallengeRunSelector);
+    const { isChallengeRun } = useCurrentRun();
     const { handleUndo, handleRedo } = useGameHistoryControls(engine);
     const canUseHistoryControls = isFocused && !isChallengeRun;
 

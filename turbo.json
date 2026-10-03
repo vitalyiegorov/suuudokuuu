@@ -1,5 +1,6 @@
 {
     "$schema": "https://turborepo.dev/schema.json",
+    "agentGuidance": false,
     "globalDependencies": ["tsconfig*.json", "app.json", ".env*"],
     "tasks": {
         "release": {

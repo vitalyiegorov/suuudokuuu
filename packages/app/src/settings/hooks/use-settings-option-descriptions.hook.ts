@@ -1,20 +1,20 @@
 import { useLingui } from '@lingui/react/macro';
+import { ThemeEnum } from '@suuudokuuu/progress';
 
-import { ThemeEnum } from '../../theme/enum/theme.enum';
 import { isCustomThemeId } from '../../theme/type-guard/is-custom-theme-id.type-guard';
 
-import type { SettingsState } from '../store/settings.state';
+import type { SettingsType } from '@suuudokuuu/progress';
 
 export const useSettingsOptionDescriptions = () => {
     const { t } = useLingui();
 
-    const getCellMarginDescription = (cellMargin: SettingsState['cellMargin']) =>
+    const getCellMarginDescription = (cellMargin: SettingsType['cellMargin']) =>
         ({
             0: t`No extra gaps between cells`,
             2: t`A little room between cells`,
             5: t`Wider gaps for easier tapping`
         })[cellMargin];
-    const getFontSizeDescription = (fontSize: SettingsState['fontSize']) => {
+    const getFontSizeDescription = (fontSize: SettingsType['fontSize']) => {
         if (fontSize === 'xs') {
             return t`Smallest digits for compact boards`;
         }
@@ -29,7 +29,7 @@ export const useSettingsOptionDescriptions = () => {
 
         return t`Larger digits for easier reading`;
     };
-    const getMotionPreferenceDescription = (motionPreference: SettingsState['motionPreference']) => {
+    const getMotionPreferenceDescription = (motionPreference: SettingsType['motionPreference']) => {
         if (motionPreference === 'full') {
             return t`Keep every animation even when the system reduces motion`;
         }
@@ -40,7 +40,7 @@ export const useSettingsOptionDescriptions = () => {
 
         return t`Match the reduce motion setting of your device`;
     };
-    const getLanguageDescription = (language: SettingsState['language']) =>
+    const getLanguageDescription = (language: SettingsType['language']) =>
         ({
             ar: t`Use Arabic for app text`,
             bn: t`Use Bengali for app text`,
@@ -56,7 +56,7 @@ export const useSettingsOptionDescriptions = () => {
             ur: t`Use Urdu for app text`,
             zh: t`Use Chinese for app text`
         })[language];
-    const getThemeDescription = (theme: SettingsState['theme']) => {
+    const getThemeDescription = (theme: SettingsType['theme']) => {
         if (isCustomThemeId(theme)) {
             return t`Your custom colors`;
         }

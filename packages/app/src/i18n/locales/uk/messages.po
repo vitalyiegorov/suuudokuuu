@@ -58,8 +58,8 @@ msgid "{foregroundLabel} on {backgroundLabel}: {contrastRatioText} — minimum {
 msgstr "{foregroundLabel} на {backgroundLabel}: {contrastRatioText} — мінімум {minimumRatio}"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
-msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
-msgstr "{gamesCompleted, plural, one {# завершена гра} few {# завершені ігри} many {# завершених ігор} other {# завершеної гри}}"
+msgid "{gamesCompleted, plural, one {# game played} other {# games played}}"
+msgstr "{gamesCompleted, plural, one {# зіграна гра} few {# зіграні гри} many {# зіграних ігор} other {# зіграної гри}}"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
@@ -77,10 +77,13 @@ msgstr "{remaining, plural, one {Ввести {value}, залишилася # к
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {Позначити {value}, залишилася # клітинка} few {Позначити {value}, залишилося # клітинки} many {Позначити {value}, залишилося # клітинок} other {Позначити {value}, залишилося # клітинки}}"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Серія # день} few {Серія # дні} many {Серія # днів} other {Серія # дня}}"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}}"
+msgstr "{streak, plural, one {щоденний розв’язок поспіль} few {щоденні розв’язки поспіль} many {щоденних розв’язків поспіль} other {щоденного розв’язку поспіль}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -186,6 +189,7 @@ msgstr "Усі клітинки числа (1-9)"
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "Увесь прогрес буде втрачено"
 
@@ -434,10 +438,6 @@ msgstr "Без помилок"
 msgid "Clean black-and-white board"
 msgstr "Чиста чорно-біла дошка"
 
-#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
-msgid "Clean run"
-msgstr "Чиста партія"
-
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Чиста перемога"
@@ -587,6 +587,10 @@ msgstr "Оцінка складності {ratingLabel}"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "Затемнювати завершену цифру в панелі цифр замість того, щоб її прибирати"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Discard changes?"
+msgstr "Скасувати зміни?"
 
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Dismiss"
@@ -1164,6 +1168,7 @@ msgstr "Пропонувати підказки також у судоку рі�
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "OK"
 msgstr "Гаразд"
 
@@ -1265,6 +1270,10 @@ msgstr "Грайте у безкоштовне судоку онлайн: шіс
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "Грай на вищій складності, щоб отримати більші множники"
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Play streak"
+msgstr "Ігрова серія"
 
 #: src/app/game.tsx
 #: src/app/play.tsx
@@ -1670,6 +1679,10 @@ msgstr "Статистика"
 msgid "Stats"
 msgstr "Статистика"
 
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Stayed in app"
+msgstr "Без виходу із застосунку"
+
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Крок {currentStepNumber} з {stepCount}"
@@ -1688,10 +1701,6 @@ msgstr "Завершити поточну партію?"
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Stop this run"
 msgstr "Завершити партію"
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Streak"
-msgstr "Серія"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"

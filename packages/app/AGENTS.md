@@ -1,6 +1,6 @@
 # App Package
 
-Main Sudoku game application built with Expo 57, React Native 0.86, React 19.2, React Compiler, Expo Router, Redux Toolkit, Lingui 6, Reanimated 4, and React Native `StyleSheet` theme modules.
+Main Sudoku game application built with Expo 58, React Native 0.88, React 19.3, React Compiler, Expo Router, Effect v4 services over SQLite with `@effect/atom-react` atoms, Lingui 6, Reanimated 4, and React Native `StyleSheet` theme modules.
 
 ## Commands
 
@@ -18,9 +18,9 @@ yarn build:vercel
 yarn i18n:sync
 yarn ts
 yarn lint
-yarn test
-yarn test:coverage
 ```
+
+The app hosts no unit tests. Logic that needs tests lives in `@suuudokuuu/progress` or another domain package and is tested there with Vitest.
 
 After modifying user-facing text, run:
 
@@ -32,16 +32,16 @@ yarn i18n:sync
 
 ```text
 src/
-├── @generic/           # Store setup, shared components, hooks, styles, utils
+├── @generic/           # Runtime, SQL platform layers, boot gate, atom helpers, shared components, hooks, styles, utils
 ├── app/                # Expo Router routes and root layout
 ├── challenge/          # Challenge result/accept/progress UI and utilities
 ├── daily/              # Daily streak hero, history list, status derivation, date utils
-├── game/               # Game context, Redux slice, board UI, hooks, serializers
+├── game/               # Game context, board UI, hooks, serializers
 ├── history/            # Completed game history and replay UI
 ├── i18n/locales/       # Lingui catalogs: en, uk, fr, de, es
 ├── scoring/            # SudokuScoring and score explanation UI
 ├── screens/            # Screen-level components used by routes
-├── settings/           # Preferences, settings UI, settings slice
+├── settings/           # Preferences and settings UI
 └── theme/              # Theme context, enums, interfaces, and theme objects
 ```
 
@@ -68,6 +68,22 @@ src/
 11. Pure helpers used by components live in the owning module's `utils/` folder. Component files may keep module-level data constants, but not named behavior helpers.
 12. Component props are always declared inline as `interface Props`. Do not use `type Props`, `*PropsInterface`, or inline object parameter types for a single component. Promote a shared props interface only when the exact same shape is consumed by multiple components.
 
+## Code Quality Rules (from PR reviews)
+
+1. Context hooks check for a missing provider with `isDefined(context)`, never `context === null`.
+2. Name state shapes. A `useState` whose value is an object type uses a named interface from the module's interface folder, not an inline `useState<{ ... }>`. Interfaces are `readonly` by default, one interface per file.
+3. Derived state computed through if/else chains with mutable `let` variables is extracted to a pure function in the module's `utils/` folder that returns the result; it is not built up in the component body.
+4. A function returning `ReactNode` (such as a `getHeaderRight` helper) becomes a real component in its own folder so it can use hooks.
+5. Do not create named handler constants that only delegate to another call (`const handlePress = () => start()`). Inline the arrow at the call site. Non-trivial handlers stay named `handle*` functions.
+6. Inline trivial constants and locals used once, including `t` strings and derived labels (`<Icon size={20} />`, ``entry.title ?? t`Unknown` ``). Keep a named value only for repeated use, narrowing, or genuinely clearer logic.
+7. Do not inline a `reduce` or similar pattern when a shared util for it already exists in `@generic/utils`; reuse it.
+8. Hooks with similar return shapes share one generic interface instead of per-hook duplicates.
+9. Return the effect directly from a method instead of binding it to an intermediate variable and returning that (`return yield* sql.withTransaction(...)`).
+10. Run effects from `useEffect` at the edge with `appRuntime.runFork`, end them with `Effect.tapCause(Effect.logError)`, and interrupt the fiber in cleanup. Never an `async` function with `try`/`catch` inside an effect.
+11. Fresh-object defaults: a function that returns an empty snapshot or default state returns a new object (`{ ...EMPTY_SNAPSHOT }`), never the shared module-level constant.
+12. Long loops and bulk work yield to the UI between batches and commit each batch in its own short transaction; never hold a write transaction open across a yield.
+13. Never change app behavior or add test-only product paths to make an E2E flow pass (see the root Engineering Rules).
+
 ## Styling And Themes
 
 1. This app uses React Native `StyleSheet` modules, not NativeWind or CVA.
@@ -82,27 +98,32 @@ Never set the same style property both statically and through an animated style 
 
 ## State And Persistence
 
-1. Redux slices live in the owning module's `store` folder.
-2. Use `useAppDispatch` and `useAppSelector` from `@generic/hooks`.
-3. When persisted state shape changes, bump the Redux Persist version and add a migration in `@generic/app-root.store.ts`.
-4. Persisted-state migrations are the only place where legacy unknown shapes may need narrow escape hatches. Do not spread that pattern into normal app code.
-5. Keep puzzle invariants in `@suuudokuuu/generator`.
+Persisted state is SQLite owned by Effect v4 services in `@suuudokuuu/progress`. The root `## Effect` section is binding; load the `effect` skill before changing anything here.
+
+1. `packages/progress` owns the persisted schemas, the SQL migration record, the repositories, the reactivity keys, and the domain services: `CurrentRunService` (start, load, reset, pause, resume, focus, the challenge clock, away/return and screenshot markers; save, classify, hint, undo, redo, mistake, and the candidates/input-mode mirror; finishing a run into difficulty stats, completed games, personal bests, played and daily days) and `LegacyStateImportService`, all composed into the exported `ProgressLayer`. The app owns only the platform edge: the SQL platform layers, `src/@generic/runtime/app.runtime.ts` (which provides `ProgressLayer`), `databaseQueryAtom` (with the boot atom it waits on), and `BootGate`.
+2. When persisted data changes shape, add a new SQL migration to the migration record in `packages/progress`, with a test in `packages/progress/test`. Never edit a shipped migration.
+3. Platform layers: native uses `@effect/sql-sqlite-react-native` (op-sqlite), web uses `@effect/sql-sqlite-wasm` in an OPFS worker through a `.web.ts` sibling. Nothing above them may import a driver; services depend only on `SqlClient` and `Reactivity`.
+4. Components read state through the query hooks (`useSettings`, `useCurrentRun`, `useElapsedTime`, `useCustomThemes`, `useDifficultyStats`, `useCompletedGames`, `usePlayerStats`), each reading a `databaseQueryAtom` declared in the same file and keyed by a `ReactivityKeyEnum` from progress. A refresh keeps the previous value while waiting, so plain `useAtomValue` never flashes empty state. Never read state through `useEffect` plus async state. `CurrentRunService` commands go through `runCurrentRunCommand(currentRunService => currentRunService.method(...))`, which resolves after the write and the refreshed `currentRunAtom`, so a caller that navigates afterwards never renders the previous run. Settings writes go through `updateSettings(patch)`; other repositories are called with `appRuntime.runPromise(Effect.flatMap(Repository, repository => repository.method(...)))`. An effect started from `useEffect` uses `appRuntime.runFork` and interrupts the fiber in cleanup; `GameTimerController` runs the one-second tick and the `AppState` listener that way.
+5. Every write goes through a repository wrapped in `reactivity.mutation([keys], effect)`, and every read-modify-write of `current_run` runs in one `sql.withTransaction`, which the single SQLite connection serializes in call order. The tick only increments `elapsed_time` under `ReactivityKeyEnum.RunClock`, so it re-renders only `useElapsedTime` readers; `useCurrentRun().elapsedTime` is stale between moves and must not be displayed. Do not write SQL from components, hooks, or atoms.
+6. `RootProviders` mounts `RegistryContext.Provider` and `BootGate`, which renders nothing (the splash stays) until the settings and current-run atoms resolve. Both wait on the keep-alive `databaseBootAtom`, which runs the migrations, seeds the default settings row, runs the legacy import, activates the stored language and hides the splash. The legacy import reads the old redux-persist payload from the expo-sqlite kv-store (`persist:root`), runs the frozen legacy migrations, replaces the progress tables in one transaction, and deletes the key. It is idempotent, it is logged and skipped (keeping the key) when it fails, and the Maestro seed fixture goes through it.
+7. The winner, loser and challenge result screens take the finished run from `CurrentRunService.reset`, which reads and deletes the row in one transaction after every pending write, so they never show a stale score or mistake count.
+8. Persisted JSON columns and share or deep-link payloads are decoded with Effect `Schema` at the boundary. Keep puzzle invariants in `@suuudokuuu/generator`.
 
 ### Field state ownership
 
 1. `@suuudokuuu/field-core` owns interactive field state: the `Sudoku` grid of record, the selected cell, notes/candidates, input mode, the auto-candidates flag, mistake counting, and completion detection. `GameProvider` creates the `FieldEngine` and `GameContext` exposes `{ create, createFromState, engine, isCreatingGame, snapshot }`.
 2. Read the board through `snapshot` (`snapshot.field`, `snapshot.selectedCell`, `snapshot.inputMode`, `snapshot.candidates`) and through `engine.Sudoku` predicates. `engine.Sudoku` is not reference-stable across undo, so never store it in state or a ref.
 3. Board input goes through `engine.selectCell`, `engine.inputValue` and `engine.toggleCandidate`. Scoring, the timeline log, haptics, confetti and routing stay app-side and are driven by the `moveApplied`, `mistake` and `completed` engine events subscribed in `game.screen.tsx`.
-4. The game slice keeps `candidates`, `inputMode` and `showAutoCandidates` as a persistence mirror written by the same actions that already carry timeline and scoring data. Every engine mutation that changes one of them dispatches its matching action in the same handler, and the action carries the engine-derived values — `gameGetSavePayload`, `gameGetCellCandidatePayload`, `gameGetInputStatePayload` and `gameGetFieldStatePayload` all read them off `engine.serialize()`. The reducers copy that payload instead of recomputing candidate pruning or mode flipping, so there is only one implementation of each rule, and `game.field-engine-mirror.spec.ts` proves the mirror stays identical to `engine.serialize()`. `hint` is the exception: it must be dispatched before `engine.applyStepScript()` so the `Hint` timeline event precedes the placement's `Cell` event, so it still applies its own eliminations to the mirror.
+4. The `current_run` row keeps `candidates`, `inputMode` and `showAutoCandidates` as a persistence mirror written by the same `CurrentRunService` calls that already carry timeline and scoring data. Every engine mutation that changes one of them calls its matching method in the same handler (`gameToggleInputMode`, `gameToggleAutoCandidates`, `gameToggleCellCandidate` pair the engine call with the write), and the call carries the engine-derived values read off `engine.serialize()`. The service copies that payload instead of recomputing candidate pruning or mode flipping, so there is only one implementation of each rule. `hint` is the exception: it must be called before `engine.applyStepScript()` so the `Hint` timeline event precedes the placement's `Cell` event, so it still applies its own eliminations to the mirror.
 5. `GameProvider` enters a new run with `router.dismissTo('/game')`, never `router.replace('/game')`. A deep link can land on top of a live game screen, and a second mounted game screen would handle every engine event twice: each move saved twice, the run recorded twice, and an unencodable timeline that loses the replay and techniques. `22.challenge-over-live-game.flow.yaml` covers it.
 6. The persisted `sudokuString` format is the unchanged `Sudoku.toString()` grid. Saved games, share links and replays depend on it, so it must never change shape.
 
 ### Undo and redo
 
-1. `@suuudokuuu/field-core` owns the history itself. `UndoButton`, `RedoButton` and the web `Cmd/Ctrl+Z` shortcut all go through `useGameHistoryControls`, which calls `engine.undo()` / `engine.redo()` and, only when the engine reports a step was taken, dispatches `gameUndoAction` / `gameRedoAction` with `gameGetFieldStatePayload(engine)`. That payload is the mirror update, so the persisted `sudokuString` and `candidates` are written by the same handler that moved the engine.
-2. The reducers derive what happened by comparing the payload grid to the persisted one. A different grid means a placement was taken back or replayed; an identical grid means it was a note edit, which is free and touches nothing but the mirror.
+1. `@suuudokuuu/field-core` owns the history itself. `UndoButton`, `RedoButton` and the web `Cmd/Ctrl+Z` shortcut all go through `useGameHistoryControls`, which calls `engine.undo()` / `engine.redo()` and, only when the engine reports a step was taken, calls `CurrentRunService.undo` / `redo` with `gameGetFieldStatePayload(engine)`. That payload is the mirror update, so the persisted `sudokuString` and `candidates` are written by the same handler that moved the engine.
+2. The service derives what happened by comparing the payload grid to the persisted one. A different grid means a placement was taken back or replayed; an identical grid means it was a note edit, which is free and touches nothing but the mirror.
 3. A wrong value never reaches the board — it is counted as a mistake and discarded — so the engine never records it in history and undo can never erase a mistake. `mistakes` is what happened, not what is on the board, and undo leaves it alone.
-4. Every `save` writes the awarded points onto its `TimelineEventKindEnum.Cell` event as `score`, next to `technique`. Undoing a placement removes that event from the timeline, returns its `score`, and charges `SudokuScoring.calculateUndoPenalty`. Returning the award is what stops a place/undo/place loop from farming points; redo pops the event back with a fresh think-time delta and re-awards it. `techniqueUsageCounts` follows the same event through `gameApplyTechniqueUsageDelta`.
+4. Every `save` writes the awarded points onto its `TimelineEventKindEnum.Cell` event as `score`, next to `technique`. Undoing a placement removes that event from the timeline, returns its `score`, and charges `SudokuScoring.calculateUndoPenalty`. Returning the award is what stops a place/undo/place loop from farming points; redo pops the event back with a fresh think-time delta and re-awards it. `techniqueUsageCounts` in `player_stats` follows the same event in the same transaction.
 5. Removing a Cell event carries its `ts` into the following event, so the accumulated deltas and every later absolute timestamp stay exact. This keeps the encoder invariant that the timeline replays into the persisted grid, which `applyCellEventsToField` relies on for handoff payloads. Nothing was added to `TimelineEventKindEnum`: undo is not a recorded event, it unrecords one.
 6. `undoneMoves` is the redo stack. `save`, `hint` and `toggleCellCandidate` clear it because each of them pushes engine history, which truncates the engine's own future.
 7. Undo and redo are hidden during a challenge run, and the shortcut is inert there. A challenge payload is a faithful record of the run, and neither an un-recorded note edit nor a re-recorded placement can be represented in it without extending the append-only encoder enum.
@@ -112,8 +133,8 @@ Never set the same style property both statically and through an animated style 
 
 1. A daily run is an ordinary run. It goes through the same `FieldEngine`, scoring, timeline, hints and undo policy as any other game — the only difference is where the board came from and that the run remembers which day it belongs to. It is never a challenge run: `createDaily` always starts it with `isChallengeRun: false`, so ghost-challenge recording, its wall clock, and its undo/hint exclusions stay entirely separate flows.
 2. The board is offline and deterministic. `GameContext.createDaily(maxMistakes)` resolves today's UTC date with `getDailyDateString(Date.now())` and asks `@suuudokuuu/puzzle-forge` for `forgeDailyPuzzle(dateString)`. Every device asking on the same UTC date forges the identical board with the identical rating, with no network call and no stored table. The seed derivation itself is specified in `packages/puzzle-forge/AGENTS.md`; do not re-derive a date key in the app.
-3. `dailyDayNumber` on `GameState` is the whole run-scoped state, and `0` means "this run is not a daily". It is written once by `gameStartAction` and never recomputed, so a run started at 23:50 UTC still records against the day it started when it is finished after midnight. `create` passes `0`; only `createDaily` passes today.
-4. The persisted record is two additive fields: `dailyCompletedDayNumbers` (unique, ascending UTC day numbers of solved dailies) and `dailyBestStreak`. Both live in `gameGetPersistedAggregates`, so starting the next game keeps them. Only a **won** daily is recorded — `gameFinishRun` ignores a lost or abandoned one — so there is no backfill and no catch-up.
+3. `dailyDayNumber` on the `current_run` row is the whole run-scoped state, and `0` means "this run is not a daily". It is written once by `CurrentRunService.start` and never recomputed, so a run started at 23:50 UTC still records against the day it started when it is finished after midnight. `create` passes `0`; only `createDaily` passes today.
+4. The persisted record is two additive fields: `dailyCompletedDayNumbers` (unique, ascending UTC day numbers of solved dailies) and `dailyBestStreak`. Both live in `player_stats`, so starting the next game keeps them. Only a **won** daily is recorded — `CurrentRunService.finish` ignores a lost or abandoned one — so there is no backfill and no catch-up.
 5. Two different streaks exist on purpose and must not be merged. `playedDayNumbers` counts any game played on a **local** calendar day and feeds the history totals; `dailyCompletedDayNumbers` counts solved dailies on a **UTC** day and feeds the daily screen. `getDayStreak(dayNumbers, todayDayNumber)` in `@generic/utils` is the one streak implementation both use, and it takes today's day number rather than a timestamp precisely so each caller supplies its own calendar.
 6. `dailyGetStatus` is the only place the daily screen's three states are decided, and `completed` outranks `inProgress`. That ordering is what stops a finished daily from offering Continue into a run that is already over, and what makes the screen offer a fresh puzzle the moment UTC midnight moves past the day the current run belongs to.
 7. `useDailyChallenge` reads "today" through a lazy `useState` initializer and re-reads it in a `useFocusEffect`, never during render. The daily screen is a tab, so it can stay mounted across midnight; refreshing on focus is what rolls it over without an interval timer.
@@ -122,7 +143,7 @@ Never set the same style property both statically and through an animated style 
 ### Comfort primitives
 
 1. `gameGetBoardGeometry` holds a `BoardCellSizeMinConstant` (44) floor. When the measured square cannot fit `9 × 44` plus the requested group gaps, the group gaps shrink first and the util returns the reduced `cellMargin` it actually spent. Only when `9 × 44` cannot fit at all do the cells drop below the floor; the board never scrolls or overflows, because full-board scanning is the mechanic.
-2. The effective `cellMargin` flows from `useBoardGeometry` through `Field`/`ReplayField` into `useCellBorderStyles` and `gameGetCellHitSlop`. Never read `settingsCellMarginSelector` inside a cell again — the rendered margins must match the margins the geometry budgeted, or the board overflows its measured area.
+2. The effective `cellMargin` flows from `useBoardGeometry` through `Field`/`ReplayField` into `useCellBorderStyles` and `gameGetCellHitSlop`. Never read the `cellMargin` setting inside a cell again — the rendered margins must match the margins the geometry budgeted, or the board overflows its measured area.
 3. Board `hitSlop` is per-edge and never larger than half the group gap, so two neighbouring cells cannot claim the same point. Numpad digits use `PanelControlHitSlopConstant`, half the smallest numpad gap.
 4. `useReduceMotion` combines the OS setting (`SystemMotionProvider` subscribes to `reduceMotionChanged`) with the `motionPreference` setting (`system` | `full` | `reduced`). Use it instead of Reanimated's `useReducedMotion` so the player override is honored. Gated animations must still leave the state legible: selection colour changes instantly rather than fading, and a placed cell shows a static `FieldCellSuccessOutline` instead of the animated ring.
 5. `calmMode` hides every score surface (in-game metric strip, pause stats) and swaps the winner hero for `WinnerCalmResultHero`, which reports the move count instead of a score. Scores are still recorded, so history and personal bests survive turning calm play off.
@@ -132,7 +153,7 @@ Never set the same style property both statically and through an animated style 
 1. The hint feature is a teaching device, not an answer dispenser. `HintButton` runs `gameFindHintStepScript(engine.Sudoku)`, which wraps the unnarrowed `findStepScript` so the player always gets the simplest technique the position allows.
 2. When no technique fires, or the only "technique" is `SolutionTechniqueEnum.Guess`, `gameFindHintStepScript` returns `null` and the button shows an honest alert. Nothing is revealed and no score is deducted.
 3. Playback is engine state: `engine.startStepScript`, `stepScriptNext`, `stepScriptBack`, `applyStepScript` and `stopStepScript`. `HintPanel` renders `snapshot.stepScript` and `snapshot.stepIndex`; `@suuudokuuu/field-core`'s `buildStepScriptState` folds the played prefix of the script into pattern cells, revealed candidates and struck candidates that `Field` feeds into the existing cell highlight and candidate rendering.
-4. Applying a hint dispatches `gameHintAction` with the script eliminations and then calls `engine.applyStepScript()`. The placement flows through the normal `moveApplied` event, so scoring, the timeline cell event and its technique classification are identical to a manual placement of the same value. `game.hint-integration.spec.ts` proves it.
+4. Applying a hint calls `CurrentRunService.hint` with the script eliminations and then `engine.applyStepScript()`. The placement flows through the normal `moveApplied` event, so scoring, the timeline cell event and its technique classification are identical to a manual placement of the same value.
 5. Hint state is ephemeral. It is never persisted or serialized, abandoning a script simply discards it, and `HintPanel` stops any running script when it unmounts or when the engine is replaced by a new game.
 6. Prose never lives in `@suuudokuuu/field-core`. `gameGetStepNarration` maps a step plus its structured narration payload to a Lingui message: the reveal step explains the WHY per technique (a naked single names the digits its cell sees, a hidden single or full house names its row, column, or box), and strike and place steps narrate their own action. The technique name is interpolated from `techniqueLabelsConstant`.
 7. `gameIsHintAvailable` is the only gate. `HintButton` renders `null` when it returns false: never during a challenge run, and never on `Nightmare`, `Hell` or `Infinity` unless the player turned on `allowHintsOnHardDifficulties` in the guidance settings. Those three tiers are the challenge tiers, so the button is hidden rather than disabled — a disabled control with an explanation is weaker than an honest absence, and the setting is where the explanation belongs.
@@ -147,7 +168,7 @@ Never set the same style property both statically and through an animated style 
 
 ## Move Classification
 
-Every correct placement is classified exactly once by `classifyTimelineMove`, against the board as it was before the move, but never on the tap path. `useGameEngineEvents` saves the placement first, so the board, haptic and success animation never wait on the technique scan, then classifies it in a deferred task and attaches the result with `gameClassifyMoveAction`, which labels the latest matching unlabeled Cell event and counts the technique. A placement undone before its classification arrives simply stays unlabeled. The `completed` handler and the effect cleanup flush pending classifications first, so the final move is labeled before `gameFinishAction` encodes the run. The result rides the timeline event as `technique`, and `gameStateToString` writes those techniques into the encoded state as the encoder's technique trailer, so a finished game keeps its labels without a migration: `encodedState` is opaque to the persisted shape, and a record written by an older build simply lacks the stream.
+Every correct placement is classified exactly once by `classifyTimelineMove`, against the board as it was before the move, but never on the tap path. `useGameEngineEvents` saves the placement first, so the board, haptic and success animation never wait on the technique scan, then classifies it in a deferred task and attaches the result with `CurrentRunService.classifyMove`, which labels the latest matching unlabeled Cell event and counts the technique. A placement undone before its classification arrives simply stays unlabeled. The `completed` handler and the effect cleanup flush pending classifications first, so the final move is labeled before `CurrentRunService.finish` encodes the run. The result rides the timeline event as `technique`, and `gameStateToString` writes those techniques into the encoded state as the encoder's technique trailer, so a finished game keeps its labels without a migration: `encodedState` is opaque to the persisted shape, and a record written by an older build simply lacks the stream.
 
 Consumers therefore prefer the stored technique and only fall back to re-deriving it:
 
@@ -234,10 +255,11 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
    only used by static rendering and does not affect the `single` output. Keep the markup, its inline
    CSS, and the `#app-splash` id in sync with `@generic/constants/web-splash.constant.ts`.
 2. The splash is removed by the `@generic/utils/hide-app-splash-screen(.web).ts` pair. `RootProviders`
-   wires it to `PersistGate`'s `onBeforeLift`, which awaits the promise it returns, and activates the
-   rehydrated `settings.language` first, so neither platform renders a frame in the wrong locale.
-   Read the language from the store there, never the OS locale: rehydration has already settled by the
-   time `onBeforeLift` runs, so the persisted choice is the authoritative one.
+   is awaited by the boot atom in `@generic/utils/database-query-atom.util.ts` after it activates the
+   stored `settings.language`, so neither platform renders a frame in the wrong locale. Read the
+   language from the settings row there, never the OS locale: the boot atom has already settled
+   migrations by then, so the persisted choice is the authoritative one. Later language changes are
+   activated by the language option sheet.
 3. Only the `en` catalog is bundled eagerly; the other twelve are `import()`ed per locale. Activate
    languages through `i18nActivateLanguage`, never `i18n.activate`, or the catalog will be missing.
    It no-ops when the requested locale is already active and discards a load whose locale has since
@@ -247,7 +269,7 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
 5. Do not enable expo-router `asyncRoutes` on web: it stalls the first route chunk and regresses
    time-to-home from 0.6s to 5.9s.
 6. Do not enable `EXPO_UNSTABLE_TREE_SHAKING`: it drops the `expo-sqlite` web worker chunk, which
-   breaks persistence rehydration.
+   breaks the legacy kv-store import.
 7. Import icons as `lucide-react-native/icons/<kebab-name>`, never from the package root. The root
    barrel pulls all 1744 icon modules into the bundle.
 8. Import Google fonts per weight (`@expo-google-fonts/inter/500Medium`), never from the package
@@ -267,7 +289,7 @@ Run app-level checks after app changes:
 yarn ts && yarn lint
 ```
 
-Run `yarn test` when scoring, reducers, persistence, or deterministic app logic changes. Run Maestro flows from `tests/app-tests` when routes, selectors, deep links, sharing, or end screens change.
+Run `yarn test` from the root when scoring, persistence services, or other domain logic in `progress` changes; the app itself has no unit tests. Run Maestro flows from `tests/app-tests` when routes, selectors, deep links, sharing, or end screens change.
 
 ## Running On A Local Simulator
 

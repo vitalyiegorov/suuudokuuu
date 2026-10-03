@@ -1,9 +1,9 @@
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 
-import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
 import type { SolutionStepInterface } from '@suuudokuuu/encoder';
+import type { TimelineEventType } from '@suuudokuuu/progress';
 
-export const getTimelineCellSteps = (events: GameTimelineEventInterface[]): SolutionStepInterface[] => {
+export const getTimelineCellSteps = (events: readonly TimelineEventType[]): SolutionStepInterface[] => {
     const steps: SolutionStepInterface[] = [];
 
     for (const event of events) {

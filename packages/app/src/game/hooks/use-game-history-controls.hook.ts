@@ -1,25 +1,22 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
-import { gameRedoAction, gameUndoAction } from '../store/game.actions';
 import { gameGetFieldStatePayload } from '../utils/game-get-field-state-payload.util';
+import { runCurrentRunCommand } from '../utils/run-current-run-command.util';
 
 import type { FieldEngine } from '@suuudokuuu/field-core';
 
 export const useGameHistoryControls = (engine: FieldEngine) => {
-    const dispatch = useAppDispatch();
-
     const isPlayingStepScript = () => isDefined(engine.getSnapshot().stepScript);
 
     const handleUndo = () => {
         if (!isPlayingStepScript() && engine.undo()) {
-            dispatch(gameUndoAction(gameGetFieldStatePayload(engine)));
+            void runCurrentRunCommand(currentRunService => currentRunService.undo(gameGetFieldStatePayload(engine)));
         }
     };
 
     const handleRedo = () => {
         if (!isPlayingStepScript() && engine.redo()) {
-            dispatch(gameRedoAction(gameGetFieldStatePayload(engine)));
+            void runCurrentRunCommand(currentRunService => currentRunService.redo(gameGetFieldStatePayload(engine)));
         }
     };
 

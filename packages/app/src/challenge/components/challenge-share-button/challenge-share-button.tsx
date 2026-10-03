@@ -3,11 +3,11 @@ import LucideSwords from 'lucide-react-native/icons/swords';
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { useShareChallenge } from '../../../game/hooks/use-share-challenge/use-share-challenge.hook';
 
-import type { GameState } from '../../../game/store/game.state';
+import type { CurrentRunType } from '@suuudokuuu/progress';
 import type { StyleProp, ViewStyle } from 'react-native';
 
 interface Props {
-    readonly gameState: GameState;
+    readonly gameState: CurrentRunType;
     readonly style?: StyleProp<ViewStyle>;
     readonly testID?: string;
     readonly text: string;

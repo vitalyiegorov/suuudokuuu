@@ -1,8 +1,8 @@
+import { ColorSchemaEnum } from '@suuudokuuu/progress';
 import { BlurView } from 'expo-blur';
 import { use } from 'react';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { ColorSchemaEnum } from '../../../theme/enum/color-schema.enum';
 import { FloatingTabBarBlurIntensity } from '../floating-tab-bar/constant/floating-tab-bar.constant';
 
 import { FloatingTabBarSurfaceStyles as styles } from './floating-tab-bar-surface.styles';

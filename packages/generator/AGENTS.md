@@ -53,7 +53,7 @@ src/
 3. Utility functions stay in `src/util` and use the `.util.ts` suffix.
 4. Keep one utility per file.
 5. Re-export public API directly from `src/index.ts`.
-6. Tests stay colocated with source files using `.spec.ts`.
+6. Tests live in `test/**/*.test.ts` (Vitest, `@effect/vitest` for Effect code), not colocated `.spec.ts` files.
 
 ## Testing
 

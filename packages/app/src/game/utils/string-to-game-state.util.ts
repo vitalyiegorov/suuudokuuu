@@ -1,20 +1,21 @@
 import { GameStateSerializer, SharedPayloadKindEnum, applyCellEventsToField } from '@suuudokuuu/encoder';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { initialCurrentRun } from '@suuudokuuu/progress';
 
 import { isDefined } from '@rnw-community/shared';
-
-import { GameState, initialGameState } from '../store/game.state';
 
 import { difficultyCodeToDifficulty } from './difficulty-code-to-difficulty.util';
 import { getKeyedCandidates } from './get-keyed-candidates.util';
 import { getTimelineMistakesCount } from './get-timeline-mistakes-count.util';
 import { withTimelineCellTechniques } from './with-timeline-cell-techniques.util';
 
+import type { CurrentRunType } from '@suuudokuuu/progress';
+
 const RatingWireScale = 10;
 
 const serializer = new GameStateSerializer();
 
-export const stringToGameState = (gameStateString = ''): GameState => {
+export const stringToGameState = (gameStateString = ''): CurrentRunType => {
     try {
         const decoded = serializer.decodeState(gameStateString);
         const timelineEvents = withTimelineCellTechniques(decoded.timelineEvents, decoded.techniques);
@@ -26,7 +27,7 @@ export const stringToGameState = (gameStateString = ''): GameState => {
             : Sudoku.convertFieldFromString(decoded.field, defaultSudokuConfig)[1];
 
         return {
-            ...initialGameState,
+            ...initialCurrentRun,
             sudokuString: decoded.field,
             difficulty,
             maxMistakes: decoded.maxMistakes,
@@ -50,8 +51,8 @@ export const stringToGameState = (gameStateString = ''): GameState => {
                 isChallengeRun: decoded.isChallengeRun,
                 wallClockStartMs: decoded.anchorSeconds * 1000
             })
-        } satisfies GameState;
+        } satisfies CurrentRunType;
     } catch {
-        return initialGameState;
+        return initialCurrentRun;
     }
 };

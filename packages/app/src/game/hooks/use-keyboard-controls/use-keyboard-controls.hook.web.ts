@@ -3,13 +3,11 @@ import { useEffect } from 'react';
 
 import { emptyFn, isDefined } from '@rnw-community/shared';
 
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { gameToggleAutoCandidatesAction, gameToggleCellCandidateAction, gameToggleInputModeAction } from '../../store/game.actions';
-import { gameMaxMistakesSelector } from '../../store/game.selectors';
+import { useCurrentRun } from '../../query/use-current-run.query';
 import { gameGetArrowTargetCell } from '../../utils/game-get-arrow-target-cell.util';
-import { gameGetCellCandidatePayload } from '../../utils/game-get-cell-candidate-payload.util';
-import { gameGetInputStatePayload } from '../../utils/game-get-input-state-payload.util';
+import { gameToggleAutoCandidates } from '../../utils/game-toggle-auto-candidates.util';
+import { gameToggleCellCandidate } from '../../utils/game-toggle-cell-candidate.util';
+import { gameToggleInputMode } from '../../utils/game-toggle-input-mode.util';
 
 import { useHistoryShortcut } from './use-history-shortcut.hook';
 
@@ -34,9 +32,8 @@ export const useKeyboardControls = (
     onExit: OnEventFn<void>
     // eslint-disable-next-line @typescript-eslint/max-params
 ) => {
-    const dispatch = useAppDispatch();
     const isFocused = useIsFocused();
-    const maxMistakes = useAppSelector(gameMaxMistakesSelector);
+    const { maxMistakes } = useCurrentRun();
     const canToggleAutoCandidates = maxMistakes > 0;
 
     useHistoryShortcut(engine);
@@ -66,8 +63,7 @@ export const useKeyboardControls = (
                 e.preventDefault();
 
                 if (isDefined(selectedCell)) {
-                    engine.toggleInputMode();
-                    dispatch(gameToggleInputModeAction(gameGetInputStatePayload(engine)));
+                    gameToggleInputMode(engine);
                 }
 
                 return;
@@ -77,8 +73,7 @@ export const useKeyboardControls = (
                 e.preventDefault();
 
                 if (canToggleAutoCandidates) {
-                    engine.toggleShowAutoCandidates();
-                    dispatch(gameToggleAutoCandidatesAction(gameGetInputStatePayload(engine)));
+                    gameToggleAutoCandidates(engine);
                 }
 
                 return;
@@ -99,8 +94,7 @@ export const useKeyboardControls = (
 
                 if (shiftKey) {
                     if (sudoku.isBlankCell(selectedCell)) {
-                        engine.toggleCandidate(selectedCell, value);
-                        dispatch(gameToggleCellCandidateAction(gameGetCellCandidatePayload(engine, { ...selectedCell, value })));
+                        gameToggleCellCandidate(engine, { ...selectedCell, value });
                     }
                 } else {
                     onSelectValue(value);
@@ -123,5 +117,5 @@ export const useKeyboardControls = (
             window.removeEventListener('keydown', handleKeyDown);
             window.removeEventListener('keydown', handleBoardCellSpace, true);
         };
-    }, [isFocused, selectedCell, onSelectCell, onSelectValue, engine, onExit, dispatch, canToggleAutoCandidates]);
+    }, [isFocused, selectedCell, onSelectCell, onSelectValue, engine, onExit, canToggleAutoCandidates]);
 };

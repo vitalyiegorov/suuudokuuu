@@ -1,5 +1,5 @@
 import { Alert as RNAlert } from 'react-native';
 
-import type { AlertButton } from 'react-native/Libraries/Alert/Alert';
+import type { AlertButton } from 'react-native';
 
 export const Alert = (title: string, message?: string, buttons?: AlertButton[]) => void RNAlert.alert(title, message, buttons);

@@ -5,10 +5,10 @@ import { getTimelineCellSteps } from '../../game/utils/get-timeline-cell-steps.u
 import { getChallengeTechniqueEvents } from './get-challenge-technique-events.util';
 import { getTapeTechniqueEvents } from './get-tape-technique-events.util';
 
-import type { GameTimelineEventInterface } from '../../game/interface/game-timeline-event.interface';
 import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-technique-event.interface';
+import type { TimelineEventType } from '@suuudokuuu/progress';
 
-export const getRunTechniqueEvents = (events: GameTimelineEventInterface[], givens: string): ChallengeTechniqueEventInterface[] => {
+export const getRunTechniqueEvents = (events: readonly TimelineEventType[], givens: string): ChallengeTechniqueEventInterface[] => {
     const storedTechniqueEvents = getTapeTechniqueEvents(events);
 
     if (isNotEmptyArray(storedTechniqueEvents)) {

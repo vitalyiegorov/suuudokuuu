@@ -10,7 +10,7 @@ yarn build:esm         # TypeScript -> /dist/esm
 yarn build:cjs         # TypeScript -> /dist/cjs
 yarn build:styles      # Copy src/styles/field-dom.css -> dist/field-dom.css
 yarn lint              # ESLint fix
-yarn test              # Jest tests
+yarn test              # Vitest tests
 yarn test:coverage     # With coverage report
 yarn ts                # TypeScript check
 ```
@@ -83,7 +83,7 @@ The snapshot carries no given/user distinction, so the consumer supplies `givenC
 
 ## Testing
 
-- Colocated `.spec.ts` files cover the pure view-model and input-mapping utilities. Coverage thresholds: statements 99%, branches 94%, lines 99%, functions 100%.
+- Vitest tests in `test/**/*.test.ts` cover the pure view-model and input-mapping utilities. Coverage thresholds: statements 99%, branches 94%, lines 99%, functions 100%.
 - Component rendering is not unit tested; there is no jsdom setup in this monorepo. Rendering is covered by the landing E2E specs.
 
 ## Exports

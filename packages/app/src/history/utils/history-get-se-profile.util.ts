@@ -4,16 +4,13 @@ import { HistorySeProfileRecentWinsSampleSize } from '../constants/history-se-pr
 
 import { historyGetBestRating } from './history-get-best-rating.util';
 
-import type { CompletedGameInterface } from '../interfaces/completed-game.interface';
-import type { HistoryGameInterface } from '../interfaces/history-game.interface';
 import type { HistorySeProfileInterface } from '../interfaces/history-se-profile.interface';
-import type { DifficultyEnum } from '@suuudokuuu/generator';
+import type { CompletedGameType, DifficultyStatsType } from '@suuudokuuu/progress';
 
 export const historyGetSeProfile = (
-    historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>,
-    completedGames: readonly CompletedGameInterface[]
+    histories: readonly DifficultyStatsType[],
+    completedGames: readonly CompletedGameType[]
 ): HistorySeProfileInterface => {
-    const histories = Object.values(historyByDifficulty);
     const bestRating = historyGetBestRating(histories);
 
     const recentRatedGames = completedGames

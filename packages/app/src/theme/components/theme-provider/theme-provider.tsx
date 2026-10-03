@@ -1,3 +1,4 @@
+import { ColorSchemaEnum } from '@suuudokuuu/progress';
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from 'expo-router';
 import { useEffect } from 'react';
 import { Appearance, Platform } from 'react-native';
@@ -5,20 +6,17 @@ import { UnistylesRuntime } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { settingsSetAction } from '../../../settings/store/settings.actions';
-import { settingsKeySelector, settingsThemeSelector } from '../../../settings/store/settings.selectors';
+import { useSettings } from '../../../settings/query/use-settings.query';
+import { updateSettings } from '../../../settings/utils/update-settings.util';
 import { ThemeContext } from '../../context/theme.context';
-import { ColorSchemaEnum } from '../../enum/color-schema.enum';
-import { customThemesSelector } from '../../store/custom-themes.selectors';
+import { useCustomThemes } from '../../query/use-custom-themes.query';
 import { isCustomThemeId } from '../../type-guard/is-custom-theme-id.type-guard';
 import { applyCustomUnistylesTheme } from '../../utils/apply-custom-unistyles-theme.util';
 import { getUnistylesThemeName } from '../../utils/get-unistyles-theme-name.util';
 import { resolveTheme } from '../../utils/resolve-theme.util';
 import { synchronizeUnistylesTheme } from '../../utils/synchronize-unistyles-theme.util';
 
-import type { SettingsState } from '../../../settings/store/settings.state';
+import type { SettingsType } from '@suuudokuuu/progress';
 import type { ReactNode } from 'react';
 
 interface Props {
@@ -26,10 +24,8 @@ interface Props {
 }
 
 export const ThemeProvider = ({ children }: Props) => {
-    const dispatch = useAppDispatch();
-    const selectedTheme = useAppSelector(settingsThemeSelector);
-    const customThemes = useAppSelector(customThemesSelector);
-    const isDarkColorSchema = useAppSelector(settingsKeySelector('isDarkColorSchema'));
+    const { isDarkColorSchema, theme: selectedTheme } = useSettings();
+    const customThemes = useCustomThemes();
 
     const colorScheme = isDarkColorSchema ? ColorSchemaEnum.Dark : ColorSchemaEnum.Light;
     const unistylesThemeName = getUnistylesThemeName(selectedTheme, colorScheme);
@@ -42,23 +38,18 @@ export const ThemeProvider = ({ children }: Props) => {
 
         synchronizeUnistylesTheme(UnistylesRuntime, unistylesThemeName);
     }, [activeCustomTheme, unistylesThemeName]);
+    useEffect(() => {
+        if (Platform.OS === 'web') {
+            document.documentElement.style.colorScheme = colorScheme;
 
-    const changeTheme = (theme: SettingsState['theme']) => {
-        dispatch(settingsSetAction({ theme }));
-    };
-
-    const toggleColorSchema = () => {
-        const newColorScheme = colorScheme === ColorSchemaEnum.Dark ? ColorSchemaEnum.Light : ColorSchemaEnum.Dark;
-
-        if (newColorScheme !== colorScheme) {
-            dispatch(settingsSetAction({ isDarkColorSchema: !isDarkColorSchema }));
-
-            if (Platform.OS === 'web') {
-                document.documentElement.style.colorScheme = newColorScheme;
-            } else {
-                Appearance.setColorScheme(newColorScheme);
-            }
+            return;
         }
+
+        Appearance.setColorScheme(colorScheme);
+    }, [colorScheme]);
+
+    const changeTheme = (theme: SettingsType['theme']) => {
+        void updateSettings({ theme });
     };
 
     const theme = resolveTheme(selectedTheme, colorScheme, customThemes);
@@ -70,7 +61,7 @@ export const ThemeProvider = ({ children }: Props) => {
             background: theme.colors.background
         }
     };
-    const value = { changeTheme, colorScheme, theme, toggleColorSchema };
+    const value = { changeTheme, colorScheme, theme };
 
     return (
         <ThemeContext value={value}>

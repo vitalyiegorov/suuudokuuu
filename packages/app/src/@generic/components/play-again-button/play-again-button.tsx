@@ -2,8 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { gameResetAction } from '../../../game/store/game.actions';
-import { useAppDispatch } from '../../hooks/use-app-dispatch.hook';
+import { runCurrentRunCommand } from '../../../game/utils/run-current-run-command.util';
 import { AppLinkButton } from '../app-link-button/app-link-button';
 
 import { PlayAgainButtonSelectors } from './play-again-button.selectors';
@@ -19,9 +18,7 @@ interface Props {
 export const PlayAgainButton = ({ isLoading = false, onPress, style }: Props) => {
     const { t } = useLingui();
 
-    const dispatch = useAppDispatch();
-
-    const handlePlayAgain = () => void dispatch(gameResetAction());
+    const handlePlayAgain = () => void runCurrentRunCommand(currentRunService => currentRunService.reset);
     const hasCustomOnPress = isDefined(onPress);
     const buttonActionProps = hasCustomOnPress ? { onPress } : { href: '/', onPress: handlePlayAgain, replace: true };
 

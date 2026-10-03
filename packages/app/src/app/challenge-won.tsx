@@ -1,5 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { PageHorizontalSafeAreaEdges } from '../@generic/components/page/constant/page-safe-area-edges.constant';
 import { Page } from '../@generic/components/page/page';
 import { PageHead } from '../@generic/components/page-head/page-head';
@@ -12,7 +14,11 @@ import { ChallengeResult } from '../challenge/interfaces/challenge-result.interf
 export default function ChallengeWonPage() {
     const { t } = useLingui();
 
-    const [, gameState] = useResetGame();
+    const gameState = useResetGame();
+
+    if (!isDefined(gameState)) {
+        return null;
+    }
 
     return (
         <Page edges={PageHorizontalSafeAreaEdges}>

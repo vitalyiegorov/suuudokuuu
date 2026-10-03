@@ -8,6 +8,7 @@ import { Platform, Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
+import { isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
@@ -15,11 +16,10 @@ import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page
 import { Header } from '../../../@generic/components/header/header';
 import { TabBarInsetContext } from '../../../@generic/components/main-tab-layout/context/tab-bar-inset.context';
 import { SupportUkrainePill } from '../../../@generic/components/support-ukraine-pill/support-ukraine-pill';
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getBrand } from '../../../@generic/utils/get-brand.util';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
+import { getSudokuProgress } from '../../../@generic/utils/get-sudoku-progress.util';
 import { ChallengeModeSwitch } from '../../../challenge/components/challenge-mode-switch/challenge-mode-switch';
 import {
     DifficultyComplexitySliderDifficulties,
@@ -28,20 +28,12 @@ import {
 import { DifficultyComplexityPreview } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-preview/difficulty-complexity-preview';
 import { DifficultyComplexitySlider } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-slider';
 import { GameContext } from '../../../game/context/game.context';
-import {
-    gameElapsedTimeSelector,
-    gameHistoryBestTimeSelector,
-    gameIsStartedSelector,
-    gameSolutionsStepsSelector,
-    gameSudokuStringSelector
-} from '../../../game/store/game.selectors';
+import { useCurrentRun } from '../../../game/query/use-current-run.query';
+import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
+import { useDifficultyStats } from '../../../history/query/use-difficulty-stats.query';
 import { RelaxedMaxMistakesConstant } from '../../../settings/constant/max-mistakes.constant';
-import { settingsSetAction } from '../../../settings/store/settings.actions';
-import {
-    settingsLastGameChallengeModeSelector,
-    settingsLastGameDifficultySelector,
-    settingsLastGameMaxMistakesSelector
-} from '../../../settings/store/settings.selectors';
+import { useSettings } from '../../../settings/query/use-settings.query';
+import { updateSettings } from '../../../settings/utils/update-settings.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayHeight, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
@@ -53,7 +45,6 @@ import { HomeScreenSelectors } from './home-screen.selectors';
 import { HomeScreenStyles as styles } from './home-screen.styles';
 import { type HomeScreenOptionCardInterface } from './interface/home-screen-option-card.interface';
 import { homeScreenGetContentInsetTop } from './utils/home-screen-get-content-inset-top.util';
-import { homeScreenGetCurrentGameProgress } from './utils/home-screen-get-current-game-progress.util';
 import { homeScreenGetDifficultyDescription } from './utils/home-screen-get-difficulty-description.util';
 
 const topEdgeFadeProps = { height: HomeScreenTopOverlayHeight, intensity: HomeScreenTopOverlayIntensity };
@@ -65,17 +56,16 @@ export const HomeScreen = () => {
     const { t } = useLingui();
     const safeAreaInsets = useSafeAreaInsets();
     const tabBarInset = use(TabBarInsetContext);
-    const dispatch = useAppDispatch();
-    const [bestScore, bestTime] = useAppSelector(gameHistoryBestTimeSelector);
-    const currentElapsedTime = useAppSelector(gameElapsedTimeSelector);
-    const currentSolutionSteps = useAppSelector(gameSolutionsStepsSelector);
-    const currentSudokuString = useAppSelector(gameSudokuStringSelector);
-    const difficulty = useAppSelector(settingsLastGameDifficultySelector);
-    const isGameStarted = useAppSelector(gameIsStartedSelector);
-    const maxMistakes = useAppSelector(settingsLastGameMaxMistakesSelector);
-    const isChallengeMode = useAppSelector(settingsLastGameChallengeModeSelector);
-    const handleDifficultyChange = (newDifficulty: DifficultyEnum) => dispatch(settingsSetAction({ lastGameDifficulty: newDifficulty }));
-    const handleMaxMistakes = (newMaxMistakes: number) => () => dispatch(settingsSetAction({ lastGameMaxMistakes: newMaxMistakes }));
+    const { bestScore, bestTime } = useDifficultyStats().reduce((best, stats) => (stats.bestScore > best.bestScore ? stats : best), {
+        bestScore: 0,
+        bestTime: 0
+    });
+    const currentElapsedTime = useElapsedTime();
+    const { sudokuString: currentSudokuString } = useCurrentRun();
+    const { lastGameChallengeMode: isChallengeMode, lastGameDifficulty: difficulty, lastGameMaxMistakes: maxMistakes } = useSettings();
+    const isGameStarted = isNotEmptyString(currentSudokuString);
+    const handleDifficultyChange = (newDifficulty: DifficultyEnum) => void updateSettings({ lastGameDifficulty: newDifficulty });
+    const handleMaxMistakes = (newMaxMistakes: number) => () => void updateSettings({ lastGameMaxMistakes: newMaxMistakes });
     const startNewPuzzle = () => void create({ difficulty, isChallengeRun: isChallengeMode, maxMistakes });
 
     const handleStart = () => {
@@ -122,7 +112,7 @@ export const HomeScreen = () => {
     const challengeSummarySuffix = isChallengeMode ? ` • ${t`Challenge`}` : '';
     const setupSummary = `${selectedDifficultyLabel} • ${selectedMistakesOption.title}${challengeSummarySuffix}`;
     const currentElapsedTimeText = useTimerText(currentElapsedTime);
-    const currentProgressPercent = homeScreenGetCurrentGameProgress(currentSudokuString, currentSolutionSteps.length);
+    const currentProgressPercent = getSudokuProgress(currentSudokuString).percent;
     const currentProgressText = `${currentProgressPercent}%`;
     const bestTimeText = useTimerText(bestTime);
     const bestRunMetrics = [

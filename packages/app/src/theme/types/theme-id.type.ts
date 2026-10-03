@@ -1,4 +1,4 @@
-import type { ThemeEnum } from '../enum/theme.enum';
+import type { ThemeEnum } from '@suuudokuuu/progress';
 
 export type CustomThemeIdType = `custom-${string}`;
 

@@ -1,18 +1,18 @@
+import { ColorSchemaEnum, ThemeEnum } from '@suuudokuuu/progress';
+
 import { isDefined } from '@rnw-community/shared';
 
-import { ColorSchemaEnum } from '../enum/color-schema.enum';
-import { ThemeEnum } from '../enum/theme.enum';
-import { CustomThemeSchemaVersion } from '../schema/custom-theme.schema';
+import { CustomThemeSchemaVersion } from '../constant/custom-theme.constant';
 import { isCustomThemeId } from '../type-guard/is-custom-theme-id.type-guard';
 
 import { cloneThemeColors } from './clone-theme-colors.util';
 import { generateCustomThemeId } from './generate-custom-theme-id.util';
 import { getTheme } from './get-theme.util';
 
-import type { CustomThemeInterface } from '../interface/custom-theme.interface';
 import type { ThemeIdType } from '../types/theme-id.type';
+import type { CustomThemeType } from '@suuudokuuu/progress';
 
-const createFromPreset = (name: string, presetTheme: ThemeEnum, createdAt: number): CustomThemeInterface => ({
+const createFromPreset = (name: string, presetTheme: ThemeEnum, createdAt: number): CustomThemeType => ({
     id: generateCustomThemeId(),
     name,
     schemaVersion: CustomThemeSchemaVersion,
@@ -28,9 +28,9 @@ const createFromPreset = (name: string, presetTheme: ThemeEnum, createdAt: numbe
 export const createCustomTheme = (
     name: string,
     sourceThemeId: ThemeIdType,
-    customThemes: readonly CustomThemeInterface[],
+    customThemes: readonly CustomThemeType[],
     createdAt: number
-): CustomThemeInterface => {
+): CustomThemeType => {
     if (isCustomThemeId(sourceThemeId)) {
         const sourceCustomTheme = customThemes.find(theme => theme.id === sourceThemeId);
 

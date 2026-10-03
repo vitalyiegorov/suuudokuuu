@@ -182,9 +182,3 @@ export const parseBetaReleaseCandidates = (input: unknown): BetaReleaseCandidate
 
     return { candidates: createCandidates(releasesResult.data), status: 'valid' };
 };
-
-export const selectBetaReleaseCandidates = (input: unknown): readonly BetaReleaseCandidate[] => {
-    const parseResult = parseBetaReleaseCandidates(input);
-
-    return parseResult.status === 'valid' ? parseResult.candidates : [];
-};

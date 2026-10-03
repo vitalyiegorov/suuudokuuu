@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { ColorSchemaEnum } from '@suuudokuuu/progress';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { use } from 'react';
@@ -6,7 +7,6 @@ import { use } from 'react';
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { ColorSchemaEnum } from '../../../theme/enum/color-schema.enum';
 import { useHtmlThemeColor } from '../../hooks/use-html-theme-color.hook';
 
 interface Props {

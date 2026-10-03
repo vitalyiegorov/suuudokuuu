@@ -1,6 +1,6 @@
-import type { SettingsState } from '../store/settings.state';
+import type { SettingsType } from '@suuudokuuu/progress';
 
-export const settingsIsMotionReduced = (motionPreference: SettingsState['motionPreference'], isSystemMotionReduced: boolean): boolean => {
+export const settingsIsMotionReduced = (motionPreference: SettingsType['motionPreference'], isSystemMotionReduced: boolean): boolean => {
     if (motionPreference === 'full') {
         return false;
     }

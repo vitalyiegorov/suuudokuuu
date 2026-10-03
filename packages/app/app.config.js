@@ -169,6 +169,7 @@ export default ({ config }) =>
                     }
                 }
             ],
+            'expo-font',
             'expo-localization',
             'expo-sharing',
             'expo-splash-screen',
