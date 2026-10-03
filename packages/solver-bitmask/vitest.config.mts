@@ -12,7 +12,6 @@ export default mergeConfig(createVitestConfig(), {
     },
     test: {
         include: ['test/**/*.test.ts'],
-        testTimeout: 60_000,
         coverage: {
             provider: 'v8',
             reporter: ['text-summary', 'lcov'],
