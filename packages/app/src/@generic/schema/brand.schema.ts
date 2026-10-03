@@ -1,6 +1,5 @@
+import { ThemeEnum } from '@suuudokuuu/progress';
 import { z } from 'zod';
-
-import { ThemeEnum } from '../../theme/enum/theme.enum';
 
 export const BrandSchema = z.object({
     appName: z.string().min(1),

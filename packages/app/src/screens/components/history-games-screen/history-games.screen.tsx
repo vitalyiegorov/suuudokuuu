@@ -1,14 +1,14 @@
 import { useLingui } from '@lingui/react/macro';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 
-import { emptyFn } from '@rnw-community/shared';
+import { emptyFn, isDefined } from '@rnw-community/shared';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
-import { gameCompletedGamesSelector } from '../../../game/store/game.selectors';
 import { HistoryGamesList } from '../../../history/components/history-games-list/history-games-list';
 import { HistoryGamesSummaryBand } from '../../../history/components/history-games-summary-band/history-games-summary-band';
+import { useCompletedGames } from '../../../history/query/use-completed-games.query';
+import { useDifficultyStats } from '../../../history/query/use-difficulty-stats.query';
 
 import { HistoryGamesScreenSelectors } from './history-games-screen.selectors';
 import { HistoryGamesScreenStyles as styles } from './history-games-screen.styles';
@@ -21,7 +21,8 @@ interface Props {
 
 export const HistoryGamesScreen = ({ difficulty }: Props) => {
     const { t } = useLingui();
-    const completedGames = useAppSelector(gameCompletedGamesSelector(difficulty));
+    const completedGames = useCompletedGames().filter(game => game.difficulty === difficulty);
+    const stats = useDifficultyStats().find(difficultyStats => difficultyStats.difficulty === difficulty);
 
     const title = `${t(getDifficultyMessage(difficulty))} ${t`Games`}`;
     const difficulties = [difficulty];
@@ -34,7 +35,7 @@ export const HistoryGamesScreen = ({ difficulty }: Props) => {
             testID={HistoryGamesScreenSelectors.Root}
             title={title}
         >
-            <HistoryGamesSummaryBand difficulty={difficulty} />
+            {isDefined(stats) ? <HistoryGamesSummaryBand stats={stats} /> : null}
 
             <HistoryGamesList
                 difficulties={difficulties}

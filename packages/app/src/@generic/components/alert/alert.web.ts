@@ -1,6 +1,6 @@
 import { isDefined } from '@rnw-community/shared';
 
-import type { AlertButton } from 'react-native/Libraries/Alert/Alert';
+import type { AlertButton } from 'react-native';
 
 const isCancelButton = (button: AlertButton) => button.style === 'cancel';
 

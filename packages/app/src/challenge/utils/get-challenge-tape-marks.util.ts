@@ -7,7 +7,7 @@ import { ChallengeTechniqueTierEnum } from '../enums/challenge-technique-tier.en
 
 import { getTechniqueTier } from './get-technique-tier.util';
 
-import type { GameTimelineEventInterface } from '../../game/interface/game-timeline-event.interface';
+import type { TimelineEventType } from '@suuudokuuu/progress';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface ChallengeTapeMarkInterface {
@@ -43,7 +43,7 @@ const markAwayRange = (marks: ChallengeTapeMarkInterface[], startSlot: number, e
 
 const applyEvent = (
     marks: ChallengeTapeMarkInterface[],
-    event: GameTimelineEventInterface,
+    event: TimelineEventType,
     slot: number,
     awayStartSlot: number | null
 ): number | null => {
@@ -67,7 +67,7 @@ const applyEvent = (
 };
 
 export const getChallengeTapeMarks = (
-    events: GameTimelineEventInterface[],
+    events: readonly TimelineEventType[],
     elapsedTime: number,
     tickCount: number
 ): ChallengeTapeMarkInterface[] => {

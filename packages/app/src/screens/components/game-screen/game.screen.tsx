@@ -5,11 +5,9 @@ import { useRouter } from 'expo-router';
 import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
 
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
 import { ChallengeRecordHud } from '../../../challenge/components/challenge-record-hud/challenge-record-hud';
@@ -23,17 +21,11 @@ import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
 import { useHintSurfaceMetrics } from '../../../game/hooks/use-hint-surface-metrics.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShareGame } from '../../../game/hooks/use-share-game.hook';
-import { gamePauseAction, gameResetAction, gameToggleCellCandidateAction } from '../../../game/store/game.actions';
-import {
-    gameElapsedTimeSelector,
-    gameHasRivalSelector,
-    gameIsChallengeRunSelector,
-    gameMaxMistakesSelector,
-    gameMistakesSelector,
-    gameScoreSelector
-} from '../../../game/store/game.selectors';
-import { gameGetCellCandidatePayload } from '../../../game/utils/game-get-cell-candidate-payload.util';
-import { settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { useCurrentRun } from '../../../game/query/use-current-run.query';
+import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
+import { gameToggleCellCandidate } from '../../../game/utils/game-toggle-cell-candidate.util';
+import { runCurrentRunCommand } from '../../../game/utils/run-current-run-command.util';
+import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameScreenSetSharingAvailable } from '../../utils/game-screen-set-sharing-available.util';
 
@@ -44,8 +36,6 @@ import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
 import { GameStatusBlock } from './game-status-block/game-status-block';
 import { useGameEngineEvents } from './hooks/use-game-engine-events.hook';
-import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
-import { gameScreenExit } from './utils/game-screen-exit.util';
 
 import type { AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import type { CellInterface } from '@suuudokuuu/generator';
@@ -65,16 +55,10 @@ export const GameScreen = () => {
     const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant;
     const { cellSize: boardCellSize, cellMargin: boardCellMargin, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
     const { hintSurfaceMetrics, onToolsSlotLayout } = useHintSurfaceMetrics(isWideLayout, screenWidth);
-    const dispatch = useAppDispatch();
-    const score = useAppSelector(gameScoreSelector);
-    const mistakes = useAppSelector(gameMistakesSelector);
-    const maxMistakes = useAppSelector(gameMaxMistakesSelector);
-    const hasTimer = useAppSelector(settingsKeySelector('hasTimer'));
-    const keepActiveCell = useAppSelector(settingsKeySelector('keepActiveCell'));
-    const isLeftHanded = useAppSelector(settingsKeySelector('isLeftHanded'));
-    const hasRival = useAppSelector(gameHasRivalSelector);
-    const isChallengeRun = useAppSelector(gameIsChallengeRunSelector);
-    const elapsedTime = useAppSelector(gameElapsedTimeSelector);
+    const { challengeState, isChallengeRun, maxMistakes, mistakes, score } = useCurrentRun();
+    const { hasTimer, isLeftHanded, keepActiveCell } = useSettings();
+    const hasRival = isNotEmptyString(challengeState);
+    const elapsedTime = useElapsedTime();
 
     const availableValuesRefs = useRef<Record<number, AvailableValuesItemRef | null>>({});
     const fieldRef = useRef<FieldRef>(null);
@@ -87,13 +71,15 @@ export const GameScreen = () => {
     useEffect(() => void gameScreenSetSharingAvailable(setHasSharing), []);
 
     const handleShare = useShareGame();
-    const handleOpenSettings = useOpenGameSettings();
+    const handleOpenSettings = () => {
+        void runCurrentRunCommand(currentRunService => currentRunService.pause(false));
+        router.push('/game-settings');
+    };
 
-    const handleConfirmedExit = () =>
-        void gameScreenExit(
-            () => dispatch(gameResetAction()),
-            homeHref => void router.dismissTo(homeHref)
-        );
+    const handleConfirmedExit = () => {
+        void runCurrentRunCommand(currentRunService => currentRunService.reset);
+        router.dismissTo('/');
+    };
     const handleExit = () => {
         Alert(t`Stop current run?`, t`All progress will be lost`, [
             { text: t`Cancel`, style: 'cancel' },
@@ -111,7 +97,7 @@ export const GameScreen = () => {
     };
 
     const handlePause = () => {
-        dispatch(gamePauseAction());
+        void runCurrentRunCommand(currentRunService => currentRunService.pause());
         router.replace('/pause');
     };
 
@@ -125,8 +111,7 @@ export const GameScreen = () => {
         availableValuesRefs.current[value]?.triggerAnimation();
 
         if (snapshot.inputMode === 'candidate') {
-            engine.toggleCandidate(targetCell, value);
-            dispatch(gameToggleCellCandidateAction(gameGetCellCandidatePayload(engine, { ...targetCell, value })));
+            gameToggleCellCandidate(engine, { ...targetCell, value });
             hapticImpact(ImpactFeedbackStyle.Light);
         } else {
             engine.inputValue(value);

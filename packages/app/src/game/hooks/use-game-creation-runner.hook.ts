@@ -5,11 +5,9 @@ import { useEffect, useRef, useState } from 'react';
 import { getErrorMessage } from '@rnw-community/shared';
 
 import { Alert } from '../../@generic/components/alert/alert';
-import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
-import { gameResetAction } from '../store/game.actions';
+import { runCurrentRunCommand } from '../utils/run-current-run-command.util';
 
 export const useGameCreationRunner = () => {
-    const dispatch = useAppDispatch();
     const router = useRouter();
     const { t } = useLingui();
 
@@ -22,7 +20,7 @@ export const useGameCreationRunner = () => {
         Alert(t`Invalid Sudoku`, getErrorMessage(error), [
             {
                 onPress: () => {
-                    dispatch(gameResetAction());
+                    void runCurrentRunCommand(currentRunService => currentRunService.reset);
                     router.replace('/');
                 },
                 text: t`OK`
@@ -62,5 +60,5 @@ export const useGameCreationRunner = () => {
         }
     }, [pathname]);
 
-    return { dispatch, isCreatingGame, router, runGameCreation, showAlert };
+    return { isCreatingGame, router, runGameCreation, showAlert };
 };

@@ -19,17 +19,23 @@
         "build": "yarn build:esm && yarn build:cjs && find ./dist -name '*.tsbuildinfo' -delete",
         "build:cjs": "run -T tsc --pretty -p tsconfig.build-cjs.json",
         "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
-        "lint": "run -T eslint --fix src",
-        "test": "run -T jest",
-        "test:coverage": "run -T jest --coverage",
-        "ts": "run -T tsc -p ."
+        "lint": "run -T eslint --fix src test",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"
     },
     "dependencies": {
-        "@rnw-community/shared": "^2.2.0",
+        "@rnw-community/shared": "^2.15.0",
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/hell-corpus": "workspace:*",
         "@suuudokuuu/rating": "workspace:*",
         "@suuudokuuu/solver-core": "workspace:*",
         "@suuudokuuu/techniques": "workspace:*"
+    },
+    "devDependencies": {
+        "@suuudokuuu/test-kit": "workspace:*",
+        "@vitest/coverage-v8": "5.0.3",
+        "vite": "^8.3.2",
+        "vitest": "5.0.3"
     }
 }

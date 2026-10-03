@@ -56,8 +56,8 @@ msgid "{foregroundLabel} on {backgroundLabel}: {contrastRatioText} — minimum {
 msgstr "{backgroundLabel}上的{foregroundLabel}：{contrastRatioText} — 最低 {minimumRatio}"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
-msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
-msgstr "{gamesCompleted, plural, one {# 局已完成} other {# 局已完成}}"
+msgid "{gamesCompleted, plural, one {# game played} other {# games played}}"
+msgstr "{gamesCompleted, plural, one {已玩 # 局} other {已玩 # 局}}"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
@@ -75,10 +75,13 @@ msgstr "{remaining, plural, other {填入 {value}，还剩 # 个}}"
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, other {标记 {value}，还剩 # 个}}"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, other {连续 # 天}}"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}}"
+msgstr "{streak, plural, other {连续完成的每日挑战}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -184,6 +187,7 @@ msgstr "某个数字的所有格（1-9）"
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "所有进度都会丢失"
 
@@ -432,10 +436,6 @@ msgstr "零失误"
 msgid "Clean black-and-white board"
 msgstr "清爽的黑白棋盘"
 
-#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
-msgid "Clean run"
-msgstr "干净对局"
-
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "完胜"
@@ -585,6 +585,10 @@ msgstr "难度评级 {ratingLabel}"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "让数字键盘中已完成的数字变暗，而不是移除它"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Discard changes?"
+msgstr "放弃更改？"
 
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Dismiss"
@@ -1162,6 +1166,7 @@ msgstr "在噩梦、地狱和无限难度的数独中也提供提示"
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "OK"
 msgstr "确定"
 
@@ -1263,6 +1268,10 @@ msgstr "免费在线玩数独，六个难度、带提示、无广告。快速、
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "选择更高难度可获得更大倍率"
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Play streak"
+msgstr "连续游戏天数"
 
 #: src/app/game.tsx
 #: src/app/play.tsx
@@ -1668,6 +1677,10 @@ msgstr "统计"
 msgid "Stats"
 msgstr "统计"
 
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Stayed in app"
+msgstr "未离开应用"
+
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "第 {currentStepNumber} 步，共 {stepCount} 步"
@@ -1686,10 +1699,6 @@ msgstr "结束当前对局？"
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Stop this run"
 msgstr "结束本局"
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Streak"
-msgstr "连续天数"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"

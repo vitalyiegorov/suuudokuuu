@@ -1,0 +1,667 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { DifficultyEnum } from '@suuudokuuu/generator';
+import { describe, expect, it } from 'vitest';
+
+import { getDayNumber } from '../../src/@generic/utils/get-day-number.util';
+import { ColorSchemaEnum } from '../../src/custom-theme/enum/color-schema.enum';
+import { ThemeEnum } from '../../src/custom-theme/enum/theme.enum';
+import { emptyLegacyHistory, legacyInitialGameState } from '../../src/legacy/constant/legacy-initial-state.constant';
+import { LegacyPersistVersion, makeLegacyMigrations } from '../../src/legacy/utils/make-legacy-migrations.util';
+import { initialSettings, themeColors } from '../progress-fixtures';
+
+import type { CellTimelineEventType } from '../../src/current-run/type/timeline-event.type';
+import type { LegacyRootStateInterface } from '../../src/legacy/interface/legacy-root-state.interface';
+import type { SettingsType } from '../../src/settings/type/settings.type';
+
+const CustomThemeSchemaVersion = 2;
+const darkThemeColors = { ...themeColors, background: '#000000' };
+const initialCustomThemesState: LegacyRootStateInterface['customThemes'] = { themes: [] };
+const appRootMigrations = makeLegacyMigrations(initialSettings, (_theme, colorSchema) =>
+    colorSchema === ColorSchemaEnum.Light ? themeColors : darkThemeColors
+);
+
+const migrationVersions = Object.keys(appRootMigrations).map(Number);
+
+const LastGaplessPersistVersion = 33;
+const ReleasedCollapsedPersistVersion = 41;
+
+const buildState = (overrides: Partial<LegacyRootStateInterface> = {}): LegacyRootStateInterface => ({
+    game: legacyInitialGameState,
+    settings: initialSettings,
+    customThemes: initialCustomThemesState,
+    ...overrides
+});
+
+const runMigration = (version: number, state: LegacyRootStateInterface): LegacyRootStateInterface => appRootMigrations[version](state);
+
+const withoutKeyAtRuntime = <T extends object>(value: T, key: keyof T): T => {
+    const clone = { ...value };
+    Reflect.deleteProperty(clone, key);
+
+    return clone;
+};
+
+const withExtraKeyAtRuntime = <T extends object>(value: T, key: PropertyKey, extraValue: unknown): T => {
+    const clone = { ...value };
+    Reflect.set(clone, key, extraValue);
+
+    return clone;
+};
+
+const LegacyEasyCompletedAt = new Date(2026, 0, 1, 12).getTime();
+const LegacyHardCompletedAt = new Date(2026, 0, 2, 12).getTime();
+const LegacyPlayedDayNumber = 20688;
+
+const ratedEasyCompletedGame = {
+    encodedState: 'legacy-state',
+    difficulty: DifficultyEnum.Easy,
+    rating: 0,
+    isRatingCeiling: false,
+    elapsedTime: 60,
+    score: 100,
+    mistakes: 0,
+    maxMistakes: 3,
+    completedAt: LegacyEasyCompletedAt
+};
+
+const legacyEasyCompletedGame = withoutKeyAtRuntime(withoutKeyAtRuntime(ratedEasyCompletedGame, 'rating'), 'isRatingCeiling');
+
+const legacyHardCompletedGame = {
+    encodedState: 'rated-state',
+    difficulty: DifficultyEnum.Hard,
+    rating: 8.5,
+    isRatingCeiling: true,
+    elapsedTime: 30,
+    score: 50,
+    mistakes: 1,
+    maxMistakes: 3,
+    completedAt: LegacyHardCompletedAt
+};
+
+const legacyUndoneMove: CellTimelineEventType = {
+    kind: TimelineEventKindEnum.Cell,
+    cellIndex: 12,
+    value: 3,
+    ts: 1000
+};
+
+const buildLegacyReleasedState = (): LegacyRootStateInterface => {
+    const storedHistoryByDifficulty = withoutKeyAtRuntime(
+        withoutKeyAtRuntime(
+            {
+                ...legacyInitialGameState.historyByDifficulty,
+                [DifficultyEnum.Easy]: {
+                    ...emptyLegacyHistory,
+                    difficulty: DifficultyEnum.Easy,
+                    completedGames: [legacyEasyCompletedGame]
+                },
+                [DifficultyEnum.Hard]: { ...emptyLegacyHistory, difficulty: DifficultyEnum.Hard, completedGames: [legacyHardCompletedGame] }
+            },
+            DifficultyEnum.Hell
+        ),
+        DifficultyEnum.Infinity
+    );
+    const storedGame = withoutKeyAtRuntime(
+        withoutKeyAtRuntime(
+            withoutKeyAtRuntime(
+                {
+                    ...legacyInitialGameState,
+                    score: 700,
+                    historyByDifficulty: storedHistoryByDifficulty,
+                    playedDayNumbers: [LegacyPlayedDayNumber],
+                    techniqueUsageCounts: { 2: 5 },
+                    undoneMoves: [legacyUndoneMove]
+                },
+                'dailyDayNumber'
+            ),
+            'dailyCompletedDayNumbers'
+        ),
+        'dailyBestStreak'
+    );
+    const storedSettings = withoutKeyAtRuntime(
+        withoutKeyAtRuntime({ ...initialSettings, hasTimer: false }, 'calmMode'),
+        'motionPreference'
+    );
+
+    return buildState({ game: storedGame, settings: storedSettings });
+};
+
+const collapsedLegacyReleasedState: LegacyRootStateInterface = {
+    game: {
+        ...legacyInitialGameState,
+        score: 700,
+        techniqueUsageCounts: { 2: 5 },
+        undoneMoves: [],
+        playedDayNumbers: [getDayNumber(LegacyEasyCompletedAt), getDayNumber(LegacyHardCompletedAt), LegacyPlayedDayNumber],
+        historyByDifficulty: {
+            ...legacyInitialGameState.historyByDifficulty,
+            [DifficultyEnum.Easy]: {
+                ...emptyLegacyHistory,
+                difficulty: DifficultyEnum.Easy,
+                bestRating: { rating: 0, isRatingCeiling: false },
+                completedGames: [ratedEasyCompletedGame]
+            },
+            [DifficultyEnum.Hard]: {
+                ...emptyLegacyHistory,
+                difficulty: DifficultyEnum.Hard,
+                bestRating: { rating: 8.5, isRatingCeiling: true },
+                completedGames: [legacyHardCompletedGame]
+            }
+        }
+    },
+    settings: { ...initialSettings, hasTimer: false },
+    customThemes: initialCustomThemesState
+};
+
+describe('legacy migrations', () => {
+    it('should persist at the newest migration version', () => {
+        expect.assertions(1);
+
+        expect(LegacyPersistVersion).toBe(Math.max(...migrationVersions));
+    });
+
+    it('should keep the released manifest free of version gaps', () => {
+        expect.assertions(1);
+
+        const releasedVersions = migrationVersions
+            .filter(version => version <= LastGaplessPersistVersion)
+            .sort((firstVersion, secondVersion) => firstVersion - secondVersion);
+
+        expect(releasedVersions).toStrictEqual(releasedVersions.map((_, index) => releasedVersions[0] + index));
+    });
+
+    it('should keep the post-collapse released steps to the collapsed release and the newest version', () => {
+        expect.assertions(1);
+
+        expect(migrationVersions.filter(version => version > LastGaplessPersistVersion)).toStrictEqual([
+            ReleasedCollapsedPersistVersion,
+            LegacyPersistVersion
+        ]);
+    });
+
+    it('should reset every stored best score', () => {
+        expect.assertions(1);
+
+        const state = buildState({
+            game: {
+                ...legacyInitialGameState,
+                historyByDifficulty: {
+                    ...legacyInitialGameState.historyByDifficulty,
+                    [DifficultyEnum.Easy]: { ...emptyLegacyHistory, bestScore: 4200 }
+                }
+            }
+        });
+
+        expect(runMigration(15, state).game.historyByDifficulty[DifficultyEnum.Easy].bestScore).toBe(0);
+    });
+
+    it('should keep a complete history entry untouched while defaulting its gaps', () => {
+        expect.assertions(2);
+
+        const storedEntry = { ...emptyLegacyHistory, difficulty: DifficultyEnum.Easy, gamesCompleted: 3, bestScore: 10 };
+        const state = buildState({
+            game: {
+                ...legacyInitialGameState,
+                historyByDifficulty: { ...legacyInitialGameState.historyByDifficulty, [DifficultyEnum.Easy]: storedEntry }
+            }
+        });
+        const migrated = runMigration(16, state).game.historyByDifficulty[DifficultyEnum.Easy];
+
+        expect(migrated.gamesCompleted).toBe(3);
+        expect(migrated.gamesWon).toBe(emptyLegacyHistory.gamesWon);
+    });
+
+    it('should keep every known difficulty in the history', () => {
+        expect.assertions(1);
+
+        const state = buildState();
+
+        expect(Object.keys(runMigration(17, state).game.historyByDifficulty)).toStrictEqual(
+            Object.keys(legacyInitialGameState.historyByDifficulty)
+        );
+    });
+
+    it('should backfill the run difficulty of a resumed board', () => {
+        expect.assertions(1);
+
+        const nightmareGivens = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
+        const state = buildState({ game: { ...legacyInitialGameState, sudokuString: nightmareGivens } });
+
+        expect(runMigration(29, state).game.difficulty).toBe(DifficultyEnum.Nightmare);
+    });
+
+    it('should leave the default difficulty in place when no board is stored', () => {
+        expect.assertions(1);
+
+        expect(runMigration(29, buildState()).game.difficulty).toBe(legacyInitialGameState.difficulty);
+    });
+
+    it('should drop stored timelines and fill new state defaults', () => {
+        expect.assertions(3);
+
+        const state = buildState({ game: { ...legacyInitialGameState, score: 700 } });
+        const migrated = runMigration(28, state);
+
+        expect(migrated.game.timelineEvents).toStrictEqual([]);
+        expect(migrated.game.challengeTimelineEvents).toStrictEqual([]);
+        expect(migrated.game.score).toBe(700);
+    });
+
+    it('should introduce an empty custom themes slice and keep existing settings', () => {
+        expect.assertions(2);
+
+        const state = buildState({
+            settings: { ...initialSettings, theme: ThemeEnum.Newspaper, hasTimer: false }
+        });
+        const migrated = runMigration(30, state);
+
+        expect(migrated.customThemes).toStrictEqual(initialCustomThemesState);
+        expect(migrated.settings).toMatchObject({ theme: ThemeEnum.Newspaper, hasTimer: false });
+    });
+
+    it('should migrate stored custom themes to the semantic token vocabulary', () => {
+        expect.assertions(4);
+
+        const storedTheme = {
+            id: 'custom-legacy' as const,
+            name: 'Legacy',
+            schemaVersion: 1,
+            sourceTheme: ThemeEnum.Colorful,
+            colors: { [ColorSchemaEnum.Light]: themeColors, [ColorSchemaEnum.Dark]: darkThemeColors },
+            createdAt: 1700000000000,
+            updatedAt: 1700000000000
+        };
+        const state = buildState({ customThemes: { themes: [storedTheme] } });
+        const [migrated] = runMigration(31, state).customThemes.themes;
+
+        expect(migrated.schemaVersion).toBe(CustomThemeSchemaVersion);
+        expect(migrated.colors[ColorSchemaEnum.Light]).toStrictEqual(themeColors);
+        expect(migrated.colors[ColorSchemaEnum.Dark]).toStrictEqual(darkThemeColors);
+        expect(migrated.name).toBe('Legacy');
+    });
+
+    it('should keep an empty custom themes slice unchanged at the semantic token migration', () => {
+        expect.assertions(1);
+
+        expect(runMigration(31, buildState()).customThemes).toStrictEqual(initialCustomThemesState);
+    });
+
+    it('should keep the Hell difficulty entry in the history after migration 32', () => {
+        expect.assertions(1);
+
+        const state = buildState();
+
+        expect(Object.keys(runMigration(32, state).game.historyByDifficulty)).toStrictEqual(
+            Object.keys(legacyInitialGameState.historyByDifficulty)
+        );
+    });
+
+    it('should backfill the missing Hell history entry when Hell predates the persisted state entirely', () => {
+        expect.assertions(1);
+
+        const legacyHistoryByDifficulty = withoutKeyAtRuntime(legacyInitialGameState.historyByDifficulty, DifficultyEnum.Hell);
+        const legacyState = buildState({ game: { ...legacyInitialGameState, historyByDifficulty: legacyHistoryByDifficulty } });
+        const migrated = runMigration(32, legacyState);
+
+        expect(Object.keys(migrated.game.historyByDifficulty)).toStrictEqual(Object.keys(legacyInitialGameState.historyByDifficulty));
+    });
+
+    it('should drop the now-unknown hell queue key while leaving the rest of the state untouched', () => {
+        expect.assertions(2);
+
+        const state = buildState({ settings: { ...initialSettings, hasTimer: false } });
+        const legacyState = withExtraKeyAtRuntime(state, 'hellQueue', { entries: [{ id: 'stale-entry' }] });
+        const migrated = runMigration(33, legacyState);
+
+        expect(Reflect.has(migrated, 'hellQueue')).toBe(false);
+        expect(migrated).toStrictEqual(state);
+    });
+
+    it('should leave persisted state unchanged at migration 33 when no hell queue key is present', () => {
+        expect.assertions(1);
+
+        const state = buildState();
+
+        expect(runMigration(33, state)).toStrictEqual(state);
+    });
+
+    it('should backfill the unknown rating sentinel onto a completed game recorded before rating existed', () => {
+        expect.assertions(2);
+
+        const legacyCompletedGame = withoutKeyAtRuntime(
+            withoutKeyAtRuntime(
+                {
+                    encodedState: 'legacy-state',
+                    difficulty: DifficultyEnum.Easy,
+                    rating: 0,
+                    isRatingCeiling: false,
+                    elapsedTime: 60,
+                    score: 100,
+                    mistakes: 0,
+                    maxMistakes: 3,
+                    completedAt: 1700000000000
+                },
+                'rating'
+            ),
+            'isRatingCeiling'
+        );
+        const state = buildState({
+            game: {
+                ...legacyInitialGameState,
+                historyByDifficulty: {
+                    ...legacyInitialGameState.historyByDifficulty,
+                    [DifficultyEnum.Easy]: { ...emptyLegacyHistory, completedGames: [legacyCompletedGame] }
+                }
+            }
+        });
+        const [migratedCompletedGame] = runMigration(41, state).game.historyByDifficulty[DifficultyEnum.Easy].completedGames;
+
+        expect(migratedCompletedGame).toMatchObject({ rating: 0, isRatingCeiling: false, score: 100 });
+        expect(migratedCompletedGame.encodedState).toBe('legacy-state');
+    });
+
+    it('should keep an already-rated completed game untouched', () => {
+        expect.assertions(1);
+
+        const ratedCompletedGame = {
+            encodedState: 'rated-state',
+            difficulty: DifficultyEnum.Hard,
+            rating: 3.4,
+            isRatingCeiling: false,
+            elapsedTime: 30,
+            score: 50,
+            mistakes: 1,
+            maxMistakes: 3,
+            completedAt: 1700000001000
+        };
+        const state = buildState({
+            game: {
+                ...legacyInitialGameState,
+                historyByDifficulty: {
+                    ...legacyInitialGameState.historyByDifficulty,
+                    [DifficultyEnum.Hard]: { ...emptyLegacyHistory, completedGames: [ratedCompletedGame] }
+                }
+            }
+        });
+
+        expect(runMigration(41, state).game.historyByDifficulty[DifficultyEnum.Hard].completedGames).toStrictEqual([ratedCompletedGame]);
+    });
+
+    it('should backfill the unknown rating sentinel onto the in-progress game state', () => {
+        expect.assertions(2);
+
+        const legacyGameState = withoutKeyAtRuntime(withoutKeyAtRuntime(legacyInitialGameState, 'rating'), 'isRatingCeiling');
+        const state = buildState({ game: legacyGameState });
+        const migrated = runMigration(41, state);
+
+        expect(migrated.game.rating).toBe(0);
+        expect(migrated.game.isRatingCeiling).toBe(false);
+    });
+
+    it('should keep the Infinity difficulty entry in the history after the collapsed migration', () => {
+        expect.assertions(1);
+
+        const state = buildState();
+
+        expect(Object.keys(runMigration(41, state).game.historyByDifficulty)).toStrictEqual(
+            Object.keys(legacyInitialGameState.historyByDifficulty)
+        );
+    });
+
+    it('should backfill the missing Infinity history entry when Infinity predates the persisted state entirely', () => {
+        expect.assertions(1);
+
+        const legacyHistoryByDifficulty = withoutKeyAtRuntime(legacyInitialGameState.historyByDifficulty, DifficultyEnum.Infinity);
+        const legacyState = buildState({ game: { ...legacyInitialGameState, historyByDifficulty: legacyHistoryByDifficulty } });
+        const migrated = runMigration(41, legacyState);
+
+        expect(Object.keys(migrated.game.historyByDifficulty)).toStrictEqual(Object.keys(legacyInitialGameState.historyByDifficulty));
+    });
+
+    it('should backfill the best rating from the highest rated completed game, ignoring rating-0 games', () => {
+        expect.assertions(1);
+
+        const legacyCompletedGames = [
+            {
+                encodedState: '',
+                difficulty: DifficultyEnum.Easy,
+                rating: 0,
+                isRatingCeiling: false,
+                elapsedTime: 1,
+                score: 1,
+                mistakes: 0,
+                maxMistakes: 3,
+                completedAt: 1
+            },
+            {
+                encodedState: '',
+                difficulty: DifficultyEnum.Easy,
+                rating: 3.4,
+                isRatingCeiling: false,
+                elapsedTime: 1,
+                score: 1,
+                mistakes: 0,
+                maxMistakes: 3,
+                completedAt: 2
+            },
+            {
+                encodedState: '',
+                difficulty: DifficultyEnum.Easy,
+                rating: 8.5,
+                isRatingCeiling: true,
+                elapsedTime: 1,
+                score: 1,
+                mistakes: 0,
+                maxMistakes: 3,
+                completedAt: 3
+            }
+        ];
+        const state = buildState({
+            game: {
+                ...legacyInitialGameState,
+                historyByDifficulty: {
+                    ...legacyInitialGameState.historyByDifficulty,
+                    [DifficultyEnum.Easy]: { ...emptyLegacyHistory, completedGames: legacyCompletedGames }
+                }
+            }
+        });
+
+        const migratedHistory = runMigration(41, state).game.historyByDifficulty[DifficultyEnum.Easy];
+
+        expect(migratedHistory.bestRating).toStrictEqual({ rating: 8.5, isRatingCeiling: true });
+    });
+
+    it('should default the best rating to the empty snapshot when a difficulty has no rated completed games', () => {
+        expect.assertions(1);
+
+        const state = buildState();
+
+        const migratedHistory = runMigration(41, state).game.historyByDifficulty[DifficultyEnum.Easy];
+
+        expect(migratedHistory.bestRating).toStrictEqual({ rating: 0, isRatingCeiling: false });
+    });
+
+    it('should default technique usage counts to empty rather than fabricating them from completed-game history', () => {
+        expect.assertions(1);
+
+        const legacyCompletedGame = {
+            encodedState: 'legacy-handoff-payload',
+            difficulty: DifficultyEnum.Easy,
+            rating: 4.2,
+            isRatingCeiling: false,
+            elapsedTime: 1,
+            score: 1,
+            mistakes: 0,
+            maxMistakes: 3,
+            completedAt: 1
+        };
+        const state = buildState({
+            game: {
+                ...legacyInitialGameState,
+                historyByDifficulty: {
+                    ...legacyInitialGameState.historyByDifficulty,
+                    [DifficultyEnum.Easy]: { ...emptyLegacyHistory, completedGames: [legacyCompletedGame] }
+                }
+            }
+        });
+
+        expect(runMigration(41, state).game.techniqueUsageCounts).toStrictEqual({});
+    });
+
+    it('should keep already-populated technique usage counts untouched', () => {
+        expect.assertions(1);
+
+        const state = buildState({
+            game: { ...legacyInitialGameState, techniqueUsageCounts: { 2: 5 } }
+        });
+
+        expect(runMigration(41, state).game.techniqueUsageCounts).toStrictEqual({ 2: 5 });
+    });
+
+    it('should backfill played day numbers from completed wins only', () => {
+        expect.assertions(1);
+
+        const dayOneCompletedAt = new Date(2026, 0, 1, 12).getTime();
+        const dayTwoCompletedAt = new Date(2026, 0, 2, 12).getTime();
+        const buildLegacyCompletedGame = (completedAt: number) => ({
+            encodedState: '',
+            difficulty: DifficultyEnum.Easy,
+            rating: 0,
+            isRatingCeiling: false,
+            elapsedTime: 1,
+            score: 1,
+            mistakes: 0,
+            maxMistakes: 3,
+            completedAt
+        });
+        const legacyCompletedGames = [buildLegacyCompletedGame(dayOneCompletedAt), buildLegacyCompletedGame(dayTwoCompletedAt)];
+        const state = buildState({
+            game: {
+                ...legacyInitialGameState,
+                historyByDifficulty: {
+                    ...legacyInitialGameState.historyByDifficulty,
+                    [DifficultyEnum.Easy]: { ...emptyLegacyHistory, completedGames: legacyCompletedGames }
+                }
+            }
+        });
+
+        const migratedGameState = runMigration(41, state).game;
+        const dayOneNumber = getDayNumber(dayOneCompletedAt);
+        const dayTwoNumber = getDayNumber(dayTwoCompletedAt);
+
+        expect(migratedGameState.playedDayNumbers).toStrictEqual([dayOneNumber, dayTwoNumber]);
+    });
+
+    it('should merge backfilled day numbers with any already-recorded activity instead of discarding it', () => {
+        expect.assertions(1);
+
+        const alreadyPlayedDayNumber = getDayNumber(new Date(2020, 0, 1, 12).getTime());
+        const state = buildState({
+            game: { ...legacyInitialGameState, playedDayNumbers: [alreadyPlayedDayNumber] }
+        });
+
+        expect(runMigration(41, state).game.playedDayNumbers).toStrictEqual([alreadyPlayedDayNumber]);
+    });
+
+    it('should backfill the missing settings keys at the collapsed migration without touching stored choices', () => {
+        expect.assertions(3);
+
+        const storedSettings = withoutKeyAtRuntime(
+            withoutKeyAtRuntime({ ...initialSettings, hasTimer: false }, 'calmMode'),
+            'motionPreference'
+        );
+        const migrated = runMigration(41, buildState({ settings: storedSettings }));
+
+        expect(migrated.settings.motionPreference).toBe('system');
+        expect(migrated.settings.calmMode).toBe(false);
+        expect(migrated.settings.hasTimer).toBe(false);
+    });
+
+    it('should seed the daily challenge record at the collapsed migration without touching anything else', () => {
+        expect.assertions(4);
+
+        const storedGame = withoutKeyAtRuntime(
+            withoutKeyAtRuntime(
+                withoutKeyAtRuntime({ ...legacyInitialGameState, playedDayNumbers: [20688], score: 500 }, 'dailyCompletedDayNumbers'),
+                'dailyBestStreak'
+            ),
+            'dailyDayNumber'
+        );
+        const migrated = runMigration(41, buildState({ game: storedGame }));
+
+        expect(migrated.game.dailyCompletedDayNumbers).toStrictEqual([]);
+        expect(migrated.game.dailyBestStreak).toBe(0);
+        expect(migrated.game.dailyDayNumber).toBe(0);
+        expect(migrated.game.playedDayNumbers).toStrictEqual([20688]);
+    });
+
+    it('should never resume a stored run as a daily challenge', () => {
+        expect.assertions(1);
+
+        const storedGame = { ...legacyInitialGameState, dailyDayNumber: 20688 };
+
+        expect(runMigration(41, buildState({ game: storedGame })).game.dailyDayNumber).toBe(0);
+    });
+
+    it('should drop a stored redo stack', () => {
+        expect.assertions(1);
+
+        const storedGame = { ...legacyInitialGameState, undoneMoves: [legacyUndoneMove] };
+
+        expect(runMigration(41, buildState({ game: storedGame })).game.undoneMoves).toStrictEqual([]);
+    });
+
+    it('should drop the comfort preset keys at the removal migration without touching stored choices', () => {
+        expect.assertions(5);
+
+        const chosenSettings: SettingsType = { ...initialSettings, fontSize: 's', theme: ThemeEnum.Newspaper };
+        const storedSettings = withExtraKeyAtRuntime(
+            withExtraKeyAtRuntime(withExtraKeyAtRuntime(chosenSettings, 'comfortMode', 'customized'), 'comfortModeOfferDismissed', true),
+            'comfortModeRestore',
+            { hasTimer: false }
+        );
+        const migrated = runMigration(42, buildState({ settings: storedSettings }));
+
+        expect(Reflect.has(migrated.settings, 'comfortMode')).toBe(false);
+        expect(Reflect.has(migrated.settings, 'comfortModeOfferDismissed')).toBe(false);
+        expect(Reflect.has(migrated.settings, 'comfortModeRestore')).toBe(false);
+        expect(migrated.settings.fontSize).toBe('s');
+        expect(migrated.settings.theme).toBe(ThemeEnum.Newspaper);
+    });
+
+    it('should leave a state without comfort keys untouched at the removal migration', () => {
+        expect.assertions(1);
+
+        const state = buildState({ settings: { ...initialSettings, hasTimer: false } });
+
+        expect(runMigration(42, state)).toStrictEqual(state);
+    });
+
+    it('should land on the same shape when the comfort removal replays over an already-removed state', () => {
+        expect.assertions(1);
+
+        const storedSettings = withExtraKeyAtRuntime(
+            withExtraKeyAtRuntime(withExtraKeyAtRuntime({ ...initialSettings }, 'comfortMode', 'on'), 'comfortModeOfferDismissed', true),
+            'comfortModeRestore',
+            { hasTimer: true }
+        );
+        const migrated = runMigration(42, buildState({ settings: storedSettings }));
+
+        expect(runMigration(42, migrated)).toStrictEqual(migrated);
+    });
+
+    it('should migrate a released v33 state into the exact collapsed shape', () => {
+        expect.assertions(1);
+
+        expect(runMigration(41, buildLegacyReleasedState())).toStrictEqual(collapsedLegacyReleasedState);
+    });
+
+    it('should land on the same shape when replayed over an already-collapsed state', () => {
+        expect.assertions(1);
+
+        const migrated = runMigration(41, buildLegacyReleasedState());
+
+        expect(runMigration(41, migrated)).toStrictEqual(migrated);
+    });
+});

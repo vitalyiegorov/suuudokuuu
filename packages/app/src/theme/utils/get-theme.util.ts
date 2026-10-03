@@ -1,5 +1,5 @@
-import { ColorSchemaEnum } from '../enum/color-schema.enum';
-import { ThemeEnum } from '../enum/theme.enum';
+import { ColorSchemaEnum, ThemeEnum } from '@suuudokuuu/progress';
+
 import { BWDarkTheme, BWLightTheme } from '../themes/bw.theme';
 import { ColorblindSafeDarkTheme, ColorblindSafeLightTheme } from '../themes/colorblind-safe.theme';
 import { ColorfulDarkTheme, ColorfulLightTheme } from '../themes/colorful.theme';

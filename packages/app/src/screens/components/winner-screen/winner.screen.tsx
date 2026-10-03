@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { getDayStreak } from '@suuudokuuu/progress';
 import { Redirect } from 'expo-router';
 
 import { isPositiveNumber } from '@rnw-community/shared';
@@ -6,13 +7,13 @@ import { isPositiveNumber } from '@rnw-community/shared';
 import { CompletedGameResultDetails } from '../../../@generic/components/completed-game-result-details/completed-game-result-details';
 import { GameResultPage } from '../../../@generic/components/game-result-page/game-result-page';
 import { useCompletedGameResult } from '../../../@generic/hooks/use-completed-game-result.hook';
-import { getDayStreak } from '../../../@generic/utils/get-day-streak.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { ChallengeRunSummary } from '../../../challenge/components/challenge-run-summary/challenge-run-summary';
 import { getChallengeRecordingSummary } from '../../../challenge/utils/get-challenge-recording-summary.util';
 import { isChallengeRecording } from '../../../challenge/utils/is-challenge-recording.util';
 import { DailyStreakSummary } from '../../../daily/components/daily-streak-summary/daily-streak-summary';
 import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
+import { usePlayerStats } from '../../../history/query/use-player-stats.query';
 
 import { WinnerCalmResultHero } from './winner-calm-result-hero/winner-calm-result-hero';
 import { WinnerResultHero } from './winner-result-hero/winner-result-hero';
@@ -22,6 +23,11 @@ import { WinnerScreenSelectors } from './winner-screen.selectors';
 export const WinnerScreen = () => {
     const { i18n, t } = useLingui();
     const completedGameResult = useCompletedGameResult();
+    const { dailyBestStreak, dailyCompletedDayNumbers } = usePlayerStats();
+
+    if (completedGameResult.kind === 'pending') {
+        return null;
+    }
 
     if (completedGameResult.kind === 'redirect') {
         return <Redirect href="/" />;
@@ -38,12 +44,8 @@ export const WinnerScreen = () => {
     const scoredDescriptorText = `${winDescriptor} • ${levelText} • ${completedGameResult.mistakesTypeText}`;
     const calmDescriptorText = `${calmDescriptor} • ${levelText}`;
     const moveCount = getTimelineCellSteps(gameState.timelineEvents).length;
-    const dailyStreak = isPositiveNumber(gameState.dailyDayNumber)
-        ? getDayStreak(gameState.dailyCompletedDayNumbers, gameState.dailyDayNumber)
-        : 0;
-    const dailySummary = isPositiveNumber(dailyStreak) ? (
-        <DailyStreakSummary bestStreak={gameState.dailyBestStreak} streak={dailyStreak} />
-    ) : null;
+    const dailyStreak = isPositiveNumber(gameState.dailyDayNumber) ? getDayStreak(dailyCompletedDayNumbers, gameState.dailyDayNumber) : 0;
+    const dailySummary = isPositiveNumber(dailyStreak) ? <DailyStreakSummary bestStreak={dailyBestStreak} streak={dailyStreak} /> : null;
     const footer = <WinnerScreenActions gameState={gameState} retrySetup={retrySetup} />;
     const recordingSummary = isChallengeRecording(gameState) ? (
         <ChallengeRunSummary

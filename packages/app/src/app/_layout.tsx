@@ -38,7 +38,7 @@ const modalSheetOptions = {
 
 export default function RootLayout() {
     const [loaded, error] = useFonts({ Inter_500Medium: inter500Medium, Inter_700Bold: inter700Bold });
-    const areFontsReady = loaded || isDefined(error);
+    const areFontsReady = loaded || isDefined(error) || Platform.OS === 'web';
 
     if (!areFontsReady) {
         return null;
@@ -51,7 +51,7 @@ export default function RootLayout() {
                     <GameProvider>
                         <WinConfettiProvider>
                             <Stack screenOptions={stackOptions}>
-                                <Stack.Screen name="game" options={gameOptions} />
+                                <Stack.Screen dangerouslySingular name="game" options={gameOptions} />
                                 <Stack.Screen name="settings/[setting]" options={modalSheetOptions} />
                                 <Stack.Screen name="rating-explainer/[rating]" options={modalSheetOptions} />
                             </Stack>

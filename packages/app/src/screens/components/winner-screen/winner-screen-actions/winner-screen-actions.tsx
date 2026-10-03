@@ -19,10 +19,10 @@ import { WinnerScreenSelectors } from '../winner-screen.selectors';
 import { WinnerScreenActionsStyles as styles } from './winner-screen-actions.styles';
 
 import type { GameSetupInterface } from '../../../../game/interface/game-setup.interface';
-import type { GameState } from '../../../../game/store/game.state';
+import type { CurrentRunType } from '@suuudokuuu/progress';
 
 interface Props {
-    readonly gameState: GameState;
+    readonly gameState: CurrentRunType;
     readonly retrySetup: GameSetupInterface;
 }
 

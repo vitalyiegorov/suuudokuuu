@@ -1,0 +1,31 @@
+{
+    "name": "@suuudokuuu/test-kit",
+    "version": "1.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        ".": {
+            "import": "./src/layer/make-test-sql-layer.util.ts",
+            "types": "./src/layer/make-test-sql-layer.util.ts"
+        },
+        "./vitest": {
+            "import": "./src/vitest/create-vitest-config.util.ts",
+            "types": "./src/vitest/create-vitest-config.util.ts"
+        }
+    },
+    "scripts": {
+        "lint": "run -T eslint --fix src",
+        "ts": "run -T tsc -p ."
+    },
+    "dependencies": {
+        "@effect/sql-sqlite-node": "4.0.0",
+        "effect": "4.0.0"
+    },
+    "devDependencies": {
+        "vite": "^8.3.2",
+        "vitest": "5.0.3"
+    },
+    "peerDependencies": {
+        "@suuudokuuu/progress": "workspace:*"
+    }
+}

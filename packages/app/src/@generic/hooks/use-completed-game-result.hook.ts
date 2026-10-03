@@ -1,16 +1,21 @@
 import { useLingui } from '@lingui/react/macro';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 
-import { settingsKeySelector } from '../../settings/store/settings.selectors';
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
+
+import { useSettings } from '../../settings/query/use-settings.query';
 import { getDifficultyMessage } from '../utils/get-difficulty-message.util';
 import { getMistakesTypeText } from '../utils/get-mistakes-type-text.util';
 
-import { useAppSelector } from './use-app-selector.hook';
 import { useResetGame } from './use-reset-game.hook';
 import { useTimerText } from './use-timer-text.hook';
 
 import type { GameSetupInterface } from '../../game/interface/game-setup.interface';
-import type { GameState } from '../../game/store/game.state';
+import type { CurrentRunType } from '@suuudokuuu/progress';
+
+interface CompletedGameResultPending {
+    readonly kind: 'pending';
+}
 
 interface CompletedGameResultRedirect {
     readonly kind: 'redirect';
@@ -18,7 +23,7 @@ interface CompletedGameResultRedirect {
 
 interface CompletedGameResultReady {
     readonly difficultyText: string;
-    readonly gameState: GameState;
+    readonly gameState: CurrentRunType;
     readonly isCalmMode: boolean;
     readonly kind: 'ready';
     readonly mistakesTypeText: string;
@@ -27,15 +32,19 @@ interface CompletedGameResultReady {
     readonly timeText: string;
 }
 
-type CompletedGameResult = CompletedGameResultReady | CompletedGameResultRedirect;
+type CompletedGameResult = CompletedGameResultPending | CompletedGameResultReady | CompletedGameResultRedirect;
 
 export const useCompletedGameResult = (): CompletedGameResult => {
     const { t } = useLingui();
-    const [isGameStarted, gameState] = useResetGame();
-    const isCalmMode = useAppSelector(settingsKeySelector('calmMode'));
-    const timeText = useTimerText(gameState.elapsedTime);
+    const gameState = useResetGame();
+    const isCalmMode = useSettings().calmMode;
+    const timeText = useTimerText(gameState?.elapsedTime ?? 0);
 
-    if (!isGameStarted && gameState.elapsedTime === 0) {
+    if (!isDefined(gameState)) {
+        return { kind: 'pending' };
+    }
+
+    if (!isNotEmptyString(gameState.sudokuString)) {
         return { kind: 'redirect' };
     }
 

@@ -4,10 +4,10 @@ import { isDefined } from '@rnw-community/shared';
 
 import { getTechniqueTier } from './get-technique-tier.util';
 
-import type { GameTimelineEventInterface } from '../../game/interface/game-timeline-event.interface';
 import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-technique-event.interface';
+import type { TimelineEventType } from '@suuudokuuu/progress';
 
-export const getTapeTechniqueEvents = (events: GameTimelineEventInterface[]): ChallengeTechniqueEventInterface[] => {
+export const getTapeTechniqueEvents = (events: readonly TimelineEventType[]): ChallengeTechniqueEventInterface[] => {
     const techniqueEvents: ChallengeTechniqueEventInterface[] = [];
     let cumulativeTime = 0;
 

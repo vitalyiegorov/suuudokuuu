@@ -44,6 +44,14 @@ export const HomeScreenPlayActions = ({
 
     return (
         <View style={styles.playActions}>
+            {isGameStarted ? (
+                <HomeScreenContinueRow
+                    currentElapsedTimeText={currentElapsedTimeText}
+                    currentProgressPercent={currentProgressPercent}
+                    currentProgressText={currentProgressText}
+                />
+            ) : null}
+
             <HomeScreenStartButton
                 color={startButtonColor}
                 isLoading={isLoading}
@@ -56,14 +64,6 @@ export const HomeScreenPlayActions = ({
                     <BlackText style={startButtonSubtitleStyles}>{startButtonSubtitle}</BlackText>
                 </View>
             </HomeScreenStartButton>
-
-            {isGameStarted ? (
-                <HomeScreenContinueRow
-                    currentElapsedTimeText={currentElapsedTimeText}
-                    currentProgressPercent={currentProgressPercent}
-                    currentProgressText={currentProgressText}
-                />
-            ) : null}
         </View>
     );
 };

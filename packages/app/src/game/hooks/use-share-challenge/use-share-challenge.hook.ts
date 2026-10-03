@@ -1,13 +1,13 @@
 import { useLingui } from '@lingui/react/macro';
 import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
+import { gameStateToString } from '@suuudokuuu/progress';
 import Share from 'react-native-share';
 
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { gameStateToString } from '../../utils/game-state-to-string.util';
 
-import type { GameState } from '../../store/game.state';
+import type { CurrentRunType } from '@suuudokuuu/progress';
 
-export const useShareChallenge = (gameState: GameState) => {
+export const useShareChallenge = (gameState: CurrentRunType) => {
     const { t } = useLingui();
     const elapsedTimeString = useTimerText(gameState.elapsedTime);
 

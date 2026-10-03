@@ -4,7 +4,7 @@ import { AppIconButtonSize } from '../../../../../@generic/components/app-icon-b
 import { GamePanelWideRowWidthConstant } from '../../../../../game/constant/board-cell-size.constant';
 import { PanelControlPrimarySizeConstant } from '../../../../../game/constant/panel-control-size.constant';
 
-export const GameInputToolsCountConstant = 5;
+const GameInputToolsCountConstant = 5;
 
 const gameInputToolsGapsWidth = SpacingConstant.sm * (GameInputToolsCountConstant - 1);
 

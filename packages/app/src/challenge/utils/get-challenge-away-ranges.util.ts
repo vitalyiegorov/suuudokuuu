@@ -2,8 +2,8 @@ import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 
 import { isDefined, isPositiveNumber } from '@rnw-community/shared';
 
-import type { GameTimelineEventInterface } from '../../game/interface/game-timeline-event.interface';
 import type { ChallengeAwayRangeInterface } from '../interfaces/challenge-away-range.interface';
+import type { TimelineEventType } from '@suuudokuuu/progress';
 
 const FullPercent = 100;
 
@@ -19,7 +19,7 @@ interface AwayScanInterface {
     ranges: ChallengeAwayRangeInterface[];
 }
 
-const scanEvent = (scan: AwayScanInterface, event: GameTimelineEventInterface, totalTime: number): AwayScanInterface => {
+const scanEvent = (scan: AwayScanInterface, event: TimelineEventType, totalTime: number): AwayScanInterface => {
     const cumulativeTime = scan.cumulativeTime + event.ts;
     const { awayStartSeconds, ranges } = scan;
 
@@ -34,7 +34,7 @@ const scanEvent = (scan: AwayScanInterface, event: GameTimelineEventInterface, t
     return { awayStartSeconds, cumulativeTime, ranges };
 };
 
-export const getChallengeAwayRanges = (events: GameTimelineEventInterface[], totalTime: number): ChallengeAwayRangeInterface[] => {
+export const getChallengeAwayRanges = (events: readonly TimelineEventType[], totalTime: number): ChallengeAwayRangeInterface[] => {
     if (!isPositiveNumber(totalTime)) {
         return [];
     }

@@ -1,5 +1,4 @@
-import { ColorSchemaEnum } from '../enum/color-schema.enum';
-import { ThemeEnum } from '../enum/theme.enum';
+import { ColorSchemaEnum, ThemeEnum } from '@suuudokuuu/progress';
 
 import { getUnistylesThemeName } from './get-unistyles-theme-name.util';
 

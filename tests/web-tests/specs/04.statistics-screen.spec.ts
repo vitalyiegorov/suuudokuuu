@@ -85,7 +85,7 @@ test('reviews and replays a completed game from statistics', async ({ page }) =>
     await getVisibleByTestId(page, HeaderBackButtonSelectors.Root).click();
     await expect(page.getByTestId(HistoryScreenSelectors.Root)).toBeVisible();
 
-    await getVisibleByTestId(page, HeaderBackButtonSelectors.Root).click();
+    await page.getByText('Play', { exact: true }).click();
     await expect(page.getByTestId(HomeScreenSelectors.Root)).toBeVisible();
 });
 

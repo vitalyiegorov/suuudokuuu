@@ -7,6 +7,6 @@
         "ts": "run -T tsc -p scripts"
     },
     "dependencies": {
-        "@rnw-community/shared": "^2.2.0"
+        "@rnw-community/shared": "^2.15.0"
     }
 }

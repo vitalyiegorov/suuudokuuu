@@ -6,14 +6,13 @@ import { use } from 'react';
 import { isNotEmptyArray } from '@rnw-community/shared';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { ThemeListRow } from '../../../settings/component/theme-list-row/theme-list-row';
 import { useSettingsOptionDescriptions } from '../../../settings/hooks/use-settings-option-descriptions.hook';
 import { useSettingsOptionLabels } from '../../../settings/hooks/use-settings-option-labels.hook';
-import { settingsThemeSelector } from '../../../settings/store/settings.selectors';
+import { useSettings } from '../../../settings/query/use-settings.query';
 import { Themes } from '../../../theme/constant/themes.constant';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { customThemesSelector } from '../../../theme/store/custom-themes.selectors';
+import { useCustomThemes } from '../../../theme/query/use-custom-themes.query';
 
 import { ThemesScreenSelectors } from './themes-screen.selectors';
 import { ThemesScreenStyles as styles } from './themes-screen.styles';
@@ -21,8 +20,8 @@ import { ThemesScreenStyles as styles } from './themes-screen.styles';
 export const ThemesScreen = () => {
     const { t } = useLingui();
     const { changeTheme } = use(ThemeContext);
-    const activeThemeId = useAppSelector(settingsThemeSelector);
-    const customThemes = useAppSelector(customThemesSelector);
+    const activeThemeId = useSettings().theme;
+    const customThemes = useCustomThemes();
     const { getThemeLabel } = useSettingsOptionLabels();
     const { getThemeDescription } = useSettingsOptionDescriptions();
 

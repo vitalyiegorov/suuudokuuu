@@ -3,13 +3,10 @@ import { isSolutionTechnique } from '@suuudokuuu/techniques';
 
 import { isDefined } from '@rnw-community/shared';
 
-import type { GameTimelineEventInterface } from '../interface/game-timeline-event.interface';
 import type { TimelineEventInterface } from '@suuudokuuu/encoder';
+import type { TimelineEventType } from '@suuudokuuu/progress';
 
-export const withTimelineCellTechniques = (
-    events: TimelineEventInterface[],
-    techniques: (number | null)[] | null
-): GameTimelineEventInterface[] => {
+export const withTimelineCellTechniques = (events: TimelineEventInterface[], techniques: (number | null)[] | null): TimelineEventType[] => {
     if (!isDefined(techniques)) {
         return events;
     }

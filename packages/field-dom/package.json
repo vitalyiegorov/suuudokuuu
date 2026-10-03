@@ -24,18 +24,22 @@
         "build:cjs": "run -T tsc --pretty -p tsconfig.build-cjs.json",
         "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
         "build:styles": "cp src/styles/field-dom.css dist/field-dom.css",
-        "lint": "run -T eslint --fix src",
-        "test": "run -T jest",
-        "test:coverage": "run -T jest --coverage",
-        "ts": "run -T tsc -p ."
+        "lint": "run -T eslint --fix src test",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"
     },
     "dependencies": {
-        "@rnw-community/shared": "^2.2.0",
+        "@rnw-community/shared": "^2.15.0",
         "@suuudokuuu/field-core": "workspace:*"
     },
     "devDependencies": {
-        "@types/react": "~19.2.14",
-        "react": "19.2.3"
+        "@suuudokuuu/test-kit": "workspace:*",
+        "@types/react": "~19.3.0",
+        "@vitest/coverage-v8": "5.0.3",
+        "react": "19.3.0",
+        "vite": "^8.3.2",
+        "vitest": "5.0.3"
     },
     "peerDependencies": {
         "react": ">=19.0.0"

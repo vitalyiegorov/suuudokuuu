@@ -6,6 +6,7 @@
         "**/*.json",
         "**/*.svg",
         "**/*.spec.ts",
+        "**/*.test.ts",
         "**/build/**",
         "**/dist/**",
         "**/index.html",
@@ -15,7 +16,12 @@
         "**/coverage/**",
         "**/node_modules/**",
         "**/ios/**",
-        "**/android/**"
+        "**/android/**",
+        "**/landing/**",
+        "**/.worktrees/**",
+        "**/.claude/**",
+        "**/.agents/**",
+        "**/.codex/**"
     ],
     "absolute": false,
     "gitignore": true,

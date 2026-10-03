@@ -43,6 +43,9 @@ export const CollapsibleChromePageStyles = StyleSheet.create({
         marginBottom: 0,
         transform: [{ translateY: 3 }]
     },
+    tabRootExpandedTitleLayer: {
+        paddingHorizontal: AppScreenChromeLayoutConfig.contentHorizontalPadding
+    },
     titleLayer: {
         paddingTop: AppScreenChromeLayoutConfig.headerTopInset
     }

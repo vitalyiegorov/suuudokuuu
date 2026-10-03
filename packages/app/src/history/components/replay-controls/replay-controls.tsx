@@ -18,8 +18,8 @@ import { ReplayControlsSelectors } from './replay-controls.selectors';
 import { ReplayControlsStyles as styles } from './replay-controls.styles';
 
 import type { ChallengeAwayRangeInterface } from '../../../challenge/interfaces/challenge-away-range.interface';
-import type { GameState } from '../../../game/store/game.state';
 import type { EmptyFn } from '@rnw-community/shared';
+import type { CurrentRunType } from '@suuudokuuu/progress';
 import type { MoveClassificationInterface } from '@suuudokuuu/techniques';
 
 interface Props {
@@ -27,7 +27,7 @@ interface Props {
     readonly currentStep: number;
     readonly totalSteps: number;
     readonly elapsedTime: number;
-    readonly gameState: GameState;
+    readonly gameState: CurrentRunType;
     readonly moveClassification: MoveClassificationInterface | null;
     readonly onPrevStep: EmptyFn;
     readonly onNextStep: EmptyFn;

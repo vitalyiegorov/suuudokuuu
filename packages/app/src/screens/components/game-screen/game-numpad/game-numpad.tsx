@@ -4,13 +4,13 @@ import { View, useWindowDimensions } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { useAppSelector } from '../../../../@generic/hooks/use-app-selector.hook';
 import { AvailableValuesItem } from '../../../../game/components/available-values-item/available-values-item';
 import { CandidateInputItem } from '../../../../game/components/candidate-input-item/candidate-input-item';
 import { GameNumpadDigitsConstant } from '../../../../game/constant/game-numpad-digits.constant';
 import { GameContext } from '../../../../game/context/game.context';
 import { gameGetRemainingDigitCounts } from '../../../../game/utils/game-get-remaining-digit-counts.util';
-import { settingsFontSizeMultiplierSelector, settingsKeySelector } from '../../../../settings/store/settings.selectors';
+import { fontSizeMultipliers } from '../../../../settings/constant/font-size-multipliers.constant';
+import { useSettings } from '../../../../settings/query/use-settings.query';
 
 import { GameNumpadStyles as styles } from './game-numpad.styles';
 
@@ -29,8 +29,8 @@ export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selected
     const { engine, snapshot } = use(GameContext);
     const { sizeClass } = useAppLayout();
     const { fontScale } = useWindowDimensions();
-    const keepExhaustedDigits = useAppSelector(settingsKeySelector('keepExhaustedDigits'));
-    const fontSizeMultiplier = useAppSelector(settingsFontSizeMultiplierSelector);
+    const { fontSize, keepExhaustedDigits } = useSettings();
+    const fontSizeMultiplier = fontSizeMultipliers[fontSize];
 
     const sudoku = engine.Sudoku;
     const { inputMode } = snapshot;

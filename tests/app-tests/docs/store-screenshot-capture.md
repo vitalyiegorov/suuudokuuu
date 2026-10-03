@@ -44,9 +44,12 @@ accessibility tree:
    (`simctl get_app_container <udid> <app> data`) and
    `/data/data/<pkg>/files/SQLite/ExpoSQLiteStorage` on Android. Each
    top-level reducer is a JSON string inside the outer JSON object
-   (double-encoded, redux-persist convention). The blob carries the language,
-   the appearance, a fully rated history for all seven difficulties, and
-   per-scene game states.
+   (double-encoded, the legacy redux-persist convention). The blob carries the
+   language, the appearance, a fully rated history for all seven
+   difficulties, and per-scene game states. On the next launch the boot-time
+   legacy import (`LegacyStateImportService` in `packages/progress`) runs the
+   frozen migrations, replaces the app's SQLite progress tables with the blob,
+   and deletes the row.
 2. **Launch with the locale.**
    `xcrun simctl launch <udid> <app> -AppleLanguages "(<lang>)" -AppleLocale <id>`
    (Android: `adb shell cmd locale set-app-locales <pkg> --locales <lang>`,
@@ -105,7 +108,8 @@ is exactly what step 2 above already does.
   battery) and Android SystemUI demo mode. `--status-bar=real` restores the
   device clock. Mixing overridden and real-clock shots in one committed set
   looks broken — recapture the whole set when changing this.
-- The seeder reads the persist version from `app-root-migrations.ts` and the
+- The seeder reads the persist version from
+  `packages/progress/src/legacy/utils/make-legacy-migrations.util.ts` and the
   language list from `languages.constant.ts` at run time, so a migration bump
   or a new locale fails loudly instead of drifting silently.
 - **Prime deep links once on every fresh simulator, iPhone and iPad.** iOS's
@@ -128,9 +132,10 @@ real gameplay (`hero`: in-progress Nightmare board with pencil marks;
 `challengeLive`: accepted challenge mid-race). Both blobs were captured from
 state the app itself persisted, so they cannot drift from the reducers.
 
-To regenerate one after a persisted-shape change: strip the trailing teardown
-from the scene's Maestro flow so it leaves state on the device, run it once,
-then read the row back:
+The app no longer writes `persist:root` itself (state lives in the SQLite
+tables of `suuudokuuu.db`), so the fixture is now frozen in the legacy shape
+and edited by hand. The procedure that originally produced it, kept for
+reference, read the row back after a Maestro run:
 
 ```bash
 sed -e '/quit-current-game/d' -e '/^- stopApp$/d' \
@@ -154,8 +159,8 @@ rejects, and the `settings` slice additionally pulls in the real
 the seeder instead stamps the written `_persist.version` at a fixed baseline
 (`SeedFixtureBaselinePersistVersion` in `seed-app-state.ts`, currently 40,
 one below the migration that backfills `settings` against the live
-`initialSettingsState`) rather than the live `appRootPersistVersion`. This
-makes redux-persist run every migration newer than the baseline against the
+default settings) rather than the live `LegacyPersistVersion`. This makes the
+boot-time legacy import run every migration newer than the baseline against the
 fixture on the app's first launch after seeding, the same way it would for a
 real upgrading user, so newly added fields backfill automatically. Bump the
 baseline only past a migration you have checked is a no-op for this fixture's

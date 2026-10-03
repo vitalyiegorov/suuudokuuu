@@ -1,9 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
 import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
 
-import { useAppSelector } from '../../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../../@generic/hooks/use-timer-text.hook';
-import { settingsKeySelector } from '../../../../settings/store/settings.selectors';
+import { useSettings } from '../../../../settings/query/use-settings.query';
 import { GameScreenMistakesValue } from '../game-screen-mistakes-value/game-screen-mistakes-value';
 import { GameScreenSelectors } from '../game-screen.selectors';
 
@@ -20,7 +19,7 @@ interface Props {
 
 export const GameScreenMetrics = ({ elapsedTime, hasTimer, maxMistakes, maxMistakesReached, mistakes, score }: Props) => {
     const { t } = useLingui();
-    const isCalmMode = useAppSelector(settingsKeySelector('calmMode'));
+    const isCalmMode = useSettings().calmMode;
     const elapsedTimeText = useTimerText(elapsedTime);
     const scoreText = String(score);
 

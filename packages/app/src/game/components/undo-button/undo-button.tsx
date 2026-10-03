@@ -4,10 +4,9 @@ import { use } from 'react';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { GameContext } from '../../context/game.context';
 import { useGameHistoryControls } from '../../hooks/use-game-history-controls.hook';
-import { gameIsChallengeRunSelector, gameMaxMistakesSelector } from '../../store/game.selectors';
+import { useCurrentRun } from '../../query/use-current-run.query';
 import { GameHistoryButton } from '../game-history-button/game-history-button';
 
 import { UndoButtonSelectors } from './undo-button.selectors';
@@ -22,8 +21,7 @@ export const UndoButton = ({ sizeStyle }: Props) => {
     const { t } = useLingui();
     const { engine, snapshot } = use(GameContext);
 
-    const isChallengeRun = useAppSelector(gameIsChallengeRunSelector);
-    const maxMistakes = useAppSelector(gameMaxMistakesSelector);
+    const { isChallengeRun, maxMistakes } = useCurrentRun();
     const { handleUndo } = useGameHistoryControls(engine);
 
     const isDisabled = !snapshot.canUndo || isDefined(snapshot.stepScript) || snapshot.isWon;

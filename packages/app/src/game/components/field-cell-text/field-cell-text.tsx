@@ -6,9 +6,8 @@ import { scheduleOnRN } from 'react-native-worklets';
 import { cs, isDefined } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
-import { settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { useCellFontSize } from '../../hooks/use-cell-font-size.hook';
 
@@ -43,9 +42,7 @@ export const FieldCellText = (props: Props) => {
     const { theme } = use(ThemeContext);
 
     const isMotionReduced = useReduceMotion();
-    const hasComboAnimation = useAppSelector(settingsKeySelector('showComboAnimation'));
-    const showAreas = useAppSelector(settingsKeySelector('showAreas'));
-    const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
+    const { showAreas, showComboAnimation: hasComboAnimation, showIdenticalNumbers } = useSettings();
     const fontSize = useCellFontSize(cellSize);
 
     const [isComboAnimating, setIsComboAnimating] = useState(false);

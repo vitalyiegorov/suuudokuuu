@@ -1,0 +1,28 @@
+import { describe, expect, it } from 'vitest';
+
+import { isNumber } from '@rnw-community/shared';
+
+import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-technique.enum';
+import { createTechniqueStrategies } from '../../../src/@generic/utils/create-technique-strategies.util';
+
+const nonStrategyTechniques: SolutionTechniqueEnum[] = [SolutionTechniqueEnum.Guess];
+
+const getSortedTechniques = (techniques: SolutionTechniqueEnum[]): SolutionTechniqueEnum[] =>
+    [...techniques].sort((firstTechnique, secondTechnique) => firstTechnique - secondTechnique);
+
+const getLogicalTechniques = (): SolutionTechniqueEnum[] =>
+    Object.values(SolutionTechniqueEnum)
+        .filter((technique): technique is SolutionTechniqueEnum => isNumber(technique))
+        .filter(technique => !nonStrategyTechniques.includes(technique));
+
+describe('createTechniqueStrategies', () => {
+    it('creates one ordered strategy for every logical technique', () => {
+        expect.assertions(2);
+
+        const strategies = createTechniqueStrategies();
+        const techniques = strategies.map(strategy => strategy.technique);
+
+        expect(techniques).toEqual(getSortedTechniques(techniques));
+        expect(techniques).toEqual(getLogicalTechniques());
+    });
+});

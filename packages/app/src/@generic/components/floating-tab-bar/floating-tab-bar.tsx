@@ -2,19 +2,23 @@ import { use } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { EdgeFade } from '@rnw-community/react-native-screen-chrome';
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { useBackdropRecomposite } from '../../hooks/use-backdrop-recomposite/use-backdrop-recomposite.hook';
 import { FloatingTabBarItem } from '../floating-tab-bar-item/floating-tab-bar-item';
 import { FloatingTabBarSurface } from '../floating-tab-bar-surface/floating-tab-bar-surface';
+import { ScreenChromeThemeProvider } from '../screen-chrome-theme-provider/screen-chrome-theme-provider';
 
-import { FloatingTabBarBottomMargin, FloatingTabBarIconSize } from './constant/floating-tab-bar.constant';
+import { FloatingTabBarBottomFadeHeight, FloatingTabBarBottomMargin, FloatingTabBarIconSize } from './constant/floating-tab-bar.constant';
 import { FloatingTabBarStyles as styles } from './floating-tab-bar.styles';
 
 import type { BottomTabBarProps } from 'expo-router/tabs';
 
-export const FloatingTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
+const bottomFadeStyle = { bottom: 0 };
+
+export const FloatingTabBar = ({ state, descriptors, emitter, navigateToTab }: BottomTabBarProps) => {
     const { theme } = use(ThemeContext);
     const safeAreaInsets = useSafeAreaInsets();
     const backdropRecompositeRef = useBackdropRecomposite();
@@ -22,38 +26,44 @@ export const FloatingTabBar = ({ state, descriptors, navigation }: BottomTabBarP
     const anchorStyles = [styles.anchor, { bottom: safeAreaInsets.bottom + FloatingTabBarBottomMargin }];
 
     return (
-        <View pointerEvents="box-none" ref={backdropRecompositeRef} style={anchorStyles}>
-            <FloatingTabBarSurface>
-                <View style={styles.row}>
-                    {state.routes.map((route, index) => {
-                        const { options } = descriptors[route.key];
-                        const isFocused = state.index === index;
-                        const iconColor = isFocused ? theme.colors.text.primary : theme.colors.text.hint;
-                        const label = isNotEmptyString(options.title) ? options.title : route.name;
+        <>
+            <ScreenChromeThemeProvider>
+                <EdgeFade height={FloatingTabBarBottomFadeHeight} position="bottom" style={bottomFadeStyle} />
+            </ScreenChromeThemeProvider>
 
-                        const handlePress = () => {
-                            const event = navigation.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
+            <View pointerEvents="box-none" ref={backdropRecompositeRef} style={anchorStyles}>
+                <FloatingTabBarSurface>
+                    <View style={styles.row}>
+                        {state.routes.map((route, index) => {
+                            const { options } = descriptors[route.key];
+                            const isFocused = state.index === index;
+                            const iconColor = isFocused ? theme.colors.text.primary : theme.colors.text.hint;
+                            const label = isNotEmptyString(options.title) ? options.title : route.name;
 
-                            if (!isFocused && !event.defaultPrevented) {
-                                navigation.navigate(route.name, route.params);
-                            }
-                        };
+                            const handlePress = () => {
+                                const event = emitter.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
 
-                        return (
-                            <FloatingTabBarItem
-                                accessibilityLabel={label}
-                                isFocused={isFocused}
-                                key={route.key}
-                                label={label}
-                                onPress={handlePress}
-                                testID={options.tabBarButtonTestID}
-                            >
-                                {options.tabBarIcon?.({ color: iconColor, focused: isFocused, size: FloatingTabBarIconSize })}
-                            </FloatingTabBarItem>
-                        );
-                    })}
-                </View>
-            </FloatingTabBarSurface>
-        </View>
+                                if (!isFocused && !event.defaultPrevented) {
+                                    navigateToTab(route.key);
+                                }
+                            };
+
+                            return (
+                                <FloatingTabBarItem
+                                    accessibilityLabel={label}
+                                    isFocused={isFocused}
+                                    key={route.key}
+                                    label={label}
+                                    onPress={handlePress}
+                                    testID={options.tabBarButtonTestID}
+                                >
+                                    {options.tabBarIcon?.({ color: iconColor, focused: isFocused, size: FloatingTabBarIconSize })}
+                                </FloatingTabBarItem>
+                            );
+                        })}
+                    </View>
+                </FloatingTabBarSurface>
+            </View>
+        </>
     );
 };

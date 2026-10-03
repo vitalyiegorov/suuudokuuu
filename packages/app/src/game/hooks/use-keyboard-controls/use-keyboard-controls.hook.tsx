@@ -1,9 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { TextInput } from 'react-native';
 
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { gameToggleInputModeAction } from '../../store/game.actions';
-import { gameGetInputStatePayload } from '../../utils/game-get-input-state-payload.util';
+import { gameToggleInputMode } from '../../utils/game-toggle-input-mode.util';
 
 import { UseKeyboardControlsStyles as styles } from './use-keyboard-controls.styles';
 import { keyboardKeyToAction } from './utils/keyboard-key-to-action.util';
@@ -11,7 +9,7 @@ import { keyboardKeyToAction } from './utils/keyboard-key-to-action.util';
 import type { OnEventFn } from '@rnw-community/shared';
 import type { FieldEngine } from '@suuudokuuu/field-core';
 import type { CellInterface } from '@suuudokuuu/generator';
-import type { NativeSyntheticEvent, TextInputKeyPressEventData } from 'react-native';
+import type { TextInputInstance, TextInputKeyPressEvent } from 'react-native';
 
 export const useKeyboardControls = (
     engine: FieldEngine,
@@ -21,8 +19,7 @@ export const useKeyboardControls = (
     onExit: OnEventFn<void>
     // eslint-disable-next-line @typescript-eslint/max-params
 ) => {
-    const dispatch = useAppDispatch();
-    const hiddenInputRef = useRef<TextInput>(null);
+    const hiddenInputRef = useRef<TextInputInstance>(null);
 
     useEffect(() => {
         hiddenInputRef.current?.focus();
@@ -32,14 +29,13 @@ export const useKeyboardControls = (
         hiddenInputRef.current?.focus();
     };
 
-    const handleKeyPress = (event: NativeSyntheticEvent<TextInputKeyPressEventData>) => {
+    const handleKeyPress = (event: TextInputKeyPressEvent) => {
         const action = keyboardKeyToAction(event.nativeEvent.key, engine.Sudoku, selectedCell);
 
         if (action.type === 'select-cell') {
             onSelectCell(action.cell);
         } else if (action.type === 'toggle-input-mode') {
-            engine.toggleInputMode();
-            dispatch(gameToggleInputModeAction(gameGetInputStatePayload(engine)));
+            gameToggleInputMode(engine);
         } else if (action.type === 'exit') {
             onExit();
         } else if (action.type === 'select-value') {

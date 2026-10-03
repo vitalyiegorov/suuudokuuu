@@ -12,12 +12,12 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { ReplayShareActionSelectors } from './replay-share-action.selectors';
 import { ReplayShareActionStyles as styles } from './replay-share-action.styles';
 
-import type { GameState } from '../../../game/store/game.state';
+import type { CurrentRunType } from '@suuudokuuu/progress';
 
 const ShareIconSize = 22;
 
 interface Props {
-    readonly gameState: GameState;
+    readonly gameState: CurrentRunType;
 }
 
 export const ReplayShareAction = ({ gameState }: Props) => {

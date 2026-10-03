@@ -108,7 +108,7 @@ The technique trailer is the fourth generation and sits after the metadata trail
 3. Shared utilities stay in `src/@generic/utils` and use the `.util.ts` suffix.
 4. Shared constants stay in `src/@generic/constants` and use the `.constant.ts` suffix; shared enums stay in `src/@generic/enums`.
 5. Re-export public API directly from `src/index.ts`.
-6. Tests stay colocated with source files using `.spec.ts`.
+6. Tests live in `test/**/*.test.ts` (Vitest, `@effect/vitest` for Effect code), not colocated `.spec.ts` files.
 
 ## Testing
 

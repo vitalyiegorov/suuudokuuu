@@ -8,8 +8,8 @@
         "ts": "run -T tsc -p ."
     },
     "devDependencies": {
-        "@playwright/test": "^1.62.1",
-        "@rnw-community/shared": "^2.2.0",
+        "@playwright/test": "^1.63.0",
+        "@rnw-community/shared": "^2.15.0",
         "@suuudokuuu/app": "workspace:*",
         "@suuudokuuu/landing": "workspace:*",
         "serve": "^14.2.6"

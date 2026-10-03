@@ -1,4 +1,4 @@
-import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
+import { CompactMaxFontSizeMultiplierConstant, MetricMinimumFontScaleConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { View } from 'react-native';
 
@@ -47,6 +47,9 @@ export const CollapsibleChromePage = (props: Props) => {
     const footerInset = isDefined(footer) ? CollapsibleChromePageFooterContentInset : 0;
     const contentInsetBottom = footerInset + tabBarInset;
     const contentStyles = [styles.content, contentStyle];
+    const isTabRoot = tabBarInset > 0;
+    const backButton = isTabRoot ? null : <HeaderBackButton />;
+    const expandedTitleLayerStyles = [styles.expandedTitleLayer, isTabRoot && styles.tabRootExpandedTitleLayer];
 
     return (
         <View ref={backdropRecompositeRef} style={styles.frame}>
@@ -70,15 +73,15 @@ export const CollapsibleChromePage = (props: Props) => {
 
                     <CollapsibleHeader
                         collapsedContentContainerStyle={styles.titleLayer}
-                        expandedContentContainerStyle={styles.expandedTitleLayer}
+                        expandedContentContainerStyle={expandedTitleLayerStyles}
                         persistentContentContainerStyle={styles.persistentLayer}
                     >
-                        <CollapsibleHeaderSlot>
-                            <HeaderBackButton />
-                        </CollapsibleHeaderSlot>
+                        <CollapsibleHeaderSlot>{backButton}</CollapsibleHeaderSlot>
                         <CollapsibleHeaderTitleSlot>
                             <Header
+                                adjustsFontSizeToFit
                                 maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                                minimumFontScale={MetricMinimumFontScaleConstant}
                                 numberOfLines={1}
                                 style={styles.largeTitle}
                                 text={title}

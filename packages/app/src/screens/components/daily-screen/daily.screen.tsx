@@ -10,12 +10,11 @@ import { Alert } from '../../../@generic/components/alert/alert';
 import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
 import { Header } from '../../../@generic/components/header/header';
 import { TabBarInsetContext } from '../../../@generic/components/main-tab-layout/context/tab-bar-inset.context';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { DailyHistoryList } from '../../../daily/components/daily-history-list/daily-history-list';
 import { DailyStreakHero } from '../../../daily/components/daily-streak-hero/daily-streak-hero';
 import { useDailyChallenge } from '../../../daily/hooks/use-daily-challenge.hook';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
-import { gameDailyCompletedDayNumbersSelector } from '../../../game/store/game.selectors';
+import { usePlayerStats } from '../../../history/query/use-player-stats.query';
 
 import { DailyScreenSelectors } from './daily-screen.selectors';
 import { DailyScreenStyles as styles } from './daily-screen.styles';
@@ -33,7 +32,7 @@ export const DailyScreen = () => {
     const safeAreaInsets = useSafeAreaInsets();
     const tabBarInset = use(TabBarInsetContext);
     const { bestStreak, difficulty, isCreatingGame, isGameStarted, startDaily, status, streak, todayDateString } = useDailyChallenge();
-    const completedDayNumbers = useAppSelector(gameDailyCompletedDayNumbersSelector);
+    const completedDayNumbers = usePlayerStats().dailyCompletedDayNumbers;
     const resumeGame = useResumeGame();
 
     const handleStart = () => {

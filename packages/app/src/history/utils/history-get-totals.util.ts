@@ -1,19 +1,13 @@
-import { isNotEmptyArray, isPositiveNumber } from '@rnw-community/shared';
+import { getDayNumber, getDayStreak } from '@suuudokuuu/progress';
 
-import { getDayNumber } from '../../@generic/utils/get-day-number.util';
-import { getDayStreak } from '../../@generic/utils/get-day-streak.util';
+import { isNotEmptyArray, isPositiveNumber } from '@rnw-community/shared';
 
 import { historyGetBestRating } from './history-get-best-rating.util';
 import { historyGetWinRate } from './history-get-win-rate.util';
 
-import type { HistoryGameInterface } from '../interfaces/history-game.interface';
-import type { DifficultyEnum } from '@suuudokuuu/generator';
+import type { DifficultyStatsType } from '@suuudokuuu/progress';
 
-export const historyGetTotals = (
-    historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>,
-    playedDayNumbers: readonly number[]
-) => {
-    const histories = Object.values(historyByDifficulty);
+export const historyGetTotals = (histories: readonly DifficultyStatsType[], playedDayNumbers: readonly number[]) => {
     const gamesCompleted = histories.reduce((total, history) => total + history.gamesCompleted, 0);
     const gamesWon = histories.reduce((total, history) => total + history.gamesWon, 0);
     const gamesLost = histories.reduce((total, history) => total + history.gamesLost, 0);

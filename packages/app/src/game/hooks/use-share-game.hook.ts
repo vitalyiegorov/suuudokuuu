@@ -2,14 +2,14 @@ import { useLingui } from '@lingui/react/macro';
 import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
 
 import { Alert } from '../../@generic/components/alert/alert';
-import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
-import { gameSelector } from '../store/game.selectors';
+import { useCurrentRun } from '../query/use-current-run.query';
+import { useElapsedTime } from '../query/use-elapsed-time.query';
 
 import { useShareGameState } from './use-share-game-state/use-share-game-state.hook';
 
 export const useShareGame = () => {
     const { t } = useLingui();
-    const state = useAppSelector(gameSelector);
+    const state = { ...useCurrentRun(), elapsedTime: useElapsedTime() };
     const sharePuzzle = useShareGameState(SharedPayloadKindEnum.Puzzle, state);
     const shareHandoff = useShareGameState(SharedPayloadKindEnum.Handoff, state);
 
