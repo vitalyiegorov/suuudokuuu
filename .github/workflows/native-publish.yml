@@ -28,7 +28,9 @@ jobs:
             # An all-ABI lint run OOMs D8; scope the gate to the shipping variant.
             android-lint-gate-gradle-args: '-PreactNativeArchitectures=arm64-v8a --no-daemon'
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
-            android-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            # The release AAB builds on the Linux node like the e2e APK does, so it no
+            # longer queues behind the iOS build on the shared Mac builder.
+            android-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             node-version: 22.x
             build-profile: production
             submit-profile: production
@@ -64,16 +66,24 @@ jobs:
                 if [ "$PUSH_SCREENSHOTS" = 'true' ]; then
                   fastlane ios ios_screenshots
                 fi
+            # fastlane is pinned by packages/app/Gemfile.lock and installed into the job's
+            # temp dir, outside the EAS build archive; Ruby comes from the runner image,
+            # or from apt on an image that predates it.
             android-pre-submit-command: |
-                export PATH="$HOME/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-                fastlane store_preflight
+                if ! command -v bundle >/dev/null; then
+                  sudo apt-get update -qq
+                  sudo apt-get install -y -qq --no-install-recommends ruby ruby-dev ruby-bundler
+                fi
+                export BUNDLE_PATH="$RUNNER_TEMP/bundle"
+                BUNDLE_JOBS=4 bundle install --quiet
+                bundle exec fastlane store_preflight
             android-post-submit-command: |
-                export PATH="$HOME/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+                export BUNDLE_PATH="$RUNNER_TEMP/bundle"
                 export GOOGLE_SERVICE_ACCOUNT_KEY_PATH="$PWD/google-service-account.json"
                 node scripts/generate-store-release-notes.ts --check
-                fastlane android android_metadata
+                bundle exec fastlane android android_metadata
                 if [ "$PUSH_SCREENSHOTS" = 'true' ]; then
-                  fastlane android android_screenshots
+                  bundle exec fastlane android android_screenshots
                 fi
         secrets:
             EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
