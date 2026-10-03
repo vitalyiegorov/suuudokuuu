@@ -56,8 +56,8 @@ msgid "{foregroundLabel} on {backgroundLabel}: {contrastRatioText} — minimum {
 msgstr "{backgroundLabel} पर {foregroundLabel}: {contrastRatioText} — न्यूनतम {minimumRatio}"
 
 #: src/history/components/history-difficulty/history-difficulty.tsx
-msgid "{gamesCompleted, plural, one {# completed game} other {# completed games}}"
-msgstr "{gamesCompleted, plural, one {# पूरी की गई गेम} other {# पूरी की गई गेम}}"
+msgid "{gamesCompleted, plural, one {# game played} other {# games played}}"
+msgstr "{gamesCompleted, plural, one {# गेम खेला गया} other {# गेम खेले गए}}"
 
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
@@ -75,10 +75,13 @@ msgstr "{remaining, plural, one {{value} भरें, # बाकी} other {{v
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {{value} नोट करें, # बाकी} other {{value} नोट करें, # बाकी}}"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {# दिन का सिलसिला} other {# दिन का सिलसिला}}"
+
+#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}}"
+msgstr "{streak, plural, one {लगातार हल की गई दैनिक पहेली} other {लगातार हल की गई दैनिक पहेलियाँ}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -184,6 +187,7 @@ msgstr "किसी अंक की सभी कोशिकाएँ (1-9)"
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "सारी प्रगति खो जाएगी"
 
@@ -432,10 +436,6 @@ msgstr "बिना गलती"
 msgid "Clean black-and-white board"
 msgstr "साफ काला-सफेद बोर्ड"
 
-#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
-msgid "Clean run"
-msgstr "साफ़ खेल"
-
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "स्वच्छ जीत"
@@ -585,6 +585,10 @@ msgstr "कठिनाई रेटिंग {ratingLabel}"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Dim a completed digit in the numpad instead of removing it"
 msgstr "पूर्ण अंक को नंबर पैड से हटाने के बजाय धुंधला करें"
+
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+msgid "Discard changes?"
+msgstr "बदलाव छोड़ें?"
 
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Dismiss"
@@ -1162,6 +1166,7 @@ msgstr "दुःस्वप्न, नरक और अनंत सुडो�
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
+#: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "OK"
 msgstr "ठीक है"
 
@@ -1263,6 +1268,10 @@ msgstr "छह कठिनाई स्तर, संकेत और बिन
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "बड़े गुणकों के लिए कठिन स्तरों पर खेलें"
+
+#: src/history/components/history-totals-card/history-totals-card.tsx
+msgid "Play streak"
+msgstr "खेल का सिलसिला"
 
 #: src/app/game.tsx
 #: src/app/play.tsx
@@ -1668,6 +1677,10 @@ msgstr "आँकड़े"
 msgid "Stats"
 msgstr "आंकड़े"
 
+#: src/challenge/components/challenge-run-stats/challenge-run-stats.tsx
+msgid "Stayed in app"
+msgstr "ऐप में ही रहे"
+
 #: src/game/components/hint-panel/hint-panel.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "{stepCount} में से चरण {currentStepNumber}"
@@ -1686,10 +1699,6 @@ msgstr "मौजूदा गेम रोकें?"
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Stop this run"
 msgstr "यह गेम रोकें"
-
-#: src/history/components/history-totals-card/history-totals-card.tsx
-msgid "Streak"
-msgstr "स्ट्रीक"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"

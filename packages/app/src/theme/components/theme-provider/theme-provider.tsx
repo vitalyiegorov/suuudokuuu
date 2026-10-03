@@ -38,23 +38,18 @@ export const ThemeProvider = ({ children }: Props) => {
 
         synchronizeUnistylesTheme(UnistylesRuntime, unistylesThemeName);
     }, [activeCustomTheme, unistylesThemeName]);
+    useEffect(() => {
+        if (Platform.OS === 'web') {
+            document.documentElement.style.colorScheme = colorScheme;
+
+            return;
+        }
+
+        Appearance.setColorScheme(colorScheme);
+    }, [colorScheme]);
 
     const changeTheme = (theme: SettingsType['theme']) => {
         void updateSettings({ theme });
-    };
-
-    const toggleColorSchema = () => {
-        const newColorScheme = colorScheme === ColorSchemaEnum.Dark ? ColorSchemaEnum.Light : ColorSchemaEnum.Dark;
-
-        if (newColorScheme !== colorScheme) {
-            void updateSettings({ isDarkColorSchema: !isDarkColorSchema });
-
-            if (Platform.OS === 'web') {
-                document.documentElement.style.colorScheme = newColorScheme;
-            } else {
-                Appearance.setColorScheme(newColorScheme);
-            }
-        }
     };
 
     const theme = resolveTheme(selectedTheme, colorScheme, customThemes);
@@ -66,7 +61,7 @@ export const ThemeProvider = ({ children }: Props) => {
             background: theme.colors.background
         }
     };
-    const value = { changeTheme, colorScheme, theme, toggleColorSchema };
+    const value = { changeTheme, colorScheme, theme };
 
     return (
         <ThemeContext value={value}>

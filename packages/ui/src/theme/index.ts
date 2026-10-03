@@ -9,5 +9,6 @@ export { Breakpoints } from './constant/breakpoints.constant';
 export {
     CompactMaxFontSizeMultiplierConstant,
     DisplayMaxFontSizeMultiplierConstant,
-    MaxFontSizeMultiplierConstant
+    MaxFontSizeMultiplierConstant,
+    MetricMinimumFontScaleConstant
 } from './constant/font-scaling.constant';

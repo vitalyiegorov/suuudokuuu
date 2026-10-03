@@ -10,7 +10,7 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         flexDirection: 'column',
         gap: theme.spacing.sm,
         justifyContent: 'flex-start',
-        paddingBottom: rt.insets.bottom / 2 + theme.spacing.xs,
+        paddingBottom: rt.insets.bottom + theme.spacing.xs,
         paddingHorizontal: appLayoutScreenIsWide(rt.screen) ? theme.spacing.md : 0,
         paddingTop: theme.spacing.xs
     },

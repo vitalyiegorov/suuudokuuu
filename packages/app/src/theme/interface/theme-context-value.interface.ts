@@ -6,5 +6,4 @@ export interface ThemeContextValueInterface {
     readonly changeTheme: OnEventFn<SettingsType['theme']>;
     readonly colorScheme: ColorSchemaEnum;
     readonly theme: typeof BWDarkTheme;
-    readonly toggleColorSchema: OnEventFn;
 }

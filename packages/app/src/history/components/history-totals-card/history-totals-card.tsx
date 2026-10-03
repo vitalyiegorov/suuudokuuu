@@ -25,7 +25,7 @@ export const HistoryTotalsCard = ({ difficultyStats, playedDayNumbers }: Props) 
     const metrics = [
         { label: t`Played`, value: String(totals.gamesCompleted) },
         { label: t`Win rate`, value: winRateText },
-        { label: t`Streak`, value: String(totals.dayStreak) },
+        { label: t`Play streak`, value: String(totals.dayStreak) },
         { label: t`Best score`, value: String(totals.bestScore) },
         { label: t`Best time`, value: bestTimeText }
     ];

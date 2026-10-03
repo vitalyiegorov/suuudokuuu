@@ -10,6 +10,5 @@ import type { ThemeContextValueInterface } from '../interface/theme-context-valu
 export const ThemeContext = createContext<ThemeContextValueInterface>({
     changeTheme: emptyFn,
     colorScheme: ColorSchemaEnum.Light,
-    theme: BWLightTheme,
-    toggleColorSchema: emptyFn
+    theme: BWLightTheme
 });

@@ -12,6 +12,7 @@ import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
+import { getSudokuProgress } from '../../../@generic/utils/get-sudoku-progress.util';
 import { GameContext } from '../../../game/context/game.context';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { useShareGame } from '../../../game/hooks/use-share-game.hook';
@@ -26,7 +27,6 @@ import { PauseScreenProgressCard } from './pause-screen-progress-card/pause-scre
 import { PauseScreenStats } from './pause-screen-stats/pause-screen-stats';
 import { PauseScreenSelectors } from './pause-screen.selectors';
 import { PauseScreenStyles as styles } from './pause-screen.styles';
-import { pauseScreenGetProgress } from './utils/pause-screen-get-progress.util';
 
 export const PauseScreen = () => {
     const router = useRouter();
@@ -49,7 +49,7 @@ export const PauseScreen = () => {
         ]);
     };
 
-    const progress = pauseScreenGetProgress(engine.Sudoku);
+    const progress = getSudokuProgress(engine.Sudoku.toString());
     const difficultyText = t(getDifficultyMessage(difficulty));
     const levelRatingText = getLevelRatingText(difficultyText, rating, isRatingCeiling);
     const mistakesTypeText = t(getMistakesTypeText(maxMistakes));

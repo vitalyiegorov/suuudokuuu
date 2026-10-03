@@ -51,7 +51,7 @@ export default function RootLayout() {
                     <GameProvider>
                         <WinConfettiProvider>
                             <Stack screenOptions={stackOptions}>
-                                <Stack.Screen name="game" options={gameOptions} />
+                                <Stack.Screen dangerouslySingular name="game" options={gameOptions} />
                                 <Stack.Screen name="settings/[setting]" options={modalSheetOptions} />
                                 <Stack.Screen name="rating-explainer/[rating]" options={modalSheetOptions} />
                             </Stack>

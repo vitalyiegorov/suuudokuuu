@@ -53,7 +53,7 @@ export const HistoryDifficulty = ({ stats }: Props) => {
             <View style={styles.titleGroup}>
                 <BlackText style={titleStyles}>{titleText}</BlackText>
                 <BlackText style={subtitleStyles}>
-                    <Plural value={gamesCompleted} one="# completed game" other="# completed games" />
+                    <Plural value={gamesCompleted} one="# game played" other="# games played" />
                 </BlackText>
             </View>
 

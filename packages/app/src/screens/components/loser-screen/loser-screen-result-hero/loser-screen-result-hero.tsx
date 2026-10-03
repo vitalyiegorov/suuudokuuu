@@ -19,10 +19,7 @@ interface Props {
 export const LoserScreenResultHero = ({ detailsText, progressPercent }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
-    const reasonPillStyles = [
-        styles.reasonPill,
-        { backgroundColor: theme.colors.surface.subtle, borderColor: theme.colors.surface.border }
-    ];
+    const reasonPillStyles = [styles.reasonPill, { backgroundColor: 'transparent', borderColor: theme.colors.danger }];
     const reasonTextStyles = [styles.reasonText, { color: theme.colors.danger }];
     const progressPercentText = `${progressPercent}%`;
 

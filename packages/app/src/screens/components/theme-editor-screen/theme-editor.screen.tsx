@@ -2,13 +2,14 @@ import { useLingui } from '@lingui/react/macro';
 import { ColorSchemaEnum, CustomThemeRepository } from '@suuudokuuu/progress';
 import { AppButton, AppSettingsSection, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import * as Effect from 'effect/Effect';
-import { router, useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams, usePreventRemove } from 'expo-router';
 import RotateCcw from 'lucide-react-native/icons/rotate-ccw';
 import { use, useState } from 'react';
-import { Alert, TextInput, View } from 'react-native';
+import { TextInput, View } from 'react-native';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
+import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { appRuntime } from '../../../@generic/runtime/app.runtime';
@@ -51,12 +52,23 @@ export const ThemeEditorScreen = () => {
             ? sourceThemeId
             : activeThemeId;
 
-    const [draftTheme, setDraftTheme] = useState(
-        () => existingTheme ?? createCustomTheme(t`My theme`, resolvedSourceThemeId, customThemes, Date.now())
-    );
+    const [savedTheme] = useState(() => existingTheme ?? createCustomTheme(t`My theme`, resolvedSourceThemeId, customThemes, Date.now()));
+    const [draftTheme, setDraftTheme] = useState(savedTheme);
     const [variant, setVariant] = useState<ColorSchemaEnum>(initialVariant);
     const [editedToken, setEditedToken] = useState<ThemeEditorTokenInterface | null>(null);
     const [hasNameError, setHasNameError] = useState(false);
+
+    const disablePrevention = usePreventRemove(draftTheme !== savedTheme, ({ repeat }) => {
+        Alert(t`Discard changes?`, t`All progress will be lost`, [
+            { text: t`Cancel`, style: 'cancel' },
+            { text: t`OK`, onPress: repeat }
+        ]);
+    });
+
+    const leaveEditor = () => {
+        disablePrevention();
+        router.back();
+    };
 
     const draftColors = draftTheme.colors[variant];
     const contrastIssues = validateCustomThemeColors(draftColors);
@@ -81,7 +93,7 @@ export const ThemeEditorScreen = () => {
             )
         );
         changeTheme(draftTheme.id);
-        router.back();
+        leaveEditor();
     };
     const handleSave = () => {
         if (!isNotEmptyString(draftTheme.name.trim())) {
@@ -91,7 +103,7 @@ export const ThemeEditorScreen = () => {
         }
 
         if (contrastIssues.length > 0) {
-            Alert.alert(t`Low contrast`, t`Some color combinations are hard to read. Save anyway?`, [
+            Alert(t`Low contrast`, t`Some color combinations are hard to read. Save anyway?`, [
                 { text: t`Cancel`, style: 'cancel' },
                 { text: t`Save anyway`, onPress: persistDraft }
             ]);
@@ -102,7 +114,7 @@ export const ThemeEditorScreen = () => {
         persistDraft();
     };
     const handleDelete = () => {
-        Alert.alert(t`Delete theme`, t`This theme will be removed permanently.`, [
+        Alert(t`Delete theme`, t`This theme will be removed permanently.`, [
             { text: t`Cancel`, style: 'cancel' },
             {
                 text: t`Delete`,
@@ -116,7 +128,7 @@ export const ThemeEditorScreen = () => {
                         changeTheme(draftTheme.sourceTheme);
                     }
 
-                    router.back();
+                    leaveEditor();
                 }
             }
         ]);
@@ -139,7 +151,7 @@ export const ThemeEditorScreen = () => {
                 customThemeRepository.upsert(createCustomTheme(duplicateName, draftTheme.id, customThemes, Date.now()))
             )
         );
-        router.back();
+        leaveEditor();
     };
     const handleSelectLightVariant = () => void setVariant(ColorSchemaEnum.Light);
     const handleSelectDarkVariant = () => void setVariant(ColorSchemaEnum.Dark);

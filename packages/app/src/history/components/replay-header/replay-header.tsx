@@ -1,5 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
+import { MetricMinimumFontScaleConstant } from '@suuudokuuu/ui/theme';
 import { router } from 'expo-router';
 import { Pressable, Text } from 'react-native';
 
@@ -35,7 +36,13 @@ export const ReplayHeader = ({ game }: Props) => {
     const levelItem = hasRating ? (
         <AppMetricStripItem label={t`Level`} labelStyle={styles.label} style={styles.item} valueStyle={styles.value}>
             <Pressable accessibilityRole="button" onPress={handlePressLevel} testID={ReplayHeaderSelectors.Level}>
-                <Text allowFontScaling={false} numberOfLines={1} style={styles.value}>
+                <Text
+                    adjustsFontSizeToFit
+                    allowFontScaling={false}
+                    minimumFontScale={MetricMinimumFontScaleConstant}
+                    numberOfLines={1}
+                    style={styles.value}
+                >
                     {levelText}
                 </Text>
             </Pressable>

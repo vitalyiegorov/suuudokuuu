@@ -75,6 +75,7 @@ export const ChallengeResultScreen = (props: Props) => {
     const mistakesText = t(getMistakesTypeText(maxMistakes));
     const badgeText = `${flavorText} · ${levelText} · ${mistakesText}`;
 
+    const ukraineSupportContext = result === ChallengeResult.Lost ? 'loser' : 'winner';
     const titleStyle = [styles.title, { color: theme.colors.text.primary }];
     const pillStyle = [styles.pill, { backgroundColor: theme.colors.ink }];
     const pillTextStyle = [styles.pillText, { color: theme.colors.inkText }];
@@ -125,7 +126,7 @@ export const ChallengeResultScreen = (props: Props) => {
                     totalTime={challengeTime}
                 />
 
-                <UkraineSupportCard testID={ChallengeResultScreenSelectors.UkraineSupportCta} />
+                <UkraineSupportCard context={ukraineSupportContext} testID={ChallengeResultScreenSelectors.UkraineSupportCta} />
             </View>
         </ChromeScrollPage>
     );

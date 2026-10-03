@@ -36,7 +36,7 @@ export const DailyStreakHero = ({ bestStreak, difficulty, status, streak, todayD
     };
     const statusText = statusTextByStatus[status];
     const todayDateText = i18n.date(todayDateString, { day: 'numeric', month: 'long', weekday: 'long' });
-    const streakText = plural(streak, { one: '# day streak', other: '# day streak' });
+    const streakText = plural(streak, { one: 'daily solve in a row', other: 'daily solves in a row' });
     const bestStreakText = plural(bestStreak, { one: 'Best streak: # day', other: 'Best streak: # days' });
 
     const eyebrowStyles = [styles.eyebrow, { color: theme.colors.text.hint }];

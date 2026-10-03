@@ -37,7 +37,7 @@ export const ChromeScrollPage = ({ children, footer, testID }: Props) => {
     const contentInsetTop = Math.max(ChromeScrollPageContentInsetTop, bandClearanceInset);
     const footerReserve = Math.max(ChromeScrollPageFooterMinReserve, footerHeight + insets.bottom + ChromeScrollPageFooterExtraReserve);
     const footerNode = <View onLayout={handleFooterLayout}>{footer}</View>;
-    const footerEdgeFadeProps = { height: footerReserve, intensity: ChromeScrollPageFooterFadeIntensity };
+    const footerEdgeFadeProps = { height: footerReserve - insets.bottom, intensity: ChromeScrollPageFooterFadeIntensity };
     const topEdgeFadeProps = { height: ChromeScrollPageTopFadeHeight };
 
     return (

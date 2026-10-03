@@ -38,7 +38,7 @@ export const ChallengeRunStats = ({ summary }: Props) => {
 
     const cleanRunTile =
         hasExits || hasScreenshots ? null : (
-            <ChallengeStatTile key="clean-run" label={t`Clean run`} testID={ChallengeRunStatsSelectors.CleanRunTile}>
+            <ChallengeStatTile key="clean-run" label={t`Stayed in app`} testID={ChallengeRunStatsSelectors.CleanRunTile}>
                 <LucideShieldCheck color={iconColor} size={ICON_SIZE} />
             </ChallengeStatTile>
         );
@@ -57,7 +57,7 @@ export const ChallengeRunStats = ({ summary }: Props) => {
             <LucideCamera color={iconColor} size={ICON_SIZE} />
         </ChallengeStatTile>
     ) : null;
-    const pencilTile = isDefined(pencilCount) ? (
+    const pencilTile = isPositiveNumber(pencilCount) ? (
         <ChallengeStatTile count={pencilCount} key="pencil" label={t`Pencil marks`} testID={ChallengeRunStatsSelectors.PencilTile}>
             <LucidePencil color={iconColor} size={ICON_SIZE} />
         </ChallengeStatTile>

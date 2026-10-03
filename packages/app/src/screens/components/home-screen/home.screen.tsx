@@ -19,6 +19,7 @@ import { SupportUkrainePill } from '../../../@generic/components/support-ukraine
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getBrand } from '../../../@generic/utils/get-brand.util';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
+import { getSudokuProgress } from '../../../@generic/utils/get-sudoku-progress.util';
 import { ChallengeModeSwitch } from '../../../challenge/components/challenge-mode-switch/challenge-mode-switch';
 import {
     DifficultyComplexitySliderDifficulties,
@@ -29,7 +30,6 @@ import { DifficultyComplexitySlider } from '../../../game/components/difficulty-
 import { GameContext } from '../../../game/context/game.context';
 import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
-import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
 import { useDifficultyStats } from '../../../history/query/use-difficulty-stats.query';
 import { RelaxedMaxMistakesConstant } from '../../../settings/constant/max-mistakes.constant';
 import { useSettings } from '../../../settings/query/use-settings.query';
@@ -45,7 +45,6 @@ import { HomeScreenSelectors } from './home-screen.selectors';
 import { HomeScreenStyles as styles } from './home-screen.styles';
 import { type HomeScreenOptionCardInterface } from './interface/home-screen-option-card.interface';
 import { homeScreenGetContentInsetTop } from './utils/home-screen-get-content-inset-top.util';
-import { homeScreenGetCurrentGameProgress } from './utils/home-screen-get-current-game-progress.util';
 import { homeScreenGetDifficultyDescription } from './utils/home-screen-get-difficulty-description.util';
 
 const topEdgeFadeProps = { height: HomeScreenTopOverlayHeight, intensity: HomeScreenTopOverlayIntensity };
@@ -62,9 +61,8 @@ export const HomeScreen = () => {
         bestTime: 0
     });
     const currentElapsedTime = useElapsedTime();
-    const { sudokuString: currentSudokuString, timelineEvents } = useCurrentRun();
+    const { sudokuString: currentSudokuString } = useCurrentRun();
     const { lastGameChallengeMode: isChallengeMode, lastGameDifficulty: difficulty, lastGameMaxMistakes: maxMistakes } = useSettings();
-    const currentSolutionSteps = getTimelineCellSteps(timelineEvents);
     const isGameStarted = isNotEmptyString(currentSudokuString);
     const handleDifficultyChange = (newDifficulty: DifficultyEnum) => void updateSettings({ lastGameDifficulty: newDifficulty });
     const handleMaxMistakes = (newMaxMistakes: number) => () => void updateSettings({ lastGameMaxMistakes: newMaxMistakes });
@@ -114,7 +112,7 @@ export const HomeScreen = () => {
     const challengeSummarySuffix = isChallengeMode ? ` • ${t`Challenge`}` : '';
     const setupSummary = `${selectedDifficultyLabel} • ${selectedMistakesOption.title}${challengeSummarySuffix}`;
     const currentElapsedTimeText = useTimerText(currentElapsedTime);
-    const currentProgressPercent = homeScreenGetCurrentGameProgress(currentSudokuString, currentSolutionSteps.length);
+    const currentProgressPercent = getSudokuProgress(currentSudokuString).percent;
     const currentProgressText = `${currentProgressPercent}%`;
     const bestTimeText = useTimerText(bestTime);
     const bestRunMetrics = [

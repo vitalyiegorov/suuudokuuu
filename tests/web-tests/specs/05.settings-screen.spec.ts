@@ -37,6 +37,6 @@ test('navigates settings, changes cell spacing, and opens the privacy policy', a
     await getVisibleByTestId(page, HeaderBackButtonSelectors.Root).click();
     await expect(page.getByTestId(SettingsScreenSelectors.Root)).toBeVisible();
 
-    await getVisibleByTestId(page, HeaderBackButtonSelectors.Root).click();
+    await page.getByText('Play', { exact: true }).click();
     await expect(page.getByTestId(HomeScreenSelectors.Root)).toBeVisible();
 });
