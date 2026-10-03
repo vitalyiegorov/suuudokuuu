@@ -68,3 +68,6 @@ build-*.tar.gz
 *.apk
 app*.tar.gz
 tests/app-tests/artifacts
+
+# Bundler
+.bundle/
