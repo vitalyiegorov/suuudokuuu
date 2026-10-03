@@ -5306,19 +5306,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rnw-community/react-native-screen-chrome@npm:^2.19.0":
-  version: 2.19.0
-  resolution: "@rnw-community/react-native-screen-chrome@npm:2.19.0"
+"@rnw-community/react-native-screen-chrome@npm:^2.19.1":
+  version: 2.19.1
+  resolution: "@rnw-community/react-native-screen-chrome@npm:2.19.1"
   dependencies:
     "@rnw-community/shared": "npm:^2.15.0"
   peerDependencies:
+    "@react-native-masked-view/masked-view": ">=0.3 <1"
     "@rnw-community/react-native-collapsible-header": ">=2.13.0 <3"
-    expo-blur: ">=55 <58"
+    expo-blur: ">=55 <59"
+    expo-linear-gradient: ">=55 <59"
     react: ">=18"
     react-native: ">=0.72"
     react-native-reanimated: ">=3.17.2 <5"
     react-native-safe-area-context: ">=4 <6"
-  checksum: 10/b94ee205bd101dc6788425c665a81af58a72c069087b353a8948236416bcf2a162b7125a07cc80345646fc21d87f9e869579909e5d090db0e096c5566fb2b6a1
+  checksum: 10/d8877982229c3ffb644c8dc45149c14f4a37d889400a5596f0f53702c3bcab3187277ee67c73bccc45a4196c3b772c48cee1afb88482f48253158a974001faf7
   languageName: node
   linkType: hard
 
@@ -5520,11 +5522,12 @@ __metadata:
     "@lingui/core": "npm:6.4.0"
     "@lingui/format-po": "npm:6.4.0"
     "@lingui/react": "npm:6.4.0"
+    "@react-native-masked-view/masked-view": "npm:^0.3.2"
     "@react-native/jest-preset": "npm:0.86.1"
     "@react-native/metro-config": "npm:0.86.0"
     "@reduxjs/toolkit": "npm:^2.12.0"
     "@rnw-community/react-native-collapsible-header": "npm:^2.18.0"
-    "@rnw-community/react-native-screen-chrome": "npm:^2.19.0"
+    "@rnw-community/react-native-screen-chrome": "npm:^2.19.1"
     "@rnw-community/shared": "npm:^2.2.0"
     "@shopify/react-native-skia": "npm:2.6.2"
     "@suuudokuuu/encoder": "workspace:*"
@@ -5549,6 +5552,7 @@ __metadata:
     expo-font: "npm:~57.0.2"
     expo-glass-effect: "npm:~57.0.0"
     expo-haptics: "npm:~57.0.2"
+    expo-linear-gradient: "npm:~57.0.1"
     expo-linking: "npm:~57.0.8"
     expo-localization: "npm:~57.0.1"
     expo-router: "npm:~57.0.17"
@@ -10011,6 +10015,17 @@ __metadata:
     expo: "*"
     react: "*"
   checksum: 10/34260d33c674c984c2dfa992d4957b07266842b7d397f508c1a77eb9c4ebdb7dcdccd2a42caab2cb59dc51d702aef66ef919739fa53240bc2f6ca03a0e4fff6f
+  languageName: node
+  linkType: hard
+
+"expo-linear-gradient@npm:~57.0.1":
+  version: 57.0.2
+  resolution: "expo-linear-gradient@npm:57.0.2"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10/0f03b7f1cb3ee5ee221c94c06654c34b34fb3be0825def3e50da301e1310f95f910d66c31b54912b3fb3277a50f5b2706fb36c568bbf00b250f0e1a18b8cb91a
   languageName: node
   linkType: hard
 
