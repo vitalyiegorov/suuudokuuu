@@ -4507,7 +4507,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-native-masked-view/masked-view@npm:^0.3.2":
+"@react-native-masked-view/masked-view@npm:0.3.2, @react-native-masked-view/masked-view@npm:^0.3.2":
   version: 0.3.2
   resolution: "@react-native-masked-view/masked-view@npm:0.3.2"
   peerDependencies:
@@ -4751,19 +4751,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rnw-community/react-native-screen-chrome@npm:^2.19.0":
-  version: 2.19.0
-  resolution: "@rnw-community/react-native-screen-chrome@npm:2.19.0"
+"@rnw-community/react-native-screen-chrome@npm:^2.19.1":
+  version: 2.19.1
+  resolution: "@rnw-community/react-native-screen-chrome@npm:2.19.1"
   dependencies:
     "@rnw-community/shared": "npm:^2.15.0"
   peerDependencies:
+    "@react-native-masked-view/masked-view": ">=0.3 <1"
     "@rnw-community/react-native-collapsible-header": ">=2.13.0 <3"
-    expo-blur: ">=55 <58"
+    expo-blur: ">=55 <59"
+    expo-linear-gradient: ">=55 <59"
     react: ">=18"
     react-native: ">=0.72"
     react-native-reanimated: ">=3.17.2 <5"
     react-native-safe-area-context: ">=4 <6"
-  checksum: 10/b94ee205bd101dc6788425c665a81af58a72c069087b353a8948236416bcf2a162b7125a07cc80345646fc21d87f9e869579909e5d090db0e096c5566fb2b6a1
+  checksum: 10/d8877982229c3ffb644c8dc45149c14f4a37d889400a5596f0f53702c3bcab3187277ee67c73bccc45a4196c3b772c48cee1afb88482f48253158a974001faf7
   languageName: node
   linkType: hard
 
@@ -5060,9 +5062,10 @@ __metadata:
     "@lingui/format-po": "npm:6.9.0"
     "@lingui/react": "npm:6.9.0"
     "@op-engineering/op-sqlite": "npm:18.2.5"
+    "@react-native-masked-view/masked-view": "npm:0.3.2"
     "@react-native/metro-config": "npm:0.88.0-rc.3"
     "@rnw-community/react-native-collapsible-header": "npm:^2.18.0"
-    "@rnw-community/react-native-screen-chrome": "npm:^2.19.0"
+    "@rnw-community/react-native-screen-chrome": "npm:^2.19.1"
     "@rnw-community/shared": "npm:^2.15.0"
     "@shopify/react-native-skia": "npm:2.13.1"
     "@suuudokuuu/encoder": "workspace:*"
@@ -5089,6 +5092,7 @@ __metadata:
     expo-font: "npm:~58.0.5"
     expo-glass-effect: "npm:~58.0.3"
     expo-haptics: "npm:~58.0.4"
+    expo-linear-gradient: "npm:~58.0.3"
     expo-linking: "npm:~58.0.10"
     expo-localization: "npm:~58.0.3"
     expo-router: "npm:~58.0.12"
@@ -8961,6 +8965,17 @@ __metadata:
     expo: "*"
     react: "*"
   checksum: 10/5bddf7a64e8fb7b7916ea48691b42afb0bdba611c22b4d6d430e33b5a28e9e0d74957f7f8627c8a96148665910f328b64742fc101b21277d489c5a96cec1807f
+  languageName: node
+  linkType: hard
+
+"expo-linear-gradient@npm:~58.0.3":
+  version: 58.0.3
+  resolution: "expo-linear-gradient@npm:58.0.3"
+  peerDependencies:
+    expo: "*"
+    react: "*"
+    react-native: "*"
+  checksum: 10/eb6686dddffab72a5a3db15c86a290aa7c3358aa8ddf4d32e21f78fb22d0e11eaf72618be00bc8c1809438ea70df4ead4a1233b0cdcf7d69bae0fc8797247a14
   languageName: node
   linkType: hard
 

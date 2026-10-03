@@ -41,7 +41,8 @@
                 "vercel-functions/shared/create-node-handler.util.ts!",
                 "metro/wa-sqlite-factory.web.js!",
                 "src/@generic/runtime/sqlite-opfs.worker.ts!"
-            ]
+            ],
+            "ignoreDependencies": ["@react-native-masked-view/masked-view", "expo-linear-gradient"]
         },
         "tests/app-tests": {
             "entry": ["scripts/ci-seed-scene.ts"]
