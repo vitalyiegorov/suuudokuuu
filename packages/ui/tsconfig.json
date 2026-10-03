@@ -10,5 +10,5 @@
         "customConditions": ["react-native"]
     },
     "include": ["./src"],
-    "exclude": ["dist", "node_modules", "jest.config.js"]
+    "exclude": ["dist", "node_modules"]
 }

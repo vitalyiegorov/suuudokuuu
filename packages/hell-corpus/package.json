@@ -21,10 +21,10 @@
         "build:corpus": "node ./scripts/build-corpus.mjs",
         "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
         "build:infinity-corpus": "node ./scripts/build-infinity-corpus.mjs",
-        "lint": "run -T eslint --fix src",
-        "test": "run -T jest",
-        "test:coverage": "run -T jest --coverage",
-        "ts": "run -T tsc -p ."
+        "lint": "run -T eslint --fix src test",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"
     },
     "dependencies": {
         "@rnw-community/shared": "^2.15.0",
@@ -34,6 +34,10 @@
         "@suuudokuuu/rating": "workspace:*",
         "@suuudokuuu/solver-bitmask": "workspace:*",
         "@suuudokuuu/solver-dlx": "workspace:*",
-        "@suuudokuuu/techniques": "workspace:*"
+        "@suuudokuuu/techniques": "workspace:*",
+        "@suuudokuuu/test-kit": "workspace:*",
+        "@vitest/coverage-v8": "5.0.3",
+        "vite": "^8.3.2",
+        "vitest": "5.0.3"
     }
 }

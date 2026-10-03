@@ -5834,10 +5834,10 @@ __metadata:
     "@rnw-community/react-native-screen-chrome": "npm:^2.19.0"
     "@rnw-community/shared": "npm:^2.15.0"
     "@shopify/react-native-skia": "npm:2.13.1"
-    "@suuudokuuu/contracts": "workspace:*"
     "@suuudokuuu/encoder": "workspace:*"
     "@suuudokuuu/field-core": "workspace:*"
     "@suuudokuuu/generator": "workspace:*"
+    "@suuudokuuu/progress": "workspace:*"
     "@suuudokuuu/puzzle-forge": "workspace:*"
     "@suuudokuuu/rating": "workspace:*"
     "@suuudokuuu/techniques": "workspace:*"
@@ -5891,29 +5891,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@suuudokuuu/contracts@workspace:*, @suuudokuuu/contracts@workspace:packages/contracts":
-  version: 0.0.0-use.local
-  resolution: "@suuudokuuu/contracts@workspace:packages/contracts"
-  dependencies:
-    "@effect/vitest": "npm:4.0.0"
-    "@suuudokuuu/encoder": "workspace:*"
-    "@suuudokuuu/generator": "workspace:*"
-    "@suuudokuuu/techniques": "workspace:*"
-    "@suuudokuuu/test-kit": "workspace:*"
-    "@vitest/coverage-v8": "npm:5.0.3"
-    effect: "npm:4.0.0"
-    vite: "npm:^8.3.2"
-    vitest: "npm:5.0.3"
-  languageName: unknown
-  linkType: soft
-
 "@suuudokuuu/encoder@workspace:*, @suuudokuuu/encoder@workspace:packages/encoder":
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/encoder@workspace:packages/encoder"
   dependencies:
     "@rnw-community/shared": "npm:^2.15.0"
+    "@suuudokuuu/test-kit": "workspace:*"
     "@thi.ng/bitstream": "npm:^2.4.55"
+    "@vitest/coverage-v8": "npm:5.0.3"
     lz-string: "npm:^1.5.0"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
   languageName: unknown
   linkType: soft
 
@@ -5924,8 +5912,12 @@ __metadata:
     "@rnw-community/shared": "npm:^2.15.0"
     "@suuudokuuu/generator": "workspace:*"
     "@suuudokuuu/techniques": "workspace:*"
+    "@suuudokuuu/test-kit": "workspace:*"
     "@types/react": "npm:~19.3.0"
+    "@vitest/coverage-v8": "npm:5.0.3"
     react: "npm:19.3.0"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
   peerDependencies:
     react: ">=19.0.0"
   peerDependenciesMeta:
@@ -5940,8 +5932,12 @@ __metadata:
   dependencies:
     "@rnw-community/shared": "npm:^2.15.0"
     "@suuudokuuu/field-core": "workspace:*"
+    "@suuudokuuu/test-kit": "workspace:*"
     "@types/react": "npm:~19.3.0"
+    "@vitest/coverage-v8": "npm:5.0.3"
     react: "npm:19.3.0"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
   peerDependencies:
     react: ">=19.0.0"
   languageName: unknown
@@ -5954,6 +5950,10 @@ __metadata:
     "@rnw-community/shared": "npm:^2.15.0"
     "@suuudokuuu/solver-bitmask": "workspace:*"
     "@suuudokuuu/solver-core": "workspace:*"
+    "@suuudokuuu/test-kit": "workspace:*"
+    "@vitest/coverage-v8": "npm:5.0.3"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
   languageName: unknown
   linkType: soft
 
@@ -5967,6 +5967,10 @@ __metadata:
     "@suuudokuuu/solver-core": "workspace:*"
     "@suuudokuuu/solver-dlx": "workspace:*"
     "@suuudokuuu/techniques": "workspace:*"
+    "@suuudokuuu/test-kit": "workspace:*"
+    "@vitest/coverage-v8": "npm:5.0.3"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
   languageName: unknown
   linkType: soft
 
@@ -5998,6 +6002,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@suuudokuuu/progress@workspace:*, @suuudokuuu/progress@workspace:packages/progress":
+  version: 0.0.0-use.local
+  resolution: "@suuudokuuu/progress@workspace:packages/progress"
+  dependencies:
+    "@effect/vitest": "npm:4.0.0"
+    "@suuudokuuu/encoder": "workspace:*"
+    "@suuudokuuu/generator": "workspace:*"
+    "@suuudokuuu/techniques": "workspace:*"
+    "@suuudokuuu/test-kit": "workspace:*"
+    "@vitest/coverage-v8": "npm:5.0.3"
+    effect: "npm:4.0.0"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
+  languageName: unknown
+  linkType: soft
+
 "@suuudokuuu/puzzle-forge@workspace:*, @suuudokuuu/puzzle-forge@workspace:packages/puzzle-forge":
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/puzzle-forge@workspace:packages/puzzle-forge"
@@ -6008,6 +6028,10 @@ __metadata:
     "@suuudokuuu/rating": "workspace:*"
     "@suuudokuuu/solver-core": "workspace:*"
     "@suuudokuuu/techniques": "workspace:*"
+    "@suuudokuuu/test-kit": "workspace:*"
+    "@vitest/coverage-v8": "npm:5.0.3"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
   languageName: unknown
   linkType: soft
 
@@ -6017,6 +6041,10 @@ __metadata:
   dependencies:
     "@suuudokuuu/generator": "workspace:*"
     "@suuudokuuu/techniques": "workspace:*"
+    "@suuudokuuu/test-kit": "workspace:*"
+    "@vitest/coverage-v8": "npm:5.0.3"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
   languageName: unknown
   linkType: soft
 
@@ -6062,6 +6090,10 @@ __metadata:
   dependencies:
     "@suuudokuuu/solver-core": "workspace:*"
     "@suuudokuuu/solver-dlx": "workspace:*"
+    "@suuudokuuu/test-kit": "workspace:*"
+    "@vitest/coverage-v8": "npm:5.0.3"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
   languageName: unknown
   linkType: soft
 
@@ -6070,6 +6102,10 @@ __metadata:
   resolution: "@suuudokuuu/solver-core@workspace:packages/solver-core"
   dependencies:
     "@rnw-community/shared": "npm:^2.15.0"
+    "@suuudokuuu/test-kit": "workspace:*"
+    "@vitest/coverage-v8": "npm:5.0.3"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
   languageName: unknown
   linkType: soft
 
@@ -6079,6 +6115,10 @@ __metadata:
   dependencies:
     "@rnw-community/shared": "npm:^2.15.0"
     "@suuudokuuu/solver-core": "workspace:*"
+    "@suuudokuuu/test-kit": "workspace:*"
+    "@vitest/coverage-v8": "npm:5.0.3"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
   languageName: unknown
   linkType: soft
 
@@ -6088,6 +6128,10 @@ __metadata:
   dependencies:
     "@rnw-community/shared": "npm:^2.15.0"
     "@suuudokuuu/generator": "workspace:*"
+    "@suuudokuuu/test-kit": "workspace:*"
+    "@vitest/coverage-v8": "npm:5.0.3"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
   languageName: unknown
   linkType: soft
 
@@ -6100,7 +6144,7 @@ __metadata:
     vite: "npm:^8.3.2"
     vitest: "npm:5.0.3"
   peerDependencies:
-    "@suuudokuuu/contracts": "workspace:*"
+    "@suuudokuuu/progress": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -6108,9 +6152,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@suuudokuuu/ui@workspace:packages/ui"
   dependencies:
-    "@react-native/jest-preset": "npm:0.88.0-rc.3"
     "@rnw-community/shared": "npm:^2.15.0"
-    "@testing-library/react-native": "npm:^14.0.1"
+    "@suuudokuuu/test-kit": "workspace:*"
+    "@vitest/coverage-v8": "npm:5.0.3"
+    vite: "npm:^8.3.2"
+    vitest: "npm:5.0.3"
   peerDependencies:
     lucide-react-native: ^1.49.0
     react: 19.3.0
