@@ -1,6 +1,6 @@
-import type { GameTimelineEventInterface } from '../../game/interface/game-timeline-event.interface';
+import type { TimelineEventType } from '@suuudokuuu/progress';
 
 export interface ReplayTimelineInterface {
-    events: GameTimelineEventInterface[];
+    events: readonly TimelineEventType[];
     givens: string;
 }

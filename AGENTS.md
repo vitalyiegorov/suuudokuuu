@@ -1,8 +1,8 @@
 # AGENTS.md
 
-Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has sixteen core packages and one shared test harness: `app` for the game UI and the platform/runtime edge, `ui` for shared React Native components, hooks, and the theme contract, `contracts` for the persisted SQL schema, migrations, repositories, and reactivity keys, `progress` for the player-progress domain services (current run, history, stats, daily, challenge, legacy import), `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection and the logical-solve driver, `rating` for Sudoku Explainer difficulty rating, `puzzle-forge` for technique-aware puzzle sourcing per difficulty tier, `field-core` for the headless interactive field engine and technique step-script player, `field-dom` for the React DOM board renderer, `encoder` for compact shareable game-state encoding, and `hell-corpus` for the bundled, verified Hell-difficulty and Infinity puzzle corpora. `tests/test-kit` holds the shared Vitest and in-memory SQLite test harness.
+Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has fifteen core packages and one shared test harness: `app` for the game UI and the platform/runtime edge, `ui` for shared React Native components, hooks, and the theme contract, `progress` for the persisted SQL schema, migrations, repositories, reactivity keys, and the player-progress domain services (current run, finishing a run into history and stats, legacy import), `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation and solving, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection and the logical-solve driver, `rating` for Sudoku Explainer difficulty rating, `puzzle-forge` for technique-aware puzzle sourcing per difficulty tier, `field-core` for the headless interactive field engine and technique step-script player, `field-dom` for the React DOM board renderer, `encoder` for compact shareable game-state encoding, and `hell-corpus` for the bundled, verified Hell-difficulty and Infinity puzzle corpora. `tests/test-kit` holds the shared Vitest and in-memory SQLite test harness.
 
-Persistence is Effect v4 services over SQLite (op-sqlite on native, wa-sqlite on web) with `@effect/atom-react` atoms for reads. Redux and redux-persist are being retired; code that still uses them is legacy and is migrated opportunistically.
+Persistence is Effect v4 services over SQLite (op-sqlite on native, wa-sqlite on web) with `@effect/atom-react` atoms for reads. The pre-SQLite redux-persist payload survives only as the one-time legacy import in `packages/progress`.
 
 ## Canonical Agent Surfaces
 
@@ -45,8 +45,7 @@ Run `yarn test` when behavior, algorithms, serialization, persistence, scoring, 
 packages/
 ├── app/                # Expo 58, React Native 0.88, React 19.3 game UI, SQL platform layers, app runtime, boot gate
 ├── ui/                 # Shared React Native components, hooks, and the theme contract
-├── contracts/          # Effect v4 persisted schemas, SQL migrations, repositories, reactivity keys, tagged errors
-├── progress/           # Effect v4 domain services: current run, history, stats, daily, challenge, legacy import
+├── progress/           # Effect v4 persisted schemas, SQL migrations, repositories, reactivity keys, domain services, legacy import
 ├── generator/          # Pure TypeScript Sudoku generator and DLX solver
 ├── solver-core/        # Shared solver contract, grid constants, and conformance-test helpers
 ├── solver-dlx/         # Dancing Links (DLX) exact-cover Sudoku solver
@@ -68,7 +67,7 @@ tests/
 ## Package Instructions
 
 - Read `packages/app/AGENTS.md` before changing Expo Router routes, React Native UI, the app runtime, atoms, persistence wiring, themes, Lingui text, deep links, sharing, or app assets.
-- Read the `## Effect` section below and load the `effect` skill before changing `packages/contracts`, `packages/progress`, `tests/test-kit`, or any service, repository, layer, atom, or SQL migration.
+- Read the `## Effect` section below and load the `effect` skill before changing `packages/progress`, `tests/test-kit`, or any service, repository, layer, atom, or SQL migration.
 - Read `packages/generator/AGENTS.md` before changing Sudoku generation, validation, navigation, DLX solving, difficulty config, or puzzle interfaces.
 - Read `packages/techniques/AGENTS.md` before changing solving techniques, candidate context, strategy ordering, or move classification.
 - Read `packages/rating/AGENTS.md` before changing the SE value table, the cheapest-first technique order, ceiling reporting, or the `ratePuzzle` API.
@@ -163,13 +162,13 @@ All effectful logic runs on Effect v4 (`effect`, pinned exactly). API names are 
 
 **Binding.** New logic with IO, state, concurrency, time, or failure is Effect. No `async`/`await`, `try`/`throw`, `new Promise`, `setTimeout` loops, or `useEffect` fetches with cancelled flags except at the runtime edges. Pure code (grid math, parsers, mappers, encoders) stays plain TypeScript with no tag. Existing Promise-based generator, solver, and encoder code is not rewritten.
 
-- **Packages.** `@suuudokuuu/contracts` owns persisted schemas, SQL migrations, repositories, reactivity keys, and tagged errors. `@suuudokuuu/progress` owns the domain services built on them. `packages/app` owns the platform SQL layers (native op-sqlite, web wa-sqlite), the app runtime, and the boot gate. Everything above the platform layer depends only on `SqlClient` and `Reactivity`.
+- **Packages.** `@suuudokuuu/progress` owns persisted schemas, SQL migrations, repositories, reactivity keys, tagged errors, and the domain services built on them. `packages/app` owns the platform SQL layers (native op-sqlite, web wa-sqlite), the app runtime, and the boot gate. Everything above the platform layer depends only on `SqlClient` and `Reactivity`.
 - **Services.** Every service and repository is `class X extends Context.Service<X>()('@suuudokuuu/<pkg>/X', { make: Effect.gen(function* () { const dependency = yield* Dependency; return { method }; }) }) { static readonly layer = Layer.effect(X, X.make).pipe(Layer.provide(Dependency.layer)); }`. No constructors and no `this`: dependencies resolve once at the top of `make`, helpers and state are `make` locals, and the returned object is the contract. Callers use only the tag (`yield* X`, `Effect.flatMap(X, service => ...)`, never `X.use`). Layers are static values, so each service is built once per runtime. Do not add a service interface file.
 - **Tracing.** Multi-step methods are `Effect.fn('X.method')(function* (...) {...})`. A method whose body is a single call is a plain arrow. Hot-loop helpers use `Effect.fnUntraced`. Never `console.*`.
 - **Errors.** Expected failures are `Schema.TaggedError` classes in the module `error/<name>.error.ts`, created only when a caller branches on them; everything else is a defect (`Effect.orDie`). Wrap foreign Promise, SDK, or native calls with `Effect.tryPromise`/`Effect.try` at that boundary only. Recover only at edges (React, boot) with `Effect.catchTag`/`catchTags`/`catch`. Log failures once, at the edge, not inside services.
-- **Schema.** Validate unknown external input (deep links, persisted JSON, share payloads) with Effect `Schema` at the boundary (`Schema.decodeUnknownEffect`, `Schema.fromJsonString` for JSON columns), then pass typed values inward. Persisted row models are `Model.Class` or `Schema.Struct` in contracts. Service signatures encode invariants: narrow the parameter type instead of accepting a wide input and silently dropping fields.
-- **SQL.** Repositories are services over `SqlClient` and return Effects. Schema changes are a new migration added to the migration record in `packages/contracts`, never an edit of a shipped migration. Atomic work uses `sql.withTransaction`, never a transaction argument threaded through signatures.
-- **Reactivity.** Reads are atoms built from the app atom runtime with `withReactivity([keys])`, read in components with `useAtomValue` or the keep-last-value live hook. Every repository write is wrapped in `reactivity.mutation([keys], effect)` using the key constants exported from contracts. High-frequency data such as the run clock has its own key so a tick re-renders only its readers.
+- **Schema.** Validate unknown external input (deep links, persisted JSON, share payloads) with Effect `Schema` at the boundary (`Schema.decodeUnknownEffect`, `Schema.fromJsonString` for JSON columns), then pass typed values inward. Persisted row models are `Model.Class` or `Schema.Struct` in progress. Service signatures encode invariants: narrow the parameter type instead of accepting a wide input and silently dropping fields.
+- **SQL.** Repositories are services over `SqlClient` and return Effects. Schema changes are a new migration added to the migration record in `packages/progress`, never an edit of a shipped migration. Atomic work uses `sql.withTransaction`, never a transaction argument threaded through signatures.
+- **Reactivity.** Reads are atoms built from the app atom runtime with `withReactivity([keys])`, read in components with `useAtomValue` or the keep-last-value live hook. Every repository write is wrapped in `reactivity.mutation([keys], effect)` using the key constants exported from progress. High-frequency data such as the run clock has its own key so a tick re-renders only its readers.
 - **Runtime.** One app `ManagedRuntime` and one atom runtime share a memo map (`packages/app/src/@generic/runtime/app.runtime.ts`). Components run commands with `appRuntime.runPromise`; an effect started from `useEffect` uses `runFork` and interrupts the fiber in cleanup. No `Effect.runPromise`/`runSync` inside services.
 - **Concurrency and time.** `Schedule`, `Effect.retry`/`repeat`, `Effect.timeout`, `Effect.sleep`, `Semaphore`, `FiberMap`, `Effect.acquireRelease`. Never `Promise.race`, generation counters, promise-chain mutexes, or boolean cancel flags.
 - **Imports by subpath.** `import * as Effect from 'effect/Effect'`, never the `effect` barrel. Metro does not tree-shake, and the barrel adds megabytes to the bundle.
@@ -203,7 +202,7 @@ export class RunService extends Context.Service<RunService>()('@suuudokuuu/progr
 ## Testing
 
 - Tests use Vitest and `@effect/vitest`. They live in `packages/<package>/test/**/*.test.ts`, not colocated `.spec.ts` files. Cross-package scenarios live in `tests/*`; shared harness code lives in `tests/test-kit`, not in a scenario suite.
-- `packages/app` and `packages/landing` host no unit tests. Pure logic that needs tests belongs in a domain package (`progress`, `contracts`, `generator`, ...); UI behavior is covered by Maestro and Playwright.
+- `packages/app` and `packages/landing` host no unit tests. Pure logic that needs tests belongs in a domain package (`progress`, `generator`, ...); UI behavior is covered by Maestro and Playwright.
 - Maestro E2E coverage lives under `tests/app-tests`.
 - Web E2E coverage lives under `tests/web-tests` (Playwright against the Expo web export).
 - Add or update tests when changing puzzle generation, solving, serialization, scoring, SQL migrations, repositories, or externally visible behavior.
@@ -228,7 +227,7 @@ Use Conventional Commits for commit messages and PR titles:
 type(scope): short description
 ```
 
-Scopes are `app`, `ui`, `contracts`, `progress`, `test-kit`, `landing`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, `rating`, `puzzle-forge`, `encoder`, `hell-corpus`, `field-core`, and `field-dom`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
+Scopes are `app`, `ui`, `progress`, `test-kit`, `landing`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, `rating`, `puzzle-forge`, `encoder`, `hell-corpus`, `field-core`, and `field-dom`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
 
 Use these types: `feat`, `fix`, `refactor`, `chore`, `docs`, `ci`, `test`, `i18n`, `perf`, and `build`.
 

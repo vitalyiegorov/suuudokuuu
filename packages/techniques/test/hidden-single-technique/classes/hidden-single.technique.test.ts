@@ -6,7 +6,6 @@ import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-tech
 import { HiddenSingleTechnique } from '../../../src/hidden-single-technique/classes/hidden-single.technique';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-
 describe('HiddenSingleTechnique', () => {
     it('finds a value that only one cell can hold in a unit', () => {
         expect.assertions(1);

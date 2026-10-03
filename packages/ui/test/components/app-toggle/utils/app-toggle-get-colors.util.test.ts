@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 import { appToggleGetColors } from '../../../../src/components/app-toggle/utils/app-toggle-get-colors.util';
 import { DefaultUiTheme } from '../../../../src/theme/constant/default-ui-theme.constant';
 
-
 describe('appToggleGetColors', () => {
     it('fills the track with the active accent and its paired foreground when checked', () => {
         const colors = appToggleGetColors(DefaultUiTheme, true);

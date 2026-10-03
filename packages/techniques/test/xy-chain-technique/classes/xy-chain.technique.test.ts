@@ -7,7 +7,6 @@ import { XYChainTechnique } from '../../../src/xy-chain-technique/classes/xy-cha
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-
 import type { TechniqueResultInterface } from '../../../src/@generic/interfaces/technique-result.interface';
 import type { CandidateCellSpecType } from '../../@generic/types/candidate-cell-spec.spec.type';
 

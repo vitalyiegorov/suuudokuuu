@@ -1,119 +1,48 @@
+import { CurrentRunService } from '@suuudokuuu/progress';
+import * as Duration from 'effect/Duration';
+import * as Effect from 'effect/Effect';
+import * as Queue from 'effect/Queue';
 import { AppState } from 'react-native';
 
-import { appRootStore } from '../../@generic/app-root.store';
-import {
-    gameChallengeClockSyncAction,
-    gamePauseAction,
-    gameResumeAction,
-    gameTickAction,
-    gameTimelineAwayAction,
-    gameTimelineReturnAction
-} from '../store/game.actions';
-import {
-    gameIsChallengeRunSelector,
-    gameIsStartedSelector,
-    gamePausedSelector,
-    gameShouldResumeOnFocusSelector
-} from '../store/game.selectors';
+import type { AppStateStatus } from 'react-native';
 
-import { gameTimerStopTimer } from './game-timer-stop-timer.util';
+export const gameTimerFocusEffect = (openPauseScreen: () => void) =>
+    Effect.gen(function* () {
+        const currentRunService = yield* CurrentRunService;
+        const appStates = yield* Queue.unbounded<AppStateStatus>();
 
-import type { AppDispatch } from '../../@generic/app-root.store';
-import type { RefObject } from 'react';
+        yield* Effect.acquireRelease(
+            Effect.sync(() => AppState.addEventListener('change', appState => void Queue.offerUnsafe(appStates, appState))),
+            subscription => Effect.sync(() => void subscription.remove())
+        );
 
-type SetIntervalRef = ReturnType<typeof setInterval> | null;
+        const { isChallengeRun, shouldRunTimer } = yield* currentRunService.focus();
+        const tickForever = Effect.forever(Effect.andThen(Effect.sleep(Duration.seconds(1)), currentRunService.tick));
+        const nextAppState = Queue.take(appStates);
 
-interface GameTimerFocusDependenciesInterface {
-    readonly dispatch: AppDispatch;
-    readonly replace: (href: '/pause') => void;
-    readonly timerIntervalRef: RefObject<SetIntervalRef>;
-    readonly hasHandledBackgroundRef: RefObject<boolean>;
-}
+        const runChallengeTimer = (isTicking: boolean): Effect.Effect<void> =>
+            Effect.gen(function* () {
+                const appState = isTicking ? yield* Effect.raceFirst(tickForever, nextAppState) : yield* nextAppState;
 
-const getGameTimerSnapshot = () => {
-    const state = appRootStore.getState();
-    const hasStarted = gameIsStartedSelector(state);
-    const isPaused = gamePausedSelector(state);
-    const isChallenge = gameIsChallengeRunSelector(state);
-    const shouldResumeTimerOnFocus = hasStarted && isPaused && gameShouldResumeOnFocusSelector(state);
-    const shouldRunTimer = hasStarted && (!isPaused || shouldResumeTimerOnFocus);
+                if (appState === 'active') {
+                    yield* currentRunService.returnToRun();
+                }
 
-    return { hasStarted, isChallenge, shouldResumeTimerOnFocus, shouldRunTimer };
-};
+                if (appState === 'background') {
+                    yield* currentRunService.leaveRun;
+                }
 
-const createGameTimerAppStateListener = (
-    dependencies: GameTimerFocusDependenciesInterface,
-    snapshot: ReturnType<typeof getGameTimerSnapshot>,
-    startTimer: () => void
-) => {
-    const { dispatch, replace, timerIntervalRef, hasHandledBackgroundRef } = dependencies;
+                yield* runChallengeTimer(appState === 'active');
+            });
 
-    const handleChallengeAppState = (nextAppState: string) => {
-        gameTimerStopTimer(timerIntervalRef);
+        const pauseOnBackground = Effect.raceFirst(
+            tickForever,
+            Effect.repeat(nextAppState, { until: appState => appState !== 'active' })
+        ).pipe(Effect.andThen(currentRunService.pause()), Effect.andThen(Effect.sync(openPauseScreen)));
 
-        if (nextAppState === 'active') {
-            dispatch(gameChallengeClockSyncAction({ nowMs: Date.now() }));
-            dispatch(gameTimelineReturnAction());
-            startTimer();
-
+        if (!shouldRunTimer) {
             return;
         }
 
-        if (nextAppState === 'background') {
-            dispatch(gameTimelineAwayAction());
-        }
-    };
-
-    return (nextAppState: string) => {
-        if (!snapshot.shouldRunTimer) {
-            return;
-        }
-
-        if (snapshot.isChallenge) {
-            handleChallengeAppState(nextAppState);
-
-            return;
-        }
-
-        if (nextAppState !== 'active' && !hasHandledBackgroundRef.current) {
-            hasHandledBackgroundRef.current = true;
-            gameTimerStopTimer(timerIntervalRef);
-            dispatch(gamePauseAction());
-            replace('/pause');
-        }
-    };
-};
-
-export const gameTimerRunFocusEffect = (dependencies: GameTimerFocusDependenciesInterface) => {
-    const { dispatch, timerIntervalRef, hasHandledBackgroundRef } = dependencies;
-    const snapshot = getGameTimerSnapshot();
-
-    hasHandledBackgroundRef.current = false;
-    gameTimerStopTimer(timerIntervalRef);
-
-    if (snapshot.shouldResumeTimerOnFocus) {
-        dispatch(gameResumeAction());
-    }
-
-    if (snapshot.isChallenge && snapshot.hasStarted) {
-        dispatch(gameChallengeClockSyncAction({ nowMs: Date.now() }));
-        dispatch(gameTimelineReturnAction());
-    }
-
-    const startTimer = () => {
-        timerIntervalRef.current = setInterval(() => {
-            dispatch(gameTickAction());
-        }, 1000);
-    };
-
-    if (snapshot.shouldRunTimer) {
-        startTimer();
-    }
-
-    const subscription = AppState.addEventListener('change', createGameTimerAppStateListener(dependencies, snapshot, startTimer));
-
-    return () => {
-        subscription.remove();
-        gameTimerStopTimer(timerIntervalRef);
-    };
-};
+        yield* isChallengeRun ? runChallengeTimer(true) : pauseOnBackground;
+    }).pipe(Effect.scoped);

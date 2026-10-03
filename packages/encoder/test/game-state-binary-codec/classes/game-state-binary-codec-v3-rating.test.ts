@@ -29,7 +29,10 @@ import { bytesToBase64url } from '../../../src/@generic/utils/bytes-to-base64url
 import { writeGivens } from '../../../src/@generic/utils/givens-codec.util';
 import { writeMetadataTrailer } from '../../../src/@generic/utils/metadata-trailer-codec.util';
 import { hasNonCellEvents, writeTimelineEvents } from '../../../src/@generic/utils/timeline-event-stream-codec.util';
-import { type EncodableGameStateInterface, GameStateBinaryCodecV3 } from '../../../src/game-state-binary-codec/classes/game-state-binary-codec-v3';
+import {
+    type EncodableGameStateInterface,
+    GameStateBinaryCodecV3
+} from '../../../src/game-state-binary-codec/classes/game-state-binary-codec-v3';
 
 import type { TimelineEventInterface } from '../../../src/@generic/interfaces/timeline-event.interface';
 

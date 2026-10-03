@@ -4,13 +4,14 @@ import { use } from 'react';
 
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { GameContext } from '../../../game/context/game.context';
-import { GameState } from '../../../game/store/game.state';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 
 import { ChallengeTryAgainButtonSelectors } from './challenge-try-again-button.selectors';
 
+import type { CurrentRunType } from '@suuudokuuu/progress';
+
 interface Props {
-    readonly gameState: GameState;
+    readonly gameState: CurrentRunType;
 }
 
 export const ChallengeTryAgainButton = ({ gameState }: Props) => {

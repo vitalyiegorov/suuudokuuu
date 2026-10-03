@@ -1,7 +1,7 @@
 import { msg } from '@lingui/core/macro';
 
-import type { Languages } from './languages.constant';
 import type { MessageDescriptor } from '@lingui/core';
+import type { Languages } from '@suuudokuuu/progress';
 
 export const LanguageLabels: Record<(typeof Languages)[number], MessageDescriptor> = {
     ar: msg`العربية`,

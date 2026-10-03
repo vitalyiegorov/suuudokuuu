@@ -9,9 +9,9 @@ import { isNotEmptyString } from '@rnw-community/shared';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { RatingExplainer } from '../../../@generic/components/rating-explainer/rating-explainer';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { RatingExplainerCeilingParamValue } from '../../../@generic/utils/get-rating-explainer-href.util';
-import { gameBestRatingSelector } from '../../../game/store/game.selectors';
+import { useDifficultyStats } from '../../../history/query/use-difficulty-stats.query';
+import { historyGetBestRating } from '../../../history/utils/history-get-best-rating.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { RatingExplainerSheetScreenSelectors } from './rating-explainer-sheet-screen.selectors';
@@ -30,7 +30,7 @@ export const RatingExplainerSheetScreen = () => {
     const isCeilingParam = Array.isArray(params.isCeiling) ? '' : (params.isCeiling ?? '');
     const parsedRating = Number(ratingParam);
     const hasValidRating = isNotEmptyString(ratingParam) && !Number.isNaN(parsedRating);
-    const bestRating = useAppSelector(gameBestRatingSelector);
+    const bestRating = historyGetBestRating(useDifficultyStats());
     const canGoBack = router.canGoBack();
     const shouldGoBack = !hasValidRating && canGoBack;
 

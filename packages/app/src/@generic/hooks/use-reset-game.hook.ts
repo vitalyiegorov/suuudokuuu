@@ -1,22 +1,22 @@
-import { useEffect, useRef } from 'react';
+import { CurrentRunService, initialCurrentRun } from '@suuudokuuu/progress';
+import * as Effect from 'effect/Effect';
+import * as Option from 'effect/Option';
+import { useEffect, useState } from 'react';
 
-import { gameResetAction } from '../../game/store/game.actions';
-import { gameIsStartedSelector, gameSelector } from '../../game/store/game.selectors';
-import { GameState } from '../../game/store/game.state';
+import { appRuntime } from '../runtime/app.runtime';
 
-import { useAppDispatch } from './use-app-dispatch.hook';
-import { useAppSelector } from './use-app-selector.hook';
+import type { CurrentRunType } from '@suuudokuuu/progress';
 
-export const useResetGame = (): [isGameStarted: boolean, gameState: GameState] => {
-    const dispatch = useAppDispatch();
+export const useResetGame = (): CurrentRunType | null => {
+    const [finishedRun, setFinishedRun] = useState<CurrentRunType | null>(null);
 
-    const gameState = useAppSelector(gameSelector);
-    const isGameStarted = useAppSelector(gameIsStartedSelector);
+    useEffect(
+        () =>
+            void appRuntime
+                .runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.reset))
+                .then(run => void setFinishedRun(Option.getOrElse(run, () => initialCurrentRun))),
+        []
+    );
 
-    const memoizedData = useRef({ ...gameState });
-
-    useEffect(() => void dispatch(gameResetAction()), [dispatch]);
-
-    // eslint-disable-next-line react-hooks/refs
-    return [isGameStarted, memoizedData.current] as const;
+    return finishedRun;
 };

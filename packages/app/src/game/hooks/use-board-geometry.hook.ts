@@ -3,8 +3,7 @@ import { useState } from 'react';
 
 import { isPositiveNumber } from '@rnw-community/shared';
 
-import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
-import { settingsCellMarginSelector } from '../../settings/store/settings.selectors';
+import { useSettings } from '../../settings/query/use-settings.query';
 import { gameGetBoardGeometry } from '../utils/game-get-board-geometry.util';
 
 import type { BoardAreaGeometryInterface } from '../interface/board-area-geometry.interface';
@@ -13,7 +12,7 @@ import type { LayoutChangeEvent } from 'react-native';
 let lastMeasuredBoardArea = { width: 0, height: 0 };
 
 export const useBoardGeometry = (reservedHeight: number): BoardAreaGeometryInterface => {
-    const cellMargin = useAppSelector(settingsCellMarginSelector);
+    const { cellMargin } = useSettings();
 
     const [boardArea, setBoardArea] = useState(lastMeasuredBoardArea);
 

@@ -3,8 +3,8 @@ import { View } from 'react-native';
 import { useUnistyles } from 'react-native-unistyles';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { gameElapsedTimeSelector, gameTimelineEventsSelector } from '../../../game/store/game.selectors';
+import { useCurrentRun } from '../../../game/query/use-current-run.query';
+import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
 import { getChallengeTapeMarks } from '../../utils/get-challenge-tape-marks.util';
 import { getTapeAxisTime } from '../../utils/get-tape-axis-time.util';
 import { getTapeTechniqueEvents } from '../../utils/get-tape-technique-events.util';
@@ -23,8 +23,8 @@ const DimDotOpacity = 0.2;
 export const ChallengeRecordHud = () => {
     const { t } = useLingui();
     const { theme } = useUnistyles();
-    const elapsedTime = useAppSelector(gameElapsedTimeSelector);
-    const timelineEvents = useAppSelector(gameTimelineEventsSelector);
+    const elapsedTime = useElapsedTime();
+    const { timelineEvents } = useCurrentRun();
 
     const isDotLit = elapsedTime % BlinkPeriodSeconds === 0;
     const dotOpacity = isDotLit ? 1 : DimDotOpacity;

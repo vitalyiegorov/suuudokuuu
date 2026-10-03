@@ -67,7 +67,7 @@ const getGithubReleasesToken = () => {
     return typeof githubToken === 'string' ? githubToken : null;
 };
 
-export const resolveBetaReleaseFromEnvironment = () => {
+const resolveBetaReleaseFromEnvironment = () => {
     const githubToken = getGithubReleasesToken();
 
     return resolveBetaRelease({ fetch, ...(githubToken !== null && { githubToken }) });

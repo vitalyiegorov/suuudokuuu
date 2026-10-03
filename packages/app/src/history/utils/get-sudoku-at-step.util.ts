@@ -1,19 +1,19 @@
 import { getCellKey } from '@suuudokuuu/field-core';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { getTimelineCellTechniques } from '@suuudokuuu/progress';
 import { TechniqueManager, interactiveTechniqueOrder } from '@suuudokuuu/techniques';
 
 import { isDefined } from '@rnw-community/shared';
 
 import { getTimelineCellSteps } from '../../game/utils/get-timeline-cell-steps.util';
-import { getTimelineCellTechniques } from '../../game/utils/get-timeline-cell-techniques.util';
 
 import { getReplayTimeline } from './get-replay-timeline.util';
 
-import type { GameState } from '../../game/store/game.state';
 import type { SolutionStepInterface } from '@suuudokuuu/encoder';
+import type { CurrentRunType } from '@suuudokuuu/progress';
 import type { MoveClassificationInterface } from '@suuudokuuu/techniques';
 
-export const getSudokuAtStep = (gameState: GameState, currentStep: number) => {
+export const getSudokuAtStep = (gameState: CurrentRunType, currentStep: number) => {
     const { events, givens } = getReplayTimeline(gameState);
     const sudoku = Sudoku.fromString(givens, defaultSudokuConfig);
 

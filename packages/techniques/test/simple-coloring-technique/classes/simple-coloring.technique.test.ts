@@ -5,7 +5,6 @@ import { SimpleColoringTechnique } from '../../../src/simple-coloring-technique/
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-
 describe('SimpleColoringTechnique', () => {
     it('uses a color trap to eliminate a candidate that sees both colors', () => {
         expect.assertions(1);

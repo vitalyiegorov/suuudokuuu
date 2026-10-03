@@ -33,9 +33,6 @@ export const HintSurfaceRoomyFixedHeightConstant =
 
 export const HintSurfaceMinHeightConstant = HintSurfaceStandardFixedHeightConstant + HintNarrationStandardLineHeightConstant;
 
-export const HintSurfaceStandardHeightConstant =
-    HintSurfaceStandardFixedHeightConstant + HintNarrationLineCountConstant * HintNarrationStandardLineHeightConstant;
-
 export const HintSurfaceRoomyHeightConstant =
     HintSurfaceRoomyFixedHeightConstant + HintNarrationLineCountConstant * HintNarrationRoomyLineHeightConstant;
 

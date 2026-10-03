@@ -6,7 +6,6 @@ import { FieldEngine } from '../../../src/field-engine/classes/field-engine';
 import { findStepScript } from '../../../src/step-script/utils/find-step-script.util';
 import { techniqueResultToStepScript } from '../../../src/step-script/utils/technique-result-to-step-script.util';
 
-
 import type { FieldEngineOptionsInterface } from '../../../src/field-engine/interfaces/field-engine-options.interface';
 import type { StepScriptInterface } from '../../../src/step-script/interfaces/step-script.interface';
 import type { CellInterface } from '@suuudokuuu/generator';

@@ -1,13 +1,16 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { SettingsRepository } from '@suuudokuuu/progress';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
+import * as Effect from 'effect/Effect';
 import { Link } from 'expo-router';
 import { use } from 'react';
 import { Platform, Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
+import { isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
@@ -15,9 +18,8 @@ import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page
 import { Header } from '../../../@generic/components/header/header';
 import { TabBarInsetContext } from '../../../@generic/components/main-tab-layout/context/tab-bar-inset.context';
 import { SupportUkrainePill } from '../../../@generic/components/support-ukraine-pill/support-ukraine-pill';
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
+import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { getBrand } from '../../../@generic/utils/get-brand.util';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { ChallengeModeSwitch } from '../../../challenge/components/challenge-mode-switch/challenge-mode-switch';
@@ -28,20 +30,12 @@ import {
 import { DifficultyComplexityPreview } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-preview/difficulty-complexity-preview';
 import { DifficultyComplexitySlider } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-slider';
 import { GameContext } from '../../../game/context/game.context';
-import {
-    gameElapsedTimeSelector,
-    gameHistoryBestTimeSelector,
-    gameIsStartedSelector,
-    gameSolutionsStepsSelector,
-    gameSudokuStringSelector
-} from '../../../game/store/game.selectors';
+import { useCurrentRun } from '../../../game/query/use-current-run.query';
+import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
+import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
+import { useDifficultyStats } from '../../../history/query/use-difficulty-stats.query';
 import { RelaxedMaxMistakesConstant } from '../../../settings/constant/max-mistakes.constant';
-import { settingsSetAction } from '../../../settings/store/settings.actions';
-import {
-    settingsLastGameChallengeModeSelector,
-    settingsLastGameDifficultySelector,
-    settingsLastGameMaxMistakesSelector
-} from '../../../settings/store/settings.selectors';
+import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayHeight, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
@@ -56,6 +50,8 @@ import { homeScreenGetContentInsetTop } from './utils/home-screen-get-content-in
 import { homeScreenGetCurrentGameProgress } from './utils/home-screen-get-current-game-progress.util';
 import { homeScreenGetDifficultyDescription } from './utils/home-screen-get-difficulty-description.util';
 
+import type { SettingsType } from '@suuudokuuu/progress';
+
 const topEdgeFadeProps = { height: HomeScreenTopOverlayHeight, intensity: HomeScreenTopOverlayIntensity };
 
 // eslint-disable-next-line max-lines-per-function
@@ -65,17 +61,19 @@ export const HomeScreen = () => {
     const { t } = useLingui();
     const safeAreaInsets = useSafeAreaInsets();
     const tabBarInset = use(TabBarInsetContext);
-    const dispatch = useAppDispatch();
-    const [bestScore, bestTime] = useAppSelector(gameHistoryBestTimeSelector);
-    const currentElapsedTime = useAppSelector(gameElapsedTimeSelector);
-    const currentSolutionSteps = useAppSelector(gameSolutionsStepsSelector);
-    const currentSudokuString = useAppSelector(gameSudokuStringSelector);
-    const difficulty = useAppSelector(settingsLastGameDifficultySelector);
-    const isGameStarted = useAppSelector(gameIsStartedSelector);
-    const maxMistakes = useAppSelector(settingsLastGameMaxMistakesSelector);
-    const isChallengeMode = useAppSelector(settingsLastGameChallengeModeSelector);
-    const handleDifficultyChange = (newDifficulty: DifficultyEnum) => dispatch(settingsSetAction({ lastGameDifficulty: newDifficulty }));
-    const handleMaxMistakes = (newMaxMistakes: number) => () => dispatch(settingsSetAction({ lastGameMaxMistakes: newMaxMistakes }));
+    const { bestScore, bestTime } = useDifficultyStats().reduce((best, stats) => (stats.bestScore > best.bestScore ? stats : best), {
+        bestScore: 0,
+        bestTime: 0
+    });
+    const currentElapsedTime = useElapsedTime();
+    const { sudokuString: currentSudokuString, timelineEvents } = useCurrentRun();
+    const { lastGameChallengeMode: isChallengeMode, lastGameDifficulty: difficulty, lastGameMaxMistakes: maxMistakes } = useSettings();
+    const currentSolutionSteps = getTimelineCellSteps(timelineEvents);
+    const isGameStarted = isNotEmptyString(currentSudokuString);
+    const updateSettings = (patch: Partial<SettingsType>) =>
+        void appRuntime.runPromise(Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update(patch)));
+    const handleDifficultyChange = (newDifficulty: DifficultyEnum) => void updateSettings({ lastGameDifficulty: newDifficulty });
+    const handleMaxMistakes = (newMaxMistakes: number) => () => void updateSettings({ lastGameMaxMistakes: newMaxMistakes });
     const startNewPuzzle = () => void create({ difficulty, isChallengeRun: isChallengeMode, maxMistakes });
 
     const handleStart = () => {

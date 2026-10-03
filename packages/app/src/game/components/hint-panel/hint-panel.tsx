@@ -1,5 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
+import { CurrentRunMoveService } from '@suuudokuuu/progress';
 import { AppButton } from '@suuudokuuu/ui';
+import * as Effect from 'effect/Effect';
 import LucideChevronLeft from 'lucide-react-native/icons/chevron-left';
 import LucideChevronRight from 'lucide-react-native/icons/chevron-right';
 import LucideX from 'lucide-react-native/icons/x';
@@ -10,11 +12,10 @@ import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { isDefined } from '@rnw-community/shared';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
+import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
-import { gameHintAction } from '../../store/game.actions';
 import { HintStepNarration } from '../hint-step-narration/hint-step-narration';
 
 import { HintPanelSelectors } from './hint-panel.selectors';
@@ -36,24 +37,19 @@ export const HintPanel = ({ isRoomyLayout, narrationLineCount, surfaceHeight }: 
 
     const isMotionReduced = useReduceMotion();
 
-    const dispatch = useAppDispatch();
-
     const { stepScript, stepIndex } = snapshot;
     const currentStep = stepScript?.steps[stepIndex];
 
     useEffect(() => () => void engine.stopStepScript(), [engine]);
 
-    const handleBack = () => {
-        engine.stepScriptBack();
-    };
-
-    const handleNext = () => {
-        engine.stepScriptNext();
-    };
+    const handleBack = () => void engine.stepScriptBack();
+    const handleNext = () => void engine.stepScriptNext();
 
     const handleApply = () => {
         if (isDefined(stepScript)) {
-            dispatch(gameHintAction({ eliminations: stepScript.eliminations }));
+            void appRuntime.runPromise(
+                Effect.flatMap(CurrentRunMoveService, currentRunMoveService => currentRunMoveService.hint(stepScript.eliminations))
+            );
             engine.applyStepScript();
         }
     };

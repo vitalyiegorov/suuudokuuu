@@ -6,7 +6,6 @@ import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-tech
 import { FullHouseTechnique } from '../../../src/full-house-technique/classes/full-house.technique';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-
 describe('FullHouseTechnique', () => {
     it('finds a cell that completes a unit with one blank', () => {
         expect.assertions(1);

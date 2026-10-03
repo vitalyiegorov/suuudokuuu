@@ -6,7 +6,6 @@ import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-tech
 import { BivalueUniversalGraveTechnique } from '../../../src/bivalue-universal-grave-technique/classes/bivalue-universal-grave.technique';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-
 describe('BivalueUniversalGraveTechnique', () => {
     it('places the candidate that appears three times in the units of the only non bivalue cell', () => {
         expect.assertions(1);

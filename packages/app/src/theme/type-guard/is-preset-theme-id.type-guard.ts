@@ -1,6 +1,6 @@
 import { Themes } from '../constant/themes.constant';
 
-import type { ThemeEnum } from '../enum/theme.enum';
+import type { ThemeEnum } from '@suuudokuuu/progress';
 
 const presetThemeIds: readonly string[] = Themes;
 

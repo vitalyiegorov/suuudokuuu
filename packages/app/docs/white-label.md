@@ -89,23 +89,11 @@ Runtime consumers call `getBrand()` instead of hardcoding brand values:
   `screens/components/home-screen/home.screen.tsx` read
   `getBrand().appName` for the version label and the home screen title.
 
-`settings/store/settings.state.ts` sets `initialSettingsState.theme` from
+`settings/utils/get-default-settings.util.ts` sets the default `theme` from
 `getBrand().defaultTheme`, so a fresh install seeds its starting theme from
 the active brand configuration instead of a hardcoded value. This only
-affects the initial Redux state; existing users keep whatever theme they
-already persisted, since the migration path never overwrites a stored
-`theme` value.
-
-Jest mocks `expo-constants` globally in `jest.native-mocks.js`
-(`{ default: { expoConfig: null } }`), the same pattern already used for
-`expo-localization`, `expo-haptics`, and other native-only Expo modules. This
-keeps `settings.state.ts` and its consumers (`settings.slice.spec.ts`,
-`settings.selectors.spec.ts`, `app-root-migrations.spec.ts`) loadable under
-Jest without transforming `expo-constants`'s ESM output or its
-`expo-modules-core` dependency, which requires native module globals that
-don't exist under Jest. `get-brand.util.spec.ts` overrides this global mock
-with its own `jest.mock('expo-constants', ...)` call to exercise the
-validated, non-fallback path.
+affects the settings row seeded on first launch; existing users keep whatever
+theme they already persisted.
 
 ## Required Asset Sizes
 

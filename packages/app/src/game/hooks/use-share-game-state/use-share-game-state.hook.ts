@@ -1,12 +1,11 @@
 import { useLingui } from '@lingui/react/macro';
 import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
+import { gameStateToString } from '@suuudokuuu/progress';
 import Share from 'react-native-share';
 
-import { gameStateToString } from '../../utils/game-state-to-string.util';
+import type { CurrentRunType } from '@suuudokuuu/progress';
 
-import type { GameState } from '../../store/game.state';
-
-export const useShareGameState = (kind: SharedPayloadKindEnum, gameState: GameState) => {
+export const useShareGameState = (kind: SharedPayloadKindEnum, gameState: CurrentRunType) => {
     const { t } = useLingui();
 
     const isHandoff = kind === SharedPayloadKindEnum.Handoff;

@@ -4,7 +4,6 @@ import { interactiveTechniqueOrder } from '../../../src/@generic/constants/inter
 import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-technique.enum';
 import { createTechniqueStrategies } from '../../../src/@generic/utils/create-technique-strategies.util';
 
-
 const registryTechniqueOrder = createTechniqueStrategies().map(strategy => strategy.technique);
 
 const expensiveTechniques = [

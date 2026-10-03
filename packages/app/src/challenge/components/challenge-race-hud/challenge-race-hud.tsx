@@ -1,18 +1,13 @@
+import { CurrentRunFinishService } from '@suuudokuuu/progress';
+import * as Effect from 'effect/Effect';
 import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { gameFinishAction } from '../../../game/store/game.actions';
-import {
-    gameChallengeStepsSelector,
-    gameChallengeTimeSelector,
-    gameChallengeTimelineEventsSelector,
-    gameDifficultySelector,
-    gameElapsedTimeSelector,
-    gameSolutionsStepsSelector
-} from '../../../game/store/game.selectors';
+import { appRuntime } from '../../../@generic/runtime/app.runtime';
+import { useCurrentRun } from '../../../game/query/use-current-run.query';
+import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
+import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
 import { ChallengeLossReason } from '../../enums/challenge-loss-reason.enum';
 import { useChallengeTechniqueEvents } from '../../hooks/use-challenge-technique-events.hook';
 import { getChallengeAwayRanges } from '../../utils/get-challenge-away-ranges.util';
@@ -25,13 +20,10 @@ import { ChallengeRaceHudSelectors } from './challenge-race-hud.selectors';
 import { ChallengeRaceHudStyles as styles } from './challenge-race-hud.styles';
 
 export const ChallengeRaceHud = () => {
-    const dispatch = useAppDispatch();
-    const elapsedTime = useAppSelector(gameElapsedTimeSelector);
-    const challengeSteps = useAppSelector(gameChallengeStepsSelector);
-    const challengeTime = useAppSelector(gameChallengeTimeSelector);
-    const playerSteps = useAppSelector(gameSolutionsStepsSelector);
-    const challengeTimelineEvents = useAppSelector(gameChallengeTimelineEventsSelector);
-    const difficulty = useAppSelector(gameDifficultySelector);
+    const elapsedTime = useElapsedTime();
+    const { challengeTime, challengeTimelineEvents, timelineEvents } = useCurrentRun();
+    const challengeSteps = getTimelineCellSteps(challengeTimelineEvents);
+    const playerSteps = getTimelineCellSteps(timelineEvents);
 
     const events = useChallengeTechniqueEvents();
 
@@ -41,10 +33,12 @@ export const ChallengeRaceHud = () => {
 
     useEffect(() => {
         if (opponentProgress >= 1) {
-            dispatch(gameFinishAction({ difficulty, isWon: false, isChallenge: true }));
+            void appRuntime.runPromise(
+                Effect.flatMap(CurrentRunFinishService, currentRunFinishService => currentRunFinishService.finish(false, true))
+            );
             router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } });
         }
-    }, [opponentProgress, dispatch, difficulty]);
+    }, [opponentProgress]);
 
     return (
         <View style={styles.container} testID={ChallengeRaceHudSelectors.Root}>

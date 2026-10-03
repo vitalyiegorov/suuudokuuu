@@ -4,14 +4,14 @@
         "packages/app/fingerprint.config.js",
         "**/babel.config.js",
         "**/selectors.ts",
-        "packages/hell-corpus/scripts/shared/rate-puzzle-worker.mjs"
+        "packages/hell-corpus/scripts/shared/rate-puzzle-worker.mjs",
+        ".agents/**"
     ],
     "ignoreDependencies": [
         "@babel/core",
         "@lingui/cli",
         "@lingui/format-po",
         "@expo/fingerprint",
-        "babel-jest",
         "babel-plugin-react-compiler",
         "eas-build-cache-provider",
         "serve"

@@ -1,24 +1,21 @@
 import { useLingui } from '@lingui/react/macro';
+import { CurrentRunFinishService, CurrentRunMoveService } from '@suuudokuuu/progress';
+import * as Effect from 'effect/Effect';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { use, useEffect } from 'react';
 import { AccessibilityInfo } from 'react-native';
 
+import { isNotEmptyString } from '@rnw-community/shared';
+
 import { animationDurationConstant } from '../../../../@generic/constants/animation.constant';
-import { useAppDispatch } from '../../../../@generic/hooks/use-app-dispatch.hook';
-import { useAppSelector } from '../../../../@generic/hooks/use-app-selector.hook';
 import { useVibration } from '../../../../@generic/hooks/use-vibration.hook';
+import { appRuntime } from '../../../../@generic/runtime/app.runtime';
 import { WinConfettiContext } from '../../../../confetti/context/win-confetti.context';
 import { GameContext } from '../../../../game/context/game.context';
-import { gameClassifyMoveAction, gameFinishAction, gameMistakeAction, gameSaveAction } from '../../../../game/store/game.actions';
-import {
-    gameChallengeTimeSelector,
-    gameDifficultySelector,
-    gameElapsedTimeSelector,
-    gameHasRivalSelector,
-    gameMaxMistakesSelector
-} from '../../../../game/store/game.selectors';
+import { useCurrentRun } from '../../../../game/query/use-current-run.query';
+import { useElapsedTime } from '../../../../game/query/use-elapsed-time.query';
 import { gameCreateDeferredTaskQueue } from '../../../../game/utils/game-create-deferred-task-queue.util';
 import { gameGetClassifyMovePayload } from '../../../../game/utils/game-get-classify-move-payload.util';
 import { gameGetSavePayload } from '../../../../game/utils/game-get-save-payload.util';
@@ -36,13 +33,9 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
     const startWinConfetti = use(WinConfettiContext);
 
     const [hapticNotification, hapticImpact] = useVibration();
-
-    const dispatch = useAppDispatch();
-    const maxMistakes = useAppSelector(gameMaxMistakesSelector);
-    const hasRival = useAppSelector(gameHasRivalSelector);
-    const challengeTime = useAppSelector(gameChallengeTimeSelector);
-    const difficulty = useAppSelector(gameDifficultySelector);
-    const elapsedTime = useAppSelector(gameElapsedTimeSelector);
+    const { challengeState, challengeTime, maxMistakes } = useCurrentRun();
+    const elapsedTime = useElapsedTime();
+    const hasRival = isNotEmptyString(challengeState);
 
     useEffect(() => {
         const deferredClassifications = gameCreateDeferredTaskQueue();
@@ -50,13 +43,17 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
         const finishLostGame = () => {
             hapticImpact(ImpactFeedbackStyle.Heavy);
 
-            dispatch(gameFinishAction({ difficulty, isWon: false, isChallenge: hasRival }));
+            void appRuntime.runPromise(
+                Effect.flatMap(CurrentRunFinishService, currentRunFinishService => currentRunFinishService.finish(false, hasRival))
+            );
 
             router.replace(gameScreenGetLostRoute(hasRival));
         };
 
         const unsubscribeMoveApplied = engine.on('moveApplied', move => {
-            dispatch(gameSaveAction(gameGetSavePayload(engine, move)));
+            void appRuntime.runPromise(
+                Effect.flatMap(CurrentRunMoveService, currentRunMoveService => currentRunMoveService.save(gameGetSavePayload(engine, move)))
+            );
 
             hapticNotification(Haptics.NotificationFeedbackType.Success);
 
@@ -66,12 +63,19 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
             const postMoveSudokuString = engine.Sudoku.toString();
 
             deferredClassifications.schedule(
-                () => void dispatch(gameClassifyMoveAction(gameGetClassifyMovePayload(postMoveSudokuString, move.cell)))
+                () =>
+                    void appRuntime.runPromise(
+                        Effect.flatMap(CurrentRunMoveService, currentRunMoveService =>
+                            currentRunMoveService.classifyMove(gameGetClassifyMovePayload(postMoveSudokuString, move.cell))
+                        )
+                    )
             );
         });
 
         const unsubscribeMistake = engine.on('mistake', mistake => {
-            dispatch(gameMistakeAction(mistake.cell));
+            void appRuntime.runPromise(
+                Effect.flatMap(CurrentRunMoveService, currentRunMoveService => currentRunMoveService.mistake(mistake.cell))
+            );
 
             const mistakeCount = mistake.mistakes;
 
@@ -92,7 +96,9 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
 
             gameScreenMaybeStartWinConfetti(hasRival, wonChallenge, startWinConfetti);
             deferredClassifications.flush();
-            dispatch(gameFinishAction({ difficulty, isWon: true, isChallenge: wonChallenge }));
+            void appRuntime.runPromise(
+                Effect.flatMap(CurrentRunFinishService, currentRunFinishService => currentRunFinishService.finish(true, wonChallenge))
+            );
             // HINT: We need to wait for the animation to finish, animation finish event would fix it?
             setTimeout(() => void router.replace(gameScreenGetWonRoute(hasRival, wonChallenge)), 10 * animationDurationConstant);
         });
@@ -105,8 +111,6 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
         };
     }, [
         challengeTime,
-        difficulty,
-        dispatch,
         elapsedTime,
         engine,
         fieldRef,

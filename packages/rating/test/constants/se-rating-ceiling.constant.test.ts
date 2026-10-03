@@ -1,7 +1,11 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { describe, expect, it } from 'vitest';
 
-import { SE_CHAIN_RATING_MAXIMUM, SE_FORCING_CHAIN_RATING_MAXIMUM, seLengthPricedBandMaximums } from '../../src/constants/se-chain-rating.constant';
+import {
+    SE_CHAIN_RATING_MAXIMUM,
+    SE_FORCING_CHAIN_RATING_MAXIMUM,
+    seLengthPricedBandMaximums
+} from '../../src/constants/se-chain-rating.constant';
 import { SE_RATING_CEILING } from '../../src/constants/se-rating-ceiling.constant';
 import { seTechniqueRatings } from '../../src/constants/se-technique-rating.constant';
 

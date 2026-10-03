@@ -1,13 +1,12 @@
 import { GameStateSerializer, SharedPayloadKindEnum } from '@suuudokuuu/encoder';
-
-import { initialGameState } from '../store/game.state';
+import { initialCurrentRun } from '@suuudokuuu/progress';
 
 import { stringToGameState } from './string-to-game-state.util';
 
-import type { GameState } from '../store/game.state';
+import type { CurrentRunType } from '@suuudokuuu/progress';
 
 export interface DecodedSharedGameStateInterface {
-    gameState: GameState;
+    gameState: CurrentRunType;
     isReadable: boolean;
     kind: SharedPayloadKindEnum;
 }
@@ -20,6 +19,6 @@ export const decodeSharedGameState = (stateString: string): DecodedSharedGameSta
 
         return { gameState: stringToGameState(stateString), isReadable: true, kind };
     } catch {
-        return { gameState: initialGameState, isReadable: false, kind: SharedPayloadKindEnum.Puzzle };
+        return { gameState: initialCurrentRun, isReadable: false, kind: SharedPayloadKindEnum.Puzzle };
     }
 };

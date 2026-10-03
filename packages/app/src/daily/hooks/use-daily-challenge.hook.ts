@@ -1,17 +1,14 @@
+import { getDayStreak } from '@suuudokuuu/progress';
 import { getDailyDateString, getDailyDayNumber, getDailyDifficulty } from '@suuudokuuu/puzzle-forge';
 import { useFocusEffect } from 'expo-router';
 import { use, useCallback, useState } from 'react';
 
-import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
-import { getDayStreak } from '../../@generic/utils/get-day-streak.util';
+import { isNotEmptyString } from '@rnw-community/shared';
+
 import { GameContext } from '../../game/context/game.context';
-import {
-    gameDailyBestStreakSelector,
-    gameDailyCompletedDayNumbersSelector,
-    gameDailyDayNumberSelector,
-    gameIsStartedSelector
-} from '../../game/store/game.selectors';
-import { settingsLastGameMaxMistakesSelector } from '../../settings/store/settings.selectors';
+import { useCurrentRun } from '../../game/query/use-current-run.query';
+import { usePlayerStats } from '../../history/query/use-player-stats.query';
+import { useSettings } from '../../settings/query/use-settings.query';
 import { dailyGetStatus } from '../utils/daily-get-status.util';
 
 import type { DailyStatusType } from '../types/daily-status.type';
@@ -31,11 +28,10 @@ interface DailyChallengeInterface {
 export const useDailyChallenge = (): DailyChallengeInterface => {
     const { createDaily, isCreatingGame } = use(GameContext);
     const [todayDateString, setTodayDateString] = useState(() => getDailyDateString(Date.now()));
-    const completedDayNumbers = useAppSelector(gameDailyCompletedDayNumbersSelector);
-    const bestStreak = useAppSelector(gameDailyBestStreakSelector);
-    const runDayNumber = useAppSelector(gameDailyDayNumberSelector);
-    const isGameStarted = useAppSelector(gameIsStartedSelector);
-    const maxMistakes = useAppSelector(settingsLastGameMaxMistakesSelector);
+    const { dailyBestStreak: bestStreak, dailyCompletedDayNumbers: completedDayNumbers } = usePlayerStats();
+    const { dailyDayNumber: runDayNumber, sudokuString } = useCurrentRun();
+    const maxMistakes = useSettings().lastGameMaxMistakes;
+    const isGameStarted = isNotEmptyString(sudokuString);
 
     useFocusEffect(useCallback(() => void setTodayDateString(getDailyDateString(Date.now())), []));
 

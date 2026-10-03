@@ -8,7 +8,11 @@ import {
     TECHNIQUE_TRAILER_VERSION_BITS,
     TECHNIQUE_TRAILER_VERSION_V1
 } from '../../../src/@generic/constants/binary-codec.constant';
-import { getTechniqueTrailerBits, readTechniqueTrailer, writeTechniqueTrailer } from '../../../src/@generic/utils/technique-trailer-codec.util';
+import {
+    getTechniqueTrailerBits,
+    readTechniqueTrailer,
+    writeTechniqueTrailer
+} from '../../../src/@generic/utils/technique-trailer-codec.util';
 
 const toInputStream = (out: BitOutputStream): BitInputStream => new BitInputStream(out.bytes());
 

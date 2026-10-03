@@ -1,5 +1,5 @@
 import * as SqliteClient from '@effect/sql-sqlite-node/SqliteClient';
-import { SqlNameTransforms, runDatabaseMigrations } from '@suuudokuuu/contracts';
+import { SqlNameTransforms, runDatabaseMigrations } from '@suuudokuuu/progress';
 import * as Layer from 'effect/Layer';
 import * as Reactivity from 'effect/reactivity/Reactivity';
 

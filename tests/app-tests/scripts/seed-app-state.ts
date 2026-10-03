@@ -10,13 +10,21 @@ const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appTestsDirectory = dirname(scriptDirectory);
 const repositoryRootDirectory = dirname(dirname(appTestsDirectory));
 const seedFixturePath = join(appTestsDirectory, 'fixtures', 'screenshot-seed-state.json');
-const migrationsSourcePath = join(repositoryRootDirectory, 'packages', 'app', 'src', '@generic', 'app-root-migrations.ts');
-const languagesSourcePath = join(repositoryRootDirectory, 'packages', 'app', 'src', 'settings', 'constant', 'languages.constant.ts');
+const migrationsSourcePath = join(
+    repositoryRootDirectory,
+    'packages',
+    'progress',
+    'src',
+    'legacy',
+    'utils',
+    'make-legacy-migrations.util.ts'
+);
+const languagesSourcePath = join(repositoryRootDirectory, 'packages', 'progress', 'src', 'settings', 'constant', 'languages.constant.ts');
 
 const PersistRootKey = 'persist:root';
 export const IosStorageRelativePath = join('Documents', 'SQLite', 'ExpoSQLiteStorage');
 export const AndroidStorageRelativePath = 'files/SQLite/ExpoSQLiteStorage';
-const PersistVersionPattern = /appRootPersistVersion\s*=\s*(\d+)/u;
+const PersistVersionPattern = /LegacyPersistVersion\s*=\s*(\d+)/u;
 const SeedFixtureBaselinePersistVersion = 40;
 const LanguagesPattern = /export const Languages = \[([^\]]+)\]/u;
 const LanguageQuotesPattern = /['"]/gu;
@@ -74,7 +82,7 @@ const readPersistVersion = (): number => {
     const match = source.match(PersistVersionPattern);
 
     if (match === null) {
-        throw new Error(`Could not read appRootPersistVersion from ${migrationsSourcePath}`);
+        throw new Error(`Could not read LegacyPersistVersion from ${migrationsSourcePath}`);
     }
 
     return Number(match[1]);
@@ -85,7 +93,7 @@ const resolveSeedPersistVersion = (): number => {
 
     if (SeedFixtureBaselinePersistVersion >= livePersistVersion) {
         throw new Error(
-            `SeedFixtureBaselinePersistVersion (${SeedFixtureBaselinePersistVersion}) must stay below appRootPersistVersion ` +
+            `SeedFixtureBaselinePersistVersion (${SeedFixtureBaselinePersistVersion}) must stay below LegacyPersistVersion ` +
                 `(${livePersistVersion}) read from ${migrationsSourcePath}, or persisted-state migrations stop running against the seed fixture.`
         );
     }

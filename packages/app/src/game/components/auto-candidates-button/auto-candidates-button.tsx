@@ -3,12 +3,10 @@ import LucideHandHelping from 'lucide-react-native/icons/hand-helping';
 import { use } from 'react';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
 import { GameScreenSelectors } from '../../../screens/components/game-screen/game-screen.selectors';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
-import { gameToggleAutoCandidatesAction } from '../../store/game.actions';
-import { gameGetInputStatePayload } from '../../utils/game-get-input-state-payload.util';
+import { gameToggleAutoCandidates } from '../../utils/game-toggle-auto-candidates.util';
 
 import type { StyleProp, ViewStyle } from 'react-native';
 
@@ -21,11 +19,8 @@ export const AutoCandidatesButton = ({ sizeStyle }: Props) => {
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
 
-    const dispatch = useAppDispatch();
-
     const handleCandidates = () => {
-        engine.toggleShowAutoCandidates();
-        dispatch(gameToggleAutoCandidatesAction(gameGetInputStatePayload(engine)));
+        gameToggleAutoCandidates(engine);
     };
 
     const isActive = !snapshot.showAutoCandidates;

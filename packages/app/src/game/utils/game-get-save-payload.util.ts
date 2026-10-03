@@ -1,7 +1,7 @@
 import { gameGetFieldStatePayload } from './game-get-field-state-payload.util';
 
-import type { GameSavePayloadInterface } from '../interface/game-save-payload.interface';
 import type { FieldEngine, FieldMoveResultInterface } from '@suuudokuuu/field-core';
+import type { GameSavePayloadInterface } from '@suuudokuuu/progress';
 
 export const gameGetSavePayload = (engine: FieldEngine, move: FieldMoveResultInterface): GameSavePayloadInterface => ({
     ...gameGetFieldStatePayload(engine),

@@ -12,7 +12,6 @@ import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
-import { GameState } from '../../../game/store/game.state';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeLossReason } from '../../enums/challenge-loss-reason.enum';
@@ -29,11 +28,12 @@ import { ChallengeRunSummary } from '../challenge-run-summary/challenge-run-summ
 import { ChallengeResultScreenSelectors } from './challenge-result-screen.selectors';
 import { ChallengeResultScreenStyles as styles } from './challenge-result-screen.styles';
 
+import type { CurrentRunType } from '@suuudokuuu/progress';
 import type { ReactNode } from 'react';
 
 interface Props {
     readonly children?: ReactNode;
-    readonly gameState: GameState;
+    readonly gameState: CurrentRunType;
     readonly result: ChallengeResult;
     readonly lossReason?: ChallengeLossReason;
 }

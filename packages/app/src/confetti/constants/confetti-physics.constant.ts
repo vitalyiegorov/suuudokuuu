@@ -25,7 +25,6 @@ export const confettiMaxAspectRatioConstant = 1.1;
 export const confettiMinLifetimeSecondsConstant = 3.1;
 export const confettiMaxLifetimeSecondsConstant = 3.9;
 export const confettiEmissionStaggerSecondsConstant = 0.25;
-export const confettiMaxLifespanSecondsConstant = 4.5;
 
 export const confettiMinSpinRateConstant = 2;
 export const confettiMaxSpinRateConstant = 9;

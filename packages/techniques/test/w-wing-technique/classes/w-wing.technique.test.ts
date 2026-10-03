@@ -5,7 +5,6 @@ import { WWingTechnique } from '../../../src/w-wing-technique/classes/w-wing.tec
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-
 describe('WWingTechnique', () => {
     it('finds matching bivalue cells connected by a strong link', () => {
         expect.assertions(1);

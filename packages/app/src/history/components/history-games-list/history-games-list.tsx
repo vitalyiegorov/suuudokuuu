@@ -7,12 +7,12 @@ import { HistoryEmptyState } from '../history-empty-state/history-empty-state';
 
 import { HistoryGamesListStyles as styles } from './history-games-list.styles';
 
-import type { CompletedGameInterface } from '../../interfaces/completed-game.interface';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
+import type { CompletedGameType } from '@suuudokuuu/progress';
 
 interface Props {
     readonly difficulties: readonly DifficultyEnum[];
-    readonly games: readonly CompletedGameInterface[];
+    readonly games: readonly CompletedGameType[];
     readonly onSelectDifficulty: (difficulty: DifficultyEnum | null) => void;
     readonly selectedDifficulty: DifficultyEnum | null;
     readonly showFilters: boolean;

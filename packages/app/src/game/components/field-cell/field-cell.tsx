@@ -7,10 +7,9 @@ import { scheduleOnRN } from 'react-native-worklets';
 import { type OnEventFn } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../@generic/constants/animation.constant';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { CellStyles as styles } from '../../../@generic/styles/cell.styles';
-import { settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { useCellBorderStyles } from '../../hooks/use-cell-border-styles.hook';
@@ -76,9 +75,7 @@ export const FieldCell = (props: Props) => {
     const { theme } = use(ThemeContext);
 
     const isMotionReduced = useReduceMotion();
-    const showAreas = useAppSelector(settingsKeySelector('showAreas'));
-    const showIdenticalNumbers = useAppSelector(settingsKeySelector('showIdenticalNumbers'));
-    const showFilledNumbers = useAppSelector(settingsKeySelector('showFilledNumbers'));
+    const { showAreas, showFilledNumbers, showIdenticalNumbers } = useSettings();
 
     const [isSuccessPulsing, setIsSuccessPulsing] = useState(false);
     const [seenSuccessGeneration, setSeenSuccessGeneration] = useState(successGeneration);

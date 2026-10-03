@@ -30,7 +30,6 @@
         "ts:force": "turbo run ts --force"
     },
     "resolutions": {
-        "redux-persist@^6.0.0": "patch:redux-persist@npm%3A6.0.0#./.yarn/patches/redux-persist-npm-6.0.0-56dad69feb.patch",
         "effect@4.0.0": "patch:effect@npm%3A4.0.0#./.yarn/patches/effect-npm-4.0.0-4324e86b02.patch"
     },
     "devDependencies": {
@@ -39,21 +38,18 @@
         "@commitlint/config-conventional": "^21.2.3",
         "@commitlint/config-workspace-scopes": "^21.2.0",
         "@eslint/js": "^9.39.5",
-        "@jest/globals": "^30.5.2",
         "@lingui/cli": "6.9.0",
         "@rnw-community/eslint-plugin": "2.0.0",
         "@types/node": "^26.6.4",
-        "babel-jest": "^30.5.2",
+        "@vitest/eslint-plugin": "^1.6.27",
         "eslint": "^9.39.5",
         "eslint-plugin-import": "^2.32.0",
-        "eslint-plugin-jest": "^29.16.6",
         "eslint-plugin-lingui": "^0.16.0",
         "eslint-plugin-n": "^18.4.0",
         "eslint-plugin-promise": "^7.3.0",
         "eslint-plugin-react": "^7.37.5",
         "eslint-plugin-react-hooks": "^7.1.1",
         "husky": "^9.1.7",
-        "jest": "^30.5.2",
         "jscpd": "~5.1.2",
         "knip": "^6.39.0",
         "lerna": "^10.0.1",

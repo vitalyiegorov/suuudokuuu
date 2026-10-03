@@ -1,6 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
+import { SettingsRepository } from '@suuudokuuu/progress';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
+import * as Effect from 'effect/Effect';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import Zap from 'lucide-react-native/icons/zap';
 import { useEffect } from 'react';
@@ -8,12 +10,10 @@ import { Pressable } from 'react-native';
 import Animated, { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { useUnistyles } from 'react-native-unistyles';
 
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
-import { settingsSetAction } from '../../../settings/store/settings.actions';
-import { settingsLastGameChallengeModeSelector } from '../../../settings/store/settings.selectors';
+import { appRuntime } from '../../../@generic/runtime/app.runtime';
+import { useSettings } from '../../../settings/query/use-settings.query';
 
 import { ChallengeModeSwitchSelectors } from './challenge-mode-switch.selectors';
 import { ChallengeModeSwitchStyles as styles } from './challenge-mode-switch.styles';
@@ -29,9 +29,8 @@ const InstantDurationMs = 0;
 export const ChallengeModeSwitch = () => {
     const { t } = useLingui();
     const { theme } = useUnistyles();
-    const dispatch = useAppDispatch();
     const [, hapticImpact] = useVibration();
-    const isChallengeMode = useAppSelector(settingsLastGameChallengeModeSelector);
+    const isChallengeMode = useSettings().lastGameChallengeMode;
     const isMotionReduced = useReduceMotion();
     const colorDurationMs = isMotionReduced ? InstantDurationMs : ColorDurationMs;
     const pressDurationMs = isMotionReduced ? InstantDurationMs : PressDurationMs;
@@ -45,7 +44,9 @@ export const ChallengeModeSwitch = () => {
 
     const handlePress = () => {
         hapticImpact(ImpactFeedbackStyle.Light);
-        dispatch(settingsSetAction({ lastGameChallengeMode: !isChallengeMode }));
+        void appRuntime.runPromise(
+            Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update({ lastGameChallengeMode: !isChallengeMode }))
+        );
     };
     const handlePressIn = () => {
         pressed.value = withTiming(1, { duration: pressDurationMs });

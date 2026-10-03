@@ -96,7 +96,8 @@ dark+light = 16 captures) 40 min -> **1 min 37 sec**.
 The whole mechanism is three steps per scene, with no accessibility tree at
 all:
 
-1. `scripts/seed-app-state.ts` writes the persisted redux blob directly.
+1. `scripts/seed-app-state.ts` writes the legacy redux-persist blob directly;
+   the app's boot-time legacy import moves it into SQLite on the next launch.
 2. `xcrun simctl launch <udid> <app> -AppleLanguages "(<lang>)" -AppleLocale
 <id>` (Android: `adb shell cmd locale set-app-locales <pkg> --locales
 <lang>` then `am start -n <pkg>/.MainActivity`).
@@ -119,7 +120,7 @@ ExpoSQLiteStorage` via `simctl get_app_container <udid> <app> data`.
   so every slice is double-encoded.
 - **Terminate the app before writing.** A running app holds the SQLite WAL and
   overwrites the seed on exit. The seeder force-stops first.
-- The persist version is read out of `app-root-migrations.ts` and the language
+- The persist version is read out of `make-legacy-migrations.util.ts` and the language
   list out of `languages.constant.ts` at run time, so a migration bump or a
   new locale cannot silently drift from the fixture.
 - **Android needs a rootable emulator** for the state write: `adb root` is

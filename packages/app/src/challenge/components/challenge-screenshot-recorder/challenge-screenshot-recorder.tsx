@@ -1,12 +1,13 @@
+import { CurrentRunService } from '@suuudokuuu/progress';
+import * as Effect from 'effect/Effect';
 import { useScreenshotListener } from 'expo-screen-capture';
 
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { gameScreenshotAction } from '../../../game/store/game.actions';
+import { appRuntime } from '../../../@generic/runtime/app.runtime';
 
 export const ChallengeScreenshotRecorder = () => {
-    const dispatch = useAppDispatch();
-
-    useScreenshotListener(() => void dispatch(gameScreenshotAction()));
+    useScreenshotListener(
+        () => void appRuntime.runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.screenshot))
+    );
 
     return null;
 };

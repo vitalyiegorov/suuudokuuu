@@ -1,5 +1,5 @@
 import * as SqliteClient from '@effect/sql-sqlite-wasm/SqliteClient';
-import { SqlNameTransforms } from '@suuudokuuu/contracts';
+import { SqlNameTransforms } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
 import * as Layer from 'effect/Layer';
 

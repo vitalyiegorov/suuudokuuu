@@ -6,7 +6,6 @@ import { AIC_MAX_LINK_VISITS } from '../../../src/aic-technique/constants/aic.co
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-
 import type { AICScanInterface } from '../../../src/aic-technique/interfaces/aic-scan.interface';
 import type { CandidateCellSpecType } from '../../@generic/types/candidate-cell-spec.spec.type';
 

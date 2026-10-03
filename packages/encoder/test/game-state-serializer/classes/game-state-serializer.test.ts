@@ -8,7 +8,6 @@ import { SolutionStepInterface } from '../../../src/@generic/interfaces/solution
 import { GameStateSerializer } from '../../../src/game-state-serializer/classes/game-state-serializer';
 import { SudokuStringEncoder } from '../../../src/sudoku-string-encoder/classes/sudoku-string-encoder';
 
-
 import type { TimelineEventInterface } from '../../../src/@generic/interfaces/timeline-event.interface';
 
 describe('GameStateSerializer', () => {

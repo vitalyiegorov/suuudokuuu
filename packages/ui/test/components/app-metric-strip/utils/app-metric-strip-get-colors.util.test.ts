@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 import { appMetricStripGetColors } from '../../../../src/components/app-metric-strip/utils/app-metric-strip-get-colors.util';
 import { DefaultUiTheme } from '../../../../src/theme/constant/default-ui-theme.constant';
 
-
 describe('appMetricStripGetColors', () => {
     it('uses an inverted black surface for the primary variant', () => {
         const colors = appMetricStripGetColors(DefaultUiTheme, 'primary');

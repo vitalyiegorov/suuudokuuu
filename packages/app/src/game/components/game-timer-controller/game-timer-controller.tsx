@@ -1,19 +1,19 @@
+import * as Fiber from 'effect/Fiber';
 import { useFocusEffect, useRouter } from 'expo-router';
-import { useCallback, useRef } from 'react';
+import { useCallback } from 'react';
 
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { gameTimerRunFocusEffect } from '../../utils/game-timer-focus-effect.util';
-
-type SetIntervalRef = ReturnType<typeof setInterval> | null;
+import { appRuntime } from '../../../@generic/runtime/app.runtime';
+import { gameTimerFocusEffect } from '../../utils/game-timer-focus-effect.util';
 
 export const GameTimerController = () => {
     const { replace } = useRouter();
-    const dispatch = useAppDispatch();
-    const hasHandledBackgroundRef = useRef(false);
-    const timerIntervalRef = useRef<SetIntervalRef>(null);
 
     useFocusEffect(
-        useCallback(() => gameTimerRunFocusEffect({ dispatch, hasHandledBackgroundRef, replace, timerIntervalRef }), [dispatch, replace])
+        useCallback(() => {
+            const timerFiber = appRuntime.runFork(gameTimerFocusEffect(() => void replace('/pause')));
+
+            return () => void appRuntime.runFork(Fiber.interrupt(timerFiber));
+        }, [replace])
     );
 
     return null;

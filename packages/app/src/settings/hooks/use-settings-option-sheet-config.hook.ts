@@ -1,27 +1,18 @@
 import { useLingui } from '@lingui/react/macro';
+import { CellMargin, FontSizes, Languages, MotionPreferences, SettingsRepository } from '@suuudokuuu/progress';
+import * as Effect from 'effect/Effect';
 import { router } from 'expo-router';
 
-import { useAppDispatch } from '../../@generic/hooks/use-app-dispatch.hook';
-import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
+import { appRuntime } from '../../@generic/runtime/app.runtime';
 import { i18nActivateLanguage } from '../../@generic/utils/i18n-catalogs';
 import { SettingsOptionSheetSelectors } from '../component/settings-option-sheet/settings-option-sheet.selectors';
-import { CellMargin } from '../constant/cell-margin.constant';
-import { FontSizes } from '../constant/font-sizes.constant';
-import { Languages } from '../constant/languages.constant';
-import { MotionPreferences } from '../constant/motion-preferences.constant';
-import { settingsSetAction } from '../store/settings.actions';
-import {
-    settingsCellMarginSelector,
-    settingsFontSizeSelector,
-    settingsLanguageSelector,
-    settingsMotionPreferenceSelector
-} from '../store/settings.selectors';
+import { useSettings } from '../query/use-settings.query';
 
 import { useSettingsOptionDescriptions } from './use-settings-option-descriptions.hook';
 import { useSettingsOptionLabels } from './use-settings-option-labels.hook';
 
 import type { SettingsOptionSheetItemInterface } from '../interface/settings-option-sheet-item.interface';
-import type { SettingsState } from '../store/settings.state';
+import type { SettingsType } from '@suuudokuuu/progress';
 
 type SettingsOptionSheetConfig = {
     readonly description: string;
@@ -31,29 +22,32 @@ type SettingsOptionSheetConfig = {
 
 export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOptionSheetConfig | null => {
     const { t } = useLingui();
-    const dispatch = useAppDispatch();
-    const currentCellMargin = useAppSelector(settingsCellMarginSelector);
-    const currentFontSize = useAppSelector(settingsFontSizeSelector);
-    const currentLanguage = useAppSelector(settingsLanguageSelector);
-    const currentMotionPreference = useAppSelector(settingsMotionPreferenceSelector);
+    const {
+        cellMargin: currentCellMargin,
+        fontSize: currentFontSize,
+        language: currentLanguage,
+        motionPreference: currentMotionPreference
+    } = useSettings();
     const { getCellMarginDescription, getFontSizeDescription, getLanguageDescription, getMotionPreferenceDescription } =
         useSettingsOptionDescriptions();
     const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel } = useSettingsOptionLabels();
 
-    const selectCellMargin = (cellMargin: SettingsState['cellMargin']) => {
-        dispatch(settingsSetAction({ cellMargin }));
+    const selectCellMargin = (cellMargin: SettingsType['cellMargin']) => {
+        void appRuntime.runPromise(Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update({ cellMargin })));
         router.back();
     };
-    const selectFontSize = (fontSize: SettingsState['fontSize']) => {
-        dispatch(settingsSetAction({ fontSize }));
+    const selectFontSize = (fontSize: SettingsType['fontSize']) => {
+        void appRuntime.runPromise(Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update({ fontSize })));
         router.back();
     };
-    const selectMotionPreference = (motionPreference: SettingsState['motionPreference']) => {
-        dispatch(settingsSetAction({ motionPreference }));
+    const selectMotionPreference = (motionPreference: SettingsType['motionPreference']) => {
+        void appRuntime.runPromise(
+            Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update({ motionPreference }))
+        );
         router.back();
     };
-    const selectLanguage = (language: SettingsState['language']) => {
-        dispatch(settingsSetAction({ language }));
+    const selectLanguage = (language: SettingsType['language']) => {
+        void appRuntime.runPromise(Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update({ language })));
         void i18nActivateLanguage(language);
         router.back();
     };

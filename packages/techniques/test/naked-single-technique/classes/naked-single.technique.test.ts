@@ -8,7 +8,6 @@ import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-tech
 import { NakedSingleTechnique } from '../../../src/naked-single-technique/classes/naked-single.technique';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-
 import type { CellInterface } from '@suuudokuuu/generator';
 
 const board = ['.3.678912', '672.95348', '1983425.7', '8597.142.', '.268537.1', '7.3924856', '961537284', '287419635', '34.286179'];

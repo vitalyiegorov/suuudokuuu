@@ -1,17 +1,18 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { useAppLayout } from '@suuudokuuu/ui';
+import * as AsyncResult from 'effect/reactivity/AsyncResult';
 import { Redirect } from 'expo-router';
 import { useState } from 'react';
 import { View } from 'react-native';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
+import { useLiveAtomValue } from '../../../@generic/hooks/use-live-atom-value.hook';
 import { getChallengeAwayRanges } from '../../../challenge/utils/get-challenge-away-ranges.util';
 import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
-import { gameCompletedGameByIdSelector } from '../../../game/store/game.selectors';
 import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
+import { completedGamesAtom } from '../../../history/atoms/completed-games.atom';
 import { ReplayActions } from '../../../history/components/replay-actions/replay-actions';
 import { ReplayControls } from '../../../history/components/replay-controls/replay-controls';
 import { ReplayField } from '../../../history/components/replay-field/replay-field';
@@ -30,10 +31,17 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const { sizeClass } = useAppLayout();
     const isWideLayout = sizeClass === 'wide';
 
-    const completedGame = useAppSelector(gameCompletedGameByIdSelector(difficulty, completedAt));
+    const completedGamesResult = useLiveAtomValue(completedGamesAtom);
     const [currentStep, setCurrentStep] = useState(0);
-    const [gameState] = useState(() => stringToGameState(completedGame?.encodedState));
     const { cellSize: boardCellSize, cellMargin: boardCellMargin, onBoardAreaLayout } = useBoardGeometry(0);
+    const completedGame = AsyncResult.getOrElse(completedGamesResult, () => []).find(
+        game => game.difficulty === difficulty && game.completedAt === completedAt
+    );
+    const gameState = stringToGameState(completedGame?.encodedState);
+
+    if (AsyncResult.isInitial(completedGamesResult)) {
+        return null;
+    }
 
     if (!isDefined(completedGame) || !isNotEmptyString(gameState.sudokuString)) {
         return <Redirect href="/history" />;

@@ -7,19 +7,18 @@ import { historyGetTotals } from '../../utils/history-get-totals.util';
 
 import { HistoryTotalsCardStyles as styles } from './history-totals-card.styles';
 
-import type { HistoryGameInterface } from '../../interfaces/history-game.interface';
-import type { DifficultyEnum } from '@suuudokuuu/generator';
+import type { DifficultyStatsType } from '@suuudokuuu/progress';
 
 const PrimaryMetricCount = 3;
 
 interface Props {
-    readonly historyByDifficulty: Record<DifficultyEnum, HistoryGameInterface>;
+    readonly difficultyStats: readonly DifficultyStatsType[];
     readonly playedDayNumbers: readonly number[];
 }
 
-export const HistoryTotalsCard = ({ historyByDifficulty, playedDayNumbers }: Props) => {
+export const HistoryTotalsCard = ({ difficultyStats, playedDayNumbers }: Props) => {
     const { t } = useLingui();
-    const totals = historyGetTotals(historyByDifficulty, playedDayNumbers);
+    const totals = historyGetTotals(difficultyStats, playedDayNumbers);
     const bestTimeText = useTimerText(totals.bestTime);
     const winRateText = `${totals.winRate}%`;
 

@@ -4,7 +4,6 @@ import { describe, expect, it } from 'vitest';
 import { TechniqueManager } from '../../../../src/@generic/classes/technique-manager/technique-manager';
 import { SolutionTechniqueEnum } from '../../../../src/@generic/enums/solution-technique.enum';
 
-
 import type { CandidateEliminationInterface } from '../../../../src/@generic/interfaces/candidate-elimination.interface';
 import type { TechniqueStrategyInterface } from '../../../../src/@generic/interfaces/technique-strategy.interface';
 import type { CellInterface } from '@suuudokuuu/generator';

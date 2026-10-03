@@ -1,11 +1,15 @@
 import {
     CompletedGameRepository,
+    CurrentRunFinishService,
+    CurrentRunMoveService,
     CurrentRunRepository,
+    CurrentRunService,
     CustomThemeRepository,
     DifficultyStatsRepository,
+    LegacyStateImportService,
     PlayerStatsRepository,
     SettingsRepository
-} from '@suuudokuuu/contracts';
+} from '@suuudokuuu/progress';
 import * as Layer from 'effect/Layer';
 
 export const appServicesLayer = Layer.mergeAll(
@@ -14,5 +18,9 @@ export const appServicesLayer = Layer.mergeAll(
     CurrentRunRepository.layer,
     DifficultyStatsRepository.layer,
     CompletedGameRepository.layer,
-    PlayerStatsRepository.layer
+    PlayerStatsRepository.layer,
+    CurrentRunService.layer,
+    CurrentRunMoveService.layer,
+    CurrentRunFinishService.layer,
+    LegacyStateImportService.layer
 );

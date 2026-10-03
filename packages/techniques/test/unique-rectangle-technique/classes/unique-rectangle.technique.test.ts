@@ -7,7 +7,6 @@ import { UniqueRectangleTechnique } from '../../../src/unique-rectangle-techniqu
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-
 describe('UniqueRectangleTechnique', () => {
     it('removes the deadly pair from the corner that carries extra candidates', () => {
         expect.assertions(1);

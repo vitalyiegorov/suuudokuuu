@@ -6,7 +6,6 @@ import { TechniqueManager } from '../../../../src/@generic/classes/technique-man
 import { interactiveTechniqueOrder } from '../../../../src/@generic/constants/interactive-technique-order.constant';
 import { SolutionTechniqueEnum } from '../../../../src/@generic/enums/solution-technique.enum';
 
-
 import type { TechniqueSearchTargetInterface } from '../../../../src/@generic/interfaces/technique-search-target.interface';
 import type { TechniqueStrategyInterface } from '../../../../src/@generic/interfaces/technique-strategy.interface';
 

@@ -1,24 +1,23 @@
 import { useLingui } from '@lingui/react/macro';
+import { ThemeEnum } from '@suuudokuuu/progress';
 
-import { useAppSelector } from '../../@generic/hooks/use-app-selector.hook';
-import { ThemeEnum } from '../../theme/enum/theme.enum';
-import { customThemesSelector } from '../../theme/store/custom-themes.selectors';
+import { useCustomThemes } from '../../theme/query/use-custom-themes.query';
 import { isCustomThemeId } from '../../theme/type-guard/is-custom-theme-id.type-guard';
 import { LanguageLabels } from '../constant/language-labels.constant';
 
-import type { SettingsState } from '../store/settings.state';
+import type { SettingsType } from '@suuudokuuu/progress';
 
 export const useSettingsOptionLabels = () => {
     const { i18n, t } = useLingui();
-    const customThemes = useAppSelector(customThemesSelector);
+    const customThemes = useCustomThemes();
 
-    const getCellMarginLabel = (cellMargin: SettingsState['cellMargin']) =>
+    const getCellMarginLabel = (cellMargin: SettingsType['cellMargin']) =>
         ({
             0: t`Tight`,
             2: t`Comfortable`,
             5: t`Spacious`
         })[cellMargin];
-    const getFontSizeLabel = (fontSize: SettingsState['fontSize']) => {
+    const getFontSizeLabel = (fontSize: SettingsType['fontSize']) => {
         if (fontSize === 'xs') {
             return t`Tiny`;
         }
@@ -33,7 +32,7 @@ export const useSettingsOptionLabels = () => {
 
         return t`Large`;
     };
-    const getMotionPreferenceLabel = (motionPreference: SettingsState['motionPreference']) => {
+    const getMotionPreferenceLabel = (motionPreference: SettingsType['motionPreference']) => {
         if (motionPreference === 'full') {
             return t`Always on`;
         }
@@ -44,8 +43,8 @@ export const useSettingsOptionLabels = () => {
 
         return t`Follow system`;
     };
-    const getLanguageLabel = (language: SettingsState['language']) => i18n._(LanguageLabels[language]);
-    const getThemeLabel = (themeId: SettingsState['theme']) => {
+    const getLanguageLabel = (language: SettingsType['language']) => i18n._(LanguageLabels[language]);
+    const getThemeLabel = (themeId: SettingsType['theme']) => {
         if (isCustomThemeId(themeId)) {
             return customThemes.find(theme => theme.id === themeId)?.name ?? t`Custom theme`;
         }

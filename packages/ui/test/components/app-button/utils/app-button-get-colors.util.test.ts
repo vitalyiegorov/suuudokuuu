@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 import { appButtonGetColors } from '../../../../src/components/app-button/utils/app-button-get-colors.util';
 import { DefaultUiTheme } from '../../../../src/theme/constant/default-ui-theme.constant';
 
-
 describe('appButtonGetColors', () => {
     it('keeps action colors separate from progress colors', () => {
         const primaryColors = appButtonGetColors(DefaultUiTheme, 'primary');

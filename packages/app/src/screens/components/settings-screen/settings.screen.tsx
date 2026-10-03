@@ -4,31 +4,20 @@ import Constants from 'expo-constants';
 import { View } from 'react-native';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { SettingsAppFooter } from '../../../settings/component/settings-app-footer/settings-app-footer';
 import { SettingsFeedbackSection } from '../../../settings/component/settings-feedback-section/settings-feedback-section';
 import { SettingsGuidanceSection } from '../../../settings/component/settings-guidance-section/settings-guidance-section';
 import { SettingsOptionLink } from '../../../settings/component/settings-option-link/settings-option-link';
 import { SettingsSwitch } from '../../../settings/component/settings-switch/settings-switch';
 import { useSettingsOptionLabels } from '../../../settings/hooks/use-settings-option-labels.hook';
-import {
-    settingsCellMarginSelector,
-    settingsFontSizeSelector,
-    settingsLanguageSelector,
-    settingsMotionPreferenceSelector,
-    settingsThemeSelector
-} from '../../../settings/store/settings.selectors';
+import { useSettings } from '../../../settings/query/use-settings.query';
 
 import { SettingsScreenSelectors } from './settings-screen.selectors';
 import { SettingsScreenStyles as styles } from './settings-screen.styles';
 
 export const SettingsScreen = () => {
     const { t } = useLingui();
-    const cellMargin = useAppSelector(settingsCellMarginSelector);
-    const fontSize = useAppSelector(settingsFontSizeSelector);
-    const language = useAppSelector(settingsLanguageSelector);
-    const motionPreference = useAppSelector(settingsMotionPreferenceSelector);
-    const theme = useAppSelector(settingsThemeSelector);
+    const { cellMargin, fontSize, language, motionPreference, theme } = useSettings();
     const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel, getThemeLabel } = useSettingsOptionLabels();
     const version = Constants.expoConfig?.version ?? t`Unknown`;
 

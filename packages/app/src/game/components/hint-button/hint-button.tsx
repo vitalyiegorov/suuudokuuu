@@ -6,11 +6,10 @@ import { isDefined } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
-import { settingsKeySelector } from '../../../settings/store/settings.selectors';
+import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
-import { gameDifficultySelector, gameIsChallengeRunSelector } from '../../store/game.selectors';
+import { useCurrentRun } from '../../query/use-current-run.query';
 import { gameFindHintStepScript } from '../../utils/game-find-hint-step-script.util';
 import { gameIsHintAvailable } from '../../utils/game-is-hint-available.util';
 
@@ -27,9 +26,8 @@ export const HintButton = ({ sizeStyle }: Props) => {
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
 
-    const difficulty = useAppSelector(gameDifficultySelector);
-    const isChallengeRun = useAppSelector(gameIsChallengeRunSelector);
-    const allowHintsOnHardDifficulties = useAppSelector(settingsKeySelector('allowHintsOnHardDifficulties'));
+    const { difficulty, isChallengeRun } = useCurrentRun();
+    const { allowHintsOnHardDifficulties } = useSettings();
 
     const handleHint = () => {
         const stepScript = gameFindHintStepScript(engine.Sudoku);

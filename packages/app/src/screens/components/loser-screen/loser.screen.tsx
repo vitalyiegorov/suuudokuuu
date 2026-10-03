@@ -15,6 +15,10 @@ export const LoserScreen = () => {
     const { t } = useLingui();
     const completedGameResult = useCompletedGameResult();
 
+    if (completedGameResult.kind === 'pending') {
+        return null;
+    }
+
     if (completedGameResult.kind === 'redirect') {
         return <Redirect href="/" />;
     }

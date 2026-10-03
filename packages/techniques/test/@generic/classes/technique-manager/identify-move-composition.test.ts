@@ -5,7 +5,6 @@ import { TechniqueManager } from '../../../../src/@generic/classes/technique-man
 import { interactiveTechniqueOrder } from '../../../../src/@generic/constants/interactive-technique-order.constant';
 import { SolutionTechniqueEnum } from '../../../../src/@generic/enums/solution-technique.enum';
 
-
 const composedMoveFixtures = [
     {
         name: 'a NakedPair chain that resolves a hidden single elsewhere',

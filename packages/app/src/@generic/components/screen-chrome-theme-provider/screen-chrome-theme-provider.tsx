@@ -1,9 +1,9 @@
+import { ColorSchemaEnum } from '@suuudokuuu/progress';
 import { use } from 'react';
 
 import { ScreenChromeProvider } from '@rnw-community/react-native-screen-chrome';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { ColorSchemaEnum } from '../../../theme/enum/color-schema.enum';
 import { AppScreenChromeConfig, AppScreenChromeWashAlpha } from '../../constants/screen-chrome-config.constant';
 import { applyColorAlpha } from '../../utils/apply-color-alpha.util';
 

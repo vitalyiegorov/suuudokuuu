@@ -3,7 +3,10 @@ import { describe, expect, it } from 'vitest';
 
 import { SharedPayloadKindEnum } from '../../../src/@generic/enums/shared-payload-kind.enum';
 import { TimelineEventKindEnum } from '../../../src/@generic/enums/timeline-event-kind.enum';
-import { type EncodableGameStateInterface, GameStateBinaryCodecV3 } from '../../../src/game-state-binary-codec/classes/game-state-binary-codec-v3';
+import {
+    type EncodableGameStateInterface,
+    GameStateBinaryCodecV3
+} from '../../../src/game-state-binary-codec/classes/game-state-binary-codec-v3';
 
 import type { TimelineEventInterface } from '../../../src/@generic/interfaces/timeline-event.interface';
 

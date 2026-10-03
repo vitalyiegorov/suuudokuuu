@@ -2,12 +2,12 @@ import { fileURLToPath } from 'node:url';
 
 import { defineConfig } from 'vitest/config';
 
-const contractsSourceEntry = fileURLToPath(new URL('../../../../packages/contracts/src/index.ts', import.meta.url));
+const progressSourceEntry = fileURLToPath(new URL('../../../../packages/progress/src/index.ts', import.meta.url));
 
 export const createVitestConfig = () =>
     defineConfig({
         resolve: {
-            alias: { '@suuudokuuu/contracts': contractsSourceEntry }
+            alias: { '@suuudokuuu/progress': progressSourceEntry }
         },
         test: {
             environment: 'node',

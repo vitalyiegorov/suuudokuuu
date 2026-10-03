@@ -2,26 +2,23 @@ import { useLingui } from '@lingui/react/macro';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { DifficultyComplexitySliderDifficulties } from '../../../game/components/difficulty-complexity-slider/constant/difficulty-complexity-slider.constant';
-import {
-    gameHistoryByDifficultySelector,
-    gamePlayedDayNumbersSelector,
-    gameTechniqueUsageCountsSelector
-} from '../../../game/store/game.selectors';
 import { HistoryOverview } from '../../../history/components/history-overview/history-overview';
+import { useCompletedGames } from '../../../history/query/use-completed-games.query';
+import { useDifficultyStats } from '../../../history/query/use-difficulty-stats.query';
+import { usePlayerStats } from '../../../history/query/use-player-stats.query';
 
 import { HistoryScreenSelectors } from './history-screen.selectors';
 import { HistoryScreenStyles } from './history-screen.styles';
 
 export const HistoryScreen = () => {
     const { t } = useLingui();
-    const historyByDifficulty = useAppSelector(gameHistoryByDifficultySelector);
-    const techniqueUsageCounts = useAppSelector(gameTechniqueUsageCountsSelector);
-    const playedDayNumbers = useAppSelector(gamePlayedDayNumbersSelector);
+    const difficultyStats = useDifficultyStats();
+    const completedGames = useCompletedGames();
+    const { playedDayNumbers, techniqueUsageCounts } = usePlayerStats();
 
-    const difficulties = DifficultyComplexitySliderDifficulties.filter(
-        difficulty => historyByDifficulty[difficulty].gamesCompleted > 0
+    const difficulties = DifficultyComplexitySliderDifficulties.filter(difficulty =>
+        difficultyStats.some(stats => stats.difficulty === difficulty && stats.gamesCompleted > 0)
     ).reverse();
 
     return (
@@ -33,8 +30,9 @@ export const HistoryScreen = () => {
             title={t`Statistics`}
         >
             <HistoryOverview
+                completedGames={completedGames}
                 difficulties={difficulties}
-                historyByDifficulty={historyByDifficulty}
+                difficultyStats={difficultyStats}
                 playedDayNumbers={playedDayNumbers}
                 techniqueUsageCounts={techniqueUsageCounts}
             />

@@ -3,19 +3,16 @@ import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
 import { forgeDailyPuzzle, forgePuzzle, getDailyDateString, getDailyDayNumber, getDailyDifficulty } from '@suuudokuuu/puzzle-forge';
 import { useEffect } from 'react';
 
-import { isNotEmptyString } from '@rnw-community/shared';
-
-import { useAppSelector } from '../../../@generic/hooks/use-app-selector.hook';
 import { i18nActivateLanguage } from '../../../@generic/utils/i18n-catalogs';
-import { settingsLanguageSelector } from '../../../settings/store/settings.selectors';
+import { useSettings } from '../../../settings/query/use-settings.query';
 import { GameContext } from '../../context/game.context';
 import { useGameCreationRunner } from '../../hooks/use-game-creation-runner.hook';
 import { useGameEngineState } from '../../hooks/use-game-engine-state.hook';
-import { gameLoadAction, gameResumeAction, gameStartAction } from '../../store/game.actions';
 import { gameCreateEngine } from '../../utils/game-create-engine.util';
+import { runCurrentRunCommand } from '../../utils/run-current-run-command.util';
 
 import type { GameSetupInterface } from '../../interface/game-setup.interface';
-import type { GameState } from '../../store/game.state';
+import type { CurrentRunType } from '@suuudokuuu/progress';
 import type { ForgedPuzzleInterface } from '@suuudokuuu/puzzle-forge';
 import type { ReactNode } from 'react';
 
@@ -24,35 +21,31 @@ interface Props {
 }
 
 export const GameProvider = ({ children }: Props) => {
-    const { dispatch, isCreatingGame, router, runGameCreation, showAlert } = useGameCreationRunner();
+    const { isCreatingGame, router, runGameCreation, showAlert } = useGameCreationRunner();
 
-    const currentLanguage = useAppSelector(settingsLanguageSelector);
+    const currentLanguage = useSettings().language;
 
     const [engine, setEngine] = useGameEngineState(showAlert);
     const snapshot = useFieldSnapshot(engine);
 
-    const createFromState = (newState: GameState) =>
+    const enterRun = (command: Parameters<typeof runCurrentRunCommand>[0]) =>
+        void runCurrentRunCommand(command).then(() => void router.dismissTo('/game'));
+
+    const createFromState = (newState: CurrentRunType) =>
         void runGameCreation(() => {
-            const needsWallClock = isNotEmptyString(newState.challengeState) || newState.isChallengeRun;
-            dispatch(gameLoadAction({ ...newState, ...(needsWallClock && { wallClockStartMs: Date.now() }) }));
-
             setEngine(gameCreateEngine(newState));
-
-            dispatch(gameResumeAction());
-
-            router.dismissTo('/game');
+            enterRun(currentRunService => currentRunService.load(newState));
         });
 
     const startForgedGame = (
         { sudoku, rating, isRatingCeiling }: ForgedPuzzleInterface,
-        setup: Pick<GameState, 'dailyDayNumber' | 'difficulty' | 'isChallengeRun' | 'maxMistakes'>
+        setup: Pick<CurrentRunType, 'dailyDayNumber' | 'difficulty' | 'isChallengeRun' | 'maxMistakes'>
     ) => {
         const sudokuString = sudoku.toString();
 
         setEngine(new FieldEngine({ sudokuString, difficulty: setup.difficulty }));
 
-        dispatch(gameStartAction({ ...setup, sudokuString, rating, isRatingCeiling }));
-        router.dismissTo('/game');
+        enterRun(currentRunService => currentRunService.start({ ...setup, sudokuString, rating, isRatingCeiling }));
     };
 
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>

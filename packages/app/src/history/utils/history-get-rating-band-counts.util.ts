@@ -4,10 +4,10 @@ import { seRatingBands } from '../constants/se-rating-band.constant';
 
 import { getSeRatingBand } from './get-se-rating-band.util';
 
-import type { CompletedGameInterface } from '../interfaces/completed-game.interface';
 import type { SeRatingBandCountInterface } from '../interfaces/se-rating-band-count.interface';
+import type { CompletedGameType } from '@suuudokuuu/progress';
 
-export const historyGetRatingBandCounts = (completedGames: readonly CompletedGameInterface[]): readonly SeRatingBandCountInterface[] =>
+export const historyGetRatingBandCounts = (completedGames: readonly CompletedGameType[]): readonly SeRatingBandCountInterface[] =>
     seRatingBands.map(band => ({
         band,
         count: completedGames.filter(

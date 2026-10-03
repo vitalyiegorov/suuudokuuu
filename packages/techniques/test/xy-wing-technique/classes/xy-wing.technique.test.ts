@@ -7,7 +7,6 @@ import { XYWingTechnique } from '../../../src/xy-wing-technique/classes/xy-wing.
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-
 describe('XYWingTechnique', () => {
     it('finds two pincers that remove their shared outside value', () => {
         expect.assertions(1);

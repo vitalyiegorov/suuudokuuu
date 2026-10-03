@@ -18,10 +18,10 @@ import { HistoryMetric } from '../history-metric/history-metric';
 import { CompletedGameItemSelectors } from './completed-game-item.selectors';
 import { CompletedGameItemStyles as styles } from './completed-game-item.styles';
 
-import type { CompletedGameInterface } from '../../interfaces/completed-game.interface';
+import type { CompletedGameType } from '@suuudokuuu/progress';
 
 interface Props {
-    readonly game: CompletedGameInterface;
+    readonly game: CompletedGameType;
 }
 
 export const CompletedGameItem = ({ game }: Props) => {

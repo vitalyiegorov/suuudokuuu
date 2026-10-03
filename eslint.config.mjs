@@ -1,6 +1,6 @@
 import js from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
-import jestPlugin from 'eslint-plugin-jest';
+import vitestPlugin from '@vitest/eslint-plugin';
 import nodePlugin from 'eslint-plugin-n';
 import promisePlugin from 'eslint-plugin-promise';
 import reactPlugin from 'eslint-plugin-react';
@@ -284,12 +284,7 @@ export default defineConfig(
         rules: {
             'n/no-missing-import': 'off',
             'n/no-unsupported-features/es-syntax': 'off',
-            'n/no-extraneous-import': [
-                'error',
-                {
-                    allowModules: ['@jest/globals']
-                }
-            ]
+            'n/no-extraneous-import': 'error'
         }
     },
     {
@@ -373,15 +368,11 @@ export default defineConfig(
     },
     {
         files: ['**/*.spec.ts', '**/*.spec.tsx', '**/test/**/*.test.ts', '**/test/**/*.test.tsx'],
-        extends: [jestPlugin.configs['flat/recommended']],
+        extends: [vitestPlugin.configs.recommended],
         rules: {
             'no-await-in-loop': 'off',
 
-            'jest/require-hook': 'off',
-            'jest/max-expects': 'off',
-            'jest/unbound-method': 'off',
-            'jest/expect-expect': 'off',
-            'jest/no-done-callback': 'off',
+            'vitest/expect-expect': 'off',
 
             'lingui/no-unlocalized-strings': 'off',
 

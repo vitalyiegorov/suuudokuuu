@@ -6,7 +6,6 @@ import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-tech
 import { BoxLineReductionTechnique } from '../../../src/box-line-reduction-technique/classes/box-line-reduction.technique';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-
 describe('BoxLineReductionTechnique', () => {
     it('finds a line candidate confined to one box', () => {
         expect.assertions(1);

@@ -3,7 +3,6 @@ import { describe, expect, it } from 'vitest';
 import { appLayoutGetSizeClass } from '../../../src/hooks/utils/app-layout-get-size-class.util';
 import { Breakpoints } from '../../../src/theme/constant/breakpoints.constant';
 
-
 const DesktopViewportWidth = 1800;
 const DesktopViewportHeight = 1200;
 const IPadProLandscapeWidth = 1366;

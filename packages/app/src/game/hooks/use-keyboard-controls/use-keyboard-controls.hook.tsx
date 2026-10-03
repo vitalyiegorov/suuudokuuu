@@ -1,9 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { TextInput } from 'react-native';
 
-import { useAppDispatch } from '../../../@generic/hooks/use-app-dispatch.hook';
-import { gameToggleInputModeAction } from '../../store/game.actions';
-import { gameGetInputStatePayload } from '../../utils/game-get-input-state-payload.util';
+import { gameToggleInputMode } from '../../utils/game-toggle-input-mode.util';
 
 import { UseKeyboardControlsStyles as styles } from './use-keyboard-controls.styles';
 import { keyboardKeyToAction } from './utils/keyboard-key-to-action.util';
@@ -21,7 +19,6 @@ export const useKeyboardControls = (
     onExit: OnEventFn<void>
     // eslint-disable-next-line @typescript-eslint/max-params
 ) => {
-    const dispatch = useAppDispatch();
     const hiddenInputRef = useRef<TextInputInstance>(null);
 
     useEffect(() => {
@@ -38,8 +35,7 @@ export const useKeyboardControls = (
         if (action.type === 'select-cell') {
             onSelectCell(action.cell);
         } else if (action.type === 'toggle-input-mode') {
-            engine.toggleInputMode();
-            dispatch(gameToggleInputModeAction(gameGetInputStatePayload(engine)));
+            gameToggleInputMode(engine);
         } else if (action.type === 'exit') {
             onExit();
         } else if (action.type === 'select-value') {

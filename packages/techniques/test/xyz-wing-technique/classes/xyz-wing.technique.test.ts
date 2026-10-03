@@ -5,7 +5,6 @@ import { XYZWingTechnique } from '../../../src/xyz-wing-technique/classes/xyz-wi
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-
 describe('XYZWingTechnique', () => {
     it('finds a three-candidate pivot with two restricted pincers', () => {
         expect.assertions(1);
