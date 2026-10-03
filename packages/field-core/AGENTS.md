@@ -9,7 +9,7 @@ yarn build              # Build ESM + CommonJS
 yarn build:esm         # TypeScript -> ESM /dist/esm
 yarn build:cjs         # TypeScript -> CommonJS /dist/cjs
 yarn lint              # ESLint fix
-yarn test              # Jest tests
+yarn test              # Vitest tests
 yarn test:coverage     # With coverage report
 yarn ts                # TypeScript check
 ```
@@ -99,7 +99,7 @@ Script playback is engine state: `startStepScript`, `stepScriptNext`, `stepScrip
 
 ## Testing
 
-- Tests colocated with source files (`.spec.ts` suffix), realistic boards through `Sudoku.fromStrings`.
+- Tests live in `test/**/*.test.ts` (Vitest), realistic boards through `Sudoku.fromStrings`.
 - Step-script mapping is verified against real `TechniqueManager` output, not fixtures — narrow the registry with `createTechniqueStrategies().filter(...)` to reach a specific technique.
 - Coverage thresholds: statements 99%, branches 94%, lines 99%, functions 100%.
 

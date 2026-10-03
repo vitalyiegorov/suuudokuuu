@@ -9,7 +9,7 @@ yarn build              # Build ESM + CommonJS
 yarn build:esm         # TypeScript -> ESM /dist/esm
 yarn build:cjs         # TypeScript -> CommonJS /dist/cjs
 yarn lint              # ESLint fix
-yarn test              # Jest tests
+yarn test              # Vitest tests
 yarn test:coverage     # With coverage report
 yarn ts                # TypeScript check
 ```
@@ -211,7 +211,7 @@ Adopted by `AbstractFishTechnique` and both fish families, and by `HiddenSubsetT
 
 ## Testing
 
-- Tests colocated with source files (`.spec.ts` suffix)
+- Tests live in `test/**/*.test.ts` (Vitest); the spec file names below are historical
 - Coverage thresholds: statements 99%, branches 94%, lines 99%, functions 100%
 - `solve-logically.spec.ts` guards the driver: elimination-only progress, solved/stuck/contradiction outcomes, determinism from a fixed board string, `wasSearchCapped` in all three shapes (a region forcing chain scan truncated on a 17-clue board reports it, a singles-only stuck solve and a solved board do not), and a wall-clock budget of 5000 ms for a full logical solve of a 17-clue hell-corpus board (about 80 ms locally, so the budget only fails on real regressions)
 - The chain specs guard shortest-first search: a fixture where a short and a long chain prove the same deduction asserts the short one is reported, the same fixture with the short chain broken asserts the long one is, and each detector holds a 2000 ms budget for a broad scan of a stuck 17-clue board (about 5 ms locally)

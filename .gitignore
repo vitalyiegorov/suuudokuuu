@@ -71,3 +71,8 @@ tests/app-tests/artifacts
 
 # Bundler
 .bundle/
+
+# Agent scratch
+.scratch/
+/docs/superpowers/
+.superpowers/

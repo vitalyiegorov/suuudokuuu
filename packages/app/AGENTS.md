@@ -1,6 +1,6 @@
 # App Package
 
-Main Sudoku game application built with Expo 58, React Native 0.88, React 19.3, React Compiler, Expo Router, Redux Toolkit, Lingui 6, Reanimated 4, and React Native `StyleSheet` theme modules.
+Main Sudoku game application built with Expo 58, React Native 0.88, React 19.3, React Compiler, Expo Router, Effect v4 services over SQLite with `@effect/atom-react` atoms, Lingui 6, Reanimated 4, and React Native `StyleSheet` theme modules.
 
 ## Commands
 
@@ -18,9 +18,9 @@ yarn build:vercel
 yarn i18n:sync
 yarn ts
 yarn lint
-yarn test
-yarn test:coverage
 ```
+
+The app hosts no unit tests. Logic that needs tests lives in `@suuudokuuu/progress`, `@suuudokuuu/contracts`, or another domain package and is tested there with Vitest.
 
 After modifying user-facing text, run:
 
@@ -32,16 +32,16 @@ yarn i18n:sync
 
 ```text
 src/
-├── @generic/           # Store setup, shared components, hooks, styles, utils
+├── @generic/           # Runtime, SQL platform layers, boot gate, atom helpers, shared components, hooks, styles, utils
 ├── app/                # Expo Router routes and root layout
 ├── challenge/          # Challenge result/accept/progress UI and utilities
 ├── daily/              # Daily streak hero, history list, status derivation, date utils
-├── game/               # Game context, Redux slice, board UI, hooks, serializers
+├── game/               # Game context, board UI, hooks, serializers
 ├── history/            # Completed game history and replay UI
 ├── i18n/locales/       # Lingui catalogs: en, uk, fr, de, es
 ├── scoring/            # SudokuScoring and score explanation UI
 ├── screens/            # Screen-level components used by routes
-├── settings/           # Preferences, settings UI, settings slice
+├── settings/           # Preferences and settings UI
 └── theme/              # Theme context, enums, interfaces, and theme objects
 ```
 
@@ -68,6 +68,22 @@ src/
 11. Pure helpers used by components live in the owning module's `utils/` folder. Component files may keep module-level data constants, but not named behavior helpers.
 12. Component props are always declared inline as `interface Props`. Do not use `type Props`, `*PropsInterface`, or inline object parameter types for a single component. Promote a shared props interface only when the exact same shape is consumed by multiple components.
 
+## Code Quality Rules (from PR reviews)
+
+1. Context hooks check for a missing provider with `isDefined(context)`, never `context === null`.
+2. Name state shapes. A `useState` whose value is an object type uses a named interface from the module's interface folder, not an inline `useState<{ ... }>`. Interfaces are `readonly` by default, one interface per file.
+3. Derived state computed through if/else chains with mutable `let` variables is extracted to a pure function in the module's `utils/` folder that returns the result; it is not built up in the component body.
+4. A function returning `ReactNode` (such as a `getHeaderRight` helper) becomes a real component in its own folder so it can use hooks.
+5. Do not create named handler constants that only delegate to another call (`const handlePress = () => start()`). Inline the arrow at the call site. Non-trivial handlers stay named `handle*` functions.
+6. Inline trivial constants and locals used once, including `t` strings and derived labels (`<Icon size={20} />`, ``entry.title ?? t`Unknown` ``). Keep a named value only for repeated use, narrowing, or genuinely clearer logic.
+7. Do not inline a `reduce` or similar pattern when a shared util for it already exists in `@generic/utils`; reuse it.
+8. Hooks with similar return shapes share one generic interface instead of per-hook duplicates.
+9. Return the effect directly from a method instead of binding it to an intermediate variable and returning that (`return yield* sql.withTransaction(...)`).
+10. Run effects from `useEffect` at the edge with `appRuntime.runFork`, end them with `Effect.tapCause(Effect.logError)`, and interrupt the fiber in cleanup. Never an `async` function with `try`/`catch` inside an effect.
+11. Fresh-object defaults: a function that returns an empty snapshot or default state returns a new object (`{ ...EMPTY_SNAPSHOT }`), never the shared module-level constant.
+12. Long loops and bulk work yield to the UI between batches and commit each batch in its own short transaction; never hold a write transaction open across a yield.
+13. Never change app behavior or add test-only product paths to make an E2E flow pass (see the root Engineering Rules).
+
 ## Styling And Themes
 
 1. This app uses React Native `StyleSheet` modules, not NativeWind or CVA.
@@ -82,13 +98,20 @@ Never set the same style property both statically and through an animated style 
 
 ## State And Persistence
 
-1. Redux slices live in the owning module's `store` folder.
-2. Use `useAppDispatch` and `useAppSelector` from `@generic/hooks`.
-3. When persisted state shape changes, bump the Redux Persist version and add a migration in `@generic/app-root.store.ts`.
-4. Persisted-state migrations are the only place where legacy unknown shapes may need narrow escape hatches. Do not spread that pattern into normal app code.
-5. Keep puzzle invariants in `@suuudokuuu/generator`.
+Persisted state is SQLite owned by Effect v4 services. Redux and redux-persist are retired; code still using `useAppDispatch`, `useAppSelector`, or `@generic/app-root.store.ts` is legacy and is moved onto the services below when touched. The root `## Effect` section is binding; load the `effect` skill before changing anything here.
+
+1. Persisted schemas, SQL migrations, repositories, and reactivity keys live in `packages/contracts`. Player-progress logic (current run, history, stats, daily, challenge, legacy import) lives in `packages/progress`. The app owns only the platform edge: the SQL platform layers, `src/@generic/runtime/app.runtime.ts`, `app-services.layer.ts`, the atom helpers, and the boot gate.
+2. When persisted data changes shape, add a new SQL migration to the migration record in `packages/contracts` (for example `ALTER TABLE ... ADD COLUMN ... DEFAULT`), with a test in `packages/contracts/test`. Never edit a shipped migration. Redux Persist version bumps no longer exist.
+3. Platform layers: native uses `@effect/sql-sqlite-react-native` (op-sqlite), web uses `@effect/sql-sqlite-wasm` in an OPFS worker through a `.web.ts` sibling. Nothing above them may import a driver; services depend only on `SqlClient` and `Reactivity`.
+4. Components read state through atoms built on the app atom runtime with reactivity keys exported from contracts, using `useAtomValue` or the keep-last-value live hook, and never through `useEffect` plus async state. Commands call `appRuntime.runPromise(Effect.flatMap(Service, service => service.method(...)))`. An effect started from `useEffect` uses `appRuntime.runFork` and interrupts the fiber in cleanup.
+5. Every write goes through a repository wrapped in `reactivity.mutation([keys], effect)`. The run clock has its own key so a one-second tick re-renders only timer readers. Do not write SQL from components, hooks, or atoms.
+6. The root layout renders nothing (the splash stays) until the boot gate atom has run migrations and the one-time legacy import. The legacy import reads the old redux-persist payload from the expo-sqlite kv-store (`persist:root`), runs the frozen legacy migrations in `packages/progress`, writes rows in one transaction, and deletes the key. It is idempotent and must keep working for the Maestro seed fixture.
+7. Persisted JSON columns and share or deep-link payloads are decoded with Effect `Schema` at the boundary. Do not spread legacy `unknown` escape hatches into new code.
+8. Keep puzzle invariants in `@suuudokuuu/generator`.
 
 ### Field state ownership
+
+The subsections from here through Hint scoring were written against the Redux game slice. The rules they state (engine ownership, mirror equivalence, undo and scoring policy, the daily and hint contracts) are unchanged; where they name a slice, action, or reducer, the same behavior now lives in the matching `@suuudokuuu/progress` service method and its `current_run` row.
 
 1. `@suuudokuuu/field-core` owns interactive field state: the `Sudoku` grid of record, the selected cell, notes/candidates, input mode, the auto-candidates flag, mistake counting, and completion detection. `GameProvider` creates the `FieldEngine` and `GameContext` exposes `{ create, createFromState, engine, isCreatingGame, snapshot }`.
 2. Read the board through `snapshot` (`snapshot.field`, `snapshot.selectedCell`, `snapshot.inputMode`, `snapshot.candidates`) and through `engine.Sudoku` predicates. `engine.Sudoku` is not reference-stable across undo, so never store it in state or a ref.
@@ -234,10 +257,10 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
    only used by static rendering and does not affect the `single` output. Keep the markup, its inline
    CSS, and the `#app-splash` id in sync with `@generic/constants/web-splash.constant.ts`.
 2. The splash is removed by the `@generic/utils/hide-app-splash-screen(.web).ts` pair. `RootProviders`
-   wires it to `PersistGate`'s `onBeforeLift`, which awaits the promise it returns, and activates the
-   rehydrated `settings.language` first, so neither platform renders a frame in the wrong locale.
-   Read the language from the store there, never the OS locale: rehydration has already settled by the
-   time `onBeforeLift` runs, so the persisted choice is the authoritative one.
+   wires it to the boot gate, which awaits the promise it returns, and activates the
+   stored `settings.language` first, so neither platform renders a frame in the wrong locale.
+   Read the language from the settings row there, never the OS locale: the boot gate has already
+   settled migrations by then, so the persisted choice is the authoritative one.
 3. Only the `en` catalog is bundled eagerly; the other twelve are `import()`ed per locale. Activate
    languages through `i18nActivateLanguage`, never `i18n.activate`, or the catalog will be missing.
    It no-ops when the requested locale is already active and discards a load whose locale has since
@@ -247,7 +270,7 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
 5. Do not enable expo-router `asyncRoutes` on web: it stalls the first route chunk and regresses
    time-to-home from 0.6s to 5.9s.
 6. Do not enable `EXPO_UNSTABLE_TREE_SHAKING`: it drops the `expo-sqlite` web worker chunk, which
-   breaks persistence rehydration.
+   breaks the legacy kv-store import.
 7. Import icons as `lucide-react-native/icons/<kebab-name>`, never from the package root. The root
    barrel pulls all 1744 icon modules into the bundle.
 8. Import Google fonts per weight (`@expo-google-fonts/inter/500Medium`), never from the package
@@ -267,7 +290,7 @@ Run app-level checks after app changes:
 yarn ts && yarn lint
 ```
 
-Run `yarn test` when scoring, reducers, persistence, or deterministic app logic changes. Run Maestro flows from `tests/app-tests` when routes, selectors, deep links, sharing, or end screens change.
+Run `yarn test` from the root when scoring, persistence services, or other domain logic in `progress` or `contracts` changes; the app itself has no unit tests. Run Maestro flows from `tests/app-tests` when routes, selectors, deep links, sharing, or end screens change.
 
 ## Running On A Local Simulator
 
