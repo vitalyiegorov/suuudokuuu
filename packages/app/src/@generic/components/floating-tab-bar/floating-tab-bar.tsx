@@ -14,7 +14,7 @@ import { FloatingTabBarStyles as styles } from './floating-tab-bar.styles';
 
 import type { BottomTabBarProps } from 'expo-router/tabs';
 
-export const FloatingTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => {
+export const FloatingTabBar = ({ state, descriptors, emitter, navigateToTab }: BottomTabBarProps) => {
     const { theme } = use(ThemeContext);
     const safeAreaInsets = useSafeAreaInsets();
     const backdropRecompositeRef = useBackdropRecomposite();
@@ -32,10 +32,10 @@ export const FloatingTabBar = ({ state, descriptors, navigation }: BottomTabBarP
                         const label = isNotEmptyString(options.title) ? options.title : route.name;
 
                         const handlePress = () => {
-                            const event = navigation.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
+                            const event = emitter.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
 
                             if (!isFocused && !event.defaultPrevented) {
-                                navigation.navigate(route.name, route.params);
+                                navigateToTab(route.key);
                             }
                         };
 

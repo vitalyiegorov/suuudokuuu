@@ -18,6 +18,7 @@ import { getDayNumber } from './utils/get-day-number.util';
 
 import type { AppRootPersistedStateInterface } from './app-root-migrations';
 import type { GameCellTimelineEventInterface } from '../game/interface/game-timeline-event.interface';
+import type { SettingsState } from '../settings/store/settings.state';
 
 jest.mock('react-native', () => ({
     Appearance: {
@@ -612,16 +613,9 @@ describe('appRootMigrations', () => {
     it('should drop the comfort preset keys at the removal migration without touching stored choices', () => {
         expect.assertions(5);
 
+        const chosenSettings: SettingsState = { ...initialSettingsState, fontSize: 's', theme: ThemeEnum.Newspaper };
         const storedSettings = withExtraKeyAtRuntime(
-            withExtraKeyAtRuntime(
-                withExtraKeyAtRuntime(
-                    { ...initialSettingsState, fontSize: 's' as const, theme: ThemeEnum.Newspaper },
-                    'comfortMode',
-                    'customized'
-                ),
-                'comfortModeOfferDismissed',
-                true
-            ),
+            withExtraKeyAtRuntime(withExtraKeyAtRuntime(chosenSettings, 'comfortMode', 'customized'), 'comfortModeOfferDismissed', true),
             'comfortModeRestore',
             { hasTimer: false }
         );

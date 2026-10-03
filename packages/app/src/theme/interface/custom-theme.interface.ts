@@ -8,10 +8,7 @@ export interface CustomThemeInterface {
     readonly name: string;
     readonly schemaVersion: number;
     readonly sourceTheme: ThemeEnum;
-    readonly colors: {
-        readonly [ColorSchemaEnum.Light]: ThemeInterface['colors'];
-        readonly [ColorSchemaEnum.Dark]: ThemeInterface['colors'];
-    };
+    readonly colors: Readonly<Record<ColorSchemaEnum, ThemeInterface['colors']>>;
     readonly createdAt: number;
     readonly updatedAt: number;
 }

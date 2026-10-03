@@ -1,6 +1,8 @@
 import { msg } from '@lingui/core/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
+import { isDifficulty } from '../type-guard/is-difficulty.type-guard';
+
 import type { MessageDescriptor } from '@lingui/core';
 
 const DifficultyMessages: Partial<Record<DifficultyEnum, MessageDescriptor>> = {
@@ -15,5 +17,5 @@ const DifficultyMessages: Partial<Record<DifficultyEnum, MessageDescriptor>> = {
 
 const UnknownDifficultyMessage = msg`Unknown`;
 
-export const getDifficultyMessage = (difficulty: DifficultyEnum): MessageDescriptor =>
-    DifficultyMessages[difficulty] ?? UnknownDifficultyMessage;
+export const getDifficultyMessage = (difficulty: string): MessageDescriptor =>
+    isDifficulty(difficulty) ? (DifficultyMessages[difficulty] ?? UnknownDifficultyMessage) : UnknownDifficultyMessage;

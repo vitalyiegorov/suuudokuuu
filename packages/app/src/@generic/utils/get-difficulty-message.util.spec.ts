@@ -21,8 +21,6 @@ describe('getDifficultyMessage', () => {
     it('should fall back to the unknown descriptor for an unrecognised difficulty', () => {
         expect.assertions(1);
 
-        const unknownDifficulty = 'not-a-difficulty' as DifficultyEnum;
-
-        expect(getDifficultyMessage(unknownDifficulty).message).toBe('Unknown');
+        expect(getDifficultyMessage('not-a-difficulty').message).toBe('Unknown');
     });
 });

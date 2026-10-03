@@ -1,7 +1,3 @@
-const path = require('node:path');
-
-const reactNativeRoot = path.dirname(require.resolve('react-native'));
-
 module.exports = {
     coverageReporters: ['text-summary', 'lcov'],
     reporters: ['default'],
@@ -30,7 +26,6 @@ module.exports = {
             '<rootDir>/../ui/src/components/app-metric-strip/utils/app-metric-strip-get-colors.util.ts',
         '^@suuudokuuu/ui/app-toggle-get-colors$': '<rootDir>/../ui/src/components/app-toggle/utils/app-toggle-get-colors.util.ts',
         '^react-native-reanimated$': '<rootDir>/src/@generic/mocks/react-native-reanimated.mock.tsx',
-        '^react-native($|/.*)': `${reactNativeRoot}/$1`,
         '^(\\.{1,2}/.*)\\.js$': '$1'
     },
     testRegex: './(?:src|vercel-functions)/.*\\.spec\\.(tsx?)$',

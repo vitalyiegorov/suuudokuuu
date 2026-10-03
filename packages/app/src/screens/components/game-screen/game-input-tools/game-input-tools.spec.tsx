@@ -58,15 +58,17 @@ describe('GameInputTools', () => {
     });
 
     it('keeps the notes button perfectly round', () => {
-        const notesButtonStyle = StyleSheet.flatten(GameInputToolsStyles.primaryToolButton);
+        const { width, height } = StyleSheet.flatten(GameInputToolsStyles.primaryToolButton) ?? {};
 
-        expect(notesButtonStyle.width).toBe(notesButtonStyle.height);
+        expect(width).toBeDefined();
+        expect(width).toBe(height);
     });
 
     it('keeps every utility tool perfectly round', () => {
-        const toolButtonStyle = StyleSheet.flatten(GameInputToolsStyles.toolButton);
+        const { width, height } = StyleSheet.flatten(GameInputToolsStyles.toolButton) ?? {};
 
-        expect(toolButtonStyle.width).toBe(toolButtonStyle.height);
+        expect(width).toBeDefined();
+        expect(width).toBe(height);
     });
 
     it('hides the undo, redo and hint buttons during a challenge run', async () => {

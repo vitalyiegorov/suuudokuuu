@@ -1,7 +1,3 @@
-const path = require('node:path');
-
-const reactNativeRoot = path.dirname(require.resolve('react-native'));
-
 module.exports = {
     coverageReporters: ['text-summary', 'lcov'],
     reporters: ['default'],
@@ -13,9 +9,6 @@ module.exports = {
         platforms: ['android', 'ios', 'native']
     },
     resolver: require.resolve('@react-native/jest-preset/jest/resolver.js'),
-    moduleNameMapper: {
-        '^react-native($|/.*)': `${reactNativeRoot}/$1`
-    },
     testRegex: './src/.*\\.spec\\.(tsx?)$',
     testEnvironment: 'node',
     coverageThreshold: {

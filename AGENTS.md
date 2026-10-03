@@ -41,7 +41,7 @@ Run `yarn test` when behavior, algorithms, serialization, persistence, scoring, 
 
 ```text
 packages/
-├── app/                # Expo 57, React Native 0.86, React 19.2 game app
+├── app/                # Expo 58, React Native 0.88, React 19.3 game app
 ├── generator/          # Pure TypeScript Sudoku generator and DLX solver
 ├── solver-core/        # Shared solver contract, grid constants, and conformance-test helpers
 ├── solver-dlx/         # Dancing Links (DLX) exact-cover Sudoku solver

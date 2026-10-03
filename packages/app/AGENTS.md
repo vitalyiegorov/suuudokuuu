@@ -1,6 +1,6 @@
 # App Package
 
-Main Sudoku game application built with Expo 57, React Native 0.86, React 19.2, React Compiler, Expo Router, Redux Toolkit, Lingui 6, Reanimated 4, and React Native `StyleSheet` theme modules.
+Main Sudoku game application built with Expo 58, React Native 0.88, React 19.3, React Compiler, Expo Router, Redux Toolkit, Lingui 6, Reanimated 4, and React Native `StyleSheet` theme modules.
 
 ## Commands
 

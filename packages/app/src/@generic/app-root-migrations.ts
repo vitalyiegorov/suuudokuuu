@@ -15,6 +15,7 @@ import { initialCustomThemesState } from '../theme/store/custom-themes.state';
 import { getTheme } from '../theme/utils/get-theme.util';
 import { migrateCustomThemeColors } from '../theme/utils/migrate-custom-theme-colors.util';
 
+import { isDifficulty } from './type-guard/is-difficulty.type-guard';
 import { getDayNumber } from './utils/get-day-number.util';
 
 import type { GameState } from '../game/store/game.state';
@@ -37,9 +38,11 @@ const resetBestScores = (state: AppRootPersistedStateInterface): AppRootPersiste
     const gameState = state[gameSlice.name];
     const resetHistory = { ...gameState.historyByDifficulty };
 
-    Object.keys(resetHistory).forEach(key => {
-        resetHistory[key as keyof typeof resetHistory].bestScore = 0;
-    });
+    Object.keys(resetHistory)
+        .filter(isDifficulty)
+        .forEach(difficulty => {
+            resetHistory[difficulty].bestScore = 0;
+        });
 
     return {
         ...state,
@@ -51,13 +54,11 @@ const ensureHistoryEntryDefaults = (state: AppRootPersistedStateInterface): AppR
     const gameState = state[gameSlice.name];
     const updatedHistory = { ...gameState.historyByDifficulty };
 
-    Object.keys(updatedHistory).forEach(key => {
-        const historyEntry = updatedHistory[key as keyof typeof updatedHistory];
-        updatedHistory[key as keyof typeof updatedHistory] = {
-            ...emptyGameHistory,
-            ...historyEntry
-        };
-    });
+    Object.keys(updatedHistory)
+        .filter(isDifficulty)
+        .forEach(difficulty => {
+            updatedHistory[difficulty] = { ...emptyGameHistory, ...updatedHistory[difficulty] };
+        });
 
     return {
         ...state,
@@ -113,9 +114,11 @@ const mapHistoryByDifficultyEntries = (
     const gameState = { ...initialGameState, ...state[gameSlice.name] };
     const updatedHistory = { ...gameState.historyByDifficulty };
 
-    Object.keys(updatedHistory).forEach(key => {
-        updatedHistory[key as keyof typeof updatedHistory] = mapEntry(updatedHistory[key as keyof typeof updatedHistory]);
-    });
+    Object.keys(updatedHistory)
+        .filter(isDifficulty)
+        .forEach(difficulty => {
+            updatedHistory[difficulty] = mapEntry(updatedHistory[difficulty]);
+        });
 
     return {
         ...state,

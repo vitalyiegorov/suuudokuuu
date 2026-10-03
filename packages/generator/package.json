@@ -25,7 +25,7 @@
         "ts": "run -T tsc -p ."
     },
     "dependencies": {
-        "@rnw-community/shared": "^2.2.0",
+        "@rnw-community/shared": "^2.15.0",
         "@suuudokuuu/solver-bitmask": "workspace:*",
         "@suuudokuuu/solver-core": "workspace:*"
     }

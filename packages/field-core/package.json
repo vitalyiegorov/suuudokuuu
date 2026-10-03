@@ -30,13 +30,13 @@
         "ts": "run -T tsc -p ."
     },
     "dependencies": {
-        "@rnw-community/shared": "^2.2.0",
+        "@rnw-community/shared": "^2.15.0",
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/techniques": "workspace:*"
     },
     "devDependencies": {
-        "@types/react": "~19.2.14",
-        "react": "19.2.3"
+        "@types/react": "~19.3.0",
+        "react": "19.3.0"
     },
     "peerDependencies": {
         "react": ">=19.0.0"

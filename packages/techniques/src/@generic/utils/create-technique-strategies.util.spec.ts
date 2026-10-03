@@ -13,7 +13,7 @@ const getSortedTechniques = (techniques: SolutionTechniqueEnum[]): SolutionTechn
 
 const getLogicalTechniques = (): SolutionTechniqueEnum[] =>
     Object.values(SolutionTechniqueEnum)
-        .filter(isNumber)
+        .filter((technique): technique is SolutionTechniqueEnum => isNumber(technique))
         .filter(technique => !nonStrategyTechniques.includes(technique));
 
 describe('createTechniqueStrategies', () => {

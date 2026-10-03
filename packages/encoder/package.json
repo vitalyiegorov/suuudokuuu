@@ -24,8 +24,8 @@
         "ts": "run -T tsc -p ."
     },
     "dependencies": {
-        "@rnw-community/shared": "^2.2.0",
-        "@thi.ng/bitstream": "^2.4.53",
+        "@rnw-community/shared": "^2.15.0",
+        "@thi.ng/bitstream": "^2.4.55",
         "lz-string": "^1.5.0"
     }
 }
