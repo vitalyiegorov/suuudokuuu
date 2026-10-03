@@ -1,4 +1,4 @@
-import { CurrentRunMoveService } from '@suuudokuuu/progress';
+import { CurrentRunService } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
 
 import { appRuntime } from '../../@generic/runtime/app.runtime';
@@ -10,8 +10,6 @@ import type { FieldEngine } from '@suuudokuuu/field-core';
 export const gameToggleInputMode = (engine: FieldEngine): void => {
     engine.toggleInputMode();
     void appRuntime.runPromise(
-        Effect.flatMap(CurrentRunMoveService, currentRunMoveService =>
-            currentRunMoveService.toggleInputMode(gameGetInputStatePayload(engine))
-        )
+        Effect.flatMap(CurrentRunService, currentRunService => currentRunService.toggleInputMode(gameGetInputStatePayload(engine)))
     );
 };

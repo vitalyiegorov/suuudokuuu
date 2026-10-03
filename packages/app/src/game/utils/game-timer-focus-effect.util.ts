@@ -1,4 +1,4 @@
-import { CurrentRunService } from '@suuudokuuu/progress';
+import { CurrentRunRepository, CurrentRunService } from '@suuudokuuu/progress';
 import * as Duration from 'effect/Duration';
 import * as Effect from 'effect/Effect';
 import * as Queue from 'effect/Queue';
@@ -9,6 +9,7 @@ import type { AppStateStatus } from 'react-native';
 export const gameTimerFocusEffect = (openPauseScreen: () => void) =>
     Effect.gen(function* () {
         const currentRunService = yield* CurrentRunService;
+        const currentRunRepository = yield* CurrentRunRepository;
         const appStates = yield* Queue.unbounded<AppStateStatus>();
 
         yield* Effect.acquireRelease(
@@ -17,7 +18,7 @@ export const gameTimerFocusEffect = (openPauseScreen: () => void) =>
         );
 
         const { isChallengeRun, shouldRunTimer } = yield* currentRunService.focus();
-        const tickForever = Effect.forever(Effect.andThen(Effect.sleep(Duration.seconds(1)), currentRunService.tick));
+        const tickForever = Effect.forever(Effect.andThen(Effect.sleep(Duration.seconds(1)), currentRunRepository.tick));
         const nextAppState = Queue.take(appStates);
 
         const runChallengeTimer = (isTicking: boolean): Effect.Effect<void> =>
@@ -25,7 +26,7 @@ export const gameTimerFocusEffect = (openPauseScreen: () => void) =>
                 const appState = isTicking ? yield* Effect.raceFirst(tickForever, nextAppState) : yield* nextAppState;
 
                 if (appState === 'active') {
-                    yield* currentRunService.returnToRun();
+                    yield* currentRunService.returnToRun;
                 }
 
                 if (appState === 'background') {

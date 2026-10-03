@@ -1,4 +1,4 @@
-import { CurrentRunMoveService } from '@suuudokuuu/progress';
+import { CurrentRunService } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
 
 import { isDefined } from '@rnw-community/shared';
@@ -14,7 +14,7 @@ export const useGameHistoryControls = (engine: FieldEngine) => {
     const handleUndo = () => {
         if (!isPlayingStepScript() && engine.undo()) {
             void appRuntime.runPromise(
-                Effect.flatMap(CurrentRunMoveService, currentRunMoveService => currentRunMoveService.undo(gameGetFieldStatePayload(engine)))
+                Effect.flatMap(CurrentRunService, currentRunService => currentRunService.undo(gameGetFieldStatePayload(engine)))
             );
         }
     };
@@ -22,7 +22,7 @@ export const useGameHistoryControls = (engine: FieldEngine) => {
     const handleRedo = () => {
         if (!isPlayingStepScript() && engine.redo()) {
             void appRuntime.runPromise(
-                Effect.flatMap(CurrentRunMoveService, currentRunMoveService => currentRunMoveService.redo(gameGetFieldStatePayload(engine)))
+                Effect.flatMap(CurrentRunService, currentRunService => currentRunService.redo(gameGetFieldStatePayload(engine)))
             );
         }
     };

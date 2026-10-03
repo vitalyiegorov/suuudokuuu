@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { CurrentRunFinishService, CurrentRunMoveService } from '@suuudokuuu/progress';
+import { CurrentRunService } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
@@ -43,16 +43,14 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
         const finishLostGame = () => {
             hapticImpact(ImpactFeedbackStyle.Heavy);
 
-            void appRuntime.runPromise(
-                Effect.flatMap(CurrentRunFinishService, currentRunFinishService => currentRunFinishService.finish(false, hasRival))
-            );
+            void appRuntime.runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.finish(false, hasRival)));
 
             router.replace(gameScreenGetLostRoute(hasRival));
         };
 
         const unsubscribeMoveApplied = engine.on('moveApplied', move => {
             void appRuntime.runPromise(
-                Effect.flatMap(CurrentRunMoveService, currentRunMoveService => currentRunMoveService.save(gameGetSavePayload(engine, move)))
+                Effect.flatMap(CurrentRunService, currentRunService => currentRunService.save(gameGetSavePayload(engine, move)))
             );
 
             hapticNotification(Haptics.NotificationFeedbackType.Success);
@@ -65,17 +63,15 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
             deferredClassifications.schedule(
                 () =>
                     void appRuntime.runPromise(
-                        Effect.flatMap(CurrentRunMoveService, currentRunMoveService =>
-                            currentRunMoveService.classifyMove(gameGetClassifyMovePayload(postMoveSudokuString, move.cell))
+                        Effect.flatMap(CurrentRunService, currentRunService =>
+                            currentRunService.classifyMove(gameGetClassifyMovePayload(postMoveSudokuString, move.cell))
                         )
                     )
             );
         });
 
         const unsubscribeMistake = engine.on('mistake', mistake => {
-            void appRuntime.runPromise(
-                Effect.flatMap(CurrentRunMoveService, currentRunMoveService => currentRunMoveService.mistake(mistake.cell))
-            );
+            void appRuntime.runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.mistake(mistake.cell)));
 
             const mistakeCount = mistake.mistakes;
 
@@ -97,7 +93,7 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
             gameScreenMaybeStartWinConfetti(hasRival, wonChallenge, startWinConfetti);
             deferredClassifications.flush();
             void appRuntime.runPromise(
-                Effect.flatMap(CurrentRunFinishService, currentRunFinishService => currentRunFinishService.finish(true, wonChallenge))
+                Effect.flatMap(CurrentRunService, currentRunService => currentRunService.finish(true, wonChallenge))
             );
             // HINT: We need to wait for the animation to finish, animation finish event would fix it?
             setTimeout(() => void router.replace(gameScreenGetWonRoute(hasRival, wonChallenge)), 10 * animationDurationConstant);

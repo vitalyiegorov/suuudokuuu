@@ -31,11 +31,10 @@ describe('CompletedGameRepository', () => {
             );
             yield* completedGameRepository.insert(makeGame(DifficultyEnum.Hell, 0));
 
-            const mediumGames = yield* completedGameRepository.findByDifficulty(DifficultyEnum.Medium);
             const allGames = yield* completedGameRepository.findAll;
 
             assert.deepStrictEqual(
-                mediumGames,
+                allGames.filter(game => game.difficulty === DifficultyEnum.Medium),
                 completedAtValues
                     .slice(-maxGamesPerDifficulty)
                     .reverse()

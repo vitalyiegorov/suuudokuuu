@@ -76,15 +76,4 @@ describe('CurrentRunRepository', () => {
             ]);
         }).pipe(Effect.scoped, Effect.provide(ProgressTestLayer))
     );
-
-    it.effect('removes the run', () =>
-        Effect.gen(function* () {
-            const currentRunRepository = yield* CurrentRunRepository;
-
-            yield* currentRunRepository.save(currentRun);
-            yield* currentRunRepository.remove;
-
-            assert.isTrue(Option.isNone(yield* currentRunRepository.get));
-        }).pipe(Effect.provide(ProgressTestLayer))
-    );
 });

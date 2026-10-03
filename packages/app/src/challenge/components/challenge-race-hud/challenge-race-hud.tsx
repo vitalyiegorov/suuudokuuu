@@ -1,4 +1,4 @@
-import { CurrentRunFinishService } from '@suuudokuuu/progress';
+import { CurrentRunService } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
 import { router } from 'expo-router';
 import { useEffect } from 'react';
@@ -33,9 +33,7 @@ export const ChallengeRaceHud = () => {
 
     useEffect(() => {
         if (opponentProgress >= 1) {
-            void appRuntime.runPromise(
-                Effect.flatMap(CurrentRunFinishService, currentRunFinishService => currentRunFinishService.finish(false, true))
-            );
+            void appRuntime.runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.finish(false, true)));
             router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } });
         }
     }, [opponentProgress]);

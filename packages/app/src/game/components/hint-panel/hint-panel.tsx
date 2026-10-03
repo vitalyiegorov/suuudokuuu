@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { CurrentRunMoveService } from '@suuudokuuu/progress';
+import { CurrentRunService } from '@suuudokuuu/progress';
 import { AppButton } from '@suuudokuuu/ui';
 import * as Effect from 'effect/Effect';
 import LucideChevronLeft from 'lucide-react-native/icons/chevron-left';
@@ -48,7 +48,7 @@ export const HintPanel = ({ isRoomyLayout, narrationLineCount, surfaceHeight }: 
     const handleApply = () => {
         if (isDefined(stepScript)) {
             void appRuntime.runPromise(
-                Effect.flatMap(CurrentRunMoveService, currentRunMoveService => currentRunMoveService.hint(stepScript.eliminations))
+                Effect.flatMap(CurrentRunService, currentRunService => currentRunService.hint(stepScript.eliminations))
             );
             engine.applyStepScript();
         }

@@ -367,6 +367,13 @@ export default defineConfig(
         }
     },
     {
+        files: ['**/*.service.ts', '**/*.repository.ts'],
+        rules: {
+            'max-lines': ['error', { max: 500, skipBlankLines: true, skipComments: true }],
+            'max-lines-per-function': 'off'
+        }
+    },
+    {
         files: ['**/*.spec.ts', '**/*.spec.tsx', '**/test/**/*.test.ts', '**/test/**/*.test.tsx'],
         extends: [vitestPlugin.configs.recommended],
         rules: {

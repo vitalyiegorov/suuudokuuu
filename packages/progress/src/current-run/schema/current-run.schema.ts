@@ -1,15 +1,15 @@
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import * as Schema from 'effect/Schema';
 
 import { DifficultySchema } from '../../@generic/schema/difficulty.schema';
-import { SolutionTechniqueSchema } from '../../@generic/schema/solution-technique.schema';
 
 export const CellTimelineEventSchema = Schema.Struct({
     kind: Schema.Literal(TimelineEventKindEnum.Cell),
     cellIndex: Schema.Number,
     value: Schema.Number,
     ts: Schema.Number,
-    technique: Schema.optionalKey(SolutionTechniqueSchema),
+    technique: Schema.optionalKey(Schema.Enum(SolutionTechniqueEnum)),
     score: Schema.optionalKey(Schema.Number)
 });
 

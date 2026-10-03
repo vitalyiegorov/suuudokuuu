@@ -10,7 +10,6 @@ export const createVitestConfig = () =>
             alias: { '@suuudokuuu/progress': progressSourceEntry }
         },
         test: {
-            environment: 'node',
             include: ['test/**/*.test.ts']
         }
     });

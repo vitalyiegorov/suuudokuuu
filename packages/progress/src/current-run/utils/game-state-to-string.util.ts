@@ -1,6 +1,7 @@
 import { GameStateSerializer, SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { DifficultyEnum, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { isNotNull, isNotUndefined } from 'effect/Predicate';
+import * as Result from 'effect/Result';
 
 import { getTimelineCellTechniques } from './get-timeline-cell-techniques.util';
 
@@ -57,11 +58,10 @@ const getIndexedCandidates = (candidates: CurrentRunType['candidates']): Record<
 };
 
 export const gameStateToString = (gameState: CurrentRunType, kind = SharedPayloadKindEnum.Puzzle): string => {
-    try {
-        const timelineEvents = toShareableTimelineEvents(gameState.timelineEvents);
-        const techniques = getTimelineCellTechniques(timelineEvents);
-
-        return serializer.encodeState({
+    const timelineEvents = toShareableTimelineEvents(gameState.timelineEvents);
+    const techniques = getTimelineCellTechniques(timelineEvents);
+    const encodedState = Result.try(() =>
+        serializer.encodeState({
             field: gameState.sudokuString,
             timelineEvents,
             ...(techniques.some(isNotNull) && { techniques }),
@@ -76,8 +76,8 @@ export const gameStateToString = (gameState: CurrentRunType, kind = SharedPayloa
             rating: Math.round(gameState.rating * RatingWireScale),
             isRatingCeiling: gameState.isRatingCeiling,
             difficulty: Object.values(DifficultyEnum).indexOf(gameState.difficulty)
-        });
-    } catch {
-        return '';
-    }
+        })
+    );
+
+    return Result.getOrElse(encodedState, () => '');
 };
