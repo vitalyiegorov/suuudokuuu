@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.1...v2.13.2) (2026-10-03)
+
+**Note:** Version bump only for package @suuudokuuu/techniques
+
 ## [2.11.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.11.3...v2.11.4) (2026-09-02)
 
 ### Performance Improvements
