@@ -1,6 +1,13 @@
+import { useAtomValue } from '@effect/atom-react/Hooks';
+import { CompletedGameRepository, ReactivityKeyEnum } from '@suuudokuuu/progress';
+import * as Effect from 'effect/Effect';
 import * as AsyncResult from 'effect/reactivity/AsyncResult';
 
-import { useLiveAtomValue } from '../../@generic/hooks/use-live-atom-value.hook';
-import { completedGamesAtom } from '../atoms/completed-games.atom';
+import { databaseQueryAtom } from '../../@generic/utils/database-query-atom.util';
 
-export const useCompletedGames = () => AsyncResult.getOrElse(useLiveAtomValue(completedGamesAtom), () => []);
+export const completedGamesAtom = databaseQueryAtom(
+    [ReactivityKeyEnum.CompletedGames],
+    Effect.flatMap(CompletedGameRepository, completedGameRepository => completedGameRepository.findAll)
+);
+
+export const useCompletedGames = () => AsyncResult.getOrElse(useAtomValue(completedGamesAtom), () => []);

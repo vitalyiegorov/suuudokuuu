@@ -1,13 +1,9 @@
-import { CurrentRunService } from '@suuudokuuu/progress';
-import * as Effect from 'effect/Effect';
 import { useScreenshotListener } from 'expo-screen-capture';
 
-import { appRuntime } from '../../../@generic/runtime/app.runtime';
+import { runCurrentRunCommand } from '../../../game/utils/run-current-run-command.util';
 
 export const ChallengeScreenshotRecorder = () => {
-    useScreenshotListener(
-        () => void appRuntime.runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.screenshot))
-    );
+    useScreenshotListener(() => void runCurrentRunCommand(currentRunService => currentRunService.screenshot));
 
     return null;
 };

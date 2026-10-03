@@ -1,8 +1,8 @@
+import { useAtomValue } from '@effect/atom-react/Hooks';
 import { PlayerStatsRepository, ReactivityKeyEnum } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
 import * as AsyncResult from 'effect/reactivity/AsyncResult';
 
-import { useLiveAtomValue } from '../../@generic/hooks/use-live-atom-value.hook';
 import { databaseQueryAtom } from '../../@generic/utils/database-query-atom.util';
 
 import type { PlayerStatsType } from '@suuudokuuu/progress';
@@ -19,4 +19,4 @@ const playerStatsAtom = databaseQueryAtom(
     Effect.flatMap(PlayerStatsRepository, playerStatsRepository => playerStatsRepository.get)
 );
 
-export const usePlayerStats = () => AsyncResult.getOrElse(useLiveAtomValue(playerStatsAtom), () => emptyPlayerStats);
+export const usePlayerStats = () => AsyncResult.getOrElse(useAtomValue(playerStatsAtom), () => emptyPlayerStats);

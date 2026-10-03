@@ -1,3 +1,4 @@
+import { useAtomValue } from '@effect/atom-react/Hooks';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { useAppLayout } from '@suuudokuuu/ui';
 import * as AsyncResult from 'effect/reactivity/AsyncResult';
@@ -7,16 +8,15 @@ import { View } from 'react-native';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
-import { useLiveAtomValue } from '../../../@generic/hooks/use-live-atom-value.hook';
 import { getChallengeAwayRanges } from '../../../challenge/utils/get-challenge-away-ranges.util';
 import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
 import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
-import { completedGamesAtom } from '../../../history/atoms/completed-games.atom';
 import { ReplayActions } from '../../../history/components/replay-actions/replay-actions';
 import { ReplayControls } from '../../../history/components/replay-controls/replay-controls';
 import { ReplayField } from '../../../history/components/replay-field/replay-field';
 import { ReplayHeader } from '../../../history/components/replay-header/replay-header';
+import { completedGamesAtom } from '../../../history/query/use-completed-games.query';
 import { getReplayTimeline } from '../../../history/utils/get-replay-timeline.util';
 import { getSudokuAtStep } from '../../../history/utils/get-sudoku-at-step.util';
 
@@ -31,7 +31,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const { sizeClass } = useAppLayout();
     const isWideLayout = sizeClass === 'wide';
 
-    const completedGamesResult = useLiveAtomValue(completedGamesAtom);
+    const completedGamesResult = useAtomValue(completedGamesAtom);
     const [currentStep, setCurrentStep] = useState(0);
     const { cellSize: boardCellSize, cellMargin: boardCellMargin, onBoardAreaLayout } = useBoardGeometry(0);
     const completedGame = AsyncResult.getOrElse(completedGamesResult, () => []).find(

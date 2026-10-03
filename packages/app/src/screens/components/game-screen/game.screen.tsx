@@ -1,7 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { CurrentRunService } from '@suuudokuuu/progress';
 import { useAppLayout } from '@suuudokuuu/ui';
-import * as Effect from 'effect/Effect';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { use, useEffect, useRef, useState } from 'react';
@@ -11,7 +9,6 @@ import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
-import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
 import { ChallengeRecordHud } from '../../../challenge/components/challenge-record-hud/challenge-record-hud';
 import { ChallengeScreenshotRecorder } from '../../../challenge/components/challenge-screenshot-recorder/challenge-screenshot-recorder';
@@ -27,6 +24,7 @@ import { useShareGame } from '../../../game/hooks/use-share-game.hook';
 import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
 import { gameToggleCellCandidate } from '../../../game/utils/game-toggle-cell-candidate.util';
+import { runCurrentRunCommand } from '../../../game/utils/run-current-run-command.util';
 import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameScreenSetSharingAvailable } from '../../utils/game-screen-set-sharing-available.util';
@@ -38,8 +36,6 @@ import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
 import { GameStatusBlock } from './game-status-block/game-status-block';
 import { useGameEngineEvents } from './hooks/use-game-engine-events.hook';
-import { useOpenGameSettings } from './hooks/use-open-game-settings.hook';
-import { gameScreenExit } from './utils/game-screen-exit.util';
 
 import type { AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import type { CellInterface } from '@suuudokuuu/generator';
@@ -75,13 +71,15 @@ export const GameScreen = () => {
     useEffect(() => void gameScreenSetSharingAvailable(setHasSharing), []);
 
     const handleShare = useShareGame();
-    const handleOpenSettings = useOpenGameSettings();
+    const handleOpenSettings = () => {
+        void runCurrentRunCommand(currentRunService => currentRunService.pause(false));
+        router.push('/game-settings');
+    };
 
-    const handleConfirmedExit = () =>
-        void gameScreenExit(
-            () => void appRuntime.runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.reset)),
-            homeHref => void router.dismissTo(homeHref)
-        );
+    const handleConfirmedExit = () => {
+        void runCurrentRunCommand(currentRunService => currentRunService.reset);
+        router.dismissTo('/');
+    };
     const handleExit = () => {
         Alert(t`Stop current run?`, t`All progress will be lost`, [
             { text: t`Cancel`, style: 'cancel' },
@@ -99,7 +97,7 @@ export const GameScreen = () => {
     };
 
     const handlePause = () => {
-        void appRuntime.runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.pause()));
+        void runCurrentRunCommand(currentRunService => currentRunService.pause());
         router.replace('/pause');
     };
 

@@ -1,5 +1,4 @@
-import { ColorSchemaEnum, SettingsRepository } from '@suuudokuuu/progress';
-import * as Effect from 'effect/Effect';
+import { ColorSchemaEnum } from '@suuudokuuu/progress';
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from 'expo-router';
 import { useEffect } from 'react';
 import { Appearance, Platform } from 'react-native';
@@ -7,8 +6,8 @@ import { UnistylesRuntime } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { useSettings } from '../../../settings/query/use-settings.query';
+import { updateSettings } from '../../../settings/utils/update-settings.util';
 import { ThemeContext } from '../../context/theme.context';
 import { useCustomThemes } from '../../query/use-custom-themes.query';
 import { isCustomThemeId } from '../../type-guard/is-custom-theme-id.type-guard';
@@ -41,18 +40,14 @@ export const ThemeProvider = ({ children }: Props) => {
     }, [activeCustomTheme, unistylesThemeName]);
 
     const changeTheme = (theme: SettingsType['theme']) => {
-        void appRuntime.runPromise(Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update({ theme })));
+        void updateSettings({ theme });
     };
 
     const toggleColorSchema = () => {
         const newColorScheme = colorScheme === ColorSchemaEnum.Dark ? ColorSchemaEnum.Light : ColorSchemaEnum.Dark;
 
         if (newColorScheme !== colorScheme) {
-            void appRuntime.runPromise(
-                Effect.flatMap(SettingsRepository, settingsRepository =>
-                    settingsRepository.update({ isDarkColorSchema: !isDarkColorSchema })
-                )
-            );
+            void updateSettings({ isDarkColorSchema: !isDarkColorSchema });
 
             if (Platform.OS === 'web') {
                 document.documentElement.style.colorScheme = newColorScheme;

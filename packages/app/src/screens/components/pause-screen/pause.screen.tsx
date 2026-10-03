@@ -1,6 +1,4 @@
 import { useLingui } from '@lingui/react/macro';
-import { CurrentRunService } from '@suuudokuuu/progress';
-import * as Effect from 'effect/Effect';
 import { Redirect, useRouter } from 'expo-router';
 import { use } from 'react';
 import { View } from 'react-native';
@@ -11,7 +9,6 @@ import { Alert } from '../../../@generic/components/alert/alert';
 import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
 import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
@@ -20,8 +17,8 @@ import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 import { useShareGame } from '../../../game/hooks/use-share-game.hook';
 import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
+import { runCurrentRunCommand } from '../../../game/utils/run-current-run-command.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { gameScreenExit } from '../game-screen/utils/game-screen-exit.util';
 
 import { PauseScreenActions } from './pause-screen-actions/pause-screen-actions';
 import { PauseScreenHeader } from './pause-screen-header/pause-screen-header';
@@ -41,11 +38,10 @@ export const PauseScreen = () => {
 
     const handleResume = useResumeGame();
     const handleShare = useShareGame();
-    const handleConfirmedQuit = () =>
-        void gameScreenExit(
-            () => void appRuntime.runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.reset)),
-            homeHref => void router.dismissTo(homeHref)
-        );
+    const handleConfirmedQuit = () => {
+        void runCurrentRunCommand(currentRunService => currentRunService.reset);
+        router.dismissTo('/');
+    };
     const handleQuit = () => {
         Alert(t`Stop current run?`, t`All progress will be lost`, [
             { text: t`Cancel`, style: 'cancel' },

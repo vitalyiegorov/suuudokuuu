@@ -1,8 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
-import { SettingsRepository } from '@suuudokuuu/progress';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
-import * as Effect from 'effect/Effect';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import Zap from 'lucide-react-native/icons/zap';
 import { useEffect } from 'react';
@@ -12,8 +10,8 @@ import { useUnistyles } from 'react-native-unistyles';
 
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
-import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { useSettings } from '../../../settings/query/use-settings.query';
+import { updateSettings } from '../../../settings/utils/update-settings.util';
 
 import { ChallengeModeSwitchSelectors } from './challenge-mode-switch.selectors';
 import { ChallengeModeSwitchStyles as styles } from './challenge-mode-switch.styles';
@@ -44,9 +42,7 @@ export const ChallengeModeSwitch = () => {
 
     const handlePress = () => {
         hapticImpact(ImpactFeedbackStyle.Light);
-        void appRuntime.runPromise(
-            Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update({ lastGameChallengeMode: !isChallengeMode }))
-        );
+        void updateSettings({ lastGameChallengeMode: !isChallengeMode });
     };
     const handlePressIn = () => {
         pressed.value = withTiming(1, { duration: pressDurationMs });

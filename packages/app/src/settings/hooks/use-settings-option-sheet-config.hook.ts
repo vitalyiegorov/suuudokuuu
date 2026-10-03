@@ -1,12 +1,11 @@
 import { useLingui } from '@lingui/react/macro';
-import { CellMargin, FontSizes, Languages, MotionPreferences, SettingsRepository } from '@suuudokuuu/progress';
-import * as Effect from 'effect/Effect';
+import { CellMargin, FontSizes, Languages, MotionPreferences } from '@suuudokuuu/progress';
 import { router } from 'expo-router';
 
-import { appRuntime } from '../../@generic/runtime/app.runtime';
 import { i18nActivateLanguage } from '../../@generic/utils/i18n-catalogs';
 import { SettingsOptionSheetSelectors } from '../component/settings-option-sheet/settings-option-sheet.selectors';
 import { useSettings } from '../query/use-settings.query';
+import { updateSettings } from '../utils/update-settings.util';
 
 import { useSettingsOptionDescriptions } from './use-settings-option-descriptions.hook';
 import { useSettingsOptionLabels } from './use-settings-option-labels.hook';
@@ -33,21 +32,19 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
     const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel } = useSettingsOptionLabels();
 
     const selectCellMargin = (cellMargin: SettingsType['cellMargin']) => {
-        void appRuntime.runPromise(Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update({ cellMargin })));
+        void updateSettings({ cellMargin });
         router.back();
     };
     const selectFontSize = (fontSize: SettingsType['fontSize']) => {
-        void appRuntime.runPromise(Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update({ fontSize })));
+        void updateSettings({ fontSize });
         router.back();
     };
     const selectMotionPreference = (motionPreference: SettingsType['motionPreference']) => {
-        void appRuntime.runPromise(
-            Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update({ motionPreference }))
-        );
+        void updateSettings({ motionPreference });
         router.back();
     };
     const selectLanguage = (language: SettingsType['language']) => {
-        void appRuntime.runPromise(Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update({ language })));
+        void updateSettings({ language });
         void i18nActivateLanguage(language);
         router.back();
     };

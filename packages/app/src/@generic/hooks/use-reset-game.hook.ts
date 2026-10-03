@@ -1,9 +1,8 @@
-import { CurrentRunService, initialCurrentRun } from '@suuudokuuu/progress';
-import * as Effect from 'effect/Effect';
+import { initialCurrentRun } from '@suuudokuuu/progress';
 import * as Option from 'effect/Option';
 import { useEffect, useState } from 'react';
 
-import { appRuntime } from '../runtime/app.runtime';
+import { runCurrentRunCommand } from '../../game/utils/run-current-run-command.util';
 
 import type { CurrentRunType } from '@suuudokuuu/progress';
 
@@ -12,9 +11,9 @@ export const useResetGame = (): CurrentRunType | null => {
 
     useEffect(
         () =>
-            void appRuntime
-                .runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.reset))
-                .then(run => void setFinishedRun(Option.getOrElse(run, () => initialCurrentRun))),
+            void runCurrentRunCommand(currentRunService => currentRunService.reset).then(
+                run => void setFinishedRun(Option.getOrElse(run, () => initialCurrentRun))
+            ),
         []
     );
 

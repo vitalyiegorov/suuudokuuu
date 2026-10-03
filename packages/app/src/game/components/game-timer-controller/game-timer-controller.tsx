@@ -1,4 +1,3 @@
-import * as Fiber from 'effect/Fiber';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback } from 'react';
 
@@ -12,7 +11,7 @@ export const GameTimerController = () => {
         useCallback(() => {
             const timerFiber = appRuntime.runFork(gameTimerFocusEffect(() => void replace('/pause')));
 
-            return () => void appRuntime.runFork(Fiber.interrupt(timerFiber));
+            return () => void timerFiber.interruptUnsafe();
         }, [replace])
     );
 

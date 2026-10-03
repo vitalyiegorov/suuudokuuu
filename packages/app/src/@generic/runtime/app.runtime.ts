@@ -8,9 +8,7 @@ import { sqlPlatformLayer } from './sql-platform.layer';
 
 const appMemoMap = Layer.makeMemoMapUnsafe();
 
-const platformLayer = sqlPlatformLayer.pipe(Layer.provideMerge(Reactivity.layer));
-
-const appLayer = ProgressLayer.pipe(Layer.provideMerge(platformLayer));
+const appLayer = ProgressLayer.pipe(Layer.provideMerge(sqlPlatformLayer), Layer.provideMerge(Reactivity.layer));
 
 export const appRuntime = ManagedRuntime.make(appLayer, { memoMap: appMemoMap });
 

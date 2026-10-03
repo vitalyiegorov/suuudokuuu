@@ -1,13 +1,11 @@
 import { useLingui } from '@lingui/react/macro';
-import { CurrentRunService } from '@suuudokuuu/progress';
-import * as Effect from 'effect/Effect';
 import { usePathname, useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 
 import { getErrorMessage } from '@rnw-community/shared';
 
 import { Alert } from '../../@generic/components/alert/alert';
-import { appRuntime } from '../../@generic/runtime/app.runtime';
+import { runCurrentRunCommand } from '../utils/run-current-run-command.util';
 
 export const useGameCreationRunner = () => {
     const router = useRouter();
@@ -22,7 +20,7 @@ export const useGameCreationRunner = () => {
         Alert(t`Invalid Sudoku`, getErrorMessage(error), [
             {
                 onPress: () => {
-                    void appRuntime.runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.reset));
+                    void runCurrentRunCommand(currentRunService => currentRunService.reset);
                     router.replace('/');
                 },
                 text: t`OK`

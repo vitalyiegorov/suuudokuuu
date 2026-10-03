@@ -1,9 +1,7 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
-import { SettingsRepository } from '@suuudokuuu/progress';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
-import * as Effect from 'effect/Effect';
 import { Link } from 'expo-router';
 import { use } from 'react';
 import { Platform, Pressable, View } from 'react-native';
@@ -19,7 +17,6 @@ import { Header } from '../../../@generic/components/header/header';
 import { TabBarInsetContext } from '../../../@generic/components/main-tab-layout/context/tab-bar-inset.context';
 import { SupportUkrainePill } from '../../../@generic/components/support-ukraine-pill/support-ukraine-pill';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
-import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { getBrand } from '../../../@generic/utils/get-brand.util';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { ChallengeModeSwitch } from '../../../challenge/components/challenge-mode-switch/challenge-mode-switch';
@@ -36,6 +33,7 @@ import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-step
 import { useDifficultyStats } from '../../../history/query/use-difficulty-stats.query';
 import { RelaxedMaxMistakesConstant } from '../../../settings/constant/max-mistakes.constant';
 import { useSettings } from '../../../settings/query/use-settings.query';
+import { updateSettings } from '../../../settings/utils/update-settings.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayHeight, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
@@ -49,8 +47,6 @@ import { type HomeScreenOptionCardInterface } from './interface/home-screen-opti
 import { homeScreenGetContentInsetTop } from './utils/home-screen-get-content-inset-top.util';
 import { homeScreenGetCurrentGameProgress } from './utils/home-screen-get-current-game-progress.util';
 import { homeScreenGetDifficultyDescription } from './utils/home-screen-get-difficulty-description.util';
-
-import type { SettingsType } from '@suuudokuuu/progress';
 
 const topEdgeFadeProps = { height: HomeScreenTopOverlayHeight, intensity: HomeScreenTopOverlayIntensity };
 
@@ -70,8 +66,6 @@ export const HomeScreen = () => {
     const { lastGameChallengeMode: isChallengeMode, lastGameDifficulty: difficulty, lastGameMaxMistakes: maxMistakes } = useSettings();
     const currentSolutionSteps = getTimelineCellSteps(timelineEvents);
     const isGameStarted = isNotEmptyString(currentSudokuString);
-    const updateSettings = (patch: Partial<SettingsType>) =>
-        void appRuntime.runPromise(Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.update(patch)));
     const handleDifficultyChange = (newDifficulty: DifficultyEnum) => void updateSettings({ lastGameDifficulty: newDifficulty });
     const handleMaxMistakes = (newMaxMistakes: number) => () => void updateSettings({ lastGameMaxMistakes: newMaxMistakes });
     const startNewPuzzle = () => void create({ difficulty, isChallengeRun: isChallengeMode, maxMistakes });

@@ -1,10 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
-import { CurrentRunService } from '@suuudokuuu/progress';
-import * as Effect from 'effect/Effect';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { appRuntime } from '../../runtime/app.runtime';
+import { runCurrentRunCommand } from '../../../game/utils/run-current-run-command.util';
 import { AppLinkButton } from '../app-link-button/app-link-button';
 
 import { PlayAgainButtonSelectors } from './play-again-button.selectors';
@@ -20,8 +18,7 @@ interface Props {
 export const PlayAgainButton = ({ isLoading = false, onPress, style }: Props) => {
     const { t } = useLingui();
 
-    const handlePlayAgain = () =>
-        void appRuntime.runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.reset));
+    const handlePlayAgain = () => void runCurrentRunCommand(currentRunService => currentRunService.reset);
     const hasCustomOnPress = isDefined(onPress);
     const buttonActionProps = hasCustomOnPress ? { onPress } : { href: '/', onPress: handlePlayAgain, replace: true };
 

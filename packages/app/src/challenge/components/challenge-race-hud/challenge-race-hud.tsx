@@ -1,13 +1,11 @@
-import { CurrentRunService } from '@suuudokuuu/progress';
-import * as Effect from 'effect/Effect';
 import { router } from 'expo-router';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 
-import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
 import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
+import { runCurrentRunCommand } from '../../../game/utils/run-current-run-command.util';
 import { ChallengeLossReason } from '../../enums/challenge-loss-reason.enum';
 import { useChallengeTechniqueEvents } from '../../hooks/use-challenge-technique-events.hook';
 import { getChallengeAwayRanges } from '../../utils/get-challenge-away-ranges.util';
@@ -33,7 +31,7 @@ export const ChallengeRaceHud = () => {
 
     useEffect(() => {
         if (opponentProgress >= 1) {
-            void appRuntime.runPromise(Effect.flatMap(CurrentRunService, currentRunService => currentRunService.finish(false, true)));
+            void runCurrentRunCommand(currentRunService => currentRunService.finish(false, true));
             router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } });
         }
     }, [opponentProgress]);

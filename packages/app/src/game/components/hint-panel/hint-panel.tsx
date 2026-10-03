@@ -1,7 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { CurrentRunService } from '@suuudokuuu/progress';
 import { AppButton } from '@suuudokuuu/ui';
-import * as Effect from 'effect/Effect';
 import LucideChevronLeft from 'lucide-react-native/icons/chevron-left';
 import LucideChevronRight from 'lucide-react-native/icons/chevron-right';
 import LucideX from 'lucide-react-native/icons/x';
@@ -13,9 +11,9 @@ import { isDefined } from '@rnw-community/shared';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
-import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
+import { runCurrentRunCommand } from '../../utils/run-current-run-command.util';
 import { HintStepNarration } from '../hint-step-narration/hint-step-narration';
 
 import { HintPanelSelectors } from './hint-panel.selectors';
@@ -47,9 +45,7 @@ export const HintPanel = ({ isRoomyLayout, narrationLineCount, surfaceHeight }: 
 
     const handleApply = () => {
         if (isDefined(stepScript)) {
-            void appRuntime.runPromise(
-                Effect.flatMap(CurrentRunService, currentRunService => currentRunService.hint(stepScript.eliminations))
-            );
+            void runCurrentRunCommand(currentRunService => currentRunService.hint(stepScript.eliminations));
             engine.applyStepScript();
         }
     };

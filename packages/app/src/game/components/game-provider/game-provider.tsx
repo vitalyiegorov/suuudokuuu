@@ -1,10 +1,7 @@
 import { FieldEngine } from '@suuudokuuu/field-core';
 import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
 import { forgeDailyPuzzle, forgePuzzle, getDailyDateString, getDailyDayNumber, getDailyDifficulty } from '@suuudokuuu/puzzle-forge';
-import { useEffect } from 'react';
 
-import { i18nActivateLanguage } from '../../../@generic/utils/i18n-catalogs';
-import { useSettings } from '../../../settings/query/use-settings.query';
 import { GameContext } from '../../context/game.context';
 import { useGameCreationRunner } from '../../hooks/use-game-creation-runner.hook';
 import { useGameEngineState } from '../../hooks/use-game-engine-state.hook';
@@ -22,8 +19,6 @@ interface Props {
 
 export const GameProvider = ({ children }: Props) => {
     const { isCreatingGame, router, runGameCreation, showAlert } = useGameCreationRunner();
-
-    const currentLanguage = useSettings().language;
 
     const [engine, setEngine] = useGameEngineState(showAlert);
     const snapshot = useFieldSnapshot(engine);
@@ -64,8 +59,6 @@ export const GameProvider = ({ children }: Props) => {
                 dailyDayNumber: getDailyDayNumber(dateString)
             });
         });
-
-    useEffect(() => void i18nActivateLanguage(currentLanguage), [currentLanguage]);
 
     const value = { create, createDaily, createFromState, engine, isCreatingGame, snapshot };
 
