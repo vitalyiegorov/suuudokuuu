@@ -38,7 +38,7 @@ const modalSheetOptions = {
 
 export default function RootLayout() {
     const [loaded, error] = useFonts({ Inter_500Medium: inter500Medium, Inter_700Bold: inter700Bold });
-    const areFontsReady = loaded || isDefined(error);
+    const areFontsReady = loaded || isDefined(error) || Platform.OS === 'web';
 
     if (!areFontsReady) {
         return null;
