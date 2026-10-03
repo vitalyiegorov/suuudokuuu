@@ -46,6 +46,7 @@ export default defineConfig(
         extends: [js.configs.all],
         rules: {
             camelcase: ['error', { properties: 'never' }],
+            'func-names': ['error', 'always', { generators: 'never' }],
             complexity: ['error', 25],
             indent: 'off',
             strict: 'off',

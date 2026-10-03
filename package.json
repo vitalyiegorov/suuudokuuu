@@ -30,7 +30,8 @@
         "ts:force": "turbo run ts --force"
     },
     "resolutions": {
-        "redux-persist@^6.0.0": "patch:redux-persist@npm%3A6.0.0#./.yarn/patches/redux-persist-npm-6.0.0-56dad69feb.patch"
+        "redux-persist@^6.0.0": "patch:redux-persist@npm%3A6.0.0#./.yarn/patches/redux-persist-npm-6.0.0-56dad69feb.patch",
+        "effect@4.0.0": "patch:effect@npm%3A4.0.0#./.yarn/patches/effect-npm-4.0.0-4324e86b02.patch"
     },
     "devDependencies": {
         "@babel/core": "^7.29.7",

@@ -33,6 +33,7 @@ report
 .yarn/cache/*linux-64*
 .yarn/cache/*linux-x64*
 .yarn/cache/fsevents-patch*
+.yarn/cache/@op-engineering-op-sqlite-npm-*
 !.yarn/cache
 !.yarn/patches
 !.yarn/plugins
