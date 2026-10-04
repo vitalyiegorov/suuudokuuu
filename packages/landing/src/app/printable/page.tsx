@@ -12,11 +12,11 @@ import {
 import { PRINTABLE_BOOKLET_SIZE, PRINTABLE_LARGE_PRINT_SIZE } from '../../printable/constants/printable-sample.constant';
 import { getPrintableFileSizeLabel } from '../../printable/utils/get-printable-file-size-label.util';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
+import { Faq } from '../../seo/components/faq/faq';
 import { ItemListSchema } from '../../seo/components/item-list-schema/item-list-schema';
 import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
@@ -24,13 +24,13 @@ import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { sudokuDifficultyRatingPageMetadata } from '../guides/sudoku-difficulty-rating/metadata';
 import { largePrintSudokuPageMetadata } from '../large-print-sudoku/metadata';
 import { homePageMetadata } from '../metadata';
+import { sudokuForSeniorsPageMetadata } from '../sudoku-for-seniors/metadata';
 import { easySudokuPageMetadata } from '../sudoku/easy/metadata';
 import { hardSudokuPageMetadata } from '../sudoku/hard/metadata';
 import { hellSudokuPageMetadata } from '../sudoku/hell/metadata';
 import { mediumSudokuPageMetadata } from '../sudoku/medium/metadata';
 import { newbieSudokuPageMetadata } from '../sudoku/newbie/metadata';
 import { nightmareSudokuPageMetadata } from '../sudoku/nightmare/metadata';
-import { sudokuForSeniorsPageMetadata } from '../sudoku-for-seniors/metadata';
 
 import { printableEasySudokuPageMetadata } from './easy/metadata';
 import { printableHardSudokuPageMetadata } from './hard/metadata';

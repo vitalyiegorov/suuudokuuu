@@ -3,10 +3,10 @@ import { useLocalSearchParams } from 'expo-router';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { PageHorizontalSafeAreaEdges } from '../@generic/components/page/constant/page-safe-area-edges.constant';
-import { Page } from '../@generic/components/page/page';
 import { PageHead } from '../@generic/components/page-head/page-head';
 import { PageHeader } from '../@generic/components/page-header/page-header';
+import { PageHorizontalSafeAreaEdges } from '../@generic/components/page/constant/page-safe-area-edges.constant';
+import { Page } from '../@generic/components/page/page';
 import { useResetGame } from '../@generic/hooks/use-reset-game.hook';
 import { ChallengeResultScreen } from '../challenge/components/challenge-result-screen/challenge-result-screen';
 import { ChallengeTryAgainButton } from '../challenge/components/challenge-try-again-button/challenge-try-again-button';

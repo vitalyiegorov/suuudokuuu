@@ -3,4 +3,6 @@ import type { StepScriptRevealCandidatesStepInterface } from '../interfaces/step
 import type { StepScriptStrikeCandidatesStepInterface } from '../interfaces/step-script-strike-candidates-step.interface';
 
 export type StepScriptStepType =
-    StepScriptPlaceValueStepInterface | StepScriptRevealCandidatesStepInterface | StepScriptStrikeCandidatesStepInterface;
+    | StepScriptPlaceValueStepInterface
+    | StepScriptRevealCandidatesStepInterface
+    | StepScriptStrikeCandidatesStepInterface;

@@ -14,8 +14,8 @@ import { isDefined } from '@rnw-community/shared';
 
 import { ScreenChromeContentInsetTop } from '../../constants/screen-chrome-content-inset.constant';
 import { useBackdropRecomposite } from '../../hooks/use-backdrop-recomposite/use-backdrop-recomposite.hook';
-import { Header } from '../header/header';
 import { HeaderBackButton } from '../header-back-button/header-back-button';
+import { Header } from '../header/header';
 import { TabBarInsetContext } from '../main-tab-layout/context/tab-bar-inset.context';
 import { ScreenChromeThemeProvider } from '../screen-chrome-theme-provider/screen-chrome-theme-provider';
 import { StickyFooterBand } from '../sticky-footer-band/sticky-footer-band';

@@ -2,7 +2,7 @@ appId: ${APP_ID}
 ---
 - evalScript: ${output.observationWindowDeadline = Date.now() + Number(WAIT_MILLISECONDS)}
 - repeat:
-    while:
-      true: ${Date.now() < output.observationWindowDeadline}
-    commands:
-      - evalScript: ${output.observationWindowHeartbeat = Date.now()}
+      while:
+          true: ${Date.now() < output.observationWindowDeadline}
+      commands:
+          - evalScript: ${output.observationWindowHeartbeat = Date.now()}

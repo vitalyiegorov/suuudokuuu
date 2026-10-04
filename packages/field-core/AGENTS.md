@@ -107,12 +107,7 @@ Script playback is engine state: `startStepScript`, `stepScriptNext`, `stepScrip
 
 ```typescript
 export { FieldEngine, StepScriptStepKindEnum, buildStepScriptState, findStepScript, getCellKey };
-export type {
-    FieldSnapshotInterface,
-    FieldMoveResultInterface,
-    StepScriptInterface,
-    StepScriptStateInterface /* ... */
-};
+export type { FieldSnapshotInterface, FieldMoveResultInterface, StepScriptInterface, StepScriptStateInterface /* ... */ };
 ```
 
 `@suuudokuuu/field-core/react` exports `useFieldSnapshot`.

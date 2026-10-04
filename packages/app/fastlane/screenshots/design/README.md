@@ -15,7 +15,7 @@ iPhone 17 Pro Max (1320x2868) and iPad Pro 13" landscape (2752x2064) shots.
 `deliver` assigns screenshots to store slots by exact pixel dimensions, so
 those two resolutions are what put the set in the 6.9" iPhone and 13" iPad
 slots — see `../README.md`'s "Framing" section for the full reasoning and the
-reproducible command. The device *frame graphics* the script
+reproducible command. The device _frame graphics_ the script
 composites with, however, are the real frameit-downloaded frame PNGs, not a
 drawn shape — see "Frame source" below.
 
@@ -84,7 +84,7 @@ rules themselves unless the underlying research changes.
 2. **Text safe zone.** All text is ≤90% of canvas width, centered, so both
    side margins are always ≥5%.
 3. **Device sized by height, not width.** The framed device (bezel
-   included) is sized to 74-78% of canvas *height*, horizontally centered.
+   included) is sized to 74-78% of canvas _height_, horizontally centered.
    Sizing off height instead of width is what keeps the device
    consistently proportioned across the very different iPhone (portrait) and
    iPad (landscape) canvas aspect ratios. The raw capture always fills the
@@ -176,7 +176,7 @@ This caches ~280 device frame PNGs plus an `offsets.json` (cutout rectangle
 per device, in the format `{"offset": "+x+y", "width": w}`) at
 `~/.fastlane/frameit/latest`. The script does not run frameit's own
 compositing pipeline (frameit's `editor.rb#put_into_frame` sizes its output
-canvas to the *frame*, not the screenshot, which would break the exact-source-
+canvas to the _frame_, not the screenshot, which would break the exact-source-
 resolution requirement in `../README.md`'s "Framing" section). Instead it
 reads the frame PNG and offset data directly and composites the raw capture
 into the frame's own transparent screen cutout at native frame resolution,
@@ -197,7 +197,7 @@ Frame files in use:
 - **iPad** — `Apple iPad Pro (12.9-inch) (4th generation) Space Gray.png`.
   frameit-frames does not yet ship a frame for the 13" M4 iPad Pro (the
   device the capture simulator models); the generic `Apple iPad Pro
-  *.png` frames in the same download are an *older*, Touch ID /
+*.png` frames in the same download are an _older_, Touch ID /
   home-button iPad Pro model (visibly wrong industrial design for a current
   iPad Pro screenshot), while the "(12.9-inch) (4th generation)" frame is the
   edge-to-edge Face ID design with no home button — the closest available
@@ -306,6 +306,7 @@ support without fragmenting the visual rhythm of the gallery.
 ## Final asset specs
 
 **iOS App Store** (this directory's frameit output target):
+
 - 6.9" (iPhone 17 Pro Max / 16 Pro Max class): **1320 × 2868 px**, portrait,
   PNG or JPEG, no alpha.
 - Up to 10 screenshots per localization; only the first 3 are guaranteed
@@ -313,6 +314,7 @@ support without fragmenting the visual rhythm of the gallery.
 
 **Google Play** (framed separately — this Framefile targets iOS only; Play
 listings are typically full-bleed UI without a device bezel):
+
 - Phone screenshots: **1080 × 1920 px** (9:16), PNG or JPEG, 24-bit, no
   alpha, min 320 px / max 3840 px on any side.
 - Feature graphic: **1024 × 500 px**, required for featuring, no device
@@ -320,6 +322,7 @@ listings are typically full-bleed UI without a device bezel):
 
 **App Preview video** (both stores, captured separately from these static
 screenshots):
+
 - **886 × 1920 px**, portrait, H.264, **15–30 seconds**.
 - Stereo audio track is required even if the app itself is silent — export
   silent stereo rather than omitting the audio track, since a video with no

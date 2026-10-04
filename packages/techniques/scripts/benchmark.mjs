@@ -213,7 +213,13 @@ const main = () => {
         )}${'Max/Unit (ms)'.padStart(NUMBER_COLUMN_WIDTH)}${'Units'.padStart(COUNT_COLUMN_WIDTH)}`
     );
     workloadResults.forEach(result =>
-        printTableRow(result.name, result.medianTotalMilliseconds, result.meanUnitMilliseconds, result.maxUnitMilliseconds, result.unitCount)
+        printTableRow(
+            result.name,
+            result.medianTotalMilliseconds,
+            result.meanUnitMilliseconds,
+            result.maxUnitMilliseconds,
+            result.unitCount
+        )
     );
 
     printBehaviorChecksums(solvableBoards);

@@ -6,12 +6,12 @@ appId: ${APP_ID}
 # retryTapIfNoChange does not cover it. Retry the handoff once, the same way
 # subflows/shared/open-shared-handoff.flow.yaml retries its confirm.
 - retry:
-    maxRetries: 1
-    commands:
-        - tapOn:
-              id: 'ChallengeAcceptScreenSelectors.AcceptButton'
-              retryTapIfNoChange: true
-        - extendedWaitUntil:
-              visible:
-                  id: 'GameScreenSelectors.Root'
-              timeout: 10000
+      maxRetries: 1
+      commands:
+          - tapOn:
+                id: 'ChallengeAcceptScreenSelectors.AcceptButton'
+                retryTapIfNoChange: true
+          - extendedWaitUntil:
+                visible:
+                    id: 'GameScreenSelectors.Root'
+                timeout: 10000

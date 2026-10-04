@@ -1,5 +1,5 @@
-import { SettingsOptionSheetStyles as styles } from '../settings-option-sheet/settings-option-sheet.styles';
 import { SettingsOptionSheetRow } from '../settings-option-sheet-row/settings-option-sheet-row';
+import { SettingsOptionSheetStyles as styles } from '../settings-option-sheet/settings-option-sheet.styles';
 import { SettingsRowFrame } from '../settings-row-frame/settings-row-frame';
 
 interface Props {

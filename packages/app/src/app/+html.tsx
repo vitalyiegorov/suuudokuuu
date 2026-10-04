@@ -1,5 +1,4 @@
 import '../theme/unistyles.config';
-
 import { msg } from '@lingui/core/macro';
 import { ScrollViewStyleReset } from 'expo-router/html';
 

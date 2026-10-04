@@ -23,10 +23,10 @@ input for curation, not a deliverable.
 English only, framed and captioned from the flows in
 `tests/app-tests/flows/screenshots`, in both variants:
 
-| Prefix | Device | Resolution | App Store slot |
-| ------ | ------ | ---------- | -------------- |
-| `01`-`07` | iPhone 17 | 1206x2622 | iPhone 6.3" |
-| `21`-`25` | iPad Pro 13" landscape | 2752x2064 | iPad 13" |
+| Prefix    | Device                 | Resolution | App Store slot |
+| --------- | ---------------------- | ---------- | -------------- |
+| `01`-`07` | iPhone 17              | 1206x2622  | iPhone 6.3"    |
+| `21`-`25` | iPad Pro 13" landscape | 2752x2064  | iPad 13"       |
 
 `deliver` assigns each image to a device slot by its exact pixel resolution, so
 iPhone and iPad screenshots share one locale folder and the composed output
@@ -50,7 +50,7 @@ flows happen to capture them in:
    inside the guaranteed-visible first-3 zone.
 4. `14-challenge-live` — "Race them live.", mid-race with the rival's live
    position and technique badges. Second half of the challenge story;
-   composed with the *same* layout variant as shot 3 (see "Design system" in
+   composed with the _same_ layout variant as shot 3 (see "Design system" in
    `design/README.md`) so the pair reads as one connected two-part scene
    instead of two unrelated shots that happen to be adjacent.
 5. The customization combo — two framed iPhones side by side in one canvas,
@@ -101,7 +101,7 @@ frameit's own fixed-canvas pipeline for this capture set. `Framefile.json` is
 kept for reference and for any future capture run that targets the 6.9" slot
 directly.
 
-The device frame itself, however, *is* a real frameit asset: the script reads
+The device frame itself, however, _is_ a real frameit asset: the script reads
 the same downloaded frame PNGs and offset data frameit's own `editor.rb`
 uses, and composites the raw capture directly into each frame's real,
 transparent screen cutout — see `design/README.md`'s "Frame source" for the
@@ -138,7 +138,7 @@ short version:
   bezel — including the real rounded-corner overlap — covers the
   screenshot's square corners. Nothing is cropped: the capture always fills
   the cutout exactly, and the frame only ever adds bezel around it.
-- Scales that framed device (bezel and all) to 74-78% of canvas *height*
+- Scales that framed device (bezel and all) to 74-78% of canvas _height_
   (not width — see "Design system" for why), horizontally centered, with a
   soft blurred drop shadow composited beneath it. The two-device combo scene
   scales each device to 50% instead, positioned edge to edge with just

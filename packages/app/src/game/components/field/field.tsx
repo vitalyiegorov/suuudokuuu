@@ -12,9 +12,9 @@ import { gameGetCellKeysToAnimate } from '../../utils/game-get-cell-keys-to-anim
 import { gameIncrementCellAnimationGenerations } from '../../utils/game-increment-cell-animation-generations.util';
 import { gameMergeCandidateValues } from '../../utils/game-merge-candidate-values.util';
 import { gameNextSuccessCellTrigger } from '../../utils/game-next-success-cell-trigger.util';
-import { FieldCell } from '../field-cell/field-cell';
 import { FieldCellCandidates } from '../field-cell-candidates/field-cell-candidates';
 import { FieldCellText } from '../field-cell-text/field-cell-text';
+import { FieldCell } from '../field-cell/field-cell';
 
 import { FieldStyles as styles } from './field.styles';
 

@@ -1,8 +1,8 @@
-import type { CandidateContext } from './candidate-context/candidate-context';
 import type { SizedTechniqueDescriptorInterface } from '../interfaces/sized-technique-descriptor.interface';
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
 import type { TechniqueSearchTargetInterface } from '../interfaces/technique-search-target.interface';
 import type { TechniqueStrategyInterface } from '../interfaces/technique-strategy.interface';
+import type { CandidateContext } from './candidate-context/candidate-context';
 
 export abstract class AbstractSizedTechnique<
     TDescriptor extends SizedTechniqueDescriptorInterface = SizedTechniqueDescriptorInterface

@@ -1,7 +1,7 @@
-import type { TechniqueResultInterface } from './technique-result.interface';
-import type { TechniqueSearchScopeInterface } from './technique-search-scope.interface';
 import type { CandidateContext } from '../classes/candidate-context/candidate-context';
 import type { HypothesisPropagator } from '../classes/hypothesis-propagator/hypothesis-propagator';
+import type { TechniqueResultInterface } from './technique-result.interface';
+import type { TechniqueSearchScopeInterface } from './technique-search-scope.interface';
 
 export interface ForcingChainScanInterface {
     readonly context: CandidateContext;

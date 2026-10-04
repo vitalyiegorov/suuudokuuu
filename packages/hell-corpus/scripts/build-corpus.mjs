@@ -3,16 +3,16 @@ import { availableParallelism } from 'node:os';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { parseGridString } from '@suuudokuuu/solver-core';
 import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
+import { parseGridString } from '@suuudokuuu/solver-core';
 import { DLXSolver } from '@suuudokuuu/solver-dlx';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { writeGeneratedCorpusModule } from './shared/generated-module-writer.mjs';
+import { crossCheckPuzzleLine, validatePuzzleFormat, validateUniquePuzzle } from './shared/puzzle-verification.mjs';
 import { ratePuzzlesInParallel } from './shared/rate-puzzles-in-parallel.mjs';
 import { encodeRatingByte, packPuzzleRecord } from './shared/record-packing.mjs';
 import { isSinglesSolvable } from './shared/singles-solvability.mjs';
-import { crossCheckPuzzleLine, validatePuzzleFormat, validateUniquePuzzle } from './shared/puzzle-verification.mjs';
 
 const SCRIPT_DIRECTORY = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_FILE = join(SCRIPT_DIRECTORY, '..', 'src', 'constants', 'hell-corpus-data.constant.ts');

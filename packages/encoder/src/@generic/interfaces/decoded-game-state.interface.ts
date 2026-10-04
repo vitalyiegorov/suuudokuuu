@@ -1,5 +1,5 @@
-import type { TimelineEventInterface } from './timeline-event.interface';
 import type { SharedPayloadKindEnum } from '../enums/shared-payload-kind.enum';
+import type { TimelineEventInterface } from './timeline-event.interface';
 
 export interface DecodedGameStateInterface {
     field: string;
