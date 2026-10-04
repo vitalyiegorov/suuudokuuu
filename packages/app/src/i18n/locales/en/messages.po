@@ -915,7 +915,7 @@ msgstr "Keep every animation even when the system reduces motion"
 msgid "Keep selection after tapping outside the board"
 msgstr "Keep selection after tapping outside the board"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Keep the streak"
 msgstr "Keep the streak"
 
@@ -1015,7 +1015,7 @@ msgstr "Minimum Score"
 msgid "Mistakes"
 msgstr "Mistakes"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Move"
 
@@ -1491,7 +1491,7 @@ msgstr "Save anyway"
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Score"
 msgstr "Score"
@@ -1687,7 +1687,7 @@ msgstr "Stayed in app"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Step {currentStepNumber} of {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "Step time"
 
@@ -1848,7 +1848,7 @@ msgstr "Tight"
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "Time"
@@ -2091,7 +2091,7 @@ msgstr "you lead"
 msgid "Your arsenal"
 msgstr "Your arsenal"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Your best run"
 msgstr "Your best run"
 

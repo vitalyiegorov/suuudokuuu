@@ -1,12 +1,12 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { Faq } from '../../../seo/components/faq/faq';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
-import { HowTo } from '../../../seo/components/how-to/how-to';
+import { Faq } from '../../../seo/components/faq/faq';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
+import { HowTo } from '../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
@@ -23,7 +23,7 @@ export const metadata: Metadata = buildPageMetadata(sashimiXWingPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734951417..28367.6..3.252816453973.527..68.38.2.674.7438.2196294.7.83';
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SashimiXWingPage = () => (
     <main>
         <TechniquePageHeader metadata={sashimiXWingPageMetadata} />

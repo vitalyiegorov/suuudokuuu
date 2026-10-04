@@ -1,5 +1,5 @@
-import type { StepScriptCandidateInterface } from './step-script-candidate.interface';
 import type { StepScriptStepType } from '../types/step-script-step.type';
+import type { StepScriptCandidateInterface } from './step-script-candidate.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 

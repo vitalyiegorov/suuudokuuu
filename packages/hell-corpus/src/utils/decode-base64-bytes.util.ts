@@ -17,11 +17,11 @@ export const decodeBase64Bytes = (base64: string): Uint8Array => {
 
         const byteOffset = group * BASE64_GROUP_BYTE_COUNT;
 
-        /* eslint-disable no-bitwise -- base64 decode reassembles three bytes from four packed 6-bit values */
+        /* oxlint-disable no-bitwise -- base64 decode reassembles three bytes from four packed 6-bit values */
         bytes[byteOffset] = (first << 2) | (second >> 4);
         bytes[byteOffset + 1] = ((second & LOW_NIBBLE_MASK) << 4) | (third >> 2);
         bytes[byteOffset + 2] = ((third & 0x3) << 6) | fourth;
-        /* eslint-enable no-bitwise */
+        /* oxlint-enable no-bitwise */
     }
 
     return bytes;

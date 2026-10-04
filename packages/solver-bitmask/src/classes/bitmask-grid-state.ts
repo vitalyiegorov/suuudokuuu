@@ -48,7 +48,7 @@ export class BitmaskGridState {
         const column = COLUMN_BY_CELL[cell];
         const box = BOX_BY_CELL[cell];
 
-        // eslint-disable-next-line no-bitwise -- combines row/column/box used-digit masks into the cell's remaining candidate mask
+        // oxlint-disable-next-line no-bitwise -- combines row/column/box used-digit masks into the cell's remaining candidate mask
         return ~(this.rowMasks[row] | this.columnMasks[column] | this.boxMasks[box]) & GRID_DIGIT_MASK;
     }
 
@@ -58,11 +58,11 @@ export class BitmaskGridState {
         const box = BOX_BY_CELL[cell];
 
         this.cells[cell] = digitForBit(bit);
-        /* eslint-disable no-bitwise -- marks the digit bit as used in its row, column, and box masks */
+        /* oxlint-disable no-bitwise -- marks the digit bit as used in its row, column, and box masks */
         this.rowMasks[row] |= bit;
         this.columnMasks[column] |= bit;
         this.boxMasks[box] |= bit;
-        /* eslint-enable no-bitwise */
+        /* oxlint-enable no-bitwise */
     }
 
     remove(cell: number, bit: number): void {
@@ -71,11 +71,11 @@ export class BitmaskGridState {
         const box = BOX_BY_CELL[cell];
 
         this.cells[cell] = GRID_BLANK_VALUE;
-        /* eslint-disable no-bitwise -- clears the digit bit from its row, column, and box masks */
+        /* oxlint-disable no-bitwise -- clears the digit bit from its row, column, and box masks */
         this.rowMasks[row] &= ~bit;
         this.columnMasks[column] &= ~bit;
         this.boxMasks[box] &= ~bit;
-        /* eslint-enable no-bitwise */
+        /* oxlint-enable no-bitwise */
     }
 
     assign(cell: number, bit: number): void {

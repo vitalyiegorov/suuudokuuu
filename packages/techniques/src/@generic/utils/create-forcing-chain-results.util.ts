@@ -45,7 +45,7 @@ const getCommonPlacements = (
 
 const getCommonEliminationMask = (propagations: HypothesisPropagationInterface[], cellIndex: number): number =>
     propagations.reduce(
-        // eslint-disable-next-line no-bitwise -- keeps only the candidate bits every branch of the case split eliminated
+        // oxlint-disable-next-line no-bitwise -- keeps only the candidate bits every branch of the case split eliminated
         (commonMask, propagation) => commonMask & propagation.eliminatedMasks[cellIndex],
         propagations[0].eliminatedMasks[cellIndex]
     );

@@ -1,7 +1,6 @@
 'use client';
 
 import '@suuudokuuu/field-dom/styles.css';
-
 import { FieldEngine, findStepScript } from '@suuudokuuu/field-core';
 import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
 import { FieldGame, getGivenCellKeys } from '@suuudokuuu/field-dom';

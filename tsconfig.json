@@ -4,10 +4,7 @@
         "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "Bundler",
-        "lib": [
-            "ESNext",
-            "DOM"
-        ],
+        "lib": ["ESNext", "DOM"],
         "types": ["node"],
         "jsx": "react-jsx",
         "skipLibCheck": true,
@@ -37,6 +34,34 @@
         "incremental": true,
         "isolatedModules": true,
         "removeComments": false,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "plugins": [
+            {
+                "name": "@effect/language-service",
+                "diagnosticSeverity": {
+                    "floatingEffect": "error",
+                    "outdatedApi": "error",
+                    "globalFetch": "error",
+                    "globalFetchInEffect": "error",
+                    "missingReturnYieldStar": "error",
+                    "missingStarInYieldEffectGen": "error",
+                    "effectFnIife": "error",
+                    "effectGenUsesAdapter": "error",
+                    "effectInFailure": "error",
+                    "effectInVoidSuccess": "error",
+                    "lazyPromiseInEffectSync": "error",
+                    "multipleEffectProvide": "error",
+                    "returnEffectInGen": "error",
+                    "runEffectInsideEffect": "error",
+                    "unknownInEffectCatch": "error",
+                    "globalErrorInEffectCatch": "error",
+                    "globalErrorInEffectFailure": "error",
+                    "layerMergeAllWithDependencies": "error",
+                    "unsafeEffectTypeAssertion": "error",
+                    "effectFnImplicitAny": "error",
+                    "serviceNotAsClass": "error"
+                }
+            }
+        ]
     }
 }

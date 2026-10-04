@@ -24,13 +24,13 @@ const isEditableTarget = (target: EventTarget | null): boolean =>
 const isBoardCellTarget = (target: EventTarget | null): boolean =>
     target instanceof HTMLElement && isDefined(target.closest('[role="grid"]'));
 
+// oxlint-disable-next-line max-params
 export const useKeyboardControls = (
     engine: FieldEngine,
     selectedCell: CellInterface | undefined,
     onSelectCell: OnEventFn<CellInterface | undefined>,
     onSelectValue: OnEventFn<number>,
     onExit: OnEventFn<void>
-    // eslint-disable-next-line @typescript-eslint/max-params
 ) => {
     const isFocused = useIsFocused();
     const { maxMistakes } = useCurrentRun();
@@ -43,7 +43,7 @@ export const useKeyboardControls = (
             return emptyFn;
         }
 
-        // eslint-disable-next-line max-statements -- Web keyboard handler branches over every pro-player key binding
+        // oxlint-disable-next-line max-statements -- Web keyboard handler branches over every pro-player key binding
         const handleKeyDown = (e: KeyboardEvent) => {
             if (isEditableTarget(e.target)) {
                 return;

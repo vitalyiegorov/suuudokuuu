@@ -1,5 +1,4 @@
 import './i18n-plural-rules.polyfill';
-
 import { Languages } from '@suuudokuuu/progress';
 import { getLocales } from 'expo-localization';
 

@@ -2,9 +2,8 @@ import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
-import { Link } from 'expo-router';
 import { use } from 'react';
-import { Platform, Pressable, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
@@ -25,6 +24,7 @@ import {
     DifficultyComplexitySliderDifficulties,
     DifficultyComplexitySliderInitialIndex
 } from '../../../game/components/difficulty-complexity-slider/constant/difficulty-complexity-slider.constant';
+import { DifficultyComplexityPreviewMistakes } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-preview-mistakes/difficulty-complexity-preview-mistakes';
 import { DifficultyComplexityPreview } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-preview/difficulty-complexity-preview';
 import { DifficultyComplexitySlider } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-slider';
 import { GameContext } from '../../../game/context/game.context';
@@ -37,6 +37,8 @@ import { updateSettings } from '../../../settings/utils/update-settings.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayHeight, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
+import { HomeScreenBestRun } from './home-screen-best-run/home-screen-best-run';
+import { HomeScreenContinueRow } from './home-screen-continue-row/home-screen-continue-row';
 import { HomeScreenOptionCard } from './home-screen-option-card/home-screen-option-card';
 import { homeScreenOptionCardGetColors } from './home-screen-option-card/utils/home-screen-option-card-get-colors.util';
 import { HomeScreenPlayActions } from './home-screen-play-actions/home-screen-play-actions';
@@ -49,7 +51,7 @@ import { homeScreenGetDifficultyDescription } from './utils/home-screen-get-diff
 
 const topEdgeFadeProps = { height: HomeScreenTopOverlayHeight, intensity: HomeScreenTopOverlayIntensity };
 
-// eslint-disable-next-line max-lines-per-function
+// oxlint-disable-next-line max-lines-per-function
 export const HomeScreen = () => {
     const { create, isCreatingGame } = use(GameContext);
     const { theme } = use(ThemeContext);
@@ -81,9 +83,6 @@ export const HomeScreen = () => {
         ]);
     };
 
-    const hintTextStyles = [styles.hintText, { color: theme.colors.text.hint }];
-    const bestRunCardStyles = styles.bestRun;
-    const bestRunValueStyles = [styles.historyValue, { color: theme.colors.text.primary }];
     const standardMistakesOption = {
         description: t`Three mistakes`,
         maxMistakes: 3,
@@ -114,14 +113,7 @@ export const HomeScreen = () => {
     const currentElapsedTimeText = useTimerText(currentElapsedTime);
     const currentProgressPercent = getSudokuProgress(currentSudokuString).percent;
     const currentProgressText = `${currentProgressPercent}%`;
-    const bestTimeText = useTimerText(bestTime);
-    const bestRunMetrics = [
-        { label: t`Score`, testID: HomeScreenSelectors.BestScore, value: String(bestScore) },
-        { label: t`Time`, value: bestTimeText }
-    ];
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
-    const isHellSelected = difficulty === DifficultyEnum.Hell;
-    const isInfinitySelected = difficulty === DifficultyEnum.Infinity;
     const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
     const platformInsetTop = Platform.OS === 'ios' ? safeAreaInsets.top : 0;
     const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top, platformInsetTop);
@@ -167,39 +159,7 @@ export const HomeScreen = () => {
                             <SupportUkrainePill />
                         </View>
 
-                        {bestScore > 0 ? (
-                            <Link asChild href="/scoring">
-                                <Pressable accessibilityRole="button" style={styles.bestRunLink}>
-                                    <View style={bestRunCardStyles}>
-                                        <View style={styles.bestRunCopy}>
-                                            <BlackText style={styles.bestRunLabel}>
-                                                <Trans>Your best run</Trans>
-                                            </BlackText>
-                                            <BlackText numberOfLines={1} style={styles.bestRunTitle}>
-                                                <Trans>Keep the streak</Trans>
-                                            </BlackText>
-                                        </View>
-
-                                        <View style={styles.bestRunMetrics}>
-                                            {bestRunMetrics.map(metric => (
-                                                <View key={metric.label} style={styles.bestRunMetric}>
-                                                    <BlackText style={hintTextStyles}>{metric.label}</BlackText>
-                                                    <BlackText
-                                                        adjustsFontSizeToFit
-                                                        minimumFontScale={0.68}
-                                                        numberOfLines={1}
-                                                        style={bestRunValueStyles}
-                                                        testID={metric.testID}
-                                                    >
-                                                        {metric.value}
-                                                    </BlackText>
-                                                </View>
-                                            ))}
-                                        </View>
-                                    </View>
-                                </Pressable>
-                            </Link>
-                        ) : null}
+                        {bestScore > 0 ? <HomeScreenBestRun bestScore={bestScore} bestTime={bestTime} /> : null}
                     </View>
 
                     <View style={styles.setupSection}>
@@ -227,22 +187,28 @@ export const HomeScreen = () => {
                             selectedDifficultyDescription={selectedDifficultyDescription}
                             selectedDifficultyLabel={selectedDifficultyLabel}
                             selectedIndex={selectedDifficultyIndex}
-                            selectedMistakesDescription={selectedMistakesOption.description}
-                            selectedMistakesLabel={selectedMistakesOption.title}
-                        />
+                        >
+                            <DifficultyComplexityPreviewMistakes
+                                description={selectedMistakesOption.description}
+                                label={selectedMistakesOption.title}
+                            />
+                        </DifficultyComplexityPreview>
 
                         <HomeScreenPlayActions
-                            currentElapsedTimeText={currentElapsedTimeText}
-                            currentProgressPercent={currentProgressPercent}
-                            currentProgressText={currentProgressText}
-                            isGameStarted={isGameStarted}
-                            isHellSelected={isHellSelected}
-                            isInfinitySelected={isInfinitySelected}
+                            difficulty={difficulty}
                             isLoading={isCreatingGame}
                             onStart={handleStart}
                             startButtonSubtitle={setupSummary}
                             startButtonText={startButtonText}
-                        />
+                        >
+                            {isGameStarted ? (
+                                <HomeScreenContinueRow
+                                    currentElapsedTimeText={currentElapsedTimeText}
+                                    currentProgressPercent={currentProgressPercent}
+                                    currentProgressText={currentProgressText}
+                                />
+                            ) : null}
+                        </HomeScreenPlayActions>
                     </View>
                 </View>
             </ScreenChromeScrollView>

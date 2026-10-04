@@ -11,13 +11,13 @@ import type { FieldEngine } from '@suuudokuuu/field-core';
 import type { CellInterface } from '@suuudokuuu/generator';
 import type { TextInputInstance, TextInputKeyPressEvent } from 'react-native';
 
+// oxlint-disable-next-line max-params
 export const useKeyboardControls = (
     engine: FieldEngine,
     selectedCell: CellInterface | undefined,
     onSelectCell: OnEventFn<CellInterface | undefined>,
     onSelectValue: OnEventFn<number>,
     onExit: OnEventFn<void>
-    // eslint-disable-next-line @typescript-eslint/max-params
 ) => {
     const hiddenInputRef = useRef<TextInputInstance>(null);
 

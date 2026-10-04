@@ -27,7 +27,8 @@ interface CandidateAssets {
 }
 
 export type BetaReleaseCandidatesParseResult =
-    { readonly candidates: readonly BetaReleaseCandidate[]; readonly status: 'valid' } | { readonly status: 'invalid' };
+    | { readonly candidates: readonly BetaReleaseCandidate[]; readonly status: 'valid' }
+    | { readonly status: 'invalid' };
 
 const parseTagNumber = (tagName: string): Pick<NumberedBetaReleaseCandidate, 'artifactAttempt' | 'publishAttempt' | 'tagNumber'> | null => {
     const tagMatch = DevelopmentReleaseTagPattern.exec(tagName);

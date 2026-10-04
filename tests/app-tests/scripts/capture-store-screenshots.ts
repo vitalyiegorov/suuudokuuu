@@ -1,8 +1,9 @@
-import { isPositiveNumber } from '@rnw-community/shared';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
+
+import { isPositiveNumber } from '@rnw-community/shared';
 
 import { bakeLandscapeScreenshot } from './bake-landscape-screenshot.ts';
 import {
@@ -204,7 +205,7 @@ const captureCombination = (locale: string, appearance: string): CaptureResult[]
         applyStatusBarOverride(deviceContext);
     }
 
-    // eslint-disable-next-line max-statements -- Per-scene branch between direct capture and the Maestro fallback
+    // oxlint-disable-next-line max-statements -- Per-scene branch between direct capture and the Maestro fallback
     return selectedScenes.map(scene => {
         const startedAt = Date.now();
         const capturesWithoutMaestro = usesDirectCapture && isDefinedString(scene.deepLink);
@@ -241,7 +242,7 @@ const captureCombination = (locale: string, appearance: string): CaptureResult[]
     });
 };
 
-// eslint-disable-next-line max-statements -- CLI orchestration: argument validation, rotation, capture loop and reporting
+// oxlint-disable-next-line max-statements -- CLI orchestration: argument validation, rotation, capture loop and reporting
 const main = (): void => {
     if (!isDefinedString(appId)) {
         process.stderr.write('APP_ID is required. Pass --app-id=<bundle-id> or set the APP_ID environment variable.\n');

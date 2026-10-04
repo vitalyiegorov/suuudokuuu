@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* oxlint-disable no-magic-numbers */
 import { describe, expect, it } from 'vitest';
 
 import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../../../src/@generic/constants/grid.constant';

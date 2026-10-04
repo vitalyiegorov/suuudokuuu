@@ -1,5 +1,5 @@
-import type { TechniqueUsageInterface } from './technique-usage.interface';
 import type { LandingDifficultyType } from '../../difficulty/types/landing-difficulty.type';
+import type { TechniqueUsageInterface } from './technique-usage.interface';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface TierTechniqueReportInterface {

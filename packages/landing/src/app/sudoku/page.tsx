@@ -3,11 +3,11 @@ import Link from 'next/link';
 
 import { getDifficultyClueCount } from '../../difficulty/utils/get-difficulty-clue-count.util';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
+import { Faq } from '../../seo/components/faq/faq';
 import { ItemListSchema } from '../../seo/components/item-list-schema/item-list-schema';
 import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
@@ -39,7 +39,7 @@ const DIFFICULTY_ITEMS = [
     hellSudokuPageMetadata
 ];
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SudokuDifficultiesPage = () => (
     <main>
         <PageHeader metadata={sudokuDifficultiesPageMetadata}>

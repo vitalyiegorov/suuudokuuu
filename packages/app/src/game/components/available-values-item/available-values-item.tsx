@@ -14,11 +14,13 @@ import Reanimated, {
 } from 'react-native-reanimated';
 import Svg, { Circle } from 'react-native-svg';
 
-import { cs } from '@rnw-community/shared';
+import { cs, isDefined } from '@rnw-community/shared';
 
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { DigitButtonExhaustedProgressConstant } from '../../constant/digit-button-exhausted-progress.constant';
 import { PanelControlHitSlopConstant } from '../../constant/panel-control-size.constant';
+import { useDigitTextStyle } from '../../hooks/use-digit-text-style.hook';
 import { DigitButtonStyles } from '../../styles/digit-button.styles';
 
 import { AvailableValueItemSelectors as selectors } from './available-value-item.selectors';
@@ -34,7 +36,6 @@ import {
 
 import type { OnEventFn } from '@rnw-community/shared';
 import type { Ref } from 'react';
-import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
@@ -50,25 +51,22 @@ export interface AvailableValuesItemRef {
 
 interface Props {
     readonly value: number;
-    readonly canPress: boolean;
-    readonly isExhausted: boolean;
     readonly progress: number;
     readonly remaining: number;
     readonly correctValue?: number;
-    readonly onSelect: OnEventFn<number>;
+    readonly onSelect?: OnEventFn<number>;
     readonly ref: Ref<AvailableValuesItemRef>;
-    readonly sizeStyle: StyleProp<ViewStyle>;
-    readonly digitTextStyle: StyleProp<TextStyle>;
 }
 
-// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
+// oxlint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const AvailableValuesItem = (props: Props) => {
-    const { value, onSelect, progress, remaining, correctValue, canPress, isExhausted, ref, sizeStyle, digitTextStyle } = props;
+    const { value, onSelect, progress, remaining, correctValue, ref } = props;
 
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
     const isMotionReduced = useReduceMotion();
+    const digitTextStyle = useDigitTextStyle();
 
     const isCorrect = value === correctValue;
     const pressAnimatedBgColor = isCorrect ? theme.colors.board.selected : theme.colors.board.error;
@@ -89,12 +87,14 @@ export const AvailableValuesItem = (props: Props) => {
     );
 
     const triggerAnimationFn = () => {
-        animated.value = isMotionReduced
-            ? withSequence(
-                  withTiming(1, InstantAnimationConfig),
-                  withDelay(ReducedMotionHoldDurationMs, withTiming(0, InstantAnimationConfig))
-              )
-            : withSequence(withTiming(1, PressAnimationConfig), withTiming(0, PressAnimationConfig));
+        animated.set(
+            isMotionReduced
+                ? withSequence(
+                      withTiming(1, InstantAnimationConfig),
+                      withDelay(ReducedMotionHoldDurationMs, withTiming(0, InstantAnimationConfig))
+                  )
+                : withSequence(withTiming(1, PressAnimationConfig), withTiming(0, PressAnimationConfig))
+        );
     };
 
     useImperativeHandle(ref, () => ({
@@ -103,18 +103,19 @@ export const AvailableValuesItem = (props: Props) => {
 
     const handlePress = () => {
         triggerAnimationFn();
-        onSelect(value);
+        onSelect?.(value);
     };
 
+    const isExhausted = progress >= DigitButtonExhaustedProgressConstant;
     const buttonStyles = [
         resolveUnistyleForAnimated(DigitButtonStyles.button),
         animatedStyles,
         cs(isExhausted, resolveUnistyleForAnimated(DigitButtonStyles.exhausted))
     ];
-    const normalizedProgress = Math.min(100, Math.max(0, progress));
+    const normalizedProgress = Math.min(DigitButtonExhaustedProgressConstant, Math.max(0, progress));
     const progressDashOffset = AvailableValueProgressCircumference * (1 - normalizedProgress / 100);
     const textStyles = [styles.text, digitTextStyle, { color: theme.colors.numpad.text }];
-    const containerStyles = [DigitButtonStyles.container, sizeStyle];
+    const canPress = isDefined(onSelect);
     const isDisabled = !canPress || isExhausted;
     const digitAccessibilityLabel = t({
         message: plural(remaining, { one: `Enter ${value}, # left to place`, other: `Enter ${value}, # left to place` })
@@ -122,7 +123,7 @@ export const AvailableValuesItem = (props: Props) => {
     const digitAccessibilityState = { disabled: isDisabled };
 
     return (
-        <View style={containerStyles} testID={selectors.Root}>
+        <View style={DigitButtonStyles.container} testID={selectors.Root}>
             <ReanimatedPressable
                 accessibilityLabel={digitAccessibilityLabel}
                 accessibilityRole="button"

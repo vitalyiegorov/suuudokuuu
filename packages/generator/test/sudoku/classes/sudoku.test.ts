@@ -1,4 +1,4 @@
-/* eslint-disable prefer-destructuring */
+/* oxlint-disable prefer-destructuring */
 import { describe, expect, it, vi } from 'vitest';
 
 import { DifficultyEnum } from '../../../src/@generic/enums/difficulty.enum';
@@ -194,7 +194,7 @@ describe('Sudoku - Cell Value Operations', () => {
 
         const sudoku = new Sudoku();
 
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        // oxlint-disable-next-line typescript/no-explicit-any
         vi.spyOn(sudoku as any, 'fillRecursive').mockImplementation(() => false);
 
         expect(() => void sudoku.create(DifficultyEnum.Easy)).toThrow('Unable to create a game field');
@@ -282,7 +282,7 @@ describe('Sudoku - Cell Value Operations', () => {
             expect(blankCell).toBeDefined();
 
             const correctValue = sudoku.getCorrectValue(blankCell);
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            // oxlint-disable-next-line typescript/no-non-null-assertion
             const cellToSet = { ...blankCell!, value: correctValue };
             sudoku.setCellValue(cellToSet);
         }
@@ -300,7 +300,7 @@ describe('Sudoku - Cell Value Operations', () => {
         expect(blankCell).toBeDefined();
 
         const correctValue = sudoku.getCorrectValue(blankCell);
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        // oxlint-disable-next-line typescript/no-non-null-assertion
         const cellToSet = { ...blankCell!, value: correctValue };
         const scoredCells = sudoku.setCellValue(cellToSet);
 

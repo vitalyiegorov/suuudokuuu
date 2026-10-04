@@ -1,4 +1,4 @@
-/* eslint-disable max-lines */
+/* oxlint-disable max-lines */
 import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
 import { GRID_SIZE, UNIQUENESS_COUNT_LIMIT } from '@suuudokuuu/solver-core';
 
@@ -160,7 +160,7 @@ export class Sudoku extends SerializableSudoku {
         return candidates;
     }
 
-    // eslint-disable-next-line max-statements
+    // oxlint-disable-next-line max-statements
     setCellValue(cell: CellInterface): ScoredCellsInterface {
         const scoredCells = { ...emptyScoredCells };
         if (this.isCorrectValue(cell)) {
@@ -279,7 +279,7 @@ export class Sudoku extends SerializableSudoku {
         return false;
     }
 
-    // eslint-disable-next-line max-statements
+    // oxlint-disable-next-line max-statements
     private removeClues(targetBlankCells: number, maxAttempts: number): number {
         let maxBlanks = 0;
         let bestGameField = cloneField(this.gameField);
@@ -321,4 +321,3 @@ export class Sudoku extends SerializableSudoku {
         return maxBlanks;
     }
 }
-/* eslint-enable max-lines */

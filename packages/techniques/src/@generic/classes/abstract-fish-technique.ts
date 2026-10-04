@@ -6,8 +6,6 @@ import { getSearchScope } from '../utils/get-search-scope.util';
 
 import { AbstractSizedTechnique } from './abstract-sized-technique';
 
-import type { CandidateContext } from './candidate-context/candidate-context';
-import type { UnitValueIndex } from './unit-value-index/unit-value-index';
 import type { CandidateEliminationInterface } from '../interfaces/candidate-elimination.interface';
 import type { SizedTechniqueDescriptorInterface } from '../interfaces/sized-technique-descriptor.interface';
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
@@ -15,6 +13,8 @@ import type { TechniqueSearchTargetInterface } from '../interfaces/technique-sea
 import type { UnitValueEntryInterface } from '../interfaces/unit-value-entry.interface';
 import type { FishBaseType } from '../types/fish-base.type';
 import type { LineType } from '../types/line.type';
+import type { CandidateContext } from './candidate-context/candidate-context';
+import type { UnitValueIndex } from './unit-value-index/unit-value-index';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 const noLineIndex = -1;

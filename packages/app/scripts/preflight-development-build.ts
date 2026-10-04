@@ -52,7 +52,7 @@ const useLocalAppVersionSource = (): void => {
 };
 
 const readResolvedExpoConfiguration = () => {
-    const output = execFileSync('yarn', ['expo', 'config', '--type', 'public', '--json'], { cwd: appDirectory, encoding: 'utf8' });
+    const output = execFileSync('pnpm', ['exec', 'expo', 'config', '--type', 'public', '--json'], { cwd: appDirectory, encoding: 'utf8' });
     const documentStartIndex = output.indexOf('{');
     const documentEndIndex = output.lastIndexOf('}');
 

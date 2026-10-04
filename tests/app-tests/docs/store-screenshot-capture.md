@@ -15,14 +15,14 @@ xcrun simctl listapps <udid> | grep -A4 <bundle-id>   # compare against packages
 
 # 1. Capture one locale, both appearances (iPhone):
 APP_ID=<bundle-id> SIMULATOR_UDID=<udid> \
-  yarn workspace @suuudokuuu/app-tests screenshots:capture --locales=de --appearances=light,dark
+  pnpm --filter @suuudokuuu/app-tests screenshots:capture --locales=de --appearances=light,dark
 
 # 2. iPad landscape:
 DEVICE_CLASS=ipad ORIENTATION=landscape APP_ID=<bundle-id> SIMULATOR_UDID=<udid> \
-  yarn workspace @suuudokuuu/app-tests screenshots:capture --locales=de
+  pnpm --filter @suuudokuuu/app-tests screenshots:capture --locales=de
 
 # 3. Android (rootable google_apis AVD, wm size 1080x2340, density 440):
-APP_ID=<package> yarn workspace @suuudokuuu/app-tests screenshots:capture \
+APP_ID=<package> pnpm --filter @suuudokuuu/app-tests screenshots:capture \
   --platform=android --serial=<adb-serial> --locales=de
 
 # 4. Compose framed store sets (staging dir, swap-on-success):

@@ -14,8 +14,8 @@
         }
     },
     "scripts": {
-        "lint": "run -T eslint --fix src",
-        "ts": "run -T tsc -p ."
+        "ts": "tsc -p .",
+        "effect:check": "effect-language-service diagnostics --project tsconfig.json --format text --severity error"
     },
     "dependencies": {
         "@effect/sql-sqlite-node": "4.0.0",

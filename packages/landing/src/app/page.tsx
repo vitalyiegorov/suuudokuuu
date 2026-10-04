@@ -1,10 +1,10 @@
 import Link from 'next/link';
 
-import { Faq } from '../seo/components/faq/faq';
 import { FaqAnswer } from '../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../seo/components/faq-question/faq-question';
+import { Faq } from '../seo/components/faq/faq';
 import { SoftwareApplicationFeature } from '../seo/components/software-application-feature/software-application-feature';
 import { SoftwareApplicationSchema } from '../seo/components/software-application-schema/software-application-schema';
 import { WebSiteSchema } from '../seo/components/web-site-schema/web-site-schema';
@@ -27,7 +27,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(homePageMetadata);
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HomePage = () => (
     <main>
         <WebSiteSchema metadata={homePageMetadata} />

@@ -31,7 +31,7 @@ export const ChallengeRaceRunner = ({ progress }: Props) => {
             return;
         }
 
-        pulse.value = withRepeat(withTiming(1, { duration: PULSE_DURATION_MS, easing: Easing.inOut(Easing.ease) }), -1, true);
+        pulse.set(withRepeat(withTiming(1, { duration: PULSE_DURATION_MS, easing: Easing.inOut(Easing.ease) }), -1, true));
     }, [isMotionReduced, pulse]);
 
     const runnerAnimatedStyle = useAnimatedStyle(() => ({

@@ -7,12 +7,12 @@ real static build (`packages/app/dist`), not the Metro dev server.
 ## Commands
 
 ```bash
-yarn workspace @suuudokuuu/app expo export --platform=web
-yarn build --filter=@suuudokuuu/landing
-yarn workspace @suuudokuuu/web-tests playwright install chromium
-yarn workspace @suuudokuuu/web-tests test:e2e
-yarn workspace @suuudokuuu/web-tests ts
-yarn workspace @suuudokuuu/web-tests lint
+pnpm --filter @suuudokuuu/app expo export --platform=web
+pnpm turbo run build --filter=@suuudokuuu/landing
+pnpm --filter @suuudokuuu/web-tests playwright install chromium
+pnpm --filter @suuudokuuu/web-tests test:e2e
+pnpm --filter @suuudokuuu/web-tests ts
+pnpm --filter @suuudokuuu/web-tests lint
 ```
 
 `test:e2e` starts `serve --single` over `packages/app/dist` on port 4173 and a plain `serve` over
@@ -147,17 +147,17 @@ and must be resolved before the project can be widened:
 export. Number landing specs from `01` inside that folder; they are a separate ladder from the app
 specs at `specs/`.
 
-| Spec                             | What it pins                                                                                                                                        |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `01.technique-embed.spec.ts`     | The intent-gated playable island: static table stays in the DOM, the engine chunk only loads on click, the step script walks and applies.              |
-| `02.crawlability.spec.ts`        | Zero-JS contracts: static worked example and candidate grid, guide measured-data tables, one `<h1>`/canonical/exported `og:image` per sampled family, and the `Article.headline === <h1>` invariant (absent on home, which ships `WebSite` + `SoftwareApplication`). |
-| `03.indexing-consistency.spec.ts`| One URL enumeration: every `sitemap.xml` `<loc>` is unique, same-origin and served with 200; `robots.txt` advertises the sitemap; `llms.txt` lists exactly the sitemap set. |
-| `04.comfort-text-size.spec.ts`   | The comfort scale: three steps in the header, `aria-pressed`, root font size and board cell growth, `localStorage` persistence across a reload, and the pre-paint inline script in raw HTML. |
-| `05.navigation-chains.spec.ts`   | Header and footer links resolve, the technique prev/next chain navigates both ways, breadcrumbs mark the current page, and the hub's visible list equals its `ItemList` structured data (26 techniques). |
-| `06.solver-flow.spec.ts`         | The solver island: static shell in raw HTML, a sample puzzle narrates into technique-linked steps with a live replay board, empty grid reports multiple solutions, contradictory grid reports none, no console errors. |
-| `07.printables.spec.ts`          | The printable hub lists six tiers plus the extras, and every `.pdf` link answers 200 with the `%PDF-` magic bytes.                                     |
-| `08.faq-rendering.spec.ts`       | A `FaqPage` renders one `<details>` per entry and the visible summaries are exactly the `FAQPage` schema questions, in order.                          |
-| `09.not-found.spec.ts`           | An unknown path answers 404 with the landing 404 document and its site chrome.                                                                         |
+| Spec                              | What it pins                                                                                                                                                                                                                                                         |
+| --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `01.technique-embed.spec.ts`      | The intent-gated playable island: static table stays in the DOM, the engine chunk only loads on click, the step script walks and applies.                                                                                                                            |
+| `02.crawlability.spec.ts`         | Zero-JS contracts: static worked example and candidate grid, guide measured-data tables, one `<h1>`/canonical/exported `og:image` per sampled family, and the `Article.headline === <h1>` invariant (absent on home, which ships `WebSite` + `SoftwareApplication`). |
+| `03.indexing-consistency.spec.ts` | One URL enumeration: every `sitemap.xml` `<loc>` is unique, same-origin and served with 200; `robots.txt` advertises the sitemap; `llms.txt` lists exactly the sitemap set.                                                                                          |
+| `04.comfort-text-size.spec.ts`    | The comfort scale: three steps in the header, `aria-pressed`, root font size and board cell growth, `localStorage` persistence across a reload, and the pre-paint inline script in raw HTML.                                                                         |
+| `05.navigation-chains.spec.ts`    | Header and footer links resolve, the technique prev/next chain navigates both ways, breadcrumbs mark the current page, and the hub's visible list equals its `ItemList` structured data (26 techniques).                                                             |
+| `06.solver-flow.spec.ts`          | The solver island: static shell in raw HTML, a sample puzzle narrates into technique-linked steps with a live replay board, empty grid reports multiple solutions, contradictory grid reports none, no console errors.                                               |
+| `07.printables.spec.ts`           | The printable hub lists six tiers plus the extras, and every `.pdf` link answers 200 with the `%PDF-` magic bytes.                                                                                                                                                   |
+| `08.faq-rendering.spec.ts`        | A `FaqPage` renders one `<details>` per entry and the visible summaries are exactly the `FAQPage` schema questions, in order.                                                                                                                                        |
+| `09.not-found.spec.ts`            | An unknown path answers 404 with the landing 404 document and its site chrome.                                                                                                                                                                                       |
 
 Rules specific to this scope:
 
@@ -170,7 +170,7 @@ Rules specific to this scope:
    `data-testid` attributes; its stable handles are semantic roles, `aria-label`s and the `class`
    names in `src/app/global.css`, which is why these specs use CSS/role selectors rather than
    `getByTestId`. That is a deliberate exception to Robustness Rule 3, not a shortcut.
-3. Never assert a number that `yarn workspace @suuudokuuu/landing generate:rating-sample` can move.
+3. Never assert a number that `pnpm --filter @suuudokuuu/landing generate:rating-sample` can move.
    Clue counts, SE ranges and technique frequencies are regenerable data: assert that a numeric cell
    renders and that the row count matches the tier count, not the value. Counts that come from
    source enumerations (26 technique pages, 6 difficulty tiers) are fair to pin literally.
@@ -181,7 +181,7 @@ Rules specific to this scope:
    spec free of type assertions and index access.
 5. `llms.txt` is written into `packages/landing/public` by `scripts/generate-indexing-files.ts`,
    which the package's own `build` script runs before `next build`. Both the local build and the CI
-   `yarn build --filter=@suuudokuuu/landing` step therefore always produce it, so
+   `pnpm turbo run build --filter=@suuudokuuu/landing` step therefore always produce it, so
    `03.indexing-consistency.spec.ts` asserts it unconditionally. The IndexNow key file is the
    opposite case — it only exists when `INDEXNOW_KEY` is set, so nothing here asserts it.
 

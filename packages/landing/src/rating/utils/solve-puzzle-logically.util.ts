@@ -10,7 +10,7 @@ import type { CellInterface } from '@suuudokuuu/generator';
 import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const getBlankCells = (sudoku: Sudoku): CellInterface[] =>
-    sudoku.Field.flatMap(row => row).filter(cell => cell.value === defaultSudokuConfig.blankCellValue);
+    sudoku.Field.flat().filter(cell => cell.value === defaultSudokuConfig.blankCellValue);
 
 const applyPlacements = (sudoku: Sudoku, steps: TechniqueResultInterface[]): void => {
     for (const step of steps) {

@@ -118,7 +118,7 @@ describe('TechniqueManager.solveLogically', () => {
         expect.assertions(3);
 
         const sudoku = createSudoku(hellCorpusBoard);
-        const [blankCell] = sudoku.Field.flatMap(row => row).filter(cell => sudoku.isBlankCell(cell));
+        const [blankCell] = sudoku.Field.flat().filter(cell => sudoku.isBlankCell(cell));
         const eliminations = sudoku.getCellCandidates(blankCell).map(value => ({ cell: blankCell, value }));
         const result = new TechniqueManager(sudoku, [createEliminationStrategy(eliminations, blankCell)]).solveLogically();
 
@@ -131,7 +131,7 @@ describe('TechniqueManager.solveLogically', () => {
         expect.assertions(2);
 
         const sudoku = createSudoku(hellCorpusBoard);
-        const [filledCell] = sudoku.Field.flatMap(row => row).filter(cell => cell.value !== defaultSudokuConfig.blankCellValue);
+        const [filledCell] = sudoku.Field.flat().filter(cell => cell.value !== defaultSudokuConfig.blankCellValue);
         const eliminations = [{ cell: filledCell, value: filledCell.value }];
         const result = new TechniqueManager(sudoku, [createEliminationStrategy(eliminations, filledCell)]).solveLogically();
 
@@ -143,7 +143,7 @@ describe('TechniqueManager.solveLogically', () => {
         expect.assertions(2);
 
         const sudoku = createSudoku(hellCorpusBoard);
-        const [filledCell] = sudoku.Field.flatMap(row => row).filter(cell => cell.value !== defaultSudokuConfig.blankCellValue);
+        const [filledCell] = sudoku.Field.flat().filter(cell => cell.value !== defaultSudokuConfig.blankCellValue);
         const strategy: TechniqueStrategyInterface = {
             technique: SolutionTechniqueEnum.NakedSingle,
             find: () => [

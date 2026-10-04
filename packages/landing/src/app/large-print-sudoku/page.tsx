@@ -10,11 +10,11 @@ import { PRINTABLE_LARGE_PRINT_PAGE_COUNT } from '../../printable/constants/prin
 import { PRINTABLE_LARGE_PRINT_SIZE } from '../../printable/constants/printable-sample.constant';
 import { getPrintableFileSizeLabel } from '../../printable/utils/get-printable-file-size-label.util';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
+import { Faq } from '../../seo/components/faq/faq';
 import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_NAME, SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
@@ -28,7 +28,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(largePrintSudokuPageMetadata);
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const LargePrintSudokuPage = () => (
     <main>
         <PageHeader metadata={largePrintSudokuPageMetadata}>

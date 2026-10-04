@@ -915,7 +915,7 @@ msgstr "Garder toutes les animations même quand le système réduit les mouveme
 msgid "Keep selection after tapping outside the board"
 msgstr "Conserver la sélection après un toucher hors de la grille"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Keep the streak"
 msgstr "Garde la série"
 
@@ -1015,7 +1015,7 @@ msgstr "Score minimum"
 msgid "Mistakes"
 msgstr "Erreurs"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Coup"
 
@@ -1491,7 +1491,7 @@ msgstr "Enregistrer quand même"
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Score"
 msgstr "Score"
@@ -1687,7 +1687,7 @@ msgstr "Resté dans l’app"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Étape {currentStepNumber} sur {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "Temps par coup"
 
@@ -1848,7 +1848,7 @@ msgstr "Serré"
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "Temps"
@@ -2091,7 +2091,7 @@ msgstr "tu mènes"
 msgid "Your arsenal"
 msgstr "Votre arsenal"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Your best run"
 msgstr "Ta meilleure partie"
 

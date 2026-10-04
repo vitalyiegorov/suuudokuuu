@@ -12,7 +12,7 @@ import { ListItem } from './list-item';
 import { ScoringScreenSelectors } from './scoring-screen.selectors';
 import { ScoringScreenStyles as styles } from './scoring-screen.styles';
 
-// eslint-disable-next-line max-lines-per-function
+// oxlint-disable-next-line max-lines-per-function
 export const ScoringScreen = () => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
@@ -24,7 +24,6 @@ export const ScoringScreen = () => {
     return (
         <CollapsibleChromePage
             contentContainerStyle={resolveUnistyleForAnimated(styles.scrollViewContent)}
-            contentStyle={styles.content}
             style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={ScoringScreenSelectors.Root}
             title={t`How Scoring Works`}

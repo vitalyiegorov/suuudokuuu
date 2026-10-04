@@ -27,9 +27,9 @@ export const useIridescentColor = (theme: Pick<ThemeInterface, 'colors'>, isActi
 
     useEffect(() => {
         if (isAnimating) {
-            sweep.value = withRepeat(withTiming(1, { duration: IridescentSweepDurationMs, easing: Easing.linear }), -1, false);
+            sweep.set(withRepeat(withTiming(1, { duration: IridescentSweepDurationMs, easing: Easing.linear }), -1, false));
         } else {
-            sweep.value = 0;
+            sweep.set(0);
         }
 
         return () => void cancelAnimation(sweep);

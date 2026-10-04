@@ -913,7 +913,7 @@ msgstr "Behåll alla animationer även när systemet begränsar rörelse"
 msgid "Keep selection after tapping outside the board"
 msgstr "Behåll markeringen efter tryck utanför brädet"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Keep the streak"
 msgstr "Håll sviten"
 
@@ -1013,7 +1013,7 @@ msgstr "Minimipoäng"
 msgid "Mistakes"
 msgstr "Misstag"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Drag"
 
@@ -1489,7 +1489,7 @@ msgstr "Spara ändå"
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Score"
 msgstr "Poäng"
@@ -1685,7 +1685,7 @@ msgstr "Stannade i appen"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Steg {currentStepNumber} av {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "Dragtid"
 
@@ -1846,7 +1846,7 @@ msgstr "Tät"
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "Tid"
@@ -2089,7 +2089,7 @@ msgstr "du leder"
 msgid "Your arsenal"
 msgstr "Din arsenal"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Your best run"
 msgstr "Din bästa runda"
 

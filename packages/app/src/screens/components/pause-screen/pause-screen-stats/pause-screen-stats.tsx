@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
+import { AppMetricStrip, AppMetricStripValueItem } from '@suuudokuuu/ui';
 
 import { useSettings } from '../../../../settings/query/use-settings.query';
 import { PauseScreenSelectors } from '../pause-screen.selectors';
@@ -18,7 +18,7 @@ export const PauseScreenStats = ({ timeText, scoreText, mistakesText }: Props) =
 
     return (
         <AppMetricStrip separatorStyle={styles.separator} style={styles.strip} variant="ghost">
-            <AppMetricStripItem
+            <AppMetricStripValueItem
                 label={t`Time`}
                 labelStyle={styles.label}
                 style={styles.item}
@@ -27,7 +27,7 @@ export const PauseScreenStats = ({ timeText, scoreText, mistakesText }: Props) =
                 valueStyle={styles.value}
             />
             {!isCalmMode && (
-                <AppMetricStripItem
+                <AppMetricStripValueItem
                     label={t`Score`}
                     labelStyle={styles.label}
                     style={styles.item}
@@ -36,7 +36,7 @@ export const PauseScreenStats = ({ timeText, scoreText, mistakesText }: Props) =
                     valueStyle={styles.value}
                 />
             )}
-            <AppMetricStripItem
+            <AppMetricStripValueItem
                 label={t`Mistakes`}
                 labelStyle={styles.label}
                 style={styles.item}

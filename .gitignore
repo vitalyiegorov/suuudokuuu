@@ -27,20 +27,6 @@ report
 # Temporary files created by Metro to check the health of the file watcher
 .metro-health-check*
 
-# Yarn
-.yarn/*
-.yarn/cache/*darwin-arm64*
-.yarn/cache/*linux-64*
-.yarn/cache/*linux-x64*
-.yarn/cache/fsevents-patch*
-.yarn/cache/@op-engineering-op-sqlite-npm-*
-!.yarn/cache
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
-
 .idea
 
 # TypeScript

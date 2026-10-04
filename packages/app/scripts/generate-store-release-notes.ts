@@ -377,7 +377,7 @@ function checkReleaseNotesFreshness(metadataDirectory: string): void {
 
     if (!existsSync(stateFilePath)) {
         console.log(
-            '::warning::Store release notes have never been generated in this branch. Run "yarn workspace @suuudokuuu/app store:notes" locally and commit the result.'
+            '::warning::Store release notes have never been generated in this branch. Run "pnpm --filter @suuudokuuu/app store:notes" locally and commit the result.'
         );
 
         return;
@@ -391,7 +391,7 @@ function checkReleaseNotesFreshness(metadataDirectory: string): void {
         commitSubjectsSinceGeneration = getCommitSubjects(state.generatedAtCommit, 'HEAD');
     } catch {
         console.log(
-            `::warning::Store release notes state points at unknown commit ${state.generatedAtCommit}; regenerate with "yarn workspace @suuudokuuu/app store:notes".`
+            `::warning::Store release notes state points at unknown commit ${state.generatedAtCommit}; regenerate with "pnpm --filter @suuudokuuu/app store:notes".`
         );
 
         return;

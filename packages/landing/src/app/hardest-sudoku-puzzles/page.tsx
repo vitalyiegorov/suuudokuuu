@@ -3,11 +3,11 @@ import Link from 'next/link';
 
 import { PuzzleBoard } from '../../puzzle/components/puzzle-board/puzzle-board';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
+import { Faq } from '../../seo/components/faq/faq';
 import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
@@ -28,7 +28,7 @@ export const metadata: Metadata = buildPageMetadata(hardestSudokuPuzzlesPageMeta
 
 const AI_ESCARGOT_GIVENS = '100007090030020008009600500005300900010080002600004000300000010040000007007000300';
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HardestSudokuPuzzlesPage = () => (
     <main>
         <PageHeader metadata={hardestSudokuPuzzlesPageMetadata}>

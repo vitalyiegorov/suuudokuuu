@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* oxlint-disable no-magic-numbers */
 import { GameStateSerializer, SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';

@@ -1,7 +1,6 @@
 'use client';
 
 import '@suuudokuuu/field-dom/styles.css';
-
 import { FieldEngine } from '@suuudokuuu/field-core';
 import { FieldBoard, FieldStepPlayer, getGivenCellKeys } from '@suuudokuuu/field-dom';
 import { useState } from 'react';

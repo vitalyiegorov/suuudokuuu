@@ -913,7 +913,7 @@ msgstr "سسٹم کے حرکت کم کرنے پر بھی تمام اینیمیش
 msgid "Keep selection after tapping outside the board"
 msgstr "بورڈ کے باہر ٹیپ کرنے کے بعد بھی انتخاب برقرار رکھیں"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Keep the streak"
 msgstr "سلسلہ جاری رکھیں"
 
@@ -1013,7 +1013,7 @@ msgstr "کم از کم اسکور"
 msgid "Mistakes"
 msgstr "غلطیاں"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "چال"
 
@@ -1489,7 +1489,7 @@ msgstr "پھر بھی محفوظ کریں"
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Score"
 msgstr "اسکور"
@@ -1685,7 +1685,7 @@ msgstr "ایپ میں ہی رہے"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "مرحلہ {currentStepNumber} از {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "چال کا وقت"
 
@@ -1846,7 +1846,7 @@ msgstr "تنگ"
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "وقت"
@@ -2089,7 +2089,7 @@ msgstr "آپ آگے ہیں"
 msgid "Your arsenal"
 msgstr "آپ کا اسلحہ خانہ"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Your best run"
 msgstr "آپ کی بہترین گیم"
 

@@ -913,7 +913,7 @@ msgstr "Pertahankan semua animasi meski sistem mengurangi gerak"
 msgid "Keep selection after tapping outside the board"
 msgstr "Pertahankan pilihan setelah mengetuk di luar papan"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Keep the streak"
 msgstr "Pertahankan rentetan"
 
@@ -1013,7 +1013,7 @@ msgstr "Skor minimum"
 msgid "Mistakes"
 msgstr "Kesalahan"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Langkah"
 
@@ -1489,7 +1489,7 @@ msgstr "Simpan saja"
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Score"
 msgstr "Skor"
@@ -1685,7 +1685,7 @@ msgstr "Tetap di aplikasi"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Langkah {currentStepNumber} dari {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "Waktu langkah"
 
@@ -1846,7 +1846,7 @@ msgstr "Rapat"
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "Waktu"
@@ -2089,7 +2089,7 @@ msgstr "kamu unggul"
 msgid "Your arsenal"
 msgstr "Arsenalmu"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Your best run"
 msgstr "Permainan terbaikmu"
 

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* oxlint-disable no-magic-numbers */
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import { SudokuStringEncoder } from '../../../src/sudoku-string-encoder/classes/sudoku-string-encoder';

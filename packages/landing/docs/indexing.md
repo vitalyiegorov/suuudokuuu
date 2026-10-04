@@ -89,9 +89,9 @@ Never print it, never paste it into a PR, an issue or a commit. Check for presen
 ### 5.2 Running the scripts
 
 ```bash
-INDEXNOW_KEY=<key> yarn workspace @suuudokuuu/landing build      # writes public/<key>.txt into the export
-yarn workspace @suuudokuuu/landing submit:indexnow --dry-run     # prints the URL list, submits nothing
-INDEXNOW_KEY=<key> yarn workspace @suuudokuuu/landing submit:indexnow
+INDEXNOW_KEY=<key> pnpm --filter @suuudokuuu/landing build      # writes public/<key>.txt into the export
+pnpm --filter @suuudokuuu/landing submit:indexnow --dry-run     # prints the URL list, submits nothing
+INDEXNOW_KEY=<key> pnpm --filter @suuudokuuu/landing submit:indexnow
 ```
 
 Before it submits, `submit-indexnow.ts` fetches its own key location and fails if the file is not served with status 200 or its content is not the key, so a failed run names the broken half instead of IndexNow's bare `403 Forbidden`.
@@ -187,7 +187,7 @@ Most of that list is answered automatically by the weekly SEO report below; the 
 
 `.github/workflows/seo-report.yml` runs `scripts/seo-report.ts` every Monday at 06:00 UTC, and on `workflow_dispatch`. The script pulls the last 28 days of Search Console data against the prior 28 days, the top 20 queries, the top 20 pages, the sitemap submission status, and the CrUX field Core Web Vitals for the origin. It appends a markdown table to the run summary and commits the raw JSON to `reports/seo/<YYYY-MM-DD>.json` on `main`, so the history is greppable from a checkout instead of living in a dashboard.
 
-Run it locally with `yarn workspace @suuudokuuu/landing seo:report`. Without the secrets it prints which sections it is skipping, writes nothing and exits `0`, exactly like `submit:indexnow`. With secrets present it prints the same markdown to stdout when `GITHUB_STEP_SUMMARY` is unset.
+Run it locally with `pnpm --filter @suuudokuuu/landing seo:report`. Without the secrets it prints which sections it is skipping, writes nothing and exits `0`, exactly like `submit:indexnow`. With secrets present it prints the same markdown to stdout when `GITHUB_STEP_SUMMARY` is unset.
 
 ### 9.1 `GCP_SA_KEY` — Search Console access
 

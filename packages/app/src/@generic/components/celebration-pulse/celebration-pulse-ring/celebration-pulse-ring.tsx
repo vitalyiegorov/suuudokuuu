@@ -31,12 +31,14 @@ export const CelebrationPulseRing = ({ colorValue, delayMs, opacityOutput, scale
     const pulse = useSharedValue(0);
 
     useEffect(() => {
-        pulse.value = withDelay(
-            delayMs,
-            withRepeat(
-                withTiming(1, { duration: RingPulseDurationMs, easing: Easing.out(Easing.ease) }),
-                CelebrationPulseRepeatCount,
-                false
+        pulse.set(
+            withDelay(
+                delayMs,
+                withRepeat(
+                    withTiming(1, { duration: RingPulseDurationMs, easing: Easing.out(Easing.ease) }),
+                    CelebrationPulseRepeatCount,
+                    false
+                )
             )
         );
 

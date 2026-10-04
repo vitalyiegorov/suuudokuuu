@@ -9,6 +9,7 @@ import { Text } from 'react-native';
 import { CelebrationPulse } from '../../../../@generic/components/celebration-pulse/celebration-pulse';
 import { GameResultHeroIconSize } from '../../../../@generic/components/game-result-hero/constant/game-result-hero-icon-size.constant';
 import { GameResultHero } from '../../../../@generic/components/game-result-hero/game-result-hero';
+import { GameResultHeroValue } from '../../../../@generic/components/game-result-hero/game-result-hero-value/game-result-hero-value';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 
 import { winnerResultHeroGetCelebrationVariant } from './utils/winner-result-hero-get-celebration-variant.util';
@@ -34,15 +35,15 @@ export const WinnerResultHero = ({ descriptorText, difficulty, isPersonalBest, s
     return (
         <GameResultHero
             descriptorText={descriptorText}
-            eyebrowText={t`Final score`}
             icon={
                 <CelebrationPulse color={theme.colors.text.primary} size={HeroPulseSize} variant={celebrationVariant}>
                     <LucideTrophy color={theme.colors.text.primary} size={GameResultHeroIconSize} strokeWidth={2.2} />
                 </CelebrationPulse>
             }
             titleText={t`Winner, winner!`}
-            valueText={scoreText}
         >
+            <GameResultHeroValue eyebrowText={t`Final score`} valueText={scoreText} />
+
             {isPersonalBest ? (
                 <AppSurfaceCard size="compact" style={personalBestCardStyles}>
                     <LucideSparkles color={theme.colors.text.primary} size={PersonalBestIconSize} strokeWidth={2.2} />

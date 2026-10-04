@@ -2,26 +2,26 @@
     "name": "@suuudokuuu/progress",
     "version": "2.13.2",
     "private": true,
+    "files": [
+        "dist/**/*"
+    ],
     "sideEffects": false,
+    "main": "dist/esm/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/esm/index.d.ts",
     "exports": {
         ".": {
             "import": "./dist/esm/index.js",
             "types": "./dist/esm/index.d.ts"
         }
     },
-    "main": "dist/esm/index.js",
-    "module": "dist/esm/index.js",
-    "types": "dist/esm/index.d.ts",
-    "files": [
-        "dist/**/*"
-    ],
     "scripts": {
-        "build": "yarn build:esm && find ./dist -name '*.tsbuildinfo' -delete",
-        "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
-        "lint": "run -T eslint --fix src test",
+        "build": "pnpm build:esm && find ./dist -name '*.tsbuildinfo' -delete",
+        "build:esm": "tsc --pretty -p tsconfig.build-esm.json",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"
+        "ts": "tsc -p . && tsc -p tsconfig.test.json",
+        "effect:check": "effect-language-service diagnostics --project tsconfig.json --format text --severity error"
     },
     "dependencies": {
         "@suuudokuuu/encoder": "workspace:*",

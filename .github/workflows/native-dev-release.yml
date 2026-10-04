@@ -17,6 +17,7 @@ jobs:
             contents: write
         uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@v3.1.0 # v3.1.0
         with:
+            install-command: pnpm install --frozen-lockfile
             app-dir: packages/app
             enable-ios: true
             enable-android: true

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* oxlint-disable no-magic-numbers */
 import { BitOutputStream } from '@thi.ng/bitstream';
 import { beforeEach, describe, expect, it } from 'vitest';
 

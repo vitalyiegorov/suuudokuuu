@@ -6,12 +6,18 @@ import { mergeConfig } from 'vitest/config';
 export default mergeConfig(createVitestConfig(), {
     resolve: {
         alias: [
-            { find: /^@suuudokuuu\/field-core\/react$/, replacement: fileURLToPath(new URL('../field-core/src/react/use-field-snapshot.hook.ts', import.meta.url)) },
+            {
+                find: /^@suuudokuuu\/field-core\/react$/,
+                replacement: fileURLToPath(new URL('../field-core/src/react/use-field-snapshot.hook.ts', import.meta.url))
+            },
             { find: /^@suuudokuuu\/field-core$/, replacement: fileURLToPath(new URL('../field-core/src/index.ts', import.meta.url)) },
             { find: /^@suuudokuuu\/generator$/, replacement: fileURLToPath(new URL('../generator/src/index.ts', import.meta.url)) },
             { find: /^@suuudokuuu\/techniques$/, replacement: fileURLToPath(new URL('../techniques/src/index.ts', import.meta.url)) },
             { find: /^@suuudokuuu\/solver-core$/, replacement: fileURLToPath(new URL('../solver-core/src/index.ts', import.meta.url)) },
-            { find: /^@suuudokuuu\/solver-bitmask$/, replacement: fileURLToPath(new URL('../solver-bitmask/src/index.ts', import.meta.url)) }
+            {
+                find: /^@suuudokuuu\/solver-bitmask$/,
+                replacement: fileURLToPath(new URL('../solver-bitmask/src/index.ts', import.meta.url))
+            }
         ]
     },
     test: {

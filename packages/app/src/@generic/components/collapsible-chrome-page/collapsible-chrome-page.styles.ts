@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 
+import { PageHorizontalPaddingConstant } from '../../constants/page-horizontal-padding.constant';
 import { AppScreenChromeLayoutConfig } from '../../constants/screen-chrome-config.constant';
 
 const CollapsibleHeaderRowHorizontalPadding = 16;
@@ -17,7 +18,9 @@ const cappedHeaderLayer = {
 
 export const CollapsibleChromePageStyles = StyleSheet.create({
     content: {
+        alignItems: 'center',
         flex: 1,
+        paddingHorizontal: PageHorizontalPaddingConstant,
         width: '100%'
     },
     expandedTitleLayer: {

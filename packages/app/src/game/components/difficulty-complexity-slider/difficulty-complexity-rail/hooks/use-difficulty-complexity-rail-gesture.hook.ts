@@ -31,7 +31,7 @@ export const useDifficultyComplexityRailGesture = (parameters: Parameters) => {
         : DifficultyComplexitySliderProgressAnimationDurationMs;
 
     useEffect(() => {
-        difficultyProgressValue.value = withTiming(difficultyStopFraction, { duration: progressAnimationDurationMs });
+        difficultyProgressValue.set(withTiming(difficultyStopFraction, { duration: progressAnimationDurationMs }));
     }, [difficultyStopFraction, progressAnimationDurationMs, difficultyProgressValue]);
 
     const handleRailLayout = (event: LayoutChangeEvent) => {
@@ -63,7 +63,7 @@ export const useDifficultyComplexityRailGesture = (parameters: Parameters) => {
 
         const positionFraction = getClampedPositionFraction(positionX);
 
-        difficultyProgressValue.value = positionFraction;
+        difficultyProgressValue.set(positionFraction);
         runOnJS(onCommitDifficultyIndex)(getDifficultyIndexFromFraction(positionFraction));
     };
 
@@ -72,7 +72,7 @@ export const useDifficultyComplexityRailGesture = (parameters: Parameters) => {
 
         const nextDifficultyIndex = getDifficultyIndexFromFraction(getClampedPositionFraction(positionX));
 
-        difficultyProgressValue.value = withTiming((nextDifficultyIndex + 0.5) / optionCount, { duration: progressAnimationDurationMs });
+        difficultyProgressValue.set(withTiming((nextDifficultyIndex + 0.5) / optionCount, { duration: progressAnimationDurationMs }));
         runOnJS(onCommitDifficultyIndex)(nextDifficultyIndex);
     };
 

@@ -5,13 +5,12 @@ Pure TypeScript Sudoku generation and solving engine. It exports the `Sudoku` cl
 ## Commands
 
 ```bash
-yarn build
-yarn build:esm
-yarn build:cjs
-yarn ts
-yarn lint
-yarn test
-yarn test:coverage
+pnpm build
+pnpm build:esm
+pnpm build:cjs
+pnpm ts
+pnpm test
+pnpm test:coverage
 ```
 
 ## Structure
@@ -62,7 +61,7 @@ src/
 3. After generator changes, run:
 
 ```bash
-yarn test && yarn ts && yarn lint && yarn build
+pnpm test && pnpm ts && pnpm build
 ```
 
 Run the root validation sequence before finishing.

@@ -9,7 +9,10 @@ export default mergeConfig(createVitestConfig(), {
             { find: /^@suuudokuuu\/generator$/, replacement: fileURLToPath(new URL('../generator/src/index.ts', import.meta.url)) },
             { find: /^@suuudokuuu\/techniques$/, replacement: fileURLToPath(new URL('../techniques/src/index.ts', import.meta.url)) },
             { find: /^@suuudokuuu\/solver-core$/, replacement: fileURLToPath(new URL('../solver-core/src/index.ts', import.meta.url)) },
-            { find: /^@suuudokuuu\/solver-bitmask$/, replacement: fileURLToPath(new URL('../solver-bitmask/src/index.ts', import.meta.url)) }
+            {
+                find: /^@suuudokuuu\/solver-bitmask$/,
+                replacement: fileURLToPath(new URL('../solver-bitmask/src/index.ts', import.meta.url))
+            }
         ]
     },
     test: {

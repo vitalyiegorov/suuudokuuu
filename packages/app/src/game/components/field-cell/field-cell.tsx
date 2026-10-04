@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use, useEffect, useState } from 'react';
 import { Pressable } from 'react-native';
@@ -13,6 +14,8 @@ import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { useCellBorderStyles } from '../../hooks/use-cell-border-styles.hook';
+import { useFieldCellState } from '../../hooks/use-field-cell-state.hook';
+import { gameGetCellAccessibilityLabel } from '../../utils/game-get-cell-accessibility-label.util';
 import { gameGetCellHitSlop } from '../../utils/game-get-cell-hit-slop.util';
 import { FieldCellSuccessOutline } from '../field-cell-success-outline/field-cell-success-outline';
 import { FieldCellSuccessRing } from '../field-cell-success-ring/field-cell-success-ring';
@@ -34,44 +37,21 @@ const SUCCESS_POP_INPUT = [0, 0.5, 0.8, 1];
 const SUCCESS_POP_OUTPUT = [1, SUCCESS_POP_PEAK, SUCCESS_POP_DIP, 1];
 
 interface Props {
-    readonly accessibilityLabel: string;
     readonly cell: CellInterface;
     readonly cellSize: number;
     readonly cellMargin: number;
     readonly onSelect: OnEventFn<CellInterface | undefined>;
-    readonly isActive: boolean;
-    readonly isEmpty: boolean;
-    readonly isActiveValue: boolean;
-    readonly isHighlighted: boolean;
-    readonly isPatternCell: boolean;
-    readonly isTargetCell: boolean;
-    readonly isWrong: boolean;
-    readonly isSuccessTarget: boolean;
     readonly successGeneration: number;
     readonly children?: ReactNode;
 }
 
-// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
+// oxlint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const FieldCell = (props: Props) => {
-    const {
-        accessibilityLabel,
-        cell,
-        cellSize,
-        cellMargin,
-        onSelect,
-        isActive,
-        isActiveValue,
-        isHighlighted,
-        isPatternCell,
-        isTargetCell,
-        isWrong,
-        isEmpty,
-        isSuccessTarget,
-        successGeneration,
-        children
-    } = props;
+    const { cell, cellSize, cellMargin, onSelect, successGeneration, children } = props;
 
+    const { i18n } = useLingui();
     const { engine } = use(GameContext);
+    const { candidates, isActive, isActiveValue, isEmpty, isHighlighted, isPatternCell, isTargetCell, isWrong } = useFieldCellState(cell);
     const { theme } = use(ThemeContext);
 
     const isMotionReduced = useReduceMotion();
@@ -85,7 +65,7 @@ export const FieldCell = (props: Props) => {
     if (successGeneration !== seenSuccessGeneration) {
         setSeenSuccessGeneration(successGeneration);
 
-        if (isSuccessTarget) {
+        if (successGeneration > 0) {
             setIsSuccessPulsing(true);
         }
     }
@@ -115,22 +95,24 @@ export const FieldCell = (props: Props) => {
     });
 
     useEffect(() => {
-        if (!isSuccessTarget || successGeneration === 0) {
+        if (successGeneration === 0) {
             return;
         }
 
-        successAnimation.value = withSequence(
-            withTiming(1, isMotionReduced ? successHoldConfig : successAnimationConfig),
-            withTiming(0, instantAnimationConfig, finished => {
-                if (finished) {
-                    scheduleOnRN(setIsSuccessPulsing, false);
-                }
-            })
+        successAnimation.set(
+            withSequence(
+                withTiming(1, isMotionReduced ? successHoldConfig : successAnimationConfig),
+                withTiming(0, instantAnimationConfig, finished => {
+                    if (finished) {
+                        scheduleOnRN(setIsSuccessPulsing, false);
+                    }
+                })
+            )
         );
-    }, [successGeneration, isSuccessTarget, isMotionReduced, successAnimation]);
+    }, [successGeneration, isMotionReduced, successAnimation]);
 
     const handlePress = () => {
-        // eslint-disable-next-line no-undefined
+        // oxlint-disable-next-line no-undefined
         onSelect(isActive ? undefined : cell);
     };
 
@@ -143,6 +125,7 @@ export const FieldCell = (props: Props) => {
     ];
     const successMarker = isMotionReduced ? <FieldCellSuccessOutline /> : <FieldCellSuccessRing animation={successAnimation} />;
     const cellAccessibilityState = { selected: isActive };
+    const accessibilityLabel = i18n._(gameGetCellAccessibilityLabel({ candidates, cell, isEmpty, isWrong }));
 
     // Stable, unique per-cell testID by board coordinate. Selection/highlight
     // state must NOT change the testID: E2E flows target exact cells, and a

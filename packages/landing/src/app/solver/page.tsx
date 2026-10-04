@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
-import { Faq } from '../../seo/components/faq/faq';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../seo/components/faq-question/faq-question';
-import { HowTo } from '../../seo/components/how-to/how-to';
+import { Faq } from '../../seo/components/faq/faq';
 import { HowToStep } from '../../seo/components/how-to-step/how-to-step';
+import { HowTo } from '../../seo/components/how-to/how-to';
 import { PageHeader } from '../../seo/components/page-header/page-header';
 import { SITE_PLAY_URL } from '../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
@@ -39,7 +39,7 @@ const TIER_2_INTERSECTIONS = TECHNIQUE_PAGE_LADDER.slice(TIER_1_END, TIER_2_END)
 const TIER_3_SUBSETS = TECHNIQUE_PAGE_LADDER.slice(TIER_2_END, TIER_3_END);
 const TIER_4_FISH_WINGS_CHAINS = TECHNIQUE_PAGE_LADDER.slice(TIER_3_END);
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SolverPage = () => (
     <main>
         <PageHeader metadata={solverPageMetadata}>

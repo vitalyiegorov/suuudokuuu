@@ -5,9 +5,7 @@ import { mergeConfig } from 'vitest/config';
 
 export default mergeConfig(createVitestConfig(), {
     resolve: {
-        alias: [
-            { find: /^@suuudokuuu\/solver-core$/, replacement: fileURLToPath(new URL('../solver-core/src/index.ts', import.meta.url)) }
-        ]
+        alias: [{ find: /^@suuudokuuu\/solver-core$/, replacement: fileURLToPath(new URL('../solver-core/src/index.ts', import.meta.url)) }]
     },
     test: {
         include: ['test/**/*.test.ts'],

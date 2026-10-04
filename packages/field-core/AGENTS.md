@@ -5,13 +5,12 @@ Headless, framework-agnostic sudoku field engine. Owns every piece of interactiv
 ## Commands
 
 ```bash
-yarn build              # Build ESM + CommonJS
-yarn build:esm         # TypeScript -> ESM /dist/esm
-yarn build:cjs         # TypeScript -> CommonJS /dist/cjs
-yarn lint              # ESLint fix
-yarn test              # Vitest tests
-yarn test:coverage     # With coverage report
-yarn ts                # TypeScript check
+pnpm build              # Build ESM + CommonJS
+pnpm build:esm         # TypeScript -> ESM /dist/esm
+pnpm build:cjs         # TypeScript -> CommonJS /dist/cjs
+pnpm test              # Vitest tests
+pnpm test:coverage     # With coverage report
+pnpm ts                # TypeScript check
 ```
 
 ## Ownership Boundary
@@ -107,12 +106,7 @@ Script playback is engine state: `startStepScript`, `stepScriptNext`, `stepScrip
 
 ```typescript
 export { FieldEngine, StepScriptStepKindEnum, buildStepScriptState, findStepScript, getCellKey };
-export type {
-    FieldSnapshotInterface,
-    FieldMoveResultInterface,
-    StepScriptInterface,
-    StepScriptStateInterface /* ... */
-};
+export type { FieldSnapshotInterface, FieldMoveResultInterface, StepScriptInterface, StepScriptStateInterface /* ... */ };
 ```
 
 `@suuudokuuu/field-core/react` exports `useFieldSnapshot`.

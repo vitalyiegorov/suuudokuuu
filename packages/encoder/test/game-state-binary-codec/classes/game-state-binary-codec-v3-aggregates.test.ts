@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* oxlint-disable no-magic-numbers */
 import { describe, expect, it } from 'vitest';
 
 import { AGGREGATE_COUNT_LARGE_BITS } from '../../../src/@generic/constants/binary-codec.constant';

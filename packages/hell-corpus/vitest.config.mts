@@ -7,7 +7,10 @@ export default mergeConfig(createVitestConfig(), {
     resolve: {
         alias: [
             { find: /^@suuudokuuu\/solver-core$/, replacement: fileURLToPath(new URL('../solver-core/src/index.ts', import.meta.url)) },
-            { find: /^@suuudokuuu\/solver-bitmask$/, replacement: fileURLToPath(new URL('../solver-bitmask/src/index.ts', import.meta.url)) },
+            {
+                find: /^@suuudokuuu\/solver-bitmask$/,
+                replacement: fileURLToPath(new URL('../solver-bitmask/src/index.ts', import.meta.url))
+            },
             { find: /^@suuudokuuu\/solver-dlx$/, replacement: fileURLToPath(new URL('../solver-dlx/src/index.ts', import.meta.url)) },
             { find: /^@suuudokuuu\/rating$/, replacement: fileURLToPath(new URL('../rating/src/index.ts', import.meta.url)) }
         ]

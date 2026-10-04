@@ -4,10 +4,10 @@ import { SCHEMA_CONTEXT } from '../../constants/schema.constant';
 import { extractNodeText } from '../../utils/extract-node-text.util';
 import { findSlot } from '../../utils/find-slot.util';
 import { findSlots } from '../../utils/find-slots.util';
-import { Faq } from '../faq/faq';
 import { FaqAnswer } from '../faq-answer/faq-answer';
 import { FaqHeading } from '../faq-heading/faq-heading';
 import { FaqQuestion } from '../faq-question/faq-question';
+import { Faq } from '../faq/faq';
 import { JsonLd } from '../json-ld/json-ld';
 
 import type { ReactNode } from 'react';

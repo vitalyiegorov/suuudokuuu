@@ -24,7 +24,7 @@ const packRecord = (puzzle: string, ratingByte: number): Uint8Array => {
 
     for (let cell = 0; cell < puzzle.length; cell += 1) {
         if (puzzle[cell] !== '0') {
-            // eslint-disable-next-line no-bitwise -- test oracle mirrors the position bitmask packing being verified
+            // oxlint-disable-next-line no-bitwise -- test oracle mirrors the position bitmask packing being verified
             record[Math.floor(cell / BITS_PER_BYTE)] |= 1 << (cell % BITS_PER_BYTE);
             givenCells.push(cell);
         }
@@ -34,7 +34,7 @@ const packRecord = (puzzle: string, ratingByte: number): Uint8Array => {
         const value = Number(puzzle[cell]);
         const byteIndex = POSITION_MASK_BYTE_COUNT + Math.floor(givenIndex / 2);
 
-        // eslint-disable-next-line no-bitwise -- test oracle mirrors the nibble packing being verified
+        // oxlint-disable-next-line no-bitwise -- test oracle mirrors the nibble packing being verified
         record[byteIndex] |= givenIndex % 2 === 0 ? value & NIBBLE_MASK : (value & NIBBLE_MASK) << NIBBLE_BIT_WIDTH;
     });
 
@@ -53,13 +53,13 @@ const encodeRecordBase64 = (record: Uint8Array): string => {
         const byte1 = record[offset + 1] ?? 0;
         const byte2 = record[offset + 2] ?? 0;
 
-        // eslint-disable-next-line no-bitwise -- test oracle mirrors the base64 packing being verified
+        // oxlint-disable-next-line no-bitwise -- test oracle mirrors the base64 packing being verified
         result += BASE64_ALPHABET[byte0 >> 2];
-        // eslint-disable-next-line no-bitwise -- test oracle mirrors the base64 packing being verified
+        // oxlint-disable-next-line no-bitwise -- test oracle mirrors the base64 packing being verified
         result += BASE64_ALPHABET[((byte0 & 0x3) << 4) | (byte1 >> 4)];
-        // eslint-disable-next-line no-bitwise -- test oracle mirrors the base64 packing being verified
+        // oxlint-disable-next-line no-bitwise -- test oracle mirrors the base64 packing being verified
         result += BASE64_ALPHABET[((byte1 & NIBBLE_MASK) << 2) | (byte2 >> 6)];
-        // eslint-disable-next-line no-bitwise -- test oracle mirrors the base64 packing being verified
+        // oxlint-disable-next-line no-bitwise -- test oracle mirrors the base64 packing being verified
         result += BASE64_ALPHABET[byte2 & SIX_BIT_MASK];
     }
 

@@ -267,7 +267,7 @@ Rebuilding looks equivalent and is not. Two enumerations drift the moment one ga
 
 The canonical flow is: resolve the target host or configuration, pass it to the sitemap helper, submit or assert exactly the URLs it returns.
 
-Keep a regression check asserting that the submitted list is the sitemap-derived list and contains no URL outside the target host. Today that check is `yarn workspace @suuudokuuu/landing submit:indexnow --dry-run`, which needs no key, prints the exact list that would be submitted, and fails on any URL outside the `SITE_ORIGIN` host; its output must diff clean against the `<loc>` entries of the built `sitemap.xml`.
+Keep a regression check asserting that the submitted list is the sitemap-derived list and contains no URL outside the target host. Today that check is `pnpm --filter @suuudokuuu/landing submit:indexnow --dry-run`, which needs no key, prints the exact list that would be submitted, and fails on any URL outside the `SITE_ORIGIN` host; its output must diff clean against the `<loc>` entries of the built `sitemap.xml`.
 
 ### 4.2 Host- or locale-dependent metadata routes are `force-dynamic`, never time-`revalidate`
 
@@ -301,5 +301,5 @@ Treat a rejected submission as a configuration question, not a retry loop: reche
 6. Add the extra schema the page earns: `SoftwareApplicationSchema` for product surfaces, `HowTo` for procedures, `FaqPage` for questions. Feed each one children or sidecar fields — never a duplicated string.
 7. Link outward through neighbouring sidecars, and add the inbound link from at least one hub page so the new URL is reachable.
 8. Add prev / next navigation if the page belongs to a chain.
-9. Run `yarn workspace @suuudokuuu/landing ts` and `yarn workspace @suuudokuuu/landing lint`, then the root validation sequence: `yarn format && yarn ts && yarn lint && yarn deadcode && yarn cpd`.
+9. Run `pnpm --filter @suuudokuuu/landing ts` and `pnpm --filter @suuudokuuu/landing lint`, then the root validation sequence: `pnpm format && pnpm ts && pnpm lint && pnpm deadcode && pnpm cpd`.
 10. Confirm the new URL appears in the built `sitemap.xml`, and that the exported HTML contains the visible copy and the JSON-LD without JavaScript.

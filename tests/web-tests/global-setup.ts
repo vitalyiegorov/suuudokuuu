@@ -9,11 +9,13 @@ export default function globalSetup() {
 
     if (!existsSync(webAppDistEntryPoint)) {
         throw new Error(
-            `Missing ${webAppDistEntryPoint}. Run "yarn workspace @suuudokuuu/app export:web" (or "yarn expo export --platform=web" inside packages/app) before running the web E2E suite.`
+            `Missing ${webAppDistEntryPoint}. Run "pnpm --filter @suuudokuuu/app export:web" (or "pnpm exec expo export --platform=web" inside packages/app) before running the web E2E suite.`
         );
     }
 
     if (!existsSync(landingOutEntryPoint)) {
-        throw new Error(`Missing ${landingOutEntryPoint}. Run "yarn build --filter=@suuudokuuu/landing" before running the web E2E suite.`);
+        throw new Error(
+            `Missing ${landingOutEntryPoint}. Run "pnpm turbo run build --filter=@suuudokuuu/landing" before running the web E2E suite.`
+        );
     }
 }

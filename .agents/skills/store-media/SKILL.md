@@ -64,14 +64,14 @@ store_preflight` gates both jobs up front; metadata pushes after each
 ## Workflows
 
 Release notes (local-first, never CI): run
-`yarn workspace @suuudokuuu/app store:notes` in a PR that finishes
+`pnpm --filter @suuudokuuu/app store:notes` in a PR that finishes
 user-facing work, commit the result. With `ANTHROPIC_API_KEY` in the shell it
 writes Claude-authored notes for all 13 locales (model `claude-opus-5`,
 override `STORE_NOTES_MODEL`); without it, plain English fallback.
 
 Screenshots, end to end:
 
-1. Capture: `APP_ID=<bundle-id> SIMULATOR_UDID=<udid> yarn workspace
+1. Capture: `APP_ID=<bundle-id> SIMULATOR_UDID=<udid> pnpm --filter
 @suuudokuuu/app-tests screenshots:capture --locales=en --scenes=...`
    (add `DEVICE_CLASS=ipad ORIENTATION=landscape` for iPad landscape; the
    runner recycles the XCUITest driver, retries failures once, and bakes
@@ -79,7 +79,7 @@ Screenshots, end to end:
    1b. Android capture: create an AVD, boot it, then
    `adb shell wm size 1080x2340` and `adb shell wm density 440` so the capture
    exactly matches the Pixel 5 frame cutout. Install the app, then
-   `yarn workspace @suuudokuuu/app-tests screenshots:capture
+   `pnpm --filter @suuudokuuu/app-tests screenshots:capture
 --platform=android --serial=<adb-serial> --locales=en ...`. The runner's
    progress label prints `[iphone/...]` on Android; that is cosmetic, the
    output path is `raw/android/`.
@@ -291,7 +291,7 @@ checkbox, or run the fastlane lanes locally.
   code. Fast Refresh never fires.
 - The DerivedData "Debug" prebuild app has EAS Updates enabled and silently
   runs the PUBLISHED bundle instead of Metro. Build a real dev client with
-  `yarn ios` for local iteration; connect via
+  `pnpm ios` for local iteration; connect via
   `xcrun simctl openurl <udid> "<bundle-id>://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8081"`.
 - Do not reboot simulators mid-pipeline: the dev client loses its Metro
   connection and lands on the launcher, failing every flow.

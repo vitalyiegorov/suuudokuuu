@@ -47,12 +47,12 @@ export const ConfettiBurst = () => {
                 return;
             }
 
-            averageFrameDuration.value = getConfettiAverageFrameDuration(averageFrameDuration.value, currentClock - previousClock);
+            averageFrameDuration.set(getConfettiAverageFrameDuration(averageFrameDuration.value, currentClock - previousClock));
 
             const isDegraded = visibleParticleAmount.value !== particles.length;
 
             if (!isDegraded && isConfettiFrameBudgetExceeded(currentClock, averageFrameDuration.value)) {
-                visibleParticleAmount.value = Math.round(particles.length / 2);
+                visibleParticleAmount.set(Math.round(particles.length / 2));
             }
         }
     );

@@ -30,7 +30,7 @@ export const ChallengeResultMedallion = ({ result }: Props) => {
     const appear = useSharedValue(0);
 
     useEffect(() => {
-        appear.value = isMotionReduced ? 1 : withSpring(1, { damping: 12, stiffness: 160 });
+        appear.set(isMotionReduced ? 1 : withSpring(1, { damping: 12, stiffness: 160 }));
     }, [isMotionReduced, appear]);
 
     const appearScale = useDerivedValue(() => interpolate(appear.value, AppearInput, AppearScaleOutput));

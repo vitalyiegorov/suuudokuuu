@@ -14,7 +14,7 @@ const collectGivenCells = (record: Uint8Array): number[] => {
 
     for (let cell = 0; cell < GRID_CELL_COUNT; cell += 1) {
         const positionByte = record[Math.floor(cell / BITS_PER_BYTE)];
-        // eslint-disable-next-line no-bitwise -- reads the packed position bit for this cell from the position bitmask bytes
+        // oxlint-disable-next-line no-bitwise -- reads the packed position bit for this cell from the position bitmask bytes
         const isGivenCell = (positionByte & (1 << (cell % BITS_PER_BYTE))) !== 0;
 
         if (isGivenCell) {
@@ -29,7 +29,7 @@ const readGivenValue = (record: Uint8Array, givenIndex: number): number => {
     const valueByte = record[POSITION_MASK_BYTE_COUNT + Math.floor(givenIndex / 2)];
     const isLowNibble = givenIndex % 2 === 0;
 
-    // eslint-disable-next-line no-bitwise -- given digits are packed two per byte as 4-bit nibbles
+    // oxlint-disable-next-line no-bitwise -- given digits are packed two per byte as 4-bit nibbles
     return isLowNibble ? valueByte & NIBBLE_MASK : (valueByte >> NIBBLE_BIT_WIDTH) & NIBBLE_MASK;
 };
 

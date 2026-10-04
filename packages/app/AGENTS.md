@@ -5,19 +5,18 @@ Main Sudoku game application built with Expo 58, React Native 0.88, React 19.3, 
 ## Commands
 
 ```bash
-yarn start
-yarn ios
-yarn ios:device
-yarn android
-yarn web
-yarn prebuild
+pnpm start
+pnpm ios
+pnpm ios:device
+pnpm android
+pnpm web
+pnpm prebuild
 
-yarn export:web
-yarn build:vercel
+pnpm export:web
+pnpm build:vercel
 
-yarn i18n:sync
-yarn ts
-yarn lint
+pnpm i18n:sync
+pnpm ts
 ```
 
 The app hosts no unit tests. Logic that needs tests lives in `@suuudokuuu/progress` or another domain package and is tested there with Vitest.
@@ -25,7 +24,7 @@ The app hosts no unit tests. Logic that needs tests lives in `@suuudokuuu/progre
 After modifying user-facing text, run:
 
 ```bash
-yarn i18n:sync
+pnpm i18n:sync
 ```
 
 ## Structure
@@ -200,14 +199,14 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
 4. Prefer `<Trans>` in JSX: `<Trans>Score</Trans>` instead of `{t\`Score\`}`.
 5. Use `plural(...)` from Lingui macros for count-sensitive user-facing text instead of concatenating counts with fixed singular/plural labels.
 6. Do not call `i18n.t()`. Use `t`, `<Trans>`, `msg`, or `plural` macros so extraction stays static.
-7. After text changes, run `yarn i18n:sync`.
-8. Before finishing i18n work, run `yarn i18n:check` from the repo root.
+7. After text changes, run `pnpm i18n:sync`.
+8. Before finishing i18n work, run `pnpm i18n:check` from the repo root.
 9. Keep every locale's `messages.po` and compiled `messages.ts` under `src/i18n/locales` in sync.
 
 ## Vercel Web Deploy
 
 1. `vercel-functions/api/beta/*.ts` are web-standard `{ fetch }` endpoints; `vercel-functions/shared/create-node-handler.util.ts` bridges them to the Node `(request, response)` signature the Vercel Node launcher calls.
-2. `scripts/build-vercel-output.ts` (`yarn build:vercel`) emits a Build Output API v3 tree in `.vercel/output`: `static/` composed from the Expo web export and the `@suuudokuuu/landing` static export, one esbuild bundle per endpoint in `functions/api/beta/<name>.func`, and `config.json`. It needs both `dist/index.html` (`yarn export:web`) and `packages/landing/out/index.html` (`yarn build --filter=@suuudokuuu/landing`).
+2. `scripts/build-vercel-output.ts` (`pnpm build:vercel`) emits a Build Output API v3 tree in `.vercel/output`: `static/` composed from the Expo web export and the `@suuudokuuu/landing` static export, one esbuild bundle per endpoint in `functions/api/beta/<name>.func`, and `config.json`. It needs both `dist/index.html` (`pnpm export:web`) and `packages/landing/out/index.html` (`pnpm turbo run build --filter=@suuudokuuu/landing`).
 3. `vercel.json` stays the single source of truth for routes; the build script reads them from it.
 4. CI deploys the prebuilt tree with `vercel deploy --prebuilt` from `packages/app`, so the functions are never installed or compiled on Vercel.
 
@@ -283,13 +282,13 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
 
 ## Verification
 
-Run app-level checks after app changes:
+Run app-level checks after app changes, then `pnpm lint` from the root:
 
 ```bash
-yarn ts && yarn lint
+pnpm ts
 ```
 
-Run `yarn test` from the root when scoring, persistence services, or other domain logic in `progress` changes; the app itself has no unit tests. Run Maestro flows from `tests/app-tests` when routes, selectors, deep links, sharing, or end screens change.
+Run `pnpm test` from the root when scoring, persistence services, or other domain logic in `progress` changes; the app itself has no unit tests. Run Maestro flows from `tests/app-tests` when routes, selectors, deep links, sharing, or end screens change.
 
 ## Running On A Local Simulator
 
@@ -306,5 +305,5 @@ xcrun simctl launch booted com.vitalyiegorov.suuudokuuu.dev
 Then tap **Enter URL manually**, type `http://localhost:<port>`, and tap **Connect**. The launcher's "Recently opened" list shows which port the client used previously.
 
 5. The dev client resumes a cached bundle when launched plain, so an unchanged screen does not prove Metro is unreachable. Metro logging no bundle request is the signal that nothing fetched.
-6. Native rebuilds work through `yarn ios`, `yarn ios:device` and `yarn prebuild`, which pin `LANG` and `LC_ALL` to `en_US.UTF-8`. Only native dependency or app-config changes need that path.
+6. Native rebuilds work through `pnpm ios`, `pnpm ios:device` and `pnpm prebuild`, which pin `LANG` and `LC_ALL` to `en_US.UTF-8`. Only native dependency or app-config changes need that path.
 7. Do not call `expo run:ios`, `expo prebuild` or `pod install` directly unless the shell exports a UTF-8 locale. With `LANG` unset, Ruby resolves the filesystem encoding to US-ASCII, `Dir.pwd` comes back as ASCII-8BIT, and CocoaPods dies in `Pod::Config#installation_root` with `Unicode Normalization not appropriate for ASCII-8BIT`, which then fails `xcodebuild` with "sandbox is not in sync with the Podfile.lock". Prefer the package scripts, which already set the locale.

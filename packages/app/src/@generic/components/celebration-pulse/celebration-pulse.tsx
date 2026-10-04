@@ -53,17 +53,15 @@ export const CelebrationPulse = ({ children, color, size, variant = 'default' }:
     const extraRingConfigs = isMotionReduced ? [] : CelebrationPulseExtraRingsByVariant[variant];
 
     useEffect(() => {
-        appear.value = isMotionReduced ? 1 : withSpring(1, { damping: 12, stiffness: 160 });
+        appear.set(isMotionReduced ? 1 : withSpring(1, { damping: 12, stiffness: 160 }));
     }, [isMotionReduced, appear]);
     useEffect(() => {
         if (isMotionReduced) {
             return;
         }
 
-        pulse.value = withRepeat(
-            withTiming(1, { duration: PulseDurationMs, easing: Easing.out(Easing.ease) }),
-            CelebrationPulseRepeatCount,
-            false
+        pulse.set(
+            withRepeat(withTiming(1, { duration: PulseDurationMs, easing: Easing.out(Easing.ease) }), CelebrationPulseRepeatCount, false)
         );
     }, [isMotionReduced, pulse]);
 
