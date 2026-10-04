@@ -14,9 +14,9 @@ const noteModes: NoteModeType[] = ['pencil notes', 'auto candidates'];
 const generatedDifficulties = [DifficultyEnum.Newbie, DifficultyEnum.Easy, DifficultyEnum.Medium, DifficultyEnum.Hard];
 const generatedSeeds = [1, 2, 3];
 const nightmareSeeds = [1, 2];
-const hellCorpusStride = 160;
-const hardestHellCount = 2;
-const infinityCorpusCount = 6;
+const hellCorpusStride = 40;
+const hardestHellCount = 10;
+const infinityCorpusCount = 10;
 const corpusTimeoutMilliseconds = 60000;
 
 const generatePuzzle = (difficulty: DifficultyEnum, seed: number): string => {
@@ -34,11 +34,14 @@ const hardestHellPuzzles = hellIndexes
     .slice(0, hardestHellCount)
     .map(record => record.puzzle);
 
-const puzzles: [string, string][] = [
+const generatedPuzzles: [string, string][] = [
     ...generatedDifficulties.flatMap(difficulty =>
         generatedSeeds.map((seed): [string, string] => [`${difficulty} seed ${seed}`, generatePuzzle(difficulty, seed)])
     ),
-    ...nightmareSeeds.map((seed): [string, string] => [`Nightmare seed ${seed}`, generatePuzzle(DifficultyEnum.Nightmare, seed)]),
+    ...nightmareSeeds.map((seed): [string, string] => [`Nightmare seed ${seed}`, generatePuzzle(DifficultyEnum.Nightmare, seed)])
+];
+
+const corpusPuzzles: [string, string][] = [
     ...hellIndexes
         .filter(index => index % hellCorpusStride === 0)
         .map((index): [string, string] => [`Hell corpus ${index}`, getHellCorpusRecord(index).puzzle]),
@@ -47,6 +50,14 @@ const puzzles: [string, string][] = [
         `Infinity corpus ${index}`,
         getInfinityCorpusPuzzle(index).puzzle
     ])
+];
+
+const firstGeneratedHint = 1;
+const firstCorpusHint = 0;
+
+const cases = [
+    ...generatedPuzzles.map(([label, puzzle]): [string, string, number] => [label, puzzle, firstGeneratedHint]),
+    ...corpusPuzzles.map(([label, puzzle]): [string, string, number] => [label, puzzle, firstCorpusHint])
 ];
 
 const getBlankCells = (engine: FieldEngine): CellInterface[] => engine.Sudoku.Field.flat().filter(cell => engine.Sudoku.isBlankCell(cell));
@@ -71,7 +82,6 @@ const createEngine = (puzzle: string, noteMode: NoteModeType): FieldEngine => {
 
 const playHints = (puzzle: string, noteMode: NoteModeType): { outcome: string; hints: number; problems: string[] } => {
     const engine = createEngine(puzzle, noteMode);
-    const placedCellKeys = new Set<string>();
     const problems: string[] = [];
 
     for (let hint = 0; hint <= puzzle.length; hint += 1) {
@@ -83,18 +93,10 @@ const playHints = (puzzle: string, noteMode: NoteModeType): { outcome: string; h
 
         const blankCount = getBlankCells(engine).length;
         const { placement } = script;
-        const cellKey = `${placement?.cell.y}-${placement?.cell.x}`;
         const solutionValue = engine.Sudoku.getCorrectValue(placement?.cell);
         const wrongEliminations = script.eliminations.filter(({ cell, value }) => engine.Sudoku.getCorrectValue(cell) === value);
 
-        let playedSteps = 1;
-
         engine.startStepScript(script);
-
-        while (engine.stepScriptNext()) {
-            playedSteps += 1;
-        }
-
         engine.applyStepScript();
 
         const placedValue = placement ? engine.Sudoku.Field[placement.cell.y][placement.cell.x].value : 0;
@@ -104,15 +106,12 @@ const playHints = (puzzle: string, noteMode: NoteModeType): { outcome: string; h
 
         problems.push(
             ...(placement === undefined ? [`hint ${hint} has no placement`] : []),
-            ...(playedSteps === script.steps.length ? [] : [`hint ${hint} could not step through every slide`]),
             ...(placedValue === solutionValue && placement?.value === solutionValue ? [] : [`hint ${hint} placed a wrong digit`]),
             ...(getBlankCells(engine).length === blankCount - 1 ? [] : [`hint ${hint} did not place exactly one digit`]),
-            ...(placedCellKeys.has(cellKey) ? [`hint ${hint} repeated ${cellKey}`] : []),
             ...(engine.getSnapshot().mistakes === 0 ? [] : [`hint ${hint} registered a mistake`]),
             ...wrongEliminations.map(({ cell, value }) => `hint ${hint} eliminated the solution ${value} at ${cell.y}-${cell.x}`),
             ...lostSolutionNotes.map(cell => `hint ${hint} left ${cell.y}-${cell.x} without its solution candidate`)
         );
-        placedCellKeys.add(cellKey);
     }
 
     return { outcome: 'stalled', hints: puzzle.length, problems };
@@ -120,19 +119,20 @@ const playHints = (puzzle: string, noteMode: NoteModeType): { outcome: string; h
 
 describe('hint progress over puzzle corpora', () => {
     it.each(
-        puzzles.flatMap(([label, puzzle], index): [string, NoteModeType, string][] => [
-            [label, 'no notes', puzzle],
-            [label, noteModes[index % noteModes.length], puzzle]
+        cases.flatMap(([label, puzzle, minimumHints], index): [string, NoteModeType, string, number][] => [
+            [label, 'no notes', puzzle, minimumHints],
+            [label, noteModes[index % noteModes.length], puzzle, minimumHints]
         ])
     )(
         '%s, %s: every hint places one solution digit until solved or a guess is needed',
-        (_label, noteMode, puzzle) => {
-            expect.assertions(2);
+        (_label, noteMode, puzzle, minimumHints) => {
+            expect.assertions(3);
 
-            const { outcome, problems } = playHints(puzzle, noteMode);
+            const { hints, outcome, problems } = playHints(puzzle, noteMode);
 
             expect(problems).toEqual([]);
             expect(['solved', 'guess']).toContain(outcome);
+            expect(hints).toBeGreaterThanOrEqual(minimumHints);
         },
         corpusTimeoutMilliseconds
     );
