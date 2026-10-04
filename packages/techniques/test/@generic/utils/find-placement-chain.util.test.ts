@@ -2,6 +2,7 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { describe, expect, it } from 'vitest';
 
 import { TechniqueManager } from '../../../src/@generic/classes/technique-manager/technique-manager';
+import { PLACEMENT_CHAIN_MAX_STEPS } from '../../../src/@generic/constants/placement-chain.constant';
 import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-technique.enum';
 import { createTechniqueStrategies } from '../../../src/@generic/utils/create-technique-strategies.util';
 import { findPlacementChain } from '../../../src/@generic/utils/find-placement-chain.util';
@@ -13,6 +14,8 @@ const pointingPairBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48.
 const guessBoard = '800000000003600000070090200050007000000045700000100030001000068008500010090000400';
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 const fullHouseBoard = '12345678.........................................................................';
+const longChainBoard = '8.72.14..34....1.2.5.....9..1...39..4...5.6.8..56..2.........2...437....5..8.9..4';
+const maxPruningRederivations = (PLACEMENT_CHAIN_MAX_STEPS * (PLACEMENT_CHAIN_MAX_STEPS - 1)) / 2;
 const pointingPairChain = ['PointingPair elimination 0-6=4', 'HiddenSingle placement 2-1=4'];
 
 const singlesOrder = [SolutionTechniqueEnum.FullHouse, SolutionTechniqueEnum.NakedSingle, SolutionTechniqueEnum.HiddenSingle];
@@ -39,6 +42,16 @@ const createIrrelevantStrategy = (sudoku: Sudoku): TechniqueStrategyInterface =>
 
     return { technique: SolutionTechniqueEnum.XWing, find: () => [result] };
 };
+
+const createCountingStrategies = (calls: SolutionTechniqueEnum[]): TechniqueStrategyInterface[] =>
+    createTechniqueStrategies().map(strategy => ({
+        technique: strategy.technique,
+        find: (context, target) => {
+            calls.push(strategy.technique);
+
+            return strategy.find(context, target);
+        }
+    }));
 
 describe('findPlacementChain', () => {
     it('should chain the pointing pair the hidden single depends on and stop at the placement', () => {
@@ -91,6 +104,8 @@ describe('findPlacementChain', () => {
     });
 
     it.each([
+        [SolutionTechniqueEnum.Jellyfish, '982615.....7....12.13724..9.....1...15...2..672....1.5...18..37..1..74.8.7.24..91'],
+        [SolutionTechniqueEnum.UniqueRectangle, '....51.....5368.121.3.24..6...8.21.5...196347.1.4.52.8...287.....461..2..2.54..8.'],
         [SolutionTechniqueEnum.BivalueUniversalGrave, '3861794527..6549384..328176.6.947315934215867.7.836294643581729...762543..7493681'],
         [SolutionTechniqueEnum.CellForcingChain, '023006541000001023014325078002003160000010230137692485391268754056039812208150396'],
         [SolutionTechniqueEnum.RegionForcingChain, '000000006000006001060502034000604305305000640406035100638257419570460823240000567'],
@@ -105,5 +120,29 @@ describe('findPlacementChain', () => {
         expect(chain.map(step => step.technique)).toContain(technique);
         expect(placement?.kind).toBe('placement');
         expect(placement?.value).toBe(sudoku.getCorrectValue(placement?.cell));
+    });
+
+    it('should give up past the step cap instead of scanning a long elimination chain', () => {
+        expect.assertions(3);
+
+        const sudoku = createSudoku(longChainBoard);
+        const calls: SolutionTechniqueEnum[] = [];
+        const strategies = createCountingStrategies(calls);
+        const placementIndex = new TechniqueManager(sudoku).solveLogically().steps.findIndex(step => step.kind === 'placement');
+
+        expect(placementIndex).toBeGreaterThanOrEqual(PLACEMENT_CHAIN_MAX_STEPS);
+        expect(findPlacementChain(sudoku, strategies)).toEqual([]);
+        expect(calls.length).toBeLessThanOrEqual(PLACEMENT_CHAIN_MAX_STEPS * strategies.length);
+    });
+
+    it('should bound the scans of a pruned chain by the step cap', () => {
+        expect.assertions(2);
+
+        const calls: SolutionTechniqueEnum[] = [];
+        const strategies = createCountingStrategies(calls);
+        const chain = findPlacementChain(createSudoku(pointingPairBoard), strategies);
+
+        expect(chain.length).toBeLessThanOrEqual(PLACEMENT_CHAIN_MAX_STEPS);
+        expect(calls.length).toBeLessThanOrEqual(PLACEMENT_CHAIN_MAX_STEPS * strategies.length + maxPruningRederivations);
     });
 });

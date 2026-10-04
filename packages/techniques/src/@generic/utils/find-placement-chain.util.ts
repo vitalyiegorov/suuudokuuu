@@ -1,11 +1,11 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { CandidateContext } from '../classes/candidate-context/candidate-context';
+import { PLACEMENT_CHAIN_MAX_STEPS } from '../constants/placement-chain.constant';
 
 import { applyTechniqueStep } from './apply-technique-step.util';
 import { createTechniqueStrategies } from './create-technique-strategies.util';
 import { findProgressingStep } from './find-progressing-step.util';
-import { getLogicalStepLimit } from './get-logical-step-limit.util';
 import { isProgressingResult } from './is-progressing-result.util';
 import { isSameCell } from './is-same-cell.util';
 
@@ -26,8 +26,12 @@ const coversElimination = (context: CandidateContext, result: TechniqueResultInt
     );
 
 const isSameDeduction = (context: CandidateContext, result: TechniqueResultInterface, step: TechniqueResultInterface): boolean => {
+    if (result.kind !== step.kind) {
+        return false;
+    }
+
     if (step.kind === 'placement') {
-        return result.kind === 'placement' && isSameCell(result.cell, step.cell) && result.value === step.value;
+        return isSameCell(result.cell, step.cell) && result.value === step.value;
     }
 
     return isProgressingResult(context, result) && coversElimination(context, result, step);
@@ -56,14 +60,16 @@ const replayChain = (
     let context = startContext;
 
     for (const step of steps) {
-        const replayedStep = rederiveStep(strategies, context, step);
+        if (isProgressingResult(context, step)) {
+            const replayedStep = rederiveStep(strategies, context, step);
 
-        if (!isDefined(replayedStep)) {
-            return null;
+            if (!isDefined(replayedStep)) {
+                return null;
+            }
+
+            replayedSteps.push(replayedStep);
+            context = applyTechniqueStep(context, replayedStep);
         }
-
-        replayedSteps.push(replayedStep);
-        context = applyTechniqueStep(context, replayedStep);
     }
 
     return replayedSteps;
@@ -90,12 +96,16 @@ export const findPlacementChain = (sudoku: Sudoku, strategies = createTechniqueS
     let context = CandidateContext.fromSudoku(sudoku);
     let step = findProgressingStep(context, strategies);
 
-    while (isDefined(step) && steps.length < getLogicalStepLimit(sudoku)) {
+    while (isDefined(step)) {
         steps.push(step);
         contexts.push(context);
 
         if (step.kind === 'placement') {
             return pruneChain(strategies, steps, contexts);
+        }
+
+        if (steps.length >= PLACEMENT_CHAIN_MAX_STEPS) {
+            return [];
         }
 
         context = applyTechniqueStep(context, step);

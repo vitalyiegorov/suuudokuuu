@@ -6,7 +6,6 @@ import { canSee } from '../../utils/can-see.util';
 import { wasContextSearchCapped } from '../../utils/context-scan-state.util';
 import { createTechniqueStrategies } from '../../utils/create-technique-strategies.util';
 import { findProgressingStep } from '../../utils/find-progressing-step.util';
-import { getLogicalStepLimit } from '../../utils/get-logical-step-limit.util';
 import { isForcedPlacement } from '../../utils/is-forced-placement.util';
 import { isSameCell } from '../../utils/is-same-cell.util';
 import { CandidateContext } from '../candidate-context/candidate-context';
@@ -50,7 +49,7 @@ export class TechniqueManager {
     solveLogically(techniqueOrder?: readonly SolutionTechniqueEnum[]): LogicalSolveResultInterface {
         const orderedStrategies = this.getOrderedStrategies(techniqueOrder);
         const steps: TechniqueResultInterface[] = [];
-        const stepLimit = getLogicalStepLimit(this.sudoku);
+        const stepLimit = this.getStepLimit();
 
         let context = CandidateContext.fromSudoku(this.sudoku);
         let step = findProgressingStep(context, orderedStrategies);
@@ -84,6 +83,12 @@ export class TechniqueManager {
         }
 
         return techniqueOrder.map(technique => this.strategies.find(strategy => strategy.technique === technique)).filter(isDefined);
+    }
+
+    private getStepLimit(): number {
+        const { fieldSize } = this.sudoku.Config;
+
+        return fieldSize * fieldSize * (fieldSize + 1);
     }
 
     private getSolveOutcome(context: CandidateContext): LogicalSolveOutcomeType {
@@ -155,7 +160,7 @@ export class TechniqueManager {
         let composedContext = context;
         let hardestStrategyIndex = -1;
 
-        for (let stepCount = 0; stepCount < getLogicalStepLimit(this.sudoku); stepCount += 1) {
+        for (let stepCount = 0; stepCount < this.getStepLimit(); stepCount += 1) {
             const step = findProgressingStep(composedContext, orderedStrategies);
 
             if (!isDefined(step)) {
