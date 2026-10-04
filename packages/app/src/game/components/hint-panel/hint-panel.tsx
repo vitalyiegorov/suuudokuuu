@@ -65,7 +65,7 @@ export const HintPanel = ({ isRoomyLayout, narrationLineCount, surfaceHeight }: 
         { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border }
     ];
     const progressAccessibilityLabel = t`Step ${currentStepNumber} of ${stepCount}`;
-    const placementValue = stepScript.placement?.value;
+    const placementValue = currentStep.narration.placement?.value;
     const dismissIconColor = theme.colors.text.primary;
     const motionProps = isMotionReduced ? {} : { entering: FadeIn.duration(enterDurationMs), exiting: FadeOut.duration(exitDurationMs) };
 
