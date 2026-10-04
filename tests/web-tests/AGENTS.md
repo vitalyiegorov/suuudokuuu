@@ -88,6 +88,12 @@ pnpm --filter @suuudokuuu/web-tests lint
   with the same real rating trailer as `ratedWinningSharedChallengeEncodedConstant` (regenerate the
   same way, decoding `losingSharedChallengeEncodedConstant` instead).
 
+- `pointingPairHintSharedPuzzleEncodedConstant`: a `Puzzle`-kind share (Medium, rating `2.6`) of a
+  unique 45-clue position whose first hint must chain a pointing pair on `4` into the hidden single
+  `4` at `y=2, x=1` (four slides); the next hint is a hidden single `8` (two slides).
+  `09.hint-flow.spec.ts` depends on it. Regenerate with `GameStateSerializer.encodeState` over the
+  same field string with `SharedPayloadKindEnum.Puzzle`, `difficulty: 2` and the `ratePuzzle` rating.
+
 ## Known Platform Notes
 
 - Escape does not deselect the active cell on web. `GameScreen` wires the keyboard hook's `onExit`
