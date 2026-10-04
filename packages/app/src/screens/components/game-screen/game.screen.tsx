@@ -18,11 +18,11 @@ import { HintPanel } from '../../../game/components/hint-panel/hint-panel';
 import { GameToolsSlotReservedHeightConstant } from '../../../game/constant/board-cell-size.constant';
 import { GameContext } from '../../../game/context/game.context';
 import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
-import { useHintSurfaceMetrics } from '../../../game/hooks/use-hint-surface-metrics.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
 import { useShareGame } from '../../../game/hooks/use-share-game.hook';
 import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
+import { gameGetNumpadHeight } from '../../../game/utils/game-get-numpad-height.util';
 import { gameToggleCellCandidate } from '../../../game/utils/game-toggle-cell-candidate.util';
 import { runCurrentRunCommand } from '../../../game/utils/run-current-run-command.util';
 import { useSettings } from '../../../settings/query/use-settings.query';
@@ -39,6 +39,7 @@ import { useGameEngineEvents } from './hooks/use-game-engine-events.hook';
 
 import type { AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import type { CellInterface } from '@suuudokuuu/generator';
+import type { LayoutChangeEvent } from 'react-native';
 
 // oxlint-disable-next-line max-lines-per-function -- Game orchestration component requires many handlers and refs
 export const GameScreen = () => {
@@ -54,7 +55,6 @@ export const GameScreen = () => {
     const isWideLayout = sizeClass === 'wide';
     const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant;
     const { cellSize: boardCellSize, cellMargin: boardCellMargin, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
-    const { hintSurfaceMetrics, onToolsSlotLayout } = useHintSurfaceMetrics(isWideLayout, screenWidth);
     const { challengeState, isChallengeRun, maxMistakes, mistakes, score } = useCurrentRun();
     const { hasTimer, isLeftHanded, keepActiveCell } = useSettings();
     const hasRival = isNotEmptyString(challengeState);
@@ -64,6 +64,7 @@ export const GameScreen = () => {
     const fieldRef = useRef<FieldRef>(null);
 
     const [hasSharing, setHasSharing] = useState(false);
+    const [toolsSlotHeight, setToolsSlotHeight] = useState(0);
 
     const { selectedCell } = snapshot;
     const maxMistakesReached = mistakes >= maxMistakes;
@@ -118,6 +119,10 @@ export const GameScreen = () => {
         }
     };
 
+    const handleToolsSlotLayout = (event: LayoutChangeEvent) => {
+        setToolsSlotHeight(event.nativeEvent.layout.height);
+    };
+
     const handleAvailableRef = (value: number) => (ref: AvailableValuesItemRef | null) => {
         availableValuesRefs.current[value] = ref;
     };
@@ -130,6 +135,7 @@ export const GameScreen = () => {
     const gameActionsIconColor = theme.colors.surface.raisedText;
     const isHintActive = isDefined(snapshot.stepScript);
     const toolsSlotPointerEvents = isHintActive ? 'none' : 'auto';
+    const hintPanelMaxHeight = toolsSlotHeight + gameGetNumpadHeight(screenWidth);
 
     const statusBlock = (
         <GameStatusBlock
@@ -187,7 +193,11 @@ export const GameScreen = () => {
                     <Field cellMargin={boardCellMargin} cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} />
 
                     {isWideLayout ? null : (
-                        <View onLayout={onToolsSlotLayout} pointerEvents={toolsSlotPointerEvents} style={styles.toolsSlot(isHintActive)}>
+                        <View
+                            onLayout={handleToolsSlotLayout}
+                            pointerEvents={toolsSlotPointerEvents}
+                            style={styles.toolsSlot(isHintActive)}
+                        >
                             <GameInputTools hideAutoCandidates={hideAutoCandidates} isLeftHanded={isLeftHanded} />
                         </View>
                     )}
@@ -209,14 +219,12 @@ export const GameScreen = () => {
                     </View>
 
                     {isWideLayout ? gameActionsWithPause : null}
+
+                    {isWideLayout ? <HintPanel /> : null}
                 </View>
             </View>
 
-            <HintPanel
-                isRoomyLayout={hintSurfaceMetrics.isRoomyLayout}
-                narrationLineCount={hintSurfaceMetrics.narrationLineCount}
-                surfaceHeight={hintSurfaceMetrics.height}
-            />
+            {isWideLayout ? null : <HintPanel maxHeight={hintPanelMaxHeight} />}
         </Pressable>
     );
 };

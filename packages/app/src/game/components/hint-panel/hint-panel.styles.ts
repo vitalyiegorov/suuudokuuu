@@ -1,18 +1,10 @@
 import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
-import { GamePanelHorizontalPaddingConstant, GameSidePanelWidthConstant } from '../../constant/board-cell-size.constant';
-import {
-    HintControlRowHeightConstant,
-    HintSurfaceRoomyGapConstant,
-    HintSurfaceRoomyPaddingConstant,
-    HintSurfaceStandardGapConstant,
-    HintSurfaceStandardPaddingConstant
-} from '../../constant/hint-surface.constant';
+import { GamePanelHorizontalPaddingConstant } from '../../constant/board-cell-size.constant';
 
-const hintPanelWideWidthRatio = 1.5;
-const hintPanelWideMaxWidth = GameSidePanelWidthConstant * hintPanelWideWidthRatio;
-const hintPanelDismissSize = HintControlRowHeightConstant;
+const hintPanelMaxWidth = 480;
+const hintPanelControlSize = 44;
 
 export const HintPanelStyles = StyleSheet.create((theme, rt) => {
     const isWideLayout = appLayoutScreenIsWide(rt.screen);
@@ -20,33 +12,33 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => {
     const dotActiveSize = isWideLayout ? 10 : 8;
 
     return {
-        container: (surfaceHeight: number, isRoomyLayout: boolean) => ({
+        container: {
             borderCurve: 'continuous',
             borderRadius: theme.radius.lg,
             borderWidth: 1,
-            bottom: isWideLayout ? rt.insets.bottom / 2 + theme.spacing.lg : 0,
-            gap: isRoomyLayout ? HintSurfaceRoomyGapConstant : HintSurfaceStandardGapConstant,
-            height: surfaceHeight,
-            left: isWideLayout ? theme.spacing.lg : GamePanelHorizontalPaddingConstant,
-            padding: isRoomyLayout ? HintSurfaceRoomyPaddingConstant : HintSurfaceStandardPaddingConstant,
+            bottom: isWideLayout ? 0 : rt.insets.bottom + theme.spacing.sm,
+            gap: theme.spacing.sm,
+            left: isWideLayout ? 0 : GamePanelHorizontalPaddingConstant,
+            marginHorizontal: 'auto',
+            maxWidth: hintPanelMaxWidth,
+            padding: theme.spacing.md,
             position: 'absolute',
-            right: isWideLayout ? theme.spacing.lg : GamePanelHorizontalPaddingConstant,
-            zIndex: 10,
-            ...(isWideLayout && { marginHorizontal: 'auto', maxWidth: hintPanelWideMaxWidth })
-        }),
+            right: isWideLayout ? 0 : GamePanelHorizontalPaddingConstant,
+            zIndex: 10
+        },
         controls: {
             alignItems: 'center',
             flexDirection: 'row',
             flexShrink: 0,
-            gap: theme.spacing.sm,
-            height: HintControlRowHeightConstant,
+            gap: theme.spacing.xs,
+            height: hintPanelControlSize,
             justifyContent: 'space-between'
         },
         dismissButton: {
-            borderRadius: hintPanelDismissSize / 2,
+            borderRadius: hintPanelControlSize / 2,
             flexShrink: 0,
-            height: hintPanelDismissSize,
-            width: hintPanelDismissSize
+            height: hintPanelControlSize,
+            width: hintPanelControlSize
         },
         stepControls: {
             alignItems: 'center',
@@ -71,7 +63,8 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => {
             width: dotActiveSize
         },
         stepButton: {
-            minWidth: 44
+            paddingHorizontal: 0,
+            width: hintPanelControlSize
         }
     };
 });
