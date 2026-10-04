@@ -751,8 +751,10 @@
                         ],
                         "ignoreFunctions": ["format", "cva"]
                     }
-                ]
-            }
+                ],
+                "react/todo": "error"
+            },
+            "plugins": ["react"]
         },
         {
             "files": ["**/*.{ts,tsx}"],
@@ -781,7 +783,7 @@
                 "react/react-in-jsx-scope": "off",
                 "react/require-render-return": "error",
                 "react/rules-of-hooks": "error",
-                "react/exhaustive-deps": "warn",
+                "react/exhaustive-deps": "error",
                 "@rnw-community/no-complex-jsx-logic": "error",
                 "react/forbid-component-props": "off",
                 "react/function-component-definition": "off",
@@ -811,13 +813,35 @@
                 "react/error-boundaries": "error",
                 "react/purity": "error",
                 "react/set-state-in-render": "error",
-                "react/unsupported-syntax": "warn"
+                "react/unsupported-syntax": "warn",
+                "react/hooks": "error",
+                "react/memo-dependencies": "error",
+                "react/void-use-memo": "error",
+                "react/no-deriving-state-in-effects": "error",
+                "react/no-multi-comp": "error",
+                "react/no-object-type-as-default-prop": "error",
+                "react/jsx-no-useless-fragment": "error",
+                "react/jsx-fragments": "error",
+                "react/jsx-boolean-value": "error",
+                "react/jsx-curly-brace-presence": "error",
+                "react/jsx-pascal-case": "error",
+                "react/no-clone-element": "error",
+                "react/no-namespace": "error",
+                "react/prefer-function-component": "error",
+                "react/no-this-in-sfc": "error",
+                "react/forward-ref-uses-ref": "error",
+                "react/only-export-components": [
+                    "error",
+                    {
+                        "allowExportNames": ["metadata", "viewport"]
+                    }
+                ]
             },
             "plugins": ["react"]
         },
         {
             "files": ["packages/field-dom/**/*.tsx", "packages/landing/**/*.tsx"],
-            "plugins": ["jsx-a11y"],
+            "plugins": ["jsx-a11y", "react"],
             "rules": {
                 "jsx-a11y/alt-text": "error",
                 "jsx-a11y/anchor-has-content": "error",
@@ -850,7 +874,11 @@
                 "jsx-a11y/role-has-required-aria-props": "error",
                 "jsx-a11y/role-supports-aria-props": "error",
                 "jsx-a11y/scope": "error",
-                "jsx-a11y/tabindex-no-positive": "error"
+                "jsx-a11y/tabindex-no-positive": "error",
+                "react/button-has-type": "error",
+                "react/iframe-missing-sandbox": "error",
+                "react/jsx-no-script-url": "error",
+                "react/checked-requires-onchange-or-readonly": "error"
             }
         },
         {

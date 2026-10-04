@@ -27,12 +27,12 @@ const TICK_STAGGER_MS = 10;
 const TICK_DURATION_MS = 240;
 
 interface Props {
-    readonly awayRanges?: ChallengeAwayRangeInterface[];
+    readonly awayRanges: ChallengeAwayRangeInterface[];
     readonly events: ChallengeTechniqueEventInterface[];
     readonly totalTime: number;
 }
 
-export const ChallengeTechniquePreview = ({ awayRanges = [], events, totalTime }: Props) => {
+export const ChallengeTechniquePreview = ({ awayRanges, events, totalTime }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
