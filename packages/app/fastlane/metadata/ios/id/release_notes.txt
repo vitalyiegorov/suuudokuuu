@@ -1,7 +1,8 @@
-Menerima tantangan teman di tengah permainan lain? Sekarang kemenanganmu dihitung sekali, lengkap dengan semua yang membuatnya milikmu.
+Petunjuk yang selalu membawamu maju, dan Neraka yang akhirnya pantas menyandang namanya.
 
-• Setiap kemenangan tantangan hanya tercatat sekali di riwayatmu, jadi statistikmu tetap jujur.
-• Teknik yang kamu pakai kembali tersimpan bersama permainannya.
-• Putar ulang langsung terbuka, langkah demi langkah.
-• Skormu pas, tanpa poin hantu.
-• Permainan yang tersimpan dua kali karena bug lama tidak lagi membuat aplikasi crash saat kamu membuka Putar ulang.
+• Setiap petunjuk kini berakhir dengan satu angka terisi. Tak ada lagi petunjuk yang hanya menunjuk catatan pensil dan membuatmu buntu.
+• Saat logikanya terlalu panjang, petunjuk menampilkan satu angka yang benar, bukan menyerah.
+• Kartu petunjuk lebih kecil dan berada tepat di bawah papan, jauh dari tepi bawah layar.
+• Neraka kini menjadi tantangan rantai paksa sejati, bukan sekadar papan dengan angka awal lebih sedikit.
+• Permainan dan progresmu tersimpan dengan cara yang lebih cepat dan kokoh.
+• Header layar kembali tampil dan bergulir dengan benar.

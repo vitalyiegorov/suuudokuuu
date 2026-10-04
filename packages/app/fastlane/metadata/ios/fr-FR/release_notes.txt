@@ -1,7 +1,8 @@
-Vous avez relevé le défi d'un ami en pleine partie ? Votre victoire compte désormais une seule fois, avec tout ce qui la rend unique.
+Des indices qui vous font toujours avancer, et un Enfer qui mérite enfin son nom.
 
-• Chaque victoire en défi n'apparaît qu'une fois dans votre historique : vos stats restent justes.
-• Les techniques utilisées sont de nouveau enregistrées avec la partie.
-• La relecture s'ouvre tout de suite, coup par coup.
-• Votre score tombe juste, sans points fantômes.
-• Les parties enregistrées deux fois par l'ancien bug ne font plus planter l'app à l'ouverture de la relecture.
+• Chaque indice se termine désormais par un chiffre placé. Fini les indices qui ne montrent que des annotations et vous laissent bloqué.
+• Quand la logique devient trop longue, l'indice révèle un chiffre correct au lieu de renoncer.
+• La carte d'indice est plus petite et se place juste sous la grille, loin du bas de l'écran.
+• Enfer est désormais un vrai défi de chaînes forcées, pas seulement une grille avec moins d'indices de départ.
+• Vos parties et votre progression sont enregistrées de façon plus rapide et plus robuste.
+• Les en-têtes d'écran s'affichent et défilent de nouveau correctement.

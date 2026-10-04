@@ -1,6 +1,6 @@
-Menerima tantangan di tengah permainan? Kemenanganmu dihitung sekali.
-Tak ada lagi kemenangan ganda di statistik.
-Teknikmu kembali tersimpan di setiap permainan.
-Putar ulang langsung terbuka.
-Skor kembali pas.
-Permainan ganda lama tidak lagi membuat Putar ulang crash.
+Setiap petunjuk kini berakhir dengan satu angka terisi, jadi kamu tak pernah buntu.
+Logika terlalu panjang? Petunjuk menampilkan satu angka yang benar.
+Kartu petunjuk lebih kecil, tepat di bawah papan.
+Neraka kini menjadi tantangan rantai paksa sejati.
+Penyimpanan permainan lebih cepat dan kokoh.
+Header layar diperbaiki.

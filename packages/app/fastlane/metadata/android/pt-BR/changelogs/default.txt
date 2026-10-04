@@ -1,6 +1,6 @@
-Aceitou um desafio no meio da partida? Sua vitória conta uma vez.
-Nada de vitórias duplicadas nas estatísticas.
-Suas técnicas voltam a ser salvas.
-A repetição abre na hora.
-A pontuação fecha certinho.
-Partidas duplicadas antigas não travam mais a repetição.
+Agora toda dica termina com um dígito colocado, então você nunca fica travado.
+Lógica longa? A dica revela um dígito correto.
+Cartão de dica menor, logo abaixo do tabuleiro.
+O Inferno agora é um verdadeiro desafio de cadeias forçadas.
+Salvamento das partidas mais rápido e robusto.
+Cabeçalhos das telas corrigidos.

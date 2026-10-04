@@ -1,6 +1,6 @@
-Accepted a challenge mid-game? Your win now counts once.
-No more doubled wins in your stats.
-Your techniques are saved with every game again.
-Replay opens straight away.
-Scores add up right.
-Old doubled games no longer crash Replay.
+Every hint now ends with a digit placed, so you never get stuck.
+Long logic? The hint reveals one correct digit instead.
+Smaller hint card, right under the board.
+Hell is now a true forcing-chain challenge.
+Faster, sturdier saving of your games.
+Screen headers fixed.

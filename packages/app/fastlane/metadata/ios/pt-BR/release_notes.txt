@@ -1,7 +1,8 @@
-Aceitou o desafio de um amigo no meio de outra partida? Agora sua vitória conta uma vez só e guarda tudo o que é seu.
+Dicas que sempre fazem você avançar, e um Inferno que finalmente faz jus ao nome.
 
-• Cada vitória em desafio aparece uma única vez no seu histórico, e suas estatísticas ficam certinhas.
-• As técnicas que você usou voltam a ser salvas com a partida.
-• A repetição abre na hora, jogada por jogada.
-• Sua pontuação fecha certinho, sem pontos fantasmas.
-• Partidas que o bug antigo salvou duas vezes não travam mais o app ao abrir a repetição.
+• Agora toda dica termina com um dígito colocado. Chega de dicas que só apontam para anotações a lápis e deixam você travado.
+• Quando a lógica fica longa demais, a dica revela um dígito correto em vez de desistir.
+• O cartão de dica ficou menor e fica logo abaixo do tabuleiro, longe da parte de baixo da tela.
+• O Inferno agora é um verdadeiro desafio de cadeias forçadas, não só um tabuleiro com menos pistas.
+• Suas partidas e seu progresso são salvos de um jeito mais rápido e robusto.
+• Os cabeçalhos das telas voltaram a ter a aparência e a rolagem certas.

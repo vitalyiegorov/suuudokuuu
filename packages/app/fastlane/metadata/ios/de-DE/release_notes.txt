@@ -1,7 +1,8 @@
-Mitten in einer Partie ein Duell angenommen? Dein Sieg zählt jetzt genau einmal – mit allem, was dazugehört.
+Hinweise, die dich immer weiterbringen, und eine Hölle, die ihren Namen endlich verdient.
 
-• Jeder Duell-Sieg landet nur einmal in deinem Verlauf, deine Statistik bleibt ehrlich.
-• Die Techniken, die du genutzt hast, werden wieder mit der Partie gespeichert.
-• Die Wiederholung öffnet sofort, Zug für Zug.
-• Deine Punkte stimmen – ohne Phantom-Bonus.
-• Partien, die der alte Fehler doppelt gespeichert hat, bringen die App beim Öffnen der Wiederholung nicht mehr zum Absturz.
+• Jeder Hinweis endet jetzt mit einer gesetzten Ziffer. Keine Hinweise mehr, die nur auf Notizen zeigen und dich festhängen lassen.
+• Wenn die Logik zu lang wird, verrät der Hinweis eine richtige Ziffer, statt aufzugeben.
+• Die Hinweiskarte ist kleiner und sitzt direkt unter dem Brett, weit weg vom unteren Bildschirmrand.
+• Hölle ist jetzt eine echte Forcing-Chain-Herausforderung, nicht nur ein Brett mit weniger Vorgaben.
+• Deine Partien und dein Fortschritt werden schneller und robuster gespeichert.
+• Bildschirmkopfzeilen sehen wieder richtig aus und scrollen richtig.

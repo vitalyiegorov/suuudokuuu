@@ -1,7 +1,8 @@
-¿Aceptaste el desafío de un amigo en plena partida? Ahora tu victoria cuenta una sola vez y conserva todo lo que la hace tuya.
+Sugerencias que siempre te hacen avanzar, y un Infierno que por fin hace honor a su nombre.
 
-• Cada victoria de desafío aparece una sola vez en tu historial, así tus estadísticas no mienten.
-• Las técnicas que usaste vuelven a guardarse con la partida.
-• La repetición se abre al instante, jugada a jugada.
-• Tu puntuación cuadra, sin puntos fantasma.
-• Las partidas que el error anterior guardó dos veces ya no cierran la app al abrir la repetición.
+• Ahora cada sugerencia termina con un dígito colocado. Se acabaron las sugerencias que solo señalan notas a lápiz y te dejan atascado.
+• Cuando la lógica se alarga demasiado, la sugerencia te revela un dígito correcto en lugar de rendirse.
+• La tarjeta de sugerencia es más pequeña y queda justo debajo del tablero, lejos del borde inferior de la pantalla.
+• Infierno es ahora un auténtico reto de cadenas forzadas, no solo un tablero con menos pistas.
+• Tus partidas y tu progreso se guardan de forma más rápida y robusta.
+• Las cabeceras de pantalla vuelven a verse y desplazarse como deben.
