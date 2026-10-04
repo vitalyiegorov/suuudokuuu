@@ -60,15 +60,24 @@ test('walks a hint from activation through stepping, applying and a later dismis
     await expect(progress).toHaveAttribute('aria-label', /Step 1 of \d+/u);
 
     const labelsBefore = await readCellLabels(page);
-    const hintedDigit = await page.getByTestId(HintStepNarrationSelectors.Value).textContent();
+    const nextButton = page.getByTestId(HintPanelSelectors.NextButton);
 
-    expect(hintedDigit).toMatch(/^[1-9]$/u);
-
-    await page.getByTestId(HintPanelSelectors.NextButton).click();
+    await nextButton.click();
     await expect(progress).toHaveAttribute('aria-label', /Step 2 of \d+/u);
 
     await page.getByTestId(HintPanelSelectors.BackButton).click();
     await expect(progress).toHaveAttribute('aria-label', /Step 1 of \d+/u);
+
+    const stepCount = Number(/of (?<count>\d+)$/u.exec((await progress.getAttribute('aria-label')) ?? '')?.groups?.['count']);
+
+    for (let step = 1; step < stepCount; step += 1) {
+        await nextButton.click();
+        await expect(progress).toHaveAttribute('aria-label', `Step ${step + 1} of ${stepCount}`);
+    }
+
+    const hintedDigit = await page.getByTestId(HintStepNarrationSelectors.Value).textContent();
+
+    expect(hintedDigit).toMatch(/^[1-9]$/u);
 
     await page.getByTestId(HintPanelSelectors.ApplyButton).click();
     await expect(hintPanel).not.toBeVisible();
@@ -102,7 +111,7 @@ test('chains a pointing pair into the hidden single it enables and places the di
 
     await expect(progress).toHaveAttribute('aria-label', 'Step 1 of 4');
     await expect(technique).toHaveText('Pointing Pair');
-    await expect(page.getByTestId(HintStepNarrationSelectors.Value)).toHaveText('4');
+    await expect(page.getByTestId(HintStepNarrationSelectors.Value)).toHaveCount(0);
 
     await nextButton.click();
     await expect(technique).toHaveText('Pointing Pair');
@@ -110,6 +119,7 @@ test('chains a pointing pair into the hidden single it enables and places the di
     await nextButton.click();
     await expect(progress).toHaveAttribute('aria-label', 'Step 3 of 4');
     await expect(technique).toHaveText('Hidden Single');
+    await expect(page.getByTestId(HintStepNarrationSelectors.Value)).toHaveText('4');
 
     await page.getByTestId(HintPanelSelectors.ApplyButton).click();
     await expect(hintPanel).not.toBeVisible();
