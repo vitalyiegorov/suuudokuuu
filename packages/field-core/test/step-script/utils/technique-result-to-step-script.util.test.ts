@@ -43,6 +43,18 @@ const pointingPairBoard = [
     '3.5286179'
 ];
 
+const hiddenPairBoard = [
+    '.691.7..8',
+    '..2.8...6',
+    '.8....1..',
+    '...7...32',
+    '.9...8...',
+    '..63..8..',
+    '.7...4...',
+    '....5..4.',
+    '5...76...'
+];
+
 const findResult = (board: string[], technique: SolutionTechniqueEnum): TechniqueResultInterface => {
     const sudoku = Sudoku.fromStrings({ ...defaultSudokuConfig }, ...board);
     const strategies = createTechniqueStrategies().filter(strategy => strategy.technique === technique);
@@ -127,6 +139,18 @@ describe('techniqueResultToStepScript', () => {
             narration: { technique: SolutionTechniqueEnum.PointingPair, cells: result.reasonCells, values: [result.value] }
         });
         expect(strikeStep.narration.cells).toEqual(result.eliminations.map(elimination => elimination.cell));
+    });
+
+    it('reveals the subset digits instead of the eliminated digits for a hidden subset', () => {
+        expect.assertions(3);
+
+        const result = findResult(hiddenPairBoard, SolutionTechniqueEnum.HiddenPair);
+        const [revealStep] = techniqueResultToStepScript(result).steps;
+        const eliminatedValues = result.eliminations.map(elimination => elimination.value);
+
+        expect(revealStep.narration.values).toEqual(result.patternValues);
+        expect(revealStep.narration.values).toHaveLength(2);
+        expect(revealStep.narration.values.some(value => eliminatedValues.includes(value))).toBe(false);
     });
 
     it('keeps a guess result playable as a placement script', () => {

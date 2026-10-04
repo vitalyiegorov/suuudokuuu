@@ -9,7 +9,7 @@ import type { CellInterface } from '@suuudokuuu/generator';
 import type { SolutionTechniqueEnum, TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const getPatternValues = (result: TechniqueResultInterface): number[] =>
-    isNotEmptyArray(result.eliminations) ? [...new Set(result.eliminations.map(elimination => elimination.value))] : [result.value];
+    result.patternValues ?? [...new Set(result.eliminations.map(elimination => elimination.value))];
 
 const createRevealStep = (
     technique: SolutionTechniqueEnum,

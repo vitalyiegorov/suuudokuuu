@@ -27,7 +27,12 @@ export class HiddenSubsetTechnique extends AbstractSizedTechnique {
                     const cells = positions.map(position => unitCells[position]);
                     const eliminations = this.getHiddenEliminations(context, cells, values);
 
-                    results.push(...createEliminationResults(this.technique, eliminations, cells));
+                    results.push(
+                        ...createEliminationResults(this.technique, eliminations, cells).map(result => ({
+                            ...result,
+                            patternValues: values
+                        }))
+                    );
                 }
             }
         }
