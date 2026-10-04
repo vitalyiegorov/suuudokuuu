@@ -37,7 +37,7 @@ export const ChallengeModeSwitch = () => {
     const pressed = useSharedValue(0);
 
     useEffect(() => {
-        progress.value = withTiming(isChallengeMode ? 1 : 0, { duration: colorDurationMs });
+        progress.set(withTiming(isChallengeMode ? 1 : 0, { duration: colorDurationMs }));
     }, [isChallengeMode, colorDurationMs, progress]);
 
     const handlePress = () => {
@@ -45,10 +45,10 @@ export const ChallengeModeSwitch = () => {
         void updateSettings({ lastGameChallengeMode: !isChallengeMode });
     };
     const handlePressIn = () => {
-        pressed.value = withTiming(1, { duration: pressDurationMs });
+        pressed.set(withTiming(1, { duration: pressDurationMs }));
     };
     const handlePressOut = () => {
-        pressed.value = withTiming(0, { duration: pressDurationMs });
+        pressed.set(withTiming(0, { duration: pressDurationMs }));
     };
 
     const chipAnimatedStyles = useAnimatedStyle(() => ({

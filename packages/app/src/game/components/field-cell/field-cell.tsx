@@ -99,13 +99,15 @@ export const FieldCell = (props: Props) => {
             return;
         }
 
-        successAnimation.value = withSequence(
-            withTiming(1, isMotionReduced ? successHoldConfig : successAnimationConfig),
-            withTiming(0, instantAnimationConfig, finished => {
-                if (finished) {
-                    scheduleOnRN(setIsSuccessPulsing, false);
-                }
-            })
+        successAnimation.set(
+            withSequence(
+                withTiming(1, isMotionReduced ? successHoldConfig : successAnimationConfig),
+                withTiming(0, instantAnimationConfig, finished => {
+                    if (finished) {
+                        scheduleOnRN(setIsSuccessPulsing, false);
+                    }
+                })
+            )
         );
     }, [successGeneration, isMotionReduced, successAnimation]);
 

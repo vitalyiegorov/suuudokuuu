@@ -33,15 +33,17 @@ export const HomeScreenStartButtonEmber = ({ children, color, isLoading, onPress
 
     useEffect(() => {
         if (!reduceMotion) {
-            entrance.value = withTiming(1, {
-                duration: HomeScreenStartButtonEmberEntranceDurationMs,
-                easing: Easing.bezier(
-                    HomeScreenStartButtonEmberEntranceEasingFirstX,
-                    HomeScreenStartButtonEmberEntranceEasingFirstY,
-                    HomeScreenStartButtonEmberEntranceEasingSecondX,
-                    HomeScreenStartButtonEmberEntranceEasingSecondY
-                )
-            });
+            entrance.set(
+                withTiming(1, {
+                    duration: HomeScreenStartButtonEmberEntranceDurationMs,
+                    easing: Easing.bezier(
+                        HomeScreenStartButtonEmberEntranceEasingFirstX,
+                        HomeScreenStartButtonEmberEntranceEasingFirstY,
+                        HomeScreenStartButtonEmberEntranceEasingSecondX,
+                        HomeScreenStartButtonEmberEntranceEasingSecondY
+                    )
+                })
+            );
         }
 
         return () => void cancelAnimation(entrance);

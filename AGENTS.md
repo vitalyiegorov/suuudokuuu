@@ -41,7 +41,7 @@ yarn format && yarn ts && yarn lint && yarn deadcode && yarn cpd
 
 Run `yarn test` when behavior, algorithms, serialization, persistence, scoring, or app flows change. Run package-specific tests when the blast radius is narrow.
 
-Tooling: `yarn lint` runs type-aware oxlint once over the whole repo from `.oxlintrc.json`; rules oxlint has no native port for run as oxlint JS plugins (ESLint plugins, plus local rules in `eslint-rules/`). `yarn format` runs oxfmt from `.oxfmtrc.json`, which also sorts imports and `package.json` files. `tsc` is native TypeScript 7 (`@typescript/native`); the `typescript` package name resolves to `@typescript/typescript6` so tools that load the compiler JS API keep working.
+Tooling: `yarn lint` runs type-aware oxlint once over the whole repo from `.oxlintrc.json`; React and React Compiler rules run natively (write Reanimated shared values with `.set()` so the compiler rules understand them), and rules oxlint has no native port for run as oxlint JS plugins (ESLint plugins, plus local rules in `eslint-rules/`). `yarn format` runs oxfmt from `.oxfmtrc.json`, which also sorts imports and `package.json` files. `tsc` is native TypeScript 7 (`@typescript/native`); the `typescript` package name resolves to `@typescript/typescript6` so tools that load the compiler JS API keep working.
 
 ## Structure
 

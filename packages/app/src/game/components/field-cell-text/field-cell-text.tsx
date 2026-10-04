@@ -72,13 +72,15 @@ export const FieldCellText = (props: Props) => {
             return;
         }
 
-        comboAnimation.value = withSequence(
-            withTiming(1, comboAnimationConfig),
-            withTiming(0, { duration: 0 }, finished => {
-                if (finished) {
-                    scheduleOnRN(setIsComboAnimating, false);
-                }
-            })
+        comboAnimation.set(
+            withSequence(
+                withTiming(1, comboAnimationConfig),
+                withTiming(0, { duration: 0 }, finished => {
+                    if (finished) {
+                        scheduleOnRN(setIsComboAnimating, false);
+                    }
+                })
+            )
         );
     }, [comboAnimationGeneration, isMotionReduced, comboAnimation]);
 

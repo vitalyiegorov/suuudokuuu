@@ -38,10 +38,10 @@ export const ChallengeRaceTimeline = ({ awayRanges, events, opponentProgress, pl
     const playerProgressValue = useSharedValue(playerProgress);
 
     useEffect(() => {
-        opponentProgressValue.value = withTiming(opponentProgress, { duration: progressDurationMs });
+        opponentProgressValue.set(withTiming(opponentProgress, { duration: progressDurationMs }));
     }, [opponentProgress, progressDurationMs, opponentProgressValue]);
     useEffect(() => {
-        playerProgressValue.value = withTiming(playerProgress, { duration: progressDurationMs });
+        playerProgressValue.set(withTiming(playerProgress, { duration: progressDurationMs }));
     }, [playerProgress, progressDurationMs, playerProgressValue]);
 
     const marks = getChallengeTimelineMarks(events, TICK_COUNT, totalTime).map(mark => ({ ...mark, isAway: false }));

@@ -30,7 +30,7 @@ export const AppToggle = ({ disabled = false, onValueChange, testID, value }: Pr
     useEffect(() => {
         const targetProgress = value ? 1 : 0;
 
-        progress.value = isReduceMotionEnabled ? targetProgress : withSpring(targetProgress, AppToggleSpringConfig);
+        progress.set(isReduceMotionEnabled ? targetProgress : withSpring(targetProgress, AppToggleSpringConfig));
     }, [value, isReduceMotionEnabled, progress]);
 
     const offColors = appToggleGetColors(theme, false);
@@ -43,12 +43,12 @@ export const AppToggle = ({ disabled = false, onValueChange, testID, value }: Pr
     };
     const handlePressIn = () => {
         if (!disabled) {
-            pressed.value = isReduceMotionEnabled ? 1 : withTiming(1, AppTogglePressTimingConfig);
+            pressed.set(isReduceMotionEnabled ? 1 : withTiming(1, AppTogglePressTimingConfig));
         }
     };
     const handlePressOut = () => {
         if (!disabled) {
-            pressed.value = isReduceMotionEnabled ? 0 : withTiming(0, AppTogglePressTimingConfig);
+            pressed.set(isReduceMotionEnabled ? 0 : withTiming(0, AppTogglePressTimingConfig));
         }
     };
 

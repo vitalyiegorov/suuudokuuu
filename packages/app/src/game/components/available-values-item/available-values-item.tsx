@@ -87,12 +87,14 @@ export const AvailableValuesItem = (props: Props) => {
     );
 
     const triggerAnimationFn = () => {
-        animated.value = isMotionReduced
-            ? withSequence(
-                  withTiming(1, InstantAnimationConfig),
-                  withDelay(ReducedMotionHoldDurationMs, withTiming(0, InstantAnimationConfig))
-              )
-            : withSequence(withTiming(1, PressAnimationConfig), withTiming(0, PressAnimationConfig));
+        animated.set(
+            isMotionReduced
+                ? withSequence(
+                      withTiming(1, InstantAnimationConfig),
+                      withDelay(ReducedMotionHoldDurationMs, withTiming(0, InstantAnimationConfig))
+                  )
+                : withSequence(withTiming(1, PressAnimationConfig), withTiming(0, PressAnimationConfig))
+        );
     };
 
     useImperativeHandle(ref, () => ({
