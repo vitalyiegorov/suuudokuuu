@@ -8,8 +8,9 @@ import type { StepScriptStepType } from '../types/step-script-step.type';
 import type { CellInterface } from '@suuudokuuu/generator';
 import type { SolutionTechniqueEnum, TechniqueResultInterface } from '@suuudokuuu/techniques';
 
-const getPatternValues = (result: TechniqueResultInterface): number[] =>
-    result.patternValues ?? [...new Set(result.eliminations.map(elimination => elimination.value))];
+const getPatternCandidates = (result: TechniqueResultInterface, patternCells: CellInterface[]): StepScriptCandidateInterface[] =>
+    result.patternCandidates?.map(({ cell, value }) => ({ cell, value })) ??
+    patternCells.flatMap(cell => [...new Set(result.eliminations.map(elimination => elimination.value))].map(value => ({ cell, value })));
 
 const createRevealStep = (
     technique: SolutionTechniqueEnum,
@@ -23,7 +24,7 @@ const createRevealStep = (
     narration: {
         technique,
         cells: patternCells,
-        values: [...new Set(candidates.map(candidate => candidate.value))],
+        values: [...new Set(candidates.map(candidate => candidate.value))].sort((left, right) => left - right),
         ...(isDefined(placement) && { placement })
     }
 });
@@ -49,9 +50,7 @@ export const techniqueResultToStepScript = (result: TechniqueResultInterface): S
     const eliminations = result.eliminations.map(elimination => ({ cell: elimination.cell, value: elimination.value }));
     const placement = { cell: result.cell, value: result.value };
     const hasPlacement = result.kind !== 'elimination';
-    const revealCandidates = hasPlacement
-        ? [placement]
-        : patternCells.flatMap(cell => getPatternValues(result).map(value => ({ cell, value })));
+    const revealCandidates = hasPlacement ? [placement] : getPatternCandidates(result, patternCells);
     const revealStep = hasPlacement
         ? createRevealStep(result.technique, patternCells, revealCandidates, placement)
         : createRevealStep(result.technique, patternCells, revealCandidates);

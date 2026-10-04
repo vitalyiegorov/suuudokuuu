@@ -55,6 +55,18 @@ const hiddenPairBoard = [
     '5...76...'
 ];
 
+const hiddenTripleBoard = [
+    '..34..67.',
+    '5.....34.',
+    '74.......',
+    '6..3....7',
+    '.87.....4',
+    '...7....1',
+    '2..6...5.',
+    '....98...',
+    '....41...'
+];
+
 const findResult = (board: string[], technique: SolutionTechniqueEnum): TechniqueResultInterface => {
     const sudoku = Sudoku.fromStrings({ ...defaultSudokuConfig }, ...board);
     const strategies = createTechniqueStrategies().filter(strategy => strategy.technique === technique);
@@ -148,9 +160,23 @@ describe('techniqueResultToStepScript', () => {
         const [revealStep] = techniqueResultToStepScript(result).steps;
         const eliminatedValues = result.eliminations.map(elimination => elimination.value);
 
-        expect(revealStep.narration.values).toEqual(result.patternValues);
         expect(revealStep.narration.values).toHaveLength(2);
+        expect(revealStep.narration.values).toEqual(revealStep.narration.values.toSorted((left, right) => left - right));
         expect(revealStep.narration.values.some(value => eliminatedValues.includes(value))).toBe(false);
+    });
+
+    it('reveals on each hidden subset cell only the subset digits that cell still holds', () => {
+        expect.assertions(2);
+
+        const result = findResult(hiddenTripleBoard, SolutionTechniqueEnum.HiddenTriple);
+        const [revealStep] = techniqueResultToStepScript(result).steps;
+        const revealedByCell =
+            revealStep.kind === StepScriptStepKindEnum.RevealCandidates
+                ? revealStep.candidates.map(({ cell, value }) => `${cell.y}-${cell.x}=${value}`)
+                : [];
+
+        expect(revealStep.narration.values).toEqual([1, 8, 9]);
+        expect(revealedByCell).toEqual(['1-3=1', '1-3=8', '1-3=9', '2-3=1', '2-3=8', '2-3=9', '4-3=1', '4-3=9']);
     });
 
     it('keeps a guess result playable as a placement script', () => {

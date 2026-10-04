@@ -30,7 +30,7 @@ export class HiddenSubsetTechnique extends AbstractSizedTechnique {
                     results.push(
                         ...createEliminationResults(this.technique, eliminations, cells).map(result => ({
                             ...result,
-                            patternValues: values
+                            patternCandidates: this.getPatternCandidates(context, cells, values)
                         }))
                     );
                 }
@@ -64,6 +64,15 @@ export class HiddenSubsetTechnique extends AbstractSizedTechnique {
         }
 
         return positions.length === this.size ? positions.sort((firstPosition, secondPosition) => firstPosition - secondPosition) : null;
+    }
+
+    private getPatternCandidates(context: CandidateContext, cells: CellInterface[], values: number[]): CandidateEliminationInterface[] {
+        return cells.flatMap(cell =>
+            context
+                .getCandidates(cell)
+                .filter(candidate => values.includes(candidate))
+                .map(value => ({ cell, value }))
+        );
     }
 
     private getHiddenEliminations(context: CandidateContext, cells: CellInterface[], values: number[]): CandidateEliminationInterface[] {
