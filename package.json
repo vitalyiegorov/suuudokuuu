@@ -40,6 +40,7 @@
         "@types/node": "^26.6.4",
         "@typescript-eslint/eslint-plugin": "^8.71.0",
         "@typescript-eslint/parser": "^8.71.0",
+        "@typescript/native": "npm:typescript@^7.0.2",
         "eslint": "^9.39.5",
         "eslint-plugin-lingui": "^0.16.0",
         "eslint-plugin-n": "^18.4.0",
@@ -53,7 +54,7 @@
         "oxlint": "^1.86.0",
         "oxlint-tsgolint": "^7.0.2003",
         "turbo": "^2.11.6",
-        "typescript": "^6.0.3"
+        "typescript": "npm:@typescript/typescript6@^6.0.2"
     },
     "resolutions": {
         "effect@4.0.0": "patch:effect@npm%3A4.0.0#./.yarn/patches/effect-npm-4.0.0-4324e86b02.patch"

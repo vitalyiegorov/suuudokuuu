@@ -11,6 +11,7 @@
         "@babel/core",
         "@lingui/cli",
         "@lingui/format-po",
+        "@typescript/native",
         "@expo/fingerprint",
         "babel-plugin-react-compiler",
         "eas-build-cache-provider",
