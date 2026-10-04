@@ -360,6 +360,12 @@ importers:
         specifier: workspace:*
         version: link:../techniques
     devDependencies:
+      '@suuudokuuu/hell-corpus':
+        specifier: workspace:*
+        version: link:../hell-corpus
+      '@suuudokuuu/solver-core':
+        specifier: workspace:*
+        version: link:../solver-core
       '@suuudokuuu/test-kit':
         specifier: workspace:*
         version: link:../../tests/test-kit

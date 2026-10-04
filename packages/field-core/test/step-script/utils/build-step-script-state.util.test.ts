@@ -26,7 +26,11 @@ const nakedPairScript: StepScriptInterface = {
             narration
         },
         { kind: StepScriptStepKindEnum.StrikeCandidates, eliminations: [{ cell: eliminationCell, value: 3 }], narration },
-        { kind: StepScriptStepKindEnum.PlaceValue, placement: { cell: placementCell, value: 5 }, narration }
+        {
+            kind: StepScriptStepKindEnum.PlaceValue,
+            placement: { cell: placementCell, value: 5 },
+            narration: { ...narration, placement: { cell: placementCell, value: 5 } }
+        }
     ]
 };
 
@@ -43,12 +47,13 @@ describe('buildStepScriptState', () => {
         expect(stepState.placedValues.size).toBe(0);
     });
 
-    it('exposes the pattern and the placement target from the reveal step', () => {
-        expect.assertions(3);
+    it('exposes the pattern from the reveal step and the target only from the placement step', () => {
+        expect.assertions(4);
 
         const stepState = buildStepScriptState(nakedPairScript, 0);
 
-        expect(stepState.targetCellKey).toBe('2-2');
+        expect(stepState.targetCellKey).toBeNull();
+        expect(buildStepScriptState(nakedPairScript, 2).targetCellKey).toBe('2-2');
         expect([...stepState.patternCellKeys]).toEqual(['0-0', '0-1']);
         expect(stepState.revealedCandidates.get('0-0')).toEqual([3, 7]);
     });

@@ -69,7 +69,7 @@ const collectPlacedValues = (steps: StepScriptStepType[]): ReadonlyMap<string, n
 
 export const buildStepScriptState = (stepScript: StepScriptInterface | null, stepIndex: number): StepScriptStateInterface => {
     const steps = isDefined(stepScript) ? stepScript.steps.slice(0, stepIndex + 1) : [];
-    const placement = stepScript?.placement;
+    const placement = steps.find(step => isDefined(step.narration.placement))?.narration.placement;
 
     return {
         patternCellKeys: collectPatternCellKeys(steps),
