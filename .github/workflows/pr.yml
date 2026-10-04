@@ -108,10 +108,13 @@ jobs:
             - name: Lint the PR Title
               run: printf '%s\n' "$PR_TITLE" | node_modules/.bin/commitlint
 
+            - name: Formatting checks
+              run: yarn format:check
+
             - name: Typescript checks
               run: yarn ts
 
-            - name: ESLint checks
+            - name: Lint checks
               run: yarn lint
 
             - name: Deadcode detection
