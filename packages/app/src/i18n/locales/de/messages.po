@@ -86,6 +86,10 @@ msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}
 msgstr "{streak, plural, one {Tagesrätsel in Folge gelöst} other {Tagesrätsel in Folge gelöst}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
+msgstr "{techniqueName}: {value} folgt aus einer fortgeschrittenen Schlusskette, deshalb setzt der Hinweis die Ziffer für dich."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
 msgstr "{techniqueName}: im markierten Block passt {value} nur in die markierte Zelle."
 
@@ -172,6 +176,10 @@ msgstr "Größe der Zahlen auf dem Sudoku-Brett anpassen"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "Fortgeschritten"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Advanced chain"
+msgstr "Fortgeschrittene Kette"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1113,10 +1121,6 @@ msgstr "Egal wie viele Abzüge es gibt, du bekommst mindestens"
 msgid "no pause"
 msgstr "keine Pause"
 
-#: src/game/components/hint-button/hint-button.tsx
-msgid "No simple technique applies"
-msgstr "Keine einfache Technik anwendbar"
-
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "Noch keine Lösungen. Das heutige Sudoku wartet."
@@ -1162,7 +1166,6 @@ msgstr "einer Platzierung"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "Hinweise auch in Rätseln der Stufen Albtraum, Hölle und Unendlich anbieten"
 
-#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
@@ -1822,10 +1825,6 @@ msgstr "Themenname"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Dieses Feld hat diesmal nicht geklappt. Der Kampf für die Freiheit in der Ukraine geht weiter. Jeder 1-$-Beitrag macht einen Unterschied."
-
-#: src/game/components/hint-button/hint-button.tsx
-msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
-msgstr "Diese Stellung erfordert Ketten oder Ausprobieren, daher gibt es keinen einfachen logischen Schritt zu zeigen. Es wurde nichts aufgedeckt und es wurden keine Punkte abgezogen."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

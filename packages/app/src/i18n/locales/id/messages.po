@@ -84,6 +84,10 @@ msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}
 msgstr "{streak, plural, one {tantangan harian terpecahkan berturut-turut} other {tantangan harian terpecahkan berturut-turut}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
+msgstr "{techniqueName}: {value} berasal dari rantai penalaran tingkat lanjut, jadi petunjuk menempatkannya untukmu."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
 msgstr "{techniqueName}: di kotak yang disorot, {value} hanya muat di sel yang ditandai."
 
@@ -170,6 +174,10 @@ msgstr "Atur angka di papan Sudoku"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "Mahir"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Advanced chain"
+msgstr "Rantai lanjutan"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1111,10 +1119,6 @@ msgstr "Berapa pun penaltinya, kamu selalu mendapat setidaknya"
 msgid "no pause"
 msgstr "tanpa jeda"
 
-#: src/game/components/hint-button/hint-button.tsx
-msgid "No simple technique applies"
-msgstr "Tidak ada teknik sederhana yang cocok"
-
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "Belum ada solusi. Sudoku hari ini menunggu."
@@ -1160,7 +1164,6 @@ msgstr "dari satu penempatan"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "Tawarkan petunjuk juga di sudoku Mimpi buruk, Neraka, dan Tak Terhingga"
 
-#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
@@ -1820,10 +1823,6 @@ msgstr "Nama tema"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Papan ini belum selesai kali ini. Perjuangan untuk kebebasan di Ukraina terus berlanjut. Setiap donasi $1 berarti."
-
-#: src/game/components/hint-button/hint-button.tsx
-msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
-msgstr "Posisi ini butuh rantai atau coba-coba, jadi tidak ada langkah logis sederhana yang bisa diajarkan. Tidak ada yang dibuka dan skor tidak dikurangi."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

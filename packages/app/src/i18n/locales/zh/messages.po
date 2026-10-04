@@ -84,6 +84,10 @@ msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}
 msgstr "{streak, plural, other {连续完成的每日挑战}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
+msgstr "{techniqueName}:{value} 来自一条高级推理链,因此提示直接为你填入。"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
 msgstr "{techniqueName}:在突出显示的宫中，{value} 只能填入标记的单元格。"
 
@@ -170,6 +174,10 @@ msgstr "调整数独棋盘上的数字大小"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "高级"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Advanced chain"
+msgstr "高级链"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1111,10 +1119,6 @@ msgstr "无论有多少惩罚，你至少都会获得"
 msgid "no pause"
 msgstr "无暂停"
 
-#: src/game/components/hint-button/hint-button.tsx
-msgid "No simple technique applies"
-msgstr "没有适用的简单技巧"
-
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "还没有解答。今日数独等着你来挑战。"
@@ -1160,7 +1164,6 @@ msgstr "一次填入的"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "在噩梦、地狱和无限难度的数独中也提供提示"
 
-#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
@@ -1820,10 +1823,6 @@ msgstr "主题名称"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "这次未能完成棋盘。乌克兰争取自由的战斗仍在继续。每 1 美元捐款都有意义。"
-
-#: src/game/components/hint-button/hint-button.tsx
-msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
-msgstr "这个局面需要链或试错，没有简单的逻辑步骤可讲解。未揭示任何内容，也没有扣分。"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

@@ -5,7 +5,6 @@ import { use } from 'react';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { Alert } from '../../../@generic/components/alert/alert';
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
@@ -32,17 +31,9 @@ export const HintButton = ({ sizeStyle }: Props) => {
     const handleHint = () => {
         const stepScript = findHintStepScript(engine.Sudoku);
 
-        if (!isDefined(stepScript)) {
-            Alert(
-                t`No simple technique applies`,
-                t`This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted.`,
-                [{ text: t`OK` }]
-            );
-
-            return;
+        if (isDefined(stepScript)) {
+            engine.startStepScript(stepScript);
         }
-
-        engine.startStepScript(stepScript);
     };
 
     const isDisabled = isDefined(snapshot.stepScript) || snapshot.isWon;

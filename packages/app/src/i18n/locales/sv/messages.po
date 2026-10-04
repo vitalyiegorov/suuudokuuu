@@ -84,6 +84,10 @@ msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}
 msgstr "{streak, plural, one {daglig lösning i rad} other {dagliga lösningar i rad}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
+msgstr "{techniqueName}: {value} följer av en avancerad slutledningskedja, så ledtråden placerar den åt dig."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
 msgstr "{techniqueName}: i den markerade 3\\u00d73-rutan passar {value} bara i den markerade cellen."
 
@@ -170,6 +174,10 @@ msgstr "Justera siffrorna på sudokubrädet"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "Avancerad"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Advanced chain"
+msgstr "Avancerad kedja"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1111,10 +1119,6 @@ msgstr "Oavsett straff får du alltid minst"
 msgid "no pause"
 msgstr "ingen paus"
 
-#: src/game/components/hint-button/hint-button.tsx
-msgid "No simple technique applies"
-msgstr "Ingen enkel teknik fungerar"
-
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "Inga lösningar än. Dagens sudoku väntar."
@@ -1160,7 +1164,6 @@ msgstr "av en placering"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "Erbjud ledtrådar även i sudokun på Mardröm, Helvete och Oändlighet"
 
-#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
@@ -1820,10 +1823,6 @@ msgstr "Temanamn"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Det här brädet blev inte klart den här gången. Kampen för frihet i Ukraina fortsätter. Varje donation på 1 $ gör skillnad."
-
-#: src/game/components/hint-button/hint-button.tsx
-msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
-msgstr "Den här ställningen kräver kedjor eller gissning, så det finns inget enkelt logiskt steg att visa. Inget avslöjades och inga poäng drogs av."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

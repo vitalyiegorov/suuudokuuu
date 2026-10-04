@@ -86,6 +86,10 @@ msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}
 msgstr "{streak, plural, one {daily solve in a row} other {daily solves in a row}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
+msgstr "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
 msgstr "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
 
@@ -172,6 +176,10 @@ msgstr "Adjust the digits on the Sudoku board"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "Advanced"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Advanced chain"
+msgstr "Advanced chain"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1113,10 +1121,6 @@ msgstr "No matter how many penalties, you always earn at least"
 msgid "no pause"
 msgstr "no pause"
 
-#: src/game/components/hint-button/hint-button.tsx
-msgid "No simple technique applies"
-msgstr "No simple technique applies"
-
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "No solves yet. Today’s puzzle is waiting."
@@ -1162,7 +1166,6 @@ msgstr "of one placement"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 
-#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
@@ -1822,10 +1825,6 @@ msgstr "Theme name"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
-
-#: src/game/components/hint-button/hint-button.tsx
-msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
-msgstr "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

@@ -86,6 +86,10 @@ msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}
 msgstr "{streak, plural, one {щоденний розв’язок поспіль} few {щоденні розв’язки поспіль} many {щоденних розв’язків поспіль} other {щоденного розв’язку поспіль}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
+msgstr "{techniqueName}: цифра {value} випливає зі складного ланцюга міркувань, тож підказка ставить її за тебе."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
 msgstr "{techniqueName}: у підсвіченому блоці цифра {value} може стояти лише в позначеній клітинці."
 
@@ -172,6 +176,10 @@ msgstr "Налаштуйте цифри на дошці судоку"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "Просунутий"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Advanced chain"
+msgstr "Складний ланцюг"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1113,10 +1121,6 @@ msgstr "Попри штрафи, ти завжди отримуєш щонайм
 msgid "no pause"
 msgstr "без паузи"
 
-#: src/game/components/hint-button/hint-button.tsx
-msgid "No simple technique applies"
-msgstr "Простих технік немає"
-
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "Ще жодного розв'язання. Сьогоднішнє судоку чекає."
@@ -1162,7 +1166,6 @@ msgstr "від одного розміщення"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "Пропонувати підказки також у судоку рівнів Кошмар, Пекло і Нескінченність"
 
-#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
@@ -1822,10 +1825,6 @@ msgstr "Назва теми"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Цю дошку цього разу не завершено. Боротьба за свободу в Україні триває. Кожен донат у 1 $ має значення."
-
-#: src/game/components/hint-button/hint-button.tsx
-msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
-msgstr "Ця позиція потребує ланцюгів або перебору, тож простого логічного кроку тут немає. Нічого не відкрито й балів не знято."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

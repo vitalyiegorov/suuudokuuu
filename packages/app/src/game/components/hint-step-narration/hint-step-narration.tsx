@@ -1,4 +1,5 @@
-import { useLingui } from '@lingui/react';
+import { useLingui } from '@lingui/react/macro';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { use, useEffect } from 'react';
 import { AccessibilityInfo, View } from 'react-native';
 
@@ -22,11 +23,14 @@ interface Props {
 }
 
 export const HintStepNarration = ({ isRoomyLayout, lineCount, step, value }: Props) => {
-    const { _ } = useLingui();
+    const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const techniqueName = _(techniqueLabelsConstant[step.narration.technique]);
-    const narrationText = _(gameGetStepNarration(step, techniqueName));
+    const techniqueName =
+        step.narration.technique === SolutionTechniqueEnum.Guess
+            ? t`Advanced chain`
+            : i18n._(techniqueLabelsConstant[step.narration.technique]);
+    const narrationText = i18n._(gameGetStepNarration(step, techniqueName));
 
     const techniqueStyles = [styles.technique(isRoomyLayout), { color: theme.colors.text.hint }];
     const narrationStyles = [styles.narration(isRoomyLayout), { color: theme.colors.surface.raisedText }];
