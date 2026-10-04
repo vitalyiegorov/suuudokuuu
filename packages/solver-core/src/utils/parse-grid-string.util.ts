@@ -8,5 +8,5 @@ export const parseGridString = (value: string): Uint8Array => {
         throw new Error(`Grid string must contain exactly ${GRID_CELL_COUNT} digits`);
     }
 
-    return Uint8Array.from(value, character => Number(character));
+    return Uint8Array.from(value, Number);
 };

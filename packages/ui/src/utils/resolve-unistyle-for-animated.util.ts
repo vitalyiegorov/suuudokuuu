@@ -1,8 +1,11 @@
-export const resolveUnistyleForAnimated = <StyleType extends object>(style: StyleType): Partial<StyleType> =>
-    Object.getOwnPropertyNames(style).reduce<Partial<StyleType>>((resolvedStyle, propertyName) => {
-        if (propertyName.startsWith('unistyles_')) {
-            return resolvedStyle;
-        }
+export const resolveUnistyleForAnimated = <StyleType extends object>(style: StyleType): Partial<StyleType> => {
+    const resolvedStyle: Partial<StyleType> = {};
 
-        return { ...resolvedStyle, [propertyName]: Reflect.get(style, propertyName) };
-    }, {});
+    for (const propertyName of Object.getOwnPropertyNames(style)) {
+        if (!propertyName.startsWith('unistyles_')) {
+            Reflect.set(resolvedStyle, propertyName, Reflect.get(style, propertyName));
+        }
+    }
+
+    return resolvedStyle;
+};

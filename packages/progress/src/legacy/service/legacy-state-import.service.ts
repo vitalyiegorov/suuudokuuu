@@ -57,20 +57,22 @@ export class LegacyStateImportService extends Context.Service<LegacyStateImportS
                     return;
                 }
 
-                const { game, settings, customThemes } = Object.keys(migrations)
+                const pendingVersions = Object.keys(migrations)
                     .map(Number)
                     .filter(version => version > inboundVersion && version <= LegacyPersistVersion)
-                    .sort((firstVersion, secondVersion) => firstVersion - secondVersion)
-                    .reduce<Partial<LegacyRootStateInterface>>(
-                        (state, version) =>
-                            migrations[version]({
-                                game: legacyInitialGameState,
-                                settings: initialSettings,
-                                customThemes: { themes: [] },
-                                ...state
-                            }),
-                        slices
-                    );
+                    .sort((firstVersion, secondVersion) => firstVersion - secondVersion);
+                let migratedState: Partial<LegacyRootStateInterface> = slices;
+
+                for (const version of pendingVersions) {
+                    migratedState = migrations[version]({
+                        game: legacyInitialGameState,
+                        settings: initialSettings,
+                        customThemes: { themes: [] },
+                        ...migratedState
+                    });
+                }
+
+                const { game, settings, customThemes } = migratedState;
                 const gameState = { ...legacyInitialGameState, ...game };
                 const histories = Object.values(gameState.historyByDifficulty).filter(history => isDifficulty(history.difficulty));
 

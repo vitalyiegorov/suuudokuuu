@@ -21,7 +21,7 @@ const createResponseHeaders = (isSuccess: boolean) => {
 };
 
 export const createBetaJsonResponse = (body: unknown, status: number, isSuccess = false) =>
-    new Response(JSON.stringify(body), {
+    Response.json(body, {
         headers: { ...createResponseHeaders(isSuccess), 'Content-Type': BetaJsonContentType },
         status
     });

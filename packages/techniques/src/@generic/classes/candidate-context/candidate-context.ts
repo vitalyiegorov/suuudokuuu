@@ -168,7 +168,7 @@ export class CandidateContext {
     }
 
     private getCachedCells(): CellInterface[] {
-        this.cachedCells ??= this.field.flatMap(row => row);
+        this.cachedCells ??= this.field.flat();
 
         return this.cachedCells;
     }
