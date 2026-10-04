@@ -25,6 +25,10 @@
         {
             "name": "suuudokuuu",
             "specifier": "./eslint-rules/suuudokuuu.mjs"
+        },
+        {
+            "name": "eslint-react",
+            "specifier": "@eslint-react/eslint-plugin"
         }
     ],
     "categories": {
@@ -835,7 +839,20 @@
                     {
                         "allowExportNames": ["metadata", "viewport"]
                     }
-                ]
+                ],
+                "eslint-react/no-context-provider": "error",
+                "eslint-react/no-forward-ref": "error",
+                "eslint-react/no-use-context": "error",
+                "eslint-react/use-state": "error",
+                "eslint-react/no-nested-lazy-component-declarations": "error",
+                "eslint-react/jsx-no-key-after-spread": "error",
+                "eslint-react/jsx-no-leaked-dollar": "error",
+                "eslint-react/jsx-no-leaked-semicolon": "error",
+                "eslint-react/web-api-no-leaked-event-listener": "error",
+                "eslint-react/web-api-no-leaked-fetch": "error",
+                "eslint-react/web-api-no-leaked-intersection-observer": "error",
+                "eslint-react/web-api-no-leaked-interval": "error",
+                "eslint-react/web-api-no-leaked-resize-observer": "error"
             },
             "plugins": ["react"]
         },
