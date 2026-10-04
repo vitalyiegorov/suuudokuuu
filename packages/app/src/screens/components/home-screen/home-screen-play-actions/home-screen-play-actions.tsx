@@ -1,39 +1,26 @@
-import { use } from 'react';
+import { DifficultyEnum } from '@suuudokuuu/generator';
+import { type ReactNode, use } from 'react';
 import { View } from 'react-native';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../../theme/context/theme.context';
-import { HomeScreenContinueRow } from '../home-screen-continue-row/home-screen-continue-row';
 import { HomeScreenStartButton } from '../home-screen-start-button/home-screen-start-button';
 import { HomeScreenSelectors } from '../home-screen.selectors';
 import { HomeScreenStyles as styles } from '../home-screen.styles';
 
 interface Props {
-    readonly currentElapsedTimeText: string;
-    readonly currentProgressPercent: number;
-    readonly currentProgressText: string;
-    readonly isGameStarted: boolean;
-    readonly isHellSelected: boolean;
-    readonly isInfinitySelected: boolean;
+    readonly children?: ReactNode;
+    readonly difficulty: DifficultyEnum;
     readonly isLoading: boolean;
     readonly onStart: () => void;
     readonly startButtonSubtitle: string;
     readonly startButtonText: string;
 }
 
-export const HomeScreenPlayActions = ({
-    currentElapsedTimeText,
-    currentProgressPercent,
-    currentProgressText,
-    isGameStarted,
-    isHellSelected,
-    isInfinitySelected,
-    isLoading,
-    onStart,
-    startButtonSubtitle,
-    startButtonText
-}: Props) => {
+export const HomeScreenPlayActions = ({ children, difficulty, isLoading, onStart, startButtonSubtitle, startButtonText }: Props) => {
     const { theme } = use(ThemeContext);
+    const isHellSelected = difficulty === DifficultyEnum.Hell;
+    const isInfinitySelected = difficulty === DifficultyEnum.Infinity;
     const isSpecialTierSelected = isHellSelected || isInfinitySelected;
     const specialButtonColor = isHellSelected ? theme.colors.danger : theme.colors.board.selected;
     const startButtonColor = isSpecialTierSelected ? specialButtonColor : null;
@@ -44,13 +31,7 @@ export const HomeScreenPlayActions = ({
 
     return (
         <View style={styles.playActions}>
-            {isGameStarted ? (
-                <HomeScreenContinueRow
-                    currentElapsedTimeText={currentElapsedTimeText}
-                    currentProgressPercent={currentProgressPercent}
-                    currentProgressText={currentProgressText}
-                />
-            ) : null}
+            {children}
 
             <HomeScreenStartButton
                 color={startButtonColor}

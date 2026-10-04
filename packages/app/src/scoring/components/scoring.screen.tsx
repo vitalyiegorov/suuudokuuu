@@ -24,7 +24,6 @@ export const ScoringScreen = () => {
     return (
         <CollapsibleChromePage
             contentContainerStyle={resolveUnistyleForAnimated(styles.scrollViewContent)}
-            contentStyle={styles.content}
             style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={ScoringScreenSelectors.Root}
             title={t`How Scoring Works`}

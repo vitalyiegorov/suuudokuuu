@@ -13,6 +13,7 @@ import {
     ChromeScrollPageTopFadeHeight
 } from '../../constants/chrome-scroll-page.constant';
 import { ChromePage } from '../chrome-page/chrome-page';
+import { StickyFooterBand } from '../sticky-footer-band/sticky-footer-band';
 
 import { ChromeScrollPageStyles as styles } from './chrome-scroll-page.styles';
 
@@ -36,19 +37,16 @@ export const ChromeScrollPage = ({ children, footer, testID }: Props) => {
     const bandClearanceInset = ChromeScrollPageTopFadeHeight - ChromeScrollPageContentTuck - insets.top;
     const contentInsetTop = Math.max(ChromeScrollPageContentInsetTop, bandClearanceInset);
     const footerReserve = Math.max(ChromeScrollPageFooterMinReserve, footerHeight + insets.bottom + ChromeScrollPageFooterExtraReserve);
-    const footerNode = <View onLayout={handleFooterLayout}>{footer}</View>;
     const footerEdgeFadeProps = { height: footerReserve - insets.bottom, intensity: ChromeScrollPageFooterFadeIntensity };
     const topEdgeFadeProps = { height: ChromeScrollPageTopFadeHeight };
+    const footerBand = (
+        <StickyFooterBand contentStyle={styles.footer} edgeFadeProps={footerEdgeFadeProps}>
+            <View onLayout={handleFooterLayout}>{footer}</View>
+        </StickyFooterBand>
+    );
 
     return (
-        <ChromePage
-            contentStyle={styles.chromeContent}
-            footer={footerNode}
-            footerEdgeFadeProps={footerEdgeFadeProps}
-            footerStyle={styles.footer}
-            testID={testID}
-            topEdgeFadeProps={topEdgeFadeProps}
-        >
+        <ChromePage contentStyle={styles.chromeContent} footer={footerBand} testID={testID} topEdgeFadeProps={topEdgeFadeProps}>
             <ScreenChromeScrollView
                 contentContainerStyle={styles.scrollContent}
                 contentInsetBottom={footerReserve}

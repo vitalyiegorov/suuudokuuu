@@ -28,7 +28,7 @@
         },
         {
             "name": "suuudokuuu",
-            "specifier": "./eslint-rules/enum-member-case.mjs"
+            "specifier": "./eslint-rules/suuudokuuu.mjs"
         }
     ],
     "categories": {
@@ -529,6 +529,12 @@
                             "decorated-method",
                             "method"
                         ]
+                    }
+                ],
+                "suuudokuuu/max-component-props": [
+                    "error",
+                    {
+                        "max": 6
                     }
                 ]
             },

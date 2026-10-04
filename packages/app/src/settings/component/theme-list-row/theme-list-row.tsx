@@ -1,31 +1,27 @@
-import { AppButton, AppSettingsRow } from '@suuudokuuu/ui';
+import { AppSettingsRow } from '@suuudokuuu/ui';
 import Check from 'lucide-react-native/icons/check';
-import Pencil from 'lucide-react-native/icons/pencil';
 import { use } from 'react';
 import { Pressable, View } from 'react-native';
-
-import { isDefined } from '@rnw-community/shared';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { ThemeListRowStyles as styles } from './theme-list-row.styles';
 
 import type { OnEventFn } from '@rnw-community/shared';
+import type { ReactNode } from 'react';
 
 interface Props {
+    readonly children?: ReactNode;
     readonly description?: string;
-    readonly editAccessibilityLabel: string;
     readonly isSelected: boolean;
-    readonly onEdit?: OnEventFn;
     readonly onPress: OnEventFn;
     readonly testID?: string;
     readonly title: string;
 }
 
-export const ThemeListRow = ({ description, editAccessibilityLabel, isSelected, onEdit, onPress, testID, title }: Props) => {
+export const ThemeListRow = ({ children, description, isSelected, onPress, testID, title }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const hasEditAction = isDefined(onEdit);
     const accessibilityState = { selected: isSelected };
     const rowBorderColor = isSelected ? theme.colors.text.primary : theme.colors.surface.border;
     const rowStyle = { borderColor: rowBorderColor, borderWidth: 2 };
@@ -35,9 +31,7 @@ export const ThemeListRow = ({ description, editAccessibilityLabel, isSelected, 
             <View style={styles.checkSlot}>
                 {isSelected && <Check color={theme.colors.surface.subtleText} height={22} strokeWidth={2.25} width={22} />}
             </View>
-            {hasEditAction && (
-                <AppButton accessibilityLabel={editAccessibilityLabel} icon={Pencil} onPress={onEdit} size="compact" variant="secondary" />
-            )}
+            {children}
         </View>
     );
 

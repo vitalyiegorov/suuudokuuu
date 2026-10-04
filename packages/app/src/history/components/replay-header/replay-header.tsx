@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
+import { AppMetricStrip, AppMetricStripItem, AppMetricStripValueItem } from '@suuudokuuu/ui';
 import { MetricMinimumFontScaleConstant } from '@suuudokuuu/ui/theme';
 import { router } from 'expo-router';
 import { Pressable, Text } from 'react-native';
@@ -34,7 +34,7 @@ export const ReplayHeader = ({ game }: Props) => {
     };
 
     const levelItem = hasRating ? (
-        <AppMetricStripItem label={t`Level`} labelStyle={styles.label} style={styles.item} valueStyle={styles.value}>
+        <AppMetricStripItem label={t`Level`} labelStyle={styles.label} style={styles.item}>
             <Pressable accessibilityRole="button" onPress={handlePressLevel} testID={ReplayHeaderSelectors.Level}>
                 <Text
                     adjustsFontSizeToFit
@@ -48,7 +48,7 @@ export const ReplayHeader = ({ game }: Props) => {
             </Pressable>
         </AppMetricStripItem>
     ) : (
-        <AppMetricStripItem
+        <AppMetricStripValueItem
             label={t`Level`}
             labelStyle={styles.label}
             style={styles.item}
@@ -61,21 +61,21 @@ export const ReplayHeader = ({ game }: Props) => {
     return (
         <AppMetricStrip separatorStyle={styles.separator} style={styles.container} variant="ghost">
             {levelItem}
-            <AppMetricStripItem
+            <AppMetricStripValueItem
                 label={t`Score`}
                 labelStyle={styles.label}
                 style={styles.item}
                 value={String(game.score)}
                 valueStyle={styles.value}
             />
-            <AppMetricStripItem
+            <AppMetricStripValueItem
                 label={t`Mistakes`}
                 labelStyle={styles.label}
                 style={styles.item}
                 value={mistakesValue}
                 valueStyle={styles.value}
             />
-            <AppMetricStripItem
+            <AppMetricStripValueItem
                 label={t`Time`}
                 labelStyle={styles.label}
                 style={styles.item}

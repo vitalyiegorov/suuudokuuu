@@ -6,6 +6,8 @@ import { use } from 'react';
 import { isNotEmptyArray } from '@rnw-community/shared';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
+import { StickyFooterBand } from '../../../@generic/components/sticky-footer-band/sticky-footer-band';
+import { ThemeListRowEditButton } from '../../../settings/component/theme-list-row-edit-button/theme-list-row-edit-button';
 import { ThemeListRow } from '../../../settings/component/theme-list-row/theme-list-row';
 import { useSettingsOptionDescriptions } from '../../../settings/hooks/use-settings-option-descriptions.hook';
 import { useSettingsOptionLabels } from '../../../settings/hooks/use-settings-option-labels.hook';
@@ -29,14 +31,16 @@ export const ThemesScreen = () => {
         router.push({ pathname: '/settings/themes/editor', params: { sourceThemeId: activeThemeId } });
     };
 
-    const footer = <AppButton onPress={handleCreate} size="large" testID={ThemesScreenSelectors.CreateButton} text={t`Create theme`} />;
+    const footer = (
+        <StickyFooterBand contentStyle={styles.footer}>
+            <AppButton onPress={handleCreate} size="large" testID={ThemesScreenSelectors.CreateButton} text={t`Create theme`} />
+        </StickyFooterBand>
+    );
 
     return (
         <CollapsibleChromePage
             contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
-            contentStyle={styles.content}
             footer={footer}
-            footerStyle={styles.footer}
             style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={ThemesScreenSelectors.Root}
             title={t`Theme`}
@@ -51,13 +55,13 @@ export const ThemesScreen = () => {
                     return (
                         <ThemeListRow
                             description={getThemeDescription(presetTheme)}
-                            editAccessibilityLabel={t`Customize`}
                             isSelected={isPresetSelected}
                             key={presetTheme}
-                            onEdit={handlePresetEdit}
                             onPress={handlePresetPress}
                             title={getThemeLabel(presetTheme)}
-                        />
+                        >
+                            <ThemeListRowEditButton accessibilityLabel={t`Customize`} onPress={handlePresetEdit} />
+                        </ThemeListRow>
                     );
                 })}
             </AppSettingsSection>
@@ -72,13 +76,13 @@ export const ThemesScreen = () => {
 
                         return (
                             <ThemeListRow
-                                editAccessibilityLabel={t`Edit`}
                                 isSelected={isCustomThemeSelected}
                                 key={customTheme.id}
-                                onEdit={handleCustomThemeEdit}
                                 onPress={handleCustomThemePress}
                                 title={customTheme.name}
-                            />
+                            >
+                                <ThemeListRowEditButton accessibilityLabel={t`Edit`} onPress={handleCustomThemeEdit} />
+                            </ThemeListRow>
                         );
                     })}
                 </AppSettingsSection>

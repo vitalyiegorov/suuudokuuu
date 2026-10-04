@@ -24,7 +24,6 @@ export const SettingsScreen = () => {
     return (
         <CollapsibleChromePage
             contentContainerStyle={resolveUnistyleForAnimated(styles.scrollViewContent)}
-            contentStyle={styles.content}
             style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={SettingsScreenSelectors.Root}
             title={t`Settings`}

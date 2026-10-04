@@ -12,6 +12,7 @@ import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
+import { StickyFooterBand } from '../../../@generic/components/sticky-footer-band/sticky-footer-band';
 import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { ThemeEditorColorRow } from '../../../settings/component/theme-editor-color-row/theme-editor-color-row';
 import { ThemeEditorColorSheet } from '../../../settings/component/theme-editor-color-sheet/theme-editor-color-sheet';
@@ -171,7 +172,7 @@ export const ThemeEditorScreen = () => {
     const lightVariantButtonVariant = variant === ColorSchemaEnum.Light ? 'primary' : 'secondary';
     const darkVariantButtonVariant = variant === ColorSchemaEnum.Dark ? 'primary' : 'secondary';
     const footer = (
-        <>
+        <StickyFooterBand contentStyle={styles.footer}>
             <AppButton accessibilityLabel={t`Reset`} icon={RotateCcw} onPress={handleReset} size="large" variant="secondary" />
             <AppButton
                 onPress={handleSave}
@@ -180,15 +181,13 @@ export const ThemeEditorScreen = () => {
                 testID={ThemeEditorScreenSelectors.SaveButton}
                 text={t`Save`}
             />
-        </>
+        </StickyFooterBand>
     );
 
     return (
         <CollapsibleChromePage
             contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
-            contentStyle={styles.content}
             footer={footer}
-            footerStyle={styles.footer}
             style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={ThemeEditorScreenSelectors.Root}
             title={t`Theme editor`}

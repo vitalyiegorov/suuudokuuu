@@ -1013,7 +1013,7 @@ msgstr "کم از کم اسکور"
 msgid "Mistakes"
 msgstr "غلطیاں"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "چال"
 
@@ -1685,7 +1685,7 @@ msgstr "ایپ میں ہی رہے"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "مرحلہ {currentStepNumber} از {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "چال کا وقت"
 

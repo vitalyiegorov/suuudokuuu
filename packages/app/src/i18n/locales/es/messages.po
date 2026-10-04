@@ -1015,7 +1015,7 @@ msgstr "Puntuación mínima"
 msgid "Mistakes"
 msgstr "Errores"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Jugada"
 
@@ -1687,7 +1687,7 @@ msgstr "Sin salir de la app"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Paso {currentStepNumber} de {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "Tiempo por jugada"
 

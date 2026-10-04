@@ -1013,7 +1013,7 @@ msgstr "Minimipoäng"
 msgid "Mistakes"
 msgstr "Misstag"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Drag"
 
@@ -1685,7 +1685,7 @@ msgstr "Stannade i appen"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Steg {currentStepNumber} av {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "Dragtid"
 

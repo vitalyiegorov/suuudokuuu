@@ -18,7 +18,6 @@ import { HeaderBackButton } from '../header-back-button/header-back-button';
 import { Header } from '../header/header';
 import { TabBarInsetContext } from '../main-tab-layout/context/tab-bar-inset.context';
 import { ScreenChromeThemeProvider } from '../screen-chrome-theme-provider/screen-chrome-theme-provider';
-import { StickyFooterBand } from '../sticky-footer-band/sticky-footer-band';
 
 import { CollapsibleChromePageStyles as styles } from './collapsible-chrome-page.styles';
 
@@ -28,9 +27,7 @@ import type { StyleProp, ViewStyle } from 'react-native';
 interface Props {
     readonly children: ReactNode;
     readonly contentContainerStyle?: StyleProp<ViewStyle>;
-    readonly contentStyle?: StyleProp<ViewStyle>;
     readonly footer?: ReactNode;
-    readonly footerStyle?: StyleProp<ViewStyle>;
     readonly style?: StyleProp<ViewStyle>;
     readonly testID?: string;
     readonly title: string;
@@ -39,14 +36,13 @@ interface Props {
 const CollapsibleChromePageFooterContentInset = 96;
 
 export const CollapsibleChromePage = (props: Props) => {
-    const { children, contentContainerStyle, contentStyle, footer, footerStyle, style, testID, title } = props;
+    const { children, contentContainerStyle, footer, style, testID, title } = props;
 
     const tabBarInset = use(TabBarInsetContext);
     const backdropRecompositeRef = useBackdropRecomposite();
 
     const footerInset = isDefined(footer) ? CollapsibleChromePageFooterContentInset : 0;
     const contentInsetBottom = footerInset + tabBarInset;
-    const contentStyles = [styles.content, contentStyle];
     const isTabRoot = tabBarInset > 0;
     const backButton = isTabRoot ? null : <HeaderBackButton />;
     const expandedTitleLayerStyles = [styles.expandedTitleLayer, isTabRoot && styles.tabRootExpandedTitleLayer];
@@ -55,7 +51,7 @@ export const CollapsibleChromePage = (props: Props) => {
         <View ref={backdropRecompositeRef} style={styles.frame}>
             <ScreenChromeThemeProvider>
                 <ScreenChromeFrame>
-                    <View style={contentStyles}>
+                    <View style={styles.content}>
                         <ScreenChromeScrollView
                             contentContainerStyle={contentContainerStyle}
                             contentInsetBottom={contentInsetBottom}
@@ -96,7 +92,7 @@ export const CollapsibleChromePage = (props: Props) => {
                         <CollapsibleHeaderSlot />
                     </CollapsibleHeader>
 
-                    {isDefined(footer) ? <StickyFooterBand contentStyle={footerStyle}>{footer}</StickyFooterBand> : null}
+                    {footer}
                 </ScreenChromeFrame>
             </ScreenChromeThemeProvider>
         </View>

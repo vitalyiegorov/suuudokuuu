@@ -1015,7 +1015,7 @@ msgstr "Minimum Score"
 msgid "Mistakes"
 msgstr "Mistakes"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Move"
 
@@ -1687,7 +1687,7 @@ msgstr "Stayed in app"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Step {currentStepNumber} of {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "Step time"
 

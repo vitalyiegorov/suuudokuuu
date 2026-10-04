@@ -14,6 +14,8 @@ import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-step
 import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 import { ReplayActions } from '../../../history/components/replay-actions/replay-actions';
 import { ReplayControls } from '../../../history/components/replay-controls/replay-controls';
+import { ReplayStepCard } from '../../../history/components/replay-controls/replay-step-card/replay-step-card';
+import { ReplayStepNavigation } from '../../../history/components/replay-controls/replay-step-navigation/replay-step-navigation';
 import { ReplayField } from '../../../history/components/replay-field/replay-field';
 import { ReplayHeader } from '../../../history/components/replay-header/replay-header';
 import { completedGamesAtom } from '../../../history/query/use-completed-games.query';
@@ -73,17 +75,23 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
         </View>
     );
     const replayControls = (
-        <ReplayControls
-            awayRanges={awayRanges}
-            currentStep={currentStep}
-            elapsedTime={elapsedTime}
-            gameState={gameState}
-            moveClassification={moveClassification}
-            onNextStep={handleNextStep}
-            onPrevStep={handlePrevStep}
-            onScrubStep={handleScrubStep}
-            totalSteps={totalSteps}
-        />
+        <ReplayControls>
+            <ReplayStepCard
+                awayRanges={awayRanges}
+                currentStep={currentStep}
+                elapsedTime={elapsedTime}
+                moveClassification={moveClassification}
+                onScrubStep={handleScrubStep}
+                totalSteps={totalSteps}
+            />
+            <ReplayStepNavigation
+                currentStep={currentStep}
+                gameState={gameState}
+                onNextStep={handleNextStep}
+                onPrevStep={handlePrevStep}
+                totalSteps={totalSteps}
+            />
+        </ReplayControls>
     );
 
     return (

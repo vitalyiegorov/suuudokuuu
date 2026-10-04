@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
+import { AppMetricStrip, AppMetricStripItem, AppMetricStripValueItem } from '@suuudokuuu/ui';
 
 import { useTimerText } from '../../../../@generic/hooks/use-timer-text.hook';
 import { useSettings } from '../../../../settings/query/use-settings.query';
@@ -30,7 +30,7 @@ export const GameScreenMetrics = ({ elapsedTime, hasTimer, maxMistakes, maxMista
             </AppMetricStripItem>
 
             {hasTimer && (
-                <AppMetricStripItem
+                <AppMetricStripValueItem
                     label={t`Time`}
                     labelStyle={styles.label}
                     style={styles.item}
@@ -41,7 +41,7 @@ export const GameScreenMetrics = ({ elapsedTime, hasTimer, maxMistakes, maxMista
             )}
 
             {!isCalmMode && (
-                <AppMetricStripItem
+                <AppMetricStripValueItem
                     label={t`Score`}
                     labelStyle={styles.label}
                     style={styles.item}

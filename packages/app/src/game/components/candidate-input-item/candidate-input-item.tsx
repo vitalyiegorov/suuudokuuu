@@ -12,6 +12,7 @@ import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook'
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { PanelControlHitSlopConstant } from '../../constant/panel-control-size.constant';
 import { GameContext } from '../../context/game.context';
+import { useDigitTextStyle } from '../../hooks/use-digit-text-style.hook';
 import { DigitButtonStyles } from '../../styles/digit-button.styles';
 
 import { CandidateInputItemSelectors as selectors } from './candidate-input-item.selectors';
@@ -19,7 +20,6 @@ import { CandidateInputItemStyles as styles } from './candidate-input-item.style
 
 import type { OnEventFn } from '@rnw-community/shared';
 import type { CellInterface } from '@suuudokuuu/generator';
-import type { StyleProp, TextStyle, ViewStyle } from 'react-native';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
@@ -30,22 +30,20 @@ const selectionInstantAnimationDurationMs = 0;
 interface Props {
     readonly selectedCell?: CellInterface;
     readonly value: number;
-    readonly canPress: boolean;
     readonly isExhausted: boolean;
     readonly remaining: number;
-    readonly onSelect: OnEventFn<number>;
-    readonly sizeStyle: StyleProp<ViewStyle>;
-    readonly digitTextStyle: StyleProp<TextStyle>;
+    readonly onSelect?: OnEventFn<number>;
 }
 
 export const CandidateInputItem = (props: Props) => {
-    const { selectedCell, value, onSelect, canPress, isExhausted, remaining, sizeStyle, digitTextStyle } = props;
+    const { selectedCell, value, onSelect, isExhausted, remaining } = props;
 
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const { snapshot } = use(GameContext);
 
     const isMotionReduced = useReduceMotion();
+    const digitTextStyle = useDigitTextStyle();
 
     const { candidates } = snapshot;
 
@@ -64,7 +62,7 @@ export const CandidateInputItem = (props: Props) => {
     }));
 
     const handlePress = () => {
-        onSelect(value);
+        onSelect?.(value);
     };
 
     const buttonStyles = [
@@ -75,7 +73,7 @@ export const CandidateInputItem = (props: Props) => {
         cs(isExhausted, resolveUnistyleForAnimated(DigitButtonStyles.exhausted))
     ];
     const textStyles = [digitTextStyle, { color: isSelected ? theme.colors.candidate.textSelected : theme.colors.candidate.text }];
-    const containerStyles = [DigitButtonStyles.container, sizeStyle];
+    const canPress = isDefined(onSelect);
     const isDisabled = !canPress || isExhausted;
     const noteAccessibilityLabel = t({
         message: plural(remaining, { one: `Note ${value}, # left to place`, other: `Note ${value}, # left to place` })
@@ -83,7 +81,7 @@ export const CandidateInputItem = (props: Props) => {
     const noteAccessibilityState = { checked: isSelected, disabled: isDisabled };
 
     return (
-        <View style={containerStyles} testID={selectors.Root}>
+        <View style={DigitButtonStyles.container} testID={selectors.Root}>
             <ReanimatedPressable
                 accessibilityLabel={noteAccessibilityLabel}
                 accessibilityRole="togglebutton"

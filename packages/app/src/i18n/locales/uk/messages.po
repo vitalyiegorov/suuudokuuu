@@ -1015,7 +1015,7 @@ msgstr "Мінімальні бали"
 msgid "Mistakes"
 msgstr "Помилки"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Хід"
 
@@ -1687,7 +1687,7 @@ msgstr "Без виходу із застосунку"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Крок {currentStepNumber} з {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "Час ходу"
 

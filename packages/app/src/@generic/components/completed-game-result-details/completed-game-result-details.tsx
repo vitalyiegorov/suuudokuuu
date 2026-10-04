@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
+import { AppMetricStrip, AppMetricStripValueItem } from '@suuudokuuu/ui';
 
 import { UkraineSupportCard } from '../ukraine-support-card/ukraine-support-card';
 
@@ -29,8 +29,8 @@ export const CompletedGameResultDetails = ({
     return (
         <>
             <AppMetricStrip style={styles.strip} variant="ghost">
-                <AppMetricStripItem label={t`Time`} style={styles.item} testID={timeTestID} value={timeText} />
-                <AppMetricStripItem label={t`Mistakes`} style={styles.item} testID={mistakesTestID} value={String(mistakes)} />
+                <AppMetricStripValueItem label={t`Time`} style={styles.item} testID={timeTestID} value={timeText} />
+                <AppMetricStripValueItem label={t`Mistakes`} style={styles.item} testID={mistakesTestID} value={String(mistakes)} />
             </AppMetricStrip>
 
             <UkraineSupportCard context={resultContext} testID={ukraineSupportTestID} variant="bordered" />

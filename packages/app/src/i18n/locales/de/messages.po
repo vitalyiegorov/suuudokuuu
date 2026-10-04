@@ -1015,7 +1015,7 @@ msgstr "Mindestpunktzahl"
 msgid "Mistakes"
 msgstr "Fehler"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Zug"
 
@@ -1687,7 +1687,7 @@ msgstr "In der App geblieben"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Schritt {currentStepNumber} von {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "Zugzeit"
 

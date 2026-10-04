@@ -10,6 +10,7 @@ import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook'
 import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { useCellFontSize } from '../../hooks/use-cell-font-size.hook';
+import { useFieldCellState } from '../../hooks/use-field-cell-state.hook';
 
 import { FieldCellTextStyles as styles } from './field-cell-text.styles';
 
@@ -27,23 +28,24 @@ interface Props {
     readonly cell: CellInterface;
     readonly cellSize: number;
     readonly comboAnimationGeneration: number;
-    readonly hintValue?: number;
-    readonly isActive: boolean;
-    readonly isActiveValue: boolean;
-    readonly isHighlighted: boolean;
-    readonly showAutoCandidates: boolean;
-    readonly isEmpty: boolean;
 }
 
 export const FieldCellText = (props: Props) => {
-    const { cell, cellSize, comboAnimationGeneration, hintValue, isActive, isActiveValue, isHighlighted, isEmpty, showAutoCandidates } =
-        props;
+    const { cell, cellSize, comboAnimationGeneration } = props;
 
     const { theme } = use(ThemeContext);
 
     const isMotionReduced = useReduceMotion();
     const { showAreas, showComboAnimation: hasComboAnimation, showIdenticalNumbers } = useSettings();
     const fontSize = useCellFontSize(cellSize);
+    const {
+        hintValue,
+        isActive,
+        isActiveValue,
+        isEmpty,
+        isHighlighted,
+        shouldShowCandidates: showAutoCandidates
+    } = useFieldCellState(cell);
 
     const [isComboAnimating, setIsComboAnimating] = useState(false);
     const [seenComboAnimationGeneration, setSeenComboAnimationGeneration] = useState(comboAnimationGeneration);

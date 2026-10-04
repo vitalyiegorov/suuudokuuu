@@ -1013,7 +1013,7 @@ msgstr "न्यूनतम स्कोर"
 msgid "Mistakes"
 msgstr "गलतियाँ"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "चाल"
 
@@ -1685,7 +1685,7 @@ msgstr "ऐप में ही रहे"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "{stepCount} में से चरण {currentStepNumber}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "चाल समय"
 

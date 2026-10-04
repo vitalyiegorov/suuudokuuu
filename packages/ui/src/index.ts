@@ -6,6 +6,7 @@ export { useAppMetricStripColor } from './components/app-metric-strip/hooks/use-
 export { appMetricStripGetColors } from './components/app-metric-strip/utils/app-metric-strip-get-colors.util';
 export type { AppMetricStripVariant } from './components/app-metric-strip/utils/app-metric-strip-get-colors.util';
 export { AppMetricStripItem } from './components/app-metric-strip-item/app-metric-strip-item';
+export { AppMetricStripValueItem } from './components/app-metric-strip-value-item/app-metric-strip-value-item';
 export { AppProgressBar } from './components/app-progress-bar/app-progress-bar';
 export { AppSettingsRow } from './components/app-settings-row/app-settings-row';
 export { AppSettingsSection } from './components/app-settings-section/app-settings-section';

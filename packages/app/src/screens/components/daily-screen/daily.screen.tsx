@@ -10,6 +10,7 @@ import { Alert } from '../../../@generic/components/alert/alert';
 import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
 import { Header } from '../../../@generic/components/header/header';
 import { TabBarInsetContext } from '../../../@generic/components/main-tab-layout/context/tab-bar-inset.context';
+import { StickyFooterBand } from '../../../@generic/components/sticky-footer-band/sticky-footer-band';
 import { DailyHistoryList } from '../../../daily/components/daily-history-list/daily-history-list';
 import { DailyStreakHero } from '../../../daily/components/daily-streak-hero/daily-streak-hero';
 import { useDailyChallenge } from '../../../daily/hooks/use-daily-challenge.hook';
@@ -59,18 +60,20 @@ export const DailyScreen = () => {
     const contentInsetBottom = DailyScreenBottomScrollPadding + tabBarInset;
     const actionBarStyles = [resolveUnistyleForAnimated(styles.actionBar), { paddingBottom: tabBarInset + DailyScreenActionBarBottomGap }];
     const actionBar = (
-        <View style={actionBarStyles}>
-            <AppButton
-                disabled={isCompleted}
-                isLoading={isCreatingGame}
-                onPress={handlePress}
-                size="large"
-                style={styles.actionButton}
-                testID={DailyScreenSelectors.ActionButton}
-                text={actionText}
-                variant="primary"
-            />
-        </View>
+        <StickyFooterBand>
+            <View style={actionBarStyles}>
+                <AppButton
+                    disabled={isCompleted}
+                    isLoading={isCreatingGame}
+                    onPress={handlePress}
+                    size="large"
+                    style={styles.actionButton}
+                    testID={DailyScreenSelectors.ActionButton}
+                    text={actionText}
+                    variant="primary"
+                />
+            </View>
+        </StickyFooterBand>
     );
 
     return (

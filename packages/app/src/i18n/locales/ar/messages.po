@@ -1013,7 +1013,7 @@ msgstr "الحد الأدنى للنقاط"
 msgid "Mistakes"
 msgstr "أخطاء"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "النقلة"
 
@@ -1685,7 +1685,7 @@ msgstr "بقيت في التطبيق"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "الخطوة {currentStepNumber} من {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "وقت الحركة"
 

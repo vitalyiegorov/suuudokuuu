@@ -7,14 +7,15 @@ import { cs } from '@rnw-community/shared';
 import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { useCandidateFontSize } from '../../hooks/use-candidate-font-size.hook';
+import { useFieldCellState } from '../../hooks/use-field-cell-state.hook';
 
 import { FieldCellCandidateStyles as styles } from './field-cell-candidate.styles';
 
+import type { CellInterface } from '@suuudokuuu/generator';
+
 interface Props {
-    readonly activeValue?: number;
-    readonly candidates: number[];
+    readonly cell: CellInterface;
     readonly cellSize: number;
-    readonly eliminatedCandidates: number[];
 }
 
 const textCandidatePositionStyles = {
@@ -29,8 +30,9 @@ const textCandidatePositionStyles = {
     9: styles.textCandidatePosition9
 };
 
-export const FieldCellCandidates = ({ candidates, activeValue, cellSize, eliminatedCandidates }: Props) => {
+export const FieldCellCandidates = ({ cell, cellSize }: Props) => {
     const { theme } = use(ThemeContext);
+    const { activeValue, candidates, eliminatedCandidates, shouldShowCandidates } = useFieldCellState(cell);
 
     const fontSize = useCandidateFontSize(cellSize);
     const { showActiveCandidates } = useSettings();
@@ -57,6 +59,10 @@ export const FieldCellCandidates = ({ candidates, activeValue, cellSize, elimina
             resolveUnistyleForAnimated(textCandidatePositionStyle(cellSize))
         ];
     };
+
+    if (!shouldShowCandidates) {
+        return null;
+    }
 
     return candidates.map(candidate => (
         <Reanimated.Text allowFontScaling={false} key={`candidate-${candidate}`} style={getCandidateTextStyles(candidate)}>

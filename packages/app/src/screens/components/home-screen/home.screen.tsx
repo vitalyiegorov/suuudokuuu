@@ -24,6 +24,7 @@ import {
     DifficultyComplexitySliderDifficulties,
     DifficultyComplexitySliderInitialIndex
 } from '../../../game/components/difficulty-complexity-slider/constant/difficulty-complexity-slider.constant';
+import { DifficultyComplexityPreviewMistakes } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-preview-mistakes/difficulty-complexity-preview-mistakes';
 import { DifficultyComplexityPreview } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-preview/difficulty-complexity-preview';
 import { DifficultyComplexitySlider } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-slider';
 import { GameContext } from '../../../game/context/game.context';
@@ -37,6 +38,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayHeight, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
 import { HomeScreenBestRun } from './home-screen-best-run/home-screen-best-run';
+import { HomeScreenContinueRow } from './home-screen-continue-row/home-screen-continue-row';
 import { HomeScreenOptionCard } from './home-screen-option-card/home-screen-option-card';
 import { homeScreenOptionCardGetColors } from './home-screen-option-card/utils/home-screen-option-card-get-colors.util';
 import { HomeScreenPlayActions } from './home-screen-play-actions/home-screen-play-actions';
@@ -112,8 +114,6 @@ export const HomeScreen = () => {
     const currentProgressPercent = getSudokuProgress(currentSudokuString).percent;
     const currentProgressText = `${currentProgressPercent}%`;
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
-    const isHellSelected = difficulty === DifficultyEnum.Hell;
-    const isInfinitySelected = difficulty === DifficultyEnum.Infinity;
     const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
     const platformInsetTop = Platform.OS === 'ios' ? safeAreaInsets.top : 0;
     const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top, platformInsetTop);
@@ -187,22 +187,28 @@ export const HomeScreen = () => {
                             selectedDifficultyDescription={selectedDifficultyDescription}
                             selectedDifficultyLabel={selectedDifficultyLabel}
                             selectedIndex={selectedDifficultyIndex}
-                            selectedMistakesDescription={selectedMistakesOption.description}
-                            selectedMistakesLabel={selectedMistakesOption.title}
-                        />
+                        >
+                            <DifficultyComplexityPreviewMistakes
+                                description={selectedMistakesOption.description}
+                                label={selectedMistakesOption.title}
+                            />
+                        </DifficultyComplexityPreview>
 
                         <HomeScreenPlayActions
-                            currentElapsedTimeText={currentElapsedTimeText}
-                            currentProgressPercent={currentProgressPercent}
-                            currentProgressText={currentProgressText}
-                            isGameStarted={isGameStarted}
-                            isHellSelected={isHellSelected}
-                            isInfinitySelected={isInfinitySelected}
+                            difficulty={difficulty}
                             isLoading={isCreatingGame}
                             onStart={handleStart}
                             startButtonSubtitle={setupSummary}
                             startButtonText={startButtonText}
-                        />
+                        >
+                            {isGameStarted ? (
+                                <HomeScreenContinueRow
+                                    currentElapsedTimeText={currentElapsedTimeText}
+                                    currentProgressPercent={currentProgressPercent}
+                                    currentProgressText={currentProgressText}
+                                />
+                            ) : null}
+                        </HomeScreenPlayActions>
                     </View>
                 </View>
             </ScreenChromeScrollView>

@@ -1013,7 +1013,7 @@ msgstr "ন্যূনতম স্কোর"
 msgid "Mistakes"
 msgstr "ভুল"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "চাল"
 
@@ -1685,7 +1685,7 @@ msgstr "অ্যাপেই ছিলেন"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "{stepCount}টির মধ্যে ধাপ {currentStepNumber}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "চালের সময়"
 

@@ -19,7 +19,6 @@ export const BetaScreen = () => {
     return (
         <CollapsibleChromePage
             contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
-            contentStyle={styles.content}
             style={resolveUnistyleForAnimated(styles.scrollView)}
             testID={BetaScreenSelectors.Root}
             title={t`Development builds`}

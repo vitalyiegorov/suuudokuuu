@@ -1,4 +1,4 @@
-import { use } from 'react';
+import { type ReactNode, use } from 'react';
 import { View } from 'react-native';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
@@ -17,25 +17,16 @@ import { DifficultyComplexitySliderStyles as styles } from '../difficulty-comple
 import { difficultyComplexityPreviewGetColors } from './utils/difficulty-complexity-preview-get-colors.util';
 
 interface Props {
+    readonly children: ReactNode;
     readonly isChallengeMode: boolean;
     readonly maxMistakes: number;
     readonly selectedDifficultyDescription: string;
     readonly selectedDifficultyLabel: string;
     readonly selectedIndex: number;
-    readonly selectedMistakesDescription: string;
-    readonly selectedMistakesLabel: string;
 }
 
 export const DifficultyComplexityPreview = (props: Props) => {
-    const {
-        isChallengeMode,
-        maxMistakes,
-        selectedDifficultyDescription,
-        selectedDifficultyLabel,
-        selectedIndex,
-        selectedMistakesDescription,
-        selectedMistakesLabel
-    } = props;
+    const { children, isChallengeMode, maxMistakes, selectedDifficultyDescription, selectedDifficultyLabel, selectedIndex } = props;
     const { theme } = use(ThemeContext);
     const activeCellCount = DifficultyComplexitySliderActiveCellBaseCount + selectedIndex * DifficultyComplexitySliderActiveCellStep;
     const activeCellOpacity =
@@ -47,9 +38,6 @@ export const DifficultyComplexityPreview = (props: Props) => {
     const previewGridFrameStyles = [styles.previewGridFrame, { borderColor: theme.colors.surface.border }];
     const titleStyles = [styles.previewTitle, { color: theme.colors.text.primary }];
     const subtitleStyles = [styles.subtitle, { color: theme.colors.text.hint }];
-    const mistakeBadgeStyles = [styles.previewMistakeBadge, { backgroundColor: theme.colors.ink, borderColor: theme.colors.ink }];
-    const mistakeBadgeTextStyles = [styles.previewMistakeBadgeText, { color: theme.colors.inkText }];
-    const mistakeDescriptionStyles = [styles.previewMistakeDescription, { color: theme.colors.text.hint }];
     const isRelaxedMistakes = maxMistakes > 3;
     const isStandardMistakes = maxMistakes === 3;
     const isHardcoreMistakes = maxMistakes === 0;
@@ -74,14 +62,7 @@ export const DifficultyComplexityPreview = (props: Props) => {
             <View style={styles.previewText}>
                 <BlackText style={titleStyles}>{selectedDifficultyLabel}</BlackText>
                 <BlackText style={subtitleStyles}>{selectedDifficultyDescription}</BlackText>
-                <View style={styles.previewMistakeRow}>
-                    <View style={mistakeBadgeStyles}>
-                        <BlackText style={mistakeBadgeTextStyles}>{selectedMistakesLabel}</BlackText>
-                    </View>
-                    <BlackText numberOfLines={1} style={mistakeDescriptionStyles}>
-                        {selectedMistakesDescription}
-                    </BlackText>
-                </View>
+                {children}
 
                 {challengeConditions}
             </View>

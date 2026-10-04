@@ -1013,7 +1013,7 @@ msgstr "Skor minimum"
 msgid "Mistakes"
 msgstr "Kesalahan"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Langkah"
 
@@ -1685,7 +1685,7 @@ msgstr "Tetap di aplikasi"
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Langkah {currentStepNumber} dari {stepCount}"
 
-#: src/history/components/replay-controls/replay-controls.tsx
+#: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"
 msgstr "Waktu langkah"
 

@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppMetricStrip, AppMetricStripItem } from '@suuudokuuu/ui';
+import { AppMetricStrip, AppMetricStripValueItem } from '@suuudokuuu/ui';
 import { View } from 'react-native';
 
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
@@ -31,7 +31,7 @@ export const HistoryTotalsCard = ({ difficultyStats, playedDayNumbers }: Props) 
     ];
 
     const renderMetricItem = (metric: { label: string; value: string }) => (
-        <AppMetricStripItem
+        <AppMetricStripValueItem
             key={metric.label}
             label={metric.label}
             labelStyle={styles.label}
