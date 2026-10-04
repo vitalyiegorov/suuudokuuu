@@ -11,4 +11,5 @@ export interface TechniqueResultInterface {
     eliminations: CandidateEliminationInterface[];
     reasonCells: CellInterface[];
     chainLength?: number;
+    readonly patternCandidates?: readonly CandidateEliminationInterface[];
 }

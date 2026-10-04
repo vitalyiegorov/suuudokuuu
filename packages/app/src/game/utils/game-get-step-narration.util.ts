@@ -83,6 +83,10 @@ const getPlacementRevealNarration = (step: StepScriptStepType, techniqueName: st
         return getFullHouseNarration(techniqueName, unit, value);
     }
 
+    if (step.narration.technique === SolutionTechniqueEnum.Guess) {
+        return msg`${techniqueName}: ${value} follows from an advanced chain of reasoning, so the hint places it for you.`;
+    }
+
     return msg`${techniqueName}: the highlighted cells leave only ${value} for the marked cell.`;
 };
 

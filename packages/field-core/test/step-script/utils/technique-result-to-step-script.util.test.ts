@@ -43,6 +43,30 @@ const pointingPairBoard = [
     '3.5286179'
 ];
 
+const hiddenPairBoard = [
+    '.691.7..8',
+    '..2.8...6',
+    '.8....1..',
+    '...7...32',
+    '.9...8...',
+    '..63..8..',
+    '.7...4...',
+    '....5..4.',
+    '5...76...'
+];
+
+const hiddenTripleBoard = [
+    '..34..67.',
+    '5.....34.',
+    '74.......',
+    '6..3....7',
+    '.87.....4',
+    '...7....1',
+    '2..6...5.',
+    '....98...',
+    '....41...'
+];
+
 const findResult = (board: string[], technique: SolutionTechniqueEnum): TechniqueResultInterface => {
     const sudoku = Sudoku.fromStrings({ ...defaultSudokuConfig }, ...board);
     const strategies = createTechniqueStrategies().filter(strategy => strategy.technique === technique);
@@ -127,6 +151,32 @@ describe('techniqueResultToStepScript', () => {
             narration: { technique: SolutionTechniqueEnum.PointingPair, cells: result.reasonCells, values: [result.value] }
         });
         expect(strikeStep.narration.cells).toEqual(result.eliminations.map(elimination => elimination.cell));
+    });
+
+    it('reveals the subset digits instead of the eliminated digits for a hidden subset', () => {
+        expect.assertions(3);
+
+        const result = findResult(hiddenPairBoard, SolutionTechniqueEnum.HiddenPair);
+        const [revealStep] = techniqueResultToStepScript(result).steps;
+        const eliminatedValues = result.eliminations.map(elimination => elimination.value);
+
+        expect(revealStep.narration.values).toHaveLength(2);
+        expect(revealStep.narration.values).toEqual(revealStep.narration.values.toSorted((left, right) => left - right));
+        expect(revealStep.narration.values.some(value => eliminatedValues.includes(value))).toBe(false);
+    });
+
+    it('reveals on each hidden subset cell only the subset digits that cell still holds', () => {
+        expect.assertions(2);
+
+        const result = findResult(hiddenTripleBoard, SolutionTechniqueEnum.HiddenTriple);
+        const [revealStep] = techniqueResultToStepScript(result).steps;
+        const revealedByCell =
+            revealStep.kind === StepScriptStepKindEnum.RevealCandidates
+                ? revealStep.candidates.map(({ cell, value }) => `${cell.y}-${cell.x}=${value}`)
+                : [];
+
+        expect(revealStep.narration.values).toEqual([1, 8, 9]);
+        expect(revealedByCell).toEqual(['1-3=1', '1-3=8', '1-3=9', '2-3=1', '2-3=8', '2-3=9', '4-3=1', '4-3=9']);
     });
 
     it('keeps a guess result playable as a placement script', () => {

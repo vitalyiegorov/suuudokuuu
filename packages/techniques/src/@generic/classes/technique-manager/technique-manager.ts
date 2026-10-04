@@ -1,9 +1,11 @@
-import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
+import { isDefined } from '@rnw-community/shared';
 
 import { GuessTechnique } from '../../../guess-technique/classes/guess.technique';
+import { applyTechniqueStep } from '../../utils/apply-technique-step.util';
 import { canSee } from '../../utils/can-see.util';
 import { wasContextSearchCapped } from '../../utils/context-scan-state.util';
 import { createTechniqueStrategies } from '../../utils/create-technique-strategies.util';
+import { findProgressingStep } from '../../utils/find-progressing-step.util';
 import { isForcedPlacement } from '../../utils/is-forced-placement.util';
 import { isSameCell } from '../../utils/is-same-cell.util';
 import { CandidateContext } from '../candidate-context/candidate-context';
@@ -50,13 +52,13 @@ export class TechniqueManager {
         const stepLimit = this.getStepLimit();
 
         let context = CandidateContext.fromSudoku(this.sudoku);
-        let step = this.findProgressingStep(context, orderedStrategies);
+        let step = findProgressingStep(context, orderedStrategies);
         let wasSearchCapped = wasContextSearchCapped(context);
 
         while (isDefined(step) && steps.length < stepLimit) {
             steps.push(step);
-            context = this.applyStep(context, step);
-            step = this.findProgressingStep(context, orderedStrategies);
+            context = applyTechniqueStep(context, step);
+            step = findProgressingStep(context, orderedStrategies);
             wasSearchCapped ||= wasContextSearchCapped(context);
         }
 
@@ -87,36 +89,6 @@ export class TechniqueManager {
         const { fieldSize } = this.sudoku.Config;
 
         return fieldSize * fieldSize * (fieldSize + 1);
-    }
-
-    private findProgressingStep(context: CandidateContext, strategies: TechniqueStrategyInterface[]): TechniqueResultInterface | null {
-        if (context.hasContradiction() || context.isSolved()) {
-            return null;
-        }
-
-        for (const strategy of strategies) {
-            const result = strategy.find(context).find(candidate => this.isProgressingResult(context, candidate));
-
-            if (isDefined(result)) {
-                return result;
-            }
-        }
-
-        return null;
-    }
-
-    private isProgressingResult(context: CandidateContext, result: TechniqueResultInterface): boolean {
-        if (result.kind === 'placement') {
-            return isNotEmptyArray(context.getCandidates(result.cell));
-        }
-
-        return result.eliminations.some(elimination => context.getCandidates(elimination.cell).includes(elimination.value));
-    }
-
-    private applyStep(context: CandidateContext, step: TechniqueResultInterface): CandidateContext {
-        const eliminatedContext = context.withEliminations(step.eliminations);
-
-        return step.kind === 'placement' ? eliminatedContext.withPlacement(step.cell, step.value) : eliminatedContext;
     }
 
     private getSolveOutcome(context: CandidateContext): LogicalSolveOutcomeType {
@@ -189,7 +161,7 @@ export class TechniqueManager {
         let hardestStrategyIndex = -1;
 
         for (let stepCount = 0; stepCount < this.getStepLimit(); stepCount += 1) {
-            const step = this.findProgressingStep(composedContext, orderedStrategies);
+            const step = findProgressingStep(composedContext, orderedStrategies);
 
             if (!isDefined(step)) {
                 return null;
@@ -199,7 +171,7 @@ export class TechniqueManager {
                 hardestStrategyIndex,
                 orderedStrategies.findIndex(strategy => strategy.technique === step.technique)
             );
-            composedContext = this.applyStep(composedContext, step);
+            composedContext = applyTechniqueStep(composedContext, step);
 
             const isPlayedByThisStep = step.kind === 'placement' && isSameCell(step.cell, cell) && step.value === value;
 

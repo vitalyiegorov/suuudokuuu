@@ -49,6 +49,23 @@ export const getCandidatesWithElimination = (
     return { ...eliminatedCandidates, [cellKey]: [...cellEliminations, value] };
 };
 
+export const getCandidateStateWithoutValue = (
+    state: FieldCandidateStateInterface,
+    cell: CellInterface,
+    value: number,
+    showAutoCandidates: boolean
+): FieldCandidateStateInterface | null => {
+    if (showAutoCandidates) {
+        const eliminatedCandidates = getCandidatesWithElimination(state.eliminatedCandidates, cell, value);
+
+        return eliminatedCandidates === null ? null : { ...state, eliminatedCandidates };
+    }
+
+    const candidates = getCandidatesWithoutValue(state.candidates, cell, value);
+
+    return candidates === null ? null : { ...state, candidates };
+};
+
 export const getAutoCellCandidates = (sudoku: Sudoku, eliminatedCandidates: FieldCandidatesType, cell: CellInterface): number[] => {
     const cellEliminations = eliminatedCandidates[getCellKey(cell)] ?? [];
 

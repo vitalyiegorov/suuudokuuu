@@ -84,6 +84,10 @@ msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}
 msgstr "{streak, plural, one {लगातार हल की गई दैनिक पहेली} other {लगातार हल की गई दैनिक पहेलियाँ}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
+msgstr "{techniqueName}: {value} तर्क की एक उन्नत श्रृंखला से निकलता है, इसलिए संकेत इसे आपके लिए भर देता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
 msgstr "{techniqueName}: हाइलाइट किए गए ब्लॉक में, {value} केवल चिह्नित सेल में ही आ सकता है।"
 
@@ -170,6 +174,10 @@ msgstr "सुडोकू बोर्ड पर अंकों का आक�
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "उन्नत"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Advanced chain"
+msgstr "उन्नत श्रृंखला"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1111,10 +1119,6 @@ msgstr "दंड चाहे जितने हों, आपको हमे
 msgid "no pause"
 msgstr "कोई पॉज़ नहीं"
 
-#: src/game/components/hint-button/hint-button.tsx
-msgid "No simple technique applies"
-msgstr "कोई सरल तकनीक लागू नहीं होती"
-
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "अभी कोई हल नहीं। आज का सुडोकू इंतज़ार कर रहा है।"
@@ -1160,7 +1164,6 @@ msgstr "एक स्थान का"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "दुःस्वप्न, नरक और अनंत सुडोकू में भी संकेत दें"
 
-#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
@@ -1820,10 +1823,6 @@ msgstr "थीम का नाम"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "इस बार यह बोर्ड पूरा नहीं हुआ। यूक्रेन में आज़ादी की लड़ाई जारी है। हर $1 दान मायने रखता है।"
-
-#: src/game/components/hint-button/hint-button.tsx
-msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
-msgstr "इस स्थिति में चेन या अनुमान की ज़रूरत है, इसलिए सिखाने लायक कोई सरल तार्किक चरण नहीं है। कुछ भी उजागर नहीं हुआ और कोई स्कोर नहीं कटा।"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

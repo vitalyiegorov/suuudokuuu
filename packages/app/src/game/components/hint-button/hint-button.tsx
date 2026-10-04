@@ -1,16 +1,15 @@
 import { useLingui } from '@lingui/react/macro';
+import { findHintStepScript } from '@suuudokuuu/field-core';
 import LucideLightbulb from 'lucide-react-native/icons/lightbulb';
 import { use } from 'react';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { Alert } from '../../../@generic/components/alert/alert';
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { useCurrentRun } from '../../query/use-current-run.query';
-import { gameFindHintStepScript } from '../../utils/game-find-hint-step-script.util';
 import { gameIsHintAvailable } from '../../utils/game-is-hint-available.util';
 
 import { HintButtonSelectors } from './hint-button.selectors';
@@ -30,19 +29,11 @@ export const HintButton = ({ sizeStyle }: Props) => {
     const { allowHintsOnHardDifficulties } = useSettings();
 
     const handleHint = () => {
-        const stepScript = gameFindHintStepScript(engine.Sudoku);
+        const stepScript = findHintStepScript(engine.Sudoku);
 
-        if (!isDefined(stepScript)) {
-            Alert(
-                t`No simple technique applies`,
-                t`This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted.`,
-                [{ text: t`OK` }]
-            );
-
-            return;
+        if (isDefined(stepScript)) {
+            engine.startStepScript(stepScript);
         }
-
-        engine.startStepScript(stepScript);
     };
 
     const isDisabled = isDefined(snapshot.stepScript) || snapshot.isWon;

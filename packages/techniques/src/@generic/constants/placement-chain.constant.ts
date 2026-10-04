@@ -1,0 +1,1 @@
+export const PLACEMENT_CHAIN_MAX_STEPS = 4;

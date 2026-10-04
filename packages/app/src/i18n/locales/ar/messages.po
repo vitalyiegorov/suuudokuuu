@@ -84,6 +84,10 @@ msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}
 msgstr "{streak, plural, zero {تحديات يومية محلولة على التوالي} one {تحدٍّ يومي محلول على التوالي} two {تحديان يوميان محلولان على التوالي} few {تحديات يومية محلولة على التوالي} many {تحديًا يوميًا محلولًا على التوالي} other {تحدٍّ يومي محلول على التوالي}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
+msgstr "{techniqueName}: الرقم {value} ينتج عن سلسلة استنتاج متقدمة، لذلك يضعه التلميح لك."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
 msgstr "{techniqueName}: في المربع المحدد، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
 
@@ -170,6 +174,10 @@ msgstr "اضبط حجم الأرقام على لوحة السودوكو"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "متقدم"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Advanced chain"
+msgstr "سلسلة متقدمة"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1111,10 +1119,6 @@ msgstr "مهما بلغت العقوبات، ستحصل دائمًا على ال
 msgid "no pause"
 msgstr "بلا إيقاف"
 
-#: src/game/components/hint-button/hint-button.tsx
-msgid "No simple technique applies"
-msgstr "لا تنطبق أي تقنية بسيطة"
-
 #: src/daily/components/daily-history-list/daily-history-list.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "لا حلول بعد. سودوكو اليوم ينتظرك."
@@ -1160,7 +1164,6 @@ msgstr "من إدخال واحد"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "تقديم التلميحات أيضًا في ألغاز كابوس وجحيم ولانهاية"
 
-#: src/game/components/hint-button/hint-button.tsx
 #: src/game/hooks/use-game-creation-runner.hook.ts
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
@@ -1820,10 +1823,6 @@ msgstr "اسم السمة"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "لم تكتمل هذه اللوحة هذه المرة. يستمر الكفاح من أجل الحرية في أوكرانيا. كل تبرع بقيمة $1 يحدث فرقًا."
-
-#: src/game/components/hint-button/hint-button.tsx
-msgid "This position needs chains or trial and error, so there is no simple logical step to teach. Nothing was revealed and no score was deducted."
-msgstr "يحتاج هذا الوضع إلى سلاسل أو تجربة وخطأ، فلا توجد خطوة منطقية بسيطة لشرحها. لم يُكشف شيء ولم تُخصم أي نقاط."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."
