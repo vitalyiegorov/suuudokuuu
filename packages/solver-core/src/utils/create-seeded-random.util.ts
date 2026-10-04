@@ -1,6 +1,6 @@
 export type SeededRandomType = () => number;
 
-/* oxlint-disable no-bitwise, @typescript-eslint/no-magic-numbers -- mulberry32 PRNG requires 32-bit bit-mixing operations and its defining constants */
+/* oxlint-disable no-bitwise, no-magic-numbers -- mulberry32 PRNG requires 32-bit bit-mixing operations and its defining constants */
 export const createSeededRandom = (seed: number): SeededRandomType => {
     let state = seed >>> 0;
 
@@ -13,4 +13,4 @@ export const createSeededRandom = (seed: number): SeededRandomType => {
         return ((mixed ^ (mixed >>> 14)) >>> 0) / 4294967296;
     };
 };
-/* oxlint-enable no-bitwise, @typescript-eslint/no-magic-numbers */
+/* oxlint-enable no-bitwise, no-magic-numbers */
