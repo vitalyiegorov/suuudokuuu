@@ -37,6 +37,10 @@
         {
             "name": "react-native",
             "specifier": "eslint-plugin-react-native"
+        },
+        {
+            "name": "slop",
+            "specifier": "eslint-plugin-slop"
         }
     ],
     "categories": {
@@ -566,7 +570,9 @@
                     {
                         "max": 6
                     }
-                ]
+                ],
+                "slop/no-chained-type-assertions": "error",
+                "slop/no-trivial-type-aliases": "error"
             },
             "plugins": ["typescript", "import"],
             "env": {
