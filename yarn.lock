@@ -4724,16 +4724,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rnw-community/eslint-plugin@npm:2.0.0":
-  version: 2.0.0
-  resolution: "@rnw-community/eslint-plugin@npm:2.0.0"
+"@rnw-community/eslint-plugin@npm:^2.19.2":
+  version: 2.19.2
+  resolution: "@rnw-community/eslint-plugin@npm:2.19.2"
   dependencies:
-    "@typescript-eslint/rule-tester": "npm:^8.55.0"
-    "@typescript-eslint/utils": "npm:^8.55.0"
+    "@typescript-eslint/rule-tester": "npm:^8.65.0"
+    "@typescript-eslint/utils": "npm:^8.65.0"
   peerDependencies:
     eslint: ^9
     typescript-eslint: ^8
-  checksum: 10/aff4c97d1df6e31700c0838f1fc3db33d853434e2d8f58ee9ee8e8b908acbe7b00b6db88586d9b7374a82aea12384a448a3d739d3ce44f173dd8686fb5c7962f
+  checksum: 10/64d8788b50b48551adb676e0b0595a2a96f67db7d52cecdf07ace8738645b653d69ec1c1412f906138d9502104e9dd921979f5d3131727fde20cfbe6e13e60d9
   languageName: node
   linkType: hard
 
@@ -5291,7 +5291,7 @@ __metadata:
     "@commitlint/config-workspace-scopes": "npm:^21.2.0"
     "@eslint/js": "npm:^9.39.5"
     "@lingui/cli": "npm:6.9.0"
-    "@rnw-community/eslint-plugin": "npm:2.0.0"
+    "@rnw-community/eslint-plugin": "npm:^2.19.2"
     "@types/node": "npm:^26.6.4"
     "@vitest/eslint-plugin": "npm:^1.6.27"
     eslint: "npm:^9.39.5"
@@ -5751,7 +5751,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/rule-tester@npm:^8.55.0":
+"@typescript-eslint/rule-tester@npm:^8.65.0":
   version: 8.71.0
   resolution: "@typescript-eslint/rule-tester@npm:8.71.0"
   dependencies:
@@ -5830,7 +5830,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/utils@npm:8.71.0, @typescript-eslint/utils@npm:^8.55.0, @typescript-eslint/utils@npm:^8.58.0, @typescript-eslint/utils@npm:^8.69.0":
+"@typescript-eslint/utils@npm:8.71.0, @typescript-eslint/utils@npm:^8.58.0, @typescript-eslint/utils@npm:^8.65.0, @typescript-eslint/utils@npm:^8.69.0":
   version: 8.71.0
   resolution: "@typescript-eslint/utils@npm:8.71.0"
   dependencies:

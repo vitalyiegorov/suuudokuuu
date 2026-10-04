@@ -39,7 +39,7 @@
         "@commitlint/config-workspace-scopes": "^21.2.0",
         "@eslint/js": "^9.39.5",
         "@lingui/cli": "6.9.0",
-        "@rnw-community/eslint-plugin": "2.0.0",
+        "@rnw-community/eslint-plugin": "^2.19.2",
         "@types/node": "^26.6.4",
         "@vitest/eslint-plugin": "^1.6.27",
         "eslint": "^9.39.5",
