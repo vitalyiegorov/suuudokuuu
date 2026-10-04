@@ -1,67 +1,49 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import {
-    HintNarrationRoomyFontSizeConstant,
-    HintNarrationRoomyLineHeightConstant,
-    HintNarrationStandardFontSizeConstant,
-    HintNarrationStandardLineHeightConstant,
-    HintSurfaceRoomyGapConstant,
-    HintSurfaceStandardGapConstant,
-    HintTechniqueRoomyFontSizeConstant,
-    HintTechniqueStandardFontSizeConstant,
-    HintValueChipRoomySizeConstant,
-    HintValueChipStandardSizeConstant
-} from '../../constant/hint-surface.constant';
-
-const standardTechniqueLetterSpacing = 0.6;
-const roomyTechniqueLetterSpacing = 0.8;
+const chipSize = 40;
+const techniqueLetterSpacing = 0.6;
+const narrationLineHeight = 22;
 
 export const HintStepNarrationStyles = StyleSheet.create(theme => ({
-    container: (isRoomyLayout: boolean) => ({
-        flex: 1,
-        gap: isRoomyLayout ? HintSurfaceRoomyGapConstant : HintSurfaceStandardGapConstant,
+    container: {
+        flexShrink: 1,
+        gap: theme.spacing.sm,
         minHeight: 0
-    }),
-    header: (isRoomyLayout: boolean) => ({
+    },
+    header: {
         alignItems: 'center',
         flexDirection: 'row',
         gap: theme.spacing.md,
-        height: isRoomyLayout ? HintValueChipRoomySizeConstant : HintValueChipStandardSizeConstant
-    }),
-    chip: (isRoomyLayout: boolean) => {
-        const chipSize = isRoomyLayout ? HintValueChipRoomySizeConstant : HintValueChipStandardSizeConstant;
-
-        return {
-            alignItems: 'center',
-            borderCurve: 'continuous',
-            borderRadius: theme.radius.md,
-            height: chipSize,
-            justifyContent: 'center',
-            width: chipSize
-        };
+        minHeight: chipSize
     },
-    chipText: (isRoomyLayout: boolean) => ({
-        fontSize: isRoomyLayout ? theme.typography.size.xxl : theme.typography.size.xl,
+    chip: {
+        alignItems: 'center',
+        borderCurve: 'continuous',
+        borderRadius: theme.radius.md,
+        height: chipSize,
+        justifyContent: 'center',
+        width: chipSize
+    },
+    chipText: {
+        fontSize: theme.typography.size.lg,
         fontWeight: '900'
-    }),
-    technique: (isRoomyLayout: boolean) => ({
+    },
+    technique: {
         flex: 1,
-        fontSize: isRoomyLayout ? HintTechniqueRoomyFontSizeConstant : HintTechniqueStandardFontSizeConstant,
+        fontSize: theme.typography.size.xs,
         fontWeight: '900',
-        letterSpacing: isRoomyLayout ? roomyTechniqueLetterSpacing : standardTechniqueLetterSpacing,
+        letterSpacing: techniqueLetterSpacing,
         textAlign: 'left',
         textTransform: 'uppercase'
-    }),
-    narration: (isRoomyLayout: boolean) => {
-        const lineHeight = isRoomyLayout ? HintNarrationRoomyLineHeightConstant : HintNarrationStandardLineHeightConstant;
-
-        return {
-            flex: 1,
-            fontSize: isRoomyLayout ? HintNarrationRoomyFontSizeConstant : HintNarrationStandardFontSizeConstant,
-            fontWeight: '600',
-            lineHeight,
-            minHeight: lineHeight,
-            textAlign: 'left'
-        };
+    },
+    narrationScroll: {
+        flexGrow: 0,
+        flexShrink: 1
+    },
+    narration: {
+        fontSize: theme.typography.size.md,
+        fontWeight: '600',
+        lineHeight: narrationLineHeight,
+        textAlign: 'left'
     }
 }));
