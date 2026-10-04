@@ -57,6 +57,9 @@ importers:
       eslint-plugin-n:
         specifier: ^18.4.1
         version: 18.4.1(@typescript/typescript6@6.0.2)(eslint@10.12.0(jiti@2.7.0)(supports-color@7.2.0))
+      eslint-plugin-no-comment-slop:
+        specifier: ^0.6.0
+        version: 0.6.0
       eslint-plugin-react-native:
         specifier: ^5.0.0
         version: 5.0.0(eslint@10.12.0(jiti@2.7.0)(supports-color@7.2.0))
@@ -4913,6 +4916,11 @@ packages:
         optional: true
       typescript:
         optional: true
+
+  eslint-plugin-no-comment-slop@0.6.0:
+    resolution: {integrity: sha512-mDeRlOB6t3K+ZZjTdjDjSp5HjR145L6MiDeTqglWCZ1n1bhIAjQEZX9YSrSyASKfN16+dt7YXcMZR8i8KJak9g==}
+    engines: {node: '>=24'}
+    hasBin: true
 
   eslint-plugin-react-dom@5.23.5:
     resolution: {integrity: sha512-JWMTlHF9956J7KXPCMbpliNJt+WNEj7gJYird4kksPxlfT/9Q642lWHzuHNzGGvwV+1AIaFtKLeRrgAU6mvMGA==}
@@ -12190,6 +12198,8 @@ snapshots:
       semver: 7.8.5
     optionalDependencies:
       typescript: '@typescript/typescript6@6.0.2'
+
+  eslint-plugin-no-comment-slop@0.6.0: {}
 
   eslint-plugin-react-dom@5.23.5(@typescript/typescript6@6.0.2)(eslint@10.12.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0):
     dependencies:

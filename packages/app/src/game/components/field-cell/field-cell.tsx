@@ -129,7 +129,7 @@ export const FieldCell = (props: Props) => {
 
     // Stable, unique per-cell testID by board coordinate. Selection/highlight
     // state must NOT change the testID: E2E flows target exact cells, and a
-    // state-dependent id makes positional selection diverge across platforms.
+    // state-dependent id makes positional selection diverge across platforms
     return (
         <ReanimatedPressable
             accessibilityLabel={accessibilityLabel}

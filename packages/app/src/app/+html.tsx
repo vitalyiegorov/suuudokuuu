@@ -12,12 +12,6 @@ const DefaultDescription =
         .message ?? '';
 const DefaultOgImageUrl = `${brandConfig.webOrigin}icon.png`;
 
-/*
- * This file is web-only and used to configure the root HTML for every
- * web stripe-checkout-form during static rendering.
- * The contents of this function only run in Node.js environments and
- * do not have access to the DOM or browser APIs.
- */
 export default function Root({ children }: PropsWithChildren) {
     return (
         <html lang="en">

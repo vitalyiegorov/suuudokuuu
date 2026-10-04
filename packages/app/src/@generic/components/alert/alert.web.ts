@@ -4,7 +4,7 @@ import type { AlertButton } from 'react-native';
 
 const isCancelButton = (button: AlertButton) => button.style === 'cancel';
 
-// TODO: Simple web wrapper for the alert https://github.com/necolas/react-native-web/issues/1026
+/** TODO: Simple web wrapper for the alert https://github.com/necolas/react-native-web/issues/1026 */
 export const Alert = (title: string, message?: string, buttons?: AlertButton[]) => {
     const confirmButton = buttons?.find(button => !isCancelButton(button));
     const cancelButton = buttons?.find(isCancelButton);

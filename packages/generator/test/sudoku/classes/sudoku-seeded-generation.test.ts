@@ -20,7 +20,7 @@ const createPuzzleString = (currentSeed: number): string => {
 describe('Sudoku - Seeded Generation', () => {
     /**
      * HINT: mulberry32 is integer and bitwise only, so its stream is identical on every JavaScript
-     * engine. This proves same-process reproducibility, which is the part a test can observe; the
+     * engine. This proves same-process reproducibility, which is the part a test can observe. The
      * cross-engine half follows from the PRNG never touching a float or a host random source.
      */
     it('should produce an identical puzzle for the same seed', () => {
