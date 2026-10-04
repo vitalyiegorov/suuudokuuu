@@ -25,6 +25,30 @@
         {
             "name": "suuudokuuu",
             "specifier": "./eslint-rules/suuudokuuu.mjs"
+        },
+        {
+            "name": "eslint-react",
+            "specifier": "@eslint-react/eslint-plugin"
+        },
+        {
+            "name": "react-effect",
+            "specifier": "eslint-plugin-react-you-might-not-need-an-effect"
+        },
+        {
+            "name": "react-native",
+            "specifier": "eslint-plugin-react-native"
+        },
+        {
+            "name": "slop",
+            "specifier": "eslint-plugin-slop"
+        },
+        {
+            "name": "no-comment-slop",
+            "specifier": "eslint-plugin-no-comment-slop"
+        },
+        {
+            "name": "regexp",
+            "specifier": "eslint-plugin-regexp"
         }
     ],
     "categories": {
@@ -221,7 +245,29 @@
                 "no-restricted-exports": "error",
                 "no-restricted-globals": "error",
                 "no-restricted-imports": "error",
-                "no-restricted-properties": "error",
+                "no-restricted-properties": [
+                    "error",
+                    {
+                        "object": "Reflect",
+                        "property": "get",
+                        "message": "Use typed property access, `in` narrowing, or decode the value with Schema."
+                    },
+                    {
+                        "object": "Reflect",
+                        "property": "apply",
+                        "message": "Call the function directly with typed arguments."
+                    },
+                    {
+                        "object": "vi",
+                        "property": "mock",
+                        "message": "Replace module mocking with a real dependency seam such as a test Layer."
+                    },
+                    {
+                        "object": "vi",
+                        "property": "doMock",
+                        "message": "Replace module mocking with a real dependency seam such as a test Layer."
+                    }
+                ],
                 "no-return-assign": "error",
                 "no-script-url": "error",
                 "no-self-assign": "error",
@@ -532,7 +578,77 @@
                     {
                         "max": 6
                     }
-                ]
+                ],
+                "slop/no-chained-type-assertions": "error",
+                "slop/no-trivial-type-aliases": "error",
+                "no-comment-slop/max-comment-lines": "error",
+                "no-comment-slop/multiline-jsdoc-format": "error",
+                "no-comment-slop/no-banner-comment": "error",
+                "no-comment-slop/no-em-dash": "error",
+                "no-comment-slop/no-foreign-syntax": "error",
+                "no-comment-slop/no-jargon": "error",
+                "no-comment-slop/no-prose-semicolon": "error",
+                "no-comment-slop/no-trailing-period": "error",
+                "no-comment-slop/prefer-jsdoc-for-exports": "error",
+                "no-comment-slop/prefer-jsdoc-for-members": "error",
+                "regexp/confusing-quantifier": "error",
+                "regexp/control-character-escape": "error",
+                "regexp/match-any": "error",
+                "regexp/negation": "error",
+                "regexp/no-contradiction-with-assertion": "error",
+                "regexp/no-dupe-characters-character-class": "error",
+                "regexp/no-dupe-disjunctions": "error",
+                "regexp/no-empty-alternative": "error",
+                "regexp/no-empty-capturing-group": "error",
+                "regexp/no-empty-group": "error",
+                "regexp/no-empty-lookarounds-assertion": "error",
+                "regexp/no-empty-string-literal": "error",
+                "regexp/no-escape-backspace": "error",
+                "regexp/no-extra-lookaround-assertions": "error",
+                "regexp/no-invisible-character": "error",
+                "regexp/no-lazy-ends": "error",
+                "regexp/no-legacy-features": "error",
+                "regexp/no-misleading-capturing-group": "error",
+                "regexp/no-misleading-unicode-character": "error",
+                "regexp/no-missing-g-flag": "error",
+                "regexp/no-non-standard-flag": "error",
+                "regexp/no-obscure-range": "error",
+                "regexp/no-optional-assertion": "error",
+                "regexp/no-potentially-useless-backreference": "error",
+                "regexp/no-super-linear-backtracking": "error",
+                "regexp/no-trivially-nested-assertion": "error",
+                "regexp/no-trivially-nested-quantifier": "error",
+                "regexp/no-unused-capturing-group": "error",
+                "regexp/no-useless-assertions": "error",
+                "regexp/no-useless-backreference": "error",
+                "regexp/no-useless-character-class": "error",
+                "regexp/no-useless-dollar-replacements": "error",
+                "regexp/no-useless-flag": "error",
+                "regexp/no-useless-lazy": "error",
+                "regexp/no-useless-non-capturing-group": "error",
+                "regexp/no-useless-quantifier": "error",
+                "regexp/no-useless-range": "error",
+                "regexp/no-useless-set-operand": "error",
+                "regexp/no-useless-string-literal": "error",
+                "regexp/no-useless-two-nums-quantifier": "error",
+                "regexp/no-zero-quantifier": "error",
+                "regexp/optimal-lookaround-quantifier": "error",
+                "regexp/optimal-quantifier-concatenation": "error",
+                "regexp/prefer-character-class": "error",
+                "regexp/prefer-d": "error",
+                "regexp/prefer-plus-quantifier": "error",
+                "regexp/prefer-predefined-assertion": "error",
+                "regexp/prefer-question-quantifier": "error",
+                "regexp/prefer-range": "error",
+                "regexp/prefer-set-operation": "error",
+                "regexp/prefer-star-quantifier": "error",
+                "regexp/prefer-unicode-codepoint-escapes": "error",
+                "regexp/prefer-w": "error",
+                "regexp/simplify-set-operations": "error",
+                "regexp/sort-flags": "error",
+                "regexp/strict": "error",
+                "regexp/use-ignore-case": "error",
+                "regexp/no-super-linear-move": "error"
             },
             "plugins": ["typescript", "import"],
             "env": {
@@ -751,8 +867,10 @@
                         ],
                         "ignoreFunctions": ["format", "cva"]
                     }
-                ]
-            }
+                ],
+                "react/todo": "error"
+            },
+            "plugins": ["react"]
         },
         {
             "files": ["**/*.{ts,tsx}"],
@@ -781,7 +899,7 @@
                 "react/react-in-jsx-scope": "off",
                 "react/require-render-return": "error",
                 "react/rules-of-hooks": "error",
-                "react/exhaustive-deps": "warn",
+                "react/exhaustive-deps": "error",
                 "@rnw-community/no-complex-jsx-logic": "error",
                 "react/forbid-component-props": "off",
                 "react/function-component-definition": "off",
@@ -811,13 +929,64 @@
                 "react/error-boundaries": "error",
                 "react/purity": "error",
                 "react/set-state-in-render": "error",
-                "react/unsupported-syntax": "warn"
+                "react/unsupported-syntax": "warn",
+                "react/hooks": "error",
+                "react/memo-dependencies": "error",
+                "react/void-use-memo": "error",
+                "react/no-deriving-state-in-effects": "error",
+                "react/no-multi-comp": "error",
+                "react/no-object-type-as-default-prop": "error",
+                "react/jsx-no-useless-fragment": "error",
+                "react/jsx-fragments": "error",
+                "react/jsx-boolean-value": "error",
+                "react/jsx-curly-brace-presence": "error",
+                "react/jsx-pascal-case": "error",
+                "react/no-clone-element": "error",
+                "react/no-namespace": "error",
+                "react/prefer-function-component": "error",
+                "react/no-this-in-sfc": "error",
+                "react/forward-ref-uses-ref": "error",
+                "react/only-export-components": [
+                    "error",
+                    {
+                        "allowExportNames": ["metadata", "viewport"]
+                    }
+                ],
+                "eslint-react/no-context-provider": "error",
+                "eslint-react/no-forward-ref": "error",
+                "eslint-react/no-use-context": "error",
+                "eslint-react/use-state": "error",
+                "eslint-react/no-nested-lazy-component-declarations": "error",
+                "eslint-react/jsx-no-key-after-spread": "error",
+                "eslint-react/jsx-no-leaked-dollar": "error",
+                "eslint-react/jsx-no-leaked-semicolon": "error",
+                "eslint-react/web-api-no-leaked-event-listener": "error",
+                "eslint-react/web-api-no-leaked-fetch": "error",
+                "eslint-react/web-api-no-leaked-intersection-observer": "error",
+                "eslint-react/web-api-no-leaked-interval": "error",
+                "eslint-react/web-api-no-leaked-resize-observer": "error",
+                "react-effect/no-pass-live-state-to-parent": "error",
+                "react-effect/no-external-store-subscription": "error"
             },
             "plugins": ["react"]
         },
         {
+            "files": ["packages/app/**/*.tsx", "packages/ui/**/*.tsx"],
+            "rules": {
+                "react-native/no-inline-styles": "error",
+                "react-native/no-raw-text": [
+                    "error",
+                    {
+                        "skip": ["Trans", "BlackText", "ListItem"]
+                    }
+                ],
+                "react-native/no-single-element-style-arrays": "error",
+                "react-native/split-platform-components": "error"
+            }
+        },
+        {
             "files": ["packages/field-dom/**/*.tsx", "packages/landing/**/*.tsx"],
-            "plugins": ["jsx-a11y"],
+            "plugins": ["jsx-a11y", "react"],
             "rules": {
                 "jsx-a11y/alt-text": "error",
                 "jsx-a11y/anchor-has-content": "error",
@@ -850,7 +1019,11 @@
                 "jsx-a11y/role-has-required-aria-props": "error",
                 "jsx-a11y/role-supports-aria-props": "error",
                 "jsx-a11y/scope": "error",
-                "jsx-a11y/tabindex-no-positive": "error"
+                "jsx-a11y/tabindex-no-positive": "error",
+                "react/button-has-type": "error",
+                "react/iframe-missing-sandbox": "error",
+                "react/jsx-no-script-url": "error",
+                "react/checked-requires-onchange-or-readonly": "error"
             }
         },
         {

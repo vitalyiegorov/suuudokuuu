@@ -16,12 +16,12 @@ const rootProvidersStyle = { flex: 1 };
 
 export const RootProviders = ({ children }: Props) => (
     <GestureHandlerRootView style={rootProvidersStyle}>
-        <RegistryContext.Provider value={appAtomRegistry}>
+        <RegistryContext value={appAtomRegistry}>
             <BootGate>
                 <SafeAreaFloorProvider>
                     <SystemMotionProvider>{children}</SystemMotionProvider>
                 </SafeAreaFloorProvider>
             </BootGate>
-        </RegistryContext.Provider>
+        </RegistryContext>
     </GestureHandlerRootView>
 );

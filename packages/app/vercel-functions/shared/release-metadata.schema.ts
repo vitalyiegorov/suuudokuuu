@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-const BranchPattern = /^[A-Za-z0-9][A-Za-z0-9._/-]*$/u;
+const BranchPattern = /^[A-Za-z0-9][\w./-]*$/u;
 const MaximumBranchLength = 255;
 const BundleVersionPattern = /^[1-9]\d{0,3}(?:\.[1-9]\d?){0,2}$/u;
 const CommitShaPattern = /^[a-f0-9]{40}$/u;

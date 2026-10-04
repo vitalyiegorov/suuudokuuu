@@ -33,7 +33,7 @@ export const keyboardKeyToAction = (key: string, sudoku: Sudoku, selectedCell: C
         return { type: 'exit' };
     }
 
-    if (isDefined(selectedCell) && /^[1-9]$/iu.test(key)) {
+    if (isDefined(selectedCell) && /^[1-9]$/u.test(key)) {
         return { type: 'select-value', value: Number(key) };
     }
 

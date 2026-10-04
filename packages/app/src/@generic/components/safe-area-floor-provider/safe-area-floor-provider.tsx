@@ -4,4 +4,4 @@ interface Props {
     readonly children: ReactNode;
 }
 
-export const SafeAreaFloorProvider = ({ children }: Props) => <>{children}</>;
+export const SafeAreaFloorProvider = ({ children }: Props) => children;

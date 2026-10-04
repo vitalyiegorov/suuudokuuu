@@ -5,7 +5,7 @@ import { OG_IMAGE_DIRECTORY } from '../constants/og-image.constant';
 const HOME_OG_IMAGE_SLUG = 'home';
 
 export const getOgImageSlug = (path: string): string => {
-    const trimmedPath = path.replaceAll(/^\/+|\/+$/gu, '');
+    const trimmedPath = path.replaceAll(/^\/+|(?<!\/)\/+$/gu, '');
 
     return isNotEmptyString(trimmedPath) ? trimmedPath.replaceAll('/', '-') : HOME_OG_IMAGE_SLUG;
 };

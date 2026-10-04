@@ -43,9 +43,9 @@ export const WinConfettiProvider = ({ children }: Props) => {
     const confettiOverlay = shouldRenderConfetti ? <ConfettiBurst /> : null;
 
     return (
-        <WinConfettiContext.Provider value={handleCelebrationStart}>
+        <WinConfettiContext value={handleCelebrationStart}>
             {children}
             {confettiOverlay}
-        </WinConfettiContext.Provider>
+        </WinConfettiContext>
     );
 };

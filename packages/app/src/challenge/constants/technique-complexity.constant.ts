@@ -1,6 +1,6 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-/** How "sharp" a technique is, on a 1-5 scale, driving the timeline mark height. */
+/** How "sharp" a technique is, on a 1-5 scale, driving the timeline mark height */
 export const techniqueComplexityConstant: Record<SolutionTechniqueEnum, number> = {
     [SolutionTechniqueEnum.Guess]: 5,
     [SolutionTechniqueEnum.FullHouse]: 1,
