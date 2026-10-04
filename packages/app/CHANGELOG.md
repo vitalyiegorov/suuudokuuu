@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.4...v2.13.5) (2026-10-04)
+
+### Bug Fixes
+
+* **app:** anchor a content-sized hint card under the board ([#419](https://github.com/vitalyiegorov/suuudokuuu/issues/419)) ([9d280f9](https://github.com/vitalyiegorov/suuudokuuu/commit/9d280f9b396a02810546c1bb4dfa92353a1567ee))
+
+
 ## [2.13.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.3...v2.13.4) (2026-10-04)
 
 **Note:** Version bump only for package @suuudokuuu/app
