@@ -1188,6 +1188,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@effect/language-service@npm:^0.87.3":
+  version: 0.87.3
+  resolution: "@effect/language-service@npm:0.87.3"
+  bin:
+    effect-language-service: cli.js
+  checksum: 10/51776bacf9e65f1acae7dd59a0359281407c4bad22f38325d6d1fed254145982d86ab4ceac099999c2f87e9d70befddcae14db18db35c8a704932f716ab4b450
+  languageName: node
+  linkType: hard
+
 "@effect/sql-sqlite-node@npm:4.0.0":
   version: 4.0.0
   resolution: "@effect/sql-sqlite-node@npm:4.0.0"
@@ -5492,6 +5501,7 @@ __metadata:
     "@commitlint/cli": "npm:^21.2.3"
     "@commitlint/config-conventional": "npm:^21.2.3"
     "@commitlint/config-workspace-scopes": "npm:^21.2.0"
+    "@effect/language-service": "npm:^0.87.3"
     "@lingui/cli": "npm:6.9.0"
     "@rnw-community/eslint-plugin": "npm:^2.19.2"
     "@types/node": "npm:^26.6.4"

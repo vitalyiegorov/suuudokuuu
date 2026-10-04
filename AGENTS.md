@@ -23,6 +23,7 @@ yarn build:force
 yarn format
 yarn format:check
 yarn ts
+yarn effect:check
 yarn lint
 yarn lint:fix
 yarn deadcode
@@ -36,7 +37,7 @@ yarn deps:dedupe
 Before finishing code changes, run this validation sequence from the root:
 
 ```bash
-yarn format && yarn ts && yarn lint && yarn deadcode && yarn cpd
+yarn format && yarn ts && yarn effect:check && yarn lint && yarn deadcode && yarn cpd
 ```
 
 Run `yarn test` when behavior, algorithms, serialization, persistence, scoring, or app flows change. Run package-specific tests when the blast radius is narrow.
@@ -176,6 +177,7 @@ All effectful logic runs on Effect v4 (`effect`, pinned exactly). API names are 
 - **Runtime.** One app `ManagedRuntime` and one atom runtime share a memo map (`packages/app/src/@generic/runtime/app.runtime.ts`). Components run commands with `appRuntime.runPromise`; an effect started from `useEffect` uses `runFork` and interrupts the fiber in cleanup. No `Effect.runPromise`/`runSync` inside services.
 - **Concurrency and time.** `Schedule`, `Effect.retry`/`repeat`, `Effect.timeout`, `Effect.sleep`, `Semaphore`, `FiberMap`, `Effect.acquireRelease`. Never `Promise.race`, generation counters, promise-chain mutexes, or boolean cancel flags.
 - **Imports by subpath.** `import * as Effect from 'effect/Effect'`, never the `effect` barrel. Metro does not tree-shake, and the barrel adds megabytes to the bundle.
+- **Diagnostics.** `yarn effect:check` runs the `@effect/language-service` diagnostics (severities set in the root `tsconfig.json` plugin block) over `progress`, `app`, and `test-kit`; it must report no errors.
 - **Tests.** Vitest with `@effect/vitest`: every test is `it.effect('...', () => Effect.gen(function* () {...}))`, with `it.layer` for shared layers and `makeTestSqlLayer()` from `tests/test-kit` for an in-memory database. No `async` test bodies, no `runPromise` or `try`/`catch` in tests; assert failures with `Effect.flip`/`Effect.exit`. Time-dependent tests use `TestClock`.
 
 ```ts

@@ -10,6 +10,9 @@
         "ts": {
             "outputs": ["node_modules/.cache/tsbuildinfo.json", "**/node_modules/.cache/tsbuildinfo.json"]
         },
+        "effect:check": {
+            "outputs": []
+        },
         "deadcode": {
             "outputs": []
         },

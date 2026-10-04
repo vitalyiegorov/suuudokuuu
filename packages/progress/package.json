@@ -20,7 +20,8 @@
         "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"
+        "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json",
+        "effect:check": "run -T effect-language-service diagnostics --project tsconfig.json --format text --severity error"
     },
     "dependencies": {
         "@suuudokuuu/encoder": "workspace:*",

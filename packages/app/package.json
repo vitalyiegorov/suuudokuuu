@@ -17,7 +17,8 @@
         "store:notes": "node scripts/generate-store-release-notes.ts",
         "dev-build:preflight": "node scripts/preflight-development-build.ts",
         "ts": "run -T tsc -p . && run -T tsc -p scripts",
-        "web": "expo start --web"
+        "web": "expo start --web",
+        "effect:check": "run -T effect-language-service diagnostics --project tsconfig.json --format text --severity error"
     },
     "dependencies": {
         "@effect/atom-react": "4.0.0",

@@ -114,6 +114,9 @@ jobs:
             - name: Typescript checks
               run: yarn ts
 
+            - name: Effect diagnostics
+              run: yarn effect:check
+
             - name: Lint checks
               run: yarn lint
 
