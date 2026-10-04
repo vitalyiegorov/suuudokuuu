@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 const VersionPattern = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/u;
-const BranchPattern = /^[A-Za-z0-9][A-Za-z0-9._/-]*$/u;
+const BranchPattern = /^[A-Za-z0-9][\w./-]*$/u;
 const MaximumBranchLength = 255;
 const CommitShaPattern = /^[0-9a-f]{40}$/u;
 const CommitShortShaPattern = /^[0-9a-f]{7}$/u;

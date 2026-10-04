@@ -21,7 +21,7 @@ const okStatus = 200;
 const HeadingPattern = /<h1[^>]*>(.*?)<\/h1>/gu;
 const CanonicalPattern = /<link rel="canonical" href="([^"]+)"/u;
 const OgImagePattern = /<meta property="og:image" content="([^"]+)"/u;
-const MarkupTagPattern = /<[^>]+>/gu;
+const MarkupTagPattern = /<[^<>]+>/gu;
 
 const stripMarkupTags = (text: string): string => {
     let strippedText = text;
