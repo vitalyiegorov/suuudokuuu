@@ -8,8 +8,7 @@ export const HintStepNarrationStyles = StyleSheet.create(theme => ({
     container: {
         flexShrink: 1,
         gap: theme.spacing.sm,
-        minHeight: 0,
-        overflow: 'hidden'
+        minHeight: 0
     },
     header: {
         alignItems: 'center',
@@ -36,6 +35,10 @@ export const HintStepNarrationStyles = StyleSheet.create(theme => ({
         letterSpacing: techniqueLetterSpacing,
         textAlign: 'left',
         textTransform: 'uppercase'
+    },
+    narrationScroll: {
+        flexGrow: 0,
+        flexShrink: 1
     },
     narration: {
         fontSize: theme.typography.size.md,

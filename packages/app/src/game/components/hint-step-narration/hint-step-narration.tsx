@@ -1,6 +1,6 @@
 import { useLingui } from '@lingui/react';
 import { use, useEffect } from 'react';
-import { AccessibilityInfo, View } from 'react-native';
+import { AccessibilityInfo, ScrollView, View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -13,8 +13,6 @@ import { HintStepNarrationSelectors } from './hint-step-narration.selectors';
 import { HintStepNarrationStyles as styles } from './hint-step-narration.styles';
 
 import type { StepScriptStepType } from '@suuudokuuu/field-core';
-
-const narrationMaxLineCount = 3;
 
 interface Props {
     readonly step: StepScriptStepType;
@@ -49,9 +47,11 @@ export const HintStepNarration = ({ step, value }: Props) => {
                 </BlackText>
             </View>
 
-            <BlackText numberOfLines={narrationMaxLineCount} style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
-                {narrationText}
-            </BlackText>
+            <ScrollView style={styles.narrationScroll}>
+                <BlackText style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
+                    {narrationText}
+                </BlackText>
+            </ScrollView>
         </View>
     );
 };
