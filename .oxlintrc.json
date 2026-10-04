@@ -233,7 +233,29 @@
                 "no-restricted-exports": "error",
                 "no-restricted-globals": "error",
                 "no-restricted-imports": "error",
-                "no-restricted-properties": "error",
+                "no-restricted-properties": [
+                    "error",
+                    {
+                        "object": "Reflect",
+                        "property": "get",
+                        "message": "Use typed property access, `in` narrowing, or decode the value with Schema."
+                    },
+                    {
+                        "object": "Reflect",
+                        "property": "apply",
+                        "message": "Call the function directly with typed arguments."
+                    },
+                    {
+                        "object": "vi",
+                        "property": "mock",
+                        "message": "Replace module mocking with a real dependency seam such as a test Layer."
+                    },
+                    {
+                        "object": "vi",
+                        "property": "doMock",
+                        "message": "Replace module mocking with a real dependency seam such as a test Layer."
+                    }
+                ],
                 "no-return-assign": "error",
                 "no-script-url": "error",
                 "no-self-assign": "error",
