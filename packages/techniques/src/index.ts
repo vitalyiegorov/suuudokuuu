@@ -10,3 +10,4 @@ export { interactiveTechniqueOrder } from './@generic/constants/interactive-tech
 export { isSolutionTechnique } from './@generic/utils/is-solution-technique.util';
 export { TechniqueManager } from './@generic/classes/technique-manager/technique-manager';
 export { createTechniqueStrategies } from './@generic/utils/create-technique-strategies.util';
+export { findPlacementChain } from './@generic/utils/find-placement-chain.util';

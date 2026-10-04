@@ -94,6 +94,12 @@ Guess steps are never emitted; `steps` holds logical deductions only.
 
 `techniqueOrder` overrides the registry order with plain enum values, which keeps strategy classes unexported. The array defines both order and membership: only the listed techniques run, in the listed order, and entries without a registered strategy are ignored. Omitting the parameter uses the registry order. Consumers that rank by an external difficulty scale pass their own cheapest-first order instead of relying on enum ordinals.
 
+### findPlacementChain
+
+`findPlacementChain(sudoku, strategies?)` answers "what is the shortest honest path to the next digit". It threads the same accepted-step loop as `solveLogically` from `CandidateContext.fromSudoku` and stops at the first placement, so the player's notes never influence it. An empty array means the ladder runs dry before any placement, which is the guess fallback.
+
+The chain is then pruned backwards: for each elimination step, from the last to the first, it replays the kept suffix from the context that step was found in, minus that step. Each kept step must be re-derived there by its own strategy (a placement with the same cell and value, an elimination still progressing and still covering every elimination the original made that is still a candidate), and the re-derived results replace the originals, so every kept step is a sound deduction on the exact candidates the player is shown. A step whose removal breaks any replay is kept. Single-value eliminations replay with an `'enabling'` search target on that value, which keeps the forcing-chain replays cheap; `AIC` ignores that intent and is the dominant cost on the hardest boards.
+
 ### TechniqueSearchTargetInterface
 
 `find(context, target)` narrows a scan to one move. `target.intent` says which pass is asking:
@@ -222,7 +228,14 @@ Adopted by `AbstractFishTechnique` and both fish families, and by `HiddenSubsetT
 ## Exports
 
 ```typescript
-export { SolutionTechniqueEnum, TechniqueManager, interactiveTechniqueOrder, isSolutionTechnique, createTechniqueStrategies };
+export {
+    SolutionTechniqueEnum,
+    TechniqueManager,
+    interactiveTechniqueOrder,
+    isSolutionTechnique,
+    createTechniqueStrategies,
+    findPlacementChain
+};
 export type {
     TechniqueResultInterface,
     MoveClassificationInterface,
