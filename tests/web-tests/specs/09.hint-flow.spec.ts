@@ -7,7 +7,10 @@ import {
     SharedScreenSelectors
 } from '@suuudokuuu/app/src/selectors';
 
-import { pointingPairHintSharedPuzzleEncodedConstant } from '../src/constants/shared-challenge-links.constant';
+import {
+    pointingPairHintSharedPuzzleEncodedConstant,
+    revealHintSharedPuzzleEncodedConstant
+} from '../src/constants/shared-challenge-links.constant';
 import { launchHome } from '../src/utils/launch-home.util';
 import { openSharedPuzzle } from '../src/utils/open-shared-puzzle.util';
 import { startNewGame } from '../src/utils/start-new-game.util';
@@ -129,4 +132,26 @@ test('chains a pointing pair into the hidden single it enables and places the di
     await expect(progress).toHaveAttribute('aria-label', 'Step 1 of 2');
     await expect(technique).toHaveText('Hidden Single');
     await expect(page.getByTestId(HintStepNarrationSelectors.Value)).toHaveText('8');
+});
+
+test('reveals one digit with an advanced chain hint when no short chain reaches a placement', async ({ page }) => {
+    await launchHome(page);
+    await openSharedPuzzle(page, revealHintSharedPuzzleEncodedConstant);
+    await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+
+    const progress = page.getByTestId(HintPanelSelectors.Progress);
+
+    await page.getByTestId(HintButtonSelectors.Root).click();
+
+    await expect(progress).toHaveAttribute('aria-label', 'Step 1 of 2');
+    await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText('Advanced chain');
+
+    await page.getByTestId(HintPanelSelectors.NextButton).click();
+    await expect(progress).toHaveAttribute('aria-label', 'Step 2 of 2');
+    await expect(page.getByTestId(HintStepNarrationSelectors.Value)).toHaveText('9');
+
+    await page.getByTestId(HintPanelSelectors.ApplyButton).click();
+    await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
+    await expect(page.getByTestId(cellTestId(7, 6))).toHaveAttribute('aria-label', 'Row 8, column 7, 9');
 });

@@ -94,6 +94,11 @@ pnpm --filter @suuudokuuu/web-tests lint
   `09.hint-flow.spec.ts` depends on it. Regenerate with `GameStateSerializer.encodeState` over the
   same field string with `SharedPayloadKindEnum.Puzzle`, `difficulty: 2` and the `ratePuzzle` rating.
 
+- `revealHintSharedPuzzleEncodedConstant`: a `Puzzle`-kind share of the 21-clue Inkala puzzle that
+  carries a Medium difficulty trailer (rating `8.5`, ceiling) so the hint button stays visible.
+  No logical chain reaches a placement, so the first hint is the "Advanced chain" reveal of `9` at
+  `y=7, x=6`, the blank cell with the fewest candidates. `09.hint-flow.spec.ts` depends on it.
+
 ## Known Platform Notes
 
 - Escape does not deselect the active cell on web. `GameScreen` wires the keyboard hook's `onExit`
