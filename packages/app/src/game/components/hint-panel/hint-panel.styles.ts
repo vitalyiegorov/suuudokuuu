@@ -1,6 +1,8 @@
 import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { GamePanelHorizontalPaddingConstant } from '../../constant/board-cell-size.constant';
 
 const hintPanelMaxWidth = 480;
@@ -12,20 +14,28 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => {
     const dotActiveSize = isWideLayout ? 10 : 8;
 
     return {
-        container: {
-            borderCurve: 'continuous',
-            borderRadius: theme.radius.lg,
-            borderWidth: 1,
+        region: (availableHeight: number | undefined) => ({
             bottom: isWideLayout ? 0 : rt.insets.bottom + theme.spacing.sm,
-            gap: theme.spacing.sm,
+            ...(isDefined(availableHeight) && { height: availableHeight + theme.spacing.xs }),
+            justifyContent: 'flex-end',
             left: isWideLayout ? 0 : GamePanelHorizontalPaddingConstant,
-            marginHorizontal: 'auto',
-            maxWidth: hintPanelMaxWidth,
-            padding: theme.spacing.md,
+            paddingTop: isWideLayout ? 0 : theme.spacing.md,
             position: 'absolute',
             right: isWideLayout ? 0 : GamePanelHorizontalPaddingConstant,
             zIndex: 10
-        },
+        }),
+        container: (availableHeight: number | undefined) => ({
+            alignSelf: 'center',
+            borderCurve: 'continuous',
+            borderRadius: theme.radius.lg,
+            borderWidth: 1,
+            gap: theme.spacing.sm,
+            marginBottom: 'auto',
+            maxWidth: hintPanelMaxWidth,
+            padding: theme.spacing.md,
+            width: '100%',
+            ...(isDefined(availableHeight) && { maxHeight: availableHeight })
+        }),
         controls: {
             alignItems: 'center',
             flexDirection: 'row',

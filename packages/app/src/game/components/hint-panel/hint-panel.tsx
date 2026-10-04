@@ -23,10 +23,10 @@ const enterDurationMs = 180;
 const exitDurationMs = 120;
 
 interface Props {
-    readonly maxHeight?: number;
+    readonly availableHeight?: number;
 }
 
-export const HintPanel = ({ maxHeight }: Props) => {
+export const HintPanel = ({ availableHeight }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
@@ -59,12 +59,8 @@ export const HintPanel = ({ maxHeight }: Props) => {
     const stepCount = stepScript.steps.length;
     const currentStepNumber = stepIndex + 1;
     const containerStyles = [
-        styles.container,
-        {
-            backgroundColor: theme.colors.surface.raised,
-            borderColor: theme.colors.surface.border,
-            ...(isDefined(maxHeight) && { maxHeight })
-        }
+        styles.container(availableHeight),
+        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border }
     ];
     const progressAccessibilityLabel = t`Step ${currentStepNumber} of ${stepCount}`;
     const placementValue = stepScript.placement?.value;
@@ -72,55 +68,57 @@ export const HintPanel = ({ maxHeight }: Props) => {
     const motionProps = isMotionReduced ? {} : { entering: FadeIn.duration(enterDurationMs), exiting: FadeOut.duration(exitDurationMs) };
 
     return (
-        <Animated.View style={containerStyles} testID={HintPanelSelectors.Root} {...motionProps}>
-            <HintStepNarration step={currentStep} value={placementValue} />
+        <Animated.View pointerEvents="box-none" style={styles.region(availableHeight)} {...motionProps}>
+            <View style={containerStyles} testID={HintPanelSelectors.Root}>
+                <HintStepNarration step={currentStep} value={placementValue} />
 
-            <View style={styles.controls}>
-                <AppIconButton
-                    accessibilityLabel={t`Dismiss`}
-                    onPress={handleDismiss}
-                    size="compact"
-                    style={styles.dismissButton}
-                    testID={HintPanelSelectors.DismissButton}
-                    variant="ghost"
-                >
-                    <LucideX color={dismissIconColor} />
-                </AppIconButton>
-
-                <View accessibilityLabel={progressAccessibilityLabel} style={styles.stepControls} testID={HintPanelSelectors.Progress}>
-                    <AppButton
-                        accessibilityLabel={t`Previous step`}
-                        disabled={currentStepNumber === 1}
-                        icon={LucideChevronLeft}
-                        onPress={handleBack}
+                <View style={styles.controls}>
+                    <AppIconButton
+                        accessibilityLabel={t`Dismiss`}
+                        onPress={handleDismiss}
                         size="compact"
-                        style={styles.stepButton}
-                        testID={HintPanelSelectors.BackButton}
+                        style={styles.dismissButton}
+                        testID={HintPanelSelectors.DismissButton}
                         variant="ghost"
-                    />
+                    >
+                        <LucideX color={dismissIconColor} />
+                    </AppIconButton>
 
-                    <View style={styles.dots}>
-                        {stepScript.steps.map((step, index) => {
-                            const isCurrentStep = index === stepIndex;
-                            const dotStyles = isCurrentStep ? styles.dotActive : styles.dot;
+                    <View accessibilityLabel={progressAccessibilityLabel} style={styles.stepControls} testID={HintPanelSelectors.Progress}>
+                        <AppButton
+                            accessibilityLabel={t`Previous step`}
+                            disabled={currentStepNumber === 1}
+                            icon={LucideChevronLeft}
+                            onPress={handleBack}
+                            size="compact"
+                            style={styles.stepButton}
+                            testID={HintPanelSelectors.BackButton}
+                            variant="ghost"
+                        />
 
-                            return <View key={`${step.kind}-${index}`} style={dotStyles} />;
-                        })}
+                        <View style={styles.dots}>
+                            {stepScript.steps.map((step, index) => {
+                                const isCurrentStep = index === stepIndex;
+                                const dotStyles = isCurrentStep ? styles.dotActive : styles.dot;
+
+                                return <View key={`${step.kind}-${index}`} style={dotStyles} />;
+                            })}
+                        </View>
+
+                        <AppButton
+                            accessibilityLabel={t`Next step`}
+                            disabled={currentStepNumber === stepCount}
+                            icon={LucideChevronRight}
+                            onPress={handleNext}
+                            size="compact"
+                            style={styles.stepButton}
+                            testID={HintPanelSelectors.NextButton}
+                            variant="ghost"
+                        />
                     </View>
 
-                    <AppButton
-                        accessibilityLabel={t`Next step`}
-                        disabled={currentStepNumber === stepCount}
-                        icon={LucideChevronRight}
-                        onPress={handleNext}
-                        size="compact"
-                        style={styles.stepButton}
-                        testID={HintPanelSelectors.NextButton}
-                        variant="ghost"
-                    />
+                    <AppButton onPress={handleApply} size="compact" testID={HintPanelSelectors.ApplyButton} text={t`Apply`} />
                 </View>
-
-                <AppButton onPress={handleApply} size="compact" testID={HintPanelSelectors.ApplyButton} text={t`Apply`} />
             </View>
         </Animated.View>
     );

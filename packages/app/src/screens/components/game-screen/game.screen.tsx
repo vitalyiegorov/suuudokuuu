@@ -135,7 +135,7 @@ export const GameScreen = () => {
     const gameActionsIconColor = theme.colors.surface.raisedText;
     const isHintActive = isDefined(snapshot.stepScript);
     const toolsSlotPointerEvents = isHintActive ? 'none' : 'auto';
-    const hintPanelMaxHeight = toolsSlotHeight + gameGetNumpadHeight(screenWidth);
+    const hintPanelAvailableHeight = toolsSlotHeight + gameGetNumpadHeight(screenWidth);
 
     const statusBlock = (
         <GameStatusBlock
@@ -224,7 +224,7 @@ export const GameScreen = () => {
                 </View>
             </View>
 
-            {isWideLayout ? null : <HintPanel maxHeight={hintPanelMaxHeight} />}
+            {isWideLayout ? null : <HintPanel availableHeight={hintPanelAvailableHeight} />}
         </Pressable>
     );
 };
