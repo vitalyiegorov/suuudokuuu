@@ -145,8 +145,8 @@ const buildBetaFunction = async (endpointName: string) => {
 };
 
 async function main(): Promise<void> {
-    assertExportExists(webExportEntryFile, 'Expo web export', 'yarn export:web');
-    assertExportExists(landingExportEntryFile, 'landing export', 'yarn workspace @suuudokuuu/landing build');
+    assertExportExists(webExportEntryFile, 'Expo web export', 'pnpm export:web');
+    assertExportExists(landingExportEntryFile, 'landing export', 'pnpm --filter @suuudokuuu/landing build');
 
     const routes = readVercelRoutes();
     const webExportRelativePaths = collectRelativeFilePaths(webExportDirectory, '');

@@ -1,0 +1,16 @@
+packages:
+    - packages/*
+    - tests/*
+
+minimumReleaseAge: 1440
+
+minimumReleaseAgeExclude:
+    - '@rnw-community/*'
+
+patchedDependencies:
+    effect@4.0.0: patches/effect@4.0.0.patch
+    react-native-unistyles@3.3.0: patches/react-native-unistyles@3.3.0.patch
+
+allowBuilds:
+    esbuild: false
+    nx: false

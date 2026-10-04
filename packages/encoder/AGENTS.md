@@ -5,11 +5,11 @@ Pure TypeScript package for compact binary encoding and decoding of Sudoku puzzl
 ## Commands
 
 ```bash
-yarn build
-yarn build:esm
-yarn ts
-yarn test
-yarn test:coverage
+pnpm build
+pnpm build:esm
+pnpm ts
+pnpm test
+pnpm test:coverage
 ```
 
 ## Structure
@@ -117,7 +117,7 @@ The technique trailer is the fourth generation and sits after the metadata trail
 4. After encoder changes, run:
 
 ```bash
-yarn test && yarn ts && yarn build
+pnpm test && pnpm ts && pnpm build
 ```
 
 Run the root validation sequence before finishing.

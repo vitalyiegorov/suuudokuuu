@@ -11,12 +11,12 @@ rating → techniques → generator → solver-bitmask → solver-core
 ## Commands
 
 ```bash
-yarn build              # Build ESM + CommonJS
-yarn build:esm         # TypeScript -> ESM /dist/esm
-yarn build:cjs         # TypeScript -> CommonJS /dist/cjs
-yarn test              # Vitest tests
-yarn test:coverage     # With coverage report
-yarn ts                # TypeScript check
+pnpm build              # Build ESM + CommonJS
+pnpm build:esm         # TypeScript -> ESM /dist/esm
+pnpm build:cjs         # TypeScript -> CommonJS /dist/cjs
+pnpm test              # Vitest tests
+pnpm test:coverage     # With coverage report
+pnpm ts                # TypeScript check
 ```
 
 ## Structure

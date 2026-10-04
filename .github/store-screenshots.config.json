@@ -1,4 +1,5 @@
 {
+    "install-command": "pnpm install --frozen-lockfile",
     "ios-target": {
         "name": "production",
         "appDir": "packages/app",

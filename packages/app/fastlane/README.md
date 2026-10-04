@@ -65,7 +65,7 @@ Release notes are generated **locally, never in CI**, and the committed files
 are the source of truth. The flow:
 
 1. When a PR finishes a user-facing task, run
-   `yarn workspace @suuudokuuu/app store:notes` locally (or hand-edit the
+   `pnpm --filter @suuudokuuu/app store:notes` locally (or hand-edit the
    `release_notes.txt`/`default.txt` files) and commit the result with the PR.
    Notes accumulate PR by PR until the next store publish.
 2. The script writes `metadata/release-notes-state.json` recording the base
@@ -131,7 +131,7 @@ falls back to the plain English path below.
 Run it locally with:
 
 ```bash
-yarn workspace @suuudokuuu/app store:notes
+pnpm --filter @suuudokuuu/app store:notes
 ```
 
 Check freshness (the same check the publish workflow runs):
@@ -244,7 +244,7 @@ changes rarely. The final framed assets are committed to the repo and only
 uploaded when explicitly requested.
 
 1. Capture raw frames (only when the UI meaningfully changed): run
-   `APP_ID=com.vitalyiegorov.suuudokuuu yarn workspace @suuudokuuu/app-tests screenshots:capture`
+   `APP_ID=com.vitalyiegorov.suuudokuuu pnpm --filter @suuudokuuu/app-tests screenshots:capture`
    on an iPhone 17 Pro Max simulator (the 6.9" 1320×2868 store slot, the
    default `DEVICE_CLASS=iphone`). For the 13" iPad slot (2064×2752), boot an
    "iPad Pro 13-inch (M4)" simulator (or closest available) and run the same
@@ -252,9 +252,9 @@ uploaded when explicitly requested.
 
     ```bash
     APP_ID=com.vitalyiegorov.suuudokuuu SIMULATOR_UDID=<iphone-udid> \
-        yarn workspace @suuudokuuu/app-tests screenshots:capture
+        pnpm --filter @suuudokuuu/app-tests screenshots:capture
     DEVICE_CLASS=ipad APP_ID=com.vitalyiegorov.suuudokuuu SIMULATOR_UDID=<ipad-udid> \
-        yarn workspace @suuudokuuu/app-tests screenshots:capture
+        pnpm --filter @suuudokuuu/app-tests screenshots:capture
     ```
 
     Pass `SIMULATOR_UDID` explicitly whenever more than one simulator may be

@@ -11,14 +11,14 @@ Read the root `AGENTS.md` first. Every engineering rule there applies here.
 ## Commands
 
 ```bash
-yarn workspace @suuudokuuu/landing start   # next dev
-yarn workspace @suuudokuuu/landing build   # next build -> static export in out/
-yarn workspace @suuudokuuu/landing ts
-yarn workspace @suuudokuuu/landing lint
-yarn workspace @suuudokuuu/landing generate:rating-sample      # re-forge the committed guide sample, changes every published number
-yarn workspace @suuudokuuu/landing submit:indexnow --dry-run   # print the sitemap-derived URL list
-yarn workspace @suuudokuuu/landing submit:indexnow             # needs INDEXNOW_KEY, run after deploy
-yarn workspace @suuudokuuu/landing seo:report                  # needs GCP_SA_KEY and CRUX_API_KEY, run weekly by CI
+pnpm --filter @suuudokuuu/landing start   # next dev
+pnpm --filter @suuudokuuu/landing build   # next build -> static export in out/
+pnpm --filter @suuudokuuu/landing ts
+pnpm --filter @suuudokuuu/landing lint
+pnpm --filter @suuudokuuu/landing generate:rating-sample      # re-forge the committed guide sample, changes every published number
+pnpm --filter @suuudokuuu/landing submit:indexnow --dry-run   # print the sitemap-derived URL list
+pnpm --filter @suuudokuuu/landing submit:indexnow             # needs INDEXNOW_KEY, run after deploy
+pnpm --filter @suuudokuuu/landing seo:report                  # needs GCP_SA_KEY and CRUX_API_KEY, run weekly by CI
 ```
 
 The static export lands in `packages/landing/out`. Both `packages/landing/.next` and `packages/landing/out` are git-ignored.
@@ -192,7 +192,7 @@ The landing package is English-only and is deliberately excluded from the Lingui
 3. Register the sidecar in `src/seo/registries/page-metadata.registry.ts`.
 4. Write the body copy inline in the page.
 5. Add JSON-LD with the compound schema components where it applies.
-6. Run `yarn workspace @suuudokuuu/landing ts` and `yarn workspace @suuudokuuu/landing lint`, then the root validation sequence.
+6. Run `pnpm --filter @suuudokuuu/landing ts` and `pnpm --filter @suuudokuuu/landing lint`, then the root validation sequence.
 
 ## Technique pages and the worked-example pipeline
 
@@ -235,7 +235,7 @@ To add a technique page:
 
 The guides under `src/app/guides` publish measured numbers, never hand-written ones. `TierLadderTable` and `TechniqueFrequencyTable` call `getTierTechniqueReports()` during static generation; the reports are memoised per build so both guides share one computation.
 
-`RATING_SAMPLE_PUZZLES` in `src/rating/constants/rating-sample.constant.ts` is a committed, fixed sample of `RATING_SAMPLE_SIZE` rated puzzles per difficulty, each entry a `{ puzzle, rating, isRatingCeiling }` record. Sourcing is random and the Hell corpus is large, so the sample is frozen in source to keep every build deterministic and every published number reproducible. The file is written by `scripts/generate-rating-sample.ts` (`yarn workspace @suuudokuuu/landing generate:rating-sample`): the five generated tiers come from `forgePuzzle(difficulty)` in `@suuudokuuu/puzzle-forge`, retried until the board is in band so the sample proves the tier contract; the Hell entries are the first `RATING_SAMPLE_SIZE` records of `@suuudokuuu/hell-corpus`, which carry a verified rating. Regenerating the sample changes every number on both guides, the six difficulty landers and the printable booklets, so treat it as data, not as code to tidy. Keep each entry on one line: the generator emits tier arrays at top level precisely so a full entry fits inside the 140-column print width and the file stays under the `max-lines` limit.
+`RATING_SAMPLE_PUZZLES` in `src/rating/constants/rating-sample.constant.ts` is a committed, fixed sample of `RATING_SAMPLE_SIZE` rated puzzles per difficulty, each entry a `{ puzzle, rating, isRatingCeiling }` record. Sourcing is random and the Hell corpus is large, so the sample is frozen in source to keep every build deterministic and every published number reproducible. The file is written by `scripts/generate-rating-sample.ts` (`pnpm --filter @suuudokuuu/landing generate:rating-sample`): the five generated tiers come from `forgePuzzle(difficulty)` in `@suuudokuuu/puzzle-forge`, retried until the board is in band so the sample proves the tier contract; the Hell entries are the first `RATING_SAMPLE_SIZE` records of `@suuudokuuu/hell-corpus`, which carry a verified rating. Regenerating the sample changes every number on both guides, the six difficulty landers and the printable booklets, so treat it as data, not as code to tidy. Keep each entry on one line: the generator emits tier arrays at top level precisely so a full entry fits inside the 140-column print width and the file stays under the `max-lines` limit.
 
 Clue counts come from `DIFFICULTY_BANDS` in `@suuudokuuu/puzzle-forge` via `getDifficultyClueCount`. Never read `defaultSudokuConfig.difficultyBlankCells` for a published number: that table is frozen legacy inference for pre-band shared links and no longer describes generated puzzles.
 

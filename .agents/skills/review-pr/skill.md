@@ -683,7 +683,7 @@ For each human review comment:
 1. **Read the file** at the specified path
 2. **Understand the context** around the line number
 3. **Implement the requested change**
-4. **Run validation** (`yarn format && yarn ts && yarn lint && yarn deadcode && yarn cpd`)
+4. **Run validation** (`pnpm format && pnpm ts && pnpm lint && pnpm deadcode && pnpm cpd`)
 
 ### 5. Commit and Push
 
@@ -752,7 +752,7 @@ digraph address_review {
         implement [label="Implement fix"];
     }
 
-    validate [label="5. Run validation\nyarn format && yarn ts && yarn lint"];
+    validate [label="5. Run validation\npnpm format && pnpm ts && pnpm lint"];
     commit [label="6. Commit & push"];
     done [label="Done" shape=ellipse];
 

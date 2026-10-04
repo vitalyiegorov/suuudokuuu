@@ -93,43 +93,46 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v7
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v6
+
             - name: Setup Node
               uses: actions/setup-node@v7
               with:
                   node-version: 22.x
-                  cache: yarn
+                  cache: pnpm
 
             - name: Install dependencies
-              run: yarn install
+              run: pnpm install --frozen-lockfile
 
             - name: Lingui catalogs are up to date
-              run: yarn i18n:check
+              run: pnpm i18n:check
 
             - name: Lint the PR Title
               run: printf '%s\n' "$PR_TITLE" | node_modules/.bin/commitlint
 
             - name: Formatting checks
-              run: yarn format:check
+              run: pnpm format:check
 
             - name: Typescript checks
-              run: yarn ts
+              run: pnpm ts
 
             - name: Effect diagnostics
-              run: yarn effect:check
+              run: pnpm effect:check
 
             - name: Lint checks
-              run: yarn lint
+              run: pnpm lint
 
             - name: Deadcode detection
               env:
                   KNIP_DISABLE_RAW_TRANSFER: '1'
-              run: yarn deadcode
+              run: pnpm deadcode
 
             - name: Copy/Paste detection
-              run: yarn cpd
+              run: pnpm cpd
 
             - name: Unit tests
-              run: yarn test:coverage
+              run: pnpm test:coverage
 
             - name: Upload coverage reports to Codecov
               uses: codecov/codecov-action@v7
@@ -176,29 +179,32 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v7
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v6
+
             - name: Setup Node
               uses: actions/setup-node@v7
               with:
                   node-version: 22.x
-                  cache: yarn
+                  cache: pnpm
 
             - name: Install dependencies
-              run: yarn install
+              run: pnpm install --frozen-lockfile
 
             - name: Build expo web
               working-directory: packages/app
-              run: yarn expo export --platform=web
+              run: pnpm exec expo export --platform=web
 
             - name: Build landing export
-              run: yarn build --filter=@suuudokuuu/landing
+              run: pnpm turbo run build --filter=@suuudokuuu/landing
 
             - name: Pull Vercel project settings
               working-directory: packages/app
-              run: yarn dlx vercel@latest pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+              run: pnpm dlx vercel@latest pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
 
             - name: Build Vercel output
               working-directory: packages/app
-              run: yarn build:vercel
+              run: pnpm build:vercel
 
             - name: Deploy Vercel preview
               id: deploy
@@ -208,7 +214,7 @@ jobs:
                   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
               run: |
                   set -euo pipefail
-                  preview_url=$(yarn dlx vercel@latest deploy --prebuilt --token="$VERCEL_TOKEN" 2>vercel-deploy.log | tail -n1)
+                  preview_url=$(pnpm dlx vercel@latest deploy --prebuilt --token="$VERCEL_TOKEN" 2>vercel-deploy.log | tail -n1)
                   if [[ "$preview_url" != https://* ]]; then
                     echo "::error::Vercel deploy did not return a preview URL. Got: $preview_url"
                     cat vercel-deploy.log
@@ -260,11 +266,14 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v7
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v6
+
             - name: Setup Node
               uses: actions/setup-node@v7
               with:
                   node-version: 22.x
-                  cache: yarn
+                  cache: pnpm
 
             - name: Setup Expo and EAS
               uses: expo/expo-github-action@v9
@@ -273,7 +282,7 @@ jobs:
                   token: ${{ secrets.EXPO_TOKEN }}
 
             - name: Install dependencies
-              run: yarn install
+              run: pnpm install --frozen-lockfile
 
             - name: Publish EAS Update preview
               id: publish

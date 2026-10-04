@@ -14,8 +14,8 @@
         }
     },
     "scripts": {
-        "ts": "run -T tsc -p .",
-        "effect:check": "run -T effect-language-service diagnostics --project tsconfig.json --format text --severity error"
+        "ts": "tsc -p .",
+        "effect:check": "effect-language-service diagnostics --project tsconfig.json --format text --severity error"
     },
     "dependencies": {
         "@effect/sql-sqlite-node": "4.0.0",

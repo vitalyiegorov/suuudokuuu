@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "test:e2e": "playwright test",
-        "ts": "run -T tsc -p ."
+        "ts": "tsc -p ."
     },
     "devDependencies": {
         "@playwright/test": "^1.63.0",

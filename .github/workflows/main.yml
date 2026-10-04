@@ -36,11 +36,14 @@ jobs:
                   persist-credentials: false
                   fetch-depth: 0
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v6
+
             - name: Setup Node
               uses: actions/setup-node@v7
               with:
                   node-version: 22.x
-                  cache: yarn
+                  cache: pnpm
 
             - name: Setup Git user
               run: |
@@ -64,12 +67,10 @@ jobs:
                   fi
 
             - name: Install dependencies
-              env:
-                  YARN_ENABLE_IMMUTABLE_INSTALLS: true
-              run: yarn install
+              run: pnpm install --frozen-lockfile
 
             - name: Sync Lingui catalogs
-              run: yarn i18n:sync
+              run: pnpm i18n:sync
 
             - name: Commit Lingui catalog changes
               run: |
@@ -83,7 +84,7 @@ jobs:
                   git push origin HEAD:main
 
             - name: Publish a release
-              run: yarn release
+              run: pnpm release
 
     web-deploy:
         name: Vercel deploy Web
@@ -96,37 +97,40 @@ jobs:
               with:
                   ref: main
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v6
+
             - name: Setup Node
               uses: actions/setup-node@v7
               with:
                   node-version: 22.x
-                  cache: yarn
+                  cache: pnpm
 
             - name: Install dependencies
-              run: yarn install
+              run: pnpm install --frozen-lockfile
 
             - name: Build expo web
               working-directory: packages/app
-              run: yarn expo export --platform=web
+              run: pnpm exec expo export --platform=web
 
             - name: Build landing export
               env:
                   INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
-              run: yarn build --filter=@suuudokuuu/landing
+              run: pnpm turbo run build --filter=@suuudokuuu/landing
 
             - name: Pull Vercel project settings
               working-directory: packages/app
-              run: yarn dlx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+              run: pnpm dlx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
             - name: Build Vercel output
               working-directory: packages/app
-              run: yarn build:vercel
+              run: pnpm build:vercel
 
             - name: Deploy to Vercel
               working-directory: packages/app
-              run: yarn dlx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+              run: pnpm dlx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
 
             - name: Submit changed pages to IndexNow
               env:
                   INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
-              run: yarn workspace @suuudokuuu/landing submit:indexnow
+              run: pnpm --filter @suuudokuuu/landing submit:indexnow

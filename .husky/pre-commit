@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-yarn ts
-yarn lint-staged
+pnpm ts
+pnpm exec lint-staged

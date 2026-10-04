@@ -16,14 +16,14 @@
         }
     },
     "scripts": {
-        "build": "yarn build:esm && yarn build:cjs && find ./dist -name '*.tsbuildinfo' -delete",
-        "build:cjs": "run -T tsc --pretty -p tsconfig.build-cjs.json",
+        "build": "pnpm build:esm && pnpm build:cjs && find ./dist -name '*.tsbuildinfo' -delete",
+        "build:cjs": "tsc --pretty -p tsconfig.build-cjs.json",
         "build:corpus": "node ./scripts/build-corpus.mjs",
-        "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
+        "build:esm": "tsc --pretty -p tsconfig.build-esm.json",
         "build:infinity-corpus": "node ./scripts/build-infinity-corpus.mjs",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"
+        "ts": "tsc -p . && tsc -p tsconfig.test.json"
     },
     "dependencies": {
         "@rnw-community/shared": "^2.15.0",

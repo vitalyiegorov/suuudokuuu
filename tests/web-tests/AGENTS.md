@@ -7,12 +7,12 @@ real static build (`packages/app/dist`), not the Metro dev server.
 ## Commands
 
 ```bash
-yarn workspace @suuudokuuu/app expo export --platform=web
-yarn build --filter=@suuudokuuu/landing
-yarn workspace @suuudokuuu/web-tests playwright install chromium
-yarn workspace @suuudokuuu/web-tests test:e2e
-yarn workspace @suuudokuuu/web-tests ts
-yarn workspace @suuudokuuu/web-tests lint
+pnpm --filter @suuudokuuu/app expo export --platform=web
+pnpm turbo run build --filter=@suuudokuuu/landing
+pnpm --filter @suuudokuuu/web-tests playwright install chromium
+pnpm --filter @suuudokuuu/web-tests test:e2e
+pnpm --filter @suuudokuuu/web-tests ts
+pnpm --filter @suuudokuuu/web-tests lint
 ```
 
 `test:e2e` starts `serve --single` over `packages/app/dist` on port 4173 and a plain `serve` over
@@ -170,7 +170,7 @@ Rules specific to this scope:
    `data-testid` attributes; its stable handles are semantic roles, `aria-label`s and the `class`
    names in `src/app/global.css`, which is why these specs use CSS/role selectors rather than
    `getByTestId`. That is a deliberate exception to Robustness Rule 3, not a shortcut.
-3. Never assert a number that `yarn workspace @suuudokuuu/landing generate:rating-sample` can move.
+3. Never assert a number that `pnpm --filter @suuudokuuu/landing generate:rating-sample` can move.
    Clue counts, SE ranges and technique frequencies are regenerable data: assert that a numeric cell
    renders and that the row count matches the tier count, not the value. Counts that come from
    source enumerations (26 technique pages, 6 difficulty tiers) are fair to pin literally.
@@ -181,7 +181,7 @@ Rules specific to this scope:
    spec free of type assertions and index access.
 5. `llms.txt` is written into `packages/landing/public` by `scripts/generate-indexing-files.ts`,
    which the package's own `build` script runs before `next build`. Both the local build and the CI
-   `yarn build --filter=@suuudokuuu/landing` step therefore always produce it, so
+   `pnpm turbo run build --filter=@suuudokuuu/landing` step therefore always produce it, so
    `03.indexing-consistency.spec.ts` asserts it unconditionally. The IndexNow key file is the
    opposite case — it only exists when `INDEXNOW_KEY` is set, so nothing here asserts it.
 

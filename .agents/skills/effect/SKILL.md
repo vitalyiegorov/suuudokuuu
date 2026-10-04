@@ -37,4 +37,4 @@ Every effectful line is Effect. No Promise/async logic, `try`/`throw`, `new Prom
 
 ## Before finishing
 
-`yarn ts && yarn lint`; check no `async`, `await`, `try`, `throw`, `new Promise`, `Effect.runPromise`/`runSync` in services.
+`pnpm ts && pnpm lint`; check no `async`, `await`, `try`, `throw`, `new Promise`, `Effect.runPromise`/`runSync` in services.

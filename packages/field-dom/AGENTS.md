@@ -5,13 +5,13 @@ Lightweight React DOM components that render a `@suuudokuuu/field-core` `FieldEn
 ## Commands
 
 ```bash
-yarn build              # Build ESM + CommonJS + copy the stylesheet
-yarn build:esm         # TypeScript -> /dist/esm
-yarn build:cjs         # TypeScript -> /dist/cjs
-yarn build:styles      # Copy src/styles/field-dom.css -> dist/field-dom.css
-yarn test              # Vitest tests
-yarn test:coverage     # With coverage report
-yarn ts                # TypeScript check
+pnpm build              # Build ESM + CommonJS + copy the stylesheet
+pnpm build:esm         # TypeScript -> /dist/esm
+pnpm build:cjs         # TypeScript -> /dist/cjs
+pnpm build:styles      # Copy src/styles/field-dom.css -> dist/field-dom.css
+pnpm test              # Vitest tests
+pnpm test:coverage     # With coverage report
+pnpm ts                # TypeScript check
 ```
 
 ## Ownership Boundary

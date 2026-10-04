@@ -28,20 +28,23 @@ jobs:
             - name: Enable Corepack
               run: corepack enable
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v6
+
             - name: Setup Node
               uses: actions/setup-node@v7
               with:
                   node-version: 22.x
-                  cache: yarn
+                  cache: pnpm
 
             - name: Install dependencies
-              run: yarn install
+              run: pnpm install --frozen-lockfile
 
             - name: Generate the SEO report
               env:
                   GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
                   CRUX_API_KEY: ${{ secrets.CRUX_API_KEY }}
-              run: yarn workspace @suuudokuuu/landing seo:report
+              run: pnpm --filter @suuudokuuu/landing seo:report
 
             - name: Commit the snapshot
               run: |

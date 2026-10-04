@@ -27,27 +27,30 @@ jobs:
             - name: Checkout repository
               uses: actions/checkout@v7
 
+            - name: Setup pnpm
+              uses: pnpm/action-setup@v6
+
             - name: Setup Node
               uses: actions/setup-node@v7
               with:
                   node-version: 22.x
-                  cache: yarn
+                  cache: pnpm
 
             - name: Install dependencies
-              run: yarn install
+              run: pnpm install --frozen-lockfile
 
             - name: Export Expo web build
-              run: yarn turbo run export:web --filter=@suuudokuuu/app
+              run: pnpm turbo run export:web --filter=@suuudokuuu/app
 
             - name: Build landing export
-              run: yarn build --filter=@suuudokuuu/landing
+              run: pnpm turbo run build --filter=@suuudokuuu/landing
 
             - name: Resolve Playwright version
               id: playwright-version
               shell: bash
               run: |
                   set -euo pipefail
-                  version=$(yarn workspace @suuudokuuu/web-tests exec node -p "require('@playwright/test/package.json').version")
+                  version=$(pnpm --filter @suuudokuuu/web-tests exec node -p "require('@playwright/test/package.json').version")
                   echo "Playwright version: $version"
                   echo "version=$version" >> "$GITHUB_OUTPUT"
 
@@ -58,10 +61,10 @@ jobs:
                   key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
 
             - name: Install Playwright browsers
-              run: yarn workspace @suuudokuuu/web-tests playwright install --with-deps chromium webkit
+              run: pnpm --filter @suuudokuuu/web-tests exec playwright install --with-deps chromium webkit
 
             - name: Run Playwright web E2E
-              run: yarn workspace @suuudokuuu/web-tests test:e2e
+              run: pnpm --filter @suuudokuuu/web-tests test:e2e
 
             - name: Upload Playwright report
               if: failure()

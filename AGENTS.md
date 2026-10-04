@@ -15,34 +15,34 @@ Persistence is Effect v4 services over SQLite (op-sqlite on native, wa-sqlite on
 ## Commands
 
 ```bash
-yarn install
+pnpm install
 
-yarn build
-yarn build:force
+pnpm build
+pnpm build:force
 
-yarn format
-yarn format:check
-yarn ts
-yarn effect:check
-yarn lint
-yarn lint:fix
-yarn deadcode
-yarn cpd
-yarn test
+pnpm format
+pnpm format:check
+pnpm ts
+pnpm effect:check
+pnpm lint
+pnpm lint:fix
+pnpm deadcode
+pnpm cpd
+pnpm test
 
-yarn deps:check
-yarn deps:dedupe
+pnpm deps:check
+pnpm deps:dedupe
 ```
 
 Before finishing code changes, run this validation sequence from the root:
 
 ```bash
-yarn format && yarn ts && yarn effect:check && yarn lint && yarn deadcode && yarn cpd
+pnpm format && pnpm ts && pnpm effect:check && pnpm lint && pnpm deadcode && pnpm cpd
 ```
 
-Run `yarn test` when behavior, algorithms, serialization, persistence, scoring, or app flows change. Run package-specific tests when the blast radius is narrow.
+Run `pnpm test` when behavior, algorithms, serialization, persistence, scoring, or app flows change. Run package-specific tests when the blast radius is narrow.
 
-Tooling: `yarn lint` runs type-aware oxlint once over the whole repo from `.oxlintrc.json`; React and React Compiler rules run natively (write Reanimated shared values with `.set()` so the compiler rules understand them), and rules oxlint has no native port for run as oxlint JS plugins (ESLint plugins, plus local rules in `eslint-rules/`). `yarn format` runs oxfmt from `.oxfmtrc.json`, which also sorts imports and `package.json` files. `tsc` is native TypeScript 7 (`@typescript/native`); the `typescript` package name resolves to `@typescript/typescript6` so tools that load the compiler JS API keep working.
+Tooling: `pnpm lint` runs type-aware oxlint once over the whole repo from `.oxlintrc.json`; React and React Compiler rules run natively (write Reanimated shared values with `.set()` so the compiler rules understand them), and rules oxlint has no native port for run as oxlint JS plugins (ESLint plugins, plus local rules in `eslint-rules/`). `pnpm format` runs oxfmt from `.oxfmtrc.json`, which also sorts imports and `package.json` files. `tsc` is native TypeScript 7 (`@typescript/native`); the `typescript` package name resolves to `@typescript/typescript6` so tools that load the compiler JS API keep working.
 
 ## Structure
 
@@ -158,8 +158,8 @@ Use `.filter(isDefined)` only when the mapped array can actually contain nullish
 - Prefer `<Trans>` in JSX: `<Trans>Score</Trans>` instead of `{t\`Score\`}`.
 - Use `plural(...)` from Lingui macros for count-sensitive user-facing text instead of concatenating counts with fixed singular/plural labels.
 - Do not call `i18n.t()`. Use `t`, `<Trans>`, `msg`, or `plural` macros so extraction stays static.
-- After changing user-facing app text, run `yarn i18n:sync` from the root or `yarn workspace @suuudokuuu/app i18n:sync` from the package.
-- Before PRs, run `yarn i18n:check` to prove `messages.po` and generated `messages.ts` files under `packages/app/src/i18n/locales` are current.
+- After changing user-facing app text, run `pnpm i18n:sync` from the root or `pnpm --filter @suuudokuuu/app i18n:sync` from the package.
+- Before PRs, run `pnpm i18n:check` to prove `messages.po` and generated `messages.ts` files under `packages/app/src/i18n/locales` are current.
 
 ## Effect
 
@@ -177,7 +177,7 @@ All effectful logic runs on Effect v4 (`effect`, pinned exactly). API names are 
 - **Runtime.** One app `ManagedRuntime` and one atom runtime share a memo map (`packages/app/src/@generic/runtime/app.runtime.ts`). Components run commands with `appRuntime.runPromise`; an effect started from `useEffect` uses `runFork` and interrupts the fiber in cleanup. No `Effect.runPromise`/`runSync` inside services.
 - **Concurrency and time.** `Schedule`, `Effect.retry`/`repeat`, `Effect.timeout`, `Effect.sleep`, `Semaphore`, `FiberMap`, `Effect.acquireRelease`. Never `Promise.race`, generation counters, promise-chain mutexes, or boolean cancel flags.
 - **Imports by subpath.** `import * as Effect from 'effect/Effect'`, never the `effect` barrel. Metro does not tree-shake, and the barrel adds megabytes to the bundle.
-- **Diagnostics.** `yarn effect:check` runs the `@effect/language-service` diagnostics (severities set in the root `tsconfig.json` plugin block) over `progress`, `app`, and `test-kit`; it must report no errors.
+- **Diagnostics.** `pnpm effect:check` runs the `@effect/language-service` diagnostics (severities set in the root `tsconfig.json` plugin block) over `progress`, `app`, and `test-kit`; it must report no errors.
 - **Tests.** Vitest with `@effect/vitest`: every test is `it.effect('...', () => Effect.gen(function* () {...}))`, with `it.layer` for shared layers and `makeTestSqlLayer()` from `tests/test-kit` for an in-memory database. No `async` test bodies, no `runPromise` or `try`/`catch` in tests; assert failures with `Effect.flip`/`Effect.exit`. Time-dependent tests use `TestClock`.
 
 ```ts
@@ -247,7 +247,7 @@ Never mention AI tools, bots, generated output, co-authors, or automation servic
 ## PR Review
 
 - Read and analyze every review comment, including those from bots. Fetch all of them: inline comments (`gh api repos/<owner>/<repo>/pulls/<n>/comments`) and nitpicks collapsed inside `<details>` blocks, which `gh pr view` truncates.
-- Validate each finding against the codebase before judging it: read the cited code, trace the behavior, and check the convention the reviewer invokes against what the repo actually does. Bots routinely generalize a rule from one package to another, cite a guideline that has a documented exception, or flag duplication that `yarn cpd` already passes. State a verdict per finding (valid, partially valid, or invalid) with the concrete evidence.
+- Validate each finding against the codebase before judging it: read the cited code, trace the behavior, and check the convention the reviewer invokes against what the repo actually does. Bots routinely generalize a rule from one package to another, cite a guideline that has a documented exception, or flag duplication that `pnpm cpd` already passes. State a verdict per finding (valid, partially valid, or invalid) with the concrete evidence.
 - Act on the verdicts on the PR thread. Valid or partially valid: fix the root cause (not necessarily the literal suggested diff) and reply on the thread describing the fix. Invalid: reply with line-level evidence and resolve it. Never apply a suggested diff blindly, and never merge with an unanswered thread. When a valid finding would widen the PR, file a follow-up issue and say so on the thread.
 - Never lower a timeout, weaken an assertion, or relax a test on a reviewer's say-so when the test has not been run.
 - Note when a bot review is incomplete (rate limits, partial runs, reviews older than the latest commits) instead of implying the PR came back clean.
@@ -270,7 +270,7 @@ Algorithm-heavy techniques/generator exceptions require a short, human-readable 
 
 ## Important Notes
 
-- Use `yarn`, never `npm`.
+- Use `pnpm`, never `npm` or `yarn`.
 - Do not modify `.jscpd.json`; fix duplication in source or restructure narrowly.
 - Do not edit generated Lingui `messages.ts` by hand.
 - Prefer existing package patterns over importing Budgie rules that only made sense for finance, AI services, bank sync, or Next.js landing pages.

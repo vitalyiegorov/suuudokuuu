@@ -11,7 +11,7 @@ explicitly by path — the same convention already used for `flows/setup/` and
 Run the whole matrix with:
 
 ```bash
-APP_ID=<installed-app-id> yarn workspace @suuudokuuu/app-tests screenshots:capture
+APP_ID=<installed-app-id> pnpm --filter @suuudokuuu/app-tests screenshots:capture
 ```
 
 For a locally connected dev client (not a freshly installed release/E2E build), connect it to
@@ -64,11 +64,11 @@ class, but an explicit `--udid`/`SIMULATOR_UDID` is unambiguous and required in 
 ```bash
 # iPhone (default device class)
 APP_ID=<installed-app-id> SIMULATOR_UDID=<iphone-udid> \
-    yarn workspace @suuudokuuu/app-tests screenshots:capture
+    pnpm --filter @suuudokuuu/app-tests screenshots:capture
 
 # iPad
 DEVICE_CLASS=ipad APP_ID=<installed-app-id> SIMULATOR_UDID=<ipad-udid> \
-    yarn workspace @suuudokuuu/app-tests screenshots:capture
+    pnpm --filter @suuudokuuu/app-tests screenshots:capture
 ```
 
 Android captures (when an emulator is available) use the same flows with

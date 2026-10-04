@@ -19,10 +19,10 @@ The generator stays a pure, dependency-clean puzzle engine: it still only knows 
 ## Commands
 
 ```bash
-yarn build
-yarn ts
-yarn test
-yarn test:coverage
+pnpm build
+pnpm ts
+pnpm test
+pnpm test:coverage
 ```
 
 ## Structure

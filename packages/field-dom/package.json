@@ -20,13 +20,13 @@
         "./styles.css": "./dist/field-dom.css"
     },
     "scripts": {
-        "build": "yarn build:esm && yarn build:cjs && yarn build:styles && find ./dist -name '*.tsbuildinfo' -delete",
-        "build:cjs": "run -T tsc --pretty -p tsconfig.build-cjs.json",
-        "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
+        "build": "pnpm build:esm && pnpm build:cjs && pnpm build:styles && find ./dist -name '*.tsbuildinfo' -delete",
+        "build:cjs": "tsc --pretty -p tsconfig.build-cjs.json",
+        "build:esm": "tsc --pretty -p tsconfig.build-esm.json",
         "build:styles": "cp src/styles/field-dom.css dist/field-dom.css",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"
+        "ts": "tsc -p . && tsc -p tsconfig.test.json"
     },
     "dependencies": {
         "@rnw-community/shared": "^2.15.0",

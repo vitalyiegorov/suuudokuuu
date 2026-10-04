@@ -5,25 +5,21 @@
     "description": "suudokuuu platform",
     "license": "SEE LICENSE IN LICENSE",
     "author": "Vitalii Yehorov",
-    "workspaces": [
-        "packages/*",
-        "utils/*",
-        "tests/*"
-    ],
     "scripts": {
         "build": "turbo run build",
         "build:force": "turbo run build --force",
         "cpd": "jscpd --pattern \"**/*.{ts,tsx}\"",
         "deadcode": "knip",
-        "deps:check": "yarn dedupe --check && yarn workspace @suuudokuuu/app expo install --check",
-        "deps:dedupe": "yarn dedupe",
+        "deps:check": "pnpm dedupe --check && pnpm --filter @suuudokuuu/app exec expo install --check",
+        "deps:dedupe": "pnpm dedupe",
         "effect:check": "turbo run effect:check",
         "format": "oxfmt",
         "format:check": "oxfmt --check",
-        "i18n:check": "yarn i18n:sync && git diff --name-only --exit-code HEAD -- packages/app/src/i18n/locales",
-        "i18n:sync": "yarn workspace @suuudokuuu/app i18n:sync",
+        "i18n:check": "pnpm i18n:sync && git diff --name-only --exit-code HEAD -- packages/app/src/i18n/locales",
+        "i18n:sync": "pnpm --filter @suuudokuuu/app i18n:sync",
         "lint": "oxlint",
         "lint:fix": "oxlint --fix",
+        "postinstall": "turbo run build",
         "prepare": "husky",
         "release": "lerna publish --yes --conventional-commits --create-release=github -m \"chore: release %s [skip ci]\"",
         "test": "turbo run test",
@@ -57,11 +53,8 @@
         "turbo": "^2.11.7",
         "typescript": "npm:@typescript/typescript6@^6.0.2"
     },
-    "resolutions": {
-        "effect@4.0.0": "patch:effect@npm%3A4.0.0#./.yarn/patches/effect-npm-4.0.0-4324e86b02.patch"
-    },
     "engines": {
         "node": ">=22.22.1"
     },
-    "packageManager": "yarn@4.17.1"
+    "packageManager": "pnpm@11.28.3"
 }

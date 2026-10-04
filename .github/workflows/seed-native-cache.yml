@@ -37,8 +37,8 @@ on:
         paths:
             - 'packages/**'
             - 'package.json'
-            - 'yarn.lock'
-            - '.yarnrc.yml'
+            - 'pnpm-lock.yaml'
+            - 'pnpm-workspace.yaml'
             - '.github/workflows/seed-native-cache.yml'
             - '.github/workflows/mobile-e2e.yml'
     schedule:
@@ -64,6 +64,7 @@ jobs:
             actions: read
         uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@v3.1.0 # v3.1.0
         with:
+            install-command: pnpm install --frozen-lockfile
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             android-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             ios-targets: >-

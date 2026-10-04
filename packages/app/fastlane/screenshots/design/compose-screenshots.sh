@@ -143,7 +143,7 @@ if ! command -v magick >/dev/null 2>&1; then
   exit 1
 fi
 if [[ ! -f "$FONT" ]]; then
-  echo "error: font not found at $FONT — run 'yarn install' at the repo root" >&2
+  echo "error: font not found at $FONT — run 'pnpm install' at the repo root" >&2
   exit 1
 fi
 

@@ -45,6 +45,7 @@ jobs:
             actions: read
         uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.1.0 # v3.1.0
         with:
+            install-command: pnpm install --frozen-lockfile
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
             flows-dir: tests/app-tests/flows
@@ -90,6 +91,7 @@ jobs:
             actions: read
         uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.1.0 # v3.1.0
         with:
+            install-command: pnpm install --frozen-lockfile
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
             flows-dir: tests/app-tests/flows

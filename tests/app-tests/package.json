@@ -4,7 +4,7 @@
     "private": true,
     "scripts": {
         "screenshots:capture": "node scripts/capture-store-screenshots.ts",
-        "ts": "run -T tsc -p scripts"
+        "ts": "tsc -p scripts"
     },
     "dependencies": {
         "@rnw-community/shared": "^2.15.0"

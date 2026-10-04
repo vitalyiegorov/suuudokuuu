@@ -9,15 +9,13 @@
     ],
     "ignoreDependencies": [
         "@babel/core",
-        "@lingui/cli",
         "@lingui/format-po",
-        "@typescript/native",
         "@expo/fingerprint",
         "babel-plugin-react-compiler",
         "eas-build-cache-provider",
         "serve"
     ],
-    "ignoreBinaries": ["run", "xcrun", "maestro", "adb", "sqlite3"],
+    "ignoreBinaries": ["xcrun", "maestro", "adb", "sqlite3"],
     "workspaces": {
         "packages/field-core": {
             "entry": ["src/index.ts!", "src/react/use-field-snapshot.hook.ts!"]
