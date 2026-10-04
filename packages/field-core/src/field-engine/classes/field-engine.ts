@@ -7,8 +7,7 @@ import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import {
     cloneCandidateState,
     getAutoCellCandidates,
-    getCandidatesWithElimination,
-    getCandidatesWithoutValue,
+    getCandidateStateWithoutValue,
     getToggledCandidates
 } from '../utils/candidate-mutation.util';
 import { getNeighbourCell } from '../utils/get-neighbour-cell.util';
@@ -128,20 +127,10 @@ export class FieldEngine extends FieldStore {
     }
 
     removeCandidate(cell: CellInterface, value: number): void {
-        if (this.showAutoCandidates) {
-            const eliminatedCandidates = getCandidatesWithElimination(this.candidateState.eliminatedCandidates, cell, value);
+        const nextState = getCandidateStateWithoutValue(this.candidateState, cell, value, this.showAutoCandidates);
 
-            if (isDefined(eliminatedCandidates)) {
-                this.commitCandidateState({ ...this.candidateState, eliminatedCandidates });
-            }
-
-            return;
-        }
-
-        const candidates = getCandidatesWithoutValue(this.candidateState.candidates, cell, value);
-
-        if (isDefined(candidates)) {
-            this.commitCandidateState({ ...this.candidateState, candidates });
+        if (isDefined(nextState)) {
+            this.commitCandidateState(nextState);
         }
     }
 
@@ -200,8 +189,13 @@ export class FieldEngine extends FieldStore {
             return;
         }
 
-        for (const elimination of script.eliminations) {
-            this.removeCandidate(elimination.cell, elimination.value);
+        const nextState = script.eliminations.reduce(
+            (state, { cell, value }) => getCandidateStateWithoutValue(state, cell, value, this.showAutoCandidates) ?? state,
+            this.candidateState
+        );
+
+        if (nextState !== this.candidateState) {
+            this.commitCandidateState(nextState);
         }
 
         const { placement } = script;
