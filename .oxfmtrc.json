@@ -1,0 +1,35 @@
+{
+    "$schema": "./node_modules/oxfmt/configuration_schema.json",
+    "singleQuote": true,
+    "printWidth": 140,
+    "tabWidth": 4,
+    "semi": true,
+    "trailingComma": "none",
+    "arrowParens": "avoid",
+    "sortImports": {
+        "customGroups": [
+            {
+                "groupName": "rnw-community",
+                "elementNamePattern": ["@rnw-community/*"],
+                "modifiers": ["value"]
+            }
+        ],
+        "groups": ["builtin", "external", "rnw-community", "parent", "sibling", "index", "type", "unknown"],
+        "ignoreCase": true,
+        "internalPattern": [],
+        "newlinesBetween": true,
+        "order": "asc",
+        "partitionByComment": true,
+        "partitionByNewline": false,
+        "sortSideEffects": false
+    },
+    "sortPackageJson": true,
+    "ignorePatterns": [
+        ".agents/**",
+        ".claude/**",
+        "**/CHANGELOG.md",
+        "packages/app/src/i18n/locales/*/messages.ts",
+        "packages/hell-corpus/src/constants/hell-corpus-data.constant.ts",
+        "packages/landing/next-env.d.ts"
+    ]
+}

@@ -17,7 +17,8 @@
         "deadcode": "knip",
         "deps:check": "yarn dedupe --check && yarn workspace @suuudokuuu/app expo install --check",
         "deps:dedupe": "yarn dedupe",
-        "format": "prettier --write \"**/*.{ts,tsx}\"",
+        "format": "oxfmt",
+        "format:check": "oxfmt --check",
         "i18n:check": "yarn i18n:sync && git diff --name-only --exit-code HEAD -- packages/app/src/i18n/locales",
         "i18n:sync": "yarn workspace @suuudokuuu/app i18n:sync",
         "lint": "oxlint",
@@ -28,9 +29,6 @@
         "test:coverage": "turbo run test:coverage",
         "ts": "turbo run ts",
         "ts:force": "turbo run ts --force"
-    },
-    "resolutions": {
-        "effect@4.0.0": "patch:effect@npm%3A4.0.0#./.yarn/patches/effect-npm-4.0.0-4324e86b02.patch"
     },
     "devDependencies": {
         "@babel/core": "^7.29.7",
@@ -51,15 +49,17 @@
         "knip": "^6.39.0",
         "lerna": "^10.0.1",
         "lint-staged": "^17.6.0",
+        "oxfmt": "^0.71.0",
         "oxlint": "^1.86.0",
         "oxlint-tsgolint": "^7.0.2003",
-        "prettier": "^3.9.9",
-        "sort-package-json": "^4.0.0",
         "turbo": "^2.11.6",
         "typescript": "^6.0.3"
     },
-    "packageManager": "yarn@4.17.1",
+    "resolutions": {
+        "effect@4.0.0": "patch:effect@npm%3A4.0.0#./.yarn/patches/effect-npm-4.0.0-4324e86b02.patch"
+    },
     "engines": {
         "node": ">=22.22.1"
-    }
+    },
+    "packageManager": "yarn@4.17.1"
 }

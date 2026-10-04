@@ -7,7 +7,7 @@
         "android": "expo run:android",
         "build:vercel": "node scripts/build-vercel-output.ts",
         "export:web": "expo export --platform=web",
-        "i18n:compile": "run -T lingui compile --typescript && run -T prettier --write \"src/i18n/locales/*/messages.ts\"",
+        "i18n:compile": "run -T lingui compile --typescript",
         "i18n:extract": "run -T lingui extract --overwrite --clean",
         "i18n:sync": "yarn i18n:extract && yarn i18n:compile",
         "ios": "LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 expo run:ios",
