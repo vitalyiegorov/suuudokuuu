@@ -17,7 +17,6 @@ yarn build:vercel
 
 yarn i18n:sync
 yarn ts
-yarn lint
 ```
 
 The app hosts no unit tests. Logic that needs tests lives in `@suuudokuuu/progress` or another domain package and is tested there with Vitest.
@@ -283,10 +282,10 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
 
 ## Verification
 
-Run app-level checks after app changes:
+Run app-level checks after app changes, then `yarn lint` from the root:
 
 ```bash
-yarn ts && yarn lint
+yarn ts
 ```
 
 Run `yarn test` from the root when scoring, persistence services, or other domain logic in `progress` changes; the app itself has no unit tests. Run Maestro flows from `tests/app-tests` when routes, selectors, deep links, sharing, or end screens change.

@@ -183,7 +183,7 @@ Site name, origin, locales, tagline, description and theme colors live in `src/s
 
 ### 12. No Lingui yet
 
-The landing package is English-only and is deliberately excluded from the root ESLint Lingui config block. Plain JSX text is correct here. The locale plumbing (`DEFAULT_LOCALE`, `SUPPORTED_LOCALES`, `buildLocaleUrl`, `x-default` hreflang) is already in place so adding locales is a constants change plus a route segment, not a rewrite. When Lingui is introduced, re-add `packages/landing/**/*.{ts,tsx}` to the Lingui block in the root `eslint.config.mjs`.
+The landing package is English-only and is deliberately excluded from the Lingui override in the root `.oxlintrc.json`. Plain JSX text is correct here. The locale plumbing (`DEFAULT_LOCALE`, `SUPPORTED_LOCALES`, `buildLocaleUrl`, `x-default` hreflang) is already in place so adding locales is a constants change plus a route segment, not a rewrite. When Lingui is introduced, add `packages/landing/**/*.{ts,tsx}` to the Lingui override in the root `.oxlintrc.json`.
 
 ## Adding a page
 

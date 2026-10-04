@@ -21,8 +21,10 @@ yarn build
 yarn build:force
 
 yarn format
+yarn format:check
 yarn ts
 yarn lint
+yarn lint:fix
 yarn deadcode
 yarn cpd
 yarn test
@@ -38,6 +40,8 @@ yarn format && yarn ts && yarn lint && yarn deadcode && yarn cpd
 ```
 
 Run `yarn test` when behavior, algorithms, serialization, persistence, scoring, or app flows change. Run package-specific tests when the blast radius is narrow.
+
+Tooling: `yarn lint` runs type-aware oxlint once over the whole repo from `.oxlintrc.json`; rules oxlint has no native port for run as oxlint JS plugins (ESLint plugins, plus local rules in `eslint-rules/`). `yarn format` runs oxfmt from `.oxfmtrc.json`, which also sorts imports and `package.json` files. `tsc` is native TypeScript 7 (`@typescript/native`); the `typescript` package name resolves to `@typescript/typescript6` so tools that load the compiler JS API keep working.
 
 ## Structure
 
@@ -88,7 +92,7 @@ tests/
 1. Do not use `any`. Model unknown data as `unknown`, validate it, then narrow it.
 2. Do not add type assertions such as `as Type`, `@ts-ignore`, or `@ts-expect-error`. `as const` is allowed as a const assertion. Legacy persisted-state migrations are not a precedent for new code.
 3. Do not add explanatory code comments. Prefer clearer names and smaller functions. Existing legacy comments are not a pattern to extend.
-4. Never add `eslint-disable` comments without explicit approval unless the exact rule is listed in this file's approved disable section.
+4. Never add `oxlint-disable` comments without explicit approval unless the exact rule is listed in this file's approved disable section.
 5. Use one `const` declaration per variable. Do not create a derived `const` that is used once when inlining it is equally readable, such as `const queryDependencies = [...]` passed straight into one call. Keep a named local when it is needed for hook ordering, type narrowing, repeated use, JSX prop extraction, or genuinely clearer non-trivial logic.
 6. Use `emptyFn` from `@rnw-community/shared` for no-op callbacks.
 7. Do not use IIFEs. Use `.catch(handleError)` or `.then(onSuccess, onError)` for async fire-and-forget work.
@@ -248,16 +252,16 @@ Never mention AI tools, bots, generated output, co-authors, or automation servic
 - Fix review feedback without utility sprawl (Engineering Rule 19).
 - Review all changed files before finishing, especially imports, stale docs, and unnecessary abstractions.
 
-## Approved ESLint Disable Comments
+## Approved Lint Disable Comments
 
 Do not add disable comments casually. These are the only pre-approved shapes:
 
 ```typescript
-// eslint-disable-next-line max-statements -- Form orchestration component with multiple hooks and handlers
+// oxlint-disable-next-line max-statements -- Form orchestration component with multiple hooks and handlers
 ```
 
 ```typescript
-// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
+// oxlint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 ```
 
 Algorithm-heavy techniques/generator exceptions require a short, human-readable justification and should stay local to the narrow method.

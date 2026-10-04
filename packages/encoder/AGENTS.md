@@ -8,7 +8,6 @@ Pure TypeScript package for compact binary encoding and decoding of Sudoku puzzl
 yarn build
 yarn build:esm
 yarn ts
-yarn lint
 yarn test
 yarn test:coverage
 ```
@@ -118,7 +117,7 @@ The technique trailer is the fourth generation and sits after the metadata trail
 4. After encoder changes, run:
 
 ```bash
-yarn test && yarn ts && yarn lint && yarn build
+yarn test && yarn ts && yarn build
 ```
 
 Run the root validation sequence before finishing.

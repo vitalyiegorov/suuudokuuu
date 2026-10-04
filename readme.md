@@ -63,9 +63,9 @@ The app uses [lerna](https://lerna.js.org/) to manage versions of the packages i
 
 All changes are represented as `pull requests`, each pipeline runs:
 
-- [Linting](https://eslint.org/) to ensure code quality
+- [Formatting](https://oxc.rs/docs/guide/usage/formatter) and [linting](https://oxc.rs/docs/guide/usage/linter) to ensure code quality
 - [Type checking](https://www.typescriptlang.org/) to ensure type safety
-- [Unit tests](https://jestjs.io/) to ensure code correctness
+- [Unit tests](https://vitest.dev/) to ensure code correctness
 - [Copy-paste detection](https://github.com/kucherenko/jscpd) to ensure code uniqueness
 - [Dead code detection](https://knip.dev/) to ensure code cleanliness
 - [CodeQL](https://codeql.github.com/) to ensure code security

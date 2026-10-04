@@ -9,7 +9,6 @@ yarn build
 yarn build:esm
 yarn build:cjs
 yarn ts
-yarn lint
 yarn test
 yarn test:coverage
 ```
@@ -62,7 +61,7 @@ src/
 3. After generator changes, run:
 
 ```bash
-yarn test && yarn ts && yarn lint && yarn build
+yarn test && yarn ts && yarn build
 ```
 
 Run the root validation sequence before finishing.

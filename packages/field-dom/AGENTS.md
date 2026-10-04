@@ -9,7 +9,6 @@ yarn build              # Build ESM + CommonJS + copy the stylesheet
 yarn build:esm         # TypeScript -> /dist/esm
 yarn build:cjs         # TypeScript -> /dist/cjs
 yarn build:styles      # Copy src/styles/field-dom.css -> dist/field-dom.css
-yarn lint              # ESLint fix
 yarn test              # Vitest tests
 yarn test:coverage     # With coverage report
 yarn ts                # TypeScript check

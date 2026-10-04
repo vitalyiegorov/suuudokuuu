@@ -21,7 +21,6 @@ The generator stays a pure, dependency-clean puzzle engine: it still only knows 
 ```bash
 yarn build
 yarn ts
-yarn lint
 yarn test
 yarn test:coverage
 ```

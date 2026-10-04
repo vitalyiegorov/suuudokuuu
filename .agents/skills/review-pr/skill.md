@@ -558,7 +558,7 @@ gh gist create -d "PR #<NUM>: <Title> - Review" analysis.md
 | Pattern | Check |
 |---------|-------|
 | No `as` type assertions | Look for `as` keyword |
-| No eslint-disable | Look for `eslint-disable` |
+| No lint disables | Look for `oxlint-disable` |
 | No comments in code | Look for `//` comments |
 | Type guards from @rnw-community | `isDefined()`, `isNotEmptyArray()` |
 | Translations in en.json | No hardcoded strings |

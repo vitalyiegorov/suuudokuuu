@@ -8,7 +8,6 @@ Sudoku solving-technique detection engine. Given a board state, identifies which
 yarn build              # Build ESM + CommonJS
 yarn build:esm         # TypeScript -> ESM /dist/esm
 yarn build:cjs         # TypeScript -> CommonJS /dist/cjs
-yarn lint              # ESLint fix
 yarn test              # Vitest tests
 yarn test:coverage     # With coverage report
 yarn ts                # TypeScript check
