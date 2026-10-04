@@ -23,7 +23,7 @@ export const metadata: Metadata = buildPageMetadata(nakedQuadPageMetadata);
 
 const EXAMPLE_BOARD = '..3.......56..4123..43.5...57...3..443.......16..42.3.681.3....3974....8245...36.';
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NakedQuadPage = () => (
     <main>
         <TechniquePageHeader metadata={nakedQuadPageMetadata} />

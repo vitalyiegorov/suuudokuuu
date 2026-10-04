@@ -53,7 +53,7 @@ export class DLXSolver implements SolverInterface {
         this.rowMapping = [];
     }
 
-    // eslint-disable-next-line max-statements -- exact-cover matrix construction needs one pass building cell/row/column/box constraint columns and nodes
+    // oxlint-disable-next-line max-statements -- exact-cover matrix construction needs one pass building cell/row/column/box constraint columns and nodes
     private buildExactCover(grid: Uint8Array): void {
         const constraintsCount = 4;
         const columnCountWithConstraints = GRID_CELL_COUNT * constraintsCount;
@@ -76,7 +76,7 @@ export class DLXSolver implements SolverInterface {
                     const cellValue = grid[row * GRID_SIZE + col];
                     const isNumberConflicting = cellValue !== GRID_BLANK_VALUE && cellValue !== num;
                     if (isNumberConflicting) {
-                        // eslint-disable-next-line no-continue -- wrapping the remaining build in an if-block would exceed max-depth inside this triple loop
+                        // oxlint-disable-next-line no-continue -- wrapping the remaining build in an if-block would exceed max-depth inside this triple loop
                         continue;
                     }
 
@@ -139,7 +139,7 @@ export class DLXSolver implements SolverInterface {
         col.left.right = col;
     }
 
-    // eslint-disable-next-line max-statements -- DLX search picks the smallest column, then covers/recurses/uncovers within one bounded backtracking step
+    // oxlint-disable-next-line max-statements -- DLX search picks the smallest column, then covers/recurses/uncovers within one bounded backtracking step
     private search(step: number, limit: number): number {
         if (this.header.right === this.header) {
             return 1;

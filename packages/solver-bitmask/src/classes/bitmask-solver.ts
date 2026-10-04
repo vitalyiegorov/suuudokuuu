@@ -55,7 +55,7 @@ export class BitmaskSolver implements SolverInterface {
 
     private placeGiven(cell: number, value: number): boolean {
         const bit = bitForDigit(value);
-        // eslint-disable-next-line no-bitwise -- checks whether the given digit's bit is still available before placing it
+        // oxlint-disable-next-line no-bitwise -- checks whether the given digit's bit is still available before placing it
         const canPlaceGiven = (this.gridState.candidatesFor(cell) & bit) !== NO_CANDIDATES;
 
         if (canPlaceGiven) {
@@ -86,7 +86,7 @@ export class BitmaskSolver implements SolverInterface {
         return result;
     }
 
-    // eslint-disable-next-line max-statements -- hidden-single detection scans every blank cell in a unit and tracks the sole admitting cell in one pass
+    // oxlint-disable-next-line max-statements -- hidden-single detection scans every blank cell in a unit and tracks the sole admitting cell in one pass
     private propagateHiddenSingleForDigit(unitCells: Uint8Array, bit: number): PropagationStepResult {
         let admittingCell = NO_BLANK_CELL;
         let admittingCount = 0;
@@ -94,7 +94,7 @@ export class BitmaskSolver implements SolverInterface {
         for (let position = 0; position < GRID_SIZE; position += 1) {
             const cell = unitCells[position];
             const isBlank = this.gridState.valueAt(cell) === GRID_BLANK_VALUE;
-            // eslint-disable-next-line no-bitwise -- checks whether this candidate digit bit is still open for the cell
+            // oxlint-disable-next-line no-bitwise -- checks whether this candidate digit bit is still open for the cell
             const admitsDigit = isBlank && (this.gridState.candidatesFor(cell) & bit) !== NO_CANDIDATES;
 
             if (admitsDigit) {
@@ -122,7 +122,7 @@ export class BitmaskSolver implements SolverInterface {
         for (let digit = 1; digit <= GRID_SIZE; digit += 1) {
             const bit = bitForDigit(digit);
             const usedDigitsMask = this.gridState.usedDigitsMaskFor(unitType, unitIndex);
-            // eslint-disable-next-line no-bitwise -- reads the live used-digit mask to decide whether this digit still needs placing in the unit
+            // oxlint-disable-next-line no-bitwise -- reads the live used-digit mask to decide whether this digit still needs placing in the unit
             const isAlreadyPlaced = (usedDigitsMask & bit) !== NO_CANDIDATES;
 
             if (!isAlreadyPlaced) {
@@ -227,14 +227,14 @@ export class BitmaskSolver implements SolverInterface {
         let count = 0;
 
         while (remainingCandidates !== NO_CANDIDATES && count < limit) {
-            // eslint-disable-next-line no-bitwise -- isolates the lowest set candidate bit to try digits in ascending order
+            // oxlint-disable-next-line no-bitwise -- isolates the lowest set candidate bit to try digits in ascending order
             const bit = remainingCandidates & -remainingCandidates;
 
             this.gridState.place(cell, bit);
             count += this.search(limit - count);
             this.gridState.remove(cell, bit);
 
-            // eslint-disable-next-line no-bitwise -- clears the just-tried candidate bit before moving to the next one
+            // oxlint-disable-next-line no-bitwise -- clears the just-tried candidate bit before moving to the next one
             remainingCandidates &= ~bit;
         }
 

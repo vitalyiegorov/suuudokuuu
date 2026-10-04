@@ -78,9 +78,9 @@ describe('Sudoku - Cell Validation', () => {
 
             expect(isDefined(filledCell)).toBe(true);
 
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            // oxlint-disable-next-line typescript/no-non-null-assertion
             expect(sudoku.isCellWrong(filledCell!, differentCell)).toBe(false);
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+            // oxlint-disable-next-line typescript/no-non-null-assertion
             expect(sudoku.isCellWrong(filledCell!, filledCell)).toBe(false);
         });
     });

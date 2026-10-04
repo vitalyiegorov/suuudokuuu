@@ -36,7 +36,7 @@ interface Props {
     readonly ref: Ref<FieldRef>;
 }
 
-// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
+// oxlint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
     const { i18n, t } = useLingui();
     const { engine, snapshot } = use(GameContext);

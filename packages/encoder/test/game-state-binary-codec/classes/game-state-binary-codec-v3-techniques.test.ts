@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* oxlint-disable no-magic-numbers */
 import { describe, expect, it } from 'vitest';
 
 import { SharedPayloadKindEnum } from '../../../src/@generic/enums/shared-payload-kind.enum';

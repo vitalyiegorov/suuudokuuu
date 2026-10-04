@@ -10,9 +10,6 @@
         "ts": {
             "outputs": ["node_modules/.cache/tsbuildinfo.json", "**/node_modules/.cache/tsbuildinfo.json"]
         },
-        "lint": {
-            "outputs": []
-        },
         "deadcode": {
             "outputs": []
         },
@@ -21,9 +18,6 @@
         },
         "export:web": {
             "outputs": ["dist/**"]
-        },
-        "format": {
-            "outputs": []
         },
         "build": {
             "dependsOn": ["^build"],

@@ -27,7 +27,7 @@ const TECHNIQUE_INDEX_ITEMS = TECHNIQUE_PAGE_LADDER.map(technique => ({
     title: TECHNIQUE_NAMES[technique]
 }));
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const TechniquesPage = () => (
     <main>
         <PageHeader metadata={techniquesPageMetadata}>

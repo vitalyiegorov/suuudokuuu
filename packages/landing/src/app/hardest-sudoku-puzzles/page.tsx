@@ -28,7 +28,7 @@ export const metadata: Metadata = buildPageMetadata(hardestSudokuPuzzlesPageMeta
 
 const AI_ESCARGOT_GIVENS = '100007090030020008009600500005300900010080002600004000300000010040000007007000300';
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HardestSudokuPuzzlesPage = () => (
     <main>
         <PageHeader metadata={hardestSudokuPuzzlesPageMetadata}>

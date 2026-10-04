@@ -23,7 +23,7 @@ export const metadata: Metadata = buildPageMetadata(hiddenTriplePageMetadata);
 
 const EXAMPLE_BOARD = '692...8..457..831218324569784...3...31.....6.72.......571486...934172586268..9471';
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HiddenTriplePage = () => (
     <main>
         <TechniquePageHeader metadata={hiddenTriplePageMetadata} />

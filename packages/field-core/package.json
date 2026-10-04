@@ -24,7 +24,6 @@
         "build": "yarn build:esm && yarn build:cjs && find ./dist -name '*.tsbuildinfo' -delete",
         "build:cjs": "run -T tsc --pretty -p tsconfig.build-cjs.json",
         "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
-        "lint": "run -T eslint --fix src test",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
         "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"

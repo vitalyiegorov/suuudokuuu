@@ -23,7 +23,7 @@ export const metadata: Metadata = buildPageMetadata(xWingPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734..1417..28367.6..3.2...1.4...7..5.7..6..38....74.7438...96294.7...';
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const XWingPage = () => (
     <main>
         <TechniquePageHeader metadata={xWingPageMetadata} />

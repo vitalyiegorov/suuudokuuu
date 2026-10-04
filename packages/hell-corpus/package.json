@@ -21,7 +21,6 @@
         "build:corpus": "node ./scripts/build-corpus.mjs",
         "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
         "build:infinity-corpus": "node ./scripts/build-infinity-corpus.mjs",
-        "lint": "run -T eslint --fix src test",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
         "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"

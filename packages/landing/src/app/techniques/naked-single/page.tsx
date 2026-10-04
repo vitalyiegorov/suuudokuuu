@@ -23,7 +23,7 @@ export const metadata: Metadata = buildPageMetadata(nakedSinglePageMetadata);
 
 const EXAMPLE_BOARD = '9.3.68..2862.34.514.7..28367.68.3.252816453973.527..68.38.2.674.7438.2.96294.7..3';
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NakedSinglePage = () => (
     <main>
         <TechniquePageHeader metadata={nakedSinglePageMetadata} />

@@ -39,7 +39,7 @@ const DIFFICULTY_ITEMS = [
     hellSudokuPageMetadata
 ];
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SudokuDifficultiesPage = () => (
     <main>
         <PageHeader metadata={sudokuDifficultiesPageMetadata}>

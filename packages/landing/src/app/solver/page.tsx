@@ -39,7 +39,7 @@ const TIER_2_INTERSECTIONS = TECHNIQUE_PAGE_LADDER.slice(TIER_1_END, TIER_2_END)
 const TIER_3_SUBSETS = TECHNIQUE_PAGE_LADDER.slice(TIER_2_END, TIER_3_END);
 const TIER_4_FISH_WINGS_CHAINS = TECHNIQUE_PAGE_LADDER.slice(TIER_3_END);
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SolverPage = () => (
     <main>
         <PageHeader metadata={solverPageMetadata}>

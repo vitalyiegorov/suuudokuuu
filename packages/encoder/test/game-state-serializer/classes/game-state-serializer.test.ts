@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* oxlint-disable no-magic-numbers */
 import { compressToEncodedURIComponent } from 'lz-string';
 import { describe, expect, it } from 'vitest';
 

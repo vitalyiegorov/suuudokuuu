@@ -913,7 +913,7 @@ msgstr "الإبقاء على كل الحركات حتى عندما يقلّل �
 msgid "Keep selection after tapping outside the board"
 msgstr "الحفاظ على التحديد بعد النقر خارج اللوحة"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Keep the streak"
 msgstr "حافظ على السلسلة"
 
@@ -1489,7 +1489,7 @@ msgstr "حفظ على أي حال"
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Score"
 msgstr "النقاط"
@@ -1846,7 +1846,7 @@ msgstr "متقارب"
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "الوقت"
@@ -2089,7 +2089,7 @@ msgstr "أنت متقدم"
 msgid "Your arsenal"
 msgstr "ترسانتك"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Your best run"
 msgstr "أفضل جولة لك"
 

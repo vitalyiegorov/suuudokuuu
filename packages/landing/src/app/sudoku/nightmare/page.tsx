@@ -36,7 +36,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(nightmareSudokuPageMetadata);
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NightmareSudokuPage = () => {
     const nightmareReport = getTierTechniqueReport(DifficultyEnum.Nightmare);
 

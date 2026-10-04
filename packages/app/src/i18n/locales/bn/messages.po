@@ -913,7 +913,7 @@ msgstr "সিস্টেম নড়াচড়া কমালেও সব
 msgid "Keep selection after tapping outside the board"
 msgstr "বোর্ডের বাইরে ট্যাপ করলেও নির্বাচন রাখুন"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Keep the streak"
 msgstr "ধারাবাহিকতা বজায় রাখুন"
 
@@ -1489,7 +1489,7 @@ msgstr "তা সত্ত্বেও সংরক্ষণ করুন"
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Score"
 msgstr "স্কোর"
@@ -1846,7 +1846,7 @@ msgstr "ঘন"
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "সময়"
@@ -2089,7 +2089,7 @@ msgstr "আপনি এগিয়ে আছেন"
 msgid "Your arsenal"
 msgstr "আপনার অস্ত্রভাণ্ডার"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Your best run"
 msgstr "আপনার সেরা খেলা"
 

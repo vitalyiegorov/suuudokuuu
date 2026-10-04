@@ -9,7 +9,7 @@ export const Alert = (title: string, message?: string, buttons?: AlertButton[]) 
     const confirmButton = buttons?.find(button => !isCancelButton(button));
     const cancelButton = buttons?.find(isCancelButton);
 
-    // eslint-disable-next-line no-alert
+    // oxlint-disable-next-line no-alert
     const isConfirmed = confirm(`${title}\n${message ?? ''}`);
     const pressedButton = isConfirmed ? confirmButton : cancelButton;
 

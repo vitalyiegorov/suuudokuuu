@@ -23,7 +23,7 @@ export const metadata: Metadata = buildPageMetadata(swordfishPageMetadata);
 
 const EXAMPLE_BOARD = '953168742862734..1417..28367.6..3.2.2.164...73.527..6..38.2.674.7438.2.96294.7...';
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SwordfishPage = () => (
     <main>
         <TechniquePageHeader metadata={swordfishPageMetadata} />

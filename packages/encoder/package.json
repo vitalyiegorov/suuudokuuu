@@ -18,7 +18,6 @@
     "scripts": {
         "build": "yarn build:esm && find ./dist -name '*.tsbuildinfo' -delete",
         "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
-        "lint": "run -T eslint --fix src test",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
         "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"

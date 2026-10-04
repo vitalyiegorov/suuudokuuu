@@ -29,7 +29,6 @@
     "module": "src/index.ts",
     "types": "src/index.ts",
     "scripts": {
-        "lint": "run -T eslint --fix src test",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
         "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"

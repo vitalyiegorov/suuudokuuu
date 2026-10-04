@@ -12,7 +12,7 @@ const DefaultTimerTextLabels: TimerTextLabelsInterface = {
     minute: 'm'
 };
 
-// eslint-disable-next-line no-undefined
+// oxlint-disable-next-line no-undefined
 const dtfMS = new Intl.DateTimeFormat(undefined, {
     timeZone: 'UTC',
     hour12: false,

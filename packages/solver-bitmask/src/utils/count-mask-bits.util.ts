@@ -3,7 +3,7 @@ export const countMaskBits = (mask: number): number => {
     let bits = 0;
 
     while (remaining !== 0) {
-        // eslint-disable-next-line no-bitwise -- Brian Kernighan's bit-count algorithm clears the lowest set bit each iteration
+        // oxlint-disable-next-line no-bitwise -- Brian Kernighan's bit-count algorithm clears the lowest set bit each iteration
         remaining &= remaining - 1;
         bits += 1;
     }

@@ -53,7 +53,7 @@ const PRINTABLE_TIER_ITEMS = [
     printableHellSudokuPageMetadata
 ];
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PrintableSudokuPage = () => (
     <main>
         <PageHeader metadata={printableSudokuPageMetadata}>

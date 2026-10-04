@@ -915,7 +915,7 @@ msgstr "Alle Animationen beibehalten, auch wenn das System Bewegung reduziert"
 msgid "Keep selection after tapping outside the board"
 msgstr "Auswahl beibehalten, wenn du außerhalb des Bretts tippst"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Keep the streak"
 msgstr "Serie halten"
 
@@ -1491,7 +1491,7 @@ msgstr "Trotzdem speichern"
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Score"
 msgstr "Punkte"
@@ -1848,7 +1848,7 @@ msgstr "Eng"
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Time"
 msgstr "Zeit"
@@ -2091,7 +2091,7 @@ msgstr "du liegst vorn"
 msgid "Your arsenal"
 msgstr "Dein Arsenal"
 
-#: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/home-screen/home-screen-best-run/home-screen-best-run.tsx
 msgid "Your best run"
 msgstr "Deine beste Runde"
 

@@ -9,7 +9,7 @@ const formatJsonFiles = fileNames => {
 };
 
 module.exports = {
-    '*.{ts,tsx}': ['yarn eslint --fix', 'yarn prettier --write'],
+    '*.{ts,tsx}': ['yarn oxlint --fix', 'yarn prettier --write'],
     '*.{js,mjs,cjs,md,yml,yaml}': ['yarn prettier --write'],
     '*.json': formatJsonFiles,
     'package.json': ['yarn prettier --write', 'yarn sort-package-json']

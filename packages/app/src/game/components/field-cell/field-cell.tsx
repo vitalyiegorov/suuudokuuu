@@ -51,7 +51,7 @@ interface Props {
     readonly children?: ReactNode;
 }
 
-// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
+// oxlint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const FieldCell = (props: Props) => {
     const {
         accessibilityLabel,
@@ -130,7 +130,7 @@ export const FieldCell = (props: Props) => {
     }, [successGeneration, isSuccessTarget, isMotionReduced, successAnimation]);
 
     const handlePress = () => {
-        // eslint-disable-next-line no-undefined
+        // oxlint-disable-next-line no-undefined
         onSelect(isActive ? undefined : cell);
     };
 

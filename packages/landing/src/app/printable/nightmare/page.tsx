@@ -39,7 +39,7 @@ export const metadata: Metadata = buildPageMetadata(printableNightmareSudokuPage
 const [PREVIEW_PUZZLE] = PRINTABLE_BOOKLET_PUZZLES[DifficultyEnum.Nightmare];
 const nightmareReport = getTierTechniqueReport(DifficultyEnum.Nightmare);
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PrintableNightmareSudokuPage = () => (
     <main>
         <PageHeader metadata={printableNightmareSudokuPageMetadata}>

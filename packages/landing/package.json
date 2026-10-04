@@ -6,12 +6,10 @@
     "scripts": {
         "build": "yarn generate:printables && yarn generate:og-images && yarn generate:indexing && next build",
         "clear": "yarn run -T rimraf .next out node_modules/.cache .turbo",
-        "format": "run -T prettier --write src",
         "generate:indexing": "tsx scripts/generate-indexing-files.ts",
         "generate:og-images": "tsx scripts/generate-og-images.ts",
         "generate:printables": "tsx scripts/generate-printables.ts",
         "generate:rating-sample": "tsx scripts/generate-rating-sample.ts",
-        "lint": "run -T eslint --fix src",
         "seo:report": "tsx scripts/seo-report.ts",
         "start": "yarn generate:printables && yarn generate:og-images && yarn generate:indexing && next dev",
         "submit:indexnow": "tsx scripts/submit-indexnow.ts",

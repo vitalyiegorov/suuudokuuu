@@ -40,7 +40,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(sudokuDifficultyRatingPageMetadata);
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SudokuDifficultyRatingPage = () => {
     const newbieReport = getTierTechniqueReport(DifficultyEnum.Newbie);
     const mediumReport = getTierTechniqueReport(DifficultyEnum.Medium);

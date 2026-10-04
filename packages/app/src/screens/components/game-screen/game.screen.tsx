@@ -40,7 +40,7 @@ import { useGameEngineEvents } from './hooks/use-game-engine-events.hook';
 import type { AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-// eslint-disable-next-line max-lines-per-function -- Game orchestration component requires many handlers and refs
+// oxlint-disable-next-line max-lines-per-function -- Game orchestration component requires many handlers and refs
 export const GameScreen = () => {
     const router = useRouter();
     const { t } = useLingui();

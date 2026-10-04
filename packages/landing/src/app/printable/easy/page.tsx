@@ -42,7 +42,7 @@ export const metadata: Metadata = buildPageMetadata(printableEasySudokuPageMetad
 const [PREVIEW_PUZZLE] = PRINTABLE_BOOKLET_PUZZLES[DifficultyEnum.Easy];
 const easyReport = getTierTechniqueReport(DifficultyEnum.Easy);
 
-// eslint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
+// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PrintableEasySudokuPage = () => (
     <main>
         <PageHeader metadata={printableEasySudokuPageMetadata}>

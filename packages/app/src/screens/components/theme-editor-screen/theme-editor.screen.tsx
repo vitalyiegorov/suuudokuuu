@@ -35,7 +35,7 @@ import { ThemeEditorScreenStyles as styles } from './theme-editor-screen.styles'
 import type { ThemeEditorTokenInterface } from '../../../theme/interface/theme-editor-token.interface';
 import type { ThemeIdType } from '../../../theme/types/theme-id.type';
 
-// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
+// oxlint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const ThemeEditorScreen = () => {
     const { t } = useLingui();
     const { customThemeId, sourceThemeId } = useLocalSearchParams<{ customThemeId?: string; sourceThemeId?: string }>();

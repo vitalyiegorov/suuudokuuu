@@ -61,7 +61,7 @@ interface Props {
     readonly digitTextStyle: StyleProp<TextStyle>;
 }
 
-// eslint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
+// oxlint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const AvailableValuesItem = (props: Props) => {
     const { value, onSelect, progress, remaining, correctValue, canPress, isExhausted, ref, sizeStyle, digitTextStyle } = props;
 

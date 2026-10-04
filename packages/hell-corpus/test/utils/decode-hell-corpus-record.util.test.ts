@@ -34,7 +34,7 @@ const packPuzzleForTest = (puzzle: string): Uint8Array => {
 
     for (let cell = 0; cell < puzzle.length; cell += 1) {
         if (puzzle[cell] !== '0') {
-            // eslint-disable-next-line no-bitwise -- test oracle mirrors the position bitmask packing being verified
+            // oxlint-disable-next-line no-bitwise -- test oracle mirrors the position bitmask packing being verified
             record[Math.floor(cell / BITS_PER_BYTE)] |= 1 << (cell % BITS_PER_BYTE);
             givenCells.push(cell);
         }
@@ -44,7 +44,7 @@ const packPuzzleForTest = (puzzle: string): Uint8Array => {
         const value = Number(puzzle[cell]);
         const byteIndex = POSITION_MASK_BYTE_COUNT + Math.floor(givenIndex / 2);
 
-        // eslint-disable-next-line no-bitwise -- test oracle mirrors the nibble packing being verified
+        // oxlint-disable-next-line no-bitwise -- test oracle mirrors the nibble packing being verified
         record[byteIndex] |= givenIndex % 2 === 0 ? value & NIBBLE_MASK : (value & NIBBLE_MASK) << NIBBLE_BIT_WIDTH;
     });
 
@@ -83,7 +83,7 @@ describe('decodeHellCorpusRecord', () => {
     it('decodes a rater-reported ceiling rating with the ceiling flag set', () => {
         const record = packPuzzleForTest(ROYLE_17);
 
-        // eslint-disable-next-line no-bitwise -- test oracle sets the ceiling-flag bit being verified
+        // oxlint-disable-next-line no-bitwise -- test oracle sets the ceiling-flag bit being verified
         record[record.length - 1] = RATING_EIGHT_POINT_FIVE_BYTE | CEILING_FLAG_BIT;
 
         const decoded = decodeHellCorpusRecord(record, HELL_CORPUS_RECORD_BYTES);

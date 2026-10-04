@@ -24,7 +24,6 @@
         "build:cjs": "run -T tsc --pretty -p tsconfig.build-cjs.json",
         "build:esm": "run -T tsc --pretty -p tsconfig.build-esm.json",
         "build:styles": "cp src/styles/field-dom.css dist/field-dom.css",
-        "lint": "run -T eslint --fix src test",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
         "ts": "run -T tsc -p . && run -T tsc -p tsconfig.test.json"
