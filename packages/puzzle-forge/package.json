@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/puzzle-forge",
-    "version": "2.13.4",
+    "version": "2.13.6",
     "private": true,
     "files": [
         "dist/**/*"

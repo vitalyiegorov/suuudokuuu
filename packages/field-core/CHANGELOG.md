@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.13.6](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.5...v2.13.6) (2026-10-04)
+
+### Bug Fixes
+
+* make every hint end in a placed digit ([#420](https://github.com/vitalyiegorov/suuudokuuu/issues/420)) ([f512286](https://github.com/vitalyiegorov/suuudokuuu/commit/f512286cc2166d5bc2673cbb8a3ebeb9e098cb06))
+
+
 ## [2.13.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.3...v2.13.4) (2026-10-04)
 
 **Note:** Version bump only for package @suuudokuuu/field-core
