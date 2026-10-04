@@ -1,6 +1,6 @@
-Antog du en utmaning mitt i spelet? Vinsten räknas en gång.
-Inga dubbla vinster i statistiken längre.
-Dina tekniker sparas med varje spel igen.
-Reprisen öppnas direkt.
-Poängen stämmer.
-Gamla dubbla spel kraschar inte längre reprisen.
+Varje ledtråd slutar nu med en utlagd siffra, så du fastnar aldrig.
+Lång logik? Ledtråden avslöjar en rätt siffra i stället.
+Mindre ledtrådskort, precis under brädet.
+Helvete är nu en äkta forcing chain-utmaning.
+Snabbare och stabilare sparning av dina spel.
+Skärmrubriker åtgärdade.

@@ -1,6 +1,6 @@
-Défi accepté en pleine partie ? Votre victoire compte une fois.
-Fini les victoires en double dans vos stats.
-Vos techniques sont de nouveau enregistrées.
-La relecture s'ouvre tout de suite.
-Le score tombe juste.
-Les anciennes parties en double ne font plus planter la relecture.
+Chaque indice se termine désormais par un chiffre placé, vous n'êtes plus jamais bloqué.
+Logique trop longue ? L'indice révèle un chiffre correct.
+Carte d'indice plus petite, juste sous la grille.
+Enfer est désormais un vrai défi de chaînes forcées.
+Enregistrement des parties plus rapide et plus robuste.
+En-têtes d'écran corrigés.

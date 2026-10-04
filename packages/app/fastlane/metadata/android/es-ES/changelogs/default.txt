@@ -1,6 +1,6 @@
-¿Aceptaste un desafío en plena partida? Tu victoria cuenta una vez.
-Se acabaron las victorias duplicadas en tus estadísticas.
-Tus técnicas vuelven a guardarse en cada partida.
-La repetición se abre al instante.
-La puntuación cuadra.
-Las partidas duplicadas antiguas ya no bloquean la repetición.
+Ahora cada sugerencia termina con un dígito colocado, así que nunca te atascas.
+¿Lógica larga? La sugerencia te revela un dígito correcto.
+Tarjeta de sugerencia más pequeña, justo bajo el tablero.
+Infierno es ahora un auténtico reto de cadenas forzadas.
+Guardado de partidas más rápido y robusto.
+Cabeceras de pantalla corregidas.

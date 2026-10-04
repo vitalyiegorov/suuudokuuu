@@ -1,7 +1,8 @@
-Antog du en väns utmaning mitt i en annan match? Nu räknas din vinst en gång – med allt som hör till.
+Ledtrådar som alltid för dig framåt, och ett Helvete som äntligen gör skäl för namnet.
 
-• Varje vunnen utmaning hamnar bara en gång i din historik, så statistiken håller.
-• Teknikerna du använde sparas med spelet igen.
-• Reprisen öppnas direkt, drag för drag.
-• Poängen stämmer, utan spökpoäng.
-• Spel som den gamla buggen sparade två gånger kraschar inte längre appen när du öppnar reprisen.
+• Varje ledtråd slutar nu med att en siffra läggs ut. Inga fler ledtrådar som bara pekar på pennanteckningar och lämnar dig fast.
+• När logiken blir för lång avslöjar ledtråden en rätt siffra i stället för att ge upp.
+• Ledtrådskortet är mindre och sitter precis under brädet, en bit från skärmens nederkant.
+• Helvete är nu en äkta forcing chain-utmaning, inte bara ett bräde med färre ledtrådar.
+• Dina spel och din framgång sparas på ett snabbare och stabilare sätt.
+• Skärmrubriker ser ut och scrollar som de ska igen.

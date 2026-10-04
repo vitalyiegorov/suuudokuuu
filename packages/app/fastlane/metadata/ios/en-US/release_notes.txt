@@ -1,7 +1,8 @@
-Took on a friend's challenge in the middle of another game? Your win now counts once, and it keeps everything that makes it yours.
+Hints that always move you forward, and a Hell that finally earns its name.
 
-• Each challenge win lands in your history exactly once, so Won, Clean and Hardcore stay honest.
-• The techniques you used are saved with the game again.
-• Replay opens straight away, move by move.
-• Your score adds up right, with no phantom points.
-• Games the old bug saved twice no longer crash the app when you open Replay.
+• Every hint now ends with a digit placed. No more hints that only point at pencil marks and leave you stuck.
+• When the logic runs too long, the hint reveals one correct digit instead of giving up.
+• The hint card is smaller and sits right under the board, clear of the bottom of the screen.
+• Hell is now a true forcing-chain challenge, not just a board with fewer clues.
+• Your games and progress are saved in a faster, sturdier way.
+• Screen headers look and scroll right again.
