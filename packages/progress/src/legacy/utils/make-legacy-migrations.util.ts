@@ -1,5 +1,5 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { isObject } from 'effect/Predicate';
+import * as Option from 'effect/Option';
 import * as Schema from 'effect/Schema';
 
 import { DifficultySchema } from '../../@generic/schema/difficulty.schema';
@@ -28,12 +28,8 @@ const CustomThemeSchemaVersion = 2;
 const initialCustomThemesState: LegacyRootStateInterface['customThemes'] = { themes: [] };
 const isDifficulty = Schema.is(DifficultySchema);
 
-const readLegacyHistoryByDifficulty = (state: LegacyRootStateInterface): object => {
-    const history: unknown = Reflect.get(state, 'history');
-    const byDifficulty: unknown = isObject(history) ? Reflect.get(history, 'byDifficulty') : null;
-
-    return isObject(byDifficulty) ? byDifficulty : {};
-};
+const FirstHistorySchema = Schema.Struct({ history: Schema.Struct({ byDifficulty: Schema.Record(Schema.String, Schema.Unknown) }) });
+const decodeFirstHistory = Schema.decodeUnknownOption(FirstHistorySchema);
 
 const resetBestScores = (state: LegacyRootStateInterface): LegacyRootStateInterface => {
     const gameState = state.game;
@@ -248,7 +244,10 @@ const migrateFirstPersistedHistory = (state: LegacyRootStateInterface): LegacyRo
         ...state.game,
         historyByDifficulty: {
             ...legacyInitialGameState.historyByDifficulty,
-            ...readLegacyHistoryByDifficulty(state)
+            ...Option.getOrElse(
+                Option.map(decodeFirstHistory(state), ({ history }) => history.byDifficulty),
+                () => ({})
+            )
         }
     }
 });
