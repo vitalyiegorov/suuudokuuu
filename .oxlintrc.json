@@ -33,6 +33,10 @@
         {
             "name": "react-effect",
             "specifier": "eslint-plugin-react-you-might-not-need-an-effect"
+        },
+        {
+            "name": "react-native",
+            "specifier": "eslint-plugin-react-native"
         }
     ],
     "categories": {
@@ -861,6 +865,20 @@
                 "react-effect/no-external-store-subscription": "error"
             },
             "plugins": ["react"]
+        },
+        {
+            "files": ["packages/app/**/*.tsx", "packages/ui/**/*.tsx"],
+            "rules": {
+                "react-native/no-inline-styles": "error",
+                "react-native/no-raw-text": [
+                    "error",
+                    {
+                        "skip": ["Trans", "BlackText", "ListItem"]
+                    }
+                ],
+                "react-native/no-single-element-style-arrays": "error",
+                "react-native/split-platform-components": "error"
+            }
         },
         {
             "files": ["packages/field-dom/**/*.tsx", "packages/landing/**/*.tsx"],
