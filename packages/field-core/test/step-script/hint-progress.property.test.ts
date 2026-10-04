@@ -52,13 +52,7 @@ const corpusPuzzles: [string, string][] = [
     ])
 ];
 
-const firstGeneratedHint = 1;
-const firstCorpusHint = 0;
-
-const cases = [
-    ...generatedPuzzles.map(([label, puzzle]): [string, string, number] => [label, puzzle, firstGeneratedHint]),
-    ...corpusPuzzles.map(([label, puzzle]): [string, string, number] => [label, puzzle, firstCorpusHint])
-];
+const cases = [...generatedPuzzles, ...corpusPuzzles];
 
 const getBlankCells = (engine: FieldEngine): CellInterface[] => engine.Sudoku.Field.flat().filter(cell => engine.Sudoku.isBlankCell(cell));
 
@@ -88,7 +82,7 @@ const playHints = (puzzle: string, noteMode: NoteModeType): { outcome: string; h
         const script = findHintStepScript(engine.Sudoku);
 
         if (engine.getSnapshot().isWon || script === null) {
-            return { outcome: engine.getSnapshot().isWon ? 'solved' : 'guess', hints: hint, problems };
+            return { outcome: engine.getSnapshot().isWon ? 'solved' : 'unsolved', hints: hint, problems };
         }
 
         const blankCount = getBlankCells(engine).length;
@@ -119,20 +113,20 @@ const playHints = (puzzle: string, noteMode: NoteModeType): { outcome: string; h
 
 describe('hint progress over puzzle corpora', () => {
     it.each(
-        cases.flatMap(([label, puzzle, minimumHints], index): [string, NoteModeType, string, number][] => [
-            [label, 'no notes', puzzle, minimumHints],
-            [label, noteModes[index % noteModes.length], puzzle, minimumHints]
+        cases.flatMap(([label, puzzle], index): [string, NoteModeType, string][] => [
+            [label, 'no notes', puzzle],
+            [label, noteModes[index % noteModes.length], puzzle]
         ])
     )(
-        '%s, %s: every hint places one solution digit until solved or a guess is needed',
-        (_label, noteMode, puzzle, minimumHints) => {
+        '%s, %s: every hint places one solution digit until the board is solved',
+        (_label, noteMode, puzzle) => {
             expect.assertions(3);
 
             const { hints, outcome, problems } = playHints(puzzle, noteMode);
 
             expect(problems).toEqual([]);
-            expect(['solved', 'guess']).toContain(outcome);
-            expect(hints).toBeGreaterThanOrEqual(minimumHints);
+            expect(outcome).toBe('solved');
+            expect(hints).toBe(getBlankCells(createEngine(puzzle, 'no notes')).length);
         },
         corpusTimeoutMilliseconds
     );

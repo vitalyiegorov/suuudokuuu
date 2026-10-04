@@ -1,14 +1,35 @@
-import { findPlacementChain } from '@suuudokuuu/techniques';
+import { SolutionTechniqueEnum, findPlacementChain } from '@suuudokuuu/techniques';
 
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { techniqueResultToStepScript } from './technique-result-to-step-script.util';
 
 import type { StepScriptInterface } from '../interfaces/step-script.interface';
 import type { Sudoku } from '@suuudokuuu/generator';
+import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
+
+const findRevealResults = (sudoku: Sudoku): TechniqueResultInterface[] => {
+    const [revealCell] = sudoku.Field.flat()
+        .filter(cell => sudoku.isBlankCell(cell))
+        .toSorted((left, right) => sudoku.getCellCandidates(left).length - sudoku.getCellCandidates(right).length);
+
+    return isDefined(revealCell)
+        ? [
+              {
+                  technique: SolutionTechniqueEnum.Guess,
+                  cell: revealCell,
+                  value: sudoku.getCorrectValue(revealCell),
+                  kind: 'guess',
+                  eliminations: [],
+                  reasonCells: [revealCell]
+              }
+          ]
+        : [];
+};
 
 export const findHintStepScript = (sudoku: Sudoku): StepScriptInterface | null => {
-    const scripts = findPlacementChain(sudoku).map(techniqueResultToStepScript);
+    const chain = findPlacementChain(sudoku);
+    const scripts = (isNotEmptyArray(chain) ? chain : findRevealResults(sudoku)).map(techniqueResultToStepScript);
     const [firstScript] = scripts;
     const placement = scripts.at(-1)?.placement;
 

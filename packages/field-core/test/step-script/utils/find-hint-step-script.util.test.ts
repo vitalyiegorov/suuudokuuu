@@ -11,6 +11,9 @@ import type { StepScriptInterface } from '../../../src/step-script/interfaces/st
 const pointingPairBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
 const guessBoard = '800000000003600000070090200050007000000045700000100030001000068008500010090000400'.replaceAll('0', '.');
 
+const longChainBoard = '8.72.14..34....1.2.5.....9..1...39..4...5.6.8..56..2.........2...437....5..8.9..4';
+const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
+
 const createEngine = (sudokuString: string, showAutoCandidates = false): FieldEngine =>
     new FieldEngine({ sudokuString, difficulty: DifficultyEnum.Medium, showAutoCandidates });
 
@@ -113,10 +116,34 @@ describe('findHintStepScript', () => {
         expect(engine.getSnapshot().candidates).toEqual(candidatesBefore);
     });
 
-    it('returns null when no placement is reachable without guessing', () => {
+    it.each([
+        ['needs a guess', guessBoard],
+        ['exceeds the chain cap', longChainBoard]
+    ])('reveals the solution digit of the fewest-candidate cell when the position %s', (_label, board) => {
+        expect.assertions(4);
+
+        const engine = createEngine(board);
+        const blankCells = engine.Sudoku.Field.flat().filter(cell => engine.Sudoku.isBlankCell(cell));
+        const fewestCandidates = Math.min(...blankCells.map(cell => engine.Sudoku.getCellCandidates(cell).length));
+        const [revealCell] = blankCells.filter(cell => engine.Sudoku.getCellCandidates(cell).length === fewestCandidates);
+        const script = requireScript(engine);
+
+        engine.startStepScript(script);
+        engine.applyStepScript();
+
+        expect(script.steps.map(step => [step.kind, step.narration.technique])).toEqual([
+            [StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.Guess],
+            [StepScriptStepKindEnum.PlaceValue, SolutionTechniqueEnum.Guess]
+        ]);
+        expect(script.placement?.cell).toEqual(revealCell);
+        expect(engine.Sudoku.Field[revealCell.y][revealCell.x].value).toBe(engine.Sudoku.getCorrectValue(revealCell));
+        expect(engine.getSnapshot().mistakes).toBe(0);
+    });
+
+    it('returns null on a solved board', () => {
         expect.assertions(1);
 
-        expect(findHintStepScript(createEngine(guessBoard).Sudoku)).toBeNull();
+        expect(findHintStepScript(createEngine(solvedBoard).Sudoku)).toBeNull();
     });
 
     it.each([
