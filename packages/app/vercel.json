@@ -11,6 +11,13 @@
             }
         },
         {
+            "src": "^/\\.well-known/apple-app-site-association$",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "continue": true
+        },
+        {
             "src": "/ota/manifest\\.plist",
             "dest": "/api/beta/manifest"
         },
