@@ -53,4 +53,20 @@ describe('appButtonGetColors', () => {
         expect(ghostColors.borderColor).toBe(DefaultUiTheme.colors.surface.border);
         expect(ghostColors.textColor).toBe(DefaultUiTheme.colors.text.primary);
     });
+
+    it('fills danger actions with the danger foreground for loaders on them', () => {
+        const dangerFilledColors = appButtonGetColors(DefaultUiTheme, 'dangerFilled');
+
+        expect(dangerFilledColors.backgroundColor).toBe(DefaultUiTheme.colors.danger);
+        expect(dangerFilledColors.borderColor).toBe(DefaultUiTheme.colors.danger);
+        expect(dangerFilledColors.textColor).toBe(DefaultUiTheme.colors.dangerText);
+    });
+
+    it('uses the selected board cell colors for board-selected actions', () => {
+        const boardSelectedColors = appButtonGetColors(DefaultUiTheme, 'boardSelected');
+
+        expect(boardSelectedColors.backgroundColor).toBe(DefaultUiTheme.colors.board.selected);
+        expect(boardSelectedColors.borderColor).toBe(DefaultUiTheme.colors.board.selected);
+        expect(boardSelectedColors.textColor).toBe(DefaultUiTheme.colors.board.selectedText);
+    });
 });
