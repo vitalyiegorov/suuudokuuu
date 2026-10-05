@@ -43,6 +43,7 @@ export const HighContrastLightTheme: ThemeInterface = {
             subtle: '#d1d1d1',
             subtleText: '#000000',
             subtleHint: '#262626',
+            group: '#ebebeb',
             border: '#000000'
         }
     }
@@ -91,6 +92,7 @@ export const HighContrastDarkTheme: ThemeInterface = {
             subtle: '#333333',
             subtleText: '#ffffff',
             subtleHint: '#d6d6d6',
+            group: '#1f1f1f',
             border: '#ffffff'
         }
     }

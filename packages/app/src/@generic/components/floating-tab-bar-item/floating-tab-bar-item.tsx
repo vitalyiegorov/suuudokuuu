@@ -5,6 +5,8 @@ import { Pressable, Text } from 'react-native';
 import { cs } from '@rnw-community/shared';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { applyColorAlpha } from '../../utils/apply-color-alpha.util';
+import { FloatingTabBarFocusedSegmentAlpha, FloatingTabBarLabelMinimumScale } from '../floating-tab-bar/constant/floating-tab-bar.constant';
 
 import { FloatingTabBarItemStyles as styles } from './floating-tab-bar-item.styles';
 
@@ -24,7 +26,7 @@ export const FloatingTabBarItem = (props: Props) => {
 
     const { theme } = use(ThemeContext);
 
-    const focusedSegmentStyle = { backgroundColor: theme.colors.surface.subtle };
+    const focusedSegmentStyle = { backgroundColor: applyColorAlpha(theme.colors.text.primary, FloatingTabBarFocusedSegmentAlpha) };
     const segmentStyles = [styles.segment, cs(isFocused, focusedSegmentStyle)];
     const labelColor = isFocused ? theme.colors.text.primary : theme.colors.text.hint;
     const labelStyles = [styles.label, { color: labelColor }];
@@ -40,7 +42,13 @@ export const FloatingTabBarItem = (props: Props) => {
             testID={testID}
         >
             {children}
-            <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={1} style={labelStyles}>
+            <Text
+                adjustsFontSizeToFit
+                maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                minimumFontScale={FloatingTabBarLabelMinimumScale}
+                numberOfLines={1}
+                style={labelStyles}
+            >
                 {label}
             </Text>
         </Pressable>

@@ -1,17 +1,17 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import {
-    AppTogglePressablePadding,
-    AppToggleThumbSize,
-    AppToggleTrackHeight,
-    AppToggleTrackPadding,
-    AppToggleTrackWidth
-} from './constant/app-toggle-size.constant';
+import { AppToggleKnobInset, AppToggleKnobSize, AppToggleTrackHeight, AppToggleTrackWidth } from './constant/app-toggle-size.constant';
 
 export const AppToggleStyles = StyleSheet.create(() => ({
+    knob: {
+        borderRadius: AppToggleKnobSize / 2,
+        height: AppToggleKnobSize,
+        left: AppToggleKnobInset,
+        position: 'absolute',
+        top: AppToggleKnobInset,
+        width: AppToggleKnobSize
+    },
     pressable: {
-        borderRadius: AppToggleTrackHeight / 2 + AppTogglePressablePadding,
-        padding: AppTogglePressablePadding,
         _web: {
             cursor: 'pointer',
             _hover: {
@@ -19,18 +19,18 @@ export const AppToggleStyles = StyleSheet.create(() => ({
             }
         }
     },
-    thumb: {
-        borderRadius: AppToggleThumbSize / 2,
-        height: AppToggleThumbSize,
-        width: AppToggleThumbSize
-    },
     track: {
         borderCurve: 'continuous',
         borderRadius: AppToggleTrackHeight / 2,
-        borderWidth: 1,
         height: AppToggleTrackHeight,
-        justifyContent: 'center',
-        padding: AppToggleTrackPadding,
+        overflow: 'hidden',
         width: AppToggleTrackWidth
+    },
+    trackFill: {
+        bottom: 0,
+        left: 0,
+        position: 'absolute',
+        right: 0,
+        top: 0
     }
 }));

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Pressable } from 'react-native';
+import { Pressable, View } from 'react-native';
 import Animated, { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 import { useUnistyles } from 'react-native-unistyles';
 
@@ -8,9 +8,8 @@ import { resolveUnistyleForAnimated } from '../../utils/resolve-unistyle-for-ani
 
 import { AppToggleStyles as styles } from './app-toggle.styles';
 import { AppTogglePressTimingConfig, AppTogglePressedScale, AppToggleSpringConfig } from './constant/app-toggle-animation.constant';
-import { AppToggleDisabledOpacity } from './constant/app-toggle-disabled-opacity.constant';
-import { AppToggleTranslateX } from './constant/app-toggle-size.constant';
-import { appToggleGetColors } from './utils/app-toggle-get-colors.util';
+import { AppToggleDisabledOpacity, AppToggleOffKnobOpacity, AppToggleOffTrackOpacity } from './constant/app-toggle-opacity.constant';
+import { AppToggleHitSlop, AppToggleKnobTravel, AppToggleOffKnobScale } from './constant/app-toggle-size.constant';
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
@@ -33,9 +32,6 @@ export const AppToggle = ({ disabled = false, onValueChange, testID, value }: Pr
         progress.set(isReduceMotionEnabled ? targetProgress : withSpring(targetProgress, AppToggleSpringConfig));
     }, [value, isReduceMotionEnabled, progress]);
 
-    const offColors = appToggleGetColors(theme, false);
-    const onColors = appToggleGetColors(theme, true);
-
     const handlePress = () => {
         if (!disabled) {
             onValueChange(!value);
@@ -52,39 +48,47 @@ export const AppToggle = ({ disabled = false, onValueChange, testID, value }: Pr
         }
     };
 
+    const knobOffColor = theme.colors.text.primary;
+    const knobOnColor = theme.colors.background;
     const pressableAnimatedStyles = useAnimatedStyle(() => ({
         transform: [{ scale: interpolate(pressed.value, [0, 1], [1, AppTogglePressedScale]) }]
     }));
-    const trackAnimatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(progress.value, [0, 1], [offColors.trackColor, onColors.trackColor]),
-        borderColor: interpolateColor(progress.value, [0, 1], [offColors.trackBorderColor, onColors.trackBorderColor])
+    const trackFillAnimatedStyles = useAnimatedStyle(() => ({
+        opacity: interpolate(progress.value, [0, 1], [AppToggleOffTrackOpacity, 1])
     }));
-    const thumbAnimatedStyles = useAnimatedStyle(() => ({
-        backgroundColor: interpolateColor(progress.value, [0, 1], [offColors.knobColor, onColors.knobColor]),
-        transform: [{ translateX: interpolate(progress.value, [0, 1], [0, AppToggleTranslateX]) }]
+    const knobAnimatedStyles = useAnimatedStyle(() => ({
+        backgroundColor: interpolateColor(progress.value, [0, 1], [knobOffColor, knobOnColor]),
+        opacity: interpolate(progress.value, [0, 1], [AppToggleOffKnobOpacity, 1]),
+        transform: [
+            { translateX: interpolate(progress.value, [0, 1], [0, AppToggleKnobTravel]) },
+            { scale: interpolate(progress.value, [0, 1], [AppToggleOffKnobScale, 1]) }
+        ]
     }));
     const pressableStyles = [resolveUnistyleForAnimated(styles.pressable), pressableAnimatedStyles];
-    const trackStyles = [
-        resolveUnistyleForAnimated(styles.track),
-        trackAnimatedStyles,
-        { opacity: disabled ? AppToggleDisabledOpacity : 1 }
+    const trackStyles = [styles.track, { opacity: disabled ? AppToggleDisabledOpacity : 1 }];
+    const trackFillStyles = [
+        resolveUnistyleForAnimated(styles.trackFill),
+        { backgroundColor: theme.colors.text.primary },
+        trackFillAnimatedStyles
     ];
-    const thumbStyles = [resolveUnistyleForAnimated(styles.thumb), thumbAnimatedStyles];
+    const knobStyles = [resolveUnistyleForAnimated(styles.knob), knobAnimatedStyles];
     const accessibilityState = { checked: value, disabled };
 
     return (
         <AnimatedPressable
             accessibilityRole="switch"
             accessibilityState={accessibilityState}
+            hitSlop={AppToggleHitSlop}
             onPress={handlePress}
             onPressIn={handlePressIn}
             onPressOut={handlePressOut}
             style={pressableStyles}
             testID={testID}
         >
-            <Animated.View style={trackStyles}>
-                <Animated.View style={thumbStyles} />
-            </Animated.View>
+            <View style={trackStyles}>
+                <Animated.View style={trackFillStyles} />
+                <Animated.View style={knobStyles} />
+            </View>
         </AnimatedPressable>
     );
 };

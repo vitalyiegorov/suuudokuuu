@@ -10,10 +10,16 @@ export const SettingsOptionLinkStyles = StyleSheet.create(theme => ({
             }
         }
     },
+    trailing: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: 7
+    },
     value: {
+        fontFamily: theme.typography.fontFamily,
         fontSize: 15,
-        fontWeight: theme.typography.weight.bold,
-        lineHeight: 22,
+        letterSpacing: -0.15,
+        lineHeight: 20,
         maxWidth: theme.contentWidth.narrow,
         textAlign: 'right'
     }

@@ -94,6 +94,7 @@ describe('migrateCustomThemeColors', () => {
                 subtle: '#a3a3a3',
                 subtleText: '#a4a4a4',
                 subtleHint: '#a5a5a5',
+                group: BWLightTheme.colors.surface.group,
                 border: '#919191'
             }
         });

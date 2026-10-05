@@ -43,6 +43,7 @@ export const ColorblindSafeLightTheme: ThemeInterface = {
             subtle: '#e4e4e4',
             subtleText: '#111111',
             subtleHint: '#3a3a3a',
+            group: '#f2f2f2',
             border: '#5a5a5a'
         }
     }
@@ -91,6 +92,7 @@ export const ColorblindSafeDarkTheme: ThemeInterface = {
             subtle: '#26303a',
             subtleText: '#f2f2f2',
             subtleHint: '#bdbdbd',
+            group: '#161618',
             border: '#6b7a87'
         }
     }

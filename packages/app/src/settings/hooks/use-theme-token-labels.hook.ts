@@ -44,6 +44,7 @@ export const useThemeTokenLabels = () => {
         'surface.subtle': t`Subtle surface`,
         'surface.subtleText': t`Subtle surface text`,
         'surface.subtleHint': t`Subtle surface hint`,
+        'surface.group': t`Grouped surface`,
         'surface.border': t`Surface border`
     };
 

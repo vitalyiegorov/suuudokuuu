@@ -43,6 +43,7 @@ export const BWLightTheme: ThemeInterface = {
             subtle: 'rgba(0,0,0,0.1)',
             subtleText: 'rgba(0, 0, 0, 1)',
             subtleHint: 'rgba(0, 0, 0, 0.65)',
+            group: '#ffffff',
             border: 'rgba(0,0,0,0.15)'
         }
     }
@@ -91,6 +92,7 @@ export const BWDarkTheme: ThemeInterface = {
             subtle: 'rgba(255,255,255,0.35)',
             subtleText: 'rgba(255, 255, 255, 1)',
             subtleHint: 'rgba(255, 255, 255, 0.75)',
+            group: 'rgba(255, 255, 255, 0.085)',
             border: 'rgba(255,255,255,0.16)'
         }
     }

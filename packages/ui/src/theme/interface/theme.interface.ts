@@ -41,6 +41,7 @@ export interface ThemeInterface {
             subtle: string;
             subtleText: string;
             subtleHint: string;
+            group: string;
             border: string;
         };
     };

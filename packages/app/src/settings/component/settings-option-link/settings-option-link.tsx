@@ -2,13 +2,13 @@ import { useLingui } from '@lingui/react/macro';
 import { AppSettingsRow } from '@suuudokuuu/ui';
 import { Link } from 'expo-router';
 import { use } from 'react';
-import { Pressable } from 'react-native';
+import { Pressable, View } from 'react-native';
+import Svg, { Path } from 'react-native-svg';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { settingsOptionLinkGetColors } from '../../utils/settings-option-link-get-colors.util';
 
 import { SettingsOptionLinkStyles as styles } from './settings-option-link.styles';
 
@@ -26,11 +26,16 @@ export const SettingsOptionLink = ({ description, href, testID, title, value }: 
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
 
-    const valueStyles = [styles.value, { color: settingsOptionLinkGetColors(theme).valueColor }];
+    const valueStyles = [styles.value, { color: theme.colors.text.hint }];
     const trailing = (
-        <BlackText numberOfLines={1} style={valueStyles}>
-            {value}
-        </BlackText>
+        <View style={styles.trailing}>
+            <BlackText numberOfLines={1} style={valueStyles}>
+                {value}
+            </BlackText>
+            <Svg fill="none" height={12} opacity={0.6} viewBox="0 0 7 12" width={7}>
+                <Path d="m1,1,5,5-5,5" stroke={theme.colors.text.hint} strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} />
+            </Svg>
+        </View>
     );
     const accessibilityLabel = isNotEmptyString(description) ? `${title}, ${description}` : title;
     const accessibilityHint = t`Opens a picker to change this setting`;

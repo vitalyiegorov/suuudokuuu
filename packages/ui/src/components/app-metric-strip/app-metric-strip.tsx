@@ -2,10 +2,11 @@ import { Children } from 'react';
 import { type StyleProp, View, type ViewStyle } from 'react-native';
 import { useUnistyles } from 'react-native-unistyles';
 
+import { getSeparatorKey } from '../../utils/get-separator-key.util';
+
 import { AppMetricStripStyles as styles } from './app-metric-strip.styles';
 import { AppMetricStripContext } from './context/app-metric-strip.context';
 import { appMetricStripGetColors } from './utils/app-metric-strip-get-colors.util';
-import { appMetricStripGetSeparatorKey } from './utils/app-metric-strip-get-separator-key.util';
 
 import type { AppMetricStripVariant } from './utils/app-metric-strip-get-colors.util';
 import type { ReactNode } from 'react';
@@ -30,7 +31,7 @@ export const AppMetricStrip = ({ children, separatorStyle, style, testID, varian
             return [item];
         }
 
-        return [item, <View key={appMetricStripGetSeparatorKey(item, index)} style={separatorStyles} />];
+        return [item, <View key={getSeparatorKey(item, index)} style={separatorStyles} />];
     });
     const contextValue = { textColor };
 

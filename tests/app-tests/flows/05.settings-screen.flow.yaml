@@ -72,8 +72,8 @@ appId: ${APP_ID}
       visible:
           id: 'SettingsScreenSelectors.Root'
       timeout: 10000
-- tapOn:
-      id: 'MainTabSelectors.Play'
+- openLink:
+      link: 'suuudokuuu://'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'

@@ -23,13 +23,11 @@ export const ThemeListRow = ({ children, description, isSelected, onPress, testI
     const { theme } = use(ThemeContext);
 
     const accessibilityState = { selected: isSelected };
-    const rowBorderColor = isSelected ? theme.colors.text.primary : theme.colors.surface.border;
-    const rowStyle = { borderColor: rowBorderColor, borderWidth: 2 };
 
     const trailing = (
         <View style={styles.trailing}>
             <View style={styles.checkSlot}>
-                {isSelected && <Check color={theme.colors.surface.subtleText} height={22} strokeWidth={2.25} width={22} />}
+                {isSelected && <Check color={theme.colors.text.primary} height={22} strokeWidth={2.25} width={22} />}
             </View>
             {children}
         </View>
@@ -44,7 +42,7 @@ export const ThemeListRow = ({ children, description, isSelected, onPress, testI
             style={styles.pressable}
             testID={testID}
         >
-            <AppSettingsRow description={description} style={rowStyle} title={title} trailing={trailing} />
+            <AppSettingsRow description={description} title={title} trailing={trailing} />
         </Pressable>
     );
 };

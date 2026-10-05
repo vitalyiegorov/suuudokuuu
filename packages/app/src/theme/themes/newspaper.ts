@@ -43,6 +43,7 @@ export const NewspaperLightTheme: ThemeInterface = {
             subtle: '#eaeaea',
             subtleText: '#1a1a1a',
             subtleHint: 'rgba(26, 26, 26, 0.65)',
+            group: '#ffffff',
             border: 'rgba(26, 26, 26, 0.1)'
         }
     }
@@ -91,6 +92,7 @@ export const NewspaperDarkTheme: ThemeInterface = {
             subtle: '#2a2a2a',
             subtleText: '#f0f0f0',
             subtleHint: 'rgba(240, 240, 240, 0.65)',
+            group: 'rgba(0, 0, 0, 0.3)',
             border: 'rgba(240, 240, 240, 0.16)'
         }
     }

@@ -745,6 +745,10 @@ msgstr "गोल्ड"
 msgid "Group(3x3 cells)"
 msgstr "ब्लॉक (3x3 कोशिकाएँ)"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Grouped surface"
+msgstr "समूह सतह"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Guess"
 msgstr "अनुमान"

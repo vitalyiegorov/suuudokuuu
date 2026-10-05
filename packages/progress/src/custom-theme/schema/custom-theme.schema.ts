@@ -1,8 +1,11 @@
+import * as Effect from 'effect/Effect';
 import * as Schema from 'effect/Schema';
 
 import { ColorSchemaEnum } from '../enum/color-schema.enum';
 
 import { CustomThemeIdSchema, PresetThemeIdSchema } from './theme-id.schema';
+
+const LegacyGroupSurfaceColor = 'rgba(128, 128, 128, 0.12)';
 
 export const ThemeColorsSchema = Schema.Struct({
     background: Schema.String,
@@ -37,6 +40,7 @@ export const ThemeColorsSchema = Schema.Struct({
         subtle: Schema.String,
         subtleText: Schema.String,
         subtleHint: Schema.String,
+        group: Schema.String.pipe(Schema.withDecodingDefaultKey(Effect.succeed(LegacyGroupSurfaceColor))),
         border: Schema.String
     })
 });
