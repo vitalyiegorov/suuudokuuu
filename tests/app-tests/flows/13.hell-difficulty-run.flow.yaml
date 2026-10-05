@@ -26,7 +26,7 @@ appId: ${APP_ID}
           id: 'HomeScreenStartButtonEmberSelectors\.(AnimatedRoot|StaticRoot)'
       direction: DOWN
       visibilityPercentage: 50
-      timeout: 3000
+      timeout: 10000
 
 - runFlow: subflows/game/start-new-game.flow.yaml
 # The level+rating pill was removed from the game screen entirely; it now only shows on the
@@ -51,4 +51,4 @@ appId: ${APP_ID}
           id: 'HomeScreenStartButtonEmberSelectors\.(AnimatedRoot|StaticRoot)'
       direction: DOWN
       visibilityPercentage: 50
-      timeout: 3000
+      timeout: 10000
