@@ -83,6 +83,11 @@ jobs:
                   git commit -m "chore: sync lingui catalogs [skip ci]"
                   git push origin HEAD:main
 
+            - name: Rebase onto the latest main
+              run: |
+                  git fetch --force origin +refs/heads/main:refs/remotes/origin/main
+                  git rebase origin/main
+
             - name: Publish a release
               run: pnpm release
 
