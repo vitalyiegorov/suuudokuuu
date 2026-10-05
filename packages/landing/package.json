@@ -10,6 +10,7 @@
         "generate:og-images": "tsx scripts/generate-og-images.ts",
         "generate:printables": "tsx scripts/generate-printables.ts",
         "generate:rating-sample": "tsx scripts/generate-rating-sample.ts",
+        "check:tier-reports": "tsx scripts/check-tier-reports.ts",
         "seo:report": "tsx scripts/seo-report.ts",
         "start": "pnpm generate:printables && pnpm generate:og-images && pnpm generate:indexing && next dev",
         "submit:indexnow": "tsx scripts/submit-indexnow.ts",
