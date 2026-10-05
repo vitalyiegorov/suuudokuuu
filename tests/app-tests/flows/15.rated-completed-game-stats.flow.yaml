@@ -66,13 +66,8 @@ appId: ${APP_ID}
       element:
           id: 'HistorySolverProfileSelectors.Spectrum'
       direction: DOWN
-- scrollUntilVisible:
-      element:
-          id: 'MainTabSelectors.Play'
-      direction: UP
-      timeout: 10000
-- tapOn:
-      id: 'MainTabSelectors.Play'
+- openLink:
+      link: 'suuudokuuu://'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'

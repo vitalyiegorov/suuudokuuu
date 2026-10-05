@@ -18,7 +18,7 @@ appId: ${APP_ID}
 # momentum is consumed stopping the scroll and never reaches the option label
 # (CI run 33369560754 attempt 2: the slider still showed Easy after the tap).
 - waitForAnimationToEnd:
-      timeout: 10000
+      timeout: 3000
 - tapOn:
       id: 'DifficultyComplexityOptionSelectors.Option.Hell'
 - scrollUntilVisible:
