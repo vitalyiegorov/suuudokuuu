@@ -102,12 +102,12 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: у підсвіченому рядку цифра {value} може стояти лише в позначеній клітинці."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: у підсвіченому блоці лишилась одна порожня клітинка — там стоїть {value}."
+msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
+msgstr "{techniqueName}: цифри {valueList} зосереджені в підсвічених клітинках, тому їх виключено з решти клітинок."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
-msgstr "{techniqueName}: у підсвічених клітинках можливі лише цифри {valueList}."
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: у підсвіченому блоці лишилась одна порожня клітинка — там стоїть {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -1029,7 +1029,7 @@ msgstr "Хід"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr ""
+msgstr "Перемістити панель керування в альбомному режимі ліворуч від дошки"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"

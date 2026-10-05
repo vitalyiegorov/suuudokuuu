@@ -102,12 +102,12 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: in der markierten Zeile passt {value} nur in die markierte Zelle."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: im markierten Block bleibt nur eine leere Zelle, dorthin gehört {value}."
+msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
+msgstr "{techniqueName}: die Ziffern {valueList} sind auf die markierten Zellen beschränkt und fallen deshalb in allen anderen Zellen weg."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
-msgstr "{techniqueName}: in den markierten Zellen sind nur die Ziffern {valueList} möglich."
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: im markierten Block bleibt nur eine leere Zelle, dorthin gehört {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -1029,7 +1029,7 @@ msgstr "Zug"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr ""
+msgstr "Das Bedienfeld im Querformat links neben das Spielfeld verschieben"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"

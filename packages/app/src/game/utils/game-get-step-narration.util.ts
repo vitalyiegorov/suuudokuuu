@@ -98,7 +98,7 @@ export const gameGetStepNarration = (step: StepScriptStepType, techniqueName: st
             return getPlacementRevealNarration(step, techniqueName, valueList);
         }
 
-        return msg`${techniqueName}: the highlighted cells can only hold the digits ${valueList}.`;
+        return msg`${techniqueName}: the digits ${valueList} are locked into the highlighted cells, which rules them out of other cells.`;
     }
 
     if (step.kind === StepScriptStepKindEnum.StrikeCandidates) {
