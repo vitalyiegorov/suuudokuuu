@@ -26,7 +26,7 @@ export const NativeTabLayout = () => {
                 disableTransparentOnScrollEdge
                 iconColor={theme.colors.text.hint}
                 labelStyle={labelStyle}
-                minimizeBehavior="onScrollDown"
+                minimizeBehavior="never"
                 tintColor={theme.colors.text.primary}
             >
                 <NativeTabs.Trigger name="index" testID={MainTabSelectors.Play}>

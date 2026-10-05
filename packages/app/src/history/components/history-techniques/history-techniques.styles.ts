@@ -2,35 +2,30 @@ import { StyleSheet } from 'react-native-unistyles';
 
 export const HistoryTechniquesStyles = StyleSheet.create(() => ({
     container: {
-        gap: 16,
+        gap: 14,
         width: '100%'
-    },
-    eyebrow: {
-        fontSize: 11,
-        fontWeight: '800',
-        letterSpacing: 1.1,
-        textAlign: 'left',
-        textTransform: 'uppercase'
     },
     grid: {
         gap: 14,
         width: '100%'
     },
+    header: {
+        gap: 2
+    },
     row: {
         flexDirection: 'row',
-        gap: 12
+        gap: 8
     },
     spacer: {
         flex: 1
     },
     summary: {
-        fontSize: 14,
+        fontSize: 13,
         fontWeight: '600',
-        lineHeight: 18,
-        marginTop: 8,
+        lineHeight: 17,
         textAlign: 'left'
     },
     summaryName: {
-        fontWeight: '800'
+        fontWeight: '700'
     }
 }));

@@ -11,6 +11,7 @@ import { formatSeRatingValue } from '../../../@generic/utils/format-se-rating-va
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { HistoryTechniqueTilesPerRow } from '../../constants/history-technique-grid.constant';
 import { historyGetTechniqueUsageList } from '../../utils/history-get-technique-usage.util';
+import { HistorySectionTitle } from '../history-section-title/history-section-title';
 import { HistoryTechniqueTile } from '../history-technique-tile/history-technique-tile';
 
 import { HistoryTechniquesSelectors } from './history-techniques.selectors';
@@ -36,7 +37,6 @@ export const HistoryTechniques = ({ techniqueUsageCounts }: Props) => {
     const gridUsageList = [...usageList].sort((first, second) => second.count - first.count || second.seValue - first.seValue);
     const bestTechniqueLabel = _(techniqueLabelsConstant[bestTechniqueUsage.technique]);
     const seValueText = formatSeRatingValue(bestTechniqueUsage.seValue, false);
-    const eyebrowStyles = [styles.eyebrow, { color: theme.colors.text.hint }];
     const summaryStyles = [styles.summary, { color: theme.colors.text.hint }];
     const summaryNameStyles = [styles.summaryName, { color: theme.colors.text.primary }];
 
@@ -57,17 +57,19 @@ export const HistoryTechniques = ({ techniqueUsageCounts }: Props) => {
 
     return (
         <View style={styles.container} testID={HistoryTechniquesSelectors.Root}>
-            <BlackText style={eyebrowStyles}>
-                <Trans>Your arsenal</Trans>
-            </BlackText>
+            <View style={styles.header}>
+                <HistorySectionTitle>
+                    <Trans>Your arsenal</Trans>
+                </HistorySectionTitle>
 
-            <BlackText numberOfLines={2} style={summaryStyles} testID={HistoryTechniquesSelectors.BestTechnique}>
-                <Trans>Best technique</Trans>
-                {' · '}
-                <Text style={summaryNameStyles}>{bestTechniqueLabel}</Text>
-                {' · '}
-                <Trans>SE {seValueText}</Trans>
-            </BlackText>
+                <BlackText numberOfLines={2} style={summaryStyles} testID={HistoryTechniquesSelectors.BestTechnique}>
+                    <Trans>Best technique</Trans>
+                    {' · '}
+                    <Text style={summaryNameStyles}>{bestTechniqueLabel}</Text>
+                    {' · '}
+                    <Trans>SE {seValueText}</Trans>
+                </BlackText>
+            </View>
 
             <View style={styles.grid}>
                 {rows.map((row, rowIndex) => {

@@ -258,6 +258,7 @@ msgid "Attempts to load the latest development build again"
 msgstr "Försöker läsa in den senaste utvecklingsversionen igen"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Average"
 msgstr "Snitt"
 
@@ -303,7 +304,7 @@ msgid "Be wise, be smart, be quick..."
 msgstr "Tänk smart, spela snabbt..."
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Best score"
 msgstr "Bästa poäng"
 
@@ -312,7 +313,7 @@ msgid "Best technique"
 msgstr "Bästa teknik"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Best time"
 msgstr "Bästa tid"
 
@@ -453,6 +454,7 @@ msgid "Classic"
 msgstr "Klassisk"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Clean"
 msgstr "Felfritt"
 
@@ -599,6 +601,7 @@ msgstr "Brädet slutfördes inte"
 
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Difficulty"
 msgstr "Svårighetsgrad"
 
@@ -784,6 +787,7 @@ msgstr "Svår"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
@@ -983,6 +987,7 @@ msgid "Loading the latest development build…"
 msgstr "Läser in den senaste utvecklingsversionen…"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Lost"
 msgstr "Förlorade"
 
@@ -1297,7 +1302,7 @@ msgstr "Spela gratis sudoku online med sex svårighetsgrader, ledtrådar och uta
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "Spela på högre svårighetsgrader för större multiplikatorer"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"
 msgstr "Spelsvit"
 
@@ -1310,7 +1315,7 @@ msgstr "Spela sudoku — Suuudokuuu"
 msgid "Play today"
 msgstr "Spela idag"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Played"
 msgstr "Spelade"
 
@@ -2042,7 +2047,7 @@ msgid "Wider gaps for easier tapping"
 msgstr "Bredare mellanrum för enklare tryck"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Win rate"
 msgstr "Vinstgrad"
 
@@ -2138,6 +2143,7 @@ msgstr "Dina anpassade färger"
 msgid "Your hardest solve"
 msgstr "Din svåraste lösning"
 
+#: src/history/components/history-progress-box/history-progress-box.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Din utveckling"

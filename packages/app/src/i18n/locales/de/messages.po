@@ -260,6 +260,7 @@ msgid "Attempts to load the latest development build again"
 msgstr "Versucht, den neuesten Entwicklungs-Build erneut zu laden"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Average"
 msgstr "Durchschnitt"
 
@@ -305,7 +306,7 @@ msgid "Be wise, be smart, be quick..."
 msgstr "Denk klug, spiel schnell..."
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Best score"
 msgstr "Highscore"
 
@@ -314,7 +315,7 @@ msgid "Best technique"
 msgstr "Beste Technik"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Best time"
 msgstr "Bestzeit"
 
@@ -455,6 +456,7 @@ msgid "Classic"
 msgstr "Klassisch"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Clean"
 msgstr "Fehlerfrei"
 
@@ -601,6 +603,7 @@ msgstr "Feld nicht vollendet"
 
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Difficulty"
 msgstr "Schwierigkeit"
 
@@ -786,6 +789,7 @@ msgstr "Schwer"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
@@ -985,6 +989,7 @@ msgid "Loading the latest development build…"
 msgstr "Neuester Entwicklungs-Build wird geladen…"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Lost"
 msgstr "Verloren"
 
@@ -1299,7 +1304,7 @@ msgstr "Spiele kostenloses Sudoku online mit sechs Schwierigkeitsgraden, Hinweis
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "Spiele auf höheren Schwierigkeitsgraden für größere Multiplikatoren"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"
 msgstr "Spielserie"
 
@@ -1312,7 +1317,7 @@ msgstr "Sudoku spielen — Suuudokuuu"
 msgid "Play today"
 msgstr "Heute spielen"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Played"
 msgstr "Gespielt"
 
@@ -2044,7 +2049,7 @@ msgid "Wider gaps for easier tapping"
 msgstr "Breitere Abstände für leichteres Tippen"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Win rate"
 msgstr "Gewinnrate"
 
@@ -2140,6 +2145,7 @@ msgstr "Deine eigenen Farben"
 msgid "Your hardest solve"
 msgstr "Dein schwerstes Rätsel"
 
+#: src/history/components/history-progress-box/history-progress-box.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Dein Fortschritt"

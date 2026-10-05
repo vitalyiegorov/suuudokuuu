@@ -1,43 +1,69 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const HistoryDifficultyStyles = StyleSheet.create(theme => ({
-    row: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: theme.spacing.sm,
-        justifyContent: 'space-between',
-        paddingVertical: 14,
-        width: '100%',
+    chevronSlot: {
+        width: 16
+    },
+    missingTrack: {
+        borderColor: theme.colors.surface.border,
+        borderStyle: 'dashed',
+        borderTopWidth: 1.5,
+        flex: 1
+    },
+    pressableRow: {
         _web: {
             cursor: 'pointer',
             _hover: { opacity: 0.7 }
         }
     },
+    row: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: 10,
+        minHeight: 48,
+        paddingVertical: 6,
+        width: '100%'
+    },
     subtitle: {
-        fontSize: 13,
+        color: theme.colors.text.hint,
+        fontSize: 12,
+        fontVariant: ['tabular-nums'],
         fontWeight: '600',
-        lineHeight: 17,
+        lineHeight: 15,
         textAlign: 'left'
     },
     title: {
-        fontSize: 19,
-        fontWeight: '800',
-        letterSpacing: -0.4,
-        lineHeight: 23,
+        color: theme.colors.text.primary,
+        fontSize: 15,
+        fontWeight: '700',
+        letterSpacing: -0.2,
+        lineHeight: 19,
         textAlign: 'left'
     },
     titleGroup: {
-        flex: 1,
-        gap: 2
+        width: 118
     },
-    trailing: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: 6
+    track: {
+        backgroundColor: theme.colors.numpad.track,
+        borderRadius: 5,
+        flex: 1,
+        height: 10,
+        overflow: 'hidden'
+    },
+    trackFill: {
+        backgroundColor: theme.colors.ink,
+        borderRadius: 5,
+        height: '100%'
+    },
+    unplayedRow: {
+        opacity: 0.4
     },
     winRate: {
-        fontSize: 16,
+        color: theme.colors.text.primary,
+        fontSize: 15,
         fontVariant: ['tabular-nums'],
-        fontWeight: '800'
+        fontWeight: '800',
+        textAlign: 'right',
+        width: 46
     }
 }));

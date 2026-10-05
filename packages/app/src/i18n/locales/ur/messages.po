@@ -258,6 +258,7 @@ msgid "Attempts to load the latest development build again"
 msgstr "تازہ ترین ڈیولپمنٹ بِلڈ دوبارہ لوڈ کرنے کی کوشش کرتا ہے"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Average"
 msgstr "اوسط"
 
@@ -303,7 +304,7 @@ msgid "Be wise, be smart, be quick..."
 msgstr "سمجھداری سے سوچیں، تیزی سے کھیلیں..."
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Best score"
 msgstr "بہترین اسکور"
 
@@ -312,7 +313,7 @@ msgid "Best technique"
 msgstr "بہترین تکنیک"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Best time"
 msgstr "بہترین وقت"
 
@@ -453,6 +454,7 @@ msgid "Classic"
 msgstr "کلاسک"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Clean"
 msgstr "بغیر غلطی"
 
@@ -599,6 +601,7 @@ msgstr "بورڈ مکمل نہیں ہوا"
 
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Difficulty"
 msgstr "مشکل"
 
@@ -784,6 +787,7 @@ msgstr "مشکل"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
@@ -983,6 +987,7 @@ msgid "Loading the latest development build…"
 msgstr "تازہ ترین ڈیولپمنٹ بِلڈ لوڈ ہو رہا ہے…"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Lost"
 msgstr "ہارے"
 
@@ -1297,7 +1302,7 @@ msgstr "چھ درجے مشکل، اشارے اور بغیر اشتہار کے م
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "بڑے ملٹی پلائرز کے لیے زیادہ مشکل سطح پر کھیلیں"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"
 msgstr "کھیل کا تسلسل"
 
@@ -1310,7 +1315,7 @@ msgstr "سوڈوکو کھیلیں — Suuudokuuu"
 msgid "Play today"
 msgstr "آج کھیلیں"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Played"
 msgstr "کھیلے گئے"
 
@@ -2042,7 +2047,7 @@ msgid "Wider gaps for easier tapping"
 msgstr "آسان ٹیپنگ کے لیے زیادہ چوڑے فاصلے"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Win rate"
 msgstr "جیت کی شرح"
 
@@ -2138,6 +2143,7 @@ msgstr "آپ کے مخصوص رنگ"
 msgid "Your hardest solve"
 msgstr "آپ کا سب سے مشکل حل"
 
+#: src/history/components/history-progress-box/history-progress-box.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "آپ کی پیش رفت"
