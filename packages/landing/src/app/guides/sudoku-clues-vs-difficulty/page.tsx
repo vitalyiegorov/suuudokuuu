@@ -19,6 +19,8 @@ import { TechniqueSummary } from '../../../techniques/components/technique-summa
 import { seventeenClueSudokuPageMetadata } from '../../17-clue-sudoku/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../../hardest-sudoku-puzzles/metadata';
 import { homePageMetadata } from '../../metadata';
+import { printableHellSudokuPageMetadata } from '../../printable/hell/metadata';
+import { printableNewbieSudokuPageMetadata } from '../../printable/newbie/metadata';
 import { hardSudokuPageMetadata } from '../../sudoku/hard/metadata';
 import { hellSudokuPageMetadata } from '../../sudoku/hell/metadata';
 import { mediumSudokuPageMetadata } from '../../sudoku/medium/metadata';
@@ -151,7 +153,9 @@ const SudokuCluesVsDifficultyPage = () => {
                 moment the board is created. Practically, the useful question is not “how many blanks” but “does this grid ever stop
                 yielding to singles” — and if it does, which pattern breaks the deadlock. The{' '}
                 <Link href={techniquesPageMetadata.path}>technique index</Link> has a worked example for each one, and the{' '}
-                <Link href={sudokuDifficultiesPageMetadata.path}>difficulty levels hub</Link> maps our tiers onto them.
+                <Link href={sudokuDifficultiesPageMetadata.path}>difficulty levels hub</Link> maps our tiers onto them. Both ends of the
+                scale also come as paper: the <Link href={printableNewbieSudokuPageMetadata.path}>printable Newbie PDF</Link> and the{' '}
+                <Link href={printableHellSudokuPageMetadata.path}>printable Hell PDF</Link>.
             </p>
             <FaqPage>
                 <FaqHeading>Clues versus difficulty FAQ</FaqHeading>

@@ -11,7 +11,14 @@ import { sudokuForSeniorsPageMetadata } from '../../../app/sudoku-for-seniors/me
 import { sudokuDifficultiesPageMetadata } from '../../../app/sudoku/metadata';
 import { techniquesPageMetadata } from '../../../app/techniques/metadata';
 import { whySuuudokuuuPageMetadata } from '../../../app/why-suuudokuuu/metadata';
-import { SITE_GITHUB_URL, SITE_LICENSE, SITE_NAME, SITE_PLAY_URL, SITE_TAGLINE } from '../../../seo/constants/site.constant';
+import {
+    SITE_GITHUB_URL,
+    SITE_LICENSE,
+    SITE_NAME,
+    SITE_PLAY_URL,
+    SITE_PRIVACY_URL,
+    SITE_TAGLINE
+} from '../../../seo/constants/site.constant';
 
 export const SiteFooter = () => (
     <footer className="site-footer">
@@ -45,6 +52,7 @@ export const SiteFooter = () => (
                     <p className="site-footer__group-title">Project</p>
                     <Link href={whySuuudokuuuPageMetadata.path}>Why {SITE_NAME}</Link>
                     <a href={SITE_GITHUB_URL}>Source on GitHub</a>
+                    <a href={SITE_PRIVACY_URL}>Privacy policy</a>
                 </div>
             </nav>
         </div>

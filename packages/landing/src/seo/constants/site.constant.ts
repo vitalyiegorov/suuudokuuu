@@ -4,6 +4,8 @@ export const SITE_ORIGIN = 'https://www.suuudokuuu.com';
 
 export const SITE_PLAY_URL = `${SITE_ORIGIN}/play`;
 
+export const SITE_PRIVACY_URL = `${SITE_ORIGIN}/privacy-policy`;
+
 export const SITE_GITHUB_URL = 'https://github.com/vitalyiegorov/suuudokuuu';
 
 export const SITE_LICENSE = 'MIT';

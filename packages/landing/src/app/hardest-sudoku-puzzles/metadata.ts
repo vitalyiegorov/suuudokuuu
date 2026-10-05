@@ -6,7 +6,7 @@ export const hardestSudokuPuzzlesPageMetadata: PageMetadataInterface = {
     headline: 'The Hardest Sudoku Puzzles in the World',
     metaTitle: 'Hardest Sudoku Puzzles in the World — AI Escargot & More',
     metaDescription:
-        'The hardest sudoku puzzles ever published, ranked and explained — AI Escargot, Platinum Blonde and Inkala’s Everest, with SE ratings and why they defeat human solvers.',
+        'The hardest sudoku puzzles ever published, ranked — AI Escargot, Platinum Blonde and Inkala’s Everest, with SE ratings and why they defeat human solvers.',
     publishedAt: '2026-08-11T00:00:00.000Z',
     updatedAt: '2026-09-29T00:00:00.000Z',
     changeFrequency: 'monthly',

@@ -4,7 +4,7 @@ export const printableSudokuPageMetadata: PageMetadataInterface = {
     path: '/printable',
     title: 'Printable Sudoku',
     headline: 'Free Printable Sudoku Puzzles (PDF)',
-    metaTitle: 'Free Printable Sudoku Puzzles (PDF) — Suuudokuuu',
+    metaTitle: 'Free Printable Sudoku Puzzles (PDF)',
     metaDescription:
         'Free printable sudoku PDF booklets for every difficulty, plus a large-print set and a blank sudoku grid. Solutions included, no sign-up.',
     publishedAt: '2026-08-11T00:00:00.000Z',

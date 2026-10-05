@@ -9,7 +9,7 @@ export const jellyfishPageMetadata: PageMetadataInterface = {
     ...buildTechniquePageNames(SolutionTechniqueEnum.Jellyfish),
     metaTitle: 'Jellyfish Sudoku Technique — How to Spot and Use It',
     metaDescription:
-        'A Jellyfish extends the X-Wing and Swordfish pattern to four lines: a digit confined to the same four columns across four rows can be erased everywhere else in those columns.',
+        'A Jellyfish extends X-Wing and Swordfish to four lines: a digit confined to the same four columns across four rows is erased everywhere else in those columns.',
     publishedAt: '2026-08-11T00:00:00.000Z',
     updatedAt: '2026-08-11T00:00:00.000Z',
     changeFrequency: 'monthly',
