@@ -16,6 +16,7 @@ pnpm --filter @suuudokuuu/landing build   # next build -> static export in out/
 pnpm --filter @suuudokuuu/landing ts
 pnpm --filter @suuudokuuu/landing lint
 pnpm --filter @suuudokuuu/landing generate:rating-sample      # re-forge the committed guide sample, changes every published number
+pnpm --filter @suuudokuuu/landing check:tier-reports           # ~65 s, fails when the committed reports drift from the sample
 pnpm --filter @suuudokuuu/landing submit:indexnow --dry-run   # print the sitemap-derived URL list
 pnpm --filter @suuudokuuu/landing submit:indexnow             # needs INDEXNOW_KEY, run after deploy
 pnpm --filter @suuudokuuu/landing seo:report                  # needs GCP_SA_KEY and CRUX_API_KEY, run weekly by CI

@@ -6,12 +6,14 @@ import { getHellCorpusRecord, hellCorpusSize } from '@suuudokuuu/hell-corpus';
 import { forgePuzzle } from '@suuudokuuu/puzzle-forge';
 
 import { DIFFICULTY_LADDER, DIFFICULTY_NAMES } from '../src/difficulty/constants/difficulty-name.constant';
+import { buildTierTechniqueReports } from '../src/rating/utils/build-tier-technique-reports.util';
 
 import type { LandingDifficultyType } from '../src/difficulty/types/landing-difficulty.type';
 import type { RatedSamplePuzzleInterface } from '../src/rating/interfaces/rated-sample-puzzle.interface';
 
 const RATING_SAMPLE_SIZE = 40;
 const SAMPLE_FILE_PATH = join(import.meta.dirname, '..', 'src', 'rating', 'constants', 'rating-sample.constant.ts');
+const REPORTS_FILE_PATH = join(import.meta.dirname, '..', 'src', 'rating', 'constants', 'tier-technique-reports.constant.ts');
 const FORGE_ATTEMPT_BUDGET = 256;
 const IN_BAND_RETRY_LIMIT = 8;
 
@@ -72,17 +74,34 @@ const renderSampleFile = (tiers: string[]): string =>
         ''
     ].join('\n');
 
+const renderReportsFile = (samples: RatedSamplePuzzleInterface[][]): string =>
+    [
+        "import { DifficultyEnum } from '@suuudokuuu/generator';",
+        '',
+        "import type { TierTechniqueReportInterface } from '../interfaces/tier-technique-report.interface';",
+        '',
+        `export const TIER_TECHNIQUE_REPORTS: TierTechniqueReportInterface[] = ${JSON.stringify(buildTierTechniqueReports(samples))
+            .replaceAll(/"(\w+)":/gu, '$1:')
+            .replaceAll(/"(Newbie|Easy|Medium|Hard|Nightmare|Hell)"/gu, 'DifficultyEnum.$1')};`,
+        ''
+    ].join('\n');
+
 const generateRatingSample = (): void => {
-    const tiers = DIFFICULTY_LADDER.map(difficulty => {
+    const samples = DIFFICULTY_LADDER.map(difficulty => {
         const entries = buildTierSample(difficulty);
 
         process.stdout.write(`${DIFFICULTY_NAMES[difficulty]}: ${entries.length} puzzles forged\n`);
 
-        return renderTier(difficulty, entries);
+        return entries;
     });
 
-    writeFileSync(SAMPLE_FILE_PATH, renderSampleFile(tiers), 'utf8');
-    process.stdout.write(`Wrote ${SAMPLE_FILE_PATH}\n`);
+    writeFileSync(
+        SAMPLE_FILE_PATH,
+        renderSampleFile(DIFFICULTY_LADDER.map((difficulty, index) => renderTier(difficulty, samples[index]))),
+        'utf8'
+    );
+    writeFileSync(REPORTS_FILE_PATH, renderReportsFile(samples), 'utf8');
+    process.stdout.write(`Wrote ${SAMPLE_FILE_PATH} and ${REPORTS_FILE_PATH}\n`);
 };
 
 generateRatingSample();
