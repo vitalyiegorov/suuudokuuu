@@ -30,10 +30,6 @@ appId: ${APP_ID}
           id: 'HistoryScreenSelectors.Root'
       timeout: 3000
 - assertVisible:
-      id: 'HistorySolverProfileSelectors.HardestSolve'
-- assertVisible:
-      id: 'HistorySolverProfileSelectors.Spectrum'
-- assertVisible:
       id: 'HistoryTechniquesSelectors.Root'
 - assertVisible:
       id: 'HistoryTechniquesSelectors.BestTechnique'
@@ -41,11 +37,9 @@ appId: ${APP_ID}
       element:
           text: '.*games? played.*'
       direction: DOWN
-# The arsenal and other editorial sections pushed the difficulty ladder to the end of a
-# much taller scroll, so the scroll above stops as soon as the row's title line
-# appears and its tappable centre still sits under the floating tab bar. Scrolling
-# once more settles the content at its end, where the reserved bottom inset clears
-# the bar.
+# The scroll above stops as soon as the row's subtitle line appears, while its
+# tappable centre still sits under the floating tab bar, so scroll once more to
+# lift the row clear of the bar before tapping it.
 - scroll
 - tapOn:
       id: 'HistoryDifficultySelectors.Card.Newbie'
@@ -64,6 +58,19 @@ appId: ${APP_ID}
       visible:
           id: 'HistoryScreenSelectors.Root'
       timeout: 3000
+- scrollUntilVisible:
+      element:
+          id: 'HistorySolverProfileSelectors.HardestSolve'
+      direction: DOWN
+- scrollUntilVisible:
+      element:
+          id: 'HistorySolverProfileSelectors.Spectrum'
+      direction: DOWN
+- scrollUntilVisible:
+      element:
+          id: 'MainTabSelectors.Play'
+      direction: UP
+      timeout: 10000
 - tapOn:
       id: 'MainTabSelectors.Play'
 - extendedWaitUntil:
