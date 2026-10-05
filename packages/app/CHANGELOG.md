@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.15.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.14.0...v2.15.0) (2026-10-05)
+
+### Features
+
+* **app,ui:** group settings into crisp sections with a cross-platform switch ([#432](https://github.com/vitalyiegorov/suuudokuuu/issues/432)) ([ab0ade6](https://github.com/vitalyiegorov/suuudokuuu/commit/ab0ade62af2a4d44633f5cd1ea6f6371579bb22b))
+
+
 # [2.14.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.7...v2.14.0) (2026-10-05)
 
 ### Bug Fixes
