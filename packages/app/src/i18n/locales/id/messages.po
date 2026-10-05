@@ -100,12 +100,12 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: di baris yang disorot, {value} hanya muat di sel yang ditandai."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: kotak yang disorot hanya menyisakan satu sel kosong, jadi {value} ditempatkan di sana."
+msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
+msgstr "{techniqueName}: angka {valueList} terkunci di sel yang disorot, sehingga disingkirkan dari sel lainnya."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
-msgstr "{techniqueName}: sel yang disorot hanya bisa berisi angka {valueList}."
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: kotak yang disorot hanya menyisakan satu sel kosong, jadi {value} ditempatkan di sana."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -1027,7 +1027,7 @@ msgstr "Langkah"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr ""
+msgstr "Pindahkan panel kontrol lanskap ke sebelah kiri papan"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"

@@ -100,12 +100,12 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: i den markerade raden passar {value} bara i den markerade cellen."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: den markerade 3\\u00d73-rutan har bara en tom cell kvar, s\\u00e5 {value} hamnar d\\u00e4r."
+msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
+msgstr "{techniqueName}: siffrorna {valueList} är låsta till de markerade cellerna, vilket utesluter dem från övriga celler."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
-msgstr "{techniqueName}: de markerade cellerna kan bara innehålla siffrorna {valueList}."
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: den markerade 3\\u00d73-rutan har bara en tom cell kvar, s\\u00e5 {value} hamnar d\\u00e4r."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -1027,7 +1027,7 @@ msgstr "Drag"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr ""
+msgstr "Flytta kontrollpanelen i liggande läge till vänster om brädet"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"

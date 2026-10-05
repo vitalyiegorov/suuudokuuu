@@ -100,12 +100,12 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: na linha destacada, {value} só cabe na célula marcada."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: resta apenas uma célula vazia na região destacada, então {value} vai lá."
+msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
+msgstr "{techniqueName}: os dígitos {valueList} ficam confinados às células destacadas, o que os elimina das outras células."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells can only hold the digits {valueList}."
-msgstr "{techniqueName}: as células destacadas só podem conter os dígitos {valueList}."
+msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: resta apenas uma célula vazia na região destacada, então {value} vai lá."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -1027,7 +1027,7 @@ msgstr "Jogada"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
-msgstr ""
+msgstr "Mover o painel de controles na horizontal para a esquerda do tabuleiro"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
