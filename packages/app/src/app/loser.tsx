@@ -11,7 +11,7 @@ export default function LoserPage() {
 
     return (
         <Page edges={PageHorizontalSafeAreaEdges}>
-            <PageHead noIndex />
+            <PageHead isNoIndex />
             <PageHeader title={t`Better luck next time!`} />
 
             <LoserScreen />

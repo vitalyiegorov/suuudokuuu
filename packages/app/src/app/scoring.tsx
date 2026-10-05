@@ -11,7 +11,7 @@ export default function ScoringPage() {
 
     return (
         <Page edges={PageHorizontalSafeAreaEdges}>
-            <PageHead noIndex />
+            <PageHead isNoIndex />
             <PageHeader title={t`How Scoring Works`} />
 
             <ScoringScreen />

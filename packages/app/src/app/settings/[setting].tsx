@@ -4,7 +4,7 @@ import { SettingsOptionSheetScreen } from '../../screens/components/settings-opt
 export default function SettingsOptionSheetPage() {
     return (
         <>
-            <PageHead noIndex />
+            <PageHead isNoIndex />
 
             <SettingsOptionSheetScreen />
         </>

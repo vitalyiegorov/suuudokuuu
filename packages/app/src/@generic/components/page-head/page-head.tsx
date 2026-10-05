@@ -5,13 +5,13 @@ import { isNotEmptyString } from '@rnw-community/shared';
 interface Props {
     readonly title?: string;
     readonly description?: string;
-    readonly noIndex?: boolean;
+    readonly isNoIndex?: boolean;
 }
 
-export const PageHead = ({ title, description, noIndex = false }: Props) => (
+export const PageHead = ({ title, description, isNoIndex = false }: Props) => (
     <Head>
         {isNotEmptyString(title) && <title>{title}</title>}
         {isNotEmptyString(description) && <meta content={description} name="description" />}
-        {noIndex && <meta content="noindex" name="robots" />}
+        {isNoIndex && <meta content="noindex" name="robots" />}
     </Head>
 );

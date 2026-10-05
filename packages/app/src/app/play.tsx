@@ -11,7 +11,7 @@ export default function PlayPage() {
 
     return (
         <Page edges={PageHorizontalSafeAreaEdges}>
-            <PageHead noIndex title={t`Play Sudoku — Suuudokuuu`} />
+            <PageHead isNoIndex title={t`Play Sudoku — Suuudokuuu`} />
             <PageHeader title={t`Play`} />
 
             <HomeScreen />
