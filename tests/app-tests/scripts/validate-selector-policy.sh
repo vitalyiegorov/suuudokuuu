@@ -21,13 +21,15 @@ recovery_flow_paths = %w[
 ]
 
 native_boundary_text_selectors = {
-  '04.statistics-screen.flow.yaml' => ['Stats'],
-  '05.settings-screen.flow.yaml' => ['Settings'],
-  'subflows/game/quit-current-game.flow.yaml' => ['OK']
+  'subflows/game/quit-current-game.flow.yaml' => ['OK|Гаразд|حسنًا|ঠিক আছে|ठीक है|ٹھیک ہے|确定'],
+  'screenshots/subflows/reset-app.flow.yaml' => ['^Open$']
 }
 
 native_boundary_press_keys = {
-  '07.background-foreground-game.flow.yaml' => ['Home']
+  '07.background-foreground-game.flow.yaml' => ['Home'],
+  '09.challenge-mode-run.flow.yaml' => ['Home'],
+  'subflows/game/pause-current-game.flow.yaml' => ['Home'],
+  'screenshots/11.pause.flow.yaml' => ['Home']
 }
 
 violations = []
@@ -76,6 +78,8 @@ walk = lambda do |value, flow_path|
         allowed_native_boundary_text = native_boundary_text_selectors.fetch(flow_path, []).include?(child) && child.is_a?(String)
         selector_is_id = child.is_a?(Hash) && child['id'].is_a?(String) && !child['id'].empty?
         violations << "#{flow_path}: tapOn must use an id selector (found #{child.inspect})" unless allowed_native_boundary_text || selector_is_id
+      elsif key == 'extendedWaitUntil' && child.is_a?(Hash) && child['optional'] == 'true' && child['timeout'].to_i > 5000
+        violations << "#{flow_path}: optional: true must not be combined with an extendedWaitUntil timeout above 5000 (found #{child['timeout']})"
       elsif key == 'id' && child.is_a?(String) && !child.include?('${')
         selector_ids << [flow_path, child]
       end
@@ -102,7 +106,8 @@ end
 
 app_source = Dir.glob(File.join(app_source_directory, '**/*.{ts,tsx}')).map { |path| File.read(path) }.join("\n")
 selector_ids.uniq.each do |flow_path, selector_id|
-  selector_literal_exists = app_source.include?("'#{selector_id}'") || app_source.include?("\"#{selector_id}\"")
+  selector_declaration = selector_id.gsub('\\.', '.')[/\A\w+\.\w+/] || selector_id[/\A\w+/]
+  selector_literal_exists = %w[' " `].any? { |quote| app_source.include?("#{quote}#{selector_declaration}") }
   violations << "#{flow_path}: id selector #{selector_id.inspect} is not declared in app source" unless selector_literal_exists
 end
 

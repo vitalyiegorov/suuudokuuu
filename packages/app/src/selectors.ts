@@ -1,4 +1,5 @@
 export * from './@generic/components/header-back-button/header-back-button.selectors';
+export * from './@generic/components/main-tab-layout/main-tab-layout.selectors';
 export * from './@generic/components/play-again-button/play-again-button.selectors';
 export * from './@generic/components/rating-badge/rating-badge.selectors';
 export * from './@generic/components/rating-explainer/rating-explainer.selectors';

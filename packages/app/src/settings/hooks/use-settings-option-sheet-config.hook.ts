@@ -56,7 +56,8 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
                 description: getCellMarginDescription(cellMargin),
                 isSelected: cellMargin === currentCellMargin,
                 label: getCellMarginLabel(cellMargin),
-                onPress: () => void selectCellMargin(cellMargin)
+                onPress: () => void selectCellMargin(cellMargin),
+                testID: `${SettingsOptionSheetSelectors.Option}.${cellMargin}`
             })),
             title: t`Cell spacing`
         };

@@ -12,7 +12,8 @@ appId: ${APP_ID}
 - retry:
       maxRetries: 1
       commands:
-          - tapOn: 'Settings'
+          - tapOn:
+                id: 'MainTabSelectors.Settings'
           - extendedWaitUntil:
                 visible:
                     id: 'SettingsScreenSelectors.Root'
@@ -76,7 +77,8 @@ appId: ${APP_ID}
       element:
           text: 'Maestro theme'
       direction: DOWN
-- tapOn: 'Play'
+- tapOn:
+      id: 'MainTabSelectors.Play'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'

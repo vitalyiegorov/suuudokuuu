@@ -8,7 +8,8 @@ appId: ${APP_ID}
 - retry:
       maxRetries: 1
       commands:
-          - tapOn: 'Daily'
+          - tapOn:
+                id: 'MainTabSelectors.Daily'
           - extendedWaitUntil:
                 visible:
                     id: 'DailyStreakHeroSelectors.Root'
