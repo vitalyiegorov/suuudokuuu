@@ -27,7 +27,7 @@ export default function ChallengeLostPage() {
 
     return (
         <Page edges={PageHorizontalSafeAreaEdges}>
-            <PageHead noIndex />
+            <PageHead isNoIndex />
             <PageHeader title={t`Challenge Lost`} />
 
             <ChallengeResultScreen gameState={gameState} lossReason={lossReason} result={ChallengeResult.Lost}>

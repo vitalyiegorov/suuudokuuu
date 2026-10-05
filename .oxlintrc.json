@@ -971,6 +971,12 @@
             "plugins": ["react"]
         },
         {
+            "files": ["**/*.tsx"],
+            "rules": {
+                "suuudokuuu/no-leaked-jsx-and": "error"
+            }
+        },
+        {
             "files": ["packages/app/**/*.tsx", "packages/ui/**/*.tsx"],
             "rules": {
                 "react-native/no-inline-styles": "error",

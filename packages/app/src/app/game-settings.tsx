@@ -22,7 +22,7 @@ export default function GameSettingsPage() {
 
     return (
         <>
-            <PageHead noIndex />
+            <PageHead isNoIndex />
 
             <SettingsPageContent />
         </>

@@ -11,7 +11,7 @@ export default function WinnerPage() {
 
     return (
         <Page edges={PageHorizontalSafeAreaEdges}>
-            <PageHead noIndex />
+            <PageHead isNoIndex />
             <PageHeader title={t`Winners-winner, chicken dinner!`} />
 
             <WinnerScreen />

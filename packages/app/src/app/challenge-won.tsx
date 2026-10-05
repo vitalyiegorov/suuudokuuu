@@ -22,7 +22,7 @@ export default function ChallengeWonPage() {
 
     return (
         <Page edges={PageHorizontalSafeAreaEdges}>
-            <PageHead noIndex />
+            <PageHead isNoIndex />
             <PageHeader title={t`Challenge Won!`} />
 
             <ChallengeResultScreen gameState={gameState} result={ChallengeResult.Won}>

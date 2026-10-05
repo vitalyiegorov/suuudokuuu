@@ -19,7 +19,7 @@ export default function PausePage() {
 
     return (
         <Page>
-            <PageHead noIndex />
+            <PageHead isNoIndex />
             <PageHeader title={t`Game paused`} />
 
             <PauseScreen />

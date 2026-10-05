@@ -11,7 +11,7 @@ export default function ThemesPage() {
 
     return (
         <Page edges={PageHorizontalSafeAreaEdges}>
-            <PageHead noIndex />
+            <PageHead isNoIndex />
             <PageHeader title={t`Theme`} />
 
             <ThemesScreen />
