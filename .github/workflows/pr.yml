@@ -278,6 +278,7 @@ jobs:
             - name: Setup Expo and EAS
               uses: expo/expo-github-action@v9
               with:
+                  packager: npm
                   eas-version: ${{ env.EAS_CLI_VERSION }}
                   token: ${{ secrets.EXPO_TOKEN }}
 
