@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.14.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.7...v2.14.0) (2026-10-05)
+
+### Bug Fixes
+
+* **app:** redirect the apex domain to www except app-link files ([#437](https://github.com/vitalyiegorov/suuudokuuu/issues/437)) ([2aeecca](https://github.com/vitalyiegorov/suuudokuuu/commit/2aeecca68a078d41670d82e7800e57c49e709637))
+* **app:** use the danger foreground for the Hell Start loader ([#425](https://github.com/vitalyiegorov/suuudokuuu/issues/425)) ([7991e28](https://github.com/vitalyiegorov/suuudokuuu/commit/7991e28073ba1899b0c8a6b9c828df4d6bca94e1)), closes [#341](https://github.com/vitalyiegorov/suuudokuuu/issues/341)
+* **landing:** make the weekly SEO report run again ([#435](https://github.com/vitalyiegorov/suuudokuuu/issues/435)) ([70b08aa](https://github.com/vitalyiegorov/suuudokuuu/commit/70b08aa0d777f2c6ce31c26d91d16be6e76ef067))
+
+### Features
+
+* **landing:** trim over-length metadata and link privacy and printable tiers ([#429](https://github.com/vitalyiegorov/suuudokuuu/issues/429)) ([f3bbdf0](https://github.com/vitalyiegorov/suuudokuuu/commit/f3bbdf0584e3d84b6e6bd329b3d488452564d886)), closes [#358](https://github.com/vitalyiegorov/suuudokuuu/issues/358)
+
+### Performance Improvements
+
+* **landing:** commit precomputed tier reports instead of recomputing them per build ([#430](https://github.com/vitalyiegorov/suuudokuuu/issues/430)) ([64dcc04](https://github.com/vitalyiegorov/suuudokuuu/commit/64dcc04dd898c6654fad21126d04dbd0ab8b4915)), closes [#353](https://github.com/vitalyiegorov/suuudokuuu/issues/353)
+
+
 ## [2.13.7](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.6...v2.13.7) (2026-10-05)
 
 **Note:** Version bump only for package @suuudokuuu/root

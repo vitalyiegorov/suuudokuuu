@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.14.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.7...v2.14.0) (2026-10-05)
+
+### Bug Fixes
+
+* **app:** use the danger foreground for the Hell Start loader ([#425](https://github.com/vitalyiegorov/suuudokuuu/issues/425)) ([7991e28](https://github.com/vitalyiegorov/suuudokuuu/commit/7991e28073ba1899b0c8a6b9c828df4d6bca94e1)), closes [#341](https://github.com/vitalyiegorov/suuudokuuu/issues/341)
+
+
 ## [2.13.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.3...v2.13.4) (2026-10-04)
 
 **Note:** Version bump only for package @suuudokuuu/ui

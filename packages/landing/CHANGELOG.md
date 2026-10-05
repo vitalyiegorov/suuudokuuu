@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.14.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.7...v2.14.0) (2026-10-05)
+
+### Bug Fixes
+
+* **landing:** make the weekly SEO report run again ([#435](https://github.com/vitalyiegorov/suuudokuuu/issues/435)) ([70b08aa](https://github.com/vitalyiegorov/suuudokuuu/commit/70b08aa0d777f2c6ce31c26d91d16be6e76ef067))
+
+### Features
+
+* **landing:** trim over-length metadata and link privacy and printable tiers ([#429](https://github.com/vitalyiegorov/suuudokuuu/issues/429)) ([f3bbdf0](https://github.com/vitalyiegorov/suuudokuuu/commit/f3bbdf0584e3d84b6e6bd329b3d488452564d886)), closes [#358](https://github.com/vitalyiegorov/suuudokuuu/issues/358)
+
+### Performance Improvements
+
+* **landing:** commit precomputed tier reports instead of recomputing them per build ([#430](https://github.com/vitalyiegorov/suuudokuuu/issues/430)) ([64dcc04](https://github.com/vitalyiegorov/suuudokuuu/commit/64dcc04dd898c6654fad21126d04dbd0ab8b4915)), closes [#353](https://github.com/vitalyiegorov/suuudokuuu/issues/353)
+
+
 ## [2.13.6](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.5...v2.13.6) (2026-10-04)
 
 **Note:** Version bump only for package @suuudokuuu/landing
