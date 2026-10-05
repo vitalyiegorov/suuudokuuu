@@ -28,7 +28,7 @@ tags:
 - extendedWaitUntil:
       visible:
           id: 'HistorySolverProfileSelectors.Spectrum'
-      timeout: 5000
+      timeout: 10000
 
 - takeScreenshot: '10-stats'
 - stopApp

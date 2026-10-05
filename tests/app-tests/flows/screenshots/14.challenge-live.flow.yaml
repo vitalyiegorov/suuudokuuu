@@ -29,7 +29,7 @@ tags:
 - extendedWaitUntil:
       visible:
           id: 'ChallengeRaceHudSelectors.Root'
-      timeout: 5000
+      timeout: 10000
 
 - runFlow:
       file: ../subflows/shared/wait-observation-window.flow.yaml

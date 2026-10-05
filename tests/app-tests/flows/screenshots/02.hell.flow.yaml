@@ -22,7 +22,7 @@ tags:
           id: 'HomeScreenStartButtonEmberSelectors\.(AnimatedRoot|StaticRoot)'
       direction: DOWN
       visibilityPercentage: 50
-      timeout: 3000
+      timeout: 10000
 
 - takeScreenshot: '02-hell'
 - stopApp

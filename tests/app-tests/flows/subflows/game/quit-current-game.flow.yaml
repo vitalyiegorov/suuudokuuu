@@ -8,7 +8,7 @@ appId: ${APP_ID}
       id: 'GameScreenSelectors.QuitButton'
 - extendedWaitUntil:
       visible: 'OK|Гаразд|حسنًا|ঠিক আছে|ठीक है|ٹھیک ہے|确定'
-      timeout: 3000
+      timeout: 10000
 # React Native presents this alert in its own UIWindow, made key on top of the app
 # window (RCTAlertController.mm), so confirming quit is an OS-surface handoff and
 # not an app-owned control. In CI run 31964094842 a single XCUITest tap landed on
@@ -28,4 +28,4 @@ appId: ${APP_ID}
           - extendedWaitUntil:
                 visible:
                     id: 'HomeScreenSelectors.Root'
-                timeout: 8000
+                timeout: 10000

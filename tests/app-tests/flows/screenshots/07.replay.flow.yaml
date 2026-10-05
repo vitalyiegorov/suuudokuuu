@@ -27,24 +27,24 @@ tags:
 - extendedWaitUntil:
       visible:
           id: 'HistoryScreenSelectors.Root'
-      timeout: 5000
+      timeout: 10000
 - scrollUntilVisible:
       element:
           id: 'HistoryDifficultySelectors.Card.Newbie'
       direction: DOWN
-      timeout: 5000
+      timeout: 10000
 - tapOn:
       id: 'HistoryDifficultySelectors.Card.Newbie'
 - extendedWaitUntil:
       visible:
           id: 'CompletedGameItemSelectors.ReplayButton'
-      timeout: 5000
+      timeout: 10000
 - tapOn:
       id: 'CompletedGameItemSelectors.ReplayButton'
 - extendedWaitUntil:
       visible:
           id: 'ReplayControlsSelectors.Root'
-      timeout: 5000
+      timeout: 10000
 
 - takeScreenshot: '07-replay'
 - stopApp

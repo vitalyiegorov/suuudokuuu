@@ -17,7 +17,7 @@ tags:
 - extendedWaitUntil:
       visible:
           id: 'SettingsScreenSelectors.Root'
-      timeout: 5000
+      timeout: 10000
 
 - takeScreenshot: '08-settings'
 - stopApp

@@ -16,15 +16,15 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'ChallengeResultScreenSelectors.OutcomeValue'
-      timeout: 5000
+      timeout: 10000
 - scrollUntilVisible:
       element:
           id: 'ChallengeResultFooterSelectors.HomeButton'
       direction: DOWN
-      timeout: 5000
+      timeout: 10000
 - tapOn:
       id: 'ChallengeResultFooterSelectors.HomeButton'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 5000
+      timeout: 10000

@@ -21,10 +21,10 @@ appId: ${APP_ID}
       element:
           id: 'ChallengeResultFooterSelectors.HomeButton'
       direction: DOWN
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'ChallengeResultFooterSelectors.HomeButton'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000

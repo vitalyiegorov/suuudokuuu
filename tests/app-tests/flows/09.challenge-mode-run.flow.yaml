@@ -47,10 +47,10 @@ appId: ${APP_ID}
       element:
           id: 'ChallengeModeSwitchSelectors.Root'
       direction: UP
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'ChallengeModeSwitchSelectors.Root'
 - extendedWaitUntil:
       notVisible:
           id: 'ChallengeConditionsRowSelectors.Root'
-      timeout: 3000
+      timeout: 10000

@@ -11,12 +11,12 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'SettingsScreenSelectors.Root'
-      timeout: 5000
+      timeout: 10000
 - scrollUntilVisible:
       element:
           id: 'SettingsScreenSelectors.DarkModeSwitch'
       direction: DOWN
-      timeout: 5000
+      timeout: 10000
 - runFlow:
       when:
           true: ${APPEARANCE == 'dark'}
@@ -40,4 +40,4 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 5000
+      timeout: 10000

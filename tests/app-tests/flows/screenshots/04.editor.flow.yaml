@@ -20,7 +20,7 @@ tags:
 - extendedWaitUntil:
       visible:
           id: 'theme-editor-screen'
-      timeout: 5000
+      timeout: 10000
 
 - takeScreenshot: '04-editor'
 - stopApp

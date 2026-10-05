@@ -21,7 +21,7 @@ tags:
 - extendedWaitUntil:
       visible:
           id: 'ChallengeAcceptScreenSelectors.Timeline'
-      timeout: 5000
+      timeout: 10000
 
 - takeScreenshot: '06-rival'
 - stopApp

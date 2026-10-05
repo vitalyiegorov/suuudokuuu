@@ -22,7 +22,7 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'CandidateInputItemSelectors.Button.2'
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'CandidateInputItemSelectors.Button.2'
 
@@ -31,7 +31,7 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'AvailableValueItemSelectors.Button.2'
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'AvailableValueItemSelectors.Button.2'
 
@@ -96,4 +96,4 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000

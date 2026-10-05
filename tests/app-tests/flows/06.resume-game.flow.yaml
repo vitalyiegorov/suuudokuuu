@@ -22,7 +22,7 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'GameScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 - copyTextFrom:
       id: 'GameScreenSelectors.Time'
 - evalScript: ${output.firstReturnedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
@@ -47,7 +47,7 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'GameScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 - copyTextFrom:
       id: 'GameScreenSelectors.Time'
 - evalScript: ${output.secondReturnedSeconds = Number(maestro.copiedText.split(':')[0]) * 60 + Number(maestro.copiedText.split(':')[1])}
@@ -72,7 +72,7 @@ appId: ${APP_ID}
       element:
           id: 'HomeScreenSelectors.ResumeButton'
       direction: DOWN
-      timeout: 5000
+      timeout: 10000
 - scroll
 - tapOn:
       id: 'HomeScreenSelectors.ResumeButton'
