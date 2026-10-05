@@ -1,4 +1,4 @@
-import { AppButton, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
+import { AppButton, type AppButtonVariant, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { useEffect } from 'react';
 import Animated, { Easing, cancelAnimation, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 
@@ -20,14 +20,14 @@ import type { StyleProp, ViewStyle } from 'react-native';
 
 interface Props {
     readonly children: ReactNode;
-    readonly color: string;
     readonly isLoading: boolean;
     readonly onPress: () => void;
     readonly style: StyleProp<ViewStyle>;
     readonly testID: string;
+    readonly variant: AppButtonVariant;
 }
 
-export const HomeScreenStartButtonEmber = ({ children, color, isLoading, onPress, style, testID }: Props) => {
+export const HomeScreenStartButtonEmber = ({ children, isLoading, onPress, style, testID, variant }: Props) => {
     const reduceMotion = useReduceMotion();
     const entrance = useSharedValue(0);
 
@@ -58,19 +58,10 @@ export const HomeScreenStartButtonEmber = ({ children, color, isLoading, onPress
     const emberWrapperTestId = reduceMotion
         ? HomeScreenStartButtonEmberSelectors.StaticRoot
         : HomeScreenStartButtonEmberSelectors.AnimatedRoot;
-    const emberButtonColorStyles = { backgroundColor: color, borderColor: color };
-    const emberButtonWrapperStyle = [style, emberButtonColorStyles];
 
     return (
         <Animated.View style={emberWrapperStyle} testID={emberWrapperTestId}>
-            <AppButton
-                isLoading={isLoading}
-                onPress={onPress}
-                size="large"
-                style={emberButtonWrapperStyle}
-                testID={testID}
-                variant="primary"
-            >
+            <AppButton isLoading={isLoading} onPress={onPress} size="large" style={style} testID={testID} variant={variant}>
                 {children}
             </AppButton>
         </Animated.View>

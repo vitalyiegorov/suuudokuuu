@@ -1,4 +1,4 @@
-import { AppButton } from '@suuudokuuu/ui';
+import { AppButton, type AppButtonVariant } from '@suuudokuuu/ui';
 
 import { HomeScreenStartButtonEmber } from '../home-screen-start-button-ember/home-screen-start-button-ember';
 
@@ -7,17 +7,17 @@ import type { StyleProp, ViewStyle } from 'react-native';
 
 interface Props {
     readonly children: ReactNode;
-    readonly color: string | null;
+    readonly emberVariant: AppButtonVariant | null;
     readonly isLoading: boolean;
     readonly onPress: () => void;
     readonly style: StyleProp<ViewStyle>;
     readonly testID: string;
 }
 
-export const HomeScreenStartButton = ({ children, color, isLoading, onPress, style, testID }: Props) => {
-    if (color !== null) {
+export const HomeScreenStartButton = ({ children, emberVariant, isLoading, onPress, style, testID }: Props) => {
+    if (emberVariant !== null) {
         return (
-            <HomeScreenStartButtonEmber color={color} isLoading={isLoading} onPress={onPress} style={style} testID={testID}>
+            <HomeScreenStartButtonEmber isLoading={isLoading} onPress={onPress} style={style} testID={testID} variant={emberVariant}>
                 {children}
             </HomeScreenStartButtonEmber>
         );

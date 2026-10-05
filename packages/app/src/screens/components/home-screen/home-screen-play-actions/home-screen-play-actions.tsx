@@ -22,8 +22,8 @@ export const HomeScreenPlayActions = ({ children, difficulty, isLoading, onStart
     const isHellSelected = difficulty === DifficultyEnum.Hell;
     const isInfinitySelected = difficulty === DifficultyEnum.Infinity;
     const isSpecialTierSelected = isHellSelected || isInfinitySelected;
-    const specialButtonColor = isHellSelected ? theme.colors.danger : theme.colors.board.selected;
-    const startButtonColor = isSpecialTierSelected ? specialButtonColor : null;
+    const specialButtonVariant = isHellSelected ? 'dangerFilled' : 'boardSelected';
+    const startButtonVariant = isSpecialTierSelected ? specialButtonVariant : null;
     const specialButtonTextColor = isHellSelected ? theme.colors.dangerText : theme.colors.board.selectedText;
     const startButtonTextColor = isSpecialTierSelected ? specialButtonTextColor : theme.colors.inkText;
     const startButtonTitleStyles = [styles.startButtonTitle, { color: startButtonTextColor }];
@@ -34,7 +34,7 @@ export const HomeScreenPlayActions = ({ children, difficulty, isLoading, onStart
             {children}
 
             <HomeScreenStartButton
-                color={startButtonColor}
+                emberVariant={startButtonVariant}
                 isLoading={isLoading}
                 onPress={onStart}
                 style={styles.primaryButton}
