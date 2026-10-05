@@ -15,6 +15,7 @@ import { TechniqueSummary } from '../../techniques/components/technique-summary/
 import { seventeenClueSudokuPageMetadata } from '../17-clue-sudoku/metadata';
 import { sudokuDifficultyRatingPageMetadata } from '../guides/sudoku-difficulty-rating/metadata';
 import { homePageMetadata } from '../metadata';
+import { printableHellSudokuPageMetadata } from '../printable/hell/metadata';
 import { hellSudokuPageMetadata } from '../sudoku/hell/metadata';
 import { aicPageMetadata } from '../techniques/aic/metadata';
 import { techniquesPageMetadata } from '../techniques/metadata';
@@ -117,12 +118,12 @@ const HardestSudokuPuzzlesPage = () => (
         <p>
             Suuudokuuu does not yet serve these exact record puzzles — that is on the roadmap. What it serves today is{' '}
             <Link href={hellSudokuPageMetadata.path}>Hell tier</Link>, drawn from a bundled corpus that is verified for uniqueness and then
-            filtered to boards that need a forcing chain — the same family of reasoning described above, in shorter doses. The tier is hard
-            because of the technique it requires rather than the clue count; seventeen clues is a different fact about a puzzle than
-            “hardest,” and the two get confused constantly — see the{' '}
-            <Link href={seventeenClueSudokuPageMetadata.path}>17-clue sudoku guide</Link> for why minimal and hard are not the same
-            property. Measured on our own scale, Hell sits clearly past the generated Nightmare tier and still well below the puzzles on
-            this page.
+            filtered to boards that need a forcing chain — the same family of reasoning described above, in shorter doses. Prefer paper?
+            Print the <Link href={printableHellSudokuPageMetadata.path}>Hell sudoku PDF</Link>. The tier is hard because of the technique it
+            requires rather than the clue count; seventeen clues is a different fact about a puzzle than “hardest,” and the two get confused
+            constantly — see the <Link href={seventeenClueSudokuPageMetadata.path}>17-clue sudoku guide</Link> for why minimal and hard are
+            not the same property. Measured on our own scale, Hell sits clearly past the generated Nightmare tier and still well below the
+            puzzles on this page.
         </p>
         <FaqPage>
             <FaqHeading>Hardest Sudoku FAQ</FaqHeading>

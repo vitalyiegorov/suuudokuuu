@@ -14,6 +14,7 @@ import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
 import { glossaryPageMetadata } from '../glossary/metadata';
 import { homePageMetadata } from '../metadata';
+import { printableNewbieSudokuPageMetadata } from '../printable/newbie/metadata';
 import { sudokuDifficultiesPageMetadata } from '../sudoku/metadata';
 import { hiddenSinglePageMetadata } from '../techniques/hidden-single/metadata';
 import { techniquesPageMetadata } from '../techniques/metadata';
@@ -126,7 +127,8 @@ const HowToPlayPage = () => (
         <p>
             Every level is free to play, with no ads and no sign-up. <a href={SITE_PLAY_URL}>Play a puzzle now</a> at any of the six levels,
             or read the full breakdown of clue counts and required techniques on the{' '}
-            <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub.
+            <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub. Learning on paper? Start with the{' '}
+            <Link href={printableNewbieSudokuPageMetadata.path}>printable Newbie sudoku PDF</Link>.
         </p>
         <h2>Getting started</h2>
         <HowTo name="How to start solving a Sudoku puzzle">
