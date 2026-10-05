@@ -1,6 +1,15 @@
 import type { ThemeInterface } from '../../../theme/interface/theme.interface';
 
-export type AppButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'donation' | 'inverted' | 'glass';
+export type AppButtonVariant =
+    | 'primary'
+    | 'secondary'
+    | 'ghost'
+    | 'danger'
+    | 'donation'
+    | 'inverted'
+    | 'glass'
+    | 'dangerFilled'
+    | 'boardSelected';
 
 export const appButtonGetColors = (theme: Pick<ThemeInterface, 'colors'>, variant: AppButtonVariant) => {
     if (variant === 'primary') {
@@ -8,6 +17,22 @@ export const appButtonGetColors = (theme: Pick<ThemeInterface, 'colors'>, varian
             backgroundColor: theme.colors.ink,
             borderColor: theme.colors.ink,
             textColor: theme.colors.inkText
+        };
+    }
+
+    if (variant === 'dangerFilled') {
+        return {
+            backgroundColor: theme.colors.danger,
+            borderColor: theme.colors.danger,
+            textColor: theme.colors.dangerText
+        };
+    }
+
+    if (variant === 'boardSelected') {
+        return {
+            backgroundColor: theme.colors.board.selected,
+            borderColor: theme.colors.board.selected,
+            textColor: theme.colors.board.selectedText
         };
     }
 
