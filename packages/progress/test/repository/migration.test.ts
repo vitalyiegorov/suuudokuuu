@@ -13,7 +13,7 @@ const gameFinishedBeforeUpgrade = {
     difficulty: DifficultyEnum.Easy,
     encodedState: 'encoded',
     rating: 1.5,
-    isRatingCeiling: false,
+    isRatingCeiling: 0,
     elapsedTime: 300,
     score: 900,
     mistakes: 0,
