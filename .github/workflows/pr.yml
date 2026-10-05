@@ -5,7 +5,6 @@ env:
     TURBO_TEAM: vitalyiegorov
     TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
     PR_NUMBER: ${{ github.event.pull_request.number }}
-    PR_TITLE: ${{ github.event.pull_request.title }}
     MAESTRO_CLI_NO_ANALYTICS: true
     MAESTRO_CLI_ANALYSIS_NOTIFICATION_DISABLED: true
     RCT_USE_PREBUILT_RNCORE: 1
@@ -17,7 +16,7 @@ concurrency:
 
 on:
     pull_request:
-        types: [opened, synchronize, reopened, ready_for_review, edited]
+        types: [opened, synchronize, reopened, ready_for_review]
 
 jobs:
     changes:
@@ -107,9 +106,6 @@ jobs:
 
             - name: Lingui catalogs are up to date
               run: pnpm i18n:check
-
-            - name: Lint the PR Title
-              run: printf '%s\n' "$PR_TITLE" | node_modules/.bin/commitlint
 
             - name: Formatting checks
               run: pnpm format:check
