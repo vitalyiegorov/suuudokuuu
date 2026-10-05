@@ -15,7 +15,7 @@ concurrency:
 jobs:
     report:
         name: Weekly Search Console and CrUX snapshot
-        runs-on: ubuntu-latest
+        runs-on: [self-hosted, trf-linux-amd64-2x4]
         timeout-minutes: 20
         permissions:
             contents: write
