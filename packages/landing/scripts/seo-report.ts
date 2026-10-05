@@ -23,7 +23,7 @@ const DATA_LAG_DAYS = 3;
 const TOP_ROW_LIMIT = 20;
 const PERCENT_SCALE = 100;
 
-const SEARCH_CONSOLE_PROPERTY = `${SITE_ORIGIN}/`;
+const SEARCH_CONSOLE_PROPERTY = 'sc-domain:suuudokuuu.com';
 const REPORT_DIRECTORY = join(__dirname, '..', '..', '..', 'reports', 'seo');
 
 const CRUX_METRICS = [
