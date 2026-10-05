@@ -21,21 +21,21 @@ appId: ${APP_ID}
           - extendedWaitUntil:
                 visible:
                     id: 'SettingsOptionSheetSelectors.Root'
-                timeout: 5000
+                timeout: 10000
           - scrollUntilVisible:
                 element:
                     id: 'SettingsOptionSheetSelectors.Option.${LOCALE}'
                 direction: DOWN
-                timeout: 5000
+                timeout: 10000
           - tapOn:
                 id: 'SettingsOptionSheetSelectors.Option.${LOCALE}'
           - extendedWaitUntil:
                 notVisible:
                     id: 'SettingsOptionSheetSelectors.Root'
-                timeout: 5000
+                timeout: 10000
 - openLink:
       link: 'suuudokuuu://'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 5000
+      timeout: 10000

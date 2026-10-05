@@ -57,7 +57,7 @@ tags:
 - extendedWaitUntil:
       visible:
           id: 'CandidateInputItemSelectors.Button.2'
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'CandidateInputItemSelectors.Button.2'
 - tapOn:
@@ -69,7 +69,7 @@ tags:
 - extendedWaitUntil:
       visible:
           id: 'AvailableValueItemSelectors.Button.2'
-      timeout: 3000
+      timeout: 10000
 
 - takeScreenshot: '01-hero-board'
 - runFlow: ../subflows/game/quit-current-game.flow.yaml

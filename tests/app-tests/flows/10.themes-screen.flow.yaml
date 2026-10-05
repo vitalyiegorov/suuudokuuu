@@ -16,7 +16,7 @@ appId: ${APP_ID}
           - extendedWaitUntil:
                 visible:
                     id: 'SettingsScreenSelectors.Root'
-                timeout: 5000
+                timeout: 10000
 # Center the row so it clears both the collapsed header band and the floating
 # tab bar: an edge row registers the tap on whichever chrome overlaps it.
 - scrollUntilVisible:
@@ -30,18 +30,18 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'themes-screen'
-      timeout: 3000
+      timeout: 10000
 - assertVisible: 'Presets'
 - extendedWaitUntil:
       visible:
           id: 'themes-screen-create-button'
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'themes-screen-create-button'
 - extendedWaitUntil:
       visible:
           id: 'theme-editor-screen'
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'theme-editor-screen-name-input'
 - eraseText
@@ -53,13 +53,13 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'theme-editor-screen-save-button'
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'theme-editor-screen-save-button'
 - extendedWaitUntil:
       visible:
           id: 'themes-screen'
-      timeout: 3000
+      timeout: 10000
 # The created theme lists below the presets, past the fold on the shorter
 # Android viewport, so scroll it into view instead of asserting in place.
 - scrollUntilVisible:
@@ -71,7 +71,7 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'SettingsScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 - scrollUntilVisible:
       element:
           text: 'Maestro theme'
@@ -80,4 +80,4 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000

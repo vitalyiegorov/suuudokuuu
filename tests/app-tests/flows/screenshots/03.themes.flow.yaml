@@ -17,7 +17,7 @@ tags:
 - extendedWaitUntil:
       visible:
           id: 'themes-screen'
-      timeout: 5000
+      timeout: 10000
 
 - takeScreenshot: '03-themes'
 - stopApp

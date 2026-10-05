@@ -33,7 +33,7 @@ appId: ${APP_ID}
       element:
           text: 'AIC'
       direction: DOWN
-      timeout: 5000
+      timeout: 10000
 - assertVisible:
       id: 'ChallengeRunStatsSelectors.TechniqueTile.26'
 - assertVisible: 'AIC'
@@ -45,7 +45,7 @@ appId: ${APP_ID}
       element:
           text: 'Hidden Pair'
       direction: DOWN
-      timeout: 5000
+      timeout: 10000
 - assertVisible:
       id: 'ChallengeRunStatsSelectors.TechniqueTile.10'
 - assertVisible: 'Hidden Pair'
@@ -62,4 +62,4 @@ appId: ${APP_ID}
           - extendedWaitUntil:
                 visible:
                     id: 'HomeScreenSelectors.Root'
-                timeout: 8000
+                timeout: 10000

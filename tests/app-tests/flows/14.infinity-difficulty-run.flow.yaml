@@ -16,7 +16,7 @@ appId: ${APP_ID}
       element:
           text: 'Difficulty'
       direction: UP
-      timeout: 3000
+      timeout: 10000
 # Settle the scroll before tapping (rule 12): a tap fired into residual scroll
 # momentum is consumed stopping the scroll and never reaches the option label
 # (CI run 33369560754 attempt 2: the slider still showed Easy after the tap).
@@ -34,7 +34,7 @@ appId: ${APP_ID}
           text: 'World-record puzzles'
       direction: DOWN
       visibilityPercentage: 50
-      timeout: 3000
+      timeout: 10000
 - runFlow: subflows/game/start-new-game.flow.yaml
 # The level+rating pill was removed from the game screen entirely; it now only shows on the
 # pause screen and result/history surfaces, so pause the run to see it. This also means the

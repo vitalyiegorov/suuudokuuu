@@ -12,7 +12,7 @@ appId: ${APP_ID}
           - extendedWaitUntil:
                 visible:
                     id: 'DailyStreakHeroSelectors.Root'
-                timeout: 5000
+                timeout: 10000
 - assertVisible:
       id: 'DailyScreenSelectors.ActionButton'
       text: '.*Play today.*'

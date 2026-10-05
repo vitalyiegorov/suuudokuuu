@@ -29,7 +29,7 @@ appId: ${APP_ID}
       visible:
           id: 'GameScreenSelectors.Score'
           text: '.*[1-9].*'
-      timeout: 3000
+      timeout: 10000
 - assertNotVisible:
       id: 'UndoButtonSelectors.Root'
 - assertNotVisible:

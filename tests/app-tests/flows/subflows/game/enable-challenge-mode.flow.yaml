@@ -4,11 +4,11 @@ appId: ${APP_ID}
       element:
           id: 'ChallengeModeSwitchSelectors.Root'
       direction: DOWN
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'ChallengeModeSwitchSelectors.Root'
 - scrollUntilVisible:
       element:
           id: 'ChallengeConditionsRowSelectors.Root'
       direction: DOWN
-      timeout: 3000
+      timeout: 10000

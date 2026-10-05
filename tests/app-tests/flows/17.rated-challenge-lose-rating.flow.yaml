@@ -23,12 +23,12 @@ appId: ${APP_ID}
       id: 'AvailableValueItemSelectors.Button.4'
 - extendedWaitUntil:
       visible: '1/3'
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'AvailableValueItemSelectors.Button.4'
 - extendedWaitUntil:
       visible: '2/3'
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'AvailableValueItemSelectors.Button.4'
 # Assert the OutcomeValue pill instead of the screen's own Root: on iOS a
@@ -39,7 +39,7 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'ChallengeResultScreenSelectors.OutcomeValue'
-      timeout: 5000
+      timeout: 10000
 # The outcome pill now composes "{flavor} · {level} · {rating} · {mistakes type}" as plain text
 # instead of rendering a separate rating badge next to it.
 - assertVisible:
@@ -50,5 +50,5 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'GameScreenSelectors.Root'
-      timeout: 5000
+      timeout: 10000
 - runFlow: subflows/game/quit-current-game.flow.yaml

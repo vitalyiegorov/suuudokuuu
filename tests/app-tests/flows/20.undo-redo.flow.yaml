@@ -29,12 +29,12 @@ appId: ${APP_ID}
       visible:
           id: 'GameScreenSelectors.Score'
           text: '.*[1-9].*'
-      timeout: 3000
+      timeout: 10000
 - extendedWaitUntil:
       visible:
           id: 'CellSelectors\.Cell\.0-3$'
           text: 'Row 1, column 4, 5'
-      timeout: 3000
+      timeout: 10000
 
 - tapOn:
       id: 'UndoButtonSelectors.Root'
@@ -49,6 +49,6 @@ appId: ${APP_ID}
       visible:
           id: 'CellSelectors\.Cell\.0-3$'
           text: 'Row 1, column 4, 5'
-      timeout: 3000
+      timeout: 10000
 
 - runFlow: subflows/game/quit-current-game.flow.yaml

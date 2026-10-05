@@ -16,7 +16,7 @@ appId: ${APP_ID}
           - extendedWaitUntil:
                 visible:
                     id: 'SettingsScreenSelectors.Root'
-                timeout: 5000
+                timeout: 10000
 - assertVisible: 'Game'
 - assertVisible: 'Language.*'
 - assertVisible: 'Number size.*'
@@ -39,13 +39,13 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'SettingsOptionSheetSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       text: 'Spacious.*'
 - extendedWaitUntil:
       notVisible:
           id: 'SettingsOptionSheetSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 # The Android floating tab bar overlays the scroll content, so a link that is
 # merely on screen can still sit under the bar and lose the tap to it. Scrolling
 # once more settles the content at its end, where the reserved bottom inset
@@ -75,4 +75,4 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000

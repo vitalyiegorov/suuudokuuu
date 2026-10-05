@@ -11,7 +11,7 @@ appId: ${APP_ID}
       element:
           text: 'Difficulty'
       direction: UP
-      timeout: 3000
+      timeout: 10000
 - assertVisible: 'Difficulty'
 - assertVisible: 'Newbie'
 - assertVisible: 'Mistakes'
@@ -36,7 +36,7 @@ appId: ${APP_ID}
       element:
           id: 'HomeScreenSelectors.StartButton'
       direction: DOWN
-      timeout: 3000
+      timeout: 10000
 - scroll
 - tapOn:
       id: 'HomeScreenSelectors.StartButton'

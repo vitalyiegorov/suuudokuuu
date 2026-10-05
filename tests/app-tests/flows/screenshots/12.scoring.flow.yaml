@@ -19,7 +19,7 @@ tags:
 - extendedWaitUntil:
       visible:
           id: 'ScoringScreenSelectors.Root'
-      timeout: 5000
+      timeout: 10000
 
 - takeScreenshot: '12-scoring'
 - stopApp

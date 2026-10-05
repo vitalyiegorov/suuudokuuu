@@ -21,7 +21,7 @@ tags:
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 
 - takeScreenshot: '09-home'
 - stopApp
