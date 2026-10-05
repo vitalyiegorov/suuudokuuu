@@ -35,6 +35,10 @@ msgstr "{awaySeconds}s di luar aplikasi"
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Rentetan terbaik: # hari} other {Rentetan terbaik: # hari}}"
 
+#: src/daily/components/daily-week-day/daily-week-day.tsx
+msgid "{dateText}, {stateText}"
+msgstr "{dateText}, {stateText}"
+
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (salinan)"
@@ -59,6 +63,14 @@ msgstr "{foregroundLabel} pada {backgroundLabel}: {contrastRatioText} — minimu
 msgid "{gamesCompleted, plural, one {# game played} other {# games played}}"
 msgstr "{gamesCompleted, plural, one {# game dimainkan} other {# game dimainkan}}"
 
+#: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
+msgid "{hours, plural, one {# hr} other {# hr}}"
+msgstr "{hours, plural, one {# jam} other {# jam}}"
+
+#: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
+msgid "{minutes, plural, one {# min} other {# min}}"
+msgstr "{minutes, plural, one {# mnt} other {# mnt}}"
+
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
 msgid "{mistakes, plural, one {# mistake} other {# mistakes}}"
 msgstr "{mistakes, plural, one {# kesalahan} other {# kesalahan}}"
@@ -74,6 +86,10 @@ msgstr "{remaining, plural, one {Isi {value}, # tersisa} other {Isi {value}, # t
 #: src/game/components/candidate-input-item/candidate-input-item.tsx
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {Catat {value}, # tersisa} other {Catat {value}, # tersisa}}"
+
+#: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
+msgid "{score, plural, one {# point} other {# points}}"
+msgstr "{score, plural, one {# poin} other {# poin}}"
 
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
@@ -860,10 +876,6 @@ msgstr "Aku menyelesaikan sudoku ini dalam {elapsedTimeString}. Bisa kalahkan ak
 msgid "Immortal"
 msgstr "Abadi"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
-msgid "In progress • {difficultyLabel}"
-msgstr "Sedang berjalan • {difficultyLabel}"
-
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "Belum selesai"
@@ -1016,6 +1028,7 @@ msgid "Minimum Score"
 msgstr "Skor minimum"
 
 #: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
+#: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
@@ -1068,6 +1081,10 @@ msgstr "Game baru"
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "New personal best"
 msgstr "Rekor pribadi baru"
+
+#: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
+msgid "New puzzle in {hoursText} {minutesText}"
+msgstr "Sudoku baru dalam {hoursText} {minutesText}"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1123,9 +1140,17 @@ msgstr "Berapa pun penaltinya, kamu selalu mendapat setidaknya"
 msgid "no pause"
 msgstr "tanpa jeda"
 
+#: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
+msgid "No solves yet. Today’s puzzle is waiting."
+msgstr "Belum ada solusi. Sudoku hari ini menunggu."
+
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Belum ada statistik"
+
+#: src/daily/components/daily-week-day/daily-week-day.tsx
+msgid "Not solved"
+msgstr "Belum terpecahkan"
 
 #: src/game/components/input-mode-button/input-mode-button.tsx
 msgid "Notes mode"
@@ -1363,6 +1388,10 @@ msgstr "Teks permukaan terangkat"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Baca kebijakan privasi Suuudokuuu tentang pengumpulan data, penyimpanan, dan hakmu."
 
+#: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
+msgid "Recent solves"
+msgstr "Solusi terbaru"
+
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
 msgstr "terekam"
@@ -1485,6 +1514,7 @@ msgstr "Simpan"
 msgid "Save anyway"
 msgstr "Simpan saja"
 
+#: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/screens/components/game-screen/game-screen-metrics/game-screen-metrics.tsx
@@ -1556,6 +1586,7 @@ msgstr "Checksum SHA-256"
 msgid "Shade cells that already have a number"
 msgstr "Beri bayangan pada sel yang sudah berisi angka"
 
+#: src/daily/components/daily-share-button/daily-share-button.tsx
 #: src/game/hooks/use-share-game.hook.ts
 #: src/history/components/replay-share-action/replay-share-action.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -1623,6 +1654,7 @@ msgstr "Papan abu-abu lembut seperti kertas"
 msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
 msgstr "Selesaikan sudoku online dengan petunjuk, catatan, dan pelacakan kesalahan."
 
+#: src/daily/components/daily-week-day/daily-week-day.tsx
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Solved"
 msgstr "Terpecahkan"
@@ -1631,11 +1663,11 @@ msgstr "Terpecahkan"
 msgid "Solved in"
 msgstr "Terpecahkan dalam"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "Solved today"
 msgstr "Selesai hari ini"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/daily/components/daily-today-result/daily-today-result.tsx
 msgid "Solved today • {difficultyLabel}"
 msgstr "Terpecahkan hari ini • {difficultyLabel}"
 
@@ -1837,6 +1869,7 @@ msgid "Tight"
 msgstr "Rapat"
 
 #: src/@generic/components/completed-game-result-details/completed-game-result-details.tsx
+#: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
 #: src/scoring/components/scoring.screen.tsx
@@ -1862,13 +1895,14 @@ msgstr "Mini"
 msgid "Tips for High Scores"
 msgstr "Tips skor tinggi"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/daily/components/daily-today-summary/daily-today-summary.tsx
+#: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "Today"
 msgstr "Hari ini"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
-msgid "Today's puzzle • {difficultyLabel}"
-msgstr "Sudoku hari ini • {difficultyLabel}"
+#: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
+msgid "Tomorrow:"
+msgstr "Besok:"
 
 #: src/screens/components/loser-screen/loser-screen-result-hero/loser-screen-result-hero.tsx
 msgid "Too many mistakes"
@@ -1918,6 +1952,10 @@ msgstr "Persegi Panjang Unik"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Unknown"
 msgstr "Tidak diketahui"
+
+#: src/daily/components/daily-week-day/daily-week-day.tsx
+msgid "Upcoming"
+msgstr "Mendatang"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Use a dark color scheme"
