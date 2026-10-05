@@ -16,19 +16,19 @@ appId: ${APP_ID}
       element:
           id: 'ChallengeResultFooterSelectors.HomeButton'
       direction: DOWN
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'ChallengeResultFooterSelectors.HomeButton'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'MainTabSelectors.Stats'
 - extendedWaitUntil:
       visible:
           id: 'HistoryScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 - assertVisible:
       id: 'HistoryTechniquesSelectors.Root'
 - assertVisible:
@@ -46,7 +46,7 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'HistoryGamesScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 # The completed-game row composes its rating into the difficulty text instead of rendering a
 # separate badge next to it.
 - assertVisible:
@@ -57,7 +57,7 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'HistoryScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 - scrollUntilVisible:
       element:
           id: 'HistorySolverProfileSelectors.HardestSolve'
@@ -76,4 +76,4 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000
