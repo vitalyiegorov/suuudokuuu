@@ -218,6 +218,7 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
 4. Landing pages are exported as `<route>.html` (`trailingSlash: false`). The build script emits Build Output API `overrides` so each one is served at its extensionless path; root `index.html` and `404.html` are excluded because they are addressed directly.
 5. `/` belongs to the landing, so `/play` is the SPA entry that renders the difficulty-select home. It is `noIndex` and is also the PWA `start_url` in `public/manifest.json`. In-app navigation to `/` stays client-side and keeps working.
 6. When adding a game route, add it to the SPA prefixes in `vercel.json`, otherwise a direct URL hit returns the landing 404.
+7. The first `vercel.json` route 308-redirects the apex `suuudokuuu.com` to `www.suuudokuuu.com`, except `/.well-known/**`: Apple and Google fetch the app-link association files from the apex and do not follow redirects, and share links use the apex.
 
 ## Web Platform Notes
 

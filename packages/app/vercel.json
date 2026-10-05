@@ -3,6 +3,14 @@
     "outputDirectory": ".",
     "routes": [
         {
+            "src": "^/(?!\\.well-known/)(.*)$",
+            "has": [{ "type": "host", "value": "suuudokuuu.com" }],
+            "status": 308,
+            "headers": {
+                "Location": "https://www.suuudokuuu.com/$1"
+            }
+        },
+        {
             "src": "/ota/manifest\\.plist",
             "dest": "/api/beta/manifest"
         },
