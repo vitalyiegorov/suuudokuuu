@@ -11,6 +11,7 @@
         "@rnw-community/shared": "^2.15.0",
         "@suuudokuuu/app": "workspace:*",
         "@suuudokuuu/landing": "workspace:*",
+        "@suuudokuuu/puzzle-forge": "workspace:*",
         "serve": "^14.2.6"
     }
 }
