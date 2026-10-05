@@ -8,6 +8,7 @@ import * as SqlSchema from 'effect/sql/SqlSchema';
 
 import { ReactivityKeyEnum } from '../../@generic/enum/reactivity-key.enum';
 import { CompletedGameSchema } from '../schema/completed-game.schema';
+import { DailyResultSchema } from '../schema/daily-result.schema';
 
 import type { CompletedGameType } from '../type/completed-game.type';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
@@ -23,6 +24,15 @@ export class CompletedGameRepository extends Context.Service<CompletedGameReposi
             Result: CompletedGameSchema,
             execute: () => sql`SELECT * FROM completed_games ORDER BY completed_at DESC, id DESC`
         });
+        const findDailyResults = SqlSchema.findAll({
+            Request: Schema.Void,
+            Result: DailyResultSchema,
+            execute: () => sql`
+                SELECT daily_day_number, encoded_state, elapsed_time, score, mistakes FROM completed_games
+                WHERE id IN (SELECT MIN(id) FROM completed_games WHERE daily_day_number IS NOT NULL GROUP BY daily_day_number)
+                ORDER BY daily_day_number DESC
+            `
+        });
         const insertGame = SqlSchema.void({
             Request: CompletedGameSchema,
             execute: game => sql`INSERT INTO completed_games ${sql.insert(game)}`
@@ -36,6 +46,7 @@ export class CompletedGameRepository extends Context.Service<CompletedGameReposi
 
         return {
             findAll: findAllGames().pipe(Effect.orDie),
+            findDailyResults: findDailyResults().pipe(Effect.orDie),
             insert: (game: CompletedGameType) =>
                 reactivity
                     .mutation(

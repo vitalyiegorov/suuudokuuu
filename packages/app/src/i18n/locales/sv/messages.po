@@ -1123,10 +1123,6 @@ msgstr "Oavsett straff får du alltid minst"
 msgid "no pause"
 msgstr "ingen paus"
 
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "No solves yet. Today’s puzzle is waiting."
-msgstr "Inga lösningar än. Dagens sudoku väntar."
-
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Ingen statistik än"
@@ -1366,10 +1362,6 @@ msgstr "Text för upphöjd yta"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Läs Suuudokuuus integritetspolicy om datainsamling, lagring och dina rättigheter."
-
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "Recent solves"
-msgstr "Senaste lösningar"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

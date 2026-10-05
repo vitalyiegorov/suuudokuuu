@@ -1123,10 +1123,6 @@ msgstr "Mesmo com penalidades, você sempre ganha pelo menos"
 msgid "no pause"
 msgstr "sem pausa"
 
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "No solves yet. Today’s puzzle is waiting."
-msgstr "Ainda sem soluções. O sudoku de hoje espera."
-
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Ainda sem estatísticas"
@@ -1366,10 +1362,6 @@ msgstr "Texto da superfície elevada"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Leia a política de privacidade do Suuudokuuu sobre coleta de dados, armazenamento e seus direitos."
-
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "Recent solves"
-msgstr "Soluções recentes"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

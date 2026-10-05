@@ -1123,10 +1123,6 @@ msgstr "दंड चाहे जितने हों, आपको हमे
 msgid "no pause"
 msgstr "कोई पॉज़ नहीं"
 
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "No solves yet. Today’s puzzle is waiting."
-msgstr "अभी कोई हल नहीं। आज का सुडोकू इंतज़ार कर रहा है।"
-
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "अभी कोई आँकड़े नहीं"
@@ -1366,10 +1362,6 @@ msgstr "उठी हुई सतह का टेक्स्ट"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "डेटा संग्रह, भंडारण और आपके अधिकारों पर Suuudokuuu की गोपनीयता नीति पढ़ें।"
-
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "Recent solves"
-msgstr "हाल के हल"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

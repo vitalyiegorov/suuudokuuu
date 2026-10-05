@@ -11,5 +11,6 @@ export const CompletedGameSchema = Schema.Struct({
     score: Schema.Number,
     mistakes: Schema.Number,
     maxMistakes: Schema.Number,
-    completedAt: Schema.Number
+    completedAt: Schema.Number,
+    dailyDayNumber: Schema.NullOr(Schema.Number)
 });

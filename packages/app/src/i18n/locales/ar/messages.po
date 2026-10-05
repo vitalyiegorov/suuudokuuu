@@ -1123,10 +1123,6 @@ msgstr "مهما بلغت العقوبات، ستحصل دائمًا على ال
 msgid "no pause"
 msgstr "بلا إيقاف"
 
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "No solves yet. Today’s puzzle is waiting."
-msgstr "لا حلول بعد. سودوكو اليوم ينتظرك."
-
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "لا توجد إحصاءات بعد"
@@ -1366,10 +1362,6 @@ msgstr "نص السطح المرتفع"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "اطّلع على سياسة خصوصية Suuudokuuu بشأن جمع البيانات وتخزينها وحقوقك."
-
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "Recent solves"
-msgstr "الحلول الأخيرة"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

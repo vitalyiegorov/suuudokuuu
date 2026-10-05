@@ -1125,10 +1125,6 @@ msgstr "Egal wie viele Abzüge es gibt, du bekommst mindestens"
 msgid "no pause"
 msgstr "keine Pause"
 
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "No solves yet. Today’s puzzle is waiting."
-msgstr "Noch keine Lösungen. Das heutige Sudoku wartet."
-
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "Noch keine Statistiken"
@@ -1368,10 +1364,6 @@ msgstr "Text der erhabenen Oberfläche"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Lies die Datenschutzerklärung von Suuudokuuu zu Datenerfassung, Speicherung und deinen Rechten."
-
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "Recent solves"
-msgstr "Letzte Lösungen"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

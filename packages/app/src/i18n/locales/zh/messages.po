@@ -1123,10 +1123,6 @@ msgstr "无论有多少惩罚，你至少都会获得"
 msgid "no pause"
 msgstr "无暂停"
 
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "No solves yet. Today’s puzzle is waiting."
-msgstr "还没有解答。今日数独等着你来挑战。"
-
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "还没有统计"
@@ -1366,10 +1362,6 @@ msgstr "凸起表面文字"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "阅读 Suuudokuuu 隐私政策，了解数据收集、存储以及你的权利。"
-
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "Recent solves"
-msgstr "最近的解答"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

@@ -1123,10 +1123,6 @@ msgstr "پنالٹیز کتنی بھی ہوں، آپ کو ہمیشہ کم از �
 msgid "no pause"
 msgstr "کوئی وقفہ نہیں"
 
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "No solves yet. Today’s puzzle is waiting."
-msgstr "ابھی کوئی حل نہیں۔ آج کا سوڈوکو انتظار کر رہا ہے۔"
-
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "ابھی کوئی شماریات نہیں"
@@ -1366,10 +1362,6 @@ msgstr "ابھری ہوئی سطح کا متن"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "ڈیٹا جمع کرنے، محفوظ رکھنے اور آپ کے حقوق سے متعلق Suuudokuuu کی پرائیویسی پالیسی پڑھیں۔"
-
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "Recent solves"
-msgstr "حالیہ حل"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

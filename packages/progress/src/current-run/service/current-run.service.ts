@@ -414,7 +414,8 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
                                 'maxMistakes'
                             ]),
                             encodedState: gameStateToString(run, SharedPayloadKindEnum.Handoff),
-                            completedAt: nowMs
+                            completedAt: nowMs,
+                            dailyDayNumber: run.dailyDayNumber > 0 ? run.dailyDayNumber : null
                         });
                     }
                 },

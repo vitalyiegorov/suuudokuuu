@@ -1123,10 +1123,6 @@ msgstr "জরিমানা যতই হোক, আপনি অন্তত 
 msgid "no pause"
 msgstr "বিরতি নেই"
 
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "No solves yet. Today’s puzzle is waiting."
-msgstr "এখনও কোনো সমাধান নেই। আজকের সুডোকু অপেক্ষা করছে।"
-
 #: src/history/components/history-overview/history-overview.tsx
 msgid "No stats yet"
 msgstr "এখনও কোনো পরিসংখ্যান নেই"
@@ -1366,10 +1362,6 @@ msgstr "উঁচু পৃষ্ঠের লেখা"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "তথ্য সংগ্রহ, সংরক্ষণ ও আপনার অধিকার নিয়ে Suuudokuuu-এর গোপনীয়তা নীতি পড়ুন।"
-
-#: src/daily/components/daily-history-list/daily-history-list.tsx
-msgid "Recent solves"
-msgstr "সাম্প্রতিক সমাধান"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"

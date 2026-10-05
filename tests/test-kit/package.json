@@ -8,6 +8,10 @@
             "import": "./src/layer/make-test-sql-layer.util.ts",
             "types": "./src/layer/make-test-sql-layer.util.ts"
         },
+        "./client": {
+            "import": "./src/layer/make-test-sql-client-layer.util.ts",
+            "types": "./src/layer/make-test-sql-client-layer.util.ts"
+        },
         "./vitest": {
             "import": "./src/vitest/create-vitest-config.util.ts",
             "types": "./src/vitest/create-vitest-config.util.ts"
