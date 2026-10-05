@@ -6,7 +6,7 @@ export const FloatingTabBarItemStyles = StyleSheet.create(theme => ({
     segment: {
         alignItems: 'center',
         borderRadius: FloatingTabBarPillRadius,
-        flexBasis: 0,
+        flexBasis: 'auto',
         flexGrow: 1,
         flexShrink: 1,
         gap: theme.spacing.xs,
@@ -21,9 +21,12 @@ export const FloatingTabBarItemStyles = StyleSheet.create(theme => ({
         }
     },
     label: {
-        fontSize: 12,
-        fontWeight: '600',
-        lineHeight: 16,
+        fontFamily: theme.typography.fontFamily,
+        fontSize: 10.5,
+        letterSpacing: -0.16,
+        lineHeight: 14,
+        maxWidth: '100%',
+        paddingHorizontal: 2,
         textAlign: 'center'
     }
 }));
