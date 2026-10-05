@@ -104,6 +104,14 @@ jobs:
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
+            - name: Setup Ruby
+              uses: ruby/setup-ruby@v1
+              with:
+                  ruby-version: '3.3'
+
+            - name: Maestro selector checks
+              run: pnpm --filter @suuudokuuu/app-tests selectors:check
+
             - name: Lingui catalogs are up to date
               run: pnpm i18n:check
 

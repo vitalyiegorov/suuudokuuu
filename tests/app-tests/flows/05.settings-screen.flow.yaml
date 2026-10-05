@@ -12,7 +12,8 @@ appId: ${APP_ID}
 - retry:
       maxRetries: 1
       commands:
-          - tapOn: 'Settings'
+          - tapOn:
+                id: 'MainTabSelectors.Settings'
           - extendedWaitUntil:
                 visible:
                     id: 'SettingsScreenSelectors.Root'
@@ -41,7 +42,7 @@ appId: ${APP_ID}
           id: 'SettingsOptionSheetSelectors.Root'
       timeout: 10000
 - tapOn:
-      text: 'Spacious.*'
+      id: 'SettingsOptionSheetSelectors.Option.5'
 - extendedWaitUntil:
       notVisible:
           id: 'SettingsOptionSheetSelectors.Root'
@@ -71,7 +72,8 @@ appId: ${APP_ID}
       visible:
           id: 'SettingsScreenSelectors.Root'
       timeout: 10000
-- tapOn: 'Play'
+- tapOn:
+      id: 'MainTabSelectors.Play'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'

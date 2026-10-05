@@ -23,7 +23,8 @@ appId: ${APP_ID}
       visible:
           id: 'HomeScreenSelectors.Root'
       timeout: 3000
-- tapOn: 'Stats'
+- tapOn:
+      id: 'MainTabSelectors.Stats'
 - extendedWaitUntil:
       visible:
           id: 'HistoryScreenSelectors.Root'
@@ -63,7 +64,8 @@ appId: ${APP_ID}
       visible:
           id: 'HistoryScreenSelectors.Root'
       timeout: 3000
-- tapOn: 'Play'
+- tapOn:
+      id: 'MainTabSelectors.Play'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'

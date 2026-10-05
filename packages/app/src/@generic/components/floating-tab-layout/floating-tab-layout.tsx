@@ -9,6 +9,7 @@ import { FloatingTabBarOccupiedHeight } from '../floating-tab-bar/constant/float
 import { FloatingTabBar } from '../floating-tab-bar/floating-tab-bar';
 import { MainTabIcon } from '../main-tab-icon/main-tab-icon';
 import { TabBarInsetContext } from '../main-tab-layout/context/tab-bar-inset.context';
+import { MainTabSelectors } from '../main-tab-layout/main-tab-layout.selectors';
 
 import type { BottomTabBarProps } from 'expo-router/tabs';
 import type { ColorValue } from 'react-native';
@@ -26,18 +27,22 @@ export const FloatingTabLayout = () => {
 
     const playOptions = {
         tabBarIcon: (props: TabBarIconInput) => <MainTabIcon Icon={Play} color={props.color} size={props.size} />,
+        tabBarButtonTestID: MainTabSelectors.Play,
         title: t`Play`
     };
     const dailyOptions = {
         tabBarIcon: (props: TabBarIconInput) => <MainTabIcon Icon={CalendarDays} color={props.color} size={props.size} />,
+        tabBarButtonTestID: MainTabSelectors.Daily,
         title: t`Daily`
     };
     const statsOptions = {
         tabBarIcon: (props: TabBarIconInput) => <MainTabIcon Icon={BarChart3} color={props.color} size={props.size} />,
+        tabBarButtonTestID: MainTabSelectors.Stats,
         title: t`Stats`
     };
     const settingsOptions = {
         tabBarIcon: (props: TabBarIconInput) => <MainTabIcon Icon={Settings} color={props.color} size={props.size} />,
+        tabBarButtonTestID: MainTabSelectors.Settings,
         title: t`Settings`
     };
 
