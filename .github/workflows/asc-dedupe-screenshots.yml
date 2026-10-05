@@ -9,7 +9,7 @@ permissions:
 jobs:
     dedupe:
         name: Delete duplicate App Store screenshots
-        runs-on: ubuntu-latest
+        runs-on: [self-hosted, trf-linux-amd64-2x4]
         timeout-minutes: 15
         steps:
             - name: Write ASC API key

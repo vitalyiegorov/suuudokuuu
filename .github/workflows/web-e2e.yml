@@ -21,7 +21,7 @@ env:
 jobs:
     playwright:
         name: Playwright web E2E
-        runs-on: ubuntu-latest
+        runs-on: [self-hosted, trf-linux-amd64-4x8]
         timeout-minutes: 20
         steps:
             - name: Checkout repository
