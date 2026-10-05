@@ -20,7 +20,7 @@ export const themeColors: ThemeColorsType = {
     board: { selected: white, selectedText: white, sameValue: white, sameValueText: white, error: white, filled: white, emptyText: white },
     candidate: { text: white, textSelected: white, fill: white, fillSelected: white, borderSelected: white },
     numpad: { track: white, trackFilled: white, trackFilledText: white, text: white },
-    surface: { raised: white, raisedText: white, subtle: white, subtleText: white, subtleHint: white, border: white }
+    surface: { raised: white, raisedText: white, subtle: white, subtleText: white, subtleHint: white, group: white, border: white }
 };
 
 export const initialSettings: SettingsType = {

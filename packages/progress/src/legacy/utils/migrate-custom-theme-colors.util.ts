@@ -54,6 +54,7 @@ const migrateSurfaceColors = (
     subtle: readColor(surface, 'subtle') ?? fallbackColors.surface.subtle,
     subtleText: readColor(surface, 'subtleText') ?? fallbackColors.surface.subtleText,
     subtleHint: readColor(surface, 'subtleHint') ?? fallbackColors.surface.subtleHint,
+    group: fallbackColors.surface.group,
     border: readColor(value, 'border') ?? fallbackColors.surface.border
 });
 

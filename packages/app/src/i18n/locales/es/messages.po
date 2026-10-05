@@ -747,6 +747,10 @@ msgstr "Dorado"
 msgid "Group(3x3 cells)"
 msgstr "Grupo (3x3 celdas)"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Grouped surface"
+msgstr "Superficie de grupo"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Guess"
 msgstr "Suposición"

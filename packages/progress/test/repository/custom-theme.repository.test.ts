@@ -1,5 +1,6 @@
 import { assert, describe, it } from '@effect/vitest';
 import * as Effect from 'effect/Effect';
+import * as SqlClient from 'effect/sql/SqlClient';
 
 import { ThemeEnum } from '../../src/custom-theme/enum/theme.enum';
 import { CustomThemeRepository } from '../../src/custom-theme/repository/custom-theme.repository';
@@ -30,6 +31,27 @@ describe('CustomThemeRepository', () => {
             yield* customThemeRepository.remove(secondTheme.id);
 
             assert.deepStrictEqual(yield* customThemeRepository.findAll, [renamedFirstTheme, thirdTheme]);
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
+    it.effect('fills the grouped surface for a theme stored before the token existed', () =>
+        Effect.gen(function* () {
+            const sql = yield* SqlClient.SqlClient;
+            const customThemeRepository = yield* CustomThemeRepository;
+            const { group: _lightGroup, ...lightSurface } = themeColors.surface;
+            const legacyColors = { ...themeColors, surface: lightSurface };
+
+            yield* sql`INSERT INTO custom_themes ${sql.insert({
+                ...firstTheme,
+                colors: JSON.stringify({ light: legacyColors, dark: legacyColors })
+            })}`;
+
+            const storedGroups = (yield* customThemeRepository.findAll).flatMap(theme => [
+                theme.colors.light.surface.group,
+                theme.colors.dark.surface.group
+            ]);
+
+            assert.deepStrictEqual(storedGroups, ['rgba(128, 128, 128, 0.12)', 'rgba(128, 128, 128, 0.12)']);
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 });

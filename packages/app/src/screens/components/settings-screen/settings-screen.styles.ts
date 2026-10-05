@@ -7,15 +7,15 @@ export const SettingsScreenStyles = StyleSheet.create(theme => ({
     scrollViewContent: {
         alignItems: 'stretch',
         flexDirection: 'column',
-        gap: theme.spacing.xl,
+        gap: theme.spacing.lg,
         paddingBottom: theme.spacing.sm
     },
     primaryColumn: {
-        gap: theme.spacing.xl,
+        gap: theme.spacing.lg,
         width: '100%'
     },
     secondaryColumn: {
-        gap: theme.spacing.xl,
+        gap: theme.spacing.lg,
         width: '100%'
     }
 }));

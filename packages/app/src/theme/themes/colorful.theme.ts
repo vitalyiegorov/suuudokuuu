@@ -43,6 +43,7 @@ export const ColorfulLightTheme: ThemeInterface = {
             subtle: '#D0C7B8',
             subtleText: '#2A3B4D',
             subtleHint: 'rgba(42, 59, 77, 0.85)',
+            group: 'rgba(255, 255, 255, 0.72)',
             border: 'rgba(193, 182, 164, 0.5)'
         }
     }
@@ -91,6 +92,7 @@ export const ColorfulDarkTheme: ThemeInterface = {
             subtle: '#8FA8C1',
             subtleText: '#2A3B4D',
             subtleHint: '#2A3B4D',
+            group: 'rgba(0, 0, 0, 0.16)',
             border: 'rgba(143, 168, 193, 0.3)'
         }
     }

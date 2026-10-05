@@ -747,6 +747,10 @@ msgstr "Gold"
 msgid "Group(3x3 cells)"
 msgstr "Group(3x3 cells)"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Grouped surface"
+msgstr "Grouped surface"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Guess"
 msgstr "Guess"

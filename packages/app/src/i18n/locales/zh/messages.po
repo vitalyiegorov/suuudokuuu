@@ -745,6 +745,10 @@ msgstr "金色"
 msgid "Group(3x3 cells)"
 msgstr "宫（3x3 格）"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Grouped surface"
+msgstr "分组表面"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Guess"
 msgstr "猜测"

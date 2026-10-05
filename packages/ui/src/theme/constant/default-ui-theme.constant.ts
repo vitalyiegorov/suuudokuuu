@@ -43,6 +43,7 @@ export const DefaultUiTheme: ThemeInterface = {
             subtle: '#f2f2f2',
             subtleText: '#000000',
             subtleHint: 'rgba(0, 0, 0, 0.65)',
+            group: '#ffffff',
             border: '#d8d8d8'
         }
     }

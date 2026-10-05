@@ -745,6 +745,10 @@ msgstr "سنہرا"
 msgid "Group(3x3 cells)"
 msgstr "بلاک (3x3 خانے)"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Grouped surface"
+msgstr "گروپ سطح"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Guess"
 msgstr "اندازہ"

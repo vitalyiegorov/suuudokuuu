@@ -165,6 +165,11 @@ export const ThemeEditorSections: readonly ThemeEditorSectionInterface[] = [
                 setValue: (colors, value) => ({ ...colors, surface: { ...colors.surface, subtleHint: value } })
             },
             {
+                key: 'surface.group',
+                getValue: colors => colors.surface.group,
+                setValue: (colors, value) => ({ ...colors, surface: { ...colors.surface, group: value } })
+            },
+            {
                 key: 'surface.border',
                 getValue: colors => colors.surface.border,
                 setValue: (colors, value) => ({ ...colors, surface: { ...colors.surface, border: value } })

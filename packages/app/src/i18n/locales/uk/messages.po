@@ -747,6 +747,10 @@ msgstr "Золота"
 msgid "Group(3x3 cells)"
 msgstr "Блок (3x3 клітинки)"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Grouped surface"
+msgstr "Поверхня груп"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Guess"
 msgstr "Здогад"

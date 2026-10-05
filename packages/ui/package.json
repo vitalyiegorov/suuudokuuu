@@ -22,10 +22,6 @@
         "./app-metric-strip-get-colors": {
             "import": "./src/components/app-metric-strip/utils/app-metric-strip-get-colors.util.ts",
             "types": "./src/components/app-metric-strip/utils/app-metric-strip-get-colors.util.ts"
-        },
-        "./app-toggle-get-colors": {
-            "import": "./src/components/app-toggle/utils/app-toggle-get-colors.util.ts",
-            "types": "./src/components/app-toggle/utils/app-toggle-get-colors.util.ts"
         }
     },
     "scripts": {

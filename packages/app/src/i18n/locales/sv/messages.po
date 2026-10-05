@@ -745,6 +745,10 @@ msgstr "Guld"
 msgid "Group(3x3 cells)"
 msgstr "Block (3x3 rutor)"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Grouped surface"
+msgstr "Gruppyta"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Guess"
 msgstr "Gissning"

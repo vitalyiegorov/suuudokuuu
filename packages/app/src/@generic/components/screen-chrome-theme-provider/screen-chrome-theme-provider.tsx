@@ -12,9 +12,10 @@ import type { ReactNode } from 'react';
 
 interface Props {
     readonly children: ReactNode;
+    readonly washAlpha?: number;
 }
 
-export const ScreenChromeThemeProvider = ({ children }: Props) => {
+export const ScreenChromeThemeProvider = ({ children, washAlpha = AppScreenChromeWashAlpha }: Props) => {
     const { colorScheme, theme } = use(ThemeContext);
 
     const screenChromeColorScheme: ScreenChromeColorScheme = colorScheme === ColorSchemaEnum.Dark ? 'dark' : 'light';
@@ -23,7 +24,7 @@ export const ScreenChromeThemeProvider = ({ children }: Props) => {
         colors: {
             [screenChromeColorScheme]: {
                 solid: theme.colors.background,
-                wash: applyColorAlpha(theme.colors.background, AppScreenChromeWashAlpha)
+                wash: applyColorAlpha(theme.colors.background, washAlpha)
             }
         }
     };

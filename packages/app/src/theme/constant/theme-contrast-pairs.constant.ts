@@ -113,6 +113,20 @@ export const ThemeContrastPairs: readonly ThemeContrastPairInterface[] = [
         minimumRatio: ThemeContrastMinimumRatio
     },
     {
+        foregroundKey: 'text.primary',
+        backgroundKey: 'surface.group',
+        getForeground: colors => colors.text.primary,
+        getBackground: colors => colors.surface.group,
+        minimumRatio: ThemeContrastMinimumRatio
+    },
+    {
+        foregroundKey: 'text.hint',
+        backgroundKey: 'surface.group',
+        getForeground: colors => colors.text.hint,
+        getBackground: colors => colors.surface.group,
+        minimumRatio: ThemeContrastMinimumRatio
+    },
+    {
         foregroundKey: 'dangerText',
         backgroundKey: 'danger',
         getForeground: colors => colors.dangerText,

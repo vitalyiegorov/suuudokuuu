@@ -745,6 +745,10 @@ msgstr "সোনালি"
 msgid "Group(3x3 cells)"
 msgstr "ব্লক (3x3 ঘর)"
 
+#: src/settings/hooks/use-theme-token-labels.hook.ts
+msgid "Grouped surface"
+msgstr "গ্রুপ পৃষ্ঠ"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Guess"
 msgstr "অনুমান"
