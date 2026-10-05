@@ -14,6 +14,7 @@ const GOOGLE_TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token';
 const GOOGLE_JWT_GRANT_TYPE = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
 const SEARCH_CONSOLE_SCOPE = 'https://www.googleapis.com/auth/webmasters.readonly';
 const SEARCH_CONSOLE_API_ORIGIN = 'https://www.googleapis.com/webmasters/v3';
+const CRUX_NO_DATA_STATUS = 404;
 const CRUX_ENDPOINT = 'https://chromeuxreport.googleapis.com/v1/records:queryRecord';
 
 const TOKEN_LIFETIME_SECONDS = 3600;
@@ -321,12 +322,16 @@ const toWebVital = (metrics: Record<string, unknown>, key: string, label: string
     };
 };
 
-const collectCoreWebVitals = async (apiKey: string): Promise<CoreWebVitalsReportInterface> => {
+const collectCoreWebVitals = async (apiKey: string): Promise<CoreWebVitalsReportInterface | null> => {
     const response = await fetch(`${CRUX_ENDPOINT}?key=${encodeURIComponent(apiKey)}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ origin: SITE_ORIGIN })
     });
+    if (response.status === CRUX_NO_DATA_STATUS) {
+        return null;
+    }
+
     const payload = readRecord(await readJsonResponse(response, 'The CrUX API'), 'The CrUX response');
 
     if (!response.ok) {
