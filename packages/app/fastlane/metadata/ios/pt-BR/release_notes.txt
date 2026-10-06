@@ -6,4 +6,4 @@ Novas telas de Configurações, Estatísticas e Desafio diário, e dicas com que
 • As dicas agora funcionam de forma confiável mesmo no fim dos jogos mais difíceis.
 • As explicações das dicas mostram com mais clareza quais dígitos ficam confinados às células destacadas.
 • A sequência, a contagem regressiva e os pontos mudam na hora quando você troca o idioma.
-• Pequenos ajustes: os botões de início do Inferno e do Infinito mostram o carregamento na cor certa, a taxa de vitórias cabe em uma linha, o nível na Repetição aparece no modo escuro nomes longos de abas agora cabem na barra de abas, e a barra fica fixa durante a rolagem.
+• Pequenos ajustes: os botões de início do Inferno e do Infinito mostram o carregamento na cor certa, a taxa de vitórias cabe em uma linha, o nível na Repetição aparece no modo escuro, nomes longos de abas agora cabem na barra de abas, e a barra fica fixa durante a rolagem.

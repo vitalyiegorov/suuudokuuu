@@ -6,4 +6,4 @@ De nouveaux écrans Paramètres, Statistiques et Défi du jour, et des indices s
 • Les indices fonctionnent désormais de façon fiable, même en fin de partie sur les grilles les plus difficiles.
 • Les explications des indices précisent mieux quels chiffres sont confinés aux cases surlignées.
 • La série, le compte à rebours et les points changent immédiatement de langue quand vous en changez.
-• Petites finitions : le chargement des boutons de départ Enfer et Infini a la bonne couleur, le taux de victoires tient sur une ligne, le niveau de la relecture est visible en mode sombre les noms d'onglets longs tiennent désormais dans la barre d'onglets, et celle-ci reste en place pendant le défilement.
+• Petites finitions : le chargement des boutons de départ Enfer et Infini a la bonne couleur, le taux de victoires tient sur une ligne, le niveau de la relecture est visible en mode sombre, les noms d'onglets longs tiennent désormais dans la barre d'onglets, et celle-ci reste en place pendant le défilement.

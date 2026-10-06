@@ -6,4 +6,4 @@ Nuevas pantallas de Ajustes, Estadísticas y Reto diario, y sugerencias con las 
 • Las sugerencias ahora funcionan con fiabilidad incluso al final de las partidas más difíciles.
 • Las explicaciones de las sugerencias indican con más claridad qué dígitos quedan confinados a las celdas destacadas.
 • La racha, la cuenta atrás y los puntos se actualizan al instante cuando cambias de idioma.
-• Pequeños retoques: los botones de inicio de Infierno e Infinito muestran la carga en el color correcto, el porcentaje de victorias cabe en una línea, el nivel de la repetición se ve en modo oscuro los nombres largos de las pestañas ya caben en la barra de pestañas y la barra se queda fija al desplazarte.
+• Pequeños retoques: los botones de inicio de Infierno e Infinito muestran la carga en el color correcto, el porcentaje de victorias cabe en una línea, el nivel de la repetición se ve en modo oscuro, los nombres largos de las pestañas ya caben en la barra de pestañas y la barra se queda fija al desplazarte.
