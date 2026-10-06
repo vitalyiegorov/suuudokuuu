@@ -1,6 +1,6 @@
-Jeder Hinweis endet jetzt mit einer gesetzten Ziffer, du hängst nie fest.
-Lange Logik? Der Hinweis verrät stattdessen eine richtige Ziffer.
-Kleinere Hinweiskarte, direkt unter dem Brett.
-Hölle ist jetzt eine echte Forcing-Chain-Herausforderung.
-Schnelleres, robusteres Speichern deiner Partien.
-Bildschirmkopfzeilen repariert.
+Neue Einstellungen, Statistik und Tägliche Herausforderung.
+Einstellungen: klare Abschnitte und ein neuer, weicher Schalter.
+Statistik: Sudoku-Block-Übersicht und Schwierigkeitsleiter mit Gewinnrate.
+Täglich: Wochenleiste, Serie, letzte Lösungen, Countdown und Teilen.
+Hinweise funktionieren jetzt zuverlässig, auch spät in schweren Partien.
+Klarere Hinweis-Erklärungen, sofortiger Sprachwechsel und kleine Fixes.

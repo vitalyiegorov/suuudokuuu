@@ -1,8 +1,9 @@
-Hints that always move you forward, and a Hell that finally earns its name.
+Fresh new Settings, Statistics and Daily challenge screens, plus hints you can always count on.
 
-• Every hint now ends with a digit placed. No more hints that only point at pencil marks and leave you stuck.
-• When the logic runs too long, the hint reveals one correct digit instead of giving up.
-• The hint card is smaller and sits right under the board, clear of the bottom of the screen.
-• Hell is now a true forcing-chain challenge, not just a board with fewer clues.
-• Your games and progress are saved in a faster, sturdier way.
-• Screen headers look and scroll right again.
+• Settings are grouped into clean sections, with a smooth new switch that looks the same on every device.
+• Statistics open with your progress laid out in a sudoku box, followed by a difficulty ladder with your win rate on every level.
+• The Daily challenge shows your week at a glance, your streak and your recent solves. Once today's puzzle is solved, a countdown shows when the next one arrives, and you can share your result.
+• Hints now work reliably, even late in the toughest games.
+• Hint explanations say more clearly which digits are locked into the highlighted cells.
+• Labels update right away when you switch the language.
+• Small polish: the Hell and Infinity start buttons show their loader in the right color, the win rate stays on one line, the replay level is visible in dark mode, and the tab bar stays put while you scroll.

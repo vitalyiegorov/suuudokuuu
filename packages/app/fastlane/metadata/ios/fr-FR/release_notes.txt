@@ -1,8 +1,9 @@
-Des indices qui vous font toujours avancer, et un Enfer qui mérite enfin son nom.
+De nouveaux écrans Paramètres, Statistiques et Défi du jour, et des indices sur lesquels vous pouvez toujours compter.
 
-• Chaque indice se termine désormais par un chiffre placé. Fini les indices qui ne montrent que des annotations et vous laissent bloqué.
-• Quand la logique devient trop longue, l'indice révèle un chiffre correct au lieu de renoncer.
-• La carte d'indice est plus petite et se place juste sous la grille, loin du bas de l'écran.
-• Enfer est désormais un vrai défi de chaînes forcées, pas seulement une grille avec moins d'indices de départ.
-• Vos parties et votre progression sont enregistrées de façon plus rapide et plus robuste.
-• Les en-têtes d'écran s'affichent et défilent de nouveau correctement.
+• Les Paramètres sont regroupés en sections claires, avec un nouvel interrupteur fluide identique sur tous les appareils.
+• Les Statistiques s'ouvrent sur votre progression présentée dans un bloc de sudoku, suivie d'une échelle de difficulté avec votre taux de victoires à chaque niveau.
+• Le Défi du jour affiche votre semaine en un coup d'œil, votre série et vos résolutions récentes. Une fois la grille du jour résolue, un compte à rebours indique l'arrivée de la suivante, et vous pouvez partager votre résultat.
+• Les indices fonctionnent désormais de façon fiable, même en fin de partie sur les grilles les plus difficiles.
+• Les explications des indices précisent mieux quels chiffres sont confinés aux cases surlignées.
+• Les libellés changent immédiatement quand vous changez de langue.
+• Petites finitions : le chargement des boutons de départ Enfer et Infini a la bonne couleur, le taux de victoires tient sur une ligne, le niveau de la relecture est visible en mode sombre et la barre d'onglets reste en place pendant le défilement.

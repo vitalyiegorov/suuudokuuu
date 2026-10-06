@@ -1,6 +1,6 @@
-Setiap petunjuk kini berakhir dengan satu angka terisi, jadi kamu tak pernah buntu.
-Logika terlalu panjang? Petunjuk menampilkan satu angka yang benar.
-Kartu petunjuk lebih kecil, tepat di bawah papan.
-Neraka kini menjadi tantangan rantai paksa sejati.
-Penyimpanan permainan lebih cepat dan kokoh.
-Header layar diperbaiki.
+Pengaturan, Statistik, dan Tantangan harian yang baru.
+Pengaturan: bagian yang rapi dan sakelar baru yang halus.
+Statistik: ringkasan kotak sudoku dan tangga kesulitan dengan persentase menang.
+Harian: strip minggu, rentetan, solusi terbaru, hitung mundur, dan berbagi.
+Petunjuk kini andal, bahkan di akhir permainan sulit.
+Penjelasan lebih jelas, ganti bahasa langsung berlaku, dan perbaikan kecil.

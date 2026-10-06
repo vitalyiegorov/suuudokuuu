@@ -1,6 +1,6 @@
-Agora toda dica termina com um dígito colocado, então você nunca fica travado.
-Lógica longa? A dica revela um dígito correto.
-Cartão de dica menor, logo abaixo do tabuleiro.
-O Inferno agora é um verdadeiro desafio de cadeias forçadas.
-Salvamento das partidas mais rápido e robusto.
-Cabeçalhos das telas corrigidos.
+Novas Configurações, Estatísticas e Desafio diário.
+Configurações: seções claras e um novo interruptor suave.
+Estatísticas: resumo em bloco de sudoku e escada de dificuldade com vitórias.
+Diário: semana, sequência, soluções recentes, contagem regressiva e compartilhar.
+Dicas confiáveis mesmo no fim de jogos difíceis.
+Explicações mais claras, troca de idioma na hora e pequenos ajustes.
