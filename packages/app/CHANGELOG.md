@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.18.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.5...v2.18.0) (2026-10-06)
+
+### Bug Fixes
+
+* **app:** describe Hell as the forcing-chain tier on the difficulty card ([167ced7](https://github.com/vitalyiegorov/suuudokuuu/commit/167ced71757958c3e48ddb28e8ebee4b906fad75))
+
+
 ## [2.17.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.4...v2.17.5) (2026-10-06)
 
 **Note:** Version bump only for package @suuudokuuu/app

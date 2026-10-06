@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.18.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.5...v2.18.0) (2026-10-06)
+
+### Features
+
+* **landing:** add pages for the uniqueness and forcing-chain techniques ([87e6bf2](https://github.com/vitalyiegorov/suuudokuuu/commit/87e6bf24e057305d956cc7ac57760c43c5dd0c3e))
+* **landing:** add the Infinity lander and printable booklet ([a78cf51](https://github.com/vitalyiegorov/suuudokuuu/commit/a78cf51263f3ab9c95b3903a9135b2e1df250d2b))
+* **landing:** count Infinity among the difficulty levels ([4884db4](https://github.com/vitalyiegorov/suuudokuuu/commit/4884db4c0c21dab46e01c73c0ef56d2bb7f63314))
+
+
 ## [2.17.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.4...v2.17.5) (2026-10-06)
 
 **Note:** Version bump only for package @suuudokuuu/landing
