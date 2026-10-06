@@ -272,6 +272,21 @@
                         "message": "Call the function directly with typed arguments."
                     },
                     {
+                        "object": "globalThis",
+                        "property": "crypto",
+                        "message": "The Hermes engine the app ships has no global crypto."
+                    },
+                    {
+                        "object": "globalThis",
+                        "property": "SharedArrayBuffer",
+                        "message": "The Hermes engine the app ships has no SharedArrayBuffer."
+                    },
+                    {
+                        "object": "globalThis",
+                        "property": "Atomics",
+                        "message": "The Hermes engine the app ships has no Atomics."
+                    },
+                    {
                         "object": "Intl",
                         "property": "Segmenter",
                         "message": "The Hermes engine the app ships implements only Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat and Intl.getCanonicalLocales."
