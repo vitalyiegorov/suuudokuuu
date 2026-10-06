@@ -3,7 +3,17 @@
     "compilerOptions": {
         "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo.json",
         "jsx": "react-native",
-        "lib": ["DOM", "ES2022"],
+        "lib": [
+            "DOM",
+            "ES2022",
+            "ES2024.Object",
+            "ES2024.Collection",
+            "ES2024.Promise",
+            "ES2024.String",
+            "ESNext.Collection",
+            "ESNext.Iterator",
+            "ESNext.Promise"
+        ],
         "module": "preserve",
         "moduleDetection": "force",
         "moduleResolution": "bundler",

@@ -271,7 +271,7 @@ Algorithm-heavy techniques/generator exceptions require a short, human-readable 
 ## Important Notes
 
 - Use `pnpm`, never `npm` or `yarn`.
-- The TypeScript `lib` is `ES2022` plus `types/hermes-runtime.d.ts`, which declares only the newer built-ins the shipped Hermes engine implements. Node runs the tests, so a newer API compiles and passes tests yet throws on device; never raise `lib` or add a declaration without checking the Hermes version in `packages/app` supports it.
+- The TypeScript `lib` is `ES2022` plus the `ES2024.Object`/`Collection`/`Promise`/`String` and `ESNext.Collection`/`Iterator`/`Promise` entries, plus `types/hermes-runtime.d.ts`, which declares only the newer built-ins the shipped Hermes engine implements. Node runs the tests, so a newer API compiles and passes tests yet throws on device; never raise `lib` or add a declaration without checking the Hermes version in `packages/app` supports it.
 - The root config has no `DOM` lib and no `node` types, so domain packages cannot reach browser or Node globals; only `app`, `ui`, `field-dom`, `landing` and `web-tests` add `DOM`, and only Node-run code (tests, scripts, `test-kit`, `vercel-functions`) adds `node`. Hermes has no `Intl.Segmenter`, `ListFormat`, `RelativeTimeFormat`, `DisplayNames`, `Locale` or `PluralRules` (the app polyfills `PluralRules` for Lingui), no global `crypto`, `SharedArrayBuffer` or `Atomics` (lint forbids them), and its `localeCompare` collates per platform, so sort machine keys by code unit.
 - Do not modify `.jscpd.json`; fix duplication in source or restructure narrowly.
 - Do not edit generated Lingui `messages.ts` by hand.

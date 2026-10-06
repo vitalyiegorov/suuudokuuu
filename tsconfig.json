@@ -5,7 +5,16 @@
         "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "Bundler",
-        "lib": ["ES2022"],
+        "lib": [
+            "ES2022",
+            "ES2024.Object",
+            "ES2024.Collection",
+            "ES2024.Promise",
+            "ES2024.String",
+            "ESNext.Collection",
+            "ESNext.Iterator",
+            "ESNext.Promise"
+        ],
         "types": [],
         "jsx": "react-jsx",
         "skipLibCheck": true,
