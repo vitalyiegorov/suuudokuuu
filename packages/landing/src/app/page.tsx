@@ -16,6 +16,7 @@ import { hardestSudokuPuzzlesPageMetadata } from './hardest-sudoku-puzzles/metad
 import { howToPlayPageMetadata } from './how-to-play/metadata';
 import { homePageMetadata } from './metadata';
 import { solverPageMetadata } from './solver/metadata';
+import { infinitySudokuPageMetadata } from './sudoku/infinity/metadata';
 import { sudokuDifficultiesPageMetadata } from './sudoku/metadata';
 import { fullHousePageMetadata } from './techniques/full-house/metadata';
 import { hiddenSinglePageMetadata } from './techniques/hidden-single/metadata';
@@ -35,10 +36,10 @@ const HomePage = () => (
         <h1>Play Free Online Sudoku</h1>
         <p>
             Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall,
-            and {SITE_NAME} is a free, open-source implementation of it — six difficulty levels from Newbie to Hell, technique-explaining
-            guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same streaks and stats
-            everywhere. See <Link href={whySuuudokuuuPageMetadata.path}>why {SITE_NAME} is built this way</Link> for the full, verifiable
-            case.
+            and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity,
+            technique-explaining guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same streaks
+            and stats everywhere. See <Link href={whySuuudokuuuPageMetadata.path}>why {SITE_NAME} is built this way</Link> for the full,
+            verifiable case.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play now
@@ -46,7 +47,8 @@ const HomePage = () => (
         <h2>Why players stay</h2>
         <SoftwareApplicationSchema description={SITE_DESCRIPTION} name={SITE_NAME} path={homePageMetadata.path}>
             <SoftwareApplicationFeature>
-                Six difficulty levels from Newbie through Hell, the top tier built from boards that need a forcing chain
+                Seven difficulty levels from Newbie through Hell to Infinity, the top tier serving record puzzles such as Everest and AI
+                Escargot
             </SoftwareApplicationFeature>
             <SoftwareApplicationFeature>
                 Technique-aware hints that name the exact solving pattern, not just the next digit
@@ -92,7 +94,7 @@ const HomePage = () => (
         </p>
         <h2>Difficulty guides</h2>
         <p>
-            Every tier from Newbie to Hell now has its own guide, breaking down exactly what separates one level from the next — clue
+            Every tier from Newbie to Infinity now has its own guide, breaking down exactly what separates one level from the next — clue
             counts, required techniques and an honest read on how hard each one really is. Start on the{' '}
             <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or see how it compares to the{' '}
             <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest puzzles</Link> ever published.
@@ -122,8 +124,9 @@ const HomePage = () => (
             <Faq>
                 <FaqQuestion>What difficulty levels exist?</FaqQuestion>
                 <FaqAnswer>
-                    Six: Newbie, Easy, Medium, Hard, Nightmare and Hell. Hell puzzles come from a bundled, verified corpus of boards that
-                    each need a forcing chain, beyond anything Nightmare asks for.
+                    Seven: Newbie, Easy, Medium, Hard, Nightmare, Hell and Infinity. Hell puzzles come from a bundled, verified corpus of
+                    boards that each need a forcing chain, beyond anything Nightmare asks for, and{' '}
+                    <Link href={infinitySudokuPageMetadata.path}>Infinity</Link> serves record puzzles such as Everest and AI Escargot.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

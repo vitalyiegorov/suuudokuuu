@@ -65,13 +65,13 @@ const WhySuuudokuuuPage = () => (
         <h2>Puzzles that are actually verified, not just generated</h2>
         <p>
             Every puzzle {SITE_NAME} generates is checked for exactly one solution before it is served, using a solver-backed uniqueness
-            check in the generator itself — no puzzle ever requires a guess to finish. The hardest tier goes further: Hell-difficulty
+            check in the generator itself — no puzzle ever requires a guess to finish. The two hardest tiers go further: Hell-difficulty
             puzzles come from a bundled, pre-verified corpus of boards that each need a forcing chain, selected from published hard-puzzle
-            catalogs and kept only if our technique ladder can still finish them without guessing. Those puzzles are additionally
-            cross-checked by two independent solving algorithms — a Dancing Links exact-cover solver and a typed-array bitmask solver — so
-            one algorithm’s bug cannot silently ship a broken puzzle. All three solvers, <code>solver-dlx</code>,{' '}
-            <code>solver-bitmask</code> and the shared <code>solver-core</code> contract they both implement, are separate open packages in
-            the repository, not a black box.
+            catalogs and kept only if our technique ladder can still finish them without guessing, and Infinity serves a curated corpus of
+            record puzzles with published ratings. Both corpora are additionally cross-checked by two independent solving algorithms — a
+            Dancing Links exact-cover solver and a typed-array bitmask solver — so one algorithm’s bug cannot silently ship a broken puzzle.
+            All three solvers, <code>solver-dlx</code>, <code>solver-bitmask</code> and the shared <code>solver-core</code> contract they
+            both implement, are separate open packages in the repository, not a black box.
         </p>
         <h2>Hints that teach, not just answer</h2>
         <p>

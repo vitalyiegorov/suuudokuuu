@@ -74,7 +74,7 @@ const SudokuCluesVsDifficultyPage = () => {
                         band apart: SE <SeRatingRange report={mediumReport} /> against SE <SeRatingRange report={hardReport} />.
                     </li>
                     <li>
-                        Our hardest tier ignores clue count entirely: Hell boards carry {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to{' '}
+                        Our hardest measured tier ignores clue count entirely: Hell boards carry {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to{' '}
                         {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues and measure SE <SeRatingRange report={hellReport} /> against SE{' '}
                         <SeRatingRange report={nightmareReport} /> for {nightmareReport.clueCount}-clue Nightmare.
                     </li>

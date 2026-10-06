@@ -130,8 +130,8 @@ const SudokuForSeniorsPage = () => (
             <Faq>
                 <FaqQuestion>Does it cost anything?</FaqQuestion>
                 <FaqAnswer>
-                    No. Every difficulty from Newbie to Hell, every hint and every comfort setting is free, with no in-app purchase and no
-                    ads.
+                    No. Every difficulty from Newbie to Infinity, every hint and every comfort setting is free, with no in-app purchase and
+                    no ads.
                 </FaqAnswer>
             </Faq>
         </FaqPage>
