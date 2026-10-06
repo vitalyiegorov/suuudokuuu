@@ -77,8 +77,8 @@ appId: ${APP_ID}
       element:
           text: 'Maestro theme'
       direction: DOWN
-- tapOn:
-      id: 'MainTabSelectors.Play'
+- openLink:
+      link: 'suuudokuuu://'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
