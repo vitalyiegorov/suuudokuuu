@@ -5,5 +5,5 @@ Nuevas pantallas de Ajustes, Estadísticas y Reto diario, y sugerencias con las 
 • El Reto diario muestra tu semana de un vistazo, tu racha y tus soluciones recientes. Cuando resuelves el sudoku de hoy, una cuenta atrás te indica cuándo llega el siguiente y puedes compartir tu resultado.
 • Las sugerencias ahora funcionan con fiabilidad incluso al final de las partidas más difíciles.
 • Las explicaciones de las sugerencias indican con más claridad qué dígitos quedan confinados a las celdas destacadas.
-• Los textos se actualizan al instante cuando cambias de idioma.
-• Pequeños retoques: los botones de inicio de Infierno e Infinito muestran la carga en el color correcto, el porcentaje de victorias cabe en una línea, el nivel de la repetición se ve en modo oscuro y la barra de pestañas se queda fija al desplazarte.
+• La racha, la cuenta atrás y los puntos se actualizan al instante cuando cambias de idioma.
+• Pequeños retoques: los botones de inicio de Infierno e Infinito muestran la carga en el color correcto, el porcentaje de victorias cabe en una línea, el nivel de la repetición se ve en modo oscuro los nombres largos de las pestañas ya caben en la barra de pestañas y la barra se queda fija al desplazarte.

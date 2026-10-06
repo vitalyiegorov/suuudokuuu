@@ -3,4 +3,5 @@ Settings: clean grouped sections and a smooth new switch.
 Statistics: a sudoku-box summary and a difficulty ladder with win rates.
 Daily: week strip, streak, recent solves, next-puzzle countdown and sharing.
 Hints now work reliably, even late in the toughest games.
-Clearer hint explanations, labels that follow a language switch instantly, and small visual fixes.
+Long tab names now fit in the tab bar.
+Clearer hint explanations, streak and countdown labels that follow a language switch, and small visual fixes.

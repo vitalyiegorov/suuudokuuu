@@ -3,4 +3,5 @@ Paramètres : sections claires et nouvel interrupteur fluide.
 Statistiques : récapitulatif en bloc de sudoku et échelle de difficulté.
 Défi du jour : semaine, série, résolutions récentes, compte à rebours, partage.
 Des indices fiables, même en fin de partie difficile.
-Explications plus claires, changement de langue immédiat et petites retouches.
+Les noms d'onglets longs tiennent désormais dans la barre.
+Explications plus claires, série et compte à rebours traduits aussitôt, petites retouches.

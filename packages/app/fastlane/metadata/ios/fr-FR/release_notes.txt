@@ -5,5 +5,5 @@ De nouveaux écrans Paramètres, Statistiques et Défi du jour, et des indices s
 • Le Défi du jour affiche votre semaine en un coup d'œil, votre série et vos résolutions récentes. Une fois la grille du jour résolue, un compte à rebours indique l'arrivée de la suivante, et vous pouvez partager votre résultat.
 • Les indices fonctionnent désormais de façon fiable, même en fin de partie sur les grilles les plus difficiles.
 • Les explications des indices précisent mieux quels chiffres sont confinés aux cases surlignées.
-• Les libellés changent immédiatement quand vous changez de langue.
-• Petites finitions : le chargement des boutons de départ Enfer et Infini a la bonne couleur, le taux de victoires tient sur une ligne, le niveau de la relecture est visible en mode sombre et la barre d'onglets reste en place pendant le défilement.
+• La série, le compte à rebours et les points changent immédiatement de langue quand vous en changez.
+• Petites finitions : le chargement des boutons de départ Enfer et Infini a la bonne couleur, le taux de victoires tient sur une ligne, le niveau de la relecture est visible en mode sombre les noms d'onglets longs tiennent désormais dans la barre d'onglets, et celle-ci reste en place pendant le défilement.
