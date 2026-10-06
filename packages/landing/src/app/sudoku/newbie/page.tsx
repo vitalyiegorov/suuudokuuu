@@ -93,7 +93,7 @@ const NewbieSudokuPage = () => {
                 <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link> guide for large-print and comfort options. Browse
                 the full <Link href={techniquesPageMetadata.path}>technique index</Link> or the{' '}
                 <Link href={howToPlayPageMetadata.path}>how to play guide</Link>, or head back{' '}
-                <Link href={homePageMetadata.path}>home</Link> and see all six tiers on the{' '}
+                <Link href={homePageMetadata.path}>home</Link> and see all seven tiers on the{' '}
                 <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub.
             </p>
             <FaqPage>
@@ -116,8 +116,8 @@ const NewbieSudokuPage = () => {
                 <Faq>
                     <FaqQuestion>What is the easiest Sudoku difficulty?</FaqQuestion>
                     <FaqAnswer>
-                        Newbie is the easiest of Suuudokuuu’s six tiers, followed by Easy, Medium, Hard, Nightmare and Hell in increasing
-                        order of technique demand.
+                        Newbie is the easiest of Suuudokuuu’s seven tiers, followed by Easy, Medium, Hard, Nightmare, Hell and Infinity in
+                        increasing order of difficulty.
                     </FaqAnswer>
                 </Faq>
                 <Faq>

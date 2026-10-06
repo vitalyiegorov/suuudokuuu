@@ -8,7 +8,7 @@ export const sudokuCluesVsDifficultyPageMetadata: PageMetadataInterface = {
     metaDescription:
         'Measured answer to whether fewer sudoku clues mean a harder puzzle, using logical-solve data from 240 puzzles across six difficulty tiers.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-09-29T00:00:00.000Z',
+    updatedAt: '2026-10-06T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.9
 };
