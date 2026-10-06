@@ -8,7 +8,7 @@ const homePath = '/';
 const techniqueHubPath = '/techniques';
 const techniquePagePath = '/techniques/x-wing';
 
-const techniquePageCount = 26;
+const techniquePageCount = 31;
 const breadcrumbDepth = 3;
 const okStatus = 200;
 

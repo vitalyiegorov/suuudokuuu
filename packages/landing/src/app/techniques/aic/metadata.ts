@@ -11,7 +11,7 @@ export const aicPageMetadata: PageMetadataInterface = {
     metaDescription:
         'An AIC alternates strong and weak links across candidates and cells, generalising X-Chains, XY-Chains and coloring into a single elimination technique.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-11T00:00:00.000Z',
+    updatedAt: '2026-10-06T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

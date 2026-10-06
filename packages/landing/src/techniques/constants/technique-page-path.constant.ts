@@ -2,6 +2,8 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { aicPageMetadata } from '../../app/techniques/aic/metadata';
 import { boxLineReductionPageMetadata } from '../../app/techniques/box-line-reduction/metadata';
+import { bugPageMetadata } from '../../app/techniques/bug/metadata';
+import { cellForcingChainPageMetadata } from '../../app/techniques/cell-forcing-chain/metadata';
 import { finnedSwordfishPageMetadata } from '../../app/techniques/finned-swordfish/metadata';
 import { finnedXWingPageMetadata } from '../../app/techniques/finned-x-wing/metadata';
 import { fullHousePageMetadata } from '../../app/techniques/full-house/metadata';
@@ -15,12 +17,15 @@ import { nakedPairPageMetadata } from '../../app/techniques/naked-pair/metadata'
 import { nakedQuadPageMetadata } from '../../app/techniques/naked-quad/metadata';
 import { nakedSinglePageMetadata } from '../../app/techniques/naked-single/metadata';
 import { nakedTriplePageMetadata } from '../../app/techniques/naked-triple/metadata';
+import { nishioForcingChainPageMetadata } from '../../app/techniques/nishio-forcing-chain/metadata';
 import { pointingPairPageMetadata } from '../../app/techniques/pointing-pair/metadata';
 import { pointingTriplePageMetadata } from '../../app/techniques/pointing-triple/metadata';
+import { regionForcingChainPageMetadata } from '../../app/techniques/region-forcing-chain/metadata';
 import { sashimiSwordfishPageMetadata } from '../../app/techniques/sashimi-swordfish/metadata';
 import { sashimiXWingPageMetadata } from '../../app/techniques/sashimi-x-wing/metadata';
 import { simpleColoringPageMetadata } from '../../app/techniques/simple-coloring/metadata';
 import { swordfishPageMetadata } from '../../app/techniques/swordfish/metadata';
+import { uniqueRectanglePageMetadata } from '../../app/techniques/unique-rectangle/metadata';
 import { wWingPageMetadata } from '../../app/techniques/w-wing/metadata';
 import { xChainPageMetadata } from '../../app/techniques/x-chain/metadata';
 import { xWingPageMetadata } from '../../app/techniques/x-wing/metadata';
@@ -56,9 +61,9 @@ export const TECHNIQUE_PAGE_PATHS: Record<SolutionTechniqueEnum, string> = {
     [SolutionTechniqueEnum.XYChain]: xyChainPageMetadata.path,
     [SolutionTechniqueEnum.SimpleColoring]: simpleColoringPageMetadata.path,
     [SolutionTechniqueEnum.AIC]: aicPageMetadata.path,
-    [SolutionTechniqueEnum.UniqueRectangle]: techniquesPageMetadata.path,
-    [SolutionTechniqueEnum.BivalueUniversalGrave]: techniquesPageMetadata.path,
-    [SolutionTechniqueEnum.NishioForcingChain]: techniquesPageMetadata.path,
-    [SolutionTechniqueEnum.CellForcingChain]: techniquesPageMetadata.path,
-    [SolutionTechniqueEnum.RegionForcingChain]: techniquesPageMetadata.path
+    [SolutionTechniqueEnum.UniqueRectangle]: uniqueRectanglePageMetadata.path,
+    [SolutionTechniqueEnum.BivalueUniversalGrave]: bugPageMetadata.path,
+    [SolutionTechniqueEnum.NishioForcingChain]: nishioForcingChainPageMetadata.path,
+    [SolutionTechniqueEnum.CellForcingChain]: cellForcingChainPageMetadata.path,
+    [SolutionTechniqueEnum.RegionForcingChain]: regionForcingChainPageMetadata.path
 };
