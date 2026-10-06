@@ -171,7 +171,7 @@ specs at `specs/`.
 | `04.comfort-text-size.spec.ts`    | The comfort scale: three steps in the header, `aria-pressed`, root font size and board cell growth, `localStorage` persistence across a reload, and the pre-paint inline script in raw HTML.                                                                         |
 | `05.navigation-chains.spec.ts`    | Header and footer links resolve, the technique prev/next chain navigates both ways, breadcrumbs mark the current page, and the hub's visible list equals its `ItemList` structured data (31 techniques).                                                             |
 | `06.solver-flow.spec.ts`          | The solver island: static shell in raw HTML, a sample puzzle narrates into technique-linked steps with a live replay board, empty grid reports multiple solutions, contradictory grid reports none, no console errors.                                               |
-| `07.printables.spec.ts`           | The printable hub lists six tiers plus the extras, and every `.pdf` link answers 200 with the `%PDF-` magic bytes.                                                                                                                                                   |
+| `07.printables.spec.ts`           | The printable hub lists seven tiers plus the extras, and every `.pdf` link answers 200 with the `%PDF-` magic bytes.                                                                                                                                                 |
 | `08.faq-rendering.spec.ts`        | A `FaqPage` renders one `<details>` per entry and the visible summaries are exactly the `FAQPage` schema questions, in order.                                                                                                                                        |
 | `09.not-found.spec.ts`            | An unknown path answers 404 with the landing 404 document and its site chrome.                                                                                                                                                                                       |
 
@@ -189,7 +189,7 @@ Rules specific to this scope:
 3. Never assert a number that `pnpm --filter @suuudokuuu/landing generate:rating-sample` can move.
    Clue counts, SE ranges and technique frequencies are regenerable data: assert that a numeric cell
    renders and that the row count matches the tier count, not the value. Counts that come from
-   source enumerations (31 technique pages, 6 difficulty tiers) are fair to pin literally.
+   source enumerations (31 technique pages, 7 difficulty tiers) are fair to pin literally.
 4. `readJsonLdSchema` (`src/utils/json-ld.util.ts`) locates a schema block by its serialized
    `{"@context":…,"@type":…}` prefix and returns `null` when the page does not publish it, so a spec
    can assert both presence and absence. Assert against it with `toMatchObject` rather than reading

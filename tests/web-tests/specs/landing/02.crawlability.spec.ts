@@ -14,7 +14,7 @@ const articlePagePaths = [techniquePagePath, difficultyLanderPath, guidePagePath
 const sampledPagePaths = [homePath, techniquePagePath, difficultyLanderPath, guidePagePath, techniqueHubPath];
 
 const staticSudokuCellCount = 81;
-const difficultyTierCount = 6;
+const ratedTierCount = 6;
 const singleHeadingCount = 1;
 const okStatus = 200;
 
@@ -54,7 +54,7 @@ test('serves the guide measured-data tables as static markup', async ({ request 
     expect(html.match(/<table class="data-table">/gu) ?? []).toHaveLength(2);
     expect(html).toContain('<th scope="col">SE range</th>');
     expect(html).toContain('<th scope="col">Technique</th>');
-    expect(tierRowMatches).toHaveLength(difficultyTierCount);
+    expect(tierRowMatches).toHaveLength(ratedTierCount);
     expect(html).toMatch(/<a href="\/sudoku\/newbie">Newbie<\/a><\/th><td>\d+<\/td>/u);
 });
 

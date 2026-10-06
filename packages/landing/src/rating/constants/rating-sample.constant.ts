@@ -1,6 +1,6 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
-import type { LandingDifficultyType } from '../../difficulty/types/landing-difficulty.type';
+import type { RatedDifficultyType } from '../../difficulty/types/rated-difficulty.type';
 import type { RatedSamplePuzzleInterface } from '../interfaces/rated-sample-puzzle.interface';
 
 export const RATING_SAMPLE_SIZE = 40;
@@ -263,7 +263,7 @@ const HELL_SAMPLE: RatedSamplePuzzleInterface[] = [
     { puzzle: '.6.9..3......7....123........7..9..6....6....84.....2.5928...4......58..6....7..1', rating: 7.9, isRatingCeiling: false }
 ];
 
-export const RATING_SAMPLE_PUZZLES: Record<LandingDifficultyType, RatedSamplePuzzleInterface[]> = {
+export const RATING_SAMPLE_PUZZLES: Record<RatedDifficultyType, RatedSamplePuzzleInterface[]> = {
     [DifficultyEnum.Newbie]: NEWBIE_SAMPLE,
     [DifficultyEnum.Easy]: EASY_SAMPLE,
     [DifficultyEnum.Medium]: MEDIUM_SAMPLE,

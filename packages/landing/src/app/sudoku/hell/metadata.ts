@@ -12,7 +12,7 @@ export const hellSudokuPageMetadata: PageMetadataInterface = {
     metaDescription:
         'Free evil, extreme Sudoku where every board needs a forcing chain, beyond chains, coloring and AIC. Play the hardest Hell-level Sudoku online for free.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-09-29T00:00:00.000Z',
+    updatedAt: '2026-10-06T00:00:00.000Z',
     changeFrequency: 'weekly',
     priority: 0.8
 };

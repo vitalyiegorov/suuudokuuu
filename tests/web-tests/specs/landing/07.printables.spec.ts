@@ -5,7 +5,7 @@ import { readJsonLdSchema } from '../../src/utils/json-ld.util';
 
 const printableHubPath = '/printable';
 
-const printableTierCount = 6;
+const printableTierCount = 7;
 const okStatus = 200;
 const pdfMagicBytes = '%PDF-';
 const pdfMagicByteLength = pdfMagicBytes.length;

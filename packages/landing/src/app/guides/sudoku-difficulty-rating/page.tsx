@@ -22,6 +22,7 @@ import { seventeenClueSudokuPageMetadata } from '../../17-clue-sudoku/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../../hardest-sudoku-puzzles/metadata';
 import { homePageMetadata } from '../../metadata';
 import { solverPageMetadata } from '../../solver/metadata';
+import { infinitySudokuPageMetadata } from '../../sudoku/infinity/metadata';
 import { sudokuDifficultiesPageMetadata } from '../../sudoku/metadata';
 import { aicPageMetadata } from '../../techniques/aic/metadata';
 import { hiddenSinglePageMetadata } from '../../techniques/hidden-single/metadata';
@@ -166,8 +167,10 @@ const SudokuDifficultyRatingPage = () => {
                 {SE_RATING_CEILING} on this site should be read as “{SE_RATING_CEILING} or above”, never as a precise score. That matters at
                 the top of the scale: the record puzzles on our{' '}
                 <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest sudoku puzzles</Link> page are quoted at values independent
-                raters publish, because our own engine would report them at the ceiling. Nothing we generate comes close: no board in the
-                sample below reached the ceiling, and the “past our detectors” column is {hellReport.beyondLadderPuzzleCount} of{' '}
+                raters publish, because our own engine would report them at the ceiling. The same goes for{' '}
+                <Link href={infinitySudokuPageMetadata.path}>Infinity</Link>, the tier that serves those record puzzles, which is why it
+                quotes published ratings and sits outside the measured sample on this page. Nothing else we serve comes close: no board in
+                the sample below reached the ceiling, and the “past our detectors” column is {hellReport.beyondLadderPuzzleCount} of{' '}
                 {hellReport.sampleSize} in every tier, so nothing on this page rests on a puzzle the registry could not finish. You can
                 watch the same registry work step by step in the <Link href={solverPageMetadata.path}>sudoku solver</Link>.
             </p>
