@@ -19,6 +19,10 @@ export const ReplayHeaderStyles = StyleSheet.create(theme => ({
         letterSpacing: 0.5,
         lineHeight: 12
     },
+    levelPressable: {
+        flexShrink: 1,
+        minWidth: 0
+    },
     separator: {
         height: 36,
         marginHorizontal: 2

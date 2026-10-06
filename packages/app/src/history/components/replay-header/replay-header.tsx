@@ -1,8 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
-import { AppMetricStrip, AppMetricStripItem, AppMetricStripValueItem } from '@suuudokuuu/ui';
-import { MetricMinimumFontScaleConstant } from '@suuudokuuu/ui/theme';
+import { AppMetricStrip, AppMetricStripValueItem } from '@suuudokuuu/ui';
 import { router } from 'expo-router';
-import { Pressable, Text } from 'react-native';
+import { Pressable } from 'react-native';
 
 import { isPositiveNumber } from '@rnw-community/shared';
 
@@ -33,21 +32,7 @@ export const ReplayHeader = ({ game }: Props) => {
         router.push(getRatingExplainerHref(game.rating, game.isRatingCeiling));
     };
 
-    const levelItem = hasRating ? (
-        <AppMetricStripItem label={t`Level`} labelStyle={styles.label} style={styles.item}>
-            <Pressable accessibilityRole="button" onPress={handlePressLevel} testID={ReplayHeaderSelectors.Level}>
-                <Text
-                    adjustsFontSizeToFit
-                    allowFontScaling={false}
-                    minimumFontScale={MetricMinimumFontScaleConstant}
-                    numberOfLines={1}
-                    style={styles.value}
-                >
-                    {levelText}
-                </Text>
-            </Pressable>
-        </AppMetricStripItem>
-    ) : (
+    const levelValueItem = (
         <AppMetricStripValueItem
             label={t`Level`}
             labelStyle={styles.label}
@@ -56,6 +41,13 @@ export const ReplayHeader = ({ game }: Props) => {
             value={levelText}
             valueStyle={styles.value}
         />
+    );
+    const levelItem = hasRating ? (
+        <Pressable accessibilityRole="button" onPress={handlePressLevel} style={styles.levelPressable}>
+            {levelValueItem}
+        </Pressable>
+    ) : (
+        levelValueItem
     );
 
     return (
