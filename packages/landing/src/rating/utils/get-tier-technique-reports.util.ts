@@ -2,13 +2,13 @@ import { isDefined } from '@rnw-community/shared';
 
 import { TIER_TECHNIQUE_REPORTS } from '../constants/tier-technique-reports.constant';
 
-import type { LandingDifficultyType } from '../../difficulty/types/landing-difficulty.type';
+import type { RatedDifficultyType } from '../../difficulty/types/rated-difficulty.type';
 import type { TierTechniqueReportInterface } from '../interfaces/tier-technique-report.interface';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export const getTierTechniqueReports = (): TierTechniqueReportInterface[] => TIER_TECHNIQUE_REPORTS;
 
-export const getTierTechniqueReport = (difficulty: LandingDifficultyType): TierTechniqueReportInterface => {
+export const getTierTechniqueReport = (difficulty: RatedDifficultyType): TierTechniqueReportInterface => {
     const report = getTierTechniqueReports().find(tierReport => tierReport.difficulty === difficulty);
 
     if (!isDefined(report)) {

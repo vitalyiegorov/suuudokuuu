@@ -26,6 +26,7 @@ import { seventeenClueSudokuPageMetadata } from '../../17-clue-sudoku/metadata';
 import { homePageMetadata } from '../../metadata';
 import { hellSudokuPageMetadata } from '../../sudoku/hell/metadata';
 import { printableHardSudokuPageMetadata } from '../hard/metadata';
+import { printableInfinitySudokuPageMetadata } from '../infinity/metadata';
 import { printableSudokuPageMetadata } from '../metadata';
 import { printableNightmareSudokuPageMetadata } from '../nightmare/metadata';
 
@@ -100,7 +101,9 @@ const PrintableHellSudokuPage = () => (
             <Link href={printableNightmareSudokuPageMetadata.path}>printable Nightmare sudoku booklet</Link> for the same chain reasoning
             with more of the grid filled in, or to <Link href={printableHardSudokuPageMetadata.path}>printable Hard sudoku</Link> for fish
             and wings without chain-length reasoning, or play Hell on a screen at the{' '}
-            <Link href={hellSudokuPageMetadata.path}>Hell sudoku lander</Link>, where the same corpus powers every puzzle.
+            <Link href={hellSudokuPageMetadata.path}>Hell sudoku lander</Link>, where the same corpus powers every puzzle. Ready for the
+            record puzzles? The <Link href={printableInfinitySudokuPageMetadata.path}>printable Infinity sudoku booklet</Link> prints
+            Everest, AI Escargot and other record grids.
         </p>
         <FaqPage>
             <FaqHeading>Printable Hell Sudoku FAQ</FaqHeading>
@@ -132,7 +135,7 @@ const PrintableHellSudokuPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <DifficultyNavigation previous={printableNightmareSudokuPageMetadata} />
+        <DifficultyNavigation next={printableInfinitySudokuPageMetadata} previous={printableNightmareSudokuPageMetadata} />
     </main>
 );
 

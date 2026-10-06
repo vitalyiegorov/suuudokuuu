@@ -9,6 +9,7 @@ import { homePageMetadata } from '../../app/metadata';
 import { printableEasySudokuPageMetadata } from '../../app/printable/easy/metadata';
 import { printableHardSudokuPageMetadata } from '../../app/printable/hard/metadata';
 import { printableHellSudokuPageMetadata } from '../../app/printable/hell/metadata';
+import { printableInfinitySudokuPageMetadata } from '../../app/printable/infinity/metadata';
 import { printableMediumSudokuPageMetadata } from '../../app/printable/medium/metadata';
 import { printableSudokuPageMetadata } from '../../app/printable/metadata';
 import { printableNewbieSudokuPageMetadata } from '../../app/printable/newbie/metadata';
@@ -18,6 +19,7 @@ import { sudokuForSeniorsPageMetadata } from '../../app/sudoku-for-seniors/metad
 import { easySudokuPageMetadata } from '../../app/sudoku/easy/metadata';
 import { hardSudokuPageMetadata } from '../../app/sudoku/hard/metadata';
 import { hellSudokuPageMetadata } from '../../app/sudoku/hell/metadata';
+import { infinitySudokuPageMetadata } from '../../app/sudoku/infinity/metadata';
 import { mediumSudokuPageMetadata } from '../../app/sudoku/medium/metadata';
 import { sudokuDifficultiesPageMetadata } from '../../app/sudoku/metadata';
 import { newbieSudokuPageMetadata } from '../../app/sudoku/newbie/metadata';
@@ -72,6 +74,7 @@ export const PAGE_METADATA_REGISTRY: PageMetadataInterface[] = [
     hardSudokuPageMetadata,
     nightmareSudokuPageMetadata,
     hellSudokuPageMetadata,
+    infinitySudokuPageMetadata,
     hardestSudokuPuzzlesPageMetadata,
     seventeenClueSudokuPageMetadata,
     sudokuDifficultyRatingPageMetadata,
@@ -83,6 +86,7 @@ export const PAGE_METADATA_REGISTRY: PageMetadataInterface[] = [
     printableHardSudokuPageMetadata,
     printableNightmareSudokuPageMetadata,
     printableHellSudokuPageMetadata,
+    printableInfinitySudokuPageMetadata,
     largePrintSudokuPageMetadata,
     techniquesPageMetadata,
     fullHousePageMetadata,

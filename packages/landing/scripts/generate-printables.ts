@@ -23,7 +23,7 @@ import { createPublicDirectory } from './utils/create-public-directory.util';
 import { handleGeneratorError } from './utils/handle-generator-error.util';
 import { writePublicArtifact } from './utils/write-public-artifact.util';
 
-import type { LandingDifficultyType } from '../src/difficulty/types/landing-difficulty.type';
+import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { PDFFont, PDFPage } from 'pdf-lib';
 
 const PAGE_WIDTH = 612;
@@ -247,7 +247,7 @@ const buildBookletDocument = async (booklet: BookletInterface): Promise<PDFDocum
     return doc;
 };
 
-const buildTierBooklet = (difficulty: LandingDifficultyType): BookletInterface => {
+const buildTierBooklet = (difficulty: DifficultyEnum): BookletInterface => {
     const puzzles = PRINTABLE_BOOKLET_PUZZLES[difficulty];
 
     return {

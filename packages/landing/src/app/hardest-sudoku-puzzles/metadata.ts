@@ -8,7 +8,7 @@ export const hardestSudokuPuzzlesPageMetadata: PageMetadataInterface = {
     metaDescription:
         'The hardest sudoku puzzles ever published, ranked — AI Escargot, Platinum Blonde and Inkala’s Everest, with SE ratings and why they defeat human solvers.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-09-29T00:00:00.000Z',
+    updatedAt: '2026-10-06T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.8
 };

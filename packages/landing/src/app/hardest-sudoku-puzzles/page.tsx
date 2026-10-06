@@ -1,3 +1,4 @@
+import { infinityCorpusSize } from '@suuudokuuu/hell-corpus';
 import { SE_RATING_CEILING } from '@suuudokuuu/rating';
 import Link from 'next/link';
 
@@ -16,9 +17,12 @@ import { seventeenClueSudokuPageMetadata } from '../17-clue-sudoku/metadata';
 import { sudokuDifficultyRatingPageMetadata } from '../guides/sudoku-difficulty-rating/metadata';
 import { homePageMetadata } from '../metadata';
 import { printableHellSudokuPageMetadata } from '../printable/hell/metadata';
+import { printableInfinitySudokuPageMetadata } from '../printable/infinity/metadata';
 import { hellSudokuPageMetadata } from '../sudoku/hell/metadata';
+import { infinitySudokuPageMetadata } from '../sudoku/infinity/metadata';
 import { aicPageMetadata } from '../techniques/aic/metadata';
 import { techniquesPageMetadata } from '../techniques/metadata';
+import { nishioForcingChainPageMetadata } from '../techniques/nishio-forcing-chain/metadata';
 import { xChainPageMetadata } from '../techniques/x-chain/metadata';
 
 import { hardestSudokuPuzzlesPageMetadata } from './metadata';
@@ -106,21 +110,29 @@ const HardestSudokuPuzzlesPage = () => (
         </p>
         <h2>Why these puzzles defeat human solvers</h2>
         <p>
-            Every technique on Suuudokuuu’s <Link href={techniquesPageMetadata.path}>technique index</Link>, up through{' '}
+            Every pattern technique on Suuudokuuu’s <Link href={techniquesPageMetadata.path}>technique index</Link>, up through{' '}
             <Link href={aicPageMetadata.path}>AIC</Link> and <Link href={xChainPageMetadata.path}>X-Chain</Link>, justifies one placement or
             one elimination by reasoning about a fixed, bounded pattern of candidates. The puzzles above are built so that no such bounded
-            pattern ever fires. Solving them means building a forcing chain or a forcing net — following the consequences of a single guess,
-            sometimes for dozens of steps, until the only way forward is a contradiction that rules the guess out. That is qualitatively
-            different work from spotting an X-Wing: it is closer to a proof by exhaustive case analysis than to pattern recognition, which
-            is exactly why the SE scale keeps climbing past 10.0 for puzzles that a fish-and-wing solver simply cannot touch.
+            pattern ever fires. Solving them means building a forcing chain or a forcing net — following the consequences of a single
+            assumption, sometimes for dozens of steps, until the only way forward is a contradiction that rules the assumption out. The
+            index covers the short forcing chains, starting with the{' '}
+            <Link href={nishioForcingChainPageMetadata.path}>Nishio forcing chain</Link>; these puzzles need far longer ones. That is
+            qualitatively different work from spotting an X-Wing: it is closer to a proof by exhaustive case analysis than to pattern
+            recognition, which is exactly why the SE scale keeps climbing past 10.0 for puzzles that a fish-and-wing solver simply cannot
+            touch.
         </p>
-        <h2>Play the hardest tier Suuudokuuu has today</h2>
+        <h2>Play these puzzles on Suuudokuuu</h2>
         <p>
-            Suuudokuuu does not yet serve these exact record puzzles — that is on the roadmap. What it serves today is{' '}
-            <Link href={hellSudokuPageMetadata.path}>Hell tier</Link>, drawn from a bundled corpus that is verified for uniqueness and then
-            filtered to boards that need a forcing chain — the same family of reasoning described above, in shorter doses. Prefer paper?
-            Print the <Link href={printableHellSudokuPageMetadata.path}>Hell sudoku PDF</Link>. The tier is hard because of the technique it
-            requires rather than the clue count; seventeen clues is a different fact about a puzzle than “hardest,” and the two get confused
+            Suuudokuuu serves the record puzzles themselves in its <Link href={infinitySudokuPageMetadata.path}>Infinity tier</Link>:
+            Everest, Platinum Blonde, AI Escargot, Golden Nugget and the rest of a curated set of {infinityCorpusSize} grids, each checked
+            for a single solution and reshuffled every game so a familiar puzzle never looks the same twice. Prefer paper? The{' '}
+            <Link href={printableInfinitySudokuPageMetadata.path}>printable Infinity sudoku PDF</Link> prints them as originally published.
+        </p>
+        <p>
+            For the same family of reasoning in shorter doses, play <Link href={hellSudokuPageMetadata.path}>Hell tier</Link>, drawn from a
+            bundled corpus that is verified for uniqueness and then filtered to boards that need a forcing chain, or print the{' '}
+            <Link href={printableHellSudokuPageMetadata.path}>Hell sudoku PDF</Link>. Hell is hard because of the technique it requires
+            rather than the clue count; seventeen clues is a different fact about a puzzle than “hardest,” and the two get confused
             constantly — see the <Link href={seventeenClueSudokuPageMetadata.path}>17-clue sudoku guide</Link> for why minimal and hard are
             not the same property. Measured on our own scale, Hell sits clearly past the generated Nightmare tier and still well below the
             puzzles on this page.
@@ -152,11 +164,11 @@ const HardestSudokuPuzzlesPage = () => (
                 </FaqAnswer>
             </Faq>
             <Faq>
-                <FaqQuestion>Can I play a hardest-tier sudoku on Suuudokuuu?</FaqQuestion>
+                <FaqQuestion>Can I play the hardest sudoku puzzles on Suuudokuuu?</FaqQuestion>
                 <FaqAnswer>
-                    Today, <Link href={hellSudokuPageMetadata.path}>Hell tier</Link> is Suuudokuuu’s hardest, serving verified puzzles that
-                    each need a forcing chain after chains, coloring and AIC run out. It is not in the same league as the record puzzles on
-                    this page; a future tier hosting curated record grids is on the roadmap.
+                    Yes. The <Link href={infinitySudokuPageMetadata.path}>Infinity tier</Link> serves Everest, Platinum Blonde, AI Escargot
+                    and other record puzzles for free. One step below it, <Link href={hellSudokuPageMetadata.path}>Hell tier</Link> serves
+                    verified puzzles that each need a forcing chain after chains, coloring and AIC run out.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

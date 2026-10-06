@@ -1,17 +1,18 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
-import type { LandingDifficultyType } from '../types/landing-difficulty.type';
+import type { RatedDifficultyType } from '../types/rated-difficulty.type';
 
-export const DIFFICULTY_NAMES: Record<LandingDifficultyType, string> = {
+export const DIFFICULTY_NAMES: Record<DifficultyEnum, string> = {
     [DifficultyEnum.Newbie]: 'Newbie',
     [DifficultyEnum.Easy]: 'Easy',
     [DifficultyEnum.Medium]: 'Medium',
     [DifficultyEnum.Hard]: 'Hard',
     [DifficultyEnum.Nightmare]: 'Nightmare',
-    [DifficultyEnum.Hell]: 'Hell'
+    [DifficultyEnum.Hell]: 'Hell',
+    [DifficultyEnum.Infinity]: 'Infinity'
 };
 
-export const DIFFICULTY_LADDER: LandingDifficultyType[] = [
+export const RATED_DIFFICULTY_LADDER: RatedDifficultyType[] = [
     DifficultyEnum.Newbie,
     DifficultyEnum.Easy,
     DifficultyEnum.Medium,
@@ -19,3 +20,5 @@ export const DIFFICULTY_LADDER: LandingDifficultyType[] = [
     DifficultyEnum.Nightmare,
     DifficultyEnum.Hell
 ];
+
+export const DIFFICULTY_LADDER: DifficultyEnum[] = [...RATED_DIFFICULTY_LADDER, DifficultyEnum.Infinity];
