@@ -1,8 +1,9 @@
-Dicas que sempre fazem você avançar, e um Inferno que finalmente faz jus ao nome.
+Novas telas de Configurações, Estatísticas e Desafio diário, e dicas com que você sempre pode contar.
 
-• Agora toda dica termina com um dígito colocado. Chega de dicas que só apontam para anotações a lápis e deixam você travado.
-• Quando a lógica fica longa demais, a dica revela um dígito correto em vez de desistir.
-• O cartão de dica ficou menor e fica logo abaixo do tabuleiro, longe da parte de baixo da tela.
-• O Inferno agora é um verdadeiro desafio de cadeias forçadas, não só um tabuleiro com menos pistas.
-• Suas partidas e seu progresso são salvos de um jeito mais rápido e robusto.
-• Os cabeçalhos das telas voltaram a ter a aparência e a rolagem certas.
+• As Configurações estão agrupadas em seções claras, com um novo interruptor suave que fica igual em qualquer aparelho.
+• As Estatísticas começam com seu progresso em um bloco de sudoku, seguido de uma escada de dificuldade com sua taxa de vitórias em cada nível.
+• O Desafio diário mostra sua semana num relance, sua sequência e suas soluções recentes. Depois de resolver o sudoku do dia, uma contagem regressiva mostra quando chega o próximo, e você pode compartilhar seu resultado.
+• As dicas agora funcionam de forma confiável mesmo no fim dos jogos mais difíceis.
+• As explicações das dicas mostram com mais clareza quais dígitos ficam confinados às células destacadas.
+• Os textos mudam na hora quando você troca o idioma.
+• Pequenos ajustes: os botões de início do Inferno e do Infinito mostram o carregamento na cor certa, a taxa de vitórias cabe em uma linha, o nível na Repetição aparece no modo escuro e a barra de abas fica fixa durante a rolagem.

@@ -1,6 +1,6 @@
-Varje ledtråd slutar nu med en utlagd siffra, så du fastnar aldrig.
-Lång logik? Ledtråden avslöjar en rätt siffra i stället.
-Mindre ledtrådskort, precis under brädet.
-Helvete är nu en äkta forcing chain-utmaning.
-Snabbare och stabilare sparning av dina spel.
-Skärmrubriker åtgärdade.
+Nya Inställningar, Statistik och Dagens utmaning.
+Inställningar: tydliga sektioner och ett nytt mjukt reglage.
+Statistik: översikt i ett sudokublock och svårighetsstege med vinstgrad.
+Dagligt: veckoremsa, svit, senaste lösningar, nedräkning och delning.
+Ledtrådar fungerar pålitligt, även sent i svåra partier.
+Tydligare förklaringar, direkt språkbyte och små fixar.

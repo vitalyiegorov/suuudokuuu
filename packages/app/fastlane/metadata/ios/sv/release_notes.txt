@@ -1,8 +1,9 @@
-Ledtrådar som alltid för dig framåt, och ett Helvete som äntligen gör skäl för namnet.
+Nya skärmar för Inställningar, Statistik och Dagens utmaning – och ledtrådar du alltid kan lita på.
 
-• Varje ledtråd slutar nu med att en siffra läggs ut. Inga fler ledtrådar som bara pekar på pennanteckningar och lämnar dig fast.
-• När logiken blir för lång avslöjar ledtråden en rätt siffra i stället för att ge upp.
-• Ledtrådskortet är mindre och sitter precis under brädet, en bit från skärmens nederkant.
-• Helvete är nu en äkta forcing chain-utmaning, inte bara ett bräde med färre ledtrådar.
-• Dina spel och din framgång sparas på ett snabbare och stabilare sätt.
-• Skärmrubriker ser ut och scrollar som de ska igen.
+• Inställningarna är samlade i tydliga sektioner, med ett nytt mjukt reglage som ser likadant ut på alla enheter.
+• Statistiken börjar med din utveckling i ett sudokublock, följt av en svårighetsstege med din vinstgrad på varje nivå.
+• Dagens utmaning visar din vecka i en överblick, din svit och dina senaste lösningar. När dagens pussel är löst visar en nedräkning när nästa kommer, och du kan dela ditt resultat.
+• Ledtrådar fungerar nu pålitligt, även sent i de svåraste partierna.
+• Ledtrådarnas förklaringar säger tydligare vilka siffror som är låsta till de markerade cellerna.
+• Texterna uppdateras direkt när du byter språk.
+• Småputs: startknapparna för Helvete och Oändlighet visar laddningen i rätt färg, vinstgraden håller sig på en rad, nivån i reprisen syns i mörkt läge och flikfältet ligger kvar när du skrollar.

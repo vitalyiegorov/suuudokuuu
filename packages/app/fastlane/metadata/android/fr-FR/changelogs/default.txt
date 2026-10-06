@@ -1,6 +1,6 @@
-Chaque indice se termine désormais par un chiffre placé, vous n'êtes plus jamais bloqué.
-Logique trop longue ? L'indice révèle un chiffre correct.
-Carte d'indice plus petite, juste sous la grille.
-Enfer est désormais un vrai défi de chaînes forcées.
-Enregistrement des parties plus rapide et plus robuste.
-En-têtes d'écran corrigés.
+Nouveaux Paramètres, Statistiques et Défi du jour.
+Paramètres : sections claires et nouvel interrupteur fluide.
+Statistiques : récapitulatif en bloc de sudoku et échelle de difficulté.
+Défi du jour : semaine, série, résolutions récentes, compte à rebours, partage.
+Des indices fiables, même en fin de partie difficile.
+Explications plus claires, changement de langue immédiat et petites retouches.

@@ -1,8 +1,9 @@
-Hinweise, die dich immer weiterbringen, und eine Hölle, die ihren Namen endlich verdient.
+Neue Bildschirme für Einstellungen, Statistik und die Tägliche Herausforderung – und Hinweise, auf die du dich immer verlassen kannst.
 
-• Jeder Hinweis endet jetzt mit einer gesetzten Ziffer. Keine Hinweise mehr, die nur auf Notizen zeigen und dich festhängen lassen.
-• Wenn die Logik zu lang wird, verrät der Hinweis eine richtige Ziffer, statt aufzugeben.
-• Die Hinweiskarte ist kleiner und sitzt direkt unter dem Brett, weit weg vom unteren Bildschirmrand.
-• Hölle ist jetzt eine echte Forcing-Chain-Herausforderung, nicht nur ein Brett mit weniger Vorgaben.
-• Deine Partien und dein Fortschritt werden schneller und robuster gespeichert.
-• Bildschirmkopfzeilen sehen wieder richtig aus und scrollen richtig.
+• Die Einstellungen sind in übersichtliche Abschnitte gegliedert, mit einem neuen, weichen Schalter, der auf jedem Gerät gleich aussieht.
+• Die Statistik zeigt deinen Fortschritt jetzt als Sudoku-Block, gefolgt von einer Schwierigkeitsleiter mit deiner Gewinnrate für jede Schwierigkeit.
+• Die Tägliche Herausforderung zeigt deine Woche auf einen Blick, deine Serie und deine letzten Lösungen. Ist das heutige Rätsel gelöst, zählt ein Countdown bis zum nächsten, und du kannst dein Ergebnis teilen.
+• Hinweise funktionieren jetzt zuverlässig, auch spät in den schwersten Partien.
+• Hinweis-Erklärungen sagen klarer, welche Ziffern auf die markierten Zellen beschränkt sind.
+• Beschriftungen wechseln sofort, wenn du die Sprache änderst.
+• Feinschliff: Die Start-Buttons von Hölle und Unendlich zeigen ihre Ladeanzeige in der richtigen Farbe, die Gewinnrate bleibt in einer Zeile, die Stufe in der Wiederholung ist im Dunkelmodus sichtbar, und die Tableiste bleibt beim Scrollen stehen.

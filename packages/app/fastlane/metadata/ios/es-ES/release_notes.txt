@@ -1,8 +1,9 @@
-Sugerencias que siempre te hacen avanzar, y un Infierno que por fin hace honor a su nombre.
+Nuevas pantallas de Ajustes, Estadísticas y Reto diario, y sugerencias con las que siempre puedes contar.
 
-• Ahora cada sugerencia termina con un dígito colocado. Se acabaron las sugerencias que solo señalan notas a lápiz y te dejan atascado.
-• Cuando la lógica se alarga demasiado, la sugerencia te revela un dígito correcto en lugar de rendirse.
-• La tarjeta de sugerencia es más pequeña y queda justo debajo del tablero, lejos del borde inferior de la pantalla.
-• Infierno es ahora un auténtico reto de cadenas forzadas, no solo un tablero con menos pistas.
-• Tus partidas y tu progreso se guardan de forma más rápida y robusta.
-• Las cabeceras de pantalla vuelven a verse y desplazarse como deben.
+• Los Ajustes se agrupan en secciones claras, con un nuevo interruptor suave que se ve igual en cualquier dispositivo.
+• Las Estadísticas empiezan con tu progreso en un bloque de sudoku, seguido de una escalera de dificultad con tu porcentaje de victorias en cada nivel.
+• El Reto diario muestra tu semana de un vistazo, tu racha y tus soluciones recientes. Cuando resuelves el sudoku de hoy, una cuenta atrás te indica cuándo llega el siguiente y puedes compartir tu resultado.
+• Las sugerencias ahora funcionan con fiabilidad incluso al final de las partidas más difíciles.
+• Las explicaciones de las sugerencias indican con más claridad qué dígitos quedan confinados a las celdas destacadas.
+• Los textos se actualizan al instante cuando cambias de idioma.
+• Pequeños retoques: los botones de inicio de Infierno e Infinito muestran la carga en el color correcto, el porcentaje de victorias cabe en una línea, el nivel de la repetición se ve en modo oscuro y la barra de pestañas se queda fija al desplazarte.

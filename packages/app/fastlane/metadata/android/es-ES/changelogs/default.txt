@@ -1,6 +1,6 @@
-Ahora cada sugerencia termina con un dígito colocado, así que nunca te atascas.
-¿Lógica larga? La sugerencia te revela un dígito correcto.
-Tarjeta de sugerencia más pequeña, justo bajo el tablero.
-Infierno es ahora un auténtico reto de cadenas forzadas.
-Guardado de partidas más rápido y robusto.
-Cabeceras de pantalla corregidas.
+Nuevos Ajustes, Estadísticas y Reto diario.
+Ajustes: secciones claras y un nuevo interruptor suave.
+Estadísticas: resumen en bloque de sudoku y escalera de dificultad con victorias.
+Diario: semana, racha, soluciones recientes, cuenta atrás y compartir.
+Las sugerencias funcionan con fiabilidad hasta el final de las partidas difíciles.
+Explicaciones más claras, cambio de idioma al instante y pequeños arreglos.
