@@ -1,6 +1,6 @@
-Every hint now ends with a digit placed, so you never get stuck.
-Long logic? The hint reveals one correct digit instead.
-Smaller hint card, right under the board.
-Hell is now a true forcing-chain challenge.
-Faster, sturdier saving of your games.
-Screen headers fixed.
+New Settings, Statistics and Daily challenge screens.
+Settings: clean grouped sections and a smooth new switch.
+Statistics: a sudoku-box summary and a difficulty ladder with win rates.
+Daily: week strip, streak, recent solves, next-puzzle countdown and sharing.
+Hints now work reliably, even late in the toughest games.
+Clearer hint explanations, labels that follow a language switch instantly, and small visual fixes.

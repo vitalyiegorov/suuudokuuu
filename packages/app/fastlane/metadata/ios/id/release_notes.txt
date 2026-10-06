@@ -1,8 +1,9 @@
-Petunjuk yang selalu membawamu maju, dan Neraka yang akhirnya pantas menyandang namanya.
+Tampilan baru untuk Pengaturan, Statistik, dan Tantangan harian, plus petunjuk yang selalu bisa kamu andalkan.
 
-• Setiap petunjuk kini berakhir dengan satu angka terisi. Tak ada lagi petunjuk yang hanya menunjuk catatan pensil dan membuatmu buntu.
-• Saat logikanya terlalu panjang, petunjuk menampilkan satu angka yang benar, bukan menyerah.
-• Kartu petunjuk lebih kecil dan berada tepat di bawah papan, jauh dari tepi bawah layar.
-• Neraka kini menjadi tantangan rantai paksa sejati, bukan sekadar papan dengan angka awal lebih sedikit.
-• Permainan dan progresmu tersimpan dengan cara yang lebih cepat dan kokoh.
-• Header layar kembali tampil dan bergulir dengan benar.
+• Pengaturan kini dikelompokkan dalam bagian yang rapi, dengan sakelar baru yang halus dan tampil sama di semua perangkat.
+• Statistik dibuka dengan progresmu dalam sebuah kotak sudoku, lalu tangga tingkat kesulitan dengan persentase menangmu di tiap level.
+• Tantangan harian menampilkan minggumu sekilas, rentetanmu, dan solusi terbarumu. Setelah teka-teki hari ini selesai, hitung mundur menunjukkan kapan teka-teki berikutnya hadir, dan kamu bisa membagikan hasilmu.
+• Petunjuk kini bekerja dengan andal, bahkan di akhir permainan tersulit.
+• Penjelasan petunjuk kini lebih jelas menyebutkan angka mana yang terkunci di sel yang disorot.
+• Label langsung berganti saat kamu mengganti bahasa.
+• Sentuhan kecil: tombol mulai Neraka dan Tak Terhingga menampilkan indikator muat dengan warna yang tepat, persentase menang muat dalam satu baris, level di Putar ulang terlihat dalam mode gelap, dan bilah tab tetap di tempat saat kamu menggulir.
