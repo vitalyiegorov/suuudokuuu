@@ -3,4 +3,5 @@ Configurações: seções claras e um novo interruptor suave.
 Estatísticas: resumo em bloco de sudoku e escada de dificuldade com vitórias.
 Diário: semana, sequência, soluções recentes, contagem regressiva e compartilhar.
 Dicas confiáveis mesmo no fim de jogos difíceis.
-Explicações mais claras, troca de idioma na hora e pequenos ajustes.
+Nomes longos de abas agora cabem na barra.
+Explicações mais claras, sequência e contagem no novo idioma na hora, pequenos ajustes.

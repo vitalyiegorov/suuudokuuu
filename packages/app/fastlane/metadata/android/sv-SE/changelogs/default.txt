@@ -3,4 +3,5 @@ Inställningar: tydliga sektioner och ett nytt mjukt reglage.
 Statistik: översikt i ett sudokublock och svårighetsstege med vinstgrad.
 Dagligt: veckoremsa, svit, senaste lösningar, nedräkning och delning.
 Ledtrådar fungerar pålitligt, även sent i svåra partier.
-Tydligare förklaringar, direkt språkbyte och små fixar.
+Långa fliknamn får nu plats i flikfältet.
+Tydligare förklaringar, svit och nedräkning byter språk direkt, små fixar.

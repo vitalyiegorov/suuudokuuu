@@ -3,4 +3,5 @@ Ajustes: secciones claras y un nuevo interruptor suave.
 Estadísticas: resumen en bloque de sudoku y escalera de dificultad con victorias.
 Diario: semana, racha, soluciones recientes, cuenta atrás y compartir.
 Las sugerencias funcionan con fiabilidad hasta el final de las partidas difíciles.
-Explicaciones más claras, cambio de idioma al instante y pequeños arreglos.
+Los nombres largos de las pestañas ya caben.
+Explicaciones más claras, racha y cuenta atrás en tu idioma al instante y pequeños arreglos.

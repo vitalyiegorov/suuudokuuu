@@ -5,5 +5,5 @@ Nya skärmar för Inställningar, Statistik och Dagens utmaning – och ledtråd
 • Dagens utmaning visar din vecka i en överblick, din svit och dina senaste lösningar. När dagens pussel är löst visar en nedräkning när nästa kommer, och du kan dela ditt resultat.
 • Ledtrådar fungerar nu pålitligt, även sent i de svåraste partierna.
 • Ledtrådarnas förklaringar säger tydligare vilka siffror som är låsta till de markerade cellerna.
-• Texterna uppdateras direkt när du byter språk.
-• Småputs: startknapparna för Helvete och Oändlighet visar laddningen i rätt färg, vinstgraden håller sig på en rad, nivån i reprisen syns i mörkt läge och flikfältet ligger kvar när du skrollar.
+• Svit, nedräkning och poäng uppdateras direkt när du byter språk.
+• Småputs: startknapparna för Helvete och Oändlighet visar laddningen i rätt färg, vinstgraden håller sig på en rad, nivån i reprisen syns i mörkt läge långa fliknamn får nu plats i flikfältet, och fältet ligger kvar när du skrollar.
