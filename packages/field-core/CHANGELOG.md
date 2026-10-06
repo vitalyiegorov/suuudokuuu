@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.3...v2.17.4) (2026-10-06)
+
+### Bug Fixes
+
+* **field-core:** stop the hint fallback from crashing on Hermes without Array.prototype.toSorted ([#443](https://github.com/vitalyiegorov/suuudokuuu/issues/443)) ([40bb16e](https://github.com/vitalyiegorov/suuudokuuu/commit/40bb16e96aa82189318106f5bfb343b8cb35420c))
+
+
 ## [2.13.6](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.5...v2.13.6) (2026-10-04)
 
 ### Bug Fixes

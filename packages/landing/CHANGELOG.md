@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.3...v2.17.4) (2026-10-06)
+
+**Note:** Version bump only for package @suuudokuuu/landing
+
+
+
+
+
 # [2.14.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.7...v2.14.0) (2026-10-05)
 
 ### Bug Fixes
