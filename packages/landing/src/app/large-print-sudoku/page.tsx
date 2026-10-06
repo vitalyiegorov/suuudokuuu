@@ -65,9 +65,9 @@ const LargePrintSudokuPage = () => (
         <h2>Progress with the per-tier booklets</h2>
         <p>
             Once a large-print puzzle feels comfortable, the <Link href={printableSudokuPageMetadata.path}>printable sudoku hub</Link> has a
-            full booklet for every difficulty from Newbie through Hell, each printing {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} puzzles per page
-            with solutions included. Working through the tiers in order is the same progression the site’s digital difficulty ladder uses,
-            just on paper.
+            full booklet for every difficulty from Newbie through Infinity, each printing {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} puzzles per
+            page with solutions included. Working through the tiers in order is the same progression the site’s digital difficulty ladder
+            uses, just on paper.
         </p>
         <h2>Printing tips</h2>
         <p>

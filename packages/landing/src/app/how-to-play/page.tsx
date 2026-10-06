@@ -15,6 +15,7 @@ import { TechniqueSummary } from '../../techniques/components/technique-summary/
 import { glossaryPageMetadata } from '../glossary/metadata';
 import { homePageMetadata } from '../metadata';
 import { printableNewbieSudokuPageMetadata } from '../printable/newbie/metadata';
+import { infinitySudokuPageMetadata } from '../sudoku/infinity/metadata';
 import { sudokuDifficultiesPageMetadata } from '../sudoku/metadata';
 import { hiddenSinglePageMetadata } from '../techniques/hidden-single/metadata';
 import { techniquesPageMetadata } from '../techniques/metadata';
@@ -101,7 +102,7 @@ const HowToPlayPage = () => (
             the <Link href={glossaryPageMetadata.path}>sudoku glossary</Link>.
         </p>
         <h2>Sudoku difficulty levels</h2>
-        <p>Suuudokuuu’s difficulty ladder has six tiers, each requiring a wider set of techniques than the last.</p>
+        <p>Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity.</p>
         <ul className="link-list">
             <li>
                 <strong>Newbie.</strong> Solvable with full houses and naked singles alone.
@@ -123,10 +124,14 @@ const HowToPlayPage = () => (
                 <strong>Hell.</strong> Always stalls on chains and AIC and always needs a forcing chain, drawn from a bundled, verified
                 corpus.
             </li>
+            <li>
+                <strong>Infinity.</strong> The hardest sudoku puzzles ever published, such as Everest and AI Escargot, chosen by their
+                published rating rather than a technique band — see the <Link href={infinitySudokuPageMetadata.path}>Infinity lander</Link>.
+            </li>
         </ul>
         <p>
-            Every level is free to play, with no ads and no sign-up. <a href={SITE_PLAY_URL}>Play a puzzle now</a> at any of the six levels,
-            or read the full breakdown of clue counts and required techniques on the{' '}
+            Every level is free to play, with no ads and no sign-up. <a href={SITE_PLAY_URL}>Play a puzzle now</a> at any of the seven
+            levels, or read the full breakdown of clue counts and required techniques on the{' '}
             <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub. Learning on paper? Start with the{' '}
             <Link href={printableNewbieSudokuPageMetadata.path}>printable Newbie sudoku PDF</Link>.
         </p>
