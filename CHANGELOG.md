@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.0...v2.17.1) (2026-10-06)
+
+### Bug Fixes
+
+* **app:** translate counted labels through the active Lingui instance ([#440](https://github.com/vitalyiegorov/suuudokuuu/issues/440)) ([6cf0a16](https://github.com/vitalyiegorov/suuudokuuu/commit/6cf0a1640a639ae546cdb0192412fc538f576b4c))
+* return to Home without the minimized iOS tab bar and serve app links as JSON ([#439](https://github.com/vitalyiegorov/suuudokuuu/issues/439)) ([18f3221](https://github.com/vitalyiegorov/suuudokuuu/commit/18f32216223665ad6483782738726733daabe5de))
+
+
 # [2.17.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.16.0...v2.17.0) (2026-10-06)
 
 ### Features
