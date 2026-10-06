@@ -1,5 +1,5 @@
 import { DIFFICULTY_NAMES } from '../constants/difficulty-name.constant';
 
-import type { LandingDifficultyType } from '../types/landing-difficulty.type';
+import type { DifficultyEnum } from '@suuudokuuu/generator';
 
-export const buildDifficultyPageTitle = (difficulty: LandingDifficultyType): string => `${DIFFICULTY_NAMES[difficulty]} Sudoku`;
+export const buildDifficultyPageTitle = (difficulty: DifficultyEnum): string => `${DIFFICULTY_NAMES[difficulty]} Sudoku`;

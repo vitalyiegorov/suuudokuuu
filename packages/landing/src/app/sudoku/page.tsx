@@ -1,6 +1,8 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { infinityCorpusSize } from '@suuudokuuu/hell-corpus';
 import Link from 'next/link';
 
+import { INFINITY_HIGHEST_RATING, INFINITY_LOWEST_RATING } from '../../difficulty/constants/infinity-corpus.constant';
 import { getDifficultyClueCount } from '../../difficulty/utils/get-difficulty-clue-count.util';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
@@ -21,6 +23,7 @@ import { techniquesPageMetadata } from '../techniques/metadata';
 import { easySudokuPageMetadata } from './easy/metadata';
 import { hardSudokuPageMetadata } from './hard/metadata';
 import { hellSudokuPageMetadata } from './hell/metadata';
+import { infinitySudokuPageMetadata } from './infinity/metadata';
 import { mediumSudokuPageMetadata } from './medium/metadata';
 import { sudokuDifficultiesPageMetadata } from './metadata';
 import { newbieSudokuPageMetadata } from './newbie/metadata';
@@ -36,7 +39,8 @@ const DIFFICULTY_ITEMS = [
     mediumSudokuPageMetadata,
     hardSudokuPageMetadata,
     nightmareSudokuPageMetadata,
-    hellSudokuPageMetadata
+    hellSudokuPageMetadata,
+    infinitySudokuPageMetadata
 ];
 
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
@@ -48,11 +52,13 @@ const SudokuDifficultiesPage = () => (
         </PageHeader>
         <ItemListSchema items={DIFFICULTY_ITEMS} metadata={sudokuDifficultiesPageMetadata} />
         <p>
-            Suuudokuuu grades every puzzle on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts
+            Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts
             rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to
             require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source
             rating package the <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> uses to publish
-            the measured band and SE range of every tier below.
+            the measured band and SE range of every ladder tier below. Above the ladder sits{' '}
+            <Link href={infinitySudokuPageMetadata.path}>Infinity</Link>, a curated set of record puzzles that carry the ratings independent
+            raters publish, because they reach past the top of our own rating scale.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play now
@@ -82,6 +88,11 @@ const SudokuDifficultiesPage = () => (
                 <Link href={hellSudokuPageMetadata.path}>Hell</Link> — guaranteed to stall on AIC and to need a forcing chain, drawn from a
                 bundled, verified corpus rather than generated to a band.
             </li>
+            <li>
+                <Link href={infinitySudokuPageMetadata.path}>Infinity</Link> — {infinityCorpusSize} of the hardest puzzles ever published,
+                chosen by their published SE rating of {INFINITY_LOWEST_RATING.toFixed(1)} to {INFINITY_HIGHEST_RATING.toFixed(1)} rather
+                than by a technique band, and past the reach of every technique on the ladder.
+            </li>
         </ul>
         <h2>How the ladder is built</h2>
         <p>
@@ -104,8 +115,9 @@ const SudokuDifficultiesPage = () => (
             <Faq>
                 <FaqQuestion>How many sudoku difficulty levels does Suuudokuuu have?</FaqQuestion>
                 <FaqAnswer>
-                    Six: Newbie, Easy, Medium, Hard, Nightmare and Hell, each defined by a clue count and a guaranteed technique band rather
-                    than a marketing label.
+                    Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique ladder, each defined by a clue count and a
+                    guaranteed technique band rather than a marketing label. Infinity sits above them, a curated set of record puzzles
+                    chosen by published rating.
                 </FaqAnswer>
             </Faq>
             <Faq>

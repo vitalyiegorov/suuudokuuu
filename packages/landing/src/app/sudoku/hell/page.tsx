@@ -24,10 +24,14 @@ import { howToPlayPageMetadata } from '../../how-to-play/metadata';
 import { homePageMetadata } from '../../metadata';
 import { printableHellSudokuPageMetadata } from '../../printable/hell/metadata';
 import { aicPageMetadata } from '../../techniques/aic/metadata';
+import { cellForcingChainPageMetadata } from '../../techniques/cell-forcing-chain/metadata';
 import { techniquesPageMetadata } from '../../techniques/metadata';
+import { nishioForcingChainPageMetadata } from '../../techniques/nishio-forcing-chain/metadata';
+import { regionForcingChainPageMetadata } from '../../techniques/region-forcing-chain/metadata';
 import { simpleColoringPageMetadata } from '../../techniques/simple-coloring/metadata';
 import { xChainPageMetadata } from '../../techniques/x-chain/metadata';
 import { xyChainPageMetadata } from '../../techniques/xy-chain/metadata';
+import { infinitySudokuPageMetadata } from '../infinity/metadata';
 import { sudokuDifficultiesPageMetadata } from '../metadata';
 import { nightmareSudokuPageMetadata } from '../nightmare/metadata';
 
@@ -50,12 +54,12 @@ const HellSudokuPage = () => {
                 <BreadcrumbListItem>Hell</BreadcrumbListItem>
             </PageHeader>
             <p>
-                Hell is Suuudokuuu’s hardest tier — what most competitors call evil or extreme. A Hell board is defined by the reasoning it
-                demands, not by how few clues it starts with: no Hell board can be finished with any technique Nightmare allows, so every
-                one needs a forcing chain. Unlike the generated tiers, Hell is drawn from a bundled corpus of published hard puzzles,
-                verified by two independent solvers before it ships, and every board still solves on our technique ladder without guessing.
-                Expect to use every chain and coloring pattern first — <Link href={xChainPageMetadata.path}>X-Chain</Link>,{' '}
-                <Link href={xyChainPageMetadata.path}>XY-Chain</Link>, <Link href={simpleColoringPageMetadata.path}>simple coloring</Link>{' '}
+                Hell is Suuudokuuu’s hardest technique-graded tier — what most competitors call evil or extreme. A Hell board is defined by
+                the reasoning it demands, not by how few clues it starts with: no Hell board can be finished with any technique Nightmare
+                allows, so every one needs a forcing chain. Unlike the generated tiers, Hell is drawn from a bundled corpus of published
+                hard puzzles, verified by two independent solvers before it ships, and every board still solves on our technique ladder
+                without guessing. Expect to use every chain and coloring pattern first — <Link href={xChainPageMetadata.path}>X-Chain</Link>
+                , <Link href={xyChainPageMetadata.path}>XY-Chain</Link>, <Link href={simpleColoringPageMetadata.path}>simple coloring</Link>{' '}
                 and <Link href={aicPageMetadata.path}>AIC</Link> — before a forcing chain breaks the deadlock.
             </p>
             <TechniqueSummary>
@@ -81,9 +85,11 @@ const HellSudokuPage = () => {
                 follows a path of bivalue cells instead. Simple coloring assigns two alternating colours to a network of strong links on one
                 digit and clears any candidate that sees both colours, and AIC generalises the whole family, mixing digits and cell types
                 along one continuous chain. Hell starts where all of that runs out. A forcing chain assumes a candidate, a cell’s
-                possibilities or a house’s placements, follows every consequence, and keeps only what holds in every branch. A board makes
-                the Hell corpus only if its hardest step on the rating-optimal path is a forcing chain, and only if our ladder can still
-                finish it, so no Hell board ever asks you to guess.
+                possibilities or a house’s placements, follows every consequence, and keeps only what holds in every branch — the{' '}
+                <Link href={nishioForcingChainPageMetadata.path}>Nishio</Link>, <Link href={cellForcingChainPageMetadata.path}>cell</Link>{' '}
+                and <Link href={regionForcingChainPageMetadata.path}>region forcing chain</Link> pages walk through one of each. A board
+                makes the Hell corpus only if its hardest step on the rating-optimal path is a forcing chain, and only if our ladder can
+                still finish it, so no Hell board ever asks you to guess.
             </p>
             <h2>How hard is it, honestly</h2>
             <p>
@@ -100,8 +106,10 @@ const HellSudokuPage = () => {
             </p>
             <h2>Where to go next</h2>
             <p>
-                Not ready for chains yet? Step back to <Link href={nightmareSudokuPageMetadata.path}>Nightmare Sudoku</Link>, which asks for
-                the same reasoning with more of the grid already filled in. Prefer paper? Download the{' '}
+                Finished a Hell board and want more? <Link href={infinitySudokuPageMetadata.path}>Infinity Sudoku</Link> serves the record
+                puzzles — Everest, Platinum Blonde, AI Escargot — that sit past even our forcing chains. Not ready for chains yet? Step back
+                to <Link href={nightmareSudokuPageMetadata.path}>Nightmare Sudoku</Link>, which asks for the same reasoning with more of the
+                grid already filled in. Prefer paper? Download the{' '}
                 <Link href={printableHellSudokuPageMetadata.path}>printable Hell sudoku PDF</Link>. Browse the{' '}
                 <Link href={techniquesPageMetadata.path}>technique index</Link>, especially X-Chain, XY-Chain, Simple Coloring and AIC, the{' '}
                 <Link href={howToPlayPageMetadata.path}>how to play guide</Link>, the{' '}
@@ -115,7 +123,8 @@ const HellSudokuPage = () => {
                     <FaqQuestion>What techniques do I need for Hell level?</FaqQuestion>
                     <FaqAnswer>
                         A forcing chain, on every board, layered on top of the chains, coloring, fish, wings and subsets the earlier tiers
-                        already require. X-Chain, XY-Chain, Simple Coloring and AIC will carry you far, but never all the way through.
+                        already require. X-Chain, XY-Chain, Simple Coloring and AIC will carry you far, but never all the way through; a{' '}
+                        <Link href={nishioForcingChainPageMetadata.path}>Nishio forcing chain</Link> is the usual way to break the deadlock.
                     </FaqAnswer>
                 </Faq>
                 <Faq>
@@ -142,7 +151,7 @@ const HellSudokuPage = () => {
                     </FaqAnswer>
                 </Faq>
             </FaqPage>
-            <DifficultyNavigation previous={nightmareSudokuPageMetadata} />
+            <DifficultyNavigation next={infinitySudokuPageMetadata} previous={nightmareSudokuPageMetadata} />
         </main>
     );
 };

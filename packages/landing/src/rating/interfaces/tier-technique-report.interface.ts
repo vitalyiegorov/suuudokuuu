@@ -1,9 +1,9 @@
-import type { LandingDifficultyType } from '../../difficulty/types/landing-difficulty.type';
+import type { RatedDifficultyType } from '../../difficulty/types/rated-difficulty.type';
 import type { TechniqueUsageInterface } from './technique-usage.interface';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface TierTechniqueReportInterface {
-    difficulty: LandingDifficultyType;
+    difficulty: RatedDifficultyType;
     clueCount: number;
     highestClueCount: number;
     simplerLadderMaxTechnique: SolutionTechniqueEnum | null;

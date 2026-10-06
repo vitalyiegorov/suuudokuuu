@@ -1,13 +1,13 @@
 import { DIFFICULTY_BANDS } from '@suuudokuuu/puzzle-forge';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { DIFFICULTY_LADDER } from '../../difficulty/constants/difficulty-name.constant';
+import { RATED_DIFFICULTY_LADDER } from '../../difficulty/constants/difficulty-name.constant';
 import { getDifficultyClueCount } from '../../difficulty/utils/get-difficulty-clue-count.util';
 import { TECHNIQUE_LADDER } from '../constants/technique-ladder.constant';
 
 import { solvePuzzleLogically } from './solve-puzzle-logically.util';
 
-import type { LandingDifficultyType } from '../../difficulty/types/landing-difficulty.type';
+import type { RatedDifficultyType } from '../../difficulty/types/rated-difficulty.type';
 import type { LogicalSolveResultInterface } from '../interfaces/logical-solve-result.interface';
 import type { RatedSamplePuzzleInterface } from '../interfaces/rated-sample-puzzle.interface';
 import type { TierTechniqueReportInterface } from '../interfaces/tier-technique-report.interface';
@@ -29,10 +29,7 @@ const findTypicalHardestTechnique = (results: LogicalSolveResultInterface[]): So
     return top.technique;
 };
 
-const buildTierTechniqueReport = (
-    difficulty: LandingDifficultyType,
-    sample: RatedSamplePuzzleInterface[]
-): TierTechniqueReportInterface => {
+const buildTierTechniqueReport = (difficulty: RatedDifficultyType, sample: RatedSamplePuzzleInterface[]): TierTechniqueReportInterface => {
     const results = sample.map(entry => solvePuzzleLogically(entry.puzzle));
     const reached = TECHNIQUE_LADDER.filter(technique => results.some(result => result.hardestTechnique === technique));
     const ratings = sample.map(entry => entry.rating);
@@ -60,4 +57,4 @@ const buildTierTechniqueReport = (
 };
 
 export const buildTierTechniqueReports = (samples: RatedSamplePuzzleInterface[][]): TierTechniqueReportInterface[] =>
-    DIFFICULTY_LADDER.map((difficulty, index) => buildTierTechniqueReport(difficulty, samples[index]));
+    RATED_DIFFICULTY_LADDER.map((difficulty, index) => buildTierTechniqueReport(difficulty, samples[index]));

@@ -5,10 +5,10 @@ import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generat
 import { getHellCorpusRecord, hellCorpusSize } from '@suuudokuuu/hell-corpus';
 import { forgePuzzle } from '@suuudokuuu/puzzle-forge';
 
-import { DIFFICULTY_LADDER, DIFFICULTY_NAMES } from '../src/difficulty/constants/difficulty-name.constant';
+import { DIFFICULTY_NAMES, RATED_DIFFICULTY_LADDER } from '../src/difficulty/constants/difficulty-name.constant';
 import { buildTierTechniqueReports } from '../src/rating/utils/build-tier-technique-reports.util';
 
-import type { LandingDifficultyType } from '../src/difficulty/types/landing-difficulty.type';
+import type { RatedDifficultyType } from '../src/difficulty/types/rated-difficulty.type';
 import type { RatedSamplePuzzleInterface } from '../src/rating/interfaces/rated-sample-puzzle.interface';
 
 const RATING_SAMPLE_SIZE = 40;
@@ -17,7 +17,7 @@ const REPORTS_FILE_PATH = join(import.meta.dirname, '..', 'src', 'rating', 'cons
 const FORGE_ATTEMPT_BUDGET = 256;
 const IN_BAND_RETRY_LIMIT = 8;
 
-const forgeInBandPuzzle = (difficulty: LandingDifficultyType): RatedSamplePuzzleInterface => {
+const forgeInBandPuzzle = (difficulty: RatedDifficultyType): RatedSamplePuzzleInterface => {
     for (let attempt = 0; attempt < IN_BAND_RETRY_LIMIT; attempt += 1) {
         const forged = forgePuzzle(difficulty, FORGE_ATTEMPT_BUDGET);
 
@@ -29,7 +29,7 @@ const forgeInBandPuzzle = (difficulty: LandingDifficultyType): RatedSamplePuzzle
     throw new Error(`The forge could not place a ${DIFFICULTY_NAMES[difficulty]} board inside its band`);
 };
 
-const buildTierSample = (difficulty: LandingDifficultyType): RatedSamplePuzzleInterface[] => {
+const buildTierSample = (difficulty: RatedDifficultyType): RatedSamplePuzzleInterface[] => {
     if (difficulty === DifficultyEnum.Hell) {
         return Array.from({ length: RATING_SAMPLE_SIZE }, (_, index) =>
             getHellCorpusRecord(Math.floor((index * hellCorpusSize) / RATING_SAMPLE_SIZE))
@@ -43,12 +43,12 @@ const buildTierSample = (difficulty: LandingDifficultyType): RatedSamplePuzzleIn
     return Array.from({ length: RATING_SAMPLE_SIZE }, () => forgeInBandPuzzle(difficulty));
 };
 
-const getTierConstantName = (difficulty: LandingDifficultyType): string => `${DIFFICULTY_NAMES[difficulty].toUpperCase()}_SAMPLE`;
+const getTierConstantName = (difficulty: RatedDifficultyType): string => `${DIFFICULTY_NAMES[difficulty].toUpperCase()}_SAMPLE`;
 
 const renderSampleEntry = (entry: RatedSamplePuzzleInterface): string =>
     `    { puzzle: '${entry.puzzle}', rating: ${entry.rating.toFixed(1)}, isRatingCeiling: ${String(entry.isRatingCeiling)} }`;
 
-const renderTier = (difficulty: LandingDifficultyType, entries: RatedSamplePuzzleInterface[]): string =>
+const renderTier = (difficulty: RatedDifficultyType, entries: RatedSamplePuzzleInterface[]): string =>
     [`const ${getTierConstantName(difficulty)}: RatedSamplePuzzleInterface[] = [`, entries.map(renderSampleEntry).join(',\n'), '];'].join(
         '\n'
     );
@@ -57,15 +57,15 @@ const renderSampleFile = (tiers: string[]): string =>
     [
         "import { DifficultyEnum } from '@suuudokuuu/generator';",
         '',
-        "import type { LandingDifficultyType } from '../../difficulty/types/landing-difficulty.type';",
+        "import type { RatedDifficultyType } from '../../difficulty/types/rated-difficulty.type';",
         "import type { RatedSamplePuzzleInterface } from '../interfaces/rated-sample-puzzle.interface';",
         '',
         `export const RATING_SAMPLE_SIZE = ${RATING_SAMPLE_SIZE};`,
         '',
         tiers.join('\n\n'),
         '',
-        'export const RATING_SAMPLE_PUZZLES: Record<LandingDifficultyType, RatedSamplePuzzleInterface[]> = {',
-        DIFFICULTY_LADDER.map(
+        'export const RATING_SAMPLE_PUZZLES: Record<RatedDifficultyType, RatedSamplePuzzleInterface[]> = {',
+        RATED_DIFFICULTY_LADDER.map(
             difficulty => `    [DifficultyEnum.${DIFFICULTY_NAMES[difficulty]}]: ${getTierConstantName(difficulty)}`
         ).join(',\n'),
         '};',
@@ -87,7 +87,7 @@ const renderReportsFile = (samples: RatedSamplePuzzleInterface[][]): string =>
     ].join('\n');
 
 const generateRatingSample = (): void => {
-    const samples = DIFFICULTY_LADDER.map(difficulty => {
+    const samples = RATED_DIFFICULTY_LADDER.map(difficulty => {
         const entries = buildTierSample(difficulty);
 
         process.stdout.write(`${DIFFICULTY_NAMES[difficulty]}: ${entries.length} puzzles forged\n`);
@@ -97,7 +97,7 @@ const generateRatingSample = (): void => {
 
     writeFileSync(
         SAMPLE_FILE_PATH,
-        renderSampleFile(DIFFICULTY_LADDER.map((difficulty, index) => renderTier(difficulty, samples[index]))),
+        renderSampleFile(RATED_DIFFICULTY_LADDER.map((difficulty, index) => renderTier(difficulty, samples[index]))),
         'utf8'
     );
     writeFileSync(REPORTS_FILE_PATH, renderReportsFile(samples), 'utf8');

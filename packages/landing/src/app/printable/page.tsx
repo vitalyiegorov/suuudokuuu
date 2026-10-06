@@ -28,6 +28,7 @@ import { sudokuForSeniorsPageMetadata } from '../sudoku-for-seniors/metadata';
 import { easySudokuPageMetadata } from '../sudoku/easy/metadata';
 import { hardSudokuPageMetadata } from '../sudoku/hard/metadata';
 import { hellSudokuPageMetadata } from '../sudoku/hell/metadata';
+import { infinitySudokuPageMetadata } from '../sudoku/infinity/metadata';
 import { mediumSudokuPageMetadata } from '../sudoku/medium/metadata';
 import { newbieSudokuPageMetadata } from '../sudoku/newbie/metadata';
 import { nightmareSudokuPageMetadata } from '../sudoku/nightmare/metadata';
@@ -35,6 +36,7 @@ import { nightmareSudokuPageMetadata } from '../sudoku/nightmare/metadata';
 import { printableEasySudokuPageMetadata } from './easy/metadata';
 import { printableHardSudokuPageMetadata } from './hard/metadata';
 import { printableHellSudokuPageMetadata } from './hell/metadata';
+import { printableInfinitySudokuPageMetadata } from './infinity/metadata';
 import { printableMediumSudokuPageMetadata } from './medium/metadata';
 import { printableSudokuPageMetadata } from './metadata';
 import { printableNewbieSudokuPageMetadata } from './newbie/metadata';
@@ -50,7 +52,8 @@ const PRINTABLE_TIER_ITEMS = [
     printableMediumSudokuPageMetadata,
     printableHardSudokuPageMetadata,
     printableNightmareSudokuPageMetadata,
-    printableHellSudokuPageMetadata
+    printableHellSudokuPageMetadata,
+    printableInfinitySudokuPageMetadata
 ];
 
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
@@ -62,9 +65,10 @@ const PrintableSudokuPage = () => (
         </PageHeader>
         <ItemListSchema items={PRINTABLE_TIER_ITEMS} metadata={printableSudokuPageMetadata} />
         <p>
-            Every booklet below is a free printable sudoku PDF generated straight from Suuudokuuu’s own puzzle generator and technique
-            detectors — the same code that runs the app. Pick a difficulty for a {PRINTABLE_BOOKLET_SIZE}-puzzle booklet with solutions on
-            the last pages, or grab the large-print set or a blank sudoku grid below. No sign-up, no ads, no watermark.
+            Every booklet below is a free printable sudoku PDF built from the same puzzle sources the app plays — its generator and
+            technique detectors, and for Hell and Infinity its bundled, verified corpora. Pick a difficulty for a {PRINTABLE_BOOKLET_SIZE}
+            -puzzle booklet with solutions on the last pages, or grab the large-print set or a blank sudoku grid below. No sign-up, no ads,
+            no watermark.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Prefer a screen? Play Suuudokuuu now
@@ -162,6 +166,21 @@ const PrintableSudokuPage = () => (
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
                 <PrintableDownloadFact>{getPrintableFileSizeLabel('hell.pdf')} PDF, US Letter</PrintableDownloadFact>
+                <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
+            </PrintableDownloadCard>
+        </article>
+        <article className="printable-tier">
+            <h3>
+                <Link href={printableInfinitySudokuPageMetadata.path}>Infinity</Link>
+            </h3>
+            <p>
+                Record puzzles such as Everest and AI Escargot, printed as originally published. See the{' '}
+                <Link href={infinitySudokuPageMetadata.path}>Infinity sudoku lander</Link> to play them digitally.
+            </p>
+            <PrintableDownloadCard fileName="infinity.pdf" title="Infinity Sudoku">
+                <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
+                <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
+                <PrintableDownloadFact>{getPrintableFileSizeLabel('infinity.pdf')} PDF, US Letter</PrintableDownloadFact>
                 <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
             </PrintableDownloadCard>
         </article>
