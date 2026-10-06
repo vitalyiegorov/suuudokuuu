@@ -348,14 +348,7 @@ checkbox, or run the fastlane lanes locally.
   reaches every locale. The old workaround (set the simulator's OS language,
   uninstall, reinstall, re-prime deep links, re-seed) is obsolete - do not
   reintroduce it.
-- Two strings on Home - the Infinity difficulty label and
-  `homeScreenGetDifficultyDescription`'s subtitle - render from the DEVICE
-  locale rather than the app language, because `_layout` activates
-  `i18nGetOSLocale()` at module scope and the component calling that plain
-  util does not subscribe to the Lingui context, so it never re-renders when
-  the persisted language activates. Passing `-AppleLanguages` alongside the
-  seeded language makes both agree, which is why the fast path always sets
-  both. This is a real app bug, still unfixed.
+- Home strings follow the saved app language; keep seeding `-AppleLanguages` alongside `settings.language` anyway so OS-level UI such as system alerts matches.
 - Per-locale Play sets now capture natively: the fast path seeds the Android
   container and switches language with `cmd locale set-app-locales`, so the
   "composing from en" fallback should no longer fire. If it does, that locale's
