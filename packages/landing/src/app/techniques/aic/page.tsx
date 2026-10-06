@@ -1,4 +1,5 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import Link from 'next/link';
 
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -13,6 +14,7 @@ import { TechniquePageHeader } from '../../../techniques/components/technique-pa
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { simpleColoringPageMetadata } from '../simple-coloring/metadata';
+import { uniqueRectanglePageMetadata } from '../unique-rectangle/metadata';
 
 import { aicPageMetadata } from './metadata';
 
@@ -133,12 +135,14 @@ const AICPage = () => (
             <Faq>
                 <FaqQuestion>Is an AIC the hardest technique on this list?</FaqQuestion>
                 <FaqAnswer>
-                    It is the most general. Because it subsumes the fish, wing, and simpler chain patterns, an AIC search can find
-                    eliminations that no single one of the earlier named techniques can reach on its own, which is why it sits last here.
+                    It is the most general pattern technique. Because it subsumes the fish, wing, and simpler chain patterns, an AIC search
+                    can find eliminations that no single one of the earlier named techniques can reach on its own. After it come the
+                    uniqueness techniques, starting with the <Link href={uniqueRectanglePageMetadata.path}>Unique Rectangle</Link>, and the
+                    forcing chains.
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation previous={simpleColoringPageMetadata} />
+        <TechniqueNavigation next={uniqueRectanglePageMetadata} previous={simpleColoringPageMetadata} />
     </main>
 );
 

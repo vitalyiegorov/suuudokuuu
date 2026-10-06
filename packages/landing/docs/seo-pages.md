@@ -67,7 +67,7 @@ Neither is ever retyped in the route file. `PageHeader` renders the `<h1>` from 
 
 Where a family of pages shares a name that also exists as a display name outside any sidecar, the map is the authority and the sidecar derives from it:
 
-- `TECHNIQUE_NAMES` (`src/techniques/constants/technique-name.constant.ts`) is the one authority for technique display names — the narration renderer and the solver step list need `SolutionTechniqueEnum → name` on pages that are not the technique's own page, and five enum members have no page at all. `buildTechniquePageNames(technique)` reads that map and returns `{ title, headline }`, so a technique page never types its own name.
+- `TECHNIQUE_NAMES` (`src/techniques/constants/technique-name.constant.ts`) is the one authority for technique display names — the narration renderer and the solver step list need `SolutionTechniqueEnum → name` on pages that are not the technique's own page, and `Guess` has no page at all. `buildTechniquePageNames(technique)` reads that map and returns `{ title, headline }`, so a technique page never types its own name.
 - `DIFFICULTY_NAMES` (`src/difficulty/constants/difficulty-name.constant.ts`) is the one authority for tier names, used by the generated tables. `buildDifficultyPageTitle(difficulty)` turns it into the `/sudoku/<tier>` sidecar title.
 
 The page then reads the sidecar directly:
