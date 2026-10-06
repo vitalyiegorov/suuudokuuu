@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.2...v2.17.3) (2026-10-06)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
+
+
+
+
 ## [2.17.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.1...v2.17.2) (2026-10-06)
 
 ### Bug Fixes
