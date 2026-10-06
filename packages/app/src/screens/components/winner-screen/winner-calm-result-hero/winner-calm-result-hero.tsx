@@ -20,7 +20,7 @@ export const WinnerCalmResultHero = ({ descriptorText, moveCount }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const moveCountText = plural(moveCount, { one: '# move', other: '# moves' });
+    const moveCountText = t({ message: plural(moveCount, { one: '# move', other: '# moves' }) });
 
     return (
         <GameResultHero

@@ -10,6 +10,7 @@ import {
     DailyTodaySummarySelectors,
     DailyWeekDaySelectors,
     GameScreenSelectors,
+    SettingsOptionSheetSelectors,
     WinnerScreenSelectors
 } from '@suuudokuuu/app/src/selectors';
 import { forgeDailyPuzzle, getDailyDayNumber } from '@suuudokuuu/puzzle-forge';
@@ -89,4 +90,25 @@ test('solving today’s puzzle records its result and swaps the call to action f
     await expect(dailyScreen.getByTestId(DailyNextPuzzleBarSelectors.Countdown)).toHaveText('New puzzle in 14 hr 30 min');
     await expect(dailyScreen.getByTestId(DailyShareButtonSelectors.Button)).toBeVisible();
     await expect(dailyScreen.getByTestId(DailyScreenSelectors.ActionButton)).toHaveCount(0);
+});
+
+test('daily streak labels follow a language switch without a reload', async ({ page }) => {
+    test.setTimeout(solveTestTimeoutMilliseconds);
+    await launchHome(page);
+    await openDailyTab(page);
+    await solveTodaysDaily(page);
+
+    await page.getByTestId(WinnerScreenSelectors.HomeButton).click();
+    await openDailyTab(page);
+
+    const dailyScreen = page.getByTestId(DailyScreenSelectors.Root);
+
+    await expect(dailyScreen.getByTestId(DailyStreakHeroSelectors.BestStreak)).toHaveText('Best streak: 1 day');
+
+    await page.getByText('Settings', { exact: true }).click();
+    await page.getByText(/^Language/u).click();
+    await page.getByTestId(SettingsOptionSheetSelectors.Root).getByText('Українська', { exact: true }).click();
+
+    await page.getByText('Щодня', { exact: true }).click();
+    await expect(dailyScreen.getByTestId(DailyStreakHeroSelectors.BestStreak)).toHaveText('Найкраща серія: 1 день');
 });

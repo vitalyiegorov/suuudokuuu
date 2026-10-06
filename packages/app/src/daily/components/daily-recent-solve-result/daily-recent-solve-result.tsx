@@ -1,4 +1,5 @@
 import { plural } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import { use } from 'react';
 import { View } from 'react-native';
 
@@ -15,6 +16,7 @@ interface Props {
 }
 
 export const DailyRecentSolveResult = ({ result }: Props) => {
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const elapsedTimeText = useTimerText(result.elapsedTime);
 
@@ -26,7 +28,7 @@ export const DailyRecentSolveResult = ({ result }: Props) => {
         <View style={styles.root}>
             <BlackText style={timeStyles}>{elapsedTimeText}</BlackText>
 
-            <BlackText style={pointsStyles}>{plural(score, { one: '# point', other: '# points' })}</BlackText>
+            <BlackText style={pointsStyles}>{t({ message: plural(score, { one: '# point', other: '# points' }) })}</BlackText>
         </View>
     );
 };

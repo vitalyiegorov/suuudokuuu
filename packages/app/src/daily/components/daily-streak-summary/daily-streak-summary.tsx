@@ -1,5 +1,5 @@
 import { plural } from '@lingui/core/macro';
-import { Trans } from '@lingui/react/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { AppSurfaceCard } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { View } from 'react-native';
@@ -16,12 +16,13 @@ interface Props {
 }
 
 export const DailyStreakSummary = ({ bestStreak, streak }: Props) => {
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
     const labelStyles = [styles.label, { color: theme.colors.text.hint }];
     const valueStyles = [styles.value, { color: theme.colors.text.primary }];
-    const streakText = plural(streak, { one: '# day streak', other: '# day streak' });
-    const bestStreakText = plural(bestStreak, { one: 'Best streak: # day', other: 'Best streak: # days' });
+    const streakText = t({ message: plural(streak, { one: '# day streak', other: '# day streak' }) });
+    const bestStreakText = t({ message: plural(bestStreak, { one: 'Best streak: # day', other: 'Best streak: # days' }) });
 
     return (
         <AppSurfaceCard size="compact" testID={DailyStreakSummarySelectors.Root}>

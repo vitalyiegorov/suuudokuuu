@@ -36,8 +36,8 @@ export const DailyNextPuzzleBar = ({ children, nowMs, todayDayNumber }: Props) =
     const secondsUntilTomorrow = Math.max(0, (todayDayNumber + 1) * SecondsPerDay - Math.floor(nowMs / MillisecondsPerSecond));
     const hours = Math.floor(secondsUntilTomorrow / SecondsPerHour);
     const minutes = Math.floor((secondsUntilTomorrow % SecondsPerHour) / SecondsPerMinute);
-    const hoursText = plural(hours, { one: '# hr', other: '# hr' });
-    const minutesText = plural(minutes, { one: '# min', other: '# min' });
+    const hoursText = t({ message: plural(hours, { one: '# hr', other: '# hr' }) });
+    const minutesText = t({ message: plural(minutes, { one: '# min', other: '# min' }) });
     const rootStyles = [
         styles.root,
         { backgroundColor: applyColorAlpha(primary, DailyTintAlpha.divider), borderColor: applyColorAlpha(primary, DailyTintAlpha.outline) }
