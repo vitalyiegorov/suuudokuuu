@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.1...v2.17.2) (2026-10-06)
+
+### Bug Fixes
+
+* **app:** keep the stats win rate on one line and show the replay level in dark mode ([#442](https://github.com/vitalyiegorov/suuudokuuu/issues/442)) ([ed16211](https://github.com/vitalyiegorov/suuudokuuu/commit/ed162118e3e61921db9eea7212d4a767f8e6b10c))
+
+
 ## [2.17.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.0...v2.17.1) (2026-10-06)
 
 ### Bug Fixes
