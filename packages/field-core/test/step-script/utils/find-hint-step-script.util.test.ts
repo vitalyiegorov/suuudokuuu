@@ -1,6 +1,8 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+
+import { isDefined } from '@rnw-community/shared';
 
 import { FieldEngine } from '../../../src/field-engine/classes/field-engine';
 import { StepScriptStepKindEnum } from '../../../src/step-script/enums/step-script-step-kind.enum';
@@ -116,28 +118,42 @@ describe('findHintStepScript', () => {
         expect(engine.getSnapshot().candidates).toEqual(candidatesBefore);
     });
 
-    it.each([
-        ['needs a guess', guessBoard],
-        ['exceeds the chain cap', longChainBoard]
-    ])('reveals the solution digit of the fewest-candidate cell when the position %s', (_label, board) => {
-        expect.assertions(4);
+    describe('on the shipped Hermes runtime, which has no Array.prototype.toSorted', () => {
+        const toSortedDescriptor = Object.getOwnPropertyDescriptor(Array.prototype, 'toSorted');
 
-        const engine = createEngine(board);
-        const blankCells = engine.Sudoku.Field.flat().filter(cell => engine.Sudoku.isBlankCell(cell));
-        const fewestCandidates = Math.min(...blankCells.map(cell => engine.Sudoku.getCellCandidates(cell).length));
-        const [revealCell] = blankCells.filter(cell => engine.Sudoku.getCellCandidates(cell).length === fewestCandidates);
-        const script = requireScript(engine);
+        beforeEach(() => {
+            Reflect.deleteProperty(Array.prototype, 'toSorted');
+        });
 
-        engine.startStepScript(script);
-        engine.applyStepScript();
+        afterEach(() => {
+            if (isDefined(toSortedDescriptor)) {
+                Reflect.defineProperty(Array.prototype, 'toSorted', toSortedDescriptor);
+            }
+        });
 
-        expect(script.steps.map(step => [step.kind, step.narration.technique])).toEqual([
-            [StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.Guess],
-            [StepScriptStepKindEnum.PlaceValue, SolutionTechniqueEnum.Guess]
-        ]);
-        expect(script.placement?.cell).toEqual(revealCell);
-        expect(engine.Sudoku.Field[revealCell.y][revealCell.x].value).toBe(engine.Sudoku.getCorrectValue(revealCell));
-        expect(engine.getSnapshot().mistakes).toBe(0);
+        it.each([
+            ['needs a guess', guessBoard],
+            ['exceeds the chain cap', longChainBoard]
+        ])('reveals the solution digit of the fewest-candidate cell when the position %s', (_label, board) => {
+            expect.assertions(4);
+
+            const engine = createEngine(board);
+            const blankCells = engine.Sudoku.Field.flat().filter(cell => engine.Sudoku.isBlankCell(cell));
+            const fewestCandidates = Math.min(...blankCells.map(cell => engine.Sudoku.getCellCandidates(cell).length));
+            const [revealCell] = blankCells.filter(cell => engine.Sudoku.getCellCandidates(cell).length === fewestCandidates);
+            const script = requireScript(engine);
+
+            engine.startStepScript(script);
+            engine.applyStepScript();
+
+            expect(script.steps.map(step => [step.kind, step.narration.technique])).toEqual([
+                [StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.Guess],
+                [StepScriptStepKindEnum.PlaceValue, SolutionTechniqueEnum.Guess]
+            ]);
+            expect(script.placement?.cell).toEqual(revealCell);
+            expect(engine.Sudoku.Field[revealCell.y][revealCell.x].value).toBe(engine.Sudoku.getCorrectValue(revealCell));
+            expect(engine.getSnapshot().mistakes).toBe(0);
+        });
     });
 
     it('returns null on a solved board', () => {

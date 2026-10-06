@@ -9,9 +9,9 @@ import type { Sudoku } from '@suuudokuuu/generator';
 import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const findRevealResults = (sudoku: Sudoku): TechniqueResultInterface[] => {
-    const [revealCell] = sudoku.Field.flat()
-        .filter(cell => sudoku.isBlankCell(cell))
-        .toSorted((left, right) => sudoku.getCellCandidates(left).length - sudoku.getCellCandidates(right).length);
+    const blankCells = sudoku.Field.flat().filter(cell => sudoku.isBlankCell(cell));
+    const fewestCandidates = Math.min(...blankCells.map(cell => sudoku.getCellCandidates(cell).length));
+    const revealCell = blankCells.find(cell => sudoku.getCellCandidates(cell).length === fewestCandidates);
 
     return isDefined(revealCell)
         ? [
