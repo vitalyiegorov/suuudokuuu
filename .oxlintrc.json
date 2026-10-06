@@ -258,10 +258,6 @@
                         "message": "Call the function directly with typed arguments."
                     },
                     {
-                        "property": "toSorted",
-                        "message": "The Hermes engine the app ships has no Array.prototype.toSorted. Sort a copy with [...array].sort() or select with find instead."
-                    },
-                    {
                         "object": "vi",
                         "property": "mock",
                         "message": "Replace module mocking with a real dependency seam such as a test Layer."

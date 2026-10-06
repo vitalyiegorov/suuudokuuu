@@ -271,6 +271,7 @@ Algorithm-heavy techniques/generator exceptions require a short, human-readable 
 ## Important Notes
 
 - Use `pnpm`, never `npm` or `yarn`.
+- The TypeScript `lib` is `ES2022` plus `types/hermes-runtime.d.ts`, which declares only the newer built-ins the shipped Hermes engine implements. Node runs the tests, so a newer API compiles and passes tests yet throws on device; never raise `lib` or add a declaration without checking the Hermes version in `packages/app` supports it.
 - Do not modify `.jscpd.json`; fix duplication in source or restructure narrowly.
 - Do not edit generated Lingui `messages.ts` by hand.
 - Prefer existing package patterns over importing Budgie rules that only made sense for finance, AI services, bank sync, or Next.js landing pages.
