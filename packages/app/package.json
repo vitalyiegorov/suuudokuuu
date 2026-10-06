@@ -16,7 +16,7 @@
         "start": "expo start --dev-client -c",
         "store:notes": "node scripts/generate-store-release-notes.ts",
         "dev-build:preflight": "node scripts/preflight-development-build.ts",
-        "ts": "tsc -p . && tsc -p scripts",
+        "ts": "tsc -p . && tsc -p scripts && tsc -p vercel-functions",
         "web": "expo start --web",
         "effect:check": "effect-language-service diagnostics --project tsconfig.json --format text --severity error"
     },

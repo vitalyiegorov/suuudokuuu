@@ -1,6 +1,7 @@
 {
     "extends": "../../tsconfig.json",
     "compilerOptions": {
+        "lib": ["ES2022", "DOM"],
         "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo.test.json",
         "types": ["node"]
     },
