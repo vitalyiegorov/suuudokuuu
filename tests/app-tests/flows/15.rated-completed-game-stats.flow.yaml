@@ -23,8 +23,8 @@ appId: ${APP_ID}
       visible:
           id: 'HomeScreenSelectors.Root'
       timeout: 10000
-- tapOn:
-      id: 'MainTabSelectors.Stats'
+- openLink:
+      link: 'suuudokuuu://history'
 - extendedWaitUntil:
       visible:
           id: 'HistoryScreenSelectors.Root'
