@@ -1,6 +1,7 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { compareOrdinal } from '../../@generic/utils/compare-ordinal.util';
 import { markContextSearchCapped } from '../../@generic/utils/context-scan-state.util';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { getCanonicalTechniqueResults } from '../../@generic/utils/get-canonical-technique-results.util';
@@ -160,7 +161,7 @@ export class AICTechnique implements TechniqueStrategyInterface {
 
     private getStartNodes(graph: CandidateLinkGraphInterface, target?: TechniqueSearchTargetInterface): CandidateNodeInterface[] {
         if (!target) {
-            return [...graph.nodesByKey.values()].sort((firstNode, secondNode) => firstNode.key.localeCompare(secondNode.key));
+            return [...graph.nodesByKey.values()].sort((firstNode, secondNode) => compareOrdinal(firstNode.key, secondNode.key));
         }
 
         const startNodesByKey = new Map<string, CandidateNodeInterface>();
@@ -173,7 +174,7 @@ export class AICTechnique implements TechniqueStrategyInterface {
             }
         }
 
-        return [...startNodesByKey.values()].sort((firstNode, secondNode) => firstNode.key.localeCompare(secondNode.key));
+        return [...startNodesByKey.values()].sort((firstNode, secondNode) => compareOrdinal(firstNode.key, secondNode.key));
     }
 
     private visitNeighbor(scan: AICScanInterface, requiresStrongLink: boolean, neighborNode: CandidateNodeInterface): void {
