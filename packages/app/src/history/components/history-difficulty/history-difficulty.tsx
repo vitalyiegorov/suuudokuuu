@@ -65,7 +65,9 @@ export const HistoryDifficulty = ({ stats }: Props) => {
                 <View style={trackFillStyles} />
             </View>
 
-            <BlackText style={styles.winRate}>{`${winRate}%`}</BlackText>
+            <BlackText numberOfLines={1} style={styles.winRate}>
+                {`${winRate}%`}
+            </BlackText>
 
             <View style={styles.chevronSlot}>
                 <LucideChevronRight color={theme.colors.text.hint} size={HistoryDifficultyChevronSize} />

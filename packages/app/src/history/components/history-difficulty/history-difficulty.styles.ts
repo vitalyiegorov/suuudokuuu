@@ -63,7 +63,7 @@ export const HistoryDifficultyStyles = StyleSheet.create(theme => ({
         fontSize: 15,
         fontVariant: ['tabular-nums'],
         fontWeight: '800',
-        textAlign: 'right',
-        width: 46
+        minWidth: 56,
+        textAlign: 'right'
     }
 }));
