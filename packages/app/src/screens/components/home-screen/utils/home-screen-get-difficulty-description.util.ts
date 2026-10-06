@@ -9,7 +9,7 @@ const difficultyDescriptions: Record<DifficultyEnum, MessageDescriptor> = {
     [DifficultyEnum.Medium]: msg`Balanced solve`,
     [DifficultyEnum.Hard]: msg`Deep focus`,
     [DifficultyEnum.Nightmare]: msg`Expert grid`,
-    [DifficultyEnum.Hell]: msg`Minimum clues`,
+    [DifficultyEnum.Hell]: msg`Forcing chains`,
     [DifficultyEnum.Infinity]: msg`World-record puzzles`
 };
 

@@ -718,6 +718,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "Ikuti sistem"
 
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Forcing chains"
+msgstr "Rantai Paksa"
+
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Foundational"
 msgstr "Dasar"
@@ -1023,10 +1027,6 @@ msgstr "Sedang"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "Menu, pengaturan, dan teks permainan"
-
-#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
-msgid "Minimum clues"
-msgstr "Petunjuk minimal"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"

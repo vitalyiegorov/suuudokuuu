@@ -718,6 +718,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "सिस्टम के अनुसार"
 
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Forcing chains"
+msgstr "बाध्यकारी शृंखलाएँ"
+
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Foundational"
 msgstr "बुनियादी"
@@ -1023,10 +1027,6 @@ msgstr "मध्यम"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "मेनू, सेटिंग्स और गेम टेक्स्ट"
-
-#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
-msgid "Minimum clues"
-msgstr "न्यूनतम संकेत"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
