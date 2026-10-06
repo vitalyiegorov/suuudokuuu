@@ -243,7 +243,21 @@
                 "no-prototype-builtins": "error",
                 "no-regex-spaces": "error",
                 "no-restricted-exports": "error",
-                "no-restricted-globals": "error",
+                "no-restricted-globals": [
+                    "error",
+                    {
+                        "name": "crypto",
+                        "message": "The Hermes engine the app ships has no global crypto. Generate randomness through a native module such as expo-crypto."
+                    },
+                    {
+                        "name": "SharedArrayBuffer",
+                        "message": "The Hermes engine the app ships has no SharedArrayBuffer."
+                    },
+                    {
+                        "name": "Atomics",
+                        "message": "The Hermes engine the app ships has no Atomics."
+                    }
+                ],
                 "no-restricted-imports": "error",
                 "no-restricted-properties": [
                     "error",
@@ -256,6 +270,36 @@
                         "object": "Reflect",
                         "property": "apply",
                         "message": "Call the function directly with typed arguments."
+                    },
+                    {
+                        "object": "Intl",
+                        "property": "Segmenter",
+                        "message": "The Hermes engine the app ships implements only Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat and Intl.getCanonicalLocales."
+                    },
+                    {
+                        "object": "Intl",
+                        "property": "ListFormat",
+                        "message": "The Hermes engine the app ships implements only Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat and Intl.getCanonicalLocales."
+                    },
+                    {
+                        "object": "Intl",
+                        "property": "RelativeTimeFormat",
+                        "message": "The Hermes engine the app ships implements only Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat and Intl.getCanonicalLocales."
+                    },
+                    {
+                        "object": "Intl",
+                        "property": "DisplayNames",
+                        "message": "The Hermes engine the app ships implements only Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat and Intl.getCanonicalLocales."
+                    },
+                    {
+                        "object": "Intl",
+                        "property": "Locale",
+                        "message": "The Hermes engine the app ships implements only Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat and Intl.getCanonicalLocales."
+                    },
+                    {
+                        "object": "Intl",
+                        "property": "supportedValuesOf",
+                        "message": "The Hermes engine the app ships implements only Intl.Collator, Intl.DateTimeFormat, Intl.NumberFormat and Intl.getCanonicalLocales."
                     },
                     {
                         "object": "vi",

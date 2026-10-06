@@ -11,5 +11,5 @@
         "customConditions": ["react-native"]
     },
     "exclude": ["dist", "node_modules", "babel.config.js", "metro.config.js"],
-    "include": ["src/**/*.ts", "src/**/*.tsx", "vercel-functions/**/*.ts"]
+    "include": ["src/**/*.ts", "src/**/*.tsx"]
 }

@@ -1,3 +1,5 @@
+import { compareOrdinal } from './compare-ordinal.util';
+
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
 
 const getCandidateKey = (cell: TechniqueResultInterface['cell'], value: number): string => `${cell.y}:${cell.x}:${value}`;
@@ -20,7 +22,7 @@ const compareResults = (firstResult: TechniqueResultInterface, secondResult: Tec
         return reasonCellCountDifference;
     }
 
-    return getReasonPathKey(firstResult).localeCompare(getReasonPathKey(secondResult));
+    return compareOrdinal(getReasonPathKey(firstResult), getReasonPathKey(secondResult));
 };
 
 export const getCanonicalTechniqueResults = (results: TechniqueResultInterface[]): TechniqueResultInterface[] => {
@@ -36,6 +38,6 @@ export const getCanonicalTechniqueResults = (results: TechniqueResultInterface[]
     }
 
     return [...resultsByDeductionKey.entries()]
-        .sort(([firstKey], [secondKey]) => firstKey.localeCompare(secondKey))
+        .sort(([firstKey], [secondKey]) => compareOrdinal(firstKey, secondKey))
         .map(([, result]) => result);
 };
