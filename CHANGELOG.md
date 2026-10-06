@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.16.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.15.0...v2.16.0) (2026-10-06)
+
+### Features
+
+* **app:** redesign the daily challenge around a week strip ([#434](https://github.com/vitalyiegorov/suuudokuuu/issues/434)) ([a2ad5bc](https://github.com/vitalyiegorov/suuudokuuu/commit/a2ad5bc063ea82b70f877febc8489d101d6f2575))
+
+
 # [2.15.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.14.0...v2.15.0) (2026-10-05)
 
 ### Features
