@@ -718,6 +718,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "সিস্টেম অনুসরণ করুন"
 
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Forcing chains"
+msgstr "বাধ্যকারী শৃঙ্খল"
+
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Foundational"
 msgstr "প্রাথমিক"
@@ -1023,10 +1027,6 @@ msgstr "মাঝারি"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "মেনু, সেটিংস ও গেমের লেখা"
-
-#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
-msgid "Minimum clues"
-msgstr "ন্যূনতম সূত্র"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"

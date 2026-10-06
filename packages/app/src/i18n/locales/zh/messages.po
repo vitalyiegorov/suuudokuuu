@@ -718,6 +718,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "跟随系统"
 
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Forcing chains"
+msgstr "强制链"
+
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Foundational"
 msgstr "入门"
@@ -1023,10 +1027,6 @@ msgstr "中等"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "菜单、设置和游戏文字"
-
-#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
-msgid "Minimum clues"
-msgstr "最少提示"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"

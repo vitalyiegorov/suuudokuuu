@@ -718,6 +718,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "سسٹم کے مطابق"
 
+#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
+msgid "Forcing chains"
+msgstr "جبری زنجیریں"
+
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Foundational"
 msgstr "بنیادی"
@@ -1023,10 +1027,6 @@ msgstr "درمیانہ"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "مینو، ترتیبات اور گیم متن"
-
-#: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
-msgid "Minimum clues"
-msgstr "کم از کم اشارے"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
