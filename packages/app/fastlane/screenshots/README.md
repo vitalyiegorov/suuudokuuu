@@ -43,7 +43,7 @@ flows happen to capture them in:
 1. `01-hero-board` — the actual gameplay board, airy and uncluttered with
    pencil marks. Leads because it's the clearest single-frame pitch: this is
    what the app looks like, no marketing artifice.
-2. `02-hell` — a real 17-clue Hell puzzle. The differentiator: not a
+2. `02-hell` — a real forcing-chain Hell puzzle. The differentiator: not a
    marketing difficulty label but a visibly brutal board.
 3. `06-rival` — "Get challenged.", the accept-challenge screen. First half of
    a two-shot challenge story: the live-race premise plus anticheat, still

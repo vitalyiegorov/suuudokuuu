@@ -286,7 +286,7 @@ with the strongest, clearest shots and vary composition after that:
 
 1. `01-hero-board` — light appearance. The board itself, the cleanest single
    frame, is the whole pitch in one screenshot.
-2. `02-hell` — light appearance. Differentiator: a real 17-clue Hell puzzle,
+2. `02-hell` — light appearance. Differentiator: a real forcing-chain Hell puzzle,
    not a marketing difficulty label.
 3. `03-themes` — light appearance. The most-loved customization surface,
    still in the "safe" first-3 zone.
