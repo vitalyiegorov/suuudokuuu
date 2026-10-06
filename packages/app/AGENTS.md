@@ -34,7 +34,7 @@ src/
 ├── @generic/           # Runtime, SQL platform layers, boot gate, atom helpers, shared components, hooks, styles, utils
 ├── app/                # Expo Router routes and root layout
 ├── challenge/          # Challenge result/accept/progress UI and utilities
-├── daily/              # Daily streak hero, history list, status derivation, date utils
+├── daily/              # Daily streak hero, week strip, results, recent solves, status derivation, date utils
 ├── game/               # Game context, board UI, hooks, serializers
 ├── history/            # Completed game history and replay UI
 ├── i18n/locales/       # Lingui catalogs: en, uk, fr, de, es
@@ -136,8 +136,10 @@ Persisted state is SQLite owned by Effect v4 services in `@suuudokuuu/progress`.
 4. The persisted record is two additive fields: `dailyCompletedDayNumbers` (unique, ascending UTC day numbers of solved dailies) and `dailyBestStreak`. Both live in `player_stats`, so starting the next game keeps them. Only a **won** daily is recorded — `CurrentRunService.finish` ignores a lost or abandoned one — so there is no backfill and no catch-up.
 5. Two different streaks exist on purpose and must not be merged. `playedDayNumbers` counts any game played on a **local** calendar day and feeds the history totals; `dailyCompletedDayNumbers` counts solved dailies on a **UTC** day and feeds the daily screen. `getDayStreak(dayNumbers, todayDayNumber)` in `@generic/utils` is the one streak implementation both use, and it takes today's day number rather than a timestamp precisely so each caller supplies its own calendar.
 6. `dailyGetStatus` is the only place the daily screen's three states are decided, and `completed` outranks `inProgress`. That ordering is what stops a finished daily from offering Continue into a run that is already over, and what makes the screen offer a fresh puzzle the moment UTC midnight moves past the day the current run belongs to.
-7. `useDailyChallenge` reads "today" through a lazy `useState` initializer and re-reads it in a `useFocusEffect`, never during render. The daily screen is a tab, so it can stay mounted across midnight; refreshing on focus is what rolls it over without an interval timer.
+7. `useDailyChallenge` reads "now" through a lazy `useState` initializer and, while the tab is focused, re-reads it from a `useFocusEffect` fiber (`appRuntime.runFork` of `Clock.currentTimeMillis` repeated on `Schedule.spaced` one minute, interrupted on blur), never during render. The daily screen is a tab, so it can stay mounted across midnight; the focused tick keeps the next-puzzle countdown current and rolls the screen over at UTC midnight.
 8. The daily challenge lives on its own Daily tab (`app/(tabs)/daily.tsx` → `DailyScreen`), not as a card on Home. The winner screen's `DailyStreakSummary` is unchanged.
+9. A won daily writes its day number into `completed_games.daily_day_number` (migration `0002`, nullable, `NULL` for every other game). `CompletedGameRepository.findDailyResults` returns the first result per day, read through `useDailyResults` under `ReactivityKeyEnum.CompletedGames`. Dailies solved before that migration have no row to backfill, so the screen shows their date and difficulty without time or score. Completed games are still trimmed to 20 per difficulty, so a daily that ages out of that window loses its result the same way.
+10. The screen is a week strip (the last five days, today and tomorrow, with a band joining consecutive solves), today's summary or result, and the recent solves list. A solved day replaces the Play button with `DailyNextPuzzleBar`: the countdown to the next UTC midnight, tomorrow's difficulty, and `DailyShareButton`, which shares the solved board as a `Puzzle` link through `useShareGameState`, the same path the replay share uses.
 
 ### Comfort primitives
 

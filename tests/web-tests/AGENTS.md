@@ -99,6 +99,11 @@ pnpm --filter @suuudokuuu/web-tests lint
   No logical chain reaches a placement, so the first hint is the "Advanced chain" reveal of `9` at
   `y=7, x=6`, the blank cell with the fewest candidates. `09.hint-flow.spec.ts` depends on it.
 
+- `15.daily-challenge.spec.ts` needs no fixture. It pins the clock with `page.clock.setFixedTime` and
+  solves the deterministic board that `forgeDailyPuzzle(dateString)` from `@suuudokuuu/puzzle-forge` (a
+  dev dependency of this package) forges for that date, the same call the app makes, so the run is a real
+  daily win that records a daily result.
+
 ## Known Platform Notes
 
 - Escape does not deselect the active cell on web. `GameScreen` wires the keyboard hook's `onExit`

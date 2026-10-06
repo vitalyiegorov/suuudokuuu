@@ -297,6 +297,26 @@ describe('CurrentRunService', () => {
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 
+    it.effect('records a won daily result against the day it started on and no daily day for an ordinary win', () =>
+        Effect.gen(function* () {
+            yield* TestClock.setTime(firstDayMs + dayInMilliseconds);
+            yield* finishRun({ score: 700, elapsedTime: 420, mistakes: 2, dailyDayNumber: firstDay }, true, false);
+            yield* finishRun({ score: 400, elapsedTime: 90 }, true, false);
+            yield* finishRun({ score: 100, elapsedTime: 30, dailyDayNumber: firstDay + 1 }, false, false);
+
+            const completedGameRepository = yield* CompletedGameRepository;
+
+            assert.deepStrictEqual(
+                (yield* completedGameRepository.findAll).map(game => game.dailyDayNumber),
+                [null, firstDay]
+            );
+            assert.deepStrictEqual(
+                (yield* completedGameRepository.findDailyResults).map(({ encodedState: _encodedState, ...result }) => result),
+                [{ dailyDayNumber: firstDay, elapsedTime: 420, score: 700, mistakes: 2 }]
+            );
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
     it.effect('records losses without a replay, a daily record or a personal best', () =>
         Effect.gen(function* () {
             yield* TestClock.setTime(firstDayMs);

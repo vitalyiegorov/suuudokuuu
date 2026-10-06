@@ -104,7 +104,7 @@ export class LegacyStateImportService extends Context.Service<LegacyStateImportS
                             );
                             yield* Effect.forEach(
                                 histories.flatMap(history => [...history.completedGames].reverse()),
-                                completedGameRepository.insert,
+                                completedGame => completedGameRepository.insert({ ...completedGame, dailyDayNumber: null }),
                                 { discard: true }
                             );
                             yield* playerStatsRepository.save({

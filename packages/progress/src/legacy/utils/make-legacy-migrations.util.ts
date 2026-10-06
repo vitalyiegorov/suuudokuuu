@@ -10,7 +10,6 @@ import { emptyLegacyHistory, emptyLegacyRatingSnapshot, legacyInitialGameState }
 
 import { migrateCustomThemeColors } from './migrate-custom-theme-colors.util';
 
-import type { CompletedGameType } from '../../completed-game/type/completed-game.type';
 import type { ThemeColorsType } from '../../custom-theme/type/theme-colors.type';
 import type { SettingsType } from '../../settings/type/settings.type';
 import type {
@@ -130,7 +129,7 @@ const dropHellQueue = (state: LegacyRootStateInterface): LegacyRootStateInterfac
     return clone;
 };
 
-const computeBestRatingFromCompletedGames = (completedGames: readonly CompletedGameType[]): LegacyRatingSnapshotInterface =>
+const computeBestRatingFromCompletedGames = (completedGames: readonly LegacyRatingSnapshotInterface[]): LegacyRatingSnapshotInterface =>
     completedGames.reduce<LegacyRatingSnapshotInterface>(
         (best, completedGame) =>
             completedGame.rating > 0 && completedGame.rating > best.rating

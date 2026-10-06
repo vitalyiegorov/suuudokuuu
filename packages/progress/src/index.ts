@@ -30,6 +30,7 @@ export { DifficultyStatsRepository } from './difficulty-stats/repository/difficu
 export type { DifficultyStatsType } from './difficulty-stats/type/difficulty-stats.type';
 export { CompletedGameRepository } from './completed-game/repository/completed-game.repository';
 export type { CompletedGameType } from './completed-game/type/completed-game.type';
+export type { DailyResultType } from './completed-game/type/daily-result.type';
 export { PlayerStatsRepository } from './player-stats/repository/player-stats.repository';
 export type { PlayerStatsType } from './player-stats/type/player-stats.type';
 

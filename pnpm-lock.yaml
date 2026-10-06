@@ -793,6 +793,9 @@ importers:
       '@suuudokuuu/landing':
         specifier: workspace:*
         version: link:../../packages/landing
+      '@suuudokuuu/puzzle-forge':
+        specifier: workspace:*
+        version: link:../../packages/puzzle-forge
       serve:
         specifier: ^14.2.6
         version: 14.2.6(supports-color@8.1.1)

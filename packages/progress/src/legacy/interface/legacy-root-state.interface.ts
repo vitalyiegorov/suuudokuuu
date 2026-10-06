@@ -23,7 +23,7 @@ export interface LegacyHistoryInterface {
     hardcoreWon: number;
     challengesWon: number;
     challengesLost: number;
-    completedGames: CompletedGameType[];
+    completedGames: Omit<CompletedGameType, 'dailyDayNumber'>[];
 }
 
 export interface LegacyGameStateInterface extends CurrentRunType {

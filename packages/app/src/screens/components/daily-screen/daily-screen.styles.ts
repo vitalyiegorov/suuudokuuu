@@ -1,30 +1,35 @@
 import { StyleSheet } from 'react-native-unistyles';
 
+const ScreenHorizontalPadding = 20;
+
 export const DailyScreenStyles = StyleSheet.create(theme => ({
     actionBar: {
-        paddingHorizontal: 20,
-        paddingBottom: theme.spacing.sm,
+        paddingHorizontal: ScreenHorizontalPadding,
         paddingTop: theme.spacing.sm,
         width: '100%'
     },
     actionButton: {
-        borderRadius: 999,
+        borderRadius: theme.radius.pill,
         minHeight: 56,
         width: '100%'
     },
     scrollContent: {
         alignItems: 'stretch',
+        alignSelf: 'center',
         gap: theme.spacing.lg,
+        maxWidth: theme.contentWidth.standard,
         paddingBottom: 28,
-        paddingHorizontal: 20
+        paddingHorizontal: ScreenHorizontalPadding,
+        width: '100%'
     },
     scrollView: {
         flex: 1,
         width: '100%'
     },
     title: {
-        fontSize: 30,
-        lineHeight: 36,
+        fontSize: 32,
+        letterSpacing: -0.7,
+        lineHeight: 38,
         marginBottom: 0,
         minWidth: 0,
         textAlign: 'left'
