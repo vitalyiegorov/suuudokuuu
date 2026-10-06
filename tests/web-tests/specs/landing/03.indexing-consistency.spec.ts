@@ -5,7 +5,7 @@ const sitemapPath = '/sitemap.xml';
 const robotsPath = '/robots.txt';
 const llmsPath = '/llms.txt';
 
-const techniquePageCount = 26;
+const techniquePageCount = 31;
 const okStatus = 200;
 
 const SitemapLocationPattern = /<loc>([^<]+)<\/loc>/gu;
