@@ -1,4 +1,5 @@
 import { plural } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import LucideFlame from 'lucide-react-native/icons/flame';
 import { use } from 'react';
 import { View } from 'react-native';
@@ -22,12 +23,13 @@ interface Props {
 }
 
 export const DailyStreakHero = ({ bestStreak, isTodaySolved, streak }: Props) => {
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
     const accentColor = applyColorAlpha(theme.colors.accent, 1);
     const flameFill = isTodaySolved ? accentColor : 'transparent';
-    const streakText = plural(streak, { one: 'daily solve in a row', other: 'daily solves in a row' });
-    const bestStreakText = plural(bestStreak, { one: 'Best streak: # day', other: 'Best streak: # days' });
+    const streakText = t({ message: plural(streak, { one: 'daily solve in a row', other: 'daily solves in a row' }) });
+    const bestStreakText = t({ message: plural(bestStreak, { one: 'Best streak: # day', other: 'Best streak: # days' }) });
     const streakStyles = [styles.streak, { color: theme.colors.text.primary }];
     const streakLabelStyles = [styles.streakLabel, { color: applyColorAlpha(theme.colors.text.primary, DailyTintAlpha.secondaryText) }];
     const bestStreakStyles = [styles.bestStreak, { color: theme.colors.text.hint }];
