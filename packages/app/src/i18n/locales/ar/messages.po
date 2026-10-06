@@ -258,6 +258,7 @@ msgid "Attempts to load the latest development build again"
 msgstr "يحاول تحميل أحدث إصدار تطوير مرة أخرى"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Average"
 msgstr "المعدل"
 
@@ -303,7 +304,7 @@ msgid "Be wise, be smart, be quick..."
 msgstr "فكر بذكاء والعب بسرعة..."
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Best score"
 msgstr "أفضل نتيجة"
 
@@ -312,7 +313,7 @@ msgid "Best technique"
 msgstr "أفضل تقنية"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Best time"
 msgstr "أفضل وقت"
 
@@ -453,6 +454,7 @@ msgid "Classic"
 msgstr "كلاسيكي"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Clean"
 msgstr "بلا أخطاء"
 
@@ -599,6 +601,7 @@ msgstr "لم تُكمل اللوحة"
 
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Difficulty"
 msgstr "مستوى الصعوبة"
 
@@ -784,6 +787,7 @@ msgstr "صعب"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
@@ -983,6 +987,7 @@ msgid "Loading the latest development build…"
 msgstr "جارٍ تحميل أحدث إصدار تطوير…"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Lost"
 msgstr "خسائر"
 
@@ -1297,7 +1302,7 @@ msgstr "العب السودوكو مجانًا على الإنترنت بستة 
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "العب بمستويات أصعب لمضاعفات أكبر"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"
 msgstr "تتابع اللعب"
 
@@ -1310,7 +1315,7 @@ msgstr "العب السودوكو — Suuudokuuu"
 msgid "Play today"
 msgstr "العب اليوم"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Played"
 msgstr "تم اللعب"
 
@@ -2042,7 +2047,7 @@ msgid "Wider gaps for easier tapping"
 msgstr "مسافات أوسع لتسهيل الضغط"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Win rate"
 msgstr "معدل الفوز"
 
@@ -2138,6 +2143,7 @@ msgstr "ألوانك المخصصة"
 msgid "Your hardest solve"
 msgstr "أصعب حل لك"
 
+#: src/history/components/history-progress-box/history-progress-box.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "تقدمك"

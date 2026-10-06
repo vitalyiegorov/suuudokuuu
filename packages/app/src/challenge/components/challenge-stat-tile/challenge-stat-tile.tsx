@@ -10,24 +10,26 @@ import { ChallengeStatCountBadge } from '../challenge-stat-count-badge/challenge
 import { ChallengeStatTileStyles as styles } from './challenge-stat-tile.styles';
 
 import type { ReactNode } from 'react';
+import type { StyleProp, ViewStyle } from 'react-native';
 
 interface Props {
     readonly children: ReactNode;
     readonly count?: number;
     readonly label: string;
     readonly testID?: string;
+    readonly tileStyle?: StyleProp<ViewStyle>;
 }
 
-export const ChallengeStatTile = ({ children, count, label, testID }: Props) => {
+export const ChallengeStatTile = ({ children, count, label, testID, tileStyle }: Props) => {
     const { theme } = use(ThemeContext);
 
-    const tileStyle = [styles.tile, { backgroundColor: theme.colors.ink }];
+    const tileStyles = [styles.tile, { backgroundColor: theme.colors.ink }, tileStyle];
     const labelStyle = [styles.label, { color: theme.colors.text.primary }];
     const countBadge = isDefined(count) ? <ChallengeStatCountBadge count={count} testID={`${testID}.Count`} /> : null;
 
     return (
         <View style={styles.column} testID={testID}>
-            <View style={tileStyle}>
+            <View style={tileStyles}>
                 {children}
                 {countBadge}
             </View>

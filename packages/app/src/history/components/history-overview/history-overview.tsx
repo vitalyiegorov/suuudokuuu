@@ -1,61 +1,65 @@
-import { useLingui } from '@lingui/react/macro';
-import { use } from 'react';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { ThemeContext } from '../../../theme/context/theme.context';
+import { DifficultyComplexitySliderDifficulties } from '../../../game/components/difficulty-complexity-slider/constant/difficulty-complexity-slider.constant';
 import { historyGetSeProfile } from '../../utils/history-get-se-profile.util';
+import { HistoryDifficultyUnplayed } from '../history-difficulty-unplayed/history-difficulty-unplayed';
 import { HistoryDifficulty } from '../history-difficulty/history-difficulty';
 import { HistoryEmptyState } from '../history-empty-state/history-empty-state';
+import { HistoryProgressBox } from '../history-progress-box/history-progress-box';
+import { HistorySectionTitle } from '../history-section-title/history-section-title';
 import { HistorySolverProfile } from '../history-solver-profile/history-solver-profile';
 import { HistoryTechniques } from '../history-techniques/history-techniques';
-import { HistoryTotalsCard } from '../history-totals-card/history-totals-card';
 
 import { HistoryOverviewStyles as styles } from './history-overview.styles';
 
-import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { CompletedGameType, DifficultyStatsType } from '@suuudokuuu/progress';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
-import type { ReactNode } from 'react';
 
 interface Props {
-    readonly difficulties: readonly DifficultyEnum[];
     readonly completedGames: readonly CompletedGameType[];
     readonly difficultyStats: readonly DifficultyStatsType[];
     readonly playedDayNumbers: readonly number[];
     readonly techniqueUsageCounts: Partial<Record<SolutionTechniqueEnum, number>>;
 }
 
-export const HistoryOverview = ({ completedGames, difficulties, difficultyStats, playedDayNumbers, techniqueUsageCounts }: Props) => {
-    const { theme } = use(ThemeContext);
+export const HistoryOverview = ({ completedGames, difficultyStats, playedDayNumbers, techniqueUsageCounts }: Props) => {
     const { t } = useLingui();
+    const playedStats = difficultyStats.filter(stats => stats.gamesCompleted > 0);
 
-    if (difficulties.length === 0) {
+    if (playedStats.length === 0) {
         return <HistoryEmptyState message={t`Your stats will build as you finish puzzles.`} title={t`No stats yet`} />;
     }
 
     const seProfile = historyGetSeProfile(difficultyStats, completedGames);
-    const separatorStyles = [styles.separator, { backgroundColor: theme.colors.surface.border }];
-
-    const ladderRows = difficulties
-        .map(difficulty => difficultyStats.find(stats => stats.difficulty === difficulty))
-        .filter(isDefined)
-        .map(stats => <HistoryDifficulty key={stats.difficulty} stats={stats} />);
-    const lastLadderIndex = ladderRows.length - 1;
-    const ladderRowsWithSeparators: ReactNode[] = ladderRows.flatMap((row, index) =>
-        index === lastLadderIndex ? [row] : [row, <View key={`separator-${difficulties[index]}`} style={separatorStyles} />]
-    );
 
     return (
         <View style={styles.container}>
-            <HistorySolverProfile completedGames={completedGames} profile={seProfile} />
-
             <HistoryTechniques techniqueUsageCounts={techniqueUsageCounts} />
 
-            <HistoryTotalsCard difficultyStats={difficultyStats} playedDayNumbers={playedDayNumbers} />
+            <HistoryProgressBox difficultyStats={difficultyStats} playedDayNumbers={playedDayNumbers} />
 
-            <View style={styles.difficultySection}>{ladderRowsWithSeparators}</View>
+            <View style={styles.difficultySection}>
+                <HistorySectionTitle>
+                    <Trans>Difficulty</Trans>
+                </HistorySectionTitle>
+
+                <View>
+                    {DifficultyComplexitySliderDifficulties.map(difficulty => {
+                        const stats = playedStats.find(played => played.difficulty === difficulty);
+
+                        return isDefined(stats) ? (
+                            <HistoryDifficulty key={difficulty} stats={stats} />
+                        ) : (
+                            <HistoryDifficultyUnplayed difficulty={difficulty} key={difficulty} />
+                        );
+                    })}
+                </View>
+            </View>
+
+            <HistorySolverProfile completedGames={completedGames} profile={seProfile} />
         </View>
     );
 };

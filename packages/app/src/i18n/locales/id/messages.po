@@ -258,6 +258,7 @@ msgid "Attempts to load the latest development build again"
 msgstr "Mencoba memuat kembali build pengembangan terbaru"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Average"
 msgstr "Rata-rata"
 
@@ -303,7 +304,7 @@ msgid "Be wise, be smart, be quick..."
 msgstr "Berpikir cerdas, main cepat..."
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Best score"
 msgstr "Skor terbaik"
 
@@ -312,7 +313,7 @@ msgid "Best technique"
 msgstr "Teknik terbaik"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Best time"
 msgstr "Waktu terbaik"
 
@@ -453,6 +454,7 @@ msgid "Classic"
 msgstr "Klasik"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Clean"
 msgstr "Tanpa salah"
 
@@ -599,6 +601,7 @@ msgstr "Papan belum selesai"
 
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Difficulty"
 msgstr "Tingkat kesulitan"
 
@@ -784,6 +787,7 @@ msgstr "Sulit"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
@@ -983,6 +987,7 @@ msgid "Loading the latest development build…"
 msgstr "Memuat build pengembangan terbaru…"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Lost"
 msgstr "Kalah"
 
@@ -1297,7 +1302,7 @@ msgstr "Main sudoku gratis online dengan enam tingkat kesulitan, petunjuk, dan t
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "Main di tingkat lebih sulit untuk pengali lebih besar"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"
 msgstr "Beruntun main"
 
@@ -1310,7 +1315,7 @@ msgstr "Main Sudoku — Suuudokuuu"
 msgid "Play today"
 msgstr "Main hari ini"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Played"
 msgstr "Dimainkan"
 
@@ -2042,7 +2047,7 @@ msgid "Wider gaps for easier tapping"
 msgstr "Jarak lebih lebar agar lebih mudah diketuk"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Win rate"
 msgstr "Menang"
 
@@ -2138,6 +2143,7 @@ msgstr "Warna khususmu"
 msgid "Your hardest solve"
 msgstr "Sudoku tersulitmu"
 
+#: src/history/components/history-progress-box/history-progress-box.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "Progresmu"

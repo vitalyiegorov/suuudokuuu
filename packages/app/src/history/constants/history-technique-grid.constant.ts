@@ -1,1 +1,1 @@
-export const HistoryTechniqueTilesPerRow = 3;
+export const HistoryTechniqueTilesPerRow = 4;

@@ -258,6 +258,7 @@ msgid "Attempts to load the latest development build again"
 msgstr "再次尝试加载最新开发版本"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Average"
 msgstr "平均"
 
@@ -303,7 +304,7 @@ msgid "Be wise, be smart, be quick..."
 msgstr "想得巧，落得快..."
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Best score"
 msgstr "最高分"
 
@@ -312,7 +313,7 @@ msgid "Best technique"
 msgstr "最佳技巧"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Best time"
 msgstr "最佳时间"
 
@@ -453,6 +454,7 @@ msgid "Classic"
 msgstr "经典"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Clean"
 msgstr "零失误"
 
@@ -599,6 +601,7 @@ msgstr "未完成棋盘"
 
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-rail/difficulty-complexity-rail.tsx
 #: src/game/components/difficulty-complexity-slider/difficulty-complexity-slider.tsx
+#: src/history/components/history-overview/history-overview.tsx
 msgid "Difficulty"
 msgstr "难度"
 
@@ -784,6 +787,7 @@ msgstr "困难"
 
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 #: src/scoring/components/scoring.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Hardcore"
@@ -983,6 +987,7 @@ msgid "Loading the latest development build…"
 msgstr "正在加载最新开发版本…"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Lost"
 msgstr "失败"
 
@@ -1297,7 +1302,7 @@ msgstr "免费在线玩数独，六个难度、带提示、无广告。快速、
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "选择更高难度可获得更大倍率"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"
 msgstr "连续游戏天数"
 
@@ -1310,7 +1315,7 @@ msgstr "玩数独 — Suuudokuuu"
 msgid "Play today"
 msgstr "今天来一局"
 
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Played"
 msgstr "已玩"
 
@@ -2042,7 +2047,7 @@ msgid "Wider gaps for easier tapping"
 msgstr "更宽的间距，便于点击"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
-#: src/history/components/history-totals-card/history-totals-card.tsx
+#: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Win rate"
 msgstr "胜率"
 
@@ -2138,6 +2143,7 @@ msgstr "你的自定义颜色"
 msgid "Your hardest solve"
 msgstr "你的最难纪录"
 
+#: src/history/components/history-progress-box/history-progress-box.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Your progress"
 msgstr "你的进度"

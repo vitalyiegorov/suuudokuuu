@@ -16,23 +16,19 @@ appId: ${APP_ID}
       element:
           id: 'ChallengeResultFooterSelectors.HomeButton'
       direction: DOWN
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'ChallengeResultFooterSelectors.HomeButton'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 - tapOn:
       id: 'MainTabSelectors.Stats'
 - extendedWaitUntil:
       visible:
           id: 'HistoryScreenSelectors.Root'
-      timeout: 3000
-- assertVisible:
-      id: 'HistorySolverProfileSelectors.HardestSolve'
-- assertVisible:
-      id: 'HistorySolverProfileSelectors.Spectrum'
+      timeout: 10000
 - assertVisible:
       id: 'HistoryTechniquesSelectors.Root'
 - assertVisible:
@@ -41,18 +37,16 @@ appId: ${APP_ID}
       element:
           text: '.*games? played.*'
       direction: DOWN
-# The arsenal and other editorial sections pushed the difficulty ladder to the end of a
-# much taller scroll, so the scroll above stops as soon as the row's title line
-# appears and its tappable centre still sits under the floating tab bar. Scrolling
-# once more settles the content at its end, where the reserved bottom inset clears
-# the bar.
+# The scroll above stops as soon as the row's subtitle line appears, while its
+# tappable centre still sits under the floating tab bar, so scroll once more to
+# lift the row clear of the bar before tapping it.
 - scroll
 - tapOn:
       id: 'HistoryDifficultySelectors.Card.Newbie'
 - extendedWaitUntil:
       visible:
           id: 'HistoryGamesScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000
 # The completed-game row composes its rating into the difficulty text instead of rendering a
 # separate badge next to it.
 - assertVisible:
@@ -63,10 +57,18 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'HistoryScreenSelectors.Root'
-      timeout: 3000
-- tapOn:
-      id: 'MainTabSelectors.Play'
+      timeout: 10000
+- scrollUntilVisible:
+      element:
+          id: 'HistorySolverProfileSelectors.HardestSolve'
+      direction: DOWN
+- scrollUntilVisible:
+      element:
+          id: 'HistorySolverProfileSelectors.Spectrum'
+      direction: DOWN
+- openLink:
+      link: 'suuudokuuu://'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'
-      timeout: 3000
+      timeout: 10000

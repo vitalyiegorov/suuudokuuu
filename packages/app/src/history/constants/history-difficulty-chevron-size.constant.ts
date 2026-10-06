@@ -1,1 +1,1 @@
-export const HistoryDifficultyChevronSize = 20;
+export const HistoryDifficultyChevronSize = 16;
