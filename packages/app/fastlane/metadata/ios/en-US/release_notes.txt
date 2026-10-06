@@ -5,5 +5,5 @@ Fresh new Settings, Statistics and Daily challenge screens, plus hints you can a
 • The Daily challenge shows your week at a glance, your streak and your recent solves. Once today's puzzle is solved, a countdown shows when the next one arrives, and you can share your result.
 • Hints now work reliably, even late in the toughest games.
 • Hint explanations say more clearly which digits are locked into the highlighted cells.
-• Labels update right away when you switch the language.
-• Small polish: the Hell and Infinity start buttons show their loader in the right color, the win rate stays on one line, the replay level is visible in dark mode, and the tab bar stays put while you scroll.
+• Streak, countdown and points labels update right away when you switch the language.
+• Small polish: the Hell and Infinity start buttons show their loader in the right color, the win rate stays on one line, the replay level is visible in dark mode, long tab names now fit in the tab bar, and the bar stays put while you scroll.

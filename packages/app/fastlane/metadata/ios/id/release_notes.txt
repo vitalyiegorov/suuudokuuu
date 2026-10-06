@@ -5,5 +5,5 @@ Tampilan baru untuk Pengaturan, Statistik, dan Tantangan harian, plus petunjuk y
 • Tantangan harian menampilkan minggumu sekilas, rentetanmu, dan solusi terbarumu. Setelah teka-teki hari ini selesai, hitung mundur menunjukkan kapan teka-teki berikutnya hadir, dan kamu bisa membagikan hasilmu.
 • Petunjuk kini bekerja dengan andal, bahkan di akhir permainan tersulit.
 • Penjelasan petunjuk kini lebih jelas menyebutkan angka mana yang terkunci di sel yang disorot.
-• Label langsung berganti saat kamu mengganti bahasa.
-• Sentuhan kecil: tombol mulai Neraka dan Tak Terhingga menampilkan indikator muat dengan warna yang tepat, persentase menang muat dalam satu baris, level di Putar ulang terlihat dalam mode gelap, dan bilah tab tetap di tempat saat kamu menggulir.
+• Label rentetan, hitung mundur, dan poin langsung berganti saat kamu mengganti bahasa.
+• Sentuhan kecil: tombol mulai Neraka dan Tak Terhingga menampilkan indikator muat dengan warna yang tepat, persentase menang muat dalam satu baris, level di Putar ulang terlihat dalam mode gelap, nama tab yang panjang kini muat di bilah tab, dan bilah itu tetap di tempat saat kamu menggulir.

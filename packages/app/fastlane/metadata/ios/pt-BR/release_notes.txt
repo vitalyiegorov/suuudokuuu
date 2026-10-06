@@ -5,5 +5,5 @@ Novas telas de Configurações, Estatísticas e Desafio diário, e dicas com que
 • O Desafio diário mostra sua semana num relance, sua sequência e suas soluções recentes. Depois de resolver o sudoku do dia, uma contagem regressiva mostra quando chega o próximo, e você pode compartilhar seu resultado.
 • As dicas agora funcionam de forma confiável mesmo no fim dos jogos mais difíceis.
 • As explicações das dicas mostram com mais clareza quais dígitos ficam confinados às células destacadas.
-• Os textos mudam na hora quando você troca o idioma.
-• Pequenos ajustes: os botões de início do Inferno e do Infinito mostram o carregamento na cor certa, a taxa de vitórias cabe em uma linha, o nível na Repetição aparece no modo escuro e a barra de abas fica fixa durante a rolagem.
+• A sequência, a contagem regressiva e os pontos mudam na hora quando você troca o idioma.
+• Pequenos ajustes: os botões de início do Inferno e do Infinito mostram o carregamento na cor certa, a taxa de vitórias cabe em uma linha, o nível na Repetição aparece no modo escuro nomes longos de abas agora cabem na barra de abas, e a barra fica fixa durante a rolagem.

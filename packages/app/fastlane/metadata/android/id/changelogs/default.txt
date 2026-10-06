@@ -3,4 +3,5 @@ Pengaturan: bagian yang rapi dan sakelar baru yang halus.
 Statistik: ringkasan kotak sudoku dan tangga kesulitan dengan persentase menang.
 Harian: strip minggu, rentetan, solusi terbaru, hitung mundur, dan berbagi.
 Petunjuk kini andal, bahkan di akhir permainan sulit.
-Penjelasan lebih jelas, ganti bahasa langsung berlaku, dan perbaikan kecil.
+Nama tab yang panjang kini muat di bilah tab.
+Penjelasan lebih jelas, rentetan dan hitung mundur langsung ganti bahasa, perbaikan kecil.

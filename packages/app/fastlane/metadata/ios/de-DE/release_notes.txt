@@ -5,5 +5,5 @@ Neue Bildschirme für Einstellungen, Statistik und die Tägliche Herausforderung
 • Die Tägliche Herausforderung zeigt deine Woche auf einen Blick, deine Serie und deine letzten Lösungen. Ist das heutige Rätsel gelöst, zählt ein Countdown bis zum nächsten, und du kannst dein Ergebnis teilen.
 • Hinweise funktionieren jetzt zuverlässig, auch spät in den schwersten Partien.
 • Hinweis-Erklärungen sagen klarer, welche Ziffern auf die markierten Zellen beschränkt sind.
-• Beschriftungen wechseln sofort, wenn du die Sprache änderst.
-• Feinschliff: Die Start-Buttons von Hölle und Unendlich zeigen ihre Ladeanzeige in der richtigen Farbe, die Gewinnrate bleibt in einer Zeile, die Stufe in der Wiederholung ist im Dunkelmodus sichtbar, und die Tableiste bleibt beim Scrollen stehen.
+• Die Anzeigen für Serie, Countdown und Punkte wechseln sofort, wenn du die Sprache änderst.
+• Feinschliff: Die Start-Buttons von Hölle und Unendlich zeigen ihre Ladeanzeige in der richtigen Farbe, die Gewinnrate bleibt in einer Zeile, die Stufe in der Wiederholung ist im Dunkelmodus sichtbar, lange Tab-Namen passen jetzt in die Tableiste, und die Leiste bleibt beim Scrollen stehen.
