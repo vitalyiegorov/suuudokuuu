@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.17.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.16.0...v2.17.0) (2026-10-06)
+
+### Features
+
+* **app:** redesign stats around a sudoku-box summary and a difficulty ladder ([#433](https://github.com/vitalyiegorov/suuudokuuu/issues/433)) ([1306f9d](https://github.com/vitalyiegorov/suuudokuuu/commit/1306f9d1a614ed8ba6f5b8b3e27114b7ce7af778))
+
+
 # [2.16.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.15.0...v2.16.0) (2026-10-06)
 
 ### Features
