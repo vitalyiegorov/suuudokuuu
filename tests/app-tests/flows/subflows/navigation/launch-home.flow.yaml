@@ -4,10 +4,16 @@ appId: ${APP_ID}
 # stops the app any more, so the warm app is usually already exactly where
 # this subflow must deliver. Cold-launch through the landing screen only when
 # Home is absent: the shard's very first session, or after a recovery reset.
+- evalScript: ${output.homeVisible = false}
 - runFlow:
       when:
-          notVisible:
+          visible:
               id: 'HomeScreenSelectors.Root'
+      commands:
+          - evalScript: ${output.homeVisible = true}
+- runFlow:
+      when:
+          true: ${!output.homeVisible}
       commands:
           - launchApp:
                 clearState: false
