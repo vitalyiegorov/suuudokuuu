@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.17.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.4...v2.17.5) (2026-10-06)
+
+**Note:** Version bump only for package @suuudokuuu/puzzle-forge
+
+
+
+
+
 ## [2.13.6](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.13.5...v2.13.6) (2026-10-04)
 
 **Note:** Version bump only for package @suuudokuuu/puzzle-forge
