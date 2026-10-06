@@ -161,7 +161,7 @@ describe('techniqueResultToStepScript', () => {
         const eliminatedValues = result.eliminations.map(elimination => elimination.value);
 
         expect(revealStep.narration.values).toHaveLength(2);
-        expect(revealStep.narration.values).toEqual(revealStep.narration.values.toSorted((left, right) => left - right));
+        expect(revealStep.narration.values).toEqual([...revealStep.narration.values].sort((left, right) => left - right));
         expect(revealStep.narration.values.some(value => eliminatedValues.includes(value))).toBe(false);
     });
 

@@ -4,7 +4,7 @@
         "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo.json",
         "allowJs": true,
         "jsx": "react-native",
-        "lib": ["DOM", "ESNext"],
+        "lib": ["DOM", "ES2022"],
         "module": "preserve",
         "moduleDetection": "force",
         "moduleResolution": "bundler",
