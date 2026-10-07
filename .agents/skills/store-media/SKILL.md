@@ -121,9 +121,10 @@ Screenshots, end to end:
 
 ### Fast capture path (default `--capture-mode=fast`)
 
-Maestro is not used for store capture. Measured: a full locale (8 scenes x
-dark+light) takes 1 min 37 s instead of 40 min. Three steps per scene, no
-accessibility tree:
+Scenes with a deep link are captured directly, without Maestro; scenes without
+one (`05.win`, `11.pause`) fall back to their Maestro flow. Measured: a full
+locale (8 scenes x dark+light) takes 1 min 37 s instead of 40 min. Three steps
+per directly captured scene, no accessibility tree:
 
 1. `scripts/seed-app-state.ts` writes the legacy redux-persist blob into the
    app's SQLite storage; the app's boot-time legacy import moves it into the
