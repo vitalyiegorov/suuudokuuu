@@ -20,12 +20,11 @@ appId: ${APP_ID}
       visible:
           id: 'HomeScreenSelectors.Root'
       timeout: 10000
-- tapOn:
-      id: 'MainTabSelectors.Stats'
-- extendedWaitUntil:
-      visible:
-          id: 'HistoryScreenSelectors.Root'
-      timeout: 10000
+- runFlow:
+      file: subflows/navigation/open-screen.flow.yaml
+      env:
+          SCREEN_LINK: suuudokuuu://history
+          SCREEN_ROOT_ID: HistoryScreenSelectors.Root
 # Scroll-tolerant: the difficulty ladder sits below the fold on the Android
 # viewport, so scroll to its deepest line before asserting the title above it.
 - scrollUntilVisible:

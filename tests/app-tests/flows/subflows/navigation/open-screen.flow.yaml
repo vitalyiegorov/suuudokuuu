@@ -1,0 +1,8 @@
+appId: ${APP_ID}
+---
+- openLink:
+      link: ${SCREEN_LINK}
+- extendedWaitUntil:
+      visible:
+          id: ${SCREEN_ROOT_ID}
+      timeout: 10000
