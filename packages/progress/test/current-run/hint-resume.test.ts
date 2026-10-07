@@ -35,11 +35,7 @@ describe('committed hint deductions', () => {
 
             const firstScript = findHintStepScript(engine.Sudoku);
 
-            assert.isDefined(firstScript);
-
-            if (firstScript === null) {
-                return;
-            }
+            assert.isNotNull(firstScript);
 
             assert.isUndefined(firstScript.placement);
 
@@ -50,7 +46,8 @@ describe('committed hint deductions', () => {
             const progressedState = engine.serialize();
             const nextScript = findHintStepScript(engine.Sudoku, progressedState.eliminatedCandidates);
 
-            assert.notDeepEqual(nextScript?.eliminations, firstScript.eliminations);
+            assert.isNotNull(nextScript);
+            assert.notDeepEqual(nextScript.eliminations, firstScript.eliminations);
             assert.deepStrictEqual(Option.getOrThrow(yield* repository.get).eliminatedCandidates, progressedState.eliminatedCandidates);
 
             engine.undo();
