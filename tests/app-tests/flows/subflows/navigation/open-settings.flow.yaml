@@ -1,0 +1,8 @@
+appId: ${APP_ID}
+---
+- openLink:
+      link: 'suuudokuuu://settings'
+- extendedWaitUntil:
+      visible:
+          id: 'SettingsScreenSelectors.Root'
+      timeout: 10000

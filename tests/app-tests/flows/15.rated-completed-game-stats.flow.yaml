@@ -23,11 +23,7 @@ appId: ${APP_ID}
       visible:
           id: 'HomeScreenSelectors.Root'
       timeout: 10000
-- runFlow:
-      file: subflows/navigation/open-screen.flow.yaml
-      env:
-          SCREEN_LINK: suuudokuuu://history
-          SCREEN_ROOT_ID: HistoryScreenSelectors.Root
+- runFlow: subflows/navigation/open-history.flow.yaml
 - assertVisible:
       id: 'HistoryTechniquesSelectors.Root'
 - assertVisible:

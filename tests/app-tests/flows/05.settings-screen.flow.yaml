@@ -5,11 +5,7 @@ appId: ${APP_ID}
       optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
-- runFlow:
-      file: subflows/navigation/open-screen.flow.yaml
-      env:
-          SCREEN_LINK: suuudokuuu://settings
-          SCREEN_ROOT_ID: SettingsScreenSelectors.Root
+- runFlow: subflows/navigation/open-settings.flow.yaml
 - assertVisible: 'Game'
 - assertVisible: 'Language.*'
 - assertVisible: 'Number size.*'

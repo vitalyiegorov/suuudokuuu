@@ -1,8 +1,8 @@
 appId: ${APP_ID}
 ---
 - openLink:
-      link: ${SCREEN_LINK}
+      link: 'suuudokuuu://daily'
 - extendedWaitUntil:
       visible:
-          id: ${SCREEN_ROOT_ID}
+          id: 'DailyStreakPillSelectors.Root'
       timeout: 10000
