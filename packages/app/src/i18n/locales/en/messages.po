@@ -32,8 +32,8 @@ msgstr "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s away"
 
-#: src/daily/components/daily-best-streak/daily-best-streak.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+#: src/daily/components/daily-week-card/daily-week-card.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 

@@ -5,19 +5,17 @@ import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
-import { isDefined, isPositiveNumber } from '@rnw-community/shared';
+import { isDefined } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
 import { Header } from '../../../@generic/components/header/header';
 import { TabBarInsetContext } from '../../../@generic/components/main-tab-layout/context/tab-bar-inset.context';
-import { DailyBestStreak } from '../../../daily/components/daily-best-streak/daily-best-streak';
+import { DailyCard } from '../../../daily/components/daily-card/daily-card';
 import { DailyNextPuzzleBar } from '../../../daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar';
 import { DailyRecentSolves } from '../../../daily/components/daily-recent-solves/daily-recent-solves';
 import { DailyShareButton } from '../../../daily/components/daily-share-button/daily-share-button';
 import { DailyStreakPill } from '../../../daily/components/daily-streak-pill/daily-streak-pill';
-import { DailyTodayCardAction } from '../../../daily/components/daily-today-card-action/daily-today-card-action';
-import { DailyTodayCard } from '../../../daily/components/daily-today-card/daily-today-card';
 import { DailyTodayResult } from '../../../daily/components/daily-today-result/daily-today-result';
 import { DailyTodaySummary } from '../../../daily/components/daily-today-summary/daily-today-summary';
 import { DailyWeekCard } from '../../../daily/components/daily-week-card/daily-week-card';
@@ -95,7 +93,6 @@ export const DailyScreen = () => {
             variant="primary"
         />
     );
-    const bestStreakLine = isPositiveNumber(bestStreak) ? <DailyBestStreak bestStreak={bestStreak} /> : null;
 
     return (
         <ChromePage testID={DailyScreenSelectors.Root} topEdgeFadeProps={topEdgeFadeProps}>
@@ -113,15 +110,13 @@ export const DailyScreen = () => {
                     <DailyStreakPill isTodaySolved={isCompleted} streak={streak} />
                 </View>
 
-                <DailyTodayCard>
+                <DailyCard>
                     {todayContent}
 
-                    <DailyTodayCardAction>{action}</DailyTodayCardAction>
-                </DailyTodayCard>
+                    <View style={styles.todayAction}>{action}</View>
+                </DailyCard>
 
-                <DailyWeekCard completedDayNumbers={completedDayNumbers} todayDayNumber={todayDayNumber}>
-                    {bestStreakLine}
-                </DailyWeekCard>
+                <DailyWeekCard bestStreak={bestStreak} completedDayNumbers={completedDayNumbers} todayDayNumber={todayDayNumber} />
 
                 <DailyRecentSolves days={recentDays} />
             </ScreenChromeScrollView>

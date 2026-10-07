@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const DailyTodayCardStyles = StyleSheet.create(() => ({
+export const DailyCardStyles = StyleSheet.create(() => ({
     card: {
         borderCurve: 'continuous',
         borderRadius: 22,

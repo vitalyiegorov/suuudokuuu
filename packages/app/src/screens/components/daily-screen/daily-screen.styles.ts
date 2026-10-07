@@ -30,6 +30,10 @@ export const DailyScreenStyles = StyleSheet.create(theme => ({
         minWidth: 0,
         textAlign: 'left'
     },
+    todayAction: {
+        paddingBottom: theme.spacing.md,
+        paddingHorizontal: theme.spacing.md
+    },
     titleRow: {
         alignItems: 'flex-start',
         flexDirection: 'row',
