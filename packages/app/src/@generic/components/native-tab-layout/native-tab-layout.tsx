@@ -29,22 +29,22 @@ export const NativeTabLayout = () => {
                 minimizeBehavior="never"
                 tintColor={theme.colors.text.primary}
             >
-                <NativeTabs.Trigger name="index" testID={MainTabSelectors.Play}>
+                <NativeTabs.Trigger disableAutomaticContentInsets name="index" testID={MainTabSelectors.Play}>
                     <NativeTabs.Trigger.Label>{t`Play`}</NativeTabs.Trigger.Label>
                     <NativeTabs.Trigger.Icon md="play_arrow" sf={PlayIcon} />
                 </NativeTabs.Trigger>
 
-                <NativeTabs.Trigger name="daily" testID={MainTabSelectors.Daily}>
+                <NativeTabs.Trigger disableAutomaticContentInsets name="daily" testID={MainTabSelectors.Daily}>
                     <NativeTabs.Trigger.Label>{t`Daily`}</NativeTabs.Trigger.Label>
                     <NativeTabs.Trigger.Icon md="event" sf={DailyIcon} />
                 </NativeTabs.Trigger>
 
-                <NativeTabs.Trigger name="history" testID={MainTabSelectors.Stats}>
+                <NativeTabs.Trigger disableAutomaticContentInsets name="history" testID={MainTabSelectors.Stats}>
                     <NativeTabs.Trigger.Label>{t`Stats`}</NativeTabs.Trigger.Label>
                     <NativeTabs.Trigger.Icon md="bar_chart" sf={StatsIcon} />
                 </NativeTabs.Trigger>
 
-                <NativeTabs.Trigger name="settings" testID={MainTabSelectors.Settings}>
+                <NativeTabs.Trigger disableAutomaticContentInsets name="settings" testID={MainTabSelectors.Settings}>
                     <NativeTabs.Trigger.Label>{t`Settings`}</NativeTabs.Trigger.Label>
                     <NativeTabs.Trigger.Icon md="settings" sf={SettingsIcon} />
                 </NativeTabs.Trigger>

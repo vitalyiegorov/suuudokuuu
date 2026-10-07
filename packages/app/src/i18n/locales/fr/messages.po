@@ -32,8 +32,8 @@ msgstr "{arsenalCardCount, plural, one {# technique} other {# techniques}}"
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s absent"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
+#: src/daily/components/daily-week-card/daily-week-card.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Meilleure série : # jour} other {Meilleure série : # jours}}"
 
@@ -93,13 +93,10 @@ msgstr "{remaining, plural, one {Noter {value}, # restant à placer} other {Note
 msgid "{score, plural, one {# point} other {# points}}"
 msgstr "{score, plural, one {# point} other {# points}}"
 
+#: src/daily/components/daily-streak-pill/daily-streak-pill.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Série de # jour} other {Série de # jours}}"
-
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
-msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}}"
-msgstr "{streak, plural, one {défi quotidien résolu d’affilée} other {défis quotidiens résolus d’affilée}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."

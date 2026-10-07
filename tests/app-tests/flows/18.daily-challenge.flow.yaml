@@ -12,7 +12,7 @@ appId: ${APP_ID}
                 id: 'MainTabSelectors.Daily'
           - extendedWaitUntil:
                 visible:
-                    id: 'DailyStreakHeroSelectors.Root'
+                    id: 'DailyStreakPillSelectors.Root'
                 timeout: 10000
 - assertVisible:
       id: 'DailyScreenSelectors.ActionButton'

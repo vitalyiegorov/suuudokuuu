@@ -14,11 +14,12 @@ export * from './challenge/components/challenge-run-summary/challenge-run-summar
 export * from './challenge/components/challenge-result-footer/challenge-result-footer.selectors';
 export * from './challenge/components/challenge-result-screen/challenge-result-screen.selectors';
 export * from './challenge/components/challenge-try-again-button/challenge-try-again-button.selectors';
+export * from './daily/components/daily-week-card/daily-week-card.selectors';
 export * from './daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.selectors';
 export * from './daily/components/daily-recent-solve-row/daily-recent-solve-row.selectors';
 export * from './daily/components/daily-recent-solves/daily-recent-solves.selectors';
 export * from './daily/components/daily-share-button/daily-share-button.selectors';
-export * from './daily/components/daily-streak-hero/daily-streak-hero.selectors';
+export * from './daily/components/daily-streak-pill/daily-streak-pill.selectors';
 export * from './daily/components/daily-streak-summary/daily-streak-summary.selectors';
 export * from './daily/components/daily-today-result/daily-today-result.selectors';
 export * from './daily/components/daily-today-result-stats/daily-today-result-stats.selectors';

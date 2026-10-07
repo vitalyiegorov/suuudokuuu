@@ -3,11 +3,6 @@ import { StyleSheet } from 'react-native-unistyles';
 const ScreenHorizontalPadding = 20;
 
 export const DailyScreenStyles = StyleSheet.create(theme => ({
-    actionBar: {
-        paddingHorizontal: ScreenHorizontalPadding,
-        paddingTop: theme.spacing.sm,
-        width: '100%'
-    },
     actionButton: {
         borderRadius: theme.radius.pill,
         minHeight: 56,
@@ -27,11 +22,23 @@ export const DailyScreenStyles = StyleSheet.create(theme => ({
         width: '100%'
     },
     title: {
+        flexShrink: 1,
         fontSize: 32,
         letterSpacing: -0.7,
         lineHeight: 38,
         marginBottom: 0,
         minWidth: 0,
         textAlign: 'left'
+    },
+    todayAction: {
+        paddingBottom: theme.spacing.md,
+        paddingHorizontal: theme.spacing.md
+    },
+    titleRow: {
+        alignItems: 'flex-start',
+        flexDirection: 'row',
+        gap: theme.spacing.md,
+        justifyContent: 'space-between',
+        width: '100%'
     }
 }));

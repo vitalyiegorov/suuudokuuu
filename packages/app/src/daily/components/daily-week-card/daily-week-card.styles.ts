@@ -1,14 +1,13 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const DailyWeekCardStyles = StyleSheet.create(() => ({
-    card: {
-        borderCurve: 'continuous',
-        borderRadius: 22,
-        borderWidth: 1,
-        overflow: 'hidden',
-        width: '100%'
-    },
-    footer: {
-        borderTopWidth: 1
+export const DailyWeekCardStyles = StyleSheet.create(theme => ({
+    bestStreak: {
+        borderTopWidth: 1,
+        fontSize: 13,
+        fontWeight: '600',
+        lineHeight: 18,
+        paddingHorizontal: 16,
+        paddingVertical: theme.spacing.md,
+        textAlign: 'left'
     }
 }));

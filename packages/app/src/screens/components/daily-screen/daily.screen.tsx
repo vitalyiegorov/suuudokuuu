@@ -1,7 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { AppButton, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
@@ -11,11 +11,11 @@ import { Alert } from '../../../@generic/components/alert/alert';
 import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
 import { Header } from '../../../@generic/components/header/header';
 import { TabBarInsetContext } from '../../../@generic/components/main-tab-layout/context/tab-bar-inset.context';
-import { StickyFooterBand } from '../../../@generic/components/sticky-footer-band/sticky-footer-band';
+import { DailyCard } from '../../../daily/components/daily-card/daily-card';
 import { DailyNextPuzzleBar } from '../../../daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar';
 import { DailyRecentSolves } from '../../../daily/components/daily-recent-solves/daily-recent-solves';
 import { DailyShareButton } from '../../../daily/components/daily-share-button/daily-share-button';
-import { DailyStreakHero } from '../../../daily/components/daily-streak-hero/daily-streak-hero';
+import { DailyStreakPill } from '../../../daily/components/daily-streak-pill/daily-streak-pill';
 import { DailyTodayResult } from '../../../daily/components/daily-today-result/daily-today-result';
 import { DailyTodaySummary } from '../../../daily/components/daily-today-summary/daily-today-summary';
 import { DailyWeekCard } from '../../../daily/components/daily-week-card/daily-week-card';
@@ -28,10 +28,8 @@ import { DailyScreenSelectors } from './daily-screen.selectors';
 import { DailyScreenStyles as styles } from './daily-screen.styles';
 
 const DailyScreenBottomScrollPadding = 12;
-const DailyScreenActionBarBottomGap = 8;
 const DailyScreenTopContentPadding = 12;
 const DailyScreenTopOverlayIntensity = 0.12;
-const topEdgeFadeProps = { height: DailyScreenTopContentPadding, intensity: DailyScreenTopOverlayIntensity };
 
 export const DailyScreen = () => {
     const { t } = useLingui();
@@ -73,9 +71,13 @@ export const DailyScreen = () => {
     const todayResult = dailyResults.find(dailyResult => dailyResult.dailyDayNumber === todayDayNumber);
     const recentDays = dailyGetCompletedDays(completedDayNumbers, todayDayNumber, dailyResults);
     const contentInsetBottom = DailyScreenBottomScrollPadding + tabBarInset;
-    const contentInsetTop = DailyScreenTopContentPadding - (Platform.OS === 'ios' ? safeAreaInsets.top : 0);
-    const actionBarStyles = [resolveUnistyleForAnimated(styles.actionBar), { paddingBottom: tabBarInset + DailyScreenActionBarBottomGap }];
+    const topEdgeFadeProps = { height: safeAreaInsets.top + DailyScreenTopContentPadding, intensity: DailyScreenTopOverlayIntensity };
     const shareButton = isDefined(todayResult) ? <DailyShareButton encodedState={todayResult.encodedState} /> : null;
+    const todayContent = isCompleted ? (
+        <DailyTodayResult difficulty={difficulty} result={todayResult} />
+    ) : (
+        <DailyTodaySummary difficulty={difficulty} todayDateString={todayDateString} />
+    );
     const action = isCompleted ? (
         <DailyNextPuzzleBar nowMs={nowMs} todayDayNumber={todayDayNumber}>
             {shareButton}
@@ -91,33 +93,30 @@ export const DailyScreen = () => {
             variant="primary"
         />
     );
-    const actionBar = (
-        <StickyFooterBand>
-            <View style={actionBarStyles}>{action}</View>
-        </StickyFooterBand>
-    );
 
     return (
-        <ChromePage footer={actionBar} testID={DailyScreenSelectors.Root} topEdgeFadeProps={topEdgeFadeProps}>
+        <ChromePage testID={DailyScreenSelectors.Root} topEdgeFadeProps={topEdgeFadeProps}>
             <ScreenChromeScrollView
                 contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
                 contentInsetBottom={contentInsetBottom}
                 contentInsetMode="additive"
-                contentInsetTop={contentInsetTop}
+                contentInsetTop={DailyScreenTopContentPadding}
                 showsVerticalScrollIndicator={false}
                 style={resolveUnistyleForAnimated(styles.scrollView)}
             >
-                <Header maxFontSizeMultiplier={1.2} numberOfLines={1} style={styles.title} text={t`Daily challenge`} />
+                <View style={styles.titleRow}>
+                    <Header maxFontSizeMultiplier={1.2} numberOfLines={2} style={styles.title} text={t`Daily challenge`} />
 
-                <DailyStreakHero bestStreak={bestStreak} isTodaySolved={isCompleted} streak={streak} />
+                    <DailyStreakPill isTodaySolved={isCompleted} streak={streak} />
+                </View>
 
-                <DailyWeekCard completedDayNumbers={completedDayNumbers} todayDayNumber={todayDayNumber}>
-                    {isCompleted ? (
-                        <DailyTodayResult difficulty={difficulty} result={todayResult} />
-                    ) : (
-                        <DailyTodaySummary difficulty={difficulty} todayDateString={todayDateString} />
-                    )}
-                </DailyWeekCard>
+                <DailyCard>
+                    {todayContent}
+
+                    <View style={styles.todayAction}>{action}</View>
+                </DailyCard>
+
+                <DailyWeekCard bestStreak={bestStreak} completedDayNumbers={completedDayNumbers} todayDayNumber={todayDayNumber} />
 
                 <DailyRecentSolves days={recentDays} />
             </ScreenChromeScrollView>

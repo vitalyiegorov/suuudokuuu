@@ -1,36 +1,44 @@
+import { plural } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import { use } from 'react';
-import { View } from 'react-native';
 
+import { isPositiveNumber } from '@rnw-community/shared';
+
+import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { applyColorAlpha } from '../../../@generic/utils/apply-color-alpha.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { DailyTintAlpha } from '../../constants/daily-tint-alpha.constant';
+import { DailyCard } from '../daily-card/daily-card';
 import { DailyWeekStrip } from '../daily-week-strip/daily-week-strip';
 
+import { DailyWeekCardSelectors } from './daily-week-card.selectors';
 import { DailyWeekCardStyles as styles } from './daily-week-card.styles';
 
-import type { ReactNode } from 'react';
-
 interface Props {
-    readonly children: ReactNode;
+    readonly bestStreak: number;
     readonly completedDayNumbers: readonly number[];
     readonly todayDayNumber: number;
 }
 
-export const DailyWeekCard = ({ children, completedDayNumbers, todayDayNumber }: Props) => {
+export const DailyWeekCard = ({ bestStreak, completedDayNumbers, todayDayNumber }: Props) => {
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const dividerColor = applyColorAlpha(theme.colors.text.primary, DailyTintAlpha.divider);
-    const cardStyles = [
-        styles.card,
-        { backgroundColor: applyColorAlpha(theme.colors.text.primary, DailyTintAlpha.surface), borderColor: dividerColor }
+    const bestStreakStyles = [
+        styles.bestStreak,
+        { borderTopColor: applyColorAlpha(theme.colors.text.primary, DailyTintAlpha.divider), color: theme.colors.text.hint }
     ];
-    const footerStyles = [styles.footer, { borderTopColor: dividerColor }];
+    const bestStreakLine = isPositiveNumber(bestStreak) ? (
+        <BlackText style={bestStreakStyles} testID={DailyWeekCardSelectors.BestStreak}>
+            {t({ message: plural(bestStreak, { one: 'Best streak: # day', other: 'Best streak: # days' }) })}
+        </BlackText>
+    ) : null;
 
     return (
-        <View style={cardStyles}>
+        <DailyCard>
             <DailyWeekStrip completedDayNumbers={completedDayNumbers} todayDayNumber={todayDayNumber} />
 
-            <View style={footerStyles}>{children}</View>
-        </View>
+            {bestStreakLine}
+        </DailyCard>
     );
 };

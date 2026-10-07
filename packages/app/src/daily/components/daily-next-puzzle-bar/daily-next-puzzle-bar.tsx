@@ -50,7 +50,7 @@ export const DailyNextPuzzleBar = ({ children, nowMs, todayDayNumber }: Props) =
             <LucideClock color={applyColorAlpha(primary, DailyTintAlpha.secondaryText)} size={ClockIconSize} />
 
             <View style={styles.texts}>
-                <BlackText numberOfLines={1} style={countdownStyles} testID={DailyNextPuzzleBarSelectors.Countdown}>
+                <BlackText numberOfLines={2} style={countdownStyles} testID={DailyNextPuzzleBarSelectors.Countdown}>
                     {t`New puzzle in ${hoursText} ${minutesText}`}
                 </BlackText>
 
