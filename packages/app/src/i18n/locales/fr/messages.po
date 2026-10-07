@@ -557,6 +557,7 @@ msgstr "Animations de complétion"
 msgid "Completion Bonuses"
 msgstr "Bonus de complétion"
 
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -570,6 +571,10 @@ msgstr "Continuer ailleurs"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "Continuez ce sudoku exactement là où je me suis arrêté !"
+
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+msgid "Continue to next hint"
+msgstr "Passer à l’indice suivant"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1151,7 +1156,7 @@ msgstr "Novice"
 msgid "Newspaper"
 msgstr "Journal"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Next step"
 msgstr "Étape suivante"
 
@@ -1187,10 +1192,6 @@ msgstr "Pas encore de parties"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "No limit"
 msgstr "Aucune limite"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
-msgstr "Aucune étape logique n'a été trouvée dans la profondeur de recherche de l'indice, donc cet indice révèle le chiffre à partir de la solution."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
@@ -1402,7 +1403,7 @@ msgstr "Português"
 msgid "Presets"
 msgstr "Préréglages"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Previous step"
 msgstr "Étape précédente"
 
@@ -1509,9 +1510,14 @@ msgstr "Reprendre cette partie ?"
 msgid "Retry loading development build"
 msgstr "Recharger la version de développement"
 
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "Révéler"
+
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+msgid "Reveal a digit"
+msgstr "Révéler un chiffre"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1776,7 +1782,7 @@ msgstr "Stats"
 msgid "Stayed in app"
 msgstr "Resté dans l’app"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Étape {currentStepNumber} sur {stepCount}"
 
@@ -1915,6 +1921,10 @@ msgstr "Nom du thème"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Cette grille ne s’est pas terminée cette fois. Le combat pour la liberté en Ukraine continue. Chaque don de 1 $ fait la différence."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "This reveals the marked cell's digit from the solution."
+msgstr "Cela révèle le chiffre de la case marquée à partir de la solution."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

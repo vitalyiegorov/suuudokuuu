@@ -557,6 +557,7 @@ msgstr "Анімації завершення"
 msgid "Completion Bonuses"
 msgstr "Бонуси за завершення"
 
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -570,6 +571,10 @@ msgstr "Продовжити деінде"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "Продовж це судоку саме там, де я зупинився!"
+
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+msgid "Continue to next hint"
+msgstr "Перейти до наступної підказки"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1151,7 +1156,7 @@ msgstr "Новачок"
 msgid "Newspaper"
 msgstr "Газета"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Next step"
 msgstr "Наступний крок"
 
@@ -1187,10 +1192,6 @@ msgstr "Ігор ще немає"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "No limit"
 msgstr "Без обмежень"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
-msgstr "У межах глибини пошуку підказки логічного кроку не знайдено, тож ця підказка розкриває цифру з розв'язку."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
@@ -1402,7 +1403,7 @@ msgstr "Português"
 msgid "Presets"
 msgstr "Готові теми"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Previous step"
 msgstr "Попередній крок"
 
@@ -1509,9 +1510,14 @@ msgstr "Продовжити цю гру?"
 msgid "Retry loading development build"
 msgstr "Повторити завантаження збірки для розробки"
 
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "Розкрити"
+
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+msgid "Reveal a digit"
+msgstr "Відкрити цифру"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1776,7 +1782,7 @@ msgstr "Статистика"
 msgid "Stayed in app"
 msgstr "Без виходу із застосунку"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Крок {currentStepNumber} з {stepCount}"
 
@@ -1915,6 +1921,10 @@ msgstr "Назва теми"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Цю дошку цього разу не завершено. Боротьба за свободу в Україні триває. Кожен донат у 1 $ має значення."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "This reveals the marked cell's digit from the solution."
+msgstr "Це відкриває цифру позначеної клітинки з розв’язку."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

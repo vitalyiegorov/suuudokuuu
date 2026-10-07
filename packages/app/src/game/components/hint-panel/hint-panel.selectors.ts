@@ -4,5 +4,7 @@ export enum HintPanelSelectors {
     BackButton = 'HintPanelSelectors.BackButton',
     NextButton = 'HintPanelSelectors.NextButton',
     ApplyButton = 'HintPanelSelectors.ApplyButton',
+    ContinueButton = 'HintPanelSelectors.ContinueButton',
+    RevealButton = 'HintPanelSelectors.RevealButton',
     DismissButton = 'HintPanelSelectors.DismissButton'
 }

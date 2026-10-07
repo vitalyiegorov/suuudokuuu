@@ -197,7 +197,7 @@ export const gameGetStepNarration = (step: StepScriptStepType, techniqueName: st
 
     if (step.kind === StepScriptStepKindEnum.RevealCandidates) {
         if (step.narration.technique === SolutionTechniqueEnum.Guess) {
-            return msg`No logical step was found within the hint's search depth, so this hint reveals the digit from the solution.`;
+            return msg`This reveals the marked cell's digit from the solution.`;
         }
 
         if (isDefined(step.narration.placement)) {

@@ -555,6 +555,7 @@ msgstr "تکمیل کی اینیمیشنز"
 msgid "Completion Bonuses"
 msgstr "مکمل کرنے کے بونس"
 
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -568,6 +569,10 @@ msgstr "کہیں اور جاری رکھیں"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "اس سوڈوکو کو بالکل وہیں سے جاری رکھو جہاں میں نے چھوڑا تھا!"
+
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+msgid "Continue to next hint"
+msgstr "اگلے اشارے پر جائیں"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1149,7 +1154,7 @@ msgstr "نیا کھلاڑی"
 msgid "Newspaper"
 msgstr "اخبار"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Next step"
 msgstr "اگلا مرحلہ"
 
@@ -1185,10 +1190,6 @@ msgstr "ابھی کوئی کھیل نہیں"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "No limit"
 msgstr "کوئی حد نہیں"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
-msgstr "اشارے کی تلاش کی گہرائی میں کوئی منطقی قدم نہیں ملا، اس لیے یہ اشارہ حل سے عدد ظاہر کرتا ہے۔"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
@@ -1400,7 +1401,7 @@ msgstr "Português"
 msgid "Presets"
 msgstr "پری سیٹس"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Previous step"
 msgstr "پچھلا مرحلہ"
 
@@ -1507,9 +1508,14 @@ msgstr "یہ گیم جاری رکھیں؟"
 msgid "Retry loading development build"
 msgstr "ڈیولپمنٹ بِلڈ دوبارہ لوڈ کریں"
 
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "ظاہر کریں"
+
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+msgid "Reveal a digit"
+msgstr "ایک ہندسہ ظاہر کریں"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1774,7 +1780,7 @@ msgstr "شماریات"
 msgid "Stayed in app"
 msgstr "ایپ میں ہی رہے"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "مرحلہ {currentStepNumber} از {stepCount}"
 
@@ -1913,6 +1919,10 @@ msgstr "تھیم کا نام"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "اس بار یہ بورڈ مکمل نہیں ہوا۔ یوکرین میں آزادی کی جنگ جاری ہے۔ ہر $1 عطیہ معنی رکھتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "This reveals the marked cell's digit from the solution."
+msgstr "یہ حل سے نشان زدہ خانے کا ہندسہ ظاہر کرتا ہے۔"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

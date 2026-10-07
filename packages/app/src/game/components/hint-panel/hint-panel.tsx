@@ -1,7 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
 import { AppButton } from '@suuudokuuu/ui';
-import LucideChevronLeft from 'lucide-react-native/icons/chevron-left';
-import LucideChevronRight from 'lucide-react-native/icons/chevron-right';
 import LucideX from 'lucide-react-native/icons/x';
 import { use, useEffect } from 'react';
 import { View } from 'react-native';
@@ -11,10 +9,11 @@ import { isDefined } from '@rnw-community/shared';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
-import { i18nIsRightToLeftLocale } from '../../../@generic/utils/i18n-is-right-to-left-locale.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { runCurrentRunCommand } from '../../utils/run-current-run-command.util';
+import { HintPanelEliminationActions } from '../hint-panel-elimination-actions/hint-panel-elimination-actions';
+import { HintPanelStepControls } from '../hint-panel-step-controls/hint-panel-step-controls';
 import { HintStepNarration } from '../hint-step-narration/hint-step-narration';
 
 import { HintPanelSelectors } from './hint-panel.selectors';
@@ -28,7 +27,7 @@ interface Props {
 }
 
 export const HintPanel = ({ availableHeight }: Props) => {
-    const { i18n, t } = useLingui();
+    const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
 
@@ -38,9 +37,6 @@ export const HintPanel = ({ availableHeight }: Props) => {
     const currentStep = stepScript?.steps[stepIndex];
 
     useEffect(() => () => void engine.stopStepScript(), [engine]);
-
-    const handleBack = () => void engine.stepScriptBack();
-    const handleNext = () => void engine.stepScriptNext();
 
     const handleApply = () => {
         if (isDefined(stepScript)) {
@@ -57,18 +53,12 @@ export const HintPanel = ({ availableHeight }: Props) => {
         return null;
     }
 
-    const stepCount = stepScript.steps.length;
-    const currentStepNumber = stepIndex + 1;
+    const isEliminationOnly = !isDefined(stepScript.placement);
     const containerStyles = [
         styles.container(availableHeight),
         { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border }
     ];
-    const progressAccessibilityLabel = t`Step ${currentStepNumber} of ${stepCount}`;
     const placementValue = currentStep.narration.placement?.value;
-    const dismissIconColor = theme.colors.text.primary;
-    const isRightToLeft = i18nIsRightToLeftLocale(i18n.locale);
-    const previousStepIcon = isRightToLeft ? LucideChevronRight : LucideChevronLeft;
-    const nextStepIcon = isRightToLeft ? LucideChevronLeft : LucideChevronRight;
     const motionProps = isMotionReduced ? {} : { entering: FadeIn.duration(enterDurationMs), exiting: FadeOut.duration(exitDurationMs) };
 
     return (
@@ -85,44 +75,19 @@ export const HintPanel = ({ availableHeight }: Props) => {
                         testID={HintPanelSelectors.DismissButton}
                         variant="ghost"
                     >
-                        <LucideX color={dismissIconColor} />
+                        <LucideX color={theme.colors.text.primary} />
                     </AppIconButton>
 
-                    <View accessibilityLabel={progressAccessibilityLabel} style={styles.stepControls} testID={HintPanelSelectors.Progress}>
-                        <AppButton
-                            accessibilityLabel={t`Previous step`}
-                            disabled={currentStepNumber === 1}
-                            icon={previousStepIcon}
-                            onPress={handleBack}
-                            size="compact"
-                            style={styles.stepButton}
-                            testID={HintPanelSelectors.BackButton}
-                            variant="ghost"
-                        />
+                    <HintPanelStepControls engine={engine} stepIndex={stepIndex} stepScript={stepScript} />
 
-                        <View style={styles.dots}>
-                            {stepScript.steps.map((step, index) => {
-                                const isCurrentStep = index === stepIndex;
-                                const dotStyles = isCurrentStep ? styles.dotActive : styles.dot;
-
-                                return <View key={`${step.kind}-${index}`} style={dotStyles} />;
-                            })}
-                        </View>
-
-                        <AppButton
-                            accessibilityLabel={t`Next step`}
-                            disabled={currentStepNumber === stepCount}
-                            icon={nextStepIcon}
-                            onPress={handleNext}
-                            size="compact"
-                            style={styles.stepButton}
-                            testID={HintPanelSelectors.NextButton}
-                            variant="ghost"
-                        />
-                    </View>
-
-                    <AppButton onPress={handleApply} size="compact" testID={HintPanelSelectors.ApplyButton} text={t`Apply`} />
+                    {isEliminationOnly ? null : (
+                        <AppButton onPress={handleApply} size="compact" testID={HintPanelSelectors.ApplyButton} text={t`Apply`} />
+                    )}
                 </View>
+
+                {isEliminationOnly ? (
+                    <HintPanelEliminationActions engine={engine} onApply={handleApply} stepIndex={stepIndex} stepScript={stepScript} />
+                ) : null}
             </View>
         </Animated.View>
     );

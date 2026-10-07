@@ -555,6 +555,7 @@ msgstr "সম্পূর্ণ হওয়ার অ্যানিমেশন"
 msgid "Completion Bonuses"
 msgstr "সম্পূর্ণ করার বোনাস"
 
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -568,6 +569,10 @@ msgstr "অন্য জায়গায় চালিয়ে যান"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "আমি যেখানে থেমেছি ঠিক সেখান থেকে এই সুডোকু চালিয়ে যাও!"
+
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+msgid "Continue to next hint"
+msgstr "পরবর্তী ইঙ্গিতে যান"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1149,7 +1154,7 @@ msgstr "নতুন"
 msgid "Newspaper"
 msgstr "সংবাদপত্র"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Next step"
 msgstr "পরবর্তী ধাপ"
 
@@ -1185,10 +1190,6 @@ msgstr "এখনও কোনো খেলা নেই"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "No limit"
 msgstr "কোনো সীমা নেই"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
-msgstr "ইঙ্গিতের অনুসন্ধান-গভীরতার মধ্যে কোনো যৌক্তিক ধাপ পাওয়া যায়নি, তাই এই ইঙ্গিত সমাধান থেকে অঙ্কটি প্রকাশ করছে।"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
@@ -1400,7 +1401,7 @@ msgstr "Português"
 msgid "Presets"
 msgstr "প্রিসেট"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Previous step"
 msgstr "আগের ধাপ"
 
@@ -1507,9 +1508,14 @@ msgstr "এই খেলা চালিয়ে যাবেন?"
 msgid "Retry loading development build"
 msgstr "ডেভেলপমেন্ট বিল্ড আবার লোড করুন"
 
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "প্রকাশ"
+
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+msgid "Reveal a digit"
+msgstr "একটি সংখ্যা প্রকাশ করুন"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1774,7 +1780,7 @@ msgstr "পরিসংখ্যান"
 msgid "Stayed in app"
 msgstr "অ্যাপেই ছিলেন"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "{stepCount}টির মধ্যে ধাপ {currentStepNumber}"
 
@@ -1913,6 +1919,10 @@ msgstr "থিমের নাম"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "এই বোর্ডটি এবার শেষ হয়নি। ইউক্রেনে স্বাধীনতার লড়াই চলছে। প্রতিটি $1 অনুদান গুরুত্বপূর্ণ।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "This reveals the marked cell's digit from the solution."
+msgstr "এটি সমাধান থেকে চিহ্নিত ঘরের সংখ্যাটি দেখায়।"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

@@ -29,7 +29,7 @@ export const HintButton = ({ sizeStyle }: Props) => {
     const { allowHintsOnHardDifficulties } = useSettings();
 
     const handleHint = () => {
-        const stepScript = findHintStepScript(engine.Sudoku);
+        const stepScript = findHintStepScript(engine.Sudoku, snapshot.eliminatedCandidates);
 
         if (isDefined(stepScript)) {
             engine.startStepScript(stepScript);

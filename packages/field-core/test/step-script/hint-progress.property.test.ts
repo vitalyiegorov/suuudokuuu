@@ -74,24 +74,30 @@ const createEngine = (puzzle: string, noteMode: NoteModeType): FieldEngine => {
     return engine;
 };
 
-const playHints = (puzzle: string, noteMode: NoteModeType): { outcome: string; hints: number; problems: string[] } => {
+const playHints = (puzzle: string, noteMode: NoteModeType): { outcome: string; placements: number; problems: string[] } => {
     const engine = createEngine(puzzle, noteMode);
     const problems: string[] = [];
+    let placements = 0;
 
-    for (let hint = 0; hint <= puzzle.length; hint += 1) {
-        const script = findHintStepScript(engine.Sudoku);
+    for (let hint = 0; hint <= puzzle.length * 9; hint += 1) {
+        const script = findHintStepScript(engine.Sudoku, engine.getSnapshot().eliminatedCandidates);
 
         if (engine.getSnapshot().isWon || script === null) {
-            return { outcome: engine.getSnapshot().isWon ? 'solved' : 'unsolved', hints: hint, problems };
+            return { outcome: engine.getSnapshot().isWon ? 'solved' : 'unsolved', placements, problems };
         }
 
         const blankCount = getBlankCells(engine).length;
         const { placement } = script;
-        const solutionValue = engine.Sudoku.getCorrectValue(placement?.cell);
+        const solutionValue = placement ? engine.Sudoku.getCorrectValue(placement.cell) : 0;
         const wrongEliminations = script.eliminations.filter(({ cell, value }) => engine.Sudoku.getCorrectValue(cell) === value);
+        const eliminationsBefore = engine.getSnapshot().eliminatedCandidates;
 
         engine.startStepScript(script);
         engine.applyStepScript();
+
+        if (placement) {
+            placements += 1;
+        }
 
         const placedValue = placement ? engine.Sudoku.Field[placement.cell.y][placement.cell.x].value : 0;
         const lostSolutionNotes = getBlankCells(engine).filter(
@@ -99,16 +105,22 @@ const playHints = (puzzle: string, noteMode: NoteModeType): { outcome: string; h
         );
 
         problems.push(
-            ...(placement === undefined ? [`hint ${hint} has no placement`] : []),
-            ...(placedValue === solutionValue && placement?.value === solutionValue ? [] : [`hint ${hint} placed a wrong digit`]),
-            ...(getBlankCells(engine).length === blankCount - 1 ? [] : [`hint ${hint} did not place exactly one digit`]),
+            ...(placement && (placedValue !== solutionValue || placement.value !== solutionValue)
+                ? [`hint ${hint} placed a wrong digit`]
+                : []),
+            ...(getBlankCells(engine).length === blankCount - Number(Boolean(placement))
+                ? []
+                : [`hint ${hint} changed the wrong number of cells`]),
+            ...(!placement && engine.getSnapshot().eliminatedCandidates === eliminationsBefore
+                ? [`hint ${hint} did not eliminate a candidate`]
+                : []),
             ...(engine.getSnapshot().mistakes === 0 ? [] : [`hint ${hint} registered a mistake`]),
             ...wrongEliminations.map(({ cell, value }) => `hint ${hint} eliminated the solution ${value} at ${cell.y}-${cell.x}`),
             ...lostSolutionNotes.map(cell => `hint ${hint} left ${cell.y}-${cell.x} without its solution candidate`)
         );
     }
 
-    return { outcome: 'stalled', hints: puzzle.length, problems };
+    return { outcome: 'stalled', placements, problems };
 };
 
 describe('hint progress over puzzle corpora', () => {
@@ -118,15 +130,15 @@ describe('hint progress over puzzle corpora', () => {
             [label, noteModes[index % noteModes.length], puzzle]
         ])
     )(
-        '%s, %s: every hint places one solution digit until the board is solved',
+        '%s, %s: each hint makes safe progress until the board is solved',
         (_label, noteMode, puzzle) => {
             expect.assertions(3);
 
-            const { hints, outcome, problems } = playHints(puzzle, noteMode);
+            const { placements, outcome, problems } = playHints(puzzle, noteMode);
 
             expect(problems).toEqual([]);
             expect(outcome).toBe('solved');
-            expect(hints).toBe(getBlankCells(createEngine(puzzle, 'no notes')).length);
+            expect(placements).toBe(getBlankCells(createEngine(puzzle, 'no notes')).length);
         },
         corpusTimeoutMilliseconds
     );
