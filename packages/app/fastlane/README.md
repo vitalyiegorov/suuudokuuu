@@ -294,11 +294,13 @@ uploaded when explicitly requested.
       screenshots at 1080×1920, `featureGraphic.png` at 1024×500, and
       `icon.png` at 512×512 for each of 13 locales. The screenshot composer
       frames Pixel 5 captures and fits them to the Play phone canvas. The
-      feature graphic uses a near-black `#010101` canvas, the small white
-      `suuudokuuu` wordmark, localized “Just you. And the grid.” and
-      “No ads. No account. No tracking.” copy, plus crops of the real Pixel 5
-      hero board and circular number pad. Its localized copy comes from
-      `screenshots/design/<locale>/feature.strings`; it adds no fabricated UI.
+      feature graphic uses a dark `#101010` canvas, the small white
+      `suuudokuuu` wordmark, and localized “Know your real level.” / “Rated
+      solves. Tracked techniques.” copy from the App Store statistics shot.
+      Two actual framed phones show gameplay behind statistics and its
+      technique arsenal. Matching App Store UI captures serve 11 locales;
+      Bengali and Urdu use English phones with localized copy from
+      `screenshots/design/<locale>/feature.strings`.
       The icon is resized from `packages/app/assets/icon.png`, preserving the
       app icon's Ukraine flag colors.
 4. Upload happens only on request: check "Also upload the committed store

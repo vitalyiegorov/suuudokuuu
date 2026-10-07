@@ -185,11 +185,13 @@ change the layout rhythm, and keep the two manifests mirrored.
 Store artwork is regenerated manually and reviewed before upload; generation
 does not run in CI. Generate localized Play feature graphics and the icon with
 `bash packages/app/fastlane/screenshots/design/compose-play-artwork.sh`.
-The feature graphic uses a near-black `#010101` canvas, the small white
-`suuudokuuu` wordmark, localized “Just you. And the grid.” copy and a short
-“No ads. No account. No tracking.” values line. It pairs crops from the
-committed Pixel 5 hero screenshot (the board and circular number pad) with
-that copy; it adds no invented interface. The 13 localized
-`design/<locale>/feature.strings` files are its copy source.
+The feature graphic uses a dark `#101010` canvas, the small white
+`suuudokuuu` wordmark, and the existing statistics promise “Know your real
+level.” / “Rated solves. Tracked techniques.” It pairs actual framed
+gameplay and statistics phones cropped from the dark App Store screenshots.
+Eleven locales use matching UI captures; Bengali and Urdu use English phone
+captures with localized copy. The 13 `design/<locale>/feature.strings` files
+reuse the localized `10-stats` titles and subtitles. Crop dimensions and
+positions are documented in `design/README.md`.
 Google Play tablet screenshots and recorded app preview videos are not part of
 the current committed set.

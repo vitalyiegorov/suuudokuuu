@@ -17,13 +17,12 @@ ANDROID_METADATA_DIR="$APP_DIR/fastlane/metadata/android"
 FONT_DIR="$APP_DIR/node_modules/@expo-google-fonts/inter"
 FONT="$FONT_DIR/900Black/Inter_900Black.ttf"
 REGULAR_FONT="$FONT_DIR/400Regular/Inter_400Regular.ttf"
-SCREENSHOT="$ANDROID_METADATA_DIR/en-US/images/phoneScreenshots/01_phone_hero-board.png"
+IOS_SOURCE_DIR="$APP_DIR/fastlane/screenshots/variants/dark/ios"
 ICON="$APP_DIR/assets/icon.png"
 
-for source in "$FONT" "$REGULAR_FONT" "$SCREENSHOT" "$ICON"; do
+for source in "$FONT" "$REGULAR_FONT" "$ICON"; do
   [[ -s "$source" && -r "$source" ]] || fail "required artwork source missing or unreadable: $source"
 done
-[[ "$(magick identify -format '%m %w %h' "$SCREENSHOT")" == 'PNG 1080 1920' ]] || fail 'hero screenshot must be a 1080x1920 PNG'
 [[ "$(magick identify -format '%m %w %h' "$ICON")" == 'PNG 1024 1024' ]] || fail 'app icon source must be a 1024x1024 PNG'
 
 shopt -s nullglob
@@ -53,8 +52,6 @@ cat > "$STAGE_ROOT/fonts.conf" <<EOF
 EOF
 export FONTCONFIG_FILE="$STAGE_ROOT/fonts.conf"
 
-magick "$SCREENSHOT" -crop 648x648+213+624 +repage -resize 300x300 "$STAGE_ROOT/board.png"
-magick "$SCREENSHOT" -crop 630x200+225+1520 +repage -resize 300x "$STAGE_ROOT/numpad.png"
 magick -background none -fill '#FFFFFF' -font "$FONT" -pointsize 22 label:suuudokuuu -trim +repage "$STAGE_ROOT/brand.png"
 magick "$ICON" -resize 512x512 -colorspace sRGB -alpha on -depth 8 -strip -define png:color-type=6 "$STAGE_ROOT/icon.png"
 [[ "$(magick identify -format '%m %w %h %z %[png:IHDR.color_type]' "$STAGE_ROOT/icon.png")" == 'PNG 512 512 8 6 (RGBA)' ]] || fail 'Play icon must be a 512x512 8-bit RGBA PNG'
@@ -82,6 +79,10 @@ render_locale() {
   local locale_dir="$1"
   local locale
   local design_locale
+  local source_locale
+  local gameplay_source
+  local stats_source
+  local gameplay_position
   local line
   local headline_first=''
   local headline_second=''
@@ -101,6 +102,22 @@ render_locale() {
     sv-SE) design_locale='sv' ;;
     zh-CN) design_locale='zh-Hans' ;;
   esac
+  source_locale="$design_locale"
+  case "$locale" in
+    bn-BD|ur) source_locale='en-US' ;;
+  esac
+  gameplay_source="$IOS_SOURCE_DIR/$source_locale/01_iphone_hero-board.png"
+  stats_source="$IOS_SOURCE_DIR/$source_locale/07_iphone_stats.png"
+  for source in "$gameplay_source" "$stats_source"; do
+    [[ -s "$source" && -r "$source" ]] || fail "committed iOS source missing or unreadable: $source"
+    [[ "$(magick identify -format '%m %w %h' "$source")" == 'PNG 1320 2868' ]] || fail "iOS source must be a 1320x2868 PNG: $source"
+  done
+  gameplay_position="$(magick "$gameplay_source" -crop 1x550+660+250 +repage -colorspace gray -threshold 12% txt:- | awk -F '[,:]' '/#FFFFFF/ { last=$2 } END { if (last != "") print last+250-30 }')"
+  [[ -n "$gameplay_position" && "$gameplay_position" -ge 350 && "$gameplay_position" -le 750 ]] || fail "cannot locate gameplay device frame: $source_locale"
+  magick "$gameplay_source" -crop "1072x2240+124+$gameplay_position" +repage \
+    -alpha on -fuzz 7% -fill none -draw 'alpha 0,0 floodfill' -resize x365 "$STAGE_ROOT/gameplay.png"
+  magick "$stats_source" -crop 1032x2220+152+32 +repage \
+    -alpha on -fuzz 7% -fill none -draw 'alpha 0,0 floodfill' -resize x400 "$STAGE_ROOT/stats.png"
   [[ -s "$DESIGN_DIR/$design_locale/feature.strings" ]] || fail "localized feature copy missing: $design_locale"
   while IFS= read -r line || [[ -n "$line" ]]; do
     [[ -z "$line" ]] && continue
@@ -143,12 +160,12 @@ render_locale() {
     [[ "$values_pointsize" -ge 18 ]] || fail "values cannot fit without wrapping: $design_locale"
   done
   mkdir -p "$STAGE_ROOT/$locale"
-  magick -size 1024x500 xc:'#010101' "$STAGE_ROOT/brand.png" -geometry +64+65 -composite \
+  magick -size 1024x500 xc:'#101010' "$STAGE_ROOT/brand.png" -geometry +64+65 -composite \
     "$STAGE_ROOT/first.png" -geometry +64+145 -composite \
     "$STAGE_ROOT/second.png" -geometry "+64+$second_position" -composite \
     "$STAGE_ROOT/values.png" -geometry +64+340 -composite \
-    "$STAGE_ROOT/board.png" -geometry +630+52 -composite \
-    "$STAGE_ROOT/numpad.png" -geometry +630+355 -composite \
+    "$STAGE_ROOT/gameplay.png" -geometry +594+82 -composite \
+    "$STAGE_ROOT/stats.png" -geometry +750+50 -composite \
     -alpha off -colorspace sRGB -depth 8 -strip -define png:color-type=2 "$STAGE_ROOT/$locale/featureGraphic.png"
   [[ "$(magick identify -format '%m %w %h %z %[png:IHDR.color_type]' "$STAGE_ROOT/$locale/featureGraphic.png")" == 'PNG 1024 500 8 2 (Truecolor)' ]] || fail "invalid rendered feature graphic: $locale"
 }

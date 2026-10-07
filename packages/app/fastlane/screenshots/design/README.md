@@ -68,20 +68,28 @@ the current screenshot output is made by `compose-screenshots.sh`.
 
 ## Play feature artwork
 
-The Play feature graphic is a 1024×500 near-black `#010101` composition. It
-keeps the app’s quiet, airy dark interface: a small white `suuudokuuu`
-wordmark, two short localized headline lines (“Just you.” / “And the grid.”),
-and the values line (“No ads. No account. No tracking.”). On the right it
-uses crops of the actual Pixel 5 hero screenshot: the 648×648 board crop at
-`+213+624` and the 630×200 circular number-pad crop at `+225+1520`, each
-resized into the banner. This reuses real captured UI and does not add
-illustrated or fabricated interface. If the source screenshot is reframed,
-review these crop coordinates and the resulting composition before updating
-the committed artwork. The board crop is resized to 300×300; the number pad
-is resized to 300px wide.
+The Play feature graphic is a 1024×500 dark `#101010` composition that carries
+the App Store statistics promise: “Know your real level.” and “Rated solves.
+Tracked techniques.” The headline uses two lines beside actual framed
+gameplay and statistics phones. The statistics phone sits in front so its
+technique arsenal and progress remain visible.
+
+Sources are `variants/dark/ios/<locale>/01_iphone_hero-board.png` and
+`07_iphone_stats.png`, both 1320×2868. Gameplay is cropped at x124 with a
+1072×2240 rectangle; its y coordinate follows the center top frame edge
+because localized captions change the phone position. Statistics uses a
+1032×2220 crop at `+152+32`. Exterior background is removed by a connected
+corner flood fill. Gameplay is resized to 365px high at `+594+82`, and
+statistics to 400px high at `+750+50`. Review the complete bezels and absence
+of source captions whenever the screenshots are reframed.
+
+Eleven locales use their matching App Store UI captures. Bengali and Urdu
+use the English phone captures because Apple has no matching screenshot
+locales; their banner headlines and descriptor remain fully localized.
 
 Localized copy is kept in `design/<locale>/feature.strings`; all 13 Play
-locales have exactly `headline-first`, `headline-second`, and `values` keys.
+locales have exactly `headline-first`, `headline-second`, and `values` keys,
+reusing the existing localized `10-stats` title and subtitle verbatim.
 The brand wordmark and Latin/Cyrillic headlines use bundled Inter Black 900;
 the values line uses bundled Inter Regular 400. Arabic, Nastaliq Urdu,
 Devanagari, Bengali, and Simplified Chinese use the corresponding Noto fonts.
