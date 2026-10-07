@@ -96,7 +96,7 @@ pnpm --filter @suuudokuuu/web-tests lint
 
 - `revealHintSharedPuzzleEncodedConstant`: a `Puzzle`-kind share of the 21-clue Inkala puzzle that
   carries a Medium difficulty trailer (rating `8.5`, ceiling) so the hint button stays visible.
-  No logical chain reaches a placement, so the first hint is the "Advanced chain" reveal of `9` at
+  No logical chain reaches a placement, so the first hint is the "Reveal" of `9` at
   `y=7, x=6`, the blank cell with the fewest candidates. `09.hint-flow.spec.ts` depends on it.
 
 - `15.daily-challenge.spec.ts` needs no fixture. It pins the clock with `page.clock.setFixedTime` and

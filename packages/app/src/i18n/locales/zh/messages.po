@@ -97,8 +97,32 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, other {连续 # 天}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
-msgstr "{techniqueName}:{value} 来自一条高级推理链,因此提示直接为你填入。"
+msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
+msgstr "{techniqueName}:{valueList} 必须位于基线中，因此覆盖线在标记的单元格中不再包含它。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
+msgstr "{techniqueName}:某个钳形单元格必定是 {valueList}，因此同时看到两个钳形单元格的标记单元格不可能是 {valueList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "{techniqueName}:其余每个空单元格都只有两个候选数，因此为避免致命模式，{value} 必须填入标记的单元格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}:每种可能性都以矛盾或相同的结果告终，因此标记的单元格中排除了 {valueList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "{techniqueName}:突出显示的单元格中的每种可能性都会使标记的单元格得到 {value}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "{techniqueName}:从突出显示的单元格出发，沿每种可能性推演，直到出现矛盾或得到相同的结果。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "{techniqueName}:在突出显示的基线中，{valueList} 只能填入突出显示的单元格，因此它被锁定在覆盖线中。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -113,6 +137,10 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}:在突出显示的行中，{value} 只能填入标记的单元格。"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}:链的某一端必定是 {valueList}，因此同时看到两端的标记单元格不可能是 {valueList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
 msgstr "{techniqueName}:数字 {valueList} 被限定在突出显示的单元格中,因此可从其他单元格中排除。"
 
@@ -121,8 +149,20 @@ msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} 
 msgstr "{techniqueName}:突出显示的宫只剩一个空格，{value} 应填在那里。"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
+msgstr "{techniqueName}:突出显示的单元格构成一条链，因此链的一端或另一端必定是 {valueList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}:突出显示的单元格让标记单元格只剩下 {value} 可填。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "{techniqueName}:突出显示的单元格会形成 {valueList} 的致命模式，使谜题出现两个解。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "{techniqueName}:突出显示的单元格会留下 {valueList} 的致命模式。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
@@ -139,6 +179,14 @@ msgstr "{techniqueName}:标记的单元格已看到除 {value} 之外的所有�
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
 msgstr "{techniqueName}:该模式排除了标记单元格中的 {valueList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}:为避免致命模式，标记的单元格中排除了 {valueList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "{techniqueName}:无论突出显示的枢纽单元格如何确定，它的某个钳形单元格都会变成 {valueList}。"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -187,10 +235,6 @@ msgstr "调整数独棋盘上的数字大小"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "高级"
-
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
-msgid "Advanced chain"
-msgstr "高级链"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1134,6 +1178,10 @@ msgstr "还没有游戏"
 msgid "No limit"
 msgstr "无限制"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
+msgstr "在提示的搜索深度内没有找到逻辑步骤，因此该提示直接从答案中揭示数字。"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
 msgstr "无论有多少惩罚，你至少都会获得"
@@ -1450,6 +1498,10 @@ msgstr "继续这局游戏？"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "重新加载开发版本"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Reveal"
+msgstr "揭示"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx

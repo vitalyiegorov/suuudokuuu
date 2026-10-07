@@ -99,8 +99,32 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Serie: # Tag} other {Serie: # Tage}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
-msgstr "{techniqueName}: {value} folgt aus einer fortgeschrittenen Schlusskette, deshalb setzt der Hinweis die Ziffer für dich."
+msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
+msgstr "{techniqueName}: {valueList} muss in den Basislinien stehen, daher verlieren die Abdeckungslinien es in den markierten Zellen."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
+msgstr "{techniqueName}: Eine Zangenzelle ist immer {valueList}, daher können die markierten Zellen, die beide Zangen sehen, nicht {valueList} sein."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "{techniqueName}: Jede andere leere Zelle hat zwei Kandidaten, daher muss {value} in die markierte Zelle, um ein tödliches Muster zu vermeiden."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: Jede Möglichkeit endet in einem Widerspruch oder demselben Ergebnis, daher wird {valueList} aus den markierten Zellen ausgeschlossen."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "{techniqueName}: Jede Möglichkeit in den markierten Zellen führt zu {value} in der markierten Zelle."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "{techniqueName}: Von den markierten Zellen aus wird jede Möglichkeit verfolgt, bis sie einen Widerspruch oder dasselbe Ergebnis erreicht."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "{techniqueName}: In den markierten Basislinien passt {valueList} nur in die markierten Zellen, also ist es in den Abdeckungslinien gebunden."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -115,6 +139,10 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: in der markierten Zeile passt {value} nur in die markierte Zelle."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}: Ein Ende der Kette ist immer {valueList}, daher können die markierten Zellen, die beide Enden sehen, nicht {valueList} sein."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
 msgstr "{techniqueName}: die Ziffern {valueList} sind auf die markierten Zellen beschränkt und fallen deshalb in allen anderen Zellen weg."
 
@@ -123,8 +151,20 @@ msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} 
 msgstr "{techniqueName}: im markierten Block bleibt nur eine leere Zelle, dorthin gehört {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
+msgstr "{techniqueName}: Die markierten Zellen bilden eine Kette, daher ist entweder das eine oder das andere Ende {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: die markierten Zellen lassen für die markierte Zelle nur {value} übrig."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "{techniqueName}: Die markierten Zellen würden ein tödliches Muster aus {valueList} bilden, das dem Rätsel zwei Lösungen ließe."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "{techniqueName}: Die markierten Zellen würden ein tödliches Muster aus {valueList} hinterlassen."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
@@ -141,6 +181,14 @@ msgstr "{techniqueName}: die markierte Zelle sieht alle markierten Ziffern auße
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
 msgstr "{techniqueName}: das Muster schließt {valueList} in den markierten Zellen aus."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: Um das tödliche Muster zu vermeiden, wird {valueList} aus den markierten Zellen ausgeschlossen."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "{techniqueName}: Egal wie die markierte Pivotzelle gelöst wird, eine ihrer Zangenzellen wird zu {valueList}."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -189,10 +237,6 @@ msgstr "Größe der Zahlen auf dem Sudoku-Brett anpassen"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "Fortgeschritten"
-
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
-msgid "Advanced chain"
-msgstr "Fortgeschrittene Kette"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1136,6 +1180,10 @@ msgstr "Noch keine Spiele"
 msgid "No limit"
 msgstr "Kein Limit"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
+msgstr "Innerhalb der Suchtiefe des Hinweises wurde kein logischer Schritt gefunden, deshalb deckt dieser Hinweis die Ziffer aus der Lösung auf."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
 msgstr "Egal wie viele Abzüge es gibt, du bekommst mindestens"
@@ -1452,6 +1500,10 @@ msgstr "Dieses Spiel fortsetzen?"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "Entwicklungs-Build erneut laden"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Reveal"
+msgstr "Aufdecken"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx

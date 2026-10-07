@@ -97,8 +97,32 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {# दिन का सिलसिला} other {# दिन का सिलसिला}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
-msgstr "{techniqueName}: {value} तर्क की एक उन्नत श्रृंखला से निकलता है, इसलिए संकेत इसे आपके लिए भर देता है।"
+msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
+msgstr "{techniqueName}: {valueList} को बेस लाइनों में ही रहना है, इसलिए कवर लाइनें चिह्नित सेल में उसे खो देती हैं।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
+msgstr "{techniqueName}: एक पिंसर सेल हमेशा {valueList} होती है, इसलिए दोनों पिंसर को देखने वाली चिह्नित सेल {valueList} नहीं हो सकतीं।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "{techniqueName}: बाकी हर खाली सेल में दो उम्मीदवार हैं, इसलिए घातक पैटर्न से बचने के लिए {value} चिह्नित सेल में जाना चाहिए।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: हर संभावना विरोधाभास या उसी परिणाम पर खत्म होती है, इसलिए चिह्नित सेल से {valueList} हटा दिया जाता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "{techniqueName}: हाइलाइट की गई सेल की हर संभावना चिह्नित सेल में {value} तक ले जाती है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "{techniqueName}: हाइलाइट की गई सेल से हर संभावना को तब तक आगे बढ़ाया जाता है जब तक वह विरोधाभास या उसी परिणाम तक न पहुँचे।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "{techniqueName}: हाइलाइट की गई बेस लाइनों में {valueList} केवल हाइलाइट की गई सेल में ही आ सकता है, इसलिए वह कवर लाइनों में बंध जाता है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -113,6 +137,10 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: हाइलाइट की गई पंक्ति में, {value} केवल चिह्नित सेल में ही आ सकता है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}: शृंखला का एक सिरा हमेशा {valueList} होता है, इसलिए दोनों सिरों को देखने वाली चिह्नित सेल {valueList} नहीं हो सकतीं।"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
 msgstr "{techniqueName}: अंक {valueList} हाइलाइट किए गए सेल में सीमित हैं, इसलिए वे बाकी सेल से हट जाते हैं।"
 
@@ -121,8 +149,20 @@ msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} 
 msgstr "{techniqueName}: हाइलाइट किए गए ब्लॉक में केवल एक खाली सेल बची है, इसलिए {value} वहीं जाएगा।"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
+msgstr "{techniqueName}: हाइलाइट की गई सेल एक शृंखला बनाती हैं, इसलिए उसका एक सिरा या दूसरा सिरा {valueList} है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: हाइलाइट किए गए सेल चिह्नित सेल के लिए केवल {value} छोड़ते हैं।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "{techniqueName}: हाइलाइट की गई सेल {valueList} का एक घातक पैटर्न बनातीं, जिससे पहेली के दो हल बचते।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "{techniqueName}: हाइलाइट की गई सेल {valueList} का एक घातक पैटर्न छोड़तीं।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
@@ -139,6 +179,14 @@ msgstr "{techniqueName}: चिह्नित सेल {value} को छो�
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
 msgstr "{techniqueName}: यह पैटर्न चिह्नित सेल से {valueList} हटा देता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: घातक पैटर्न से बचने के लिए चिह्नित सेल से {valueList} हटा दिया जाता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "{techniqueName}: हाइलाइट की गई पिवट सेल का हल चाहे जैसे निकले, उसकी एक पिंसर सेल {valueList} बन जाती है।"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -187,10 +235,6 @@ msgstr "सुडोकू बोर्ड पर अंकों का आक�
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "उन्नत"
-
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
-msgid "Advanced chain"
-msgstr "उन्नत श्रृंखला"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1134,6 +1178,10 @@ msgstr "अभी कोई गेम नहीं"
 msgid "No limit"
 msgstr "कोई सीमा नहीं"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
+msgstr "संकेत की खोज-गहराई में कोई तार्किक चरण नहीं मिला, इसलिए यह संकेत हल से अंक प्रकट करता है।"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
 msgstr "दंड चाहे जितने हों, आपको हमेशा कम से कम मिलते हैं"
@@ -1450,6 +1498,10 @@ msgstr "यह गेम जारी रखें?"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "डेवलपमेंट बिल्ड फिर से लोड करें"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Reveal"
+msgstr "प्रकट करें"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx

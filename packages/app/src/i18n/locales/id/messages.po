@@ -97,8 +97,32 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Rentetan # hari} other {Rentetan # hari}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
-msgstr "{techniqueName}: {value} berasal dari rantai penalaran tingkat lanjut, jadi petunjuk menempatkannya untukmu."
+msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
+msgstr "{techniqueName}: {valueList} harus berada di garis dasar, sehingga garis penutup kehilangannya di sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
+msgstr "{techniqueName}: salah satu sel penjepit selalu {valueList}, sehingga sel yang ditandai yang melihat kedua penjepit tidak bisa {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "{techniqueName}: setiap sel kosong lainnya punya dua kandidat, sehingga {value} harus masuk ke sel yang ditandai untuk menghindari pola mematikan."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: setiap kemungkinan berakhir pada kontradiksi atau hasil yang sama, sehingga {valueList} dicoret dari sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "{techniqueName}: setiap kemungkinan di sel yang disorot mengarah ke {value} di sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "{techniqueName}: dari sel yang disorot, setiap kemungkinan diikuti sampai mencapai kontradiksi atau hasil yang sama."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "{techniqueName}: di garis dasar yang disorot, {valueList} hanya muat di sel yang disorot, sehingga terkunci di garis penutup."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -113,6 +137,10 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: di baris yang disorot, {value} hanya muat di sel yang ditandai."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}: salah satu ujung rantai selalu {valueList}, sehingga sel yang ditandai yang melihat kedua ujung tidak bisa {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
 msgstr "{techniqueName}: angka {valueList} terkunci di sel yang disorot, sehingga disingkirkan dari sel lainnya."
 
@@ -121,8 +149,20 @@ msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} 
 msgstr "{techniqueName}: kotak yang disorot hanya menyisakan satu sel kosong, jadi {value} ditempatkan di sana."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
+msgstr "{techniqueName}: sel yang disorot membentuk sebuah rantai, sehingga salah satu ujungnya atau ujung lainnya adalah {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: sel yang disorot hanya menyisakan {value} untuk sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "{techniqueName}: sel yang disorot akan membentuk pola mematikan dari {valueList} yang membuat teka-teki punya dua solusi."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "{techniqueName}: sel yang disorot akan menyisakan pola mematikan dari {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
@@ -139,6 +179,14 @@ msgstr "{techniqueName}: sel yang ditandai melihat semua angka yang disorot kecu
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
 msgstr "{techniqueName}: pola ini mengeliminasi {valueList} di sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: untuk menghindari pola mematikan, {valueList} dicoret dari sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "{techniqueName}: bagaimanapun sel poros yang disorot diselesaikan, salah satu sel penjepitnya menjadi {valueList}."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -187,10 +235,6 @@ msgstr "Atur angka di papan Sudoku"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "Mahir"
-
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
-msgid "Advanced chain"
-msgstr "Rantai lanjutan"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1134,6 +1178,10 @@ msgstr "Belum ada game"
 msgid "No limit"
 msgstr "Tanpa batas"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
+msgstr "Tidak ditemukan langkah logis dalam kedalaman pencarian petunjuk, jadi petunjuk ini mengungkap angka dari solusi."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
 msgstr "Berapa pun penaltinya, kamu selalu mendapat setidaknya"
@@ -1450,6 +1498,10 @@ msgstr "Lanjutkan permainan ini?"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "Coba lagi memuat build pengembangan"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Reveal"
+msgstr "Ungkap"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx

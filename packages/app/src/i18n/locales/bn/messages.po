@@ -97,8 +97,32 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {# দিনের ধারা} other {# দিনের ধারা}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
-msgstr "{techniqueName}: {value} একটি উন্নত যুক্তির শৃঙ্খল থেকে আসে, তাই সংকেতটি এটি আপনার জন্য বসিয়ে দেয়।"
+msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
+msgstr "{techniqueName}: {valueList} অবশ্যই বেস লাইনে থাকবে, তাই কভার লাইনগুলো চিহ্নিত ঘরে এটি হারায়।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
+msgstr "{techniqueName}: একটি পিনসার ঘর সবসময় {valueList}, তাই দুই পিনসারকেই দেখতে পাওয়া চিহ্নিত ঘরগুলো {valueList} হতে পারে না।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "{techniqueName}: বাকি প্রতিটি ফাঁকা ঘরে দুটি করে প্রার্থী আছে, তাই মারাত্মক প্যাটার্ন এড়াতে {value} চিহ্নিত ঘরে বসবে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: প্রতিটি সম্ভাবনা বিরোধ বা একই ফলাফলে শেষ হয়, তাই চিহ্নিত ঘরগুলো থেকে {valueList} বাদ দেওয়া হয়।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "{techniqueName}: হাইলাইট করা ঘরগুলোর প্রতিটি সম্ভাবনা চিহ্নিত ঘরে {value}-এ পৌঁছায়।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো থেকে প্রতিটি সম্ভাবনা অনুসরণ করা হয় যতক্ষণ না তা বিরোধ বা একই ফলাফলে পৌঁছায়।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "{techniqueName}: হাইলাইট করা বেস লাইনে {valueList} শুধু হাইলাইট করা ঘরগুলোতেই বসতে পারে, তাই এটি কভার লাইনে আটকা পড়ে।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -113,6 +137,10 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: হাইলাইট করা সারিতে, {value} শুধু চিহ্নিত ঘরেই বসতে পারে।"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}: শৃঙ্খলের একটি প্রান্ত সবসময় {valueList}, তাই দুই প্রান্তকেই দেখতে পাওয়া চিহ্নিত ঘরগুলো {valueList} হতে পারে না।"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
 msgstr "{techniqueName}: {valueList} সংখ্যাগুলি হাইলাইট করা ঘরগুলিতে আটকে আছে, তাই অন্য ঘর থেকে সেগুলি বাদ যায়।"
 
@@ -121,8 +149,20 @@ msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} 
 msgstr "{techniqueName}: হাইলাইট করা বাক্সে শুধু একটি খালি ঘর বাকি, তাই {value} সেখানেই বসবে।"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
+msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো একটি শৃঙ্খল গঠন করে, তাই এর এক প্রান্ত অথবা অন্য প্রান্ত {valueList}।"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: হাইলাইট করা ঘরগুলি চিহ্নিত ঘরের জন্য শুধু {value} রাখে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো {valueList}-এর একটি মারাত্মক প্যাটার্ন গঠন করত, যাতে ধাঁধাটির দুটি সমাধান হতো।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো {valueList}-এর একটি মারাত্মক প্যাটার্ন রেখে যেত।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
@@ -139,6 +179,14 @@ msgstr "{techniqueName}: চিহ্নিত ঘরটি {value} ছাড়
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
 msgstr "{techniqueName}: এই প্যাটার্ন চিহ্নিত ঘরগুলি থেকে {valueList} বাদ দেয়।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: মারাত্মক প্যাটার্ন এড়াতে চিহ্নিত ঘরগুলো থেকে {valueList} বাদ দেওয়া হয়।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "{techniqueName}: হাইলাইট করা পিভট ঘর যেভাবেই সমাধান হোক, তার একটি পিনসার ঘর {valueList} হয়ে যায়।"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -187,10 +235,6 @@ msgstr "সুডোকু বোর্ডের সংখ্যাগুলো�
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "উন্নত"
-
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
-msgid "Advanced chain"
-msgstr "উন্নত চেইন"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1134,6 +1178,10 @@ msgstr "এখনও কোনো খেলা নেই"
 msgid "No limit"
 msgstr "কোনো সীমা নেই"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
+msgstr "ইঙ্গিতের অনুসন্ধান-গভীরতার মধ্যে কোনো যৌক্তিক ধাপ পাওয়া যায়নি, তাই এই ইঙ্গিত সমাধান থেকে অঙ্কটি প্রকাশ করছে।"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
 msgstr "জরিমানা যতই হোক, আপনি অন্তত পাবেন"
@@ -1450,6 +1498,10 @@ msgstr "এই খেলা চালিয়ে যাবেন?"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "ডেভেলপমেন্ট বিল্ড আবার লোড করুন"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Reveal"
+msgstr "প্রকাশ"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx

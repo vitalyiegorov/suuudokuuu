@@ -97,8 +97,32 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, zero {تتابع # يوم} one {تتابع # يوم} two {تتابع # يومين} few {تتابع # أيام} many {تتابع # يومًا} other {تتابع # يوم}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
-msgstr "{techniqueName}: الرقم {value} ينتج عن سلسلة استنتاج متقدمة، لذلك يضعه التلميح لك."
+msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
+msgstr "{techniqueName}: يجب أن يقع {valueList} في خطوط الأساس، لذا تفقده خطوط التغطية في الخلايا المعلمة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
+msgstr "{techniqueName}: إحدى خليتي الكماشة هي دائماً {valueList}، لذا لا يمكن أن تكون الخلايا المعلمة التي ترى الخليتين معاً {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "{techniqueName}: لكل خلية فارغة أخرى مرشحان فقط، لذا يجب وضع {value} في الخلية المعلمة لتجنب نمط قاتل."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: كل احتمال ينتهي بتناقض أو بالنتيجة نفسها، لذا يُستبعد {valueList} من الخلايا المعلمة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "{techniqueName}: كل احتمال في الخلايا المحددة يؤدي إلى {value} في الخلية المعلمة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "{techniqueName}: انطلاقاً من الخلايا المحددة، يُتتبع كل احتمال حتى يصل إلى تناقض أو إلى النتيجة نفسها."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "{techniqueName}: في خطوط الأساس المحددة، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، لذا فهو محصور في خطوط التغطية."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -113,6 +137,10 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: في الصف المحدد، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}: أحد طرفي السلسلة هو دائماً {valueList}، لذا لا يمكن أن تكون الخلايا المعلمة التي ترى الطرفين معاً {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
 msgstr "{techniqueName}: الأرقام {valueList} محصورة في الخلايا المحددة، مما يستبعدها من الخلايا الأخرى."
 
@@ -121,8 +149,20 @@ msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} 
 msgstr "{techniqueName}: بقي في المربع المحدد خلية فارغة واحدة، لذا توضع {value} هناك."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
+msgstr "{techniqueName}: تشكل الخلايا المحددة سلسلة، لذا فإما أن يكون أحد طرفيها أو الطرف الآخر {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: الخلايا المحددة تترك {value} فقط للخلية المعلمة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "{techniqueName}: ستشكل الخلايا المحددة نمطاً قاتلاً من {valueList} يترك للأحجية حلين."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "{techniqueName}: ستترك الخلايا المحددة نمطاً قاتلاً من {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
@@ -139,6 +179,14 @@ msgstr "{techniqueName}: الخلية المعلمة ترى كل الأرقام 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
 msgstr "{techniqueName}: هذا النمط يستبعد {valueList} من الخلايا المعلمة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: لتجنب النمط القاتل، يُستبعد {valueList} من الخلايا المعلمة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "{techniqueName}: مهما كان حل خلية المحور المحددة، تصبح إحدى خليتي الكماشة التابعتين لها {valueList}."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -187,10 +235,6 @@ msgstr "اضبط حجم الأرقام على لوحة السودوكو"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "متقدم"
-
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
-msgid "Advanced chain"
-msgstr "سلسلة متقدمة"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1134,6 +1178,10 @@ msgstr "لا توجد ألعاب بعد"
 msgid "No limit"
 msgstr "بلا حد"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
+msgstr "لم يُعثر على خطوة منطقية ضمن عمق بحث التلميح، لذا يكشف هذا التلميح الرقم من الحل."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
 msgstr "مهما بلغت العقوبات، ستحصل دائمًا على الأقل على"
@@ -1450,6 +1498,10 @@ msgstr "متابعة هذه اللعبة؟"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "إعادة محاولة تحميل إصدار التطوير"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Reveal"
+msgstr "كشف"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx

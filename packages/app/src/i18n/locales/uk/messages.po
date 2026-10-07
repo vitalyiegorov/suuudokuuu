@@ -99,8 +99,32 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Серія # день} few {Серія # дні} many {Серія # днів} other {Серія # дня}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
-msgstr "{techniqueName}: цифра {value} випливає зі складного ланцюга міркувань, тож підказка ставить її за тебе."
+msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
+msgstr "{techniqueName}: {valueList} має стояти в базових лініях, тож покривні лінії втрачають його в позначених клітинках."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
+msgstr "{techniqueName}: одна з клітинок-кліщів завжди дорівнює {valueList}, тож позначені клітинки, що бачать обидві, не можуть бути {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "{techniqueName}: кожна інша порожня клітинка має по два кандидати, тож {value} має стояти в позначеній клітинці, щоб уникнути смертельного візерунка."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: кожна можливість закінчується суперечністю або тим самим результатом, тож {valueList} виключено з позначених клітинок."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "{techniqueName}: кожна можливість у підсвічених клітинках веде до {value} у позначеній клітинці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "{techniqueName}: від підсвічених клітинок кожну можливість простежують, доки вона не дійде до суперечності або до того самого результату."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "{techniqueName}: у підсвічених базових лініях {valueList} може стояти лише в підсвічених клітинках, тож його замкнено в покривних лініях."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -115,6 +139,10 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: у підсвіченому рядку цифра {value} може стояти лише в позначеній клітинці."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}: один кінець ланцюга завжди дорівнює {valueList}, тож позначені клітинки, що бачать обидва кінці, не можуть бути {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
 msgstr "{techniqueName}: цифри {valueList} зосереджені в підсвічених клітинках, тому їх виключено з решти клітинок."
 
@@ -123,8 +151,20 @@ msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} 
 msgstr "{techniqueName}: у підсвіченому блоці лишилась одна порожня клітинка — там стоїть {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
+msgstr "{techniqueName}: підсвічені клітинки утворюють ланцюг, тож або один його кінець, або інший дорівнює {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: підсвічені клітинки залишають лише {value} у позначеній клітинці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "{techniqueName}: підсвічені клітинки утворили б смертельний візерунок із {valueList}, і в головоломки було б два розв'язки."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "{techniqueName}: підсвічені клітинки залишили б смертельний візерунок із {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
@@ -141,6 +181,14 @@ msgstr "{techniqueName}: позначена клітинка бачить усі
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
 msgstr "{techniqueName}: ця закономірність виключає {valueList} у позначених клітинках."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: щоб уникнути смертельного візерунка, {valueList} виключено з позначених клітинок."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "{techniqueName}: як би не розв'язалася підсвічена клітинка-опора, одна з її клітинок-кліщів стає {valueList}."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -189,10 +237,6 @@ msgstr "Налаштуйте цифри на дошці судоку"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "Просунутий"
-
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
-msgid "Advanced chain"
-msgstr "Складний ланцюг"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1136,6 +1180,10 @@ msgstr "Ігор ще немає"
 msgid "No limit"
 msgstr "Без обмежень"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
+msgstr "У межах глибини пошуку підказки логічного кроку не знайдено, тож ця підказка розкриває цифру з розв'язку."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
 msgstr "Попри штрафи, ти завжди отримуєш щонайменше"
@@ -1452,6 +1500,10 @@ msgstr "Продовжити цю гру?"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "Повторити завантаження збірки для розробки"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Reveal"
+msgstr "Розкрити"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
