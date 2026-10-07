@@ -157,6 +157,10 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}:突出显示的单元格让标记单元格只剩下 {value} 可填。"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "{techniqueName}：高亮单元格按 {valueList} 分成两种颜色，且恰好有一种颜色包含所有 {valueList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
 msgstr "{techniqueName}:突出显示的单元格会形成 {valueList} 的致命模式，使谜题出现两个解。"
 
@@ -175,6 +179,10 @@ msgstr "{techniqueName}:突出显示的行只剩一个空格，{value} 应填在
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
 msgstr "{techniqueName}:标记的单元格已看到除 {value} 之外的所有突出显示的数字。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
+msgstr "{techniqueName}：标记的单元格要么同时看到两种颜色，要么带有自相矛盾的颜色，因此不能是 {valueList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."

@@ -192,7 +192,7 @@ describe('findPlacementChain', () => {
     });
 
     it('should give up with an empty chain when the work budget runs out before a placement', () => {
-        expect.assertions(3);
+        expect.assertions(4);
 
         const sudoku = createSudoku(budgetExhaustedBoard);
         const calls: SolutionTechniqueEnum[] = [];
@@ -200,6 +200,7 @@ describe('findPlacementChain', () => {
 
         expect(placementIndex).toBeLessThan(PLACEMENT_CHAIN_MAX_STEPS);
         expect(findPlacementChain(sudoku, createCountingStrategies(calls))).toEqual([]);
+        expect(getSpentWork(calls)).toBeGreaterThanOrEqual(PLACEMENT_CHAIN_WORK_BUDGET);
         expect(getSpentWork(calls)).toBeLessThan(PLACEMENT_CHAIN_WORK_BUDGET + maxScanCost);
     });
 });

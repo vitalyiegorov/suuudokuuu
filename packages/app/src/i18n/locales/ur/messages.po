@@ -157,6 +157,10 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}: نمایاں کردہ خانے معلم خانے کے لیے صرف {value} چھوڑتے ہیں۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "{techniqueName}: نمایاں خانے {valueList} کے لیے دو رنگوں میں بٹ جاتے ہیں، اور صرف ایک رنگ ہر {valueList} رکھتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
 msgstr "{techniqueName}: نمایاں کردہ خانے {valueList} کا ایک مہلک نمونہ بناتے، جس سے پہیلی کے دو حل رہ جاتے۔"
 
@@ -175,6 +179,10 @@ msgstr "{techniqueName}: نمایاں کردہ قطار میں صرف ایک خ�
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
 msgstr "{techniqueName}: معلم خانہ {value} کے سوا تمام نمایاں ہندسے دیکھتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
+msgstr "{techniqueName}: نشان زدہ خانے یا تو دونوں رنگ دیکھتے ہیں یا ایسا رنگ رکھتے ہیں جو خود سے متضاد ہے، اس لیے وہ {valueList} نہیں ہو سکتے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."

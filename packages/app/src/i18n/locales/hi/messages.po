@@ -157,6 +157,10 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}: हाइलाइट किए गए सेल चिह्नित सेल के लिए केवल {value} छोड़ते हैं।"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "{techniqueName}: हाइलाइट किए गए सेल {valueList} के लिए दो रंगों में बँटते हैं, और ठीक एक रंग में हर {valueList} होता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
 msgstr "{techniqueName}: हाइलाइट की गई सेल {valueList} का एक घातक पैटर्न बनातीं, जिससे पहेली के दो हल बचते।"
 
@@ -175,6 +179,10 @@ msgstr "{techniqueName}: हाइलाइट की गई पंक्ति 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
 msgstr "{techniqueName}: चिह्नित सेल {value} को छोड़कर हर हाइलाइट किया गया अंक देखता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
+msgstr "{techniqueName}: चिह्नित सेल या तो दोनों रंग देखते हैं या ऐसा रंग रखते हैं जो खुद का खंडन करता है, इसलिए वे {valueList} नहीं हो सकते।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."

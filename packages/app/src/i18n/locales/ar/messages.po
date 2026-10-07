@@ -157,6 +157,10 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}: الخلايا المحددة تترك {value} فقط للخلية المعلمة."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "{techniqueName}: تنقسم الخلايا المميزة إلى لونين للرقم {valueList}، ولون واحد فقط يحمل كل {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
 msgstr "{techniqueName}: ستشكل الخلايا المحددة نمطاً قاتلاً من {valueList} يترك للأحجية حلين."
 
@@ -175,6 +179,10 @@ msgstr "{techniqueName}: بقي في الصف المحدد خلية فارغة �
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
 msgstr "{techniqueName}: الخلية المعلمة ترى كل الأرقام المحددة ما عدا {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
+msgstr "{techniqueName}: الخلايا المحددة إما ترى اللونين معًا أو تحمل لونًا يناقض نفسه، لذا لا يمكن أن تكون {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."

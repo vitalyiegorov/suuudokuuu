@@ -12,6 +12,7 @@ enum NarrationFamilyEnum {
     FISH = 'FISH',
     WING = 'WING',
     CHAIN = 'CHAIN',
+    COLORING = 'COLORING',
     UNIQUE_RECTANGLE = 'UNIQUE_RECTANGLE',
     BUG = 'BUG',
     FORCING_CHAIN = 'FORCING_CHAIN',
@@ -31,7 +32,7 @@ const narrationFamilies: Partial<Record<SolutionTechniqueEnum, NarrationFamilyEn
     [SolutionTechniqueEnum.WWing]: NarrationFamilyEnum.CHAIN,
     [SolutionTechniqueEnum.XChain]: NarrationFamilyEnum.CHAIN,
     [SolutionTechniqueEnum.XYChain]: NarrationFamilyEnum.CHAIN,
-    [SolutionTechniqueEnum.SimpleColoring]: NarrationFamilyEnum.CHAIN,
+    [SolutionTechniqueEnum.SimpleColoring]: NarrationFamilyEnum.COLORING,
     [SolutionTechniqueEnum.AIC]: NarrationFamilyEnum.CHAIN,
     [SolutionTechniqueEnum.UniqueRectangle]: NarrationFamilyEnum.UNIQUE_RECTANGLE,
     [SolutionTechniqueEnum.BivalueUniversalGrave]: NarrationFamilyEnum.BUG,
@@ -144,6 +145,10 @@ const getEliminationRevealNarration = (techniqueName: string, family: NarrationF
         return msg`${techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is ${valueList}.`;
     }
 
+    if (family === NarrationFamilyEnum.COLORING) {
+        return msg`${techniqueName}: the highlighted cells split into two colors for ${valueList}, and exactly one color holds every ${valueList}.`;
+    }
+
     if (family === NarrationFamilyEnum.UNIQUE_RECTANGLE) {
         return msg`${techniqueName}: the highlighted cells would form a deadly pattern of ${valueList} that leaves the puzzle with two solutions.`;
     }
@@ -170,6 +175,10 @@ const getEliminationStrikeNarration = (techniqueName: string, family: NarrationF
 
     if (family === NarrationFamilyEnum.CHAIN) {
         return msg`${techniqueName}: one end of the chain is always ${valueList}, so the marked cells that see both ends cannot be ${valueList}.`;
+    }
+
+    if (family === NarrationFamilyEnum.COLORING) {
+        return msg`${techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be ${valueList}.`;
     }
 
     if (family === NarrationFamilyEnum.UNIQUE_RECTANGLE || family === NarrationFamilyEnum.BUG) {

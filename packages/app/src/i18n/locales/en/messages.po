@@ -159,6 +159,10 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
 msgstr "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
 
@@ -177,6 +181,10 @@ msgstr "{techniqueName}: the highlighted row has one empty cell left, so {value}
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
 msgstr "{techniqueName}: the marked cell sees every highlighted digit except {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
+msgstr "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."

@@ -157,6 +157,10 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}: sel yang disorot hanya menyisakan {value} untuk sel yang ditandai."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "{techniqueName}: sel yang disorot terbagi menjadi dua warna untuk {valueList}, dan tepat satu warna memuat setiap {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
 msgstr "{techniqueName}: sel yang disorot akan membentuk pola mematikan dari {valueList} yang membuat teka-teki punya dua solusi."
 
@@ -175,6 +179,10 @@ msgstr "{techniqueName}: baris yang disorot hanya menyisakan satu sel kosong, ja
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
 msgstr "{techniqueName}: sel yang ditandai melihat semua angka yang disorot kecuali {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
+msgstr "{techniqueName}: sel yang ditandai melihat kedua warna atau membawa warna yang bertentangan dengan dirinya sendiri, jadi tidak bisa berisi {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
