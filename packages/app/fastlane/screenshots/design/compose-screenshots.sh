@@ -661,17 +661,21 @@ compose_one() {
 
   frame_capture "$src" "$frame_file" "$cutout_x" "$cutout_y" "$cutout_w" "$cutout_h" "$work/framed-device.png"
 
-  local frame_h frame_w frame_x
+  build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
+  local stack_h
+  stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
+
+  local frame_h frame_w frame_x max_frame_h
   frame_h=$(awk -v h="$canvas_h" -v f="$height_fraction" 'BEGIN { printf "%d", h * f }')
+  max_frame_h=$(awk -v h="$canvas_h" -v s="$stack_h" -v m="$TEXT_EDGE_MARGIN_FRACTION" -v g="$TEXT_DEVICE_GAP_FRACTION" 'BEGIN { printf "%d", h * (1 - 2 * m - g) - s }')
+  if (( frame_h > max_frame_h )); then
+    frame_h=$max_frame_h
+  fi
   frame_w=$(awk -v fh="$frame_h" -v nw="$frame_native_w" -v nh="$frame_native_h" 'BEGIN { printf "%d", (fh * nw) / nh }')
   frame_x=$(( (canvas_w - frame_w) / 2 ))
 
   magick "$work/framed-device.png" -resize "${frame_w}x${frame_h}!" \
     -define png:color-type=6 -depth 8 "$work/framed-device-scaled.png"
-
-  build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
-  local stack_h
-  stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
 
   local device_y text_y
   read -r device_y text_y <<<"$(position_layout "$canvas_h" "$layout" "$frame_h" "$stack_h")"
