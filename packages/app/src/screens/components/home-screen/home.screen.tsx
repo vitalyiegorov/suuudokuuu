@@ -3,7 +3,7 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
@@ -115,8 +115,7 @@ export const HomeScreen = () => {
     const currentProgressText = `${currentProgressPercent}%`;
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
     const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
-    const platformInsetTop = Platform.OS === 'ios' ? safeAreaInsets.top : 0;
-    const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top, platformInsetTop);
+    const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top);
     const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
         const isSelected = option.maxMistakes === maxMistakes;
         const optionColors = homeScreenOptionCardGetColors(theme, isSelected);

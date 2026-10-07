@@ -1,7 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { AppButton, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
-import { Platform, View } from 'react-native';
+import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
@@ -31,7 +31,6 @@ const DailyScreenBottomScrollPadding = 12;
 const DailyScreenActionBarBottomGap = 8;
 const DailyScreenTopContentPadding = 12;
 const DailyScreenTopOverlayIntensity = 0.12;
-const topEdgeFadeProps = { height: DailyScreenTopContentPadding, intensity: DailyScreenTopOverlayIntensity };
 
 export const DailyScreen = () => {
     const { t } = useLingui();
@@ -73,7 +72,7 @@ export const DailyScreen = () => {
     const todayResult = dailyResults.find(dailyResult => dailyResult.dailyDayNumber === todayDayNumber);
     const recentDays = dailyGetCompletedDays(completedDayNumbers, todayDayNumber, dailyResults);
     const contentInsetBottom = DailyScreenBottomScrollPadding + tabBarInset;
-    const contentInsetTop = DailyScreenTopContentPadding - (Platform.OS === 'ios' ? safeAreaInsets.top : 0);
+    const topEdgeFadeProps = { height: safeAreaInsets.top + DailyScreenTopContentPadding, intensity: DailyScreenTopOverlayIntensity };
     const actionBarStyles = [resolveUnistyleForAnimated(styles.actionBar), { paddingBottom: tabBarInset + DailyScreenActionBarBottomGap }];
     const shareButton = isDefined(todayResult) ? <DailyShareButton encodedState={todayResult.encodedState} /> : null;
     const action = isCompleted ? (
@@ -103,7 +102,7 @@ export const DailyScreen = () => {
                 contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
                 contentInsetBottom={contentInsetBottom}
                 contentInsetMode="additive"
-                contentInsetTop={contentInsetTop}
+                contentInsetTop={DailyScreenTopContentPadding}
                 showsVerticalScrollIndicator={false}
                 style={resolveUnistyleForAnimated(styles.scrollView)}
             >
