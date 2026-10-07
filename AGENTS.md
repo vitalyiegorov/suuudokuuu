@@ -225,6 +225,34 @@ export class RunService extends Context.Service<RunService>()('@suuudokuuu/progr
 - Avoid duplicate investigation across workers, and verify every returned change independently before integration.
 - For cross-cutting sweeps that must not miss a reference (renames, copy updates across packages and locales), build or query a project knowledge graph instead of repeating broad greps, then confirm with a targeted grep. Keep generated graph output uncommitted.
 
+## Issue Tracking
+
+Work is tracked as GitHub issues linked as native sub-issues of the relevant epic, never as task-list checkboxes. A checkbox list in an epic body is a reading aid, not the source of truth. GitHub caps sub-issues at 100 per epic, so a larger program splits into phase epics.
+
+Every issue states acceptance criteria and the validation commands required to close it.
+
+Label taxonomy (`gh label list --repo vitalyiegorov/suuudokuuu` has the exact wording):
+
+- `status:*`: `ready` | `in-progress` | `blocked` | `review`
+- `kind:*`: `bug` | `feat` | `chore` | `test` | `docs` | `perf` | `regression` | `epic`
+- `priority:*`: `P0` blocker | `P1` schedule now | `P2` do when the area is open | `P3` nice to have
+- `needs:*`: `decision` | `repro` | `triage` | `image-generation` (the issue body is a ready-to-use image-generation brief; see the `store-media` skill)
+- `agent:*`: which agent claimed the issue (for example `agent:claude`)
+- `area:*`: one per package (`app`, `ui`, `landing`, `progress`, `generator`, `techniques`, `puzzle-forge`, `rating`, `field-core`, `field-dom`, `encoder`, `hell-corpus`) plus cross-cutting `ci`, `e2e`, `app-store`, `google-play`, `aso`, `media`
+
+Claiming an issue: post a comment in this exact format, then set `status:in-progress` and `agent:<model>`.
+
+```text
+CLAIM <UTC timestamp> - model: <model> - session: <session id>
+Scope: <what you will and will not do>
+Files: <files you expect to touch>
+Expires: <timestamp about 4h out>
+```
+
+An expired claim is void; anyone may reclaim the issue. When a PR opens against the issue, set `status:review` (removing `status:in-progress`) and comment with the PR reference. One PR per issue. Branch names are `type/kebab-slug` with the commit type as the prefix. PR titles follow the same `type(scope): description` convention as commits. Close the issue with evidence: the merged PR plus the validation output that proves the acceptance criteria pass.
+
+The coordinating agent runs builds, gates, and git operations; delegated workers keep their edits to the files listed in their claim.
+
 ## Git Commits And Pull Requests
 
 Use Conventional Commits for commit messages and PR titles:
