@@ -2,6 +2,7 @@ import { Plural, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { MetricMinimumFontScaleConstant } from '@suuudokuuu/ui/theme';
 import { useRouter } from 'expo-router';
+import LucideChevronLeft from 'lucide-react-native/icons/chevron-left';
 import LucideChevronRight from 'lucide-react-native/icons/chevron-right';
 import { use } from 'react';
 import { Pressable, View } from 'react-native';
@@ -9,6 +10,7 @@ import { Pressable, View } from 'react-native';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
+import { i18nIsRightToLeftLocale } from '../../../@generic/utils/i18n-is-right-to-left-locale.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { HistoryDifficultyChevronSize } from '../../constants/history-difficulty-chevron-size.constant';
 import { historyGetWinRate } from '../../utils/history-get-win-rate.util';
@@ -27,7 +29,7 @@ interface Props {
 
 export const HistoryDifficulty = ({ stats }: Props) => {
     const { theme } = use(ThemeContext);
-    const { t } = useLingui();
+    const { i18n, t } = useLingui();
     const router = useRouter();
     const { bestRating, difficulty, gamesCompleted, gamesWon, isBestRatingCeiling } = stats;
 
@@ -37,6 +39,7 @@ export const HistoryDifficulty = ({ stats }: Props) => {
     const winRate = historyGetWinRate(gamesWon, gamesCompleted);
     const rowStyles = [styles.row, styles.pressableRow];
     const trackFillStyles = [styles.trackFill, { width: `${winRate}%` as const }];
+    const DisclosureChevron = i18nIsRightToLeftLocale(i18n.locale) ? LucideChevronLeft : LucideChevronRight;
 
     const handlePress = () => {
         router.push({ params: { difficulty }, pathname: '/history/[difficulty]' });
@@ -70,7 +73,7 @@ export const HistoryDifficulty = ({ stats }: Props) => {
             </BlackText>
 
             <View style={styles.chevronSlot}>
-                <LucideChevronRight color={theme.colors.text.hint} size={HistoryDifficultyChevronSize} />
+                <DisclosureChevron color={theme.colors.text.hint} size={HistoryDifficultyChevronSize} />
             </View>
         </Pressable>
     );

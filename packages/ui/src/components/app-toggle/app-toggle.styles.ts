@@ -22,6 +22,7 @@ export const AppToggleStyles = StyleSheet.create(() => ({
     track: {
         borderCurve: 'continuous',
         borderRadius: AppToggleTrackHeight / 2,
+        direction: 'ltr',
         height: AppToggleTrackHeight,
         overflow: 'hidden',
         width: AppToggleTrackWidth

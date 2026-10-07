@@ -9,8 +9,8 @@ export const ChallengeRivalChipStyles = StyleSheet.create({
         gap: 9,
         marginTop: 12,
         maxWidth: '100%',
-        paddingLeft: 6,
-        paddingRight: 14,
+        paddingStart: 6,
+        paddingEnd: 14,
         paddingVertical: 6
     },
     chipAvatar: {

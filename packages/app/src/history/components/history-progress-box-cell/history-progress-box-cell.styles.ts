@@ -22,8 +22,8 @@ export const HistoryProgressBoxCellStyles = StyleSheet.create(theme => ({
         textAlign: 'left'
     },
     rightLine: {
-        borderRightColor: theme.colors.surface.border,
-        borderRightWidth: StyleSheet.hairlineWidth
+        borderEndColor: theme.colors.surface.border,
+        borderEndWidth: StyleSheet.hairlineWidth
     },
     selectedCell: {
         backgroundColor: theme.colors.ink

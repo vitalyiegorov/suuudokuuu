@@ -14,9 +14,9 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         paddingHorizontal: appLayoutScreenIsWide(rt.screen) ? theme.spacing.md : 0,
         paddingTop: theme.spacing.xs
     },
-    gameRow: (isLeftHanded: boolean) => {
+    gameRow: (isReversed: boolean) => {
         const isWideLayout = appLayoutScreenIsWide(rt.screen);
-        const wideGameRowFlexDirection = isLeftHanded ? 'row-reverse' : 'row';
+        const wideGameRowFlexDirection = isReversed ? 'row-reverse' : 'row';
 
         return {
             alignItems: isWideLayout ? 'center' : 'stretch',

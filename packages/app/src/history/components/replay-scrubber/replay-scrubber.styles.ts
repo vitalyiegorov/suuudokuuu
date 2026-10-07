@@ -12,6 +12,7 @@ export const ReplayScrubberStyles = StyleSheet.create(theme => ({
     },
     track: {
         borderRadius: theme.radius.pill,
+        direction: 'ltr',
         height: ScrubberTrackHeight,
         position: 'relative',
         width: '100%'

@@ -6,6 +6,7 @@ export const FieldStyles = StyleSheet.create(() => ({
     },
     wrapper: {
         alignItems: 'center',
+        direction: 'ltr',
         flexDirection: 'column',
         justifyContent: 'center'
     }

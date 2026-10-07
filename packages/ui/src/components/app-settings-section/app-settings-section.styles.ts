@@ -6,7 +6,7 @@ const AppSettingsSectionHairline = 0.5;
 export const AppSettingsSectionStyles = StyleSheet.create(theme => ({
     divider: {
         height: AppSettingsSectionHairline,
-        marginLeft: AppSettingsSectionInset
+        marginStart: AppSettingsSectionInset
     },
     group: {
         borderCurve: 'continuous',

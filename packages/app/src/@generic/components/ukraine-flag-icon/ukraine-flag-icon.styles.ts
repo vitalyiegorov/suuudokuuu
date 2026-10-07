@@ -9,7 +9,7 @@ export const UkraineFlagIconStyles = StyleSheet.create(theme => ({
     container: {
         borderRadius: 2,
         height: 16,
-        marginLeft: theme.spacing.sm,
+        marginStart: theme.spacing.sm,
         overflow: 'hidden',
         width: 26
     },

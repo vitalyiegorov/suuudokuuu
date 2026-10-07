@@ -11,6 +11,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
+import { i18nIsRightToLeftLocale } from '../../../@generic/utils/i18n-is-right-to-left-locale.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { runCurrentRunCommand } from '../../utils/run-current-run-command.util';
@@ -27,7 +28,7 @@ interface Props {
 }
 
 export const HintPanel = ({ availableHeight }: Props) => {
-    const { t } = useLingui();
+    const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
 
@@ -65,6 +66,9 @@ export const HintPanel = ({ availableHeight }: Props) => {
     const progressAccessibilityLabel = t`Step ${currentStepNumber} of ${stepCount}`;
     const placementValue = currentStep.narration.placement?.value;
     const dismissIconColor = theme.colors.text.primary;
+    const isRightToLeft = i18nIsRightToLeftLocale(i18n.locale);
+    const previousStepIcon = isRightToLeft ? LucideChevronRight : LucideChevronLeft;
+    const nextStepIcon = isRightToLeft ? LucideChevronLeft : LucideChevronRight;
     const motionProps = isMotionReduced ? {} : { entering: FadeIn.duration(enterDurationMs), exiting: FadeOut.duration(exitDurationMs) };
 
     return (
@@ -88,7 +92,7 @@ export const HintPanel = ({ availableHeight }: Props) => {
                         <AppButton
                             accessibilityLabel={t`Previous step`}
                             disabled={currentStepNumber === 1}
-                            icon={LucideChevronLeft}
+                            icon={previousStepIcon}
                             onPress={handleBack}
                             size="compact"
                             style={styles.stepButton}
@@ -108,7 +112,7 @@ export const HintPanel = ({ availableHeight }: Props) => {
                         <AppButton
                             accessibilityLabel={t`Next step`}
                             disabled={currentStepNumber === stepCount}
-                            icon={LucideChevronRight}
+                            icon={nextStepIcon}
                             onPress={handleNext}
                             size="compact"
                             style={styles.stepButton}

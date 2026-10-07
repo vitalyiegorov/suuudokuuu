@@ -22,6 +22,7 @@ export const GameInputToolsStyles = StyleSheet.create((theme, rt) => {
             return {
                 alignItems: 'center',
                 alignSelf: 'center',
+                direction: 'ltr',
                 flexDirection: isWideLayout ? 'row' : narrowFlexDirection,
                 gap: theme.spacing.sm,
                 justifyContent: 'space-between',

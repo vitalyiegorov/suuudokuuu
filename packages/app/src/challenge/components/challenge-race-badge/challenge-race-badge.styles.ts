@@ -8,8 +8,8 @@ export const ChallengeRaceBadgeStyles = StyleSheet.create({
         borderWidth: 1,
         flexDirection: 'row',
         gap: 7,
-        paddingLeft: 6,
-        paddingRight: 11,
+        paddingStart: 6,
+        paddingEnd: 11,
         paddingVertical: 4
     },
     count: {

@@ -8,6 +8,7 @@ export const ChallengeAwayBandsStyles = StyleSheet.create({
     },
     container: {
         bottom: 0,
+        direction: 'ltr',
         left: 0,
         position: 'absolute',
         right: 0,
