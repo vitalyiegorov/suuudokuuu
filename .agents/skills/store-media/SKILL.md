@@ -8,8 +8,7 @@ description: Regenerate, extend, or publish Suuudokuuu's App Store and Google Pl
 Everything store-facing is repo-committed and regenerated manually; CI only
 publishes what is committed. Nothing is generated on release. ASO work is
 tracked under epic #465 as native sub-issues (see `AGENTS.md`, "Issue
-Tracking"); store-facing issues carry `area:aso`, `area:app-store`,
-`area:google-play`, `area:media`.
+Tracking").
 
 Capture mechanics live in `tests/app-tests/docs/store-screenshot-capture.md`,
 the canonical reference for the seeded-state fast path, per-platform commands,
@@ -45,8 +44,7 @@ before relying on them.
 - `packages/app/fastlane/metadata/android/<locale>/` - 13 Play locales: ar,
   bn-BD, de-DE, en-US, es-ES, fr-FR, hi-IN, id, pt-BR, sv-SE, uk, ur, zh-CN.
   Files: title, short_description, full_description, changelogs, and
-  `images/phoneScreenshots/`. No feature graphic, icon asset, tablet sets, or
-  video yet.
+  `images/phoneScreenshots/`.
 - `packages/app/fastlane/metadata/release-notes-state.json` - base tag +
   commit of the last release-notes generation; the publish workflow warns when
   user-facing commits landed after it.
@@ -56,14 +54,12 @@ before relying on them.
   `Framefile.json`, README.
 - `packages/app/fastlane/screenshots/raw/{ios,android}/` - gitignored captures.
 - `packages/app/fastlane/screenshots/variants/{dark,light}/ios/<locale>/` -
-  committed, framed, store-ready sets: 9 iPhone (1320x2868) + 6 iPad
-  (2752x2064) per locale. One full mirrored set per appearance variant (same
-  scenes/order/layouts; only the closing shot flips to the opposite
-  appearance).
+  committed, framed sets: 9 iPhone (1320x2868) + 6 iPad (2752x2064) per
+  locale, one full mirrored set per appearance (only the closing shot flips
+  to the opposite appearance).
 - `packages/app/fastlane/metadata/android/<locale>/images/phoneScreenshots/` -
   committed, framed Play set: 8 shots at 1080x1920 per locale, written by the
-  same compose script. One set (no light/dark pair), mirroring the deployed
-  dark App Store story. Stale until #448 lands.
+  same compose script. One set, mirroring the deployed dark App Store story.
 - `packages/app/fastlane/screenshots/deployed-variant.json` - variant the
   `ios_screenshots` lane uploads (currently `dark`; dark-first is a user
   decision). `SCREENSHOT_VARIANT=light|dark` overrides it.
@@ -76,8 +72,7 @@ before relying on them.
   both publish jobs. Android lanes read the track from
   `submit.production.android.track` in `eas.json` and resolve the version code
   with `google_play_track_version_codes` (supply cannot infer one when it
-  uploads no binary). No lanes exist for previews, video, In-App Events, custom
-  pages, experiments, promotional content, or creative assets.
+  uploads no binary).
 - `tests/app-tests/flows/screenshots/` - capture flows (15 scenes),
   `tests/app-tests/scripts/capture-store-screenshots.ts` - runner,
   `bake-landscape-screenshot.ts` - physical rotation bake.
@@ -96,61 +91,18 @@ without it, plain English fallback.
 
 Screenshots, end to end:
 
-1. Capture: `APP_ID=<bundle-id> SIMULATOR_UDID=<udid> pnpm --filter
-   @suuudokuuu/app-tests screenshots:capture --locales=en --scenes=...` (add
-   `DEVICE_CLASS=ipad ORIENTATION=landscape` for iPad landscape; the runner
-   recycles the XCUITest driver, retries failures once, and bakes landscape
-   pixels to 2752x2064 without EXIF). Android: create an AVD from a
-   `google_apis` image, boot it, `adb shell wm size 1080x2340` and `adb shell wm
-   density 440` (matches the Pixel 5 frame cutout), install the app, then
-   `... screenshots:capture --platform=android --serial=<adb-serial>
-   --locales=en`. The progress label prints `[iphone/...]` on Android; cosmetic,
-   output goes to `raw/android/`.
-2. Compose: `bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all`.
-   It frames captures with real frameit device frames, applies two-tier
-   captions, composes into a temp staging dir, and swaps the committed set in
-   only once every scene of that variant succeeded (the old clear-then-compose
-   order once ate de-DE/light's iPad shots; never reintroduce an up-front
-   `rm -f "$OUT_DIR"/*.png`). Second arg: `light|dark|all|android` (`android`
-   composes only the Play set, for when iOS raws are missing). Scene manifests
-   are `SCENES_LIGHT`/`SCENES_DARK`; palettes live in `set_variant_palette`.
-   Keep the manifests mirrored.
+1. Capture: seeded-state fast path, iPhone, iPad landscape, and Android
+   commands are in `tests/app-tests/docs/store-screenshot-capture.md`. On
+   Android the progress label prints `[iphone/...]`; cosmetic, output goes to
+   `raw/android/`.
+2. Compose: `bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all`
+   (second arg `light|dark|all|android`); mechanics and the never-clear-first
+   rule are in the capture doc's "Compose and verify". Scene manifests are
+   `SCENES_LIGHT`/`SCENES_DARK`; palettes live in `set_variant_palette`. Keep
+   the manifests mirrored.
 3. Review visually (downscale with sips and look), commit both sets.
 4. Upload: dispatch "Build and Publish to Stores" with the screenshots
    checkbox, or run the lanes locally.
-
-### Fast capture path (default `--capture-mode=fast`)
-
-Scenes with a deep link are captured directly, without Maestro; scenes without
-one (`05.win`, `11.pause`) fall back to their Maestro flow. Measured: a full
-locale (8 scenes x dark+light) takes 1 min 37 s instead of 40 min. Three steps
-per directly captured scene, no accessibility tree:
-
-1. `scripts/seed-app-state.ts` writes the legacy redux-persist blob into the
-   app's SQLite storage; the app's boot-time legacy import moves it into the
-   progress database on next launch. Terminate the app first (a running app
-   holds the WAL and overwrites the seed).
-2. `xcrun simctl launch <udid> <app> -AppleLanguages "(<lang>)" -AppleLocale <id>`
-   (Android: `adb shell cmd locale set-app-locales <pkg> --locales <lang>` then
-   `am start -n <pkg>/.MainActivity`).
-3. `simctl openurl` the scene deep link, then `simctl io screenshot` (Android:
-   `adb exec-out screencap -p`).
-
-Verified facts: the app language comes from persisted `settings.language`, not
-the OS (so every locale works, including those below the language sheet's
-fold); Android needs a rootable `google_apis` emulator for the state write
-(`adb root` is refused on `google_apis_playstore`); the runner overrides the
-status bar (9:41, full bars, 100% battery; `--status-bar=real` restores the
-clock); `fixtures/screenshot-seed-state.json` holds the real
-`historyByDifficulty` for all difficulties plus `sceneStates` (`hero`,
-`challengeLive`); scenes carry their own `deepLink`, `sceneState`,
-`seedDifficulty` in `AllScenes`, and a scene without `deepLink` falls back to
-its Maestro flow (`05.win` has no seedable route). Regeneration recipe for the
-fixture is in the capture doc.
-
-Do not use fastlane `snapshot`: it needs an XCUITest target, but
-`packages/app/ios` and `android` are gitignored (continuous native
-generation), so any target is destroyed on every `expo prebuild`.
 
 ## Design system (user-approved decisions - do not regress)
 
@@ -241,14 +193,9 @@ generation), so any target is destroyed on every `expo prebuild`.
 
 ## Environment gotchas (hard-won, verified)
 
-- Before ANY capture session, verify the installed app version matches the
-  repo: `xcrun simctl listapps <udid> | grep -A2 <bundle-id>` (or launch and
-  check Settings) against `packages/app/package.json`. An entire 10-locale
-  iOS set was once captured on a stale 2.1.0 build while the repo was at
-  2.5.1 — every shot showed untranslated pre-release UI and the SE-rating
-  fixtures could not seed, and the whole set had to be recaptured. A stale
-  build is invisible in the screenshots themselves until a native speaker or
-  a missing feature exposes it.
+Capture-session prerequisites (stale build, deep-link priming, status bar,
+Android emulator) are in the capture doc.
+
 - Store copy must use the app's own translated terms. Audit listing text
   against `packages/app/src/i18n/locales/<locale>/messages.po` for difficulty
   names (Infinity is translated per locale), technique labels (X-Wing and
@@ -292,13 +239,6 @@ generation), so any target is destroyed on every `expo prebuild`.
   (suspected hidden hardware-keyboard listener in-app). Still unfixed, and
   present in every committed iPad shot - verified byte-for-byte identical
   framing against the pre-6.9" set, so it is not a capture regression.
-- Prime iOS's "Open in <app>?" custom-scheme dialog once on every fresh
-  simulator - iPhone and iPad - before capturing, or every scene strands on
-  the dialog. A single tap on "Open" via a UI driver (`npx serve-sim tap`) or
-  one run of `flows/setup/prime-deep-links.flow.yaml` primes it; on iOS 26.2
-  the iPhone 17 Pro Max needed this exactly like the iPad. The iPad also
-  queues the dialog across relaunch, so `simctl erase` it and reinstall before
-  priming.
 - The iPhone set must be captured on an iPhone 17 Pro Max simulator for the
   6.9" store slot (1320x2868). This machine ships zero simulators by default -
   create one with `xcrun simctl create`. Capture needs a real installed build,
@@ -338,8 +278,8 @@ Name 30, short description 50, long description 120; up to 10 live, each at
 most 31 days, promotable up to 14 days ahead. Badges: Challenge, Competition,
 Live Event, Major Update, New Season, Premiere, Special Event. Events are
 indexed in search and appear on the product page and in search.
-Media: card 16:9, detail 9:16 (sizes in the table). Plan a
-monthly cadence (#476) with artwork from the kit (#473).
+Plan a monthly cadence (#476) with artwork from the kit (#473); media sizes
+are in the table.
 
 ### Custom Product Pages, PPO, keywords
 
@@ -396,8 +336,7 @@ monthly cadence (#476) with artwork from the kit (#473).
   Games Services v2 (sign-in, achievements, cloud save), large-screen and PC
   support, 60 fps; benefits are You-tab visibility and reduced fees. Eligibility
   check in #484.
-- Video: YouTube link, first 30 s autoplay, at least 80% gameplay; alt text for
-  screenshots is supported.
+- Video: first 30 s autoplay; screenshot alt text is supported.
 - Metadata policy: no emoji, ALL CAPS, or repeated special characters in the
   title; no "Best", "#1", "Top", "New", "Sale", "Free", ranking, price, or
   download calls to action; no keyword lists; screenshot captions at most 20%
@@ -422,7 +361,6 @@ monthly cadence (#476) with artwork from the kit (#473).
 | Google Play | Feature graphic | 1024x500, no alpha, focal point centred |
 | Google Play | Phone screenshots | 8 max, 320-3840 px, aspect <=2:1; games need >=3 at 1080x1920 (or 1920x1080); ours 8 at 1080x1920 |
 | Google Play | 7" / 10" tablet and Chromebook | >=4 each, 1080-7680 px, 16:9 or 9:16 |
-| Google Play | Promotional content | main image, square image, optional video (per Play Console form) |
 | Google Play | Video | YouTube URL, >=80% gameplay |
 
 Always confirm exact numbers on Apple's creative-assets specifications page
@@ -467,17 +405,14 @@ Library are exposed; exact endpoint names unconfirmed) via a small script, or
 upload manually; the plan is #474. Play Console features are manual unless the
 Play Developer API covers them.
 
-## Current state / open items
+## Open items
 
-- Framed sets are committed in both variants (9 iPhone at 1320x2868 + 6 iPad
-  at 2752x2064) for en-US, uk, de-DE, es-ES, fr-FR, pt-BR, sv, id, and the other
-  iOS locales under `screenshots/variants/{dark,light}/ios/`; dark is deployed.
-  ar-SA recapture is owed after the RTL fix (#447); the Hell scene recapture is
-  owed (#445).
-- Play phone sets (8 at 1080x1920) are captured per locale but predate the
-  redesigns (#448). Missing: 1024x500 feature graphic (design artwork, not a
-  capture), 7"/10" tablet sets, App Preview video (886x1920 H.264 15-30 s; GIFs
-  rejected by both stores).
+- Framed sets are committed in both variants for every iOS locale; dark is
+  deployed. ar-SA recapture is owed after the RTL fix (#447); the Hell scene
+  recapture is owed (#445).
+- Play phone sets predate the redesigns (#448). Missing: 1024x500 feature
+  graphic (design artwork, not a capture), 7"/10" tablet sets, App Preview
+  video (886x1920 H.264 15-30 s; GIFs rejected by both stores).
 - Non-Latin captions: `set_caption_engine` sends ar-SA, ur, hi, bn-BD, and
   zh-Hans through `rsvg-convert` (needs `brew install librsvg`) instead of
   ImageMagick's glyph-less freetype path; Latin and Cyrillic keep freetype.
