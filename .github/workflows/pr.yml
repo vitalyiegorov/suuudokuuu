@@ -41,7 +41,7 @@ jobs:
               run: |
                   set -euo pipefail
                   mobile=true
-                  app_tests=false
+                  app_tests=true
                   base_sha="$BASE_SHA"
                   head_sha="$GITHUB_SHA"
 
@@ -55,6 +55,7 @@ jobs:
                     else
                       printf '%s\n' "$changed_paths"
                       only_documentation_changes=true
+                      app_tests=false
                       while IFS= read -r changed_path; do
                         case "$changed_path" in
                           tests/app-tests/*)
