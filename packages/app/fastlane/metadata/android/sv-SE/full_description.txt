@@ -1,4 +1,4 @@
-suuudokuuu är Sudoku som det ska vara: snabbt, snyggt och ärligt om svårighetsgraden. Sju nivåer, från ett milt Nybörjare-bräde till Oändlighet – de svåraste sudokupussel som någonsin komponerats. Inga annonser som låtsas vara pussel, inga konton, inget krångel. Bara du och rutnätet.
+suuudokuuu är ett sudokuspel med sju svårighetsnivåer, från Nybörjare till Oändlighet, och ett Sudoku Explainer-betyg (SE) på varje pussel. Spela klassisk sudoku offline utan konto, ta dagens utmaning, lär dig tekniker med tips steg för steg och skicka ditt exakta pussel till en vän. Inga annonser som låtsas vara pussel, inget krångel. Bara du och rutnätet.
 
 VARJE PUSSEL BETYGSATT
 De flesta appar sätter ”expert” på ett bräde och hoppas att du inte tittar närmare. Vi sätter en siffra på det. Varje pussel får ett betyg på Sudoku Explainer-skalan (SE), 1.0 till 12.0, samma skala som seriösa lösare använder. Betyget syns direkt vid svårighetsgraden på brädet, i din historik och i varje länk du delar. En inbyggd förklaring berättar vad siffran faktiskt mäter: hur svårt pusslet är att resonera sig igenom, inte hur få ledtrådar det har.
@@ -21,6 +21,9 @@ Varje avklarat spel kan spelas upp drag för drag, och varje kort i historiken b
 SPELA SOM DU VILL
 Välj Klassisk, Guld eller Tidning, eller öppna temaeditorn med live-förhandsgranskning och gör varje ruta, linje och markering precis som du vill. Inbyggd kontrastkontroll håller egna teman läsbara i både ljust och mörkt läge. På webben finns full tangentbordsstyrning: piltangenter för att flytta, siffror för att fylla i, mellanslag eller N för anteckningsläge, Skift och siffra för kandidater, A för autokandidater.
 
+DAGLIG UTMANING OCH TIPS SOM LÄR UT
+Ett nytt sudoku varje dag, med en svit som räknar hur många dagar i rad du löser det. Kört fast? Ett tips går igenom tekniken steg för steg, från nakna par till X-Wing och vidare, så att du förstår varför draget fungerar och inte bara var det ska stå.
+
 ALLT ANNAT DU VILL HA
 • 7 svårighetsgrader, Nybörjare till Oändlighet
 • SE-svårighetsbetyg på varje pussel
@@ -31,8 +34,8 @@ ALLT ANNAT DU VILL HA
 • 13 språk
 • Fungerar helt offline
 • Inget konto, ingen registrering, aldrig
-• Gratis och öppen källkod
+• Öppen källkod
 
-suuudokuuu är byggt för dig som verkligen älskar Sudoku, inte för dig som ska säljas ett abonnemang. Ladda ner, välj svårighetsgrad och ta reda på vilken siffra som är din.
+suuudokuuu är byggt för dig som verkligen älskar Sudoku, inte för dig som ska säljas ett abonnemang. Välj svårighetsgrad och ta reda på vilken siffra som är din.
 
 Läs mer på www.suuudokuuu.com.

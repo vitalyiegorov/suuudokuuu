@@ -1,4 +1,4 @@
-suuudokuuu, c'est le Sudoku comme il devrait être : rapide, beau et honnête sur la difficulté. Sept niveaux, d'une grille Novice toute douce jusqu'à Infini, les Sudokus les plus difficiles jamais composés. Pas de pubs déguisées en grilles, pas de compte, pas de baratin. Juste vous et la grille.
+suuudokuuu est un jeu de Sudoku avec sept niveaux de difficulté, de Novice à Infini, et une note Sudoku Explainer (SE) sur chaque grille. Jouez au sudoku classique hors ligne et sans compte, relevez le défi du jour, apprenez les techniques grâce à des indices pas à pas et envoyez à un ami votre grille exacte. Pas de pubs déguisées en grilles, pas de baratin. Juste vous et la grille.
 
 CHAQUE GRILLE, NOTÉE
 La plupart des applis collent l'étiquette « expert » sur une grille en espérant que vous ne regarderez pas de plus près. Nous, on met un chiffre dessus. Chaque grille porte sa note sur l'échelle Sudoku Explainer (SE), de 1.0 à 12.0, celle qu'utilisent les solveurs chevronnés : elle s'affiche dans la pastille de niveau sur la grille, dans votre historique et dans chaque lien que vous partagez. Une explication intégrée vous dit ce que ce chiffre mesure vraiment : la difficulté du raisonnement, pas le nombre d'indices.
@@ -21,6 +21,9 @@ Chaque partie terminée se rejoue coup par coup, et chaque carte de l'historique
 JOUEZ À VOTRE FAÇON
 Choisissez Classique, Or ou Journal, ou ouvrez l'éditeur de thèmes avec aperçu en direct pour régler chaque case, chaque ligne et chaque surbrillance. La validation de contraste intégrée garde vos thèmes lisibles en clair comme en sombre. Sur le web, contrôle complet au clavier : flèches pour se déplacer, chiffres pour poser, Espace ou N pour le mode notes, Maj et un chiffre pour les candidats, A pour les candidats automatiques.
 
+DÉFI DU JOUR ET INDICES QUI ENSEIGNENT
+Une nouvelle grille de Sudoku chaque jour, avec une série qui compte les jours consécutifs où vous la résolvez. Bloqué ? Un indice vous guide pas à pas dans la technique, des paires nues au X-Wing et au-delà, pour comprendre pourquoi le coup fonctionne et pas seulement où le placer.
+
 TOUT LE RESTE QUE VOUS ATTENDEZ
 • 7 difficultés, de Novice à Infini
 • Une note de difficulté SE sur chaque grille
@@ -31,8 +34,8 @@ TOUT LE RESTE QUE VOUS ATTENDEZ
 • 13 langues
 • Fonctionne entièrement hors ligne
 • Sans compte, sans inscription, jamais
-• Gratuit et open source
+• Open source
 
-suuudokuuu est fait pour celles et ceux qui aiment vraiment le Sudoku, pas pour qu'on leur vende un abonnement. Téléchargez-le, choisissez une difficulté et découvrez quel est votre chiffre.
+suuudokuuu est fait pour celles et ceux qui aiment vraiment le Sudoku, pas pour qu'on leur vende un abonnement. Choisissez une difficulté et découvrez quel est votre chiffre.
 
 Pour en savoir plus, rendez-vous sur www.suuudokuuu.com.

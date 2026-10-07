@@ -1,4 +1,4 @@
-suuudokuuu ist Sudoku, wie es sein sollte: schnell, schön und ehrlich bei der Schwierigkeit. Sieben Stufen, von einem sanften Anfänger-Brett bis Unendlich – den schwersten Sudoku-Rätseln, die je komponiert wurden. Keine Werbung, die sich als Rätsel tarnt, kein Konto, kein Schnickschnack. Nur du und das Gitter.
+suuudokuuu ist ein Sudoku-Rätselspiel mit sieben Schwierigkeitsstufen von Anfänger bis Unendlich und einer Sudoku-Explainer-Wertung (SE) für jedes Rätsel. Spiele klassisches Sudoku offline und ohne Konto, löse die tägliche Herausforderung, lerne Techniken mit Schritt-für-Schritt-Tipps und schicke Freunden dein genaues Rätsel. Keine Werbung, die sich als Rätsel tarnt, kein Schnickschnack. Nur du und das Gitter.
 
 JEDES RÄTSEL BEWERTET
 Die meisten Apps schreiben „Experte“ auf ein Brett und hoffen, dass du nicht genauer hinschaust. Wir setzen eine Zahl darauf. Jedes Rätsel trägt eine Bewertung auf der Sudoku-Explainer-Skala (SE) von 1.0 bis 12.0 – derselben Skala, mit der erfahrene Löser vergleichen. Sie steht direkt neben der Schwierigkeitsstufe auf dem Brett, in deinem Verlauf und in jedem Link, den du teilst. Eine eingebaute Erklärung zeigt dir, was die Zahl wirklich misst: wie schwer ein Rätsel zu durchdenken ist, und nicht, wie wenige Vorgaben es hat.
@@ -21,6 +21,9 @@ Jedes abgeschlossene Spiel lässt sich Zug für Zug wiederholen, und jede Karte 
 SPIEL, WIE DU WILLST
 Wähle Klassisch, Gold oder Zeitung, oder öffne den Theme-Editor mit Live-Vorschau und bestimme jede Zelle, jede Linie und jede Hervorhebung selbst. Die eingebaute Kontrastprüfung hält eigene Themes in Hell und Dunkel gut lesbar. Im Web gibt es volle Tastatursteuerung: Pfeiltasten zum Bewegen, Ziffern zum Setzen, Leertaste oder N für den Notizmodus, Umschalt und Ziffer für Kandidaten, A für Auto-Kandidaten.
 
+TÄGLICHE HERAUSFORDERUNG UND TIPPS ZUM LERNEN
+Jeden Tag ein neues Sudoku, dazu eine Serie, die zählt, an wie vielen Tagen in Folge du es löst. Hängst du fest? Ein Tipp führt dich Schritt für Schritt durch die Technik, von Naked Pairs bis X-Wing und weiter, damit du verstehst, warum ein Zug funktioniert, und nicht nur, wohin er gehört.
+
 ALLES ANDERE, WAS DU WILLST
 • 7 Schwierigkeitsstufen, von Anfänger bis Unendlich
 • SE-Schwierigkeitsbewertung für jedes Rätsel
@@ -31,8 +34,8 @@ ALLES ANDERE, WAS DU WILLST
 • 13 Sprachen
 • Funktioniert komplett offline
 • Kein Konto, keine Anmeldung, nie
-• Kostenlos und Open Source
+• Open Source
 
-suuudokuuu ist gemacht für Menschen, die Sudoku wirklich lieben – nicht für Menschen, denen man ein Abo verkaufen will. Lad es dir herunter, wähl eine Schwierigkeit und finde heraus, wie deine Zahl lautet.
+suuudokuuu ist für Menschen gemacht, die Sudoku wirklich lieben, nicht für Menschen, denen man ein Abo verkaufen will. Wähle eine Stufe und finde heraus, wie deine Zahl lautet.
 
 Mehr auf www.suuudokuuu.com.

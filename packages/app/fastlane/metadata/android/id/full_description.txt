@@ -1,4 +1,4 @@
-suuudokuuu adalah Sudoku seperti seharusnya: cepat, cantik, dan jujur soal tingkat kesulitan. Tujuh level, dari papan Pemula yang santai sampai Tak Terhingga — sudoku tersulit yang pernah disusun. Tanpa iklan yang menyamar jadi teka-teki, tanpa akun, tanpa ribet. Cuma kamu dan papannya.
+suuudokuuu adalah game sudoku dengan tujuh level kesulitan, dari Pemula sampai Tak Terhingga, dan peringkat Sudoku Explainer (SE) di setiap papan. Mainkan sudoku klasik secara offline tanpa akun, ikuti tantangan harian, pelajari teknik lewat petunjuk langkah demi langkah, dan kirim puzzle persis milikmu ke teman. Tanpa iklan yang menyamar jadi teka-teki, tanpa ribet. Cuma kamu dan papannya.
 
 SETIAP SUDOKU ADA PERINGKATNYA
 Kebanyakan aplikasi menempelkan label "expert" pada sebuah papan dan berharap kamu tidak memeriksanya lebih jauh. Kami menaruh angka di situ. Setiap sudoku punya peringkat pada skala Sudoku Explainer (SE), dari 1.0 sampai 12.0, skala yang dipakai pemain serius, dan peringkat itu tampil langsung di label level pada papan, di riwayatmu, serta di setiap tautan yang kamu bagikan. Penjelasan bawaan memberi tahu apa yang sebenarnya diukur angka itu: seberapa berat penalarannya, bukan sesedikit apa petunjuknya.
@@ -21,6 +21,9 @@ Setiap permainan yang selesai bisa diputar ulang langkah demi langkah, dan tiap 
 MAIN SESUKAMU
 Pilih Klasik, Emas, atau Koran, atau buka editor tema dengan pratinjau langsung dan atur sendiri setiap sel, garis, dan sorotan. Validasi kontras bawaan menjaga tema buatanmu tetap enak dibaca di mode terang maupun gelap. Di web tersedia kontrol keyboard penuh: panah untuk berpindah, angka untuk mengisi, Spasi atau N untuk mode catatan, Shift dan angka untuk kandidat, A untuk kandidat otomatis.
 
+TANTANGAN HARIAN DAN PETUNJUK YANG MENGAJAR
+Satu sudoku baru setiap hari, lengkap dengan rangkaian yang menghitung berapa hari berturut-turut kamu menyelesaikannya. Buntu? Petunjuk akan memandumu langkah demi langkah lewat tekniknya, dari naked pair sampai X-Wing dan seterusnya, supaya kamu paham kenapa langkah itu benar, bukan cuma di mana letaknya.
+
 SEMUA YANG LAIN
 • 7 tingkat kesulitan, Pemula sampai Tak Terhingga
 • Peringkat kesulitan SE di setiap sudoku
@@ -31,8 +34,8 @@ SEMUA YANG LAIN
 • 13 bahasa
 • Bisa dimainkan sepenuhnya offline
 • Tanpa akun, tanpa daftar, selamanya
-• Gratis dan open source
+• Open source
 
-suuudokuuu dibuat untuk orang yang benar-benar suka Sudoku, bukan untuk orang yang mau dijejali langganan. Unduh, pilih tingkat kesulitan, dan cari tahu berapa angkamu.
+suuudokuuu dibuat untuk orang yang benar-benar suka Sudoku, bukan untuk orang yang mau dijejali langganan. Pilih tingkat kesulitan dan cari tahu berapa angkamu.
 
 Info lengkap di www.suuudokuuu.com.

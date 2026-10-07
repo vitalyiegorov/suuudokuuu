@@ -1,4 +1,4 @@
-suuudokuuu es el Sudoku como debería ser: rápido, bonito y honesto con la dificultad. Siete niveles, desde un tranquilo tablero Novato hasta Infinito: los sudokus más difíciles jamás compuestos. Nada de anuncios disfrazados de puzles, ni cuentas, ni tonterías. Solo tú y la cuadrícula.
+suuudokuuu es un juego de sudoku con siete niveles de dificultad, de Novato a Infinito, y una valoración Sudoku Explainer (SE) en cada tablero. Juega al sudoku clásico sin conexión y sin cuenta, supera el reto diario, aprende técnicas con pistas paso a paso y envía a un amigo tu puzle exacto. Nada de anuncios disfrazados de puzles, ni tonterías. Solo tú y la cuadrícula.
 
 CADA SUDOKU, CON SU VALORACIÓN
 La mayoría de apps ponen "Experto" en un tablero y esperan que no mires de cerca. Nosotros le ponemos un número. Suuudokuuu puntúa cada sudoku en la escala Sudoku Explainer (SE), de 1.0 a 12.0, la misma que usan los solucionadores serios. La valoración se ve en la etiqueta de nivel del tablero, en tu historial y en cada enlace que compartes. Una explicación integrada te cuenta qué mide de verdad ese número: lo difícil que es razonar un sudoku, no solo cuántas pistas tiene.
@@ -21,6 +21,9 @@ Cada partida terminada se puede repetir movimiento a movimiento, y cada tarjeta 
 JUEGA A TU MANERA
 Elige Clásico, Dorado o Periódico, o abre el editor de tema con vista previa en vivo y define cada celda, línea y resaltado. La validación de contraste integrada mantiene tus temas legibles en claro y oscuro. En la web tienes control total con el teclado: flechas para moverte, dígitos para colocar, Espacio o N para el modo anotaciones, Mayús y un dígito para candidatos, A para candidatos automáticos.
 
+RETO DIARIO Y PISTAS QUE ENSEÑAN
+Un sudoku nuevo cada día, con una racha que cuenta cuántos días seguidos lo resuelves. ¿Atascado? Una pista te guía paso a paso por la técnica, desde los pares desnudos hasta el X-Wing y más, para que entiendas por qué funciona la jugada y no solo dónde va.
+
 TODO LO DEMÁS QUE PODRÍAS QUERER
 • 7 dificultades, de Novato a Infinito
 • Valoración SE de dificultad en cada sudoku
@@ -31,8 +34,8 @@ TODO LO DEMÁS QUE PODRÍAS QUERER
 • 13 idiomas
 • Funciona totalmente sin conexión
 • Sin cuenta, sin registro, nunca
-• Gratis y de código abierto
+• Código abierto
 
-suuudokuuu está hecho para quienes de verdad aman el Sudoku, no para quienes quieren venderte una suscripción. Descárgalo, elige una dificultad y descubre cuál es tu número.
+suuudokuuu está hecho para quienes de verdad aman el Sudoku, no para quienes quieren venderte una suscripción. Elige una dificultad y descubre cuál es tu número.
 
 Más información en www.suuudokuuu.com.

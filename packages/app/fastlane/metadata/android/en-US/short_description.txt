@@ -1,1 +1,1 @@
-Every puzzle rated 1.0-12.0, plus Infinity: the world's hardest Sudoku boards.
+Offline sudoku: daily challenge, hints that teach, every puzzle rated 1.0-12.0.
