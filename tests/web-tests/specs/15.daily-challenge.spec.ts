@@ -1,10 +1,11 @@
 import { expect, test } from '@playwright/test';
 import {
+    DailyBestStreakSelectors,
     DailyNextPuzzleBarSelectors,
     DailyRecentSolvesSelectors,
     DailyScreenSelectors,
     DailyShareButtonSelectors,
-    DailyStreakHeroSelectors,
+    DailyStreakPillSelectors,
     DailyTodayResultSelectors,
     DailyTodayResultStatsSelectors,
     DailyTodaySummarySelectors,
@@ -56,7 +57,9 @@ test('offers today’s puzzle on a fresh profile', async ({ page }) => {
 
     const dailyScreen = page.getByTestId(DailyScreenSelectors.Root);
 
-    await expect(dailyScreen.getByTestId(DailyStreakHeroSelectors.Streak)).toHaveText('0');
+    await expect(dailyScreen.getByTestId(DailyStreakPillSelectors.Streak)).toHaveText('0');
+    await expect(dailyScreen.getByTestId(DailyStreakPillSelectors.Root)).toHaveAttribute('aria-label', '0 day streak');
+    await expect(dailyScreen.getByTestId(DailyBestStreakSelectors.Root)).toHaveCount(0);
     await expect(dailyScreen.getByTestId(`${DailyWeekDaySelectors.Root}.${todayDayNumber}`)).toHaveAttribute('aria-label', /Today$/u);
     await expect(dailyScreen.getByTestId(`${DailyWeekDaySelectors.Root}.${todayDayNumber + 1}`)).toHaveAttribute(
         'aria-label',
@@ -78,7 +81,7 @@ test('solving today’s puzzle records its result and swaps the call to action f
 
     const dailyScreen = page.getByTestId(DailyScreenSelectors.Root);
 
-    await expect(dailyScreen.getByTestId(DailyStreakHeroSelectors.Streak)).toHaveText('1');
+    await expect(dailyScreen.getByTestId(DailyStreakPillSelectors.Streak)).toHaveText('1');
     await expect(dailyScreen.getByTestId(`${DailyWeekDaySelectors.Root}.${todayDayNumber}`)).toHaveAttribute(
         'aria-label',
         /Solved today$/u
@@ -103,12 +106,12 @@ test('daily streak labels follow a language switch without a reload', async ({ p
 
     const dailyScreen = page.getByTestId(DailyScreenSelectors.Root);
 
-    await expect(dailyScreen.getByTestId(DailyStreakHeroSelectors.BestStreak)).toHaveText('Best streak: 1 day');
+    await expect(dailyScreen.getByTestId(DailyBestStreakSelectors.Root)).toHaveText('Best streak: 1 day');
 
     await page.getByText('Settings', { exact: true }).click();
     await page.getByText(/^Language/u).click();
     await page.getByTestId(SettingsOptionSheetSelectors.Root).getByText('Українська', { exact: true }).click();
 
     await page.getByText('Щодня', { exact: true }).click();
-    await expect(dailyScreen.getByTestId(DailyStreakHeroSelectors.BestStreak)).toHaveText('Найкраща серія: 1 день');
+    await expect(dailyScreen.getByTestId(DailyBestStreakSelectors.Root)).toHaveText('Найкраща серія: 1 день');
 });

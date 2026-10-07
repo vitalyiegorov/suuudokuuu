@@ -30,7 +30,7 @@ msgstr "{arsenalCardCount, plural, one {# teknik} other {# teknik}}"
 msgid "{awaySeconds}s away"
 msgstr "{awaySeconds}s di luar aplikasi"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/daily/components/daily-best-streak/daily-best-streak.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Rentetan terbaik: # hari} other {Rentetan terbaik: # hari}}"
@@ -91,13 +91,10 @@ msgstr "{remaining, plural, one {Catat {value}, # tersisa} other {Catat {value},
 msgid "{score, plural, one {# point} other {# points}}"
 msgstr "{score, plural, one {# poin} other {# poin}}"
 
+#: src/daily/components/daily-streak-pill/daily-streak-pill.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Rentetan # hari} other {Rentetan # hari}}"
-
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
-msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}}"
-msgstr "{streak, plural, one {tantangan harian terpecahkan berturut-turut} other {tantangan harian terpecahkan berturut-turut}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."

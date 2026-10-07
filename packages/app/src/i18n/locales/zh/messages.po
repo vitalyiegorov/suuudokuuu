@@ -30,7 +30,7 @@ msgstr "{arsenalCardCount, plural, one {# 个技巧} other {# 个技巧}}"
 msgid "{awaySeconds}s away"
 msgstr "离开 {awaySeconds} 秒"
 
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
+#: src/daily/components/daily-best-streak/daily-best-streak.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, other {最长连续：# 天}}"
@@ -91,13 +91,10 @@ msgstr "{remaining, plural, other {标记 {value}，还剩 # 个}}"
 msgid "{score, plural, one {# point} other {# points}}"
 msgstr "{score, plural, other {# 分}}"
 
+#: src/daily/components/daily-streak-pill/daily-streak-pill.tsx
 #: src/daily/components/daily-streak-summary/daily-streak-summary.tsx
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, other {连续 # 天}}"
-
-#: src/daily/components/daily-streak-hero/daily-streak-hero.tsx
-msgid "{streak, plural, one {daily solve in a row} other {daily solves in a row}}"
-msgstr "{streak, plural, other {连续完成的每日挑战}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
