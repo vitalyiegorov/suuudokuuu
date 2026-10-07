@@ -78,8 +78,7 @@ before relying on them.
   `bake-landscape-screenshot.ts` - physical rotation bake.
 - `.github/workflows/native-publish.yml` - store publish; `fastlane
   store_preflight` gates both jobs; metadata pushes after each `eas submit`;
-  screenshots upload only with the `push_screenshots` checkbox; the
-  release-notes freshness check runs `node scripts/generate-store-release-notes.ts --check`.
+  screenshots upload only with the `push_screenshots` checkbox.
 
 ## Workflows
 
@@ -100,7 +99,7 @@ Screenshots, end to end:
    rule are in the capture doc's "Compose and verify". Scene manifests are
    `SCENES_LIGHT`/`SCENES_DARK`; palettes live in `set_variant_palette`. Keep
    the manifests mirrored.
-3. Review visually (downscale with sips and look), commit both sets.
+3. Verify with the capture doc's checklist, commit both sets.
 4. Upload: dispatch "Build and Publish to Stores" with the screenshots
    checkbox, or run the lanes locally.
 
@@ -121,8 +120,8 @@ Screenshots, end to end:
 - Tight caption-device gap (1.6% canvas height), text within 90% width.
 - Two alternating layouts (text-top / device-top); the challenge pair
   (accept + live) intentionally shares one layout to read as a story.
-- Output dims must EXACTLY match capture dims - deliver assigns App Store
-  slots by resolution.
+- Output dims must EXACTLY match capture dims (slots are assigned by
+  resolution, see Store requirements).
 - Set curation (user decisions): NO win/confetti shot; hero = airy
   fresh Nightmare board with pencil marks (not a nearly-solved board);
   challenge = two-shot story with anticheat + technique + live wording;
@@ -150,7 +149,7 @@ Screenshots, end to end:
   any build has been uploaded for the platform". The only correction is to fix
   `package.json` and re-run the lane: `deliver`'s `ensure_version!` renames the
   editable version in place.
-- **Copyright must carry the current year** or precheck fails. `store_preflight`
+- **Copyright must carry the current year** or precheck flags it. `store_preflight`
   guards it, so a January rollover fails in seconds instead of at review time.
 - **Support URL is per locale.** Setting only `en-US` leaves every other locale
   empty and precheck flags each one. Every field under `metadata/ios/<locale>/`
@@ -210,23 +209,10 @@ Android emulator) are in the capture doc.
 - fastlane overwrites `fastlane/README.md` with its generated lane docs after
   every local lane run, destroying the hand-written doc. The Fastfile calls
   `skip_docs` to prevent that; do not remove it.
-- Metro file watching is broken in t3 worktrees: after ANY app-source edit,
-  kill the port-8081 process and cold-start Metro, or the app serves stale
-  code. Fast Refresh never fires.
-- The DerivedData "Debug" prebuild app has EAS Updates enabled and silently
-  runs the PUBLISHED bundle instead of Metro. Build a real dev client with
-  `pnpm ios` for local iteration; connect via
-  `xcrun simctl openurl <udid> "<bundle-id>://expo-development-client/?url=http%3A%2F%2Flocalhost%3A8081"`.
-- Do not reboot simulators mid-pipeline: the dev client loses its Metro
-  connection and lands on the launcher, failing every flow.
 - Maestro XCUITest driver wedges (instant connection-refused): run
-  `tests/app-tests/scripts/recycle-ios-driver.sh <udid>`; the runner now
+  `tests/app-tests/scripts/recycle-ios-driver.sh <udid>`; the runner
   does this automatically. If it persists, uninstall
   `dev.mobile.maestro-driver-iosUITests.xctrunner` from the sim.
-- Maestro on iPad wide layout: ~19s per interaction, so gameplay-fixture
-  scenes (win/replay/stats/pause/history) are iPhone-only.
-- Parent-`.Root` testIDs may never register in the iOS accessibility
-  snapshot while child testIDs do - assert on a child element.
 - ImageMagick here has ZERO registered fonts: always pass
   `-font <abs path>` (Inter Black at repo-root
   `node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf`).
@@ -293,8 +279,7 @@ are in the table.
 - Field budget: Name 30, Subtitle 30, Keywords 100 bytes (no repeated
   name/subtitle words, no plurals, no "app"/"game", no competitor names),
   Promotional text 170 (not indexed, changeable without review), Description
-  4000 (not indexed), What's New 4000. Screenshots up to 10 per device;
-  previews up to 3 per size and locale, 15-30 s.
+  4000 (not indexed), What's New 4000.
 - Cross-localization: each storefront indexes extra localizations (US: en-US
   plus es-MX, ru, zh-Hans, ar, fr, pt-BR, zh-Hant, vi, ko), so the other
   locales' name/subtitle/keywords add indexed bytes. Do not repeat a word
@@ -380,11 +365,11 @@ issue body is the brief. Every brief states:
 2. Placement: where it appears (above the icon, search result card, Play
    listing top, event card), which regions are cropped per device, and the
    caption safe area to keep empty.
-3. Constraints: no text, no real device frames unless specified, no
-   third-party logos, 4+ safe imagery, no prices/URLs/awards/badges, centred
-   focal point, locale-neutral (the same art serves all locales).
-4. Brand notes: minimalist black/white/red, flat near-flat backgrounds, no
-   gradients, Inter Black typography is applied later; Sudoku grid motif.
+3. Constraints: no text, no real device frames unless specified, the content
+   rules above, centred focal point, locale-neutral (the same art serves all
+   locales).
+4. Brand notes: the Design system section (minimalist black/white/red, flat
+   backgrounds, no gradients) plus a Sudoku grid motif.
 5. Ready-to-use prompt: one self-contained prompt that restates the size,
    style, composition, and the "no text" rule.
 6. Variants: 2-3 labelled alternatives (for PPO or experiments), differing in
@@ -412,11 +397,8 @@ Play Developer API covers them.
   recapture is owed (#445).
 - Play phone sets predate the redesigns (#448). Missing: 1024x500 feature
   graphic (design artwork, not a capture), 7"/10" tablet sets, App Preview
-  video (886x1920 H.264 15-30 s; GIFs rejected by both stores).
-- Non-Latin captions: `set_caption_engine` sends ar-SA, ur, hi, bn-BD, and
-  zh-Hans through `rsvg-convert` (needs `brew install librsvg`) instead of
-  ImageMagick's glyph-less freetype path; Latin and Cyrillic keep freetype.
-- Home strings follow the saved app language; keep seeding `-AppleLanguages`
-  alongside `settings.language` so system alerts match.
+  video.
+- ar-SA, ur, hi, bn-BD, and zh-Hans captions render through `rsvg-convert`
+  (needs `brew install librsvg`); Latin and Cyrillic use ImageMagick.
 - The store capture should become an E2E smoke run (#483). There is no in-app
   rating prompt yet (#475).
