@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.18.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.18.0...v2.18.1) (2026-10-07)
+
+### Bug Fixes
+
+* **app:** keep the daily title below the iOS status bar and lead with today ([#454](https://github.com/vitalyiegorov/suuudokuuu/issues/454)) ([47e872d](https://github.com/vitalyiegorov/suuudokuuu/commit/47e872d097f84460e9e8a62c0dfc4189e916412f))
+
+
 # [2.18.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.17.5...v2.18.0) (2026-10-06)
 
 ### Bug Fixes
