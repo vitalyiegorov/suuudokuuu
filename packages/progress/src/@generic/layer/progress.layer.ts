@@ -8,6 +8,7 @@ import { DifficultyStatsRepository } from '../../difficulty-stats/repository/dif
 import { LegacyStateImportService } from '../../legacy/service/legacy-state-import.service';
 import { PlayerStatsRepository } from '../../player-stats/repository/player-stats.repository';
 import { SettingsRepository } from '../../settings/repository/settings.repository';
+import { StoreReviewService } from '../../store-review/service/store-review.service';
 
 export const ProgressLayer = Layer.mergeAll(
     SettingsRepository.layer,
@@ -17,5 +18,6 @@ export const ProgressLayer = Layer.mergeAll(
     CompletedGameRepository.layer,
     PlayerStatsRepository.layer,
     CurrentRunService.layer,
-    LegacyStateImportService.layer
+    LegacyStateImportService.layer,
+    StoreReviewService.layer
 );

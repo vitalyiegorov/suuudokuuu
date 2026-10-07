@@ -1,7 +1,11 @@
 import { useLingui } from '@lingui/react/macro';
+import { StoreReviewService } from '@suuudokuuu/progress';
+import * as Effect from 'effect/Effect';
+import Constants from 'expo-constants';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
+import * as StoreReview from 'expo-store-review';
 import { use, useEffect } from 'react';
 import { AccessibilityInfo } from 'react-native';
 
@@ -9,6 +13,7 @@ import { isNotEmptyString } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../../@generic/constants/animation.constant';
 import { useVibration } from '../../../../@generic/hooks/use-vibration.hook';
+import { appRuntime } from '../../../../@generic/runtime/app.runtime';
 import { classifyTimelineMove } from '../../../../challenge/utils/classify-timeline-move.util';
 import { WinConfettiContext } from '../../../../confetti/context/win-confetti.context';
 import { GameContext } from '../../../../game/context/game.context';
@@ -23,6 +28,18 @@ import { gameScreenMaybeStartWinConfetti } from '../utils/game-screen-maybe-star
 
 import type { FieldRef } from '../../../../game/components/field/field';
 import type { RefObject } from 'react';
+
+const requestStoreReview = Effect.gen(function* () {
+    if (Constants.expoConfig?.extra?.['isE2E'] === true || !(yield* Effect.promise(() => StoreReview.isAvailableAsync()))) {
+        return;
+    }
+
+    const storeReviewService = yield* StoreReviewService;
+
+    if (yield* storeReviewService.claimAfterWin(Constants.expoConfig?.version ?? '')) {
+        yield* Effect.promise(() => StoreReview.requestReview());
+    }
+}).pipe(Effect.tapCause(Effect.logError), Effect.ignoreCause);
 
 export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void => {
     const router = useRouter();
@@ -92,9 +109,15 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
 
             gameScreenMaybeStartWinConfetti(hasRival, wonChallenge, startWinConfetti);
             deferredClassifications.flush();
-            void runCurrentRunCommand(currentRunService => currentRunService.finish(true, wonChallenge));
+            const finishedWonGame = runCurrentRunCommand(currentRunService => currentRunService.finish(true, wonChallenge));
             // HINT: We need to wait for the animation to finish, animation finish event would fix it?
-            setTimeout(() => void router.replace(gameScreenGetWonRoute(hasRival, wonChallenge)), 10 * animationDurationConstant);
+            setTimeout(() => {
+                void router.replace(gameScreenGetWonRoute(hasRival, wonChallenge));
+
+                if (!hasRival || wonChallenge) {
+                    void finishedWonGame.then(() => appRuntime.runPromise(requestStoreReview));
+                }
+            }, 10 * animationDurationConstant);
         });
 
         return () => {

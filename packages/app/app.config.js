@@ -145,6 +145,7 @@ export default ({ config }) =>
             eas: {
                 projectId: '4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
             },
+            isE2E: IS_E2E,
             brand: {
                 appName: brandConfig.appName,
                 defaultTheme: brandConfig.defaultTheme,
