@@ -103,6 +103,11 @@ is exactly what step 2 above already does.
   `google_apis_playstore`, and `run-as` is refused on release builds). Set
   `wm size 1080x2340` and `wm density 440` for the 1080x1920 Play
   composition. Locale switching alone needs no root (API 33+).
+- **Android Hell needs a scrolled Home capture.** At the initial scroll
+  position, the floating tabs cover the Start puzzle button. After seeding
+  and launching the Hell scene for each locale, swipe Home upward until the
+  full button sits above the tabs, then save `02-hell.png` before composing.
+  The 2.20.0 Play set was captured this way on `emulator-5554`.
 - **Status bar:** launch arguments do not touch the system status bar, so the
   runner applies `simctl status_bar override` (9:41, full bars, 100%
   battery) and Android SystemUI demo mode. `--status-bar=real` restores the

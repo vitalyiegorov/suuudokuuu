@@ -149,15 +149,17 @@ fi
 # fastlane moved its frameit cache from ~/.frameit to ~/.fastlane/frameit at
 # some point; accept either so this keeps working on older fastlane installs.
 FRAMES_DIR=""
-for candidate in "$HOME/.fastlane/frameit/latest" "$HOME/.frameit/latest"; do
-  if [[ -d "$candidate" ]]; then
-    FRAMES_DIR="$candidate"
-    break
+if [[ "$VARIANT" != "android" ]]; then
+  for candidate in "$HOME/.fastlane/frameit/latest" "$HOME/.frameit/latest"; do
+    if [[ -d "$candidate" ]]; then
+      FRAMES_DIR="$candidate"
+      break
+    fi
+  done
+  if [[ -z "$FRAMES_DIR" ]]; then
+    echo "error: fastlane frameit device frames not found. Run 'fastlane frameit download_frames' first (downloads to ~/.fastlane/frameit/latest)." >&2
+    exit 1
   fi
-done
-if [[ -z "$FRAMES_DIR" ]]; then
-  echo "error: fastlane frameit device frames not found. Run 'fastlane frameit download_frames' first (downloads to ~/.fastlane/frameit/latest)." >&2
-  exit 1
 fi
 
 # The store's primary iPhone slot is 6.9" (1320x2868), which is the Pro Max
@@ -174,12 +176,14 @@ IPHONE_FRAME="$FRAMES_DIR/Apple iPhone 16 Pro Max Black Titanium.png"
 # just a slightly smaller/older panel. See README.md "Framing" for the
 # comparison against the (older, home-button) generic "iPad Pro" frame.
 IPAD_FRAME_PORTRAIT="$FRAMES_DIR/Apple iPad Pro (12.9-inch) (4th generation) Space Gray.png"
-for frame_file in "$IPHONE_FRAME" "$IPAD_FRAME_PORTRAIT"; do
-  if [[ ! -f "$frame_file" ]]; then
-    echo "error: missing frame asset '$frame_file' — re-run 'fastlane frameit download_frames'" >&2
-    exit 1
-  fi
-done
+if [[ "$VARIANT" != "android" ]]; then
+  for frame_file in "$IPHONE_FRAME" "$IPAD_FRAME_PORTRAIT"; do
+    if [[ ! -f "$frame_file" ]]; then
+      echo "error: missing frame asset '$frame_file' — re-run 'fastlane frameit download_frames'" >&2
+      exit 1
+    fi
+  done
+fi
 
 # Pixel rectangle of each frame's transparent screen cutout, measured with a
 # flood fill of the PNG's alpha channel (the cutout is the only fully
@@ -282,16 +286,18 @@ SHADOW_OFFSET_RATIO="0.00953"
 WORK_ROOT="$STAGE_ROOT/work"
 mkdir -p "$WORK_ROOT"
 
-IPAD_FRAME_LANDSCAPE="$WORK_ROOT/ipad-frame-landscape.png"
-magick "$IPAD_FRAME_PORTRAIT" -rotate 90 -define png:color-type=6 -depth 8 "$IPAD_FRAME_LANDSCAPE"
+if [[ "$VARIANT" != "android" ]]; then
+  IPAD_FRAME_LANDSCAPE="$WORK_ROOT/ipad-frame-landscape.png"
+  magick "$IPAD_FRAME_PORTRAIT" -rotate 90 -define png:color-type=6 -depth 8 "$IPAD_FRAME_LANDSCAPE"
 
-landscape_w="$(magick identify -format "%w" "$IPAD_FRAME_LANDSCAPE")"
-landscape_h="$(magick identify -format "%h" "$IPAD_FRAME_LANDSCAPE")"
-expected_cutout_right=$((IPAD_CUTOUT_X + IPAD_CUTOUT_W))
-expected_cutout_bottom=$((IPAD_CUTOUT_Y + IPAD_CUTOUT_H))
-if (( expected_cutout_right > landscape_w || expected_cutout_bottom > landscape_h )); then
-  echo "error: rotated iPad frame (${landscape_w}x${landscape_h}) is smaller than the expected cutout rectangle (+${IPAD_CUTOUT_X}+${IPAD_CUTOUT_Y} ${IPAD_CUTOUT_W}x${IPAD_CUTOUT_H}) — frameit-frames likely changed this asset, re-measure the cutout" >&2
-  exit 1
+  landscape_w="$(magick identify -format "%w" "$IPAD_FRAME_LANDSCAPE")"
+  landscape_h="$(magick identify -format "%h" "$IPAD_FRAME_LANDSCAPE")"
+  expected_cutout_right=$((IPAD_CUTOUT_X + IPAD_CUTOUT_W))
+  expected_cutout_bottom=$((IPAD_CUTOUT_Y + IPAD_CUTOUT_H))
+  if (( expected_cutout_right > landscape_w || expected_cutout_bottom > landscape_h )); then
+    echo "error: rotated iPad frame (${landscape_w}x${landscape_h}) is smaller than the expected cutout rectangle (+${IPAD_CUTOUT_X}+${IPAD_CUTOUT_Y} ${IPAD_CUTOUT_W}x${IPAD_CUTOUT_H}) — frameit-frames likely changed this asset, re-measure the cutout" >&2
+    exit 1
+  fi
 fi
 
 string_for() {
@@ -660,7 +666,7 @@ compose_one() {
   local frame_h frame_w frame_x max_frame_h
   frame_h=$(awk -v h="$canvas_h" -v f="$height_fraction" 'BEGIN { printf "%d", h * f }')
   max_frame_h=$(awk -v h="$canvas_h" -v s="$stack_h" -v m="$TEXT_EDGE_MARGIN_FRACTION" -v g="$TEXT_DEVICE_GAP_FRACTION" 'BEGIN { printf "%d", h * (1 - 2 * m - g) - s }')
-  if (( frame_h > max_frame_h )); then
+  if [[ "$device" == "android" ]] && (( frame_h > max_frame_h )); then
     frame_h=$max_frame_h
   fi
   frame_w=$(awk -v fh="$frame_h" -v nw="$frame_native_w" -v nh="$frame_native_h" 'BEGIN { printf "%d", (fh * nw) / nh }')
