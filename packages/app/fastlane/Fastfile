@@ -1,3 +1,5 @@
+require "zlib"
+
 default_platform(:ios)
 
 skip_docs
@@ -26,7 +28,7 @@ APPLE_SCREENSHOT_SLOTS = {
   [2048, 2732] => 'iPad 12.9"',
   [2732, 2048] => 'iPad 12.9"'
 }
-REQUIRED_IOS_SCREENSHOT_SLOT = 'iPhone 6.9"'
+REQUIRED_IOS_SCREENSHOT_COUNTS = { 'iPhone 6.9"' => 9, 'iPad 13"' => 6 }
 
 # deliver writes into the editable App Store version, and a freshly uploaded
 # build does not create one on its own. Naming the version explicitly makes
@@ -63,42 +65,106 @@ def verify_copyright_year
   UI.success("Copyright: #{copyright}")
 end
 
-# supply uploads whatever sits under metadata/android/<locale>/images and
-# reports success even when that is nothing at all, so the count is checked
-# rather than trusted.
-def android_image_counts
-  counts = Hash.new(0)
+def png_header(path)
+  UI.user_error!("Missing PNG artwork at #{path}") unless File.file?(path)
+  header = File.binread(path, 33)
 
-  Dir.glob(File.join(ANDROID_METADATA_PATH, "*", "images", "**", "*.{png,jpg,jpeg}")).each do |path|
-    segments = path.delete_prefix("#{ANDROID_METADATA_PATH}/").split("/")
-    counts["#{segments[0]}/#{File.basename(segments[2], '.*')}"] += 1
+  unless header.bytesize == 33 && header[0, 8] == "\x89PNG\r\n\x1a\n".b && header[8, 8] == [13].pack("N") + "IHDR"
+    UI.user_error!("#{path} has an invalid PNG signature or IHDR header")
   end
 
-  counts
+  unless Zlib.crc32(header[12, 17]) == header[29, 4].unpack1("N")
+    UI.user_error!("#{path} has an invalid PNG IHDR checksum")
+  end
+
+  width, height, bit_depth, color_type, compression, filter, interlace = header[16, 13].unpack("N2C5")
+  unless width.positive? && height.positive? && compression.zero? && filter.zero? && [0, 1].include?(interlace)
+    UI.user_error!("#{path} has invalid PNG IHDR fields")
+  end
+
+  [width, height, bit_depth, color_type]
 end
 
-def png_dimensions(path)
-  File.binread(path, 24)[16, 8].unpack("N2")
+def verify_rgb_screenshot(path)
+  width, height, bit_depth, color_type = png_header(path)
+  unless bit_depth == 8 && color_type == 2
+    UI.user_error!("#{path} must be an 8-bit RGB PNG without alpha (bit depth #{bit_depth}, color type #{color_type})")
+  end
+
+  [width, height]
 end
 
 def verify_ios_screenshot_slots(path)
-  screenshots = Dir.glob(File.join(path, "**", "*.png")).sort
-  UI.user_error!("No screenshots found under #{path}") if screenshots.empty?
+  verify_store_directory("iOS screenshots", path)
+  metadata_locales = Dir.children(IOS_METADATA_PATH).select { |locale| File.directory?(File.join(IOS_METADATA_PATH, locale)) }.sort
+  UI.user_error!("No iOS metadata locales found under #{IOS_METADATA_PATH}") if metadata_locales.empty?
+  unexpected_locales = Dir.children(path) - metadata_locales
+  UI.user_error!("Unexpected iOS screenshot entries under #{path}: #{unexpected_locales.join(', ')}") unless unexpected_locales.empty?
 
-  slot_counts = Hash.new(0)
+  metadata_locales.each do |locale|
+    locale_path = File.join(path, locale)
+    verify_store_directory("iOS screenshots for #{locale}", locale_path)
+    slot_counts = Hash.new(0)
 
-  screenshots.each do |screenshot|
-    width, height = png_dimensions(screenshot)
-    slot = APPLE_SCREENSHOT_SLOTS[[width, height]]
-    UI.user_error!("#{screenshot} is #{width}x#{height}, which matches no App Store screenshot size") if slot.nil?
+    Dir.children(locale_path).sort.each do |filename|
+      screenshot = File.join(locale_path, filename)
+      width, height = verify_rgb_screenshot(screenshot)
+      slot = APPLE_SCREENSHOT_SLOTS[[width, height]]
+      UI.user_error!("#{screenshot} is #{width}x#{height}, which matches no App Store screenshot size") if slot.nil?
+      slot_counts[slot] += 1
+    end
 
-    slot_counts[slot] += 1
+    slot_counts.sort.each do |slot, count|
+      UI.user_error!("#{locale_path} has #{count} #{slot} screenshots; App Store allows at most 10 per device group") if count > 10
+      UI.success("  #{locale}: #{slot}: #{count}")
+    end
+
+    REQUIRED_IOS_SCREENSHOT_COUNTS.each do |slot, expected_count|
+      UI.user_error!("#{locale_path} is missing the required #{slot} screenshot set") unless slot_counts.key?(slot)
+      unless slot_counts[slot] == expected_count
+        UI.user_error!("#{locale_path} has #{slot_counts[slot]} #{slot} screenshots; the curated gallery requires #{expected_count}")
+      end
+    end
   end
+end
 
-  slot_counts.sort.each { |slot, count| UI.success("  #{slot}: #{count}") }
+def verify_android_artwork(path = ANDROID_METADATA_PATH)
+  verify_store_directory("Android metadata", path)
+  metadata_locales = Dir.children(path).select { |locale| File.directory?(File.join(path, locale)) }.sort
+  UI.user_error!("No Android metadata locales found under #{path}") if metadata_locales.empty?
 
-  unless slot_counts.key?(REQUIRED_IOS_SCREENSHOT_SLOT)
-    UI.important("No #{REQUIRED_IOS_SCREENSHOT_SLOT} set; these upload into their own slots and leave the current store images in place")
+  metadata_locales.each do |locale|
+    images_path = File.join(path, locale, "images")
+    phone_path = File.join(images_path, "phoneScreenshots")
+    verify_store_directory("Play phone screenshots for #{locale}", phone_path)
+    screenshots = Dir.children(phone_path).sort
+    unless (2..8).cover?(screenshots.length)
+      UI.user_error!("#{phone_path} has #{screenshots.length} screenshots; Play requires 2 to 8 phone screenshots")
+    end
+
+    unless screenshots.length == 8
+      UI.user_error!("#{phone_path} has #{screenshots.length} screenshots; the curated Play gallery requires 8")
+    end
+
+    screenshots.each do |filename|
+      screenshot = File.join(phone_path, filename)
+      width, height = verify_rgb_screenshot(screenshot)
+      unless [width, height] == [1080, 1920]
+        UI.user_error!("#{screenshot} is #{width}x#{height}; Play phone screenshots must use the committed 1080x1920 format")
+      end
+    end
+
+    feature_graphic_path = File.join(images_path, "featureGraphic.png")
+    unless png_header(feature_graphic_path) == [1024, 500, 8, 2]
+      UI.user_error!("#{feature_graphic_path} must be a 1024x500 8-bit RGB PNG without alpha")
+    end
+
+    icon_path = File.join(images_path, "icon.png")
+    unless png_header(icon_path) == [512, 512, 8, 6]
+      UI.user_error!("#{icon_path} must be a 512x512 8-bit RGBA PNG")
+    end
+    UI.user_error!("#{icon_path} exceeds Play's 1 MiB icon limit") if File.size(icon_path) > 1024 * 1024
+    UI.success("  Play #{locale}: #{screenshots.length} phone screenshots, feature graphic and icon")
   end
 end
 
@@ -116,15 +182,9 @@ lane :store_preflight do
   verify_copyright_year
   verify_store_directory("iOS metadata", IOS_METADATA_PATH)
   verify_store_directory("Android metadata", ANDROID_METADATA_PATH)
-  verify_store_directory("iOS screenshots", ios_screenshots_path)
-  verify_ios_screenshot_slots(ios_screenshots_path)
-
-  android_images = android_image_counts
-  if android_images.empty?
-    UI.important("No Play Store images under #{ANDROID_METADATA_PATH}/<locale>/images; android_screenshots would upload nothing")
-  else
-    android_images.sort.each { |label, count| UI.success("  Play #{label}: #{count}") }
-  end
+  screenshot_paths = ["dark", "light"].map { |variant| File.join(FASTLANE_DIR, "screenshots", "variants", variant, "ios") }
+  (screenshot_paths + [ios_screenshots_path]).uniq.each { |path| verify_ios_screenshot_slots(path) }
+  verify_android_artwork
 end
 
 platform :ios do
@@ -188,7 +248,7 @@ platform :android do
   end
 
   lane :android_screenshots do
-    UI.user_error!("No Play Store images under #{ANDROID_METADATA_PATH}/<locale>/images") if android_image_counts.empty?
+    verify_android_artwork
 
     submit_track = android_submit_track
     version_codes = google_play_track_version_codes(track: submit_track)

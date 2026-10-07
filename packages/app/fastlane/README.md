@@ -225,8 +225,11 @@ localised field, so it must exist for all 11 App Store locales - setting only
 captured at the wrong size lands in its own slot and leaves the current store
 images in place, making the listing look unchanged. The primary iPhone slot is
 6.9" at 1320x2868; iPad 13" is 2064x2752 portrait and 2752x2064 landscape.
-`store_preflight` prints the slot each committed screenshot maps to, fails on
-any size Apple does not recognise, and warns when the 6.9" set is missing.
+`store_preflight` validates both iOS variants across every metadata locale,
+checks RGB PNG dimensions, and requires the iPhone 6.9" and iPad 13" slots in
+each locale. It validates every Play locale's phone screenshot count and
+dimensions, the 1024×500 RGB feature graphic, and the 512×512 RGBA icon and
+1 MiB size limit.
 
 **precheck never fails the lane.** It runs at the end of `ios_metadata` and only
 warns, so its output is the one place these problems surface before a reviewer
@@ -243,12 +246,13 @@ Store media is generated **manually, on demand** — never in CI — because it
 changes rarely. The final framed assets are committed to the repo and only
 uploaded when explicitly requested.
 
-1. Capture raw frames (only when the UI meaningfully changed): run
+1. Capture raw screens (only when the UI meaningfully changed): run
    `APP_ID=com.vitalyiegorov.suuudokuuu pnpm --filter @suuudokuuu/app-tests screenshots:capture`
    on an iPhone 17 Pro Max simulator (the 6.9" 1320×2868 store slot, the
-   default `DEVICE_CLASS=iphone`). For the 13" iPad slot (2064×2752), boot an
-   "iPad Pro 13-inch (M4)" simulator (or closest available) and run the same
-   command with `DEVICE_CLASS=ipad` and that simulator's UDID:
+   default `DEVICE_CLASS=iphone`). For the 13" iPad landscape slot
+   (2752×2064), boot an "iPad Pro 13-inch (M4)" simulator (or closest
+   available) and run the same command with `DEVICE_CLASS=ipad` and that
+   simulator's UDID:
 
     ```bash
     APP_ID=com.vitalyiegorov.suuudokuuu SIMULATOR_UDID=<iphone-udid> \
@@ -258,29 +262,41 @@ uploaded when explicitly requested.
     ```
 
     Pass `SIMULATOR_UDID` explicitly whenever more than one simulator may be
-    booted. Raw captures land in `fastlane/screenshots/raw/<platform>/
-<device-class>/<locale>/<appearance>/` for iOS (gitignored; Android has no
-    device-class segment). See `tests/app-tests/flows/screenshots/README.md`
-    for the full device matrix and scene list.
+    booted. Raw captures land under `fastlane/screenshots/raw/` (gitignored).
+    See `tests/app-tests/docs/store-screenshot-capture.md` for the seeded
+    capture flow, platform commands, and verification checklist.
 
-2. Frame + caption with fastlane `frameit` using the config and per-locale
-   captions in `fastlane/screenshots/design/` (see its README for the exact
-   commands).
-3. Commit the final framed assets:
+2. Compose the screenshots and Play artwork from the repository root:
+
+    ```bash
+    bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all
+    bash packages/app/fastlane/screenshots/design/compose-play-artwork.sh
+    ```
+
+    The screenshot composer requires ImageMagick 7, Inter Black at
+    `packages/app/node_modules/@expo-google-fonts/inter/900Black/`,
+    and frameit device frames (download once with
+    `fastlane frameit download_frames`). It composes both iOS variants and the
+    Play phone set; pass `android` as the second argument to compose only the
+    Play phone set. The artwork composer writes the shared, language-neutral
+    feature graphic and app icon for all Play locales.
+
+3. Commit the final assets:
     - iOS: `fastlane/screenshots/variants/<variant>/ios/<ios-locale>/*.png`,
-      one full set per appearance variant (`light` and `dark`). The
+      9 iPhone images (1320×2868) and 6 landscape iPad images (2752×2064) per
+      locale, in both appearance variants (`light` and `dark`) across 11
+      locales. The
       `ios_screenshots` lane reads the deployed variant from
       `fastlane/screenshots/deployed-variant.json` (currently `dark`) and
       points `deliver`'s `screenshots_path` at that variant's directory;
       `SCREENSHOT_VARIANT=light|dark` overrides it for a one-off upload.
-    - Android: `fastlane/metadata/android/<locale>/images/phoneScreenshots/`
-      plus `images/featureGraphic.png` (the standard `supply` layout, read by
-      the `android_screenshots` lane). The compose script writes the phone set
-      too: captures come from an emulator forced to the Pixel 5 panel
-      (`adb shell wm size 1080x2340`), get framed in the Pixel 5 frame, and are
-      composed onto a 1080x1920 canvas because Play requires phone screenshots
-      between 16:9 and 9:16 while the capture is 9:19.5. `featureGraphic.png`
-      is artwork rather than a capture and is not generated.
+    - Android: `fastlane/metadata/android/<locale>/images/` contains 8 phone
+      screenshots at 1080×1920, `featureGraphic.png` at 1024×500, and
+      `icon.png` at 512×512 for each of 13 locales. The screenshot composer
+      frames Pixel 5 captures and fits them to the Play phone canvas. The
+      feature graphic uses a branded wordmark and numeric Sudoku grid, without
+      localized prose. The icon is resized from `packages/app/assets/icon.png`,
+      preserving the app icon's Ukraine flag colors.
 4. Upload happens only on request: check "Also upload the committed store
    screenshots" when dispatching the "Build and Publish to Stores" workflow,
    or run the lanes locally:
@@ -290,11 +306,16 @@ EXPO_ASC_KEY_ID=... EXPO_ASC_ISSUER_ID=... EXPO_ASC_API_KEY_PATH=... fastlane io
 GOOGLE_SERVICE_ACCOUNT_KEY_PATH=... fastlane android android_screenshots
 ```
 
-Target asset specs:
+Current artwork targets:
 
-- iOS: 6.9" primary screenshot set at 1320×2868, plus a 13" iPad set at
-  2064×2752.
-- Play Store: phone screenshots at 1080×1920, plus one 1024×500 feature
-  graphic.
-- App Preview video: 886×1920, H.264, 15-30 seconds.
-- Animated GIFs are not accepted by either store and must not be used.
+- iOS: 6.9" iPhone screenshots at 1320×2868 and 13" iPad landscape screenshots
+  at 2752×2064.
+- Play Store: phone screenshots at 1080×1920, a 1024×500 feature graphic, and
+  a 512×512 app icon.
+- Tablet screenshots and recorded app preview videos are not currently part
+  of the committed artwork. App previews are optional; capture and review them
+  as a separate task.
+
+Primary references: [Apple screenshot specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications),
+[Apple app preview specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/app-preview-specifications),
+and [Google Play preview asset specifications](https://support.google.com/googleplay/android-developer/answer/9866151).
