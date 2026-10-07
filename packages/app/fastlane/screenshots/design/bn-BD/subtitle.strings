@@ -6,10 +6,10 @@
  * caption stack never grows taller than expected. See ../README.md "Design
  * system" for the two-tier text rules. */
 
-"01-hero-board" = "পরিষ্কার সংখ্যা। পূর্ণ মনোযোগ।";
+"01-hero-board" = "প্রতিটি ইঙ্গিত কৌশলের নাম বলে।";
 "01-hero-board-dark" = "সম্পূর্ণ ডার্ক মোড। কোনো আপস নেই।";
 "01-hero-board-light" = "সম্পূর্ণ লাইট মোড। একই মনোযোগ।";
-"02-hell" = "শুধু বাধ্যকারী শৃঙ্খল। কোনো অনুমান নয়।";
+"02-hell" = "বাধ্যকারী শৃঙ্খল, অনুমান নয়।";
 "04-editor" = "প্রতিটি রঙ সাজাও, ঘর ধরে ধরে।";
 "05-customization" = "সব রঙ তোমার। 13টি ভাষা।";
 "06-rival" = "আসল খেলা, অ্যান্টিচিট যাচাই করা।";

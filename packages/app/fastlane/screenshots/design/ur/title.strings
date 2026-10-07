@@ -2,13 +2,13 @@
  * Urdu script, right-to-left. Sentences close with the Urdu full stop ۔
  * instead of a Latin period; no directional control characters are used. */
 
-"01-hero-board" = "سوڈوکو، جیسا ہونا چاہیے۔";
+"01-hero-board" = "سوڈوکو جو سکھائے۔";
 "01-hero-board-dark" = "اندھیرے میں بھی اتنا ہی صاف۔";
 "01-hero-board-light" = "دن کی روشنی میں بھی اتنا ہی صاف۔";
-"02-hell" = "اصلی جہنم۔";
+"02-hell" = "مشکل، مگر اندازے کے بغیر۔";
 "04-editor" = "ہر رنگ تمہارا۔";
 "05-customization" = "اسے واقعی اپنا بناؤ۔";
-"06-rival" = "چیلنج قبول کرو۔";
+"06-rival" = "اصلی حریف کو ہراؤ۔";
 "07-replay" = "ہر چال دوبارہ دیکھو۔";
 "09-home" = "اپنا چیلنج چنو۔";
 "10-stats" = "اپنا اصل درجہ جانو۔";

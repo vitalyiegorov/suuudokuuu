@@ -6,10 +6,10 @@
  * caption stack never grows taller than expected. See ../README.md "Design
  * system" for the two-tier text rules. */
 
-"01-hero-board" = "Angka bersih. Fokus penuh.";
+"01-hero-board" = "Setiap petunjuk menyebut tekniknya.";
 "01-hero-board-dark" = "Mode gelap penuh. Tanpa kompromi.";
 "01-hero-board-light" = "Mode terang penuh. Fokus sama.";
-"02-hell" = "Hanya rantai paksa. Tanpa perlu tebakan.";
+"02-hell" = "Rantai paksa, bukan tebakan.";
 "04-editor" = "Atur setiap warna, sel demi sel.";
 "05-customization" = "Semua warna milikmu. 13 bahasa.";
 "06-rival" = "Permainan asli, terverifikasi antikecurangan.";

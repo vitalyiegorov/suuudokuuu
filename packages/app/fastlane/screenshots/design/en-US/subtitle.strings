@@ -6,10 +6,10 @@
  * caption stack never grows taller than expected. See ../README.md "Design
  * system" for the two-tier text rules. */
 
-"01-hero-board" = "Clean numbers. Total focus.";
+"01-hero-board" = "Every hint names the technique.";
 "01-hero-board-dark" = "Full dark mode. Zero compromise.";
 "01-hero-board-light" = "Full light mode. Same focus.";
-"02-hell" = "Forcing chains only. No guessing needed.";
+"02-hell" = "Forcing chains solve even Hell.";
 "04-editor" = "Design every color, cell by cell.";
 "05-customization" = "Every color yours. 13 languages.";
 "06-rival" = "A real run. Anticheat verified.";
