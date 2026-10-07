@@ -10,6 +10,7 @@ import * as SqlClient from 'effect/sql/SqlClient';
 import * as SqlSchema from 'effect/sql/SqlSchema';
 
 import { CurrentRunRepository } from '../../current-run/repository/current-run.repository';
+import { DifficultyStatsRepository } from '../../difficulty-stats/repository/difficulty-stats.repository';
 
 const minimumGamesWon = 3;
 const requestIntervalMs = Duration.toMillis('120 days');
@@ -20,11 +21,7 @@ export class StoreReviewService extends Context.Service<StoreReviewService>()('@
     make: Effect.gen(function* () {
         const sql = yield* SqlClient.SqlClient;
         const currentRunRepository = yield* CurrentRunRepository;
-        const findGamesWon = SqlSchema.findOne({
-            Request: Schema.Void,
-            Result: Schema.Struct({ gamesWon: Schema.Number }),
-            execute: () => sql`SELECT COALESCE(SUM(games_won), 0) AS games_won FROM difficulty_stats`
-        });
+        const difficultyStatsRepository = yield* DifficultyStatsRepository;
         const findLastRequest = SqlSchema.findOneOption({
             Request: Schema.Void,
             Result: StoreReviewSchema,
@@ -40,17 +37,18 @@ export class StoreReviewService extends Context.Service<StoreReviewService>()('@
                 function* (appVersion: string) {
                     const nowMs = yield* Clock.currentTimeMillis;
                     const currentRun = yield* currentRunRepository.get;
-                    const { gamesWon } = yield* findGamesWon();
+                    const difficultyStats = yield* difficultyStatsRepository.findAll;
                     const lastRequest = yield* findLastRequest();
-                    const isHintAssisted = Option.exists(currentRun, run =>
-                        run.timelineEvents.some(event => event.kind === TimelineEventKindEnum.Hint)
+                    const gamesWon = difficultyStats.reduce((total, stats) => total + stats.gamesWon, 0);
+                    const isHintFreeRun = Option.exists(currentRun, run =>
+                        run.timelineEvents.every(event => event.kind !== TimelineEventKindEnum.Hint)
                     );
                     const isThrottled = Option.exists(
                         lastRequest,
                         request => request.appVersion === appVersion || nowMs - request.requestedAt < requestIntervalMs
                     );
 
-                    if (Option.isNone(currentRun) || isHintAssisted || isThrottled || gamesWon < minimumGamesWon) {
+                    if (!isHintFreeRun || isThrottled || gamesWon < minimumGamesWon) {
                         return false;
                     }
 
@@ -64,5 +62,7 @@ export class StoreReviewService extends Context.Service<StoreReviewService>()('@
         };
     })
 }) {
-    static readonly layer = Layer.effect(StoreReviewService, StoreReviewService.make).pipe(Layer.provide(CurrentRunRepository.layer));
+    static readonly layer = Layer.effect(StoreReviewService, StoreReviewService.make).pipe(
+        Layer.provide(Layer.mergeAll(CurrentRunRepository.layer, DifficultyStatsRepository.layer))
+    );
 }
