@@ -1,9 +1,12 @@
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { getHellCorpusRecord, getInfinityCorpusPuzzle, hellCorpusSize } from '@suuudokuuu/hell-corpus';
 import { createSeededRandom } from '@suuudokuuu/solver-core';
+import { findPlacementChain } from '@suuudokuuu/techniques';
 import { describe, expect, it } from 'vitest';
 
+import { getCellKey } from '../../src/@generic/utils/get-cell-key.util';
 import { FieldEngine } from '../../src/field-engine/classes/field-engine';
+import { StepScriptStepKindEnum } from '../../src/step-script/enums/step-script-step-kind.enum';
 import { findHintStepScript } from '../../src/step-script/utils/find-hint-step-script.util';
 
 import type { CellInterface } from '@suuudokuuu/generator';
@@ -56,6 +59,16 @@ const cases = [...generatedPuzzles, ...corpusPuzzles];
 
 const getBlankCells = (engine: FieldEngine): CellInterface[] => engine.Sudoku.Field.flat().filter(cell => engine.Sudoku.isBlankCell(cell));
 
+const getRemainingCandidateCount = (engine: FieldEngine): number =>
+    getBlankCells(engine).reduce(
+        (total, cell) =>
+            total +
+            engine.Sudoku.getCellCandidates(cell).filter(
+                value => !(engine.getSnapshot().eliminatedCandidates[getCellKey(cell)] ?? []).includes(value)
+            ).length,
+        0
+    );
+
 const createEngine = (puzzle: string, noteMode: NoteModeType): FieldEngine => {
     const engine = new FieldEngine({
         sudokuString: puzzle,
@@ -78,8 +91,9 @@ const playHints = (puzzle: string, noteMode: NoteModeType): { outcome: string; p
     const engine = createEngine(puzzle, noteMode);
     const problems: string[] = [];
     let placements = 0;
+    const progressLimit = getRemainingCandidateCount(engine);
 
-    for (let hint = 0; hint <= puzzle.length * 9; hint += 1) {
+    for (let hint = 0; hint <= progressLimit; hint += 1) {
         const script = findHintStepScript(engine.Sudoku, engine.getSnapshot().eliminatedCandidates);
 
         if (engine.getSnapshot().isWon || script === null) {
@@ -90,7 +104,30 @@ const playHints = (puzzle: string, noteMode: NoteModeType): { outcome: string; p
         const { placement } = script;
         const solutionValue = placement ? engine.Sudoku.getCorrectValue(placement.cell) : 0;
         const wrongEliminations = script.eliminations.filter(({ cell, value }) => engine.Sudoku.getCorrectValue(cell) === value);
-        const eliminationsBefore = engine.getSnapshot().eliminatedCandidates;
+        const candidatesBefore = getRemainingCandidateCount(engine);
+        const chain = findPlacementChain(
+            engine.Sudoku,
+            undefined,
+            getBlankCells(engine).flatMap(cell =>
+                (engine.getSnapshot().eliminatedCandidates[getCellKey(cell)] ?? []).map(value => ({ cell, value }))
+            )
+        );
+        const chainPlacement = chain.at(-1);
+
+        if (chain.length > 0) {
+            problems.push(
+                ...(script.steps.filter(step => step.kind === StepScriptStepKindEnum.PlaceValue).length === 1
+                    ? []
+                    : [`hint ${hint} did not preserve the fitting placement chain`]),
+                ...(placement &&
+                chainPlacement &&
+                placement.value === chainPlacement.value &&
+                placement.cell.x === chainPlacement.cell.x &&
+                placement.cell.y === chainPlacement.cell.y
+                    ? []
+                    : [`hint ${hint} changed the fitting chain's placement`])
+            );
+        }
 
         engine.startStepScript(script);
         engine.applyStepScript();
@@ -111,9 +148,7 @@ const playHints = (puzzle: string, noteMode: NoteModeType): { outcome: string; p
             ...(getBlankCells(engine).length === blankCount - Number(Boolean(placement))
                 ? []
                 : [`hint ${hint} changed the wrong number of cells`]),
-            ...(!placement && engine.getSnapshot().eliminatedCandidates === eliminationsBefore
-                ? [`hint ${hint} did not eliminate a candidate`]
-                : []),
+            ...(getRemainingCandidateCount(engine) >= candidatesBefore ? [`hint ${hint} did not reduce the live candidate count`] : []),
             ...(engine.getSnapshot().mistakes === 0 ? [] : [`hint ${hint} registered a mistake`]),
             ...wrongEliminations.map(({ cell, value }) => `hint ${hint} eliminated the solution ${value} at ${cell.y}-${cell.x}`),
             ...lostSolutionNotes.map(cell => `hint ${hint} left ${cell.y}-${cell.x} without its solution candidate`)

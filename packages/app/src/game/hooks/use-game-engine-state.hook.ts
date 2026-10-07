@@ -11,12 +11,13 @@ import type { OnEventFn } from '@rnw-community/shared';
 import type { Dispatch, SetStateAction } from 'react';
 
 export const useGameEngineState = (onInvalidState: OnEventFn<unknown>): [FieldEngine, Dispatch<SetStateAction<FieldEngine>>] => {
-    const { candidates, difficulty, inputMode, mistakes, showAutoCandidates, sudokuString } = useCurrentRun();
+    const currentRun = useCurrentRun();
+    const { difficulty, sudokuString } = currentRun;
 
     return useState(() => {
         if (isNotEmptyString(sudokuString)) {
             try {
-                return gameCreateEngine({ sudokuString, difficulty, candidates, inputMode, showAutoCandidates, mistakes });
+                return gameCreateEngine(currentRun);
             } catch (error: unknown) {
                 onInvalidState(error);
             }

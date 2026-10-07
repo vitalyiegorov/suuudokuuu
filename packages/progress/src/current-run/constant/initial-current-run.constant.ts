@@ -17,6 +17,7 @@ export const initialCurrentRun: CurrentRunType = {
     showAutoCandidates: false,
     inputMode: 'normal',
     candidates: {},
+    eliminatedCandidates: {},
     timelineEvents: [],
     undoneMoves: [],
     challengeTimelineEvents: [],

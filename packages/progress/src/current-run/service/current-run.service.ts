@@ -30,7 +30,7 @@ import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator'
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 type TechniqueUsageCountsType = PlayerStatsType['techniqueUsageCounts'];
-type FieldStateType = Pick<CurrentRunType, 'candidates' | 'sudokuString'>;
+type FieldStateType = Pick<CurrentRunType, 'candidates' | 'eliminatedCandidates' | 'sudokuString'>;
 type InputStateType = Pick<CurrentRunType, 'inputMode' | 'showAutoCandidates'>;
 type StatsMoveType = (run: CurrentRunType, counts: TechniqueUsageCountsType) => [CurrentRunType, TechniqueUsageCountsType];
 type TimelineMarkerKindType = Exclude<
@@ -118,6 +118,7 @@ const saveMove = (
     {
         sudokuString,
         candidates,
+        eliminatedCandidates,
         correctCell,
         scoredCells
     }: FieldStateType & { correctCell: CellInterface; scoredCells: ScoredCellsInterface }
@@ -136,6 +137,7 @@ const saveMove = (
         ...run,
         sudokuString,
         candidates,
+        eliminatedCandidates,
         score: run.score + score,
         undoneMoves: [],
         timelineEvents: [...run.timelineEvents, cellEvent]
@@ -162,25 +164,34 @@ const classifyMove =
 const applyHint = (run: CurrentRunType, eliminations: readonly StepScriptCandidateInterface[]): CurrentRunType => {
     const penalty = scoring.calculateHintPenalty(run);
     const candidates = { ...run.candidates };
+    const eliminatedCandidates = { ...run.eliminatedCandidates };
 
     eliminations.forEach(({ cell, value }) => {
         const key = getCellKey(cell);
+
+        eliminatedCandidates[key] = [...new Set([...(eliminatedCandidates[key] ?? []), value])];
 
         if (key in candidates) {
             candidates[key] = candidates[key].filter(candidate => candidate !== value);
         }
     });
 
-    return { ...withTimelineMarker(run, TimelineEventKindEnum.Hint), score: Math.max(run.score - penalty, 0), undoneMoves: [], candidates };
+    return {
+        ...withTimelineMarker(run, TimelineEventKindEnum.Hint),
+        score: Math.max(run.score - penalty, 0),
+        undoneMoves: [],
+        candidates,
+        eliminatedCandidates
+    };
 };
 
 const undoMove =
-    ({ sudokuString, candidates }: FieldStateType): StatsMoveType =>
+    (fieldState: FieldStateType): StatsMoveType =>
     (run, counts) => {
-        const nextRun = { ...run, sudokuString, candidates };
+        const nextRun = { ...run, ...fieldState };
         const undoneMove = run.timelineEvents.findLast(isCellEvent);
 
-        if (run.sudokuString === sudokuString || isUndefined(undoneMove)) {
+        if (run.sudokuString === fieldState.sudokuString || isUndefined(undoneMove)) {
             return [nextRun, counts];
         }
 
@@ -197,12 +208,12 @@ const undoMove =
     };
 
 const redoMove =
-    ({ sudokuString, candidates }: FieldStateType): StatsMoveType =>
+    (fieldState: FieldStateType): StatsMoveType =>
     (run, counts) => {
-        const nextRun = { ...run, sudokuString, candidates };
+        const nextRun = { ...run, ...fieldState };
         const redoneMove = run.undoneMoves.at(-1);
 
-        if (run.sudokuString === sudokuString || isUndefined(redoneMove)) {
+        if (run.sudokuString === fieldState.sudokuString || isUndefined(redoneMove)) {
             return [nextRun, counts];
         }
 

@@ -27,6 +27,7 @@ const currentRun: typeof CurrentRunSchema.Type = {
     showAutoCandidates: true,
     inputMode: 'candidate',
     candidates: { '2': [1, 2, 4] },
+    eliminatedCandidates: { '0-2': [3, 5] },
     timelineEvents: [
         { kind: TimelineEventKindEnum.Cell, cellIndex: 2, value: 4, ts: 1200, technique: SolutionTechniqueEnum.NakedSingle, score: 50 },
         { kind: TimelineEventKindEnum.Pencil, cellIndex: 7, value: 6, ts: 300 },

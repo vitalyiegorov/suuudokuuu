@@ -53,6 +53,7 @@ export const CurrentRunSchema = Schema.Struct({
     showAutoCandidates: Schema.BooleanFromBit,
     inputMode: Schema.Literals(['normal', 'candidate']),
     candidates: Schema.fromJsonString(Schema.Record(Schema.String, Schema.Array(Schema.Number))),
+    eliminatedCandidates: Schema.fromJsonString(Schema.Record(Schema.String, Schema.Array(Schema.Number))),
     timelineEvents: TimelineEventsSchema,
     undoneMoves: Schema.fromJsonString(Schema.Array(CellTimelineEventSchema)),
     challengeTimelineEvents: TimelineEventsSchema,

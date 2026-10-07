@@ -10,31 +10,22 @@ import type { FieldCandidatesType } from '../../field-engine/types/field-candida
 import type { StepScriptCandidateInterface } from '../interfaces/step-script-candidate.interface';
 import type { StepScriptInterface } from '../interfaces/step-script.interface';
 import type { Sudoku } from '@suuudokuuu/generator';
-import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
 
-const findRevealResults = (sudoku: Sudoku): TechniqueResultInterface[] => {
+export const findRevealStepScript = (sudoku: Sudoku): StepScriptInterface | null => {
     const blankCells = sudoku.Field.flat().filter(cell => sudoku.isBlankCell(cell));
     const fewestCandidates = Math.min(...blankCells.map(cell => sudoku.getCellCandidates(cell).length));
     const revealCell = blankCells.find(cell => sudoku.getCellCandidates(cell).length === fewestCandidates);
 
     return isDefined(revealCell)
-        ? [
-              {
-                  technique: SolutionTechniqueEnum.Guess,
-                  cell: revealCell,
-                  value: sudoku.getCorrectValue(revealCell),
-                  kind: 'guess',
-                  eliminations: [],
-                  reasonCells: [revealCell]
-              }
-          ]
-        : [];
-};
-
-export const findRevealStepScript = (sudoku: Sudoku): StepScriptInterface | null => {
-    const [result] = findRevealResults(sudoku);
-
-    return isDefined(result) ? techniqueResultToStepScript(result) : null;
+        ? techniqueResultToStepScript({
+              technique: SolutionTechniqueEnum.Guess,
+              cell: revealCell,
+              value: sudoku.getCorrectValue(revealCell),
+              kind: 'guess',
+              eliminations: [],
+              reasonCells: [revealCell]
+          })
+        : null;
 };
 
 export const findHintStepScript = (sudoku: Sudoku, eliminatedCandidates: FieldCandidatesType = {}): StepScriptInterface | null => {
