@@ -1,41 +1,29 @@
-suuudokuuu är ett sudokuspel med sju svårighetsnivåer, från Nybörjare till Oändlighet, och ett Sudoku Explainer-betyg (SE) på varje pussel. Spela klassisk sudoku offline utan konto, ta dagens utmaning, lär dig tekniker med tips steg för steg och skicka ditt exakta pussel till en vän. Inga annonser som låtsas vara pussel, inget krångel. Bara du och rutnätet.
+suuudokuuu är ett sudokuspel med sju svårighetsnivåer, från Nybörjare till Oändlighet, och ett Sudoku Explainer-betyg (SE) på varje pussel. Spela klassisk sudoku offline utan konto, ta dagens utmaning, lär dig tekniker med tips steg för steg och skicka ditt exakta pussel till en vän. Inga annonser.
 
 VARJE PUSSEL BETYGSATT
-De flesta appar sätter ”expert” på ett bräde och hoppas att du inte tittar närmare. Vi sätter en siffra på det. Varje pussel får ett betyg på Sudoku Explainer-skalan (SE), 1.0 till 12.0, samma skala som seriösa lösare använder. Betyget syns direkt vid svårighetsgraden på brädet, i din historik och i varje länk du delar. En inbyggd förklaring berättar vad siffran faktiskt mäter: hur svårt pusslet är att resonera sig igenom, inte hur få ledtrådar det har.
+Varje pussel får ett betyg på Sudoku Explainer-skalan (SE), 1.0 till 12.0, samma skala som seriösa lösare använder. Betyget syns direkt vid svårighetsgraden på brädet, i din historik och i varje länk du delar. En inbyggd förklaring berättar vad siffran faktiskt mäter: hur svårt pusslet är att resonera sig igenom, inte hur få ledtrådar det har.
 
 OÄNDLIGHET: VÄRLDENS SVÅRASTE SUDOKU
-En handplockad samling med 100 världsrekordpussel med SE 10.4 till 11.9. Arto Inkalas Everest och AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Det här är rutnäten som lösargemenskapen gjorde berömda, och de flesta löser aldrig ett enda.
+En handplockad samling med 100 världsrekordpussel med SE 10.4 till 11.9. Arto Inkalas Everest och AI Escargot. Det här är rutnäten som lösargemenskapen gjorde berömda, och de flesta löser aldrig ett enda.
 
 HELVETE, OMGJORT
-Helvete består nu av 958 verifierade pussel som alla kräver en tvingande kedja: inget av dem går att lösa med de tekniker som Mardröm tillåter, och vart och ett är betygsatt SE 7.5 till 8.5. Få ledtrådar gör inte i sig ett pussel svårt, så vi väljer Helvete efter det resonemang varje bräde kräver, inte efter hur få ledtrådar det börjar med.
+Helvete består nu av 958 verifierade pussel som alla kräver en tvingande kedja: inget av dem går att lösa med de tekniker som Mardröm tillåter, och vart och ett är betygsatt SE 7.5 till 8.5.
 
 DITT SPEL, MÄTT
-Den omgjorda statistiken visar din svåraste lösning, din snittsvårighet på sistone och nivån du spelar mest. SE-spektrumet placerar varje avklarat pussel längs skalan. Din arsenal räknar varje teknik du faktiskt använt – naket par, X-Wing, Swordfish och vidare – så att du ser din repertoar växa.
+Den omgjorda statistiken visar din svåraste lösning, din snittsvårighet på sistone och nivån du spelar mest. SE-spektrumet placerar varje avklarat pussel längs skalan. Din arsenal räknar varje teknik du faktiskt använt – naket par, X-Wing, Swordfish och vidare – så att du ser din repertoar växa. Varje avklarat spel kan spelas upp drag för drag, och varje kort i historiken bär en sammanfattning av teknikerna som löste det.
 
 UTMANA EN VÄN
-Rivalläget skickar exakt ditt pussel till en vän som en delad länk, med din inspelade omgång bifogad. Vännen spelar samma rutnät som du och tävlar mot din tid, drag för drag. Skryträtten är avgjord.
-
-SE OM DIN OMGÅNG
-Varje avklarat spel kan spelas upp drag för drag, och varje kort i historiken bär en sammanfattning av teknikerna som löste det.
+Rivalläget skickar exakt ditt pussel till en vän som en delad länk, med din inspelade omgång bifogad. Vännen spelar samma rutnät som du och tävlar mot din tid, drag för drag.
 
 SPELA SOM DU VILL
-Välj Klassisk, Guld eller Tidning, eller öppna temaeditorn med live-förhandsgranskning och gör varje ruta, linje och markering precis som du vill. Inbyggd kontrastkontroll håller egna teman läsbara i både ljust och mörkt läge. På webben finns full tangentbordsstyrning: piltangenter för att flytta, siffror för att fylla i, mellanslag eller N för anteckningsläge, Skift och siffra för kandidater, A för autokandidater.
+Välj Klassisk, Guld eller Tidning, eller öppna temaeditorn med live-förhandsgranskning och gör varje ruta, linje och markering precis som du vill. Inbyggd kontrastkontroll håller egna teman läsbara i både ljust och mörkt läge.
 
 DAGLIG UTMANING OCH TIPS SOM LÄR UT
 Ett nytt sudoku varje dag, med en svit som räknar hur många dagar i rad du löser det. Kört fast? Ett tips går igenom tekniken steg för steg, från nakna par till X-Wing och vidare, så att du förstår varför draget fungerar och inte bara var det ska stå.
 
 ALLT ANNAT DU VILL HA
-• 7 svårighetsgrader, Nybörjare till Oändlighet
-• SE-svårighetsbetyg på varje pussel
-• Komplett temamotor med stöd för ljust och mörkt läge
-• Rivalutmaningar via delad länk
-• Repris drag för drag med teknikanalys
 • Teknikmedveten poängsättning
 • 13 språk
-• Fungerar helt offline
-• Inget konto, ingen registrering, aldrig
 • Öppen källkod
-
-suuudokuuu är byggt för dig som verkligen älskar Sudoku, inte för dig som ska säljas ett abonnemang. Välj svårighetsgrad och ta reda på vilken siffra som är din.
 
 Läs mer på www.suuudokuuu.com.
