@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Compose framed, captioned App Store screenshots with ImageMagick, using
+# Compose framed App Store and frameless Google Play screenshots with ImageMagick, using
 # fastlane frameit's real device frame PNGs (Apple Design Resources, via
 # facebook/design) instead of a hand-drawn rounded rectangle.
 #
@@ -174,11 +174,7 @@ IPHONE_FRAME="$FRAMES_DIR/Apple iPhone 16 Pro Max Black Titanium.png"
 # just a slightly smaller/older panel. See README.md "Framing" for the
 # comparison against the (older, home-button) generic "iPad Pro" frame.
 IPAD_FRAME_PORTRAIT="$FRAMES_DIR/Apple iPad Pro (12.9-inch) (4th generation) Space Gray.png"
-# Play's phone screenshots use a Pixel frame; the Pixel 5 is the newest black
-# bezel-less Pixel frameit ships, and its panel matches the emulator capture
-# exactly. See the cutout block below.
-ANDROID_FRAME="$FRAMES_DIR/Google Pixel 5 Just Black.png"
-for frame_file in "$IPHONE_FRAME" "$IPAD_FRAME_PORTRAIT" "$ANDROID_FRAME"; do
+for frame_file in "$IPHONE_FRAME" "$IPAD_FRAME_PORTRAIT"; do
   if [[ ! -f "$frame_file" ]]; then
     echo "error: missing frame asset '$frame_file' — re-run 'fastlane frameit download_frames'" >&2
     exit 1
@@ -212,17 +208,7 @@ IPAD_CUTOUT_Y=96
 IPAD_CUTOUT_W=2732
 IPAD_CUTOUT_H=2048
 
-# Play Store phone screenshots. offsets.json puts the Pixel 5 screen at +58+58
-# with width 1080, so the cutout is an exact match for a 1080x2340 emulator
-# capture (adb shell wm size 1080x2340) and nothing is resized. Unlike the App
-# Store sets, the canvas is NOT the capture size: Play requires phone
-# screenshots between 16:9 and 9:16, and the capture is 9:19.5, so the framed
-# device is scaled onto a 1080x1920 canvas instead.
 ANDROID_RAW_DIR="$APP_DIR/fastlane/screenshots/raw/android"
-ANDROID_CUTOUT_X=58
-ANDROID_CUTOUT_Y=58
-ANDROID_CUTOUT_W=1080
-ANDROID_CUTOUT_H=2340
 ANDROID_CANVAS_W=1080
 ANDROID_CANVAS_H=1920
 
@@ -637,11 +623,7 @@ compose_one() {
       cutout_h=$IPAD_CUTOUT_H
       ;;
     android)
-      frame_file="$ANDROID_FRAME"
-      cutout_x=$ANDROID_CUTOUT_X
-      cutout_y=$ANDROID_CUTOUT_Y
-      cutout_w=$ANDROID_CUTOUT_W
-      cutout_h=$ANDROID_CUTOUT_H
+      frame_file="$src"
       ;;
     *)
       echo "error: unknown device '$device'" >&2
@@ -659,11 +641,21 @@ compose_one() {
   magick -size "${canvas_w}x${canvas_h}" "gradient:${BACKGROUND_TOP_HEX}-${BACKGROUND_BOTTOM_HEX}" \
     -define png:color-type=2 -depth 8 "$work/bg.png"
 
-  frame_capture "$src" "$frame_file" "$cutout_x" "$cutout_y" "$cutout_w" "$cutout_h" "$work/framed-device.png"
+  if [[ "$device" == "android" ]]; then
+    cp "$src" "$work/framed-device.png"
+  else
+    frame_capture "$src" "$frame_file" "$cutout_x" "$cutout_y" "$cutout_w" "$cutout_h" "$work/framed-device.png"
+  fi
 
   build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
   local stack_h
   stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
+  if [[ "$device" == "android" ]] && (( stack_h > canvas_h * 15 / 100 )); then
+    magick "$work/text-stack.png" -resize "x$((canvas_h * 15 / 100))" \
+      -define png:color-type=6 -depth 8 "$work/text-stack-fitted.png"
+    mv "$work/text-stack-fitted.png" "$work/text-stack.png"
+    stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
+  fi
 
   local frame_h frame_w frame_x max_frame_h
   frame_h=$(awk -v h="$canvas_h" -v f="$height_fraction" 'BEGIN { printf "%d", h * f }')
@@ -683,12 +675,17 @@ compose_one() {
   magick -size "${canvas_w}x${canvas_h}" xc:none "$work/framed-device-scaled.png" -geometry "+${frame_x}+${device_y}" \
     -compose Over -composite -define png:color-type=6 -depth 8 "$work/device-on-canvas.png"
 
-  build_shadow "$work/device-on-canvas.png" "$canvas_w" "$canvas_h" "$work/shadow.png"
-
-  magick "$work/bg.png" "$work/shadow.png" -compose Over -composite \
-    "$work/device-on-canvas.png" -compose Over -composite \
-    "$work/text-stack.png" -gravity North -geometry "+0+${text_y}" -compose Over -composite \
-    -define png:color-type=2 -depth 8 "$work/final.png"
+  if [[ "$device" == "android" ]]; then
+    magick "$work/bg.png" "$work/device-on-canvas.png" -compose Over -composite \
+      "$work/text-stack.png" -gravity North -geometry "+0+${text_y}" -compose Over -composite \
+      -define png:color-type=2 -depth 8 "$work/final.png"
+  else
+    build_shadow "$work/device-on-canvas.png" "$canvas_w" "$canvas_h" "$work/shadow.png"
+    magick "$work/bg.png" "$work/shadow.png" -compose Over -composite \
+      "$work/device-on-canvas.png" -compose Over -composite \
+      "$work/text-stack.png" -gravity North -geometry "+0+${text_y}" -compose Over -composite \
+      -define png:color-type=2 -depth 8 "$work/final.png"
+  fi
 
   mkdir -p "$OUT_DIR"
   cp "$work/final.png" "$OUT_DIR/$out_name"
