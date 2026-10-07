@@ -88,8 +88,11 @@ unavailable. Its `all` mode composes both iOS variants and Android. Capture
 instructions, seed setup, device configuration, and visual verification live
 in `tests/app-tests/docs/store-screenshot-capture.md`.
 
-The shared Play feature artwork is language-neutral by design: the wordmark
-and numeric Sudoku grid carry the brand without translated prose. The Play
+The shared Play feature artwork uses a saturated brand-red canvas, a large
+cream Inter Black wordmark split into `suuu` and `dokuuu`, and an angled
+cream Sudoku board with a hard offset shadow. A black cell highlights a valid
+white `4` placement. The wordmark and numeric grid carry the brand without
+translated prose. The Play
 icon is a 512px resize of the existing app icon, including its Ukrainian
 blue-and-yellow flag. Generate both separately:
 

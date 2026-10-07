@@ -185,5 +185,8 @@ change the layout rhythm, and keep the two manifests mirrored.
 Store artwork is regenerated manually and reviewed before upload; generation
 does not run in CI. Generate the shared Play feature graphic and icon with
 `bash packages/app/fastlane/screenshots/design/compose-play-artwork.sh`.
+The feature graphic pairs a large two-line cream `suuu` / `dokuuu` wordmark
+with an angled cream Sudoku board on saturated brand red; a black cell
+highlights a valid white `4` placement.
 Google Play tablet screenshots and recorded app preview videos are not part of
 the current committed set.

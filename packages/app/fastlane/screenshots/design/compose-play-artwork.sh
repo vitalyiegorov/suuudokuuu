@@ -54,10 +54,13 @@ STAGE_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/suuudokuuu-play-artwork.XXXXXX")"
 trap 'rm -rf "$STAGE_ROOT"' EXIT
 
 rsvg-convert --width 1024 --height 500 --output "$STAGE_ROOT/board.png" "$BOARD"
-magick -background none -fill '#0A0A0A' -font "$FONT" -pointsize 70 \
-  label:suuudokuuu -trim +repage -resize 425x "$STAGE_ROOT/wordmark.png"
-magick "$STAGE_ROOT/board.png" "$STAGE_ROOT/wordmark.png" \
-  -geometry +80+222 -composite -background '#F1F1F1' -alpha remove -alpha off \
+magick -background none -fill '#FFF9F2' -font "$FONT" -pointsize 120 \
+  label:suuu -trim +repage "$STAGE_ROOT/wordmark-first.png"
+magick -background none -fill '#FFF9F2' -font "$FONT" -pointsize 120 \
+  label:dokuuu -trim +repage "$STAGE_ROOT/wordmark-second.png"
+magick "$STAGE_ROOT/board.png" "$STAGE_ROOT/wordmark-first.png" \
+  -geometry +72+135 -composite "$STAGE_ROOT/wordmark-second.png" \
+  -geometry +72+230 -composite -background '#E52431' -alpha remove -alpha off \
   -colorspace sRGB -depth 8 -strip -define png:color-type=2 "$STAGE_ROOT/featureGraphic.png"
 magick "$ICON" -resize 512x512 -colorspace sRGB -alpha on -depth 8 -strip \
   -define png:color-type=6 "$STAGE_ROOT/icon.png"

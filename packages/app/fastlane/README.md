@@ -294,8 +294,9 @@ uploaded when explicitly requested.
       screenshots at 1080×1920, `featureGraphic.png` at 1024×500, and
       `icon.png` at 512×512 for each of 13 locales. The screenshot composer
       frames Pixel 5 captures and fits them to the Play phone canvas. The
-      feature graphic uses a branded wordmark and numeric Sudoku grid, without
-      localized prose. The icon is resized from `packages/app/assets/icon.png`,
+      feature graphic uses a saturated red canvas, large cream two-line
+      `suuu` / `dokuuu` wordmark, and angled cream Sudoku board with a highlighted
+      valid placement, without localized prose. The icon is resized from `packages/app/assets/icon.png`,
       preserving the app icon's Ukraine flag colors.
 4. Upload happens only on request: check "Also upload the committed store
    screenshots" when dispatching the "Build and Publish to Stores" workflow,
