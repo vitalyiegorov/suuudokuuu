@@ -48,7 +48,7 @@ REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../../../.." && pwd)"
 APP_DIR="$REPO_ROOT/packages/app"
 DESIGN_DIR="$APP_DIR/fastlane/screenshots/design"
 RAW_DIR="$APP_DIR/fastlane/screenshots/raw/ios"
-FONT="$REPO_ROOT/node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf"
+FONT="$APP_DIR/node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf"
 
 LOCALE="${1:-en-US}"
 VARIANT="${2:-all}"
@@ -108,20 +108,19 @@ case "$LOCALE" in
   *) PLAY_LOCALE="$LOCALE" ;;
 esac
 
-# Prefer the locale's own capture; fall back to the en capture (with a log
-# line, so a partially captured locale is visible) since some raw sets -
-# notably the Android emulator captures - exist only for en.
 raw_source_for() {
-  local base_dir="$1" device_segment="$2" appearance="$3" scene="$4"
+  local base_dir="$1"
+  local device_segment="$2"
+  local appearance="$3"
+  local scene="$4"
   local locale_src="$base_dir/$device_segment$RAW_LOCALE/$appearance/$scene.png"
-  local en_src="$base_dir/${device_segment}en/$appearance/$scene.png"
 
-  if [[ "$RAW_LOCALE" != "en" && ! -f "$locale_src" ]]; then
-    echo "note: $scene ($appearance) has no $RAW_LOCALE capture, composing from en" >&2
-    echo "$en_src"
-  else
-    echo "$locale_src"
+  if [[ ! -f "$locale_src" ]]; then
+    echo "error: missing $RAW_LOCALE capture for $scene ($appearance) at $locale_src; capture this locale before composing" >&2
+    return 1
   fi
+
+  echo "$locale_src"
 }
 
 if [[ "$VARIANT" != "all" && "$VARIANT" != "light" && "$VARIANT" != "dark" && "$VARIANT" != "android" ]]; then
@@ -294,8 +293,8 @@ SHADOW_OPACITY="0.15"
 SHADOW_BLUR_RATIO="0.01335"
 SHADOW_OFFSET_RATIO="0.00953"
 
-WORK_ROOT="$(mktemp -d)"
-trap 'rm -rf "$WORK_ROOT"' EXIT
+WORK_ROOT="$STAGE_ROOT/work"
+mkdir -p "$WORK_ROOT"
 
 IPAD_FRAME_LANDSCAPE="$WORK_ROOT/ipad-frame-landscape.png"
 magick "$IPAD_FRAME_PORTRAIT" -rotate 90 -define png:color-type=6 -depth 8 "$IPAD_FRAME_LANDSCAPE"
@@ -807,14 +806,14 @@ SCENES_LIGHT=(
   "combo|-|light|B|$DEVICE_HEIGHT_FRACTION_COMBO|05_iphone_customization.png|05-customization"
   "iphone|07-replay|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_iphone_replay.png"
   "iphone|10-stats|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_stats.png"
-  "iphone|15-infinity|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|09_iphone_infinity.png"
-  "iphone|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_hero-board-dark.png|01-hero-board-dark"
+  "iphone|15-infinity|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_infinity.png"
+  "iphone|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|09_iphone_hero-board-dark.png|01-hero-board-dark"
   "ipad-landscape|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|21_ipad_hero-board.png"
   "ipad-landscape|02-hell|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|22_ipad_hell.png"
   "ipad-landscape|14-challenge-live|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|23_ipad_challenge-live.png"
   "ipad-landscape|04-editor|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|24_ipad_editor.png"
-  "ipad-landscape|15-infinity|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|26_ipad_infinity.png"
-  "ipad-landscape|09-home|light|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|25_ipad_home.png"
+  "ipad-landscape|15-infinity|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|25_ipad_infinity.png"
+  "ipad-landscape|09-home|light|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|26_ipad_home.png"
 )
 
 # Play carries one screenshot set rather than an appearance pair, so the Android
@@ -840,14 +839,14 @@ SCENES_DARK=(
   "combo|-|dark|B|$DEVICE_HEIGHT_FRACTION_COMBO|05_iphone_customization.png|05-customization"
   "iphone|07-replay|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_iphone_replay.png"
   "iphone|10-stats|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_stats.png"
-  "iphone|15-infinity|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|09_iphone_infinity.png"
-  "iphone|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_hero-board-light.png|01-hero-board-light"
+  "iphone|15-infinity|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_infinity.png"
+  "iphone|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|09_iphone_hero-board-light.png|01-hero-board-light"
   "ipad-landscape|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|21_ipad_hero-board.png"
   "ipad-landscape|02-hell|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|22_ipad_hell.png"
   "ipad-landscape|14-challenge-live|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|23_ipad_challenge-live.png"
   "ipad-landscape|04-editor|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|24_ipad_editor.png"
-  "ipad-landscape|15-infinity|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|26_ipad_infinity.png"
-  "ipad-landscape|09-home|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|25_ipad_home.png"
+  "ipad-landscape|15-infinity|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|25_ipad_infinity.png"
+  "ipad-landscape|09-home|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|26_ipad_home.png"
 )
 
 run_variant() {

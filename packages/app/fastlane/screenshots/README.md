@@ -15,24 +15,24 @@ choice. `deployed-variant.json` records that choice per platform (currently
 the lane to override without editing the file. Switching the store to the
 other variant is a one-line JSON change plus a screenshot upload dispatch.
 
-`raw/` is the Maestro capture output and is gitignored — it is the intermediate
-input for curation, not a deliverable.
+`raw/` holds temporary simulator and emulator captures and is gitignored. The
+capture workflow seeds app state and captures with platform tools; see
+`tests/app-tests/docs/store-screenshot-capture.md`.
 
-## Current set
+## Current sets
 
-English only, framed and captioned from the flows in
-`tests/app-tests/flows/screenshots`, in both variants:
+Both iOS appearance variants are committed for all 11 App Store locales. Each
+locale has nine iPhone screenshots at 1320×2868 and six landscape iPad
+screenshots at 2752×2064:
 
 | Prefix    | Device                 | Resolution | App Store slot |
 | --------- | ---------------------- | ---------- | -------------- |
-| `01`-`07` | iPhone 17              | 1206x2622  | iPhone 6.3"    |
-| `21`-`25` | iPad Pro 13" landscape | 2752x2064  | iPad 13"       |
+| `01`-`09` | iPhone 17 Pro Max      | 1320×2868  | iPhone 6.9"    |
+| `21`-`26` | iPad Pro 13" landscape | 2752×2064  | iPad 13"       |
 
 `deliver` assigns each image to a device slot by its exact pixel resolution, so
 iPhone and iPad screenshots share one locale folder and the composed output
-must stay at the source capture resolution — see "Framing" below for why that
-ruled out `fastlane frameit`. Filenames sort into upload order, and the first
-three carry the most weight in both stores.
+stays at the source capture resolution. Filenames sort into upload order.
 
 ## Curated store ordering
 
@@ -53,29 +53,30 @@ flows happen to capture them in:
    composed with the _same_ layout variant as shot 3 (see "Design system" in
    `design/README.md`) so the pair reads as one connected two-part scene
    instead of two unrelated shots that happen to be adjacent.
-5. The customization combo — two framed iPhones side by side in one canvas,
+5. `05-customization` — two framed iPhones side by side in one canvas,
    the colorful theme editor (English) and the localized theme list
    (Ukrainian), proving per-cell theming and language breadth in a single
    shot instead of two separate ones.
 6. `07-replay` — move-by-move replay, a depth feature for engaged users.
-7. `01-hero-board`, **opposite appearance** — the closing note. Reuses the
-   same airy board as shot 1 to prove the design holds up in the other mode
-   too, with its own copy so it doesn't read as a repeat of the opener. In
-   the light variant that's the dark board ("Still sharp after dark."); in
-   the dark variant it's the light board ("Just as sharp in daylight.").
+7. `10-stats` — personal progress and solving-technique statistics.
+8. `08_iphone_infinity.png` — the bundled extreme-difficulty Infinity tier.
+9. The opposite-mode hero closes the set: `09_iphone_hero-board-light.png`
+   in the dark variant, and `09_iphone_hero-board-dark.png` in the light
+   variant. It reuses the airy board from shot 1 with its own copy to show the
+   design in the other mode.
 
-The two variants mirror each other exactly: the same seven iPhone and five
+The two variants mirror each other exactly: the same nine iPhone and six
 iPad scenes in the same order and layouts, each shot using its own variant's
 appearance for both the app capture and the canvas palette, with only the
-closing shot flipped. That keeps a variant switch a pure brand decision —
-no re-curation, no new copy, no different story.
+closing shot and its caption flipped. That keeps a variant switch a pure brand
+decision — no re-curation or different story.
 
-The iPad set (`21`-`25`) skips the two-device combo (framing two devices at a
-legible size only works on the iPhone's narrower canvas) and reuses five
-scenes that already have captions: `01-hero-board`, `02-hell`,
+The iPad set (`21`-`26`) skips the two-device combo and includes six scenes:
+`01-hero-board`, `02-hell`,
 `14-challenge-live`, `04-editor` (the theme editor solo, since the combo
-shot doesn't exist on iPad), and `09-home` (the play/difficulty-picker
-screen) as the closing shot.
+shot doesn't exist on iPad), `25_ipad_infinity.png` (the bundled
+extreme-difficulty Infinity tier), and `26_ipad_home.png` (the
+play/difficulty-picker screen) as the closing shot.
 
 The "Challenge won" confetti shot, the solo theme-picker shot, and the
 dark-appearance settings/language shot from the previous set were dropped:
@@ -86,26 +87,15 @@ combo (with the Ukrainian list already proving localization, a separate
 uses the hero board instead, which better showcases the actual redesign this
 set exists to show off.
 
-## Framing
+## Composition
 
-Screenshots are composed with ImageMagick
-(`design/compose-screenshots.sh`), not `fastlane frameit`'s own `run`/`ios`
-commands. `frameit`'s `Framefile.json` in this directory targets a fixed
-1320x2868 canvas (the iPhone 6.9" slot), but the raw captures are
-native-resolution shots from an iPhone 17 simulator (1206x2622, the 6.3"
-slot) and an iPad Pro 13" landscape simulator (2752x2064). `deliver` assigns
-uploaded screenshots to App Store Connect device slots by matching exact
-pixel dimensions, so the committed output must stay at the source resolution
-rather than being letterboxed or padded into frameit's canvas — ruling out
-frameit's own fixed-canvas pipeline for this capture set. `Framefile.json` is
-kept for reference and for any future capture run that targets the 6.9" slot
-directly.
-
-The device frame itself, however, _is_ a real frameit asset: the script reads
-the same downloaded frame PNGs and offset data frameit's own `editor.rb`
-uses, and composites the raw capture directly into each frame's real,
-transparent screen cutout — see `design/README.md`'s "Frame source" for the
-device models, provenance, and how the cutout rectangles were measured.
+`design/compose-screenshots.sh` uses ImageMagick and downloaded frameit device
+frame PNGs. It fits each raw capture into the frame's transparent screen
+cutout, adds a two-tier caption, a quiet canvas, and a soft shadow, then writes
+the final image at the original capture dimensions. The frame assets are real;
+the current pipeline does not run `fastlane frameit` to produce the composed
+screenshots. See `design/README.md` for the visual system and regeneration
+details.
 
 One-time setup — download frameit's device frame assets (~280 files, cached
 at `~/.fastlane/frameit/latest`):
@@ -114,17 +104,23 @@ at `~/.fastlane/frameit/latest`):
 fastlane frameit download_frames
 ```
 
-Regenerate both English variant sets from `packages/app`:
+Regenerate both iOS variants and the Android phone set for a locale:
 
 ```bash
-fastlane/screenshots/design/compose-screenshots.sh en-US all
+bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all
 ```
 
-The second argument selects the variant (`light`, `dark`, or `all`,
-defaulting to `all`).
+The second argument selects `light`, `dark`, `android`, or `all` (the
+default). `all` composes both iOS variants and the Play phone screenshots;
+`android` composes only the Play set. There are 11 iOS locales and 13 Play
+locales; the script maps the locale names between the app, Apple, and Google
+Play. Each Play locale has eight phone screenshots at 1080×1920. No tablet set
+is currently committed.
 
 The script (requires ImageMagick 7, `magick` on `PATH`, and the frame assets
-above) implements the researched, conversion-oriented design system
+above) uses Inter Black from
+`packages/app/node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf`
+and implements the researched design system
 documented in full in `design/README.md`'s "Design system" section — the
 short version:
 
@@ -141,8 +137,8 @@ short version:
 - Scales that framed device (bezel and all) to 74-78% of canvas _height_
   (not width — see "Design system" for why), horizontally centered, with a
   soft blurred drop shadow composited beneath it. The two-device combo scene
-  scales each device to 50% instead, positioned edge to edge with just
-  enough overlap to fit the canvas width.
+  scales each device to 62% instead, positioning the pair with enough overlap
+  to fit the canvas width.
 - Alternates two layouts by scene position — text-top/device-bottom and
   device-top/text-bottom — so the gallery has scroll rhythm instead of one
   repeated template, except where two shots are a deliberate connected pair
@@ -170,26 +166,32 @@ change the layout rhythm, and keep the two manifests mirrored.
 
 ## Refreshing them
 
-1. Capture (see `tests/app-tests/flows/screenshots/README.md`). The current
-   set was captured on an iPhone 17 simulator (6.3" slot) and an iPad Pro 13"
-   landscape simulator; capture on an iPhone 17 Pro Max simulator instead if
-   you need to fill the 6.9" slot (1320x2868).
-2. Run `fastlane/screenshots/design/compose-screenshots.sh en-US all` from
-   `packages/app` to frame and caption both curated variant sets.
-3. Review the output in `variants/{dark,light}/ios/en-US/` and commit it.
+1. Capture (see `tests/app-tests/docs/store-screenshot-capture.md`). The current
+   iOS set uses iPhone 17 Pro Max captures (6.9" slot) and iPad Pro 13"
+   landscape captures. Android uses Pixel 5-sized emulator captures.
+2. From the repository root, run
+   `bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all`
+   to compose both iOS variants and the Android phone set. Run
+   `bash packages/app/fastlane/screenshots/design/compose-play-artwork.sh` to
+   generate localized Play feature graphics and the icon for all 13 locales.
+3. Review `variants/{dark,light}/ios/en-US/`, all locale screenshot outputs,
+   and the generated `metadata/android/<locale>/images/{featureGraphic,icon}.png`
+   files before committing them.
 4. Upload by dispatching "Build and Publish to Stores" with
    "Also upload the committed store screenshots" checked, or run
    `fastlane ios_screenshots` locally. Both paths upload the variant named
    in `deployed-variant.json` unless `SCREENSHOT_VARIANT` overrides it.
 
-## Gaps
-
-- Only `en-US` is composed and committed. Other locales' `title.strings`
-  already exist under `design/`, but `subtitle.strings` (the descriptor
-  copy) currently only exists for `en-US` — write a `subtitle.strings` for
-  each other locale (same scene keys, 4-8 words) before running
-  `compose-screenshots.sh <locale>` against the matching raw captures to
-  curate them once the raw captures exist for that locale.
-- No Android screenshots yet: `supply` expects them under
-  `metadata/android/<locale>/images/phoneScreenshots/`, and no Android emulator
-  capture has been run.
+Store artwork is regenerated manually and reviewed before upload; generation
+does not run in CI. Generate localized Play feature graphics and the icon with
+`bash packages/app/fastlane/screenshots/design/compose-play-artwork.sh`.
+The feature graphic uses a dark `#101010` canvas, the small white
+`suuudokuuu` wordmark, and the existing statistics promise “Know your real
+level.” / “Rated solves. Tracked techniques.” It pairs actual framed
+gameplay and statistics phones cropped from the dark App Store screenshots.
+Eleven locales use matching UI captures; Bengali and Urdu use English phone
+captures with localized copy. The 13 `design/<locale>/feature.strings` files
+reuse the localized `10-stats` titles and subtitles. Crop dimensions and
+positions are documented in `design/README.md`.
+Google Play tablet screenshots and recorded app preview videos are not part of
+the current committed set.
