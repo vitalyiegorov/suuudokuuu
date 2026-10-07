@@ -653,6 +653,10 @@ compose_one() {
     frame_capture "$src" "$frame_file" "$cutout_x" "$cutout_y" "$cutout_w" "$cutout_h" "$work/framed-device.png"
   fi
 
+  local HEADLINE_MIN_FRACTION="$HEADLINE_MIN_FRACTION"
+  if [[ "$device" == "android" ]]; then
+    HEADLINE_MIN_FRACTION="0.01"
+  fi
   build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
   local stack_h
   stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
