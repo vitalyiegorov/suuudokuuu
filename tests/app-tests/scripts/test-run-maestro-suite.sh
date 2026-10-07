@@ -47,6 +47,7 @@ chmod +x "$test_directory/bin/maestro"
 export PATH="$test_directory/bin:$PATH"
 export TEST_MAESTRO_CALLS="$test_directory/calls"
 export APP_ID='com.example.suuudokuuu'
+export SIMULATOR_UDID=''
 export MAESTRO_OUTPUT_PATH="$test_directory/report.xml"
 export MAESTRO_DEBUG_OUTPUT_DIRECTORY="$test_directory/debug"
 
