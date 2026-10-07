@@ -67,7 +67,8 @@ end
 
 def png_header(path)
   UI.user_error!("Missing PNG artwork at #{path}") unless File.file?(path)
-  header = File.binread(path, 33)
+  contents = File.binread(path)
+  header = contents[0, 33]
 
   unless header.bytesize == 33 && header[0, 8] == "\x89PNG\r\n\x1a\n".b && header[8, 8] == [13].pack("N") + "IHDR"
     UI.user_error!("#{path} has an invalid PNG signature or IHDR header")
@@ -82,7 +83,36 @@ def png_header(path)
     UI.user_error!("#{path} has invalid PNG IHDR fields")
   end
 
-  [width, height, bit_depth, color_type]
+  offset = 33
+  has_image_data = false
+
+  while offset < contents.bytesize
+    UI.user_error!("#{path} has a truncated PNG chunk header") if contents.bytesize - offset < 12
+    chunk_length = contents[offset, 4].unpack1("N")
+    chunk_type = contents[offset + 4, 4]
+    chunk_end = offset + chunk_length + 12
+    UI.user_error!("#{path} has a truncated #{chunk_type} PNG chunk") if chunk_end > contents.bytesize
+    unless chunk_type.match?(/\A[A-Za-z]{4}\z/) && chunk_type != "IHDR"
+      UI.user_error!("#{path} has an invalid PNG chunk type #{chunk_type}")
+    end
+    unless Zlib.crc32(contents[offset + 4, chunk_length + 4]) == contents[chunk_end - 4, 4].unpack1("N")
+      UI.user_error!("#{path} has an invalid #{chunk_type} PNG chunk checksum")
+    end
+
+    has_image_data = true if chunk_type == "IDAT" && chunk_length.positive?
+    if chunk_type == "IEND"
+      unless chunk_length.zero? && chunk_end == contents.bytesize
+        UI.user_error!("#{path} must end with an empty terminal PNG IEND chunk")
+      end
+      UI.user_error!("#{path} has no PNG IDAT image data") unless has_image_data
+
+      return [width, height, bit_depth, color_type]
+    end
+
+    offset = chunk_end
+  end
+
+  UI.user_error!("#{path} is missing PNG IDAT image data or a terminal IEND chunk")
 end
 
 def verify_rgb_screenshot(path)
@@ -96,6 +126,15 @@ end
 
 def verify_ios_screenshot_slots(path)
   verify_store_directory("iOS screenshots", path)
+  variant = File.basename(File.dirname(path))
+  UI.user_error!("Unknown iOS screenshot variant #{variant} at #{path}") unless ["dark", "light"].include?(variant)
+  expected_filenames = %w[hero-board hell challenge-accept challenge-live customization replay stats infinity].each_with_index.map do |scene, index|
+    format("%02d_iphone_%s.png", index + 1, scene)
+  end
+  expected_filenames << "09_iphone_hero-board-#{variant == 'dark' ? 'light' : 'dark'}.png"
+  expected_filenames.concat(%w[hero-board hell challenge-live editor infinity home].each_with_index.map do |scene, index|
+    format("%02d_ipad_%s.png", index + 21, scene)
+  end)
   metadata_locales = Dir.children(IOS_METADATA_PATH).select { |locale| File.directory?(File.join(IOS_METADATA_PATH, locale)) }.sort
   UI.user_error!("No iOS metadata locales found under #{IOS_METADATA_PATH}") if metadata_locales.empty?
   unexpected_locales = Dir.children(path) - metadata_locales
@@ -104,9 +143,10 @@ def verify_ios_screenshot_slots(path)
   metadata_locales.each do |locale|
     locale_path = File.join(path, locale)
     verify_store_directory("iOS screenshots for #{locale}", locale_path)
+    filenames = Dir.children(locale_path).sort
     slot_counts = Hash.new(0)
 
-    Dir.children(locale_path).sort.each do |filename|
+    filenames.each do |filename|
       screenshot = File.join(locale_path, filename)
       width, height = verify_rgb_screenshot(screenshot)
       slot = APPLE_SCREENSHOT_SLOTS[[width, height]]
@@ -124,6 +164,12 @@ def verify_ios_screenshot_slots(path)
       unless slot_counts[slot] == expected_count
         UI.user_error!("#{locale_path} has #{slot_counts[slot]} #{slot} screenshots; the curated gallery requires #{expected_count}")
       end
+    end
+
+    unless filenames == expected_filenames
+      missing_filenames = expected_filenames - filenames
+      unexpected_filenames = filenames - expected_filenames
+      UI.user_error!("#{locale_path} does not match the curated #{variant} gallery filenames; missing: #{missing_filenames.join(', ')}; unexpected: #{unexpected_filenames.join(', ')}")
     end
   end
 end
