@@ -97,8 +97,32 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Svit på # dag} other {Svit på # dagar}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
-msgstr "{techniqueName}: {value} följer av en avancerad slutledningskedja, så ledtråden placerar den åt dig."
+msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
+msgstr "{techniqueName}: {valueList} måste ligga i baslinjerna, så täckningslinjerna förlorar det i de markerade cellerna."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
+msgstr "{techniqueName}: en tångcell är alltid {valueList}, så de markerade cellerna som ser båda tängerna kan inte vara {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "{techniqueName}: varje annan tom cell har två kandidater, så {value} måste in i den markerade cellen för att undvika ett dödligt mönster."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: varje möjlighet slutar i en motsägelse eller samma resultat, så {valueList} utesluts ur de markerade cellerna."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "{techniqueName}: varje möjlighet i de markerade cellerna leder till {value} i den markerade cellen."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "{techniqueName}: från de markerade cellerna följs varje möjlighet tills den når en motsägelse eller samma resultat."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "{techniqueName}: i de markerade baslinjerna passar {valueList} bara i de markerade cellerna, så det är låst i täckningslinjerna."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -113,6 +137,10 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: i den markerade raden passar {value} bara i den markerade cellen."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}: ena änden av kedjan är alltid {valueList}, så de markerade cellerna som ser båda ändarna kan inte vara {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
 msgstr "{techniqueName}: siffrorna {valueList} är låsta till de markerade cellerna, vilket utesluter dem från övriga celler."
 
@@ -121,8 +149,24 @@ msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} 
 msgstr "{techniqueName}: den markerade 3\\u00d73-rutan har bara en tom cell kvar, s\\u00e5 {value} hamnar d\\u00e4r."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
+msgstr "{techniqueName}: de markerade cellerna bildar en kedja, så antingen den ena eller den andra änden är {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: de markerade cellerna lämnar bara {value} för den markerade cellen."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "{techniqueName}: de markerade cellerna delas i två färger för {valueList}, och exakt en färg innehåller varje {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "{techniqueName}: de markerade cellerna skulle bilda ett dödligt mönster av {valueList} som lämnar pusslet med två lösningar."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "{techniqueName}: de markerade cellerna skulle lämna ett dödligt mönster av {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
@@ -137,8 +181,20 @@ msgid "{techniqueName}: the marked cell sees every highlighted digit except {val
 msgstr "{techniqueName}: den markerade cellen ser alla markerade siffror utom {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
+msgstr "{techniqueName}: de markerade cellerna ser antingen båda färgerna eller har en färg som motsäger sig själv, så de kan inte vara {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
 msgstr "{techniqueName}: mönstret utesluter {valueList} i de markerade cellerna."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: för att undvika det dödliga mönstret utesluts {valueList} ur de markerade cellerna."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "{techniqueName}: hur den markerade pivotcellen än löses blir en av dess tångceller {valueList}."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -187,10 +243,6 @@ msgstr "Justera siffrorna på sudokubrädet"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "Avancerad"
-
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
-msgid "Advanced chain"
-msgstr "Avancerad kedja"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1134,6 +1186,10 @@ msgstr "Inga spel än"
 msgid "No limit"
 msgstr "Ingen gräns"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
+msgstr "Inget logiskt steg hittades inom tipsets sökdjup, så det här tipset avslöjar siffran från lösningen."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
 msgstr "Oavsett straff får du alltid minst"
@@ -1450,6 +1506,10 @@ msgstr "Återuppta det här spelet?"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "Försök läsa in utvecklingsversionen igen"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Reveal"
+msgstr "Avslöja"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx

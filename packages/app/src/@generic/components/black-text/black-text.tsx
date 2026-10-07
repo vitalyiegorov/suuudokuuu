@@ -28,7 +28,7 @@ export const BlackText = ({ style, icon: Icon, ...props }: Props) => {
     ];
 
     if (isDefined(Icon)) {
-        const iconStyles = [{ color: theme.colors.text.primary, marginLeft: 4 }];
+        const iconStyles = [{ color: theme.colors.text.primary, marginStart: 4 }];
 
         return (
             <View style={BlackTextStyles.container}>

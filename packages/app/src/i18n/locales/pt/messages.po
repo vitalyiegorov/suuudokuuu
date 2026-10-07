@@ -97,8 +97,32 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Sequência de # dia} other {Sequência de # dias}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
-msgstr "{techniqueName}: o {value} resulta de uma cadeia de raciocínio avançada, por isso a dica o coloca para você."
+msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
+msgstr "{techniqueName}: {valueList} tem de estar nas linhas base, por isso as linhas de cobertura perdem-no nas células marcadas."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
+msgstr "{techniqueName}: uma célula pinça é sempre {valueList}, por isso as células marcadas que veem ambas as pinças não podem ser {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "{techniqueName}: cada outra célula vazia tem dois candidatos, por isso {value} tem de ir na célula marcada para evitar um padrão mortal."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: cada possibilidade termina numa contradição ou no mesmo resultado, por isso {valueList} é eliminado das células marcadas."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "{techniqueName}: cada possibilidade nas células destacadas leva a {value} na célula marcada."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "{techniqueName}: a partir das células destacadas, cada possibilidade é seguida até chegar a uma contradição ou ao mesmo resultado."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "{techniqueName}: nas linhas base destacadas, {valueList} só cabe nas células destacadas, por isso fica preso nas linhas de cobertura."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -113,6 +137,10 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: na linha destacada, {value} só cabe na célula marcada."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}: uma ponta da cadeia é sempre {valueList}, por isso as células marcadas que veem ambas as pontas não podem ser {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
 msgstr "{techniqueName}: os dígitos {valueList} ficam confinados às células destacadas, o que os elimina das outras células."
 
@@ -121,8 +149,24 @@ msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} 
 msgstr "{techniqueName}: resta apenas uma célula vazia na região destacada, então {value} vai lá."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
+msgstr "{techniqueName}: as células destacadas formam uma cadeia, por isso ou uma ponta ou a outra é {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: as células destacadas deixam apenas {value} para a célula marcada."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "{techniqueName}: as células destacadas dividem-se em duas cores para {valueList}, e exatamente uma cor contém cada {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "{techniqueName}: as células destacadas formariam um padrão mortal de {valueList} que deixaria o puzzle com duas soluções."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "{techniqueName}: as células destacadas deixariam um padrão mortal de {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
@@ -137,8 +181,20 @@ msgid "{techniqueName}: the marked cell sees every highlighted digit except {val
 msgstr "{techniqueName}: a célula marcada vê todos os dígitos destacados, exceto {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
+msgstr "{techniqueName}: as células marcadas veem as duas cores ou têm uma cor que se contradiz, por isso não podem ser {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
 msgstr "{techniqueName}: o padrão elimina {valueList} nas células marcadas."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: para evitar o padrão mortal, {valueList} é eliminado das células marcadas."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "{techniqueName}: seja como for que a célula pivô destacada se resolva, uma das suas células pinça passa a ser {valueList}."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -187,10 +243,6 @@ msgstr "Ajuste os dígitos no tabuleiro de Sudoku"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "Avançado"
-
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
-msgid "Advanced chain"
-msgstr "Cadeia avançada"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1134,6 +1186,10 @@ msgstr "Ainda sem jogos"
 msgid "No limit"
 msgstr "Sem limite"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
+msgstr "Nenhum passo lógico foi encontrado dentro da profundidade de busca da dica, por isso esta dica revela o dígito a partir da solução."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
 msgstr "Mesmo com penalidades, você sempre ganha pelo menos"
@@ -1450,6 +1506,10 @@ msgstr "Retomar esta partida?"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "Carregar novamente a build de desenvolvimento"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Reveal"
+msgstr "Revelar"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx

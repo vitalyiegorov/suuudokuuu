@@ -39,6 +39,7 @@ const DifficultyComplexitySliderStaticStyles = {
         width: 12
     },
     previewGrid: {
+        direction: 'ltr',
         flexDirection: 'row',
         flexWrap: 'wrap',
         gap: 3,
@@ -151,6 +152,7 @@ export const DifficultyComplexitySliderStyles = StyleSheet.create(theme => ({
         top: 18
     },
     sliderWrap: {
+        direction: 'ltr',
         gap: theme.spacing.xs,
         width: '100%'
     },

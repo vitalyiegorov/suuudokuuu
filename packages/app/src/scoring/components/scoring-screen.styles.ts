@@ -14,7 +14,7 @@ export const ScoringScreenStyles = StyleSheet.create(theme => ({
         width: '100%'
     },
     listItem: {
-        marginLeft: 12,
+        marginStart: 12,
         marginVertical: 4
     }
 }));

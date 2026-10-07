@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native-unistyles';
 export const ChallengeTimelineTrackStyles = StyleSheet.create({
     track: {
         alignItems: 'center',
+        direction: 'ltr',
         flexDirection: 'row',
         gap: 2,
         height: 28,

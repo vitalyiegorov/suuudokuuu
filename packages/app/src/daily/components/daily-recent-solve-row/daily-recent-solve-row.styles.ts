@@ -33,10 +33,10 @@ export const DailyRecentSolveRowStyles = StyleSheet.create(theme => ({
         textAlign: 'left'
     },
     divider: {
+        end: 0,
         height: 1,
-        left: RowHorizontalPadding,
         position: 'absolute',
-        right: 0,
+        start: RowHorizontalPadding,
         top: 0
     },
     row: {

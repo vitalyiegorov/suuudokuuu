@@ -43,12 +43,12 @@ export const DailyWeekDayStyles = StyleSheet.create(() => ({
         top: WeekdayLineHeight + ColumnGap
     },
     linkToNext: {
-        left: '50%',
-        right: 0
+        end: 0,
+        start: '50%'
     },
     linkToPrevious: {
-        left: 0,
-        right: '50%'
+        end: '50%',
+        start: 0
     },
     missed: {
         borderStyle: 'dashed',

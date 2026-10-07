@@ -1,3 +1,4 @@
+import { useLingui } from '@lingui/react/macro';
 import LucideChevronLeft from 'lucide-react-native/icons/chevron-left';
 import LucideChevronRight from 'lucide-react-native/icons/chevron-right';
 import { use } from 'react';
@@ -6,6 +7,7 @@ import { View } from 'react-native';
 import { isPositiveNumber } from '@rnw-community/shared';
 
 import { AppIconButton } from '../../../../@generic/components/app-icon-button/app-icon-button';
+import { i18nIsRightToLeftLocale } from '../../../../@generic/utils/i18n-is-right-to-left-locale.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import { ReplayShareAction } from '../../replay-share-action/replay-share-action';
 import { ReplayControlsSelectors } from '../replay-controls.selectors';
@@ -23,6 +25,7 @@ interface Props {
 }
 
 export const ReplayStepNavigation = ({ currentStep, gameState, onNextStep, onPrevStep, totalSteps }: Props) => {
+    const { i18n } = useLingui();
     const { theme } = use(ThemeContext);
 
     const canGoBack = isPositiveNumber(currentStep);
@@ -31,6 +34,10 @@ export const ReplayStepNavigation = ({ currentStep, gameState, onNextStep, onPre
     const nextIconColor = canGoForward ? theme.colors.surface.raisedText : theme.colors.text.hint;
     const previousButtonStyles = [styles.navButton, !canGoBack && styles.disabledButton];
     const nextButtonStyles = [styles.navButton, !canGoForward && styles.disabledButton];
+
+    const isRightToLeft = i18nIsRightToLeftLocale(i18n.locale);
+    const PreviousChevron = isRightToLeft ? LucideChevronRight : LucideChevronLeft;
+    const NextChevron = isRightToLeft ? LucideChevronLeft : LucideChevronRight;
 
     return (
         <View style={styles.controlsRow}>
@@ -41,7 +48,7 @@ export const ReplayStepNavigation = ({ currentStep, gameState, onNextStep, onPre
                 testID={ReplayControlsSelectors.PreviousButton}
                 variant="inverted"
             >
-                <LucideChevronLeft color={previousIconColor} size={26} />
+                <PreviousChevron color={previousIconColor} size={26} />
             </AppIconButton>
 
             <ReplayShareAction gameState={gameState} />
@@ -53,7 +60,7 @@ export const ReplayStepNavigation = ({ currentStep, gameState, onNextStep, onPre
                 testID={ReplayControlsSelectors.NextButton}
                 variant="inverted"
             >
-                <LucideChevronRight color={nextIconColor} size={26} />
+                <NextChevron color={nextIconColor} size={26} />
             </AppIconButton>
         </View>
     );

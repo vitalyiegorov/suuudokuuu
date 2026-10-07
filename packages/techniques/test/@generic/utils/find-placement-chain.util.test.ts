@@ -2,7 +2,12 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { describe, expect, it } from 'vitest';
 
 import { TechniqueManager } from '../../../src/@generic/classes/technique-manager/technique-manager';
-import { PLACEMENT_CHAIN_MAX_STEPS } from '../../../src/@generic/constants/placement-chain.constant';
+import {
+    PLACEMENT_CHAIN_DEFAULT_SCAN_COST,
+    PLACEMENT_CHAIN_MAX_STEPS,
+    PLACEMENT_CHAIN_SCAN_COSTS,
+    PLACEMENT_CHAIN_WORK_BUDGET
+} from '../../../src/@generic/constants/placement-chain.constant';
 import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-technique.enum';
 import { createTechniqueStrategies } from '../../../src/@generic/utils/create-technique-strategies.util';
 import { findPlacementChain } from '../../../src/@generic/utils/find-placement-chain.util';
@@ -14,8 +19,11 @@ const pointingPairBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48.
 const guessBoard = '800000000003600000070090200050007000000045700000100030001000068008500010090000400';
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 const fullHouseBoard = '12345678.........................................................................';
-const longChainBoard = '8.72.14..34....1.2.5.....9..1...39..4...5.6.8..56..2.........2...437....5..8.9..4';
-const maxPruningRederivations = (PLACEMENT_CHAIN_MAX_STEPS * (PLACEMENT_CHAIN_MAX_STEPS - 1)) / 2;
+const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
+const shippedGreedyStepCap = 4;
+const budgetPrunedBoard = '000009080800300002067500000002700600030045010000010005001000090005007100490000000';
+const budgetExhaustedBoard = '006003000097005130020091080000000070600000000041000009000500800000304700004016005';
+const maxScanCost = Math.max(PLACEMENT_CHAIN_DEFAULT_SCAN_COST, ...Object.values(PLACEMENT_CHAIN_SCAN_COSTS));
 const pointingPairChain = ['PointingPair elimination 0-6=4', 'HiddenSingle placement 2-1=4'];
 
 const singlesOrder = [SolutionTechniqueEnum.FullHouse, SolutionTechniqueEnum.NakedSingle, SolutionTechniqueEnum.HiddenSingle];
@@ -28,20 +36,30 @@ const describeChain = (chain: TechniqueResultInterface[]): string[] =>
 const createNarrowedStrategies = (technique: SolutionTechniqueEnum): TechniqueStrategyInterface[] =>
     createTechniqueStrategies().filter(strategy => [...singlesOrder, technique].includes(strategy.technique));
 
-const createIrrelevantStrategy = (sudoku: Sudoku): TechniqueStrategyInterface => {
-    const [, , , [farCell]] = sudoku.Field;
-    const farValue = sudoku.getCellCandidates(farCell).find(value => value !== sudoku.getCorrectValue(farCell)) ?? 0;
-    const result: TechniqueResultInterface = {
-        technique: SolutionTechniqueEnum.XWing,
-        cell: farCell,
-        value: farValue,
-        kind: 'elimination',
-        eliminations: [{ cell: farCell, value: farValue }],
-        reasonCells: []
-    };
+const createIrrelevantStrategy = (sudoku: Sudoku, eliminationCount = 1): TechniqueStrategyInterface => {
+    const results = sudoku.Field.flat()
+        .slice(sudoku.Field.length * 3)
+        .filter(cell => sudoku.isBlankCell(cell))
+        .flatMap(cell =>
+            sudoku
+                .getCellCandidates(cell)
+                .filter(value => value !== sudoku.getCorrectValue(cell))
+                .map((value): TechniqueResultInterface => ({
+                    technique: SolutionTechniqueEnum.XWing,
+                    cell,
+                    value,
+                    kind: 'elimination',
+                    eliminations: [{ cell, value }],
+                    reasonCells: []
+                }))
+        )
+        .slice(0, eliminationCount);
 
-    return { technique: SolutionTechniqueEnum.XWing, find: () => [result] };
+    return { technique: SolutionTechniqueEnum.XWing, find: () => results };
 };
+
+const getSpentWork = (calls: SolutionTechniqueEnum[]): number =>
+    calls.reduce((spentWork, technique) => spentWork + (PLACEMENT_CHAIN_SCAN_COSTS[technique] ?? PLACEMENT_CHAIN_DEFAULT_SCAN_COST), 0);
 
 const createCountingStrategies = (calls: SolutionTechniqueEnum[]): TechniqueStrategyInterface[] =>
     createTechniqueStrategies().map(strategy => ({
@@ -122,20 +140,18 @@ describe('findPlacementChain', () => {
         expect(placement?.value).toBe(sudoku.getCorrectValue(placement?.cell));
     });
 
-    it('should give up past the step cap instead of scanning a long elimination chain', () => {
-        expect.assertions(3);
+    it('should give up at the step cap when no placement follows the cap of eliminations', () => {
+        expect.assertions(2);
 
-        const sudoku = createSudoku(longChainBoard);
+        const sudoku = createSudoku(columnQuadBoard);
         const calls: SolutionTechniqueEnum[] = [];
-        const strategies = createCountingStrategies(calls);
-        const placementIndex = new TechniqueManager(sudoku).solveLogically().steps.findIndex(step => step.kind === 'placement');
+        const strategies = [createIrrelevantStrategy(sudoku, PLACEMENT_CHAIN_MAX_STEPS), ...createCountingStrategies(calls)];
 
-        expect(placementIndex).toBeGreaterThanOrEqual(PLACEMENT_CHAIN_MAX_STEPS);
         expect(findPlacementChain(sudoku, strategies)).toEqual([]);
-        expect(calls.length).toBeLessThanOrEqual(PLACEMENT_CHAIN_MAX_STEPS * strategies.length);
+        expect(calls).toEqual([]);
     });
 
-    it('should bound the scans of a pruned chain by the step cap', () => {
+    it('should bound the scans of a pruned chain by the work budget', () => {
         expect.assertions(2);
 
         const calls: SolutionTechniqueEnum[] = [];
@@ -143,6 +159,48 @@ describe('findPlacementChain', () => {
         const chain = findPlacementChain(createSudoku(pointingPairBoard), strategies);
 
         expect(chain.length).toBeLessThanOrEqual(PLACEMENT_CHAIN_MAX_STEPS);
-        expect(calls.length).toBeLessThanOrEqual(PLACEMENT_CHAIN_MAX_STEPS * strategies.length + maxPruningRederivations);
+        expect(calls.length).toBeLessThanOrEqual(PLACEMENT_CHAIN_WORK_BUDGET);
+    });
+
+    it('should search past irrelevant eliminations to the placement and keep only the steps it needs', () => {
+        expect.assertions(2);
+
+        const sudoku = createSudoku(columnQuadBoard);
+        const placementIndex = new TechniqueManager(sudoku).solveLogically().steps.findIndex(step => step.kind === 'placement');
+
+        expect(placementIndex).toBeGreaterThanOrEqual(shippedGreedyStepCap);
+        expect(describeChain(findPlacementChain(sudoku))).toEqual([
+            'PointingPair elimination 7-0=5',
+            'NakedQuad elimination 2-5=1',
+            'HiddenSingle placement 2-4=9'
+        ]);
+    });
+
+    it('should keep the unpruned prefix when the work budget runs out while pruning', () => {
+        expect.assertions(4);
+
+        const sudoku = createSudoku(budgetPrunedBoard);
+        const calls: SolutionTechniqueEnum[] = [];
+        const [firstGreedyStep] = new TechniqueManager(sudoku).solveLogically().steps;
+        const chain = findPlacementChain(sudoku, createCountingStrategies(calls));
+        const placement = chain.at(-1);
+
+        expect(getSpentWork(calls)).toBeGreaterThanOrEqual(PLACEMENT_CHAIN_WORK_BUDGET);
+        expect(describeChain(chain.slice(0, 1))).toEqual(describeChain([firstGreedyStep]));
+        expect(placement?.kind).toBe('placement');
+        expect(placement?.value).toBe(sudoku.getCorrectValue(placement?.cell));
+    });
+
+    it('should give up with an empty chain when the work budget runs out before a placement', () => {
+        expect.assertions(4);
+
+        const sudoku = createSudoku(budgetExhaustedBoard);
+        const calls: SolutionTechniqueEnum[] = [];
+        const placementIndex = new TechniqueManager(sudoku).solveLogically().steps.findIndex(step => step.kind === 'placement');
+
+        expect(placementIndex).toBeLessThan(PLACEMENT_CHAIN_MAX_STEPS);
+        expect(findPlacementChain(sudoku, createCountingStrategies(calls))).toEqual([]);
+        expect(getSpentWork(calls)).toBeGreaterThanOrEqual(PLACEMENT_CHAIN_WORK_BUDGET);
+        expect(getSpentWork(calls)).toBeLessThan(PLACEMENT_CHAIN_WORK_BUDGET + maxScanCost);
     });
 });

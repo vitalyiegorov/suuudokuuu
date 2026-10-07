@@ -25,9 +25,7 @@ export const HintStepNarration = ({ step, value }: Props) => {
     const { theme } = use(ThemeContext);
 
     const techniqueName =
-        step.narration.technique === SolutionTechniqueEnum.Guess
-            ? t`Advanced chain`
-            : i18n._(techniqueLabelsConstant[step.narration.technique]);
+        step.narration.technique === SolutionTechniqueEnum.Guess ? t`Reveal` : i18n._(techniqueLabelsConstant[step.narration.technique]);
     const narrationText = i18n._(gameGetStepNarration(step, techniqueName));
 
     const techniqueStyles = [styles.technique, { color: theme.colors.text.hint }];

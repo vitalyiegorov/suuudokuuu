@@ -1,7 +1,12 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { CandidateContext } from '../classes/candidate-context/candidate-context';
-import { PLACEMENT_CHAIN_MAX_STEPS } from '../constants/placement-chain.constant';
+import {
+    PLACEMENT_CHAIN_DEFAULT_SCAN_COST,
+    PLACEMENT_CHAIN_MAX_STEPS,
+    PLACEMENT_CHAIN_SCAN_COSTS,
+    PLACEMENT_CHAIN_WORK_BUDGET
+} from '../constants/placement-chain.constant';
 
 import { applyTechniqueStep } from './apply-technique-step.util';
 import { createTechniqueStrategies } from './create-technique-strategies.util';
@@ -89,7 +94,21 @@ const pruneChain = (
     return keptSteps;
 };
 
-export const findPlacementChain = (sudoku: Sudoku, strategies = createTechniqueStrategies()): TechniqueResultInterface[] => {
+export const findPlacementChain = (sudoku: Sudoku, unbudgetedStrategies = createTechniqueStrategies()): TechniqueResultInterface[] => {
+    let spentWork = 0;
+
+    const strategies = unbudgetedStrategies.map((strategy): TechniqueStrategyInterface => ({
+        technique: strategy.technique,
+        find: (context, target) => {
+            if (spentWork >= PLACEMENT_CHAIN_WORK_BUDGET) {
+                return [];
+            }
+
+            spentWork += PLACEMENT_CHAIN_SCAN_COSTS[strategy.technique] ?? PLACEMENT_CHAIN_DEFAULT_SCAN_COST;
+
+            return strategy.find(context, target);
+        }
+    }));
     const steps: TechniqueResultInterface[] = [];
     const contexts: CandidateContext[] = [];
 

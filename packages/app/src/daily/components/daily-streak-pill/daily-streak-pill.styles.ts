@@ -13,8 +13,8 @@ export const DailyStreakPillStyles = StyleSheet.create(theme => ({
         gap: 6,
         height: PillHeight,
         marginTop: (TitleLineHeight - PillHeight) / 2,
-        paddingLeft: 10,
-        paddingRight: 14
+        paddingStart: 10,
+        paddingEnd: 14
     },
     streak: {
         fontSize: 17,

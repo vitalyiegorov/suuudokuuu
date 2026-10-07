@@ -19,9 +19,9 @@ export const BetaPlatformInstructionsStyles = StyleSheet.create({
         lineHeight: 22
     },
     warning: {
-        borderLeftWidth: 4,
+        borderStartWidth: 4,
         gap: 7,
-        paddingLeft: 14
+        paddingStart: 14
     },
     warningHeading: {
         fontSize: 16,

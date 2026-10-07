@@ -9,6 +9,7 @@ import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
+import { i18nIsRightToLeftLocale } from '../../../@generic/utils/i18n-is-right-to-left-locale.util';
 import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
 import { ChallengeRecordHud } from '../../../challenge/components/challenge-record-hud/challenge-record-hud';
 import { ChallengeScreenshotRecorder } from '../../../challenge/components/challenge-screenshot-recorder/challenge-screenshot-recorder';
@@ -44,7 +45,7 @@ import type { LayoutChangeEvent } from 'react-native';
 // oxlint-disable-next-line max-lines-per-function -- Game orchestration component requires many handlers and refs
 export const GameScreen = () => {
     const router = useRouter();
-    const { t } = useLingui();
+    const { i18n, t } = useLingui();
 
     const { engine, snapshot } = use(GameContext);
     const { theme } = use(ThemeContext);
@@ -164,6 +165,7 @@ export const GameScreen = () => {
     const challengeHudContent = hasRival ? <ChallengeRaceHud /> : <ChallengeRecordHud />;
     const challengeRecorder = isChallengeRun ? <ChallengeScreenshotRecorder /> : null;
     const challengeHud = isChallengeRun ? challengeHudContent : null;
+    const isGameRowReversed = isLeftHanded !== i18nIsRightToLeftLocale(i18n.locale);
 
     return (
         <Pressable
@@ -186,7 +188,7 @@ export const GameScreen = () => {
 
             {isWideLayout ? null : challengeHud}
 
-            <View style={styles.gameRow(isLeftHanded)}>
+            <View style={styles.gameRow(isGameRowReversed)}>
                 <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
                     {isWideLayout ? null : <View style={styles.boardSpacer} />}
 

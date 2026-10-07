@@ -16,8 +16,8 @@ export const DailyNextPuzzleBarStyles = StyleSheet.create(theme => ({
         flexDirection: 'row',
         gap: 10,
         minHeight: 56,
-        paddingLeft: 18,
-        paddingRight: theme.spacing.sm,
+        paddingStart: 18,
+        paddingEnd: theme.spacing.sm,
         paddingVertical: theme.spacing.sm,
         width: '100%'
     },

@@ -19,8 +19,8 @@ export const UkraineSupportCardStyles = StyleSheet.create(theme => ({
         marginTop: theme.spacing.md
     },
     flag: {
-        marginLeft: 0,
-        marginRight: 10
+        marginStart: 0,
+        marginEnd: 10
     },
     title: {
         flexShrink: 1,

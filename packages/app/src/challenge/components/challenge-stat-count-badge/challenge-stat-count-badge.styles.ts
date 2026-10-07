@@ -10,7 +10,7 @@ export const ChallengeStatCountBadgeStyles = StyleSheet.create({
         minWidth: 24,
         paddingHorizontal: 5,
         position: 'absolute',
-        right: -8,
+        end: -8,
         top: -8
     },
     count: {

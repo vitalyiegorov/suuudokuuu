@@ -8,6 +8,7 @@ export const PauseScreenBoardPreviewStyles = StyleSheet.create(() => ({
     },
     container: {
         borderRadius: 15,
+        direction: 'ltr',
         gap: 1.75,
         overflow: 'hidden',
         padding: 2

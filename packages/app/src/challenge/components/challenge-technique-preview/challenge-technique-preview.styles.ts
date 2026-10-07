@@ -35,6 +35,7 @@ export const ChallengeTechniquePreviewStyles = StyleSheet.create({
     track: {
         alignItems: 'center',
         borderRadius: 16,
+        direction: 'ltr',
         flexDirection: 'row',
         gap: 3,
         height: 52,

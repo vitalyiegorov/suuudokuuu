@@ -7,7 +7,7 @@ export const HeaderBackButtonStyles = StyleSheet.create(() => ({
         alignItems: 'flex-start',
         height: HeaderBackButtonSize,
         justifyContent: 'center',
-        marginLeft: -HeaderBackButtonGlyphOpticalInset,
+        marginStart: -HeaderBackButtonGlyphOpticalInset,
         transform: [{ translateY: 2 }],
         width: HeaderBackButtonSize,
         _web: {

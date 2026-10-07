@@ -11,6 +11,7 @@ export const GameNumpadStyles = StyleSheet.create((theme, rt) => {
     return {
         numpad: (isNumpadHidden: boolean) => ({
             alignSelf: 'center',
+            direction: 'ltr',
             flexDirection: 'row',
             flexWrap: 'wrap',
             gap: isWideLayout ? GameNumpadWideGapConstant : theme.spacing.sm,

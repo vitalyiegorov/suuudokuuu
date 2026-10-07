@@ -97,8 +97,32 @@ msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {# دن کا تسلسل} other {# دن کا تسلسل}}"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {value} follows from an advanced chain of reasoning, so the hint places it for you."
-msgstr "{techniqueName}: {value} استدلال کی ایک اعلیٰ زنجیر سے نکلتا ہے، اس لیے اشارہ اسے آپ کے لیے رکھ دیتا ہے۔"
+msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
+msgstr "{techniqueName}: {valueList} کو بنیادی لائنوں میں ہی ہونا ہے، اس لیے کور لائنیں معلم خانوں میں اسے کھو دیتی ہیں۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
+msgstr "{techniqueName}: ایک پنسر خانہ ہمیشہ {valueList} ہوتا ہے، اس لیے دونوں پنسر کو دیکھنے والے معلم خانے {valueList} نہیں ہو سکتے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "{techniqueName}: باقی ہر خالی خانے میں دو امیدوار ہیں، اس لیے مہلک نمونے سے بچنے کے لیے {value} معلم خانے میں جانا چاہیے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: ہر امکان تضاد یا اسی نتیجے پر ختم ہوتا ہے، اس لیے معلم خانوں سے {valueList} خارج کر دیا جاتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "{techniqueName}: نمایاں کردہ خانوں میں ہر امکان معلم خانے میں {value} تک لے جاتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "{techniqueName}: نمایاں کردہ خانوں سے ہر امکان کو اس وقت تک آگے بڑھایا جاتا ہے جب تک وہ تضاد یا اسی نتیجے تک نہ پہنچ جائے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "{techniqueName}: نمایاں کردہ بنیادی لائنوں میں {valueList} صرف نمایاں خانوں میں آ سکتا ہے، اس لیے وہ کور لائنوں میں بند ہو جاتا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
@@ -113,6 +137,10 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: نمایاں کردہ قطار میں، {value} صرف معلم خانے میں ہی آ سکتا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}: زنجیر کا ایک سرا ہمیشہ {valueList} ہوتا ہے، اس لیے دونوں سروں کو دیکھنے والے معلم خانے {valueList} نہیں ہو سکتے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
 msgstr "{techniqueName}: ہندسے {valueList} نمایاں کردہ خانوں تک محدود ہیں، اس لیے باقی خانوں سے ہٹ جاتے ہیں۔"
 
@@ -121,8 +149,24 @@ msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} 
 msgstr "{techniqueName}: نمایاں کردہ باکس میں صرف ایک خالی خانہ بچا ہے، اس لیے {value} وہیں جائے گا۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
+msgstr "{techniqueName}: نمایاں کردہ خانے ایک زنجیر بناتے ہیں، اس لیے اس کا ایک سرا یا دوسرا سرا {valueList} ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: نمایاں کردہ خانے معلم خانے کے لیے صرف {value} چھوڑتے ہیں۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "{techniqueName}: نمایاں خانے {valueList} کے لیے دو رنگوں میں بٹ جاتے ہیں، اور صرف ایک رنگ ہر {valueList} رکھتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "{techniqueName}: نمایاں کردہ خانے {valueList} کا ایک مہلک نمونہ بناتے، جس سے پہیلی کے دو حل رہ جاتے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "{techniqueName}: نمایاں کردہ خانے {valueList} کا ایک مہلک نمونہ چھوڑ دیتے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
@@ -137,8 +181,20 @@ msgid "{techniqueName}: the marked cell sees every highlighted digit except {val
 msgstr "{techniqueName}: معلم خانہ {value} کے سوا تمام نمایاں ہندسے دیکھتا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
+msgstr "{techniqueName}: نشان زدہ خانے یا تو دونوں رنگ دیکھتے ہیں یا ایسا رنگ رکھتے ہیں جو خود سے متضاد ہے، اس لیے وہ {valueList} نہیں ہو سکتے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
 msgstr "{techniqueName}: یہ پیٹرن معلم خانوں سے {valueList} ہٹا دیتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
+msgstr "{techniqueName}: مہلک نمونے سے بچنے کے لیے معلم خانوں سے {valueList} خارج کر دیا جاتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "{techniqueName}: نمایاں کردہ محوری خانہ جیسے بھی حل ہو، اس کا ایک پنسر خانہ {valueList} بن جاتا ہے۔"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -187,10 +243,6 @@ msgstr "سوڈوکو بورڈ پر ہندسوں کا سائز بدلیں"
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Advanced"
 msgstr "اعلیٰ"
-
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
-msgid "Advanced chain"
-msgstr "اعلیٰ زنجیر"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "AIC"
@@ -1134,6 +1186,10 @@ msgstr "ابھی کوئی کھیل نہیں"
 msgid "No limit"
 msgstr "کوئی حد نہیں"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
+msgstr "اشارے کی تلاش کی گہرائی میں کوئی منطقی قدم نہیں ملا، اس لیے یہ اشارہ حل سے عدد ظاہر کرتا ہے۔"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
 msgstr "پنالٹیز کتنی بھی ہوں، آپ کو ہمیشہ کم از کم ملتا ہے"
@@ -1450,6 +1506,10 @@ msgstr "یہ گیم جاری رکھیں؟"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "ڈیولپمنٹ بِلڈ دوبارہ لوڈ کریں"
+
+#: src/game/components/hint-step-narration/hint-step-narration.tsx
+msgid "Reveal"
+msgstr "ظاہر کریں"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx

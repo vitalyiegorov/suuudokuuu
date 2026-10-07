@@ -134,7 +134,7 @@ test('chains a pointing pair into the hidden single it enables and places the di
     await expect(page.getByTestId(HintStepNarrationSelectors.Value)).toHaveText('8');
 });
 
-test('reveals one digit with an advanced chain hint when no short chain reaches a placement', async ({ page }) => {
+test('reveals one digit from the solution when no short chain reaches a placement', async ({ page }) => {
     await launchHome(page);
     await openSharedPuzzle(page, revealHintSharedPuzzleEncodedConstant);
     await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
@@ -145,7 +145,7 @@ test('reveals one digit with an advanced chain hint when no short chain reaches 
     await page.getByTestId(HintButtonSelectors.Root).click();
 
     await expect(progress).toHaveAttribute('aria-label', 'Step 1 of 2');
-    await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText('Advanced chain');
+    await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText('Reveal');
 
     await page.getByTestId(HintPanelSelectors.NextButton).click();
     await expect(progress).toHaveAttribute('aria-label', 'Step 2 of 2');

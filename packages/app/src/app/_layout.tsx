@@ -1,7 +1,5 @@
 import { Inter_500Medium as inter500Medium } from '@expo-google-fonts/inter/500Medium';
 import { Inter_700Bold as inter700Bold } from '@expo-google-fonts/inter/700Bold';
-import { i18n } from '@lingui/core';
-import { I18nProvider } from '@lingui/react';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -10,7 +8,7 @@ import { enableFreeze, enableScreens } from 'react-native-screens';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { LinguiDefaultComponent } from '../@generic/components/lingui-default-component/lingui-default-component';
+import { AppI18nProvider } from '../@generic/components/app-i18n-provider/app-i18n-provider';
 import { RootProviders } from '../@generic/components/root-providers/root-providers';
 import { applyGameControlsInteractions } from '../@generic/utils/apply-game-controls-interactions';
 import { applySheetContentWidth } from '../@generic/utils/apply-sheet-content-width';
@@ -47,7 +45,7 @@ export default function RootLayout() {
     return (
         <RootProviders>
             <ThemeProvider>
-                <I18nProvider i18n={i18n} defaultComponent={LinguiDefaultComponent}>
+                <AppI18nProvider>
                     <GameProvider>
                         <WinConfettiProvider>
                             <Stack screenOptions={stackOptions}>
@@ -57,7 +55,7 @@ export default function RootLayout() {
                             </Stack>
                         </WinConfettiProvider>
                     </GameProvider>
-                </I18nProvider>
+                </AppI18nProvider>
             </ThemeProvider>
         </RootProviders>
     );

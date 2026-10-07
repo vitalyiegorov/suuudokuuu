@@ -31,8 +31,8 @@ export const AppSettingsRowStyles = StyleSheet.create(theme => ({
         gap: AppSettingsRowGap,
         justifyContent: 'space-between',
         minHeight: AppSettingsRowMinHeight,
-        paddingLeft: AppSettingsRowLeadingPadding,
-        paddingRight: AppSettingsRowTrailingPadding,
+        paddingStart: AppSettingsRowLeadingPadding,
+        paddingEnd: AppSettingsRowTrailingPadding,
         paddingVertical: AppSettingsRowVerticalPadding,
         width: '100%'
     },
