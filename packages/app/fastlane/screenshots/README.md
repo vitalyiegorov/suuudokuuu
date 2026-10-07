@@ -173,7 +173,7 @@ change the layout rhythm, and keep the two manifests mirrored.
    `bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all`
    to compose both iOS variants and the Android phone set. Run
    `bash packages/app/fastlane/screenshots/design/compose-play-artwork.sh` to
-   generate the shared Play feature artwork and icon for all 13 locales.
+   generate localized Play feature graphics and the icon for all 13 locales.
 3. Review `variants/{dark,light}/ios/en-US/`, all locale screenshot outputs,
    and the generated `metadata/android/<locale>/images/{featureGraphic,icon}.png`
    files before committing them.
@@ -183,10 +183,13 @@ change the layout rhythm, and keep the two manifests mirrored.
    in `deployed-variant.json` unless `SCREENSHOT_VARIANT` overrides it.
 
 Store artwork is regenerated manually and reviewed before upload; generation
-does not run in CI. Generate the shared Play feature graphic and icon with
+does not run in CI. Generate localized Play feature graphics and the icon with
 `bash packages/app/fastlane/screenshots/design/compose-play-artwork.sh`.
-The feature graphic pairs a large two-line cream `suuu` / `dokuuu` wordmark
-with an angled cream Sudoku board on saturated brand red; a black cell
-highlights a valid white `4` placement.
+The feature graphic uses a near-black `#010101` canvas, the small white
+`suuudokuuu` wordmark, localized “Just you. And the grid.” copy and a short
+“No ads. No account. No tracking.” values line. It pairs crops from the
+committed Pixel 5 hero screenshot (the board and circular number pad) with
+that copy; it adds no invented interface. The 13 localized
+`design/<locale>/feature.strings` files are its copy source.
 Google Play tablet screenshots and recorded app preview videos are not part of
 the current committed set.

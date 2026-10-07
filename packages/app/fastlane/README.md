@@ -278,8 +278,8 @@ uploaded when explicitly requested.
     and frameit device frames (download once with
     `fastlane frameit download_frames`). It composes both iOS variants and the
     Play phone set; pass `android` as the second argument to compose only the
-    Play phone set. The artwork composer writes the shared, language-neutral
-    feature graphic and app icon for all Play locales.
+    Play phone set. The artwork composer writes localized feature graphics
+    and the app icon for all Play locales.
 
 3. Commit the final assets:
     - iOS: `fastlane/screenshots/variants/<variant>/ios/<ios-locale>/*.png`,
@@ -294,10 +294,13 @@ uploaded when explicitly requested.
       screenshots at 1080×1920, `featureGraphic.png` at 1024×500, and
       `icon.png` at 512×512 for each of 13 locales. The screenshot composer
       frames Pixel 5 captures and fits them to the Play phone canvas. The
-      feature graphic uses a saturated red canvas, large cream two-line
-      `suuu` / `dokuuu` wordmark, and angled cream Sudoku board with a highlighted
-      valid placement, without localized prose. The icon is resized from `packages/app/assets/icon.png`,
-      preserving the app icon's Ukraine flag colors.
+      feature graphic uses a near-black `#010101` canvas, the small white
+      `suuudokuuu` wordmark, localized “Just you. And the grid.” and
+      “No ads. No account. No tracking.” copy, plus crops of the real Pixel 5
+      hero board and circular number pad. Its localized copy comes from
+      `screenshots/design/<locale>/feature.strings`; it adds no fabricated UI.
+      The icon is resized from `packages/app/assets/icon.png`, preserving the
+      app icon's Ukraine flag colors.
 4. Upload happens only on request: check "Also upload the committed store
    screenshots" when dispatching the "Build and Publish to Stores" workflow,
    or run the lanes locally:

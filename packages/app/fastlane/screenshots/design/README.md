@@ -44,13 +44,11 @@ one-off upload. Google Play uses one dark-first set with a light-mode closer.
 
 ## Visual system
 
-- Near-flat canvas with a very subtle vertical tone shift: light `#F7F7F7` to
-  `#F1F1F1`, dark `#141414` to `#0E0E0E`. The composer renders this as a
-  gradient; the restrained shift keeps the canvas quiet beside the device
-  shadow.
-- Two-tier centered captions: Inter Black headline and smaller descriptor,
-  sized to fit within 90% of the canvas width. Text is near-black on light and
-  near-white on dark, with no accent bar.
+- Near-flat screenshot canvases: light `#F7F7F7` to `#F1F1F1`, dark `#141414`
+  to `#0E0E0E`. These screenshot backgrounds use a restrained gradient.
+- Two-tier centered screenshot captions use Inter Black headline and smaller
+  descriptor, sized to fit within 90% of the canvas width. Text is near-black
+  on light and near-white on dark, with no accent bar.
 - Real frameit device-frame PNGs provide the bezels and screen cutouts. The
   capture fills the cutout; the composed output retains the capture's exact
   dimensions so App Store Connect assigns it to the intended device slot.
@@ -65,11 +63,38 @@ Captions live in `design/<locale>/title.strings` and
 `design/<locale>/subtitle.strings`, keyed by scene. The composer uses the
 package-local font at
 `packages/app/node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf`.
-The Sudoku numerals are committed SVG outlines from bundled Inter Medium;
-the renderer adds the wordmark using bundled Inter Black, so rendering needs
-no system fonts.
 `Framefile.json` and `background.png` remain historical frameit references;
-the current output is made by `compose-screenshots.sh`.
+the current screenshot output is made by `compose-screenshots.sh`.
+
+## Play feature artwork
+
+The Play feature graphic is a 1024×500 near-black `#010101` composition. It
+keeps the app’s quiet, airy dark interface: a small white `suuudokuuu`
+wordmark, two short localized headline lines (“Just you.” / “And the grid.”),
+and the values line (“No ads. No account. No tracking.”). On the right it
+uses crops of the actual Pixel 5 hero screenshot: the 648×648 board crop at
+`+213+624` and the 630×200 circular number-pad crop at `+225+1520`, each
+resized into the banner. This reuses real captured UI and does not add
+illustrated or fabricated interface. If the source screenshot is reframed,
+review these crop coordinates and the resulting composition before updating
+the committed artwork. The board crop is resized to 300×300; the number pad
+is resized to 300px wide.
+
+Localized copy is kept in `design/<locale>/feature.strings`; all 13 Play
+locales have exactly `headline-first`, `headline-second`, and `values` keys.
+The brand wordmark and Latin/Cyrillic headlines use bundled Inter Black 900;
+the values line uses bundled Inter Regular 400. Arabic, Nastaliq Urdu,
+Devanagari, Bengali, and Simplified Chinese use the corresponding Noto fonts.
+Sudoku numerals and interface details are preserved in the screenshot crops.
+librsvg/Pango shapes the text through an isolated fontconfig configuration.
+Regeneration requires ImageMagick 7 (`magick`), librsvg (`rsvg-convert`),
+fontconfig (`fc-match`), the bundled Inter fonts, and available system Noto
+fonts for those scripts. The renderer checks the script fonts before rendering.
+
+`compose-play-artwork.sh` generates the feature graphic and 512×512 RGBA icon
+for each locale. The icon is resized from the existing app icon and retains
+its blue-and-yellow Ukraine flag. Rendering is manual; review the generated
+images before committing or uploading them.
 
 ## Regeneration
 
@@ -88,13 +113,7 @@ unavailable. Its `all` mode composes both iOS variants and Android. Capture
 instructions, seed setup, device configuration, and visual verification live
 in `tests/app-tests/docs/store-screenshot-capture.md`.
 
-The shared Play feature artwork uses a saturated brand-red canvas, a large
-cream Inter Black wordmark split into `suuu` and `dokuuu`, and an angled
-cream Sudoku board with a hard offset shadow. A black cell highlights a valid
-white `4` placement. The wordmark and numeric grid carry the brand without
-translated prose. The Play
-icon is a 512px resize of the existing app icon, including its Ukrainian
-blue-and-yellow flag. Generate both separately:
+The Play feature artwork and icon are generated together by:
 
 ```bash
 bash packages/app/fastlane/screenshots/design/compose-play-artwork.sh
