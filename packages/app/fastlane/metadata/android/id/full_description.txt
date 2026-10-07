@@ -6,11 +6,11 @@ Setiap sudoku punya peringkat pada skala Sudoku Explainer (SE), dari 1.0 sampai 
 TAK TERHINGGA: SUDOKU TERSULIT SEDUNIA
 Kumpulan pilihan berisi 100 sudoku rekor dunia dengan peringkat SE 10.4 sampai 11.9. Everest dan AI Escargot karya Arto Inkala. Inilah papan-papan yang dijadikan legenda oleh komunitas pemecah sudoku, dan kebanyakan orang tidak pernah menyelesaikan satu pun.
 
-NERAKA, DIKURASI ULANG
-Neraka kini berisi 958 sudoku terverifikasi yang semuanya menuntut rantai paksa: tidak satu pun bisa diselesaikan dengan teknik yang diizinkan Mimpi buruk, dan semuanya berperingkat SE 7.5 sampai 8.5.
+NERAKA: RANTAI PAKSA WAJIB
+Neraka berisi sudoku terverifikasi yang semuanya menuntut rantai paksa: tidak satu pun bisa diselesaikan dengan teknik yang diizinkan Mimpi buruk, dan semuanya berperingkat SE 7.5 ke atas.
 
 PERMAINANMU, TERUKUR
-Layar statistik yang dirancang ulang menampilkan Sudoku tersulit yang pernah kamu pecahkan, rata-rata kesulitan permainan terakhirmu, dan level yang paling sering kamu mainkan. Spektrum SE menempatkan setiap sudoku yang sudah kamu selesaikan di sepanjang skala. Arsenalmu menghitung setiap teknik yang benar-benar kamu pakai — Pasangan Telanjang, X-Wing, Swordfish, dan seterusnya — jadi kamu bisa melihat sendiri repertoarmu bertambah. Setiap permainan yang selesai bisa diputar ulang langkah demi langkah, dan tiap kartu riwayat membawa ringkasan teknik yang menyelesaikannya.
+Layar statistik menampilkan Sudoku tersulit yang pernah kamu pecahkan, rata-rata kesulitan permainan terakhirmu, dan level yang paling sering kamu mainkan. Spektrum SE menempatkan setiap sudoku yang sudah kamu selesaikan di sepanjang skala. Arsenalmu menghitung setiap teknik yang benar-benar kamu pakai — Pasangan Telanjang, X-Wing, Swordfish, dan seterusnya — jadi kamu bisa melihat sendiri repertoarmu bertambah. Setiap permainan yang selesai bisa diputar ulang langkah demi langkah, dan tiap kartu riwayat membawa ringkasan teknik yang menyelesaikannya.
 
 TANTANG TEMAN
 Mode Lawan mengirim sudoku yang persis sama ke temanmu lewat tautan berbagi, lengkap dengan rekaman permainanmu. Dia memainkan papan yang sama dan mengejar waktumu, langkah demi langkah.

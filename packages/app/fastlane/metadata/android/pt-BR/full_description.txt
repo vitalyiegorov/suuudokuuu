@@ -6,11 +6,11 @@ O Suuudokuuu avalia cada sudoku na escala Sudoku Explainer (SE), de 1.0 a 12.0, 
 INFINITO: OS SUDOKUS MAIS DIFÍCEIS DO MUNDO
 Uma seleção de 100 sudokus recordistas mundiais avaliados entre SE 10.4 e 11.9. O Everest e o AI Escargot de Arto Inkala. São as grades que a comunidade do Sudoku tornou famosas, e a maioria das pessoas nunca termina nenhuma.
 
-INFERNO, COM NOVA CURADORIA
-O Inferno agora são 958 sudokus verificados que exigem uma cadeia forçada: nenhum pode ser resolvido com as técnicas que o Pesadelo permite, e todos têm avaliação SE de 7.5 a 8.5.
+INFERNO: CADEIAS FORÇADAS OBRIGATÓRIAS
+O Inferno reúne sudokus verificados que exigem uma cadeia forçada: nenhum pode ser resolvido com as técnicas que o Pesadelo permite, e todos têm avaliação SE de 7.5 ou mais.
 
 SEU JOGO, MEDIDO
-A tela de estatísticas redesenhada mostra o seu sudoku mais difícil, a dificuldade média das últimas partidas e o nível que você mais joga. O espectro SE distribui ao longo da escala cada sudoku que você concluiu. Seu arsenal conta cada técnica que você realmente usou — Par nu, X-Wing, Swordfish e além — pra você ver seu repertório crescer. Toda partida concluída pode ser revista jogada por jogada, e cada cartão do histórico traz um resumo das técnicas que a resolveram.
+A tela de estatísticas mostra o seu sudoku mais difícil, a dificuldade média das últimas partidas e o nível que você mais joga. O espectro SE distribui ao longo da escala cada sudoku que você concluiu. Seu arsenal conta cada técnica que você realmente usou — Par nu, X-Wing, Swordfish e além — pra você ver seu repertório crescer. Toda partida concluída pode ser revista jogada por jogada, e cada cartão do histórico traz um resumo das técnicas que a resolveram.
 
 DESAFIE UM AMIGO
 O modo Rival envia a sua grade exata pra um amigo por um link, com a sua partida gravada junto. Ele joga a mesma grade e corre contra o seu tempo, jogada por jogada.

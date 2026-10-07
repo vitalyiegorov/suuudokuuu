@@ -6,11 +6,11 @@ Every puzzle carries a Sudoku Explainer rating on the 1.0 to 12.0 scale serious 
 INFINITY: THE WORLD'S HARDEST SUDOKU
 A curated set of 100 world-record puzzles rated SE 10.4 to 11.9. Arto Inkala's Everest and AI Escargot. These are the grids the solving community made famous, and most people never finish one.
 
-HELL, RE-CURATED
-Hell is now 958 verified puzzles that all need a forcing chain: none of them can be finished with the techniques Nightmare allows, and every one is rated SE 7.5 to 8.5.
+HELL: FORCING CHAINS REQUIRED
+Hell is a curated set of verified puzzles that all need a forcing chain: none of them can be finished with the techniques Nightmare allows, and every one is rated SE 7.5 or higher.
 
 YOUR SOLVING, MEASURED
-The redesigned statistics screen shows your hardest solve, your recent average difficulty and the level you play most. The SE spectrum plots every puzzle you've finished across the scale. Your arsenal counts every technique you've actually used — naked pairs, X-Wing, swordfish and further — so you can watch your repertoire grow. Every finished game replays move by move, and each history card carries a summary of the techniques that solved it.
+The statistics screen shows your hardest solve, your recent average difficulty and the level you play most. The SE spectrum plots every puzzle you've finished across the scale. Your arsenal counts every technique you've actually used — naked pairs, X-Wing, swordfish and further — so you can watch your repertoire grow. Every finished game replays move by move, and each history card carries a summary of the techniques that solved it.
 
 CHALLENGE A FRIEND
 Rival mode sends your exact puzzle to a friend as a share link, with your recorded run attached. They play the same grid you did and race your time move for move.

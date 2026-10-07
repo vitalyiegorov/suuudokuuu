@@ -6,11 +6,11 @@ Chaque grille porte sa note sur l'échelle Sudoku Explainer (SE), de 1.0 à 12.0
 INFINI : LES SUDOKUS LES PLUS DURS DU MONDE
 Une sélection de 100 grilles record du monde notées de SE 10.4 à 11.9. L'Everest et AI Escargot d'Arto Inkala. Ce sont les grilles que la communauté des solveurs a rendues célèbres, et la plupart des joueurs n'en terminent jamais une seule.
 
-L'ENFER, RECOMPOSÉ
-L'Enfer, ce sont désormais 958 grilles vérifiées qui exigent toutes une chaîne forcée : aucune ne se résout avec les techniques qu'autorise le niveau Cauchemar, et toutes sont notées SE 7.5 à 8.5.
+L'ENFER : CHAÎNES FORCÉES OBLIGATOIRES
+L'Enfer réunit des grilles vérifiées qui exigent toutes une chaîne forcée : aucune ne se résout avec les techniques qu'autorise le niveau Cauchemar, et toutes sont notées SE 7.5 ou plus.
 
 VOTRE JEU, MESURÉ
-L'écran de statistiques repensé affiche votre grille la plus dure, la difficulté moyenne de vos dernières parties et le niveau que vous jouez le plus. Le spectre SE place chaque grille terminée le long de l'échelle. Votre arsenal compte chaque technique que vous avez réellement utilisée — paire nue, X-Wing, swordfish et au-delà — pour voir votre répertoire s'étoffer. Chaque partie terminée se rejoue coup par coup, et chaque carte de l'historique porte un résumé des techniques qui l'ont résolue.
+L'écran de statistiques affiche votre grille la plus dure, la difficulté moyenne de vos dernières parties et le niveau que vous jouez le plus. Le spectre SE place chaque grille terminée le long de l'échelle. Votre arsenal compte chaque technique que vous avez réellement utilisée — paire nue, X-Wing, swordfish et au-delà — pour voir votre répertoire s'étoffer. Chaque partie terminée se rejoue coup par coup, et chaque carte de l'historique porte un résumé des techniques qui l'ont résolue.
 
 DÉFIEZ UN AMI
 Le mode Rival envoie votre grille exacte à un ami par lien de partage, avec votre partie enregistrée. Votre ami joue la grille que vous venez de faire et court après votre temps, coup par coup.

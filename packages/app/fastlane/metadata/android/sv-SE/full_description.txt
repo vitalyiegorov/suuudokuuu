@@ -6,11 +6,11 @@ Varje pussel får ett betyg på Sudoku Explainer-skalan (SE), 1.0 till 12.0, sam
 OÄNDLIGHET: VÄRLDENS SVÅRASTE SUDOKU
 En handplockad samling med 100 världsrekordpussel med SE 10.4 till 11.9. Arto Inkalas Everest och AI Escargot. Det här är rutnäten som lösargemenskapen gjorde berömda, och de flesta löser aldrig ett enda.
 
-HELVETE, OMGJORT
-Helvete består nu av 958 verifierade pussel som alla kräver en tvingande kedja: inget av dem går att lösa med de tekniker som Mardröm tillåter, och vart och ett är betygsatt SE 7.5 till 8.5.
+HELVETE: TVINGANDE KEDJOR KRÄVS
+Helvete består av verifierade pussel som alla kräver en tvingande kedja: inget av dem går att lösa med de tekniker som Mardröm tillåter, och vart och ett är betygsatt SE 7.5 eller högre.
 
 DITT SPEL, MÄTT
-Den omgjorda statistiken visar din svåraste lösning, din snittsvårighet på sistone och nivån du spelar mest. SE-spektrumet placerar varje avklarat pussel längs skalan. Din arsenal räknar varje teknik du faktiskt använt – naket par, X-Wing, Swordfish och vidare – så att du ser din repertoar växa. Varje avklarat spel kan spelas upp drag för drag, och varje kort i historiken bär en sammanfattning av teknikerna som löste det.
+Statistiken visar din svåraste lösning, din snittsvårighet på sistone och nivån du spelar mest. SE-spektrumet placerar varje avklarat pussel längs skalan. Din arsenal räknar varje teknik du faktiskt använt – naket par, X-Wing, Swordfish och vidare – så att du ser din repertoar växa. Varje avklarat spel kan spelas upp drag för drag, och varje kort i historiken bär en sammanfattning av teknikerna som löste det.
 
 UTMANA EN VÄN
 Rivalläget skickar exakt ditt pussel till en vän som en delad länk, med din inspelade omgång bifogad. Vännen spelar samma rutnät som du och tävlar mot din tid, drag för drag.
