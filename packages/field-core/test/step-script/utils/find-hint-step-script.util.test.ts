@@ -13,7 +13,8 @@ import type { StepScriptInterface } from '../../../src/step-script/interfaces/st
 const pointingPairBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
 const guessBoard = '800000000003600000070090200050007000000045700000100030001000068008500010090000400'.replaceAll('0', '.');
 
-const longChainBoard = '8.72.14..34....1.2.5.....9..1...39..4...5.6.8..56..2.........2...437....5..8.9..4';
+const longChainBoard = '000070940070090005300005070087400100463080000000007080800700000700000028050268000'.replaceAll('0', '.');
+const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 
 const createEngine = (sudokuString: string, showAutoCandidates = false): FieldEngine =>
@@ -56,6 +57,42 @@ describe('findHintStepScript', () => {
             x: 1,
             value: 4
         });
+    });
+
+    it('searches past irrelevant eliminations to the naked quad that enables the first placement', () => {
+        expect.assertions(2);
+
+        const script = requireScript(createEngine(columnQuadBoard));
+
+        expect(script.steps.map(step => [step.kind, step.narration.technique])).toEqual([
+            [StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.PointingPair],
+            [StepScriptStepKindEnum.StrikeCandidates, SolutionTechniqueEnum.PointingPair],
+            [StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.NakedQuad],
+            [StepScriptStepKindEnum.StrikeCandidates, SolutionTechniqueEnum.NakedQuad],
+            [StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.HiddenSingle],
+            [StepScriptStepKindEnum.PlaceValue, SolutionTechniqueEnum.HiddenSingle]
+        ]);
+        expect(script.placement && { y: script.placement.cell.y, x: script.placement.cell.x, value: script.placement.value }).toEqual({
+            y: 2,
+            x: 4,
+            value: 9
+        });
+    });
+
+    it('solves the naked quad board hint by hint without revealing a digit', () => {
+        expect.assertions(2);
+
+        const engine = createEngine(columnQuadBoard);
+        const hintTechniques: SolutionTechniqueEnum[] = [];
+
+        for (let script = findHintStepScript(engine.Sudoku); script !== null; script = findHintStepScript(engine.Sudoku)) {
+            hintTechniques.push(...script.steps.map(step => step.narration.technique));
+            engine.startStepScript(script);
+            engine.applyStepScript();
+        }
+
+        expect(hintTechniques).not.toContain(SolutionTechniqueEnum.Guess);
+        expect(engine.getSnapshot().isWon).toBe(true);
     });
 
     it('places the hinted digit on apply without notes and moves the next hint on', () => {
