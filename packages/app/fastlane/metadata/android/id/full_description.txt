@@ -3,8 +3,8 @@ suuudokuuu adalah game sudoku dengan tujuh level kesulitan, dari Pemula sampai T
 SETIAP SUDOKU ADA PERINGKATNYA
 Setiap sudoku punya peringkat pada skala Sudoku Explainer (SE), dari 1.0 sampai 12.0, skala yang dipakai pemain serius, dan peringkat itu tampil langsung di label level pada papan, di riwayatmu, serta di setiap tautan yang kamu bagikan. Penjelasan bawaan memberi tahu apa yang sebenarnya diukur angka itu: seberapa berat penalarannya, bukan sesedikit apa petunjuknya.
 
-TAK TERHINGGA: SUDOKU TERSULIT SEDUNIA
-Kumpulan pilihan berisi 100 sudoku rekor dunia dengan peringkat SE 10.4 sampai 11.9. Everest dan AI Escargot karya Arto Inkala. Inilah papan-papan yang dijadikan legenda oleh komunitas pemecah sudoku, dan kebanyakan orang tidak pernah menyelesaikan satu pun.
+TAK TERHINGGA: SUDOKU DENGAN NILAI SE 10.4 HINGGA 11.9
+Kumpulan pilihan berisi 100 sudoku dengan nilai SE 10.4 hingga 11.9, termasuk Everest dan AI Escargot karya Arto Inkala.
 
 NERAKA: RANTAI PAKSA WAJIB
 Neraka berisi sudoku terverifikasi yang semuanya menuntut rantai paksa: tidak satu pun bisa diselesaikan dengan teknik yang diizinkan Mimpi buruk, dan semuanya berperingkat SE 7.5 ke atas.

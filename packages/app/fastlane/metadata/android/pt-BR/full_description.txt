@@ -3,8 +3,8 @@ suuudokuuu é um jogo de sudoku com sete níveis de dificuldade, do Iniciante ao
 TODO SUDOKU TEM SUA AVALIAÇÃO
 O Suuudokuuu avalia cada sudoku na escala Sudoku Explainer (SE), de 1.0 a 12.0, a mesma que os solucionadores experientes usam. A avaliação aparece no selo de nível do tabuleiro, no seu histórico e em todo link que você compartilha. Uma explicação embutida conta o que esse número mede de verdade: o quanto um sudoku é difícil de raciocinar, e não apenas quantas pistas ele tem.
 
-INFINITO: OS SUDOKUS MAIS DIFÍCEIS DO MUNDO
-Uma seleção de 100 sudokus recordistas mundiais avaliados entre SE 10.4 e 11.9. O Everest e o AI Escargot de Arto Inkala. São as grades que a comunidade do Sudoku tornou famosas, e a maioria das pessoas nunca termina nenhuma.
+INFINITO: SUDOKUS COM NOTA SE DE 10.4 A 11.9
+Uma seleção de 100 sudokus com nota SE de 10.4 a 11.9, incluindo o Everest e o AI Escargot de Arto Inkala.
 
 INFERNO: CADEIAS FORÇADAS OBRIGATÓRIAS
 O Inferno reúne sudokus verificados que exigem uma cadeia forçada: nenhum pode ser resolvido com as técnicas que o Pesadelo permite, e todos têm avaliação SE de 7.5 ou mais.

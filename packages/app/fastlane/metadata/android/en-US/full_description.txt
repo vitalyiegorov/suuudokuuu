@@ -3,8 +3,8 @@ suuudokuuu is a Sudoku puzzle game with seven difficulty levels, from Newbie to 
 EVERY PUZZLE, RATED
 Every puzzle carries a Sudoku Explainer rating on the 1.0 to 12.0 scale serious solvers use, shown right in the level pill on the board, in your history, and on every link you share. A built-in explainer tells you what the number actually measures — how hard the puzzle is to reason through, not how few clues it has.
 
-INFINITY: THE WORLD'S HARDEST SUDOKU
-A curated set of 100 world-record puzzles rated SE 10.4 to 11.9. Arto Inkala's Everest and AI Escargot. These are the grids the solving community made famous, and most people never finish one.
+INFINITY: PUZZLES RATED SE 10.4 TO 11.9
+A curated set of 100 puzzles rated SE 10.4 to 11.9, including Arto Inkala's Everest and AI Escargot.
 
 HELL: FORCING CHAINS REQUIRED
 Hell is a curated set of verified puzzles that all need a forcing chain: none of them can be finished with the techniques Nightmare allows, and every one is rated SE 7.5 or higher.

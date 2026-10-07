@@ -3,8 +3,8 @@ suuudokuuu är ett sudokuspel med sju svårighetsnivåer, från Nybörjare till 
 VARJE PUSSEL BETYGSATT
 Varje pussel får ett betyg på Sudoku Explainer-skalan (SE), 1.0 till 12.0, samma skala som seriösa lösare använder. Betyget syns direkt vid svårighetsgraden på brädet, i din historik och i varje länk du delar. En inbyggd förklaring berättar vad siffran faktiskt mäter: hur svårt pusslet är att resonera sig igenom, inte hur få ledtrådar det har.
 
-OÄNDLIGHET: VÄRLDENS SVÅRASTE SUDOKU
-En handplockad samling med 100 världsrekordpussel med SE 10.4 till 11.9. Arto Inkalas Everest och AI Escargot. Det här är rutnäten som lösargemenskapen gjorde berömda, och de flesta löser aldrig ett enda.
+OÄNDLIGHET: SUDOKUPUSSEL MED SE 10.4 TILL 11.9
+En handplockad samling med 100 sudokupussel med SE 10.4 till 11.9, däribland Arto Inkalas Everest och AI Escargot.
 
 HELVETE: TVINGANDE KEDJOR KRÄVS
 Helvete består av verifierade pussel som alla kräver en tvingande kedja: inget av dem går att lösa med de tekniker som Mardröm tillåter, och vart och ett är betygsatt SE 7.5 eller högre.

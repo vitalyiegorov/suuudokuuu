@@ -3,8 +3,8 @@ suuudokuuu ist ein Sudoku-Rätselspiel mit sieben Schwierigkeitsstufen von Anfä
 JEDES RÄTSEL BEWERTET
 Jedes Rätsel trägt eine Bewertung auf der Sudoku-Explainer-Skala (SE) von 1.0 bis 12.0 – derselben Skala, mit der erfahrene Löser vergleichen. Sie steht direkt neben der Schwierigkeitsstufe auf dem Brett, in deinem Verlauf und in jedem Link, den du teilst. Eine eingebaute Erklärung zeigt dir, was die Zahl wirklich misst: wie schwer ein Rätsel zu durchdenken ist, und nicht, wie wenige Vorgaben es hat.
 
-UNENDLICH: DIE SCHWERSTEN SUDOKUS DER WELT
-Eine kuratierte Sammlung aus 100 Weltrekord-Rätseln mit SE 10.4 bis 11.9. Arto Inkalas Everest und AI Escargot. Das sind die Gitter, die die Löser-Community berühmt gemacht hat – die meisten Menschen lösen nie eines davon.
+UNENDLICH: SUDOKUS MIT SE 10.4 BIS 11.9
+Eine kuratierte Sammlung aus 100 Rätseln mit SE 10.4 bis 11.9, darunter Arto Inkalas Everest und AI Escargot.
 
 HÖLLE: ZWANGSKETTEN ERFORDERLICH
 Die Hölle besteht aus geprüften Rätseln, die alle eine Zwangskette verlangen: Keines lässt sich mit den Techniken lösen, die der Albtraum erlaubt, und jedes ist mit mindestens SE 7.5 bewertet.
