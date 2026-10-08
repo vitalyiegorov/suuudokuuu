@@ -762,6 +762,31 @@ importers:
       '@rnw-community/shared':
         specifier: ^2.15.0
         version: 2.15.0
+      '@suuudokuuu/encoder':
+        specifier: workspace:*
+        version: link:../../packages/encoder
+      '@suuudokuuu/generator':
+        specifier: workspace:*
+        version: link:../../packages/generator
+      '@suuudokuuu/progress':
+        specifier: workspace:*
+        version: link:../../packages/progress
+      '@suuudokuuu/techniques':
+        specifier: workspace:*
+        version: link:../../packages/techniques
+      '@suuudokuuu/test-kit':
+        specifier: workspace:*
+        version: link:../test-kit
+      effect:
+        specifier: 4.0.0
+        version: 4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd)
+    devDependencies:
+      '@effect/vitest':
+        specifier: 4.0.0
+        version: 4.0.0(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))(vitest@5.0.3)
+      vitest:
+        specifier: 5.0.3
+        version: 5.0.3(@types/node@26.6.4)(@vitest/coverage-v8@5.0.3)(vite@8.3.2(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1))
 
   tests/test-kit:
     dependencies:

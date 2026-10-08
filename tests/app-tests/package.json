@@ -4,10 +4,21 @@
     "private": true,
     "scripts": {
         "screenshots:capture": "node scripts/capture-store-screenshots.ts",
+        "seed:flow": "vitest run",
         "selectors:check": "scripts/validate-selector-policy.sh && scripts/validate-flow-inventory.sh",
         "ts": "tsc -p scripts"
     },
     "dependencies": {
-        "@rnw-community/shared": "^2.15.0"
+        "@rnw-community/shared": "^2.15.0",
+        "@suuudokuuu/encoder": "workspace:*",
+        "@suuudokuuu/generator": "workspace:*",
+        "@suuudokuuu/progress": "workspace:*",
+        "@suuudokuuu/techniques": "workspace:*",
+        "@suuudokuuu/test-kit": "workspace:*",
+        "effect": "4.0.0"
+    },
+    "devDependencies": {
+        "@effect/vitest": "4.0.0",
+        "vitest": "5.0.3"
     }
 }

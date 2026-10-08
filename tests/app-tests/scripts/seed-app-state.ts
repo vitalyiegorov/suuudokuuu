@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { copyFileSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
@@ -21,6 +21,7 @@ const migrationsSourcePath = join(
 );
 const languagesSourcePath = join(repositoryRootDirectory, 'packages', 'progress', 'src', 'settings', 'constant', 'languages.constant.ts');
 
+const DatabaseFileName = 'suuudokuuu.db';
 const PersistRootKey = 'persist:root';
 export const IosStorageRelativePath = join('Documents', 'SQLite', 'ExpoSQLiteStorage');
 export const AndroidStorageRelativePath = 'files/SQLite/ExpoSQLiteStorage';
@@ -189,15 +190,17 @@ const writePersistRootToDatabase = (databasePath: string, value: string): void =
     }
 };
 
-const getIosStorageDatabasePath = (udid: string, appId: string): string => {
+const getIosDataContainer = (udid: string, appId: string): string => {
     const container = runCommand('xcrun', ['simctl', 'get_app_container', udid, appId, 'data']);
 
     if (!container.succeeded) {
         throw new Error(`Could not resolve the data container for ${appId} on ${udid}: ${container.output}`);
     }
 
-    return join(container.output.trim(), IosStorageRelativePath);
+    return container.output.trim();
 };
+
+const getIosStorageDatabasePath = (udid: string, appId: string): string => join(getIosDataContainer(udid, appId), IosStorageRelativePath);
 
 const seedIosState = (target: SeedTarget, value: string): void => {
     runCommand('xcrun', ['simctl', 'terminate', target.udid, target.appId]);
@@ -218,7 +221,7 @@ const isAndroidRootAvailable = (serial: string): boolean => {
     return probe.succeeded && probe.output.includes('uid=0');
 };
 
-const seedAndroidState = (target: SeedTarget, value: string): void => {
+const stopAndroidAppWithRoot = (target: SeedTarget): void => {
     runCommand('adb', adbArguments(target.serial, ['shell', 'am', 'force-stop', target.appId]));
 
     if (!isAndroidRootAvailable(target.serial)) {
@@ -227,6 +230,10 @@ const seedAndroidState = (target: SeedTarget, value: string): void => {
                 'Create the AVD from a "google_apis" system image (not "google_apis_playstore"), which is rootable.'
         );
     }
+};
+
+const seedAndroidState = (target: SeedTarget, value: string): void => {
+    stopAndroidAppWithRoot(target);
 
     const databasePath = `/data/data/${target.appId}/${AndroidStorageRelativePath}`;
     const localPath = join(tmpdir(), `suuudokuuu-persist-${process.pid}.db`);
@@ -257,6 +264,41 @@ export const seedAppState = (target: SeedTarget, options: SeedOptions): void => 
     }
 
     seedAndroidState(target, value);
+};
+
+export const installDatabase = (target: SeedTarget, databasePath: string): void => {
+    if (target.platform === 'ios') {
+        runCommand('xcrun', ['simctl', 'terminate', target.udid, target.appId]);
+
+        const installedPath = join(getIosDataContainer(target.udid, target.appId), 'Documents', DatabaseFileName);
+
+        rmSync(`${installedPath}-wal`, { force: true });
+        rmSync(`${installedPath}-shm`, { force: true });
+        copyFileSync(databasePath, installedPath);
+
+        return;
+    }
+
+    stopAndroidAppWithRoot(target);
+
+    const appDataPath = `/data/data/${target.appId}`;
+    const installedPath = `${appDataPath}/databases/${DatabaseFileName}`;
+
+    runCommand(
+        'adb',
+        adbArguments(target.serial, ['shell', `mkdir -p ${appDataPath}/databases && rm -f ${installedPath}-wal ${installedPath}-shm`])
+    );
+
+    const pushed = runCommand('adb', adbArguments(target.serial, ['push', databasePath, installedPath]));
+
+    if (!pushed.succeeded) {
+        throw new Error(`Could not push ${installedPath}: ${pushed.output}`);
+    }
+
+    runCommand(
+        'adb',
+        adbArguments(target.serial, ['shell', `chown $(stat -c %u:%g ${appDataPath}) ${installedPath} && restorecon ${installedPath}`])
+    );
 };
 
 export const launchSeededApp = (target: SeedTarget, language: string, localeIdentifier: string): void => {

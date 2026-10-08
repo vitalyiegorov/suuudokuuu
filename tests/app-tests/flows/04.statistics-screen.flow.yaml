@@ -1,25 +1,12 @@
 appId: ${APP_ID}
+tags:
+    - seed-unrated-history
 ---
 - startRecording:
       path: '04.statistics-screen'
       optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
-- runFlow:
-      file: subflows/shared/complete-winning-shared-challenge.flow.yaml
-      env:
-          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-
-- scrollUntilVisible:
-      element:
-          id: 'ChallengeResultFooterSelectors.HomeButton'
-      direction: DOWN
-      timeout: 10000
-- tapOn:
-      id: 'ChallengeResultFooterSelectors.HomeButton'
-- extendedWaitUntil:
-      visible:
-          id: 'HomeScreenSelectors.Root'
-      timeout: 10000
 - runFlow: subflows/navigation/open-history.flow.yaml
 # Scroll-tolerant: the difficulty ladder sits below the fold on the Android
 # viewport, so scroll to its deepest line before asserting the title above it.
