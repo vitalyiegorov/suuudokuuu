@@ -14,6 +14,7 @@ import { findProgressingStep } from './find-progressing-step.util';
 import { isProgressingResult } from './is-progressing-result.util';
 import { isSameCell } from './is-same-cell.util';
 
+import type { CandidateEliminationInterface } from '../interfaces/candidate-elimination.interface';
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
 import type { TechniqueStrategyInterface } from '../interfaces/technique-strategy.interface';
 import type { Sudoku } from '@suuudokuuu/generator';
@@ -94,7 +95,12 @@ const pruneChain = (
     return keptSteps;
 };
 
-export const findPlacementChain = (sudoku: Sudoku, unbudgetedStrategies = createTechniqueStrategies()): TechniqueResultInterface[] => {
+export const findPlacementChain = (
+    sudoku: Sudoku,
+    unbudgetedStrategies = createTechniqueStrategies(),
+    previousEliminations: CandidateEliminationInterface[] = [],
+    includeFirstStepOnExhaustion = false
+): TechniqueResultInterface[] => {
     let spentWork = 0;
 
     const strategies = unbudgetedStrategies.map((strategy): TechniqueStrategyInterface => ({
@@ -113,6 +119,10 @@ export const findPlacementChain = (sudoku: Sudoku, unbudgetedStrategies = create
     const contexts: CandidateContext[] = [];
 
     let context = CandidateContext.fromSudoku(sudoku);
+
+    if (previousEliminations.length > 0) {
+        context = context.withEliminations(previousEliminations);
+    }
     let step = findProgressingStep(context, strategies);
 
     while (isDefined(step)) {
@@ -124,12 +134,12 @@ export const findPlacementChain = (sudoku: Sudoku, unbudgetedStrategies = create
         }
 
         if (steps.length >= PLACEMENT_CHAIN_MAX_STEPS) {
-            return [];
+            return includeFirstStepOnExhaustion ? steps.slice(0, 1) : [];
         }
 
         context = applyTechniqueStep(context, step);
         step = findProgressingStep(context, strategies);
     }
 
-    return [];
+    return includeFirstStepOnExhaustion ? steps.slice(0, 1) : [];
 };

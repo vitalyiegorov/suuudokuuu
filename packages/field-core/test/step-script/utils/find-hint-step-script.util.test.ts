@@ -6,7 +6,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { FieldEngine } from '../../../src/field-engine/classes/field-engine';
 import { StepScriptStepKindEnum } from '../../../src/step-script/enums/step-script-step-kind.enum';
-import { findHintStepScript } from '../../../src/step-script/utils/find-hint-step-script.util';
+import { findHintStepScript, findRevealStepScript } from '../../../src/step-script/utils/find-hint-step-script.util';
 
 import type { StepScriptInterface } from '../../../src/step-script/interfaces/step-script.interface';
 
@@ -168,13 +168,10 @@ describe('findHintStepScript', () => {
             }
         });
 
-        it.each([
-            ['needs a guess', guessBoard],
-            ['exceeds the chain cap', longChainBoard]
-        ])('reveals the solution digit of the fewest-candidate cell when the position %s', (_label, board) => {
+        it('reveals the solution digit of the fewest-candidate cell when the position needs a guess', () => {
             expect.assertions(4);
 
-            const engine = createEngine(board);
+            const engine = createEngine(guessBoard);
             const blankCells = engine.Sudoku.Field.flat().filter(cell => engine.Sudoku.isBlankCell(cell));
             const fewestCandidates = Math.min(...blankCells.map(cell => engine.Sudoku.getCellCandidates(cell).length));
             const [revealCell] = blankCells.filter(cell => engine.Sudoku.getCellCandidates(cell).length === fewestCandidates);
@@ -191,6 +188,62 @@ describe('findHintStepScript', () => {
             expect(engine.Sudoku.Field[revealCell.y][revealCell.x].value).toBe(engine.Sudoku.getCorrectValue(revealCell));
             expect(engine.getSnapshot().mistakes).toBe(0);
         });
+    });
+
+    it('teaches the first elimination when the placement chain exceeds its budget and advances after applying it', () => {
+        const engine = createEngine(longChainBoard);
+        const firstScript = requireScript(engine);
+        const blankCount = getBlankCount(engine);
+
+        expect(firstScript.placement).toBeUndefined();
+        expect(firstScript.technique).not.toBe(SolutionTechniqueEnum.Guess);
+        expect(firstScript.steps.map(step => step.kind)).toEqual([
+            StepScriptStepKindEnum.RevealCandidates,
+            StepScriptStepKindEnum.StrikeCandidates
+        ]);
+        expect(firstScript.steps[0]).toMatchObject({ patternCells: firstScript.patternCells });
+        expect(firstScript.steps[1]).toMatchObject({ eliminations: firstScript.eliminations });
+        expect(firstScript.eliminations.length).toBeGreaterThan(0);
+        expect(firstScript.eliminations.every(({ cell, value }) => engine.Sudoku.getCorrectValue(cell) !== value)).toBe(true);
+
+        engine.startStepScript(firstScript);
+        engine.applyStepScript();
+
+        const nextScript = findHintStepScript(engine.Sudoku, engine.getSnapshot().eliminatedCandidates);
+        const restored = new FieldEngine(engine.serialize());
+
+        expect(getBlankCount(engine)).toBe(blankCount);
+        expect(engine.getSnapshot().eliminatedCandidates).not.toEqual({});
+        expect(nextScript?.eliminations).not.toEqual(firstScript.eliminations);
+        expect(findHintStepScript(restored.Sudoku, restored.getSnapshot().eliminatedCandidates)?.eliminations).toEqual(
+            nextScript?.eliminations
+        );
+
+        engine.undo();
+
+        expect(engine.getSnapshot().eliminatedCandidates).toEqual({});
+    });
+
+    it('does not place a digit until an explicit reveal script is applied', () => {
+        const engine = createEngine(longChainBoard);
+        const blankCount = getBlankCount(engine);
+        const firstScript = requireScript(engine);
+        const revealScript = findRevealStepScript(engine.Sudoku);
+
+        expect(firstScript.placement).toBeUndefined();
+        expect(revealScript?.technique).toBe(SolutionTechniqueEnum.Guess);
+
+        if (!isDefined(revealScript)) {
+            throw new Error('Expected an explicit reveal script');
+        }
+
+        engine.startStepScript(revealScript);
+
+        expect(getBlankCount(engine)).toBe(blankCount);
+
+        engine.applyStepScript();
+
+        expect(getBlankCount(engine)).toBe(blankCount - 1);
     });
 
     it('returns null on a solved board', () => {

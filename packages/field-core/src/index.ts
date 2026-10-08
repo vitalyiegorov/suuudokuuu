@@ -11,6 +11,6 @@ export type { StepScriptStepType } from './step-script/types/step-script-step.ty
 export { FieldEngine } from './field-engine/classes/field-engine';
 export { StepScriptStepKindEnum } from './step-script/enums/step-script-step-kind.enum';
 export { buildStepScriptState } from './step-script/utils/build-step-script-state.util';
-export { findHintStepScript } from './step-script/utils/find-hint-step-script.util';
+export { findHintStepScript, findRevealStepScript } from './step-script/utils/find-hint-step-script.util';
 export { findStepScript } from './step-script/utils/find-step-script.util';
 export { getCellKey } from './@generic/utils/get-cell-key.util';

@@ -7,6 +7,7 @@ import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import {
     cloneCandidateState,
     getAutoCellCandidates,
+    getCandidatesWithElimination,
     getCandidateStateWithoutValue,
     getToggledCandidates
 } from '../utils/candidate-mutation.util';
@@ -189,10 +190,12 @@ export class FieldEngine extends FieldStore {
             return;
         }
 
-        const nextState = script.eliminations.reduce(
-            (state, { cell, value }) => getCandidateStateWithoutValue(state, cell, value, this.showAutoCandidates) ?? state,
-            this.candidateState
-        );
+        const nextState = script.eliminations.reduce((state, { cell, value }) => {
+            const candidateState = getCandidateStateWithoutValue(state, cell, value, this.showAutoCandidates) ?? state;
+            const eliminatedCandidates = getCandidatesWithElimination(candidateState.eliminatedCandidates, cell, value);
+
+            return isDefined(eliminatedCandidates) ? { ...candidateState, eliminatedCandidates } : candidateState;
+        }, this.candidateState);
 
         if (nextState !== this.candidateState) {
             this.commitCandidateState(nextState);

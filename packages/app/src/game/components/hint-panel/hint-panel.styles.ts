@@ -44,6 +44,11 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => {
             height: hintPanelControlSize,
             justifyContent: 'space-between'
         },
+        actions: {
+            flexDirection: 'row',
+            gap: theme.spacing.sm,
+            justifyContent: 'flex-end'
+        },
         dismissButton: {
             borderRadius: hintPanelControlSize / 2,
             flexShrink: 0,

@@ -555,6 +555,7 @@ msgstr "完成动画"
 msgid "Completion Bonuses"
 msgstr "完成奖励"
 
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -568,6 +569,10 @@ msgstr "在别处继续"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "从我停下的地方继续这道数独！"
+
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+msgid "Continue to next hint"
+msgstr "继续查看下一个提示"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1149,7 +1154,7 @@ msgstr "新手"
 msgid "Newspaper"
 msgstr "报纸"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Next step"
 msgstr "下一步"
 
@@ -1185,10 +1190,6 @@ msgstr "还没有游戏"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "No limit"
 msgstr "无限制"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "No logical step was found within the hint's search depth, so this hint reveals the digit from the solution."
-msgstr "在提示的搜索深度内没有找到逻辑步骤，因此该提示直接从答案中揭示数字。"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "No matter how many penalties, you always earn at least"
@@ -1400,7 +1401,7 @@ msgstr "Português"
 msgid "Presets"
 msgstr "预设"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Previous step"
 msgstr "上一步"
 
@@ -1507,9 +1508,14 @@ msgstr "继续这局游戏？"
 msgid "Retry loading development build"
 msgstr "重新加载开发版本"
 
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "揭示"
+
+#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+msgid "Reveal a digit"
+msgstr "显示一个数字"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1774,7 +1780,7 @@ msgstr "统计"
 msgid "Stayed in app"
 msgstr "未离开应用"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "第 {currentStepNumber} 步，共 {stepCount} 步"
 
@@ -1913,6 +1919,10 @@ msgstr "主题名称"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "这次未能完成棋盘。乌克兰争取自由的战斗仍在继续。每 1 美元捐款都有意义。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "This reveals the marked cell's digit from the solution."
+msgstr "这会显示答案中标记单元格的数字。"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "This theme will be removed permanently."

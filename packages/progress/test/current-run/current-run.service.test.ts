@@ -60,6 +60,7 @@ const placeClassifiedCell = Effect.gen(function* () {
     yield* currentRunService.save({
         sudokuString: placedSudokuString,
         candidates: placedCandidates,
+        eliminatedCandidates: {},
         correctCell: placedCell,
         scoredCells: emptyScoredCells
     });
@@ -180,7 +181,7 @@ describe('CurrentRunService', () => {
     it.effect('undoes a placement for its points plus the undo penalty and redoes it with a fresh think time', () =>
         Effect.gen(function* () {
             const currentRunService = yield* placeClassifiedCell;
-            const fieldState = { sudokuString: startedSudokuString, candidates: {} };
+            const fieldState = { sudokuString: startedSudokuString, candidates: {}, eliminatedCandidates: {} };
 
             yield* currentRunService.undo(fieldState);
 
@@ -191,7 +192,7 @@ describe('CurrentRunService', () => {
             assert.deepStrictEqual((yield* getPlayerStats).techniqueUsageCounts, {});
 
             yield* currentRunService.undo(fieldState);
-            yield* currentRunService.redo({ sudokuString: placedSudokuString, candidates: placedCandidates });
+            yield* currentRunService.redo({ sudokuString: placedSudokuString, candidates: placedCandidates, eliminatedCandidates: {} });
 
             const redoneRun = yield* getRun;
 
@@ -223,6 +224,7 @@ describe('CurrentRunService', () => {
             assert.deepInclude(yield* getRun, {
                 score: 0,
                 candidates: { '1-1': [2] },
+                eliminatedCandidates: { '1-1': [7], '5-5': [7] },
                 undoneMoves: [],
                 timelineEvents: [
                     { kind: TimelineEventKindEnum.Hint, ts: 0 },
