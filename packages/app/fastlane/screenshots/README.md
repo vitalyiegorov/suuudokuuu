@@ -36,25 +36,17 @@ stays at the source capture resolution. Filenames sort into upload order.
 
 ## iPhone Duo sets
 
-Apple lists iPhone Duo screenshots at 1398×2034 (outer display) and 2007×2853
-(inner display), portrait or landscape, and the SKILL tracks them as required
-from April 2027. Xcode 26.6 ships no Duo simulator, so the sets are the 6.9"
-iPhone 17 Pro Max raws framed onto the Duo canvases. They are a framed device
-with captions, not a raw screen, so the real UI is the large central element
-and the canvas aspect (about 0.69-0.70) is exact. Both sizes are composed for
-all 11 Apple locales and both appearance variants into
-`variants/<variant>/iphone-duo/<outer|inner>/<locale>/`, with the same nine
-iPhone filenames as the iPhone set. They sit beside, not inside,
-`variants/<variant>/ios`, because `fastlane deliver` has no display type for
-them and would reject or misfile them; `store_preflight` verifies size, no
-alpha, locales, and filenames.
+Apple requires iPhone Duo screenshots at 1398×2034 and 2007×2853 from April
+2027, and `deliver` has no display type for them yet. Xcode ships no Duo
+simulator, so `compose-screenshots.sh <locale> duo` frames the 6.9" iPhone raws
+onto both canvases for the deployed variant only, into
+`variants/<variant>/iphone-duo/<size>/<locale>/`, outside the folder `deliver`
+uploads. The device fills 93% of the canvas height so real UI stays above half
+of every image. `store_preflight` checks sizes, alpha, locales and filenames.
 
-Manual upload, to be tried once before April 2027: in App Store Connect open
-the version, choose a locale, and add the matching 1398×2034 and 2007×2853
-sets of the deployed variant (`deployed-variant.json`) from the folders above
-to the iPhone Duo slots once the console offers them; repeat per locale.
-Revisit and move the sets into the deliver path when deliver adds the display
-type.
+Upload by hand until `deliver` supports the display type: in App Store Connect
+open the version, pick each locale, and add both size folders to the iPhone Duo
+slots. Move the sets into the `deliver` path once it gains the display type.
 
 ## Curated store ordering
 
@@ -132,13 +124,13 @@ Regenerate both iOS variants and the Android phone set for a locale:
 bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all
 ```
 
-The second argument selects `light`, `dark`, `android`, `tablet`, `duo`, or `all` (the
-default). `duo` composes both iPhone Duo sizes of both variants (see "iPhone Duo
-sets") from the iPhone raws and is not part of `all`. `all` composes both iOS variants and the Play phone screenshots;
-`android` composes only the Play phone set and `tablet` only the Play 7" and 10"
-sets. There are 11 iOS locales and 13 Play locales; the script maps the locale
-names between the app, Apple, and Google Play. Each Play locale has eight
-phone screenshots and five 7" and five 10" tablet screenshots at 1080×1920.
+The second argument selects `light`, `dark`, `android`, `tablet`, `duo` (see
+"iPhone Duo sets"), or `all` (the default). `all` composes both iOS variants and
+the Play phone screenshots; `android` composes only the Play phone set and
+`tablet` only the Play 7" and 10" sets. There are 11 iOS locales and 13 Play
+locales; the script maps the locale names between the app, Apple, and Google
+Play. Each Play locale has eight phone screenshots and five 7" and five 10"
+tablet screenshots at 1080×1920.
 
 The script (requires ImageMagick 7, `magick` on `PATH`, and the frame assets
 above) uses Inter Black from
