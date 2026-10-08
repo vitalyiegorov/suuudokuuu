@@ -2,6 +2,7 @@ import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { StepScriptStepKindEnum } from '../enums/step-script-step-kind.enum';
 
+import type { StepScriptBranchStepInterface } from '../interfaces/step-script-branch-step.interface';
 import type { StepScriptCandidateInterface } from '../interfaces/step-script-candidate.interface';
 import type { StepScriptInterface } from '../interfaces/step-script.interface';
 import type { StepScriptStepType } from '../types/step-script-step.type';
@@ -54,7 +55,51 @@ export const techniqueResultToStepScript = (result: TechniqueResultInterface): S
     const revealStep = hasPlacement
         ? createRevealStep(result.technique, patternCells, revealCandidates, placement)
         : createRevealStep(result.technique, patternCells, revealCandidates);
+    const { chain, branches } = result;
+    const chainSteps: StepScriptStepType[] =
+        chain?.map((candidate, index) => ({
+            kind: StepScriptStepKindEnum.SHOW_CHAIN,
+            chain,
+            visibleLength: index + 1,
+            narration: { technique: result.technique, cells: [candidate.cell], values: [candidate.value] }
+        })) ?? [];
+    const branchSteps: StepScriptStepType[] =
+        branches?.flatMap((branch, branchIndex): StepScriptBranchStepInterface[] => [
+            ...Array.from(
+                { length: branch.implications.length + 1 },
+                (_unused, visibleImplicationCount): StepScriptBranchStepInterface => ({
+                    kind: StepScriptStepKindEnum.SHOW_BRANCH,
+                    branch,
+                    branchIndex,
+                    branchCount: branches.length,
+                    visibleImplicationCount,
+                    showOutcome: false,
+                    narration: {
+                        technique: result.technique,
+                        cells:
+                            visibleImplicationCount === 0
+                                ? [branch.assumption.cell]
+                                : [branch.implications[visibleImplicationCount - 1].cell],
+                        values:
+                            visibleImplicationCount === 0
+                                ? [branch.assumption.value]
+                                : [branch.implications[visibleImplicationCount - 1].value]
+                    }
+                })
+            ),
+            {
+                kind: StepScriptStepKindEnum.SHOW_BRANCH,
+                branch,
+                branchIndex,
+                branchCount: branches.length,
+                visibleImplicationCount: branch.implications.length,
+                showOutcome: true,
+                narration: { technique: result.technique, cells: [branch.assumption.cell], values: [branch.assumption.value] }
+            }
+        ]) ?? [];
     const steps: StepScriptStepType[] = [
+        ...chainSteps,
+        ...branchSteps,
         revealStep,
         ...(isNotEmptyArray(eliminations) ? [createStrikeStep(result.technique, eliminations)] : []),
         ...(hasPlacement ? [createPlaceStep(result.technique, placement)] : [])

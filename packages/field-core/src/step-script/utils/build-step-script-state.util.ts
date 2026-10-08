@@ -68,6 +68,19 @@ const collectPlacedValues = (steps: StepScriptStepType[]): ReadonlyMap<string, n
 };
 
 export const buildStepScriptState = (stepScript: StepScriptInterface | null, stepIndex: number): StepScriptStateInterface => {
+    const currentStep = stepScript?.steps[stepIndex];
+
+    if (currentStep?.kind === StepScriptStepKindEnum.SHOW_CHAIN || currentStep?.kind === StepScriptStepKindEnum.SHOW_BRANCH) {
+        return {
+            explanation: currentStep,
+            patternCellKeys: new Set(),
+            targetCellKey: null,
+            revealedCandidates: new Map(),
+            eliminatedCandidates: new Map(),
+            placedValues: new Map()
+        };
+    }
+
     const steps = isDefined(stepScript) ? stepScript.steps.slice(0, stepIndex + 1) : [];
     const placement = steps.find(step => isDefined(step.narration.placement))?.narration.placement;
 
