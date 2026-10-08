@@ -1,38 +1,29 @@
-suuudokuuu is Sudoku the way it should be: fast, beautiful, and honest about difficulty. Seven levels, from a gentle Newbie board to Infinity — the hardest Sudoku puzzles ever composed. No ads pretending to be puzzles, no accounts, no nonsense. Just you and the grid.
+suuudokuuu is a Sudoku puzzle game with seven difficulty levels, from Newbie to Infinity, and a Sudoku Explainer (SE) rating on every board. Play classic sudoku offline with no account, take on a daily challenge, learn techniques from step-by-step hints, and send a friend your exact puzzle. No ads.
 
 EVERY PUZZLE, RATED
-Most apps label a board "expert" and hope you don't look closer. We put a number on it. Every puzzle carries a Sudoku Explainer rating on the 1.0 to 12.0 scale serious solvers use, shown right in the level pill on the board, in your history, and on every link you share. A built-in explainer tells you what the number actually measures — how hard the puzzle is to reason through, not how few clues it has.
+Every puzzle carries a Sudoku Explainer rating on the 1.0 to 12.0 scale serious solvers use, shown right in the level pill on the board, in your history, and on every link you share. A built-in explainer tells you what the number actually measures — how hard the puzzle is to reason through, not how few clues it has.
 
-INFINITY: THE WORLD'S HARDEST SUDOKU
-A curated set of 100 world-record puzzles rated SE 10.4 to 11.9. Arto Inkala's Everest and AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. These are the grids the solving community made famous, and most people never finish one.
+INFINITY: PUZZLES RATED SE 10.4 TO 11.9
+A curated set of 100 puzzles rated SE 10.4 to 11.9, including Arto Inkala's Everest and AI Escargot.
 
-HELL, RE-CURATED
-Hell is now 958 verified puzzles that all need a forcing chain: none of them can be finished with the techniques Nightmare allows, and every one is rated SE 7.5 to 8.5. A low clue count alone doesn't make a puzzle hard, so Hell is chosen by the reasoning each board demands, not by how few clues it starts with.
+HELL: FORCING CHAINS REQUIRED
+Hell is a curated set of verified puzzles that all need a forcing chain: none of them can be finished with the techniques Nightmare allows, and every one is rated SE 7.5 or higher.
 
 YOUR SOLVING, MEASURED
-The redesigned statistics screen shows your hardest solve, your recent average difficulty and the level you play most. The SE spectrum plots every puzzle you've finished across the scale. Your arsenal counts every technique you've actually used — naked pairs, X-Wing, swordfish and further — so you can watch your repertoire grow.
+The statistics screen shows your hardest solve, your recent average difficulty and the level you play most. The SE spectrum plots every puzzle you've finished across the scale. Your arsenal counts every technique you've actually used — naked pairs, X-Wing, swordfish and further — so you can watch your repertoire grow. Every finished game replays move by move, and each history card carries a summary of the techniques that solved it.
 
 CHALLENGE A FRIEND
-Rival mode sends your exact puzzle to a friend as a share link, with your recorded run attached. They play the same grid you did and race your time move for move. Bragging rights, settled.
-
-WATCH IT BACK
-Every finished game replays move by move, and each history card carries a summary of the techniques that solved it.
+Rival mode sends your exact puzzle to a friend as a share link, with your recorded run attached. They play the same grid you did and race your time move for move.
 
 PLAY YOUR WAY
-Pick Classic, Gold or Newspaper, or open the live-preview theme editor and make every cell, line and highlight yours. Built-in contrast validation keeps custom themes readable in light and dark. On the web there's full keyboard control: arrows to move, digits to place, Space or N for pencil mode, Shift and a digit for candidate marks, A for auto-candidates.
+Pick Classic, Gold or Newspaper, or open the live-preview theme editor and make every cell, line and highlight yours. Built-in contrast validation keeps custom themes readable in light and dark.
+
+DAILY CHALLENGE AND HINTS THAT TEACH
+A fresh Sudoku puzzle every day, with a streak that tracks how many days in a row you solve it. Stuck? A hint walks you through the technique step by step, from naked pairs to X-Wing and beyond, so you learn why the move works and not just where it goes.
 
 EVERYTHING ELSE YOU'D WANT
-• 7 difficulties, Newbie to Infinity
-• An SE difficulty rating on every puzzle
-• Full theme engine with light and dark support
-• Rival challenges via share link
-• Move-by-move replay with technique analysis
 • Technique-aware scoring
 • 13 languages
-• Works fully offline
-• No account, no sign-up, ever
-• Free and open-source
-
-suuudokuuu is built for people who actually love Sudoku, not people who want to be sold a subscription. Download it, pick a difficulty, and find out what your number is.
+• Open source
 
 Learn more at www.suuudokuuu.com.

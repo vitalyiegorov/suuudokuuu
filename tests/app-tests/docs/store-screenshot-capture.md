@@ -25,7 +25,7 @@ DEVICE_CLASS=ipad ORIENTATION=landscape APP_ID=<bundle-id> SIMULATOR_UDID=<udid>
 APP_ID=<package> pnpm --filter @suuudokuuu/app-tests screenshots:capture \
   --platform=android --serial=<adb-serial> --locales=de
 
-# 4. Compose framed store sets (staging dir, swap-on-success):
+# 4. Compose store sets (staging dir, swap-on-success):
 bash packages/app/fastlane/screenshots/design/compose-screenshots.sh de-DE all
 ```
 
@@ -105,8 +105,13 @@ is exactly what step 2 above already does.
 - **Android needs a rootable emulator** for the state write: build the AVD
   from a `google_apis` system image (`adb root` is refused on
   `google_apis_playstore`, and `run-as` is refused on release builds). Set
-  `wm size 1080x2340` and `wm density 440` so captures match the frame
-  cutout. Locale switching alone needs no root (API 33+).
+  `wm size 1080x2340` and `wm density 440` for the 1080x1920 Play
+  composition. Locale switching alone needs no root (API 33+).
+- **Android Hell needs a scrolled Home capture.** At the initial scroll
+  position, the floating tabs cover the Start puzzle button. After seeding
+  and launching the Hell scene for each locale, swipe Home upward until the
+  full button sits above the tabs, then save `02-hell.png` before composing.
+  The 2.20.0 Play set was captured this way on `emulator-5554`.
 - **Status bar:** launch arguments do not touch the system status bar, so the
   runner applies `simctl status_bar override` (9:41, full bars, 100%
   battery) and Android SystemUI demo mode. `--status-bar=real` restores the
@@ -175,8 +180,8 @@ already hold values those migrations would produce anyway).
 
 ## Compose and verify
 
-`compose-screenshots.sh` frames raws in fastlane frameit device frames,
-applies the two-tier captions, and writes the committed sets. It composes
+`compose-screenshots.sh` frames iOS raws in fastlane frameit device frames,
+uses frameless Android captures, applies the two-tier captions, and writes the committed sets. It composes
 into a temporary staging directory and swaps the committed set only after
 every scene of the variant succeeds. **Never reintroduce an up-front
 `rm -f "$OUT_DIR"/*.png`** — the script runs under `set -e`, and the old

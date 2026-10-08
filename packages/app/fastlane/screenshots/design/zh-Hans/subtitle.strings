@@ -7,10 +7,10 @@
  * trailing 。 in this locale. See ../README.md "Design system" for the
  * two-tier text rules. */
 
-"01-hero-board" = "数字清晰，全神贯注";
+"01-hero-board" = "每条提示都点明技巧";
 "01-hero-board-dark" = "完整深色模式，毫不妥协";
 "01-hero-board-light" = "完整浅色模式，同样专注";
-"02-hell" = "只用强制链，无需猜测";
+"02-hell" = "强制链破解，不靠运气";
 "04-editor" = "逐格设计每一种颜色";
 "05-customization" = "颜色随心，13 种语言";
 "06-rival" = "真实对局，反作弊验证";

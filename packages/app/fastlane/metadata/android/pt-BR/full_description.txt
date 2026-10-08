@@ -1,38 +1,29 @@
-suuudokuuu é Sudoku como deveria ser: rápido, bonito e honesto sobre a dificuldade. Sete níveis, do tranquilo tabuleiro Iniciante até o Infinito: os sudokus mais difíceis já compostos. Sem anúncios disfarçados de quebra-cabeça, sem conta, sem enrolação. Só você e a grade.
+suuudokuuu é um jogo de sudoku com sete níveis de dificuldade, do Iniciante ao Infinito, e uma nota Sudoku Explainer (SE) em cada tabuleiro. Jogue sudoku clássico offline e sem conta, encare o desafio diário, aprenda técnicas com dicas passo a passo e mande para um amigo o seu puzzle exato. Sem anúncios.
 
 TODO SUDOKU TEM SUA AVALIAÇÃO
-A maioria dos apps escreve "Especialista" numa grade e torce pra você não olhar de perto. A gente coloca um número. O Suuudokuuu avalia cada sudoku na escala Sudoku Explainer (SE), de 1.0 a 12.0, a mesma que os solucionadores experientes usam. A avaliação aparece no selo de nível do tabuleiro, no seu histórico e em todo link que você compartilha. Uma explicação embutida conta o que esse número mede de verdade: o quanto um sudoku é difícil de raciocinar, e não apenas quantas pistas ele tem.
+O Suuudokuuu avalia cada sudoku na escala Sudoku Explainer (SE), de 1.0 a 12.0, a mesma que os solucionadores experientes usam. A avaliação aparece no selo de nível do tabuleiro, no seu histórico e em todo link que você compartilha. Uma explicação embutida conta o que esse número mede de verdade: o quanto um sudoku é difícil de raciocinar, e não apenas quantas pistas ele tem.
 
-INFINITO: OS SUDOKUS MAIS DIFÍCEIS DO MUNDO
-Uma seleção de 100 sudokus recordistas mundiais avaliados entre SE 10.4 e 11.9. O Everest e o AI Escargot de Arto Inkala. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. São as grades que a comunidade do Sudoku tornou famosas, e a maioria das pessoas nunca termina nenhuma.
+INFINITO: SUDOKUS COM NOTA SE DE 10.4 A 11.9
+Uma seleção de 100 sudokus com nota SE de 10.4 a 11.9, incluindo o Everest e o AI Escargot de Arto Inkala.
 
-INFERNO, COM NOVA CURADORIA
-O Inferno agora são 958 sudokus verificados que exigem uma cadeia forçada: nenhum pode ser resolvido com as técnicas que o Pesadelo permite, e todos têm avaliação SE de 7.5 a 8.5. Poucas pistas sozinhas não deixam a grade difícil, então escolhemos o Inferno pelo raciocínio que cada tabuleiro exige, não por quão poucas pistas ele tem.
+INFERNO: CADEIAS FORÇADAS OBRIGATÓRIAS
+O Inferno reúne sudokus verificados que exigem uma cadeia forçada: nenhum pode ser resolvido com as técnicas que o Pesadelo permite, e todos têm avaliação SE de 7.5 ou mais.
 
 SEU JOGO, MEDIDO
-A tela de estatísticas redesenhada mostra o seu sudoku mais difícil, a dificuldade média das últimas partidas e o nível que você mais joga. O espectro SE distribui ao longo da escala cada sudoku que você concluiu. Seu arsenal conta cada técnica que você realmente usou — Par nu, X-Wing, Swordfish e além — pra você ver seu repertório crescer.
+A tela de estatísticas mostra o seu sudoku mais difícil, a dificuldade média das últimas partidas e o nível que você mais joga. O espectro SE distribui ao longo da escala cada sudoku que você concluiu. Seu arsenal conta cada técnica que você realmente usou — Par nu, X-Wing, Swordfish e além — pra você ver seu repertório crescer. Toda partida concluída pode ser revista jogada por jogada, e cada cartão do histórico traz um resumo das técnicas que a resolveram.
 
 DESAFIE UM AMIGO
-O modo Rival envia a sua grade exata pra um amigo por um link, com a sua partida gravada junto. Ele joga a mesma grade e corre contra o seu tempo, jogada por jogada. Direito de se gabar, garantido.
-
-REVEJA A PARTIDA
-Toda partida concluída pode ser revista jogada por jogada, e cada cartão do histórico traz um resumo das técnicas que a resolveram.
+O modo Rival envia a sua grade exata pra um amigo por um link, com a sua partida gravada junto. Ele joga a mesma grade e corre contra o seu tempo, jogada por jogada.
 
 JOGUE DO SEU JEITO
-Escolha Clássico, Dourado ou Jornal, ou abra o editor de tema com pré-visualização ao vivo e deixe cada célula, linha e destaque do seu jeito. A validação de contraste garante que temas personalizados fiquem legíveis no claro e no escuro. Na web tem controle total pelo teclado: setas pra mover, dígitos pra preencher, Espaço ou N pro modo anotações, Shift com um dígito pros candidatos, A pros candidatos automáticos.
+Escolha Clássico, Dourado ou Jornal, ou abra o editor de tema com pré-visualização ao vivo e deixe cada célula, linha e destaque do seu jeito. A validação de contraste garante que temas personalizados fiquem legíveis no claro e no escuro.
+
+DESAFIO DIÁRIO E DICAS QUE ENSINAM
+Um sudoku novo todo dia, com uma sequência que conta quantos dias seguidos você o resolve. Travou? Uma dica leva você passo a passo pela técnica, de pares nus a X-Wing e além, pra você entender por que a jogada funciona e não só onde ela vai.
 
 TUDO MAIS QUE VOCÊ QUERIA
-• 7 dificuldades, do Iniciante ao Infinito
-• Avaliação SE de dificuldade em todo sudoku
-• Editor de tema completo com suporte claro e escuro
-• Desafios Rival por link de compartilhamento
-• Repetição jogada por jogada com análise de técnicas
 • Pontuação que reconhece técnicas
 • 13 idiomas
-• Funciona totalmente offline
-• Sem conta, sem cadastro, nunca
-• Grátis e de código aberto
-
-suuudokuuu foi feito pra quem realmente ama Sudoku, não pra quem quer te vender uma assinatura. Baixe, escolha uma dificuldade e descubra qual é o seu número.
+• Código aberto
 
 Saiba mais em www.suuudokuuu.com.

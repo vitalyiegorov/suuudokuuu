@@ -1,1 +1,1 @@
-suuudokuuu: Sudoku Puzzles
+suuudokuuu: Sudoku Puzzle Game

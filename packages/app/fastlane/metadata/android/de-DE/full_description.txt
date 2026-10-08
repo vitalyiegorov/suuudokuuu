@@ -1,38 +1,29 @@
-suuudokuuu ist Sudoku, wie es sein sollte: schnell, schön und ehrlich bei der Schwierigkeit. Sieben Stufen, von einem sanften Anfänger-Brett bis Unendlich – den schwersten Sudoku-Rätseln, die je komponiert wurden. Keine Werbung, die sich als Rätsel tarnt, kein Konto, kein Schnickschnack. Nur du und das Gitter.
+suuudokuuu ist ein Sudoku-Rätselspiel mit sieben Schwierigkeitsstufen von Anfänger bis Unendlich und einer Sudoku-Explainer-Wertung (SE) für jedes Rätsel. Spiele klassisches Sudoku offline und ohne Konto, löse die tägliche Herausforderung, lerne Techniken mit Schritt-für-Schritt-Tipps und schicke Freunden dein genaues Rätsel. Keine Werbung.
 
 JEDES RÄTSEL BEWERTET
-Die meisten Apps schreiben „Experte“ auf ein Brett und hoffen, dass du nicht genauer hinschaust. Wir setzen eine Zahl darauf. Jedes Rätsel trägt eine Bewertung auf der Sudoku-Explainer-Skala (SE) von 1.0 bis 12.0 – derselben Skala, mit der erfahrene Löser vergleichen. Sie steht direkt neben der Schwierigkeitsstufe auf dem Brett, in deinem Verlauf und in jedem Link, den du teilst. Eine eingebaute Erklärung zeigt dir, was die Zahl wirklich misst: wie schwer ein Rätsel zu durchdenken ist, und nicht, wie wenige Vorgaben es hat.
+Jedes Rätsel trägt eine Bewertung auf der Sudoku-Explainer-Skala (SE) von 1.0 bis 12.0 – derselben Skala, mit der erfahrene Löser vergleichen. Sie steht direkt neben der Schwierigkeitsstufe auf dem Brett, in deinem Verlauf und in jedem Link, den du teilst. Eine eingebaute Erklärung zeigt dir, was die Zahl wirklich misst: wie schwer ein Rätsel zu durchdenken ist, und nicht, wie wenige Vorgaben es hat.
 
-UNENDLICH: DIE SCHWERSTEN SUDOKUS DER WELT
-Eine kuratierte Sammlung aus 100 Weltrekord-Rätseln mit SE 10.4 bis 11.9. Arto Inkalas Everest und AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Das sind die Gitter, die die Löser-Community berühmt gemacht hat – die meisten Menschen lösen nie eines davon.
+UNENDLICH: SUDOKUS MIT SE 10.4 BIS 11.9
+Eine kuratierte Sammlung aus 100 Rätseln mit SE 10.4 bis 11.9, darunter Arto Inkalas Everest und AI Escargot.
 
-HÖLLE, NEU KURATIERT
-Die Hölle besteht jetzt aus 958 geprüften Rätseln, die alle eine Zwangskette verlangen: Keines lässt sich mit den Techniken lösen, die der Albtraum erlaubt, und jedes ist mit SE 7.5 bis 8.5 bewertet. Wenige Vorgaben allein machen ein Rätsel nicht schwer – deshalb wählen wir die Hölle nach dem Denken aus, das jedes Brett verlangt, nicht danach, wie wenige Vorgaben es hat.
+HÖLLE: ZWANGSKETTEN ERFORDERLICH
+Die Hölle besteht aus geprüften Rätseln, die alle eine Zwangskette verlangen: Keines lässt sich mit den Techniken lösen, die der Albtraum erlaubt, und jedes ist mit mindestens SE 7.5 bewertet.
 
 DEIN SPIEL, GEMESSEN
-Die neu gestalteten Statistiken zeigen dein schwerstes Rätsel, deine durchschnittliche Schwierigkeit der letzten Spiele und die Stufe, die du am häufigsten spielst. Das SE-Spektrum trägt jedes abgeschlossene Rätsel auf der Skala ab. Dein Arsenal zählt jede Technik, die du wirklich eingesetzt hast – Nacktes Paar, X-Wing, Swordfish und weiter – damit du dein Repertoire wachsen siehst.
+Die Statistiken zeigen dein schwerstes Rätsel, deine durchschnittliche Schwierigkeit der letzten Spiele und die Stufe, die du am häufigsten spielst. Das SE-Spektrum trägt jedes abgeschlossene Rätsel auf der Skala ab. Dein Arsenal zählt jede Technik, die du wirklich eingesetzt hast – Nacktes Paar, X-Wing, Swordfish und weiter – damit du dein Repertoire wachsen siehst. Jedes abgeschlossene Spiel lässt sich Zug für Zug wiederholen, und jede Karte im Verlauf trägt eine Zusammenfassung der Techniken, die es gelöst haben.
 
 FORDERE EINEN FREUND HERAUS
-Der Rivalen-Modus schickt dein exaktes Rätsel als Link an einen Freund, samt deinem aufgezeichneten Lauf. Er oder sie spielt genau dein Gitter und tritt Zug um Zug gegen deine Zeit an. Angeberrechte, geklärt.
-
-NOCHMAL ANSCHAUEN
-Jedes abgeschlossene Spiel lässt sich Zug für Zug wiederholen, und jede Karte im Verlauf trägt eine Zusammenfassung der Techniken, die es gelöst haben.
+Der Rivalen-Modus schickt dein exaktes Rätsel als Link an einen Freund, samt deinem aufgezeichneten Lauf. Er oder sie spielt genau dein Gitter und tritt Zug um Zug gegen deine Zeit an.
 
 SPIEL, WIE DU WILLST
-Wähle Klassisch, Gold oder Zeitung, oder öffne den Theme-Editor mit Live-Vorschau und bestimme jede Zelle, jede Linie und jede Hervorhebung selbst. Die eingebaute Kontrastprüfung hält eigene Themes in Hell und Dunkel gut lesbar. Im Web gibt es volle Tastatursteuerung: Pfeiltasten zum Bewegen, Ziffern zum Setzen, Leertaste oder N für den Notizmodus, Umschalt und Ziffer für Kandidaten, A für Auto-Kandidaten.
+Wähle Klassisch, Gold oder Zeitung, oder öffne den Theme-Editor mit Live-Vorschau und bestimme jede Zelle, jede Linie und jede Hervorhebung selbst. Die eingebaute Kontrastprüfung hält eigene Themes in Hell und Dunkel gut lesbar.
+
+TÄGLICHE HERAUSFORDERUNG UND TIPPS ZUM LERNEN
+Jeden Tag ein neues Sudoku, dazu eine Serie, die zählt, an wie vielen Tagen in Folge du es löst. Hängst du fest? Ein Tipp führt dich Schritt für Schritt durch die Technik, von Naked Pairs bis X-Wing und weiter, damit du verstehst, warum ein Zug funktioniert, und nicht nur, wohin er gehört.
 
 ALLES ANDERE, WAS DU WILLST
-• 7 Schwierigkeitsstufen, von Anfänger bis Unendlich
-• SE-Schwierigkeitsbewertung für jedes Rätsel
-• Vollständiger Theme-Editor mit Hell- und Dunkelmodus
-• Rivalen-Herausforderungen per Link
-• Zug-für-Zug-Wiederholung mit Technikanalyse
 • Technikbewusste Wertung
 • 13 Sprachen
-• Funktioniert komplett offline
-• Kein Konto, keine Anmeldung, nie
-• Kostenlos und Open Source
-
-suuudokuuu ist gemacht für Menschen, die Sudoku wirklich lieben – nicht für Menschen, denen man ein Abo verkaufen will. Lad es dir herunter, wähl eine Schwierigkeit und finde heraus, wie deine Zahl lautet.
+• Open Source
 
 Mehr auf www.suuudokuuu.com.

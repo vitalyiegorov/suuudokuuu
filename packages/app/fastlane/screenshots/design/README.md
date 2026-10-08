@@ -49,12 +49,12 @@ one-off upload. Google Play uses one dark-first set with a light-mode closer.
 - Two-tier centered screenshot captions use Inter Black headline and smaller
   descriptor, sized to fit within 90% of the canvas width. Text is near-black
   on light and near-white on dark, with no accent bar.
-- Real frameit device-frame PNGs provide the bezels and screen cutouts. The
-  capture fills the cutout; the composed output retains the capture's exact
-  dimensions so App Store Connect assigns it to the intended device slot.
-- Soft device shadow and alternating text-top/device-bottom layouts provide
-  depth and scroll rhythm. The challenge acceptance/live pair intentionally
-  shares one layout.
+- App Store screenshots use frameit device-frame PNGs and retain the capture's
+  dimensions for the intended device slot. Google Play screenshots show the
+  capture without a device frame and reserve at most 20% of the canvas height
+  for captions, including the outer margin.
+- iOS devices have a soft shadow. Alternating text-top/device-bottom layouts
+  provide scroll rhythm. The challenge acceptance/live pair shares one layout.
 - The customization image pairs the colorful editor with the Ukrainian theme
   list. The hero stays airy and early in the story; there is no win/confetti
   image.

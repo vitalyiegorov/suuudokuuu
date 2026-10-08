@@ -1,38 +1,29 @@
-suuudokuuu adalah Sudoku seperti seharusnya: cepat, cantik, dan jujur soal tingkat kesulitan. Tujuh level, dari papan Pemula yang santai sampai Tak Terhingga — sudoku tersulit yang pernah disusun. Tanpa iklan yang menyamar jadi teka-teki, tanpa akun, tanpa ribet. Cuma kamu dan papannya.
+suuudokuuu adalah game sudoku dengan tujuh level kesulitan, dari Pemula sampai Tak Terhingga, dan peringkat Sudoku Explainer (SE) di setiap papan. Mainkan sudoku klasik secara offline tanpa akun, ikuti tantangan harian, pelajari teknik lewat petunjuk langkah demi langkah, dan kirim puzzle persis milikmu ke teman. Tanpa iklan.
 
 SETIAP SUDOKU ADA PERINGKATNYA
-Kebanyakan aplikasi menempelkan label "expert" pada sebuah papan dan berharap kamu tidak memeriksanya lebih jauh. Kami menaruh angka di situ. Setiap sudoku punya peringkat pada skala Sudoku Explainer (SE), dari 1.0 sampai 12.0, skala yang dipakai pemain serius, dan peringkat itu tampil langsung di label level pada papan, di riwayatmu, serta di setiap tautan yang kamu bagikan. Penjelasan bawaan memberi tahu apa yang sebenarnya diukur angka itu: seberapa berat penalarannya, bukan sesedikit apa petunjuknya.
+Setiap sudoku punya peringkat pada skala Sudoku Explainer (SE), dari 1.0 sampai 12.0, skala yang dipakai pemain serius, dan peringkat itu tampil langsung di label level pada papan, di riwayatmu, serta di setiap tautan yang kamu bagikan. Penjelasan bawaan memberi tahu apa yang sebenarnya diukur angka itu: seberapa berat penalarannya, bukan sesedikit apa petunjuknya.
 
-TAK TERHINGGA: SUDOKU TERSULIT SEDUNIA
-Kumpulan pilihan berisi 100 sudoku rekor dunia dengan peringkat SE 10.4 sampai 11.9. Everest dan AI Escargot karya Arto Inkala. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Inilah papan-papan yang dijadikan legenda oleh komunitas pemecah sudoku, dan kebanyakan orang tidak pernah menyelesaikan satu pun.
+TAK TERHINGGA: SUDOKU DENGAN NILAI SE 10.4 HINGGA 11.9
+Kumpulan pilihan berisi 100 sudoku dengan nilai SE 10.4 hingga 11.9, termasuk Everest dan AI Escargot karya Arto Inkala.
 
-NERAKA, DIKURASI ULANG
-Neraka kini berisi 958 sudoku terverifikasi yang semuanya menuntut rantai paksa: tidak satu pun bisa diselesaikan dengan teknik yang diizinkan Mimpi buruk, dan semuanya berperingkat SE 7.5 sampai 8.5. Sedikitnya petunjuk saja tidak membuat sebuah sudoku jadi sulit, jadi kami memilih Neraka berdasarkan penalaran yang dituntut tiap papan, bukan dari seberapa sedikit petunjuknya.
+NERAKA: RANTAI PAKSA WAJIB
+Neraka berisi sudoku terverifikasi yang semuanya menuntut rantai paksa: tidak satu pun bisa diselesaikan dengan teknik yang diizinkan Mimpi buruk, dan semuanya berperingkat SE 7.5 ke atas.
 
 PERMAINANMU, TERUKUR
-Layar statistik yang dirancang ulang menampilkan Sudoku tersulit yang pernah kamu pecahkan, rata-rata kesulitan permainan terakhirmu, dan level yang paling sering kamu mainkan. Spektrum SE menempatkan setiap sudoku yang sudah kamu selesaikan di sepanjang skala. Arsenalmu menghitung setiap teknik yang benar-benar kamu pakai — Pasangan Telanjang, X-Wing, Swordfish, dan seterusnya — jadi kamu bisa melihat sendiri repertoarmu bertambah.
+Layar statistik menampilkan Sudoku tersulit yang pernah kamu pecahkan, rata-rata kesulitan permainan terakhirmu, dan level yang paling sering kamu mainkan. Spektrum SE menempatkan setiap sudoku yang sudah kamu selesaikan di sepanjang skala. Arsenalmu menghitung setiap teknik yang benar-benar kamu pakai — Pasangan Telanjang, X-Wing, Swordfish, dan seterusnya — jadi kamu bisa melihat sendiri repertoarmu bertambah. Setiap permainan yang selesai bisa diputar ulang langkah demi langkah, dan tiap kartu riwayat membawa ringkasan teknik yang menyelesaikannya.
 
 TANTANG TEMAN
-Mode Lawan mengirim sudoku yang persis sama ke temanmu lewat tautan berbagi, lengkap dengan rekaman permainanmu. Dia memainkan papan yang sama dan mengejar waktumu, langkah demi langkah. Urusan gengsi, beres.
-
-TONTON ULANG
-Setiap permainan yang selesai bisa diputar ulang langkah demi langkah, dan tiap kartu riwayat membawa ringkasan teknik yang menyelesaikannya.
+Mode Lawan mengirim sudoku yang persis sama ke temanmu lewat tautan berbagi, lengkap dengan rekaman permainanmu. Dia memainkan papan yang sama dan mengejar waktumu, langkah demi langkah.
 
 MAIN SESUKAMU
-Pilih Klasik, Emas, atau Koran, atau buka editor tema dengan pratinjau langsung dan atur sendiri setiap sel, garis, dan sorotan. Validasi kontras bawaan menjaga tema buatanmu tetap enak dibaca di mode terang maupun gelap. Di web tersedia kontrol keyboard penuh: panah untuk berpindah, angka untuk mengisi, Spasi atau N untuk mode catatan, Shift dan angka untuk kandidat, A untuk kandidat otomatis.
+Pilih Klasik, Emas, atau Koran, atau buka editor tema dengan pratinjau langsung dan atur sendiri setiap sel, garis, dan sorotan. Validasi kontras bawaan menjaga tema buatanmu tetap enak dibaca di mode terang maupun gelap.
+
+TANTANGAN HARIAN DAN PETUNJUK YANG MENGAJAR
+Satu sudoku baru setiap hari, lengkap dengan rangkaian yang menghitung berapa hari berturut-turut kamu menyelesaikannya. Buntu? Petunjuk akan memandumu langkah demi langkah lewat tekniknya, dari naked pair sampai X-Wing dan seterusnya, supaya kamu paham kenapa langkah itu benar, bukan cuma di mana letaknya.
 
 SEMUA YANG LAIN
-• 7 tingkat kesulitan, Pemula sampai Tak Terhingga
-• Peringkat kesulitan SE di setiap sudoku
-• Editor tema lengkap dengan mode terang dan gelap
-• Tantangan Lawan lewat tautan berbagi
-• Putar ulang langkah demi langkah dengan analisis teknik
 • Skor yang memperhitungkan teknik
 • 13 bahasa
-• Bisa dimainkan sepenuhnya offline
-• Tanpa akun, tanpa daftar, selamanya
-• Gratis dan open source
-
-suuudokuuu dibuat untuk orang yang benar-benar suka Sudoku, bukan untuk orang yang mau dijejali langganan. Unduh, pilih tingkat kesulitan, dan cari tahu berapa angkamu.
+• Open source
 
 Info lengkap di www.suuudokuuu.com.
