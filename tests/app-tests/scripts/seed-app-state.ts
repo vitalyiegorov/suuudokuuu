@@ -200,11 +200,9 @@ const getIosDataContainer = (udid: string, appId: string): string => {
     return container.output.trim();
 };
 
-const getIosStorageDatabasePath = (udid: string, appId: string): string => join(getIosDataContainer(udid, appId), IosStorageRelativePath);
-
 const seedIosState = (target: SeedTarget, value: string): void => {
     runCommand('xcrun', ['simctl', 'terminate', target.udid, target.appId]);
-    writePersistRootToDatabase(getIosStorageDatabasePath(target.udid, target.appId), value);
+    writePersistRootToDatabase(join(getIosDataContainer(target.udid, target.appId), IosStorageRelativePath), value);
 };
 
 const adbArguments = (serial: string, commandArguments: string[]): string[] => {
@@ -270,7 +268,7 @@ export const installDatabase = (target: SeedTarget, databasePath: string): void 
     if (target.platform === 'ios') {
         runCommand('xcrun', ['simctl', 'terminate', target.udid, target.appId]);
 
-        const installedPath = join(getIosDataContainer(target.udid, target.appId), 'Documents', DatabaseFileName);
+        const installedPath = join(getIosDataContainer(target.udid, target.appId), 'Library', DatabaseFileName);
 
         rmSync(`${installedPath}-wal`, { force: true });
         rmSync(`${installedPath}-shm`, { force: true });
