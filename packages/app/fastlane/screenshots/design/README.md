@@ -14,7 +14,12 @@ appearance variants. Each of the 11 Apple locales has 9 iPhone screenshots at
 replaces a committed set only after every scene for that variant succeeds.
 The `all` command also composes the Play sets: 8 phone screenshots at
 1080×1920 for each of 13 Google Play locales. The `tablet` command composes 5
-screenshots at 1080×1920 into each Play locale's 7" and 10" tablet sets.
+screenshots at 1080×1920 into each Play locale's 7" and 10" tablet sets. The
+`duo` command frames the iPhone raws onto the iPhone Duo canvases, 1398×2034 and
+2007×2853, under `variants/<variant>/iphone-duo/<size>/<locale>`; the 9 iPhone
+scenes are reused and the iPad scenes skipped. The frame is clamped to the canvas
+below the caption stack and the customization pair is centered, so no layout
+constant changes.
 
 The iPhone order is:
 

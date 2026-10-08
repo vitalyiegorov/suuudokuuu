@@ -31,6 +31,9 @@ APP_ID=<package> pnpm --filter @suuudokuuu/app-tests screenshots:capture \
   --scenes=hero-board,challenge-live,editor,replay,stats \
   --output-dir=packages/app/fastlane/screenshots/raw/tablet7   # or raw/tablet10
 
+# 3c. iPhone Duo: no capture of its own, reuse the iPhone raws (step 1), then:
+bash packages/app/fastlane/screenshots/design/compose-screenshots.sh de-DE duo
+
 # 4. Compose store sets (staging dir, swap-on-success):
 bash packages/app/fastlane/screenshots/design/compose-screenshots.sh de-DE all
 bash packages/app/fastlane/screenshots/design/compose-screenshots.sh de-DE tablet
@@ -204,7 +207,8 @@ failed midway. The second argument accepts `light`, `dark`, `all`, or
 
 Before committing a set, verify — do not eyeball only:
 
-- Counts and dimensions: iPhone 1320x2868, iPad 2752x2064, Play 1080x1920
+- Counts and dimensions: iPhone 1320x2868, iPad 2752x2064, Play 1080x1920,
+  iPhone Duo 1398x2034 and 2007x2853
   (`sips -g pixelWidth -g pixelHeight`).
 - Zero `composing from en` notes in the compose output. Native-language
   screens are a release requirement; English fallbacks are banned.
@@ -215,6 +219,19 @@ Before committing a set, verify — do not eyeball only:
 - Statistics shots must show a fully seeded Solver Profile (SE spectrum,
   arsenal with counts) — a "Hardest solve 1.0" hero means the seed did not
   apply.
+
+## iPhone Duo
+
+There is no iPhone Duo simulator in Xcode 26.6 (devicetypes list only iPhone 17
+and Air models), so there is no capture profile: `compose-screenshots.sh <locale> duo`
+frames the iPhone 17 Pro Max raws (`raw/ios/iphone`, step 1) onto the 1398x2034
+and 2007x2853 canvases. The raws need `en` and `uk` for the customization pair,
+plus the scenes of the iPhone manifest. Outputs go to
+`variants/<variant>/iphone-duo/<outer|inner>/<locale>`, outside the folder
+`deliver` uploads, and are uploaded by hand in App Store Connect (see
+`packages/app/fastlane/screenshots/README.md`, "iPhone Duo sets").
+Non-Latin locales need a Mac for the system caption fonts, plus `imagemagick`
+and `librsvg`.
 
 ## Publishing
 
