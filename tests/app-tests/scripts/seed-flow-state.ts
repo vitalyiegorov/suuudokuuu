@@ -1,4 +1,4 @@
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -74,6 +74,20 @@ const writeFixtures = (directory: string) =>
         discard: true
     });
 
+const readContent = Effect.fn('readContent')(function* (databasePath: string) {
+    const sql = yield* SqlClient.SqlClient;
+
+    yield* sql`ATTACH DATABASE ${databasePath} AS inspected`;
+
+    const schema = yield* sql.unsafe('SELECT type, name, sql FROM inspected.sqlite_master ORDER BY type, name');
+    const tableNames = yield* sql.unsafe<{ readonly name: string }>(
+        "SELECT name FROM inspected.sqlite_master WHERE type = 'table' ORDER BY name"
+    );
+    const tables = yield* Effect.forEach(tableNames, ({ name }) => sql.unsafe(`SELECT * FROM inspected."${name}" ORDER BY rowid`));
+
+    return JSON.stringify([schema, tables]);
+}, Effect.provide(makeTestSqlLayer()));
+
 const checkFixtures = Effect.gen(function* () {
     const directory = yield* Effect.acquireRelease(
         Effect.sync(() => mkdtempSync(join(tmpdir(), 'seed-flow-state-'))),
@@ -82,8 +96,11 @@ const checkFixtures = Effect.gen(function* () {
 
     yield* writeFixtures(directory);
 
-    const staleFixtures = [...fixtures.keys()].filter(
-        name => !readFileSync(join(directory, `${name}.db`)).equals(readFileSync(join(fixturesDirectory, `${name}.db`)))
+    const staleFixtures = yield* Effect.filter([...fixtures.keys()], name =>
+        Effect.map(
+            Effect.all([readContent(join(directory, `${name}.db`)), readContent(join(fixturesDirectory, `${name}.db`))]),
+            ([generated, committed]) => generated !== committed
+        )
     );
 
     if (isNotEmptyArray(staleFixtures)) {
