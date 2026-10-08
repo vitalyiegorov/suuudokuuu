@@ -1,6 +1,6 @@
 # Store listing experiments plan
 
-Plan for Apple Product Page Optimization (PPO) and Google Play store listing experiments. It makes no store change: nothing here is configured in App Store Connect or Play Console. Variants are produced with the [store-media skill](../.agents/skills/store-media/SKILL.md); custom pages are covered in [store-custom-pages.md](store-custom-pages.md).
+Plan for Apple Product Page Optimization (PPO) and Google Play store listing experiments. Nothing here is configured in App Store Connect or Play Console yet. Variants are produced with the [store-media skill](../.agents/skills/store-media/SKILL.md); custom pages are covered in [store-custom-pages.md](store-custom-pages.md).
 
 ## Store limits
 
@@ -15,7 +15,7 @@ Verified 2026-10-08 against [Apple PPO](https://developer.apple.com/app-store/pr
 | Confidence  | Estimate targets at least 90%        | Selectable confidence level                                                    |
 | Edits       | A started test cannot be changed     | Not stated on the page (unconfirmed)                                           |
 
-Header and search-results asset in PPO: **unconfirmed, and not listed by Apple.** Apple's PPO page names only icons, screenshots and app previews. The WWDC26 session 205 only says to use PPO "to test different visuals ... whether it's your app's logo, core value or a new feature" and never ties PPO to the header or search-results assets ([session](https://developer.apple.com/videos/play/wwdc2026/205/)). Only third-party ASO summaries claim header support. Treat the header/search-results test as unsupported until PPO in App Store Connect offers those assets as a treatment; check when the Asset Library is live for our app.
+Header and search-results asset in PPO: **unconfirmed, treat as unsupported.** Apple's PPO page names only icons, screenshots and app previews, and [WWDC26 session 205](https://developer.apple.com/videos/play/wwdc2026/205/) never ties PPO to the header or search-results assets; only third-party ASO summaries claim it. Recheck when the Asset Library is live for our app.
 
 ## Rules for every test
 
@@ -49,7 +49,6 @@ Prerequisite: #469 merged, released and live in the stores.
 - Variant: the new #469 frame 1 only; frames 2 and later stay identical to control. Same device sizes and dark/light variant as control.
 - Apple: one treatment, with the new first screenshot, on the en-US iPhone set (iPad set unchanged).
 - Play: default-graphics experiment, one variant, phone screenshots with the new first image.
-- Success: conversion rate up at 90% confidence on Apple; Play reports a winner.
 
 ## Results log
 
