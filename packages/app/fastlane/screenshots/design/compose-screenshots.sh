@@ -30,11 +30,13 @@
 #
 # `locale` defaults to en-US and must have a design/<locale>/title.strings
 # and design/<locale>/subtitle.strings file. `variant` is light, dark,
-# android, or all (the default) and selects which appearance set(s) to
+# android, tablet, or all (the default) and selects which appearance set(s) to
 # compose into variants/<variant>/ios/<locale>. `all` and `dark` also compose
 # the Play set; `android` composes only the Play set, which is what to use
 # when the iOS raw captures for a device class are unavailable and the iOS
-# stages of `dark` would abort before reaching it. The scene manifests (which
+# stages of `dark` would abort before reaching it. `tablet` composes only the
+# Play 7" and 10" tablet sets from raw/tablet7/android and raw/tablet10/android
+# (capture with --output-dir=<raw>/tablet7). The scene manifests (which
 # raw captures to use, in which order, with which appearance, layout variant,
 # and device size) are curated below in SCENES_LIGHT/SCENES_DARK — they are a
 # store-listing decision, not something to infer from the raw capture
@@ -123,8 +125,8 @@ raw_source_for() {
   echo "$locale_src"
 }
 
-if [[ "$VARIANT" != "all" && "$VARIANT" != "light" && "$VARIANT" != "dark" && "$VARIANT" != "android" ]]; then
-  echo "error: unknown variant '$VARIANT'. Use light, dark, android, or all." >&2
+if [[ "$VARIANT" != "all" && "$VARIANT" != "light" && "$VARIANT" != "dark" && "$VARIANT" != "android" && "$VARIANT" != "tablet" ]]; then
+  echo "error: unknown variant '$VARIANT'. Use light, dark, android, tablet, or all." >&2
   exit 1
 fi
 
@@ -149,7 +151,7 @@ fi
 # fastlane moved its frameit cache from ~/.frameit to ~/.fastlane/frameit at
 # some point; accept either so this keeps working on older fastlane installs.
 FRAMES_DIR=""
-if [[ "$VARIANT" != "android" ]]; then
+if [[ "$VARIANT" != "android" && "$VARIANT" != "tablet" ]]; then
   for candidate in "$HOME/.fastlane/frameit/latest" "$HOME/.frameit/latest"; do
     if [[ -d "$candidate" ]]; then
       FRAMES_DIR="$candidate"
@@ -176,7 +178,7 @@ IPHONE_FRAME="$FRAMES_DIR/Apple iPhone 16 Pro Max Black Titanium.png"
 # just a slightly smaller/older panel. See README.md "Framing" for the
 # comparison against the (older, home-button) generic "iPad Pro" frame.
 IPAD_FRAME_PORTRAIT="$FRAMES_DIR/Apple iPad Pro (12.9-inch) (4th generation) Space Gray.png"
-if [[ "$VARIANT" != "android" ]]; then
+if [[ "$VARIANT" != "android" && "$VARIANT" != "tablet" ]]; then
   for frame_file in "$IPHONE_FRAME" "$IPAD_FRAME_PORTRAIT"; do
     if [[ ! -f "$frame_file" ]]; then
       echo "error: missing frame asset '$frame_file' — re-run 'fastlane frameit download_frames'" >&2
@@ -286,7 +288,7 @@ SHADOW_OFFSET_RATIO="0.00953"
 WORK_ROOT="$STAGE_ROOT/work"
 mkdir -p "$WORK_ROOT"
 
-if [[ "$VARIANT" != "android" ]]; then
+if [[ "$VARIANT" != "android" && "$VARIANT" != "tablet" ]]; then
   IPAD_FRAME_LANDSCAPE="$WORK_ROOT/ipad-frame-landscape.png"
   magick "$IPAD_FRAME_PORTRAIT" -rotate 90 -define png:color-type=6 -depth 8 "$IPAD_FRAME_LANDSCAPE"
 
@@ -842,6 +844,14 @@ SCENES_ANDROID=(
   "android|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_phone_hero-board-light.png|01-hero-board-light"
 )
 
+SCENES_TABLET=(
+  "android|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|01_tablet_hero-board.png"
+  "android|14-challenge-live|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|02_tablet_challenge-live.png"
+  "android|04-editor|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|03_tablet_customization.png|04-editor"
+  "android|07-replay|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_tablet_replay.png"
+  "android|10-stats|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|05_tablet_stats.png"
+)
+
 SCENES_DARK=(
   "iphone|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|01_iphone_hero-board.png"
   "iphone|02-hell|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|02_iphone_hell.png"
@@ -899,7 +909,26 @@ run_android() {
   publish_stage "$APP_DIR/fastlane/metadata/android/$PLAY_LOCALE/images/phoneScreenshots"
 }
 
-if [[ "$VARIANT" == "all" ]]; then
+run_tablet() {
+  local raw_name="$1" images_folder="$2"
+  set_variant_palette "dark"
+  ANDROID_RAW_DIR="$APP_DIR/fastlane/screenshots/raw/$raw_name/android"
+  OUT_DIR="$STAGE_ROOT/$raw_name-$PLAY_LOCALE"
+
+  mkdir -p "$OUT_DIR"
+  local entry device scene appearance layout height_fraction out_name caption_key
+  for entry in "${SCENES_TABLET[@]}"; do
+    IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
+    compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
+  done
+
+  publish_stage "$APP_DIR/fastlane/metadata/android/$PLAY_LOCALE/images/$images_folder"
+}
+
+if [[ "$VARIANT" == "tablet" ]]; then
+  run_tablet "tablet7" "sevenInchScreenshots"
+  run_tablet "tablet10" "tenInchScreenshots"
+elif [[ "$VARIANT" == "all" ]]; then
   run_variant "light"
   run_variant "dark"
   run_android

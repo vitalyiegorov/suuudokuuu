@@ -44,7 +44,9 @@ before relying on them.
 - `packages/app/fastlane/metadata/android/<locale>/` - 13 Play locales: ar,
   bn-BD, de-DE, en-US, es-ES, fr-FR, hi-IN, id, pt-BR, sv-SE, uk, ur, zh-CN.
   Files: title, short_description, full_description, changelogs, and
-  `images/phoneScreenshots/`.
+  `images/phoneScreenshots/`, plus `sevenInchScreenshots/` and
+  `tenInchScreenshots/` (5 shots each at 1080x1920, composed by
+  `compose-screenshots.sh <locale> tablet`; `store_preflight` checks them).
 - `packages/app/fastlane/metadata/release-notes-state.json` - base tag +
   commit of the last release-notes generation; the publish workflow warns when
   user-facing commits landed after it.
@@ -397,8 +399,8 @@ Play Developer API covers them.
   deployed. ar-SA recapture is owed after the RTL fix (#447); the Hell scene
   recapture is owed (#445).
 - Play phone sets predate the redesigns (#448). Missing: 1024x500 feature
-  graphic (design artwork, not a capture), 7"/10" tablet sets, App Preview
-  video.
+  graphic (design artwork, not a capture), App Preview video. The large-screen
+  badge is confirmed in Play Console only after the tablet sets upload (#479).
 - ar-SA, ur, hi, bn-BD, and zh-Hans captions render through `rsvg-convert`
   (needs `brew install librsvg`); Latin and Cyrillic use ImageMagick.
 - The store capture should become an E2E smoke run (#483). There is no in-app

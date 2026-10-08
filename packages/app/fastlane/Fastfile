@@ -174,6 +174,24 @@ def verify_ios_screenshot_slots(path)
   end
 end
 
+def verify_play_tablet_screenshots(images_path, folder)
+  tablet_path = File.join(images_path, folder)
+  verify_store_directory("Play #{folder}", tablet_path)
+  screenshots = Dir.children(tablet_path).sort
+  unless (4..8).cover?(screenshots.length)
+    UI.user_error!("#{tablet_path} has #{screenshots.length} screenshots; Play requires 4 to 8 per tablet type")
+  end
+
+  screenshots.each do |filename|
+    screenshot = File.join(tablet_path, filename)
+    width, height = verify_rgb_screenshot(screenshot)
+    long_side, short_side = [width, height].max, [width, height].min
+    unless short_side >= 1080 && long_side <= 7680 && long_side * 9 == short_side * 16
+      UI.user_error!("#{screenshot} is #{width}x#{height}; Play tablet screenshots must be 16:9 or 9:16 within 1080-7680 px")
+    end
+  end
+end
+
 def verify_android_artwork(path = ANDROID_METADATA_PATH)
   verify_store_directory("Android metadata", path)
   metadata_locales = Dir.children(path).select { |locale| File.directory?(File.join(path, locale)) }.sort
@@ -200,6 +218,9 @@ def verify_android_artwork(path = ANDROID_METADATA_PATH)
       end
     end
 
+    verify_play_tablet_screenshots(images_path, "sevenInchScreenshots")
+    verify_play_tablet_screenshots(images_path, "tenInchScreenshots")
+
     feature_graphic_path = File.join(images_path, "featureGraphic.png")
     unless png_header(feature_graphic_path) == [1024, 500, 8, 2]
       UI.user_error!("#{feature_graphic_path} must be a 1024x500 8-bit RGB PNG without alpha")
@@ -210,7 +231,7 @@ def verify_android_artwork(path = ANDROID_METADATA_PATH)
       UI.user_error!("#{icon_path} must be a 512x512 8-bit RGBA PNG")
     end
     UI.user_error!("#{icon_path} exceeds Play's 1 MiB icon limit") if File.size(icon_path) > 1024 * 1024
-    UI.success("  Play #{locale}: #{screenshots.length} phone screenshots, feature graphic and icon")
+    UI.success("  Play #{locale}: #{screenshots.length} phone and tablet screenshots, feature graphic and icon")
   end
 end
 

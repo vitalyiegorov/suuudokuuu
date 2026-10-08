@@ -25,8 +25,15 @@ DEVICE_CLASS=ipad ORIENTATION=landscape APP_ID=<bundle-id> SIMULATOR_UDID=<udid>
 APP_ID=<package> pnpm --filter @suuudokuuu/app-tests screenshots:capture \
   --platform=android --serial=<adb-serial> --locales=de
 
+# 3b. Play tablets (google_apis AVDs: Nexus 7 2013 for 7", Nexus 10 for 10"), one raw root each:
+APP_ID=<package> pnpm --filter @suuudokuuu/app-tests screenshots:capture \
+  --platform=android --serial=<adb-serial> --appearances=dark \
+  --scenes=hero-board,challenge-live,editor,replay,stats \
+  --output-dir=packages/app/fastlane/screenshots/raw/tablet7   # or raw/tablet10
+
 # 4. Compose store sets (staging dir, swap-on-success):
 bash packages/app/fastlane/screenshots/design/compose-screenshots.sh de-DE all
+bash packages/app/fastlane/screenshots/design/compose-screenshots.sh de-DE tablet
 ```
 
 A full locale (both appearances) takes ~1.6 minutes. All 13 locales across
@@ -112,6 +119,13 @@ is exactly what step 2 above already does.
   and launching the Hell scene for each locale, swipe Home upward until the
   full button sits above the tabs, then save `02-hell.png` before composing.
   The 2.20.0 Play set was captured this way on `emulator-5554`.
+- **Android tablets** compose frameless at 1080x1920 into `sevenInchScreenshots` and
+  `tenInchScreenshots`. Three hazards: a fresh install has no
+  `files/SQLite/ExpoSQLiteStorage`, so launch the app once, then create that file
+  empty, owned by the app uid (`chown`, `chmod 660`); the Pixel Launcher taskbar is
+  captured unless `pm disable-user --user 0 com.google.android.apps.nexuslauncher`;
+  software-GL emulators need `CAPTURE_LAUNCH_SETTLE_MS=12000` and
+  `CAPTURE_SCENE_SETTLE_MS=8000` or shots catch a blank screen.
 - **Status bar:** launch arguments do not touch the system status bar, so the
   runner applies `simctl status_bar override` (9:41, full bars, 100%
   battery) and Android SystemUI demo mode. `--status-bar=real` restores the
