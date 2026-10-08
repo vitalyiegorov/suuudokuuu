@@ -65,6 +65,11 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => {
             flexDirection: 'row',
             gap: theme.spacing.xs / 2
         },
+        progressText: {
+            color: theme.colors.text.primary,
+            fontSize: 12,
+            fontVariant: ['tabular-nums']
+        },
         dot: {
             backgroundColor: theme.colors.text.hint,
             borderRadius: theme.radius.pill,

@@ -254,6 +254,14 @@ msgstr "AIC"
 msgid "All"
 msgstr "Toutes"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "All branches reach {value} in {cell}, so it can be placed there."
+msgstr "Toutes les branches aboutissent à {value} en {cell} ; on peut donc y placer ce chiffre."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "All branches remove {eliminations}, so these candidates can be eliminated."
+msgstr "Toutes les branches éliminent {eliminations} ; ces candidats peuvent donc être retirés."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "All of a number (1-9)"
 msgstr "Toutes les cases d'un chiffre (1-9)"
@@ -303,6 +311,26 @@ msgstr "Appliquer un indice"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
 msgstr "Aides"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Assuming {assumptionCell} is {assumptionValue} leads to a contradiction: {cell} has no candidate left."
+msgstr "Si {assumptionCell} vaut {assumptionValue}, contradiction : {cell} ne possède plus aucun candidat."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Assuming {assumptionCell} is {assumptionValue} leads to a contradiction: {value} can no longer be assigned to {cell}."
+msgstr "Si {assumptionCell} vaut {assumptionValue}, contradiction : {value} ne peut plus être placé en {cell}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Assuming {assumptionCell} is {assumptionValue} leads to a contradiction: {value} has no possible cell among {cells}."
+msgstr "Si {assumptionCell} vaut {assumptionValue}, contradiction : aucune des cases {cells} ne peut contenir {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Assuming {assumptionCell} is {assumptionValue}, this branch reaches {value} in {cell}."
+msgstr "En supposant {assumptionCell} = {assumptionValue}, cette branche aboutit à {value} en {cell}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Assuming {assumptionCell} is {assumptionValue}, this branch removes {eliminations}."
+msgstr "En supposant {assumptionCell} = {assumptionValue}, cette branche élimine {eliminations}."
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -392,6 +420,10 @@ msgstr "États de la grille distingués par la luminosité et les contours, pas 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "Réduction bloc-ligne"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: suppose {assumptionCell} is {assumptionValue}."
+msgstr "Branche {branchNumber} sur {branchCount} : supposons que {assumptionCell} vaut {assumptionValue}."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "BUG+1"
@@ -935,6 +967,26 @@ msgstr "Comment fonctionne le score"
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "J'ai terminé ce sudoku en {elapsedTimeString}. Pouvez-vous faire mieux ?"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {assumptionCell} is {assumptionValue}, {sourceCell} has {sourceValue}, removing {value} from peer {cell}."
+msgstr "Si {assumptionCell} vaut {assumptionValue}, {sourceCell} contient {sourceValue}, ce qui élimine {value} de la case voisine {cell}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {assumptionCell} is {assumptionValue}, among {supportCells}, only {cell} can take {value}, so this branch places it there."
+msgstr "Si {assumptionCell} vaut {assumptionValue}, parmi {supportCells}, seule {cell} peut contenir {value} ; cette branche y place ce chiffre."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {assumptionCell} is {assumptionValue}, only {value} remains possible in {cell}, so this branch places it there."
+msgstr "Si {assumptionCell} vaut {assumptionValue}, seul {value} reste possible en {cell} ; cette branche y place ce chiffre."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {assumptionCell} is {assumptionValue}, the deduction at {reasonCell} leads this branch to assign {value} to {cell}."
+msgstr "Si {assumptionCell} vaut {assumptionValue}, la déduction en {reasonCell} amène cette branche à placer {value} en {cell}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {assumptionCell} is {assumptionValue}, this branch assigns {value} to {cell}."
+msgstr "Si {assumptionCell} vaut {assumptionValue}, cette branche place {value} en {cell}."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
@@ -1768,6 +1820,10 @@ msgstr "Commencer une nouvelle grille"
 msgid "Start puzzle"
 msgstr "Lancer la grille"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Start with candidate {value} in {cell}."
+msgstr "Commençons par le candidat {value} en {cell}."
+
 #: src/screens/components/history-screen/history.screen.tsx
 msgid "Statistics"
 msgstr "Statistiques"
@@ -1800,6 +1856,10 @@ msgstr "Arrêter la partie en cours ?"
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Stop this run"
 msgstr "Arrêter la partie"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Strong link: at least one of {previousValue} in {previousCell} and {value} in {cell} must be true."
+msgstr "Lien fort : au moins un des candidats {previousValue} en {previousCell} et {value} en {cell} doit être vrai."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
@@ -2106,6 +2166,10 @@ msgstr "Accents dorés chaleureux pour une grille plus lumineuse"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "Impossible de charger la dernière version de développement. Réessayez."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Weak link: {previousValue} in {previousCell} and {value} in {cell} cannot both be true."
+msgstr "Lien faible : {previousValue} en {previousCell} et {value} en {cell} ne peuvent pas être vrais tous les deux."
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."

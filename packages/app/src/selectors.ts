@@ -29,6 +29,7 @@ export * from './daily/components/daily-week-strip/daily-week-strip.selectors';
 export * from './game/components/available-values-item/available-value-item.selectors';
 export * from './game/components/candidate-input-item/candidate-input-item.selectors';
 export * from './game/components/difficulty-complexity-slider/difficulty-complexity-option/difficulty-complexity-option.selectors';
+export * from './game/components/field-witness-overlay/field-witness-overlay.selectors';
 export * from './game/components/hint-button/hint-button.selectors';
 export * from './game/components/hint-panel/hint-panel.selectors';
 export * from './game/components/hint-step-narration/hint-step-narration.selectors';

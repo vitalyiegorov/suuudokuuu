@@ -5,3 +5,4 @@ export const ratedWinningSharedChallengeEncodedConstant = '_OWP________9____qXF6
 export const ratedLosingSharedChallengeEncodedConstant = '_OQP3__7X7_7r____zMOSjkyv8nqM0LfkydkEBSLStwgSBis7M6rv28ZIIAIiAZAgAAEKAA';
 export const pointingPairHintSharedPuzzleEncodedConstant = '_MANQGaciM0yz__9dFFCq5FGCkeArJsaswTCLjQ9JvkaI';
 export const revealHintSharedPuzzleEncodedConstant = '_MAOAGBKIgOCIhmJCSdF6-r0U89CWVWg';
+export const structuredChainHintSharedPuzzleEncodedConstant = '_MAMEQgRyQAvATMAHHehYIMMrDmRaBVaA';

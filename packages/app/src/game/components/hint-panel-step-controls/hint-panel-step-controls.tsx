@@ -7,6 +7,7 @@ import { View } from 'react-native';
 import { i18nIsRightToLeftLocale } from '../../../@generic/utils/i18n-is-right-to-left-locale.util';
 import { HintPanelSelectors } from '../hint-panel/hint-panel.selectors';
 import { HintPanelStyles as styles } from '../hint-panel/hint-panel.styles';
+import { HintProgress } from '../hint-progress/hint-progress';
 
 import type { FieldEngine, StepScriptInterface } from '@suuudokuuu/field-core';
 
@@ -23,16 +24,13 @@ export const HintPanelStepControls = ({ engine, stepIndex, stepScript }: Props) 
     const isRightToLeft = i18nIsRightToLeftLocale(i18n.locale);
     const previousStepIcon = isRightToLeft ? LucideChevronRight : LucideChevronLeft;
     const nextStepIcon = isRightToLeft ? LucideChevronLeft : LucideChevronRight;
+    const progressAccessibilityLabel = t`Step ${currentStepNumber} of ${stepCount}`;
 
     const handleBack = () => void engine.stepScriptBack();
     const handleNext = () => void engine.stepScriptNext();
 
     return (
-        <View
-            accessibilityLabel={t`Step ${currentStepNumber} of ${stepCount}`}
-            style={styles.stepControls}
-            testID={HintPanelSelectors.Progress}
-        >
+        <View accessibilityLabel={progressAccessibilityLabel} style={styles.stepControls} testID={HintPanelSelectors.Progress}>
             <AppButton
                 accessibilityLabel={t`Previous step`}
                 disabled={currentStepNumber === 1}
@@ -44,14 +42,7 @@ export const HintPanelStepControls = ({ engine, stepIndex, stepScript }: Props) 
                 variant="ghost"
             />
 
-            <View style={styles.dots}>
-                {stepScript.steps.map((step, index) => {
-                    const isCurrentStep = index === stepIndex;
-                    const dotStyles = isCurrentStep ? styles.dotActive : styles.dot;
-
-                    return <View key={`${step.kind}-${index}`} style={dotStyles} />;
-                })}
-            </View>
+            <HintProgress progressLabel={progressAccessibilityLabel} stepIndex={stepIndex} stepScript={stepScript} />
 
             <AppButton
                 accessibilityLabel={t`Next step`}

@@ -252,6 +252,14 @@ msgstr "AIC"
 msgid "All"
 msgstr "全部"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "All branches reach {value} in {cell}, so it can be placed there."
+msgstr "所有分支都推得 {cell} 为 {value}，因此可以填入。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "All branches remove {eliminations}, so these candidates can be eliminated."
+msgstr "所有分支都排除 {eliminations}，因此可以删去这些候选数。"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "All of a number (1-9)"
 msgstr "某个数字的所有格（1-9）"
@@ -301,6 +309,26 @@ msgstr "使用提示"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
 msgstr "辅助操作"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Assuming {assumptionCell} is {assumptionValue} leads to a contradiction: {cell} has no candidate left."
+msgstr "如果假设 {assumptionCell} 是 {assumptionValue}，就会出现矛盾：{cell} 没有剩余候选数。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Assuming {assumptionCell} is {assumptionValue} leads to a contradiction: {value} can no longer be assigned to {cell}."
+msgstr "如果假设 {assumptionCell} 是 {assumptionValue}，就会出现矛盾：{value} 已不能填入 {cell}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Assuming {assumptionCell} is {assumptionValue} leads to a contradiction: {value} has no possible cell among {cells}."
+msgstr "如果假设 {assumptionCell} 是 {assumptionValue}，就会出现矛盾：在 {cells} 中没有格子能填 {value}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Assuming {assumptionCell} is {assumptionValue}, this branch reaches {value} in {cell}."
+msgstr "假设 {assumptionCell} = {assumptionValue}，此分支推得 {cell} 为 {value}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Assuming {assumptionCell} is {assumptionValue}, this branch removes {eliminations}."
+msgstr "假设 {assumptionCell} = {assumptionValue}，此分支排除 {eliminations}。"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -390,6 +418,10 @@ msgstr "棋盘状态通过明暗和轮廓区分，而非色相"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
 msgstr "宫线消解"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: suppose {assumptionCell} is {assumptionValue}."
+msgstr "分支 {branchNumber}/{branchCount}：假设 {assumptionCell} 是 {assumptionValue}。"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "BUG+1"
@@ -933,6 +965,26 @@ msgstr "计分规则"
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "我用 {elapsedTimeString} 完成了这道数独。你能超过我吗？"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {assumptionCell} is {assumptionValue}, {sourceCell} has {sourceValue}, removing {value} from peer {cell}."
+msgstr "如果 {assumptionCell} 是 {assumptionValue}，{sourceCell} 就是 {sourceValue}，因此从相邻的 {cell} 排除 {value}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {assumptionCell} is {assumptionValue}, among {supportCells}, only {cell} can take {value}, so this branch places it there."
+msgstr "如果 {assumptionCell} 是 {assumptionValue}，在 {supportCells} 中只有 {cell} 能填 {value}，因此此分支将它填在那里。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {assumptionCell} is {assumptionValue}, only {value} remains possible in {cell}, so this branch places it there."
+msgstr "如果 {assumptionCell} 是 {assumptionValue}，{cell} 只剩 {value} 可填，因此此分支将它填在那里。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {assumptionCell} is {assumptionValue}, the deduction at {reasonCell} leads this branch to assign {value} to {cell}."
+msgstr "如果 {assumptionCell} 是 {assumptionValue}，在 {reasonCell} 得出的推论使此分支在 {cell} 填入 {value}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {assumptionCell} is {assumptionValue}, this branch assigns {value} to {cell}."
+msgstr "如果 {assumptionCell} 是 {assumptionValue}，此分支在 {cell} 填入 {value}。"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
@@ -1766,6 +1818,10 @@ msgstr "开始新数独"
 msgid "Start puzzle"
 msgstr "开始谜题"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Start with candidate {value} in {cell}."
+msgstr "从 {cell} 的候选数 {value} 开始。"
+
 #: src/screens/components/history-screen/history.screen.tsx
 msgid "Statistics"
 msgstr "统计"
@@ -1798,6 +1854,10 @@ msgstr "结束当前对局？"
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Stop this run"
 msgstr "结束本局"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Strong link: at least one of {previousValue} in {previousCell} and {value} in {cell} must be true."
+msgstr "强链：{previousCell} 的 {previousValue} 与 {cell} 的 {value} 至少有一个必须成立。"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
@@ -2104,6 +2164,10 @@ msgstr "温暖金色点缀，让棋盘更明亮"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "无法加载最新开发版本，请重试。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Weak link: {previousValue} in {previousCell} and {value} in {cell} cannot both be true."
+msgstr "弱链：{previousCell} 的 {previousValue} 与 {cell} 的 {value} 不能同时成立。"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."
