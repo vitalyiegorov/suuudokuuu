@@ -8,10 +8,10 @@
  * control characters are used. See ../README.md "Design system" for the
  * two-tier text rules. */
 
-"01-hero-board" = "صاف ہندسے۔ پوری توجہ۔";
+"01-hero-board" = "ہر اشارہ تکنیک کا نام بتاتا ہے۔";
 "01-hero-board-dark" = "مکمل ڈارک موڈ۔ کوئی سمجھوتہ نہیں۔";
 "01-hero-board-light" = "مکمل لائٹ موڈ۔ وہی توجہ۔";
-"02-hell" = "صرف جبری زنجیریں۔ کوئی اندازہ نہیں۔";
+"02-hell" = "جبری زنجیریں، اندازہ نہیں۔";
 "04-editor" = "ہر رنگ خود چنو، خانہ بہ خانہ۔";
 "05-customization" = "سب رنگ تمہارے۔ 13 زبانیں۔";
 "06-rival" = "اصلی کھیل، اینٹی چیٹ سے تصدیق شدہ۔";

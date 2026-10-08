@@ -6,10 +6,10 @@
  * caption stack never grows taller than expected. See ../README.md "Design
  * system" for the two-tier text rules. */
 
-"01-hero-board" = "Chiffres nets. Concentration totale.";
+"01-hero-board" = "Chaque indice nomme la technique.";
 "01-hero-board-dark" = "Mode sombre complet. Aucun compromis.";
 "01-hero-board-light" = "Mode clair complet. Même concentration.";
-"02-hell" = "Que des chaînes forcées. Aucune supposition.";
+"02-hell" = "Des chaînes forcées, sans deviner.";
 "04-editor" = "Composez chaque couleur, case par case.";
 "05-customization" = "Toutes les couleurs. 13 langues.";
 "06-rival" = "Une vraie partie, vérifiée anti-triche.";

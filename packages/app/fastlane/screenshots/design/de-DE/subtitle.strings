@@ -6,10 +6,10 @@
  * caption stack never grows taller than expected. See ../README.md "Design
  * system" for the two-tier text rules. */
 
-"01-hero-board" = "Klare Zahlen. Volle Konzentration.";
+"01-hero-board" = "Jeder Tipp nennt die Technik.";
 "01-hero-board-dark" = "Voller Dark Mode. Keine Kompromisse.";
 "01-hero-board-light" = "Voller Light Mode. Gleicher Fokus.";
-"02-hell" = "Nur Zwangsketten. Keine Vermutungen nötig.";
+"02-hell" = "Zwangsketten lösen selbst Hölle.";
 "04-editor" = "Jede Farbe gestalten, Zelle für Zelle.";
 "05-customization" = "Alle Farben deine. 13 Sprachen.";
 "06-rival" = "Echter Lauf. Anticheat-geprüft.";

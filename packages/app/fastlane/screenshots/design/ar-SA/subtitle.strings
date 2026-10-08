@@ -7,10 +7,10 @@
  * match the headlines in this locale; no directional control characters are
  * used. See ../README.md "Design system" for the two-tier text rules. */
 
-"01-hero-board" = "أرقام واضحة وتركيز تام";
+"01-hero-board" = "كل تلميح يسمّي الأسلوب";
 "01-hero-board-dark" = "وضع داكن كامل بلا تنازلات";
 "01-hero-board-light" = "وضع فاتح كامل بالتركيز ذاته";
-"02-hell" = "سلاسل إجبار فقط، بلا تخمين";
+"02-hell" = "سلاسل إجبار، لا حظ";
 "04-editor" = "صمّم كل لون خلية بخلية";
 "05-customization" = "كل الألوان لك، و١٣ لغة";
 "06-rival" = "جولة حقيقية موثّقة ضد الغش";
