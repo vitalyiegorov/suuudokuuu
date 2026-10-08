@@ -61,6 +61,8 @@
     .field-board {
         display: flex;
         flex-direction: column;
+        direction: ltr;
+        position: relative;
         background-color: var(--field-surface-color);
         border: var(--field-border-strong-width) solid var(--field-border-strong-color);
         font-variant-numeric: tabular-nums;
@@ -69,6 +71,72 @@
     .field-board__row {
         display: flex;
         flex-direction: row;
+    }
+
+    .field-board__witness {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: calc(var(--field-cell-size) * 9);
+        height: calc(var(--field-cell-size) * 9);
+        overflow: visible;
+        pointer-events: none;
+    }
+
+    .field-board__witness line {
+        stroke: var(--field-focus-color);
+        stroke-width: 0.11;
+    }
+
+    .field-board__witness line[data-link='WEAK'] {
+        stroke: var(--field-muted-color);
+        stroke-dasharray: 0.22 0.15;
+    }
+
+    .field-board__witness g[data-candidate] circle {
+        fill: var(--field-cell-pattern-background-color);
+        stroke: var(--field-focus-color);
+        stroke-width: 0.11;
+    }
+
+    .field-board__witness g[data-assumption='true'] circle {
+        stroke-dasharray: 0.22 0.11;
+    }
+
+    .field-board__witness g[data-removal='true'] circle,
+    .field-board__witness rect[data-outcome] {
+        stroke: var(--field-candidate-eliminated-color);
+    }
+
+    .field-board__witness g text {
+        fill: var(--field-button-color);
+        font-size: 0.62px;
+        font-weight: 700;
+    }
+
+    .field-board__witness g[data-removal='true'] text {
+        text-decoration: line-through;
+    }
+
+    .field-board__witness rect[data-outcome] {
+        fill: none;
+        stroke-width: 0.1;
+    }
+
+    .field-board__witness rect[data-support] {
+        fill: none;
+        stroke: var(--field-focus-color);
+        stroke-width: 0.1;
+    }
+
+    .field-board__witness-outcome {
+        fill: none;
+        stroke: var(--field-candidate-eliminated-color);
+        stroke-width: 0.1;
+    }
+
+    .field-board__witness-outcome[data-outcome='COMMON_PLACEMENT'] {
+        stroke: var(--field-focus-color);
     }
 
     .field-board__row:nth-child(3n) .field-cell {
@@ -154,9 +222,11 @@
     .field-cell__candidates {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, minmax(0, 1fr));
         align-items: center;
         justify-items: center;
-        height: 100%;
+        width: var(--field-cell-size);
+        height: var(--field-cell-size);
         color: var(--field-candidate-color);
         font-size: var(--field-candidate-size);
         line-height: 1.1;
@@ -261,6 +331,11 @@
         margin: 0;
         padding: 0;
         list-style: none;
+    }
+
+    .field-step-player__progress-count {
+        color: var(--field-muted-color);
+        font-variant-numeric: tabular-nums;
     }
 
     .field-step-player__dot {
