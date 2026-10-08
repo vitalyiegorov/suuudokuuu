@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.21.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.20.0...v2.21.0) (2026-10-08)
+
+### Features
+
+* **app:** ask for a store rating after a won puzzle ([#486](https://github.com/vitalyiegorov/suuudokuuu/issues/486)) ([49bf860](https://github.com/vitalyiegorov/suuudokuuu/commit/49bf860828688321c3ea7c10b782ff8a58f5971b)), closes [#475](https://github.com/vitalyiegorov/suuudokuuu/issues/475)
+
+
 # [2.20.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.19.0...v2.20.0) (2026-10-07)
 
 ### Features
