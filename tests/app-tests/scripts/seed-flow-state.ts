@@ -1,4 +1,4 @@
-import { mkdtempSync, rmSync } from 'node:fs';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
@@ -10,10 +10,9 @@ import { makeTestSqlLayer } from '@suuudokuuu/test-kit';
 import * as Effect from 'effect/Effect';
 import * as Layer from 'effect/Layer';
 import * as SqlClient from 'effect/sql/SqlClient';
+import * as TestClock from 'effect/testing/TestClock';
 
-import { isDefined, isNotEmptyString } from '@rnw-community/shared';
-
-import { installDatabase, removeInstalledDatabase } from './seed-app-state.ts';
+import { isNotEmptyArray } from '@rnw-community/shared';
 
 const UnratedChallengeLink = '_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-';
 const RatedChallengeLink = '_OWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARgH-IAABCg';
@@ -21,6 +20,8 @@ const RatingWireScale = 10;
 const LastCellIndex = 54;
 const SeedElapsedSeconds = 12;
 const SeedScore = 120;
+const MillisecondsPerSecond = 1000;
+const SeedFinishedAtMs = Date.UTC(2026, 0, 1, 12);
 
 const fixtures = new Map([
     ['unrated-history', { link: UnratedChallengeLink, keepsFinishedRun: false }],
@@ -28,63 +29,68 @@ const fixtures = new Map([
     ['rated-result', { link: RatedChallengeLink, keepsFinishedRun: true }]
 ]);
 
-const { APP_ID = '', ANDROID_SERIAL = '', SEED_FIXTURE = '', SIMULATOR_UDID = '' } = process.env;
+const fixturesDirectory = join(import.meta.dirname, '..', 'fixtures', 'databases');
 
-const seedTarget = {
-    appId: APP_ID,
-    platform: isNotEmptyString(SIMULATOR_UDID) ? 'ios' : 'android',
-    serial: ANDROID_SERIAL,
-    udid: SIMULATOR_UDID
-};
+const writeFixture = Effect.fn('writeFixture')(
+    function* (link: string, keepsFinishedRun: boolean, databasePath: string) {
+        const sql = yield* SqlClient.SqlClient;
+        const currentRunService = yield* CurrentRunService;
+        const rival = new GameStateSerializer().decodeState(link);
 
-const seedFlowState = Effect.gen(function* () {
-    const fixture = fixtures.get(SEED_FIXTURE);
+        yield* TestClock.setTime(SeedFinishedAtMs);
+        yield* currentRunService.load({
+            ...initialCurrentRun,
+            sudokuString: applyCellEventsToField(rival.field, rival.timelineEvents),
+            difficulty: DifficultyEnum.Newbie,
+            rating: rival.rating / RatingWireScale,
+            isRatingCeiling: rival.isRatingCeiling,
+            maxMistakes: rival.maxMistakes,
+            score: SeedScore,
+            elapsedTime: SeedElapsedSeconds,
+            timelineEvents: [
+                { kind: TimelineEventKindEnum.Cell, cellIndex: LastCellIndex, value: 2, ts: SeedElapsedSeconds, score: SeedScore }
+            ],
+            challengeTimelineEvents: rival.timelineEvents,
+            challengeTime: rival.elapsedTime,
+            challengeState: link,
+            isChallengeRun: true
+        });
+        yield* currentRunService.classifyMove({ cell: { x: 0, y: 6, value: 2, group: 6 }, technique: SolutionTechniqueEnum.FullHouse });
+        yield* currentRunService.finish(true, true);
 
-    if (!isDefined(fixture) || !isNotEmptyString(APP_ID)) {
-        return yield* Effect.die(`SEED_FIXTURE must be one of ${[...fixtures.keys()].join(', ')} and APP_ID must be set`);
-    }
+        if (!keepsFinishedRun) {
+            yield* currentRunService.reset;
+        }
 
-    const sql = yield* SqlClient.SqlClient;
-    const currentRunService = yield* CurrentRunService;
-    const rival = new GameStateSerializer().decodeState(fixture.link);
-    const databaseDirectory = yield* Effect.acquireRelease(
-        Effect.sync(() => mkdtempSync(join(tmpdir(), 'seed-flow-state-'))),
-        directory => Effect.sync(() => rmSync(directory, { force: true, recursive: true }))
-    );
-    const databasePath = join(databaseDirectory, 'seed.db');
+        yield* sql`UPDATE effect_sql_migrations SET created_at = datetime(${SeedFinishedAtMs / MillisecondsPerSecond}, 'unixepoch')`;
+        rmSync(databasePath, { force: true });
+        yield* sql`VACUUM INTO ${databasePath}`;
+    },
+    Effect.provide(Layer.mergeAll(CurrentRunService.layer.pipe(Layer.provideMerge(makeTestSqlLayer())), TestClock.layer()))
+);
 
-    yield* currentRunService.load({
-        ...initialCurrentRun,
-        sudokuString: applyCellEventsToField(rival.field, rival.timelineEvents),
-        difficulty: DifficultyEnum.Newbie,
-        rating: rival.rating / RatingWireScale,
-        isRatingCeiling: rival.isRatingCeiling,
-        maxMistakes: rival.maxMistakes,
-        score: SeedScore,
-        elapsedTime: SeedElapsedSeconds,
-        timelineEvents: [
-            { kind: TimelineEventKindEnum.Cell, cellIndex: LastCellIndex, value: 2, ts: SeedElapsedSeconds, score: SeedScore }
-        ],
-        challengeTimelineEvents: rival.timelineEvents,
-        challengeTime: rival.elapsedTime,
-        challengeState: fixture.link,
-        isChallengeRun: true
+const writeFixtures = (directory: string) =>
+    Effect.forEach(fixtures, ([name, fixture]) => writeFixture(fixture.link, fixture.keepsFinishedRun, join(directory, `${name}.db`)), {
+        discard: true
     });
-    yield* currentRunService.classifyMove({ cell: { x: 0, y: 6, value: 2, group: 6 }, technique: SolutionTechniqueEnum.FullHouse });
-    yield* currentRunService.finish(true, true);
 
-    if (!fixture.keepsFinishedRun) {
-        yield* currentRunService.reset;
+const checkFixtures = Effect.gen(function* () {
+    const directory = yield* Effect.acquireRelease(
+        Effect.sync(() => mkdtempSync(join(tmpdir(), 'seed-flow-state-'))),
+        temporaryDirectory => Effect.sync(() => rmSync(temporaryDirectory, { force: true, recursive: true }))
+    );
+
+    yield* writeFixtures(directory);
+
+    const staleFixtures = [...fixtures.keys()].filter(
+        name => !readFileSync(join(directory, `${name}.db`)).equals(readFileSync(join(fixturesDirectory, `${name}.db`)))
+    );
+
+    if (isNotEmptyArray(staleFixtures)) {
+        return yield* Effect.die(
+            `Stale seed fixtures: ${staleFixtures.join(', ')}. Regenerate them with pnpm --filter ./tests/app-tests seed:flow`
+        );
     }
-
-    yield* sql`VACUUM INTO ${databasePath}`;
-    installDatabase(seedTarget, databasePath);
 });
 
-if (isNotEmptyString(SEED_FIXTURE)) {
-    await Effect.runPromise(
-        seedFlowState.pipe(Effect.scoped, Effect.provide(CurrentRunService.layer.pipe(Layer.provideMerge(makeTestSqlLayer()))))
-    );
-} else {
-    removeInstalledDatabase(seedTarget);
-}
+await Effect.runPromise(process.argv.includes('--check') ? Effect.scoped(checkFixtures) : writeFixtures(fixturesDirectory));

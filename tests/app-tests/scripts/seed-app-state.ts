@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { copyFileSync, readFileSync, rmSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
@@ -21,7 +21,6 @@ const migrationsSourcePath = join(
 );
 const languagesSourcePath = join(repositoryRootDirectory, 'packages', 'progress', 'src', 'settings', 'constant', 'languages.constant.ts');
 
-const DatabaseFileName = 'suuudokuuu.db';
 const PersistRootKey = 'persist:root';
 export const IosStorageRelativePath = join('Documents', 'SQLite', 'ExpoSQLiteStorage');
 export const AndroidStorageRelativePath = 'files/SQLite/ExpoSQLiteStorage';
@@ -190,19 +189,19 @@ const writePersistRootToDatabase = (databasePath: string, value: string): void =
     }
 };
 
-const getIosDataContainer = (udid: string, appId: string): string => {
+const getIosStorageDatabasePath = (udid: string, appId: string): string => {
     const container = runCommand('xcrun', ['simctl', 'get_app_container', udid, appId, 'data']);
 
     if (!container.succeeded) {
         throw new Error(`Could not resolve the data container for ${appId} on ${udid}: ${container.output}`);
     }
 
-    return container.output.trim();
+    return join(container.output.trim(), IosStorageRelativePath);
 };
 
 const seedIosState = (target: SeedTarget, value: string): void => {
     runCommand('xcrun', ['simctl', 'terminate', target.udid, target.appId]);
-    writePersistRootToDatabase(join(getIosDataContainer(target.udid, target.appId), IosStorageRelativePath), value);
+    writePersistRootToDatabase(getIosStorageDatabasePath(target.udid, target.appId), value);
 };
 
 const adbArguments = (serial: string, commandArguments: string[]): string[] => {
@@ -219,7 +218,7 @@ const isAndroidRootAvailable = (serial: string): boolean => {
     return probe.succeeded && probe.output.includes('uid=0');
 };
 
-const stopAndroidAppWithRoot = (target: SeedTarget): void => {
+const seedAndroidState = (target: SeedTarget, value: string): void => {
     runCommand('adb', adbArguments(target.serial, ['shell', 'am', 'force-stop', target.appId]));
 
     if (!isAndroidRootAvailable(target.serial)) {
@@ -228,10 +227,6 @@ const stopAndroidAppWithRoot = (target: SeedTarget): void => {
                 'Create the AVD from a "google_apis" system image (not "google_apis_playstore"), which is rootable.'
         );
     }
-};
-
-const seedAndroidState = (target: SeedTarget, value: string): void => {
-    stopAndroidAppWithRoot(target);
 
     const databasePath = `/data/data/${target.appId}/${AndroidStorageRelativePath}`;
     const localPath = join(tmpdir(), `suuudokuuu-persist-${process.pid}.db`);
@@ -262,80 +257,6 @@ export const seedAppState = (target: SeedTarget, options: SeedOptions): void => 
     }
 
     seedAndroidState(target, value);
-};
-
-export const installDatabase = (target: SeedTarget, databasePath: string): void => {
-    if (target.platform === 'ios') {
-        runCommand('xcrun', ['simctl', 'terminate', target.udid, target.appId]);
-
-        const installedPath = join(getIosDataContainer(target.udid, target.appId), 'Library', DatabaseFileName);
-
-        rmSync(`${installedPath}-wal`, { force: true });
-        rmSync(`${installedPath}-shm`, { force: true });
-        copyFileSync(databasePath, installedPath);
-
-        return;
-    }
-
-    stopAndroidAppWithRoot(target);
-
-    const appDataPath = `/data/data/${target.appId}`;
-    const installedPath = `${appDataPath}/databases/${DatabaseFileName}`;
-
-    runCommand(
-        'adb',
-        adbArguments(target.serial, ['shell', `mkdir -p ${appDataPath}/databases && rm -f ${installedPath}-wal ${installedPath}-shm`])
-    );
-
-    const prepared = runCommand(
-        'adb',
-        adbArguments(target.serial, ['shell', `mkdir -p ${appDataPath}/databases && rm -f ${installedPath}-wal ${installedPath}-shm`])
-    );
-
-    if (!prepared.succeeded) {
-        throw new Error(`Could not prepare ${appDataPath}/databases: ${prepared.output}`);
-    }
-
-    const pushed = runCommand('adb', adbArguments(target.serial, ['push', databasePath, installedPath]));
-
-    if (!pushed.succeeded) {
-        throw new Error(`Could not push ${installedPath}: ${pushed.output}`);
-    }
-
-    const restored = runCommand(
-        'adb',
-        adbArguments(target.serial, ['shell', `chown $(stat -c %u:%g ${appDataPath}) ${installedPath} && restorecon ${installedPath}`])
-    );
-
-    if (!restored.succeeded) {
-        throw new Error(`Could not set ownership of ${installedPath}: ${restored.output}`);
-    }
-};
-
-export const removeInstalledDatabase = (target: SeedTarget): void => {
-    if (target.platform === 'ios') {
-        runCommand('xcrun', ['simctl', 'terminate', target.udid, target.appId]);
-
-        const installedPath = join(getIosDataContainer(target.udid, target.appId), 'Library', DatabaseFileName);
-
-        for (const suffix of ['', '-wal', '-shm']) {
-            rmSync(`${installedPath}${suffix}`, { force: true });
-        }
-
-        return;
-    }
-
-    stopAndroidAppWithRoot(target);
-
-    const installedPath = `/data/data/${target.appId}/databases/${DatabaseFileName}`;
-    const removed = runCommand(
-        'adb',
-        adbArguments(target.serial, ['shell', `rm -f ${installedPath} ${installedPath}-wal ${installedPath}-shm`])
-    );
-
-    if (!removed.succeeded) {
-        throw new Error(`Could not remove ${installedPath}: ${removed.output}`);
-    }
 };
 
 export const launchSeededApp = (target: SeedTarget, language: string, localeIdentifier: string): void => {

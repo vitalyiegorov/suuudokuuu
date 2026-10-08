@@ -4,6 +4,7 @@
     "private": true,
     "scripts": {
         "screenshots:capture": "node scripts/capture-store-screenshots.ts",
+        "seed:check": "tsx --conditions=import scripts/seed-flow-state.ts --check",
         "seed:flow": "tsx --conditions=import scripts/seed-flow-state.ts",
         "selectors:check": "scripts/validate-selector-policy.sh && scripts/validate-flow-inventory.sh",
         "ts": "tsc -p scripts"
