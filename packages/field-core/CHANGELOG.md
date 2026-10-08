@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.22.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.21.0...v2.22.0) (2026-10-08)
+
+### Features
+
+* **field-core:** teach first elimination when placement hint is capped ([#492](https://github.com/vitalyiegorov/suuudokuuu/issues/492)) ([082d3c2](https://github.com/vitalyiegorov/suuudokuuu/commit/082d3c2cbd8bd16a6b659c2e43e45755ece46834))
+
+
 # [2.19.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.18.1...v2.19.0) (2026-10-07)
 
 ### Features
