@@ -26,6 +26,7 @@ jobs:
             contents: read
         outputs:
             mobile: ${{ steps.mobile.outputs.mobile }}
+            app_tests: ${{ steps.mobile.outputs.app_tests }}
         steps:
             - name: Checkout repository
               uses: actions/checkout@v7
@@ -40,6 +41,7 @@ jobs:
               run: |
                   set -euo pipefail
                   mobile=true
+                  app_tests=true
                   base_sha="$BASE_SHA"
                   head_sha="$GITHUB_SHA"
 
@@ -53,8 +55,13 @@ jobs:
                     else
                       printf '%s\n' "$changed_paths"
                       only_documentation_changes=true
+                      app_tests=false
                       while IFS= read -r changed_path; do
                         case "$changed_path" in
+                          tests/app-tests/*)
+                            app_tests=true
+                            only_documentation_changes=false
+                            ;;
                           docs/*)
                             ;;
                           */*)
@@ -78,6 +85,32 @@ jobs:
 
                   echo "Mobile impact: $mobile"
                   echo "mobile=$mobile" >> "$GITHUB_OUTPUT"
+                  echo "App tests impact: $app_tests"
+                  echo "app_tests=$app_tests" >> "$GITHUB_OUTPUT"
+
+    app-tests-scripts:
+        name: App test script self-tests
+        if: ${{ needs.changes.outputs.app_tests == 'true' }}
+        needs: [changes]
+        runs-on: [self-hosted, trf-linux-amd64-2x4]
+        permissions:
+            contents: read
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
+            - name: Setup Node
+              uses: actions/setup-node@v7
+              with:
+                  node-version: 24.x
+
+            - name: Run app test script self-tests
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  for test_script in tests/app-tests/scripts/test-*.sh; do
+                    bash "$test_script"
+                  done
 
     code-quality:
         name: Code quality checks
@@ -298,7 +331,7 @@ jobs:
 
     required-ci:
         if: ${{ always() }}
-        needs: [changes, code-quality, mobile-e2e, web-e2e]
+        needs: [changes, code-quality, app-tests-scripts, mobile-e2e, web-e2e]
         name: Required CI
         permissions:
             contents: read
@@ -310,13 +343,25 @@ jobs:
                   CHANGES_RESULT: ${{ needs.changes.result }}
                   MOBILE_RESULT: ${{ needs.changes.outputs.mobile }}
                   CODE_QUALITY_RESULT: ${{ needs.code-quality.result }}
+                  APP_TESTS_RESULT: ${{ needs.app-tests-scripts.result }}
+                  APP_TESTS_IMPACT: ${{ needs.changes.outputs.app_tests }}
                   MOBILE_E2E_RESULT: ${{ needs.mobile-e2e.result }}
                   WEB_E2E_RESULT: ${{ needs.web-e2e.result }}
               run: |
                   set -euo pipefail
-                  summary="changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, mobile-e2e=$MOBILE_E2E_RESULT, web-e2e=$WEB_E2E_RESULT"
+                  summary="changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, app-tests-scripts=$APP_TESTS_RESULT, mobile=$MOBILE_RESULT, mobile-e2e=$MOBILE_E2E_RESULT, web-e2e=$WEB_E2E_RESULT"
                   echo "CI summary: $summary"
                   if [ "$CHANGES_RESULT" != 'success' ] || [ "$CODE_QUALITY_RESULT" != 'success' ]; then
+                    echo "Required jobs did not pass: $summary"
+                    exit 1
+                  fi
+
+                  if [ "$APP_TESTS_IMPACT" = 'true' ] && [ "$APP_TESTS_RESULT" != 'success' ]; then
+                    echo "Required jobs did not pass: $summary"
+                    exit 1
+                  fi
+
+                  if [ "$APP_TESTS_IMPACT" = 'false' ] && [ "$APP_TESTS_RESULT" != 'skipped' ]; then
                     echo "Required jobs did not pass: $summary"
                     exit 1
                   fi

@@ -1,0 +1,8 @@
+appId: ${APP_ID}
+---
+- openLink:
+      link: 'suuudokuuu://history'
+- extendedWaitUntil:
+      visible:
+          id: 'HistoryScreenSelectors.Root'
+      timeout: 10000

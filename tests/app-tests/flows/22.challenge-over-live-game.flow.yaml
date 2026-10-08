@@ -26,12 +26,7 @@ appId: ${APP_ID}
       visible:
           id: 'HomeScreenSelectors.Root'
       timeout: 10000
-- openLink:
-      link: 'suuudokuuu://history'
-- extendedWaitUntil:
-      visible:
-          id: 'HistoryScreenSelectors.Root'
-      timeout: 10000
+- runFlow: subflows/navigation/open-history.flow.yaml
 - scrollUntilVisible:
       element:
           text: '.*games? played.*'

@@ -5,12 +5,7 @@ appId: ${APP_ID}
       optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
-- openLink:
-      link: 'suuudokuuu://settings'
-- extendedWaitUntil:
-      visible:
-          id: 'SettingsScreenSelectors.Root'
-      timeout: 10000
+- runFlow: subflows/navigation/open-settings.flow.yaml
 # Center the row so it clears both the collapsed header band and the floating
 # tab bar: an edge row registers the tap on whichever chrome overlaps it.
 - scrollUntilVisible:
