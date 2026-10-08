@@ -39,7 +39,7 @@ Header and search-results asset in PPO: **unconfirmed, treat as unsupported.** A
 | 1   | First screenshot              | Frame 1 composition and caption                    | The new core-loop first frame from #469 converts better than the current one | Scheduled after #469 ships                                                               |
 | 2   | Header / search-results asset | Creative asset                                     | A clearer value proposition raises search conversion                         | Blocked: PPO support unconfirmed; Play runs the feature graphic (#472) as its equivalent |
 | 3   | Icon                          | App icon                                           | A higher-contrast icon raises tap-through                                    | Not scheduled                                                                            |
-| 4   | Description                   | Opening paragraph (Play localized experiment only) | Benefit-led opening raises installs                                          | Not scheduled; Apple PPO cannot test text                                                |
+| 4   | Description                   | Opening paragraph (Play localized experiment only) | Benefit-led opening raises installs                                          | Not scheduled                                                                            |
 
 ### Test 1 configuration
 
