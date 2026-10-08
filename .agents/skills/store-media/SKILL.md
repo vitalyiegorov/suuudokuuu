@@ -228,8 +228,9 @@ Android emulator) are in the capture doc.
 - The iPhone set must be captured on an iPhone 17 Pro Max simulator for the
   6.9" store slot (1320x2868). This machine ships zero simulators by default -
   create one with `xcrun simctl create`. Capture needs a real installed build,
-  so `expo run:ios --configuration Release` with `APP_VARIANT=production` has
-  to finish first; there is no prebuilt app to reuse.
+  so `expo run:ios --configuration Release` with `APP_VARIANT=production` and
+  `STORE_CAPTURE=1` (suppresses the store rating prompt after a win) has to
+  finish first; there is no prebuilt app to reuse.
 
 ## App Store 2026 features
 

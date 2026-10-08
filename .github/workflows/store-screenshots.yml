@@ -43,16 +43,19 @@ jobs:
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             upload-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
-            # app.config.js branches on APP_VARIANT, so the fingerprint has to be
-            # taken under exactly what this workflow's build exports - here the
-            # production variant, matching build-env in the config file. It is
+            # app.config.js branches on APP_VARIANT and STORE_CAPTURE, so the
+            # fingerprint has to be taken under exactly what this workflow's build
+            # exports - here the production variant with the capture flag, matching
+            # build-env in the config file. It is
             # deliberately NOT the e2e lanes' value: a key computed under an
             # environment the build does not use describes a native surface
             # nothing produces.
             fingerprint-env: |
                 APP_VARIANT=production
+                STORE_CAPTURE=1
             repack-env: |
                 APP_VARIANT=production
+                STORE_CAPTURE=1
             expect-config: |
                 name=suuudokuuu
                 ios.bundleIdentifier=com.vitalyiegorov.suuudokuuu

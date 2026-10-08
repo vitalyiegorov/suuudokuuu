@@ -11,6 +11,7 @@ const IS_DEV = APP_VARIANT === 'development';
 const IS_E2E = APP_VARIANT === 'e2e';
 const IS_PREVIEW = APP_VARIANT === 'preview';
 const IS_PRODUCTION = APP_VARIANT === 'production';
+const IS_STORE_CAPTURE = process.env.STORE_CAPTURE === '1';
 const StoreBuildArchs = ['armeabi-v7a', 'arm64-v8a'];
 
 if (DEVELOPMENT_BUILD_NUMBER !== undefined && !DevelopmentBuildNumberPattern.test(DEVELOPMENT_BUILD_NUMBER)) {
@@ -145,6 +146,7 @@ export default ({ config }) =>
             eas: {
                 projectId: '4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
             },
+            isE2E: IS_E2E || IS_STORE_CAPTURE,
             brand: {
                 appName: brandConfig.appName,
                 defaultTheme: brandConfig.defaultTheme,

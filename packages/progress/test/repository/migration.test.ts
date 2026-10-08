@@ -31,7 +31,7 @@ describe('database migrations', () => {
 
             assert.deepStrictEqual(
                 tables.map(table => table.name),
-                ['completed_games', 'current_run', 'custom_themes', 'difficulty_stats', 'player_stats', 'settings']
+                ['completed_games', 'current_run', 'custom_themes', 'difficulty_stats', 'player_stats', 'settings', 'store_review']
             );
             assert.deepStrictEqual(yield* runDatabaseMigrations, []);
         }).pipe(Effect.provide(ProgressTestLayer))
@@ -44,7 +44,10 @@ describe('database migrations', () => {
             yield* Migrator.make({})({ loader: Migrator.fromRecord({ '0001_initial': initialMigration }) });
             yield* sql`INSERT INTO completed_games ${sql.insert(gameFinishedBeforeUpgrade)}`;
 
-            assert.deepStrictEqual(yield* runDatabaseMigrations, [[2, 'completed_game_daily_day_number']]);
+            assert.deepStrictEqual(yield* runDatabaseMigrations, [
+                [2, 'completed_game_daily_day_number'],
+                [3, 'store_review']
+            ]);
             assert.deepStrictEqual(yield* sql`SELECT daily_day_number, score FROM completed_games`, [{ dailyDayNumber: null, score: 900 }]);
         }).pipe(Effect.provide(makeTestSqlClientLayer()))
     );

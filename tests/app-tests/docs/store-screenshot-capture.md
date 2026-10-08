@@ -96,6 +96,10 @@ is exactly what step 2 above already does.
   screenshots with outdated UI; an entire 10-locale set was once shot on a
   2.1.0 build while the repo was at 2.5.1 and had to be redone. Compare the
   installed version against `packages/app/package.json` before every session.
+- **Build with `STORE_CAPTURE=1`.** The capture build is the production variant, so
+  the store rating prompt after a won puzzle would fire on the win scene. The flag
+  sets `extra.isE2E` and skips it. CI exports it through `build-env`; a local
+  `expo run:ios`/`expo run:android` capture build must export it too.
 - **Terminate the app before seeding.** A running app holds the SQLite WAL
   and overwrites the seed on exit. The seeder force-stops first; keep it so.
 - **Android needs a rootable emulator** for the state write: build the AVD
