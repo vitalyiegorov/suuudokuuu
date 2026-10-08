@@ -13,7 +13,7 @@ import * as SqlClient from 'effect/sql/SqlClient';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
-import { installDatabase } from './seed-app-state.ts';
+import { installDatabase, removeInstalledDatabase } from './seed-app-state.ts';
 
 const UnratedChallengeLink = '_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-';
 const RatedChallengeLink = '_OWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARgH-IAABCg';
@@ -29,6 +29,13 @@ const fixtures = new Map([
 ]);
 
 const { APP_ID = '', ANDROID_SERIAL = '', SEED_FIXTURE = '', SIMULATOR_UDID = '' } = process.env;
+
+const seedTarget = {
+    appId: APP_ID,
+    platform: isNotEmptyString(SIMULATOR_UDID) ? 'ios' : 'android',
+    serial: ANDROID_SERIAL,
+    udid: SIMULATOR_UDID
+};
 
 const seedFlowState = Effect.gen(function* () {
     const fixture = fixtures.get(SEED_FIXTURE);
@@ -71,12 +78,13 @@ const seedFlowState = Effect.gen(function* () {
     }
 
     yield* sql`VACUUM INTO ${databasePath}`;
-    installDatabase(
-        { appId: APP_ID, platform: isNotEmptyString(SIMULATOR_UDID) ? 'ios' : 'android', serial: ANDROID_SERIAL, udid: SIMULATOR_UDID },
-        databasePath
-    );
+    installDatabase(seedTarget, databasePath);
 });
 
-await Effect.runPromise(
-    seedFlowState.pipe(Effect.scoped, Effect.provide(CurrentRunService.layer.pipe(Layer.provideMerge(makeTestSqlLayer()))))
-);
+if (isNotEmptyString(SEED_FIXTURE)) {
+    await Effect.runPromise(
+        seedFlowState.pipe(Effect.scoped, Effect.provide(CurrentRunService.layer.pipe(Layer.provideMerge(makeTestSqlLayer()))))
+    );
+} else {
+    removeInstalledDatabase(seedTarget);
+}

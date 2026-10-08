@@ -287,16 +287,55 @@ export const installDatabase = (target: SeedTarget, databasePath: string): void 
         adbArguments(target.serial, ['shell', `mkdir -p ${appDataPath}/databases && rm -f ${installedPath}-wal ${installedPath}-shm`])
     );
 
+    const prepared = runCommand(
+        'adb',
+        adbArguments(target.serial, ['shell', `mkdir -p ${appDataPath}/databases && rm -f ${installedPath}-wal ${installedPath}-shm`])
+    );
+
+    if (!prepared.succeeded) {
+        throw new Error(`Could not prepare ${appDataPath}/databases: ${prepared.output}`);
+    }
+
     const pushed = runCommand('adb', adbArguments(target.serial, ['push', databasePath, installedPath]));
 
     if (!pushed.succeeded) {
         throw new Error(`Could not push ${installedPath}: ${pushed.output}`);
     }
 
-    runCommand(
+    const restored = runCommand(
         'adb',
         adbArguments(target.serial, ['shell', `chown $(stat -c %u:%g ${appDataPath}) ${installedPath} && restorecon ${installedPath}`])
     );
+
+    if (!restored.succeeded) {
+        throw new Error(`Could not set ownership of ${installedPath}: ${restored.output}`);
+    }
+};
+
+export const removeInstalledDatabase = (target: SeedTarget): void => {
+    if (target.platform === 'ios') {
+        runCommand('xcrun', ['simctl', 'terminate', target.udid, target.appId]);
+
+        const installedPath = join(getIosDataContainer(target.udid, target.appId), 'Library', DatabaseFileName);
+
+        for (const suffix of ['', '-wal', '-shm']) {
+            rmSync(`${installedPath}${suffix}`, { force: true });
+        }
+
+        return;
+    }
+
+    stopAndroidAppWithRoot(target);
+
+    const installedPath = `/data/data/${target.appId}/databases/${DatabaseFileName}`;
+    const removed = runCommand(
+        'adb',
+        adbArguments(target.serial, ['shell', `rm -f ${installedPath} ${installedPath}-wal ${installedPath}-shm`])
+    );
+
+    if (!removed.succeeded) {
+        throw new Error(`Could not remove ${installedPath}: ${removed.output}`);
+    }
 };
 
 export const launchSeededApp = (target: SeedTarget, language: string, localeIdentifier: string): void => {
