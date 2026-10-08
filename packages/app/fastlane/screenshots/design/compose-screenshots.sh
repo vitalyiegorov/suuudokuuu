@@ -35,8 +35,7 @@
 # the Play set; `android` composes only the Play set, which is what to use
 # when the iOS raw captures for a device class are unavailable and the iOS
 # stages of `dark` would abort before reaching it. `tablet` composes only the
-# Play 7" and 10" tablet sets from raw/tablet7/android and raw/tablet10/android
-# (capture with --output-dir=<raw>/tablet7). The scene manifests (which
+# Play 7" and 10" sets from raw/tablet7 and raw/tablet10. The scene manifests (which
 # raw captures to use, in which order, with which appearance, layout variant,
 # and device size) are curated below in SCENES_LIGHT/SCENES_DARK — they are a
 # store-listing decision, not something to infer from the raw capture
@@ -214,7 +213,6 @@ IPAD_CUTOUT_Y=96
 IPAD_CUTOUT_W=2732
 IPAD_CUTOUT_H=2048
 
-ANDROID_RAW_DIR="$APP_DIR/fastlane/screenshots/raw/android"
 ANDROID_CANVAS_W=1080
 ANDROID_CANVAS_H=1920
 
@@ -896,28 +894,15 @@ run_variant() {
 }
 
 run_android() {
+  local images_folder="$1"
+  ANDROID_RAW_DIR="$APP_DIR/fastlane/screenshots/raw/$2"
+  shift 2
   set_variant_palette "dark"
-  OUT_DIR="$STAGE_ROOT/android-$PLAY_LOCALE"
+  OUT_DIR="$STAGE_ROOT/$images_folder-$PLAY_LOCALE"
 
   mkdir -p "$OUT_DIR"
   local entry device scene appearance layout height_fraction out_name caption_key
-  for entry in "${SCENES_ANDROID[@]}"; do
-    IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
-    compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
-  done
-
-  publish_stage "$APP_DIR/fastlane/metadata/android/$PLAY_LOCALE/images/phoneScreenshots"
-}
-
-run_tablet() {
-  local raw_name="$1" images_folder="$2"
-  set_variant_palette "dark"
-  ANDROID_RAW_DIR="$APP_DIR/fastlane/screenshots/raw/$raw_name/android"
-  OUT_DIR="$STAGE_ROOT/$raw_name-$PLAY_LOCALE"
-
-  mkdir -p "$OUT_DIR"
-  local entry device scene appearance layout height_fraction out_name caption_key
-  for entry in "${SCENES_TABLET[@]}"; do
+  for entry in "$@"; do
     IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
     compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
   done
@@ -926,17 +911,17 @@ run_tablet() {
 }
 
 if [[ "$VARIANT" == "tablet" ]]; then
-  run_tablet "tablet7" "sevenInchScreenshots"
-  run_tablet "tablet10" "tenInchScreenshots"
+  run_android "sevenInchScreenshots" "tablet7/android" "${SCENES_TABLET[@]}"
+  run_android "tenInchScreenshots" "tablet10/android" "${SCENES_TABLET[@]}"
 elif [[ "$VARIANT" == "all" ]]; then
   run_variant "light"
   run_variant "dark"
-  run_android
+  run_android "phoneScreenshots" "android" "${SCENES_ANDROID[@]}"
 elif [[ "$VARIANT" == "android" ]]; then
-  run_android
+  run_android "phoneScreenshots" "android" "${SCENES_ANDROID[@]}"
 else
   run_variant "$VARIANT"
   if [[ "$VARIANT" == "dark" ]]; then
-    run_android
+    run_android "phoneScreenshots" "android" "${SCENES_ANDROID[@]}"
   fi
 fi

@@ -44,9 +44,8 @@ before relying on them.
 - `packages/app/fastlane/metadata/android/<locale>/` - 13 Play locales: ar,
   bn-BD, de-DE, en-US, es-ES, fr-FR, hi-IN, id, pt-BR, sv-SE, uk, ur, zh-CN.
   Files: title, short_description, full_description, changelogs, and
-  `images/phoneScreenshots/`, plus `sevenInchScreenshots/` and
-  `tenInchScreenshots/` (5 shots each at 1080x1920, composed by
-  `compose-screenshots.sh <locale> tablet`; `store_preflight` checks them).
+  `images/phoneScreenshots/`, `sevenInchScreenshots/`, and `tenInchScreenshots/`
+  (capture: `tests/app-tests/docs/store-screenshot-capture.md`).
 - `packages/app/fastlane/metadata/release-notes-state.json` - base tag +
   commit of the last release-notes generation; the publish workflow warns when
   user-facing commits landed after it.
@@ -319,7 +318,7 @@ are in the table.
   days; featuring requests need 14+ days lead time (#476).
 - Tablets and large screens: 7" and 10" sets (at least 4 shots each, 16:9 or
   9:16, 1080-7680 px) earn the large-screen badge and form-factor detail pages
-  (since Q2 2026). Tracked in #479.
+  (since Q2 2026). Committed in #479.
 - Level Up program (games), from 2026-09-30 in AU/EEA/JP/UK/US: needs Play
   Games Services v2 (sign-in, achievements, cloud save), large-screen and PC
   support, 60 fps; benefits are You-tab visibility and reduced fees. Eligibility
@@ -386,9 +385,9 @@ issue body is the brief. Every brief states:
 fastlane `deliver` and `supply` (fastlane 2.240.1) support none of the 2026
 additions: creative assets and the Asset Library, In-App Events, custom
 product pages, PPO, iPhone Duo display types, Play custom listings,
-experiments, promotional content, tablet sets, or feature graphics beyond what
-`supply` already reads from `images/`. `deliver` has uploaded app previews
-since March 2026. Use the App Store Connect API (creative assets and Asset
+experiments, promotional content, or feature graphics beyond what `supply`
+already reads from `images/` (which includes the 7" and 10" tablet sets).
+`deliver` has uploaded app previews since March 2026. Use the App Store Connect API (creative assets and Asset
 Library are exposed; exact endpoint names unconfirmed) via a small script, or
 upload manually; the plan is #474. Play Console features are manual unless the
 Play Developer API covers them.

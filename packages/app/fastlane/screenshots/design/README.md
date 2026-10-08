@@ -13,8 +13,8 @@ appearance variants. Each of the 11 Apple locales has 9 iPhone screenshots at
 1320×2868 and 6 landscape iPad screenshots at 2752×2064. Output is staged and
 replaces a committed set only after every scene for that variant succeeds.
 The `all` command also composes the Play sets: 8 phone screenshots at
-1080×1920 for each of 13 Google Play locales. There is currently no tablet
-screenshot set.
+1080×1920 for each of 13 Google Play locales. The `tablet` command composes 5
+screenshots at 1080×1920 into each Play locale's 7" and 10" tablet sets.
 
 The iPhone order is:
 
@@ -141,8 +141,8 @@ committed assets when the screenshot checkbox is selected.
   Connect scales screenshots from the highest required resolution down. The
   committed sizes are accepted 6.9-inch iPhone and 13-inch iPad resolutions.
 - Google Play phone screenshots: 1080×1920. Feature graphic: 1024×500. The
-  composer writes the feature graphic and icon under each Play locale; no
-  tablet artwork is currently included.
+  composer writes the feature graphic and icon under each Play locale. Play
+  7" and 10" tablet screenshots: 1080×1920.
 - App previews are optional store media and are not currently recorded or
   committed. Create them as a separate capture and review task if desired.
 
