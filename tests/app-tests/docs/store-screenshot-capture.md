@@ -119,13 +119,12 @@ is exactly what step 2 above already does.
   and launching the Hell scene for each locale, swipe Home upward until the
   full button sits above the tabs, then save `02-hell.png` before composing.
   The 2.20.0 Play set was captured this way on `emulator-5554`.
-- **Android tablets** compose frameless at 1080x1920 into `sevenInchScreenshots` and
-  `tenInchScreenshots`. The seeder pulls `files/SQLite/ExpoSQLiteStorage`, which the
-  app creates on its first launch, so launch once after a fresh install; the Pixel
-  Launcher taskbar is captured unless
+- **Android tablets:** the seeder pulls `files/SQLite/ExpoSQLiteStorage`,
+  which the app creates on its first launch, so launch once after a fresh
+  install; the Pixel Launcher taskbar is captured unless
   `pm disable-user --user 0 com.google.android.apps.nexuslauncher`; software-GL
-  emulators need `CAPTURE_LAUNCH_SETTLE_MS=12000` and `CAPTURE_SCENE_SETTLE_MS=8000`
-  or shots catch a blank screen.
+  emulators need `CAPTURE_LAUNCH_SETTLE_MS=12000` and
+  `CAPTURE_SCENE_SETTLE_MS=8000` or shots catch a blank screen.
 - **Status bar:** launch arguments do not touch the system status bar, so the
   runner applies `simctl status_bar override` (9:41, full bars, 100%
   battery) and Android SystemUI demo mode. `--status-bar=real` restores the

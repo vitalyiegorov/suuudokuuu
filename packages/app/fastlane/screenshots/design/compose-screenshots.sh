@@ -34,8 +34,7 @@
 # compose into variants/<variant>/ios/<locale>. `all` and `dark` also compose
 # the Play set; `android` composes only the Play set, which is what to use
 # when the iOS raw captures for a device class are unavailable and the iOS
-# stages of `dark` would abort before reaching it. `tablet` composes only the
-# Play 7" and 10" sets from raw/tablet7 and raw/tablet10. The scene manifests (which
+# stages of `dark` would abort before reaching it. The scene manifests (which
 # raw captures to use, in which order, with which appearance, layout variant,
 # and device size) are curated below in SCENES_LIGHT/SCENES_DARK — they are a
 # store-listing decision, not something to infer from the raw capture

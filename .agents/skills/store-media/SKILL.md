@@ -387,10 +387,10 @@ additions: creative assets and the Asset Library, In-App Events, custom
 product pages, PPO, iPhone Duo display types, Play custom listings,
 experiments, promotional content, or feature graphics beyond what `supply`
 already reads from `images/` (which includes the 7" and 10" tablet sets).
-`deliver` has uploaded app previews since March 2026. Use the App Store Connect API (creative assets and Asset
-Library are exposed; exact endpoint names unconfirmed) via a small script, or
-upload manually; the plan is #474. Play Console features are manual unless the
-Play Developer API covers them.
+`deliver` has uploaded app previews since March 2026. Use the App Store
+Connect API (creative assets and Asset Library are exposed; exact endpoint
+names unconfirmed) via a small script, or upload manually; the plan is #474.
+Play Console features are manual unless the Play Developer API covers them.
 
 ## Open items
 

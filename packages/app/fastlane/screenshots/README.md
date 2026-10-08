@@ -114,8 +114,8 @@ The second argument selects `light`, `dark`, `android`, `tablet`, or `all` (the
 default). `all` composes both iOS variants and the Play phone screenshots;
 `android` composes only the Play phone set and `tablet` only the Play 7" and 10"
 sets. There are 11 iOS locales and 13 Play locales; the script maps the locale
-names between the app, Apple, and Google Play. Each Play locale has eight phone screenshots and five 7" and five 10"
-tablet screenshots at 1080×1920.
+names between the app, Apple, and Google Play. Each Play locale has eight
+phone screenshots and five 7" and five 10" tablet screenshots at 1080×1920.
 
 The script (requires ImageMagick 7, `magick` on `PATH`, and the frame assets
 above) uses Inter Black from
