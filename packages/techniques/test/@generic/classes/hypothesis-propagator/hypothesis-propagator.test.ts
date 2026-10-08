@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { CandidateContext } from '../../../../src/@generic/classes/candidate-context/candidate-context';
 import { HypothesisPropagator } from '../../../../src/@generic/classes/hypothesis-propagator/hypothesis-propagator';
+import { ForcingOutcomeKindEnum } from '../../../../src/@generic/enums/forcing-outcome-kind.enum';
 import { hasMaskValue } from '../../../../src/@generic/utils/has-mask-value.util';
 
 const forcingChainBoard = '000000051000000023004005000000000600000130000007680000429006500370400000810000000';
@@ -17,21 +18,17 @@ const createPropagator = (board: string): HypothesisPropagator =>
     HypothesisPropagator.fromContext(CandidateContext.fromSudoku(Sudoku.fromString(board, defaultSudokuConfig)));
 
 describe('HypothesisPropagator', () => {
-    it('records a causal trace and first literal contradiction only for a requested explanation', () => {
-        const propagator = createPropagator(forcingChainBoard);
-        const compact = propagator.propagate(contradictionCellIndex, contradictionValue);
-        const explained = propagator.explain(contradictionCellIndex, contradictionValue);
+    it.each([
+        [1, 3, ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT],
+        [2, 2, ForcingOutcomeKindEnum.NO_POSITION],
+        [2, 6, ForcingOutcomeKindEnum.EMPTY_CELL]
+    ])('reports where the %i/%i hypothesis breaks', (cellIndex, value, kind) => {
+        const propagation = createPropagator(forcingChainBoard).propagate(cellIndex, value);
 
-        expect(compact.implications).toBeUndefined();
-        expect(explained.implications?.[0]).toMatchObject({
-            kind: 'ASSIGNMENT',
-            cell: propagator.getBoard().cells[contradictionCellIndex],
-            value: 8
-        });
-        expect(explained.contradiction).toBeDefined();
-        expect(explained.contradiction?.implicationPrefixLength).toBe(explained.implications?.length);
-        expect(propagator.getPropagationCount()).toBe(1);
+        expect(propagation.hasContradiction).toBe(true);
+        expect(propagation.contradiction?.kind).toBe(kind);
     });
+
     it('builds an indexed board with every unit and peer set', () => {
         expect.assertions(4);
 

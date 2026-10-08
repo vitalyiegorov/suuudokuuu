@@ -177,7 +177,7 @@ Both multi-branch detectors keep what every branch agrees on: a cell that every 
 
 `chainLength` is the number of cells the argument placed: the contradiction path for Nishio, and the union of the branch paths for the multi-branch forms. It stays equal to `reasonCells.length`, as it is for the shortest-path chains. `FORCING_CHAIN_MIN_CELLS` rejects arguments below that size, which keeps a degenerate no-propagation case split from being reported as a forcing chain, and `FORCING_CHAIN_MAX_HYPOTHESES_PER_SCAN` caps the propagations one scan may run. A capped-out scan returns what it already found, marks the context with `markContextSearchCapped`, and otherwise leaves the driver `stuck` — but a `stuck` that carries `wasSearchCapped` is a budget limit, not a ladder limit.
 
-Every forcing-chain result also carries `branches` (`ForcingBranchInterface[]`), one per assumption, in the order the detector tried them. A branch holds the `assumption`, the ordered `implications` the propagation recorded, and the `outcome`. Implications are `ASSIGNMENT` (with the `reasonIndex` of the single that queued it), `PEER_REMOVAL` (with the placed `source` that removed it), and `NAKED_SINGLE` or `HIDDEN_SINGLE` (with the unit `supportCells` and the implication count before it). A Nishio branch ends in its contradiction (`EMPTY_CELL`, `NO_POSITION`, or `ASSIGNMENT_CONFLICT`); a cell or region branch ends in the result it shares with every other branch (`COMMON_PLACEMENT` or `COMMON_ELIMINATIONS`). The trace is recorded by `HypothesisPropagator.explain`, which reruns one propagation with recording switched on and is called only for an emitted result, so the memoised `propagate` used during the scan stays allocation-free and the search budget is unchanged.
+Every forcing-chain result also carries `branches` (`ForcingBranchInterface[]`), one per assumption, in the order the detector tried them. A branch holds the `assumption`, the `implications` (every placement the propagation made after the assumption, in order), and the `outcome`. A Nishio branch ends in the contradiction the propagation hit (`EMPTY_CELL`, `NO_POSITION`, or `ASSIGNMENT_CONFLICT`), which `HypothesisPropagator` records on the memoised propagation; a cell or region branch ends in the result it shares with every other branch (`COMMON_PLACEMENT` or `COMMON_ELIMINATIONS`).
 
 Results are canonicalised and then sorted by `chainLength`, so the driver applies the cheapest forcing argument available and `@suuudokuuu/rating` prices the position from the shortest argument that proves it.
 
@@ -246,14 +246,12 @@ export {
     createTechniqueStrategies,
     findPlacementChain,
     ChainLinkEnum,
-    ForcingImplicationKindEnum,
     ForcingOutcomeKindEnum
 };
 export type {
     TechniqueResultInterface,
     ChainCandidateInterface,
     ForcingBranchInterface,
-    ForcingImplicationType,
     ForcingOutcomeType,
     ForcingContradictionType,
     MoveClassificationInterface,

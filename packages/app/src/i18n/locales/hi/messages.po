@@ -252,14 +252,6 @@ msgstr "AIC"
 msgid "All"
 msgstr "सभी"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "All branches reach {value} in {cell}, so it can be placed there."
-msgstr "सभी शाखाएँ {cell} में {value} तक पहुँचती हैं, इसलिए उसे वहाँ रखा जा सकता है।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "All branches remove {eliminations}, so these candidates can be eliminated."
-msgstr "सभी शाखाएँ {eliminations} हटाती हैं, इसलिए ये उम्मीदवार हटाए जा सकते हैं।"
-
 #: src/scoring/components/scoring.screen.tsx
 msgid "All of a number (1-9)"
 msgstr "किसी अंक की सभी कोशिकाएँ (1-9)"
@@ -309,26 +301,6 @@ msgstr "संकेत लागू करना"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
 msgstr "सहायताएँ"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Assuming {assumptionCell} is {assumptionValue} leads to a contradiction: {cell} has no candidate left."
-msgstr "यदि {assumptionCell} में {assumptionValue} मानें, तो विरोधाभास होता है: {cell} में कोई उम्मीदवार नहीं बचता।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Assuming {assumptionCell} is {assumptionValue} leads to a contradiction: {value} can no longer be assigned to {cell}."
-msgstr "यदि {assumptionCell} में {assumptionValue} मानें, तो विरोधाभास होता है: {value} अब {cell} में नहीं रखा जा सकता।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Assuming {assumptionCell} is {assumptionValue} leads to a contradiction: {value} has no possible cell among {cells}."
-msgstr "यदि {assumptionCell} में {assumptionValue} मानें, तो विरोधाभास होता है: {cells} में किसी भी खाने में {value} नहीं आ सकता।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Assuming {assumptionCell} is {assumptionValue}, this branch reaches {value} in {cell}."
-msgstr "{assumptionCell} में {assumptionValue} मानने पर यह शाखा {cell} में {value} तक पहुँचती है।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Assuming {assumptionCell} is {assumptionValue}, this branch removes {eliminations}."
-msgstr "{assumptionCell} में {assumptionValue} मानने पर यह शाखा {eliminations} हटाती है।"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -420,8 +392,12 @@ msgid "Box-Line Reduction"
 msgstr "बॉक्स-लाइन न्यूनीकरण"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "Branch {branchNumber} of {branchCount}: suppose {assumptionCell} is {assumptionValue}."
-msgstr "शाखा {branchNumber}/{branchCount}: मान लें कि {assumptionCell} में {assumptionValue} है।"
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch leads to {placement}."
+msgstr "शाखा {branchNumber} / {branchCount}: यदि {path}. यह शाखा {placement} तक ले जाती है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch rules out {eliminations}."
+msgstr "शाखा {branchNumber} / {branchCount}: यदि {path}. यह शाखा {eliminations} को बाहर कर देती है।"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "BUG+1"
@@ -804,6 +780,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "सिस्टम के अनुसार"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Follow the chain {path}. \"=\" is a strong link (at least one end is true) and \"−\" is a weak link (both ends cannot be true), so one end of the chain is always true."
+msgstr "श्रृंखला {path} का अनुसरण करें। \"=\" मज़बूत कड़ी है (कम से कम एक सिरा सही है) और \"−\" कमज़ोर कड़ी है (दोनों सिरे एक साथ सही नहीं हो सकते), इसलिए श्रृंखला का एक सिरा हमेशा सही होता है।"
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Forcing chains"
 msgstr "बाध्यकारी शृंखलाएँ"
@@ -967,24 +947,16 @@ msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "मैंने यह सुडोकू {elapsedTimeString} में पूरा किया। क्या आप मुझे हरा सकते हैं?"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "If {assumptionCell} is {assumptionValue}, {sourceCell} has {sourceValue}, removing {value} from peer {cell}."
-msgstr "यदि {assumptionCell} में {assumptionValue} मानें, तो {sourceCell} में {sourceValue} है, इसलिए पड़ोसी खाने {cell} से {value} हटता है।"
+msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
+msgstr "यदि {path} → {cell} में कोई उम्मीदवार नहीं बचता। इसलिए {assumptionCell} {assumptionValue} नहीं है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "If {assumptionCell} is {assumptionValue}, among {supportCells}, only {cell} can take {value}, so this branch places it there."
-msgstr "यदि {assumptionCell} में {assumptionValue} मानें, तो {supportCells} में केवल {cell} में {value} आ सकता है, इसलिए यह शाखा उसे वहाँ रखती है।"
+msgid "If {path} → {cell} would have to be {value}, which is no longer possible. So {assumptionCell} is not {assumptionValue}."
+msgstr "यदि {path} → {cell} को {value} होना पड़ेगा, जो अब संभव नहीं है। इसलिए {assumptionCell} {assumptionValue} नहीं है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "If {assumptionCell} is {assumptionValue}, only {value} remains possible in {cell}, so this branch places it there."
-msgstr "यदि {assumptionCell} में {assumptionValue} मानें, तो {cell} में केवल {value} बचता है, इसलिए यह शाखा उसे वहाँ रखती है।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "If {assumptionCell} is {assumptionValue}, the deduction at {reasonCell} leads this branch to assign {value} to {cell}."
-msgstr "यदि {assumptionCell} में {assumptionValue} मानें, तो {reasonCell} पर निकला निष्कर्ष इस शाखा में {cell} पर {value} रखने की ओर ले जाता है।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "If {assumptionCell} is {assumptionValue}, this branch assigns {value} to {cell}."
-msgstr "यदि {assumptionCell} में {assumptionValue} मानें, तो यह शाखा {cell} में {value} रखती है।"
+msgid "If {path} → {value} has no place left in the outlined cells. So {assumptionCell} is not {assumptionValue}."
+msgstr "यदि {path} → घेरे गए सेल में {value} के लिए कोई जगह नहीं बचती। इसलिए {assumptionCell} {assumptionValue} नहीं है।"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
@@ -1818,10 +1790,6 @@ msgstr "नई पहेली शुरू करें"
 msgid "Start puzzle"
 msgstr "पहेली शुरू करें"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Start with candidate {value} in {cell}."
-msgstr "{cell} में उम्मीदवार {value} से शुरू करें।"
-
 #: src/screens/components/history-screen/history.screen.tsx
 msgid "Statistics"
 msgstr "आँकड़े"
@@ -1854,10 +1822,6 @@ msgstr "मौजूदा गेम रोकें?"
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Stop this run"
 msgstr "यह गेम रोकें"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Strong link: at least one of {previousValue} in {previousCell} and {value} in {cell} must be true."
-msgstr "मज़बूत कड़ी: {previousCell} में {previousValue} और {cell} में {value} में से कम से कम एक सही होना चाहिए।"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
@@ -2164,10 +2128,6 @@ msgstr "चमकदार बोर्ड के लिए गर्म सु�
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "नवीनतम डेवलपमेंट बिल्ड लोड नहीं किया जा सका। कृपया फिर से कोशिश करें।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Weak link: {previousValue} in {previousCell} and {value} in {cell} cannot both be true."
-msgstr "कमज़ोर कड़ी: {previousCell} में {previousValue} और {cell} में {value} दोनों एक साथ सही नहीं हो सकते।"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."

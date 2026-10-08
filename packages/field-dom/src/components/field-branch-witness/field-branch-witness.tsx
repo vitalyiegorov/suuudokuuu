@@ -1,30 +1,36 @@
 'use client';
 
-import { FieldBranchWitnessCandidates } from '../field-branch-witness-candidates/field-branch-witness-candidates';
-import { FieldBranchWitnessEvidence } from '../field-branch-witness-evidence/field-branch-witness-evidence';
-import { FieldBranchWitnessLinks } from '../field-branch-witness-links/field-branch-witness-links';
-import { FieldWitnessLinkMask } from '../field-witness-link-mask/field-witness-link-mask';
+import { getWitnessPoint } from '../../utils/get-witness-point.util';
+import { FieldWitnessCandidate } from '../field-witness-candidate/field-witness-candidate';
 
-import type { FieldCellType } from '../../types/field-cell.type';
-import type { FieldWitnessBranchType } from '../../types/field-witness-branch.type';
+import type { StepScriptBranchStepInterface } from '@suuudokuuu/field-core';
+
+const centerCandidateValue = 5;
+const outlineSize = 2.9;
 
 interface Props {
-    branch: FieldWitnessBranchType;
-    filledCells: readonly FieldCellType[];
-    showOutcome: boolean;
-    visibleImplicationCount: number;
+    step: StepScriptBranchStepInterface;
 }
 
-export const FieldBranchWitness = ({ branch, filledCells, showOutcome, visibleImplicationCount }: Props) => {
-    const visibleImplications = branch.implications.slice(0, visibleImplicationCount);
+export const FieldBranchWitness = ({ step }: Props) => (
+    <>
+        {step.outcomeCells.map((cell, index) => {
+            const center = getWitnessPoint(cell, centerCandidateValue);
+            const originX = center.x - outlineSize / 2;
+            const originY = center.y - outlineSize / 2;
 
-    return (
-        <svg aria-hidden="true" className="field-board__witness" viewBox="0 0 27 27">
-            <FieldWitnessLinkMask filledCells={filledCells}>
-                <FieldBranchWitnessLinks branch={branch} visibleImplications={visibleImplications} />
-            </FieldWitnessLinkMask>
-            <FieldBranchWitnessEvidence branch={branch} showOutcome={showOutcome} visibleImplications={visibleImplications} />
-            <FieldBranchWitnessCandidates branch={branch} visibleImplications={visibleImplications} />
-        </svg>
-    );
-};
+            return <rect data-outcome="true" height={outlineSize} key={`outcome-${index}`} width={outlineSize} x={originX} y={originY} />;
+        })}
+        {step.branch.implications.map((implication, index) => (
+            <FieldWitnessCandidate candidate={implication} key={`implication-${index}`} />
+        ))}
+        <g data-assumption="true">
+            <FieldWitnessCandidate candidate={step.branch.assumption} />
+        </g>
+        {step.outcomeCandidates.map((candidate, index) => {
+            const center = getWitnessPoint(candidate.cell, candidate.value);
+
+            return <circle cx={center.x} cy={center.y} data-outcome="true" key={`outcome-candidate-${index}`} r="0.5" />;
+        })}
+    </>
+);

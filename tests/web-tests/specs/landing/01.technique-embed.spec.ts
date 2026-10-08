@@ -102,29 +102,23 @@ test('gates the live board behind intent, then walks the elimination and takes d
     expect(consoleErrors).toEqual([]);
 });
 
-test('shows only the played X-Chain candidate links and removes them on Back', async ({ page }) => {
+test('draws the whole X-Chain witness on its first slide and retracts it past the chain', async ({ page }) => {
     await page.goto('/techniques/x-chain');
     await page.getByRole('tab', { name: 'Try it on a live board' }).click();
     await page.getByRole('button', { name: 'Show me the technique' }).click();
 
-    const board = page.locator('.field-board');
-    const witness = board.locator('.field-board__witness');
-    const next = page.getByRole('button', { name: 'Next step' });
-    const back = page.getByRole('button', { name: 'Previous step' });
-    const target = board.getByRole('gridcell', { name: 'r7c1, empty' });
+    const witness = page.locator('.field-board__witness');
+    const candidates = witness.locator('[data-candidate]');
 
-    await expect(witness.locator('[data-candidate]')).toHaveCount(1);
-    await expect(witness.locator('line')).toHaveCount(0);
-    await expect(target).toHaveAttribute('aria-label', 'r7c1, empty');
+    await expect(candidates).not.toHaveCount(0);
+    await expect(witness.locator('line')).toHaveCount((await candidates.count()) - 1);
+    await expect(witness.locator('line[data-link="WEAK"]')).not.toHaveCount(0);
 
-    await next.click();
-    await expect(witness.locator('[data-candidate]')).toHaveCount(2);
-    await expect(witness.locator('line[data-link="STRONG"]')).toHaveCount(1);
-    await expect(target).toHaveAttribute('aria-label', 'r7c1, empty');
+    await page.getByRole('button', { name: 'Next step' }).click();
+    await expect(witness).toHaveCount(0);
 
-    await back.click();
-    await expect(witness.locator('[data-candidate]')).toHaveCount(1);
-    await expect(witness.locator('line')).toHaveCount(0);
+    await page.getByRole('button', { name: 'Previous step' }).click();
+    await expect(witness.locator('line[data-link="STRONG"]')).not.toHaveCount(0);
 });
 
 test('keeps different digits in one XY-Chain cell as distinct witness candidates', async ({ page }) => {
@@ -133,24 +127,8 @@ test('keeps different digits in one XY-Chain cell as distinct witness candidates
     await page.getByRole('button', { name: 'Show me the technique' }).click();
 
     const witness = page.locator('.field-board__witness');
-    const next = page.getByRole('button', { name: 'Next step' });
-
-    while ((await witness.locator('[data-candidate]').count()) < xyChainWitnessCandidateCount && (await next.isEnabled())) {
-        await next.click();
-    }
 
     await expect(witness.locator('[data-candidate]')).toHaveCount(xyChainWitnessCandidateCount);
     await expect(witness.locator('[data-candidate="3-1-9"]')).toHaveCount(1);
     await expect(witness.locator('[data-candidate="3-1-4"]')).toHaveCount(1);
-    const candidateKeys = await witness
-        .locator('[data-candidate]')
-        .evaluateAll(nodes => nodes.map(node => node.getAttribute('data-candidate') ?? ''));
-    const cellKeys = candidateKeys.map(key => key.slice(0, key.lastIndexOf('-')));
-
-    expect(new Set(cellKeys).size).toBeLessThan(candidateKeys.length);
-    await expect(witness.locator('line[data-link="STRONG"]')).not.toHaveCount(0);
-    await expect(witness.locator('line[data-link="WEAK"]')).not.toHaveCount(0);
-
-    await next.click();
-    await expect(witness).toHaveCount(0);
 });

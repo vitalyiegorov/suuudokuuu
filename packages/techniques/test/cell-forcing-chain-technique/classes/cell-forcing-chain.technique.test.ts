@@ -25,12 +25,7 @@ describe('CellForcingChainTechnique', () => {
             expect(result.branches?.length).toBeGreaterThan(1);
 
             for (const branch of result.branches ?? []) {
-                expect(branch.implications[0]).toMatchObject({
-                    kind: 'ASSIGNMENT',
-                    cell: branch.assumption.cell,
-                    value: branch.assumption.value
-                });
-
+                expect(branch.implications).not.toContainEqual(branch.assumption);
                 expect(branch.outcome).toMatchObject(
                     result.kind === 'placement'
                         ? { kind: 'COMMON_PLACEMENT', cell: result.cell, value: result.value }

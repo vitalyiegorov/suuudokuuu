@@ -62,7 +62,7 @@ The snapshot carries no given/user distinction, so the consumer supplies `givenC
 
 ### Witness overlay
 
-On a `SHOW_CHAIN` or `SHOW_BRANCH` slide `buildStepScriptState` returns the slide as `explanation`, and `FieldBoard` draws `FieldWitnessOverlay`, an `aria-hidden` SVG laid over the board on a 27 by 27 candidate grid (`getWitnessPoint`). A chain slide draws every candidate of the visible prefix and a `line[data-link]` per link (`STRONG` solid, `WEAK` dashed). A branch slide draws the assumption (`data-assumption`), each visible implication (`data-implication`, `data-removal` for a peer removal), a line from each implication to the candidate that caused it, the unit of the latest single (`rect[data-support]`), and on the outcome slide the contradiction or shared result (`data-outcome`). Candidates carry `data-candidate="y-x-value"`. Links are masked out of filled cells so a line never strikes through a given. With more than nine slides `FieldStepPlayer` shows the step count instead of dots.
+On a `SHOW_CHAIN` or `SHOW_BRANCH` slide `buildStepScriptState` returns the slide as `explanation`, and `FieldBoard` draws `FieldWitnessOverlay`, an `aria-hidden` SVG laid over the board on a 27 by 27 candidate grid (`getWitnessPoint`). A chain slide draws every chain candidate and a `line[data-link]` per link (`STRONG` solid, `WEAK` dashed); links are masked out of filled cells so a line never strikes through a given. A branch slide draws the assumption (inside `g[data-assumption]`), every implication, and the outcome cells and candidates (`[data-outcome]`). Candidates carry `data-candidate="y-x-value"`. With more than nine slides `FieldStepPlayer` shows the step count instead of dots.
 
 ### Keyboard model
 

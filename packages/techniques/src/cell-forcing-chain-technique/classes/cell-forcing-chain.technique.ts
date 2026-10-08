@@ -40,7 +40,7 @@ export class CellForcingChainTechnique extends AbstractForcingChainTechnique {
 
         const propagations = values.map(value => propagateForScan(scan, cellIndex, value));
 
-        scan.results.push(...createForcingChainResults(this.technique, scan.propagator, propagations, scan.scope));
+        scan.results.push(...createForcingChainResults(this.technique, board, propagations, scan.scope));
 
         return !isDefined(scan.scope.directTarget) || scan.results.length === 0;
     }

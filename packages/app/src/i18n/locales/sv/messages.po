@@ -252,14 +252,6 @@ msgstr "AIC"
 msgid "All"
 msgstr "Alla"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "All branches reach {value} in {cell}, so it can be placed there."
-msgstr "Alla grenar leder till {value} i {cell}, så det kan placeras där."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "All branches remove {eliminations}, so these candidates can be eliminated."
-msgstr "Alla grenar tar bort {eliminations}, så dessa kandidater kan elimineras."
-
 #: src/scoring/components/scoring.screen.tsx
 msgid "All of a number (1-9)"
 msgstr "Alla rutor med en siffra (1-9)"
@@ -309,26 +301,6 @@ msgstr "Använda en ledtråd"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
 msgstr "Hjälpmedel"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Assuming {assumptionCell} is {assumptionValue} leads to a contradiction: {cell} has no candidate left."
-msgstr "Om {assumptionCell} är {assumptionValue} uppstår en motsägelse: {cell} har inga kandidater kvar."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Assuming {assumptionCell} is {assumptionValue} leads to a contradiction: {value} can no longer be assigned to {cell}."
-msgstr "Om {assumptionCell} är {assumptionValue} uppstår en motsägelse: {value} kan inte längre placeras i {cell}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Assuming {assumptionCell} is {assumptionValue} leads to a contradiction: {value} has no possible cell among {cells}."
-msgstr "Om {assumptionCell} är {assumptionValue} uppstår en motsägelse: ingen av cellerna {cells} kan innehålla {value}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Assuming {assumptionCell} is {assumptionValue}, this branch reaches {value} in {cell}."
-msgstr "Med antagandet {assumptionCell} = {assumptionValue} leder grenen till {value} i {cell}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Assuming {assumptionCell} is {assumptionValue}, this branch removes {eliminations}."
-msgstr "Med antagandet {assumptionCell} = {assumptionValue} tar grenen bort {eliminations}."
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -420,8 +392,12 @@ msgid "Box-Line Reduction"
 msgstr "Block-rad-reduktion"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "Branch {branchNumber} of {branchCount}: suppose {assumptionCell} is {assumptionValue}."
-msgstr "Gren {branchNumber} av {branchCount}: anta att {assumptionCell} är {assumptionValue}."
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch leads to {placement}."
+msgstr "Gren {branchNumber} av {branchCount}: om {path}. Den här grenen leder till {placement}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch rules out {eliminations}."
+msgstr "Gren {branchNumber} av {branchCount}: om {path}. Den här grenen utesluter {eliminations}."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "BUG+1"
@@ -804,6 +780,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "Följ systemet"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Follow the chain {path}. \"=\" is a strong link (at least one end is true) and \"−\" is a weak link (both ends cannot be true), so one end of the chain is always true."
+msgstr "Följ kedjan {path}. ”=” är en stark länk (minst en ände är sann) och ”−” är en svag länk (båda ändarna kan inte vara sanna), så en ände av kedjan är alltid sann."
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Forcing chains"
 msgstr "Tvingande kedjor"
@@ -967,24 +947,16 @@ msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "Jag klarade detta sudoku på {elapsedTimeString}. Kan du slå mig?"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "If {assumptionCell} is {assumptionValue}, {sourceCell} has {sourceValue}, removing {value} from peer {cell}."
-msgstr "Om {assumptionCell} är {assumptionValue} innehåller {sourceCell} {sourceValue}, vilket tar bort {value} från granncellen {cell}."
+msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
+msgstr "Om {path} → {cell} får slut på kandidater. Alltså är {assumptionCell} inte {assumptionValue}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "If {assumptionCell} is {assumptionValue}, among {supportCells}, only {cell} can take {value}, so this branch places it there."
-msgstr "Om {assumptionCell} är {assumptionValue} kan bara {cell} av {supportCells} innehålla {value}, så grenen placerar det där."
+msgid "If {path} → {cell} would have to be {value}, which is no longer possible. So {assumptionCell} is not {assumptionValue}."
+msgstr "Om {path} → {cell} skulle behöva vara {value}, vilket inte längre är möjligt. Alltså är {assumptionCell} inte {assumptionValue}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "If {assumptionCell} is {assumptionValue}, only {value} remains possible in {cell}, so this branch places it there."
-msgstr "Om {assumptionCell} är {assumptionValue} återstår bara {value} i {cell}, så grenen placerar det där."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "If {assumptionCell} is {assumptionValue}, the deduction at {reasonCell} leads this branch to assign {value} to {cell}."
-msgstr "Om {assumptionCell} är {assumptionValue} leder slutsatsen i {reasonCell} till att grenen placerar {value} i {cell}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "If {assumptionCell} is {assumptionValue}, this branch assigns {value} to {cell}."
-msgstr "Om {assumptionCell} är {assumptionValue} placerar grenen {value} i {cell}."
+msgid "If {path} → {value} has no place left in the outlined cells. So {assumptionCell} is not {assumptionValue}."
+msgstr "Om {path} → {value} har ingen plats kvar i de inramade cellerna. Alltså är {assumptionCell} inte {assumptionValue}."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
@@ -1818,10 +1790,6 @@ msgstr "Starta nytt pussel"
 msgid "Start puzzle"
 msgstr "Starta pussel"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Start with candidate {value} in {cell}."
-msgstr "Börja med kandidaten {value} i {cell}."
-
 #: src/screens/components/history-screen/history.screen.tsx
 msgid "Statistics"
 msgstr "Statistik"
@@ -1854,10 +1822,6 @@ msgstr "Avbryta aktuell omgång?"
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Stop this run"
 msgstr "Avbryt omgången"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Strong link: at least one of {previousValue} in {previousCell} and {value} in {cell} must be true."
-msgstr "Stark länk: minst en av {previousValue} i {previousCell} och {value} i {cell} måste vara sann."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Subtle surface"
@@ -2164,10 +2128,6 @@ msgstr "Varma gulddetaljer för ett ljusare bräde"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "Den senaste utvecklingsversionen kunde inte läsas in. Försök igen."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "Weak link: {previousValue} in {previousCell} and {value} in {cell} cannot both be true."
-msgstr "Svag länk: {previousValue} i {previousCell} och {value} i {cell} kan inte båda vara sanna."
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."

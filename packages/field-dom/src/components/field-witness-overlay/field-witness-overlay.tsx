@@ -12,17 +12,12 @@ interface Props {
     filledCells: readonly FieldCellType[];
 }
 
-export const FieldWitnessOverlay = ({ explanation, filledCells }: Props) => {
-    if (explanation.kind === StepScriptStepKindEnum.SHOW_CHAIN) {
-        return <FieldChainWitness chain={explanation.chain} filledCells={filledCells} visibleLength={explanation.visibleLength} />;
-    }
-
-    return (
-        <FieldBranchWitness
-            branch={explanation.branch}
-            filledCells={filledCells}
-            showOutcome={explanation.showOutcome}
-            visibleImplicationCount={explanation.visibleImplicationCount}
-        />
-    );
-};
+export const FieldWitnessOverlay = ({ explanation, filledCells }: Props) => (
+    <svg aria-hidden="true" className="field-board__witness" data-witness={explanation.kind} viewBox="0 0 27 27">
+        {explanation.kind === StepScriptStepKindEnum.SHOW_CHAIN ? (
+            <FieldChainWitness chain={explanation.chain} filledCells={filledCells} />
+        ) : (
+            <FieldBranchWitness step={explanation} />
+        )}
+    </svg>
+);

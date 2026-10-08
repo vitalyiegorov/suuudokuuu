@@ -99,44 +99,20 @@
         stroke-width: 0.11;
     }
 
-    .field-board__witness g[data-assumption='true'] circle {
+    .field-board__witness g[data-assumption] circle {
         stroke-dasharray: 0.22 0.11;
     }
 
-    .field-board__witness g[data-removal='true'] circle,
-    .field-board__witness rect[data-outcome] {
-        stroke: var(--field-candidate-eliminated-color);
-    }
-
-    .field-board__witness g text {
+    .field-board__witness text {
         fill: var(--field-button-color);
         font-size: 0.62px;
         font-weight: 700;
     }
 
-    .field-board__witness g[data-removal='true'] text {
-        text-decoration: line-through;
-    }
-
-    .field-board__witness rect[data-outcome] {
-        fill: none;
-        stroke-width: 0.1;
-    }
-
-    .field-board__witness rect[data-support] {
-        fill: none;
-        stroke: var(--field-focus-color);
-        stroke-width: 0.1;
-    }
-
-    .field-board__witness-outcome {
+    .field-board__witness [data-outcome] {
         fill: none;
         stroke: var(--field-candidate-eliminated-color);
         stroke-width: 0.1;
-    }
-
-    .field-board__witness-outcome[data-outcome='COMMON_PLACEMENT'] {
-        stroke: var(--field-focus-color);
     }
 
     .field-board__row:nth-child(3n) .field-cell {

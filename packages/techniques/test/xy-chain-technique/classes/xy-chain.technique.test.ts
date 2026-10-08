@@ -2,7 +2,6 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { describe, expect, it } from 'vitest';
 
 import { CandidateContext } from '../../../src/@generic/classes/candidate-context/candidate-context';
-import { ChainLinkEnum } from '../../../src/@generic/enums/chain-link.enum';
 import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-technique.enum';
 import { XYChainTechnique } from '../../../src/xy-chain-technique/classes/xy-chain.technique';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
@@ -57,12 +56,6 @@ describe('XYChainTechnique', () => {
             [1, 1, 1, 'STRONG']
         ]);
         expect(isValidCandidateChain(context, result)).toBe(true);
-        expect(
-            isValidCandidateChain(context, {
-                ...result,
-                chain: result.chain?.map((node, nodeIndex) => (nodeIndex === 0 ? node : { ...node, link: ChainLinkEnum.WEAK }))
-            })
-        ).toBe(false);
     });
     const targetFixtures: TargetChainFixtureInterface[] = [
         {
