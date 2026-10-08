@@ -11,6 +11,8 @@ import * as Effect from 'effect/Effect';
 import * as Layer from 'effect/Layer';
 import * as SqlClient from 'effect/sql/SqlClient';
 
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
+
 import { installDatabase } from './seed-app-state.ts';
 
 const UnratedChallengeLink = '_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-';
@@ -31,7 +33,7 @@ const { APP_ID = '', ANDROID_SERIAL = '', SEED_FIXTURE = '', SIMULATOR_UDID = ''
 const seedFlowState = Effect.gen(function* () {
     const fixture = fixtures.get(SEED_FIXTURE);
 
-    if (fixture === undefined || APP_ID === '') {
+    if (!isDefined(fixture) || !isNotEmptyString(APP_ID)) {
         return yield* Effect.die(`SEED_FIXTURE must be one of ${[...fixtures.keys()].join(', ')} and APP_ID must be set`);
     }
 
@@ -40,7 +42,7 @@ const seedFlowState = Effect.gen(function* () {
     const rival = new GameStateSerializer().decodeState(fixture.link);
     const databaseDirectory = yield* Effect.acquireRelease(
         Effect.sync(() => mkdtempSync(join(tmpdir(), 'seed-flow-state-'))),
-        directory => Effect.sync(() => void rmSync(directory, { force: true, recursive: true }))
+        directory => Effect.sync(() => rmSync(directory, { force: true, recursive: true }))
     );
     const databasePath = join(databaseDirectory, 'seed.db');
 
@@ -70,7 +72,7 @@ const seedFlowState = Effect.gen(function* () {
 
     yield* sql`VACUUM INTO ${databasePath}`;
     installDatabase(
-        { appId: APP_ID, platform: SIMULATOR_UDID === '' ? 'android' : 'ios', serial: ANDROID_SERIAL, udid: SIMULATOR_UDID },
+        { appId: APP_ID, platform: isNotEmptyString(SIMULATOR_UDID) ? 'ios' : 'android', serial: ANDROID_SERIAL, udid: SIMULATOR_UDID },
         databasePath
     );
 });
