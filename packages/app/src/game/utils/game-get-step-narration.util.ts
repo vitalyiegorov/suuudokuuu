@@ -108,9 +108,6 @@ const getBranchNarration = ({ branch, branchIndex, branchCount }: StepScriptBran
     return getRefutationNarration(outcome, path, assumption);
 };
 
-const getWitnessNarration = (step: StepScriptChainStepInterface | StepScriptBranchStepInterface): MessageDescriptor =>
-    step.kind === StepScriptStepKindEnum.SHOW_CHAIN ? getChainNarration(step) : getBranchNarration(step);
-
 const isSameRow = (cells: CellInterface[]): boolean => cells.every(cell => cell.y === cells[0].y);
 
 const isSameColumn = (cells: CellInterface[]): boolean => cells.every(cell => cell.x === cells[0].x);
@@ -260,8 +257,12 @@ const getEliminationStrikeNarration = (techniqueName: string, family: NarrationF
 export const gameGetStepNarration = (step: StepScriptStepType, techniqueName: string): MessageDescriptor => {
     const valueList = joinValues(step.narration.values);
 
-    if (step.kind === StepScriptStepKindEnum.SHOW_CHAIN || step.kind === StepScriptStepKindEnum.SHOW_BRANCH) {
-        return getWitnessNarration(step);
+    if (step.kind === StepScriptStepKindEnum.SHOW_CHAIN) {
+        return getChainNarration(step);
+    }
+
+    if (step.kind === StepScriptStepKindEnum.SHOW_BRANCH) {
+        return getBranchNarration(step);
     }
 
     if (step.kind === StepScriptStepKindEnum.RevealCandidates) {

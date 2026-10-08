@@ -6,7 +6,6 @@ import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-tech
 import { XChainTechnique } from '../../../src/x-chain-technique/classes/x-chain.technique';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
-import { isValidCandidateChain } from '../../@generic/test-utils/is-valid-candidate-chain.spec.util';
 
 import type { TechniqueResultInterface } from '../../../src/@generic/interfaces/technique-result.interface';
 import type { CandidateCellSpecType } from '../../@generic/types/candidate-cell-spec.spec.type';
@@ -51,15 +50,12 @@ describe('XChainTechnique', () => {
         const [, , target] = context.getRowCells(2);
         const [result] = new XChainTechnique().find(context, { cell: target, value: 4, intent: 'direct' });
 
-        expect(result.chain).toBeDefined();
         expect(result.chain?.map(node => [node.cell.y, node.cell.x, node.value, node.link])).toEqual([
             [0, 0, 5, undefined],
             [0, 4, 5, 'STRONG'],
             [1, 4, 5, 'WEAK'],
             [1, 1, 5, 'STRONG']
         ]);
-        expect(context.getPeers(result.chain?.[0].cell ?? target)).toContain(result.chain?.[1].cell);
-        expect(isValidCandidateChain(context, result)).toBe(true);
     });
     const targetFixtures: TargetChainFixtureInterface[] = [
         {

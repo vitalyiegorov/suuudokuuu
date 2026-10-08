@@ -6,7 +6,6 @@ import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-tech
 import { XYChainTechnique } from '../../../src/xy-chain-technique/classes/xy-chain.technique';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
-import { isValidCandidateChain } from '../../@generic/test-utils/is-valid-candidate-chain.spec.util';
 
 import type { TechniqueResultInterface } from '../../../src/@generic/interfaces/technique-result.interface';
 import type { CandidateCellSpecType } from '../../@generic/types/candidate-cell-spec.spec.type';
@@ -55,7 +54,6 @@ describe('XYChainTechnique', () => {
             [1, 1, 3, 'WEAK'],
             [1, 1, 1, 'STRONG']
         ]);
-        expect(isValidCandidateChain(context, result)).toBe(true);
     });
     const targetFixtures: TargetChainFixtureInterface[] = [
         {

@@ -138,7 +138,7 @@ export class XChainTechnique implements TechniqueStrategyInterface {
             return;
         }
 
-        const path = getChainSearchPath(search.nodes, nodeIndex);
+        const path = getChainSearchPath(search.nodes, nodeIndex).map(pathNode => pathNode.cell);
         const eliminations = getChainEndpointEliminations(scan.context, path, scan.value, scan.target);
 
         if (eliminations.length === 0) {

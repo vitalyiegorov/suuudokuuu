@@ -91,10 +91,11 @@ describe('findPlacementChain', () => {
         const aic = thirdChain.find(step => step.technique === SolutionTechniqueEnum.AIC);
         const placement = thirdChain.find(step => step.kind === 'placement');
 
-        expect(nishio?.branches?.[0].outcome.kind).toMatch(/EMPTY_CELL|NO_POSITION|ASSIGNMENT_CONFLICT/u);
+        expect(nishio?.branches?.[0].outcome).toMatchObject({ kind: 'EMPTY_CELL', cell: { y: 5, x: 6 } });
         expect(aic?.chain?.length).toBeGreaterThan(3);
         expect(placement && [placement.cell.y, placement.cell.x, placement.value]).toEqual([5, 8, 1]);
     });
+
     it('should chain the pointing pair the hidden single depends on and stop at the placement', () => {
         expect.assertions(1);
 
