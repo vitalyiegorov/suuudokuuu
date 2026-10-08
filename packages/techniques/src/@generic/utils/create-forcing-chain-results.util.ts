@@ -1,6 +1,7 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { FORCING_CHAIN_MIN_BRANCHES, FORCING_CHAIN_MIN_CELLS } from '../constants/forcing-chain-scan.constant';
+import { ForcingOutcomeKindEnum } from '../enums/forcing-outcome-kind.enum';
 
 import { createEliminationResults } from './create-elimination-results.util';
 import { createPlacementResult } from './create-placement-result.util';
@@ -8,6 +9,7 @@ import { getHypothesisReasonCells } from './get-hypothesis-reason-cells.util';
 import { getMaskValues } from './get-mask-values.util';
 import { isSameCell } from './is-same-cell.util';
 
+import type { HypothesisPropagator } from '../classes/hypothesis-propagator/hypothesis-propagator';
 import type { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
 import type { CandidateEliminationInterface } from '../interfaces/candidate-elimination.interface';
 import type { ForcingChainPlacementInterface } from '../interfaces/forcing-chain-placement.interface';
@@ -82,10 +84,11 @@ const createForcingPlacementResult = (
 
 export const createForcingChainResults = (
     technique: SolutionTechniqueEnum,
-    board: HypothesisBoardInterface,
+    propagator: HypothesisPropagator,
     propagations: HypothesisPropagationInterface[],
     scope: TechniqueSearchScopeInterface
 ): TechniqueResultInterface[] => {
+    const board = propagator.getBoard();
     const hasUsableBranches =
         propagations.length >= FORCING_CHAIN_MIN_BRANCHES && !propagations.some(propagation => propagation.hasContradiction);
 
@@ -102,9 +105,33 @@ export const createForcingChainResults = (
     const placementResults = getCommonPlacements(board, propagations, scope).map(placement =>
         createForcingPlacementResult(technique, board, placement, reasonCells)
     );
+    const eliminationResults = createEliminationResults(
+        technique,
+        getCommonEliminations(board, propagations, scope),
+        reasonCells,
+        reasonCells.length
+    );
+    const results = [...placementResults, ...eliminationResults];
 
-    return [
-        ...placementResults,
-        ...createEliminationResults(technique, getCommonEliminations(board, propagations, scope), reasonCells, reasonCells.length)
-    ];
+    if (results.length === 0) {
+        return results;
+    }
+
+    const explanations = propagations.map(propagation => propagator.explain(propagation.assumptionCellIndex, propagation.assumptionValue));
+
+    if (explanations.some(explanation => !isDefined(explanation.implications))) {
+        return results;
+    }
+
+    return results.map(result => ({
+        ...result,
+        branches: explanations.map(explanation => ({
+            assumption: { cell: board.cells[explanation.assumptionCellIndex], value: explanation.assumptionValue },
+            implications: explanation.implications ?? [],
+            outcome:
+                result.kind === 'placement'
+                    ? { kind: ForcingOutcomeKindEnum.COMMON_PLACEMENT, cell: result.cell, value: result.value }
+                    : { kind: ForcingOutcomeKindEnum.COMMON_ELIMINATIONS, eliminations: result.eliminations }
+        }))
+    }));
 };

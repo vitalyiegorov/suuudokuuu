@@ -63,8 +63,33 @@ export class NishioForcingChainTechnique extends AbstractForcingChainTechnique {
             return true;
         }
 
+        const explanation = scan.propagator.explain(cellIndex, value);
+        const results = createEliminationResults(
+            this.technique,
+            [{ cell: board.cells[cellIndex], value }],
+            reasonCells,
+            reasonCells.length
+        );
+
+        if (!isDefined(explanation.implications) || !isDefined(explanation.contradiction)) {
+            scan.results.push(...results);
+
+            return !isDefined(scan.scope.directTarget);
+        }
+
+        const { implications, contradiction } = explanation;
+
         scan.results.push(
-            ...createEliminationResults(this.technique, [{ cell: board.cells[cellIndex], value }], reasonCells, reasonCells.length)
+            ...results.map(result => ({
+                ...result,
+                branches: [
+                    {
+                        assumption: { cell: board.cells[cellIndex], value },
+                        implications,
+                        outcome: contradiction
+                    }
+                ]
+            }))
         );
 
         return !isDefined(scan.scope.directTarget);

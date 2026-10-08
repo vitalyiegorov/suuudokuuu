@@ -6,6 +6,7 @@ import {
     XY_CHAIN_MAX_VISITS_PER_ROOT,
     XY_CHAIN_MIN_CELLS
 } from '../../@generic/constants/chain-scan.constant';
+import { ChainLinkEnum } from '../../@generic/enums/chain-link.enum';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { collectChainResults } from '../../@generic/utils/collect-chain-results.util';
 import { compareCells } from '../../@generic/utils/compare-cells.util';
@@ -21,6 +22,7 @@ import { isBivalueCell } from '../../@generic/utils/is-bivalue-cell.util';
 import { isCellOnChainPath } from '../../@generic/utils/is-cell-on-chain-path.util';
 import { isSameCell } from '../../@generic/utils/is-same-cell.util';
 
+import type { ChainCandidateInterface } from '../../@generic/interfaces/chain-candidate.interface';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { TechniqueSearchTargetInterface } from '../../@generic/interfaces/technique-search-target.interface';
 import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
@@ -136,7 +138,38 @@ export class XYChainTechnique implements TechniqueStrategyInterface {
         const path = getChainSearchPath(search.nodes, nodeIndex);
         const eliminations = getChainEndpointEliminations(scan.context, path, scan.eliminationValue, scan.target);
 
-        scan.results.push(...createEliminationResults(this.technique, eliminations, path, path.length));
+        if (eliminations.length === 0) {
+            return;
+        }
+
+        const chain = this.getCandidateChain(scan, search, nodeIndex);
+
+        scan.results.push(
+            ...createEliminationResults(this.technique, eliminations, path, path.length).map(result => ({ ...result, chain }))
+        );
+    }
+
+    private getCandidateChain(scan: XYChainScanInterface, search: XYChainSearchInterface, nodeIndex: number): ChainCandidateInterface[] {
+        const path: XYChainNodeInterface[] = [];
+        let currentIndex = nodeIndex;
+
+        while (currentIndex !== CHAIN_SEARCH_ROOT_PARENT_INDEX) {
+            const node = search.nodes[currentIndex];
+
+            path.unshift(node);
+            currentIndex = node.parentIndex;
+        }
+
+        const chain: ChainCandidateInterface[] = [];
+        let incomingValue = scan.eliminationValue;
+
+        path.forEach((node, pathIndex) => {
+            chain.push({ cell: node.cell, value: incomingValue, ...(pathIndex > 0 && { link: ChainLinkEnum.WEAK }) });
+            chain.push({ cell: node.cell, value: node.linkValue, link: ChainLinkEnum.STRONG });
+            incomingValue = node.linkValue;
+        });
+
+        return chain;
     }
 
     private getNextXYChainCells(context: CandidateContext, node: XYChainNodeInterface): CellInterface[] {

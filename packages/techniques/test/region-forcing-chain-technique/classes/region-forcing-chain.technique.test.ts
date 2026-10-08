@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import { CandidateContext } from '../../../src/@generic/classes/candidate-context/candidate-context';
 import { FORCING_CHAIN_MIN_CELLS } from '../../../src/@generic/constants/forcing-chain-scan.constant';
+import { ForcingOutcomeKindEnum } from '../../../src/@generic/enums/forcing-outcome-kind.enum';
 import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-technique.enum';
 import { RegionForcingChainTechnique } from '../../../src/region-forcing-chain-technique/classes/region-forcing-chain.technique';
 
@@ -18,6 +19,22 @@ const forcingChainScanBudgetMilliseconds = 2000;
 const createContext = (board: string): CandidateContext => CandidateContext.fromSudoku(Sudoku.fromString(board, defaultSudokuConfig));
 
 describe('RegionForcingChainTechnique', () => {
+    it('keeps assumptions at distinct unit positions and the result-specific outcome', () => {
+        const [result] = new RegionForcingChainTechnique().find(createContext(regionPlacementBoard));
+
+        expect(result.branches?.length).toBeGreaterThan(1);
+        expect(new Set(result.branches?.map(branch => `${branch.assumption.cell.y}-${branch.assumption.cell.x}`)).size).toBe(
+            result.branches?.length
+        );
+        expect(
+            result.branches?.every(
+                branch =>
+                    branch.outcome.kind === ForcingOutcomeKindEnum.COMMON_PLACEMENT &&
+                    branch.outcome.cell === result.cell &&
+                    branch.outcome.value === result.value
+            )
+        ).toBe(true);
+    });
     it('places the value every position of one region forces', () => {
         expect.assertions(5);
 

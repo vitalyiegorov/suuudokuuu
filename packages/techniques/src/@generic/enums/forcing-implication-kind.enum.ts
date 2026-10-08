@@ -1,0 +1,6 @@
+export enum ForcingImplicationKindEnum {
+    ASSIGNMENT = 'ASSIGNMENT',
+    PEER_REMOVAL = 'PEER_REMOVAL',
+    NAKED_SINGLE = 'NAKED_SINGLE',
+    HIDDEN_SINGLE = 'HIDDEN_SINGLE'
+}

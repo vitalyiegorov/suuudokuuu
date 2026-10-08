@@ -16,6 +16,15 @@ const forcingChainScanBudgetMilliseconds = 2000;
 const createContext = (board: string): CandidateContext => CandidateContext.fromSudoku(Sudoku.fromString(board, defaultSudokuConfig));
 
 describe('NishioForcingChainTechnique', () => {
+    it('keeps the contradiction caused by its exact eliminated assumption', () => {
+        const results = new NishioForcingChainTechnique().find(createContext(forcingChainBoard));
+
+        for (const result of results) {
+            expect(result.branches).toHaveLength(1);
+            expect(result.branches?.[0].assumption).toEqual(result.eliminations[0]);
+            expect(['EMPTY_CELL', 'NO_POSITION', 'ASSIGNMENT_CONFLICT']).toContain(result.branches?.[0].outcome.kind);
+        }
+    });
     it('eliminates a candidate whose hypothesis propagates to a contradiction', () => {
         expect.assertions(4);
 

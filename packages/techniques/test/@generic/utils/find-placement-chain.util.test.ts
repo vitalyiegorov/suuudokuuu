@@ -72,6 +72,29 @@ const createCountingStrategies = (calls: SolutionTechniqueEnum[]): TechniqueStra
     }));
 
 describe('findPlacementChain', () => {
+    it('preserves Nishio and AIC witnesses in the third hint from the original column quad board', () => {
+        const sudoku = createSudoku(columnQuadBoard);
+
+        for (let hintNumber = 1; hintNumber <= 2; hintNumber += 1) {
+            const chain = findPlacementChain(sudoku);
+            const placement = chain.find(step => step.kind === 'placement');
+
+            expect(placement).toBeDefined();
+
+            if (placement !== undefined) {
+                sudoku.setCellValue({ ...placement.cell, value: placement.value });
+            }
+        }
+
+        const thirdChain = findPlacementChain(sudoku);
+        const nishio = thirdChain.find(step => step.technique === SolutionTechniqueEnum.NishioForcingChain);
+        const aic = thirdChain.find(step => step.technique === SolutionTechniqueEnum.AIC);
+        const placement = thirdChain.find(step => step.kind === 'placement');
+
+        expect(nishio?.branches?.[0].outcome.kind).toMatch(/EMPTY_CELL|NO_POSITION|ASSIGNMENT_CONFLICT/u);
+        expect(aic?.chain?.length).toBeGreaterThan(3);
+        expect(placement && [placement.cell.y, placement.cell.x, placement.value]).toEqual([5, 8, 1]);
+    });
     it('should chain the pointing pair the hidden single depends on and stop at the placement', () => {
         expect.assertions(1);
 

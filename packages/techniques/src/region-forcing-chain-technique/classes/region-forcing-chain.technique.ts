@@ -27,7 +27,6 @@ export class RegionForcingChainTechnique extends AbstractForcingChainTechnique {
     }
 
     private collectUnitValueResults(scan: ForcingChainScanInterface, unitCellIndexes: number[], value: number): boolean {
-        const board = scan.propagator.getBoard();
         const positionIndexes = this.getPositionIndexes(scan, unitCellIndexes, value);
 
         if (positionIndexes.length < FORCING_CHAIN_MIN_BRANCHES) {
@@ -42,7 +41,7 @@ export class RegionForcingChainTechnique extends AbstractForcingChainTechnique {
 
         const propagations = positionIndexes.map(positionIndex => propagateForScan(scan, positionIndex, value));
 
-        scan.results.push(...createForcingChainResults(this.technique, board, propagations, scan.scope));
+        scan.results.push(...createForcingChainResults(this.technique, scan.propagator, propagations, scan.scope));
 
         return !isDefined(scan.scope.directTarget) || scan.results.length === 0;
     }

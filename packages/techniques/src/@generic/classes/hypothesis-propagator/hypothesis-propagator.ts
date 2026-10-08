@@ -1,15 +1,15 @@
 import { isDefined } from '@rnw-community/shared';
 
+import { ForcingImplicationKindEnum } from '../../enums/forcing-implication-kind.enum';
 import { createCandidateMask } from '../../utils/create-candidate-mask.util';
-import { getEliminatedMask } from '../../utils/get-eliminated-mask.util';
 import { getPropagationKey } from '../../utils/get-propagation-key.util';
 import { getSingleMaskValue } from '../../utils/get-single-mask-value.util';
 import { hasMaskValue } from '../../utils/has-mask-value.util';
-import { removeMaskValue } from '../../utils/remove-mask-value.util';
 import { CandidateContext } from '../candidate-context/candidate-context';
 
+import { HypothesisPropagationState } from './hypothesis-propagation-state';
+
 import type { HypothesisBoardInterface } from '../../interfaces/hypothesis-board.interface';
-import type { HypothesisPropagationStateInterface } from '../../interfaces/hypothesis-propagation-state.interface';
 import type { HypothesisPropagationInterface } from '../../interfaces/hypothesis-propagation.interface';
 
 const NO_HIDDEN_SINGLE_POSITION = -1;
@@ -43,73 +43,69 @@ export class HypothesisPropagator {
         return propagation;
     }
 
-    private createPropagationState(cellIndex: number, value: number): HypothesisPropagationStateInterface {
-        return {
-            masks: Uint16Array.from(this.board.candidateMasks),
-            placedValues: new Int8Array(this.board.cells.length),
-            placedCellIndexes: [],
-            pendingCellIndexes: [cellIndex],
-            pendingValues: [value],
-            hasContradiction: false
-        };
+    explain(cellIndex: number, value: number): HypothesisPropagationInterface {
+        return this.runPropagation(cellIndex, value, true);
     }
 
-    private runPropagation(cellIndex: number, value: number): HypothesisPropagationInterface {
-        const state = this.createPropagationState(cellIndex, value);
+    private runPropagation(cellIndex: number, value: number, recordImplications = false): HypothesisPropagationInterface {
+        const state = new HypothesisPropagationState(this.board, cellIndex, value, recordImplications);
         let isProgressing = true;
 
         while (isProgressing) {
-            isProgressing = this.drainPendingAssignments(state) && this.queueHiddenSingles(state);
+            isProgressing =
+                state.drain((pendingCellIndex, pendingValue, reasonIndex) => {
+                    this.assign(state, pendingCellIndex, pendingValue, reasonIndex);
+                }) && this.queueHiddenSingles(state);
         }
 
-        return this.createPropagation(state);
+        return state.toPropagation();
     }
 
-    private drainPendingAssignments(state: HypothesisPropagationStateInterface): boolean {
-        let pendingIndex = 0;
-
-        while (pendingIndex < state.pendingCellIndexes.length && !state.hasContradiction) {
-            this.assign(state, state.pendingCellIndexes[pendingIndex], state.pendingValues[pendingIndex]);
-            pendingIndex += 1;
-        }
-
-        state.pendingCellIndexes = [];
-        state.pendingValues = [];
-
-        return !state.hasContradiction;
-    }
-
-    private assign(state: HypothesisPropagationStateInterface, cellIndex: number, value: number): void {
+    private assign(state: HypothesisPropagationState, cellIndex: number, value: number, reasonIndex: number): void {
         if (state.placedValues[cellIndex] === value) {
             return;
         }
 
         if (!hasMaskValue(state.masks[cellIndex], value)) {
-            state.hasContradiction = true;
+            state.failAssignment(cellIndex, value, reasonIndex);
 
             return;
         }
 
-        state.placedValues[cellIndex] = value;
-        state.placedCellIndexes.push(cellIndex);
-        state.masks[cellIndex] = 0;
+        if (state.isRecording()) {
+            state.record({
+                kind: ForcingImplicationKindEnum.ASSIGNMENT,
+                cell: this.board.cells[cellIndex],
+                value,
+                ...(reasonIndex >= 0 && { reasonIndex })
+            });
+        }
+        state.place(cellIndex, value);
 
         for (const peerIndex of this.board.peerIndexes[cellIndex]) {
-            if (!this.removePeerCandidate(state, peerIndex, value)) {
+            if (!this.removePeerCandidate(state, cellIndex, peerIndex, value)) {
                 return;
             }
         }
     }
 
-    private removePeerCandidate(state: HypothesisPropagationStateInterface, peerIndex: number, value: number): boolean {
+    private removePeerCandidate(state: HypothesisPropagationState, sourceIndex: number, peerIndex: number, value: number): boolean {
         if (!hasMaskValue(state.masks[peerIndex], value)) {
             return true;
         }
 
-        state.masks[peerIndex] = removeMaskValue(state.masks[peerIndex], value);
+        state.removeCandidate(peerIndex, value);
+        if (state.isRecording()) {
+            state.record({
+                kind: ForcingImplicationKindEnum.PEER_REMOVAL,
+                cell: this.board.cells[peerIndex],
+                value,
+                source: { cell: this.board.cells[sourceIndex], value }
+            });
+        }
 
         if (state.masks[peerIndex] === 0) {
-            state.hasContradiction = true;
+            state.failEmptyCell(peerIndex);
 
             return false;
         }
@@ -117,14 +113,13 @@ export class HypothesisPropagator {
         const singleValue = getSingleMaskValue(state.masks[peerIndex]);
 
         if (singleValue > 0) {
-            state.pendingCellIndexes.push(peerIndex);
-            state.pendingValues.push(singleValue);
+            state.queueSingle(ForcingImplicationKindEnum.NAKED_SINGLE, peerIndex, singleValue, [peerIndex]);
         }
 
         return true;
     }
 
-    private queueHiddenSingles(state: HypothesisPropagationStateInterface): boolean {
+    private queueHiddenSingles(state: HypothesisPropagationState): boolean {
         const { unitCellIndexes, valueCount } = this.board;
         let hasQueuedAssignments = false;
 
@@ -141,11 +136,11 @@ export class HypothesisPropagator {
         return hasQueuedAssignments;
     }
 
-    private queueUnitHiddenSingle(state: HypothesisPropagationStateInterface, unitCellIndexes: number[], value: number): boolean {
+    private queueUnitHiddenSingle(state: HypothesisPropagationState, unitCellIndexes: number[], value: number): boolean {
         const positionIndex = this.getUnitHiddenSinglePosition(state, unitCellIndexes, value);
 
         if (positionIndex === CONTRADICTION_POSITION) {
-            state.hasContradiction = true;
+            state.failNoPosition(unitCellIndexes, value);
 
             return false;
         }
@@ -154,13 +149,12 @@ export class HypothesisPropagator {
             return false;
         }
 
-        state.pendingCellIndexes.push(positionIndex);
-        state.pendingValues.push(value);
+        state.queueSingle(ForcingImplicationKindEnum.HIDDEN_SINGLE, positionIndex, value, unitCellIndexes);
 
         return true;
     }
 
-    private getUnitHiddenSinglePosition(state: HypothesisPropagationStateInterface, unitCellIndexes: number[], value: number): number {
+    private getUnitHiddenSinglePosition(state: HypothesisPropagationState, unitCellIndexes: number[], value: number): number {
         const { cellValues } = this.board;
         const { masks, placedValues } = state;
         let singlePositionIndex = CONTRADICTION_POSITION;
@@ -180,25 +174,6 @@ export class HypothesisPropagator {
         }
 
         return singlePositionIndex;
-    }
-
-    private createPropagation(state: HypothesisPropagationStateInterface): HypothesisPropagationInterface {
-        const eliminatedMasks = new Uint16Array(this.board.cells.length);
-
-        for (let cellIndex = 0; cellIndex < eliminatedMasks.length; cellIndex += 1) {
-            eliminatedMasks[cellIndex] = getEliminatedMask(
-                this.board.candidateMasks[cellIndex],
-                state.masks[cellIndex],
-                state.placedValues[cellIndex]
-            );
-        }
-
-        return {
-            hasContradiction: state.hasContradiction,
-            placedValues: state.placedValues,
-            placedCellIndexes: state.placedCellIndexes,
-            eliminatedMasks
-        };
     }
 
     static fromContext(context: CandidateContext): HypothesisPropagator {

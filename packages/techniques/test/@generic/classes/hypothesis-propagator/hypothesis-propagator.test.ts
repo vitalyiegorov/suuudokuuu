@@ -17,6 +17,21 @@ const createPropagator = (board: string): HypothesisPropagator =>
     HypothesisPropagator.fromContext(CandidateContext.fromSudoku(Sudoku.fromString(board, defaultSudokuConfig)));
 
 describe('HypothesisPropagator', () => {
+    it('records a causal trace and first literal contradiction only for a requested explanation', () => {
+        const propagator = createPropagator(forcingChainBoard);
+        const compact = propagator.propagate(contradictionCellIndex, contradictionValue);
+        const explained = propagator.explain(contradictionCellIndex, contradictionValue);
+
+        expect(compact.implications).toBeUndefined();
+        expect(explained.implications?.[0]).toMatchObject({
+            kind: 'ASSIGNMENT',
+            cell: propagator.getBoard().cells[contradictionCellIndex],
+            value: 8
+        });
+        expect(explained.contradiction).toBeDefined();
+        expect(explained.contradiction?.implicationPrefixLength).toBe(explained.implications?.length);
+        expect(propagator.getPropagationCount()).toBe(1);
+    });
     it('builds an indexed board with every unit and peer set', () => {
         expect.assertions(4);
 

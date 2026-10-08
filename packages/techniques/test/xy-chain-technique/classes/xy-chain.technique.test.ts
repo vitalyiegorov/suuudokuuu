@@ -2,10 +2,12 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { describe, expect, it } from 'vitest';
 
 import { CandidateContext } from '../../../src/@generic/classes/candidate-context/candidate-context';
+import { ChainLinkEnum } from '../../../src/@generic/enums/chain-link.enum';
 import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-technique.enum';
 import { XYChainTechnique } from '../../../src/xy-chain-technique/classes/xy-chain.technique';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
+import { isValidCandidateChain } from '../../@generic/test-utils/is-valid-candidate-chain.spec.util';
 
 import type { TechniqueResultInterface } from '../../../src/@generic/interfaces/technique-result.interface';
 import type { CandidateCellSpecType } from '../../@generic/types/candidate-cell-spec.spec.type';
@@ -42,6 +44,26 @@ const findTargetChain = (results: TechniqueResultInterface[]): TechniqueResultIn
     results.find(result => result.cell.y === 2 && result.cell.x === 2 && result.value === 1);
 
 describe('XYChainTechnique', () => {
+    it('keeps both candidates and their actual incoming links for each bivalue cell', () => {
+        const context = createCandidateContextFromMap([0, 0, [1, 2]], [0, 1, [2, 3]], [1, 1, [1, 3]], [2, 2, [1, 4]]);
+        const [result] = new XYChainTechnique().find(context, { cell: context.getRowCells(2)[2], value: 4, intent: 'direct' });
+
+        expect(result.chain?.map(node => [node.cell.y, node.cell.x, node.value, node.link])).toEqual([
+            [0, 0, 1, undefined],
+            [0, 0, 2, 'STRONG'],
+            [0, 1, 2, 'WEAK'],
+            [0, 1, 3, 'STRONG'],
+            [1, 1, 3, 'WEAK'],
+            [1, 1, 1, 'STRONG']
+        ]);
+        expect(isValidCandidateChain(context, result)).toBe(true);
+        expect(
+            isValidCandidateChain(context, {
+                ...result,
+                chain: result.chain?.map((node, nodeIndex) => (nodeIndex === 0 ? node : { ...node, link: ChainLinkEnum.WEAK }))
+            })
+        ).toBe(false);
+    });
     const targetFixtures: TargetChainFixtureInterface[] = [
         {
             name: 'basic chain',
