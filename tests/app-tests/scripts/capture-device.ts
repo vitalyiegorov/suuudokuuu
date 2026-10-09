@@ -5,7 +5,6 @@ import { join } from 'node:path';
 const WaitBufferByteLength = 4;
 const ScreenshotMaxBufferBytes = 67108864;
 const BootedUdidPattern = /\(([0-9A-F-]{36})\) \(Booted\)/u;
-const PngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 
 export const detectBootedIosSimulatorUdid = (targetDeviceClass: string): string => {
     const result = spawnSync('xcrun', ['simctl', 'list', 'devices', 'booted'], { encoding: 'utf8' });
@@ -127,63 +126,41 @@ export const readAndroidAppPid = (context: DeviceContext, appId: string): string
     return processId;
 };
 
-export const launchVerifiedAndroidApp = (context: DeviceContext, appId: string, language: string): void => {
-    const localeResult = spawnSync(
-        'adb',
-        [...adbBaseArguments(context), 'shell', 'cmd', 'locale', 'set-app-locales', appId, '--locales', language],
+export const clearAndroidSceneLogs = (context: DeviceContext): void => {
+    const result = spawnSync('adb', [...adbBaseArguments(context), 'logcat', '-c'], { encoding: 'utf8' });
+
+    if (result.status !== 0) {
+        throw new Error(`Could not clear scene logs: ${result.stderr.trim()}`);
+    }
+};
+
+export const verifyAndroidScene = (context: DeviceContext, appId: string, processId: string, screenshotPath: string): void => {
+    if (readAndroidAppPid(context, appId) !== processId) {
+        throw new Error(`App PID changed during capture of ${screenshotPath}.`);
+    }
+
+    const logs = spawnSync('adb', [...adbBaseArguments(context), 'logcat', '-d', `--pid=${processId}`, 'AndroidRuntime:E', '*:S'], {
+        encoding: 'utf8'
+    });
+
+    if (logs.status !== 0 || logs.stdout.includes('AndroidRuntime')) {
+        throw new Error(`Could not verify crash-free scene: ${logs.stderr.trim() || logs.stdout.trim()}`);
+    }
+
+    const image = spawnSync(
+        'convert',
+        [screenshotPath, '-gravity', 'center', '-crop', '80%x80%+0+0', '+repage', '-format', '%[fx:standard_deviation]', 'info:'],
         {
             encoding: 'utf8'
         }
     );
 
-    if (localeResult.status !== 0) {
-        throw new Error(`Could not set app locale: ${localeResult.stderr.trim() || localeResult.stdout.trim()}`);
-    }
-
-    const launchResult = spawnSync('adb', [...adbBaseArguments(context), 'shell', 'am', 'start', '-n', `${appId}/.MainActivity`], {
-        encoding: 'utf8'
-    });
-
-    if (launchResult.status !== 0) {
-        throw new Error(`Could not launch app: ${launchResult.stderr.trim() || launchResult.stdout.trim()}`);
+    if (image.status !== 0 || !(Number(image.stdout) > 0.01)) {
+        throw new Error(`Screenshot is invalid or blank: ${screenshotPath}. ${image.stderr.trim()}`);
     }
 };
 
-export const verifyAndroidReadyScene = (context: DeviceContext, readyTestId: string): void => {
-    const hierarchyPath = '/sdcard/store-capture-window.xml';
-    const serialArguments = adbBaseArguments(context);
-    const clearResult = spawnSync('adb', [...serialArguments, 'shell', 'rm', '-f', hierarchyPath], { encoding: 'utf8' });
-
-    if (clearResult.status !== 0) {
-        throw new Error(`Could not clear previous active-window hierarchy: ${clearResult.stderr.trim()}`);
-    }
-
-    const dumpResult = spawnSync('adb', [...serialArguments, 'shell', 'uiautomator', 'dump', hierarchyPath], {
-        encoding: 'utf8',
-        maxBuffer: ScreenshotMaxBufferBytes
-    });
-
-    if (dumpResult.status !== 0) {
-        throw new Error(`Could not dump active-window hierarchy: ${dumpResult.stderr.trim() || dumpResult.stdout.trim()}`);
-    }
-
-    const hierarchyResult = spawnSync('adb', [...serialArguments, 'shell', 'cat', hierarchyPath], {
-        encoding: 'utf8',
-        maxBuffer: ScreenshotMaxBufferBytes
-    });
-
-    if (hierarchyResult.status !== 0 || !hierarchyResult.stdout.includes('<hierarchy')) {
-        throw new Error(
-            `Could not read active-window hierarchy: ${hierarchyResult.stderr.trim() || dumpResult.stdout.trim() || hierarchyResult.stdout.trim()}`
-        );
-    }
-
-    if (!hierarchyResult.stdout.includes(`resource-id="${readyTestId}"`)) {
-        throw new Error(`Expected active-window resource-id "${readyTestId}" was absent from the hierarchy.`);
-    }
-};
-
-export const writeDeviceScreenshot = (context: DeviceContext, screenshotPath: string, verifyPng = false): SceneOutcome => {
+export const writeDeviceScreenshot = (context: DeviceContext, screenshotPath: string): SceneOutcome => {
     if (context.platform === 'ios') {
         const result = spawnSync('xcrun', ['simctl', 'io', context.simulatorUdid, 'screenshot', '--type=png', screenshotPath], {
             encoding: 'utf8'
@@ -198,17 +175,6 @@ export const writeDeviceScreenshot = (context: DeviceContext, screenshotPath: st
 
     if (result.status !== 0) {
         return { failureOutput: `Could not capture screenshot: ${String(result.stderr).trim()}`, succeeded: false };
-    }
-
-    if (
-        verifyPng &&
-        (result.stdout.length < 24 ||
-            !result.stdout.subarray(0, 8).equals(PngSignature) ||
-            result.stdout.toString('ascii', 12, 16) !== 'IHDR' ||
-            result.stdout.readUInt32BE(16) === 0 ||
-            result.stdout.readUInt32BE(20) === 0)
-    ) {
-        return { failureOutput: 'Screenshot is not a PNG with a valid IHDR and positive dimensions.', succeeded: false };
     }
 
     writeFileSync(screenshotPath, result.stdout);

@@ -11,14 +11,14 @@ import {
     type SceneOutcome,
     applyStatusBarOverride,
     detectBootedIosSimulatorUdid,
-    launchVerifiedAndroidApp,
+    clearAndroidSceneLogs,
     openDeepLink,
     readAndroidAppPid,
     recycleIosDriver,
     rotateSimulator,
     waitForRender,
     writeDeviceScreenshot,
-    verifyAndroidReadyScene
+    verifyAndroidScene
 } from './capture-device.ts';
 import { type MaestroContext, runMaestroScene } from './maestro-scene.ts';
 import {
@@ -159,10 +159,10 @@ const captureSceneDirectly = (scene: Scene, locale: string, appearance: string, 
 
     try {
         if (verifiesAndroidScenes) {
-            launchVerifiedAndroidApp(deviceContext, target.appId, locale);
-        } else {
-            launchSeededApp(target, locale, localeIdentifierFor(locale));
+            clearAndroidSceneLogs(deviceContext);
         }
+
+        launchSeededApp(target, locale, localeIdentifierFor(locale));
         waitForRender(launchSettleMilliseconds);
         const launchedProcessId = verifiesAndroidScenes ? readAndroidAppPid(deviceContext, target.appId) : '';
 
@@ -176,25 +176,11 @@ const captureSceneDirectly = (scene: Scene, locale: string, appearance: string, 
             waitForRender(sceneSettleMilliseconds);
         }
 
-        if (verifiesAndroidScenes && isDefinedString(scene.readyTestId)) {
-            verifyAndroidReadyScene(deviceContext, scene.readyTestId);
-        }
-
-        const screenshotOutcome = writeDeviceScreenshot(
-            deviceContext,
-            join(testOutputDirectory, `${sceneScreenshotBaseName(scene)}.png`),
-            verifiesAndroidScenes
-        );
+        const screenshotPath = join(testOutputDirectory, `${sceneScreenshotBaseName(scene)}.png`);
+        const screenshotOutcome = writeDeviceScreenshot(deviceContext, screenshotPath);
 
         if (verifiesAndroidScenes && screenshotOutcome.succeeded) {
-            const capturedProcessId = readAndroidAppPid(deviceContext, target.appId);
-
-            if (capturedProcessId !== launchedProcessId) {
-                return {
-                    failureOutput: `App PID changed during ${scene.name}: ${launchedProcessId} -> ${capturedProcessId}`,
-                    succeeded: false
-                };
-            }
+            verifyAndroidScene(deviceContext, target.appId, launchedProcessId, screenshotPath);
         }
 
         return screenshotOutcome;
@@ -355,12 +341,10 @@ const main = (): void => {
     }
 
     if (verifiesAndroidScenes) {
-        const unsupportedScenes = selectedScenes.filter(scene => !isDefinedString(scene.deepLink) || !isDefinedString(scene.readyTestId));
+        const unsupportedScenes = selectedScenes.filter(scene => !isDefinedString(scene.deepLink));
 
         if (unsupportedScenes.length > 0) {
-            throw new Error(
-                `--verify requires a deep link and ready selector for every scene: ${unsupportedScenes.map(scene => scene.name).join(', ')}`
-            );
+            throw new Error(`--verify requires a deep link for every scene: ${unsupportedScenes.map(scene => scene.name).join(', ')}`);
         }
     }
 
