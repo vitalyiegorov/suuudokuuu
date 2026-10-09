@@ -152,6 +152,10 @@ msgstr "{techniqueName}: হাইলাইট করা বাক্সে শ�
 msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো একটি শৃঙ্খল গঠন করে, তাই এর এক প্রান্ত অথবা অন্য প্রান্ত {valueList}।"
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "{techniqueName}: the highlighted cells hold the pattern."
+msgstr "{techniqueName}: হাইলাইট করা ঘরগুলোতে প্যাটার্নটি আছে।"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: হাইলাইট করা ঘরগুলি চিহ্নিত ঘরের জন্য শুধু {value} রাখে।"
@@ -219,6 +223,10 @@ msgstr "<0>ডেভেলপমেন্ট ক্লায়েন্ট প�
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "“+” চিহ্নের অর্থ এই সুডোকুটি অন্তত SE {seRatingCeilingText}। এর পরে সমাধানের যুক্তি খুব লম্বা শৃঙ্খলে গড়াতে পারে, তাই মিথ্যা নিখুঁততার পেছনে না ছুটে আমরা দেখানো সংখ্যাটিতে সীমা টেনে দিই।"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "A direct Reveal costs one level only when you apply it."
+msgstr "সরাসরি প্রকাশ করলে তা প্রয়োগের সময়ই কেবল এক স্তরের খরচ হয়।"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -293,10 +301,6 @@ msgstr "অ্যানিমেশন"
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "প্রয়োগ করুন"
-
-#: src/scoring/components/scoring.screen.tsx
-msgid "Applying a hint"
-msgstr "সংকেত প্রয়োগ করা"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -707,6 +711,10 @@ msgstr "ডুপ্লিকেট করুন"
 msgid "Each correct placement starts with a base value:"
 msgstr "প্রতিটি সঠিক বসানো শুরু হয় একটি মূল মান দিয়ে:"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "Each hint level you reveal"
+msgstr "প্রতিটি প্রকাশ করা ইঙ্গিত স্তর"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
@@ -1067,6 +1075,22 @@ msgstr "ডেভেলপমেন্ট বিল্ড লোড হচ্ছ
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading the latest development build…"
 msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড লোড হচ্ছে…"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in box {regionNumber}."
+msgstr "ব্লক {regionNumber}-এ {techniqueName} খুঁজুন।"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in column {regionNumber}."
+msgstr "কলাম {regionNumber}-এ {techniqueName} খুঁজুন।"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in row {regionNumber}."
+msgstr "সারি {regionNumber}-এ {techniqueName} খুঁজুন।"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName}."
+msgstr "{techniqueName} খুঁজুন।"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -1718,6 +1742,14 @@ msgstr "খেলার সময় অতিবাহিত সময় দেখ�
 msgid "Show matching notes for the selected cell"
 msgstr "নির্বাচিত ঘরের মিলে যাওয়া নোট দেখান"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more"
+msgstr "আরও দেখান"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more of the hint"
+msgstr "ইঙ্গিতের আরও অংশ দেখান"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "নির্বাচিত ঘরের সারি, কলাম ও বাক্স দেখান"
@@ -2033,8 +2065,8 @@ msgid "Undo"
 msgstr "ফিরিয়ে নিন"
 
 #: src/scoring/components/scoring.screen.tsx
-msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
-msgstr "ফিরিয়ে নিলে সেই বসানোর জন্য পাওয়া পয়েন্টও ফেরত চলে যায়, তাই একই ঘর দুবার পয়েন্ট দিতে পারে না। সংকেত প্রয়োগ না করে সরিয়ে দিলে কোনো খরচ নেই, আর পেন্সিল চিহ্ন ফিরিয়ে নেওয়া সবসময় বিনামূল্যে।"
+msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. A hint has up to four levels: the technique and region, the pattern cells, the full walkthrough, and placing the digit. Each level is charged when you reveal it, so dismissing a hint keeps only the levels you already saw. Undoing a pencil mark is always free."
+msgstr "পূর্বাবস্থায় ফেরালে বাতিল হওয়া চালের পাওয়া পয়েন্টও ফেরত যায়, তাই একই ঘর আবার পূরণ করে সেই পয়েন্ট দুইবার পাওয়া যায় না। একটি ইঙ্গিতে সর্বোচ্চ চারটি স্তর আছে: কৌশল ও অঞ্চল, প্যাটার্নের ঘর, সম্পূর্ণ ধাপে ধাপে ব্যাখ্যা এবং সংখ্যা বসানো। প্রতিটি স্তর প্রকাশ করার সময় গণনা হয়, তাই ইঙ্গিত বন্ধ করলে কেবল যে স্তরগুলো আপনি দেখেছেন সেগুলোই গণনা হয়। পেন্সিল নোট পূর্বাবস্থায় ফেরানো সবসময় বিনামূল্যে।"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undoing a placement"

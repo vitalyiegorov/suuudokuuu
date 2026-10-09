@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { HintLevelEnum } from '@suuudokuuu/field-core';
 import { AppButton } from '@suuudokuuu/ui';
 import LucideX from 'lucide-react-native/icons/x';
 import { use, useEffect } from 'react';
@@ -12,6 +13,7 @@ import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook'
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { runCurrentRunCommand } from '../../utils/run-current-run-command.util';
+import { HintLevelNarration } from '../hint-level-narration/hint-level-narration';
 import { HintPanelEliminationActions } from '../hint-panel-elimination-actions/hint-panel-elimination-actions';
 import { HintPanelStepControls } from '../hint-panel-step-controls/hint-panel-step-controls';
 import { HintStepNarration } from '../hint-step-narration/hint-step-narration';
@@ -45,6 +47,12 @@ export const HintPanel = ({ availableHeight }: Props) => {
         }
     };
 
+    const handleShowMore = () => {
+        if (engine.revealNextHintLevel()) {
+            void runCurrentRunCommand(currentRunService => currentRunService.revealHintLevel());
+        }
+    };
+
     const handleDismiss = () => {
         engine.stopStepScript();
     };
@@ -58,13 +66,20 @@ export const HintPanel = ({ availableHeight }: Props) => {
         styles.container(availableHeight),
         { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border }
     ];
+    const isWalkthrough = snapshot.hintLevel === HintLevelEnum.WALKTHROUGH;
+    const isApplyShown = isWalkthrough && !isEliminationOnly;
+    const areEliminationActionsShown = isWalkthrough && isEliminationOnly;
     const placementValue = currentStep.narration.placement?.value;
     const motionProps = isMotionReduced ? {} : { entering: FadeIn.duration(enterDurationMs), exiting: FadeOut.duration(exitDurationMs) };
 
     return (
         <Animated.View pointerEvents="box-none" style={styles.region(availableHeight)} {...motionProps}>
             <View style={containerStyles} testID={HintPanelSelectors.Root}>
-                <HintStepNarration step={currentStep} value={placementValue} />
+                {isWalkthrough ? (
+                    <HintStepNarration step={currentStep} value={placementValue} />
+                ) : (
+                    <HintLevelNarration hintLevel={snapshot.hintLevel} stepScript={stepScript} />
+                )}
 
                 <View style={styles.controls}>
                     <AppIconButton
@@ -78,14 +93,25 @@ export const HintPanel = ({ availableHeight }: Props) => {
                         <LucideX color={theme.colors.text.primary} />
                     </AppIconButton>
 
-                    <HintPanelStepControls engine={engine} stepIndex={stepIndex} stepScript={stepScript} />
-
-                    {isEliminationOnly ? null : (
-                        <AppButton onPress={handleApply} size="compact" testID={HintPanelSelectors.ApplyButton} text={t`Apply`} />
+                    {isWalkthrough ? (
+                        <HintPanelStepControls engine={engine} stepIndex={stepIndex} stepScript={stepScript} />
+                    ) : (
+                        <AppButton
+                            accessibilityLabel={t`Show more of the hint`}
+                            onPress={handleShowMore}
+                            size="compact"
+                            testID={HintPanelSelectors.ShowMoreButton}
+                            text={t`Show more`}
+                            variant="ghost"
+                        />
                     )}
+
+                    {isApplyShown ? (
+                        <AppButton onPress={handleApply} size="compact" testID={HintPanelSelectors.ApplyButton} text={t`Apply`} />
+                    ) : null}
                 </View>
 
-                {isEliminationOnly ? (
+                {areEliminationActionsShown ? (
                     <HintPanelEliminationActions engine={engine} onApply={handleApply} stepIndex={stepIndex} stepScript={stepScript} />
                 ) : null}
             </View>

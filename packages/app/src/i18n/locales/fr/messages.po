@@ -154,6 +154,10 @@ msgstr "{techniqueName} : il ne reste qu’une case vide dans le bloc surligné,
 msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 msgstr "{techniqueName} : les cases surlignées forment une chaîne, donc l'une de ses extrémités ou l'autre vaut {valueList}."
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "{techniqueName}: the highlighted cells hold the pattern."
+msgstr "{techniqueName} : les cellules en surbrillance contiennent le motif."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName} : les cases surlignées ne laissent que {value} pour la case marquée."
@@ -221,6 +225,10 @@ msgstr "<0>Client de développement requis</0><1>Les clients de développement n
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Un « + » signifie que cette grille atteint au moins SE {seRatingCeilingText}. Au-delà, les solutions peuvent s’enchaîner sur des raisonnements très longs : nous plafonnons donc le nombre affiché plutôt que d’afficher une fausse précision."
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "A direct Reveal costs one level only when you apply it."
+msgstr "Une révélation directe ne coûte un niveau que lorsque vous l’appliquez."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -295,10 +303,6 @@ msgstr "Animations"
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Appliquer"
-
-#: src/scoring/components/scoring.screen.tsx
-msgid "Applying a hint"
-msgstr "Appliquer un indice"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -709,6 +713,10 @@ msgstr "Dupliquer"
 msgid "Each correct placement starts with a base value:"
 msgstr "Chaque placement correct commence avec une valeur de base :"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "Each hint level you reveal"
+msgstr "Chaque niveau d'indice révélé"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
@@ -1069,6 +1077,22 @@ msgstr "Chargement de la version de développement"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Chargement de la dernière version de développement…"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in box {regionNumber}."
+msgstr "Cherchez {techniqueName} dans le bloc {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in column {regionNumber}."
+msgstr "Cherchez {techniqueName} dans la colonne {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in row {regionNumber}."
+msgstr "Cherchez {techniqueName} dans la ligne {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName}."
+msgstr "Cherchez {techniqueName}."
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -1720,6 +1744,14 @@ msgstr "Afficher le temps écoulé pendant la partie"
 msgid "Show matching notes for the selected cell"
 msgstr "Afficher les notes correspondantes pour la case sélectionnée"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more"
+msgstr "Afficher plus"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more of the hint"
+msgstr "Afficher plus de l'indice"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "Afficher la ligne, la colonne et le bloc de la cellule sélectionnée"
@@ -2035,8 +2067,8 @@ msgid "Undo"
 msgstr "Annuler"
 
 #: src/scoring/components/scoring.screen.tsx
-msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
-msgstr "Annuler rend aussi les points gagnés par le placement annulé, si bien qu’une même cellule ne peut jamais les rapporter deux fois. Masquer un indice sans l’appliquer ne coûte rien, et annuler une annotation est toujours gratuit."
+msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. A hint has up to four levels: the technique and region, the pattern cells, the full walkthrough, and placing the digit. Each level is charged when you reveal it, so dismissing a hint keeps only the levels you already saw. Undoing a pencil mark is always free."
+msgstr "Annuler rend aussi les points que le placement annulé avait rapportés, si bien que rejouer la même cellule ne peut jamais les rapporter deux fois. Un indice compte jusqu'à quatre niveaux : la technique et la zone, les cellules du motif, le déroulé complet et le placement du chiffre. Chaque niveau est facturé lorsque vous le révélez ; fermer un indice ne coûte donc que les niveaux déjà vus. Annuler une note au crayon est toujours gratuit."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undoing a placement"

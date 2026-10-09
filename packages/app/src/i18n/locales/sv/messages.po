@@ -152,6 +152,10 @@ msgstr "{techniqueName}: den markerade 3\\u00d73-rutan har bara en tom cell kvar
 msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 msgstr "{techniqueName}: de markerade cellerna bildar en kedja, så antingen den ena eller den andra änden är {valueList}."
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "{techniqueName}: the highlighted cells hold the pattern."
+msgstr "{techniqueName}: de markerade cellerna innehåller mönstret."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: de markerade cellerna lämnar bara {value} för den markerade cellen."
@@ -219,6 +223,10 @@ msgstr "<0>Utvecklingsklient krävs</0><1>Utvecklingsklienter behöver Metro, st
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Ett ”+” betyder att det här sudokut är minst SE {seRatingCeilingText}. Bortom den punkten kan lösningarna kedjas ihop till väldigt långa resonemang, så vi sätter ett tak för det visade talet i stället för att låtsas om en precision som inte finns."
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "A direct Reveal costs one level only when you apply it."
+msgstr "Ett direkt avslöjande kostar en nivå först när du använder det."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -293,10 +301,6 @@ msgstr "Animationer"
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Tillämpa"
-
-#: src/scoring/components/scoring.screen.tsx
-msgid "Applying a hint"
-msgstr "Använda en ledtråd"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -707,6 +711,10 @@ msgstr "Duplicera"
 msgid "Each correct placement starts with a base value:"
 msgstr "Varje korrekt placering börjar med ett grundvärde:"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "Each hint level you reveal"
+msgstr "Varje avslöjad ledtrådsnivå"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
@@ -1067,6 +1075,22 @@ msgstr "Läser in utvecklingsversionen"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Läser in den senaste utvecklingsversionen…"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in box {regionNumber}."
+msgstr "Leta efter {techniqueName} i block {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in column {regionNumber}."
+msgstr "Leta efter {techniqueName} i kolumn {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in row {regionNumber}."
+msgstr "Leta efter {techniqueName} i rad {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName}."
+msgstr "Leta efter {techniqueName}."
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -1718,6 +1742,14 @@ msgstr "Visa spelad tid medan du spelar"
 msgid "Show matching notes for the selected cell"
 msgstr "Visa matchande anteckningar för den valda rutan"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more"
+msgstr "Visa mer"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more of the hint"
+msgstr "Visa mer av tipset"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "Visa rad, kolumn och block för vald ruta"
@@ -2033,8 +2065,8 @@ msgid "Undo"
 msgstr "Ångra"
 
 #: src/scoring/components/scoring.screen.tsx
-msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
-msgstr "Ångra ger också tillbaka poängen som den ångrade placeringen gav, så samma ruta kan aldrig ge poäng två gånger. Att avfärda en ledtråd utan att använda den kostar ingenting, och att ångra en anteckning är alltid gratis."
+msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. A hint has up to four levels: the technique and region, the pattern cells, the full walkthrough, and placing the digit. Each level is charged when you reveal it, so dismissing a hint keeps only the levels you already saw. Undoing a pencil mark is always free."
+msgstr "Ångra ger också tillbaka poängen som den ångrade placeringen gav, så att samma cell aldrig kan ge poäng två gånger. Ett tips har upp till fyra nivåer: tekniken och området, mönstrets celler, hela genomgången och placeringen av siffran. Varje nivå debiteras när du visar den, så om du stänger ett tips räknas bara de nivåer du redan sett. Att ångra en pennanteckning är alltid gratis."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undoing a placement"

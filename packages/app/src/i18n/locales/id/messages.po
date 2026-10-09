@@ -152,6 +152,10 @@ msgstr "{techniqueName}: kotak yang disorot hanya menyisakan satu sel kosong, ja
 msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 msgstr "{techniqueName}: sel yang disorot membentuk sebuah rantai, sehingga salah satu ujungnya atau ujung lainnya adalah {valueList}."
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "{techniqueName}: the highlighted cells hold the pattern."
+msgstr "{techniqueName}: sel yang disorot berisi pola tersebut."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: sel yang disorot hanya menyisakan {value} untuk sel yang ditandai."
@@ -219,6 +223,10 @@ msgstr "<0>Klien pengembangan diperlukan</0><1>Klien pengembangan memerlukan Met
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Tanda “+” berarti sudoku ini setidaknya SE {seRatingCeilingText}. Di atas titik itu, penyelesaian bisa merangkai penalaran yang sangat panjang, jadi kami membatasi angka yang ditampilkan daripada mengejar ketelitian semu."
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "A direct Reveal costs one level only when you apply it."
+msgstr "Pengungkapan langsung dikenai biaya satu tingkat hanya saat Anda menerapkannya."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -293,10 +301,6 @@ msgstr "Animasi"
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Terapkan"
-
-#: src/scoring/components/scoring.screen.tsx
-msgid "Applying a hint"
-msgstr "Menerapkan petunjuk"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -707,6 +711,10 @@ msgstr "Duplikat"
 msgid "Each correct placement starts with a base value:"
 msgstr "Setiap penempatan benar dimulai dari nilai dasar:"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "Each hint level you reveal"
+msgstr "Setiap level petunjuk yang dibuka"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
@@ -1067,6 +1075,22 @@ msgstr "Memuat build pengembangan"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Memuat build pengembangan terbaru…"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in box {regionNumber}."
+msgstr "Carilah {techniqueName} di kotak {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in column {regionNumber}."
+msgstr "Carilah {techniqueName} di kolom {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in row {regionNumber}."
+msgstr "Carilah {techniqueName} di baris {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName}."
+msgstr "Carilah {techniqueName}."
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -1718,6 +1742,14 @@ msgstr "Tampilkan waktu berjalan saat bermain"
 msgid "Show matching notes for the selected cell"
 msgstr "Tampilkan catatan yang cocok untuk sel yang dipilih"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more"
+msgstr "Tampilkan lebih banyak"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more of the hint"
+msgstr "Tampilkan lebih banyak petunjuk"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "Tampilkan baris, kolom, dan kotak untuk sel yang dipilih"
@@ -2033,8 +2065,8 @@ msgid "Undo"
 msgstr "Urungkan"
 
 #: src/scoring/components/scoring.screen.tsx
-msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
-msgstr "Mengurungkan juga mengembalikan poin yang didapat dari penempatan itu, jadi mengisi sel yang sama tidak pernah memberi poin dua kali. Mengabaikan petunjuk tanpa menerapkannya tidak dikenai biaya, dan mengurungkan tanda pensil selalu gratis."
+msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. A hint has up to four levels: the technique and region, the pattern cells, the full walkthrough, and placing the digit. Each level is charged when you reveal it, so dismissing a hint keeps only the levels you already saw. Undoing a pencil mark is always free."
+msgstr "Urungkan juga mengembalikan poin yang diperoleh penempatan yang diurungkan, sehingga mengulang sel yang sama tidak pernah bisa memberi poin dua kali. Petunjuk memiliki hingga empat level: teknik dan wilayah, sel pola, penjelasan lengkap, dan penempatan angka. Setiap level dikenai biaya saat Anda membukanya, jadi menutup petunjuk hanya menghitung level yang sudah Anda lihat. Mengurungkan catatan pensil selalu gratis."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undoing a placement"
