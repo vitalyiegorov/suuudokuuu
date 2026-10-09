@@ -110,12 +110,12 @@ Regenerate both iOS variants and the Android phone set for a locale:
 bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all
 ```
 
-The second argument selects `light`, `dark`, `android`, or `all` (the
+The second argument selects `light`, `dark`, `android`, `tablet`, or `all` (the
 default). `all` composes both iOS variants and the Play phone screenshots;
-`android` composes only the Play set. There are 11 iOS locales and 13 Play
-locales; the script maps the locale names between the app, Apple, and Google
-Play. Each Play locale has eight phone screenshots at 1080×1920. No tablet set
-is currently committed.
+`android` composes only the Play phone set and `tablet` only the Play 7" and 10"
+sets. There are 11 iOS locales and 13 Play locales; the script maps the locale
+names between the app, Apple, and Google Play. Each Play locale has eight
+phone screenshots and five 7" and five 10" tablet screenshots at 1080×1920.
 
 The script (requires ImageMagick 7, `magick` on `PATH`, and the frame assets
 above) uses Inter Black from
@@ -193,5 +193,4 @@ Eleven locales use matching UI captures; Bengali and Urdu use English phone
 captures with localized copy. The 13 `design/<locale>/feature.strings` files
 reuse the localized `10-stats` titles and subtitles. Crop dimensions and
 positions are documented in `design/README.md`.
-Google Play tablet screenshots and recorded app preview videos are not part of
-the current committed set.
+Recorded app preview videos are not part of the current committed set.

@@ -181,22 +181,20 @@ def verify_android_artwork(path = ANDROID_METADATA_PATH)
 
   metadata_locales.each do |locale|
     images_path = File.join(path, locale, "images")
-    phone_path = File.join(images_path, "phoneScreenshots")
-    verify_store_directory("Play phone screenshots for #{locale}", phone_path)
-    screenshots = Dir.children(phone_path).sort
-    unless (2..8).cover?(screenshots.length)
-      UI.user_error!("#{phone_path} has #{screenshots.length} screenshots; Play requires 2 to 8 phone screenshots")
-    end
+    { "phoneScreenshots" => 8, "sevenInchScreenshots" => 5, "tenInchScreenshots" => 5 }.each do |folder, expected_count|
+      folder_path = File.join(images_path, folder)
+      verify_store_directory("Play #{folder} for #{locale}", folder_path)
+      screenshots = Dir.children(folder_path).sort
+      unless screenshots.length == expected_count
+        UI.user_error!("#{folder_path} has #{screenshots.length} screenshots; the curated Play gallery requires #{expected_count}")
+      end
 
-    unless screenshots.length == 8
-      UI.user_error!("#{phone_path} has #{screenshots.length} screenshots; the curated Play gallery requires 8")
-    end
-
-    screenshots.each do |filename|
-      screenshot = File.join(phone_path, filename)
-      width, height = verify_rgb_screenshot(screenshot)
-      unless [width, height] == [1080, 1920]
-        UI.user_error!("#{screenshot} is #{width}x#{height}; Play phone screenshots must use the committed 1080x1920 format")
+      screenshots.each do |filename|
+        screenshot = File.join(folder_path, filename)
+        width, height = verify_rgb_screenshot(screenshot)
+        unless [width, height] == [1080, 1920]
+          UI.user_error!("#{screenshot} is #{width}x#{height}; Play screenshots must use the committed 1080x1920 format")
+        end
       end
     end
 
@@ -210,7 +208,7 @@ def verify_android_artwork(path = ANDROID_METADATA_PATH)
       UI.user_error!("#{icon_path} must be a 512x512 8-bit RGBA PNG")
     end
     UI.user_error!("#{icon_path} exceeds Play's 1 MiB icon limit") if File.size(icon_path) > 1024 * 1024
-    UI.success("  Play #{locale}: #{screenshots.length} phone screenshots, feature graphic and icon")
+    UI.success("  Play #{locale}: phone and tablet screenshots, feature graphic and icon")
   end
 end
 
