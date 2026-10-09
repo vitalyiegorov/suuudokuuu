@@ -65,7 +65,8 @@ before relying on them.
   `ios_screenshots` lane uploads (currently `dark`; dark-first is a user
   decision). `SCREENSHOT_VARIANT=light|dark` overrides it.
 - `packages/app/fastlane/{Fastfile,Appfile}` - lanes `store_preflight`,
-  `ios_metadata`, `android_metadata`, `ios_screenshots`, `android_screenshots`
+  `ios_metadata`, `android_metadata`, `ios_screenshots`, `android_screenshots`,
+  `ios_creative_assets`
   (address as `fastlane <platform> <lane>`; bare names resolve against
   `default_platform(:ios)`). Lane bodies run from `fastlane/` while actions run
   from `packages/app/`, so plain-Ruby paths anchor on `FASTLANE_DIR`/`APP_DIR`,
@@ -382,15 +383,61 @@ issue body is the brief. Every brief states:
 
 ## Publishing tooling gap
 
-fastlane `deliver` and `supply` (fastlane 2.240.1) support none of the 2026
-additions: creative assets and the Asset Library, In-App Events, custom
-product pages, PPO, iPhone Duo display types, Play custom listings,
-experiments, promotional content, or feature graphics beyond what `supply`
-already reads from `images/` (which includes the 7" and 10" tablet sets).
-`deliver` has uploaded app previews since March 2026. Use the App Store
-Connect API (creative assets and Asset Library are exposed; exact endpoint
-names unconfirmed) via a small script, or upload manually; the plan is #474.
-Play Console features are manual unless the Play Developer API covers them.
+fastlane `deliver` and `supply` (fastlane 2.240.1) do not manage the 2026
+Asset Library. `ios_creative_assets` in `Fastfile` uses fastlane's existing
+App Store Connect API key and raw requests to Apple's documented image API.
+It adds no dependency or second credential path. `deliver` has uploaded app
+previews since March 2026. Play Console features need their own API check.
+
+## App Store creative asset upload
+
+Put finished RGB or sRGB images in one directory, named `header.png`,
+`search.png`, `event-card.png`, or `event-detail.png` (JPG and JPEG work too).
+The lane requires at least one image and validates dimensions, extension,
+decoded format, color space, and absence of alpha before any API write.
+Apple's creative asset page does not mandate a color profile; RGB/sRGB is a
+conservative local requirement. The live lane also checks Apple's current
+Asset Library reference data for a matching creative image specification.
+
+From `packages/app`, after setting `EXPO_ASC_KEY_ID`,
+`EXPO_ASC_ISSUER_ID`, and `EXPO_ASC_API_KEY_PATH` to the same values and p8
+file used by `ios_metadata`, run:
+
+```bash
+bundle exec fastlane ios ios_creative_assets asset_dir:/absolute/path dry_run:true
+bundle exec fastlane ios ios_creative_assets asset_dir:/absolute/path live:true
+```
+
+The `dry_run:true` Fastlane option is the lane's dry run switch. It prints
+validation and the GET, POST, upload, PATCH, and verification GET request plan
+without authenticating or writing. `live:true` reserves each image in the
+app's Asset Library, uploads the returned byte ranges, commits, and reports
+its initial processing state. Check that each image becomes **Prepared for
+Submission** before submitting it for review. Upload does not place or
+publish an asset on a product page or event.
+
+Apple's current API reference documents `GET /v1/apps/{id}/assetLibrary`,
+`GET /v1/appAssetLibraryRefData`, `POST /v1/appAssetLibraryImages`,
+`PATCH /v1/appAssetLibraryImages/{id}`, and
+`GET /v1/appAssetLibraryImages/{id}`. The reserve response supplies the
+unauthenticated, temporary upload operations. See [Asset Library](https://developer.apple.com/documentation/appstoreconnectapi/app-asset-library),
+[image upload flow](https://developer.apple.com/documentation/appstoreconnectapi/uploading-and-managing-image-assets),
+[reference data](https://developer.apple.com/documentation/appstoreconnectapi/discovering-asset-specifications),
+and [creative image sizes](https://developer.apple.com/help/app-store-connect/reference/app-information/creative-assets-specifications).
+The [October 5, 2026 App Store Connect release notes](https://developer.apple.com/help/app-store-connect/release-notes/)
+announce the Asset Library. The older `appEventScreenshots` API is deprecated
+for this workflow; Asset Library images and placements cover In-App Event art.
+
+For standalone review, open App Store Connect > Apps > Suuudokuuu > Asset
+Library. Inspect the uploaded images and their processing states, select the
+prepared assets, and submit them for review. This does not require a build;
+Apple reviews them against the latest app version. After approval, use the
+version's **Header and Search Results** tab or the In-App Event editor to
+choose the approved assets from Asset Library and preview their crops before
+publishing. If an asset type lacks a public API endpoint in a future release,
+use the same authenticated browser flow: Asset Library > **+** > **Upload
+Creative Assets**, select the file, upload it, inspect its processing state,
+and submit it from Asset Library. Do not call an undocumented endpoint.
 
 ## Open items
 

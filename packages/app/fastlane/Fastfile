@@ -1,4 +1,7 @@
 require "zlib"
+require "json"
+require "net/http"
+require "open3"
 
 default_platform(:ios)
 
@@ -244,6 +247,74 @@ def verify_store_directory(label, path)
   UI.success("#{label}: #{path}")
 end
 
+def creative_asset_type(filename)
+  name = File.basename(filename, File.extname(filename))
+  UI.user_error!("#{filename}: expected header, search, event-card, or event-detail") unless %w[header search event-card event-detail].include?(name)
+  name
+end
+
+def validate_creative_asset(path)
+  extension = File.extname(path).downcase
+  UI.user_error!("#{path}: expected .png, .jpg, or .jpeg") unless %w[.png .jpg .jpeg].include?(extension)
+  output, error, status = Open3.capture3("magick", "identify", "-format", "%w|%h|%[channels]|%[colorspace]|%m|%[opaque]", path)
+  UI.user_error!("#{path}: ImageMagick could not read image: #{error.strip}") unless status.success?
+  width, height, channels, colorspace, format, opaque = output.split("|")
+  UI.user_error!("#{path}: extension does not match #{format}") unless (extension == ".png" && format == "PNG") || (%w[.jpg .jpeg].include?(extension) && format == "JPEG")
+  UI.user_error!("#{path}: must use RGB/sRGB color without an alpha channel") unless %w[RGB sRGB].include?(colorspace) && !channels.downcase.include?("a") && opaque == "True"
+
+  width = width.to_i
+  height = height.to_i
+  type = creative_asset_type(path)
+  valid = case type
+          when "header"
+            [width, height] == [3840, 1646] || (extension == ".png" && [width, height] == [5244, 2950])
+          when "search"
+            (width >= 1920 && width <= 3840 && height >= 1280 && height <= 2560 && width * 2 == height * 3) || (extension == ".png" && [width, height] == [5244, 2950])
+          when "event-card"
+            width >= 1920 && width <= 3840 && height >= 1080 && height <= 2160 && width * 9 == height * 16
+          when "event-detail"
+            width >= 1080 && width <= 2160 && height >= 1920 && height <= 3840 && width * 16 == height * 9
+          end
+  UI.user_error!("#{path}: #{width}x#{height} does not meet Apple's #{type} image specification") unless valid
+  UI.user_error!("#{path}: exceeds Apple's 500 MB event image limit") if type.start_with?("event-") && File.size(path) > 500_000_000
+  UI.success("Valid #{File.basename(path)}: #{width}x#{height} #{format} #{colorspace}, #{type}")
+  [width, height, extension]
+end
+
+def creative_api_request(method, url, body = nil, headers = {})
+  uri = URI(url)
+  request = Net::HTTPGenericRequest.new(method, !body.nil?, true, uri)
+  headers.each { |name, value| request[name] = value }
+  request.body = body if body
+  response = Net::HTTP.start(uri.host, uri.port, use_ssl: uri.scheme == "https") { |http| http.request(request) }
+  UI.user_error!("#{method} #{uri.path} failed: HTTP #{response.code} #{response.body}") unless response.is_a?(Net::HTTPSuccess)
+  response.body && !response.body.empty? ? JSON.parse(response.body) : nil
+end
+
+def creative_api_json(method, path, body = nil)
+  headers = { "Authorization" => "Bearer #{Spaceship::ConnectAPI.token.text}", "Content-Type" => "application/json" }
+  creative_api_request(method, "https://api.appstoreconnect.apple.com#{path}", body && JSON.generate(body), headers)
+end
+
+def upload_creative_asset(path, library_id)
+  filename = File.basename(path)
+  reservation = creative_api_json("POST", "/v1/appAssetLibraryImages", {
+    data: {
+      type: "appAssetLibraryImages",
+      attributes: { fileName: filename, fileSize: File.size(path), category: "CREATIVE_ASSETS", referenceName: File.basename(filename, File.extname(filename)) },
+      relationships: { assetLibrary: { data: { type: "appAssetLibraries", id: library_id } } }
+    }
+  })
+  image = reservation.fetch("data")
+  image.fetch("attributes").fetch("uploadOperations").each do |operation|
+    headers = operation.fetch("requestHeaders").to_h { |header| [header.fetch("name"), header.fetch("value")] }
+    creative_api_request(operation.fetch("method"), operation.fetch("url"), File.binread(path, operation.fetch("length"), operation.fetch("offset")), headers)
+  end
+  creative_api_json("PATCH", "/v1/appAssetLibraryImages/#{image.fetch('id')}", { data: { type: "appAssetLibraryImages", id: image.fetch("id"), attributes: { uploaded: true } } })
+  state = creative_api_json("GET", "/v1/appAssetLibraryImages/#{image.fetch('id')}").fetch("data").fetch("attributes").fetch("state")
+  UI.success("Uploaded #{filename}: asset #{image.fetch('id')} is #{state}; check processing and submit it for review in Asset Library")
+end
+
 lane :store_preflight do
   UI.success("App Store version: #{app_store_version}")
   UI.success("Google Play track: #{android_submit_track}")
@@ -258,6 +329,36 @@ lane :store_preflight do
 end
 
 platform :ios do
+  lane :ios_creative_assets do |options|
+    directory = options[:asset_dir]
+    UI.user_error!("Pass asset_dir:/absolute/path and dry_run:true or live:true") unless directory && Dir.exist?(directory)
+    paths = Dir.children(directory).sort.map { |name| File.join(directory, name) }
+    UI.user_error!("#{directory} contains no creative assets") if paths.empty?
+    UI.user_error!("#{directory} must contain files only") unless paths.all? { |path| File.file?(path) }
+    dimensions = paths.to_h { |path| [path, validate_creative_asset(path)] }
+    UI.user_error!("Choose either dry_run:true or live:true") unless options[:dry_run].to_s == "true" || options[:live].to_s == "true"
+    UI.user_error!("Choose only one of dry_run:true and live:true") if options[:dry_run].to_s == "true" && options[:live].to_s == "true"
+
+    UI.message("GET /v1/apps/{appId}/assetLibrary; GET /v1/appAssetLibraryRefData")
+    paths.each { |path| UI.message("#{File.basename(path)}: POST /v1/appAssetLibraryImages; uploadOperations; PATCH /v1/appAssetLibraryImages/{imageId}; GET /v1/appAssetLibraryImages/{imageId}") }
+    next if options[:dry_run].to_s == "true"
+
+    app_store_connect_api_key(key_id: ENV["EXPO_ASC_KEY_ID"], issuer_id: ENV["EXPO_ASC_ISSUER_ID"], key_filepath: ENV["EXPO_ASC_API_KEY_PATH"])
+    app_id = JSON.parse(File.read(File.join(APP_DIR, "eas.json"))).dig("submit", "production", "ios", "ascAppId")
+    library = creative_api_json("GET", "/v1/apps/#{app_id}/assetLibrary").fetch("data")
+    reference = creative_api_json("GET", "/v1/appAssetLibraryRefData").fetch("data").first.fetch("attributes")
+    creative_types = reference.fetch("placementTypes").select { |placement| placement.fetch("acceptsAssetCategories").include?("CREATIVE_ASSETS") }.map { |placement| placement.fetch("placementTypeId") }
+    paths.each do |path|
+      width, height, extension = dimensions.fetch(path)
+      supported = reference.fetch("imageSpecs").any? do |spec|
+        bounds = spec.fetch("dimensions")
+        width >= bounds.fetch("minWidth") && width <= bounds.fetch("maxWidth") && height >= bounds.fetch("minHeight") && height <= bounds.fetch("maxHeight") && spec.fetch("fileExtensions").include?(extension) && File.size(path) <= spec.fetch("maxFileSize") && !(spec.fetch("compatiblePlacementTypes") & creative_types).empty?
+      end
+      UI.user_error!("#{path}: no matching current creative image specification in App Store Connect") unless supported
+    end
+    paths.each { |path| upload_creative_asset(path, library.fetch("id")) }
+  end
+
   lane :ios_metadata do
     app_store_connect_api_key(
       key_id: ENV["EXPO_ASC_KEY_ID"],
