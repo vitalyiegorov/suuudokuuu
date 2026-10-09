@@ -4,7 +4,7 @@ VARJE PUSSEL BETYGSATT
 De flesta appar sätter ”expert” på ett bräde och hoppas att du inte tittar närmare. Vi sätter en siffra på det. Varje pussel får ett betyg på Sudoku Explainer-skalan (SE), 1.0 till 12.0, samma skala som seriösa lösare använder. Betyget syns direkt vid svårighetsgraden på brädet, i din historik och i varje länk du delar. En inbyggd förklaring berättar vad siffran faktiskt mäter: hur svårt pusslet är att resonera sig igenom, inte hur få ledtrådar det har.
 
 OÄNDLIGHET: VÄRLDENS SVÅRASTE SUDOKU
-En handplockad samling med 100 världsrekordpussel med SE 10.4 till 11.9. Arto Inkalas Everest och AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Det här är rutnäten som lösargemenskapen gjorde berömda, och de flesta löser aldrig ett enda.
+En handplockad samling med 100 mycket svåra pussel med SE 10.4 till 11.9. Arto Inkalas Everest och AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Det här är rutnäten som lösargemenskapen gjorde berömda.
 
 HELVETE, OMGJORT
 Helvete består nu av 958 verifierade pussel som alla kräver en tvingande kedja: inget av dem går att lösa med de tekniker som Mardröm tillåter, och vart och ett är betygsatt SE 7.5 till 8.5. Få ledtrådar gör inte i sig ett pussel svårt, så vi väljer Helvete efter det resonemang varje bräde kräver, inte efter hur få ledtrådar det börjar med.

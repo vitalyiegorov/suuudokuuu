@@ -36,11 +36,11 @@ before relying on them.
 
 ## File map
 
-- `packages/app/fastlane/metadata/ios/<locale>/` - 11 App Store locales: ar-SA,
-  de-DE, en-US, es-ES, fr-FR, hi, id, pt-BR, sv, uk, zh-Hans (no bn/ur, Apple
+- `packages/app/fastlane/metadata/ios/<locale>/` - 12 App Store locales: ar-SA,
+  de-DE, en-US, es-ES, es-MX, fr-FR, hi, id, pt-BR, sv, uk, zh-Hans (no bn/ur, Apple
   does not support them). Files: name, subtitle, keywords, promotional_text,
-  description, release_notes, support_url (+ root `copyright.txt`). No
-  marketing_url, privacy_url, categories, or age-rating config yet.
+  description, release_notes, support_url, marketing_url, privacy_url (+ root
+  `copyright.txt`). Categories and age-rating config are not present yet.
 - `packages/app/fastlane/metadata/android/<locale>/` - 13 Play locales: ar,
   bn-BD, de-DE, en-US, es-ES, fr-FR, hi-IN, id, pt-BR, sv-SE, uk, ur, zh-CN.
   Files: title, short_description, full_description, changelogs, and
@@ -154,7 +154,7 @@ Screenshots, end to end:
   guards it, so a January rollover fails in seconds instead of at review time.
 - **Support URL is per locale.** Setting only `en-US` leaves every other locale
   empty and precheck flags each one. Every field under `metadata/ios/<locale>/`
-  must exist for all 11 App Store locales.
+  must exist for all 12 App Store locales.
 - **Screenshot slots are assigned by resolution, not by filename or order.** A set
   captured at the wrong size uploads into its own slot and leaves the current store
   images untouched - the listing looks unchanged. `store_preflight` prints the slot
@@ -297,6 +297,36 @@ are in the table.
   yet.
 - Known stale copy: en-US keywords still carry `17clue` (Hell is no longer a
   17-clue tier); fix in #467.
+
+## App Store keyword sweep (#467)
+
+The owner chose es-MX as the only new cross-localization listing. The US
+storefront indexes it alongside en-US; its keyword field uses distinct Spanish
+terms, with no word repeated from en-US keywords. The other 11 localizations
+remain in place. The list below is the priority set for the weekly search-rank
+KPI; baseline ranks have not been measured yet and must be filled from App
+Store Connect before reporting any movement. Character limits are 30 for name
+and subtitle, 170 for promotional text, 4000 for description; keywords have a
+100-byte UTF-8 limit.
+
+| Locale | Priority terms | Keyword field | Baseline rank |
+| --- | --- | --- | --- |
+| ar-SA | منطق, عقل, رقم | `منطق,عقل,رقم,شبكة,يومي,تلميح,سجل,تركيز,مبتدئ,صعب` | Unmeasured |
+| de-DE | logik, gehirn, zahl | `logik,gehirn,zahl,offline,knobeln,rekord,hinweis,täglich,duell,notiz` | Unmeasured |
+| en-US | logic, brain, number | `logic,brain,number,offline,expert,explainer,record,x-wing,replay,friend,daily,hint` | Unmeasured |
+| es-ES | logica, mente, numero | `logica,mente,numero,dificultad,experto,offline,record,pista,diario,amigo,nota` | Unmeasured |
+| es-MX | acertijo, casilla, tablero | `acertijo,casilla,tablero,racha,desafio,entrenar,concentracion,mental,lapiz` | Unmeasured |
+| fr-FR | logique, cerveau, chiffre | `logique,cerveau,chiffre,détente,maître,méthode,indice,quotidien,duel,crayon` | Unmeasured |
+| hi | तर्क, अंक, मन | `तर्क,अंक,मन,दैनिक,संकेत,रिकॉर्ड,ध्यान` | Unmeasured |
+| id | logika, otak, angka | `logika,otak,angka,offline,ahli,rekor,harian,petunjuk,catatan,teman` | Unmeasured |
+| pt-BR | logica, mente, numero | `logica,mente,numero,dificuldade,mestre,foco,recorde,dica,diario,nota,amigo` | Unmeasured |
+| sv | logik, hjärna, siffra | `logik,hjärna,siffra,offline,expert,rekord,ledtråd,daglig,duell,anteckning` | Unmeasured |
+| uk | логіка, мозок, число | `логіка,мозок,число,рекорд,підказка,щодня,увага,друг` | Unmeasured |
+| zh-Hans | 逻辑, 益智, 大脑 | `逻辑,益智,大脑,数字,离线,专家,技巧,世界纪录,回放,分享,挑战,笔记,提示` | Unmeasured |
+
+Adding a metadata locale also adds a required screenshot locale in
+`store_preflight`. es-MX screenshots are separate from this metadata sweep and
+must be supplied before a store publish can pass that gallery gate.
 
 ## Google Play 2026 features
 

@@ -4,7 +4,7 @@ CHAQUE GRILLE, NOTÉE
 La plupart des applis collent l'étiquette « expert » sur une grille en espérant que vous ne regarderez pas de plus près. Nous, on met un chiffre dessus. Chaque grille porte sa note sur l'échelle Sudoku Explainer (SE), de 1.0 à 12.0, celle qu'utilisent les solveurs chevronnés : elle s'affiche dans la pastille de niveau sur la grille, dans votre historique et dans chaque lien que vous partagez. Une explication intégrée vous dit ce que ce chiffre mesure vraiment : la difficulté du raisonnement, pas le nombre d'indices.
 
 INFINI : LES SUDOKUS LES PLUS DURS DU MONDE
-Une sélection de 100 grilles record du monde notées de SE 10.4 à 11.9. L'Everest et AI Escargot d'Arto Inkala. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Ce sont les grilles que la communauté des solveurs a rendues célèbres, et la plupart des joueurs n'en terminent jamais une seule.
+Une sélection de 100 grilles particulièrement difficiles notées de SE 10.4 à 11.9. L'Everest et AI Escargot d'Arto Inkala. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Ce sont les grilles que la communauté des solveurs a rendues célèbres.
 
 L'ENFER, RECOMPOSÉ
 L'Enfer, ce sont désormais 958 grilles vérifiées qui exigent toutes une chaîne forcée : aucune ne se résout avec les techniques qu'autorise le niveau Cauchemar, et toutes sont notées SE 7.5 à 8.5. Le nombre d'indices ne fait pas la difficulté : nous choisissons les grilles de l'Enfer selon le raisonnement qu'elles exigent, pas selon le peu d'indices qu'elles donnent.

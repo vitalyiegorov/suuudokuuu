@@ -1,0 +1,23 @@
+Un sudoku para cada momento: empieza con un tablero tranquilo, enfrenta el reto diario o llega hasta Infinito. suuudokuuu tiene siete niveles de dificultad, sin anuncios ni cuentas. Tú eliges cómo jugar.
+
+DIFICULTAD QUE PUEDES COMPARAR
+Cada tablero muestra una calificación Sudoku Explainer (SE). Esta cifra refleja el razonamiento necesario para resolverlo, no solo la cantidad de números iniciales. Puedes verla mientras juegas y en tu historial.
+
+DE NOVATO A INFINITO
+Avanza por siete niveles. Infierno reúne 958 tableros verificados que requieren cadenas forzadas. Infinito ofrece 100 sudokus de dificultad extrema, entre ellos Everest y Golden Nugget. Si buscas un reto nuevo cada día, abre el reto diario y sigue tu racha.
+
+PISTAS QUE ENSEÑAN
+Cuando te atoras, las pistas muestran pasos y explicaciones. Haz anotaciones, prueba candidatos y decide cómo resolver cada casilla. Al terminar, repasa tu partida movimiento por movimiento.
+
+UN JUEGO A TU GUSTO
+Consulta tus estadísticas, tu solución más difícil y las técnicas que has usado. Personaliza los colores con temas claros y oscuros o crea el tuyo. Comparte un tablero con una amistad para que resuelva exactamente el mismo sudoku y compare su partida con la tuya.
+
+• Siete dificultades, de Novato a Infinito
+• Calificación SE en cada tablero
+• Reto diario, rachas y estadísticas
+• Pistas con explicaciones y anotaciones
+• Repetición de partidas y retos para compartir
+• Temas personalizables y modo claro u oscuro
+• Juego sin conexión, gratis y de código abierto
+
+Más información en www.suuudokuuu.com.

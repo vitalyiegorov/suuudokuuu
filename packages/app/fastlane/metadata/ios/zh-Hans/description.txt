@@ -4,7 +4,7 @@ suuudokuuu 就是数独该有的样子：快速、精美，而且对难度毫不
 大多数应用在棋盘上写个“专家级”，然后指望你不去细究。我们直接给它一个数字。suuudokuuu 用 Sudoku Explainer（SE）量表为每道数独评分，从 1.0 到 12.0，这也是资深爱好者用来比较一道题真正推理难度的量表。评分就显示在棋盘的难度标签、你的历史记录，以及你分享出去的每一个链接里。内置说明会告诉你这个数字究竟衡量什么：推理这道题有多难，而不是它给了多少提示。
 
 无限：世界上最难的数独
-精选 100 道世界纪录级题目，评分从 SE 10.4 到 11.9。Arto Inkala 的 Everest 和 AI Escargot。Golden Nugget。Platinum Blonde。Kolk、Patience、Fata Morgana、Red Dwarf。这些都是数独圈子里赫赫有名的棋盘，大多数人一道也解不出来。
+精选 100 道高难度题目，评分从 SE 10.4 到 11.9。Arto Inkala 的 Everest 和 AI Escargot。Golden Nugget。Platinum Blonde。Kolk、Patience、Fata Morgana、Red Dwarf。这些都是数独圈子里赫赫有名的棋盘。
 
 地狱难度，重新筛选
 地狱难度现在收录 958 道经过验证的题目，每一道都需要用到强制链：噩梦难度允许的技巧都解不开它们，每一道的评分都在 SE 7.5 到 8.5 之间。提示少本身并不等于题目难，所以我们按每道题需要的推理来挑选地狱题目，而不是看它的提示有多少。

@@ -1,0 +1,1 @@
+Estrenamos pantallas de Configuración, Estadísticas y Reto diario. Las pistas ahora funcionan con mayor fiabilidad, incluso en las partidas más difíciles. También mejoramos las explicaciones, la visualización de tu racha y varios detalles de los temas claros y oscuros.
