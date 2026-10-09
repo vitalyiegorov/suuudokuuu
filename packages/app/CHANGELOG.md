@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.23.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.22.2...v2.23.0) (2026-10-09)
+
+### Features
+
+* **techniques:** structured chain and forcing-chain payloads for hint narration ([#498](https://github.com/vitalyiegorov/suuudokuuu/issues/498)) ([5bf7d36](https://github.com/vitalyiegorov/suuudokuuu/commit/5bf7d36a3089c51ed538f9e7247965f4c443a7b0)), closes [#455](https://github.com/vitalyiegorov/suuudokuuu/issues/455) [#458](https://github.com/vitalyiegorov/suuudokuuu/issues/458) [#455](https://github.com/vitalyiegorov/suuudokuuu/issues/455) [#455](https://github.com/vitalyiegorov/suuudokuuu/issues/455)
+
+
 ## [2.22.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.22.1...v2.22.2) (2026-10-09)
 
 **Note:** Version bump only for package @suuudokuuu/app

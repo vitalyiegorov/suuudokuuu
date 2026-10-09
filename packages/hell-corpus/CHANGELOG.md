@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.23.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.22.2...v2.23.0) (2026-10-09)
+
+**Note:** Version bump only for package @suuudokuuu/hell-corpus
+
+
+
+
+
 # [2.22.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.21.0...v2.22.0) (2026-10-08)
 
 **Note:** Version bump only for package @suuudokuuu/hell-corpus
