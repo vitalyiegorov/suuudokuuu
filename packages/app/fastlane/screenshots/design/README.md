@@ -14,7 +14,8 @@ appearance variants. Each of the 11 Apple locales has 9 iPhone screenshots at
 replaces a committed set only after every scene for that variant succeeds.
 The `all` command also composes the Play sets: 8 phone screenshots at
 1080×1920 for each of 13 Google Play locales. The `tablet` command composes 5
-screenshots at 1080×1920 into each Play locale's 7" and 10" tablet sets.
+screenshots at 1080×1920 into each Play locale's 7" and 10" tablet sets. The
+`duo` command composes the iPhone Duo sets described in `../README.md`.
 
 The iPhone order is:
 

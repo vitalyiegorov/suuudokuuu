@@ -34,6 +34,20 @@ screenshots at 2752×2064:
 iPhone and iPad screenshots share one locale folder and the composed output
 stays at the source capture resolution. Filenames sort into upload order.
 
+## iPhone Duo sets
+
+Apple requires iPhone Duo screenshots at 1398×2034 and 2007×2853 from April
+2027, and `deliver` has no display type for them yet. Xcode ships no Duo
+simulator, so `compose-screenshots.sh <locale> duo` frames the 6.9" iPhone raws
+onto both canvases for the deployed variant only, into
+`variants/<variant>/iphone-duo/<size>/<locale>/`, outside the folder `deliver`
+uploads. The device fills 93% of the canvas height so real UI stays above half
+of every image. `store_preflight` checks sizes, alpha, locales and filenames.
+
+Upload by hand until `deliver` supports the display type: in App Store Connect
+open the version, pick each locale, and add both size folders to the iPhone Duo
+slots. Move the sets into the `deliver` path once it gains the display type.
+
 ## Curated store ordering
 
 Apple shows roughly the first 3 screenshots before a user scrolls, so the set
@@ -110,12 +124,13 @@ Regenerate both iOS variants and the Android phone set for a locale:
 bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all
 ```
 
-The second argument selects `light`, `dark`, `android`, `tablet`, or `all` (the
-default). `all` composes both iOS variants and the Play phone screenshots;
-`android` composes only the Play phone set and `tablet` only the Play 7" and 10"
-sets. There are 11 iOS locales and 13 Play locales; the script maps the locale
-names between the app, Apple, and Google Play. Each Play locale has eight
-phone screenshots and five 7" and five 10" tablet screenshots at 1080×1920.
+The second argument selects `light`, `dark`, `android`, `tablet`, `duo` (see
+"iPhone Duo sets"), or `all` (the default). `all` composes both iOS variants and
+the Play phone screenshots; `android` composes only the Play phone set and
+`tablet` only the Play 7" and 10" sets. There are 11 iOS locales and 13 Play
+locales; the script maps the locale names between the app, Apple, and Google
+Play. Each Play locale has eight phone screenshots and five 7" and five 10"
+tablet screenshots at 1080×1920.
 
 The script (requires ImageMagick 7, `magick` on `PATH`, and the frame assets
 above) uses Inter Black from

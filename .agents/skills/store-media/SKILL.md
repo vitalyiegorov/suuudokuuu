@@ -337,7 +337,7 @@ are in the table.
 | --- | --- | --- |
 | App Store | iPhone 6.9" screenshot | 1320x2868 portrait (lands in `APP_IPHONE_67`), <=10, no alpha |
 | App Store | iPad 13" screenshot | 2064x2752 portrait / 2752x2064 landscape, <=10, no alpha |
-| App Store | iPhone Duo screenshot (Apr 2027) | 1398x2034 and 2007x2853 |
+| App Store | iPhone Duo screenshot (Apr 2027) | 1398x2034 and 2007x2853; manual upload, see `screenshots/README.md` "iPhone Duo sets" |
 | App Store | App preview | up to 3 per size/locale, 15-30 s, H.264, 886x1920 for 6.9" iPhone portrait; GIF rejected |
 | App Store | Header creative | image 21:9 3840x1646 JPG/PNG (or 16:9 5244x2950 PNG); video 21:9 3840x1646, 30/60 fps, 5-30 s, loops muted |
 | App Store | Search-results creative | image 3:2 1920x1280 to 3840x2560 (or 16:9 5244x2950); video 3:2, 5-30 s |

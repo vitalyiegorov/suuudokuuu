@@ -124,14 +124,39 @@ def verify_rgb_screenshot(path)
   [width, height]
 end
 
+def expected_iphone_filenames(variant)
+  filenames = %w[hero-board hell challenge-accept challenge-live customization replay stats infinity].each_with_index.map do |scene, index|
+    format("%02d_iphone_%s.png", index + 1, scene)
+  end
+  filenames << "09_iphone_hero-board-#{variant == 'dark' ? 'light' : 'dark'}.png"
+end
+
+def verify_iphone_duo_screenshots(path)
+  variant = File.basename(File.dirname(path))
+  metadata_locales = Dir.children(IOS_METADATA_PATH).select { |locale| File.directory?(File.join(IOS_METADATA_PATH, locale)) }.sort
+  %w[1398x2034 2007x2853].each do |size|
+    size_path = File.join(path, size)
+    verify_store_directory("iPhone Duo #{size} screenshots", size_path)
+    UI.user_error!("#{size_path} locales do not match the iOS metadata locales") unless Dir.children(size_path).sort == metadata_locales
+
+    metadata_locales.each do |locale|
+      locale_path = File.join(size_path, locale)
+      filenames = Dir.children(locale_path).sort
+      UI.user_error!("#{locale_path} does not match the curated #{variant} iPhone filenames") unless filenames == expected_iphone_filenames(variant)
+
+      filenames.each do |filename|
+        screenshot = File.join(locale_path, filename)
+        UI.user_error!("#{screenshot} must be #{size}") unless verify_rgb_screenshot(screenshot).join("x") == size
+      end
+    end
+  end
+end
+
 def verify_ios_screenshot_slots(path)
   verify_store_directory("iOS screenshots", path)
   variant = File.basename(File.dirname(path))
   UI.user_error!("Unknown iOS screenshot variant #{variant} at #{path}") unless ["dark", "light"].include?(variant)
-  expected_filenames = %w[hero-board hell challenge-accept challenge-live customization replay stats infinity].each_with_index.map do |scene, index|
-    format("%02d_iphone_%s.png", index + 1, scene)
-  end
-  expected_filenames << "09_iphone_hero-board-#{variant == 'dark' ? 'light' : 'dark'}.png"
+  expected_filenames = expected_iphone_filenames(variant)
   expected_filenames.concat(%w[hero-board hell challenge-live editor infinity home].each_with_index.map do |scene, index|
     format("%02d_ipad_%s.png", index + 21, scene)
   end)
@@ -228,6 +253,7 @@ lane :store_preflight do
   verify_store_directory("Android metadata", ANDROID_METADATA_PATH)
   screenshot_paths = ["dark", "light"].map { |variant| File.join(FASTLANE_DIR, "screenshots", "variants", variant, "ios") }
   (screenshot_paths + [ios_screenshots_path]).uniq.each { |path| verify_ios_screenshot_slots(path) }
+  verify_iphone_duo_screenshots(File.join(File.dirname(ios_screenshots_path), "iphone-duo"))
   verify_android_artwork
 end
 

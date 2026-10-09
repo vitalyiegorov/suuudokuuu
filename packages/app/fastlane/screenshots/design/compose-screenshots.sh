@@ -30,7 +30,7 @@
 #
 # `locale` defaults to en-US and must have a design/<locale>/title.strings
 # and design/<locale>/subtitle.strings file. `variant` is light, dark,
-# android, tablet, or all (the default) and selects which appearance set(s) to
+# android, tablet, duo, or all (the default) and selects which appearance set(s) to
 # compose into variants/<variant>/ios/<locale>. `all` and `dark` also compose
 # the Play set; `android` composes only the Play set, which is what to use
 # when the iOS raw captures for a device class are unavailable and the iOS
@@ -123,8 +123,8 @@ raw_source_for() {
   echo "$locale_src"
 }
 
-if [[ "$VARIANT" != "all" && "$VARIANT" != "light" && "$VARIANT" != "dark" && "$VARIANT" != "android" && "$VARIANT" != "tablet" ]]; then
-  echo "error: unknown variant '$VARIANT'. Use light, dark, android, tablet, or all." >&2
+if [[ "$VARIANT" != "all" && "$VARIANT" != "light" && "$VARIANT" != "dark" && "$VARIANT" != "android" && "$VARIANT" != "tablet" && "$VARIANT" != "duo" ]]; then
+  echo "error: unknown variant '$VARIANT'. Use light, dark, android, tablet, duo, or all." >&2
   exit 1
 fi
 
@@ -214,6 +214,7 @@ IPAD_CUTOUT_H=2048
 
 ANDROID_CANVAS_W=1080
 ANDROID_CANVAS_H=1920
+CANVAS_OVERRIDE=""
 
 # --- Design system constants — see design/README.md "Design system" for the
 # researched rationale behind each of these. --------------------------------
@@ -272,6 +273,7 @@ TEXT_DEVICE_GAP_FRACTION="0.016"
 DEVICE_HEIGHT_FRACTION_DEFAULT="0.74"
 DEVICE_HEIGHT_FRACTION_ENDPOINT="0.78"
 DEVICE_HEIGHT_FRACTION_COMBO="0.62"
+DEVICE_HEIGHT_FRACTION_DUO="0.93"
 DEVICE_EDGE_MARGIN_FRACTION="0.02"
 COMBO_EDGE_MARGIN_FRACTION="0.015"
 
@@ -509,6 +511,18 @@ build_text_stack() {
   rm -f "$headline_png" "$descriptor_png"
 }
 
+fit_duo_text_stack() {
+  local stack="$1" canvas_h="$2" height_fraction="$3"
+  local max_h
+  if [[ -z "$CANVAS_OVERRIDE" ]]; then
+    return
+  fi
+  max_h=$(awk -v h="$canvas_h" -v f="$height_fraction" -v m="$TEXT_EDGE_MARGIN_FRACTION" -v g="$TEXT_DEVICE_GAP_FRACTION" 'BEGIN { printf "%d", h * (1 - 2 * m - g - f) }')
+  if (( $(magick identify -format "%h" "$stack") > max_h )); then
+    magick "$stack" -resize "x$max_h" -define png:color-type=6 -depth 8 "$stack"
+  fi
+}
+
 # Given the layout variant and the actual rendered heights of the caption
 # stack and the device block, returns "device_y text_y" (both absolute,
 # North-anchored pixel offsets from the canvas top). Layout A is
@@ -610,6 +624,10 @@ compose_one() {
     canvas_w=$ANDROID_CANVAS_W
     canvas_h=$ANDROID_CANVAS_H
   fi
+  if [[ -n "$CANVAS_OVERRIDE" ]]; then
+    canvas_w="${CANVAS_OVERRIDE%x*}"
+    canvas_h="${CANVAS_OVERRIDE#*x}"
+  fi
 
   local frame_file cutout_x cutout_y cutout_w cutout_h
   case "$device" in
@@ -657,6 +675,7 @@ compose_one() {
     HEADLINE_MIN_FRACTION="0.01"
   fi
   build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
+  fit_duo_text_stack "$work/text-stack.png" "$canvas_h" "$height_fraction"
   local stack_h
   stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
   if [[ "$device" == "android" ]] && (( stack_h > canvas_h * 15 / 100 )); then
@@ -724,6 +743,10 @@ compose_combo() {
   local canvas_w canvas_h
   canvas_w="$(magick identify -format "%w" "$left_src")"
   canvas_h="$(magick identify -format "%h" "$left_src")"
+  if [[ -n "$CANVAS_OVERRIDE" ]]; then
+    canvas_w="${CANVAS_OVERRIDE%x*}"
+    canvas_h="${CANVAS_OVERRIDE#*x}"
+  fi
 
   local work
   work="$(mktemp -d "$WORK_ROOT/compose-XXXXXX")"
@@ -764,6 +787,7 @@ compose_combo() {
   right_x=$((left_x + device_w - overlap_px))
 
   build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
+  fit_duo_text_stack "$work/text-stack.png" "$canvas_h" "$height_fraction"
   local stack_h
   stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
 
@@ -869,7 +893,13 @@ SCENES_DARK=(
 
 run_variant() {
   local variant="$1"
+  local CANVAS_OVERRIDE="${2:-}"
+  local final_dir="${3:-$APP_DIR/fastlane/screenshots/variants/$variant/ios/$LOCALE}"
+  local TEXT_EDGE_MARGIN_FRACTION="$TEXT_EDGE_MARGIN_FRACTION"
   local -a scenes
+  if [[ -n "$CANVAS_OVERRIDE" ]]; then
+    TEXT_EDGE_MARGIN_FRACTION="0.005"
+  fi
   set_variant_palette "$variant"
   if [[ "$variant" == "dark" ]]; then
     scenes=("${SCENES_DARK[@]}")
@@ -882,6 +912,12 @@ run_variant() {
   local entry device scene appearance layout height_fraction out_name caption_key
   for entry in "${scenes[@]}"; do
     IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
+    if [[ -n "$CANVAS_OVERRIDE" ]]; then
+      if [[ "$device" == "ipad-landscape" ]]; then
+        continue
+      fi
+      height_fraction="$DEVICE_HEIGHT_FRACTION_DUO"
+    fi
     if [[ "$device" == "combo" ]]; then
       compose_combo "$layout" "$height_fraction" "$out_name" "$caption_key" "$appearance"
     else
@@ -889,7 +925,7 @@ run_variant() {
     fi
   done
 
-  publish_stage "$APP_DIR/fastlane/screenshots/variants/$variant/ios/$LOCALE"
+  publish_stage "$final_dir"
 }
 
 run_android() {
@@ -912,6 +948,11 @@ run_android() {
 if [[ "$VARIANT" == "tablet" ]]; then
   run_android "sevenInchScreenshots" "tablet7/android" "${SCENES_TABLET[@]}"
   run_android "tenInchScreenshots" "tablet10/android" "${SCENES_TABLET[@]}"
+elif [[ "$VARIANT" == "duo" ]]; then
+  duo_variant="$(sed -nE 's/.*"ios": *"([a-z]+)".*/\1/p' "$APP_DIR/fastlane/screenshots/deployed-variant.json")"
+  for duo_size in 1398x2034 2007x2853; do
+    run_variant "$duo_variant" "$duo_size" "$APP_DIR/fastlane/screenshots/variants/$duo_variant/iphone-duo/$duo_size/$LOCALE"
+  done
 elif [[ "$VARIANT" == "all" ]]; then
   run_variant "light"
   run_variant "dark"

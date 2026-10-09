@@ -34,6 +34,7 @@ APP_ID=<package> pnpm --filter @suuudokuuu/app-tests screenshots:capture \
 # 4. Compose store sets (staging dir, swap-on-success):
 bash packages/app/fastlane/screenshots/design/compose-screenshots.sh de-DE all
 bash packages/app/fastlane/screenshots/design/compose-screenshots.sh de-DE tablet
+bash packages/app/fastlane/screenshots/design/compose-screenshots.sh de-DE duo   # from the iPhone raws
 ```
 
 A full locale (both appearances) takes ~1.6 minutes. All 13 locales across
@@ -204,8 +205,8 @@ failed midway. The second argument accepts `light`, `dark`, `all`, or
 
 Before committing a set, verify — do not eyeball only:
 
-- Counts and dimensions: iPhone 1320x2868, iPad 2752x2064, Play 1080x1920
-  (`sips -g pixelWidth -g pixelHeight`).
+- Counts and dimensions: iPhone 1320x2868, iPad 2752x2064, Play 1080x1920,
+  iPhone Duo 1398x2034 and 2007x2853 (`sips -g pixelWidth -g pixelHeight`).
 - Zero `composing from en` notes in the compose output. Native-language
   screens are a release requirement; English fallbacks are banned.
 - For non-Latin locales, crop a caption band and check shaping: Arabic must
