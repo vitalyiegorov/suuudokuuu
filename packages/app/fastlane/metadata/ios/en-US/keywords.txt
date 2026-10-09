@@ -1,1 +1,1 @@
-logic,brain,number,offline,expert,explainer,record,x-wing,replay,friend,daily,hint
+logic,brain,number,offline,expert,explainer,record,x-wing,replay,friend,daily,hint,pencil,grid,focus

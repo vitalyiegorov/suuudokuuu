@@ -324,8 +324,8 @@ and subtitle, 170 for promotional text, 4000 for description; keywords have a
 | zh-Hans | 逻辑, 益智, 大脑 | Unmeasured |
 
 Adding a metadata locale also adds a required screenshot locale in
-`store_preflight`. es-MX screenshots are separate from this metadata sweep and
-must be supplied before a store publish can pass that gallery gate.
+`store_preflight`. The es-MX gallery uses directory links to the es-ES set in
+both iOS variants and the two iPhone Duo size folders.
 
 ## Google Play 2026 features
 
