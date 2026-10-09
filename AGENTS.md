@@ -270,6 +270,7 @@ Never mention AI tools, bots, generated output, co-authors, or automation servic
 ## Workflow
 
 - Commit after every accepted change. Each user-approved fix or feature increment gets its own focused Conventional Commit, validated first, instead of batching unrelated changes or leaving approved work uncommitted.
+- After opening a PR, run simplification passes over its whole diff with this instruction: "Ensure to remove all overengineering, reduce complexity, ensure sota solution with minimal code possible following all repo standards". Give each pass fresh eyes (a new agent where available), validate and commit what it changes, and record the pass and its outcome in a PR comment. Repeat until a pass finds no vital improvement left; only then is the PR ready to merge.
 - Never commit agent-written plan, note, or report Markdown unless explicitly requested. Keep session notes untracked and ignored (`docs/plans`, `.scratch`).
 
 ## PR Review
