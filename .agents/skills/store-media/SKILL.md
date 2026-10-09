@@ -295,34 +295,33 @@ are in the table.
 - iPhone Duo (foldable) screenshots are required for submissions from April
   2027: 1398x2034 and 2007x2853 (#482). `deliver` has no display type for them
   yet.
-- Known stale copy: en-US keywords still carry `17clue` (Hell is no longer a
-  17-clue tier); fix in #467.
+- The #467 metadata sweep removed the stale 17-clue keyword from every locale.
 
 ## App Store keyword sweep (#467)
 
 The owner chose es-MX as the only new cross-localization listing. The US
 storefront indexes it alongside en-US; its keyword field uses distinct Spanish
 terms, with no word repeated from en-US keywords. The other 11 localizations
-remain in place. The list below is the priority set for the weekly search-rank
-KPI; baseline ranks have not been measured yet and must be filled from App
+remain in place. The complete keyword sets live in the locale files. The table lists
+priority terms for the weekly search-rank KPI; baseline ranks have not been measured yet and must be filled from App
 Store Connect before reporting any movement. Character limits are 30 for name
 and subtitle, 170 for promotional text, 4000 for description; keywords have a
 100-byte UTF-8 limit.
 
-| Locale | Priority terms | Keyword field | Baseline rank |
-| --- | --- | --- | --- |
-| ar-SA | منطق, عقل, رقم | `منطق,عقل,رقم,شبكة,يومي,تلميح,سجل,تركيز,مبتدئ,صعب` | Unmeasured |
-| de-DE | logik, gehirn, zahl | `logik,gehirn,zahl,offline,knobeln,rekord,hinweis,täglich,duell,notiz` | Unmeasured |
-| en-US | logic, brain, number | `logic,brain,number,offline,expert,explainer,record,x-wing,replay,friend,daily,hint` | Unmeasured |
-| es-ES | logica, mente, numero | `logica,mente,numero,dificultad,experto,offline,record,pista,diario,amigo,nota` | Unmeasured |
-| es-MX | acertijo, casilla, tablero | `acertijo,casilla,tablero,racha,desafio,entrenar,concentracion,mental,lapiz` | Unmeasured |
-| fr-FR | logique, cerveau, chiffre | `logique,cerveau,chiffre,détente,maître,méthode,indice,quotidien,duel,crayon` | Unmeasured |
-| hi | तर्क, अंक, मन | `तर्क,अंक,मन,दैनिक,संकेत,रिकॉर्ड,ध्यान` | Unmeasured |
-| id | logika, otak, angka | `logika,otak,angka,offline,ahli,rekor,harian,petunjuk,catatan,teman` | Unmeasured |
-| pt-BR | logica, mente, numero | `logica,mente,numero,dificuldade,mestre,foco,recorde,dica,diario,nota,amigo` | Unmeasured |
-| sv | logik, hjärna, siffra | `logik,hjärna,siffra,offline,expert,rekord,ledtråd,daglig,duell,anteckning` | Unmeasured |
-| uk | логіка, мозок, число | `логіка,мозок,число,рекорд,підказка,щодня,увага,друг` | Unmeasured |
-| zh-Hans | 逻辑, 益智, 大脑 | `逻辑,益智,大脑,数字,离线,专家,技巧,世界纪录,回放,分享,挑战,笔记,提示` | Unmeasured |
+| Locale | Priority terms | Baseline rank |
+| --- | --- | --- |
+| ar-SA | منطق, عقل, رقم | Unmeasured |
+| de-DE | logik, gehirn, zahl | Unmeasured |
+| en-US | logic, brain, number | Unmeasured |
+| es-ES | logica, mente, numero | Unmeasured |
+| es-MX | acertijo, casilla, tablero | Unmeasured |
+| fr-FR | logique, cerveau, chiffre | Unmeasured |
+| hi | तर्क, अंक, मन | Unmeasured |
+| id | logika, otak, angka | Unmeasured |
+| pt-BR | logica, mente, numero | Unmeasured |
+| sv | logik, hjärna, siffra | Unmeasured |
+| uk | логіка, мозок, число | Unmeasured |
+| zh-Hans | 逻辑, 益智, 大脑 | Unmeasured |
 
 Adding a metadata locale also adds a required screenshot locale in
 `store_preflight`. es-MX screenshots are separate from this metadata sweep and
