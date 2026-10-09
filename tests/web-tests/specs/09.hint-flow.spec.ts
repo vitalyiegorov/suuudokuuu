@@ -9,6 +9,7 @@ import {
 } from '@suuudokuuu/app/src/selectors';
 
 import {
+    nishioRunHintSharedPuzzleEncodedConstant,
     pointingPairHintSharedPuzzleEncodedConstant,
     revealHintSharedPuzzleEncodedConstant,
     structuredChainHintSharedPuzzleEncodedConstant
@@ -223,4 +224,32 @@ test('walks a long Nishio and AIC hint with witness slides that leave the board 
 
     await apply.click();
     await expect(page.getByTestId(cellTestId(5, 8))).toHaveAttribute('aria-label', 'Row 6, column 9, 1');
+});
+
+test('continues and reveals from the first slide of a forcing-chain elimination hint', async ({ page }) => {
+    await launchHome(page);
+    await openSharedPuzzle(page, nishioRunHintSharedPuzzleEncodedConstant);
+    await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+
+    const progress = page.getByTestId(HintPanelSelectors.Progress);
+    const narration = page.getByTestId(HintStepNarrationSelectors.Narration);
+    const continueButton = page.getByTestId(HintPanelSelectors.ContinueButton);
+
+    await page.getByTestId(HintButtonSelectors.Root).click();
+
+    for (let hintIndex = 0; hintIndex < 4; hintIndex += 1) {
+        await expect(progress).toHaveAttribute('aria-label', /^Step 1 of /u);
+        await continueButton.click();
+    }
+
+    await expect(progress).toHaveAttribute('aria-label', 'Step 1 of 3');
+    await expect(narration).toContainText('So r4c3 is not 4.');
+
+    await continueButton.click();
+    await expect(narration).not.toContainText('So r4c3 is not 4.');
+    await expect(progress).toHaveAttribute('aria-label', /^Step 1 of /u);
+
+    await page.getByTestId(HintPanelSelectors.RevealButton).click();
+    await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText('Reveal');
 });

@@ -8,16 +8,14 @@ import { isDefined } from '@rnw-community/shared';
 import { HintPanelSelectors } from '../hint-panel/hint-panel.selectors';
 import { HintPanelStyles as styles } from '../hint-panel/hint-panel.styles';
 
-import type { FieldEngine, StepScriptInterface } from '@suuudokuuu/field-core';
+import type { FieldEngine } from '@suuudokuuu/field-core';
 
 interface Props {
     readonly engine: FieldEngine;
     readonly onApply: () => void;
-    readonly stepIndex: number;
-    readonly stepScript: StepScriptInterface;
 }
 
-export const HintPanelEliminationActions = ({ engine, onApply, stepIndex, stepScript }: Props) => {
+export const HintPanelEliminationActions = ({ engine, onApply }: Props) => {
     const { t } = useLingui();
 
     const handleContinue = () => {
@@ -38,13 +36,10 @@ export const HintPanelEliminationActions = ({ engine, onApply, stepIndex, stepSc
         }
     };
 
-    const hasCompletedWalkthrough = stepIndex === stepScript.steps.length - 1;
-
     return (
         <View style={styles.actions}>
             <AppButton
                 accessibilityLabel={t`Continue to next hint`}
-                disabled={!hasCompletedWalkthrough}
                 onPress={handleContinue}
                 size="compact"
                 testID={HintPanelSelectors.ContinueButton}
@@ -52,7 +47,6 @@ export const HintPanelEliminationActions = ({ engine, onApply, stepIndex, stepSc
             />
             <AppButton
                 accessibilityLabel={t`Reveal a digit`}
-                disabled={!hasCompletedWalkthrough}
                 onPress={handleReveal}
                 size="compact"
                 testID={HintPanelSelectors.RevealButton}
