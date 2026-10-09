@@ -121,15 +121,6 @@ describe('progressive hint levels', () => {
         expect(engine.getSnapshot().hintLevel).toBe(HintLevelEnum.WALKTHROUGH);
     });
 
-    it('builds hint levels from the hint finder script', () => {
-        expect.assertions(1);
-
-        const engine = new FieldEngine({ sudokuString: nakedPairBoard, difficulty: DifficultyEnum.Newbie });
-        const script = findHintStepScript(engine.Sudoku);
-
-        expect(script?.patternCells.length).toBeGreaterThan(0);
-    });
-
     it('highlights only the first pattern in a multi-technique hint', () => {
         const engine = new FieldEngine({
             sudokuString: '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.',

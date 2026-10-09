@@ -76,12 +76,11 @@ export const buildStepScriptState = (
     hintLevel = HintLevelEnum.WALKTHROUGH
 ): StepScriptStateInterface => {
     if (hintLevel !== HintLevelEnum.WALKTHROUGH) {
+        const patternCells =
+            hintLevel === HintLevelEnum.PATTERN && isDefined(stepScript) ? (getHintPatternStep(stepScript)?.patternCells ?? []) : [];
+
         return {
-            patternCellKeys: new Set(
-                hintLevel === HintLevelEnum.PATTERN && isDefined(stepScript)
-                    ? (getHintPatternStep(stepScript)?.patternCells.map(getCellKey) ?? [])
-                    : []
-            ),
+            patternCellKeys: new Set(patternCells.map(getCellKey)),
             targetCellKey: null,
             revealedCandidates: new Map(),
             eliminatedCandidates: new Map(),
