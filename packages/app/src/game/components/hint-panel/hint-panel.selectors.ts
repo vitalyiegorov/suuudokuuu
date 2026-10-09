@@ -2,7 +2,7 @@ export enum HintPanelSelectors {
     Root = 'HintPanelSelectors.Root',
     Progress = 'HintPanelSelectors.Progress',
     BackButton = 'HintPanelSelectors.BackButton',
-    ShowMoreButton = 'HintPanelSelectors.ShowMoreButton',
+    SHOW_MORE_BUTTON = 'HintPanelSelectors.ShowMoreButton',
     NextButton = 'HintPanelSelectors.NextButton',
     ApplyButton = 'HintPanelSelectors.ApplyButton',
     ContinueButton = 'HintPanelSelectors.ContinueButton',

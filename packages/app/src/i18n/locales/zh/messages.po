@@ -1131,6 +1131,10 @@ msgid "Menus, settings, and game text"
 msgstr "菜单、设置和游戏文字"
 
 #: src/scoring/components/scoring.screen.tsx
+msgid "minimum {minimumHintPenalty} points"
+msgstr "至少 {minimumHintPenalty} 分"
+
+#: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
 msgstr "最低分"
 

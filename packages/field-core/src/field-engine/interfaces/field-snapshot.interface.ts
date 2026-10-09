@@ -19,5 +19,5 @@ export interface FieldSnapshotInterface {
     canRedo: boolean;
     stepScript: StepScriptInterface | null;
     stepIndex: number;
-    hintLevel: HintLevelEnum;
+    readonly hintLevel: HintLevelEnum;
 }

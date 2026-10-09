@@ -100,7 +100,7 @@ export const HintPanel = ({ availableHeight }: Props) => {
                             accessibilityLabel={t`Show more of the hint`}
                             onPress={handleShowMore}
                             size="compact"
-                            testID={HintPanelSelectors.ShowMoreButton}
+                            testID={HintPanelSelectors.SHOW_MORE_BUTTON}
                             text={t`Show more`}
                             variant="ghost"
                         />

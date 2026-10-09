@@ -19,15 +19,31 @@ import { openSharedPuzzle } from '../src/utils/open-shared-puzzle.util';
 import { startNewGame } from '../src/utils/start-new-game.util';
 import { cellTestId } from '../src/utils/test-id.util';
 
+const wideLayoutMinimumWidth = 768;
 const gameScreenTimeoutMilliseconds = 15000;
 const longHintTimeoutMilliseconds = 120000;
 
 const revealHintWalkthrough = async (page: import('@playwright/test').Page): Promise<void> => {
-    const showMore = page.getByTestId(HintPanelSelectors.ShowMoreButton);
+    const showMore = page.getByTestId(HintPanelSelectors.SHOW_MORE_BUTTON);
 
     await showMore.click();
     await showMore.click();
     await expect(page.getByTestId(HintPanelSelectors.Progress)).toBeVisible();
+};
+
+const expectHintBelowToolbar = async (page: import('@playwright/test').Page): Promise<void> => {
+    const viewport = page.viewportSize();
+
+    if (viewport === null || viewport.width < wideLayoutMinimumWidth || viewport.width <= viewport.height) {
+        return;
+    }
+
+    const panel = await page.getByTestId(HintPanelSelectors.Root).boundingBox();
+    const hintButton = await page.getByTestId(HintButtonSelectors.Root).boundingBox();
+
+    expect(panel).not.toBeNull();
+    expect(hintButton).not.toBeNull();
+    expect(panel?.y).toBeGreaterThanOrEqual((hintButton?.y ?? 0) + (hintButton?.height ?? 0));
 };
 
 const readCellLabels = async (page: import('@playwright/test').Page): Promise<Map<string, string | null>> => {
@@ -70,6 +86,7 @@ test('walks a hint from activation through stepping, applying and a later dismis
     await expect(hintPanel).toBeVisible();
     await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText(/.+/u);
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(/^Look for .+ in (?:row|column|box) \d+\.$/u);
+    await expectHintBelowToolbar(page);
     await page.screenshot({ path: testInfo.outputPath('hint-level-1-technique.png'), fullPage: true });
 
     const progress = page.getByTestId(HintPanelSelectors.Progress);
@@ -77,17 +94,19 @@ test('walks a hint from activation through stepping, applying and a later dismis
     await expect(progress).toHaveCount(0);
     await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveCount(0);
 
-    await page.getByTestId(HintPanelSelectors.ShowMoreButton).click();
+    await page.getByTestId(HintPanelSelectors.SHOW_MORE_BUTTON).click();
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(/the highlighted cells hold the pattern\.$/u);
     await expect(progress).toHaveCount(0);
     await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveCount(0);
+    await expectHintBelowToolbar(page);
     await page.screenshot({ path: testInfo.outputPath('hint-level-2-pattern.png'), fullPage: true });
 
-    await page.getByTestId(HintPanelSelectors.ShowMoreButton).click();
-    await expect(page.getByTestId(HintPanelSelectors.ShowMoreButton)).toHaveCount(0);
+    await page.getByTestId(HintPanelSelectors.SHOW_MORE_BUTTON).click();
+    await expect(page.getByTestId(HintPanelSelectors.SHOW_MORE_BUTTON)).toHaveCount(0);
     await expect(progress).toBeVisible();
 
     await expect(progress).toHaveAttribute('aria-label', /Step 1 of \d+/u);
+    await expectHintBelowToolbar(page);
     await page.screenshot({ path: testInfo.outputPath('hint-level-3-walkthrough.png'), fullPage: true });
 
     const labelsBefore = await readCellLabels(page);
@@ -200,7 +219,7 @@ test('starts a fresh hint at level one after continuing an elimination', async (
     await page.getByTestId(HintPanelSelectors.NextButton).click();
     await page.getByTestId(HintPanelSelectors.ContinueButton).click();
 
-    await expect(page.getByTestId(HintPanelSelectors.ShowMoreButton)).toBeVisible();
+    await expect(page.getByTestId(HintPanelSelectors.SHOW_MORE_BUTTON)).toBeVisible();
     await expect(page.getByTestId(HintPanelSelectors.Progress)).toHaveCount(0);
 });
 

@@ -1133,6 +1133,10 @@ msgid "Menus, settings, and game text"
 msgstr "Меню, налаштування та текст гри"
 
 #: src/scoring/components/scoring.screen.tsx
+msgid "minimum {minimumHintPenalty} points"
+msgstr "щонайменше {minimumHintPenalty} балів"
+
+#: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
 msgstr "Мінімальні бали"
 

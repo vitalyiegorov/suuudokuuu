@@ -363,6 +363,9 @@ importers:
         specifier: workspace:*
         version: link:../techniques
     devDependencies:
+      '@effect/vitest':
+        specifier: 4.0.0
+        version: 4.0.0(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))(vitest@5.0.3)
       '@suuudokuuu/hell-corpus':
         specifier: workspace:*
         version: link:../hell-corpus
@@ -378,6 +381,9 @@ importers:
       '@vitest/coverage-v8':
         specifier: 5.0.3
         version: 5.0.3(vitest@5.0.3)
+      effect:
+        specifier: 4.0.0
+        version: 4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd)
       react:
         specifier: 19.3.0
         version: 19.3.0

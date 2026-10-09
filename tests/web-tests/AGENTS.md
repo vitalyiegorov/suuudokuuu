@@ -108,7 +108,7 @@ pnpm --filter @suuudokuuu/web-tests lint
   an elimination without placing a digit. `09.hint-flow.spec.ts` commits that deduction with Continue
   and checks the next logical hint starts at level one.
 
-- Every hint opens at level one (technique and region). `09.hint-flow.spec.ts` taps `HintPanelSelectors.ShowMoreButton` twice to reach the walkthrough before using Next, Back, or Apply; the Reveal hint has no levels and opens on the walkthrough.
+- Every hint opens at level one (technique and region). `09.hint-flow.spec.ts` taps `HintPanelSelectors.SHOW_MORE_BUTTON` twice to reach the walkthrough before using Next, Back, or Apply; the Reveal hint has no levels and opens on the walkthrough.
 
 - `15.daily-challenge.spec.ts` needs no fixture. It pins the clock with `page.clock.setFixedTime` and
   solves the deterministic board that `forgeDailyPuzzle(dateString)` from `@suuudokuuu/puzzle-forge` (a

@@ -15,6 +15,7 @@ import { ScoringScreenStyles as styles } from './scoring-screen.styles';
 // oxlint-disable-next-line max-lines-per-function
 export const ScoringScreen = () => {
     const { t } = useLingui();
+    const minimumHintPenalty = defaultScoringConfig.correctMinValue;
     const { theme } = use(ThemeContext);
 
     const textStyle = { color: theme.colors.text.primary };
@@ -177,7 +178,7 @@ export const ScoringScreen = () => {
                 </Text>
                 <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
                     • <Trans>Each hint level you reveal</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.hintCoefficient}</Text>{' '}
-                    <Trans>of one placement</Trans>
+                    <Trans>of one placement</Trans> (<Trans>minimum {minimumHintPenalty} points</Trans>)
                 </ListItem>
                 <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
                     • <Trans>Undoing a placement</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.undoCoefficient}</Text>{' '}
