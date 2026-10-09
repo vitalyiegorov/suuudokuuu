@@ -21,7 +21,7 @@ on:
 jobs:
     changes:
         name: Detect mobile changes
-        runs-on: [self-hosted, trf-linux-amd64-2x4]
+        runs-on: [self-hosted, linux-portable-2x4]
         permissions:
             contents: read
         outputs:
@@ -92,7 +92,7 @@ jobs:
         name: App test script self-tests
         if: ${{ needs.changes.outputs.app_tests == 'true' }}
         needs: [changes]
-        runs-on: [self-hosted, trf-linux-amd64-2x4]
+        runs-on: [self-hosted, linux-portable-2x4]
         permissions:
             contents: read
         steps:
@@ -117,7 +117,7 @@ jobs:
         # 4x8: the workspace grew to 7 packages and turbo's parallel lint/test
         # fan-out OOM-kills 4 GiB guests (exit 137, 'runner has received a
         # shutdown signal'), so this job needs the 8 GiB shape, not the 4 GiB one.
-        runs-on: [self-hosted, trf-linux-amd64-4x8]
+        runs-on: [self-hosted, linux-portable-4x8]
         timeout-minutes: 30
         permissions:
             pull-requests: write
@@ -201,7 +201,7 @@ jobs:
         name: Vercel preview Web
         if: ${{ needs.changes.outputs.mobile == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
         needs: [changes]
-        runs-on: [self-hosted, trf-linux-amd64-4x8]
+        runs-on: [self-hosted, linux-portable-4x8]
         timeout-minutes: 30
         permissions:
             contents: read
@@ -338,7 +338,7 @@ jobs:
         name: Required CI
         permissions:
             contents: read
-        runs-on: [self-hosted, trf-linux-amd64-2x4]
+        runs-on: [self-hosted, linux-portable-2x4]
         timeout-minutes: 5
         steps:
             - name: Verify required jobs

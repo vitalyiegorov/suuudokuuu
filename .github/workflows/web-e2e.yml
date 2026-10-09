@@ -21,7 +21,7 @@ env:
 jobs:
     playwright:
         name: Playwright web E2E
-        runs-on: [self-hosted, trf-linux-amd64-4x8]
+        runs-on: [self-hosted, linux-portable-4x8]
         timeout-minutes: 20
         steps:
             - name: Checkout repository
@@ -58,7 +58,7 @@ jobs:
               uses: actions/cache@v6
               with:
                   path: ~/.cache/ms-playwright
-                  key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+                  key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ steps.playwright-version.outputs.version }}
 
             - name: Install Playwright browsers
               run: pnpm --filter @suuudokuuu/web-tests exec playwright install --with-deps chromium webkit
