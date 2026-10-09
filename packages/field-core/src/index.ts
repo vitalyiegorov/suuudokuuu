@@ -3,7 +3,6 @@ export type { FieldSnapshotInterface } from './field-engine/interfaces/field-sna
 
 export type { FieldDirectionType } from './field-engine/types/field-direction.type';
 
-export type { HintRegionInterface } from './step-script/interfaces/hint-region.interface';
 export type { StepScriptBranchStepInterface } from './step-script/interfaces/step-script-branch-step.interface';
 export type { StepScriptChainStepInterface } from './step-script/interfaces/step-script-chain-step.interface';
 export type { StepScriptCandidateInterface } from './step-script/interfaces/step-script-candidate.interface';
@@ -19,5 +18,4 @@ export { buildStepScriptState } from './step-script/utils/build-step-script-stat
 export { findHintStepScript, findRevealStepScript } from './step-script/utils/find-hint-step-script.util';
 export { findStepScript } from './step-script/utils/find-step-script.util';
 export { getHintRegion } from './step-script/utils/get-hint-region.util';
-export { getHintPatternStep } from './step-script/utils/get-hint-pattern-step.util';
 export { getCellKey } from './@generic/utils/get-cell-key.util';

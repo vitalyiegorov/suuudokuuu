@@ -4,8 +4,6 @@ import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { HintLevelEnum } from '../enums/hint-level.enum';
 import { StepScriptStepKindEnum } from '../enums/step-script-step-kind.enum';
 
-import { getHintPatternStep } from './get-hint-pattern-step.util';
-
 import type { StepScriptStateInterface } from '../interfaces/step-script-state.interface';
 import type { StepScriptInterface } from '../interfaces/step-script.interface';
 import type { StepScriptStepType } from '../types/step-script-step.type';
@@ -77,7 +75,9 @@ export const buildStepScriptState = (
 ): StepScriptStateInterface => {
     if (hintLevel !== HintLevelEnum.WALKTHROUGH) {
         const patternCells =
-            hintLevel === HintLevelEnum.PATTERN && isDefined(stepScript) ? (getHintPatternStep(stepScript)?.patternCells ?? []) : [];
+            hintLevel === HintLevelEnum.PATTERN && isDefined(stepScript)
+                ? (stepScript.steps.find(step => step.kind === StepScriptStepKindEnum.RevealCandidates)?.patternCells ?? [])
+                : [];
 
         return {
             patternCellKeys: new Set(patternCells.map(getCellKey)),

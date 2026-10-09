@@ -1,7 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
-import { HintLevelEnum, HintRegionKindEnum, getHintPatternStep, getHintRegion } from '@suuudokuuu/field-core';
+import { HintLevelEnum, HintRegionKindEnum, StepScriptStepKindEnum, getHintRegion } from '@suuudokuuu/field-core';
 import { use, useEffect } from 'react';
-import { AccessibilityInfo, View } from 'react-native';
+import { AccessibilityInfo, ScrollView, View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
@@ -21,7 +21,7 @@ export const HintLevelNarration = ({ hintLevel, stepScript }: Props) => {
     const { theme } = use(ThemeContext);
 
     const techniqueName = i18n._(techniqueLabelsConstant[stepScript.technique]);
-    const hintPatternStep = getHintPatternStep(stepScript);
+    const hintPatternStep = stepScript.steps.find(step => step.kind === StepScriptStepKindEnum.RevealCandidates);
     const region = getHintRegion(hintPatternStep?.patternCells ?? [], hintPatternStep?.narration.placement?.cell);
     const regionNumber = region?.number;
 
@@ -59,9 +59,11 @@ export const HintLevelNarration = ({ hintLevel, stepScript }: Props) => {
                 </BlackText>
             </View>
 
-            <BlackText style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
-                {narrationText}
-            </BlackText>
+            <ScrollView style={styles.narrationScroll}>
+                <BlackText style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
+                    {narrationText}
+                </BlackText>
+            </ScrollView>
         </View>
     );
 };
