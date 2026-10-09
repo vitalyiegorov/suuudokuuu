@@ -5,6 +5,7 @@ import { join } from 'node:path';
 const WaitBufferByteLength = 4;
 const ScreenshotMaxBufferBytes = 67108864;
 const BootedUdidPattern = /\(([0-9A-F-]{36})\) \(Booted\)/u;
+const PngSignature = Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]);
 
 export const detectBootedIosSimulatorUdid = (targetDeviceClass: string): string => {
     const result = spawnSync('xcrun', ['simctl', 'list', 'devices', 'booted'], { encoding: 'utf8' });
@@ -94,17 +95,76 @@ export const waitForRender = (milliseconds: number): void => {
     Atomics.wait(new Int32Array(new SharedArrayBuffer(WaitBufferByteLength)), 0, 0, milliseconds);
 };
 
-export const openDeepLink = (context: DeviceContext, deepLink: string): void => {
+export const openDeepLink = (context: DeviceContext, deepLink: string): SceneOutcome => {
     if (context.platform === 'ios') {
-        spawnSync('xcrun', ['simctl', 'openurl', context.simulatorUdid, deepLink]);
+        const result = spawnSync('xcrun', ['simctl', 'openurl', context.simulatorUdid, deepLink]);
 
-        return;
+        return { failureOutput: String(result.stderr), succeeded: result.status === 0 };
     }
 
-    spawnSync('adb', [...adbBaseArguments(context), 'shell', 'am', 'start', '-a', 'android.intent.action.VIEW', '-d', deepLink]);
+    const result = spawnSync('adb', [
+        ...adbBaseArguments(context),
+        'shell',
+        'am',
+        'start',
+        '-a',
+        'android.intent.action.VIEW',
+        '-d',
+        deepLink
+    ]);
+
+    return { failureOutput: String(result.stderr), succeeded: result.status === 0 };
 };
 
-export const writeDeviceScreenshot = (context: DeviceContext, screenshotPath: string): SceneOutcome => {
+export const readAndroidAppPid = (context: DeviceContext, appId: string): string => {
+    const result = spawnSync('adb', [...adbBaseArguments(context), 'shell', 'pidof', appId], { encoding: 'utf8' });
+    const processId = result.stdout.trim();
+
+    if (result.status !== 0 || !/^\d+$/u.test(processId)) {
+        throw new Error(`Could not read a single app PID for ${appId}: ${result.stderr.trim() || processId || 'no running process'}`);
+    }
+
+    return processId;
+};
+
+export const launchVerifiedAndroidApp = (context: DeviceContext, appId: string, language: string): void => {
+    const localeResult = spawnSync(
+        'adb',
+        [...adbBaseArguments(context), 'shell', 'cmd', 'locale', 'set-app-locales', appId, '--locales', language],
+        {
+            encoding: 'utf8'
+        }
+    );
+
+    if (localeResult.status !== 0) {
+        throw new Error(`Could not set app locale: ${localeResult.stderr.trim() || localeResult.stdout.trim()}`);
+    }
+
+    const launchResult = spawnSync('adb', [...adbBaseArguments(context), 'shell', 'am', 'start', '-n', `${appId}/.MainActivity`], {
+        encoding: 'utf8'
+    });
+
+    if (launchResult.status !== 0) {
+        throw new Error(`Could not launch app: ${launchResult.stderr.trim() || launchResult.stdout.trim()}`);
+    }
+};
+
+export const verifyAndroidReadyScene = (context: DeviceContext, readyTestId: string): void => {
+    const result = spawnSync('adb', [...adbBaseArguments(context), 'shell', 'uiautomator', 'dump', '/dev/tty'], {
+        encoding: 'utf8',
+        maxBuffer: ScreenshotMaxBufferBytes
+    });
+
+    if (result.status !== 0) {
+        throw new Error(`Could not read active-window hierarchy: ${result.stderr.trim() || result.stdout.trim()}`);
+    }
+
+    if (!result.stdout.includes(`resource-id="${readyTestId}"`)) {
+        throw new Error(`Expected active-window resource-id "${readyTestId}" was absent from the hierarchy.`);
+    }
+};
+
+export const writeDeviceScreenshot = (context: DeviceContext, screenshotPath: string, verifyPng = false): SceneOutcome => {
     if (context.platform === 'ios') {
         const result = spawnSync('xcrun', ['simctl', 'io', context.simulatorUdid, 'screenshot', '--type=png', screenshotPath], {
             encoding: 'utf8'
@@ -118,7 +178,18 @@ export const writeDeviceScreenshot = (context: DeviceContext, screenshotPath: st
     });
 
     if (result.status !== 0) {
-        return { failureOutput: String(result.stderr), succeeded: false };
+        return { failureOutput: `Could not capture screenshot: ${String(result.stderr).trim()}`, succeeded: false };
+    }
+
+    if (
+        verifyPng &&
+        (result.stdout.length < 24 ||
+            !result.stdout.subarray(0, 8).equals(PngSignature) ||
+            result.stdout.toString('ascii', 12, 16) !== 'IHDR' ||
+            result.stdout.readUInt32BE(16) === 0 ||
+            result.stdout.readUInt32BE(20) === 0)
+    ) {
+        return { failureOutput: 'Screenshot is not a PNG with a valid IHDR and positive dimensions.', succeeded: false };
     }
 
     writeFileSync(screenshotPath, result.stdout);

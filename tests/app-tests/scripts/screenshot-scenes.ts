@@ -2,6 +2,7 @@ export interface Scene {
     deepLink?: string;
     file: string;
     name: string;
+    readyTestId?: string;
     sceneState?: string;
     seedDifficulty?: string;
 }
@@ -19,23 +20,41 @@ export const AllAppearances = ['light', 'dark'];
 export const AllDeviceClasses = ['iphone', 'ipad'];
 
 export const AllScenes: Scene[] = [
-    { deepLink: 'suuudokuuu://game', file: '01.hero-board.flow.yaml', name: 'hero-board', sceneState: 'hero', seedDifficulty: 'Nightmare' },
-    { deepLink: HomeDeepLink, file: '02.hell.flow.yaml', name: 'hell', seedDifficulty: 'Hell' },
-    { deepLink: 'suuudokuuu://settings/themes', file: '03.themes.flow.yaml', name: 'themes' },
-    { deepLink: 'suuudokuuu://settings/themes/editor', file: '04.editor.flow.yaml', name: 'editor' },
+    {
+        deepLink: 'suuudokuuu://game',
+        file: '01.hero-board.flow.yaml',
+        name: 'hero-board',
+        readyTestId: 'GameScreenSelectors.Root',
+        sceneState: 'hero',
+        seedDifficulty: 'Nightmare'
+    },
+    { deepLink: HomeDeepLink, file: '02.hell.flow.yaml', name: 'hell', readyTestId: 'HomeScreenSelectors.Root', seedDifficulty: 'Hell' },
+    { deepLink: 'suuudokuuu://settings/themes', file: '03.themes.flow.yaml', name: 'themes', readyTestId: 'themes-screen' },
+    { deepLink: 'suuudokuuu://settings/themes/editor', file: '04.editor.flow.yaml', name: 'editor', readyTestId: 'theme-editor-screen' },
     { file: '05.win.flow.yaml', name: 'win' },
-    { deepLink: RivalChallengeLink, file: '06.rival.flow.yaml', name: 'rival' },
-    { deepLink: `suuudokuuu://history/Newbie/${SeededReplayCompletedAt}`, file: '07.replay.flow.yaml', name: 'replay' },
-    { deepLink: 'suuudokuuu://settings', file: '08.settings.flow.yaml', name: 'settings' },
-    { deepLink: HomeDeepLink, file: '09.home.flow.yaml', name: 'home', seedDifficulty: 'Medium' },
-    { deepLink: 'suuudokuuu://history', file: '10.stats.flow.yaml', name: 'stats' },
+    { deepLink: RivalChallengeLink, file: '06.rival.flow.yaml', name: 'rival', readyTestId: 'ChallengeAcceptScreenSelectors.Root' },
+    {
+        deepLink: `suuudokuuu://history/Newbie/${SeededReplayCompletedAt}`,
+        file: '07.replay.flow.yaml',
+        name: 'replay',
+        readyTestId: 'ReplayControlsSelectors.Root'
+    },
+    { deepLink: 'suuudokuuu://settings', file: '08.settings.flow.yaml', name: 'settings', readyTestId: 'SettingsScreenSelectors.Root' },
+    { deepLink: HomeDeepLink, file: '09.home.flow.yaml', name: 'home', readyTestId: 'HomeScreenSelectors.Root', seedDifficulty: 'Medium' },
+    { deepLink: 'suuudokuuu://history', file: '10.stats.flow.yaml', name: 'stats', readyTestId: 'HistoryScreenSelectors.Root' },
     { file: '11.pause.flow.yaml', name: 'pause' },
-    { deepLink: 'suuudokuuu://scoring', file: '12.scoring.flow.yaml', name: 'scoring' },
-    { deepLink: 'suuudokuuu://history/Newbie', file: '13.history.flow.yaml', name: 'history' },
+    { deepLink: 'suuudokuuu://scoring', file: '12.scoring.flow.yaml', name: 'scoring', readyTestId: 'ScoringScreenSelectors.Root' },
+    {
+        deepLink: 'suuudokuuu://history/Newbie',
+        file: '13.history.flow.yaml',
+        name: 'history',
+        readyTestId: 'HistoryGamesScreenSelectors.Root'
+    },
     {
         deepLink: 'suuudokuuu://game',
         file: '14.challenge-live.flow.yaml',
         name: 'challenge-live',
+        readyTestId: 'ChallengeRaceHudSelectors.Root',
         sceneState: 'challengeLive',
         seedDifficulty: 'Nightmare'
     },
@@ -43,6 +62,7 @@ export const AllScenes: Scene[] = [
         deepLink: 'suuudokuuu://game',
         file: '15.infinity.flow.yaml',
         name: 'infinity',
+        readyTestId: 'GameScreenSelectors.Root',
         sceneState: 'infinity',
         seedDifficulty: 'Infinity'
     }
