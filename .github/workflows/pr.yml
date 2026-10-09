@@ -143,6 +143,9 @@ jobs:
             - name: Maestro selector checks
               run: pnpm --filter @suuudokuuu/app-tests selectors:check
 
+            - name: Maestro seed fixtures are current
+              run: pnpm --filter @suuudokuuu/app-tests seed:check
+
             - name: Lingui catalogs are up to date
               run: pnpm i18n:check
 

@@ -52,6 +52,7 @@ jobs:
             pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
             maestro-config: tests/app-tests/config.yaml
             flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
+            pre-flow-command: tests/app-tests/scripts/seed-flow-fixture.sh
             flow-retries: 1
             shard-count: 2
             simulator-device: iPhone 17 Pro
@@ -98,6 +99,7 @@ jobs:
             pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
             maestro-config: tests/app-tests/config.yaml
             flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
+            pre-flow-command: tests/app-tests/scripts/seed-flow-fixture.sh
             flow-retries: 1
             # One emulator job at a time: node-b budgets 8 CPU / 16 GiB to
             # containers, a `trf-linux-amd64-4x8` container is 4 CPU / 8 GiB, and

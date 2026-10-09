@@ -1,28 +1,12 @@
 appId: ${APP_ID}
+tags:
+    - seed-rated-history
 ---
 - startRecording:
       path: '15.rated-completed-game-stats'
       optional: true
 
-# This fixture is winningSharedChallengeEncodedConstant's field/timeline re-encoded with a real
-# rating trailer (see tests/web-tests/AGENTS.md's ratedWinningSharedChallengeEncodedConstant fixture
-# note), so completing it produces a genuinely rated Newbie completed game.
 - runFlow: subflows/navigation/launch-home.flow.yaml
-- runFlow:
-      file: subflows/shared/complete-winning-shared-challenge.flow.yaml
-      env:
-          SHARED_CHALLENGE_LINK: suuudokuuu://shared/_OWP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMARgH-IAABCg
-- scrollUntilVisible:
-      element:
-          id: 'ChallengeResultFooterSelectors.HomeButton'
-      direction: DOWN
-      timeout: 10000
-- tapOn:
-      id: 'ChallengeResultFooterSelectors.HomeButton'
-- extendedWaitUntil:
-      visible:
-          id: 'HomeScreenSelectors.Root'
-      timeout: 10000
 - runFlow: subflows/navigation/open-history.flow.yaml
 - assertVisible:
       id: 'HistoryTechniquesSelectors.Root'
