@@ -12,6 +12,7 @@ import { getFieldClassName } from '../../utils/get-field-class-name.util';
 import { getKeyDigit } from '../../utils/get-key-digit.util';
 import { getKeyDirection } from '../../utils/get-key-direction.util';
 import { FieldCell } from '../field-cell/field-cell';
+import { FieldWitnessOverlay } from '../field-witness-overlay/field-witness-overlay';
 
 import type { FieldBoardLabelsInterface } from '../../interfaces/field-board-labels.interface';
 import type { FieldCellViewContextInterface } from '../../interfaces/field-cell-view-context.interface';
@@ -44,6 +45,8 @@ export const FieldBoard = ({ className, engine, givenCellKeys = EMPTY_GIVEN_CELL
         ...(isDefined(selectedCell) && { selectedCell }),
         ...(isDefined(mistakeCell) && { mistakeCell })
     };
+    const { explanation } = context.stepState;
+    const filledCells = snapshot.field.flat().filter(cell => cell.value !== 0);
 
     useEffect(() => {
         if (isKeyboardDrivenRef.current) {
@@ -105,6 +108,7 @@ export const FieldBoard = ({ className, engine, givenCellKeys = EMPTY_GIVEN_CELL
                     })}
                 </div>
             ))}
+            {isDefined(explanation) ? <FieldWitnessOverlay explanation={explanation} filledCells={filledCells} /> : null}
         </div>
     );
 };

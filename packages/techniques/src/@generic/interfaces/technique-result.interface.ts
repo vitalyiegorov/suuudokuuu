@@ -1,6 +1,8 @@
 import type { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
 import type { TechniqueResultKindType } from '../types/technique-result-kind.type';
 import type { CandidateEliminationInterface } from './candidate-elimination.interface';
+import type { ChainCandidateInterface } from './chain-candidate.interface';
+import type { ForcingBranchInterface } from './forcing-branch.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 export interface TechniqueResultInterface {
@@ -12,4 +14,6 @@ export interface TechniqueResultInterface {
     reasonCells: CellInterface[];
     chainLength?: number;
     readonly patternCandidates?: readonly CandidateEliminationInterface[];
+    readonly chain?: readonly ChainCandidateInterface[];
+    readonly branches?: readonly ForcingBranchInterface[];
 }

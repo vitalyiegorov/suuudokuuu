@@ -391,6 +391,14 @@ msgstr "تُميَّز حالات اللوحة بالإضاءة والحدود،
 msgid "Box-Line Reduction"
 msgstr "تخفيض الصندوق والخط"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch leads to {placement}."
+msgstr "الفرع {branchNumber} من {branchCount}: إذا {path}. يؤدي هذا الفرع إلى {placement}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch rules out {eliminations}."
+msgstr "الفرع {branchNumber} من {branchCount}: إذا {path}. يستبعد هذا الفرع {eliminations}."
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "BUG+1"
 msgstr "BUG+1"
@@ -772,6 +780,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "حسب النظام"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Follow the chain {path}. \"=\" is a strong link (at least one end is true) and \"−\" is a weak link (both ends cannot be true), so one end of the chain is always true."
+msgstr "تتبّع السلسلة {path}. \"=\" رابط قوي (طرف واحد على الأقل صحيح) و\"−\" رابط ضعيف (لا يمكن أن يكون الطرفان صحيحين معًا)، لذا فأحد طرفي السلسلة صحيح دائمًا."
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Forcing chains"
 msgstr "سلاسل الإجبار"
@@ -933,6 +945,18 @@ msgstr "كيف يعمل احتساب النقاط"
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "أنهيت هذا السودوكو في {elapsedTimeString}. هل يمكنك التفوق علي؟"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
+msgstr "إذا {path} → لا يبقى أي مرشح في {cell}. إذن {assumptionCell} ليست {assumptionValue}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {cell} would have to be {value}, which is no longer possible. So {assumptionCell} is not {assumptionValue}."
+msgstr "إذا {path} → يجب أن تكون {cell} هي {value}، وهذا لم يعد ممكنًا. إذن {assumptionCell} ليست {assumptionValue}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {value} has no place left in the outlined cells. So {assumptionCell} is not {assumptionValue}."
+msgstr "إذا {path} → لا يبقى مكان للرقم {value} في الخلايا المؤطرة. إذن {assumptionCell} ليست {assumptionValue}."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"

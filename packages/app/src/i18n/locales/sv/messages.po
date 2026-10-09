@@ -391,6 +391,14 @@ msgstr "Brädets tillstånd skiljs åt med ljushet och konturer, inte med färgt
 msgid "Box-Line Reduction"
 msgstr "Block-rad-reduktion"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch leads to {placement}."
+msgstr "Gren {branchNumber} av {branchCount}: om {path}. Den här grenen leder till {placement}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch rules out {eliminations}."
+msgstr "Gren {branchNumber} av {branchCount}: om {path}. Den här grenen utesluter {eliminations}."
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "BUG+1"
 msgstr "BUG+1"
@@ -772,6 +780,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "Följ systemet"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Follow the chain {path}. \"=\" is a strong link (at least one end is true) and \"−\" is a weak link (both ends cannot be true), so one end of the chain is always true."
+msgstr "Följ kedjan {path}. ”=” är en stark länk (minst en ände är sann) och ”−” är en svag länk (båda ändarna kan inte vara sanna), så en ände av kedjan är alltid sann."
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Forcing chains"
 msgstr "Tvingande kedjor"
@@ -933,6 +945,18 @@ msgstr "Så fungerar poängen"
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "Jag klarade detta sudoku på {elapsedTimeString}. Kan du slå mig?"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
+msgstr "Om {path} → {cell} får slut på kandidater. Alltså är {assumptionCell} inte {assumptionValue}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {cell} would have to be {value}, which is no longer possible. So {assumptionCell} is not {assumptionValue}."
+msgstr "Om {path} → {cell} skulle behöva vara {value}, vilket inte längre är möjligt. Alltså är {assumptionCell} inte {assumptionValue}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {value} has no place left in the outlined cells. So {assumptionCell} is not {assumptionValue}."
+msgstr "Om {path} → {value} har ingen plats kvar i de inramade cellerna. Alltså är {assumptionCell} inte {assumptionValue}."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"

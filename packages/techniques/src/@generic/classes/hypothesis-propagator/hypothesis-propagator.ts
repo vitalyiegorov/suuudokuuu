@@ -1,5 +1,6 @@
 import { isDefined } from '@rnw-community/shared';
 
+import { ForcingOutcomeKindEnum } from '../../enums/forcing-outcome-kind.enum';
 import { createCandidateMask } from '../../utils/create-candidate-mask.util';
 import { getEliminatedMask } from '../../utils/get-eliminated-mask.util';
 import { getPropagationKey } from '../../utils/get-propagation-key.util';
@@ -49,8 +50,7 @@ export class HypothesisPropagator {
             placedValues: new Int8Array(this.board.cells.length),
             placedCellIndexes: [],
             pendingCellIndexes: [cellIndex],
-            pendingValues: [value],
-            hasContradiction: false
+            pendingValues: [value]
         };
     }
 
@@ -68,7 +68,7 @@ export class HypothesisPropagator {
     private drainPendingAssignments(state: HypothesisPropagationStateInterface): boolean {
         let pendingIndex = 0;
 
-        while (pendingIndex < state.pendingCellIndexes.length && !state.hasContradiction) {
+        while (pendingIndex < state.pendingCellIndexes.length && !isDefined(state.contradiction)) {
             this.assign(state, state.pendingCellIndexes[pendingIndex], state.pendingValues[pendingIndex]);
             pendingIndex += 1;
         }
@@ -76,7 +76,7 @@ export class HypothesisPropagator {
         state.pendingCellIndexes = [];
         state.pendingValues = [];
 
-        return !state.hasContradiction;
+        return !isDefined(state.contradiction);
     }
 
     private assign(state: HypothesisPropagationStateInterface, cellIndex: number, value: number): void {
@@ -85,7 +85,7 @@ export class HypothesisPropagator {
         }
 
         if (!hasMaskValue(state.masks[cellIndex], value)) {
-            state.hasContradiction = true;
+            state.contradiction = { kind: ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT, cell: this.board.cells[cellIndex], value };
 
             return;
         }
@@ -109,7 +109,7 @@ export class HypothesisPropagator {
         state.masks[peerIndex] = removeMaskValue(state.masks[peerIndex], value);
 
         if (state.masks[peerIndex] === 0) {
-            state.hasContradiction = true;
+            state.contradiction = { kind: ForcingOutcomeKindEnum.EMPTY_CELL, cell: this.board.cells[peerIndex] };
 
             return false;
         }
@@ -132,7 +132,7 @@ export class HypothesisPropagator {
             for (let value = 1; value <= valueCount; value += 1) {
                 hasQueuedAssignments = this.queueUnitHiddenSingle(state, cellIndexes, value) || hasQueuedAssignments;
 
-                if (state.hasContradiction) {
+                if (isDefined(state.contradiction)) {
                     return hasQueuedAssignments;
                 }
             }
@@ -145,7 +145,11 @@ export class HypothesisPropagator {
         const positionIndex = this.getUnitHiddenSinglePosition(state, unitCellIndexes, value);
 
         if (positionIndex === CONTRADICTION_POSITION) {
-            state.hasContradiction = true;
+            state.contradiction = {
+                kind: ForcingOutcomeKindEnum.NO_POSITION,
+                unitCells: unitCellIndexes.map(cellIndex => this.board.cells[cellIndex]),
+                value
+            };
 
             return false;
         }
@@ -194,10 +198,11 @@ export class HypothesisPropagator {
         }
 
         return {
-            hasContradiction: state.hasContradiction,
+            hasContradiction: isDefined(state.contradiction),
             placedValues: state.placedValues,
             placedCellIndexes: state.placedCellIndexes,
-            eliminatedMasks
+            eliminatedMasks,
+            ...(isDefined(state.contradiction) && { contradiction: state.contradiction })
         };
     }
 

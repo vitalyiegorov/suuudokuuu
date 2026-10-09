@@ -391,6 +391,14 @@ msgstr "Estados do tabuleiro diferenciados por luminosidade e contornos, não pe
 msgid "Box-Line Reduction"
 msgstr "Redução caixa-linha"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch leads to {placement}."
+msgstr "Ramo {branchNumber} de {branchCount}: se {path}. Este ramo leva a {placement}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch rules out {eliminations}."
+msgstr "Ramo {branchNumber} de {branchCount}: se {path}. Este ramo descarta {eliminations}."
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "BUG+1"
 msgstr "BUG+1"
@@ -772,6 +780,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "Seguir o sistema"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Follow the chain {path}. \"=\" is a strong link (at least one end is true) and \"−\" is a weak link (both ends cannot be true), so one end of the chain is always true."
+msgstr "Siga a cadeia {path}. \"=\" é uma ligação forte (pelo menos uma ponta é verdadeira) e \"−\" é uma ligação fraca (as duas pontas não podem ser verdadeiras), então uma ponta da cadeia é sempre verdadeira."
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Forcing chains"
 msgstr "Cadeias forçadas"
@@ -933,6 +945,18 @@ msgstr "Como funciona a pontuação"
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "Concluí este sudoku em {elapsedTimeString}. Consegue me superar?"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
+msgstr "Se {path} → {cell} fica sem candidatos. Então {assumptionCell} não é {assumptionValue}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {cell} would have to be {value}, which is no longer possible. So {assumptionCell} is not {assumptionValue}."
+msgstr "Se {path} → {cell} teria que ser {value}, o que não é mais possível. Então {assumptionCell} não é {assumptionValue}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {value} has no place left in the outlined cells. So {assumptionCell} is not {assumptionValue}."
+msgstr "Se {path} → {value} não tem mais lugar nas células contornadas. Então {assumptionCell} não é {assumptionValue}."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"

@@ -391,6 +391,14 @@ msgstr "棋盘状态通过明暗和轮廓区分，而非色相"
 msgid "Box-Line Reduction"
 msgstr "宫线消解"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch leads to {placement}."
+msgstr "分支 {branchNumber}/{branchCount}：如果 {path}。此分支得出 {placement}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch rules out {eliminations}."
+msgstr "分支 {branchNumber}/{branchCount}：如果 {path}。此分支排除 {eliminations}。"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "BUG+1"
 msgstr "BUG+1"
@@ -772,6 +780,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "跟随系统"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Follow the chain {path}. \"=\" is a strong link (at least one end is true) and \"−\" is a weak link (both ends cannot be true), so one end of the chain is always true."
+msgstr "沿着链 {path} 推理。“=”是强链（至少一端为真），“−”是弱链（两端不能同时为真），所以链的某一端总为真。"
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Forcing chains"
 msgstr "强制链"
@@ -933,6 +945,18 @@ msgstr "计分规则"
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "我用 {elapsedTimeString} 完成了这道数独。你能超过我吗？"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
+msgstr "如果 {path} → {cell} 没有候选数字了。所以 {assumptionCell} 不是 {assumptionValue}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {cell} would have to be {value}, which is no longer possible. So {assumptionCell} is not {assumptionValue}."
+msgstr "如果 {path} → {cell} 必须是 {value}，但这已不可能。所以 {assumptionCell} 不是 {assumptionValue}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {value} has no place left in the outlined cells. So {assumptionCell} is not {assumptionValue}."
+msgstr "如果 {path} → {value} 在加框的单元格中已无位置。所以 {assumptionCell} 不是 {assumptionValue}。"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"

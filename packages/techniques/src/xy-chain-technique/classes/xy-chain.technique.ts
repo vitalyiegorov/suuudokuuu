@@ -6,6 +6,7 @@ import {
     XY_CHAIN_MAX_VISITS_PER_ROOT,
     XY_CHAIN_MIN_CELLS
 } from '../../@generic/constants/chain-scan.constant';
+import { ChainLinkEnum } from '../../@generic/enums/chain-link.enum';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { collectChainResults } from '../../@generic/utils/collect-chain-results.util';
 import { compareCells } from '../../@generic/utils/compare-cells.util';
@@ -133,10 +134,26 @@ export class XYChainTechnique implements TechniqueStrategyInterface {
             return;
         }
 
-        const path = getChainSearchPath(search.nodes, nodeIndex);
+        const nodes = getChainSearchPath(search.nodes, nodeIndex);
+        const path = nodes.map(pathNode => pathNode.cell);
         const eliminations = getChainEndpointEliminations(scan.context, path, scan.eliminationValue, scan.target);
 
-        scan.results.push(...createEliminationResults(this.technique, eliminations, path, path.length));
+        if (eliminations.length === 0) {
+            return;
+        }
+
+        const chain = nodes.flatMap((pathNode, pathIndex) => [
+            {
+                cell: pathNode.cell,
+                value: pathIndex === 0 ? scan.eliminationValue : nodes[pathIndex - 1].linkValue,
+                ...(pathIndex > 0 && { link: ChainLinkEnum.WEAK })
+            },
+            { cell: pathNode.cell, value: pathNode.linkValue, link: ChainLinkEnum.STRONG }
+        ]);
+
+        scan.results.push(
+            ...createEliminationResults(this.technique, eliminations, path, path.length).map(result => ({ ...result, chain }))
+        );
     }
 
     private getNextXYChainCells(context: CandidateContext, node: XYChainNodeInterface): CellInterface[] {

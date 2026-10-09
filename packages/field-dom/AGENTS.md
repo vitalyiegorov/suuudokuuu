@@ -32,7 +32,8 @@ src/
 │   ├── field-cell/            # role="gridcell" button, value or candidates
 │   ├── field-cell-candidates/ # 3x3 candidate mini grid
 │   ├── field-number-pad/      # digits with remaining counts, mode/undo/redo
-│   ├── field-step-player/     # step controls, progress dots, aria-live narration
+│   ├── field-step-player/     # step controls, progress dots or count, aria-live narration
+│   ├── field-witness-overlay/ # SVG chain and forcing-branch witness over the board
 │   └── field-game/            # composition shell over the four pieces
 ├── constants/field-grid.constant.ts
 ├── hooks/use-field-mistake-cell.hook.ts
@@ -58,6 +59,10 @@ The snapshot carries no given/user distinction, so the consumer supplies `givenC
 ### Step scripts
 
 `@suuudokuuu/field-core`'s `buildStepScriptState(stepScript, stepIndex)` folds steps `0..stepIndex` into pattern cells, revealed candidates, struck candidates, and placed values; `FieldBoard` passes the result as `context.stepState`. `FieldStepPlayer` renders nothing when `snapshot.stepScript` is `null`. Narration is structured, never prose: `narrationRenderer(step)` receives the whole step (kind plus `{ technique, cells, values }`) and returns the consumer's localized node.
+
+### Witness overlay
+
+On a `SHOW_CHAIN` or `SHOW_BRANCH` slide `buildStepScriptState` returns the slide as `explanation`, and `FieldBoard` draws `FieldWitnessOverlay`, an `aria-hidden` SVG laid over the board on a 27 by 27 candidate grid (`getWitnessPoint`). A chain slide draws every chain candidate and a `line[data-link]` per link (`STRONG` solid, `WEAK` dashed); links are masked out of filled cells so a line never strikes through a given. A branch slide draws the assumption (inside `g[data-assumption]`), every implication, and the outcome cells and candidates (`[data-outcome]`). Candidates carry `data-candidate="y-x-value"`. With more than nine slides `FieldStepPlayer` shows the step count instead of dots.
 
 ### Keyboard model
 

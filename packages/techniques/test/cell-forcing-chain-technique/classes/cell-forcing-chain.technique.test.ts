@@ -18,6 +18,22 @@ const forcingChainScanBudgetMilliseconds = 2000;
 const createContext = (board: string): CandidateContext => CandidateContext.fromSudoku(Sudoku.fromString(board, defaultSudokuConfig));
 
 describe('CellForcingChainTechnique', () => {
+    it('keeps each branch assumption and an outcome for the actual result', () => {
+        const results = new CellForcingChainTechnique().find(createContext(forcingPlacementBoard));
+
+        for (const result of results) {
+            expect(result.branches?.length).toBeGreaterThan(1);
+
+            for (const branch of result.branches ?? []) {
+                expect(branch.implications).not.toContainEqual(branch.assumption);
+                expect(branch.outcome).toMatchObject(
+                    result.kind === 'placement'
+                        ? { kind: 'COMMON_PLACEMENT', cell: result.cell, value: result.value }
+                        : { kind: 'COMMON_ELIMINATIONS', eliminations: result.eliminations }
+                );
+            }
+        }
+    });
     it('places the value every candidate of one cell forces', () => {
         expect.assertions(5);
 

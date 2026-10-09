@@ -42,6 +42,19 @@ const findTargetChain = (results: TechniqueResultInterface[]): TechniqueResultIn
     results.find(result => result.cell.y === 2 && result.cell.x === 2 && result.value === 1);
 
 describe('XYChainTechnique', () => {
+    it('keeps both candidates and their actual incoming links for each bivalue cell', () => {
+        const context = createCandidateContextFromMap([0, 0, [1, 2]], [0, 1, [2, 3]], [1, 1, [1, 3]], [2, 2, [1, 4]]);
+        const [result] = new XYChainTechnique().find(context, { cell: context.getRowCells(2)[2], value: 4, intent: 'direct' });
+
+        expect(result.chain?.map(node => [node.cell.y, node.cell.x, node.value, node.link])).toEqual([
+            [0, 0, 1, undefined],
+            [0, 0, 2, 'STRONG'],
+            [0, 1, 2, 'WEAK'],
+            [0, 1, 3, 'STRONG'],
+            [1, 1, 3, 'WEAK'],
+            [1, 1, 1, 'STRONG']
+        ]);
+    });
     const targetFixtures: TargetChainFixtureInterface[] = [
         {
             name: 'basic chain',

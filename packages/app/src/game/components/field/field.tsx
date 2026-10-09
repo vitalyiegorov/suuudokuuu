@@ -1,8 +1,10 @@
 import { useLingui } from '@lingui/react/macro';
-import { getCellKey } from '@suuudokuuu/field-core';
+import { buildStepScriptState, getCellKey } from '@suuudokuuu/field-core';
 import { isEmptyScoredCells } from '@suuudokuuu/generator';
 import { type Ref, use, useImperativeHandle, useState } from 'react';
 import { View } from 'react-native';
+
+import { isDefined } from '@rnw-community/shared';
 
 import { GameContext } from '../../context/game.context';
 import { gameGetCellKeysToAnimate } from '../../utils/game-get-cell-keys-to-animate.util';
@@ -10,6 +12,7 @@ import { gameIncrementCellAnimationGenerations } from '../../utils/game-incremen
 import { FieldCellCandidates } from '../field-cell-candidates/field-cell-candidates';
 import { FieldCellText } from '../field-cell-text/field-cell-text';
 import { FieldCell } from '../field-cell/field-cell';
+import { FieldWitnessOverlay } from '../field-witness-overlay/field-witness-overlay';
 
 import { FieldStyles as styles } from './field.styles';
 
@@ -33,6 +36,7 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
     const { engine, snapshot } = use(GameContext);
 
     const sudoku = engine.Sudoku;
+    const { explanation } = buildStepScriptState(snapshot.stepScript, snapshot.stepIndex);
 
     const [comboAnimationGenerations, setComboAnimationGenerations] = useState<Record<string, number>>({});
     const [successGenerations, setSuccessGenerations] = useState<Record<string, number>>({});
@@ -57,6 +61,8 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
     }));
 
     const boardAccessibilityLabel = t`Sudoku board, 9 by 9 cells`;
+    const isWitnessVisible = isDefined(explanation) && cellSize > 0;
+    const filledCells = snapshot.field.flat().filter(cell => cell.value !== 0);
 
     return (
         <View accessibilityLabel={boardAccessibilityLabel} role="grid" style={styles.wrapper}>
@@ -85,6 +91,9 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
                     })}
                 </View>
             ))}
+            {isWitnessVisible ? (
+                <FieldWitnessOverlay cellMargin={cellMargin} cellSize={cellSize} explanation={explanation} filledCells={filledCells} />
+            ) : null}
         </View>
     );
 };

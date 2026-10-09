@@ -391,6 +391,14 @@ msgstr "बोर्ड की स्थितियाँ रंग की आ�
 msgid "Box-Line Reduction"
 msgstr "बॉक्स-लाइन न्यूनीकरण"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch leads to {placement}."
+msgstr "शाखा {branchNumber} / {branchCount}: यदि {path}. यह शाखा {placement} तक ले जाती है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch rules out {eliminations}."
+msgstr "शाखा {branchNumber} / {branchCount}: यदि {path}. यह शाखा {eliminations} को बाहर कर देती है।"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "BUG+1"
 msgstr "BUG+1"
@@ -772,6 +780,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "सिस्टम के अनुसार"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Follow the chain {path}. \"=\" is a strong link (at least one end is true) and \"−\" is a weak link (both ends cannot be true), so one end of the chain is always true."
+msgstr "श्रृंखला {path} का अनुसरण करें। \"=\" मज़बूत कड़ी है (कम से कम एक सिरा सही है) और \"−\" कमज़ोर कड़ी है (दोनों सिरे एक साथ सही नहीं हो सकते), इसलिए श्रृंखला का एक सिरा हमेशा सही होता है।"
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Forcing chains"
 msgstr "बाध्यकारी शृंखलाएँ"
@@ -933,6 +945,18 @@ msgstr "स्कोर कैसे काम करता है"
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "मैंने यह सुडोकू {elapsedTimeString} में पूरा किया। क्या आप मुझे हरा सकते हैं?"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
+msgstr "यदि {path} → {cell} में कोई उम्मीदवार नहीं बचता। इसलिए {assumptionCell} {assumptionValue} नहीं है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {cell} would have to be {value}, which is no longer possible. So {assumptionCell} is not {assumptionValue}."
+msgstr "यदि {path} → {cell} को {value} होना पड़ेगा, जो अब संभव नहीं है। इसलिए {assumptionCell} {assumptionValue} नहीं है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {value} has no place left in the outlined cells. So {assumptionCell} is not {assumptionValue}."
+msgstr "यदि {path} → घेरे गए सेल में {value} के लिए कोई जगह नहीं बचती। इसलिए {assumptionCell} {assumptionValue} नहीं है।"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"

@@ -393,6 +393,14 @@ msgstr "Стани дошки розрізняються світлістю та
 msgid "Box-Line Reduction"
 msgstr "Взаємодія блока і лінії"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch leads to {placement}."
+msgstr "Гілка {branchNumber} з {branchCount}: якщо {path}. Ця гілка веде до {placement}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Branch {branchNumber} of {branchCount}: if {path}. This branch rules out {eliminations}."
+msgstr "Гілка {branchNumber} з {branchCount}: якщо {path}. Ця гілка виключає {eliminations}."
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "BUG+1"
 msgstr "BUG+1"
@@ -774,6 +782,10 @@ msgstr "Finned X-Wing"
 msgid "Follow system"
 msgstr "Як у системі"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Follow the chain {path}. \"=\" is a strong link (at least one end is true) and \"−\" is a weak link (both ends cannot be true), so one end of the chain is always true."
+msgstr "Простежте ланцюжок {path}. «=» — сильний зв’язок (принаймні один кінець істинний), а «−» — слабкий зв’язок (обидва кінці не можуть бути істинними), тож один кінець ланцюжка завжди істинний."
+
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Forcing chains"
 msgstr "Примусові ланцюги"
@@ -935,6 +947,18 @@ msgstr "Як працює підрахунок балів"
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "Мій результат у цьому судоку: {elapsedTimeString}. Зможеш краще?"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
+msgstr "Якщо {path} → у {cell} не залишається варіантів. Отже, {assumptionCell} не {assumptionValue}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {cell} would have to be {value}, which is no longer possible. So {assumptionCell} is not {assumptionValue}."
+msgstr "Якщо {path} → {cell} мала б містити {value}, що вже неможливо. Отже, {assumptionCell} не {assumptionValue}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "If {path} → {value} has no place left in the outlined cells. So {assumptionCell} is not {assumptionValue}."
+msgstr "Якщо {path} → для {value} не залишається місця в обведених клітинках. Отже, {assumptionCell} не {assumptionValue}."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"

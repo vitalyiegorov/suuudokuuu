@@ -1,5 +1,6 @@
 import { expect, test } from '@playwright/test';
 import {
+    FieldWitnessOverlaySelectors,
     GameScreenSelectors,
     HintButtonSelectors,
     HintPanelSelectors,
@@ -9,7 +10,8 @@ import {
 
 import {
     pointingPairHintSharedPuzzleEncodedConstant,
-    revealHintSharedPuzzleEncodedConstant
+    revealHintSharedPuzzleEncodedConstant,
+    structuredChainHintSharedPuzzleEncodedConstant
 } from '../src/constants/shared-challenge-links.constant';
 import { launchHome } from '../src/utils/launch-home.util';
 import { openSharedPuzzle } from '../src/utils/open-shared-puzzle.util';
@@ -17,6 +19,7 @@ import { startNewGame } from '../src/utils/start-new-game.util';
 import { cellTestId } from '../src/utils/test-id.util';
 
 const gameScreenTimeoutMilliseconds = 15000;
+const longHintTimeoutMilliseconds = 120000;
 
 const readCellLabels = async (page: import('@playwright/test').Page): Promise<Map<string, string | null>> => {
     const labels = new Map<string, string | null>();
@@ -154,4 +157,70 @@ test('reveals one digit from the solution when no short chain reaches a placemen
     await page.getByTestId(HintPanelSelectors.ApplyButton).click();
     await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
     await expect(page.getByTestId(cellTestId(7, 6))).toHaveAttribute('aria-label', 'Row 8, column 7, 9');
+});
+
+test('walks a long Nishio and AIC hint with witness slides that leave the board untouched', async ({ page }) => {
+    test.setTimeout(longHintTimeoutMilliseconds);
+    await launchHome(page);
+    await openSharedPuzzle(page, structuredChainHintSharedPuzzleEncodedConstant);
+    await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+
+    const hint = page.getByTestId(HintButtonSelectors.Root);
+    const apply = page.getByTestId(HintPanelSelectors.ApplyButton);
+    const progress = page.getByTestId(HintPanelSelectors.Progress);
+    const next = page.getByTestId(HintPanelSelectors.NextButton);
+    const back = page.getByTestId(HintPanelSelectors.BackButton);
+
+    for (let hintIndex = 0; hintIndex < 2; hintIndex += 1) {
+        await hint.click();
+        await apply.click();
+        await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
+    }
+
+    const labelsBefore = await readCellLabels(page);
+
+    await hint.click();
+
+    const progressLabel = (await progress.getAttribute('aria-label')) ?? '';
+    const stepCount = Number(/of (?<count>\d+)$/u.exec(progressLabel)?.groups?.['count']);
+
+    expect(stepCount).toBeGreaterThan(9);
+    await expect(progress).toContainText(progressLabel);
+
+    const branch = page.getByTestId(FieldWitnessOverlaySelectors.Branch);
+    const outcome = page.getByTestId(FieldWitnessOverlaySelectors.Outcome);
+    const techniqueNames = new Set<string>();
+    let sawBranch = false;
+    let sawOutcome = false;
+
+    for (let stepIndex = 0; stepIndex < stepCount; stepIndex += 1) {
+        techniqueNames.add((await page.getByTestId(HintStepNarrationSelectors.Technique).textContent()) ?? '');
+
+        if (!sawBranch && (await branch.count())) {
+            sawBranch = true;
+            expect(await readCellLabels(page)).toEqual(labelsBefore);
+        }
+
+        if (!sawOutcome && (await outcome.count())) {
+            sawOutcome = true;
+            await back.click();
+            await expect(outcome).toHaveCount(0);
+            await next.click();
+            await expect(outcome).not.toHaveCount(0);
+        }
+
+        if (stepIndex < stepCount - 1) {
+            await next.click();
+            await expect(progress).toHaveAttribute('aria-label', `Step ${stepIndex + 2} of ${stepCount}`);
+        }
+    }
+
+    expect(sawBranch).toBe(true);
+    expect(sawOutcome).toBe(true);
+    expect(techniqueNames.has('Nishio Forcing Chain')).toBe(true);
+    expect(techniqueNames.has('AIC')).toBe(true);
+
+    await apply.click();
+    await expect(page.getByTestId(cellTestId(5, 8))).toHaveAttribute('aria-label', 'Row 6, column 9, 1');
 });

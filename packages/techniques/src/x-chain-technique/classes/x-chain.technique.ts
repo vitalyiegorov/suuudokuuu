@@ -6,6 +6,7 @@ import {
     X_CHAIN_MAX_VISITS_PER_ROOT,
     X_CHAIN_MIN_CELLS
 } from '../../@generic/constants/chain-scan.constant';
+import { ChainLinkEnum } from '../../@generic/enums/chain-link.enum';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { collectChainResults } from '../../@generic/utils/collect-chain-results.util';
 import { compareCells } from '../../@generic/utils/compare-cells.util';
@@ -137,10 +138,22 @@ export class XChainTechnique implements TechniqueStrategyInterface {
             return;
         }
 
-        const path = getChainSearchPath(search.nodes, nodeIndex);
+        const path = getChainSearchPath(search.nodes, nodeIndex).map(pathNode => pathNode.cell);
         const eliminations = getChainEndpointEliminations(scan.context, path, scan.value, scan.target);
 
-        scan.results.push(...createEliminationResults(this.technique, eliminations, path, path.length));
+        if (eliminations.length === 0) {
+            return;
+        }
+
+        const chain = path.map((cell, pathIndex) => ({
+            cell,
+            value: scan.value,
+            ...(pathIndex > 0 && { link: pathIndex % 2 === 1 ? ChainLinkEnum.STRONG : ChainLinkEnum.WEAK })
+        }));
+
+        scan.results.push(
+            ...createEliminationResults(this.technique, eliminations, path, path.length).map(result => ({ ...result, chain }))
+        );
     }
 
     private getNeighbors(scan: XChainScanStateInterface, node: XChainNodeInterface): CellInterface[] {

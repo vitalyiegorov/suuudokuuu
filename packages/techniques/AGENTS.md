@@ -139,6 +139,10 @@ A state is expanded once, and a neighbour already on the reconstructed path is r
 
 Results carry `chainLength`, the number of cells in the chain, which is always `reasonCells.length`. `@suuudokuuu/rating` prices chains from it. Nothing else in the ladder sets the field, and `getCanonicalTechniqueResults` already keeps the fewest-reason-cells result per deduction, so the surviving result for a deduction is the shortest chain found for it across every root.
 
+### Chain payloads
+
+`XChainTechnique`, `XYChainTechnique`, and `AICTechnique` results also carry `chain`: the ordered candidate path (`ChainCandidateInterface[]`, a cell plus a value) that proves the deduction. The first node has no `link`; every later node carries the `ChainLinkEnum` link that reaches it from the previous node, alternating `STRONG`, `WEAK`, `STRONG` and ending on `STRONG`. An X-Chain node is one cell on the chain digit. An XY-Chain contributes two nodes per bi-value cell, the incoming value and the outgoing value joined by the cell's strong link, so a path that crosses one cell with two digits stays two distinct candidates. AIC nodes are its candidate path as found. Consumers draw the links from this field; `reasonCells` and `chainLength` are unchanged.
+
 ### AIC scan budget
 
 `AICTechnique` searches depth-first, not breadth-first, so `AIC_MAX_LINK_VISITS` is a cap that really binds. It is spent **per start node**: every start node opens its own scan with a fresh budget, exactly as `XChainTechnique` and `XYChainTechnique` reset `linkVisits` per root.
@@ -172,6 +176,8 @@ Propagation uses only naked and hidden singles, which is SE's non-dynamic chaini
 Both multi-branch detectors keep what every branch agrees on: a cell that every branch places with the same value becomes a placement, and a candidate that every branch removes becomes an elimination. A root whose branches include a contradiction is skipped entirely — that branch is a Nishio deduction, which is cheaper and runs first.
 
 `chainLength` is the number of cells the argument placed: the contradiction path for Nishio, and the union of the branch paths for the multi-branch forms. It stays equal to `reasonCells.length`, as it is for the shortest-path chains. `FORCING_CHAIN_MIN_CELLS` rejects arguments below that size, which keeps a degenerate no-propagation case split from being reported as a forcing chain, and `FORCING_CHAIN_MAX_HYPOTHESES_PER_SCAN` caps the propagations one scan may run. A capped-out scan returns what it already found, marks the context with `markContextSearchCapped`, and otherwise leaves the driver `stuck` — but a `stuck` that carries `wasSearchCapped` is a budget limit, not a ladder limit.
+
+Every forcing-chain result also carries `branches` (`ForcingBranchInterface[]`), one per assumption, in the order the detector tried them. A branch holds the `assumption`, the `implications` (every placement the propagation made after the assumption, in order), and the `outcome`. A Nishio branch ends in the contradiction the propagation hit (`EMPTY_CELL`, `NO_POSITION`, or `ASSIGNMENT_CONFLICT`), which `HypothesisPropagator` records on the memoised propagation; a cell or region branch ends in the result it shares with every other branch (`COMMON_PLACEMENT` or `COMMON_ELIMINATIONS`).
 
 Results are canonicalised and then sorted by `chainLength`, so the driver applies the cheapest forcing argument available and `@suuudokuuu/rating` prices the position from the shortest argument that proves it.
 
@@ -238,10 +244,16 @@ export {
     interactiveTechniqueOrder,
     isSolutionTechnique,
     createTechniqueStrategies,
-    findPlacementChain
+    findPlacementChain,
+    ChainLinkEnum,
+    ForcingOutcomeKindEnum
 };
 export type {
     TechniqueResultInterface,
+    ChainCandidateInterface,
+    ForcingBranchInterface,
+    ForcingOutcomeType,
+    ForcingContradictionType,
     MoveClassificationInterface,
     TechniqueStrategyInterface,
     LogicalSolveResultInterface,

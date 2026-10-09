@@ -5,6 +5,7 @@ import { FORCING_CHAIN_MIN_CELLS } from '../../@generic/constants/forcing-chain-
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { markContextSearchCapped } from '../../@generic/utils/context-scan-state.util';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
+import { createForcingBranch } from '../../@generic/utils/create-forcing-branch.util';
 import { getHypothesisReasonCells } from '../../@generic/utils/get-hypothesis-reason-cells.util';
 import { getMaskValues } from '../../@generic/utils/get-mask-values.util';
 import { hasForcingChainScanBudget } from '../../@generic/utils/has-forcing-chain-scan-budget.util';
@@ -58,13 +59,18 @@ export class NishioForcingChainTechnique extends AbstractForcingChainTechnique {
         const board = scan.propagator.getBoard();
         const propagation = propagateForScan(scan, cellIndex, value);
         const reasonCells = getHypothesisReasonCells(board, [propagation]);
+        const { contradiction } = propagation;
 
-        if (!propagation.hasContradiction || reasonCells.length < FORCING_CHAIN_MIN_CELLS) {
+        if (!isDefined(contradiction) || reasonCells.length < FORCING_CHAIN_MIN_CELLS) {
             return true;
         }
 
+        const branches = [createForcingBranch(board, propagation, contradiction)];
+
         scan.results.push(
-            ...createEliminationResults(this.technique, [{ cell: board.cells[cellIndex], value }], reasonCells, reasonCells.length)
+            ...createEliminationResults(this.technique, [{ cell: board.cells[cellIndex], value }], reasonCells, reasonCells.length).map(
+                result => ({ ...result, branches })
+            )
         );
 
         return !isDefined(scan.scope.directTarget);

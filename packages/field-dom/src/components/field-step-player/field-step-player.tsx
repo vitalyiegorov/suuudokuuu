@@ -11,6 +11,8 @@ import type { FieldStepPlayerLabelsInterface } from '../../interfaces/field-step
 import type { FieldNarrationRendererType } from '../../types/field-narration-renderer.type';
 import type { FieldEngine } from '@suuudokuuu/field-core';
 
+const maxProgressDots = 9;
+
 interface Props {
     engine: FieldEngine;
     labels: FieldStepPlayerLabelsInterface;
@@ -32,6 +34,7 @@ export const FieldStepPlayer = ({ className, engine, labels, narrationRenderer }
     const progressLabel = labels.stepProgress(stepIndex + 1, steps.length);
     const isFirstStep = stepIndex === 0;
     const isLastStep = stepIndex >= steps.length - 1;
+    const hasProgressCount = steps.length > maxProgressDots;
 
     const handleBack = () => {
         engine.stepScriptBack();
@@ -51,11 +54,15 @@ export const FieldStepPlayer = ({ className, engine, labels, narrationRenderer }
 
     return (
         <div aria-label={labels.stepPlayer} className={getFieldClassName('field-step-player', className)} role="group">
-            <ol aria-label={progressLabel} className="field-step-player__progress">
-                {steps.map((_step, dotIndex) => (
-                    <li className="field-step-player__dot" data-state={getFieldStepDotState(dotIndex, stepIndex)} key={dotIndex} />
-                ))}
-            </ol>
+            {hasProgressCount ? (
+                <span className="field-step-player__progress-count">{progressLabel}</span>
+            ) : (
+                <ol aria-label={progressLabel} className="field-step-player__progress">
+                    {steps.map((_step, dotIndex) => (
+                        <li className="field-step-player__dot" data-state={getFieldStepDotState(dotIndex, stepIndex)} key={dotIndex} />
+                    ))}
+                </ol>
+            )}
             <p aria-live="polite" className="field-step-player__narration">
                 {narration}
             </p>

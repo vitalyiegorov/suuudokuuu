@@ -99,6 +99,11 @@ pnpm --filter @suuudokuuu/web-tests lint
   No logical chain reaches a placement, so the first hint is the "Reveal" of `9` at
   `y=7, x=6`, the blank cell with the fewest candidates. `09.hint-flow.spec.ts` depends on it.
 
+- `structuredChainHintSharedPuzzleEncodedConstant`: a `Puzzle`-kind share of the column-quad board from
+  issue #455. After two applied hints, the third hint chains a Nishio forcing chain and an AIC into the
+  placement `1` at `y=5, x=8`, with more than nine slides. `09.hint-flow.spec.ts` walks it to prove the
+  witness overlay draws branch and outcome slides without changing the board until Apply.
+
 - `15.daily-challenge.spec.ts` needs no fixture. It pins the clock with `page.clock.setFixedTime` and
   solves the deterministic board that `forgeDailyPuzzle(dateString)` from `@suuudokuuu/puzzle-forge` (a
   dev dependency of this package) forges for that date, the same call the app makes, so the run is a real
@@ -165,7 +170,7 @@ specs at `specs/`.
 
 | Spec                              | What it pins                                                                                                                                                                                                                                                         |
 | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `01.technique-embed.spec.ts`      | The intent-gated playable island: static table stays in the DOM, the engine chunk only loads on click, the step script walks and applies.                                                                                                                            |
+| `01.technique-embed.spec.ts`      | The intent-gated playable island: static table stays in the DOM, the engine chunk only loads on click, the step script walks and applies, and chain witnesses draw and retract their links.                                                                          |
 | `02.crawlability.spec.ts`         | Zero-JS contracts: static worked example and candidate grid, guide measured-data tables, one `<h1>`/canonical/exported `og:image` per sampled family, and the `Article.headline === <h1>` invariant (absent on home, which ships `WebSite` + `SoftwareApplication`). |
 | `03.indexing-consistency.spec.ts` | One URL enumeration: every `sitemap.xml` `<loc>` is unique, same-origin and served with 200; `robots.txt` advertises the sitemap; `llms.txt` lists exactly the sitemap set.                                                                                          |
 | `04.comfort-text-size.spec.ts`    | The comfort scale: three steps in the header, `aria-pressed`, root font size and board cell growth, `localStorage` persistence across a reload, and the pre-paint inline script in raw HTML.                                                                         |

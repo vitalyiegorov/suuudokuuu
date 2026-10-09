@@ -1,5 +1,6 @@
 import { isDefined } from '@rnw-community/shared';
 
+import { ChainLinkEnum } from '../../@generic/enums/chain-link.enum';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { compareOrdinal } from '../../@generic/utils/compare-ordinal.util';
 import { markContextSearchCapped } from '../../@generic/utils/context-scan-state.util';
@@ -212,7 +213,18 @@ export class AICTechnique implements TechniqueStrategyInterface {
             return;
         }
 
-        scan.results.push(...createEliminationResults(this.technique, eliminations, getUniqueCells(path.map(node => node.cell))));
+        const chain = path.map((node, pathIndex) => ({
+            cell: node.cell,
+            value: node.value,
+            ...(pathIndex > 0 && { link: pathIndex % 2 === 1 ? ChainLinkEnum.STRONG : ChainLinkEnum.WEAK })
+        }));
+
+        scan.results.push(
+            ...createEliminationResults(this.technique, eliminations, getUniqueCells(path.map(node => node.cell))).map(result => ({
+                ...result,
+                chain
+            }))
+        );
 
         if (isDefined(target)) {
             scan.hasTargetResult = true;

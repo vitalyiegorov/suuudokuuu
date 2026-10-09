@@ -1,8 +1,10 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { FORCING_CHAIN_MIN_BRANCHES, FORCING_CHAIN_MIN_CELLS } from '../constants/forcing-chain-scan.constant';
+import { ForcingOutcomeKindEnum } from '../enums/forcing-outcome-kind.enum';
 
 import { createEliminationResults } from './create-elimination-results.util';
+import { createForcingBranch } from './create-forcing-branch.util';
 import { createPlacementResult } from './create-placement-result.util';
 import { getHypothesisReasonCells } from './get-hypothesis-reason-cells.util';
 import { getMaskValues } from './get-mask-values.util';
@@ -15,6 +17,7 @@ import type { HypothesisBoardInterface } from '../interfaces/hypothesis-board.in
 import type { HypothesisPropagationInterface } from '../interfaces/hypothesis-propagation.interface';
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
 import type { TechniqueSearchScopeInterface } from '../interfaces/technique-search-scope.interface';
+import type { ForcingOutcomeType } from '../types/forcing-outcome.type';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 const isScopedPlacement = (cell: CellInterface, value: number, scope: TechniqueSearchScopeInterface): boolean =>
@@ -80,6 +83,11 @@ const createForcingPlacementResult = (
     chainLength: reasonCells.length
 });
 
+const getBranchOutcome = (result: TechniqueResultInterface): ForcingOutcomeType =>
+    result.kind === 'placement'
+        ? { kind: ForcingOutcomeKindEnum.COMMON_PLACEMENT, cell: result.cell, value: result.value }
+        : { kind: ForcingOutcomeKindEnum.COMMON_ELIMINATIONS, eliminations: result.eliminations };
+
 export const createForcingChainResults = (
     technique: SolutionTechniqueEnum,
     board: HypothesisBoardInterface,
@@ -106,5 +114,8 @@ export const createForcingChainResults = (
     return [
         ...placementResults,
         ...createEliminationResults(technique, getCommonEliminations(board, propagations, scope), reasonCells, reasonCells.length)
-    ];
+    ].map(result => ({
+        ...result,
+        branches: propagations.map(propagation => createForcingBranch(board, propagation, getBranchOutcome(result)))
+    }));
 };

@@ -45,6 +45,18 @@ const findTargetChain = (results: TechniqueResultInterface[]): TechniqueResultIn
     results.find(result => result.cell.y === 2 && result.cell.x === 2 && result.value === 5);
 
 describe('XChainTechnique', () => {
+    it('exposes an ordered candidate witness with actual strong and weak links', () => {
+        const context = createCandidateContextFromMap([0, 0, [5, 6]], [0, 4, [5, 7]], [1, 4, [5, 8]], [1, 1, [5, 9]], [2, 2, [5, 4]]);
+        const [, , target] = context.getRowCells(2);
+        const [result] = new XChainTechnique().find(context, { cell: target, value: 4, intent: 'direct' });
+
+        expect(result.chain?.map(node => [node.cell.y, node.cell.x, node.value, node.link])).toEqual([
+            [0, 0, 5, undefined],
+            [0, 4, 5, 'STRONG'],
+            [1, 4, 5, 'WEAK'],
+            [1, 1, 5, 'STRONG']
+        ]);
+    });
     const targetFixtures: TargetChainFixtureInterface[] = [
         {
             name: 'basic chain',

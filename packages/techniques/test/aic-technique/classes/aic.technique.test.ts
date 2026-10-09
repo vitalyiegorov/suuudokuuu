@@ -1,5 +1,7 @@
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { describe, expect, it } from 'vitest';
 
+import { CandidateContext } from '../../../src/@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-technique.enum';
 import { AICTechnique } from '../../../src/aic-technique/classes/aic.technique';
 import { AIC_MAX_LINK_VISITS } from '../../../src/aic-technique/constants/aic.constant';
@@ -42,6 +44,27 @@ const expectChainResult = (candidateSpecs: CandidateCellSpecType[]): void => {
 };
 
 describe('AICTechnique', () => {
+    it('retains distinct candidates when a valid path revisits a cell', () => {
+        const context = CandidateContext.fromSudoku(
+            Sudoku.fromString('000000051000000023004005000000000600000130000007680000429006500370400000810000000', defaultSudokuConfig)
+        );
+        const result = new AICTechnique().find(context).find(candidate => candidate.cell.y === 1 && candidate.cell.x === 5);
+
+        expect(result).toBeDefined();
+        expect(result?.chain?.[1].cell).toBe(result?.chain?.[7].cell);
+        expect(result?.chain?.[7].value).not.toBe(result?.chain?.[1].value);
+    });
+    it('keeps the ordered candidate path before depth-first search pops it', () => {
+        const context = createCandidateContextFromMap(...aicCandidateSpecs);
+        const [result] = new AICTechnique().find(context);
+
+        expect(result.chain?.map(node => [node.cell.y, node.cell.x, node.value, node.link])).toEqual([
+            [0, 0, 1, undefined],
+            [0, 0, 2, 'STRONG'],
+            [0, 3, 2, 'WEAK'],
+            [0, 3, 1, 'STRONG']
+        ]);
+    });
     it('finds a chain with mixed cell and unit links', () => {
         expect.assertions(1);
 

@@ -1,12 +1,13 @@
 import { msg } from '@lingui/core/macro';
 import { StepScriptStepKindEnum } from '@suuudokuuu/field-core';
-import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import { ChainLinkEnum, ForcingOutcomeKindEnum, SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { isDefined } from '@rnw-community/shared';
 
 import type { MessageDescriptor } from '@lingui/core';
-import type { StepScriptStepType } from '@suuudokuuu/field-core';
+import type { StepScriptBranchStepInterface, StepScriptChainStepInterface, StepScriptStepType } from '@suuudokuuu/field-core';
 import type { CellInterface } from '@suuudokuuu/generator';
+import type { ChainCandidateInterface, ForcingContradictionType } from '@suuudokuuu/techniques';
 
 enum NarrationFamilyEnum {
     FISH = 'FISH',
@@ -45,6 +46,67 @@ const getNarrationFamily = (technique: SolutionTechniqueEnum): NarrationFamilyEn
     narrationFamilies[technique] ?? NarrationFamilyEnum.LOCKED_SET;
 
 const joinValues = (values: number[]): string => values.join(', ');
+
+const formatCell = (cell: CellInterface): string => `r${cell.y + 1}c${cell.x + 1}`;
+
+const formatCandidate = ({ cell, value }: Pick<ChainCandidateInterface, 'cell' | 'value'>): string => `${formatCell(cell)}=${value}`;
+
+const formatChainCandidate = ({ cell, link, value }: ChainCandidateInterface): string => {
+    const linkSymbol = link === ChainLinkEnum.WEAK ? ' − ' : ' = ';
+
+    return `${isDefined(link) ? linkSymbol : ''}(${value})${formatCell(cell)}`;
+};
+
+const getChainNarration = (step: StepScriptChainStepInterface): MessageDescriptor => {
+    const path = step.chain.map(formatChainCandidate).join('');
+
+    return msg`Follow the chain ${path}. "=" is a strong link (at least one end is true) and "−" is a weak link (both ends cannot be true), so one end of the chain is always true.`;
+};
+
+const getRefutationNarration = (
+    outcome: ForcingContradictionType,
+    path: string,
+    assumption: Pick<ChainCandidateInterface, 'cell' | 'value'>
+): MessageDescriptor => {
+    const assumptionCell = formatCell(assumption.cell);
+    const assumptionValue = assumption.value;
+
+    if (outcome.kind === ForcingOutcomeKindEnum.NO_POSITION) {
+        const { value } = outcome;
+
+        return msg`If ${path} → ${value} has no place left in the outlined cells. So ${assumptionCell} is not ${assumptionValue}.`;
+    }
+
+    const cell = formatCell(outcome.cell);
+
+    if (outcome.kind === ForcingOutcomeKindEnum.EMPTY_CELL) {
+        return msg`If ${path} → ${cell} runs out of candidates. So ${assumptionCell} is not ${assumptionValue}.`;
+    }
+
+    const { value } = outcome;
+
+    return msg`If ${path} → ${cell} would have to be ${value}, which is no longer possible. So ${assumptionCell} is not ${assumptionValue}.`;
+};
+
+const getBranchNarration = ({ branch, branchIndex, branchCount }: StepScriptBranchStepInterface): MessageDescriptor => {
+    const { assumption, implications, outcome } = branch;
+    const path = [assumption, ...implications].map(formatCandidate).join(' → ');
+    const branchNumber = branchIndex + 1;
+
+    if (outcome.kind === ForcingOutcomeKindEnum.COMMON_PLACEMENT) {
+        const placement = formatCandidate(outcome);
+
+        return msg`Branch ${branchNumber} of ${branchCount}: if ${path}. This branch leads to ${placement}.`;
+    }
+
+    if (outcome.kind === ForcingOutcomeKindEnum.COMMON_ELIMINATIONS) {
+        const eliminations = outcome.eliminations.map(({ cell, value }) => `${formatCell(cell)}≠${value}`).join(', ');
+
+        return msg`Branch ${branchNumber} of ${branchCount}: if ${path}. This branch rules out ${eliminations}.`;
+    }
+
+    return getRefutationNarration(outcome, path, assumption);
+};
 
 const isSameRow = (cells: CellInterface[]): boolean => cells.every(cell => cell.y === cells[0].y);
 
@@ -194,6 +256,14 @@ const getEliminationStrikeNarration = (techniqueName: string, family: NarrationF
 
 export const gameGetStepNarration = (step: StepScriptStepType, techniqueName: string): MessageDescriptor => {
     const valueList = joinValues(step.narration.values);
+
+    if (step.kind === StepScriptStepKindEnum.SHOW_CHAIN) {
+        return getChainNarration(step);
+    }
+
+    if (step.kind === StepScriptStepKindEnum.SHOW_BRANCH) {
+        return getBranchNarration(step);
+    }
 
     if (step.kind === StepScriptStepKindEnum.RevealCandidates) {
         if (step.narration.technique === SolutionTechniqueEnum.Guess) {

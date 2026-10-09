@@ -8,6 +8,7 @@ const eliminatedCandidateCellLabel = 'r7c4, empty';
 const playableCellLabel = 'r2c7, empty';
 const playableDigitValue = '9';
 const maxStepAdvanceAttempts = 5;
+const xyChainWitnessCandidateCount = 6;
 
 test('serves the full static worked example and prose before any JavaScript executes', async ({ request }) => {
     const response = await request.get('/techniques/x-wing');
@@ -99,4 +100,35 @@ test('gates the live board behind intent, then walks the elimination and takes d
     await expect(playFullPuzzlesLink).toHaveAttribute('href', SITE_PLAY_URL);
 
     expect(consoleErrors).toEqual([]);
+});
+
+test('draws the whole X-Chain witness on its first slide and retracts it past the chain', async ({ page }) => {
+    await page.goto('/techniques/x-chain');
+    await page.getByRole('tab', { name: 'Try it on a live board' }).click();
+    await page.getByRole('button', { name: 'Show me the technique' }).click();
+
+    const witness = page.locator('.field-board__witness');
+    const candidates = witness.locator('[data-candidate]');
+
+    await expect(candidates).not.toHaveCount(0);
+    await expect(witness.locator('line')).toHaveCount((await candidates.count()) - 1);
+    await expect(witness.locator('line[data-link="WEAK"]')).not.toHaveCount(0);
+
+    await page.getByRole('button', { name: 'Next step' }).click();
+    await expect(witness).toHaveCount(0);
+
+    await page.getByRole('button', { name: 'Previous step' }).click();
+    await expect(witness.locator('line[data-link="STRONG"]')).not.toHaveCount(0);
+});
+
+test('keeps different digits in one XY-Chain cell as distinct witness candidates', async ({ page }) => {
+    await page.goto('/techniques/xy-chain');
+    await page.getByRole('tab', { name: 'Try it on a live board' }).click();
+    await page.getByRole('button', { name: 'Show me the technique' }).click();
+
+    const witness = page.locator('.field-board__witness');
+
+    await expect(witness.locator('[data-candidate]')).toHaveCount(xyChainWitnessCandidateCount);
+    await expect(witness.locator('[data-candidate="3-1-9"]')).toHaveCount(1);
+    await expect(witness.locator('[data-candidate="3-1-4"]')).toHaveCount(1);
 });
