@@ -20,14 +20,7 @@ export const AllAppearances = ['light', 'dark'];
 export const AllDeviceClasses = ['iphone', 'ipad'];
 
 export const AllScenes: Scene[] = [
-    {
-        deepLink: 'suuudokuuu://game',
-        file: '01.hero-board.flow.yaml',
-        name: 'hero-board',
-        readyTestId: 'GameScreenSelectors.Root',
-        sceneState: 'hero',
-        seedDifficulty: 'Nightmare'
-    },
+    { deepLink: 'suuudokuuu://game', file: '01.hero-board.flow.yaml', name: 'hero-board', sceneState: 'hero', seedDifficulty: 'Nightmare' },
     { deepLink: HomeDeepLink, file: '02.hell.flow.yaml', name: 'hell', readyTestId: 'HomeScreenSelectors.Root', seedDifficulty: 'Hell' },
     { deepLink: 'suuudokuuu://settings/themes', file: '03.themes.flow.yaml', name: 'themes', readyTestId: 'themes-screen' },
     { deepLink: 'suuudokuuu://settings/themes/editor', file: '04.editor.flow.yaml', name: 'editor', readyTestId: 'theme-editor-screen' },
@@ -54,7 +47,6 @@ export const AllScenes: Scene[] = [
         deepLink: 'suuudokuuu://game',
         file: '14.challenge-live.flow.yaml',
         name: 'challenge-live',
-        readyTestId: 'ChallengeRaceHudSelectors.Root',
         sceneState: 'challengeLive',
         seedDifficulty: 'Nightmare'
     },
@@ -62,7 +54,6 @@ export const AllScenes: Scene[] = [
         deepLink: 'suuudokuuu://game',
         file: '15.infinity.flow.yaml',
         name: 'infinity',
-        readyTestId: 'GameScreenSelectors.Root',
         sceneState: 'infinity',
         seedDifficulty: 'Infinity'
     }

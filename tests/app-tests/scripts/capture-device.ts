@@ -150,16 +150,35 @@ export const launchVerifiedAndroidApp = (context: DeviceContext, appId: string, 
 };
 
 export const verifyAndroidReadyScene = (context: DeviceContext, readyTestId: string): void => {
-    const result = spawnSync('adb', [...adbBaseArguments(context), 'shell', 'uiautomator', 'dump', '/dev/tty'], {
+    const hierarchyPath = '/sdcard/store-capture-window.xml';
+    const serialArguments = adbBaseArguments(context);
+    const clearResult = spawnSync('adb', [...serialArguments, 'shell', 'rm', '-f', hierarchyPath], { encoding: 'utf8' });
+
+    if (clearResult.status !== 0) {
+        throw new Error(`Could not clear previous active-window hierarchy: ${clearResult.stderr.trim()}`);
+    }
+
+    const dumpResult = spawnSync('adb', [...serialArguments, 'shell', 'uiautomator', 'dump', hierarchyPath], {
         encoding: 'utf8',
         maxBuffer: ScreenshotMaxBufferBytes
     });
 
-    if (result.status !== 0) {
-        throw new Error(`Could not read active-window hierarchy: ${result.stderr.trim() || result.stdout.trim()}`);
+    if (dumpResult.status !== 0) {
+        throw new Error(`Could not dump active-window hierarchy: ${dumpResult.stderr.trim() || dumpResult.stdout.trim()}`);
     }
 
-    if (!result.stdout.includes(`resource-id="${readyTestId}"`)) {
+    const hierarchyResult = spawnSync('adb', [...serialArguments, 'shell', 'cat', hierarchyPath], {
+        encoding: 'utf8',
+        maxBuffer: ScreenshotMaxBufferBytes
+    });
+
+    if (hierarchyResult.status !== 0 || !hierarchyResult.stdout.includes('<hierarchy')) {
+        throw new Error(
+            `Could not read active-window hierarchy: ${hierarchyResult.stderr.trim() || dumpResult.stdout.trim() || hierarchyResult.stdout.trim()}`
+        );
+    }
+
+    if (!hierarchyResult.stdout.includes(`resource-id="${readyTestId}"`)) {
         throw new Error(`Expected active-window resource-id "${readyTestId}" was absent from the hierarchy.`);
     }
 };
