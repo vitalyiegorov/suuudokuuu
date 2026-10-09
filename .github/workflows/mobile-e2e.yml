@@ -163,3 +163,53 @@ jobs:
             build-env: |
                 APP_VARIANT=e2e
                 ORG_GRADLE_PROJECT_reactNativeArchitectures=x86_64
+
+    android-capture-smoke:
+        name: Android store capture smoke
+        needs: android
+        runs-on: [self-hosted, trf-linux-amd64-4x8]
+        permissions:
+            contents: read
+            actions: read
+        steps:
+            - uses: actions/checkout@v7
+
+            - uses: pnpm/action-setup@v6
+
+            - uses: actions/setup-node@v7
+              with:
+                  node-version: 24.x
+                  cache: pnpm
+
+            - run: pnpm install --frozen-lockfile
+
+            - uses: actions/download-artifact@v7
+              with:
+                  name: android-e2e-app-e2e
+                  path: .ci-artifacts/android-e2e-app-e2e
+
+            - name: Capture seeded Android scenes
+              uses: reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed # v2.34.0
+              with:
+                  api-level: 34
+                  target: google_apis
+                  arch: x86_64
+                  profile: Nexus 4
+                  ram-size: 2048
+                  disable-animations: true
+                  emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+                  script: |
+                      adb install -r .ci-artifacts/android-e2e-app-e2e/app-release.apk
+                      adb shell am start -n com.vitaliiyehorov.suuudokuuu.e2e/.MainActivity
+                      sleep 20
+                      adb shell am force-stop com.vitaliiyehorov.suuudokuuu.e2e
+                      start=$(date +%s)
+                      trap 'echo "Capture-only duration: $(($(date +%s) - start))s"' EXIT
+                      timeout 300s pnpm --filter @suuudokuuu/app-tests screenshots:capture --platform=android --serial="$(adb devices | awk 'NR==2 { print $1 }')" --app-id=com.vitaliiyehorov.suuudokuuu.e2e --locales=en --appearances=dark --scenes=hero-board,hell,themes,editor,rival,replay,settings,home,stats,scoring,history,challenge-live,infinity --status-bar=real --verify --output-dir=artifacts/store-capture-smoke/raw --report-dir=artifacts/store-capture-smoke
+
+            - name: Upload capture diagnostics
+              if: always()
+              uses: actions/upload-artifact@v6
+              with:
+                  name: android-store-capture-smoke
+                  path: artifacts/store-capture-smoke

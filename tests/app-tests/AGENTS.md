@@ -6,6 +6,15 @@ use Maestro for capture — read `docs/store-screenshot-capture.md` before
 touching it or capturing store screenshots; the rules below govern the E2E
 flows, not store capture.
 
+The Android store capture smoke job in `mobile-e2e.yml` downloads the E2E APK,
+boots a rootable API 34 emulator, and captures the direct-link scenes in English
+and dark appearance. Its five-minute timeout starts after APK installation and
+emulator warm-up. `--verify` fails on an unknown or empty scene selection, a
+missing scene root, a crashed app, or an invalid screenshot. Raw captures and
+the JSON report are CI artifacts only; the job never composes or commits store
+assets. The win and pause scenes require Maestro and are outside the seeded
+direct-link smoke run.
+
 Maestro E2E flows for Suuudokuuu. Current coverage checks home start/quit, shared-puzzle win, shared-puzzle loss, statistics with replay, settings navigation, resume-after-settings persistence, background/foreground pause behavior, `Play again` setup preservation, and the hint mechanic (activation, stepping, apply, and dismiss).
 
 ## Commands
