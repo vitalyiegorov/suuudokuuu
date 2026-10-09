@@ -85,9 +85,7 @@ export const HintPanel = ({ availableHeight }: Props) => {
                     )}
                 </View>
 
-                {isEliminationOnly ? (
-                    <HintPanelEliminationActions engine={engine} onApply={handleApply} stepIndex={stepIndex} stepScript={stepScript} />
-                ) : null}
+                {isEliminationOnly ? <HintPanelEliminationActions engine={engine} onApply={handleApply} /> : null}
             </View>
         </Animated.View>
     );

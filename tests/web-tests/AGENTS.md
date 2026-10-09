@@ -103,6 +103,10 @@ pnpm --filter @suuudokuuu/web-tests lint
   issue #455. After two applied hints, the third hint chains a Nishio forcing chain and an AIC into the
   placement `1` at `y=5, x=8`, with more than nine slides. `09.hint-flow.spec.ts` walks it to prove the
   witness overlay draws branch and outcome slides without changing the board until Apply.
+- `nishioRunHintSharedPuzzleEncodedConstant`: a Hardcore (`maxMistakes: 0`) `Puzzle`-kind share of a
+  player-reported board. Its first hints are capped eliminations; the fifth is the three-slide Nishio
+  card `So r4c3 is not 4.` `09.hint-flow.spec.ts` presses Continue and Reveal on the first slide of each
+  card, because gating them to the last slide left the player stuck with a hidden numpad.
 
 - `15.daily-challenge.spec.ts` needs no fixture. It pins the clock with `page.clock.setFixedTime` and
   solves the deterministic board that `forgeDailyPuzzle(dateString)` from `@suuudokuuu/puzzle-forge` (a
