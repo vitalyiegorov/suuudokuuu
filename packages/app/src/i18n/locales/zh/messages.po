@@ -152,6 +152,10 @@ msgstr "{techniqueName}:突出显示的宫只剩一个空格，{value} 应填在
 msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 msgstr "{techniqueName}:突出显示的单元格构成一条链，因此链的一端或另一端必定是 {valueList}。"
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "{techniqueName}: the highlighted cells hold the pattern."
+msgstr "{techniqueName}：高亮的单元格包含该模式。"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}:突出显示的单元格让标记单元格只剩下 {value} 可填。"
@@ -219,6 +223,10 @@ msgstr "<0>需要开发客户端</0><1>开发客户端需要 Metro、在 <2>EXPO
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "“+” 表示这道数独至少达到 SE {seRatingCeilingText}。超过这个点之后，解题推理可能延伸成极长的链条，因此我们为显示的数值设上限，而不去追求虚假的精确度。"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "A direct Reveal costs one level only when you apply it."
+msgstr "直接揭示数字仅在应用时收取一个提示等级的费用。"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -293,10 +301,6 @@ msgstr "动画"
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "应用"
-
-#: src/scoring/components/scoring.screen.tsx
-msgid "Applying a hint"
-msgstr "使用提示"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -707,6 +711,10 @@ msgstr "复制"
 msgid "Each correct placement starts with a base value:"
 msgstr "每次正确填入都会从基础值开始："
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "Each hint level you reveal"
+msgstr "每揭示一个提示层级"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
@@ -1067,6 +1075,22 @@ msgstr "正在加载开发版本"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading the latest development build…"
 msgstr "正在加载最新开发版本…"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in box {regionNumber}."
+msgstr "在宫 {regionNumber} 中寻找{techniqueName}。"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in column {regionNumber}."
+msgstr "在第 {regionNumber} 列中寻找{techniqueName}。"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in row {regionNumber}."
+msgstr "在第 {regionNumber} 行中寻找{techniqueName}。"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName}."
+msgstr "寻找{techniqueName}。"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -1718,6 +1742,14 @@ msgstr "游戏时显示已用时间"
 msgid "Show matching notes for the selected cell"
 msgstr "显示所选单元格的匹配笔记"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more"
+msgstr "显示更多"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more of the hint"
+msgstr "显示更多提示"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "显示所选单元格所在的行、列和宫格"
@@ -2033,8 +2065,8 @@ msgid "Undo"
 msgstr "撤销"
 
 #: src/scoring/components/scoring.screen.tsx
-msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
-msgstr "撤销也会收回该次填入所得的分数，因此同一个单元格永远不会重复得分。忽略提示而不使用不会有任何代价，撤销笔记也始终免费。"
+msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. A hint has up to four levels: the technique and region, the pattern cells, the full walkthrough, and placing the digit. Each level is charged when you reveal it, so dismissing a hint keeps only the levels you already saw. Undoing a pencil mark is always free."
+msgstr "撤销也会收回被撤销落子所得的分数，因此重新填写同一格永远不会重复得分。一条提示最多有四个层级：技巧与区域、模式单元格、完整讲解以及填入数字。每个层级在揭示时计费，因此关闭提示只会计入你已看过的层级。撤销铅笔标记始终免费。"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undoing a placement"

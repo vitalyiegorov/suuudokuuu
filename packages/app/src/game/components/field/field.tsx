@@ -36,7 +36,7 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
     const { engine, snapshot } = use(GameContext);
 
     const sudoku = engine.Sudoku;
-    const { explanation } = buildStepScriptState(snapshot.stepScript, snapshot.stepIndex);
+    const { explanation } = buildStepScriptState(snapshot.stepScript, snapshot.stepIndex, snapshot.hintLevel);
 
     const [comboAnimationGenerations, setComboAnimationGenerations] = useState<Record<string, number>>({});
     const [successGenerations, setSuccessGenerations] = useState<Record<string, number>>({});

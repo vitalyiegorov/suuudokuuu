@@ -1,3 +1,4 @@
+import type { HintLevelEnum } from '../../step-script/enums/hint-level.enum';
 import type { StepScriptInterface } from '../../step-script/interfaces/step-script.interface';
 import type { FieldCandidatesType } from '../types/field-candidates.type';
 import type { FieldInputModeType } from '../types/field-input-mode.type';
@@ -18,4 +19,5 @@ export interface FieldSnapshotInterface {
     canRedo: boolean;
     stepScript: StepScriptInterface | null;
     stepIndex: number;
+    hintLevel: HintLevelEnum;
 }

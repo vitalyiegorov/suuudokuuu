@@ -5,6 +5,7 @@ import { View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { gameStartHintStepScript } from '../../utils/game-start-hint-step-script.util';
 import { HintPanelSelectors } from '../hint-panel/hint-panel.selectors';
 import { HintPanelStyles as styles } from '../hint-panel/hint-panel.styles';
 
@@ -24,7 +25,7 @@ export const HintPanelEliminationActions = ({ engine, onApply }: Props) => {
         const nextScript = findHintStepScript(engine.Sudoku, engine.getSnapshot().eliminatedCandidates);
 
         if (isDefined(nextScript)) {
-            engine.startStepScript(nextScript);
+            gameStartHintStepScript(engine, nextScript);
         }
     };
 

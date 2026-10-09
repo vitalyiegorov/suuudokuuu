@@ -17,7 +17,7 @@ pause scenes require Maestro. Verification uses the app PID, per-scene logcat,
 and ImageMagick image statistics without a UI hierarchy, so running game
 clocks do not block capture.
 
-Maestro E2E flows for Suuudokuuu. Current coverage checks home start/quit, shared-puzzle win, shared-puzzle loss, statistics with replay, settings navigation, resume-after-settings persistence, background/foreground pause behavior, `Play again` setup preservation, and the hint mechanic (activation, stepping, apply, and dismiss).
+Maestro E2E flows for Suuudokuuu. Current coverage checks home start/quit, shared-puzzle win, shared-puzzle loss, statistics with replay, settings navigation, resume-after-settings persistence, background/foreground pause behavior, `Play again` setup preservation, and the hint mechanic (activation, the technique, pattern and walkthrough levels, stepping, apply, and dismiss).
 
 ## Commands
 
