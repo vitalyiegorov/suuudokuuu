@@ -247,15 +247,11 @@ def verify_store_directory(label, path)
   UI.success("#{label}: #{path}")
 end
 
-def creative_asset_type(filename)
-  name = File.basename(filename, File.extname(filename))
-  UI.user_error!("#{filename}: expected header, search, event-card, or event-detail") unless %w[header search event-card event-detail].include?(name)
-  name
-end
-
 def validate_creative_asset(path)
   extension = File.extname(path).downcase
   UI.user_error!("#{path}: expected .png, .jpg, or .jpeg") unless %w[.png .jpg .jpeg].include?(extension)
+  type = File.basename(path, File.extname(path))
+  UI.user_error!("#{path}: expected header, search, event-card, or event-detail") unless %w[header search event-card event-detail].include?(type)
   output, error, status = Open3.capture3("magick", "identify", "-format", "%w|%h|%[channels]|%[colorspace]|%m|%[opaque]", path)
   UI.user_error!("#{path}: ImageMagick could not read image: #{error.strip}") unless status.success?
   width, height, channels, colorspace, format, opaque = output.split("|")
@@ -264,7 +260,6 @@ def validate_creative_asset(path)
 
   width = width.to_i
   height = height.to_i
-  type = creative_asset_type(path)
   valid = case type
           when "header"
             [width, height] == [3840, 1646] || (extension == ".png" && [width, height] == [5244, 2950])

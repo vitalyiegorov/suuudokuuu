@@ -435,9 +435,13 @@ Apple reviews them against the latest app version. After approval, use the
 version's **Header and Search Results** tab or the In-App Event editor to
 choose the approved assets from Asset Library and preview their crops before
 publishing. If an asset type lacks a public API endpoint in a future release,
-use the same authenticated browser flow: Asset Library > **+** > **Upload
-Creative Assets**, select the file, upload it, inspect its processing state,
-and submit it from Asset Library. Do not call an undocumented endpoint.
+automate the same authenticated browser flow: open the app's Asset Library,
+locate **+** and **Upload Creative Assets** by accessible labels, attach the
+validated file through the browser file chooser, click **Upload**, and wait
+for its status in a fresh page snapshot. Select the prepared asset, click
+**Submit for Review**, and verify the status change in another snapshot.
+Use the shared browser session so the user can inspect each action. Do not
+call an undocumented endpoint.
 
 ## Open items
 
