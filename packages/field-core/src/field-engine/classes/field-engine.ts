@@ -29,8 +29,6 @@ import type { FieldDirectionType } from '../types/field-direction.type';
 import type { FieldInputModeType } from '../types/field-input-mode.type';
 import type { CellInterface, DifficultyEnum } from '@suuudokuuu/generator';
 
-const hintLevels = [HintLevelEnum.TECHNIQUE, HintLevelEnum.PATTERN, HintLevelEnum.WALKTHROUGH];
-
 export class FieldEngine extends FieldStore {
     private readonly difficulty: DifficultyEnum;
     private readonly history = new FieldHistory();
@@ -143,17 +141,16 @@ export class FieldEngine extends FieldStore {
         this.stepScript = script;
         this.stepIndex = 0;
         this.hintLevel = hintLevel;
-        this.selectCell();
+        delete this.selectedCell;
         this.publish();
     }
 
     revealNextHintLevel(): boolean {
-        const nextHintLevel = hintLevels[hintLevels.indexOf(this.hintLevel) + 1];
-        if (!isDefined(this.stepScript) || !isDefined(nextHintLevel)) {
+        if (!isDefined(this.stepScript) || this.hintLevel === HintLevelEnum.WALKTHROUGH) {
             return false;
         }
 
-        this.hintLevel = nextHintLevel;
+        this.hintLevel = this.hintLevel === HintLevelEnum.TECHNIQUE ? HintLevelEnum.PATTERN : HintLevelEnum.WALKTHROUGH;
         this.publish();
 
         return true;
