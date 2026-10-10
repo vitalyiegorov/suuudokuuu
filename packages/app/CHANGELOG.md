@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.24.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.23.1...v2.24.0) (2026-10-10)
+
+### Features
+
+* **app:** upload creative assets to App Store Connect ([#508](https://github.com/vitalyiegorov/suuudokuuu/issues/508)) ([baab5c1](https://github.com/vitalyiegorov/suuudokuuu/commit/baab5c1873975ba85d5a1084e8071989e5a42c9a))
+
+
 ## [2.23.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.23.0...v2.23.1) (2026-10-09)
 
 **Note:** Version bump only for package @suuudokuuu/app
