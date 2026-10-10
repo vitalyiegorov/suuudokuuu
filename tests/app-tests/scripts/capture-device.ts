@@ -94,14 +94,70 @@ export const waitForRender = (milliseconds: number): void => {
     Atomics.wait(new Int32Array(new SharedArrayBuffer(WaitBufferByteLength)), 0, 0, milliseconds);
 };
 
-export const openDeepLink = (context: DeviceContext, deepLink: string): void => {
+export const openDeepLink = (context: DeviceContext, deepLink: string): SceneOutcome => {
     if (context.platform === 'ios') {
-        spawnSync('xcrun', ['simctl', 'openurl', context.simulatorUdid, deepLink]);
+        const result = spawnSync('xcrun', ['simctl', 'openurl', context.simulatorUdid, deepLink]);
 
-        return;
+        return { failureOutput: String(result.stderr), succeeded: result.status === 0 };
     }
 
-    spawnSync('adb', [...adbBaseArguments(context), 'shell', 'am', 'start', '-a', 'android.intent.action.VIEW', '-d', deepLink]);
+    const result = spawnSync('adb', [
+        ...adbBaseArguments(context),
+        'shell',
+        'am',
+        'start',
+        '-a',
+        'android.intent.action.VIEW',
+        '-d',
+        deepLink
+    ]);
+
+    return { failureOutput: String(result.stderr), succeeded: result.status === 0 };
+};
+
+export const readAndroidAppPid = (context: DeviceContext, appId: string): string => {
+    const result = spawnSync('adb', [...adbBaseArguments(context), 'shell', 'pidof', appId], { encoding: 'utf8' });
+    const processId = result.stdout.trim();
+
+    if (result.status !== 0 || !/^\d+$/u.test(processId)) {
+        throw new Error(`Could not read a single app PID for ${appId}: ${result.stderr.trim() || processId || 'no running process'}`);
+    }
+
+    return processId;
+};
+
+export const clearAndroidSceneLogs = (context: DeviceContext): void => {
+    const result = spawnSync('adb', [...adbBaseArguments(context), 'logcat', '-c'], { encoding: 'utf8' });
+
+    if (result.status !== 0) {
+        throw new Error(`Could not clear scene logs: ${result.stderr.trim()}`);
+    }
+};
+
+export const verifyAndroidScene = (context: DeviceContext, appId: string, processId: string, screenshotPath: string): void => {
+    if (readAndroidAppPid(context, appId) !== processId) {
+        throw new Error(`App PID changed during capture of ${screenshotPath}.`);
+    }
+
+    const logs = spawnSync('adb', [...adbBaseArguments(context), 'logcat', '-d', `--pid=${processId}`, 'AndroidRuntime:E', '*:S'], {
+        encoding: 'utf8'
+    });
+
+    if (logs.status !== 0 || logs.stdout.includes('AndroidRuntime')) {
+        throw new Error(`Could not verify crash-free scene: ${logs.stderr.trim() || logs.stdout.trim()}`);
+    }
+
+    const image = spawnSync(
+        'convert',
+        [screenshotPath, '-gravity', 'center', '-crop', '80%x80%+0+0', '+repage', '-format', '%[fx:standard_deviation]', 'info:'],
+        {
+            encoding: 'utf8'
+        }
+    );
+
+    if (image.status !== 0 || !(Number(image.stdout) > 0.01)) {
+        throw new Error(`Screenshot is invalid or blank: ${screenshotPath}. ${image.stderr.trim()}`);
+    }
 };
 
 export const writeDeviceScreenshot = (context: DeviceContext, screenshotPath: string): SceneOutcome => {
@@ -118,7 +174,7 @@ export const writeDeviceScreenshot = (context: DeviceContext, screenshotPath: st
     });
 
     if (result.status !== 0) {
-        return { failureOutput: String(result.stderr), succeeded: false };
+        return { failureOutput: `Could not capture screenshot: ${String(result.stderr).trim()}`, succeeded: false };
     }
 
     writeFileSync(screenshotPath, result.stdout);

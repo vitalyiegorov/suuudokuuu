@@ -15,7 +15,7 @@
         "eas-build-cache-provider",
         "serve"
     ],
-    "ignoreBinaries": ["xcrun", "maestro", "adb", "sqlite3"],
+    "ignoreBinaries": ["xcrun", "maestro", "adb", "sqlite3", "convert"],
     "workspaces": {
         "packages/field-core": {
             "entry": ["src/index.ts!", "src/react/use-field-snapshot.hook.ts!"]
