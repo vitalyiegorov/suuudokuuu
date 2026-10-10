@@ -72,8 +72,8 @@ jobs:
             # or from apt on an image that predates it.
             android-pre-submit-command: |
                 if ! command -v bundle >/dev/null; then
-                  sudo apt-get update -qq
-                  sudo apt-get install -y -qq --no-install-recommends ruby ruby-dev ruby-bundler
+                  sudo apt-get -o DPkg::Lock::Timeout=300 update -qq
+                  sudo apt-get -o DPkg::Lock::Timeout=300 install -y -qq --no-install-recommends ruby ruby-dev ruby-bundler
                 fi
                 export BUNDLE_PATH="$RUNNER_TEMP/bundle"
                 BUNDLE_JOBS=4 bundle install --quiet
