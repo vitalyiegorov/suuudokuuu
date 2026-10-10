@@ -183,20 +183,17 @@ const captureSceneDirectly = (scene: Scene, locale: string, appearance: string, 
 
         if (verifiesAndroidScenes && screenshotOutcome.succeeded) {
             const deadline = Date.now() + AndroidScreenshotDeadlineMilliseconds;
-            let verification = verifyAndroidScene(deviceContext, target.appId, launchedProcessId, screenshotPath);
 
-            while (!verification.succeeded && Date.now() < deadline) {
-                waitForRender(AndroidScreenshotRetryMilliseconds);
-                screenshotOutcome = writeDeviceScreenshot(deviceContext, screenshotPath);
+            while (screenshotOutcome.succeeded) {
+                const verification = verifyAndroidScene(deviceContext, target.appId, launchedProcessId, screenshotPath);
 
-                if (!screenshotOutcome.succeeded) {
-                    return screenshotOutcome;
+                if (verification.succeeded || Date.now() >= deadline) {
+                    return verification;
                 }
 
-                verification = verifyAndroidScene(deviceContext, target.appId, launchedProcessId, screenshotPath);
+                waitForRender(AndroidScreenshotRetryMilliseconds);
+                screenshotOutcome = writeDeviceScreenshot(deviceContext, screenshotPath);
             }
-
-            return verification;
         }
 
         return screenshotOutcome;
