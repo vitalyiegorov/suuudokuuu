@@ -152,6 +152,10 @@ msgstr "{techniqueName}: हाइलाइट किए गए ब्लॉक 
 msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 msgstr "{techniqueName}: हाइलाइट की गई सेल एक शृंखला बनाती हैं, इसलिए उसका एक सिरा या दूसरा सिरा {valueList} है।"
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "{techniqueName}: the highlighted cells hold the pattern."
+msgstr "{techniqueName}: हाइलाइट की गई कोशिकाओं में पैटर्न है।"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: हाइलाइट किए गए सेल चिह्नित सेल के लिए केवल {value} छोड़ते हैं।"
@@ -219,6 +223,10 @@ msgstr "<0>डेवलपमेंट क्लाइंट आवश्यक 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "“+” का मतलब है कि यह सुडोकू कम से कम SE {seRatingCeilingText} का है। इसके आगे हल बहुत लंबी शृंखलाओं में बंध सकते हैं, इसलिए हम झूठी सटीकता दिखाने के बजाय दिखाई गई संख्या पर सीमा लगा देते हैं।"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "A direct Reveal costs one level only when you apply it."
+msgstr "सीधे अंक दिखाने पर केवल उसे लागू करने के समय एक स्तर का शुल्क लगता है।"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -293,10 +301,6 @@ msgstr "ऐनिमेशन"
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "लागू करें"
-
-#: src/scoring/components/scoring.screen.tsx
-msgid "Applying a hint"
-msgstr "संकेत लागू करना"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -707,6 +711,10 @@ msgstr "डुप्लिकेट करें"
 msgid "Each correct placement starts with a base value:"
 msgstr "हर सही स्थान का आधार मूल्य होता है:"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "Each hint level you reveal"
+msgstr "खोला गया हर संकेत स्तर"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
@@ -1068,6 +1076,22 @@ msgstr "डेवलपमेंट बिल्ड लोड हो रहा �
 msgid "Loading the latest development build…"
 msgstr "नवीनतम डेवलपमेंट बिल्ड लोड हो रहा है…"
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in box {regionNumber}."
+msgstr "{techniqueName} को ब्लॉक {regionNumber} में खोजें।"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in column {regionNumber}."
+msgstr "{techniqueName} को कॉलम {regionNumber} में खोजें।"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in row {regionNumber}."
+msgstr "{techniqueName} को पंक्ति {regionNumber} में खोजें।"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName}."
+msgstr "{techniqueName} खोजें।"
+
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Lost"
@@ -1105,6 +1129,10 @@ msgstr "मध्यम"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "मेनू, सेटिंग्स और गेम टेक्स्ट"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "minimum {minimumHintPenalty} points"
+msgstr "न्यूनतम {minimumHintPenalty} अंक"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
@@ -1718,6 +1746,14 @@ msgstr "खेलते समय बीता हुआ समय दिखा�
 msgid "Show matching notes for the selected cell"
 msgstr "चयनित सेल के मिलते-जुलते नोट्स दिखाएं"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more"
+msgstr "और दिखाएँ"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more of the hint"
+msgstr "संकेत का और भाग दिखाएँ"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "चुने हुए सेल की पंक्ति, कॉलम और बॉक्स दिखाएँ"
@@ -2033,8 +2069,8 @@ msgid "Undo"
 msgstr "पूर्ववत करें"
 
 #: src/scoring/components/scoring.screen.tsx
-msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
-msgstr "पूर्ववत करने पर उस स्थान से मिले अंक भी वापस चले जाते हैं, इसलिए वही सेल दोबारा अंक नहीं दे सकती। संकेत को बिना लागू किए हटाने पर कुछ नहीं लगता, और पेंसिल निशान पूर्ववत करना हमेशा मुफ़्त है।"
+msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. A hint has up to four levels: the technique and region, the pattern cells, the full walkthrough, and placing the digit. Each level is charged when you reveal it, so dismissing a hint keeps only the levels you already saw. Undoing a pencil mark is always free."
+msgstr "पूर्ववत करने पर रद्द की गई चाल से मिले अंक भी लौट जाते हैं, इसलिए उसी कोशिका को दोबारा भरने से वे अंक दो बार नहीं मिल सकते। एक संकेत में अधिकतम चार स्तर होते हैं: तकनीक और क्षेत्र, पैटर्न की कोशिकाएँ, पूरा चरण-दर-चरण विवरण, और अंक रखना। हर स्तर खोलते ही गिना जाता है, इसलिए संकेत बंद करने पर केवल वही स्तर गिने जाते हैं जो आप देख चुके हैं। पेंसिल नोट को पूर्ववत करना हमेशा मुफ़्त है।"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undoing a placement"

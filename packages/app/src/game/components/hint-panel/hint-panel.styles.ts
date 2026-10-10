@@ -20,12 +20,16 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => {
             justifyContent: 'flex-end',
             left: isWideLayout ? 0 : GamePanelHorizontalPaddingConstant,
             paddingTop: isWideLayout ? 0 : theme.spacing.md,
-            position: 'absolute',
+            position: isWideLayout ? 'relative' : 'absolute',
+            flexShrink: 1,
+            minHeight: 0,
             right: isWideLayout ? 0 : GamePanelHorizontalPaddingConstant,
             zIndex: 10
         }),
         container: (availableHeight: number | undefined) => ({
             alignSelf: 'center',
+            flexShrink: 1,
+            minHeight: 0,
             borderCurve: 'continuous',
             borderRadius: theme.radius.lg,
             borderWidth: 1,
@@ -34,7 +38,7 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => {
             maxWidth: hintPanelMaxWidth,
             padding: theme.spacing.md,
             width: '100%',
-            ...(isDefined(availableHeight) && { maxHeight: availableHeight })
+            maxHeight: availableHeight ?? '100%'
         }),
         controls: {
             alignItems: 'center',

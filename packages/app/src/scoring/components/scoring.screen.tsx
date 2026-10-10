@@ -15,6 +15,7 @@ import { ScoringScreenStyles as styles } from './scoring-screen.styles';
 // oxlint-disable-next-line max-lines-per-function
 export const ScoringScreen = () => {
     const { t } = useLingui();
+    const minimumHintPenalty = defaultScoringConfig.correctMinValue;
     const { theme } = use(ThemeContext);
 
     const textStyle = { color: theme.colors.text.primary };
@@ -176,8 +177,8 @@ export const ScoringScreen = () => {
                     <Trans>An assist is charged once, as a fraction of one plain placement at your difficulty and mistake limit:</Trans>
                 </Text>
                 <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
-                    • <Trans>Applying a hint</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.hintCoefficient}</Text>{' '}
-                    <Trans>of one placement</Trans>
+                    • <Trans>Each hint level you reveal</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.hintCoefficient}</Text>{' '}
+                    <Trans>of one placement</Trans> (<Trans>minimum {minimumHintPenalty} points</Trans>)
                 </ListItem>
                 <ListItem listItemStyle={styles.listItem} textStyle={textStyle}>
                     • <Trans>Undoing a placement</Trans>: <Text style={codeStyle}>×{defaultScoringConfig.undoCoefficient}</Text>{' '}
@@ -186,8 +187,13 @@ export const ScoringScreen = () => {
                 <Text style={textStyle}>
                     <Trans>
                         Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice.
-                        Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free.
+                        A hint has up to four levels: the technique and region, the pattern cells, the full walkthrough, and placing the
+                        digit. Each level is charged when you reveal it, so dismissing a hint keeps only the levels you already saw. Undoing
+                        a pencil mark is always free.
                     </Trans>
+                </Text>
+                <Text style={textStyle}>
+                    <Trans>A direct Reveal costs one level only when you apply it.</Trans>
                 </Text>
             </View>
 

@@ -630,13 +630,13 @@ describe('SudokuScoring', () => {
             expect(penalty).toBe(Math.floor(placementScore * defaultScoringConfig.undoCoefficient));
         });
 
-        it('should cost less than applying a hint', () => {
+        it('should cost less than a fully revealed four-level hint', () => {
             const scoring = new SudokuScoring(defaultScoringConfig);
 
             const undoPenalty = scoring.calculateUndoPenalty({ difficulty: DifficultyEnum.Infinity, maxMistakes: 0 });
             const hintPenalty = scoring.calculateHintPenalty({ difficulty: DifficultyEnum.Infinity, maxMistakes: 0 });
 
-            expect(undoPenalty).toBeLessThan(hintPenalty);
+            expect(undoPenalty).toBeLessThan(hintPenalty * 4);
         });
 
         it('should scale the penalty with the difficulty coefficient', () => {

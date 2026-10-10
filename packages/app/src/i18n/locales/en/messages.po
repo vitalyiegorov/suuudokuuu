@@ -154,6 +154,10 @@ msgstr "{techniqueName}: the highlighted box has one empty cell left, so {value}
 msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 msgstr "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "{techniqueName}: the highlighted cells hold the pattern."
+msgstr "{techniqueName}: the highlighted cells hold the pattern."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -221,6 +225,10 @@ msgstr "<0>Development client required</0><1>Development clients need Metro, the
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "A direct Reveal costs one level only when you apply it."
+msgstr "A direct Reveal costs one level only when you apply it."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -295,10 +303,6 @@ msgstr "Animations"
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Apply"
-
-#: src/scoring/components/scoring.screen.tsx
-msgid "Applying a hint"
-msgstr "Applying a hint"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -709,6 +713,10 @@ msgstr "Duplicate"
 msgid "Each correct placement starts with a base value:"
 msgstr "Each correct placement starts with a base value:"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "Each hint level you reveal"
+msgstr "Each hint level you reveal"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
@@ -1070,6 +1078,22 @@ msgstr "Loading development build"
 msgid "Loading the latest development build…"
 msgstr "Loading the latest development build…"
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in box {regionNumber}."
+msgstr "Look for {techniqueName} in box {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in column {regionNumber}."
+msgstr "Look for {techniqueName} in column {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in row {regionNumber}."
+msgstr "Look for {techniqueName} in row {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName}."
+msgstr "Look for {techniqueName}."
+
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Lost"
@@ -1107,6 +1131,10 @@ msgstr "Medium"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "Menus, settings, and game text"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "minimum {minimumHintPenalty} points"
+msgstr "minimum {minimumHintPenalty} points"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
@@ -1720,6 +1748,14 @@ msgstr "Show elapsed time while you play"
 msgid "Show matching notes for the selected cell"
 msgstr "Show matching notes for the selected cell"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more"
+msgstr "Show more"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more of the hint"
+msgstr "Show more of the hint"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "Show the row, column, and box for the selected cell"
@@ -2035,8 +2071,8 @@ msgid "Undo"
 msgstr "Undo"
 
 #: src/scoring/components/scoring.screen.tsx
-msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
-msgstr "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
+msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. A hint has up to four levels: the technique and region, the pattern cells, the full walkthrough, and placing the digit. Each level is charged when you reveal it, so dismissing a hint keeps only the levels you already saw. Undoing a pencil mark is always free."
+msgstr "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. A hint has up to four levels: the technique and region, the pattern cells, the full walkthrough, and placing the digit. Each level is charged when you reveal it, so dismissing a hint keeps only the levels you already saw. Undoing a pencil mark is always free."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undoing a placement"

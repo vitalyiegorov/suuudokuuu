@@ -104,6 +104,12 @@ pnpm --filter @suuudokuuu/web-tests lint
   placement `1` at `y=5, x=8`, with more than nine slides. `09.hint-flow.spec.ts` walks it to prove the
   witness overlay draws branch and outcome slides without changing the board until Apply.
 
+- `eliminationHintSharedPuzzleEncodedConstant`: a Medium `Puzzle`-kind share whose first hint teaches
+  an elimination without placing a digit. `09.hint-flow.spec.ts` commits that deduction with Continue
+  and checks the next logical hint starts at level one.
+
+- Every hint opens at level one (technique and region). `09.hint-flow.spec.ts` taps `HintPanelSelectors.SHOW_MORE_BUTTON` twice to reach the walkthrough before using Next, Back, or Apply; the Reveal hint has no levels and opens on the walkthrough.
+
 - `15.daily-challenge.spec.ts` needs no fixture. It pins the clock with `page.clock.setFixedTime` and
   solves the deterministic board that `forgeDailyPuzzle(dateString)` from `@suuudokuuu/puzzle-forge` (a
   dev dependency of this package) forges for that date, the same call the app makes, so the run is a real

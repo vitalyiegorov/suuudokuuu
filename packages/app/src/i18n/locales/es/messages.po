@@ -154,6 +154,10 @@ msgstr "{techniqueName}: a la región destacada solo le queda una celda vacía, 
 msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 msgstr "{techniqueName}: las celdas destacadas forman una cadena, así que o un extremo o el otro es {valueList}."
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "{techniqueName}: the highlighted cells hold the pattern."
+msgstr "{techniqueName}: las celdas resaltadas contienen el patrón."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: las celdas destacadas dejan solo {value} para la celda marcada."
@@ -221,6 +225,10 @@ msgstr "<0>Se necesita un cliente de desarrollo</0><1>Los clientes de desarrollo
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Un “+” significa que este sudoku es al menos SE {seRatingCeilingText}. A partir de ahí, las soluciones pueden encadenarse hasta hacerse larguísimas, así que limitamos el número mostrado en lugar de aparentar una precisión falsa."
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "A direct Reveal costs one level only when you apply it."
+msgstr "Revelar directamente cuesta un nivel solo cuando lo aplicas."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -295,10 +303,6 @@ msgstr "Animaciones"
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Aplicar"
-
-#: src/scoring/components/scoring.screen.tsx
-msgid "Applying a hint"
-msgstr "Aplicar una sugerencia"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -709,6 +713,10 @@ msgstr "Duplicar"
 msgid "Each correct placement starts with a base value:"
 msgstr "Cada colocación correcta comienza con un valor base:"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "Each hint level you reveal"
+msgstr "Cada nivel de pista que reveles"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
@@ -1070,6 +1078,22 @@ msgstr "Cargando la compilación de desarrollo"
 msgid "Loading the latest development build…"
 msgstr "Cargando la compilación de desarrollo más reciente…"
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in box {regionNumber}."
+msgstr "Busca {techniqueName} en el bloque {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in column {regionNumber}."
+msgstr "Busca {techniqueName} en la columna {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in row {regionNumber}."
+msgstr "Busca {techniqueName} en la fila {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName}."
+msgstr "Busca {techniqueName}."
+
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Lost"
@@ -1107,6 +1131,10 @@ msgstr "Intermedio"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "Menús, ajustes y textos del juego"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "minimum {minimumHintPenalty} points"
+msgstr "mínimo {minimumHintPenalty} puntos"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
@@ -1720,6 +1748,14 @@ msgstr "Mostrar el tiempo transcurrido mientras juegas"
 msgid "Show matching notes for the selected cell"
 msgstr "Mostrar notas coincidentes para la celda seleccionada"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more"
+msgstr "Mostrar más"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more of the hint"
+msgstr "Mostrar más de la pista"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "Mostrar la fila, columna y cuadro de la celda seleccionada"
@@ -2035,8 +2071,8 @@ msgid "Undo"
 msgstr "Deshacer"
 
 #: src/scoring/components/scoring.screen.tsx
-msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
-msgstr "Deshacer también devuelve los puntos que dio la colocación deshecha, así que repetir la misma celda nunca los otorga dos veces. Descartar una sugerencia sin aplicarla no cuesta nada, y deshacer una anotación siempre es gratis."
+msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. A hint has up to four levels: the technique and region, the pattern cells, the full walkthrough, and placing the digit. Each level is charged when you reveal it, so dismissing a hint keeps only the levels you already saw. Undoing a pencil mark is always free."
+msgstr "Deshacer también devuelve los puntos que ganó la colocación deshecha, así que repetir la misma celda nunca puede dar esos puntos dos veces. Una pista tiene hasta cuatro niveles: la técnica y la región, las celdas del patrón, el recorrido completo y la colocación del dígito. Cada nivel se cobra al revelarlo, así que cerrar una pista solo cuenta los niveles que ya viste. Deshacer una marca de lápiz siempre es gratis."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undoing a placement"

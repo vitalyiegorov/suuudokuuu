@@ -4,6 +4,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { cloneFieldCells } from '../../@generic/utils/clone-field-cells.util';
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { HintLevelEnum } from '../../step-script/enums/hint-level.enum';
 import {
     cloneCandidateState,
     getAutoCellCandidates,
@@ -40,10 +41,10 @@ export class FieldEngine extends FieldStore {
     private mistakes: number;
     private stepScript: StepScriptInterface | null = null;
     private stepIndex = 0;
+    private hintLevel = HintLevelEnum.WALKTHROUGH;
 
     constructor(options: FieldEngineOptionsInterface) {
         super();
-
         this.difficulty = options.difficulty;
         this.sudoku = Sudoku.fromString(options.sudokuString, { ...defaultSudokuConfig });
         this.candidateState = { candidates: options.candidates ?? {}, eliminatedCandidates: options.eliminatedCandidates ?? {} };
@@ -51,7 +52,6 @@ export class FieldEngine extends FieldStore {
         this.showAutoCandidates = options.showAutoCandidates ?? false;
         this.mistakes = options.mistakes ?? 0;
     }
-
     get Sudoku(): Sudoku {
         return this.sudoku;
     }
@@ -97,7 +97,6 @@ export class FieldEngine extends FieldStore {
 
     inputValue(value: number): FieldMoveResultInterface | null {
         const { selectedCell } = this;
-
         if (!this.sudoku.isBlankCell(selectedCell)) {
             return null;
         }
@@ -115,7 +114,6 @@ export class FieldEngine extends FieldStore {
         if (!this.sudoku.isBlankCell(cell)) {
             return null;
         }
-
         const targetCell = { ...cell, value };
 
         return this.sudoku.isCorrectValue(targetCell) ? this.registerPlacement(targetCell) : this.registerMistake(targetCell);
@@ -123,31 +121,39 @@ export class FieldEngine extends FieldStore {
 
     toggleCandidate(cell: CellInterface, value: number): void {
         const candidates = getToggledCandidates(this.candidateState.candidates, cell, value);
-
         this.commitCandidateState({ ...this.candidateState, candidates });
     }
 
     removeCandidate(cell: CellInterface, value: number): void {
         const nextState = getCandidateStateWithoutValue(this.candidateState, cell, value, this.showAutoCandidates);
-
         if (isDefined(nextState)) {
             this.commitCandidateState(nextState);
         }
     }
-
     undo(): boolean {
         return this.restoreState(this.history.undo());
     }
-
     redo(): boolean {
         return this.restoreState(this.history.redo());
     }
 
-    startStepScript(script: StepScriptInterface): void {
+    startStepScript(script: StepScriptInterface, hintLevel = HintLevelEnum.WALKTHROUGH): void {
         this.stepScript = script;
         this.stepIndex = 0;
-        this.selectCell();
+        this.hintLevel = hintLevel;
+        delete this.selectedCell;
         this.publish();
+    }
+
+    revealNextHintLevel(): boolean {
+        if (!isDefined(this.stepScript) || this.hintLevel === HintLevelEnum.WALKTHROUGH) {
+            return false;
+        }
+
+        this.hintLevel = this.hintLevel === HintLevelEnum.TECHNIQUE ? HintLevelEnum.PATTERN : HintLevelEnum.WALKTHROUGH;
+        this.publish();
+
+        return true;
     }
 
     stepScriptNext(): boolean {
@@ -185,7 +191,6 @@ export class FieldEngine extends FieldStore {
 
     applyStepScript(): void {
         const script = this.stepScript;
-
         if (!isDefined(script)) {
             return;
         }
@@ -200,7 +205,6 @@ export class FieldEngine extends FieldStore {
         if (nextState !== this.candidateState) {
             this.commitCandidateState(nextState);
         }
-
         const { placement } = script;
 
         if (isDefined(placement)) {
@@ -214,6 +218,7 @@ export class FieldEngine extends FieldStore {
         if (isDefined(this.stepScript)) {
             this.stepScript = null;
             this.stepIndex = 0;
+            this.hintLevel = HintLevelEnum.WALKTHROUGH;
             this.publish();
         }
     }
@@ -232,6 +237,7 @@ export class FieldEngine extends FieldStore {
             canRedo: this.history.CanRedo,
             stepScript: this.stepScript,
             stepIndex: this.stepIndex,
+            hintLevel: this.hintLevel,
             ...(isDefined(this.selectedCell) && { selectedCell: this.selectedCell })
         };
     }
@@ -239,7 +245,6 @@ export class FieldEngine extends FieldStore {
     private registerPlacement(cell: CellInterface): FieldMoveResultInterface {
         const previousState = this.captureState();
         const scoredCells = this.sudoku.setCellValue(cell);
-
         this.candidateState = { ...this.candidateState, candidates: pruneCandidates(this.sudoku, this.candidateState.candidates, cell) };
         this.selectedCell = { ...cell };
         this.history.push({ previous: previousState, next: this.captureState() });
@@ -248,7 +253,6 @@ export class FieldEngine extends FieldStore {
 
         this.publish();
         this.events.emit('moveApplied', result);
-
         if (scoredCells.isWon) {
             this.events.emit('completed', scoredCells);
         }
@@ -258,9 +262,7 @@ export class FieldEngine extends FieldStore {
 
     private registerMistake(cell: CellInterface): FieldMoveResultInterface {
         this.mistakes += 1;
-
         const result: FieldMoveResultInterface = { cell, isCorrect: false, scoredCells: { ...emptyScoredCells } };
-
         this.publish();
         this.events.emit('mistake', { cell, mistakes: this.mistakes });
 
@@ -269,7 +271,6 @@ export class FieldEngine extends FieldStore {
 
     private commitCandidateState(nextState: FieldCandidateStateInterface): void {
         const previousState = this.captureState();
-
         this.candidateState = nextState;
         this.history.push({ previous: previousState, next: this.captureState() });
         this.publish();
@@ -283,7 +284,6 @@ export class FieldEngine extends FieldStore {
         if (!isDefined(state)) {
             return false;
         }
-
         if (state.sudokuString !== this.sudoku.toString()) {
             this.sudoku = Sudoku.fromString(state.sudokuString, { ...defaultSudokuConfig });
         }
