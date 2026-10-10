@@ -65,7 +65,8 @@ before relying on them.
   `ios_screenshots` lane uploads (currently `dark`; dark-first is a user
   decision). `SCREENSHOT_VARIANT=light|dark` overrides it.
 - `packages/app/fastlane/{Fastfile,Appfile}` - lanes `store_preflight`,
-  `ios_metadata`, `android_metadata`, `ios_screenshots`, `android_screenshots`
+  `ios_metadata`, `android_metadata`, `ios_screenshots`, `android_screenshots`,
+  `ios_creative_assets`
   (address as `fastlane <platform> <lane>`; bare names resolve against
   `default_platform(:ios)`). Lane bodies run from `fastlane/` while actions run
   from `packages/app/`, so plain-Ruby paths anchor on `FASTLANE_DIR`/`APP_DIR`,
@@ -380,17 +381,36 @@ issue body is the brief. Every brief states:
    survives the listed crops, passes the content rules above, committed under
    the path named in the issue.
 
-## Publishing tooling gap
+## App Store creative asset upload
 
-fastlane `deliver` and `supply` (fastlane 2.240.1) support none of the 2026
-additions: creative assets and the Asset Library, In-App Events, custom
-product pages, PPO, iPhone Duo display types, Play custom listings,
-experiments, promotional content, or feature graphics beyond what `supply`
-already reads from `images/` (which includes the 7" and 10" tablet sets).
-`deliver` has uploaded app previews since March 2026. Use the App Store
-Connect API (creative assets and Asset Library are exposed; exact endpoint
-names unconfirmed) via a small script, or upload manually; the plan is #474.
-Play Console features are manual unless the Play Developer API covers them.
+`ios_creative_assets` uses fastlane 2.240.1's Spaceship API client and file
+uploader for Apple's [Asset Library image API](https://developer.apple.com/documentation/appstoreconnectapi/uploading-and-managing-image-assets).
+Install ImageMagick 7 and put finished PNG/JPEG images in one directory;
+filenames become reference names. From `packages/app`, run:
+
+```bash
+bundle exec fastlane ios ios_creative_assets asset_dir:/absolute/path
+bundle exec fastlane ios ios_creative_assets asset_dir:/absolute/path live:true
+```
+
+The default dry run checks readable PNG/JPEG, matching extensions, RGB/sRGB,
+and no alpha, then prints the request plan without authentication. It does
+not validate dimensions or file size. `live:true` additionally checks
+[Apple's current imageSpecs](https://developer.apple.com/documentation/appstoreconnectapi/discovering-asset-specifications)
+for creative placements before reserving, uploading, and committing images.
+Set `EXPO_ASC_KEY_ID`, `EXPO_ASC_ISSUER_ID`, and `EXPO_ASC_API_KEY_PATH` to
+the same credentials used by `ios_metadata` for live uploads.
+
+In App Store Connect > Apps > Suuudokuuu > Asset Library, inspect processing
+and wait for **Prepared for Submission**, then select assets and submit for
+review. No build is required; review uses the latest app version. After
+approval, select assets in **Header and Search Results** or the In-App Event
+editor, preview crops, and publish. Upload alone does not publish.
+
+If a future asset type has no public API, use the shared authenticated
+browser: **+ > Upload Creative Assets**, attach the validated files, upload,
+and verify processing in a fresh snapshot before **Submit for Review**.
+Verify the status change; never use undocumented endpoints.
 
 ## Open items
 

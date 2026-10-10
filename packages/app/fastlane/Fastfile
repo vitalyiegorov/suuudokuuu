@@ -1,4 +1,6 @@
 require "zlib"
+require "json"
+require "open3"
 
 default_platform(:ios)
 
@@ -244,6 +246,35 @@ def verify_store_directory(label, path)
   UI.success("#{label}: #{path}")
 end
 
+def validate_creative_asset(path)
+  extension = File.extname(path).downcase
+  UI.user_error!("#{path}: expected .png, .jpg, or .jpeg") unless %w[.png .jpg .jpeg].include?(extension)
+  output, error, status = Open3.capture3("magick", "identify", "-format", "%w|%h|%[channels]|%[colorspace]|%m|%[opaque]", path)
+  UI.user_error!("#{path}: ImageMagick could not read image: #{error.strip}") unless status.success?
+  width, height, channels, colorspace, format, opaque = output.split("|")
+  UI.user_error!("#{path}: extension does not match #{format}") unless (extension == ".png" && format == "PNG") || (%w[.jpg .jpeg].include?(extension) && format == "JPEG")
+  UI.user_error!("#{path}: must use RGB/sRGB color without an alpha channel") unless %w[RGB sRGB].include?(colorspace) && !channels.downcase.include?("a") && opaque == "True"
+
+  UI.success("Valid #{File.basename(path)}: #{width}x#{height} #{format} #{colorspace}")
+  [width.to_i, height.to_i, extension]
+end
+
+def upload_creative_asset(path, library_id, client)
+  filename = File.basename(path)
+  reservation = client.post("/v1/appAssetLibraryImages", {
+    data: {
+      type: "appAssetLibraryImages",
+      attributes: { fileName: filename, fileSize: File.size(path), category: "CREATIVE_ASSETS", referenceName: File.basename(filename, File.extname(filename)) },
+      relationships: { assetLibrary: { data: { type: "appAssetLibraries", id: library_id } } }
+    }
+  })
+  image = reservation.body.fetch("data")
+  Spaceship::ConnectAPI::FileUploader.upload(image.fetch("attributes").fetch("uploadOperations"), File.binread(path))
+  client.patch("/v1/appAssetLibraryImages/#{image.fetch('id')}", { data: { type: "appAssetLibraryImages", id: image.fetch("id"), attributes: { uploaded: true } } })
+  state = client.get("/v1/appAssetLibraryImages/#{image.fetch('id')}").body.fetch("data").fetch("attributes").fetch("state")
+  UI.success("Uploaded #{filename}: asset #{image.fetch('id')} is #{state}; check processing and submit it for review in Asset Library")
+end
+
 lane :store_preflight do
   UI.success("App Store version: #{app_store_version}")
   UI.success("Google Play track: #{android_submit_track}")
@@ -258,6 +289,35 @@ lane :store_preflight do
 end
 
 platform :ios do
+  lane :ios_creative_assets do |options|
+    directory = options[:asset_dir]
+    UI.user_error!("Pass asset_dir:/absolute/path (add live:true to upload)") unless directory && Dir.exist?(directory)
+    paths = Dir.children(directory).sort.map { |name| File.join(directory, name) }
+    UI.user_error!("#{directory} contains no creative assets") if paths.empty?
+    UI.user_error!("#{directory} must contain files only") unless paths.all? { |path| File.file?(path) }
+    dimensions = paths.to_h { |path| [path, validate_creative_asset(path)] }
+
+    UI.message("GET /v1/apps/{appId}/assetLibrary; GET /v1/appAssetLibraryRefData")
+    paths.each { |path| UI.message("#{File.basename(path)}: POST /v1/appAssetLibraryImages; uploadOperations; PATCH /v1/appAssetLibraryImages/{imageId}; GET /v1/appAssetLibraryImages/{imageId}") }
+    next unless options[:live].to_s == "true"
+
+    app_store_connect_api_key(key_id: ENV["EXPO_ASC_KEY_ID"], issuer_id: ENV["EXPO_ASC_ISSUER_ID"], key_filepath: ENV["EXPO_ASC_API_KEY_PATH"])
+    client = Spaceship::ConnectAPI::APIClient.new(token: Spaceship::ConnectAPI.token)
+    app_id = JSON.parse(File.read(File.join(APP_DIR, "eas.json"))).dig("submit", "production", "ios", "ascAppId")
+    library = client.get("/v1/apps/#{app_id}/assetLibrary").body.fetch("data")
+    reference = client.get("/v1/appAssetLibraryRefData").body.fetch("data").first.fetch("attributes")
+    creative_types = reference.fetch("placementTypes").select { |placement| placement.fetch("acceptsAssetCategories").include?("CREATIVE_ASSETS") }.map { |placement| placement.fetch("placementTypeId") }
+    paths.each do |path|
+      width, height, extension = dimensions.fetch(path)
+      supported = reference.fetch("imageSpecs").any? do |spec|
+        bounds = spec.fetch("dimensions")
+        width >= bounds.fetch("minWidth") && width <= bounds.fetch("maxWidth") && height >= bounds.fetch("minHeight") && height <= bounds.fetch("maxHeight") && spec.fetch("fileExtensions").include?(extension) && File.size(path) <= spec.fetch("maxFileSize") && !(spec.fetch("compatiblePlacementTypes") & creative_types).empty?
+      end
+      UI.user_error!("#{path}: no matching current creative image specification in App Store Connect") unless supported
+    end
+    paths.each { |path| upload_creative_asset(path, library.fetch("id"), client) }
+  end
+
   lane :ios_metadata do
     app_store_connect_api_key(
       key_id: ENV["EXPO_ASC_KEY_ID"],
