@@ -267,8 +267,9 @@ Name 30, short description 50, long description 120; up to 10 live, each at
 most 31 days, promotable up to 14 days ahead. Badges: Challenge, Competition,
 Live Event, Major Update, New Season, Premiere, Special Event. Events are
 indexed in search and appear on the product page and in search.
-Plan a monthly cadence (#476) with artwork from the kit (#473); media sizes
-are in the table.
+The planning-only monthly calendar is in `packages/app/docs/store-event-calendar.md`
+(#476). None of its current feature invitations qualifies as a store event.
+Artwork from the kit (#473) is still pending; media sizes are in the table.
 
 ### Custom Product Pages, PPO, keywords
 
