@@ -134,7 +134,7 @@ export const clearAndroidSceneLogs = (context: DeviceContext): void => {
     }
 };
 
-export const verifyAndroidScene = (context: DeviceContext, appId: string, processId: string, screenshotPath: string): void => {
+export const verifyAndroidScene = (context: DeviceContext, appId: string, processId: string, screenshotPath: string): SceneOutcome => {
     if (readAndroidAppPid(context, appId) !== processId) {
         throw new Error(`App PID changed during capture of ${screenshotPath}.`);
     }
@@ -155,9 +155,10 @@ export const verifyAndroidScene = (context: DeviceContext, appId: string, proces
         }
     );
 
-    if (image.status !== 0 || !(Number(image.stdout) > 0.01)) {
-        throw new Error(`Screenshot is invalid or blank: ${screenshotPath}. ${image.stderr.trim()}`);
-    }
+    return {
+        failureOutput: `Screenshot is invalid or blank: ${screenshotPath}. ${image.stderr.trim()}`,
+        succeeded: image.status === 0 && Number(image.stdout) > 0.01
+    };
 };
 
 export const writeDeviceScreenshot = (context: DeviceContext, screenshotPath: string): SceneOutcome => {

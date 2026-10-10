@@ -43,6 +43,8 @@ const defaultOutputRootDirectory = join(repositoryRootDirectory, 'packages', 'ap
 
 const DefaultLaunchSettleMilliseconds = 3500;
 const DefaultSceneSettleMilliseconds = 2000;
+const AndroidScreenshotDeadlineMilliseconds = 10000;
+const AndroidScreenshotRetryMilliseconds = 1000;
 const MillisecondsPerSecond = 1000;
 
 const parseCommaSeparatedList = (value: string): string[] =>
@@ -89,7 +91,7 @@ const {
 
 const platform = cliOptions.platform ?? SCREENSHOT_PLATFORM ?? 'ios';
 const appId = cliOptions['app-id'] ?? APP_ID;
-const deviceClass = cliOptions['device-class'] ?? DEVICE_CLASS ?? 'iphone';
+const deviceClass = platform === 'android' ? 'android' : (cliOptions['device-class'] ?? DEVICE_CLASS ?? 'iphone');
 const simulatorUdid = cliOptions.udid ?? SIMULATOR_UDID ?? '';
 const orientation = cliOptions.orientation ?? ORIENTATION ?? 'portrait';
 const captureMode = cliOptions['capture-mode'] ?? CAPTURE_MODE ?? 'fast';
@@ -177,10 +179,24 @@ const captureSceneDirectly = (scene: Scene, locale: string, appearance: string, 
         }
 
         const screenshotPath = join(testOutputDirectory, `${sceneScreenshotBaseName(scene)}.png`);
-        const screenshotOutcome = writeDeviceScreenshot(deviceContext, screenshotPath);
+        let screenshotOutcome = writeDeviceScreenshot(deviceContext, screenshotPath);
 
         if (verifiesAndroidScenes && screenshotOutcome.succeeded) {
-            verifyAndroidScene(deviceContext, target.appId, launchedProcessId, screenshotPath);
+            const deadline = Date.now() + AndroidScreenshotDeadlineMilliseconds;
+            let verification = verifyAndroidScene(deviceContext, target.appId, launchedProcessId, screenshotPath);
+
+            while (!verification.succeeded && Date.now() < deadline) {
+                waitForRender(AndroidScreenshotRetryMilliseconds);
+                screenshotOutcome = writeDeviceScreenshot(deviceContext, screenshotPath);
+
+                if (!screenshotOutcome.succeeded) {
+                    return screenshotOutcome;
+                }
+
+                verification = verifyAndroidScene(deviceContext, target.appId, launchedProcessId, screenshotPath);
+            }
+
+            return verification;
         }
 
         return screenshotOutcome;
@@ -291,7 +307,7 @@ const main = (): void => {
         return;
     }
 
-    if (!AllDeviceClasses.includes(deviceClass)) {
+    if (platform === 'ios' && !AllDeviceClasses.includes(deviceClass)) {
         process.stderr.write(`Unknown device class "${deviceClass}". Pass --device-class=iphone or --device-class=ipad.\n`);
         process.exitCode = 1;
 
