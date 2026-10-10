@@ -4,7 +4,7 @@ EVERY PUZZLE, RATED
 Most apps label a board "expert" and hope you don't look closer. We put a number on it. Every puzzle carries a Sudoku Explainer rating on the 1.0 to 12.0 scale serious solvers use, shown right in the level pill on the board, in your history, and on every link you share. A built-in explainer tells you what the number actually measures — how hard the puzzle is to reason through, not how few clues it has.
 
 INFINITY: THE WORLD'S HARDEST SUDOKU
-A curated set of 100 world-record puzzles rated SE 10.4 to 11.9. Arto Inkala's Everest and AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. These are the grids the solving community made famous, and most people never finish one.
+A curated set of 100 extremely difficult puzzles rated SE 10.4 to 11.9. Arto Inkala's Everest and AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. These are the grids the solving community made famous.
 
 HELL, RE-CURATED
 Hell is now 958 verified puzzles that all need a forcing chain: none of them can be finished with the techniques Nightmare allows, and every one is rated SE 7.5 to 8.5. A low clue count alone doesn't make a puzzle hard, so Hell is chosen by the reasoning each board demands, not by how few clues it starts with.

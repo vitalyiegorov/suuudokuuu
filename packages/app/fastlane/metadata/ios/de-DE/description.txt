@@ -4,7 +4,7 @@ JEDES RÄTSEL BEWERTET
 Die meisten Apps schreiben „Experte“ auf ein Brett und hoffen, dass du nicht genauer hinschaust. Wir setzen eine Zahl darauf. Jedes Rätsel trägt eine Bewertung auf der Sudoku-Explainer-Skala (SE) von 1.0 bis 12.0 – derselben Skala, mit der erfahrene Löser vergleichen. Sie steht direkt neben der Schwierigkeitsstufe auf dem Brett, in deinem Verlauf und in jedem Link, den du teilst. Eine eingebaute Erklärung zeigt dir, was die Zahl wirklich misst: wie schwer ein Rätsel zu durchdenken ist, und nicht, wie wenige Vorgaben es hat.
 
 UNENDLICH: DIE SCHWERSTEN SUDOKUS DER WELT
-Eine kuratierte Sammlung aus 100 Weltrekord-Rätseln mit SE 10.4 bis 11.9. Arto Inkalas Everest und AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Das sind die Gitter, die die Löser-Community berühmt gemacht hat – die meisten Menschen lösen nie eines davon.
+Eine kuratierte Sammlung aus 100 besonders schweren Rätseln mit SE 10.4 bis 11.9. Arto Inkalas Everest und AI Escargot. Golden Nugget. Platinum Blonde. Kolk, Patience, Fata Morgana, Red Dwarf. Das sind die Gitter, die die Löser-Community berühmt gemacht hat.
 
 HÖLLE, NEU KURATIERT
 Die Hölle besteht jetzt aus 958 geprüften Rätseln, die alle eine Zwangskette verlangen: Keines lässt sich mit den Techniken lösen, die der Albtraum erlaubt, und jedes ist mit SE 7.5 bis 8.5 bewertet. Wenige Vorgaben allein machen ein Rätsel nicht schwer – deshalb wählen wir die Hölle nach dem Denken aus, das jedes Brett verlangt, nicht danach, wie wenige Vorgaben es hat.
