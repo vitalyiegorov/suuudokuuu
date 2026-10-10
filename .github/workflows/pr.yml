@@ -33,6 +33,9 @@ jobs:
               with:
                   fetch-depth: 0
 
+            - name: Validate iOS shard manifests
+              run: tests/app-tests/scripts/validate-shards.sh
+
             - name: Classify changed paths
               id: mobile
               shell: bash

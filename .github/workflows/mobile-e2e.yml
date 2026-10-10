@@ -55,6 +55,7 @@ jobs:
             pre-flow-command: tests/app-tests/scripts/seed-flow-fixture.sh
             flow-retries: 1
             shard-count: 2
+            shard-manifest-dir: tests/app-tests/shards
             simulator-device: iPhone 17 Pro
             simulator-reduce-motion: 'true'
             xcode-version: '26.4.1'
