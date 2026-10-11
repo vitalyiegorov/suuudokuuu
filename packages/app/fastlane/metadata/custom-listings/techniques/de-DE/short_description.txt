@@ -1,0 +1,1 @@
+Abgeschlossene Sudokus Zug für Zug wiederholen und Techniken im Verlauf ansehen.

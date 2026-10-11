@@ -1,0 +1,3 @@
+expert sudoku
+hard sudoku
+advanced sudoku
