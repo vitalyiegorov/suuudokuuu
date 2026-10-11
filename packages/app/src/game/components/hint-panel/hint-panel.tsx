@@ -68,6 +68,7 @@ export const HintPanel = ({ availableHeight }: Props) => {
     ];
     const isWalkthrough = snapshot.hintLevel === HintLevelEnum.WALKTHROUGH;
     const isApplyShown = isWalkthrough && !isEliminationOnly;
+    const areEliminationActionsShown = isWalkthrough && isEliminationOnly;
     const placementValue = currentStep.narration.placement?.value;
     const motionProps = isMotionReduced ? {} : { entering: FadeIn.duration(enterDurationMs), exiting: FadeOut.duration(exitDurationMs) };
 
@@ -110,7 +111,7 @@ export const HintPanel = ({ availableHeight }: Props) => {
                     ) : null}
                 </View>
 
-                {isEliminationOnly ? <HintPanelEliminationActions engine={engine} onApply={handleApply} /> : null}
+                {areEliminationActionsShown ? <HintPanelEliminationActions engine={engine} onApply={handleApply} /> : null}
             </View>
         </Animated.View>
     );

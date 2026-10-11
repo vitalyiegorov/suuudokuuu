@@ -27,7 +27,11 @@ const longHintTimeoutMilliseconds = 120000;
 const revealHintWalkthrough = async (page: import('@playwright/test').Page): Promise<void> => {
     const showMore = page.getByTestId(HintPanelSelectors.SHOW_MORE_BUTTON);
 
+    await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveCount(0);
+    await expect(page.getByTestId(HintPanelSelectors.RevealButton)).toHaveCount(0);
     await showMore.click();
+    await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveCount(0);
+    await expect(page.getByTestId(HintPanelSelectors.RevealButton)).toHaveCount(0);
     await showMore.click();
     await expect(page.getByTestId(HintPanelSelectors.Progress)).toBeVisible();
 };
