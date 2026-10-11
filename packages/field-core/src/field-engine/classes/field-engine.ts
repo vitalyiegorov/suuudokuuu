@@ -45,7 +45,9 @@ export class FieldEngine extends FieldStore {
         super();
 
         this.difficulty = options.difficulty;
-        this.sudoku = Sudoku.fromString(options.sudokuString, { ...defaultSudokuConfig });
+        this.sudoku = isDefined(options.solutionString)
+            ? Sudoku.fromPuzzleAndSolution(options.sudokuString, options.solutionString)
+            : Sudoku.fromString(options.sudokuString, { ...defaultSudokuConfig });
         this.candidateState = { candidates: options.candidates ?? {}, eliminatedCandidates: options.eliminatedCandidates ?? {} };
         this.inputMode = options.inputMode ?? 'normal';
         this.showAutoCandidates = options.showAutoCandidates ?? false;

@@ -28,12 +28,15 @@
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/hell-corpus": "workspace:*",
         "@suuudokuuu/rating": "workspace:*",
+        "@suuudokuuu/solver-bitmask": "workspace:*",
         "@suuudokuuu/solver-core": "workspace:*",
         "@suuudokuuu/techniques": "workspace:*"
     },
     "devDependencies": {
+        "@effect/vitest": "4.0.0",
         "@suuudokuuu/test-kit": "workspace:*",
         "@vitest/coverage-v8": "5.0.3",
+        "effect": "4.0.0",
         "vite": "^8.3.2",
         "vitest": "5.0.3"
     }
