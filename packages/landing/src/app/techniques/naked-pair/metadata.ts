@@ -11,7 +11,7 @@ export const nakedPairPageMetadata: PageMetadataInterface = {
     metaDescription:
         'A naked pair is two cells in one unit holding the same two candidates and nothing else, which locks those digits into the pair and clears them from other cells.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-11T00:00:00.000Z',
+    updatedAt: '2026-10-11T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

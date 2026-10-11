@@ -11,7 +11,7 @@ export const pointingPairPageMetadata: PageMetadataInterface = {
     metaDescription:
         'A pointing pair happens when a digit fits in only two cells of a box and both share a row or column, so the digit can be removed from the rest of that line.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-11T00:00:00.000Z',
+    updatedAt: '2026-10-11T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };
