@@ -1,5 +1,6 @@
-import { Trans } from '@lingui/react/macro';
-import { campaignLessons } from '@suuudokuuu/progress';
+import { plural } from '@lingui/core/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
+import { campaignLessons, requiredUnassistedPracticeCount } from '@suuudokuuu/progress';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { ScrollView } from 'react-native';
 
@@ -14,7 +15,14 @@ import { CampaignMasteryRow } from '../campaign-mastery-row/campaign-mastery-row
 import { CampaignStatistics } from '../campaign-statistics/campaign-statistics';
 
 export const CampaignScreen = () => {
+    const { t } = useLingui();
     const { mastery } = useCampaign();
+    const instructionText = t({
+        message: plural(requiredUnassistedPracticeCount, {
+            one: 'Learn one deduction at a time. Solve # practice without help to unlock the next lesson.',
+            other: 'Learn one deduction at a time. Solve # practices without help to unlock the next lesson.'
+        })
+    });
     const recordedMastery = mastery.filter(record => record.technique !== SolutionTechniqueEnum.Guess);
 
     return (
@@ -24,9 +32,7 @@ export const CampaignScreen = () => {
                 <BlackText style={styles.heading}>
                     <Trans>Technique campaign</Trans>
                 </BlackText>
-                <BlackText>
-                    <Trans>Learn one deduction at a time. Solve both practices without help to unlock the next lesson.</Trans>
-                </BlackText>
+                <BlackText>{instructionText}</BlackText>
                 <BlackText>
                     <Trans>Technique mastery</Trans>
                 </BlackText>

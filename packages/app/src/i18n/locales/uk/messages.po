@@ -89,6 +89,10 @@ msgstr "{remaining, plural, one {Ввести {value}, залишилася # к
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {Позначити {value}, залишилася # клітинка} few {Позначити {value}, залишилося # клітинки} many {Позначити {value}, залишилося # клітинок} other {Позначити {value}, залишилося # клітинки}}"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "{requiredUnassistedPracticeCount, plural, one {Learn one deduction at a time. Solve # practice without help to unlock the next lesson.} other {Learn one deduction at a time. Solve # practices without help to unlock the next lesson.}}"
+msgstr "{requiredUnassistedPracticeCount, plural, one {Вивчайте один висновок за раз. Розв’яжіть # вправу без допомоги, щоб відкрити наступний урок.} few {Вивчайте один висновок за раз. Розв’яжіть # вправи без допомоги, щоб відкрити наступний урок.} many {Вивчайте один висновок за раз. Розв’яжіть # вправ без допомоги, щоб відкрити наступний урок.} other {Вивчайте один висновок за раз. Розв’яжіть # вправ без допомоги, щоб відкрити наступний урок.}}"
+
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
 msgstr "{score, plural, one {# бал} few {# бали} many {# балів} other {# бала}}"
@@ -1050,10 +1054,6 @@ msgstr "Великий"
 msgid "Larger digits for easier reading"
 msgstr "Більші цифри для легшого читання"
 
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "Learn one deduction at a time. Solve both practices without help to unlock the next lesson."
-msgstr "Вивчай по одному способу дедукції за раз. Розв’яжи обидві вправи без підказок, щоб відкрити наступний урок."
-
 #: src/campaign/components/campaign-entry/campaign-entry.tsx
 msgid "Learn techniques"
 msgstr "Вивчай техніки"
@@ -1468,8 +1468,8 @@ msgid "Practice complete without help."
 msgstr "Вправу завершено без підказок."
 
 #: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Practices: {practiceCount}/2"
-msgstr "Вправи: {practiceCount}/2"
+msgid "Practices: {practiceCount}/{requiredUnassistedPracticeCount}"
+msgstr "Вправи: {practiceCount}/{requiredUnassistedPracticeCount}"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"

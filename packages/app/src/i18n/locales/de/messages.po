@@ -89,6 +89,10 @@ msgstr "{remaining, plural, one {{value} eintragen, noch # zu setzen} other {{va
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {{value} notieren, noch # zu setzen} other {{value} notieren, noch # zu setzen}}"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "{requiredUnassistedPracticeCount, plural, one {Learn one deduction at a time. Solve # practice without help to unlock the next lesson.} other {Learn one deduction at a time. Solve # practices without help to unlock the next lesson.}}"
+msgstr "{requiredUnassistedPracticeCount, plural, one {Lerne eine Schlussfolgerung nach der anderen. Löse # Übung ohne Hilfe, um die nächste Lektion freizuschalten.} other {Lerne eine Schlussfolgerung nach der anderen. Löse # Übungen ohne Hilfe, um die nächste Lektion freizuschalten.}}"
+
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
 msgstr "{score, plural, one {# Punkt} other {# Punkte}}"
@@ -1050,10 +1054,6 @@ msgstr "Groß"
 msgid "Larger digits for easier reading"
 msgstr "Größere Zahlen für bessere Lesbarkeit"
 
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "Learn one deduction at a time. Solve both practices without help to unlock the next lesson."
-msgstr "Lerne Schritt für Schritt eine Schlussfolgerung. Löse beide Übungen ohne Hilfe, um die nächste Lektion freizuschalten."
-
 #: src/campaign/components/campaign-entry/campaign-entry.tsx
 msgid "Learn techniques"
 msgstr "Techniken lernen"
@@ -1468,8 +1468,8 @@ msgid "Practice complete without help."
 msgstr "Übung ohne Hilfe abgeschlossen."
 
 #: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Practices: {practiceCount}/2"
-msgstr "Übungen: {practiceCount}/2"
+msgid "Practices: {practiceCount}/{requiredUnassistedPracticeCount}"
+msgstr "Übungen: {practiceCount}/{requiredUnassistedPracticeCount}"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"

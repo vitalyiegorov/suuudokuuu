@@ -87,6 +87,10 @@ msgstr "{remaining, plural, other {填入 {value}，还剩 # 个}}"
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, other {标记 {value}，还剩 # 个}}"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "{requiredUnassistedPracticeCount, plural, one {Learn one deduction at a time. Solve # practice without help to unlock the next lesson.} other {Learn one deduction at a time. Solve # practices without help to unlock the next lesson.}}"
+msgstr "{requiredUnassistedPracticeCount, plural, one {每次学习一种推理。独立完成 # 个练习即可解锁下一课。} other {每次学习一种推理。独立完成 # 个练习即可解锁下一课。}}"
+
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
 msgstr "{score, plural, other {# 分}}"
@@ -1048,10 +1052,6 @@ msgstr "大"
 msgid "Larger digits for easier reading"
 msgstr "更大的数字，更易阅读"
 
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "Learn one deduction at a time. Solve both practices without help to unlock the next lesson."
-msgstr "一次学习一种推理方法。独立完成两道练习即可解锁下一课。"
-
 #: src/campaign/components/campaign-entry/campaign-entry.tsx
 msgid "Learn techniques"
 msgstr "学习技巧"
@@ -1466,8 +1466,8 @@ msgid "Practice complete without help."
 msgstr "已独立完成练习。"
 
 #: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Practices: {practiceCount}/2"
-msgstr "练习：{practiceCount}/2"
+msgid "Practices: {practiceCount}/{requiredUnassistedPracticeCount}"
+msgstr "练习: {practiceCount}/{requiredUnassistedPracticeCount}"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"

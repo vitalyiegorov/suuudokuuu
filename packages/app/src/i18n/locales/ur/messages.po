@@ -87,6 +87,10 @@ msgstr "{remaining, plural, one {{value} لکھیں، # باقی} other {{value}
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {{value} نوٹ کریں، # باقی} other {{value} نوٹ کریں، # باقی}}"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "{requiredUnassistedPracticeCount, plural, one {Learn one deduction at a time. Solve # practice without help to unlock the next lesson.} other {Learn one deduction at a time. Solve # practices without help to unlock the next lesson.}}"
+msgstr "{requiredUnassistedPracticeCount, plural, one {ایک وقت میں ایک نتیجہ اخذ کرنا سیکھیں۔ اگلا سبق کھولنے کے لیے مدد کے بغیر # مشق حل کریں۔} other {ایک وقت میں ایک نتیجہ اخذ کرنا سیکھیں۔ اگلا سبق کھولنے کے لیے مدد کے بغیر # مشقیں حل کریں۔}}"
+
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
 msgstr "{score, plural, one {# پوائنٹ} other {# پوائنٹس}}"
@@ -1048,10 +1052,6 @@ msgstr "بڑا"
 msgid "Larger digits for easier reading"
 msgstr "آسان پڑھنے کے لیے بڑے ہندسے"
 
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "Learn one deduction at a time. Solve both practices without help to unlock the next lesson."
-msgstr "ایک وقت میں ایک استدلال سیکھیں۔ اگلا سبق کھولنے کے لیے دونوں مشقیں بغیر مدد کے حل کریں۔"
-
 #: src/campaign/components/campaign-entry/campaign-entry.tsx
 msgid "Learn techniques"
 msgstr "تکنیکیں سیکھیں"
@@ -1466,8 +1466,8 @@ msgid "Practice complete without help."
 msgstr "مشق بغیر مدد کے مکمل ہوئی۔"
 
 #: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Practices: {practiceCount}/2"
-msgstr "مشقیں: {practiceCount}/2"
+msgid "Practices: {practiceCount}/{requiredUnassistedPracticeCount}"
+msgstr "مشقیں: {practiceCount}/{requiredUnassistedPracticeCount}"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"

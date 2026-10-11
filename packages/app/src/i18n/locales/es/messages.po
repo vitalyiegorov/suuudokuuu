@@ -89,6 +89,10 @@ msgstr "{remaining, plural, one {Escribir {value}, queda # por colocar} other {E
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {Anotar {value}, queda # por colocar} other {Anotar {value}, quedan # por colocar}}"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "{requiredUnassistedPracticeCount, plural, one {Learn one deduction at a time. Solve # practice without help to unlock the next lesson.} other {Learn one deduction at a time. Solve # practices without help to unlock the next lesson.}}"
+msgstr "{requiredUnassistedPracticeCount, plural, one {Aprende una deducción a la vez. Resuelve # práctica sin ayuda para desbloquear la siguiente lección.} other {Aprende una deducción a la vez. Resuelve # prácticas sin ayuda para desbloquear la siguiente lección.}}"
+
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
 msgstr "{score, plural, one {# punto} other {# puntos}}"
@@ -1050,10 +1054,6 @@ msgstr "Grande"
 msgid "Larger digits for easier reading"
 msgstr "Dígitos más grandes para leer mejor"
 
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "Learn one deduction at a time. Solve both practices without help to unlock the next lesson."
-msgstr "Aprende una deducción cada vez. Resuelve las dos prácticas sin ayuda para desbloquear la siguiente lección."
-
 #: src/campaign/components/campaign-entry/campaign-entry.tsx
 msgid "Learn techniques"
 msgstr "Aprender técnicas"
@@ -1468,8 +1468,8 @@ msgid "Practice complete without help."
 msgstr "Práctica completada sin ayuda."
 
 #: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Practices: {practiceCount}/2"
-msgstr "Prácticas: {practiceCount}/2"
+msgid "Practices: {practiceCount}/{requiredUnassistedPracticeCount}"
+msgstr "Prácticas: {practiceCount}/{requiredUnassistedPracticeCount}"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"

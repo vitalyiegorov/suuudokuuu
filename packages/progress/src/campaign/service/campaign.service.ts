@@ -4,6 +4,7 @@ import * as Layer from 'effect/Layer';
 import * as SqlClient from 'effect/sql/SqlClient';
 
 import { campaignLessons } from '../constant/campaign-lessons.constant';
+import { requiredUnassistedPracticeCount } from '../constant/required-unassisted-practice-count.constant';
 import { CampaignRepository } from '../repository/campaign.repository';
 
 import type { CampaignProgressSchema } from '../schema/campaign-progress.schema';
@@ -18,7 +19,7 @@ const getUnlockedTechniques = (progress: readonly (typeof CampaignProgressSchema
         const completedPractices = progress.find(row => row.technique === lesson.technique)?.unassistedPracticeIds ?? [];
         const verifiedCompletions = lesson.practices.filter(practice => completedPractices.includes(practice.id));
 
-        if (verifiedCompletions.length < 2) {
+        if (verifiedCompletions.length < requiredUnassistedPracticeCount) {
             break;
         }
     }

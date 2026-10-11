@@ -87,6 +87,10 @@ msgstr "{remaining, plural, zero {أدخل {value}، المتبقي #} one {أد
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, zero {دوّن {value}، المتبقي #} one {دوّن {value}، المتبقي #} two {دوّن {value}، المتبقي #} few {دوّن {value}، المتبقي #} many {دوّن {value}، المتبقي #} other {دوّن {value}، المتبقي #}}"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "{requiredUnassistedPracticeCount, plural, one {Learn one deduction at a time. Solve # practice without help to unlock the next lesson.} other {Learn one deduction at a time. Solve # practices without help to unlock the next lesson.}}"
+msgstr "{requiredUnassistedPracticeCount, plural, one {تعلّم استنتاجًا واحدًا في كل مرة. أكمل # تمرين دون مساعدة لفتح الدرس التالي.} two {تعلّم استنتاجًا واحدًا في كل مرة. أكمل تمرينين دون مساعدة لفتح الدرس التالي.} other {تعلّم استنتاجًا واحدًا في كل مرة. أكمل # تمارين دون مساعدة لفتح الدرس التالي.}}"
+
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
 msgstr "{score, plural, zero {# نقطة} one {# نقطة} two {# نقطتان} few {# نقاط} many {# نقطة} other {# نقطة}}"
@@ -1048,10 +1052,6 @@ msgstr "كبير"
 msgid "Larger digits for easier reading"
 msgstr "أرقام أكبر لقراءة أسهل"
 
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "Learn one deduction at a time. Solve both practices without help to unlock the next lesson."
-msgstr "تعلّم استنتاجًا واحدًا في كل مرة. حلّ التمرينين دون مساعدة لفتح الدرس التالي."
-
 #: src/campaign/components/campaign-entry/campaign-entry.tsx
 msgid "Learn techniques"
 msgstr "تعلّم التقنيات"
@@ -1466,8 +1466,8 @@ msgid "Practice complete without help."
 msgstr "أكملت التمرين دون مساعدة."
 
 #: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Practices: {practiceCount}/2"
-msgstr "التمارين: {practiceCount}/2"
+msgid "Practices: {practiceCount}/{requiredUnassistedPracticeCount}"
+msgstr "التمارين: {practiceCount}/{requiredUnassistedPracticeCount}"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"

@@ -1,4 +1,5 @@
 import { Trans, useLingui } from '@lingui/react/macro';
+import { requiredUnassistedPracticeCount } from '@suuudokuuu/progress';
 import { AppButton } from '@suuudokuuu/ui';
 import { useRouter } from 'expo-router';
 import { View } from 'react-native';
@@ -32,7 +33,9 @@ export const CampaignLessonRow = ({ technique }: Props) => {
         <View style={styles.card} testID={`${CampaignSelectors.LESSON}.${technique}`}>
             <CampaignMasteryRow seenCount={seenCount} technique={technique} unassistedCount={unassistedCount} />
             <BlackText>
-                <Trans>Practices: {practiceCount}/2</Trans>
+                <Trans>
+                    Practices: {practiceCount}/{requiredUnassistedPracticeCount}
+                </Trans>
             </BlackText>
             <AppButton accessibilityRole="button" disabled={isLocked} onPress={handleOpen} text={actionText} variant="secondary" />
         </View>

@@ -43,3 +43,4 @@ export { StoreReviewService } from './store-review/service/store-review.service'
 export { CampaignRepository } from './campaign/repository/campaign.repository';
 export { CampaignService } from './campaign/service/campaign.service';
 export { campaignLessons } from './campaign/constant/campaign-lessons.constant';
+export { requiredUnassistedPracticeCount } from './campaign/constant/required-unassisted-practice-count.constant';
