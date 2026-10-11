@@ -138,7 +138,7 @@ jobs:
               run: pnpm install --frozen-lockfile
 
             - name: Install Ruby
-              run: command -v ruby || (sudo apt-get update -qq && sudo apt-get install -y -qq --no-install-recommends ruby)
+              run: command -v ruby || (sudo apt-get update -qq && sudo apt-get -o DPkg::Lock::Timeout=300 install -y -qq --no-install-recommends ruby)
 
             - name: Maestro selector checks
               run: pnpm --filter @suuudokuuu/app-tests selectors:check
