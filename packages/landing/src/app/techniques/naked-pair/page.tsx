@@ -54,7 +54,7 @@ const NakedPairPage = () => (
             They are also the most common way out of a stall once singles and intersections have been exhausted.
         </p>
         <p>
-            <Link href={`${SITE_ORIGIN}/campaign/${SolutionTechniqueEnum.NakedPair}`}>Practice this technique in the app</Link>
+            <Link href={`${SITE_ORIGIN}/campaign`}>Practice this technique in the app</Link>
         </p>
         <h2>Worked example</h2>
         <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.NakedPair}>

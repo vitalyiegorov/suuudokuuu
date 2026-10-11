@@ -55,7 +55,7 @@ const BoxLineReductionPage = () => (
             a cluster inside a box. Solvers who keep full pencil marks find it easily; solvers who cross-hatch tend to miss it.
         </p>
         <p>
-            <Link href={`${SITE_ORIGIN}/campaign/${SolutionTechniqueEnum.BoxLineReduction}`}>Practice this technique in the app</Link>
+            <Link href={`${SITE_ORIGIN}/campaign`}>Practice this technique in the app</Link>
         </p>
         <h2>Worked example</h2>
         <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.BoxLineReduction}>

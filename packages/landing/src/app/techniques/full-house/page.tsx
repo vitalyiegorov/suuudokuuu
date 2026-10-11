@@ -55,7 +55,7 @@ const FullHousePage = () => (
             full houses and singles, that is a precise statement about difficulty: no candidate bookkeeping was ever required.
         </p>
         <p>
-            <Link href={`${SITE_ORIGIN}/campaign/${SolutionTechniqueEnum.FullHouse}`}>Practice this technique in the app</Link>
+            <Link href={`${SITE_ORIGIN}/campaign`}>Practice this technique in the app</Link>
         </p>
         <h2>Worked example</h2>
         <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.FullHouse}>

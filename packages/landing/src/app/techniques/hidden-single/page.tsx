@@ -55,7 +55,7 @@ const HiddenSinglePage = () => (
             Suuudokuuu solving order. Only when the board runs out of all three does the engine reach for intersections and subsets.
         </p>
         <p>
-            <Link href={`${SITE_ORIGIN}/campaign/${SolutionTechniqueEnum.HiddenSingle}`}>Practice this technique in the app</Link>
+            <Link href={`${SITE_ORIGIN}/campaign`}>Practice this technique in the app</Link>
         </p>
         <h2>Worked example</h2>
         <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.HiddenSingle}>

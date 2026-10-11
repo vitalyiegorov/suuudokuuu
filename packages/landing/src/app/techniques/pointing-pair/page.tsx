@@ -56,7 +56,7 @@ const PointingPairPage = () => (
             the surviving candidates for a digit get squeezed into a single band of three cells.
         </p>
         <p>
-            <Link href={`${SITE_ORIGIN}/campaign/${SolutionTechniqueEnum.PointingPair}`}>Practice this technique in the app</Link>
+            <Link href={`${SITE_ORIGIN}/campaign`}>Practice this technique in the app</Link>
         </p>
         <h2>Worked example</h2>
         <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.PointingPair}>

@@ -74,10 +74,8 @@ test('the technique hub lists every technique page and publishes the same list a
     expect(HeadingPattern.exec(html)?.[1]).toBe('Sudoku Techniques');
 });
 
-for (const [technique, path] of Object.entries(TECHNIQUE_PAGE_PATHS).filter(
-    ([technique]) => Number(technique) > 0 && Number(technique) <= 7
-)) {
-    test(`${path} links to its matching campaign lesson`, async ({ request }) => {
-        expect(await fetchPageHtml(request, path)).toContain(`href="${SITE_ORIGIN}/campaign/${technique}"`);
+for (const [, path] of Object.entries(TECHNIQUE_PAGE_PATHS).filter(([technique]) => Number(technique) > 0 && Number(technique) <= 7)) {
+    test(`${path} links to the campaign curriculum`, async ({ request }) => {
+        expect(await fetchPageHtml(request, path)).toContain(`href="${SITE_ORIGIN}/campaign"`);
     });
 }

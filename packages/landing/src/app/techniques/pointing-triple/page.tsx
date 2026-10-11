@@ -55,7 +55,7 @@ const PointingTriplePage = () => (
             available on a mid-difficulty puzzle, even though the reasoning is no harder than a pointing pair.
         </p>
         <p>
-            <Link href={`${SITE_ORIGIN}/campaign/${SolutionTechniqueEnum.PointingTriple}`}>Practice this technique in the app</Link>
+            <Link href={`${SITE_ORIGIN}/campaign`}>Practice this technique in the app</Link>
         </p>
         <h2>Worked example</h2>
         <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.PointingTriple}>
