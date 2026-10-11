@@ -205,9 +205,7 @@ jobs:
                       adb shell am start -n com.vitaliiyehorov.suuudokuuu.e2e/.MainActivity
                       sleep 20
                       adb shell am force-stop com.vitaliiyehorov.suuudokuuu.e2e
-                      start=$(date +%s)
-                      trap 'echo "Capture-only duration: $(($(date +%s) - start))s"' EXIT
-                      timeout 300s pnpm --filter @suuudokuuu/app-tests screenshots:capture --platform=android --serial="$(adb devices | awk 'NR==2 { print $1 }')" --app-id=com.vitaliiyehorov.suuudokuuu.e2e --locales=en --appearances=dark --scenes=hero-board,hell,themes,editor,rival,replay,settings,home,stats,scoring,history,challenge-live,infinity --status-bar=real --verify --output-dir=artifacts/store-capture-smoke/raw --report-dir=artifacts/store-capture-smoke
+                      start=$(date +%s); trap 'echo "Capture-only duration: $(($(date +%s) - start))s"' EXIT; timeout 300s pnpm --filter @suuudokuuu/app-tests screenshots:capture --platform=android --serial="$(adb devices | awk 'NR==2 { print $1 }')" --app-id=com.vitaliiyehorov.suuudokuuu.e2e --locales=en --appearances=dark --scenes=hero-board,hell,themes,editor,rival,replay,settings,home,stats,scoring,history,challenge-live,infinity --status-bar=real --verify --output-dir=artifacts/store-capture-smoke/raw --report-dir=artifacts/store-capture-smoke
 
             - name: Upload capture diagnostics
               if: always()
