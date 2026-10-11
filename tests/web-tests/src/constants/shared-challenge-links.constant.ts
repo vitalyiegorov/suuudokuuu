@@ -7,3 +7,4 @@ export const pointingPairHintSharedPuzzleEncodedConstant = '_MANQGaciM0yz__9dFFC
 export const revealHintSharedPuzzleEncodedConstant = '_MAOAGBKIgOCIhmJCSdF6-r0U89CWVWg';
 export const structuredChainHintSharedPuzzleEncodedConstant = '_MAMEQgRyQAvATMAHHehYIMMrDmRaBVaA';
 export const nishioRunHintSharedPuzzleEncodedConstant = '_MACdb0cSgWGxewkEQqSJ4ruELmsackXva7IcqtA';
+export const aicDetourHintSharedPuzzleEncodedConstant = '_MAAxIjQyZIAEEpSRFMjqmmYIlUD7YpUC';

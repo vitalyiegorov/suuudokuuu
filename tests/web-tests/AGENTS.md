@@ -107,6 +107,14 @@ pnpm --filter @suuudokuuu/web-tests lint
   player-reported board whose first digit needs a forcing chain. Its first hint is the five-slide Nishio
   route to `9` at `y=2, x=0`; before the goal-directed fallback it showed capped pointing-pair
   eliminations. `09.hint-flow.spec.ts` applies it.
+- `aicDetourHintSharedPuzzleEncodedConstant`: a Hardcore (`maxMistakes: 0`) `Puzzle`-kind share (rating
+  `8.0`) of the 24-clue board from the AIC hint report. No two-step route starts from the board, so the
+  first hint is the seven-slide route Pointing Pair, Nishio `r4c9≠8`, Hidden Single `8` at `y=5, x=6`;
+  before the fallback walked the greedy steps it showed a lone Pointing Pair and then Swordfish, Finned
+  X-Wing and AIC eliminations. `09.hint-flow.spec.ts` applies it and checks that a slide opens with its
+  narration scrolled to the top. Regenerate with `GameStateSerializer.encodeState` over the decoded
+  `nishioRunHintSharedPuzzleEncodedConstant` with this field string, `rating: 80` and
+  `isRatingCeiling: false`.
 - `09.hint-flow.spec.ts` presses Continue and Reveal on the first slide of a Nishio elimination card on
   `revealHintSharedPuzzleEncodedConstant` after its reveal is applied (the card `So r6c3 is not 6.`),
   because gating them to the last slide left the player stuck with a hidden numpad.
