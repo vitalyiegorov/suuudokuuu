@@ -92,10 +92,7 @@ describe('progressive hint levels', () => {
 describe('getHintRegion', () => {
     it.effect('names a shared row, column, or box', () =>
         Effect.sync(() => {
-            assert.deepEqual(getHintRegion([createCell(2, 0), createCell(2, 5)], undefined, createCell(6, 2)), {
-                kind: HintRegionKindEnum.ROW,
-                number: 3
-            });
+            assert.deepEqual(getHintRegion([createCell(2, 0), createCell(2, 5)]), { kind: HintRegionKindEnum.ROW, number: 3 });
             assert.deepEqual(getHintRegion([createCell(0, 5), createCell(7, 5)]), { kind: HintRegionKindEnum.COLUMN, number: 6 });
             assert.deepEqual(getHintRegion([createCell(3, 3), createCell(4, 5)]), { kind: HintRegionKindEnum.BOX, number: 5 });
         })
@@ -131,12 +128,10 @@ describe('getHintRegion', () => {
             const firstReveal = script.steps.find(step => step.kind === StepScriptStepKindEnum.RevealCandidates);
 
             assert(firstReveal !== undefined, 'Expected a pattern');
-            const firstPlacementCell = firstReveal.narration.placement?.cell;
-
             assert.isUndefined(firstReveal.narration.placement);
             assert(script.placement !== undefined, 'Expected a chain placement');
             assert.isNull(getHintRegion(firstReveal.patternCells));
-            assert.deepEqual(getHintRegion(firstReveal.patternCells, firstPlacementCell, script.placement.cell), {
+            assert.deepEqual(getHintRegion(firstReveal.patternCells, script.placement.cell), {
                 kind: HintRegionKindEnum.ROW,
                 number: 3
             });
@@ -145,7 +140,7 @@ describe('getHintRegion', () => {
 
     it.effect('uses the first deduction placement row when pattern cells span regions', () =>
         Effect.sync(() => {
-            assert.deepEqual(getHintRegion([createCell(0, 0), createCell(4, 8)], createCell(6, 2), createCell(8, 0)), {
+            assert.deepEqual(getHintRegion([createCell(0, 0), createCell(4, 8)], createCell(6, 2)), {
                 kind: HintRegionKindEnum.ROW,
                 number: 7
             });

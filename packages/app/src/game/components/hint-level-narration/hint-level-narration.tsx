@@ -24,8 +24,7 @@ export const HintLevelNarration = ({ hintLevel, stepScript }: Props) => {
     const hintPatternStep = stepScript.steps.find(step => step.kind === StepScriptStepKindEnum.RevealCandidates);
     const region = getHintRegion(
         hintPatternStep?.patternCells ?? [],
-        hintPatternStep?.narration.placement?.cell,
-        stepScript.placement?.cell
+        hintPatternStep?.narration.placement?.cell ?? stepScript.placement?.cell
     );
     const regionNumber = region?.number;
 
