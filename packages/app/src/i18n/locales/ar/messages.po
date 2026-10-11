@@ -311,6 +311,10 @@ msgstr "يحاول تحميل أحدث إصدار تطوير مرة أخرى"
 msgid "Average"
 msgstr "المعدل"
 
+#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
+msgid "Average solve time: {averageTime}"
+msgstr "متوسط وقت الحل: {averageTime}"
+
 #: src/history/components/history-solver-profile/history-solver-profile.tsx
 msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
 msgstr "متوسط حديث {averageRecentSeText} · الأكثر لعبًا {mostPlayedDifficultyText}"
@@ -546,6 +550,10 @@ msgstr "الالتزام {commitShortSha}"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "أكمل الصفوف والأعمدة والمربعات لتحصل على مكافآت كبيرة"
+
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "Complete the previous lesson to unlock this one."
+msgstr "أكمل الدرس السابق لفتح هذا الدرس."
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Completed"
@@ -1040,6 +1048,14 @@ msgstr "كبير"
 msgid "Larger digits for easier reading"
 msgstr "أرقام أكبر لقراءة أسهل"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Learn one deduction at a time. Solve both practices without help to unlock the next lesson."
+msgstr "تعلّم استنتاجًا واحدًا في كل مرة. حلّ التمرينين دون مساعدة لفتح الدرس التالي."
+
+#: src/campaign/components/campaign-entry/campaign-entry.tsx
+msgid "Learn techniques"
+msgstr "تعلّم التقنيات"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Left-handed layout"
 msgstr "تخطيط لليد اليسرى"
@@ -1067,6 +1083,10 @@ msgstr "جارٍ تحميل إصدار التطوير"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading the latest development build…"
 msgstr "جارٍ تحميل أحدث إصدار تطوير…"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Locked"
+msgstr "مقفل"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -1120,6 +1140,10 @@ msgstr "الحد الأدنى للنقاط"
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Mistakes"
 msgstr "أخطاء"
+
+#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
+msgid "Mistakes per game: {averageMistakes}"
+msgstr "الأخطاء في كل لعبة: {averageMistakes}"
 
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
@@ -1177,6 +1201,10 @@ msgstr "مبتدئ"
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Newspaper"
 msgstr "صحيفة"
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Next"
+msgstr "التالي"
 
 #: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Next step"
@@ -1284,6 +1312,10 @@ msgstr "حسنًا"
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
 msgstr "فتح الالتزام {commitShortSha} على GitHub"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Open lesson"
+msgstr "افتح الدرس"
 
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
@@ -1421,6 +1453,22 @@ msgstr "نقاط لكل إدخال صحيح."
 msgid "Português"
 msgstr "Português"
 
+#: src/campaign/components/campaign-practice-button/campaign-practice-button.tsx
+msgid "Practice {number}"
+msgstr "التمرين {number}"
+
+#: src/campaign/components/campaign-practice-button/campaign-practice-button.tsx
+msgid "Practice {number} · Complete"
+msgstr "التمرين {number} · مكتمل"
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Practice complete without help."
+msgstr "أكملت التمرين دون مساعدة."
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Practices: {practiceCount}/2"
+msgstr "التمارين: {practiceCount}/2"
+
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
 msgstr "الإعدادات المسبقة"
@@ -1470,6 +1518,10 @@ msgstr "نص السطح المرتفع"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "اطّلع على سياسة خصوصية Suuudokuuu بشأن جمع البيانات وتخزينها وحقوقك."
+
+#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
+msgid "Recent completed games"
+msgstr "الألعاب المكتملة مؤخرًا"
 
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
@@ -1635,6 +1687,10 @@ msgstr "لقطات الشاشة"
 msgid "SE {seValueText}"
 msgstr "SE {seValueText}"
 
+#: src/campaign/components/campaign-mastery-row/campaign-mastery-row.tsx
+msgid "Seen: {seenCount} · Unassisted: {unassistedCount}"
+msgstr "شوهد: {seenCount} · دون مساعدة: {unassistedCount}"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
 msgstr "خلفية المرشح المحدد"
@@ -1718,6 +1774,10 @@ msgstr "إظهار الوقت المنقضي أثناء اللعب"
 msgid "Show matching notes for the selected cell"
 msgstr "إظهار الملاحظات المطابقة للخلية المحددة"
 
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Show teaching example"
+msgstr "عرض المثال التعليمي"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "إظهار الصف والعمود والمربع للخلية المحددة"
@@ -1745,6 +1805,10 @@ msgstr "لوحة رمادية ناعمة بإحساس الورق"
 #: src/app/game.tsx
 msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
 msgstr "حل لغز سودوكو على الإنترنت مع التلميحات والملاحظات وتتبع الأخطاء."
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Solve puzzles to build your technique mastery."
+msgstr "حل الألغاز لتتقن تقنيات الحل."
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 #: src/screens/components/winner-screen/winner.screen.tsx
@@ -1893,6 +1957,18 @@ msgstr "Swordfish"
 msgid "Taller marks = sharper techniques"
 msgstr "كلما ارتفعت العلامة زادت براعة التقنية"
 
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "Teaching example"
+msgstr "مثال تعليمي"
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Technique campaign"
+msgstr "مسار تعلّم التقنيات"
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Technique mastery"
+msgstr "إتقان التقنيات"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "النص والتسميات"
@@ -1909,6 +1985,10 @@ msgstr "النص على شريط لوحة الأرقام الممتلئ"
 msgid "Text on ink"
 msgstr "النص على الحبر"
 
+#: src/campaign/hooks/use-campaign-attempt.hook.ts
+msgid "That deduction does not match this technique. Try another digit."
+msgstr "هذا الاستنتاج لا يتوافق مع هذه التقنية. جرّب رقمًا آخر."
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "تعذّر فتح رابط الالتزام على هذا الجهاز."
@@ -1920,6 +2000,10 @@ msgstr "تعذّر فتح رابط التثبيت. تحقق من إعدادات 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "The SE difficulty scale"
 msgstr "مقياس صعوبة SE"
+
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "The teaching example explains the technique. Each practice uses a different board and keeps the answer hidden."
+msgstr "يشرح المثال التعليمي التقنية. يستخدم كل تمرين لوحة مختلفة ويُبقي الحل مخفيًا."
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
@@ -1943,6 +2027,11 @@ msgstr "اسم السمة"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "لم تكتمل هذه اللوحة هذه المرة. يستمر الكفاح من أجل الحرية في أوكرانيا. كل تبرع بقيمة $1 يحدث فرقًا."
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+#: src/campaign/hooks/use-campaign-attempt.hook.ts
+msgid "This lesson is unavailable."
+msgstr "هذا الدرس غير متاح."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
@@ -2100,6 +2189,14 @@ msgstr "استخدم الإسبانية لنص التطبيق"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Swedish for app text"
 msgstr "استخدم السويدية لنص التطبيق"
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Use this technique to fill the selected cell. Choose the digit it proves."
+msgstr "استخدم هذه التقنية لملء الخلية المحددة. اختر الرقم الذي تثبته."
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Use this technique to remove one candidate from the selected cell. Choose the digit to remove."
+msgstr "استخدم هذه التقنية لإزالة أحد الأرقام المرشحة من الخلية المحددة. اختر الرقم الذي تريد إزالته."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Ukrainian for app text"

@@ -311,6 +311,10 @@ msgstr "Mencoba memuat kembali build pengembangan terbaru"
 msgid "Average"
 msgstr "Rata-rata"
 
+#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
+msgid "Average solve time: {averageTime}"
+msgstr "Rata-rata waktu penyelesaian: {averageTime}"
+
 #: src/history/components/history-solver-profile/history-solver-profile.tsx
 msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
 msgstr "Rata-rata {averageRecentSeText} · Terbanyak {mostPlayedDifficultyText}"
@@ -546,6 +550,10 @@ msgstr "Commit {commitShortSha}"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "Selesaikan baris, kolom, dan blok untuk bonus besar"
+
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "Complete the previous lesson to unlock this one."
+msgstr "Selesaikan pelajaran sebelumnya untuk membuka pelajaran ini."
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Completed"
@@ -1040,6 +1048,14 @@ msgstr "Besar"
 msgid "Larger digits for easier reading"
 msgstr "Angka lebih besar agar mudah dibaca"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Learn one deduction at a time. Solve both practices without help to unlock the next lesson."
+msgstr "Pelajari satu deduksi setiap kali. Selesaikan kedua latihan tanpa bantuan untuk membuka pelajaran berikutnya."
+
+#: src/campaign/components/campaign-entry/campaign-entry.tsx
+msgid "Learn techniques"
+msgstr "Pelajari teknik"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Left-handed layout"
 msgstr "Tata letak kidal"
@@ -1067,6 +1083,10 @@ msgstr "Memuat build pengembangan"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Memuat build pengembangan terbaru…"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Locked"
+msgstr "Terkunci"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -1120,6 +1140,10 @@ msgstr "Skor minimum"
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Mistakes"
 msgstr "Kesalahan"
+
+#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
+msgid "Mistakes per game: {averageMistakes}"
+msgstr "Kesalahan per permainan: {averageMistakes}"
 
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
@@ -1177,6 +1201,10 @@ msgstr "Pemula"
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Newspaper"
 msgstr "Koran"
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Next"
+msgstr "Berikutnya"
 
 #: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Next step"
@@ -1284,6 +1312,10 @@ msgstr "OK"
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
 msgstr "Buka commit {commitShortSha} di GitHub"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Open lesson"
+msgstr "Buka pelajaran"
 
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
@@ -1421,6 +1453,22 @@ msgstr "poin per penempatan benar."
 msgid "Português"
 msgstr "Português"
 
+#: src/campaign/components/campaign-practice-button/campaign-practice-button.tsx
+msgid "Practice {number}"
+msgstr "Latihan {number}"
+
+#: src/campaign/components/campaign-practice-button/campaign-practice-button.tsx
+msgid "Practice {number} · Complete"
+msgstr "Latihan {number} · Selesai"
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Practice complete without help."
+msgstr "Latihan selesai tanpa bantuan."
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Practices: {practiceCount}/2"
+msgstr "Latihan: {practiceCount}/2"
+
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
 msgstr "Preset"
@@ -1470,6 +1518,10 @@ msgstr "Teks permukaan terangkat"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Baca kebijakan privasi Suuudokuuu tentang pengumpulan data, penyimpanan, dan hakmu."
+
+#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
+msgid "Recent completed games"
+msgstr "Permainan yang baru diselesaikan"
 
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
@@ -1635,6 +1687,10 @@ msgstr "Tangkapan layar"
 msgid "SE {seValueText}"
 msgstr "SE {seValueText}"
 
+#: src/campaign/components/campaign-mastery-row/campaign-mastery-row.tsx
+msgid "Seen: {seenCount} · Unassisted: {unassistedCount}"
+msgstr "Dilihat: {seenCount} · Tanpa bantuan: {unassistedCount}"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
 msgstr "Latar belakang kandidat terpilih"
@@ -1718,6 +1774,10 @@ msgstr "Tampilkan waktu berjalan saat bermain"
 msgid "Show matching notes for the selected cell"
 msgstr "Tampilkan catatan yang cocok untuk sel yang dipilih"
 
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Show teaching example"
+msgstr "Tampilkan contoh pembelajaran"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "Tampilkan baris, kolom, dan kotak untuk sel yang dipilih"
@@ -1745,6 +1805,10 @@ msgstr "Papan abu-abu lembut seperti kertas"
 #: src/app/game.tsx
 msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
 msgstr "Selesaikan sudoku online dengan petunjuk, catatan, dan pelacakan kesalahan."
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Solve puzzles to build your technique mastery."
+msgstr "Selesaikan teka-teki untuk menguasai teknik."
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 #: src/screens/components/winner-screen/winner.screen.tsx
@@ -1893,6 +1957,18 @@ msgstr "Swordfish"
 msgid "Taller marks = sharper techniques"
 msgstr "Tanda lebih tinggi = teknik lebih tajam"
 
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "Teaching example"
+msgstr "Contoh pembelajaran"
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Technique campaign"
+msgstr "Jalur belajar teknik"
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Technique mastery"
+msgstr "Penguasaan teknik"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "Teks dan label"
@@ -1909,6 +1985,10 @@ msgstr "Teks pada bilah numpad terisi"
 msgid "Text on ink"
 msgstr "Teks pada tinta"
 
+#: src/campaign/hooks/use-campaign-attempt.hook.ts
+msgid "That deduction does not match this technique. Try another digit."
+msgstr "Deduksi itu tidak cocok dengan teknik ini. Coba digit lain."
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Tautan commit tidak dapat dibuka di perangkat ini."
@@ -1920,6 +2000,10 @@ msgstr "Tautan penginstalan tidak dapat dibuka. Periksa pengaturan browsermu dan
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "The SE difficulty scale"
 msgstr "Skala kesulitan SE"
+
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "The teaching example explains the technique. Each practice uses a different board and keeps the answer hidden."
+msgstr "Contoh pembelajaran menjelaskan tekniknya. Setiap latihan menggunakan papan berbeda dan jawabannya tetap tersembunyi."
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
@@ -1943,6 +2027,11 @@ msgstr "Nama tema"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Papan ini belum selesai kali ini. Perjuangan untuk kebebasan di Ukraina terus berlanjut. Setiap donasi $1 berarti."
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+#: src/campaign/hooks/use-campaign-attempt.hook.ts
+msgid "This lesson is unavailable."
+msgstr "Pelajaran ini tidak tersedia."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
@@ -2100,6 +2189,14 @@ msgstr "Gunakan bahasa Spanyol untuk teks aplikasi"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Swedish for app text"
 msgstr "Gunakan bahasa Swedia untuk teks aplikasi"
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Use this technique to fill the selected cell. Choose the digit it proves."
+msgstr "Gunakan teknik ini untuk mengisi sel yang dipilih. Pilih digit yang dibuktikannya."
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Use this technique to remove one candidate from the selected cell. Choose the digit to remove."
+msgstr "Gunakan teknik ini untuk menghapus satu kandidat dari sel yang dipilih. Pilih digit yang ingin dihapus."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Ukrainian for app text"

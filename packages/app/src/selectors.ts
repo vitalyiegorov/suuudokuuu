@@ -66,3 +66,5 @@ export * from './screens/components/themes-screen/themes-screen.selectors';
 export * from './screens/components/winner-screen/winner-screen.selectors';
 export * from './settings/component/settings-app-footer/settings-app-footer.selectors';
 export * from './settings/component/settings-option-sheet/settings-option-sheet.selectors';
+
+export * from './campaign/campaign.selectors';

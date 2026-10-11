@@ -313,6 +313,10 @@ msgstr "Tente de charger à nouveau la dernière version de développement"
 msgid "Average"
 msgstr "Moyenne"
 
+#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
+msgid "Average solve time: {averageTime}"
+msgstr "Temps moyen de résolution : {averageTime}"
+
 #: src/history/components/history-solver-profile/history-solver-profile.tsx
 msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
 msgstr "Moy. récente {averageRecentSeText} · Plus jouée {mostPlayedDifficultyText}"
@@ -548,6 +552,10 @@ msgstr "Commit {commitShortSha}"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "Complétez des lignes, colonnes et blocs pour de gros bonus"
+
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "Complete the previous lesson to unlock this one."
+msgstr "Terminez la leçon précédente pour débloquer celle-ci."
 
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Completed"
@@ -1042,6 +1050,14 @@ msgstr "Grand"
 msgid "Larger digits for easier reading"
 msgstr "Chiffres plus grands pour une lecture plus facile"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Learn one deduction at a time. Solve both practices without help to unlock the next lesson."
+msgstr "Apprenez une déduction à la fois. Résolvez les deux exercices sans aide pour débloquer la leçon suivante."
+
+#: src/campaign/components/campaign-entry/campaign-entry.tsx
+msgid "Learn techniques"
+msgstr "Apprendre les techniques"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Left-handed layout"
 msgstr "Disposition pour gaucher"
@@ -1069,6 +1085,10 @@ msgstr "Chargement de la version de développement"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Chargement de la dernière version de développement…"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Locked"
+msgstr "Verrouillé"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -1122,6 +1142,10 @@ msgstr "Score minimum"
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Mistakes"
 msgstr "Erreurs"
+
+#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
+msgid "Mistakes per game: {averageMistakes}"
+msgstr "Erreurs par partie : {averageMistakes}"
 
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
@@ -1179,6 +1203,10 @@ msgstr "Novice"
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Newspaper"
 msgstr "Journal"
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Next"
+msgstr "Suivant"
 
 #: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
 msgid "Next step"
@@ -1286,6 +1314,10 @@ msgstr "OK"
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
 msgstr "Ouvrir le commit {commitShortSha} sur GitHub"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Open lesson"
+msgstr "Ouvrir la leçon"
 
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
@@ -1423,6 +1455,22 @@ msgstr "points par chiffre bien placé."
 msgid "Português"
 msgstr "Português"
 
+#: src/campaign/components/campaign-practice-button/campaign-practice-button.tsx
+msgid "Practice {number}"
+msgstr "Exercice {number}"
+
+#: src/campaign/components/campaign-practice-button/campaign-practice-button.tsx
+msgid "Practice {number} · Complete"
+msgstr "Exercice {number} · Terminé"
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Practice complete without help."
+msgstr "Exercice terminé sans aide."
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Practices: {practiceCount}/2"
+msgstr "Exercices : {practiceCount}/2"
+
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
 msgstr "Préréglages"
@@ -1472,6 +1520,10 @@ msgstr "Texte de la surface surélevée"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Consultez la politique de confidentialité de Suuudokuuu : collecte des données, stockage et vos droits."
+
+#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
+msgid "Recent completed games"
+msgstr "Parties récemment terminées"
 
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
@@ -1637,6 +1689,10 @@ msgstr "Captures d'écran"
 msgid "SE {seValueText}"
 msgstr "SE {seValueText}"
 
+#: src/campaign/components/campaign-mastery-row/campaign-mastery-row.tsx
+msgid "Seen: {seenCount} · Unassisted: {unassistedCount}"
+msgstr "Vues : {seenCount} · Sans aide : {unassistedCount}"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
 msgstr "Fond du candidat sélectionné"
@@ -1720,6 +1776,10 @@ msgstr "Afficher le temps écoulé pendant la partie"
 msgid "Show matching notes for the selected cell"
 msgstr "Afficher les notes correspondantes pour la case sélectionnée"
 
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Show teaching example"
+msgstr "Afficher l’exemple pédagogique"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "Afficher la ligne, la colonne et le bloc de la cellule sélectionnée"
@@ -1747,6 +1807,10 @@ msgstr "Grille grise douce avec un aspect papier"
 #: src/app/game.tsx
 msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
 msgstr "Résolvez une grille de sudoku en ligne avec indices, notes et suivi des erreurs."
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Solve puzzles to build your technique mastery."
+msgstr "Résolvez des grilles pour maîtriser les techniques."
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 #: src/screens/components/winner-screen/winner.screen.tsx
@@ -1895,6 +1959,18 @@ msgstr "Swordfish"
 msgid "Taller marks = sharper techniques"
 msgstr "Plus les marques sont hautes, plus les techniques sont pointues"
 
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "Teaching example"
+msgstr "Exemple pédagogique"
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Technique campaign"
+msgstr "Parcours des techniques"
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Technique mastery"
+msgstr "Maîtrise des techniques"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "Texte et étiquettes"
@@ -1911,6 +1987,10 @@ msgstr "Texte sur la barre remplie du pavé numérique"
 msgid "Text on ink"
 msgstr "Texte sur l'encre"
 
+#: src/campaign/hooks/use-campaign-attempt.hook.ts
+msgid "That deduction does not match this technique. Try another digit."
+msgstr "Cette déduction ne correspond pas à cette technique. Essayez un autre chiffre."
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Impossible d’ouvrir le lien du commit sur cet appareil."
@@ -1922,6 +2002,10 @@ msgstr "Impossible d’ouvrir le lien d’installation. Vérifiez les réglages 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "The SE difficulty scale"
 msgstr "L’échelle de difficulté SE"
+
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "The teaching example explains the technique. Each practice uses a different board and keeps the answer hidden."
+msgstr "L’exemple pédagogique explique la technique. Chaque exercice utilise une grille différente et garde la réponse cachée."
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
@@ -1945,6 +2029,11 @@ msgstr "Nom du thème"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Cette grille ne s’est pas terminée cette fois. Le combat pour la liberté en Ukraine continue. Chaque don de 1 $ fait la différence."
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+#: src/campaign/hooks/use-campaign-attempt.hook.ts
+msgid "This lesson is unavailable."
+msgstr "Cette leçon n’est pas disponible."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
@@ -2102,6 +2191,14 @@ msgstr "Utiliser l’espagnol pour le texte de l’app"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Swedish for app text"
 msgstr "Utiliser le suédois pour le texte de l’app"
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Use this technique to fill the selected cell. Choose the digit it proves."
+msgstr "Utilisez cette technique pour remplir la case sélectionnée. Choisissez le chiffre qu’elle permet de déduire."
+
+#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+msgid "Use this technique to remove one candidate from the selected cell. Choose the digit to remove."
+msgstr "Utilisez cette technique pour éliminer un candidat de la case sélectionnée. Choisissez le chiffre à éliminer."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Ukrainian for app text"
