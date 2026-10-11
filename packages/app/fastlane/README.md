@@ -11,13 +11,17 @@ fastlane/
 ├── Appfile              # app_identifier, package_name, team_id, credentials
 ├── Fastfile             # store_preflight, metadata, and screenshot lanes
 └── metadata/
-    ├── ios/<locale>/
-    │   ├── name.txt
-    │   ├── subtitle.txt
-    │   ├── promotional_text.txt
-    │   ├── description.txt
-    │   ├── keywords.txt
-    │   └── release_notes.txt
+    ├── ios/
+    │   ├── primary_category.txt
+    │   ├── primary_first_sub_category.txt
+    │   ├── primary_second_sub_category.txt
+    │   └── <locale>/
+    │       ├── name.txt
+    │       ├── subtitle.txt
+    │       ├── promotional_text.txt
+    │       ├── description.txt
+    │       ├── keywords.txt
+    │       └── release_notes.txt
     └── android/<locale>/
         ├── title.txt
         ├── short_description.txt
@@ -239,6 +243,38 @@ rejects the build.
 Connect, not the live listing, which stays unchanged until that version is
 submitted and approved. Screenshots upload only when `push_screenshots` is
 ticked at workflow dispatch.
+
+**Categories and age rating (verified 2026-10-11).** App Store Connect currently
+shows Games as the primary category, with Board and Casual as its two
+subcategories; the secondary category is unset. Keep that live selection in
+the root metadata files using Apple's canonical identifiers `GAMES`,
+`GAMES_BOARD`, and `GAMES_CASUAL`, respectively.
+Board fits Sudoku's traditional grid, and Casual fits its self-paced puzzle
+play. fastlane 2.240.1 reads `primary_category.txt`,
+`primary_first_sub_category.txt`, and `primary_second_sub_category.txt` in
+[upload_metadata.rb](https://github.com/fastlane/fastlane/blob/2.240.1/deliver/lib/deliver/upload_metadata.rb);
+Spaceship passes the canonical identifiers through unchanged in
+[app_category.rb](https://github.com/fastlane/fastlane/blob/2.240.1/spaceship/lib/spaceship/connect_api/models/app_category.rb).
+There is no `secondary_category.txt` because the live secondary category is
+unset. App Store Tags are generated automatically and reviewed in App Store
+Connect. Casual, Puzzle, and Sudoku remain accurate and are retained; tags can
+be deselected there and have no repository metadata.
+
+The age-rating questionnaire was reviewed in App Store Connect on the same
+date. All feature answers are No and in-app content is None. The calculated
+rating is 4+, the age-rating override is Not Applicable, and the URL field is
+empty. Storefront ratings are 4+ in 172 regions, with the displayed regional
+exceptions Brazil: General Audiences, Korea: ALL, and Vietnam: 00+; devices
+running operating systems earlier than version 26 show global 4+ with regional
+exceptions. The competition answer remains None: Rival uses the same Sudoku
+game and records a timeline, which is not an organized contest. This records
+the current product interpretation. Apple's rating criteria are documented in
+the [age-rating reference](https://developer.apple.com/help/app-store-connect/reference/app-information/age-ratings-values-and-definitions/).
+
+fastlane 2.240.1 can load age-rating settings from a JSON file passed through
+`app_rating_config_path`; it does not define a set of age-rating `.txt`
+metadata files. No age-rating JSON is committed here, so these verified
+questionnaire settings remain managed in App Store Connect.
 
 ## Screenshot pipeline (manual, committed to the repo)
 
