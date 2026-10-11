@@ -1,13 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 const StaticStyles = {
-    glyph: {
-        alignItems: 'center',
-        borderRadius: 10,
-        height: 32,
-        justifyContent: 'center',
-        width: 32
-    },
     header: {
         alignItems: 'center',
         flexDirection: 'row',
@@ -23,6 +16,14 @@ const StaticStyles = {
 
 export const HomeScreenIntentSpotlightStyles = StyleSheet.create(theme => ({
     ...StaticStyles,
+    glyph: {
+        alignItems: 'center',
+        backgroundColor: theme.colors.accent,
+        borderRadius: 10,
+        height: 32,
+        justifyContent: 'center',
+        width: 32
+    },
     body: {
         color: theme.colors.text.hint,
         fontSize: 13,
@@ -65,10 +66,6 @@ export const HomeScreenIntentSpotlightStyles = StyleSheet.create(theme => ({
             cursor: 'pointer',
             _hover: { backgroundColor: theme.colors.surface.group }
         }
-    },
-    glyph: {
-        ...StaticStyles.glyph,
-        backgroundColor: theme.colors.accent
     },
     link: {
         alignItems: 'center',

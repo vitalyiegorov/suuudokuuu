@@ -11,6 +11,14 @@ import { RelaxedMaxMistakesConstant } from '../../../settings/constant/max-mista
 import { settingsAtom } from '../../../settings/query/use-settings.query';
 import { StoreIntentEnum } from '../../enum/store-intent.enum';
 
+import type { SettingsType } from '@suuudokuuu/progress';
+
+const IntentPresets: Record<StoreIntentEnum, Pick<SettingsType, 'lastGameDifficulty' | 'lastGameMaxMistakes'>> = {
+    [StoreIntentEnum.EXPERT]: { lastGameDifficulty: DifficultyEnum.Nightmare, lastGameMaxMistakes: 3 },
+    [StoreIntentEnum.QUIET]: { lastGameDifficulty: DifficultyEnum.Easy, lastGameMaxMistakes: RelaxedMaxMistakesConstant },
+    [StoreIntentEnum.TECHNIQUES]: { lastGameDifficulty: DifficultyEnum.Hard, lastGameMaxMistakes: 3 }
+};
+
 interface Props {
     readonly intent: StoreIntentEnum;
 }
@@ -21,13 +29,10 @@ export const StoreIntentScreen = ({ intent }: Props) => {
 
     useEffect(() => {
         const intentVisit = navigation.getState()?.routes.at(-1)?.key;
-        const isQuiet = intent === StoreIntentEnum.QUIET;
-        const difficulty = intent === StoreIntentEnum.EXPERT ? DifficultyEnum.Nightmare : DifficultyEnum.Hard;
         const presetFiber = appRuntime.runFork(
             Effect.flatMap(SettingsRepository, settingsRepository =>
                 settingsRepository.update({
-                    lastGameDifficulty: isQuiet ? DifficultyEnum.Easy : difficulty,
-                    lastGameMaxMistakes: isQuiet ? RelaxedMaxMistakesConstant : 3,
+                    ...IntentPresets[intent],
                     lastGameChallengeMode: false
                 })
             ).pipe(

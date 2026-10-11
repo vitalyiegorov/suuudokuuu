@@ -123,10 +123,7 @@ export const HomeScreen = () => {
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
     const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
     const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top);
-    const contentStackStyles = hasStoreIntent ? styles.intentContentStack : styles.contentStack;
-    const intentSpotlight = hasStoreIntent ? (
-        <HomeScreenIntentSpotlight difficultyLabel={selectedDifficultyLabel} intent={intent} mistakesTitle={selectedMistakesOption.title} />
-    ) : null;
+    const contentStackStyles = hasStoreIntent ? [styles.contentStack, styles.intentContentStack] : styles.contentStack;
     const playActions = (
         <HomeScreenPlayActions
             difficulty={difficulty}
@@ -144,6 +141,16 @@ export const HomeScreen = () => {
             ) : null}
         </HomeScreenPlayActions>
     );
+    const intentIntroduction = hasStoreIntent ? (
+        <>
+            <HomeScreenIntentSpotlight
+                difficultyLabel={selectedDifficultyLabel}
+                intent={intent}
+                mistakesTitle={selectedMistakesOption.title}
+            />
+            {playActions}
+        </>
+    ) : null;
     const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
         const isSelected = option.maxMistakes === maxMistakes;
         const optionColors = homeScreenOptionCardGetColors(theme, isSelected);
@@ -191,8 +198,7 @@ export const HomeScreen = () => {
                     </View>
 
                     <View style={styles.setupSection}>
-                        {intentSpotlight}
-                        {hasStoreIntent ? playActions : null}
+                        {intentIntroduction}
 
                         <HomeScreenSectionHeader>
                             <ChallengeModeSwitch />
@@ -213,21 +219,22 @@ export const HomeScreen = () => {
                         </View>
 
                         {hasStoreIntent ? null : (
-                            <DifficultyComplexityPreview
-                                isChallengeMode={isChallengeMode}
-                                maxMistakes={maxMistakes}
-                                selectedDifficultyDescription={selectedDifficultyDescription}
-                                selectedDifficultyLabel={selectedDifficultyLabel}
-                                selectedIndex={selectedDifficultyIndex}
-                            >
-                                <DifficultyComplexityPreviewMistakes
-                                    description={selectedMistakesOption.description}
-                                    label={selectedMistakesOption.title}
-                                />
-                            </DifficultyComplexityPreview>
+                            <>
+                                <DifficultyComplexityPreview
+                                    isChallengeMode={isChallengeMode}
+                                    maxMistakes={maxMistakes}
+                                    selectedDifficultyDescription={selectedDifficultyDescription}
+                                    selectedDifficultyLabel={selectedDifficultyLabel}
+                                    selectedIndex={selectedDifficultyIndex}
+                                >
+                                    <DifficultyComplexityPreviewMistakes
+                                        description={selectedMistakesOption.description}
+                                        label={selectedMistakesOption.title}
+                                    />
+                                </DifficultyComplexityPreview>
+                                {playActions}
+                            </>
                         )}
-
-                        {hasStoreIntent ? null : playActions}
                     </View>
                 </View>
             </ScreenChromeScrollView>
