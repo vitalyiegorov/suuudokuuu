@@ -35,7 +35,7 @@ jobs:
               uses: actions/setup-node@v7
               with:
                   node-version: 22.x
-                  cache: pnpm
+                  package-manager-cache: false
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile

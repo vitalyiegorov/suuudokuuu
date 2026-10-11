@@ -34,7 +34,7 @@ jobs:
               uses: actions/setup-node@v7
               with:
                   node-version: 22.x
-                  cache: pnpm
+                  package-manager-cache: false
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
@@ -44,21 +44,6 @@ jobs:
 
             - name: Build landing export
               run: pnpm turbo run build --filter=@suuudokuuu/landing
-
-            - name: Resolve Playwright version
-              id: playwright-version
-              shell: bash
-              run: |
-                  set -euo pipefail
-                  version=$(pnpm --filter @suuudokuuu/web-tests exec node -p "require('@playwright/test/package.json').version")
-                  echo "Playwright version: $version"
-                  echo "version=$version" >> "$GITHUB_OUTPUT"
-
-            - name: Cache Playwright browsers
-              uses: actions/cache@v6
-              with:
-                  path: ~/.cache/ms-playwright
-                  key: playwright-${{ runner.os }}-${{ runner.arch }}-${{ steps.playwright-version.outputs.version }}
 
             - name: Install Playwright browsers
               run: pnpm --filter @suuudokuuu/web-tests exec playwright install --with-deps chromium webkit
