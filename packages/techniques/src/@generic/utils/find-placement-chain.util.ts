@@ -1,4 +1,4 @@
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { CandidateContext } from '../classes/candidate-context/candidate-context';
 import {
@@ -7,6 +7,7 @@ import {
     PLACEMENT_CHAIN_SCAN_COSTS,
     PLACEMENT_CHAIN_WORK_BUDGET
 } from '../constants/placement-chain.constant';
+import { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
 
 import { applyTechniqueStep } from './apply-technique-step.util';
 import { createTechniqueStrategies } from './create-technique-strategies.util';
@@ -95,15 +96,10 @@ const pruneChain = (
     return keptSteps;
 };
 
-export const findPlacementChain = (
-    sudoku: Sudoku,
-    unbudgetedStrategies = createTechniqueStrategies(),
-    previousEliminations: CandidateEliminationInterface[] = [],
-    includeFirstStepOnExhaustion = false
-): TechniqueResultInterface[] => {
+const createBudgetedStrategies = (unbudgetedStrategies: TechniqueStrategyInterface[]): TechniqueStrategyInterface[] => {
     let spentWork = 0;
 
-    const strategies = unbudgetedStrategies.map((strategy): TechniqueStrategyInterface => ({
+    return unbudgetedStrategies.map(strategy => ({
         technique: strategy.technique,
         find: (context, target) => {
             if (spentWork >= PLACEMENT_CHAIN_WORK_BUDGET) {
@@ -115,14 +111,73 @@ export const findPlacementChain = (
             return strategy.find(context, target);
         }
     }));
+};
+
+const singleTechniques = new Set([SolutionTechniqueEnum.FullHouse, SolutionTechniqueEnum.NakedSingle, SolutionTechniqueEnum.HiddenSingle]);
+
+const getResultRoute = (
+    singleStrategies: TechniqueStrategyInterface[],
+    context: CandidateContext,
+    result: TechniqueResultInterface
+): TechniqueResultInterface[] => {
+    if (!isProgressingResult(context, result)) {
+        return [];
+    }
+
+    if (result.kind !== 'elimination') {
+        return [result];
+    }
+
+    const enabledPlacement = findProgressingStep(applyTechniqueStep(context, result), singleStrategies);
+
+    return isDefined(enabledPlacement) ? [result, enabledPlacement] : [];
+};
+
+const findShortPlacementRoute = (strategies: TechniqueStrategyInterface[], context: CandidateContext): TechniqueResultInterface[] => {
+    const singleStrategies = strategies.filter(strategy => singleTechniques.has(strategy.technique));
+
+    for (const strategy of strategies) {
+        for (const result of strategy.find(context)) {
+            const route = getResultRoute(singleStrategies, context, result);
+
+            if (isNotEmptyArray(route)) {
+                return route;
+            }
+        }
+    }
+
+    return [];
+};
+
+const getExhaustedChain = (
+    unbudgetedStrategies: TechniqueStrategyInterface[],
+    startContext: CandidateContext,
+    steps: TechniqueResultInterface[],
+    includeFirstStepOnExhaustion: boolean
+): TechniqueResultInterface[] => {
+    const shortRoute = isNotEmptyArray(steps) ? findShortPlacementRoute(createBudgetedStrategies(unbudgetedStrategies), startContext) : [];
+
+    if (isNotEmptyArray(shortRoute)) {
+        return shortRoute;
+    }
+
+    return includeFirstStepOnExhaustion ? steps.slice(0, 1) : [];
+};
+
+export const findPlacementChain = (
+    sudoku: Sudoku,
+    unbudgetedStrategies = createTechniqueStrategies(),
+    previousEliminations: CandidateEliminationInterface[] = [],
+    includeFirstStepOnExhaustion = false
+): TechniqueResultInterface[] => {
+    const strategies = createBudgetedStrategies(unbudgetedStrategies);
     const steps: TechniqueResultInterface[] = [];
     const contexts: CandidateContext[] = [];
 
-    let context = CandidateContext.fromSudoku(sudoku);
+    const sudokuContext = CandidateContext.fromSudoku(sudoku);
+    const startContext = previousEliminations.length > 0 ? sudokuContext.withEliminations(previousEliminations) : sudokuContext;
 
-    if (previousEliminations.length > 0) {
-        context = context.withEliminations(previousEliminations);
-    }
+    let context = startContext;
     let step = findProgressingStep(context, strategies);
 
     while (isDefined(step)) {
@@ -134,12 +189,12 @@ export const findPlacementChain = (
         }
 
         if (steps.length >= PLACEMENT_CHAIN_MAX_STEPS) {
-            return includeFirstStepOnExhaustion ? steps.slice(0, 1) : [];
+            return getExhaustedChain(unbudgetedStrategies, startContext, steps, includeFirstStepOnExhaustion);
         }
 
         context = applyTechniqueStep(context, step);
         step = findProgressingStep(context, strategies);
     }
 
-    return includeFirstStepOnExhaustion ? steps.slice(0, 1) : [];
+    return getExhaustedChain(unbudgetedStrategies, startContext, steps, includeFirstStepOnExhaustion);
 };

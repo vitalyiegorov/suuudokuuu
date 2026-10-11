@@ -104,9 +104,12 @@ pnpm --filter @suuudokuuu/web-tests lint
   placement `1` at `y=5, x=8`, with more than nine slides. `09.hint-flow.spec.ts` walks it to prove the
   witness overlay draws branch and outcome slides without changing the board until Apply.
 - `nishioRunHintSharedPuzzleEncodedConstant`: a Hardcore (`maxMistakes: 0`) `Puzzle`-kind share of a
-  player-reported board. Its first hints are capped eliminations; the fifth is the three-slide Nishio
-  card `So r4c3 is not 4.` `09.hint-flow.spec.ts` presses Continue and Reveal on the first slide of each
-  card, because gating them to the last slide left the player stuck with a hidden numpad.
+  player-reported board whose first digit needs a forcing chain. Its first hint is the five-slide Nishio
+  route to `9` at `y=2, x=0`; before the goal-directed fallback it showed capped pointing-pair
+  eliminations. `09.hint-flow.spec.ts` applies it.
+- `09.hint-flow.spec.ts` presses Continue and Reveal on the first slide of a Nishio elimination card on
+  `revealHintSharedPuzzleEncodedConstant` after its reveal is applied (the card `So r6c3 is not 6.`),
+  because gating them to the last slide left the player stuck with a hidden numpad.
 
 - `15.daily-challenge.spec.ts` needs no fixture. It pins the clock with `page.clock.setFixedTime` and
   solves the deterministic board that `forgeDailyPuzzle(dateString)` from `@suuudokuuu/puzzle-forge` (a
