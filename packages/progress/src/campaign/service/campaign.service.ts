@@ -4,28 +4,10 @@ import * as Layer from 'effect/Layer';
 import * as SqlClient from 'effect/sql/SqlClient';
 
 import { campaignLessons } from '../constant/campaign-lessons.constant';
-import { requiredUnassistedPracticeCount } from '../constant/required-unassisted-practice-count.constant';
 import { CampaignRepository } from '../repository/campaign.repository';
+import { getUnlockedCampaignTechniques } from '../utils/get-unlocked-campaign-techniques.util';
 
-import type { CampaignProgressSchema } from '../schema/campaign-progress.schema';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
-
-const getUnlockedTechniques = (progress: readonly (typeof CampaignProgressSchema.Type)[]) => {
-    const unlockedTechniques: SolutionTechniqueEnum[] = [];
-
-    for (const lesson of campaignLessons) {
-        unlockedTechniques.push(lesson.technique);
-
-        const completedPractices = progress.find(row => row.technique === lesson.technique)?.unassistedPracticeIds ?? [];
-        const verifiedCompletions = lesson.practices.filter(practice => completedPractices.includes(practice.id));
-
-        if (verifiedCompletions.length < requiredUnassistedPracticeCount) {
-            break;
-        }
-    }
-
-    return unlockedTechniques;
-};
 
 export class CampaignService extends Context.Service<CampaignService>()('@suuudokuuu/progress/CampaignService', {
     make: Effect.gen(function* () {
@@ -33,8 +15,29 @@ export class CampaignService extends Context.Service<CampaignService>()('@suuudo
         const campaignRepository = yield* CampaignRepository;
 
         return {
-            recordSeen: (technique: SolutionTechniqueEnum) => campaignRepository.updateMastery(technique, 1, 0),
-            getUnlockedTechniques: campaignRepository.getProgress.pipe(Effect.map(getUnlockedTechniques)),
+            observeLesson: Effect.fn('CampaignService.observeLesson')(
+                function* (technique: SolutionTechniqueEnum) {
+                    const progress = yield* campaignRepository.getProgress;
+                    const previous = progress.find(row => row.technique === technique);
+
+                    if (previous?.teachingSeen || !getUnlockedCampaignTechniques(progress).includes(technique)) {
+                        return false;
+                    }
+
+                    yield* campaignRepository.saveProgress({
+                        technique,
+                        teachingSeen: true,
+                        completedPracticeIds: previous?.completedPracticeIds ?? [],
+                        unassistedPracticeIds: previous?.unassistedPracticeIds ?? []
+                    });
+                    yield* campaignRepository.updateMastery(technique, 1, 0);
+
+                    return true;
+                },
+                effect => sql.withTransaction(effect),
+                Effect.orDie
+            ),
+            getUnlockedTechniques: campaignRepository.getProgress.pipe(Effect.map(getUnlockedCampaignTechniques)),
             completePractice: Effect.fn('CampaignService.completePractice')(
                 function* (technique: SolutionTechniqueEnum, practiceId: string, assisted: boolean) {
                     const lesson = campaignLessons.find(entry => entry.technique === technique);
@@ -42,7 +45,7 @@ export class CampaignService extends Context.Service<CampaignService>()('@suuudo
 
                     if (
                         !lesson?.practices.some(practice => practice.id === practiceId) ||
-                        !getUnlockedTechniques(progress).includes(technique)
+                        !getUnlockedCampaignTechniques(progress).includes(technique)
                     ) {
                         return false;
                     }
@@ -54,11 +57,12 @@ export class CampaignService extends Context.Service<CampaignService>()('@suuudo
                     const isNewUnassistedCompletion = !assisted && !unassistedPracticeIds.includes(practiceId);
 
                     if (!isNewCompletion && !isNewUnassistedCompletion) {
-                        return false;
+                        return true;
                     }
 
                     yield* campaignRepository.saveProgress({
                         technique,
+                        teachingSeen: previous?.teachingSeen ?? false,
                         completedPracticeIds: isNewCompletion ? [...completedPracticeIds, practiceId] : completedPracticeIds,
                         unassistedPracticeIds: isNewUnassistedCompletion ? [...unassistedPracticeIds, practiceId] : unassistedPracticeIds
                     });

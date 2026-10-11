@@ -87,10 +87,6 @@ msgstr "{remaining, plural, other {填入 {value}，还剩 # 个}}"
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, other {标记 {value}，还剩 # 个}}"
 
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "{requiredUnassistedPracticeCount, plural, one {Learn one deduction at a time. Solve # practice without help to unlock the next lesson.} other {Learn one deduction at a time. Solve # practices without help to unlock the next lesson.}}"
-msgstr "{requiredUnassistedPracticeCount, plural, one {每次学习一种推理。独立完成 # 个练习即可解锁下一课。} other {每次学习一种推理。独立完成 # 个练习即可解锁下一课。}}"
-
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
 msgstr "{score, plural, other {# 分}}"
@@ -315,10 +311,6 @@ msgstr "再次尝试加载最新开发版本"
 msgid "Average"
 msgstr "平均"
 
-#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
-msgid "Average solve time: {averageTime}"
-msgstr "平均解题时间：{averageTime}"
-
 #: src/history/components/history-solver-profile/history-solver-profile.tsx
 msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
 msgstr "近期均值 {averageRecentSeText} · 最常玩 {mostPlayedDifficultyText}"
@@ -418,6 +410,11 @@ msgstr "构建于："
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Calm play"
 msgstr "平静游戏"
+
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Campaign progress could not be loaded."
+msgstr "无法加载闯关进度。"
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
@@ -566,6 +563,10 @@ msgstr "已完成"
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
 msgstr "已完成的游戏可在这里回放。"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Completed practices: {completedCount}/{practiceCount}"
+msgstr "已完成的练习：{completedCount}/{practiceCount}"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Completion animations"
@@ -776,6 +777,14 @@ msgstr "已填单元格"
 msgid "Final score"
 msgstr "最终分数"
 
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Find a candidate this technique can remove. Select its cell, then choose the digit to remove."
+msgstr "找出可以用此技巧排除的候选数。选择它所在的格子，再选择要排除的数字。"
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Find a cell this technique can fill. Select it, then choose the digit it proves."
+msgstr "找出可以用此技巧填入数字的格子。选择它，再选择此技巧证明的数字。"
+
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "完成一局数独后会显示在这里。"
@@ -974,6 +983,10 @@ msgstr "如果 {path} → {value} 在加框的单元格中已无位置。所以 
 msgid "Immortal"
 msgstr "不朽"
 
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "In progress"
+msgstr "进行中"
+
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "未完成"
@@ -1052,6 +1065,10 @@ msgstr "大"
 msgid "Larger digits for easier reading"
 msgstr "更大的数字，更易阅读"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Learn one deduction at a time. Solve every practice in a lesson without help to unlock the next lesson."
+msgstr "一次学习一个推理。独立完成一课中的所有练习，即可解锁下一课。"
+
 #: src/campaign/components/campaign-entry/campaign-entry.tsx
 msgid "Learn techniques"
 msgstr "学习技巧"
@@ -1101,6 +1118,10 @@ msgstr "低对比度"
 msgid "m"
 msgstr "m"
 
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Mastered"
+msgstr "已掌握"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "跟随设备的“减弱动态效果”设置"
@@ -1140,10 +1161,6 @@ msgstr "最低分"
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Mistakes"
 msgstr "错误"
-
-#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
-msgid "Mistakes per game: {averageMistakes}"
-msgstr "每局错误数：{averageMistakes}"
 
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
@@ -1202,7 +1219,7 @@ msgstr "新手"
 msgid "Newspaper"
 msgstr "报纸"
 
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
 msgid "Next"
 msgstr "下一步"
 
@@ -1461,13 +1478,17 @@ msgstr "练习 {number}"
 msgid "Practice {number} · Complete"
 msgstr "练习 {number} · 已完成"
 
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Practice complete with assistance. Retry without mistakes to master it."
+msgstr "已在帮助下完成练习。请无错误地重试以掌握它。"
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
 msgid "Practice complete without help."
 msgstr "已独立完成练习。"
 
-#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Practices: {practiceCount}/{requiredUnassistedPracticeCount}"
-msgstr "练习: {practiceCount}/{requiredUnassistedPracticeCount}"
+#: src/campaign/hooks/use-campaign-practice.hook.ts
+msgid "Practice progress could not be saved. Try again."
+msgstr "无法保存练习进度。请重试。"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
@@ -1518,10 +1539,6 @@ msgstr "凸起表面文字"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "阅读 Suuudokuuu 隐私政策，了解数据收集、存储以及你的权利。"
-
-#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
-msgid "Recent completed games"
-msgstr "近期完成的对局"
 
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
@@ -1583,6 +1600,10 @@ msgstr "继续这局游戏？"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "重新加载开发版本"
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Retry practice"
+msgstr "重试练习"
 
 #: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
@@ -1774,7 +1795,7 @@ msgstr "游戏时显示已用时间"
 msgid "Show matching notes for the selected cell"
 msgstr "显示所选单元格的匹配笔记"
 
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
 msgid "Show teaching example"
 msgstr "显示教学示例"
 
@@ -1961,6 +1982,10 @@ msgstr "标记越高，技巧越精妙"
 msgid "Teaching example"
 msgstr "教学示例"
 
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+msgid "Teaching progress could not be saved."
+msgstr "无法保存学习进度。"
+
 #: src/campaign/components/campaign-screen/campaign-screen.tsx
 msgid "Technique campaign"
 msgstr "技巧学习之旅"
@@ -1985,9 +2010,9 @@ msgstr "已填充数字键盘进度条上的文字"
 msgid "Text on ink"
 msgstr "墨色上的文字"
 
-#: src/campaign/hooks/use-campaign-attempt.hook.ts
-msgid "That deduction does not match this technique. Try another digit."
-msgstr "这个推理与该技巧不符。请尝试其他数字。"
+#: src/campaign/hooks/use-campaign-practice.hook.ts
+msgid "That deduction does not match this technique. This attempt counts as assisted. Retry for an unassisted completion."
+msgstr "该推理不符合此技巧。本次尝试计为借助帮助完成。请重试以独立完成。"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
@@ -2002,8 +2027,8 @@ msgid "The SE difficulty scale"
 msgstr "SE 难度量表"
 
 #: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
-msgid "The teaching example explains the technique. Each practice uses a different board and keeps the answer hidden."
-msgstr "教学示例会讲解该技巧。每道练习都使用不同的棋盘，且答案会保持隐藏。"
+msgid "The teaching example explains the technique. Practices transform the teaching board and change its digits while keeping the answer hidden."
+msgstr "教学示例解释该技巧。练习会变换教学棋盘并更改数字，同时隐藏答案。"
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
@@ -2028,8 +2053,9 @@ msgstr "主题名称"
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "这次未能完成棋盘。乌克兰争取自由的战斗仍在继续。每 1 美元捐款都有意义。"
 
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
-#: src/campaign/hooks/use-campaign-attempt.hook.ts
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+#: src/campaign/hooks/use-campaign-practice.hook.ts
 msgid "This lesson is unavailable."
 msgstr "此课程暂不可用。"
 
@@ -2117,6 +2143,10 @@ msgstr "无法打开链接"
 msgid "Unable to start installation"
 msgstr "无法开始安装"
 
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Unassisted practices: {unassistedCount}/{practiceCount}"
+msgstr "独立完成的练习：{unassistedCount}/{practiceCount}"
+
 #: src/game/components/undo-button/undo-button.tsx
 msgid "Undo"
 msgstr "撤销"
@@ -2189,14 +2219,6 @@ msgstr "使用西班牙语显示应用文字"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Swedish for app text"
 msgstr "使用瑞典语显示应用文字"
-
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
-msgid "Use this technique to fill the selected cell. Choose the digit it proves."
-msgstr "用这种技巧填写所选单元格。选择它能推导出的数字。"
-
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
-msgid "Use this technique to remove one candidate from the selected cell. Choose the digit to remove."
-msgstr "用这种技巧从所选单元格中排除一个候选数字。选择要排除的数字。"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Ukrainian for app text"

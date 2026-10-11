@@ -89,10 +89,6 @@ msgstr "{remaining, plural, one {Ввести {value}, залишилася # к
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {Позначити {value}, залишилася # клітинка} few {Позначити {value}, залишилося # клітинки} many {Позначити {value}, залишилося # клітинок} other {Позначити {value}, залишилося # клітинки}}"
 
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "{requiredUnassistedPracticeCount, plural, one {Learn one deduction at a time. Solve # practice without help to unlock the next lesson.} other {Learn one deduction at a time. Solve # practices without help to unlock the next lesson.}}"
-msgstr "{requiredUnassistedPracticeCount, plural, one {Вивчайте один висновок за раз. Розв’яжіть # вправу без допомоги, щоб відкрити наступний урок.} few {Вивчайте один висновок за раз. Розв’яжіть # вправи без допомоги, щоб відкрити наступний урок.} many {Вивчайте один висновок за раз. Розв’яжіть # вправ без допомоги, щоб відкрити наступний урок.} other {Вивчайте один висновок за раз. Розв’яжіть # вправ без допомоги, щоб відкрити наступний урок.}}"
-
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
 msgstr "{score, plural, one {# бал} few {# бали} many {# балів} other {# бала}}"
@@ -317,10 +313,6 @@ msgstr "Намагається знову завантажити найнові�
 msgid "Average"
 msgstr "Середнє"
 
-#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
-msgid "Average solve time: {averageTime}"
-msgstr "Середній час розв’язання: {averageTime}"
-
 #: src/history/components/history-solver-profile/history-solver-profile.tsx
 msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
 msgstr "Сер. останні {averageRecentSeText} · Найчастіше {mostPlayedDifficultyText}"
@@ -420,6 +412,11 @@ msgstr "Зібрано:"
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Calm play"
 msgstr "Спокійна гра"
+
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Campaign progress could not be loaded."
+msgstr "Не вдалося завантажити прогрес кампанії."
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
@@ -568,6 +565,10 @@ msgstr "Завершено"
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
 msgstr "Завершені ігри будуть доступні для повтору."
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Completed practices: {completedCount}/{practiceCount}"
+msgstr "Завершені вправи: {completedCount}/{practiceCount}"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Completion animations"
@@ -778,6 +779,14 @@ msgstr "Заповнена клітинка"
 msgid "Final score"
 msgstr "Підсумкові бали"
 
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Find a candidate this technique can remove. Select its cell, then choose the digit to remove."
+msgstr "Знайдіть кандидата, якого можна усунути цією технікою. Виберіть його клітинку, а потім цифру для усунення."
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Find a cell this technique can fill. Select it, then choose the digit it proves."
+msgstr "Знайдіть клітинку, яку можна заповнити цією технікою. Виберіть її, а потім цифру, яку доводить техніка."
+
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "Завершіть судоку, і воно з’явиться тут."
@@ -976,6 +985,10 @@ msgstr "Якщо {path} → для {value} не залишається місц�
 msgid "Immortal"
 msgstr "Безсмертний"
 
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "In progress"
+msgstr "У процесі"
+
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "Незавершено"
@@ -1054,6 +1067,10 @@ msgstr "Великий"
 msgid "Larger digits for easier reading"
 msgstr "Більші цифри для легшого читання"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Learn one deduction at a time. Solve every practice in a lesson without help to unlock the next lesson."
+msgstr "Вивчайте по одному висновку за раз. Розв’яжіть усі вправи уроку без допомоги, щоб відкрити наступний урок."
+
 #: src/campaign/components/campaign-entry/campaign-entry.tsx
 msgid "Learn techniques"
 msgstr "Вивчай техніки"
@@ -1103,6 +1120,10 @@ msgstr "Низька контрастність"
 msgid "m"
 msgstr "m"
 
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Mastered"
+msgstr "Опановано"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "Відповідати системному налаштуванню зменшення руху"
@@ -1142,10 +1163,6 @@ msgstr "Мінімальні бали"
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Mistakes"
 msgstr "Помилки"
-
-#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
-msgid "Mistakes per game: {averageMistakes}"
-msgstr "Помилок за гру: {averageMistakes}"
 
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
@@ -1204,7 +1221,7 @@ msgstr "Новачок"
 msgid "Newspaper"
 msgstr "Газета"
 
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
 msgid "Next"
 msgstr "Далі"
 
@@ -1463,13 +1480,17 @@ msgstr "Вправа {number}"
 msgid "Practice {number} · Complete"
 msgstr "Вправа {number} · Завершено"
 
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Practice complete with assistance. Retry without mistakes to master it."
+msgstr "Вправу завершено з допомогою. Повторіть без помилок, щоб опанувати її."
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
 msgid "Practice complete without help."
 msgstr "Вправу завершено без підказок."
 
-#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Practices: {practiceCount}/{requiredUnassistedPracticeCount}"
-msgstr "Вправи: {practiceCount}/{requiredUnassistedPracticeCount}"
+#: src/campaign/hooks/use-campaign-practice.hook.ts
+msgid "Practice progress could not be saved. Try again."
+msgstr "Не вдалося зберегти прогрес вправи. Спробуйте ще раз."
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
@@ -1520,10 +1541,6 @@ msgstr "Текст піднятої поверхні"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Ознайомтеся з політикою конфіденційності Suuudokuuu: збір і зберігання даних та ваші права."
-
-#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
-msgid "Recent completed games"
-msgstr "Нещодавно завершені ігри"
 
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
@@ -1585,6 +1602,10 @@ msgstr "Продовжити цю гру?"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "Повторити завантаження збірки для розробки"
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Retry practice"
+msgstr "Повторити вправу"
 
 #: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
@@ -1776,7 +1797,7 @@ msgstr "Показувати час гри під час проходження"
 msgid "Show matching notes for the selected cell"
 msgstr "Показувати відповідні нотатки для вибраної клітинки"
 
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
 msgid "Show teaching example"
 msgstr "Показати навчальний приклад"
 
@@ -1963,6 +1984,10 @@ msgstr "Вищі позначки = складніші техніки"
 msgid "Teaching example"
 msgstr "Навчальний приклад"
 
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+msgid "Teaching progress could not be saved."
+msgstr "Не вдалося зберегти прогрес навчання."
+
 #: src/campaign/components/campaign-screen/campaign-screen.tsx
 msgid "Technique campaign"
 msgstr "Курс технік"
@@ -1987,9 +2012,9 @@ msgstr "Текст на заповненій смузі панелі цифр"
 msgid "Text on ink"
 msgstr "Текст на чорнилі"
 
-#: src/campaign/hooks/use-campaign-attempt.hook.ts
-msgid "That deduction does not match this technique. Try another digit."
-msgstr "Цей висновок не відповідає цій техніці. Спробуй іншу цифру."
+#: src/campaign/hooks/use-campaign-practice.hook.ts
+msgid "That deduction does not match this technique. This attempt counts as assisted. Retry for an unassisted completion."
+msgstr "Цей висновок не відповідає цій техніці. Ця спроба зараховується як виконана з допомогою. Повторіть, щоб завершити без допомоги."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
@@ -2004,8 +2029,8 @@ msgid "The SE difficulty scale"
 msgstr "Шкала складності SE"
 
 #: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
-msgid "The teaching example explains the technique. Each practice uses a different board and keeps the answer hidden."
-msgstr "Навчальний приклад пояснює техніку. У кожній вправі інша дошка, а відповідь прихована."
+msgid "The teaching example explains the technique. Practices transform the teaching board and change its digits while keeping the answer hidden."
+msgstr "Навчальний приклад пояснює техніку. Вправи перетворюють навчальне поле та змінюють його цифри, залишаючи відповідь прихованою."
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
@@ -2030,8 +2055,9 @@ msgstr "Назва теми"
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Цю дошку цього разу не завершено. Боротьба за свободу в Україні триває. Кожен донат у 1 $ має значення."
 
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
-#: src/campaign/hooks/use-campaign-attempt.hook.ts
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+#: src/campaign/hooks/use-campaign-practice.hook.ts
 msgid "This lesson is unavailable."
 msgstr "Цей урок недоступний."
 
@@ -2119,6 +2145,10 @@ msgstr "Не вдалося відкрити посилання"
 msgid "Unable to start installation"
 msgstr "Не вдалося почати інсталяцію"
 
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Unassisted practices: {unassistedCount}/{practiceCount}"
+msgstr "Вправи без допомоги: {unassistedCount}/{practiceCount}"
+
 #: src/game/components/undo-button/undo-button.tsx
 msgid "Undo"
 msgstr "Відмінити"
@@ -2191,14 +2221,6 @@ msgstr "Використовувати іспанську для тексту з
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Swedish for app text"
 msgstr "Використовувати шведську для тексту застосунку"
-
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
-msgid "Use this technique to fill the selected cell. Choose the digit it proves."
-msgstr "Заповни вибрану клітинку за допомогою цієї техніки. Вибери цифру, яку вона доводить."
-
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
-msgid "Use this technique to remove one candidate from the selected cell. Choose the digit to remove."
-msgstr "Скористайся цією технікою, щоб вилучити одного кандидата з вибраної клітинки. Вибери цифру для вилучення."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Ukrainian for app text"

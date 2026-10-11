@@ -89,10 +89,6 @@ msgstr "{remaining, plural, one {{value} eintragen, noch # zu setzen} other {{va
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {{value} notieren, noch # zu setzen} other {{value} notieren, noch # zu setzen}}"
 
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "{requiredUnassistedPracticeCount, plural, one {Learn one deduction at a time. Solve # practice without help to unlock the next lesson.} other {Learn one deduction at a time. Solve # practices without help to unlock the next lesson.}}"
-msgstr "{requiredUnassistedPracticeCount, plural, one {Lerne eine Schlussfolgerung nach der anderen. Löse # Übung ohne Hilfe, um die nächste Lektion freizuschalten.} other {Lerne eine Schlussfolgerung nach der anderen. Löse # Übungen ohne Hilfe, um die nächste Lektion freizuschalten.}}"
-
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
 msgstr "{score, plural, one {# Punkt} other {# Punkte}}"
@@ -317,10 +313,6 @@ msgstr "Versucht, den neuesten Entwicklungs-Build erneut zu laden"
 msgid "Average"
 msgstr "Durchschnitt"
 
-#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
-msgid "Average solve time: {averageTime}"
-msgstr "Durchschnittliche Lösungszeit: {averageTime}"
-
 #: src/history/components/history-solver-profile/history-solver-profile.tsx
 msgid "Avg recent {averageRecentSeText} · Most played {mostPlayedDifficultyText}"
 msgstr "Ø zuletzt {averageRecentSeText} · Meist gespielt {mostPlayedDifficultyText}"
@@ -420,6 +412,11 @@ msgstr "Erstellt:"
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Calm play"
 msgstr "Ruhiges Spiel"
+
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Campaign progress could not be loaded."
+msgstr "Der Kampagnenfortschritt konnte nicht geladen werden."
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
@@ -568,6 +565,10 @@ msgstr "Abgeschlossen"
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
 msgstr "Abgeschlossene Spiele stehen zur Wiederholung bereit."
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Completed practices: {completedCount}/{practiceCount}"
+msgstr "Abgeschlossene Übungen: {completedCount}/{practiceCount}"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Completion animations"
@@ -778,6 +779,14 @@ msgstr "Ausgefüllte Zelle"
 msgid "Final score"
 msgstr "Endpunktzahl"
 
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Find a candidate this technique can remove. Select its cell, then choose the digit to remove."
+msgstr "Finde einen Kandidaten, den diese Technik entfernen kann. Wähle seine Zelle und dann die zu entfernende Ziffer."
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Find a cell this technique can fill. Select it, then choose the digit it proves."
+msgstr "Finde eine Zelle, die diese Technik ausfüllen kann. Wähle sie und dann die Ziffer, die sich damit beweisen lässt."
+
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "Beende ein Sudoku, dann erscheint es hier."
@@ -976,6 +985,10 @@ msgstr "Wenn {path} → {value} hat keinen Platz mehr in den umrandeten Zellen. 
 msgid "Immortal"
 msgstr "Unsterblich"
 
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "In progress"
+msgstr "In Bearbeitung"
+
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "Unvollständig"
@@ -1054,6 +1067,10 @@ msgstr "Groß"
 msgid "Larger digits for easier reading"
 msgstr "Größere Zahlen für bessere Lesbarkeit"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Learn one deduction at a time. Solve every practice in a lesson without help to unlock the next lesson."
+msgstr "Lerne eine Schlussfolgerung nach der anderen. Löse jede Übung einer Lektion ohne Hilfe, um die nächste Lektion freizuschalten."
+
 #: src/campaign/components/campaign-entry/campaign-entry.tsx
 msgid "Learn techniques"
 msgstr "Techniken lernen"
@@ -1103,6 +1120,10 @@ msgstr "Geringer Kontrast"
 msgid "m"
 msgstr "m"
 
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Mastered"
+msgstr "Gemeistert"
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "Der Einstellung „Bewegung reduzieren“ deines Geräts folgen"
@@ -1142,10 +1163,6 @@ msgstr "Mindestpunktzahl"
 #: src/screens/components/pause-screen/pause-screen-stats/pause-screen-stats.tsx
 msgid "Mistakes"
 msgstr "Fehler"
-
-#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
-msgid "Mistakes per game: {averageMistakes}"
-msgstr "Fehler pro Spiel: {averageMistakes}"
 
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
@@ -1204,7 +1221,7 @@ msgstr "Anfänger"
 msgid "Newspaper"
 msgstr "Zeitung"
 
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
 msgid "Next"
 msgstr "Weiter"
 
@@ -1463,13 +1480,17 @@ msgstr "Übung {number}"
 msgid "Practice {number} · Complete"
 msgstr "Übung {number} · Abgeschlossen"
 
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Practice complete with assistance. Retry without mistakes to master it."
+msgstr "Übung mit Hilfe abgeschlossen. Versuche es ohne Fehler erneut, um sie zu meistern."
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
 msgid "Practice complete without help."
 msgstr "Übung ohne Hilfe abgeschlossen."
 
-#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Practices: {practiceCount}/{requiredUnassistedPracticeCount}"
-msgstr "Übungen: {practiceCount}/{requiredUnassistedPracticeCount}"
+#: src/campaign/hooks/use-campaign-practice.hook.ts
+msgid "Practice progress could not be saved. Try again."
+msgstr "Der Übungsfortschritt konnte nicht gespeichert werden. Versuche es erneut."
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
@@ -1520,10 +1541,6 @@ msgstr "Text der erhabenen Oberfläche"
 #: src/app/privacy-policy.tsx
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Lies die Datenschutzerklärung von Suuudokuuu zu Datenerfassung, Speicherung und deinen Rechten."
-
-#: src/campaign/components/campaign-statistics/campaign-statistics.tsx
-msgid "Recent completed games"
-msgstr "Zuletzt abgeschlossene Spiele"
 
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
@@ -1585,6 +1602,10 @@ msgstr "Dieses Spiel fortsetzen?"
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Retry loading development build"
 msgstr "Entwicklungs-Build erneut laden"
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Retry practice"
+msgstr "Übung wiederholen"
 
 #: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
@@ -1776,7 +1797,7 @@ msgstr "Verstrichene Zeit während des Spiels anzeigen"
 msgid "Show matching notes for the selected cell"
 msgstr "Passende Notizen für die ausgewählte Zelle anzeigen"
 
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
 msgid "Show teaching example"
 msgstr "Lernbeispiel anzeigen"
 
@@ -1963,6 +1984,10 @@ msgstr "Höhere Markierungen = raffiniertere Techniken"
 msgid "Teaching example"
 msgstr "Lernbeispiel"
 
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+msgid "Teaching progress could not be saved."
+msgstr "Der Lernfortschritt konnte nicht gespeichert werden."
+
 #: src/campaign/components/campaign-screen/campaign-screen.tsx
 msgid "Technique campaign"
 msgstr "Technik-Lernpfad"
@@ -1987,9 +2012,9 @@ msgstr "Text auf gefüllter Leiste der Zifferntastatur"
 msgid "Text on ink"
 msgstr "Text auf Tinte"
 
-#: src/campaign/hooks/use-campaign-attempt.hook.ts
-msgid "That deduction does not match this technique. Try another digit."
-msgstr "Diese Schlussfolgerung passt nicht zu dieser Technik. Probiere eine andere Ziffer."
+#: src/campaign/hooks/use-campaign-practice.hook.ts
+msgid "That deduction does not match this technique. This attempt counts as assisted. Retry for an unassisted completion."
+msgstr "Diese Schlussfolgerung passt nicht zu dieser Technik. Dieser Versuch zählt als unterstützt. Versuche es erneut, um ohne Hilfe abzuschließen."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
@@ -2004,8 +2029,8 @@ msgid "The SE difficulty scale"
 msgstr "Die SE-Schwierigkeitsskala"
 
 #: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
-msgid "The teaching example explains the technique. Each practice uses a different board and keeps the answer hidden."
-msgstr "Das Lernbeispiel erklärt die Technik. Jede Übung verwendet ein anderes Feld und hält die Lösung verborgen."
+msgid "The teaching example explains the technique. Practices transform the teaching board and change its digits while keeping the answer hidden."
+msgstr "Das Lernbeispiel erklärt die Technik. Die Übungen verändern das Beispielbrett und seine Ziffern, während die Antwort verborgen bleibt."
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
@@ -2030,8 +2055,9 @@ msgstr "Themenname"
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Dieses Feld hat diesmal nicht geklappt. Der Kampf für die Freiheit in der Ukraine geht weiter. Jeder 1-$-Beitrag macht einen Unterschied."
 
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
-#: src/campaign/hooks/use-campaign-attempt.hook.ts
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+#: src/campaign/hooks/use-campaign-practice.hook.ts
 msgid "This lesson is unavailable."
 msgstr "Diese Lektion ist nicht verfügbar."
 
@@ -2119,6 +2145,10 @@ msgstr "Link kann nicht geöffnet werden"
 msgid "Unable to start installation"
 msgstr "Installation kann nicht gestartet werden"
 
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Unassisted practices: {unassistedCount}/{practiceCount}"
+msgstr "Übungen ohne Hilfe: {unassistedCount}/{practiceCount}"
+
 #: src/game/components/undo-button/undo-button.tsx
 msgid "Undo"
 msgstr "Rückgängig"
@@ -2191,14 +2221,6 @@ msgstr "Spanisch als App-Sprache verwenden"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Swedish for app text"
 msgstr "Schwedisch als App-Sprache verwenden"
-
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
-msgid "Use this technique to fill the selected cell. Choose the digit it proves."
-msgstr "Fülle mit dieser Technik das ausgewählte Feld. Wähle die Ziffer, die sie beweist."
-
-#: src/campaign/components/campaign-attempt/campaign-attempt.tsx
-msgid "Use this technique to remove one candidate from the selected cell. Choose the digit to remove."
-msgstr "Entferne mit dieser Technik eine mögliche Ziffer aus dem ausgewählten Feld. Wähle die Ziffer aus, die entfernt werden soll."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Ukrainian for app text"

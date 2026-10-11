@@ -14,6 +14,20 @@ import { trackInvalidations } from '../track-invalidations.util';
 const [firstLesson, secondLesson] = campaignLessons;
 
 describe('CampaignService', () => {
+    it.effect('observes each teaching lesson only once', () =>
+        Effect.gen(function* () {
+            const campaignService = yield* CampaignService;
+            const campaignRepository = yield* CampaignRepository;
+
+            yield* campaignService.observeLesson(firstLesson.technique);
+            yield* campaignService.observeLesson(firstLesson.technique);
+
+            assert.deepStrictEqual(yield* campaignRepository.getMastery, [
+                { technique: firstLesson.technique, seenCount: 1, unassistedCount: 0 }
+            ]);
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
     it.effect('persists distinct practices once and unlocks the next lesson after two independent completions', () =>
         Effect.gen(function* () {
             const campaignService = yield* CampaignService;
@@ -23,8 +37,9 @@ describe('CampaignService', () => {
             assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique]);
             assert.isFalse(yield* campaignService.completePractice(secondLesson.technique, secondLesson.practices[0].id, false));
             assert.isFalse(yield* campaignService.completePractice(firstLesson.technique, 'unknown-practice', false));
+            assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique]);
             assert.isTrue(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, false));
-            assert.isFalse(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, false));
+            assert.isTrue(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, false));
             assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique]);
             assert.isTrue(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[1].id, false));
             assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique, secondLesson.technique]);
@@ -34,6 +49,7 @@ describe('CampaignService', () => {
             assert.deepStrictEqual(yield* campaignRepository.getProgress, [
                 {
                     technique: firstLesson.technique,
+                    teachingSeen: false,
                     completedPracticeIds: firstLesson.practices.map(practice => practice.id),
                     unassistedPracticeIds: firstLesson.practices.map(practice => practice.id)
                 }
@@ -48,10 +64,22 @@ describe('CampaignService', () => {
             const campaignService = yield* CampaignService;
             const campaignRepository = yield* CampaignRepository;
 
-            yield* campaignService.recordSeen(firstLesson.technique);
+            yield* campaignService.observeLesson(firstLesson.technique);
             yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, true);
+            yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[1].id, true);
+            assert.isTrue(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, true));
+            assert.deepStrictEqual(yield* campaignRepository.getMastery, [
+                { technique: firstLesson.technique, seenCount: 3, unassistedCount: 0 }
+            ]);
+
+            assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique]);
+            assert.deepStrictEqual(
+                (yield* campaignRepository.getProgress)[0].completedPracticeIds,
+                firstLesson.practices.map(practice => practice.id)
+            );
+            assert.deepStrictEqual((yield* campaignRepository.getProgress)[0].unassistedPracticeIds, []);
             assert.isTrue(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, false));
-            assert.isFalse(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, false));
+            assert.isTrue(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, false));
             yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[1].id, false);
 
             assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique, secondLesson.technique]);
@@ -72,6 +100,7 @@ describe('CampaignService', () => {
 
             yield* campaignRepository.saveProgress({
                 technique: firstLesson.technique,
+                teachingSeen: false,
                 completedPracticeIds: ['unverified-first', 'unverified-second'],
                 unassistedPracticeIds: ['unverified-first', 'unverified-second']
             });

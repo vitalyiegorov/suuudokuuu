@@ -5,13 +5,14 @@ import { CampaignSelectors } from '../../campaign.selectors';
 
 interface Props {
     readonly practiceId: string;
-    readonly number: number;
+    readonly position: number;
     readonly onSelect: (practiceId: string) => void;
     readonly completed: boolean;
 }
 
-export const CampaignPracticeButton = ({ practiceId, number, onSelect, completed }: Props) => {
+export const CampaignPracticeButton = ({ practiceId, position, onSelect, completed }: Props) => {
     const { t } = useLingui();
+    const number = position + 1;
     const text = completed ? t`Practice ${number} · Complete` : t`Practice ${number}`;
 
     const handlePress = () => void onSelect(practiceId);

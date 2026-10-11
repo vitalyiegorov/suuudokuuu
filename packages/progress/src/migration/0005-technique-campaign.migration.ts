@@ -14,6 +14,7 @@ export const techniqueCampaignMigration = Effect.gen(function* () {
     yield* sql`
         CREATE TABLE campaign_progress (
             technique INTEGER PRIMARY KEY,
+            teaching_seen INTEGER NOT NULL DEFAULT 0 CHECK (teaching_seen IN (0, 1)),
             completed_practice_ids TEXT NOT NULL DEFAULT '[]',
             unassisted_practice_ids TEXT NOT NULL DEFAULT '[]'
         )

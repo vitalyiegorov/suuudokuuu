@@ -8,7 +8,6 @@ import { CandidateContext, createTechniqueStrategies } from '@suuudokuuu/techniq
 import * as Effect from 'effect/Effect';
 
 import { campaignLessons } from '../../src/campaign/constant/campaign-lessons.constant';
-import { requiredUnassistedPracticeCount } from '../../src/campaign/constant/required-unassisted-practice-count.constant';
 
 const strategies = createTechniqueStrategies();
 const solver = new BitmaskSolver();
@@ -21,11 +20,11 @@ it.effect('ships the contiguous introductory SE ladder with separate examples an
         );
         assert.strictEqual(
             new Set(campaignLessons.flatMap(lesson => lesson.practices.map(practice => practice.id))).size,
-            campaignLessons.length * requiredUnassistedPracticeCount
+            campaignLessons.reduce((count, lesson) => count + lesson.practices.length, 0)
         );
 
         for (const lesson of campaignLessons) {
-            assert.lengthOf(lesson.practices, requiredUnassistedPracticeCount);
+            assert.isAbove(lesson.practices.length, 0);
             assert.strictEqual(new Set([lesson.exampleBoard, ...lesson.practices.map(practice => practice.board)]).size, 3);
             for (const [practiceIndex, practice] of lesson.practices.entries()) {
                 const exampleBoard = practiceIndex === 0 ? lesson.exampleBoard : Array.from(lesson.exampleBoard).reverse().join('');
