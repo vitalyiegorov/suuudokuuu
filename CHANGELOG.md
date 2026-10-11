@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.24.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.24.3...v2.24.4) (2026-10-11)
+
+### Bug Fixes
+
+* **app:** let continue and reveal act on every elimination hint slide ([#512](https://github.com/vitalyiegorov/suuudokuuu/issues/512)) ([0d02700](https://github.com/vitalyiegorov/suuudokuuu/commit/0d02700ab8dfca8fd71793e48e8a3807f0c1c769))
+
+
 ## [2.24.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.24.2...v2.24.3) (2026-10-11)
 
 ### Bug Fixes
