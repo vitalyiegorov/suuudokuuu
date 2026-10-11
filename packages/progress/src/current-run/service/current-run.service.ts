@@ -36,7 +36,7 @@ type InputStateType = Pick<CurrentRunType, 'inputMode' | 'showAutoCandidates'>;
 type StatsMoveType = (
     run: CurrentRunType,
     counts: TechniqueUsageCountsType
-) => [CurrentRunType, TechniqueUsageCountsType, CellTimelineEventType?];
+) => [CurrentRunType, TechniqueUsageCountsType, CellTimelineEventType?, number?];
 type TimelineMarkerKindType = Exclude<
     TimelineEventType['kind'],
     TimelineEventKindEnum.Cell | TimelineEventKindEnum.Mistake | TimelineEventKindEnum.Pencil
@@ -163,7 +163,7 @@ const classifyMove =
 
         const timelineEvents = run.timelineEvents.map(event => (event === cellEvent ? { ...cellEvent, technique } : event));
 
-        return [{ ...run, timelineEvents }, applyTechniqueUsageDelta(counts, technique, 1), { ...cellEvent, technique }];
+        return [{ ...run, timelineEvents }, applyTechniqueUsageDelta(counts, technique, 1), { ...cellEvent, technique }, 1];
     };
 
 const applyHint = (run: CurrentRunType, eliminations: readonly StepScriptCandidateInterface[]): CurrentRunType => {
@@ -209,7 +209,8 @@ const undoMove =
         return [
             { ...nextRun, timelineEvents, score, undoneMoves: [...run.undoneMoves, undoneMove] },
             applyTechniqueUsageDelta(counts, undoneMove.technique, -1),
-            undoneMove
+            undoneMove,
+            -1
         ];
     };
 
@@ -228,7 +229,8 @@ const redoMove =
         return [
             { ...nextRun, timelineEvents, undoneMoves: run.undoneMoves.slice(0, -1), score: run.score + (redoneMove.score ?? 0) },
             applyTechniqueUsageDelta(counts, redoneMove.technique, 1),
-            redoneMove
+            redoneMove,
+            1
         ];
     };
 
@@ -325,7 +327,7 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
         const campaignRepository = yield* CampaignRepository;
 
         const updateRunWithStats = Effect.fnUntraced(
-            function* (statsMove: StatsMoveType, seenTechnique?: SolutionTechniqueEnum) {
+            function* (statsMove: StatsMoveType) {
                 const currentRun = yield* currentRunRepository.get;
 
                 if (Option.isNone(currentRun)) {
@@ -333,7 +335,10 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
                 }
 
                 const playerStats = yield* playerStatsRepository.get;
-                const [nextRun, techniqueUsageCounts, cellEvent] = statsMove(currentRun.value, playerStats.techniqueUsageCounts);
+                const [nextRun, techniqueUsageCounts, cellEvent, masteryDelta] = statsMove(
+                    currentRun.value,
+                    playerStats.techniqueUsageCounts
+                );
 
                 if (nextRun !== currentRun.value) {
                     yield* currentRunRepository.save(nextRun);
@@ -344,15 +349,13 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
 
                     const technique = cellEvent?.technique;
 
-                    if (isNotUndefined(technique) && technique !== SolutionTechniqueEnum.Guess) {
-                        const unassistedDelta =
-                            cellEvent?.assisted === false
-                                ? (techniqueUsageCounts[technique] ?? 0) - (playerStats.techniqueUsageCounts[technique] ?? 0)
-                                : 0;
-
-                        if (technique === seenTechnique || unassistedDelta !== 0) {
-                            yield* campaignRepository.updateMastery(technique, Number(technique === seenTechnique), unassistedDelta);
-                        }
+                    if (
+                        isNotUndefined(technique) &&
+                        technique !== SolutionTechniqueEnum.Guess &&
+                        isNotUndefined(cellEvent?.assisted) &&
+                        isNotUndefined(masteryDelta)
+                    ) {
+                        yield* campaignRepository.updateMastery(technique, masteryDelta, cellEvent.assisted ? 0 : masteryDelta);
                     }
                 }
             },
@@ -401,7 +404,7 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
             ),
             screenshot: updateRun(run => (run.isChallengeRun ? withTimelineMarker(run, TimelineEventKindEnum.Screenshot) : run)),
             save: (move: Parameters<typeof saveMove>[1]) => updateRun(run => saveMove(run, move)),
-            classifyMove: (move: Parameters<typeof classifyMove>[0]) => updateRunWithStats(classifyMove(move), move.technique),
+            classifyMove: (move: Parameters<typeof classifyMove>[0]) => updateRunWithStats(classifyMove(move)),
             hint: (eliminations: readonly StepScriptCandidateInterface[]) => updateRun(run => applyHint(run, eliminations)),
             undo: (fieldState: FieldStateType) => updateRunWithStats(undoMove(fieldState)),
             redo: (fieldState: FieldStateType) => updateRunWithStats(redoMove(fieldState)),
