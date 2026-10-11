@@ -11,8 +11,8 @@ import { GameContext } from '../../context/game.context';
 import { useGameCreationRunner } from '../../hooks/use-game-creation-runner.hook';
 import { useGameEngineState } from '../../hooks/use-game-engine-state.hook';
 import { currentRunAtom } from '../../query/use-current-run.query';
+import { PuzzleGenerationService } from '../../service/puzzle-generation.service';
 import { gameCreateEngine } from '../../utils/game-create-engine.util';
-import { generatePuzzle } from '../../utils/generate-puzzle.util';
 
 import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { CurrentRunType } from '@suuudokuuu/progress';
@@ -23,29 +23,27 @@ interface Props {
     readonly children: ReactNode;
 }
 
-const puzzleSeedRange = 0x1_0000_0000;
-
 export const GameProvider = ({ children }: Props) => {
     const { isCreatingGame, router, runGameCreation, showAlert } = useGameCreationRunner();
     const [engine, setEngine] = useGameEngineState(showAlert);
     const snapshot = useFieldSnapshot(engine);
 
-    const enterRun = (command: Parameters<typeof runGameCreation>[0], nextEngine: FieldEngine) =>
-        command.pipe(
-            Effect.andThen(Effect.sync(() => void setEngine(nextEngine))),
+    const enterRun = <A, E>(
+        createEngine: () => FieldEngine,
+        command: (currentRunService: CurrentRunService['Service']) => Effect.Effect<A, E>
+    ) =>
+        Effect.try(createEngine).pipe(
+            Effect.tap(Effect.flatMap(CurrentRunService, command)),
+            Effect.flatMap(nextEngine => Effect.sync(() => void setEngine(nextEngine))),
             Effect.andThen(AtomRegistry.getResult(appAtomRegistry, currentRunAtom, { suspendOnWaiting: true })),
             Effect.andThen(Effect.sync(() => void router.dismissTo('/game')))
         );
 
     const createFromState = (newState: CurrentRunType) =>
         void runGameCreation(
-            Effect.try(() => gameCreateEngine(newState)).pipe(
-                Effect.flatMap(nextEngine =>
-                    enterRun(
-                        Effect.flatMap(CurrentRunService, service => service.load(newState)),
-                        nextEngine
-                    )
-                )
+            enterRun(
+                () => gameCreateEngine(newState),
+                currentRunService => currentRunService.load(newState)
             )
         );
 
@@ -53,19 +51,14 @@ export const GameProvider = ({ children }: Props) => {
         { sudokuString, solutionString, rating, isRatingCeiling }: SerializedPuzzleInterface,
         setup: Pick<CurrentRunType, 'dailyDayNumber' | 'difficulty' | 'isChallengeRun' | 'maxMistakes'>
     ) =>
-        Effect.try(() => new FieldEngine({ sudokuString, solutionString, difficulty: setup.difficulty })).pipe(
-            Effect.flatMap(nextEngine =>
-                enterRun(
-                    Effect.flatMap(CurrentRunService, service => service.start({ ...setup, sudokuString, rating, isRatingCeiling })),
-                    nextEngine
-                )
-            )
+        enterRun(
+            () => new FieldEngine({ sudokuString, solutionString, difficulty: setup.difficulty }),
+            currentRunService => currentRunService.start({ ...setup, sudokuString, rating, isRatingCeiling })
         );
 
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
         void runGameCreation(
-            Effect.sync(() => Math.floor(Math.random() * puzzleSeedRange)).pipe(
-                Effect.flatMap(seed => generatePuzzle(difficulty, seed)),
+            Effect.flatMap(PuzzleGenerationService, service => service.generate(difficulty)).pipe(
                 Effect.flatMap(puzzle => startForgedGame(puzzle, { difficulty, isChallengeRun, maxMistakes, dailyDayNumber: 0 }))
             )
         );
@@ -75,7 +68,9 @@ export const GameProvider = ({ children }: Props) => {
             Clock.currentTimeMillis.pipe(
                 Effect.map(getDailyDateString),
                 Effect.flatMap(dateString =>
-                    generatePuzzle(getDailyDifficulty(dateString), getDailyPuzzleSeed(dateString)).pipe(
+                    Effect.flatMap(PuzzleGenerationService, service =>
+                        service.generate(getDailyDifficulty(dateString), getDailyPuzzleSeed(dateString))
+                    ).pipe(
                         Effect.flatMap(puzzle =>
                             startForgedGame(puzzle, {
                                 difficulty: getDailyDifficulty(dateString),

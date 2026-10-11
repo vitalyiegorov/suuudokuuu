@@ -139,26 +139,16 @@ export class SerializableSudoku {
         puzzleString: string,
         solutionString: string
     ): T {
-        if (puzzleString.length !== GRID_CELL_COUNT || !/^[1-9.]+$/u.test(puzzleString)) {
-            throw new Error('Invalid puzzle string');
-        }
-
-        if (solutionString.length !== GRID_CELL_COUNT || !/^[1-9]+$/u.test(solutionString)) {
-            throw new Error('Invalid solution string');
-        }
-
         const solvedGrid = Uint8Array.from(solutionString, Number);
+        const isMatchingSolution =
+            puzzleString.length === GRID_CELL_COUNT &&
+            isCompleteValidGrid(solvedGrid) &&
+            Array.from(puzzleString).every(
+                (value, index) => value === SerializableSudoku.emptyStringValue || value === solutionString[index]
+            );
 
-        if (!isCompleteValidGrid(solvedGrid)) {
-            throw new Error('Invalid solution string');
-        }
-
-        if (
-            Array.from(puzzleString).some(
-                (value, index) => value !== SerializableSudoku.emptyStringValue && value !== solutionString[index]
-            )
-        ) {
-            throw new Error('Puzzle givens do not match the supplied solution');
+        if (!isMatchingSolution) {
+            throw new Error('Invalid string format: Puzzle does not match the supplied solution');
         }
 
         const config = { ...defaultSudokuConfig };
