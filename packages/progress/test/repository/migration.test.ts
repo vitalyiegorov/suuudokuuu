@@ -36,7 +36,17 @@ describe('database migrations', () => {
 
             assert.deepStrictEqual(
                 tables.map(table => table.name),
-                ['completed_games', 'current_run', 'custom_themes', 'difficulty_stats', 'player_stats', 'settings', 'store_review']
+                [
+                    'campaign_progress',
+                    'completed_games',
+                    'current_run',
+                    'custom_themes',
+                    'difficulty_stats',
+                    'player_stats',
+                    'settings',
+                    'store_review',
+                    'technique_mastery'
+                ]
             );
             assert.deepStrictEqual(yield* runDatabaseMigrations, []);
         }).pipe(Effect.provide(ProgressTestLayer))
@@ -52,7 +62,8 @@ describe('database migrations', () => {
             assert.deepStrictEqual(yield* runDatabaseMigrations, [
                 [2, 'completed_game_daily_day_number'],
                 [3, 'store_review'],
-                [4, 'current_run_eliminated_candidates']
+                [4, 'current_run_eliminated_candidates'],
+                [5, 'technique_campaign']
             ]);
             assert.deepStrictEqual(yield* sql`SELECT daily_day_number, score FROM completed_games`, [{ dailyDayNumber: null, score: 900 }]);
         }).pipe(Effect.provide(makeTestSqlClientLayer()))
@@ -73,7 +84,10 @@ describe('database migrations', () => {
 
             yield* sql`INSERT INTO current_run ${sql.insert({ id: 1, ...runBeforeUpgrade })}`;
 
-            assert.deepStrictEqual(yield* runDatabaseMigrations, [[4, 'current_run_eliminated_candidates']]);
+            assert.deepStrictEqual(yield* runDatabaseMigrations, [
+                [4, 'current_run_eliminated_candidates'],
+                [5, 'technique_campaign']
+            ]);
             assert.deepStrictEqual(yield* sql`SELECT eliminated_candidates, score FROM current_run`, [
                 { eliminatedCandidates, score: initialCurrentRun.score }
             ]);

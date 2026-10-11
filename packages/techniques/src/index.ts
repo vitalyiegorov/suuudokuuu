@@ -13,6 +13,7 @@ export { ChainLinkEnum } from './@generic/enums/chain-link.enum';
 export { ForcingOutcomeKindEnum } from './@generic/enums/forcing-outcome-kind.enum';
 export { interactiveTechniqueOrder } from './@generic/constants/interactive-technique-order.constant';
 export { isSolutionTechnique } from './@generic/utils/is-solution-technique.util';
+export { CandidateContext } from './@generic/classes/candidate-context/candidate-context';
 export { TechniqueManager } from './@generic/classes/technique-manager/technique-manager';
 export { createTechniqueStrategies } from './@generic/utils/create-technique-strategies.util';
 export { findPlacementChain } from './@generic/utils/find-placement-chain.util';

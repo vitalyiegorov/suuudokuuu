@@ -39,3 +39,11 @@ export { defaultScoringConfig } from './scoring/constant/default-scoring-config.
 export { LegacyStateImportService } from './legacy/service/legacy-state-import.service';
 
 export { StoreReviewService } from './store-review/service/store-review.service';
+
+export { CampaignRepository } from './campaign/repository/campaign.repository';
+export { CampaignService } from './campaign/service/campaign.service';
+export { CampaignProgressSchema } from './campaign/schema/campaign-progress.schema';
+export { TechniqueMasterySchema } from './campaign/schema/technique-mastery.schema';
+export { campaignLessons } from './campaign/constant/campaign-lessons.constant';
+export type { CampaignLessonInterface } from './campaign/interface/campaign-lesson.interface';
+export type { CampaignPracticeInterface } from './campaign/interface/campaign-practice.interface';
