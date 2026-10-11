@@ -157,16 +157,16 @@ msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted ce
 msgstr "{techniqueName}: اس باکس میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب قطار {rowNumber} میں ہیں۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName}: زنجیر کا ایک سرا ہمیشہ {valueList} ہوتا ہے، اس لیے دونوں سروں کو دیکھنے والے معلم خانے {valueList} نہیں ہو سکتے۔"
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: زنجیر کا ایک سرا ہمیشہ درست ہوتا ہے اور ہر نشان زدہ امیدوار دونوں سروں سے ٹکراتا ہے، اس لیے {cellList} {valueList} نہیں ہو سکتا۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: نمایاں کردہ باکس میں صرف ایک خالی خانہ بچا ہے، اس لیے {value} وہیں جائے گا۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
-msgstr "{techniqueName}: نمایاں کردہ خانے ایک زنجیر بناتے ہیں، اس لیے اس کا ایک سرا یا دوسرا سرا {valueList} ہے۔"
+msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName}: نمایاں کردہ خانے ایک زنجیر بناتے ہیں، اس لیے {firstEnd} یا {lastEnd} درست ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."

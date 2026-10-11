@@ -191,11 +191,11 @@ const getPlacementRevealNarration = (step: StepScriptStepType, techniqueName: st
     return msg`${techniqueName}: the highlighted cells leave only ${value} for the marked cell.`;
 };
 
-type EliminationRevealNarrationType = (techniqueName: string, valueList: string, cells: CellInterface[]) => MessageDescriptor;
+type EliminationRevealNarrationType = (techniqueName: string, valueList: string, revealed: ChainCandidateInterface[]) => MessageDescriptor;
 
 type EliminationStrikeNarrationType = (techniqueName: string, valueList: string, cellList: string) => MessageDescriptor;
 
-const getPointingNarration: EliminationRevealNarrationType = (techniqueName, valueList, [firstCell, secondCell]) => {
+const getPointingNarration: EliminationRevealNarrationType = (techniqueName, valueList, [{ cell: firstCell }, { cell: secondCell }]) => {
     const rowNumber = firstCell.y + 1;
     const columnNumber = firstCell.x + 1;
 
@@ -204,7 +204,7 @@ const getPointingNarration: EliminationRevealNarrationType = (techniqueName, val
         : msg`${techniqueName}: in this box, ${valueList} fits only in the highlighted cells, and they all lie in column ${columnNumber}.`;
 };
 
-const getBoxLineNarration: EliminationRevealNarrationType = (techniqueName, valueList, [firstCell, secondCell]) => {
+const getBoxLineNarration: EliminationRevealNarrationType = (techniqueName, valueList, [{ cell: firstCell }, { cell: secondCell }]) => {
     const rowNumber = firstCell.y + 1;
     const columnNumber = firstCell.x + 1;
 
@@ -230,8 +230,12 @@ const eliminationRevealNarrations: Record<NarrationFamilyEnum, EliminationReveal
         msg`${techniqueName}: in the highlighted base lines, ${valueList} fits only in the highlighted cells, so it is locked into the cover lines.`,
     [NarrationFamilyEnum.WING]: (techniqueName, valueList) =>
         msg`${techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes ${valueList}.`,
-    [NarrationFamilyEnum.CHAIN]: (techniqueName, valueList) =>
-        msg`${techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is ${valueList}.`,
+    [NarrationFamilyEnum.CHAIN]: (techniqueName, _valueList, revealed) => {
+        const firstEnd = formatChainCandidate(revealed[0]);
+        const lastEnd = formatChainCandidate(revealed[revealed.length - 1]);
+
+        return msg`${techniqueName}: the highlighted cells form a chain, so ${firstEnd} or ${lastEnd} is true.`;
+    },
     [NarrationFamilyEnum.COLORING]: (techniqueName, valueList) =>
         msg`${techniqueName}: the highlighted cells split into two colors for ${valueList}, and exactly one color holds every ${valueList}.`,
     [NarrationFamilyEnum.UNIQUE_RECTANGLE]: (techniqueName, valueList) =>
@@ -252,8 +256,8 @@ const eliminationStrikeNarrations: Record<NarrationFamilyEnum, EliminationStrike
         msg`${techniqueName}: ${valueList} must sit in the base lines, so the cover lines lose it in the marked cells.`,
     [NarrationFamilyEnum.WING]: (techniqueName, valueList) =>
         msg`${techniqueName}: a pincer cell is always ${valueList}, so the marked cells that see both pincers cannot be ${valueList}.`,
-    [NarrationFamilyEnum.CHAIN]: (techniqueName, valueList) =>
-        msg`${techniqueName}: one end of the chain is always ${valueList}, so the marked cells that see both ends cannot be ${valueList}.`,
+    [NarrationFamilyEnum.CHAIN]: (techniqueName, valueList, cellList) =>
+        msg`${techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so ${cellList} cannot be ${valueList}.`,
     [NarrationFamilyEnum.COLORING]: (techniqueName, valueList) =>
         msg`${techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be ${valueList}.`,
     [NarrationFamilyEnum.UNIQUE_RECTANGLE]: getDeadlyPatternStrikeNarration,
@@ -282,7 +286,7 @@ export const gameGetStepNarration = (step: StepScriptStepType, techniqueName: st
             return getPlacementRevealNarration(step, techniqueName, valueList);
         }
 
-        return eliminationRevealNarrations[getNarrationFamily(step.narration.technique)](techniqueName, valueList, step.narration.cells);
+        return eliminationRevealNarrations[getNarrationFamily(step.narration.technique)](techniqueName, valueList, step.candidates);
     }
 
     if (step.kind === StepScriptStepKindEnum.StrikeCandidates) {

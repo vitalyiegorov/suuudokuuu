@@ -157,16 +157,16 @@ msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted ce
 msgstr "{techniqueName}: في هذا المربع، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في الصف {rowNumber}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName}: أحد طرفي السلسلة هو دائماً {valueList}، لذا لا يمكن أن تكون الخلايا المعلمة التي ترى الطرفين معاً {valueList}."
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: أحد طرفي السلسلة صحيح دائماً، وكل مرشح معلَّم يتعارض مع الطرفين معاً، لذا لا يمكن أن تكون {cellList} هي {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: بقي في المربع المحدد خلية فارغة واحدة، لذا توضع {value} هناك."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
-msgstr "{techniqueName}: تشكل الخلايا المحددة سلسلة، لذا فإما أن يكون أحد طرفيها أو الطرف الآخر {valueList}."
+msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName}: تشكل الخلايا المحددة سلسلة، لذا فإما {firstEnd} صحيح أو {lastEnd} صحيح."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."

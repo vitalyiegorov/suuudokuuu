@@ -159,16 +159,16 @@ msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted ce
 msgstr "{techniqueName}: у цьому блоці цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать у рядку {rowNumber}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName}: один кінець ланцюга завжди дорівнює {valueList}, тож позначені клітинки, що бачать обидва кінці, не можуть бути {valueList}."
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: один кінець ланцюга завжди істинний, а кожен позначений кандидат суперечить обом кінцям, тож {cellList} не може бути {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: у підсвіченому блоці лишилась одна порожня клітинка — там стоїть {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
-msgstr "{techniqueName}: підсвічені клітинки утворюють ланцюг, тож або один його кінець, або інший дорівнює {valueList}."
+msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName}: підсвічені клітинки утворюють ланцюг, тож істинне {firstEnd} або {lastEnd}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."

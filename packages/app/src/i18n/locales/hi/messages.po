@@ -157,16 +157,16 @@ msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted ce
 msgstr "{techniqueName}: इस ब्लॉक में, {valueList} केवल हाइलाइट की गई सेल में ही आ सकता है, और वे सभी पंक्ति {rowNumber} में हैं।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName}: शृंखला का एक सिरा हमेशा {valueList} होता है, इसलिए दोनों सिरों को देखने वाली चिह्नित सेल {valueList} नहीं हो सकतीं।"
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: शृंखला का एक सिरा हमेशा सही होता है और हर चिह्नित उम्मीदवार दोनों सिरों से टकराता है, इसलिए {cellList} {valueList} नहीं हो सकता।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: हाइलाइट किए गए ब्लॉक में केवल एक खाली सेल बची है, इसलिए {value} वहीं जाएगा।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
-msgstr "{techniqueName}: हाइलाइट की गई सेल एक शृंखला बनाती हैं, इसलिए उसका एक सिरा या दूसरा सिरा {valueList} है।"
+msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName}: हाइलाइट की गई सेल एक शृंखला बनाती हैं, इसलिए {firstEnd} या {lastEnd} सही है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."

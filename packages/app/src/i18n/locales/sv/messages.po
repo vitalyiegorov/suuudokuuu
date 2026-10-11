@@ -157,16 +157,16 @@ msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted ce
 msgstr "{techniqueName}: i den här 3×3-rutan passar {valueList} bara i de framhävda cellerna, och alla ligger i rad {rowNumber}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName}: ena änden av kedjan är alltid {valueList}, så de markerade cellerna som ser båda ändarna kan inte vara {valueList}."
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: ena änden av kedjan är alltid sann och varje markerad kandidat krockar med båda ändarna, så {cellList} kan inte vara {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: den markerade 3\\u00d73-rutan har bara en tom cell kvar, s\\u00e5 {value} hamnar d\\u00e4r."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
-msgstr "{techniqueName}: de markerade cellerna bildar en kedja, så antingen den ena eller den andra änden är {valueList}."
+msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName}: de markerade cellerna bildar en kedja, så {firstEnd} eller {lastEnd} är sann."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."

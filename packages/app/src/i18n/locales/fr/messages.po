@@ -159,16 +159,16 @@ msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted ce
 msgstr "{techniqueName} : dans ce bloc, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans la ligne {rowNumber}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName} : une extrémité de la chaîne vaut toujours {valueList}, donc les cases marquées qui voient les deux extrémités ne peuvent pas valoir {valueList}."
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName} : une extrémité de la chaîne est toujours vraie et chaque candidat marqué entre en conflit avec les deux extrémités, donc {cellList} ne peut pas valoir {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName} : il ne reste qu’une case vide dans le bloc surligné, donc {value} va là."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
-msgstr "{techniqueName} : les cases surlignées forment une chaîne, donc l'une de ses extrémités ou l'autre vaut {valueList}."
+msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName} : les cases surlignées forment une chaîne, donc {firstEnd} ou {lastEnd} est vrai."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."

@@ -157,16 +157,16 @@ msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted ce
 msgstr "{techniqueName}:在这个宫中，{valueList} 只能填入突出显示的单元格，而它们都位于第 {rowNumber} 行。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName}:链的某一端必定是 {valueList}，因此同时看到两端的标记单元格不可能是 {valueList}。"
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}:链的某一端必定成立，而每个标记的候选数都与两端冲突，因此 {cellList} 不可能是 {valueList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}:突出显示的宫只剩一个空格，{value} 应填在那里。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
-msgstr "{techniqueName}:突出显示的单元格构成一条链，因此链的一端或另一端必定是 {valueList}。"
+msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName}:突出显示的单元格构成一条链，因此 {firstEnd} 或 {lastEnd} 必定成立。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
