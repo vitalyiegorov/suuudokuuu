@@ -177,13 +177,7 @@ export const findPlacementChain = (
         const shortRoute = findShortPlacementRoute(shortRouteStrategies, singleStrategies, routeContext);
 
         if (isNotEmptyArray(shortRoute)) {
-            const routeContexts = [routeContext, applyTechniqueStep(routeContext, shortRoute[0])];
-
-            return pruneChain(
-                shortRouteStrategies,
-                [...steps.slice(0, contextIndex), ...shortRoute],
-                [...contexts.slice(0, contextIndex), ...routeContexts]
-            );
+            return pruneChain(shortRouteStrategies, [...steps.slice(0, contextIndex), ...shortRoute], contexts.slice(0, contextIndex + 1));
         }
     }
 
