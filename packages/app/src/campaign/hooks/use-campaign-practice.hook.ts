@@ -13,7 +13,7 @@ import { appRuntime } from '../../@generic/runtime/app.runtime';
 
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-export const useCampaignPractice = (technique: SolutionTechniqueEnum, board: string, practiceId: string, completed: boolean) => {
+export const useCampaignPractice = (technique: SolutionTechniqueEnum, board: string, practiceId: string) => {
     const { t } = useLingui();
     const [engine] = useState(() => new FieldEngine({ sudokuString: board, difficulty: DifficultyEnum.Newbie, showAutoCandidates: true }));
     const [script] = useState(() =>
@@ -29,7 +29,7 @@ export const useCampaignPractice = (technique: SolutionTechniqueEnum, board: str
             .filter(strategy => strategy.technique === technique)
             .flatMap(strategy => strategy.find(context));
     });
-    const [isComplete, setIsComplete] = useState(completed);
+    const [isComplete, setIsComplete] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
     const [assisted, setAssisted] = useState(false);
     const [feedback, setFeedback] = useState('');

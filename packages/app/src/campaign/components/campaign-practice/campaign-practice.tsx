@@ -17,18 +17,12 @@ interface Props {
     readonly technique: SolutionTechniqueEnum;
     readonly board: string;
     readonly practiceId: string;
-    readonly completed: boolean;
     readonly onRetry: () => void;
 }
 
-export const CampaignPractice = ({ technique, board, practiceId, completed, onRetry }: Props) => {
+export const CampaignPractice = ({ technique, board, practiceId, onRetry }: Props) => {
     const { t } = useLingui();
-    const { engine, script, isComplete, isSaving, assisted, feedback, handleInput } = useCampaignPractice(
-        technique,
-        board,
-        practiceId,
-        completed
-    );
+    const { engine, script, isComplete, isSaving, assisted, feedback, handleInput } = useCampaignPractice(technique, board, practiceId);
     if (!isDefined(script)) {
         return (
             <BlackText>

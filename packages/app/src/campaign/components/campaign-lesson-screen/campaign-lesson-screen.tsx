@@ -58,7 +58,6 @@ export const CampaignLessonScreen = () => {
     const practice = lesson.practices.find(candidate => candidate.id === practiceId);
     const lessonProgress = progress.find(row => row.technique === lesson.technique);
     const completedIds = lessonProgress?.completedPracticeIds ?? [];
-    const completed = isDefined(practice) && (lessonProgress?.unassistedPracticeIds.includes(practice.id) ?? false);
 
     return (
         <ChromePage>
@@ -84,7 +83,6 @@ export const CampaignLessonScreen = () => {
                 {isDefined(practice) ? (
                     <CampaignPractice
                         board={practice.board}
-                        completed={completed}
                         key={`${practice.id}.${attemptNumber}`}
                         onRetry={handleRetry}
                         practiceId={practice.id}
