@@ -50,18 +50,18 @@ export class CampaignService extends Context.Service<CampaignService>()('@suuudo
                     const completedPracticeIds = previous?.completedPracticeIds ?? [];
                     const unassistedPracticeIds = previous?.unassistedPracticeIds ?? [];
                     const isNewCompletion = !completedPracticeIds.includes(practiceId);
-                    const isNewUnassistedCompletion = !assisted;
+                    const isNewUnassistedCompletion = !assisted && !unassistedPracticeIds.includes(practiceId);
 
-                    if (!isNewCompletion) {
+                    if (!isNewCompletion && !isNewUnassistedCompletion) {
                         return false;
                     }
 
                     yield* campaignRepository.saveProgress({
                         technique,
-                        completedPracticeIds: [...completedPracticeIds, practiceId],
+                        completedPracticeIds: isNewCompletion ? [...completedPracticeIds, practiceId] : completedPracticeIds,
                         unassistedPracticeIds: isNewUnassistedCompletion ? [...unassistedPracticeIds, practiceId] : unassistedPracticeIds
                     });
-                    yield* campaignRepository.updateMastery(technique, 1, Number(isNewUnassistedCompletion));
+                    yield* campaignRepository.updateMastery(technique, Number(isNewCompletion), Number(isNewUnassistedCompletion));
 
                     return true;
                 },

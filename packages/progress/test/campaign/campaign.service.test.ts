@@ -43,21 +43,25 @@ describe('CampaignService', () => {
         }).pipe(Effect.scoped, Effect.provide(ProgressTestLayer))
     );
 
-    it.effect('keeps assisted completions visible without awarding mastery or upgrading the revealed board on replay', () =>
+    it.effect('upgrades assisted practices once after an unassisted retry and unlocks the next lesson', () =>
         Effect.gen(function* () {
             const campaignService = yield* CampaignService;
             const campaignRepository = yield* CampaignRepository;
 
             yield* campaignService.recordSeen(firstLesson.technique);
             yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, true);
-            yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, false);
+            assert.isTrue(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, false));
+            assert.isFalse(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, false));
             yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[1].id, false);
 
-            assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique]);
+            assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique, secondLesson.technique]);
             assert.deepStrictEqual(yield* campaignRepository.getMastery, [
-                { technique: firstLesson.technique, seenCount: 3, unassistedCount: 1 }
+                { technique: firstLesson.technique, seenCount: 3, unassistedCount: 2 }
             ]);
-            assert.deepStrictEqual((yield* campaignRepository.getProgress)[0].unassistedPracticeIds, [firstLesson.practices[1].id]);
+            assert.deepStrictEqual(
+                (yield* campaignRepository.getProgress)[0].unassistedPracticeIds,
+                firstLesson.practices.map(practice => practice.id)
+            );
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 
