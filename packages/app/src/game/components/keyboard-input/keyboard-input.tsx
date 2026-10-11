@@ -1,13 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { TextInput } from 'react-native';
 
-import { UseKeyboardControlsStyles as styles } from '../../hooks/use-keyboard-controls/use-keyboard-controls.styles';
+import { KeyboardInputStyles as styles } from './keyboard-input.styles';
 
-import type { KeyboardInputPropsInterface } from './keyboard-input-props.interface';
-import type { TextInputInstance } from 'react-native';
+import type { OnEventFn } from '@rnw-community/shared';
+import type { TextInputInstance, TextInputKeyPressEvent } from 'react-native';
 
 interface Props {
-    readonly onKeyPress: KeyboardInputPropsInterface['onKeyPress'];
+    readonly onKeyPress: OnEventFn<TextInputKeyPressEvent>;
 }
 
 export const KeyboardInput = ({ onKeyPress }: Props) => {

@@ -1,13 +1,13 @@
 import { requireNativeView } from 'expo';
 import { useIsFocused } from 'expo-router';
 
-import { UseKeyboardControlsStyles as styles } from '../../hooks/use-keyboard-controls/use-keyboard-controls.styles';
+import { KeyboardInputStyles as styles } from './keyboard-input.styles';
 
-import type { KeyboardInputPropsInterface } from './keyboard-input-props.interface';
-import type { ViewProps } from 'react-native';
+import type { OnEventFn } from '@rnw-community/shared';
+import type { TextInputKeyPressEvent, ViewProps } from 'react-native';
 
 interface Props {
-    readonly onKeyPress: KeyboardInputPropsInterface['onKeyPress'];
+    readonly onKeyPress: OnEventFn<TextInputKeyPressEvent>;
 }
 
 const NativeKeyboardInput = requireNativeView<Props & ViewProps & Record<'active', boolean>>('hardware-keyboard');
