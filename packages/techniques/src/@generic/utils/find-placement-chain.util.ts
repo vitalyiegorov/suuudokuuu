@@ -115,55 +115,24 @@ const createBudgetedStrategies = (unbudgetedStrategies: TechniqueStrategyInterfa
 
 const singleTechniques = new Set([SolutionTechniqueEnum.FullHouse, SolutionTechniqueEnum.NakedSingle, SolutionTechniqueEnum.HiddenSingle]);
 
-const getResultRoute = (
-    singleStrategies: TechniqueStrategyInterface[],
-    context: CandidateContext,
-    result: TechniqueResultInterface
-): TechniqueResultInterface[] => {
-    if (!isProgressingResult(context, result)) {
-        return [];
-    }
-
-    if (result.kind !== 'elimination') {
-        return [result];
-    }
-
-    const enabledPlacement = findProgressingStep(applyTechniqueStep(context, result), singleStrategies);
-
-    return isDefined(enabledPlacement) ? [result, enabledPlacement] : [];
-};
-
 const findShortPlacementRoute = (strategies: TechniqueStrategyInterface[], context: CandidateContext): TechniqueResultInterface[] => {
     const singleStrategies = strategies.filter(strategy => singleTechniques.has(strategy.technique));
 
     for (const strategy of strategies) {
-        for (const result of strategy.find(context)) {
-            const route = getResultRoute(singleStrategies, context, result);
+        for (const result of strategy.find(context).filter(candidate => isProgressingResult(context, candidate))) {
+            if (result.kind === 'placement') {
+                return [result];
+            }
 
-            if (isNotEmptyArray(route)) {
-                return route;
+            const enabledPlacement = findProgressingStep(applyTechniqueStep(context, result), singleStrategies);
+
+            if (isDefined(enabledPlacement)) {
+                return [result, enabledPlacement];
             }
         }
     }
 
     return [];
-};
-
-const getExhaustedChain = (
-    unbudgetedStrategies: TechniqueStrategyInterface[],
-    steps: TechniqueResultInterface[],
-    contexts: CandidateContext[],
-    includeFirstStepOnExhaustion: boolean
-): TechniqueResultInterface[] => {
-    const shortRoute = isNotEmptyArray(contexts)
-        ? findShortPlacementRoute(createBudgetedStrategies(unbudgetedStrategies), contexts[0])
-        : [];
-
-    if (isNotEmptyArray(shortRoute)) {
-        return shortRoute;
-    }
-
-    return includeFirstStepOnExhaustion ? steps.slice(0, 1) : [];
 };
 
 export const findPlacementChain = (
@@ -192,12 +161,20 @@ export const findPlacementChain = (
         }
 
         if (steps.length >= PLACEMENT_CHAIN_MAX_STEPS) {
-            return getExhaustedChain(unbudgetedStrategies, steps, contexts, includeFirstStepOnExhaustion);
+            break;
         }
 
         context = applyTechniqueStep(context, step);
         step = findProgressingStep(context, strategies);
     }
 
-    return getExhaustedChain(unbudgetedStrategies, steps, contexts, includeFirstStepOnExhaustion);
+    const shortRoute = isNotEmptyArray(contexts)
+        ? findShortPlacementRoute(createBudgetedStrategies(unbudgetedStrategies), contexts[0])
+        : [];
+
+    if (isNotEmptyArray(shortRoute)) {
+        return shortRoute;
+    }
+
+    return includeFirstStepOnExhaustion ? steps.slice(0, 1) : [];
 };
