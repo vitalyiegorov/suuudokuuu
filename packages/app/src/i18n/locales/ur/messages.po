@@ -105,6 +105,10 @@ msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells
 msgstr "{techniqueName}: ایک پنسر خانہ ہمیشہ {valueList} ہوتا ہے، اس لیے دونوں پنسر کو دیکھنے والے معلم خانے {valueList} نہیں ہو سکتے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: ہر معلم خانہ تمام نمایاں خانوں کو دیکھتا ہے، اس لیے {cellList} {valueList} نہیں ہو سکتے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: باقی ہر خالی خانے میں دو امیدوار ہیں، اس لیے مہلک نمونے سے بچنے کے لیے {value} معلم خانے میں جانا چاہیے۔"
 
@@ -119,6 +123,14 @@ msgstr "{techniqueName}: نمایاں کردہ خانوں میں ہر امکان
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
 msgstr "{techniqueName}: نمایاں کردہ خانوں سے ہر امکان کو اس وقت تک آگے بڑھایا جاتا ہے جب تک وہ تضاد یا اسی نتیجے تک نہ پہنچ جائے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName}: کالم {columnNumber} میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب ایک ہی باکس میں ہیں۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName}: قطار {rowNumber} میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب ایک ہی باکس میں ہیں۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
@@ -137,12 +149,16 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: نمایاں کردہ قطار میں، {value} صرف معلم خانے میں ہی آ سکتا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName}: زنجیر کا ایک سرا ہمیشہ {valueList} ہوتا ہے، اس لیے دونوں سروں کو دیکھنے والے معلم خانے {valueList} نہیں ہو سکتے۔"
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "{techniqueName}: اس باکس میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب کالم {columnNumber} میں ہیں۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
-msgstr "{techniqueName}: ہندسے {valueList} نمایاں کردہ خانوں تک محدود ہیں، اس لیے باقی خانوں سے ہٹ جاتے ہیں۔"
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "{techniqueName}: اس باکس میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب قطار {rowNumber} میں ہیں۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}: زنجیر کا ایک سرا ہمیشہ {valueList} ہوتا ہے، اس لیے دونوں سروں کو دیکھنے والے معلم خانے {valueList} نہیں ہو سکتے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
@@ -151,6 +167,10 @@ msgstr "{techniqueName}: نمایاں کردہ باکس میں صرف ایک خ�
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 msgstr "{techniqueName}: نمایاں کردہ خانے ایک زنجیر بناتے ہیں، اس لیے اس کا ایک سرا یا دوسرا سرا {valueList} ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
+msgstr "{techniqueName}: نمایاں خانوں میں بالکل اتنے ہی ہندسے ہیں جتنے خانے ہیں، اس لیے {valueList} ان میں سے کسی ایک میں ہی آئے گا۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -185,8 +205,8 @@ msgid "{techniqueName}: the marked cells either see both colors or carry a color
 msgstr "{techniqueName}: نشان زدہ خانے یا تو دونوں رنگ دیکھتے ہیں یا ایسا رنگ رکھتے ہیں جو خود سے متضاد ہے، اس لیے وہ {valueList} نہیں ہو سکتے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
-msgstr "{techniqueName}: یہ پیٹرن معلم خانوں سے {valueList} ہٹا دیتا ہے۔"
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: یہ خانے ہندسوں کے اسی مجموعے کے لیے مخصوص ہیں، اس لیے {cellList} {valueList} نہیں ہو سکتے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
@@ -195,6 +215,10 @@ msgstr "{techniqueName}: مہلک نمونے سے بچنے کے لیے معلم 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
 msgstr "{techniqueName}: نمایاں کردہ محوری خانہ جیسے بھی حل ہو، اس کا ایک پنسر خانہ {valueList} بن جاتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: within one row, column or box, {valueList} fit only in the highlighted cells, so those cells can hold nothing else."
+msgstr "{techniqueName}: کسی ایک قطار، کالم یا باکس میں {valueList} صرف نمایاں خانوں میں ہی آ سکتے ہیں، اس لیے ان خانوں میں کچھ اور نہیں آ سکتا۔"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"

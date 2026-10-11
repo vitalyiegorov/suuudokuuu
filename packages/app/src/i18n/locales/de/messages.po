@@ -107,6 +107,10 @@ msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells
 msgstr "{techniqueName}: Eine Zangenzelle ist immer {valueList}, daher können die markierten Zellen, die beide Zangen sehen, nicht {valueList} sein."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: Jede markierte Zelle sieht alle hervorgehobenen Zellen, daher können {cellList} nicht {valueList} sein."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: Jede andere leere Zelle hat zwei Kandidaten, daher muss {value} in die markierte Zelle, um ein tödliches Muster zu vermeiden."
 
@@ -121,6 +125,14 @@ msgstr "{techniqueName}: Jede Möglichkeit in den markierten Zellen führt zu {v
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
 msgstr "{techniqueName}: Von den markierten Zellen aus wird jede Möglichkeit verfolgt, bis sie einen Widerspruch oder dasselbe Ergebnis erreicht."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName}: In Spalte {columnNumber} passt {valueList} nur in die hervorgehobenen Zellen, und sie liegen alle in einem Block."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName}: In Zeile {rowNumber} passt {valueList} nur in die hervorgehobenen Zellen, und sie liegen alle in einem Block."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
@@ -139,12 +151,16 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: in der markierten Zeile passt {value} nur in die markierte Zelle."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName}: Ein Ende der Kette ist immer {valueList}, daher können die markierten Zellen, die beide Enden sehen, nicht {valueList} sein."
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "{techniqueName}: In diesem Block passt {valueList} nur in die hervorgehobenen Zellen, und sie liegen alle in Spalte {columnNumber}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
-msgstr "{techniqueName}: die Ziffern {valueList} sind auf die markierten Zellen beschränkt und fallen deshalb in allen anderen Zellen weg."
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "{techniqueName}: In diesem Block passt {valueList} nur in die hervorgehobenen Zellen, und sie liegen alle in Zeile {rowNumber}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}: Ein Ende der Kette ist immer {valueList}, daher können die markierten Zellen, die beide Enden sehen, nicht {valueList} sein."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
@@ -153,6 +169,10 @@ msgstr "{techniqueName}: im markierten Block bleibt nur eine leere Zelle, dorthi
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 msgstr "{techniqueName}: Die markierten Zellen bilden eine Kette, daher ist entweder das eine oder das andere Ende {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
+msgstr "{techniqueName}: Die hervorgehobenen Zellen enthalten genau so viele Ziffern, wie es Zellen sind, daher muss {valueList} in eine von ihnen."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -187,8 +207,8 @@ msgid "{techniqueName}: the marked cells either see both colors or carry a color
 msgstr "{techniqueName}: Die markierten Zellen sehen entweder beide Farben oder tragen eine Farbe, die sich selbst widerspricht, daher können sie nicht {valueList} sein."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
-msgstr "{techniqueName}: das Muster schließt {valueList} in den markierten Zellen aus."
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: Diese Zellen sind für diese Ziffern reserviert, daher können {cellList} nicht {valueList} sein."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
@@ -197,6 +217,10 @@ msgstr "{techniqueName}: Um das tödliche Muster zu vermeiden, wird {valueList} 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
 msgstr "{techniqueName}: Egal wie die markierte Pivotzelle gelöst wird, eine ihrer Zangenzellen wird zu {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: within one row, column or box, {valueList} fit only in the highlighted cells, so those cells can hold nothing else."
+msgstr "{techniqueName}: Innerhalb einer Zeile, Spalte oder eines Blocks passen {valueList} nur in die hervorgehobenen Zellen, daher können diese Zellen nichts anderes enthalten."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"

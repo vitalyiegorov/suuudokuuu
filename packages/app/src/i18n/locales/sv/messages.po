@@ -105,6 +105,10 @@ msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells
 msgstr "{techniqueName}: en tångcell är alltid {valueList}, så de markerade cellerna som ser båda tängerna kan inte vara {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: varje markerad cell ser alla framhävda celler, så {cellList} kan inte vara {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: varje annan tom cell har två kandidater, så {value} måste in i den markerade cellen för att undvika ett dödligt mönster."
 
@@ -119,6 +123,14 @@ msgstr "{techniqueName}: varje möjlighet i de markerade cellerna leder till {va
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
 msgstr "{techniqueName}: från de markerade cellerna följs varje möjlighet tills den når en motsägelse eller samma resultat."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName}: i kolumn {columnNumber} passar {valueList} bara i de framhävda cellerna, och alla ligger i samma 3×3-ruta."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName}: i rad {rowNumber} passar {valueList} bara i de framhävda cellerna, och alla ligger i samma 3×3-ruta."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
@@ -137,12 +149,16 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: i den markerade raden passar {value} bara i den markerade cellen."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName}: ena änden av kedjan är alltid {valueList}, så de markerade cellerna som ser båda ändarna kan inte vara {valueList}."
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "{techniqueName}: i den här 3×3-rutan passar {valueList} bara i de framhävda cellerna, och alla ligger i kolumn {columnNumber}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
-msgstr "{techniqueName}: siffrorna {valueList} är låsta till de markerade cellerna, vilket utesluter dem från övriga celler."
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "{techniqueName}: i den här 3×3-rutan passar {valueList} bara i de framhävda cellerna, och alla ligger i rad {rowNumber}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
+msgstr "{techniqueName}: ena änden av kedjan är alltid {valueList}, så de markerade cellerna som ser båda ändarna kan inte vara {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
@@ -151,6 +167,10 @@ msgstr "{techniqueName}: den markerade 3\\u00d73-rutan har bara en tom cell kvar
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 msgstr "{techniqueName}: de markerade cellerna bildar en kedja, så antingen den ena eller den andra änden är {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
+msgstr "{techniqueName}: de framhävda cellerna rymmer exakt lika många siffror som det finns celler, så {valueList} måste stå i en av dem."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -185,8 +205,8 @@ msgid "{techniqueName}: the marked cells either see both colors or carry a color
 msgstr "{techniqueName}: de markerade cellerna ser antingen båda färgerna eller har en färg som motsäger sig själv, så de kan inte vara {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
-msgstr "{techniqueName}: mönstret utesluter {valueList} i de markerade cellerna."
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: de cellerna är reserverade för den uppsättningen siffror, så {cellList} kan inte vara {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
@@ -195,6 +215,10 @@ msgstr "{techniqueName}: för att undvika det dödliga mönstret utesluts {value
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
 msgstr "{techniqueName}: hur den markerade pivotcellen än löses blir en av dess tångceller {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: within one row, column or box, {valueList} fit only in the highlighted cells, so those cells can hold nothing else."
+msgstr "{techniqueName}: inom en rad, kolumn eller 3\\u00d73-ruta passar {valueList} bara i de framhävda cellerna, så de cellerna kan inte innehålla något annat."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
