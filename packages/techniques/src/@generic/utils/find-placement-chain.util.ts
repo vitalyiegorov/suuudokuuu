@@ -115,9 +115,11 @@ const createBudgetedStrategies = (unbudgetedStrategies: TechniqueStrategyInterfa
 
 const singleTechniques = new Set([SolutionTechniqueEnum.FullHouse, SolutionTechniqueEnum.NakedSingle, SolutionTechniqueEnum.HiddenSingle]);
 
-const findShortPlacementRoute = (strategies: TechniqueStrategyInterface[], context: CandidateContext): TechniqueResultInterface[] => {
-    const singleStrategies = strategies.filter(strategy => singleTechniques.has(strategy.technique));
-
+const findShortPlacementRoute = (
+    strategies: TechniqueStrategyInterface[],
+    singleStrategies: TechniqueStrategyInterface[],
+    context: CandidateContext
+): TechniqueResultInterface[] => {
     for (const strategy of strategies) {
         for (const result of strategy.find(context).filter(candidate => isProgressingResult(context, candidate))) {
             if (result.kind === 'placement') {
@@ -168,12 +170,21 @@ export const findPlacementChain = (
         step = findProgressingStep(context, strategies);
     }
 
-    const shortRoute = isNotEmptyArray(contexts)
-        ? findShortPlacementRoute(createBudgetedStrategies(unbudgetedStrategies), contexts[0])
-        : [];
+    const shortRouteStrategies = createBudgetedStrategies(unbudgetedStrategies);
+    const singleStrategies = unbudgetedStrategies.filter(strategy => singleTechniques.has(strategy.technique));
 
-    if (isNotEmptyArray(shortRoute)) {
-        return shortRoute;
+    for (const [contextIndex, routeContext] of contexts.entries()) {
+        const shortRoute = findShortPlacementRoute(shortRouteStrategies, singleStrategies, routeContext);
+
+        if (isNotEmptyArray(shortRoute)) {
+            const routeContexts = [routeContext, applyTechniqueStep(routeContext, shortRoute[0])];
+
+            return pruneChain(
+                shortRouteStrategies,
+                [...steps.slice(0, contextIndex), ...shortRoute],
+                [...contexts.slice(0, contextIndex), ...routeContexts]
+            );
+        }
     }
 
     return includeFirstStepOnExhaustion ? steps.slice(0, 1) : [];
