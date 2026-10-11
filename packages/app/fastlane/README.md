@@ -11,18 +11,13 @@ fastlane/
 ├── Appfile              # app_identifier, package_name, team_id, credentials
 ├── Fastfile             # store_preflight, metadata, and screenshot lanes
 └── metadata/
-    ├── ios/
-    │   ├── primary_category.txt
-    │   ├── primary_first_sub_category.txt
-    │   ├── primary_second_sub_category.txt
-    │   └── <locale>/
-    │       ├── name.txt
-    │       ├── subtitle.txt
-    │       ├── promotional_text.txt
-    │       ├── description.txt
-    │       ├── keywords.txt
-    │       ├── release_notes.txt
-    │       └── support_url.txt
+    ├── ios/<locale>/
+    │   ├── name.txt
+    │   ├── subtitle.txt
+    │   ├── promotional_text.txt
+    │   ├── description.txt
+    │   ├── keywords.txt
+    │   └── release_notes.txt
     └── android/<locale>/
         ├── title.txt
         ├── short_description.txt
@@ -223,7 +218,7 @@ correction is to fix `package.json` and re-run the lane, which makes
 
 **Per-version and per-locale fields.** `copyright.txt` must carry the current
 year or precheck fails; `store_preflight` guards it. `support_url.txt` is a
-localised field, so it must exist for every configured App Store locale - setting only
+localised field, so it must exist for all 11 App Store locales - setting only
 `en-US` leaves the rest empty and precheck flags each one.
 
 **Screenshots.** `deliver` assigns App Store slots by image resolution, so a set
@@ -244,38 +239,6 @@ rejects the build.
 Connect, not the live listing, which stays unchanged until that version is
 submitted and approved. Screenshots upload only when `push_screenshots` is
 ticked at workflow dispatch.
-
-**Categories and age rating (verified 2026-10-11).** App Store Connect currently
-shows Games as the primary category, with Board and Casual as its two
-subcategories; the secondary category is unset. Keep that live selection in
-the root metadata files using Apple's canonical identifiers `GAMES`,
-`GAMES_BOARD`, and `GAMES_CASUAL`, respectively.
-Board fits Sudoku's traditional grid, and Casual fits its self-paced puzzle
-play. fastlane 2.240.1 reads `primary_category.txt`,
-`primary_first_sub_category.txt`, and `primary_second_sub_category.txt` in
-[upload_metadata.rb](https://github.com/fastlane/fastlane/blob/2.240.1/deliver/lib/deliver/upload_metadata.rb);
-Spaceship passes the canonical identifiers through unchanged in
-[app_category.rb](https://github.com/fastlane/fastlane/blob/2.240.1/spaceship/lib/spaceship/connect_api/models/app_category.rb).
-There is no `secondary_category.txt` because the live secondary category is
-unset. App Store Tags are generated automatically and reviewed in App Store
-Connect. Casual, Puzzle, and Sudoku remain accurate and are retained; tags can
-be deselected there and have no repository metadata.
-
-The age-rating questionnaire was reviewed in App Store Connect on the same
-date. All feature answers are No and in-app content is None. The calculated
-rating is 4+, the age-rating override is Not Applicable, and the URL field is
-empty. Storefront ratings are 4+ in 172 regions, with the displayed regional
-exceptions Brazil: General Audiences, Korea: ALL, and Vietnam: 00+; devices
-running operating systems earlier than version 26 show global 4+ with regional
-exceptions. The competition answer remains None: Rival uses the same Sudoku
-game and records a timeline, which is not an organized contest. This records
-the current product interpretation. Apple's rating criteria are documented in
-the [age-rating reference](https://developer.apple.com/help/app-store-connect/reference/app-information/age-ratings-values-and-definitions/).
-
-fastlane 2.240.1 can load age-rating settings from a JSON file passed through
-`app_rating_config_path`; it does not define a set of age-rating `.txt`
-metadata files. No age-rating JSON is committed here, so these verified
-questionnaire settings remain managed in App Store Connect.
 
 ## Screenshot pipeline (manual, committed to the repo)
 
@@ -315,8 +278,10 @@ uploaded when explicitly requested.
     and frameit device frames (download once with
     `fastlane frameit download_frames`). It composes both iOS variants and the
     Play phone set; pass `android` as the second argument to compose only the
-    Play phone set. The artwork composer writes localized feature graphics
-    and the app icon for all Play locales.
+    Play phone set. The artwork composer recreates the previous localized
+    feature graphics and the app icon for all Play locales; it overwrites the
+    revised board-and-copy artwork from #472. Preserve the committed feature graphics
+    when using that composer to refresh icons.
 
 3. Commit the final assets:
     - iOS: `fastlane/screenshots/variants/<variant>/ios/<ios-locale>/*.png`,
@@ -331,13 +296,9 @@ uploaded when explicitly requested.
       screenshots at 1080×1920, `featureGraphic.png` at 1024×500, and
       `icon.png` at 512×512 for each of 13 locales. The screenshot composer
       frames Pixel 5 captures and fits them to the Play phone canvas. The
-      feature graphic uses a dark `#101010` canvas, the small white
-      `suuudokuuu` wordmark, and localized “Know your real level.” / “Rated
-      solves. Tracked techniques.” copy from the App Store statistics shot.
-      Two actual framed phones show gameplay behind statistics and its
-      technique arsenal. Matching App Store UI captures serve 11 locales;
-      Bengali and Urdu use English phones with localized copy from
-      `screenshots/design/<locale>/feature.strings`.
+      feature graphic is identical across locales: a near-black canvas,
+      an off-white Sudoku grid, and one red focal cell. It contains no
+      captions, logos, or device frames (#472).
       The icon is resized from `packages/app/assets/icon.png`, preserving the
       app icon's Ukraine flag colors.
 4. Upload happens only on request: check "Also upload the committed store
@@ -362,3 +323,75 @@ Current artwork targets:
 Primary references: [Apple screenshot specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications),
 [Apple app preview specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/app-preview-specifications),
 and [Google Play preview asset specifications](https://support.google.com/googleplay/android-developer/answer/9866151).
+
+### Creative artwork
+
+The revised artwork from #470–#473 is committed as 8-bit RGB images without
+alpha. The approved header remains unchanged, with its existing hero-board
+layout. Search artwork uses an authentic localized capture of the Naked
+Single hint and board from `https://www.suuudokuuu.com/game`, paired with the
+approved localized “Sudoku that teaches you” copy. The app capture stays
+unredrawn; the hint is contained within a 1280×736 area at x=1984, y=1440,
+and the 1024×1024 board sits at x=2240, y=384. Search artwork covers all
+twelve App Store locales. Captions use Inter and script-specific Noto fonts,
+with right-to-left shaping where needed.
+
+Play feature graphics use committed localized `07_iphone_stats.png`
+screenshots as their source, showing actual technique and progress stats
+instead of a generic board. For bn-BD and ur, use the committed localized
+`07_phone_stats.png` Play phone screenshots. The English proof crop is
+850×940 at x=235, y=498, resized to 304×336 at x=552, y=82; keep the copy
+inside the central 70% of the composition. Preserve the existing
+thirteen-locale Play feature graphic mapping. Arabic Play stats retain the
+existing capture alignment; recapture is tracked in #447. The localized
+search hint is a fresh authentic RTL capture.
+
+The event artwork is a reusable Infinity template: a native vector off-white
+∞ over a flat near-black background, with the authentic Infinity board at
+24% opacity and clipped inside the symbol. The English source is
+`08_iphone_infinity.png`, cropped at 920×920 from x=200, y=626. Keep the
+artwork free of baked-in event names, text, logos, and heavy red accents.
+“Infinity Challenge” appears only in a review mockup; no qualifying event
+has been identified, and it is not a real event name or a promised release.
+Use a template only after an event qualifies; supply its actual name and
+localized description in store metadata, outside the image.
+
+The existing filenames, dimensions, and upload mapping remain in place.
+App Store artwork lives under `fastlane/creative-assets/`:
+
+- `header/header-3840x1646.png`: App Store product page header.
+- `search-results/search-3840x2560.png`: App Store search results.
+- `events/card-3840x2160.png`: App Store event card.
+- `events/detail-2160x3840.png`: App Store event details.
+- `events/play-main-1920x1080.jpg`: Play promotional main image, exported
+  from the card composition as a JPEG under 1 MB for Spotlight placements.
+- `events/square-1080x1080.png`: Play promotional square image.
+
+The unsuffixed header and search files are English (U.S.) masters. Files with
+a locale suffix cover the other eleven App Store localizations; es-MX reuses
+the approved es-ES captions and Spanish hint. Assign the matching asset to
+each localization in App Store Connect; the Asset Library upload lane does
+not assign locales. Play feature graphics remain in
+`metadata/android/<locale>/images/featureGraphic.png` for all thirteen
+locales. Copy comes from the existing `title.strings`, `subtitle.strings`,
+and `feature.strings` files. Preserve the existing source and locale mapping
+for each listing.
+
+The header's existing hero-board crop is 968×968 at x=176, y=868 in
+`01_iphone_hero-board.png`; other locales have different caption heights and
+board positions. Preserve the header layout and its captured digits, pencil
+marks, and UI proportions.
+
+Event filenames and dimensions stay as listed above. Their Infinity artwork
+uses the source and crop described above; do not apply the former central-board
+coordinates. These files are reusable templates only. A qualifying in-app
+event and its actual localized metadata are required before publication.
+
+Upload and review follow the `ios_creative_assets` lane documented above
+(#474). Header and search assets still need App Store Connect device-crop
+previews. Play artwork needs Console previews, including the feature graphic's
+video overlay. Check the square-image requirements in the target Console
+form before submitting an event.
+
+Primary references: [Apple creative asset specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/creative-assets-specifications)
+and [Play promotional image requirements](https://support.google.com/googleplay/android-developer/answer/12929944).
