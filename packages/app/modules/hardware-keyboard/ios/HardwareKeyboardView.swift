@@ -38,7 +38,15 @@ final class HardwareKeyboardView: ExpoView {
 
   override func didMoveToWindow() {
     super.didMoveToWindow()
-    if window != nil && active {
+    NotificationCenter.default.removeObserver(self, name: UIWindow.didBecomeKeyNotification, object: nil)
+    guard let window else { return }
+
+    NotificationCenter.default.addObserver(self, selector: #selector(refocus), name: UIWindow.didBecomeKeyNotification, object: window)
+    refocus()
+  }
+
+  @objc private func refocus() {
+    if active {
       becomeFirstResponder()
     }
   }

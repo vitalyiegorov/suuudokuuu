@@ -4,10 +4,10 @@ import { TextInput } from 'react-native';
 import { KeyboardInputStyles as styles } from './keyboard-input.styles';
 
 import type { OnEventFn } from '@rnw-community/shared';
-import type { TextInputInstance, TextInputKeyPressEvent } from 'react-native';
+import type { NativeSyntheticEvent, TextInputInstance } from 'react-native';
 
 interface Props {
-    readonly onKeyPress: OnEventFn<TextInputKeyPressEvent>;
+    readonly onKeyPress: OnEventFn<NativeSyntheticEvent<{ readonly key: string }>>;
 }
 
 export const KeyboardInput = ({ onKeyPress }: Props) => {

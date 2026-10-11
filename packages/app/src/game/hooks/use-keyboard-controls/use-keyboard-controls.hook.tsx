@@ -6,7 +6,7 @@ import { keyboardKeyToAction } from './utils/keyboard-key-to-action.util';
 import type { OnEventFn } from '@rnw-community/shared';
 import type { FieldEngine } from '@suuudokuuu/field-core';
 import type { CellInterface } from '@suuudokuuu/generator';
-import type { TextInputKeyPressEvent } from 'react-native';
+import type { NativeSyntheticEvent } from 'react-native';
 
 // oxlint-disable-next-line max-params
 export const useKeyboardControls = (
@@ -16,7 +16,7 @@ export const useKeyboardControls = (
     onSelectValue: OnEventFn<number>,
     onExit: OnEventFn<void>
 ) => {
-    const handleKeyPress = (event: TextInputKeyPressEvent) => {
+    const handleKeyPress = (event: NativeSyntheticEvent<{ readonly key: string }>) => {
         const action = keyboardKeyToAction(event.nativeEvent.key, engine.Sudoku, selectedCell);
 
         if (action.type === 'select-cell') {
