@@ -5,11 +5,16 @@ import { HintRegionKindEnum } from '../enums/hint-region-kind.enum';
 import type { HintRegionInterface } from '../interfaces/hint-region.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-export const getHintRegion = (cells: readonly CellInterface[], placementCell?: CellInterface): HintRegionInterface | null => {
+export const getHintRegion = (
+    cells: readonly CellInterface[],
+    placementCell?: CellInterface,
+    scriptPlacementCell?: CellInterface
+): HintRegionInterface | null => {
     const [firstCell] = cells;
+    const fallbackPlacementCell = placementCell ?? scriptPlacementCell;
 
     if (cells.length < 2) {
-        return isDefined(placementCell) ? { kind: HintRegionKindEnum.ROW, number: placementCell.y + 1 } : null;
+        return isDefined(fallbackPlacementCell) ? { kind: HintRegionKindEnum.ROW, number: fallbackPlacementCell.y + 1 } : null;
     }
 
     if (cells.every(cell => cell.y === firstCell.y)) {
@@ -24,5 +29,5 @@ export const getHintRegion = (cells: readonly CellInterface[], placementCell?: C
         return { kind: HintRegionKindEnum.BOX, number: firstCell.group + 1 };
     }
 
-    return isDefined(placementCell) ? { kind: HintRegionKindEnum.ROW, number: placementCell.y + 1 } : null;
+    return isDefined(fallbackPlacementCell) ? { kind: HintRegionKindEnum.ROW, number: fallbackPlacementCell.y + 1 } : null;
 };

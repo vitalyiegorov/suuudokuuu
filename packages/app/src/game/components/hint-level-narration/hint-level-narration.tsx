@@ -22,7 +22,11 @@ export const HintLevelNarration = ({ hintLevel, stepScript }: Props) => {
 
     const techniqueName = i18n._(techniqueLabelsConstant[stepScript.technique]);
     const hintPatternStep = stepScript.steps.find(step => step.kind === StepScriptStepKindEnum.RevealCandidates);
-    const region = getHintRegion(hintPatternStep?.patternCells ?? [], hintPatternStep?.narration.placement?.cell);
+    const region = getHintRegion(
+        hintPatternStep?.patternCells ?? [],
+        hintPatternStep?.narration.placement?.cell,
+        stepScript.placement?.cell
+    );
     const regionNumber = region?.number;
 
     const getNarrationText = () => {
