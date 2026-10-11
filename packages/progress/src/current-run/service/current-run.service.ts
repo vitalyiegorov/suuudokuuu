@@ -7,7 +7,7 @@ import * as Context from 'effect/Context';
 import * as Effect from 'effect/Effect';
 import * as Layer from 'effect/Layer';
 import * as Option from 'effect/Option';
-import { isNotUndefined, isNumber, isUndefined } from 'effect/Predicate';
+import { isNotUndefined, isUndefined } from 'effect/Predicate';
 import * as SqlClient from 'effect/sql/SqlClient';
 import * as Struct from 'effect/Struct';
 
@@ -33,7 +33,10 @@ import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator'
 type TechniqueUsageCountsType = PlayerStatsType['techniqueUsageCounts'];
 type FieldStateType = Pick<CurrentRunType, 'candidates' | 'eliminatedCandidates' | 'sudokuString'>;
 type InputStateType = Pick<CurrentRunType, 'inputMode' | 'showAutoCandidates'>;
-type StatsMoveType = (run: CurrentRunType, counts: TechniqueUsageCountsType) => [CurrentRunType, TechniqueUsageCountsType];
+type StatsMoveType = (
+    run: CurrentRunType,
+    counts: TechniqueUsageCountsType
+) => [CurrentRunType, TechniqueUsageCountsType, CellTimelineEventType?];
 type TimelineMarkerKindType = Exclude<
     TimelineEventType['kind'],
     TimelineEventKindEnum.Cell | TimelineEventKindEnum.Mistake | TimelineEventKindEnum.Pencil
@@ -160,7 +163,7 @@ const classifyMove =
 
         const timelineEvents = run.timelineEvents.map(event => (event === cellEvent ? { ...cellEvent, technique } : event));
 
-        return [{ ...run, timelineEvents }, applyTechniqueUsageDelta(counts, technique, 1)];
+        return [{ ...run, timelineEvents }, applyTechniqueUsageDelta(counts, technique, 1), { ...cellEvent, technique }];
     };
 
 const applyHint = (run: CurrentRunType, eliminations: readonly StepScriptCandidateInterface[]): CurrentRunType => {
@@ -205,7 +208,8 @@ const undoMove =
 
         return [
             { ...nextRun, timelineEvents, score, undoneMoves: [...run.undoneMoves, undoneMove] },
-            applyTechniqueUsageDelta(counts, undoneMove.technique, -1)
+            applyTechniqueUsageDelta(counts, undoneMove.technique, -1),
+            undoneMove
         ];
     };
 
@@ -223,7 +227,8 @@ const redoMove =
 
         return [
             { ...nextRun, timelineEvents, undoneMoves: run.undoneMoves.slice(0, -1), score: run.score + (redoneMove.score ?? 0) },
-            applyTechniqueUsageDelta(counts, redoneMove.technique, 1)
+            applyTechniqueUsageDelta(counts, redoneMove.technique, 1),
+            redoneMove
         ];
     };
 
@@ -319,30 +324,6 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
         const completedGameRepository = yield* CompletedGameRepository;
         const campaignRepository = yield* CampaignRepository;
 
-        const updateTechniqueMastery = Effect.fnUntraced(function* (
-            previousRun: CurrentRunType,
-            nextRun: CurrentRunType,
-            seenTechnique?: SolutionTechniqueEnum
-        ) {
-            const techniques = Object.values(SolutionTechniqueEnum).filter(
-                (technique): technique is SolutionTechniqueEnum => isNumber(technique) && technique !== SolutionTechniqueEnum.Guess
-            );
-
-            for (const technique of techniques) {
-                const previousCount = previousRun.timelineEvents
-                    .filter(isCellEvent)
-                    .filter(event => event.technique === technique && event.assisted === false).length;
-                const nextCount = nextRun.timelineEvents
-                    .filter(isCellEvent)
-                    .filter(event => event.technique === technique && event.assisted === false).length;
-                const seenDelta = Number(technique === seenTechnique);
-
-                if (seenDelta !== 0 || previousCount !== nextCount) {
-                    yield* campaignRepository.updateMastery(technique, seenDelta, nextCount - previousCount);
-                }
-            }
-        });
-
         const updateRunWithStats = Effect.fnUntraced(
             function* (statsMove: StatsMoveType, seenTechnique?: SolutionTechniqueEnum) {
                 const currentRun = yield* currentRunRepository.get;
@@ -352,7 +333,7 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
                 }
 
                 const playerStats = yield* playerStatsRepository.get;
-                const [nextRun, techniqueUsageCounts] = statsMove(currentRun.value, playerStats.techniqueUsageCounts);
+                const [nextRun, techniqueUsageCounts, cellEvent] = statsMove(currentRun.value, playerStats.techniqueUsageCounts);
 
                 if (nextRun !== currentRun.value) {
                     yield* currentRunRepository.save(nextRun);
@@ -361,7 +342,18 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
                 if (techniqueUsageCounts !== playerStats.techniqueUsageCounts) {
                     yield* playerStatsRepository.save({ ...playerStats, techniqueUsageCounts });
 
-                    yield* updateTechniqueMastery(currentRun.value, nextRun, seenTechnique);
+                    const technique = cellEvent?.technique;
+
+                    if (isNotUndefined(technique) && technique !== SolutionTechniqueEnum.Guess) {
+                        const unassistedDelta =
+                            cellEvent?.assisted === false
+                                ? (techniqueUsageCounts[technique] ?? 0) - (playerStats.techniqueUsageCounts[technique] ?? 0)
+                                : 0;
+
+                        if (technique === seenTechnique || unassistedDelta !== 0) {
+                            yield* campaignRepository.updateMastery(technique, Number(technique === seenTechnique), unassistedDelta);
+                        }
+                    }
                 }
             },
             effect => sql.withTransaction(effect),
