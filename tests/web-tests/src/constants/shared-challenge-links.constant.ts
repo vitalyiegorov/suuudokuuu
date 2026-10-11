@@ -6,3 +6,4 @@ export const ratedLosingSharedChallengeEncodedConstant = '_OQP3__7X7_7r____zMOSj
 export const pointingPairHintSharedPuzzleEncodedConstant = '_MANQGaciM0yz__9dFFCq5FGCkeArJsaswTCLjQ9JvkaI';
 export const revealHintSharedPuzzleEncodedConstant = '_MAOAGBKIgOCIhmJCSdF6-r0U89CWVWg';
 export const structuredChainHintSharedPuzzleEncodedConstant = '_MAMEQgRyQAvATMAHHehYIMMrDmRaBVaA';
+export const nishioRunHintSharedPuzzleEncodedConstant = '_MACdb0cSgWGxewkEQqSJ4ruELmsackXva7IcqtA';
