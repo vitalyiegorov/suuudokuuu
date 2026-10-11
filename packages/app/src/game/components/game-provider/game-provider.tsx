@@ -16,7 +16,6 @@ import { gameCreateEngine } from '../../utils/game-create-engine.util';
 
 import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { CurrentRunType } from '@suuudokuuu/progress';
-import type { SerializedPuzzleInterface } from '@suuudokuuu/puzzle-forge';
 import type { ReactNode } from 'react';
 
 interface Props {
@@ -48,37 +47,34 @@ export const GameProvider = ({ children }: Props) => {
         );
 
     const startForgedGame = (
-        { sudokuString, solutionString, rating, isRatingCeiling }: SerializedPuzzleInterface,
-        setup: Pick<CurrentRunType, 'dailyDayNumber' | 'difficulty' | 'isChallengeRun' | 'maxMistakes'>
+        setup: Pick<CurrentRunType, 'dailyDayNumber' | 'difficulty' | 'isChallengeRun' | 'maxMistakes'>,
+        seed?: number
     ) =>
-        enterRun(
-            () => new FieldEngine({ sudokuString, solutionString, difficulty: setup.difficulty }),
-            currentRunService => currentRunService.start({ ...setup, sudokuString, rating, isRatingCeiling })
+        Effect.flatMap(PuzzleGenerationService, service => service.generate(setup.difficulty, seed)).pipe(
+            Effect.flatMap(({ sudokuString, solutionString, rating, isRatingCeiling }) =>
+                enterRun(
+                    () => new FieldEngine({ sudokuString, solutionString, difficulty: setup.difficulty }),
+                    currentRunService => currentRunService.start({ ...setup, sudokuString, rating, isRatingCeiling })
+                )
+            )
         );
 
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
-        void runGameCreation(
-            Effect.flatMap(PuzzleGenerationService, service => service.generate(difficulty)).pipe(
-                Effect.flatMap(puzzle => startForgedGame(puzzle, { difficulty, isChallengeRun, maxMistakes, dailyDayNumber: 0 }))
-            )
-        );
+        void runGameCreation(startForgedGame({ difficulty, isChallengeRun, maxMistakes, dailyDayNumber: 0 }));
 
     const createDaily = (maxMistakes: number) =>
         void runGameCreation(
             Clock.currentTimeMillis.pipe(
                 Effect.map(getDailyDateString),
                 Effect.flatMap(dateString =>
-                    Effect.flatMap(PuzzleGenerationService, service =>
-                        service.generate(getDailyDifficulty(dateString), getDailyPuzzleSeed(dateString))
-                    ).pipe(
-                        Effect.flatMap(puzzle =>
-                            startForgedGame(puzzle, {
-                                difficulty: getDailyDifficulty(dateString),
-                                isChallengeRun: false,
-                                maxMistakes,
-                                dailyDayNumber: getDailyDayNumber(dateString)
-                            })
-                        )
+                    startForgedGame(
+                        {
+                            difficulty: getDailyDifficulty(dateString),
+                            isChallengeRun: false,
+                            maxMistakes,
+                            dailyDayNumber: getDailyDayNumber(dateString)
+                        },
+                        getDailyPuzzleSeed(dateString)
                     )
                 )
             )
