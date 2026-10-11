@@ -21,7 +21,8 @@ fastlane/
     │       ├── promotional_text.txt
     │       ├── description.txt
     │       ├── keywords.txt
-    │       └── release_notes.txt
+    │       ├── release_notes.txt
+    │       └── support_url.txt
     └── android/<locale>/
         ├── title.txt
         ├── short_description.txt
@@ -222,7 +223,7 @@ correction is to fix `package.json` and re-run the lane, which makes
 
 **Per-version and per-locale fields.** `copyright.txt` must carry the current
 year or precheck fails; `store_preflight` guards it. `support_url.txt` is a
-localised field, so it must exist for all 11 App Store locales - setting only
+localised field, so it must exist for every configured App Store locale - setting only
 `en-US` leaves the rest empty and precheck flags each one.
 
 **Screenshots.** `deliver` assigns App Store slots by image resolution, so a set
