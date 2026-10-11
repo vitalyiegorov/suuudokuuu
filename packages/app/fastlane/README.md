@@ -11,13 +11,18 @@ fastlane/
 ├── Appfile              # app_identifier, package_name, team_id, credentials
 ├── Fastfile             # store_preflight, metadata, and screenshot lanes
 └── metadata/
-    ├── ios/<locale>/
-    │   ├── name.txt
-    │   ├── subtitle.txt
-    │   ├── promotional_text.txt
-    │   ├── description.txt
-    │   ├── keywords.txt
-    │   └── release_notes.txt
+    ├── ios/
+    │   ├── primary_category.txt
+    │   ├── primary_first_sub_category.txt
+    │   ├── primary_second_sub_category.txt
+    │   └── <locale>/
+    │       ├── name.txt
+    │       ├── subtitle.txt
+    │       ├── promotional_text.txt
+    │       ├── description.txt
+    │       ├── keywords.txt
+    │       ├── release_notes.txt
+    │       └── support_url.txt
     └── android/<locale>/
         ├── title.txt
         ├── short_description.txt
@@ -218,7 +223,7 @@ correction is to fix `package.json` and re-run the lane, which makes
 
 **Per-version and per-locale fields.** `copyright.txt` must carry the current
 year or precheck fails; `store_preflight` guards it. `support_url.txt` is a
-localised field, so it must exist for all 11 App Store locales - setting only
+localised field, so it must exist for every configured App Store locale - setting only
 `en-US` leaves the rest empty and precheck flags each one.
 
 **Screenshots.** `deliver` assigns App Store slots by image resolution, so a set
@@ -239,6 +244,38 @@ rejects the build.
 Connect, not the live listing, which stays unchanged until that version is
 submitted and approved. Screenshots upload only when `push_screenshots` is
 ticked at workflow dispatch.
+
+**Categories and age rating (verified 2026-10-11).** App Store Connect currently
+shows Games as the primary category, with Board and Casual as its two
+subcategories; the secondary category is unset. Keep that live selection in
+the root metadata files using Apple's canonical identifiers `GAMES`,
+`GAMES_BOARD`, and `GAMES_CASUAL`, respectively.
+Board fits Sudoku's traditional grid, and Casual fits its self-paced puzzle
+play. fastlane 2.240.1 reads `primary_category.txt`,
+`primary_first_sub_category.txt`, and `primary_second_sub_category.txt` in
+[upload_metadata.rb](https://github.com/fastlane/fastlane/blob/2.240.1/deliver/lib/deliver/upload_metadata.rb);
+Spaceship passes the canonical identifiers through unchanged in
+[app_category.rb](https://github.com/fastlane/fastlane/blob/2.240.1/spaceship/lib/spaceship/connect_api/models/app_category.rb).
+There is no `secondary_category.txt` because the live secondary category is
+unset. App Store Tags are generated automatically and reviewed in App Store
+Connect. Casual, Puzzle, and Sudoku remain accurate and are retained; tags can
+be deselected there and have no repository metadata.
+
+The age-rating questionnaire was reviewed in App Store Connect on the same
+date. All feature answers are No and in-app content is None. The calculated
+rating is 4+, the age-rating override is Not Applicable, and the URL field is
+empty. Storefront ratings are 4+ in 172 regions, with the displayed regional
+exceptions Brazil: General Audiences, Korea: ALL, and Vietnam: 00+; devices
+running operating systems earlier than version 26 show global 4+ with regional
+exceptions. The competition answer remains None: Rival uses the same Sudoku
+game and records a timeline, which is not an organized contest. This records
+the current product interpretation. Apple's rating criteria are documented in
+the [age-rating reference](https://developer.apple.com/help/app-store-connect/reference/app-information/age-ratings-values-and-definitions/).
+
+fastlane 2.240.1 can load age-rating settings from a JSON file passed through
+`app_rating_config_path`; it does not define a set of age-rating `.txt`
+metadata files. No age-rating JSON is committed here, so these verified
+questionnaire settings remain managed in App Store Connect.
 
 ## Screenshot pipeline (manual, committed to the repo)
 
@@ -278,10 +315,9 @@ uploaded when explicitly requested.
     and frameit device frames (download once with
     `fastlane frameit download_frames`). It composes both iOS variants and the
     Play phone set; pass `android` as the second argument to compose only the
-    Play phone set. The artwork composer recreates the previous localized
-    feature graphics and the app icon for all Play locales; it overwrites the
-    revised board-and-copy artwork from #472. Preserve the committed feature graphics
-    when using that composer to refresh icons.
+    Play phone set. The artwork composer recreates previous feature graphics
+    and the app icon for all Play locales. Preserve the approved #472 feature
+    graphics when refreshing icons; the composer overwrites them.
 
 3. Commit the final assets:
     - iOS: `fastlane/screenshots/variants/<variant>/ios/<ios-locale>/*.png`,
@@ -296,9 +332,10 @@ uploaded when explicitly requested.
       screenshots at 1080×1920, `featureGraphic.png` at 1024×500, and
       `icon.png` at 512×512 for each of 13 locales. The screenshot composer
       frames Pixel 5 captures and fits them to the Play phone canvas. The
-      feature graphic is identical across locales: a near-black canvas,
-      an off-white Sudoku grid, and one red focal cell. It contains no
-      captions, logos, or device frames (#472).
+      feature graphics use localized “Know your real level.” / “Rated
+      solves. Tracked techniques.” copy alongside an actual technique and
+      progress statistics crop. Matching localized App Store captures serve
+      eleven locales; Bengali and Urdu use their localized Play captures.
       The icon is resized from `packages/app/assets/icon.png`, preserving the
       app icon's Ukraine flag colors.
 4. Upload happens only on request: check "Also upload the committed store
