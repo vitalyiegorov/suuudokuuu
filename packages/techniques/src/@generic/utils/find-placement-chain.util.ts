@@ -151,11 +151,13 @@ const findShortPlacementRoute = (strategies: TechniqueStrategyInterface[], conte
 
 const getExhaustedChain = (
     unbudgetedStrategies: TechniqueStrategyInterface[],
-    startContext: CandidateContext,
     steps: TechniqueResultInterface[],
+    contexts: CandidateContext[],
     includeFirstStepOnExhaustion: boolean
 ): TechniqueResultInterface[] => {
-    const shortRoute = isNotEmptyArray(steps) ? findShortPlacementRoute(createBudgetedStrategies(unbudgetedStrategies), startContext) : [];
+    const shortRoute = isNotEmptyArray(contexts)
+        ? findShortPlacementRoute(createBudgetedStrategies(unbudgetedStrategies), contexts[0])
+        : [];
 
     if (isNotEmptyArray(shortRoute)) {
         return shortRoute;
@@ -174,10 +176,11 @@ export const findPlacementChain = (
     const steps: TechniqueResultInterface[] = [];
     const contexts: CandidateContext[] = [];
 
-    const sudokuContext = CandidateContext.fromSudoku(sudoku);
-    const startContext = previousEliminations.length > 0 ? sudokuContext.withEliminations(previousEliminations) : sudokuContext;
+    let context = CandidateContext.fromSudoku(sudoku);
 
-    let context = startContext;
+    if (previousEliminations.length > 0) {
+        context = context.withEliminations(previousEliminations);
+    }
     let step = findProgressingStep(context, strategies);
 
     while (isDefined(step)) {
@@ -189,12 +192,12 @@ export const findPlacementChain = (
         }
 
         if (steps.length >= PLACEMENT_CHAIN_MAX_STEPS) {
-            return getExhaustedChain(unbudgetedStrategies, startContext, steps, includeFirstStepOnExhaustion);
+            return getExhaustedChain(unbudgetedStrategies, steps, contexts, includeFirstStepOnExhaustion);
         }
 
         context = applyTechniqueStep(context, step);
         step = findProgressingStep(context, strategies);
     }
 
-    return getExhaustedChain(unbudgetedStrategies, startContext, steps, includeFirstStepOnExhaustion);
+    return getExhaustedChain(unbudgetedStrategies, steps, contexts, includeFirstStepOnExhaustion);
 };
