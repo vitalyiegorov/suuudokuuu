@@ -424,9 +424,16 @@ uses the source and crop described above; do not apply the former central-board
 coordinates. These files are reusable templates only. A qualifying in-app
 event and its actual localized metadata are required before publication.
 
-Upload and review follow the `ios_creative_assets` lane documented above
-(#474). Header and search assets still need App Store Connect device-crop
-previews. Play artwork needs Console previews, including the feature graphic's
+All twelve headers and twelve search assets were uploaded, assigned to their
+matching locales on editable version 2.23.1, and submitted together for
+standalone review on 2026-10-11. All 24 show Waiting for Review. Apple's
+Preview tool was checked on iPhone, iPhone Duo, and iPad; it offers no Mac
+device. These assets have not reached the public listing.
+
+The event portrait upload returned “An error occurred during upload”; the
+card upload also failed processing. Keep the kit queued until a qualifying
+event exists and upload through its event editor. Play artwork still needs
+authenticated Console upload and previews, including the feature graphic's
 video overlay. Check the square-image requirements in the target Console
 form before submitting an event.
 
