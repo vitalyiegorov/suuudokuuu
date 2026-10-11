@@ -60,9 +60,15 @@ version 2.23.1, English (U.S.). The uploaded files were
 `1398x2034/en-US/01_iphone_hero-board.png` and
 `2007x2853/en-US/02_iphone_hell.png` under `variants/dark/iphone-duo/`.
 Both processed thumbnails remained after reloading, and the carousel showed
-two of ten screenshots. This tests both accepted sizes before April 2027;
-the full localized galleries still need uploading for release. The version
-remains Prepare for Submission.
+two of ten screenshots. This tests both accepted sizes before April 2027.
+
+The full upload was completed later on 2026-10-11 for all twelve iOS locales.
+Each gallery has nine images: `01_iphone_hero-board.png` at 1398×2034, followed
+by frames 02–09 at 2007×2853. This covers both sizes within the combined limit.
+After reloading the version, each locale was selected again and showed nine
+of ten screenshots, for 108 persisted images. Spanish (Mexico) uses the
+approved Spanish assets and committed es-MX version metadata. The editable
+version remains Prepare for Submission; these uploads have not released it.
 
 ## Curated store ordering
 
