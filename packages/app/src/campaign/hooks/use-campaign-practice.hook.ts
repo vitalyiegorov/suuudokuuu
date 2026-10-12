@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { FieldEngine, findStepScript } from '@suuudokuuu/field-core';
+import { FieldEngine } from '@suuudokuuu/field-core';
 import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { CampaignService } from '@suuudokuuu/progress';
@@ -16,12 +16,6 @@ import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 export const useCampaignPractice = (technique: SolutionTechniqueEnum, board: string, practiceId: string) => {
     const { t } = useLingui();
     const [engine] = useState(() => new FieldEngine({ sudokuString: board, difficulty: DifficultyEnum.Newbie, showAutoCandidates: true }));
-    const [script] = useState(() =>
-        findStepScript(
-            engine.Sudoku,
-            createTechniqueStrategies().filter(strategy => strategy.technique === technique)
-        )
-    );
     const [deductions] = useState(() => {
         const context = CandidateContext.fromSudoku(engine.Sudoku);
 
@@ -59,7 +53,7 @@ export const useCampaignPractice = (technique: SolutionTechniqueEnum, board: str
     };
     const handleInput = (value: number) => {
         const selected = snapshot.selectedCell;
-        if (isSaving || isComplete || !isDefined(script) || !isDefined(selected)) {
+        if (isSaving || isComplete || !isDefined(selected)) {
             return;
         }
         const placement = deductions.find(
@@ -86,5 +80,5 @@ export const useCampaignPractice = (technique: SolutionTechniqueEnum, board: str
         saveCompletion();
     };
 
-    return { engine, script, isComplete, isSaving, assisted, feedback, handleInput };
+    return { engine, deductions, isComplete, isSaving, assisted, feedback, handleInput };
 };

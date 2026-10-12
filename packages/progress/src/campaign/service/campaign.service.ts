@@ -37,7 +37,6 @@ export class CampaignService extends Context.Service<CampaignService>()('@suuudo
                 effect => sql.withTransaction(effect),
                 Effect.orDie
             ),
-            getUnlockedTechniques: campaignRepository.getProgress.pipe(Effect.map(getUnlockedCampaignTechniques)),
             completePractice: Effect.fn('CampaignService.completePractice')(
                 function* (technique: SolutionTechniqueEnum, practiceId: string, assisted: boolean) {
                     const lesson = campaignLessons.find(entry => entry.technique === technique);

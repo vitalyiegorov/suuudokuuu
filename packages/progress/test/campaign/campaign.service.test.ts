@@ -8,6 +8,7 @@ import { ReactivityKeyEnum } from '../../src/@generic/enum/reactivity-key.enum';
 import { campaignLessons } from '../../src/campaign/constant/campaign-lessons.constant';
 import { CampaignRepository } from '../../src/campaign/repository/campaign.repository';
 import { CampaignService } from '../../src/campaign/service/campaign.service';
+import { getUnlockedCampaignTechniques } from '../../src/campaign/utils/get-unlocked-campaign-techniques.util';
 import { ProgressTestLayer } from '../progress-test.layer';
 import { trackInvalidations } from '../track-invalidations.util';
 
@@ -34,15 +35,18 @@ describe('CampaignService', () => {
             const campaignRepository = yield* CampaignRepository;
             const invalidations = yield* trackInvalidations;
 
-            assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique]);
+            assert.deepStrictEqual(getUnlockedCampaignTechniques(yield* campaignRepository.getProgress), [firstLesson.technique]);
             assert.isFalse(yield* campaignService.completePractice(secondLesson.technique, secondLesson.practices[0].id, false));
             assert.isFalse(yield* campaignService.completePractice(firstLesson.technique, 'unknown-practice', false));
-            assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique]);
+            assert.deepStrictEqual(getUnlockedCampaignTechniques(yield* campaignRepository.getProgress), [firstLesson.technique]);
             assert.isTrue(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, false));
             assert.isTrue(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, false));
-            assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique]);
+            assert.deepStrictEqual(getUnlockedCampaignTechniques(yield* campaignRepository.getProgress), [firstLesson.technique]);
             assert.isTrue(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[1].id, false));
-            assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique, secondLesson.technique]);
+            assert.deepStrictEqual(getUnlockedCampaignTechniques(yield* campaignRepository.getProgress), [
+                firstLesson.technique,
+                secondLesson.technique
+            ]);
             assert.deepStrictEqual(yield* campaignRepository.getMastery, [
                 { technique: firstLesson.technique, seenCount: 2, unassistedCount: 2 }
             ]);
@@ -72,7 +76,7 @@ describe('CampaignService', () => {
                 { technique: firstLesson.technique, seenCount: 3, unassistedCount: 0 }
             ]);
 
-            assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique]);
+            assert.deepStrictEqual(getUnlockedCampaignTechniques(yield* campaignRepository.getProgress), [firstLesson.technique]);
             assert.deepStrictEqual(
                 (yield* campaignRepository.getProgress)[0].completedPracticeIds,
                 firstLesson.practices.map(practice => practice.id)
@@ -82,7 +86,10 @@ describe('CampaignService', () => {
             assert.isTrue(yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[0].id, false));
             yield* campaignService.completePractice(firstLesson.technique, firstLesson.practices[1].id, false);
 
-            assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique, secondLesson.technique]);
+            assert.deepStrictEqual(getUnlockedCampaignTechniques(yield* campaignRepository.getProgress), [
+                firstLesson.technique,
+                secondLesson.technique
+            ]);
             assert.deepStrictEqual(yield* campaignRepository.getMastery, [
                 { technique: firstLesson.technique, seenCount: 3, unassistedCount: 2 }
             ]);
@@ -95,7 +102,6 @@ describe('CampaignService', () => {
 
     it.effect('ignores unknown stored practice IDs when computing unlocks', () =>
         Effect.gen(function* () {
-            const campaignService = yield* CampaignService;
             const campaignRepository = yield* CampaignRepository;
 
             yield* campaignRepository.saveProgress({
@@ -105,7 +111,7 @@ describe('CampaignService', () => {
                 unassistedPracticeIds: ['unverified-first', 'unverified-second']
             });
 
-            assert.deepStrictEqual(yield* campaignService.getUnlockedTechniques, [firstLesson.technique]);
+            assert.deepStrictEqual(getUnlockedCampaignTechniques(yield* campaignRepository.getProgress), [firstLesson.technique]);
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 

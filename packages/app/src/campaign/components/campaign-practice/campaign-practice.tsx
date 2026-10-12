@@ -22,17 +22,19 @@ interface Props {
 
 export const CampaignPractice = ({ technique, board, practiceId, onRetry }: Props) => {
     const { t } = useLingui();
-    const { engine, script, isComplete, isSaving, assisted, feedback, handleInput } = useCampaignPractice(technique, board, practiceId);
-    if (!isDefined(script)) {
+    const { engine, deductions, isComplete, isSaving, assisted, feedback, handleInput } = useCampaignPractice(technique, board, practiceId);
+    const firstDeduction = deductions.at(0);
+    if (!isDefined(firstDeduction)) {
         return (
             <BlackText>
                 <Trans>This lesson is unavailable.</Trans>
             </BlackText>
         );
     }
-    const instruction = isDefined(script.placement)
-        ? t`Find a cell this technique can fill. Select it, then choose the digit it proves.`
-        : t`Find a candidate this technique can remove. Select its cell, then choose the digit to remove.`;
+    const instruction =
+        firstDeduction.kind === 'placement'
+            ? t`Find a cell this technique can fill. Select it, then choose the digit it proves.`
+            : t`Find a candidate this technique can remove. Select its cell, then choose the digit to remove.`;
     const isInputDisabled = isComplete || isSaving;
     const successText = assisted
         ? t`Practice complete with assistance. Retry without mistakes to master it.`
