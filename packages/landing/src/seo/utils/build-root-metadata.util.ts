@@ -4,6 +4,5 @@ import type { Metadata } from 'next';
 
 export const buildRootMetadata = (): Metadata => ({
     metadataBase: new URL(SITE_ORIGIN),
-    applicationName: SITE_NAME,
-    robots: { index: true, follow: true }
+    applicationName: SITE_NAME
 });

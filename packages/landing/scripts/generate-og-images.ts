@@ -3,6 +3,8 @@ import { readFileSync } from 'node:fs';
 import { ImageResponse } from 'next/og';
 import { createElement } from 'react';
 
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
+
 import {
     OG_IMAGE_ACCENT_COLOR,
     OG_IMAGE_BACKGROUND_COLOR,
@@ -15,7 +17,6 @@ import {
 } from '../src/seo/constants/og-image.constant';
 import { SITE_NAME, SITE_TAGLINE } from '../src/seo/constants/site.constant';
 import { PAGE_METADATA_REGISTRY } from '../src/seo/registries/page-metadata.registry';
-import { getOgImageKicker } from '../src/seo/utils/get-og-image-kicker.util';
 import { getOgImageSlug } from '../src/seo/utils/get-og-image-path.util';
 
 import { createPublicDirectory } from './utils/create-public-directory.util';
@@ -23,6 +24,41 @@ import { handleGeneratorError } from './utils/handle-generator-error.util';
 import { writePublicArtifact } from './utils/write-public-artifact.util';
 
 import type { ReactElement } from 'react';
+
+const OG_IMAGE_TOP_LEVEL_KICKER: Readonly<Record<string, string>> = {
+    '': SITE_NAME,
+    'why-suuudokuuu': 'Open Source',
+    techniques: 'Techniques',
+    sudoku: 'Difficulty Levels',
+    printable: 'Printable Sudoku',
+    guides: 'Guide',
+    solver: 'Sudoku Solver',
+    glossary: 'Glossary',
+    'how-to-play': 'How to Play',
+    'hardest-sudoku-puzzles': 'Hardest Puzzles',
+    '17-clue-sudoku': 'Minimal Clues',
+    'large-print-sudoku': 'Large Print Sudoku',
+    'sudoku-for-seniors': 'Sudoku for Seniors'
+};
+
+const OG_IMAGE_CHILD_KICKER: Readonly<Record<string, string>> = {
+    techniques: 'Technique',
+    sudoku: 'Sudoku',
+    printable: 'Printable Sudoku'
+};
+
+const getOgImageKicker = (path: string): string => {
+    const segments = path.split('/').filter(isNotEmptyString);
+    const topSegment = segments[0] ?? '';
+    const hasChildSegment = segments.length > 1;
+    const childKicker = OG_IMAGE_CHILD_KICKER[topSegment];
+
+    if (hasChildSegment && isDefined(childKicker)) {
+        return childKicker;
+    }
+
+    return OG_IMAGE_TOP_LEVEL_KICKER[topSegment] ?? SITE_NAME;
+};
 
 const OUTPUT_DIRECTORY = createPublicDirectory('og');
 const OG_IMAGE_FONT_FAMILY = 'Inter';

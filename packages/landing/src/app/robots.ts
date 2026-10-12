@@ -5,7 +5,7 @@ import type { MetadataRoute } from 'next';
 export const dynamic = 'force-static';
 
 const robots = (): MetadataRoute.Robots => ({
-    rules: [{ userAgent: '*', allow: ['/'], disallow: ['/_next/'] }],
+    rules: [{ userAgent: '*', allow: ['/'] }],
     sitemap: `${SITE_ORIGIN}/sitemap.xml`,
     host: SITE_ORIGIN
 });

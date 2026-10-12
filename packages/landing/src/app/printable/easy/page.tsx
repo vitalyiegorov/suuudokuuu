@@ -12,10 +12,10 @@ import {
     PRINTABLE_BOOKLET_SIZE,
     PRINTABLE_LARGE_PRINT_SIZE
 } from '../../../printable/constants/printable-sample.constant';
-import { getPrintableFileSizeLabel } from '../../../printable/utils/get-printable-file-size-label.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -45,6 +45,7 @@ const easyReport = getTierTechniqueReport(DifficultyEnum.Easy);
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PrintableEasySudokuPage = () => (
     <main>
+        <ArticleSchema metadata={printableEasySudokuPageMetadata} />
         <PageHeader metadata={printableEasySudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem path={printableSudokuPageMetadata.path}>Printable sudoku</BreadcrumbListItem>
@@ -67,7 +68,7 @@ const PrintableEasySudokuPage = () => (
                     {PRINTABLE_BOOKLET_SIZE} puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key.
                 </li>
                 <li>
-                    Our sample of {easyReport.sampleSize} Easy boards measures SE <SeRatingRange report={easyReport} />.
+                    Our sample of {easyReport.sampleSize} Easy boards measures SE {formatSeRatingRange(easyReport)}.
                 </li>
                 <li>Also the source tier for the large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles.</li>
             </ul>
@@ -76,16 +77,15 @@ const PrintableEasySudokuPage = () => (
         <PrintableDownloadCard fileName="easy.pdf" title="Easy Sudoku">
             <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
             <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
-            <PrintableDownloadFact>{getPrintableFileSizeLabel('easy.pdf')} PDF, US Letter</PrintableDownloadFact>
             <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
         </PrintableDownloadCard>
         <h2>What is inside the booklet</h2>
         <p>
             A cover page states the puzzle and page counts up front, then {PRINTABLE_BOOKLET_SIZE} puzzles print{' '}
-            {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page so a single sheet holds four complete grids. The last pages hold every solved
-            grid at the same layout, so checking an answer never means hunting through a different page format. The whole file is vector
-            graphics and a standard PDF font, so it prints cleanly at any size a printer supports. Our published sample of{' '}
-            {easyReport.sampleSize} Easy boards measures SE <SeRatingRange report={easyReport} /> — numbers the{' '}
+            {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page so a single sheet holds {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} complete grids. The
+            last pages hold every solved grid at the same layout, so checking an answer never means hunting through a different page format.
+            The whole file is vector graphics and a standard PDF font, so it prints cleanly at any size a printer supports. Our published
+            sample of {easyReport.sampleSize} Easy boards measures SE {formatSeRatingRange(easyReport)} — numbers the{' '}
             <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> measures directly rather than
             assumes.
         </p>
@@ -127,8 +127,8 @@ const PrintableEasySudokuPage = () => (
             <Faq>
                 <FaqQuestion>How many puzzles are in the printable Easy sudoku PDF?</FaqQuestion>
                 <FaqAnswer>
-                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, four to a page, with the solved grids at
-                    the back.
+                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a
+                    page, with the solved grids at the back.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

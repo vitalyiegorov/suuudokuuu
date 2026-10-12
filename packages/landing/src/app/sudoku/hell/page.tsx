@@ -4,8 +4,9 @@ import Link from 'next/link';
 
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -48,6 +49,7 @@ const HellSudokuPage = () => {
 
     return (
         <main>
+            <ArticleSchema metadata={hellSudokuPageMetadata} />
             <PageHeader metadata={hellSudokuPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
@@ -70,7 +72,7 @@ const HellSudokuPage = () => {
                         drawn from the tdoku 17-clue catalog and the magictour top1465 list rather than generated fresh.
                     </li>
                     <li>
-                        Our sample of {hellReport.sampleSize} Hell boards measures SE <SeRatingRange report={hellReport} />.
+                        Our sample of {hellReport.sampleSize} Hell boards measures SE {formatSeRatingRange(hellReport)}.
                     </li>
                     <li>Hardness here comes from the technique each board requires, not from the clue count.</li>
                 </ul>
@@ -93,11 +95,11 @@ const HellSudokuPage = () => {
             </p>
             <h2>How hard is it, honestly</h2>
             <p>
-                Our sample of {hellReport.sampleSize} Hell boards measures SE (Sudoku Explainer) <SeRatingRange report={hellReport} />, with
-                the <TechniqueLink technique={hellReport.typicalHardestTechnique} /> as the most common hardest step and the{' '}
+                Our sample of {hellReport.sampleSize} Hell boards measures SE (Sudoku Explainer) {formatSeRatingRange(hellReport)}, with the{' '}
+                <TechniqueLink technique={hellReport.typicalHardestTechnique} /> as the most common hardest step and the{' '}
                 <TechniqueLink technique={hellReport.hardestTechniqueReached} /> as the hardest step anything in the sample reached. Be
                 careful not to read the clue count as the cause: the same sample puts{' '}
-                <Link href={nightmareSudokuPageMetadata.path}>Nightmare</Link> at SE <SeRatingRange report={nightmareReport} /> with{' '}
+                <Link href={nightmareSudokuPageMetadata.path}>Nightmare</Link> at SE {formatSeRatingRange(nightmareReport)} with{' '}
                 {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues, and some Hell boards start with more givens than that. This tier
                 used to be built from 17-clue puzzles alone, and it rated no harder than Nightmare; selecting on the required technique
                 instead is what separates the two. Our{' '}
@@ -138,8 +140,8 @@ const HellSudokuPage = () => {
                     <FaqQuestion>Is Hell harder than Nightmare?</FaqQuestion>
                     <FaqAnswer>
                         Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our
-                        sample measures Hell at SE <SeRatingRange report={hellReport} /> and Nightmare at SE{' '}
-                        <SeRatingRange report={nightmareReport} />.
+                        sample measures Hell at SE {formatSeRatingRange(hellReport)} and Nightmare at SE{' '}
+                        {formatSeRatingRange(nightmareReport)}.
                     </FaqAnswer>
                 </Faq>
                 <Faq>

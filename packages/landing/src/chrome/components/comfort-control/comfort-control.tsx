@@ -3,7 +3,7 @@
 import { track } from '@vercel/analytics';
 import { useSyncExternalStore } from 'react';
 
-import { isDefined } from '@rnw-community/shared';
+import { emptyFn, isDefined } from '@rnw-community/shared';
 
 import {
     COMFORT_SCALE_CSS_PROPERTY,
@@ -31,15 +31,19 @@ const notifyActiveStepListeners = () => {
 const getServerActiveStepId = (): string => DEFAULT_COMFORT_SCALE_STEP.id;
 
 const getClientActiveStepId = (): string => {
-    const storedStepId = window.localStorage.getItem(COMFORT_SCALE_STORAGE_KEY);
-    const storedStep = COMFORT_SCALE_STEPS.find(step => step.id === storedStepId);
+    const currentScale = document.documentElement.style.getPropertyValue(COMFORT_SCALE_CSS_PROPERTY);
+    const currentStep = COMFORT_SCALE_STEPS.find(step => String(step.scale) === currentScale);
 
-    return isDefined(storedStep) ? storedStep.id : DEFAULT_COMFORT_SCALE_STEP.id;
+    return isDefined(currentStep) ? currentStep.id : DEFAULT_COMFORT_SCALE_STEP.id;
 };
 
 const applyComfortScaleStep = (step: ComfortScaleStepInterface) => {
     document.documentElement.style.setProperty(COMFORT_SCALE_CSS_PROPERTY, String(step.scale));
-    window.localStorage.setItem(COMFORT_SCALE_STORAGE_KEY, step.id);
+    try {
+        window.localStorage.setItem(COMFORT_SCALE_STORAGE_KEY, step.id);
+    } catch {
+        emptyFn();
+    }
     notifyActiveStepListeners();
 };
 

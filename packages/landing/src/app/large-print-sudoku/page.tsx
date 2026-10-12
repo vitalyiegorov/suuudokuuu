@@ -8,7 +8,7 @@ import {
 } from '../../printable/constants/printable-layout.constant';
 import { PRINTABLE_LARGE_PRINT_PAGE_COUNT } from '../../printable/constants/printable-page-count.constant';
 import { PRINTABLE_LARGE_PRINT_SIZE } from '../../printable/constants/printable-sample.constant';
-import { getPrintableFileSizeLabel } from '../../printable/utils/get-printable-file-size-label.util';
+import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
@@ -31,6 +31,7 @@ export const metadata: Metadata = buildPageMetadata(largePrintSudokuPageMetadata
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const LargePrintSudokuPage = () => (
     <main>
+        <ArticleSchema metadata={largePrintSudokuPageMetadata} />
         <PageHeader metadata={largePrintSudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Large print sudoku</BreadcrumbListItem>
@@ -44,7 +45,6 @@ const LargePrintSudokuPage = () => (
         <PrintableDownloadCard fileName="large-print.pdf" title="Large Print Sudoku">
             <PrintableDownloadFact>{PRINTABLE_LARGE_PRINT_SIZE} puzzles</PrintableDownloadFact>
             <PrintableDownloadFact>{PRINTABLE_LARGE_PRINT_PAGE_COUNT} pages</PrintableDownloadFact>
-            <PrintableDownloadFact>{getPrintableFileSizeLabel('large-print.pdf')} PDF, US Letter</PrintableDownloadFact>
             <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
         </PrintableDownloadCard>
         <h2>Who reaches for large print</h2>

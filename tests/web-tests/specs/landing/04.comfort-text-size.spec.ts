@@ -67,3 +67,36 @@ test('ships the pre-paint comfort script ahead of the site chrome and exports th
     expect(html).toContain(`setProperty('${COMFORT_SCALE_CSS_PROPERTY}'`);
     expect(html).not.toContain(`style="${COMFORT_SCALE_CSS_PROPERTY}`);
 });
+
+for (const storageMethod of ['getItem', 'setItem']) {
+    test(`keeps text-size controls usable when localStorage.${storageMethod} throws SecurityError`, async ({ page }) => {
+        const consoleErrors: string[] = [];
+        page.on('console', message => {
+            if (message.type() === 'error') {
+                consoleErrors.push(message.text());
+            }
+        });
+        page.on('pageerror', error => consoleErrors.push(error.message));
+        await page.addInitScript(method => {
+            Object.defineProperty(Storage.prototype, method, {
+                value: () => {
+                    throw new DOMException('Storage access denied', 'SecurityError');
+                }
+            });
+        }, storageMethod);
+        await page.goto(techniquePagePath);
+
+        const textSizeGroup = page.getByRole('group', { name: 'Text size' });
+        const defaultFontSize = await readRootFontSize(page);
+
+        await expect(textSizeGroup.getByRole('button', { name: DEFAULT_COMFORT_SCALE_STEP.label })).toHaveAttribute('aria-pressed', 'true');
+        await textSizeGroup.getByRole('button', { name: LARGEST_COMFORT_SCALE_STEP.label }).click();
+        await expect(textSizeGroup.getByRole('button', { name: LARGEST_COMFORT_SCALE_STEP.label })).toHaveAttribute('aria-pressed', 'true');
+        await expect(textSizeGroup.getByRole('button', { name: DEFAULT_COMFORT_SCALE_STEP.label })).toHaveAttribute(
+            'aria-pressed',
+            'false'
+        );
+        expect(await readRootFontSize(page)).toBeCloseTo(defaultFontSize * LARGEST_COMFORT_SCALE_STEP.scale, 1);
+        expect(consoleErrors).toEqual([]);
+    });
+}

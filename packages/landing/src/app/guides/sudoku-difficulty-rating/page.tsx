@@ -3,11 +3,12 @@ import { HELL_CORPUS_MAXIMUM_GIVEN_COUNT, HELL_CORPUS_MINIMUM_GIVEN_COUNT } from
 import { SE_RATING_CEILING } from '@suuudokuuu/rating';
 import Link from 'next/link';
 
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { TechniqueFrequencyTable } from '../../../rating/components/technique-frequency-table/technique-frequency-table';
 import { TierLadderTable } from '../../../rating/components/tier-ladder-table/tier-ladder-table';
 import { RATING_SAMPLE_SIZE, RATING_SAMPLE_TOTAL } from '../../../rating/constants/rating-sample.constant';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -52,6 +53,7 @@ const SudokuDifficultyRatingPage = () => {
 
     return (
         <main>
+            <ArticleSchema metadata={sudokuDifficultyRatingPageMetadata} />
             <PageHeader metadata={sudokuDifficultyRatingPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem>Sudoku difficulty rating</BreadcrumbListItem>
@@ -129,8 +131,8 @@ const SudokuDifficultyRatingPage = () => {
                 {hardReport.clueCount} — a difference of one given — yet no Medium board in the sample needs a fish or a wing and every Hard
                 board does. Nightmare removes one more clue and moves an entire band, from wings to chains. Meanwhile Newbie hands you{' '}
                 {newbieReport.clueCount} clues and Nightmare {nightmareReport.clueCount}, {newbieToNightmareClueDrop} fewer, across a span
-                that runs from SE <SeRatingRange report={newbieReport} /> to SE <SeRatingRange report={nightmareReport} />. Clue count is
-                not what separates these tiers; the technique contract is. The full argument lives in our{' '}
+                that runs from SE {formatSeRatingRange(newbieReport)} to SE {formatSeRatingRange(nightmareReport)}. Clue count is not what
+                separates these tiers; the technique contract is. The full argument lives in our{' '}
                 <Link href={sudokuCluesVsDifficultyPageMetadata.path}>clues versus difficulty guide</Link>.
             </p>
             <h2>Which techniques our tiers really require</h2>
@@ -149,11 +151,11 @@ const SudokuDifficultyRatingPage = () => {
                 Newbie board falls to full houses and naked singles, an Easy board provably does not and needs a{' '}
                 <Link href={hiddenSinglePageMetadata.path}>hidden single</Link>. They overlap on the scale only because SE prices a hidden
                 single at 1.5, below a naked single at 2.3. Medium is the intersections-and-subsets tier at SE{' '}
-                <SeRatingRange report={mediumReport} />, Hard the fish-and-wings tier at SE <SeRatingRange report={hardReport} />, and
-                Nightmare the chain tier at SE <SeRatingRange report={nightmareReport} />, capped at AIC. Hell is drawn from a verified
-                corpus rather than generated to a band, and it is selected by technique, not by{' '}
+                {formatSeRatingRange(mediumReport)}, Hard the fish-and-wings tier at SE {formatSeRatingRange(hardReport)}, and Nightmare the
+                chain tier at SE {formatSeRatingRange(nightmareReport)}, capped at AIC. Hell is drawn from a verified corpus rather than
+                generated to a band, and it is selected by technique, not by{' '}
                 <Link href={seventeenClueSudokuPageMetadata.path}>clue count</Link>: every Hell board needs a forcing chain, so none of them
-                can be finished with anything Nightmare allows. Our sample measures it at SE <SeRatingRange report={hellReport} />.
+                can be finished with anything Nightmare allows. Our sample measures it at SE {formatSeRatingRange(hellReport)}.
             </p>
             <p>
                 That is the honest answer to “how hard is expert sudoku, actually”: the ladder rung is the difficulty, and everything else —
@@ -195,9 +197,9 @@ const SudokuDifficultyRatingPage = () => {
                 <Faq>
                     <FaqQuestion>Is a sudoku with fewer clues always harder?</FaqQuestion>
                     <FaqAnswer>
-                        No. In our sample, {mediumReport.clueCount}-clue Medium boards measure SE <SeRatingRange report={mediumReport} />{' '}
-                        and {hardReport.clueCount}-clue Hard boards measure SE <SeRatingRange report={hardReport} /> — one clue apart, a
-                        whole technique band apart. Our Hell boards carry anywhere from {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to{' '}
+                        No. In our sample, {mediumReport.clueCount}-clue Medium boards measure SE {formatSeRatingRange(mediumReport)} and{' '}
+                        {hardReport.clueCount}-clue Hard boards measure SE {formatSeRatingRange(hardReport)} — one clue apart, a whole
+                        technique band apart. Our Hell boards carry anywhere from {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to{' '}
                         {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues, some of them more than {nightmareReport.clueCount}-clue Nightmare, yet
                         every one needs a forcing chain that Nightmare never asks for.
                     </FaqAnswer>

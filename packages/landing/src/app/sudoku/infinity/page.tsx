@@ -12,8 +12,9 @@ import {
     INFINITY_MINIMUM_GIVEN_COUNT
 } from '../../../difficulty/constants/infinity-corpus.constant';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -51,6 +52,7 @@ const InfinitySudokuPage = () => {
 
     return (
         <main>
+            <ArticleSchema metadata={infinitySudokuPageMetadata} />
             <PageHeader metadata={infinitySudokuPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
@@ -97,10 +99,10 @@ const InfinitySudokuPage = () => {
             <h2>How hard is it, honestly</h2>
             <p>
                 Harder than anything else in the app, by a wide margin. Our sample of {hellReport.sampleSize}{' '}
-                <Link href={hellSudokuPageMetadata.path}>Hell</Link> boards measures SE <SeRatingRange report={hellReport} />; Infinity
-                starts at {lowestRatingLabel}. The Infinity ratings are not our own measurements. Suuudokuuu’s rater prices the SE ladder
-                only as far as forcing chains and nets and reports {SE_RATING_CEILING} with a ceiling flag above that, so for these puzzles
-                we quote the figures independent raters publish, as the{' '}
+                <Link href={hellSudokuPageMetadata.path}>Hell</Link> boards measures SE {formatSeRatingRange(hellReport)}; Infinity starts
+                at {lowestRatingLabel}. The Infinity ratings are not our own measurements. Suuudokuuu’s rater prices the SE ladder only as
+                far as forcing chains and nets and reports {SE_RATING_CEILING} with a ceiling flag above that, so for these puzzles we quote
+                the figures independent raters publish, as the{' '}
                 <Link href={sudokuDifficultyRatingPageMetadata.path}>difficulty rating guide</Link> explains.
             </p>
             <p>
@@ -141,9 +143,9 @@ const InfinitySudokuPage = () => {
                 <Faq>
                     <FaqQuestion>Is Infinity harder than Hell?</FaqQuestion>
                     <FaqAnswer>
-                        Yes. Our sample measures Hell at SE <SeRatingRange report={hellReport} />, and every Infinity puzzle carries a
-                        published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique
-                        ladder; Infinity boards do not.
+                        Yes. Our sample measures Hell at SE {formatSeRatingRange(hellReport)}, and every Infinity puzzle carries a published
+                        rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder;
+                        Infinity boards do not.
                     </FaqAnswer>
                 </Faq>
                 <Faq>

@@ -26,10 +26,7 @@ export const buildPageMetadata = ({ metaDescription, metaTitle, path, publishedA
             ...(path === '/' ? { type: 'website' } : { type: 'article', publishedTime: publishedAt, modifiedTime: updatedAt })
         },
         twitter: {
-            card: 'summary_large_image',
-            title: metaTitle,
-            description: metaDescription,
-            images: [imageUrl]
+            card: 'summary_large_image'
         }
     };
 };

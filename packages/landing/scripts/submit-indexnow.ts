@@ -2,7 +2,7 @@ import { getErrorMessage, isNotEmptyArray, isNotEmptyString } from '@rnw-communi
 
 import { INDEXNOW_ENDPOINT, INDEXNOW_KEY_ENVIRONMENT_VARIABLE } from '../src/indexing/constants/indexnow.constant';
 import { buildIndexablePages } from '../src/indexing/utils/build-indexable-pages.util';
-import { buildIndexNowKeyLocation } from '../src/indexing/utils/build-indexnow-key-location.util';
+import { buildIndexNowKeyFileName } from '../src/indexing/utils/build-indexnow-key-file-name.util';
 import { resolveIndexNowKey } from '../src/indexing/utils/resolve-indexnow-key.util';
 import { SITE_ORIGIN } from '../src/seo/constants/site.constant';
 
@@ -39,7 +39,7 @@ const assertKeyFileServed = async (keyLocation: string, key: string): Promise<vo
 };
 
 const submitToIndexNow = (key: string): void => {
-    const keyLocation = buildIndexNowKeyLocation(key);
+    const keyLocation = `${SITE_ORIGIN}/${buildIndexNowKeyFileName(key)}`;
 
     assertKeyFileServed(keyLocation, key)
         .then(() =>

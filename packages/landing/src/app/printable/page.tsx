@@ -5,12 +5,15 @@ import { getDifficultyClueCount } from '../../difficulty/utils/get-difficulty-cl
 import { PrintableDownloadCard } from '../../printable/components/printable-download-card/printable-download-card';
 import { PrintableDownloadFact } from '../../printable/components/printable-download-fact/printable-download-fact';
 import {
+    PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
+    PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE
+} from '../../printable/constants/printable-layout.constant';
+import {
     PRINTABLE_BLANK_GRID_PAGE_COUNT,
     PRINTABLE_BOOKLET_PAGE_COUNT,
     PRINTABLE_LARGE_PRINT_PAGE_COUNT
 } from '../../printable/constants/printable-page-count.constant';
 import { PRINTABLE_BOOKLET_SIZE, PRINTABLE_LARGE_PRINT_SIZE } from '../../printable/constants/printable-sample.constant';
-import { getPrintableFileSizeLabel } from '../../printable/utils/get-printable-file-size-label.util';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
@@ -90,7 +93,6 @@ const PrintableSudokuPage = () => (
             <PrintableDownloadCard fileName="newbie.pdf" title="Newbie Sudoku">
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
-                <PrintableDownloadFact>{getPrintableFileSizeLabel('newbie.pdf')} PDF, US Letter</PrintableDownloadFact>
                 <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
             </PrintableDownloadCard>
         </article>
@@ -105,7 +107,6 @@ const PrintableSudokuPage = () => (
             <PrintableDownloadCard fileName="easy.pdf" title="Easy Sudoku">
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
-                <PrintableDownloadFact>{getPrintableFileSizeLabel('easy.pdf')} PDF, US Letter</PrintableDownloadFact>
                 <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
             </PrintableDownloadCard>
         </article>
@@ -120,7 +121,6 @@ const PrintableSudokuPage = () => (
             <PrintableDownloadCard fileName="medium.pdf" title="Medium Sudoku">
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
-                <PrintableDownloadFact>{getPrintableFileSizeLabel('medium.pdf')} PDF, US Letter</PrintableDownloadFact>
                 <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
             </PrintableDownloadCard>
         </article>
@@ -135,7 +135,6 @@ const PrintableSudokuPage = () => (
             <PrintableDownloadCard fileName="hard.pdf" title="Hard Sudoku">
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
-                <PrintableDownloadFact>{getPrintableFileSizeLabel('hard.pdf')} PDF, US Letter</PrintableDownloadFact>
                 <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
             </PrintableDownloadCard>
         </article>
@@ -150,7 +149,6 @@ const PrintableSudokuPage = () => (
             <PrintableDownloadCard fileName="nightmare.pdf" title="Nightmare Sudoku">
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
-                <PrintableDownloadFact>{getPrintableFileSizeLabel('nightmare.pdf')} PDF, US Letter</PrintableDownloadFact>
                 <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
             </PrintableDownloadCard>
         </article>
@@ -165,7 +163,6 @@ const PrintableSudokuPage = () => (
             <PrintableDownloadCard fileName="hell.pdf" title="Hell Sudoku">
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
-                <PrintableDownloadFact>{getPrintableFileSizeLabel('hell.pdf')} PDF, US Letter</PrintableDownloadFact>
                 <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
             </PrintableDownloadCard>
         </article>
@@ -180,22 +177,20 @@ const PrintableSudokuPage = () => (
             <PrintableDownloadCard fileName="infinity.pdf" title="Infinity Sudoku">
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
                 <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
-                <PrintableDownloadFact>{getPrintableFileSizeLabel('infinity.pdf')} PDF, US Letter</PrintableDownloadFact>
                 <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
             </PrintableDownloadCard>
         </article>
         <h2>Large print sudoku, printable</h2>
         <p>
-            The large-print set uses the same Easy-tier logic as the booklet above, but at two puzzles per page instead of four, so every
-            cell and digit prints noticeably bigger. It suits low-vision solvers, classroom handouts read from a distance, and anyone who
-            finds the standard grid cramped on paper. See the <Link href={largePrintSudokuPageMetadata.path}>large print sudoku page</Link>{' '}
-            for printing tips and the on-screen alternative, or the <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link>{' '}
-            guide for the full comfort-focused rundown.
+            The large-print set uses the same Easy-tier logic as the booklet above, but at {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} puzzles
+            per page instead of {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}, so every cell and digit prints noticeably bigger. It suits low-vision
+            solvers, classroom handouts read from a distance, and anyone who finds the standard grid cramped on paper. See the{' '}
+            <Link href={largePrintSudokuPageMetadata.path}>large print sudoku page</Link> for printing tips and the on-screen alternative,
+            or the <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link> guide for the full comfort-focused rundown.
         </p>
         <PrintableDownloadCard fileName="large-print.pdf" title="Large Print Sudoku">
             <PrintableDownloadFact>{PRINTABLE_LARGE_PRINT_SIZE} puzzles</PrintableDownloadFact>
             <PrintableDownloadFact>{PRINTABLE_LARGE_PRINT_PAGE_COUNT} pages</PrintableDownloadFact>
-            <PrintableDownloadFact>{getPrintableFileSizeLabel('large-print.pdf')} PDF, US Letter</PrintableDownloadFact>
             <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
         </PrintableDownloadCard>
         <h2>Blank sudoku grid</h2>
@@ -206,7 +201,6 @@ const PrintableSudokuPage = () => (
         </p>
         <PrintableDownloadCard fileName="blank-grid.pdf" title="Blank Sudoku Grid">
             <PrintableDownloadFact>{PRINTABLE_BLANK_GRID_PAGE_COUNT} pages</PrintableDownloadFact>
-            <PrintableDownloadFact>{getPrintableFileSizeLabel('blank-grid.pdf')} PDF, US Letter</PrintableDownloadFact>
         </PrintableDownloadCard>
         <h2>How to print these puzzles</h2>
         <p>

@@ -1,5 +1,7 @@
 import { expect, test } from '@playwright/test';
+import { homePageMetadata } from '@suuudokuuu/landing/src/app/metadata';
 import { SITE_ORIGIN } from '@suuudokuuu/landing/src/seo/constants/site.constant';
+import { resolvePageHeadline } from '@suuudokuuu/landing/src/seo/utils/resolve-page-headline.util';
 
 import { fetchPageHtml } from '../../src/utils/fetch-page-html.util';
 import { readJsonLdSchema } from '../../src/utils/json-ld.util';
@@ -9,6 +11,7 @@ const techniquePagePath = '/techniques/x-wing';
 const difficultyLanderPath = '/sudoku/hard';
 const guidePagePath = '/guides/sudoku-difficulty-rating';
 const techniqueHubPath = '/techniques';
+const collectionPagePaths = [techniqueHubPath, '/sudoku', '/printable'];
 
 const articlePagePaths = [techniquePagePath, difficultyLanderPath, guidePagePath];
 const sampledPagePaths = [homePath, techniquePagePath, difficultyLanderPath, guidePagePath, techniqueHubPath];
@@ -95,4 +98,31 @@ test('keeps the home page out of the Article family and publishes site-level str
     expect(readJsonLdSchema(html, 'Article')).toBeNull();
     expect(readJsonLdSchema(html, 'WebSite')).not.toBeNull();
     expect(readJsonLdSchema(html, 'SoftwareApplication')).not.toBeNull();
+});
+
+for (const path of collectionPagePaths) {
+    test(`publishes CollectionPage rather than Article structured data on ${path}`, async ({ request }) => {
+        const html = await fetchPageHtml(request, path);
+
+        expect(readJsonLdSchema(html, 'CollectionPage')).toMatchObject({ url: `${SITE_ORIGIN}${path}` });
+        expect(readJsonLdSchema(html, 'Article')).toBeNull();
+    });
+}
+
+test('keeps the home headline consistent with its visible title and describes seven difficulty levels', async ({ request }) => {
+    const html = await fetchPageHtml(request, homePath);
+
+    expect(readHeadings(html)).toEqual(['Play Free Online Sudoku']);
+    expect(html).toMatch(/<meta name="description" content="[^"]*[Ss]even difficulty levels/u);
+    expect(readHeadings(html)).toEqual([resolvePageHeadline(homePageMetadata)]);
+});
+
+test('keeps the visible technique instructions without publishing HowTo structured data', async ({ request }) => {
+    const html = await fetchPageHtml(request, techniquePagePath);
+
+    expect(readJsonLdSchema(html, 'HowTo')).toBeNull();
+    expect(html).toMatch(/<ol[^>]*class="how-to"/u);
+    expect(html.match(/class="how-to__step"/gu) ?? []).toHaveLength(4);
+    expect(html).toContain('Pick a digit and scan the rows');
+    expect(html).toContain('Erase the digit from the rest of both columns');
 });

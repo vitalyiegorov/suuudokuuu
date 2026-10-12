@@ -1,6 +1,7 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import Link from 'next/link';
 
+import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
@@ -26,6 +27,7 @@ export const metadata: Metadata = buildPageMetadata(glossaryPageMetadata);
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const GlossaryPage = () => (
     <main>
+        <ArticleSchema metadata={glossaryPageMetadata} />
         <PageHeader metadata={glossaryPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Glossary</BreadcrumbListItem>

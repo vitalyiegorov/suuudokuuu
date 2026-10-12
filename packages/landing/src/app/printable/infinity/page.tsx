@@ -14,8 +14,8 @@ import { PrintableDownloadFact } from '../../../printable/components/printable-d
 import { PRINTABLE_BOOKLET_PUZZLES_PER_PAGE } from '../../../printable/constants/printable-layout.constant';
 import { PRINTABLE_BOOKLET_PAGE_COUNT } from '../../../printable/constants/printable-page-count.constant';
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_BOOKLET_SIZE } from '../../../printable/constants/printable-sample.constant';
-import { getPrintableFileSizeLabel } from '../../../printable/utils/get-printable-file-size-label.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -44,6 +44,7 @@ const highestRatingLabel = INFINITY_HIGHEST_RATING.toFixed(1);
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PrintableInfinitySudokuPage = () => (
     <main>
+        <ArticleSchema metadata={printableInfinitySudokuPageMetadata} />
         <PageHeader metadata={printableInfinitySudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem path={printableSudokuPageMetadata.path}>Printable sudoku</BreadcrumbListItem>
@@ -73,7 +74,6 @@ const PrintableInfinitySudokuPage = () => (
         <PrintableDownloadCard fileName="infinity.pdf" title="Infinity Sudoku">
             <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
             <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
-            <PrintableDownloadFact>{getPrintableFileSizeLabel('infinity.pdf')} PDF, US Letter</PrintableDownloadFact>
             <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
         </PrintableDownloadCard>
         <h2>What is inside the booklet</h2>
@@ -122,8 +122,8 @@ const PrintableInfinitySudokuPage = () => (
             <Faq>
                 <FaqQuestion>How many puzzles are in the printable Infinity sudoku PDF?</FaqQuestion>
                 <FaqAnswer>
-                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, four to a page, with the solved grids at
-                    the back.
+                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a
+                    page, with the solved grids at the back.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

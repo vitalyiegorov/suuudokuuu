@@ -13,7 +13,7 @@ export const SITE_LICENSE = 'MIT';
 export const SITE_TAGLINE = 'Free offline Sudoku for iOS, Android and the web';
 
 export const SITE_DESCRIPTION =
-    'Suuudokuuu is a free, ad-free Sudoku game that works offline. Six difficulty levels, technique-aware hints, streaks and shareable puzzles.';
+    'Suuudokuuu is a free, ad-free Sudoku game that works offline. Seven difficulty levels, technique-aware hints, streaks and shareable puzzles.';
 
 export const SITE_THEME_COLOR = '#000000';
 
