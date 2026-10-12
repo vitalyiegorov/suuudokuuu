@@ -696,6 +696,10 @@ msgstr "Ignorera ändringar?"
 msgid "Dismiss"
 msgstr "Avfärda"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Dismiss setup spotlight"
+msgstr "Stäng introduktionsrutan"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "Visning"
@@ -876,6 +880,10 @@ msgstr "h"
 msgid "Hard"
 msgstr "Svår"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Hard is set. Replay finished puzzles move by move from History and see the techniques used."
+msgstr "Svår är valt. Spela upp färdiga pussel drag för drag från Historik och se vilka tekniker som användes."
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -953,6 +961,10 @@ msgstr "Ledtrådar i de svåraste sudokun"
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
 msgstr "Hem"
+
+#: src/screens/components/home-screen/home-screen-intent-rating-link/home-screen-intent-rating-link.tsx
+msgid "How difficulty is rated"
+msgstr "Så betygsätts svårighetsgraden"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "How much the board and screens may move"
@@ -1232,6 +1244,10 @@ msgstr "Nästa steg"
 msgid "Nightmare"
 msgstr "Mardröm"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Nightmare is set. See every puzzle's SE rating; Hell and Infinity go further."
+msgstr "Mardröm är valt. Se varje pussels SE-betyg; Helvete och Oändlighet går ännu längre."
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
 msgstr "Tvingande Nishio-kedja"
@@ -1486,6 +1502,10 @@ msgstr "Övningen slutfördes med hjälp. Försök igen utan misstag för att be
 msgid "Practice complete without help."
 msgstr "Övningen klar utan hjälp."
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Practice harder logic"
+msgstr "Öva på svårare logik"
+
 #: src/campaign/hooks/use-campaign-practice.hook.ts
 msgid "Practice progress could not be saved. Try again."
 msgstr "Övningens framsteg kunde inte sparas. Försök igen."
@@ -1540,6 +1560,10 @@ msgstr "Text för upphöjd yta"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Läs Suuudokuuus integritetspolicy om datainsamling, lagring och dina rättigheter."
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Ready for a real challenge"
+msgstr "Redo för en riktig utmaning"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
 msgstr "Senaste lösningar"
@@ -1564,6 +1588,10 @@ msgstr "Tvingande regionkedja"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
 msgstr "Avslappnat"
+
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Relaxed mistakes are on, with no limit. Works offline."
+msgstr "I avslappnat läge finns ingen gräns för misstag. Fungerar offline."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Release notes"
@@ -1973,6 +2001,10 @@ msgstr "Svenska"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Swordfish"
 msgstr "Swordfish"
+
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Take it slow"
+msgstr "Ta det lugnt"
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
 msgid "Taller marks = sharper techniques"

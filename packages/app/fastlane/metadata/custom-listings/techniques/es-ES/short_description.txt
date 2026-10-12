@@ -1,0 +1,1 @@
+Repite sudokus terminados jugada a jugada y consulta técnicas en el historial.

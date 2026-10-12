@@ -1,0 +1,1 @@
+Sudoku sem conexão com Relaxado, sem limite de erros e com temas.

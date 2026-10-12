@@ -1,0 +1,3 @@
+schweres sudoku
+sudoku für experten
+sudoku schwierigkeitswertung

@@ -1,0 +1,29 @@
+Wähle in suuudokuuu auf der Seite Start zwischen Schwer, Albtraum, Hölle und Unendlich. Jedes Rätsel zeigt seine Sudoku-Explainer-Wertung (SE). Hölle und Unendlich bieten die anspruchsvollsten Gitter.
+
+JEDES RÄTSEL BEWERTET
+Jedes Rätsel trägt eine Bewertung auf der Sudoku-Explainer-Skala (SE) von 1.0 bis 12.0 – derselben Skala, mit der erfahrene Löser vergleichen. Sie steht direkt neben der Schwierigkeitsstufe auf dem Brett, in deinem Verlauf und in jedem Link, den du teilst. Eine eingebaute Erklärung zeigt dir, was die Zahl wirklich misst: wie schwer ein Rätsel zu durchdenken ist, und nicht, wie wenige Vorgaben es hat.
+
+UNENDLICH: SUDOKUS MIT SE 10.4 BIS 11.9
+Eine kuratierte Sammlung aus 100 Rätseln mit SE 10.4 bis 11.9, darunter Arto Inkalas Everest und AI Escargot.
+
+HÖLLE: ZWANGSKETTEN ERFORDERLICH
+Die Hölle besteht aus geprüften Rätseln, die alle eine Zwangskette verlangen: Keines lässt sich mit den Techniken lösen, die der Albtraum erlaubt, und jedes ist mit mindestens SE 7.5 bewertet.
+
+DEIN SPIEL, GEMESSEN
+Die Statistiken zeigen dein schwerstes Rätsel, deine durchschnittliche Schwierigkeit der letzten Spiele und die Stufe, die du am häufigsten spielst. Das SE-Spektrum trägt jedes abgeschlossene Rätsel auf der Skala ab. Dein Arsenal zählt jede Technik, die du wirklich eingesetzt hast – Nacktes Paar, X-Wing, Swordfish und weiter – damit du dein Repertoire wachsen siehst. Jedes abgeschlossene Spiel lässt sich Zug für Zug wiederholen, und jede Karte im Verlauf trägt eine Zusammenfassung der Techniken, die es gelöst haben.
+
+FORDERE EINEN FREUND HERAUS
+Der Rivalen-Modus schickt dein exaktes Rätsel als Link an einen Freund, samt deinem aufgezeichneten Lauf. Er oder sie spielt genau dein Gitter und tritt Zug um Zug gegen deine Zeit an.
+
+SPIEL, WIE DU WILLST
+Wähle Klassisch, Gold oder Zeitung, oder öffne den Theme-Editor mit Live-Vorschau und bestimme jede Zelle, jede Linie und jede Hervorhebung selbst. Die eingebaute Kontrastprüfung hält eigene Themes in Hell und Dunkel gut lesbar.
+
+TÄGLICHE HERAUSFORDERUNG UND TIPPS ZUM LERNEN
+Jeden Tag ein neues Sudoku, dazu eine Serie, die zählt, an wie vielen Tagen in Folge du es löst. Hängst du fest? Ein Tipp führt dich Schritt für Schritt durch die Technik, von Nackten Paaren bis X-Wing und weiter, damit du verstehst, warum ein Zug funktioniert, und nicht nur, wohin er gehört.
+
+ALLES ANDERE, WAS DU WILLST
+• Technikbewusste Wertung
+• 13 Sprachen
+• Open Source
+
+Mehr auf www.suuudokuuu.com.

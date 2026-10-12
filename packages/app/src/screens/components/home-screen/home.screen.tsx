@@ -2,6 +2,8 @@ import { Trans, useLingui } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
+import * as Schema from 'effect/Schema';
+import { useLocalSearchParams } from 'expo-router';
 import { use } from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -36,10 +38,12 @@ import { RelaxedMaxMistakesConstant } from '../../../settings/constant/max-mista
 import { useSettings } from '../../../settings/query/use-settings.query';
 import { updateSettings } from '../../../settings/utils/update-settings.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { StoreIntentSchema } from '../../schema/store-intent.schema';
 
 import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayHeight, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
 import { HomeScreenBestRun } from './home-screen-best-run/home-screen-best-run';
 import { HomeScreenContinueRow } from './home-screen-continue-row/home-screen-continue-row';
+import { HomeScreenIntentSpotlight } from './home-screen-intent-spotlight/home-screen-intent-spotlight';
 import { HomeScreenOptionCard } from './home-screen-option-card/home-screen-option-card';
 import { homeScreenOptionCardGetColors } from './home-screen-option-card/utils/home-screen-option-card-get-colors.util';
 import { HomeScreenPlayActions } from './home-screen-play-actions/home-screen-play-actions';
@@ -57,6 +61,9 @@ export const HomeScreen = () => {
     const { create, isCreatingGame } = use(GameContext);
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
+    const { intent, intentVisit } = useLocalSearchParams<{ intent?: string | string[]; intentVisit?: string | string[] }>();
+    const hasStoreIntent = Schema.is(StoreIntentSchema)(intent);
+    const scrollViewKey = isNotEmptyString(intentVisit) ? intentVisit : 'home';
     const safeAreaInsets = useSafeAreaInsets();
     const tabBarInset = use(TabBarInsetContext);
     const { bestScore, bestTime } = useDifficultyStats().reduce((best, stats) => (stats.bestScore > best.bestScore ? stats : best), {
@@ -117,6 +124,34 @@ export const HomeScreen = () => {
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
     const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
     const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top);
+    const contentStackStyles = hasStoreIntent ? [styles.contentStack, styles.intentContentStack] : styles.contentStack;
+    const playActions = (
+        <HomeScreenPlayActions
+            difficulty={difficulty}
+            isLoading={isCreatingGame}
+            onStart={handleStart}
+            startButtonSubtitle={setupSummary}
+            startButtonText={startButtonText}
+        >
+            {isGameStarted ? (
+                <HomeScreenContinueRow
+                    currentElapsedTimeText={currentElapsedTimeText}
+                    currentProgressPercent={currentProgressPercent}
+                    currentProgressText={currentProgressText}
+                />
+            ) : null}
+        </HomeScreenPlayActions>
+    );
+    const intentIntroduction = hasStoreIntent ? (
+        <>
+            <HomeScreenIntentSpotlight
+                difficultyLabel={selectedDifficultyLabel}
+                intent={intent}
+                mistakesTitle={selectedMistakesOption.title}
+            />
+            {playActions}
+        </>
+    ) : null;
     const mistakeCards: HomeScreenOptionCardInterface[] = mistakeOptions.map(option => {
         const isSelected = option.maxMistakes === maxMistakes;
         const optionColors = homeScreenOptionCardGetColors(theme, isSelected);
@@ -143,11 +178,12 @@ export const HomeScreen = () => {
                 contentInsetBottom={contentInsetBottom}
                 contentInsetMode="additive"
                 contentInsetTop={contentInsetTop}
+                key={scrollViewKey}
                 showsVerticalScrollIndicator={false}
                 style={resolveUnistyleForAnimated(styles.scrollView)}
                 testID={HomeScreenSelectors.Root}
             >
-                <View style={styles.contentStack}>
+                <View style={contentStackStyles}>
                     <View style={styles.masthead}>
                         <View style={styles.hero}>
                             <Header
@@ -163,6 +199,8 @@ export const HomeScreen = () => {
                     </View>
 
                     <View style={styles.setupSection}>
+                        {intentIntroduction}
+
                         <CampaignEntry />
                         <HomeScreenSectionHeader>
                             <ChallengeModeSwitch />
@@ -182,34 +220,23 @@ export const HomeScreen = () => {
                             </View>
                         </View>
 
-                        <DifficultyComplexityPreview
-                            isChallengeMode={isChallengeMode}
-                            maxMistakes={maxMistakes}
-                            selectedDifficultyDescription={selectedDifficultyDescription}
-                            selectedDifficultyLabel={selectedDifficultyLabel}
-                            selectedIndex={selectedDifficultyIndex}
-                        >
-                            <DifficultyComplexityPreviewMistakes
-                                description={selectedMistakesOption.description}
-                                label={selectedMistakesOption.title}
-                            />
-                        </DifficultyComplexityPreview>
-
-                        <HomeScreenPlayActions
-                            difficulty={difficulty}
-                            isLoading={isCreatingGame}
-                            onStart={handleStart}
-                            startButtonSubtitle={setupSummary}
-                            startButtonText={startButtonText}
-                        >
-                            {isGameStarted ? (
-                                <HomeScreenContinueRow
-                                    currentElapsedTimeText={currentElapsedTimeText}
-                                    currentProgressPercent={currentProgressPercent}
-                                    currentProgressText={currentProgressText}
-                                />
-                            ) : null}
-                        </HomeScreenPlayActions>
+                        {hasStoreIntent ? null : (
+                            <>
+                                <DifficultyComplexityPreview
+                                    isChallengeMode={isChallengeMode}
+                                    maxMistakes={maxMistakes}
+                                    selectedDifficultyDescription={selectedDifficultyDescription}
+                                    selectedDifficultyLabel={selectedDifficultyLabel}
+                                    selectedIndex={selectedDifficultyIndex}
+                                >
+                                    <DifficultyComplexityPreviewMistakes
+                                        description={selectedMistakesOption.description}
+                                        label={selectedMistakesOption.title}
+                                    />
+                                </DifficultyComplexityPreview>
+                                {playActions}
+                            </>
+                        )}
                     </View>
                 </View>
             </ScreenChromeScrollView>

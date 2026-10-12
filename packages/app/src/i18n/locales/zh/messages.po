@@ -696,6 +696,10 @@ msgstr "放弃更改？"
 msgid "Dismiss"
 msgstr "忽略"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Dismiss setup spotlight"
+msgstr "关闭设置提示"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "显示"
@@ -876,6 +880,10 @@ msgstr "h"
 msgid "Hard"
 msgstr "困难"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Hard is set. Replay finished puzzles move by move from History and see the techniques used."
+msgstr "已选择困难。从历史记录中逐步回放已完成的谜题，查看所用技巧。"
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -953,6 +961,10 @@ msgstr "最难数独中的提示"
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
 msgstr "首页"
+
+#: src/screens/components/home-screen/home-screen-intent-rating-link/home-screen-intent-rating-link.tsx
+msgid "How difficulty is rated"
+msgstr "难度如何评级"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "How much the board and screens may move"
@@ -1232,6 +1244,10 @@ msgstr "下一步"
 msgid "Nightmare"
 msgstr "噩梦"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Nightmare is set. See every puzzle's SE rating; Hell and Infinity go further."
+msgstr "已选择噩梦。查看每道谜题的 SE 评级；地狱和无限难度更进一步。"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
 msgstr "Nishio 强制链"
@@ -1486,6 +1502,10 @@ msgstr "已在帮助下完成练习。请无错误地重试以掌握它。"
 msgid "Practice complete without help."
 msgstr "已独立完成练习。"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Practice harder logic"
+msgstr "练习更高难度的逻辑"
+
 #: src/campaign/hooks/use-campaign-practice.hook.ts
 msgid "Practice progress could not be saved. Try again."
 msgstr "无法保存练习进度。请重试。"
@@ -1540,6 +1560,10 @@ msgstr "凸起表面文字"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "阅读 Suuudokuuu 隐私政策，了解数据收集、存储以及你的权利。"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Ready for a real challenge"
+msgstr "准备好迎接真正的挑战了吗？"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
 msgstr "最近的解答"
@@ -1564,6 +1588,10 @@ msgstr "区域强制链"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
 msgstr "轻松"
+
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Relaxed mistakes are on, with no limit. Works offline."
+msgstr "轻松模式允许无限次犯错，也支持离线游玩。"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Release notes"
@@ -1973,6 +2001,10 @@ msgstr "Svenska"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Swordfish"
 msgstr "Swordfish"
+
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Take it slow"
+msgstr "慢慢来"
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
 msgid "Taller marks = sharper techniques"

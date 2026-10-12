@@ -68,3 +68,4 @@ export * from './settings/component/settings-app-footer/settings-app-footer.sele
 export * from './settings/component/settings-option-sheet/settings-option-sheet.selectors';
 
 export * from './campaign/campaign.selectors';
+export * from './screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.selectors';

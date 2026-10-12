@@ -1,0 +1,3 @@
+sudoku hors ligne
+sudoku détendu
+sudoku sans limite d’erreurs

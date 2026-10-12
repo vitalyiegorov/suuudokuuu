@@ -1,0 +1,1 @@
+Sudoku hors ligne avec Détendu, sans limite d’erreurs et avec des thèmes.
