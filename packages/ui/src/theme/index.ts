@@ -11,3 +11,5 @@ export {
     MaxFontSizeMultiplierConstant,
     MetricMinimumFontScaleConstant
 } from './constant/font-scaling.constant';
+export { mixColors } from './utils/mix-colors.util';
+export { validateCustomThemeColors } from './utils/validate-custom-theme-colors.util';

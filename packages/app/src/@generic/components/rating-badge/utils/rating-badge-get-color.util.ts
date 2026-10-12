@@ -1,6 +1,5 @@
 import { SE_RATING_CEILING } from '@suuudokuuu/rating';
-
-import { mixColors } from '../../../../theme/utils/mix-colors.util';
+import { mixColors } from '@suuudokuuu/ui/theme';
 
 import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 

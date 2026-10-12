@@ -1,6 +1,6 @@
 import { parseColor } from './parse-color.util';
 
-import type { ParsedColorInterface } from './parse-color.util';
+import type { ParsedColorInterface } from '../interface/parsed-color.interface';
 
 const OpaqueBlack: ParsedColorInterface = { red: 0, green: 0, blue: 0, alpha: 1 };
 

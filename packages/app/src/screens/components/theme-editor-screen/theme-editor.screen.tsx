@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { ColorSchemaEnum, CustomThemeRepository } from '@suuudokuuu/progress';
 import { AppButton, AppSettingsSection, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
+import { validateCustomThemeColors } from '@suuudokuuu/ui/theme';
 import * as Effect from 'effect/Effect';
 import { router, useLocalSearchParams, usePreventRemove } from 'expo-router';
 import RotateCcw from 'lucide-react-native/icons/rotate-ccw';
@@ -28,7 +29,6 @@ import { isPresetThemeId } from '../../../theme/type-guard/is-preset-theme-id.ty
 import { cloneThemeColors } from '../../../theme/utils/clone-theme-colors.util';
 import { createCustomTheme } from '../../../theme/utils/create-custom-theme.util';
 import { getTheme } from '../../../theme/utils/get-theme.util';
-import { validateCustomThemeColors } from '../../../theme/utils/validate-custom-theme-colors.util';
 
 import { ThemeEditorScreenSelectors } from './theme-editor-screen.selectors';
 import { ThemeEditorScreenStyles as styles } from './theme-editor-screen.styles';
