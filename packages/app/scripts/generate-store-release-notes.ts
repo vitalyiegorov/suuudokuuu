@@ -1,22 +1,16 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import Anthropic from '@anthropic-ai/sdk';
 import { z } from 'zod';
 
+import { getErrorMessage, isNotEmptyString } from './shared.util.ts';
+
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appDirectory = dirname(scriptDirectory);
 const repositoryRootDirectory = dirname(dirname(appDirectory));
-
-const requireFromScript = createRequire(import.meta.url);
-const sharedUtilities: {
-    getErrorMessage: (error: unknown) => string;
-    isNotEmptyString: (value: unknown) => value is string;
-} = requireFromScript('@rnw-community/shared');
-const { getErrorMessage, isNotEmptyString } = sharedUtilities;
 
 const iosReleaseNotesCharacterLimit = 4000;
 const androidChangelogCharacterLimit = 500;

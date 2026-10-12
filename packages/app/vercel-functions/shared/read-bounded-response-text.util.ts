@@ -1,20 +1,8 @@
+import { cancelResponseBody } from './cancel-response-body.util.js';
+
+import type { ReadableStreamDefaultReader } from 'node:stream/web';
+
 type BoundedReadResult = { readonly status: 'failure' } | { readonly status: 'success'; readonly text: string };
-
-interface ResponseBodyReadResult {
-    readonly done: boolean;
-    readonly value?: Uint8Array;
-}
-
-interface ResponseBodyReader {
-    cancel: () => Promise<void>;
-    read: () => Promise<ResponseBodyReadResult>;
-    releaseLock: () => void;
-}
-
-interface BoundedTextResponse {
-    readonly body: { readonly getReader: () => ResponseBodyReader } | null;
-    readonly headers: Headers;
-}
 
 interface BoundedReadState {
     readonly byteLength: number;
@@ -22,24 +10,14 @@ interface BoundedReadState {
     readonly text: string;
 }
 
-const cancelReader = async (reader: ResponseBodyReader) => {
-    try {
-        await reader.cancel();
-    } catch {
-        return false;
-    }
-
-    return true;
-};
-
 const readNextChunk = async (
-    reader: ResponseBodyReader,
+    reader: ReadableStreamDefaultReader<Uint8Array>,
     textDecoder: TextDecoder,
     state: BoundedReadState,
     signal: AbortSignal
 ): Promise<BoundedReadResult> => {
     if (signal.aborted) {
-        await cancelReader(reader);
+        await cancelResponseBody(reader);
 
         return { status: 'failure' };
     }
@@ -49,10 +27,10 @@ const readNextChunk = async (
         return { status: 'success', text: state.text.concat(textDecoder.decode()) };
     }
 
-    const chunk = readResult.value ?? null;
-    const nextByteLength = state.byteLength + (chunk?.byteLength ?? 0);
-    if (chunk === null || nextByteLength > state.maximumByteLength) {
-        await cancelReader(reader);
+    const chunk = readResult.value;
+    const nextByteLength = state.byteLength + chunk.byteLength;
+    if (nextByteLength > state.maximumByteLength) {
+        await cancelResponseBody(reader);
 
         return { status: 'failure' };
     }
@@ -67,7 +45,7 @@ const readNextChunk = async (
 };
 
 export const readBoundedResponseText = async (
-    response: BoundedTextResponse,
+    response: Pick<Response, 'body'>,
     maximumByteLength: number,
     signal: AbortSignal
 ): Promise<string | null> => {
@@ -90,7 +68,7 @@ export const readBoundedResponseText = async (
 
         return readResult.status === 'success' ? readResult.text : null;
     } catch {
-        await cancelReader(reader);
+        await cancelResponseBody(reader);
 
         return null;
     } finally {

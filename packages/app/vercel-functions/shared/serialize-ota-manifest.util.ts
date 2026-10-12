@@ -1,23 +1,9 @@
 import type { BetaRelease } from './beta-release.interface.js';
 
-const DevelopmentAppTitle = ''.concat('suuudokuuu', ' ', '(', 'D', 'ev', ')');
-const XmlDeclaration = ''.concat('<?', 'xml', ' ', 'version="1.0"', ' ', 'encoding="UTF-8"', '?>');
-const XmlDocumentTypePublicIdentifier = ''.concat('"-//', 'A', 'pple', '//', 'DTD', ' ', 'PLIST', ' ', '1.0', '//', 'EN', '"');
-const XmlDocumentType = ''.concat(
-    '<!',
-    'D',
-    'OCTYPE',
-    ' ',
-    'plist',
-    ' ',
-    'PUBLIC',
-    ' ',
-    XmlDocumentTypePublicIdentifier,
-    ' ',
-    '"http://www.apple.com/DTDs/PropertyList-1.0.dtd"',
-    '>'
-);
-const PlistOpeningTag = '<'.concat('plist', ' ', 'version="1.0"', '>');
+const DevelopmentAppTitle = 'suuudokuuu (Dev)';
+const XmlDeclaration = '<?xml version="1.0" encoding="UTF-8"?>';
+const XmlDocumentType = '<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">';
+const PlistOpeningTag = '<plist version="1.0">';
 
 const escapeXmlText = (value: string) =>
     value.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&apos;');

@@ -1133,6 +1133,12 @@
             }
         },
         {
+            "files": ["packages/app/{vercel-functions,scripts}/**/*.{ts,tsx}"],
+            "rules": {
+                "lingui/no-unlocalized-strings": "off"
+            }
+        },
+        {
             "files": ["**/*.spec.ts", "**/*.spec.tsx", "**/test/**/*.test.ts", "**/test/**/*.test.tsx"],
             "rules": {
                 "vitest/expect-expect": "off",

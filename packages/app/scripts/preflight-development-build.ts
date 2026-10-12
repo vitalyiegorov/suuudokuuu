@@ -1,16 +1,11 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { z } from 'zod';
 
-const requireFromScript = createRequire(import.meta.url);
-const sharedUtilities: {
-    getErrorMessage: (error: unknown) => string;
-} = requireFromScript('@rnw-community/shared');
-const { getErrorMessage } = sharedUtilities;
+import { getErrorMessage } from './shared.util.ts';
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appDirectory = dirname(scriptDirectory);

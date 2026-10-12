@@ -5,7 +5,7 @@ import {
     MaximumGithubReleasesByteLength,
     UpstreamRequestTimeoutMilliseconds
 } from './beta-release.constant.js';
-import { parseChecksums } from './parse-checksums.util.js';
+import { cancelResponseBody } from './cancel-response-body.util.js';
 import { readBoundedResponseText } from './read-bounded-response-text.util.js';
 import { parseBetaReleaseCandidates } from './select-beta-release.util.js';
 
@@ -17,28 +17,27 @@ import type {
     ResolveBetaReleaseResult
 } from './beta-release.interface.js';
 
+const ChecksumsPattern = /^([a-f0-9]{64}) {2}suuudokuuu-development\.ipa\n([a-f0-9]{64}) {2}suuudokuuu-development\.apk\n$/u;
+
+const parseChecksums = (checksums: string): ReleaseChecksums | null => {
+    const checksumsMatch = ChecksumsPattern.exec(checksums);
+    const ipa = checksumsMatch?.at(1) ?? null;
+    const apk = checksumsMatch?.at(2) ?? null;
+    if (ipa === null || apk === null) {
+        return null;
+    }
+
+    return { apk, ipa };
+};
+
 type GithubReleasesRequestResult = { readonly input: unknown; readonly status: 'success' } | { readonly status: 'failure' };
 
 const createGithubHeaders = (githubToken: string | undefined) => ({
     Accept: 'application/vnd.github+json',
-    ...(typeof githubToken === 'string' && { Authorization: ['B'.concat('earer'), githubToken].join(' ') }),
+    ...(typeof githubToken === 'string' && { Authorization: `Bearer ${githubToken}` }),
     'User-Agent': 'suuudokuuu-development-release-resolver',
     'X-GitHub-Api-Version': '2022-11-28'
 });
-
-const cancelResponseBody = async (response: Response) => {
-    if (response.body === null) {
-        return true;
-    }
-
-    try {
-        await response.body.cancel();
-    } catch {
-        return false;
-    }
-
-    return true;
-};
 
 const requestGithubReleases = async (
     dependencies: ResolveBetaReleaseDependencies,
@@ -51,7 +50,7 @@ const requestGithubReleases = async (
             signal
         });
         if (!response.ok) {
-            await cancelResponseBody(response);
+            await cancelResponseBody(response.body);
 
             return { status: 'failure' };
         }
@@ -79,7 +78,7 @@ const requestChecksums = async (
             signal
         });
         if (!response.ok) {
-            await cancelResponseBody(response);
+            await cancelResponseBody(response.body);
 
             return null;
         }
@@ -94,23 +93,6 @@ const requestChecksums = async (
         return null;
     }
 };
-
-const createBetaRelease = (candidate: BetaReleaseCandidate, checksums: ReleaseChecksums): BetaRelease => ({
-    apkUrl: candidate.apkUrl,
-    branch: candidate.branch,
-    bundleVersion: candidate.bundleVersion,
-    builtAt: candidate.builtAt,
-    checksums,
-    commitSha: candidate.commitSha,
-    ipaUrl: candidate.ipaUrl,
-    name: candidate.name,
-    publishedAt: candidate.publishedAt,
-    releaseNotes: candidate.releaseNotes,
-    runNumber: candidate.runNumber,
-    tagName: candidate.tagName,
-    version: candidate.version,
-    workflowUrl: candidate.workflowUrl
-});
 
 const resolveFirstValidCandidate = async (
     candidates: readonly BetaReleaseCandidate[],
@@ -132,7 +114,9 @@ const resolveFirstValidCandidate = async (
         return resolveFirstValidCandidate(candidates, request, signal, candidateIndex + 1);
     }
 
-    return createBetaRelease(candidate, checksums);
+    const { checksumsUrl: _checksumsUrl, ...release } = candidate;
+
+    return { ...release, checksums };
 };
 
 export const resolveBetaRelease = async (dependencies: ResolveBetaReleaseDependencies = { fetch }): Promise<ResolveBetaReleaseResult> => {

@@ -1,18 +1,11 @@
 import { copyFileSync, cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
 import { basename, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { build } from 'esbuild';
 import { z } from 'zod';
 
-const requireFromScript = createRequire(import.meta.url);
-const sharedUtilities: {
-    getErrorMessage: (error: unknown) => string;
-    isNotEmptyArray: (value: unknown[]) => boolean;
-    isString: (value: unknown) => value is string;
-} = requireFromScript('@rnw-community/shared');
-const { getErrorMessage, isNotEmptyArray, isString } = sharedUtilities;
+import { getErrorMessage, isNotEmptyArray, isString } from './shared.util.ts';
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appDirectory = dirname(scriptDirectory);
@@ -38,7 +31,9 @@ const notFoundDocumentName = `404${htmlExtension}`;
 const appShellOutputDirectory = join(staticOutputDirectory, appShellDirectoryName);
 const appShellOutputFile = join(appShellOutputDirectory, indexDocumentName);
 
-const betaEndpointNames = ['release', 'ipa', 'apk', 'manifest'];
+const betaEndpointNames = readdirSync(join(appDirectory, 'vercel-functions', 'api', 'beta'), { withFileTypes: true })
+    .filter(entry => entry.isFile() && entry.name.endsWith('.ts'))
+    .map(entry => basename(entry.name, '.ts'));
 
 const functionConfiguration = {
     handler: 'index.mjs',
