@@ -1,6 +1,7 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { describe, expect, it } from 'vitest';
 
+import { CandidateContext } from '../../../src/@generic/classes/candidate-context/candidate-context';
 import { TechniqueManager } from '../../../src/@generic/classes/technique-manager/technique-manager';
 import {
     PLACEMENT_CHAIN_DEFAULT_SCAN_COST,
@@ -179,6 +180,45 @@ describe('findPlacementChain', () => {
         expect(placement?.kind).toBe('placement');
         expect(placement?.value).toBe(sudoku.getCorrectValue(placement?.cell));
         expect(getSpentWork(calls)).toBeLessThanOrEqual(PLACEMENT_CHAIN_WORK_BUDGET + maxScanCost);
+    });
+
+    it('should search the context after the final capped elimination for a placement route', () => {
+        expect.assertions(2);
+
+        const sudoku = createSudoku(columnQuadBoard);
+        const allEliminations = createIrrelevantStrategy(sudoku, PLACEMENT_CHAIN_MAX_STEPS).find(CandidateContext.fromSudoku(sudoku));
+        const eliminations = allEliminations.flatMap(result => result.eliminations);
+        const irrelevantStrategy: TechniqueStrategyInterface = {
+            technique: SolutionTechniqueEnum.XWing,
+            find: context =>
+                allEliminations
+                    .filter(result =>
+                        result.eliminations.some(elimination => context.getCandidates(elimination.cell).includes(elimination.value))
+                    )
+                    .slice(0, 1)
+        };
+        const placementCell = sudoku.Field.flat().find(cell => sudoku.isBlankCell(cell));
+        const gatedStrategy: TechniqueStrategyInterface = {
+            technique: SolutionTechniqueEnum.Swordfish,
+            find: context =>
+                placementCell === undefined ||
+                eliminations.some(elimination => context.getCandidates(elimination.cell).includes(elimination.value))
+                    ? []
+                    : [
+                          {
+                              technique: SolutionTechniqueEnum.Swordfish,
+                              cell: placementCell,
+                              value: sudoku.getCorrectValue(placementCell),
+                              kind: 'placement',
+                              eliminations: [],
+                              reasonCells: []
+                          }
+                      ]
+        };
+        const chain = findPlacementChain(sudoku, [irrelevantStrategy, gatedStrategy]);
+
+        expect(chain).toHaveLength(PLACEMENT_CHAIN_MAX_STEPS + 1);
+        expect(chain.at(-1)?.kind).toBe('placement');
     });
 
     it('should reach the forcing-chain placement in two steps when the greedy search spends its budget on pointing pairs', () => {

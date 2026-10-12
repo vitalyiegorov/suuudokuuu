@@ -34,4 +34,4 @@ config.resolver.resolveRequest = (context, moduleName, platform) => {
     return existsSync(webFilePath) ? { ...resolution, filePath: webFilePath } : resolution;
 };
 
-module.exports = config;
+module.exports = require('react-native-worklets/bundleMode').getBundleModeMetroConfig(config);

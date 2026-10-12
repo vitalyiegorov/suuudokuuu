@@ -142,7 +142,7 @@ msgstr "{techniqueName}: i de markerade baslinjerna passar {valueList} bara i de
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
-msgstr "{techniqueName}: i den markerade 3\\u00d73-rutan passar {value} bara i den markerade cellen."
+msgstr "{techniqueName}: i den markerade 3×3-rutan passar {value} bara i den markerade cellen."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
@@ -166,7 +166,7 @@ msgstr "{techniqueName}: ena änden av kedjan är alltid sann och varje markerad
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: den markerade 3\\u00d73-rutan har bara en tom cell kvar, s\\u00e5 {value} hamnar d\\u00e4r."
+msgstr "{techniqueName}: den markerade 3×3-rutan har bara en tom cell kvar, så {value} hamnar där."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
@@ -226,7 +226,7 @@ msgstr "{techniqueName}: hur den markerade pivotcellen än löses blir en av des
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: within one row, column or box, {valueList} fit only in the highlighted cells, so those cells can hold nothing else."
-msgstr "{techniqueName}: inom en rad, kolumn eller 3\\u00d73-ruta passar {valueList} bara i de framhävda cellerna, så de cellerna kan inte innehålla något annat."
+msgstr "{techniqueName}: inom en rad, kolumn eller 3×3-ruta passar {valueList} bara i de framhävda cellerna, så de cellerna kan inte innehålla något annat."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
