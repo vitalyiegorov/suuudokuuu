@@ -6,6 +6,7 @@ import * as AsyncResult from 'effect/reactivity/AsyncResult';
 import * as Atom from 'effect/reactivity/Atom';
 import * as Schema from 'effect/Schema';
 
+import { logErrorCause } from '../../../../@generic/utils/log-error-cause.util';
 import { BetaReleaseApiUrl } from '../constant/beta-url.constant';
 import { BetaReleaseSchema } from '../schema/beta-release.schema';
 
@@ -30,7 +31,7 @@ const fetchBetaRelease = Effect.gen(function* () {
 
     return { release, status: 'ready' } as const;
 }).pipe(
-    Effect.tapCause(Effect.logError),
+    Effect.tapCause(logErrorCause),
     Effect.catch(() => Effect.succeed<BetaReleaseState>({ status: 'error' }))
 );
 

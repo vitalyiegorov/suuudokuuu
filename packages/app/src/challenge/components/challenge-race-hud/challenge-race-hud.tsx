@@ -3,14 +3,17 @@ import { CurrentRunService } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
 import * as Fiber from 'effect/Fiber';
 import { router } from 'expo-router';
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 import { View } from 'react-native';
 
 import { emptyFn } from '@rnw-community/shared';
 
 import { appRuntime } from '../../../@generic/runtime/app.runtime';
+import { logErrorCause } from '../../../@generic/utils/log-error-cause.util';
+import { GameContext } from '../../../game/context/game.context';
 import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
+import { finishGameOnce } from '../../../game/utils/finish-game-once.util';
 import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
 import { ChallengeLossReason } from '../../enums/challenge-loss-reason.enum';
 import { useChallengeTechniqueEvents } from '../../hooks/use-challenge-technique-events.hook';
@@ -23,6 +26,7 @@ import { ChallengeRaceHudSelectors } from './challenge-race-hud.selectors';
 import { ChallengeRaceHudStyles as styles } from './challenge-race-hud.styles';
 
 export const ChallengeRaceHud = () => {
+    const { engine } = use(GameContext);
     const elapsedTime = useElapsedTime();
     const { challengeTime, challengeTimelineEvents, timelineEvents } = useCurrentRun();
     const challengeSteps = getTimelineCellSteps(challengeTimelineEvents);
@@ -52,16 +56,23 @@ export const ChallengeRaceHud = () => {
         }
 
         const fiber = appRuntime.runFork(
-            Effect.flatMap(CurrentRunService, currentRunService => currentRunService.finish(false, true)).pipe(
-                Effect.tap(() =>
-                    Effect.sync(() => void router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } }))
+            finishGameOnce(
+                engine,
+                Effect.flatMap(CurrentRunService, currentRunService => currentRunService.finish(false, true))
+            ).pipe(
+                Effect.tap(didFinish =>
+                    didFinish
+                        ? Effect.sync(
+                              () => void router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } })
+                          )
+                        : Effect.void
                 ),
-                Effect.tapCause(Effect.logError)
+                Effect.tapCause(logErrorCause)
             )
         );
 
         return () => void appRuntime.runFork(Fiber.interrupt(fiber));
-    }, [hasRivalFinished]);
+    }, [engine, hasRivalFinished]);
 
     return (
         <View style={styles.container} testID={ChallengeRaceHudSelectors.Root}>

@@ -8,9 +8,7 @@ import { BlackTextStyles } from './black-text.styles';
 
 import type { TextProps } from 'react-native';
 
-interface Props extends TextProps {
-    readonly style?: TextProps['style'];
-}
+interface Props extends TextProps {}
 
 export const BlackText = ({ style, ...props }: Props) => {
     const { theme } = use(ThemeContext);

@@ -14,7 +14,7 @@ import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
-import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
+import { decodeSharedGameState } from '../../../game/utils/decode-shared-game-state.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { MAX_TECHNIQUE_TILES } from '../../constants/challenge-run-stats.constant';
 import { getChallengeRivalRunSummary } from '../../utils/get-challenge-rival-run-summary.util';
@@ -41,7 +41,7 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
     const { theme } = use(ThemeContext);
     const opponentTotalTimeText = useTimerText(opponentTotalTime);
 
-    const rivalGameState = stringToGameState(challengeState);
+    const rivalGameState = decodeSharedGameState(challengeState).gameState;
     const rivalSummary = getChallengeRivalRunSummary(challengeState, opponentTotalTime);
     const { awayRanges, techniqueEvents } = rivalSummary;
     const difficultyText = t(getDifficultyMessage(rivalGameState.difficulty));

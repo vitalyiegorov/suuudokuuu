@@ -3,6 +3,7 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback } from 'react';
 
 import { appRuntime } from '../../../@generic/runtime/app.runtime';
+import { logErrorCause } from '../../../@generic/utils/log-error-cause.util';
 import { gameTimerFocusEffect } from '../../utils/game-timer-focus-effect.util';
 
 export const GameTimerController = () => {
@@ -10,9 +11,7 @@ export const GameTimerController = () => {
 
     useFocusEffect(
         useCallback(() => {
-            const timerFiber = appRuntime.runFork(
-                gameTimerFocusEffect(() => void replace('/pause')).pipe(Effect.tapCause(Effect.logError))
-            );
+            const timerFiber = appRuntime.runFork(gameTimerFocusEffect(() => void replace('/pause')).pipe(Effect.tapCause(logErrorCause)));
 
             return () => void timerFiber.interruptUnsafe();
         }, [replace])

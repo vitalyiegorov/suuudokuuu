@@ -7,6 +7,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { appRuntime } from '../../@generic/runtime/app.runtime';
 import { i18nActivateLanguage } from '../../@generic/utils/i18n-catalogs';
+import { logErrorCause } from '../../@generic/utils/log-error-cause.util';
 import { SettingsOptionSheetSelectors } from '../component/settings-option-sheet/settings-option-sheet.selectors';
 import { useSettings } from '../query/use-settings.query';
 import { updateSettings } from '../utils/update-settings.util';
@@ -39,7 +40,7 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
         void updateSettings(patch);
 
         if (isDefined(patch.language)) {
-            appRuntime.runFork(i18nActivateLanguage(patch.language).pipe(Effect.tapCause(Effect.logError)));
+            appRuntime.runFork(i18nActivateLanguage(patch.language).pipe(Effect.tapCause(logErrorCause)));
         }
 
         router.back();

@@ -5,6 +5,7 @@ import * as Effect from 'effect/Effect';
 import Share from 'react-native-share';
 
 import { appRuntime } from '../../../@generic/runtime/app.runtime';
+import { logErrorCause } from '../../../@generic/utils/log-error-cause.util';
 
 import type { CurrentRunType } from '@suuudokuuu/progress';
 
@@ -25,7 +26,7 @@ export const useShareGameState = (kind: SharedPayloadKindEnum, gameState: Curren
                     url: `https://suuudokuuu.com/shared/${gameStateToString(gameState, kind)}`,
                     failOnCancel: false
                 })
-            ).pipe(Effect.tapCause(Effect.logError))
+            ).pipe(Effect.tapCause(logErrorCause))
         );
     };
 };

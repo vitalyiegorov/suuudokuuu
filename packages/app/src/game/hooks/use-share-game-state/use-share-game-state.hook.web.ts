@@ -4,6 +4,7 @@ import * as Sharing from 'expo-sharing';
 import { Share } from 'react-native';
 
 import { appRuntime } from '../../../@generic/runtime/app.runtime';
+import { logErrorCause } from '../../../@generic/utils/log-error-cause.util';
 
 import type { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
 import type { CurrentRunType } from '@suuudokuuu/progress';
@@ -22,7 +23,7 @@ export const useShareGameState = (kind: SharedPayloadKindEnum, gameState: Curren
                       )
                     : Effect.void
             ),
-            Effect.tapCause(Effect.logError)
+            Effect.tapCause(logErrorCause)
         )
     );
 };

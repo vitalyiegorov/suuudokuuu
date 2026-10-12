@@ -3,6 +3,7 @@ import { useLingui } from '@lingui/react/macro';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { CurrentRunService, StoreReviewService } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
+import * as FiberSet from 'effect/FiberSet';
 import Constants from 'expo-constants';
 import * as Haptics from 'expo-haptics';
 import { ImpactFeedbackStyle } from 'expo-haptics';
@@ -16,12 +17,14 @@ import { isNotEmptyString } from '@rnw-community/shared';
 import { animationDurationConstant } from '../../../../@generic/constants/animation.constant';
 import { useVibration } from '../../../../@generic/hooks/use-vibration.hook';
 import { appRuntime } from '../../../../@generic/runtime/app.runtime';
+import { logErrorCause } from '../../../../@generic/utils/log-error-cause.util';
 import { ChallengeLossReason } from '../../../../challenge/enums/challenge-loss-reason.enum';
 import { classifyTimelineMove } from '../../../../challenge/utils/classify-timeline-move.util';
 import { WinConfettiContext } from '../../../../confetti/context/win-confetti.context';
 import { GameContext } from '../../../../game/context/game.context';
 import { useCurrentRun } from '../../../../game/query/use-current-run.query';
 import { useElapsedTime } from '../../../../game/query/use-elapsed-time.query';
+import { finishGameOnce } from '../../../../game/utils/finish-game-once.util';
 import { gameGetFieldStatePayload } from '../../../../game/utils/game-get-field-state-payload.util';
 
 import type { FieldRef } from '../../../../game/components/field/field';
@@ -49,7 +52,7 @@ const requestStoreReview = Effect.gen(function* () {
     if (yield* storeReviewService.claimAfterWin(Constants.expoConfig?.version ?? '')) {
         yield* Effect.promise(() => StoreReview.requestReview());
     }
-}).pipe(Effect.tapCause(Effect.logError), Effect.ignoreCause);
+}).pipe(Effect.tapCause(logErrorCause), Effect.ignoreCause);
 
 const classifyMove = Effect.fn('useGameEngineEvents.classifyMove')(function* (sudokuString: string, cell: CellInterface) {
     const cellIndex = cell.y * defaultSudokuConfig.fieldSize + cell.x;
@@ -61,39 +64,29 @@ const classifyMove = Effect.fn('useGameEngineEvents.classifyMove')(function* (su
     });
 });
 
-const flushClassifications = Effect.fn('useGameEngineEvents.flushClassifications')(function* (
-    pendingClassifications: Map<Effect.Effect<void, never, CurrentRunService>, Fiber.Fiber<void>>
-) {
-    const classifications = Array.from(pendingClassifications.keys());
-    pendingClassifications.forEach(fiber => void fiber.interruptUnsafe());
-    pendingClassifications.clear();
-    yield* Effect.forEach(classifications, classification => classification, { discard: true });
-});
-
 const subscribeMoves = (
     engine: FieldEngine,
     fieldRef: RefObject<FieldRef | null>,
     eventStateRef: RefObject<GameEventStateInterface>,
-    pendingClassifications: Map<Effect.Effect<void, never, CurrentRunService>, Fiber.Fiber<void>>
+    pendingClassifications: FiberSet.FiberSet<unknown, never>
 ) =>
     engine.on('moveApplied', move => {
         appRuntime.runFork(
             Effect.flatMap(CurrentRunService, currentRunService =>
                 currentRunService.save({ ...gameGetFieldStatePayload(engine), correctCell: move.cell, scoredCells: move.scoredCells })
-            ).pipe(Effect.tapCause(Effect.logError))
+            ).pipe(Effect.tapCause(logErrorCause))
         );
         eventStateRef.current.haptics[0](Haptics.NotificationFeedbackType.Success);
         fieldRef.current?.triggerCellSuccess(move.cell);
         fieldRef.current?.triggerAnimation(move.scoredCells);
         const classification = classifyMove(engine.Sudoku.toString(), move.cell);
-        pendingClassifications.set(
-            classification,
+        FiberSet.addUnsafe(
+            pendingClassifications,
             appRuntime.runFork(
                 Effect.gen(function* () {
                     yield* Effect.sleep(0);
-                    pendingClassifications.delete(classification);
                     yield* classification;
-                }).pipe(Effect.tapCause(Effect.logError))
+                }).pipe(Effect.tapCause(logErrorCause))
             )
         );
     });
@@ -101,14 +94,14 @@ const subscribeMoves = (
 const subscribeResults = (
     engine: FieldEngine,
     eventStateRef: RefObject<GameEventStateInterface>,
-    pendingClassifications: Map<Effect.Effect<void, never, CurrentRunService>, Fiber.Fiber<void>>
+    pendingClassifications: FiberSet.FiberSet<unknown, never>
 ) => {
     const resultFibers = new Set<Fiber.Fiber<void>>();
     const unsubscribeMistake = engine.on('mistake', mistake => {
         const { hasRival, haptics, maxMistakes, router, t } = eventStateRef.current;
         appRuntime.runFork(
             Effect.flatMap(CurrentRunService, currentRunService => currentRunService.mistake(mistake.cell)).pipe(
-                Effect.tapCause(Effect.logError)
+                Effect.tapCause(logErrorCause)
             )
         );
         const mistakeCount = mistake.mistakes;
@@ -123,11 +116,19 @@ const subscribeResults = (
         resultFibers.add(
             appRuntime.runFork(
                 Effect.gen(function* () {
-                    yield* flushClassifications(pendingClassifications);
-                    const currentRunService = yield* CurrentRunService;
-                    yield* currentRunService.finish(false, hasRival);
+                    const didFinish = yield* finishGameOnce(
+                        engine,
+                        Effect.gen(function* () {
+                            yield* FiberSet.awaitEmpty(pendingClassifications);
+                            const currentRunService = yield* CurrentRunService;
+                            yield* currentRunService.finish(false, hasRival);
+                        })
+                    );
+                    if (!didFinish) {
+                        return;
+                    }
                     router.replace(hasRival ? { pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Mistakes } } : '/loser');
-                }).pipe(Effect.tapCause(Effect.logError))
+                }).pipe(Effect.tapCause(logErrorCause))
             )
         );
     });
@@ -143,9 +144,17 @@ const subscribeResults = (
         resultFibers.add(
             appRuntime.runFork(
                 Effect.gen(function* () {
-                    yield* flushClassifications(pendingClassifications);
-                    const currentRunService = yield* CurrentRunService;
-                    yield* currentRunService.finish(true, wonChallenge);
+                    const didFinish = yield* finishGameOnce(
+                        engine,
+                        Effect.gen(function* () {
+                            yield* FiberSet.awaitEmpty(pendingClassifications);
+                            const currentRunService = yield* CurrentRunService;
+                            yield* currentRunService.finish(true, wonChallenge);
+                        })
+                    );
+                    if (!didFinish) {
+                        return;
+                    }
                     yield* Effect.sleep(10 * animationDurationConstant);
                     if (!hasRival) {
                         router.replace('/winner');
@@ -157,7 +166,7 @@ const subscribeResults = (
                     if (isCelebrationWin) {
                         appRuntime.runFork(requestStoreReview);
                     }
-                }).pipe(Effect.tapCause(Effect.logError))
+                }).pipe(Effect.tapCause(logErrorCause))
             )
         );
     });
@@ -168,6 +177,24 @@ const subscribeResults = (
         unsubscribeCompleted();
     };
 };
+
+const subscribeEngine = Effect.fn('useGameEngineEvents.subscribeEngine')(function* (
+    engine: FieldEngine,
+    fieldRef: RefObject<FieldRef | null>,
+    eventStateRef: RefObject<GameEventStateInterface>
+) {
+    const pendingClassifications = yield* FiberSet.make<unknown, never>();
+    const unsubscribeMoves = subscribeMoves(engine, fieldRef, eventStateRef, pendingClassifications);
+    const unsubscribeResults = subscribeResults(engine, eventStateRef, pendingClassifications);
+    yield* Effect.addFinalizer(() =>
+        Effect.sync(() => {
+            unsubscribeMoves();
+            unsubscribeResults();
+        }).pipe(Effect.andThen(FiberSet.awaitEmpty(pendingClassifications)))
+    );
+
+    return yield* Effect.never;
+}, Effect.scoped);
 
 export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void => {
     const router = useRouter();
@@ -192,14 +219,8 @@ export const useGameEngineEvents = (fieldRef: RefObject<FieldRef | null>): void 
         eventStateRef.current = { challengeTime, elapsedTime, hasRival, haptics, maxMistakes, router, startWinConfetti, t };
     }, [challengeTime, elapsedTime, hasRival, haptics, maxMistakes, router, startWinConfetti, t]);
     useEffect(() => {
-        const pendingClassifications = new Map<Effect.Effect<void, never, CurrentRunService>, Fiber.Fiber<void>>();
-        const unsubscribeMoves = subscribeMoves(engine, fieldRef, eventStateRef, pendingClassifications);
-        const unsubscribeResults = subscribeResults(engine, eventStateRef, pendingClassifications);
+        const subscriptionFiber = appRuntime.runFork(subscribeEngine(engine, fieldRef, eventStateRef));
 
-        return () => {
-            appRuntime.runFork(flushClassifications(pendingClassifications).pipe(Effect.tapCause(Effect.logError)));
-            unsubscribeMoves();
-            unsubscribeResults();
-        };
+        return () => void subscriptionFiber.interruptUnsafe();
     }, [engine, fieldRef]);
 };

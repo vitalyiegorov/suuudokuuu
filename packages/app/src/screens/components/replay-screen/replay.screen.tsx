@@ -10,8 +10,8 @@ import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { getChallengeAwayRanges } from '../../../challenge/utils/get-challenge-away-ranges.util';
 import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
+import { decodeSharedGameState } from '../../../game/utils/decode-shared-game-state.util';
 import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
-import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
 import { ReplayActions } from '../../../history/components/replay-actions/replay-actions';
 import { ReplayControls } from '../../../history/components/replay-controls/replay-controls';
 import { ReplayStepCard } from '../../../history/components/replay-controls/replay-step-card/replay-step-card';
@@ -39,7 +39,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
     const completedGame = AsyncResult.getOrElse(completedGamesResult, () => []).find(
         game => game.difficulty === difficulty && game.completedAt === completedAt
     );
-    const gameState = stringToGameState(completedGame?.encodedState);
+    const { gameState } = decodeSharedGameState(completedGame?.encodedState ?? '');
 
     if (AsyncResult.isInitial(completedGamesResult)) {
         return null;

@@ -3,9 +3,8 @@ import { i18n } from '@lingui/core';
 import * as Cause from 'effect/Cause';
 import * as Effect from 'effect/Effect';
 import * as Fiber from 'effect/Fiber';
-import * as Option from 'effect/Option';
-import * as Ref from 'effect/Ref';
-import * as Semaphore from 'effect/Semaphore';
+import * as FiberHandle from 'effect/FiberHandle';
+import * as Scope from 'effect/Scope';
 
 import { messages as enMessages } from '../../i18n/locales/en/messages';
 
@@ -30,33 +29,19 @@ const catalogLoaders: Record<SettingsType['language'], () => Promise<{ messages:
 i18n.load({ en: enMessages });
 i18n.activate('en');
 
-const activationSemaphore = Semaphore.makeUnsafe(1);
-const activationFiber = Ref.makeUnsafe(Option.none<Fiber.Fiber<void, Cause.UnknownError>>());
+const activationHandle = Effect.runSync(
+    FiberHandle.make<unknown, Cause.UnknownError>().pipe(Effect.provideService(Scope.Scope, Scope.makeUnsafe()))
+);
 
 export const i18nActivateLanguage = Effect.fn('i18nActivateLanguage')(function* (language: SettingsType['language']) {
-    const fiber = yield* activationSemaphore.withPermit(
+    const fiber = yield* FiberHandle.run(
+        activationHandle,
         Effect.gen(function* () {
-            const previousFiber = yield* Ref.get(activationFiber);
-
-            if (Option.isSome(previousFiber)) {
-                yield* Fiber.interrupt(previousFiber.value);
+            if (language !== i18n.locale) {
+                const { messages } = yield* Effect.tryPromise(catalogLoaders[language]);
+                yield* Effect.sync(() => void i18n.loadAndActivate({ locale: language, messages }));
             }
-
-            const nextFiber = yield* Effect.forkChild(
-                Effect.gen(function* () {
-                    if (language !== i18n.locale) {
-                        const { messages } = yield* Effect.tryPromise(catalogLoaders[language]);
-
-                        yield* Effect.sync(() => void i18n.loadAndActivate({ locale: language, messages }));
-                    }
-                })
-            );
-
-            yield* Ref.set(activationFiber, Option.some(nextFiber));
-
-            return nextFiber;
         })
     );
-
     yield* Fiber.join(fiber);
 });

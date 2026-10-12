@@ -7,6 +7,7 @@ import { emptyFn, isNotEmptyString } from '@rnw-community/shared';
 
 import { PageHead } from '../../../@generic/components/page-head/page-head';
 import { appRuntime } from '../../../@generic/runtime/app.runtime';
+import { logErrorCause } from '../../../@generic/utils/log-error-cause.util';
 import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { SettingsPageContent } from '../../../settings/component/settings-page-content/settings-page-content';
 
@@ -22,7 +23,8 @@ export const GameSettingsScreen = () => {
 
             const pauseFiber = appRuntime.runFork(
                 Effect.flatMap(CurrentRunService, currentRunService => currentRunService.pause(false)).pipe(
-                    Effect.tapCause(Effect.logError)
+                    Effect.uninterruptible,
+                    Effect.tapCause(logErrorCause)
                 )
             );
 

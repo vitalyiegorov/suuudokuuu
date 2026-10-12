@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { AccessibilityInfo } from 'react-native';
 
 import { appRuntime } from '../../runtime/app.runtime';
+import { logErrorCause } from '../../utils/log-error-cause.util';
 
 import { SystemMotionContext } from './context/system-motion.context';
 
@@ -20,7 +21,7 @@ export const SystemMotionProvider = ({ children }: Props) => {
         const fiber = appRuntime.runFork(
             Effect.tryPromise(() => AccessibilityInfo.isReduceMotionEnabled()).pipe(
                 Effect.tap(isEnabled => Effect.sync(() => void setIsSystemMotionReduced(isEnabled))),
-                Effect.tapCause(Effect.logError)
+                Effect.tapCause(logErrorCause)
             )
         );
         const subscription = AccessibilityInfo.addEventListener('reduceMotionChanged', isEnabled => {

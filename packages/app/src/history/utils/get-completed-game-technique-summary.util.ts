@@ -1,6 +1,6 @@
 import { getRunTechniqueEvents } from '../../challenge/utils/get-run-technique-events.util';
+import { decodeSharedGameState } from '../../game/utils/decode-shared-game-state.util';
 import { getTimelineCellSteps } from '../../game/utils/get-timeline-cell-steps.util';
-import { stringToGameState } from '../../game/utils/string-to-game-state.util';
 
 import { getReplayTimeline } from './get-replay-timeline.util';
 import { historyGetTechniqueUsageList } from './history-get-technique-usage.util';
@@ -11,7 +11,7 @@ import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 const CompletedGameTechniqueSummaryLimit = 3;
 
 export const getCompletedGameTechniqueSummary = (encodedState: string): readonly TechniqueUsageInterface[] => {
-    const gameState = stringToGameState(encodedState);
+    const { gameState } = decodeSharedGameState(encodedState);
     const timeline = getReplayTimeline(gameState);
 
     if (getTimelineCellSteps(timeline.events).length === 0) {

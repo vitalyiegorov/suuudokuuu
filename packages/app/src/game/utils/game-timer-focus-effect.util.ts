@@ -26,7 +26,7 @@ export const gameTimerFocusEffect = (openPauseScreen: () => void) =>
             subscription => Effect.sync(() => void subscription.remove())
         );
 
-        const { isChallengeRun, shouldRunTimer } = yield* currentRunService.focus();
+        const { isChallengeRun, shouldRunTimer } = yield* Effect.uninterruptible(currentRunService.focus());
 
         if (!shouldRunTimer) {
             return;
@@ -40,11 +40,11 @@ export const gameTimerFocusEffect = (openPauseScreen: () => void) =>
                 const appState = isTicking ? yield* Effect.raceFirst(tickForever, nextAppState) : yield* nextAppState;
 
                 if (appState === 'active') {
-                    yield* currentRunService.returnToRun;
+                    yield* Effect.uninterruptible(currentRunService.returnToRun);
                 }
 
                 if (appState === 'background') {
-                    yield* currentRunService.leaveRun;
+                    yield* Effect.uninterruptible(currentRunService.leaveRun);
                 }
 
                 yield* runChallengeTimer(appState === 'active');
@@ -53,7 +53,7 @@ export const gameTimerFocusEffect = (openPauseScreen: () => void) =>
         const pauseOnBackground = Effect.raceFirst(
             tickForever,
             Effect.repeat(nextAppState, { until: appState => appState !== 'active' })
-        ).pipe(Effect.andThen(currentRunService.pause()), Effect.andThen(Effect.sync(openPauseScreen)));
+        ).pipe(Effect.andThen(Effect.uninterruptible(currentRunService.pause())), Effect.andThen(Effect.sync(openPauseScreen)));
 
         yield* isChallengeRun ? runChallengeTimer(true) : pauseOnBackground;
     }).pipe(Effect.scoped);

@@ -10,6 +10,7 @@ import { getTheme } from '../../theme/utils/get-theme.util';
 import { appAtomRuntime } from '../runtime/app.runtime';
 
 import { i18nActivateLanguage } from './i18n-catalogs';
+import { logErrorCause } from './log-error-cause.util';
 
 import type { AppServices } from '../runtime/app.runtime';
 import type { ReactivityKeyEnum } from '@suuudokuuu/progress';
@@ -27,7 +28,7 @@ const importLegacyState = Effect.gen(function* () {
 
     yield* legacyStateImportService.importPersistedRoot(persistedRoot, (theme, colorSchema) => getTheme(theme, colorSchema).colors);
     yield* Effect.promise(() => Storage.removeItem(LegacyPersistedRootKey));
-}).pipe(Effect.tapCause(Effect.logError), Effect.ignoreCause);
+}).pipe(Effect.tapCause(logErrorCause), Effect.ignoreCause);
 
 export const databaseBootAtom = appAtomRuntime
     .atom(
@@ -40,8 +41,8 @@ export const databaseBootAtom = appAtomRuntime
 
             const { language } = yield* settingsRepository.get;
 
-            yield* i18nActivateLanguage(language);
-        }).pipe(Effect.tapCause(Effect.logError))
+            yield* i18nActivateLanguage(language).pipe(Effect.tapCause(logErrorCause), Effect.ignoreCause);
+        }).pipe(Effect.tapCause(logErrorCause))
     )
     .pipe(Atom.keepAlive);
 

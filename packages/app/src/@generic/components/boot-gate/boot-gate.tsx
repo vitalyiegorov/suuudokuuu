@@ -10,6 +10,7 @@ import { currentRunAtom } from '../../../game/query/use-current-run.query';
 import { settingsAtom } from '../../../settings/query/use-settings.query';
 import { appRuntime } from '../../runtime/app.runtime';
 import { hideAppSplashScreen } from '../../utils/hide-app-splash-screen';
+import { logErrorCause } from '../../utils/log-error-cause.util';
 import { BootFailure } from '../boot-failure/boot-failure';
 
 import type { ReactNode } from 'react';
@@ -29,7 +30,7 @@ export const BootGate = ({ children }: Props) => {
             return emptyFn;
         }
 
-        const fiber = appRuntime.runFork(Effect.tryPromise(hideAppSplashScreen).pipe(Effect.ignore));
+        const fiber = appRuntime.runFork(Effect.tryPromise(hideAppSplashScreen).pipe(Effect.tapCause(logErrorCause), Effect.ignoreCause));
 
         return () => void appRuntime.runFork(Fiber.interrupt(fiber));
     }, [isReady, hasFailed]);

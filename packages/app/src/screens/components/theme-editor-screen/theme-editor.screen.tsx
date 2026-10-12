@@ -15,6 +15,7 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { StickyFooterBand } from '../../../@generic/components/sticky-footer-band/sticky-footer-band';
 import { appRuntime } from '../../../@generic/runtime/app.runtime';
+import { logErrorCause } from '../../../@generic/utils/log-error-cause.util';
 import { ThemeEditorColorRow } from '../../../settings/component/theme-editor-color-row/theme-editor-color-row';
 import { ThemeEditorColorSheet } from '../../../settings/component/theme-editor-color-sheet/theme-editor-color-sheet';
 import { ThemePreviewBoard } from '../../../settings/component/theme-preview-board/theme-preview-board';
@@ -98,7 +99,7 @@ export const ThemeEditorScreen = () => {
                         leaveEditor();
                     })
                 ),
-                Effect.tapCause(Effect.logError)
+                Effect.tapCause(logErrorCause)
             )
         );
     };
@@ -137,7 +138,7 @@ export const ThemeEditorScreen = () => {
                                     leaveEditor();
                                 })
                             ),
-                            Effect.tapCause(Effect.logError)
+                            Effect.tapCause(logErrorCause)
                         )
                     );
                 }
@@ -162,7 +163,7 @@ export const ThemeEditorScreen = () => {
                 customThemeRepository.upsert(createCustomTheme(duplicateName, draftTheme.id, customThemes, Date.now()))
             ).pipe(
                 Effect.tap(() => Effect.sync(leaveEditor)),
-                Effect.tapCause(Effect.logError)
+                Effect.tapCause(logErrorCause)
             )
         );
     };
