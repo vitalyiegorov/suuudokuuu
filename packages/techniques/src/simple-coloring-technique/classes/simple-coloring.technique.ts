@@ -2,6 +2,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { getContextUnitValueIndex } from '../../@generic/utils/context-scan-state.util';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 
 import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
@@ -35,9 +36,10 @@ export class SimpleColoringTechnique implements TechniqueStrategyInterface {
     private getColoredComponents(context: CandidateContext, value: number): ColoredComponentInterface[] {
         const adjacencyByKey = new Map<string, Set<string>>();
         const cellsByKey = new Map<string, CellInterface>();
+        const index = getContextUnitValueIndex(context);
 
-        for (const unit of context.getUnits()) {
-            const candidateCells = unit.cells.filter(cell => context.getCandidates(cell).includes(value));
+        for (let unitPosition = 0; unitPosition < index.units.length; unitPosition += 1) {
+            const candidateCells = index.getUnitValueEntry(unitPosition, value).cells;
             const [firstCell, secondCell] = candidateCells;
 
             if (candidateCells.length === 2 && isDefined(firstCell) && isDefined(secondCell)) {

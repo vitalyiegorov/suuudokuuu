@@ -3,6 +3,7 @@ import { isDefined } from '@rnw-community/shared';
 import { getContextUnitValueIndex } from '../utils/context-scan-state.util';
 import { forEachCombination } from '../utils/get-combinations.util';
 import { getSearchScope } from '../utils/get-search-scope.util';
+import { isSameCell } from '../utils/is-same-cell.util';
 
 import { AbstractSizedTechnique } from './abstract-sized-technique';
 
@@ -33,6 +34,7 @@ type CoverEliminationScanType = {
     readonly baseIndexes: readonly number[];
     readonly value: number;
     readonly isEligibleCell?: (cell: CellInterface) => boolean;
+    readonly targetCell?: CellInterface;
 };
 
 export abstract class AbstractFishTechnique<
@@ -82,7 +84,7 @@ export abstract class AbstractFishTechnique<
     }
 
     protected getCoverEliminations(scan: CoverEliminationScanType): CandidateEliminationInterface[] {
-        const { index, coverIndexes, coverType, baseType, baseIndexes, value, isEligibleCell } = scan;
+        const { index, coverIndexes, coverType, baseType, baseIndexes, value, isEligibleCell, targetCell } = scan;
         const eliminations: CandidateEliminationInterface[] = [];
 
         for (const coverIndex of coverIndexes) {
@@ -90,7 +92,7 @@ export abstract class AbstractFishTechnique<
 
             for (const cell of index.getUnitValueEntry(coverUnitPosition, value).cells) {
                 const baseIndex = this.getCellIndexByLineType(cell, baseType);
-                const isEligible = isEligibleCell?.(cell) ?? true;
+                const isEligible = (isEligibleCell?.(cell) ?? true) && (!isDefined(targetCell) || isSameCell(cell, targetCell));
 
                 if (!baseIndexes.includes(baseIndex) && isEligible) {
                     eliminations.push({ cell, value });

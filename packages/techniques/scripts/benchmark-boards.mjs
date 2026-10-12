@@ -1,7 +1,3 @@
-// Ten 17-clue boards read verbatim from @suuudokuuu/hell-corpus at indices 0, 150, 300, 450, 600,
-// 750, 900, 1050, 1200, 1350 via getHellCorpusPuzzle(index). Inlined so the benchmark has no
-// runtime dependency on the corpus package and stays deterministic across runs.
-
 export const benchmarkBoards = [
     '000000000000000001000002034000005600007000080080010700000800000300600000905000003',
     '000000000000000012003004005000003600010070000280000000000105000000820000009000700',

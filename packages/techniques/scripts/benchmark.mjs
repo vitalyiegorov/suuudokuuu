@@ -68,23 +68,12 @@ const runWorkload = (name, unitRunner) => {
     return summarizeWorkload(name, measuredIterations);
 };
 
-const runSolveLogicallyFull = unitDurationsMilliseconds => {
+const createBoardScanRunner = scanBoard => unitDurationsMilliseconds => {
     benchmarkBoards.forEach(board => {
         const sudoku = createSudoku(board);
         const startTime = performance.now();
 
-        new TechniqueManager(sudoku).solveLogically();
-
-        unitDurationsMilliseconds.push(performance.now() - startTime);
-    });
-};
-
-const runFindNextStepSweep = unitDurationsMilliseconds => {
-    benchmarkBoards.forEach(board => {
-        const sudoku = createSudoku(board);
-        const startTime = performance.now();
-
-        new TechniqueManager(sudoku).findNextStep();
+        scanBoard(new TechniqueManager(sudoku));
 
         unitDurationsMilliseconds.push(performance.now() - startTime);
     });
@@ -102,19 +91,26 @@ const buildSolvableBoardMoves = () =>
         })
         .filter(solvedBoard => solvedBoard.outcome === 'solved');
 
+const replayPlacements = (board, placementSteps, visitPlacement) => {
+    const sudoku = createSudoku(board);
+
+    placementSteps.forEach(placementStep => {
+        const existingCell = sudoku.Field[placementStep.y][placementStep.x];
+        const playedCell = { ...existingCell, value: placementStep.value };
+
+        visitPlacement(sudoku, playedCell);
+        sudoku.Field[placementStep.y][placementStep.x] = playedCell;
+    });
+};
+
 const createIdentifyMoveReplayRunner = (solvableBoards, techniqueOrder) => unitDurationsMilliseconds => {
     solvableBoards.forEach(({ board, placementSteps }) => {
-        const sudoku = createSudoku(board);
-
-        placementSteps.forEach(placementStep => {
-            const existingCell = sudoku.Field[placementStep.y][placementStep.x];
-            const playedCell = { ...existingCell, value: placementStep.value };
+        replayPlacements(board, placementSteps, (sudoku, playedCell) => {
             const startTime = performance.now();
 
             new TechniqueManager(sudoku).identifyMove(playedCell, techniqueOrder);
 
             unitDurationsMilliseconds.push(performance.now() - startTime);
-            sudoku.Field[placementStep.y][placementStep.x] = playedCell;
         });
     });
 };
@@ -149,16 +145,12 @@ const buildSolveChecksum = board => {
 };
 
 const buildIdentifyChecksum = (board, placementSteps) => {
-    const sudoku = createSudoku(board);
     const techniques = [];
 
-    placementSteps.forEach(placementStep => {
-        const existingCell = sudoku.Field[placementStep.y][placementStep.x];
-        const playedCell = { ...existingCell, value: placementStep.value };
+    replayPlacements(board, placementSteps, (sudoku, playedCell) => {
         const classification = new TechniqueManager(sudoku).identifyMove(playedCell);
 
         techniques.push(`${classification.technique}.${classification.value}`);
-        sudoku.Field[placementStep.y][placementStep.x] = playedCell;
     });
 
     return `${hashString(techniques.join(','))}:${techniques.length}`;
@@ -201,10 +193,16 @@ const main = () => {
     printSolvabilityReport(solvableBoards.length);
 
     const workloadResults = [
-        runWorkload('solveLogically-full', runSolveLogicallyFull),
+        runWorkload(
+            'solveLogically-full',
+            createBoardScanRunner(manager => manager.solveLogically())
+        ),
         runWorkload('identifyMove-full-replay', createIdentifyMoveReplayRunner(solvableBoards, undefined)),
         runWorkload('identifyMove-interactive-replay', createIdentifyMoveReplayRunner(solvableBoards, interactiveTechniqueOrder)),
-        runWorkload('findNextStep-sweep', runFindNextStepSweep)
+        runWorkload(
+            'findNextStep-sweep',
+            createBoardScanRunner(manager => manager.findNextStep())
+        )
     ];
 
     console.log(

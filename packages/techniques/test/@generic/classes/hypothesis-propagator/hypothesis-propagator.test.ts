@@ -4,7 +4,9 @@ import { describe, expect, it } from 'vitest';
 import { CandidateContext } from '../../../../src/@generic/classes/candidate-context/candidate-context';
 import { HypothesisPropagator } from '../../../../src/@generic/classes/hypothesis-propagator/hypothesis-propagator';
 import { ForcingOutcomeKindEnum } from '../../../../src/@generic/enums/forcing-outcome-kind.enum';
+import { getMaskValues } from '../../../../src/@generic/utils/get-mask-values.util';
 import { hasMaskValue } from '../../../../src/@generic/utils/has-mask-value.util';
+import { createCandidateContextFromMap } from '../../test-utils/create-candidate-context-from-map.spec.util';
 
 const forcingChainBoard = '000000051000000023004005000000000600000130000007680000429006500370400000810000000';
 const forcingChainSolution = '263748951758961423194325876931257684682134795547689312429816537375492168816573249';
@@ -18,6 +20,37 @@ const createPropagator = (board: string): HypothesisPropagator =>
     HypothesisPropagator.fromContext(CandidateContext.fromSudoku(Sudoku.fromString(board, defaultSudokuConfig)));
 
 describe('HypothesisPropagator', () => {
+    it.each([defaultSudokuConfig, { ...defaultSudokuConfig, fieldSize: 4, fieldGroupWidth: 2, fieldGroupHeight: 2 }])(
+        'preserves row-major unit and peer indexes for a $fieldSize-cell layout',
+        config => {
+            const context = new CandidateContext(
+                config,
+                Array.from({ length: config.fieldSize }, (_, y) =>
+                    Array.from({ length: config.fieldSize }, (__, x) => ({
+                        x,
+                        y,
+                        value: config.blankCellValue,
+                        group: Math.floor(x / config.fieldGroupWidth) * config.fieldGroupWidth + Math.floor(y / config.fieldGroupHeight) + 1
+                    }))
+                )
+            );
+            const board = HypothesisPropagator.fromContext(context).getBoard();
+
+            expect(board.peerIndexes.map(peerIndexes => peerIndexes.map(peerIndex => board.cells[peerIndex]))).toEqual(
+                context.getCells().map(cell => context.getPeers(cell))
+            );
+            expect(board.unitCellIndexes.map(cellIndexes => cellIndexes.map(cellIndex => board.cells[cellIndex]))).toEqual(
+                context.getUnits().map(unit => unit.cells)
+            );
+        }
+    );
+
+    it('keeps repeated candidates in a synthetic context as one mask bit', () => {
+        const board = HypothesisPropagator.fromContext(createCandidateContextFromMap([0, 0, [1, 1, 2]])).getBoard();
+
+        expect(getMaskValues(board.candidateMasks[0], board.valueCount)).toEqual([1, 2]);
+    });
+
     it.each([
         [1, 3, ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT],
         [2, 2, ForcingOutcomeKindEnum.NO_POSITION],
@@ -99,15 +132,29 @@ describe('HypothesisPropagator', () => {
         expect(wrongPlacements).toEqual([]);
     });
 
+    it('preserves cached results when another hypothesis runs', () => {
+        const propagator = createPropagator(forcingChainBoard);
+        const firstValue = Number(forcingChainSolution[0]);
+        const firstPropagation = propagator.propagate(0, firstValue);
+        const placedValues = firstPropagation.placedValues.slice();
+        const placedCellIndexes = [...firstPropagation.placedCellIndexes];
+        const eliminatedMasks = firstPropagation.eliminatedMasks.slice();
+
+        propagator.propagate(contradictionCellIndex, contradictionValue);
+
+        expect(firstPropagation.placedValues).toEqual(placedValues);
+        expect(firstPropagation.placedCellIndexes).toEqual(placedCellIndexes);
+        expect(firstPropagation.eliminatedMasks).toEqual(eliminatedMasks);
+        expect(propagator.propagate(0, firstValue)).toBe(firstPropagation);
+    });
+
     it('caches every propagation by cell and value', () => {
-        expect.assertions(3);
+        expect.assertions(1);
 
         const propagator = createPropagator(forcingChainBoard);
         const firstPropagation = propagator.propagate(contradictionCellIndex, contradictionValue);
         const secondPropagation = propagator.propagate(contradictionCellIndex, contradictionValue);
 
-        expect(propagator.getPropagationCount()).toBe(1);
         expect(secondPropagation).toBe(firstPropagation);
-        expect(propagator.getPropagationCount()).toBe(1);
     });
 });

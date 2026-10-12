@@ -6,13 +6,13 @@ import type { ForcingBranchInterface } from './forcing-branch.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 export interface TechniqueResultInterface {
-    technique: SolutionTechniqueEnum;
-    cell: CellInterface;
-    value: number;
-    kind: TechniqueResultKindType;
-    eliminations: CandidateEliminationInterface[];
-    reasonCells: CellInterface[];
-    chainLength?: number;
+    readonly technique: SolutionTechniqueEnum;
+    readonly cell: CellInterface;
+    readonly value: number;
+    readonly kind: TechniqueResultKindType;
+    readonly eliminations: CandidateEliminationInterface[];
+    readonly reasonCells: CellInterface[];
+    readonly chainLength?: number;
     readonly patternCandidates?: readonly CandidateEliminationInterface[];
     readonly chain?: readonly ChainCandidateInterface[];
     readonly branches?: readonly ForcingBranchInterface[];
