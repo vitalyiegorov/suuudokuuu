@@ -168,6 +168,7 @@ jobs:
     android-capture-smoke:
         name: Android store capture smoke
         needs: android
+        if: github.event_name == 'workflow_dispatch'
         runs-on: [self-hosted, trf-linux-amd64-4x8]
         permissions:
             contents: read
