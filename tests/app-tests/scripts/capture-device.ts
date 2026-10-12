@@ -4,6 +4,8 @@ import { join } from 'node:path';
 
 const WaitBufferByteLength = 4;
 const ScreenshotMaxBufferBytes = 67108864;
+const AndroidPidLookupDeadlineMilliseconds = 8000;
+const AndroidPidLookupRetryMilliseconds = 500;
 const BootedUdidPattern = /\(([0-9A-F-]{36})\) \(Booted\)/u;
 
 export const detectBootedIosSimulatorUdid = (targetDeviceClass: string): string => {
@@ -115,15 +117,39 @@ export const openDeepLink = (context: DeviceContext, deepLink: string): SceneOut
     return { failureOutput: String(result.stderr), succeeded: result.status === 0 };
 };
 
-export const readAndroidAppPid = (context: DeviceContext, appId: string): string => {
+const lookupAndroidAppPid = (context: DeviceContext, appId: string): { failureReason: string; processId: string } => {
     const result = spawnSync('adb', [...adbBaseArguments(context), 'shell', 'pidof', appId], { encoding: 'utf8' });
     const processId = result.stdout.trim();
 
     if (result.status !== 0 || !/^\d+$/u.test(processId)) {
-        throw new Error(`Could not read a single app PID for ${appId}: ${result.stderr.trim() || processId || 'no running process'}`);
+        return { failureReason: result.stderr.trim() || processId || 'no running process', processId: '' };
     }
 
-    return processId;
+    return { failureReason: '', processId };
+};
+
+const readAndroidFailureLogs = (context: DeviceContext, appId: string): string => {
+    const crashLogs = spawnSync('adb', [...adbBaseArguments(context), 'logcat', '-d', '-b', 'crash'], { encoding: 'utf8' });
+    const mainLogs = spawnSync('adb', [...adbBaseArguments(context), 'logcat', '-d', '-b', 'main'], { encoding: 'utf8' });
+    const appLines = mainLogs.stdout.split('\n').filter(line => line.includes(appId));
+
+    return `\n--- logcat -b crash ---\n${crashLogs.stdout.trim()}\n--- logcat -b main (${appId}) ---\n${appLines.join('\n')}`;
+};
+
+export const readAndroidAppPid = (context: DeviceContext, appId: string): string => {
+    const deadline = Date.now() + AndroidPidLookupDeadlineMilliseconds;
+    let lookup = lookupAndroidAppPid(context, appId);
+
+    while (lookup.processId.length === 0 && Date.now() < deadline) {
+        waitForRender(AndroidPidLookupRetryMilliseconds);
+        lookup = lookupAndroidAppPid(context, appId);
+    }
+
+    if (lookup.processId.length === 0) {
+        throw new Error(`Could not read a single app PID for ${appId}: ${lookup.failureReason}${readAndroidFailureLogs(context, appId)}`);
+    }
+
+    return lookup.processId;
 };
 
 export const clearAndroidSceneLogs = (context: DeviceContext): void => {
