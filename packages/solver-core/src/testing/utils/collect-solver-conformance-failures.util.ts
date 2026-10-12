@@ -1,10 +1,9 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { GRID_BLANK_VALUE, UNIQUENESS_COUNT_LIMIT } from '../../constants/grid.constant';
+import { isCompleteValidGrid } from '../../utils/is-complete-valid-grid.util';
 import { parseGridString } from '../../utils/parse-grid-string.util';
 import { solverConformanceCases } from '../constants/solver-conformance-cases.constant';
-
-import { isCompleteValidGrid } from './is-complete-valid-grid.util';
 
 import type { SolverInterface } from '../../interfaces/solver.interface';
 import type { SolverConformanceCaseInterface } from '../interfaces/solver-conformance-case.interface';

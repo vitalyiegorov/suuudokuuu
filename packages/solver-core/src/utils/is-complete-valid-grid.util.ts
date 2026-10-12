@@ -1,4 +1,4 @@
-import { BOX_BY_CELL, COLUMN_BY_CELL, GRID_BLANK_VALUE, GRID_CELL_COUNT, GRID_SIZE, ROW_BY_CELL } from '../../constants/grid.constant';
+import { BOX_BY_CELL, COLUMN_BY_CELL, GRID_BLANK_VALUE, GRID_CELL_COUNT, GRID_SIZE, ROW_BY_CELL } from '../constants/grid.constant';
 
 export const isCompleteValidGrid = (grid: Uint8Array): boolean => {
     if (grid.length !== GRID_CELL_COUNT) {

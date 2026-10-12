@@ -119,27 +119,26 @@ export const openDeepLink = (context: DeviceContext, deepLink: string): SceneOut
 
 export const readAndroidAppPid = (context: DeviceContext, appId: string): string => {
     const deadline = Date.now() + AndroidPidLookupDeadlineMilliseconds;
+    let result = spawnSync('adb', [...adbBaseArguments(context), 'shell', 'pidof', appId], { encoding: 'utf8' });
 
-    while (true) {
-        const result = spawnSync('adb', [...adbBaseArguments(context), 'shell', 'pidof', appId], { encoding: 'utf8' });
-        const processId = result.stdout.trim();
-
-        if (result.status === 0 && /^\d+$/u.test(processId)) {
-            return processId;
-        }
-
-        if (Date.now() >= deadline) {
-            const logs = spawnSync('adb', [...adbBaseArguments(context), 'logcat', '-d', '-b', 'main,system,crash', '-t', '200'], {
-                encoding: 'utf8'
-            });
-
-            throw new Error(
-                `Could not read a single app PID for ${appId}: ${result.stderr.trim() || processId || 'no running process'}\n${logs.stdout}`
-            );
-        }
-
+    while (!(result.status === 0 && /^\d+$/u.test(result.stdout.trim())) && Date.now() < deadline) {
         waitForRender(AndroidPidLookupRetryMilliseconds);
+        result = spawnSync('adb', [...adbBaseArguments(context), 'shell', 'pidof', appId], { encoding: 'utf8' });
     }
+
+    const processId = result.stdout.trim();
+
+    if (result.status === 0 && /^\d+$/u.test(processId)) {
+        return processId;
+    }
+
+    const logs = spawnSync('adb', [...adbBaseArguments(context), 'logcat', '-d', '-b', 'main,system,crash', '-t', '200'], {
+        encoding: 'utf8'
+    });
+
+    throw new Error(
+        `Could not read a single app PID for ${appId}: ${result.stderr.trim() || processId || 'no running process'}\n${logs.stdout}`
+    );
 };
 
 export const clearAndroidSceneLogs = (context: DeviceContext): void => {
