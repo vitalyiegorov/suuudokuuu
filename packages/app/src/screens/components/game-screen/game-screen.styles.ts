@@ -61,7 +61,7 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         minHeight: 0,
         paddingTop: theme.spacing.sm
     },
-    panelArea: (boardSize: number) => {
+    panelArea: (boardSize: number, isHintActive: boolean) => {
         const isWideLayout = appLayoutScreenIsWide(rt.screen);
         const widePanelAreaHeight = boardSize > 0 ? boardSize : '100%';
 
@@ -72,6 +72,7 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
             height: isWideLayout
                 ? widePanelAreaHeight
                 : gameGetNumpadHeight(rt.screen.width) +
+                  (isHintActive ? theme.spacing.xl * 4 : 0) +
                   theme.spacing.xl * 3 +
                   gameGetHintFooterHeight(rt.fontScale) -
                   gameGetHintFooterHeight(1),

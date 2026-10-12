@@ -17,7 +17,7 @@ export const HintProgressDot = ({ stepIndex, currentStepIndex, stepCount }: Prop
     const { engine } = use(GameContext);
     const isSelected = stepIndex === currentStepIndex;
     const accessibilityState = { selected: isSelected };
-    const dotStyles = isSelected ? styles.dotActive : styles.dot;
+    const dotStyles = styles.dot(isSelected);
     const currentStepNumber = stepIndex + 1;
     const label = t`Step ${currentStepNumber} of ${stepCount}`;
     const adjacentTestId = stepIndex < currentStepIndex ? HintPanelSelectors.BackButton : HintPanelSelectors.NextButton;

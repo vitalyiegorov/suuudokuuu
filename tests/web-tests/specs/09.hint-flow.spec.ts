@@ -331,7 +331,7 @@ test('routes the reported AIC board through its pointing pair to a digit and ope
 
     const progress = page.getByTestId(HintPanelSelectors.Progress);
     const technique = page.getByTestId(HintStepNarrationSelectors.Technique);
-    const narrationScroll = page.getByTestId(HintStepNarrationSelectors.NarrationScroll);
+    const narrationScroll = page.getByTestId(HintStepNarrationSelectors.NARRATION_SCROLL);
     const nextButton = page.getByTestId(HintPanelSelectors.NextButton);
 
     await page.getByTestId(HintButtonSelectors.Root).click();
@@ -439,9 +439,21 @@ for (const viewport of [
         await expect(page.getByTestId(HintStepNarrationSelectors.CHAIN_BLOCKS)).toBeVisible();
         await expect(page.getByTestId(HintStepNarrationSelectors.CHAIN_BLOCKS)).toContainText(/R\dC\d = \d/u);
 
-        await page.getByTestId(HintStepNarrationSelectors.CONTRADICTION).last().scrollIntoViewIfNeeded();
+        const narrationScroll = page.getByTestId(HintStepNarrationSelectors.NARRATION_SCROLL);
+        const chainBlocks = page.getByTestId(HintStepNarrationSelectors.CHAIN_BLOCKS);
+        if (width === mobileViewportWidth) {
+            await expect(chainBlocks).toBeInViewport({ ratio: 1 });
+        }
+
         await page.getByTestId(HintStepNarrationSelectors.Narration).scrollIntoViewIfNeeded();
         await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toBeVisible();
+        await narrationScroll.evaluate(element => {
+            element.scrollTop = 0;
+        });
+        await page.getByTestId(HintStepNarrationSelectors.CONTRADICTION).last().scrollIntoViewIfNeeded();
+        const finalCandidate = chainBlocks.getByText(/^R\dC\d = \d$/u).last();
+        await finalCandidate.scrollIntoViewIfNeeded();
+        await expect(finalCandidate).toBeInViewport({ ratio: 1 });
         await expect(page.getByTestId(HintStepNarrationSelectors.CONTRADICTION).last()).toBeVisible();
         await page.screenshot({ scale: 'css', path: `../../.scratch/hint-chain-outcome-${width}.png` });
 

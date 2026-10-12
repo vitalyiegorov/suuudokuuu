@@ -21,6 +21,7 @@ export const HintStepNarrationStyles = StyleSheet.create(theme => ({
         fontWeight: '900'
     },
     narrationScroll: {
+        flexBasis: 0,
         flexGrow: 1,
         minHeight: 0,
         flexShrink: 1

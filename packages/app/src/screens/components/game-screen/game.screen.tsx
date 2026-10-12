@@ -227,7 +227,7 @@ export const GameScreen = () => {
                     )}
                 </View>
 
-                <View onLayout={handlePanelAreaLayout} style={styles.panelArea(boardSize)}>
+                <View onLayout={handlePanelAreaLayout} style={styles.panelArea(boardSize, isHintActive)}>
                     {isWideLayout ? statusBlock : null}
 
                     {isWideLayout ? challengeHud : null}

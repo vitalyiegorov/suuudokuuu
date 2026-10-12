@@ -17,6 +17,7 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
         marginBottom: isDefined(availableHeight) ? 0 : Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md,
         bottom: isDefined(availableHeight) ? Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md : 0,
         height: availableHeight,
+        flexBasis: isDefined(availableHeight) ? 'auto' : 0,
         flexGrow: isDefined(availableHeight) ? 0 : 1,
         flexShrink: 1,
         minHeight: 0,
@@ -84,16 +85,10 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
         height: hintPanelControlSize,
         width: hintPanelControlSize
     },
-    dot: {
-        backgroundColor: theme.colors.text.hint,
+    dot: (isSelected: boolean) => ({
+        backgroundColor: isSelected ? theme.colors.accent : theme.colors.text.hint,
         borderRadius: theme.radius.pill,
-        height: dotSize,
-        width: dotSize
-    },
-    dotActive: {
-        backgroundColor: theme.colors.accent,
-        borderRadius: theme.radius.pill,
-        height: dotActiveSize,
-        width: dotActiveSize
-    }
+        height: isSelected ? dotActiveSize : dotSize,
+        width: isSelected ? dotActiveSize : dotSize
+    })
 }));
