@@ -707,6 +707,10 @@ msgstr "পরিবর্তনগুলো বাতিল করবেন?"
 msgid "Dismiss"
 msgstr "সরিয়ে দিন"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Dismiss setup spotlight"
+msgstr "সেটআপের এই ঝলকটি বন্ধ করুন"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "ডিসপ্লে"
@@ -879,6 +883,10 @@ msgstr "h"
 msgid "Hard"
 msgstr "কঠিন"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Hard is set. Replay finished puzzles move by move from History and see the techniques used."
+msgstr "কঠিন বেছে নেওয়া হয়েছে। ইতিহাস থেকে শেষ করা ধাঁধাগুলো চাল ধরে ধরে আবার দেখুন এবং ব্যবহৃত কৌশলগুলো জানুন।"
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -956,6 +964,10 @@ msgstr "সবচেয়ে কঠিন সুডোকুতে সংকে
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
 msgstr "হোম"
+
+#: src/screens/components/home-screen/home-screen-intent-rating-link/home-screen-intent-rating-link.tsx
+msgid "How difficulty is rated"
+msgstr "কঠিনতার রেটিং কীভাবে হয়"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "How much the board and screens may move"
@@ -1211,6 +1223,10 @@ msgstr "পরবর্তী ধাপ"
 msgid "Nightmare"
 msgstr "দুঃস্বপ্ন"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Nightmare is set. See every puzzle's SE rating; Hell and Infinity go further."
+msgstr "দুঃস্বপ্ন বেছে নেওয়া হয়েছে। প্রতিটি ধাঁধার SE রেটিং দেখুন; নরক ও অসীম আরও কঠিন।"
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
 msgstr "নিশিও বাধ্যকারী শৃঙ্খল"
@@ -1445,6 +1461,10 @@ msgstr "প্রতি সঠিক বসানোতে পয়েন্ট
 msgid "Português"
 msgstr "Português"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Practice harder logic"
+msgstr "আরও কঠিন যুক্তির অনুশীলন করুন"
+
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
 msgstr "প্রিসেট"
@@ -1495,6 +1515,10 @@ msgstr "উঁচু পৃষ্ঠের লেখা"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "তথ্য সংগ্রহ, সংরক্ষণ ও আপনার অধিকার নিয়ে Suuudokuuu-এর গোপনীয়তা নীতি পড়ুন।"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Ready for a real challenge"
+msgstr "এবার সত্যিকারের চ্যালেঞ্জের জন্য প্রস্তুত?"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
 msgstr "সাম্প্রতিক সমাধান"
@@ -1519,6 +1543,10 @@ msgstr "অঞ্চল বাধ্যকারী শৃঙ্খল"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
 msgstr "স্বচ্ছন্দ"
+
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Relaxed mistakes are on, with no limit. Works offline."
+msgstr "স্বচ্ছন্দ মোডে ভুলের কোনো সীমা নেই। ইন্টারনেট ছাড়াই খেলা যায়।"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Release notes"
@@ -1912,6 +1940,10 @@ msgstr "Svenska"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Swordfish"
 msgstr "Swordfish"
+
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Take it slow"
+msgstr "ধীরে সুস্থে খেলুন"
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
 msgid "Taller marks = sharper techniques"

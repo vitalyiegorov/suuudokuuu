@@ -1,0 +1,3 @@
+svår sudoku
+sudoku för experter
+svårighetsbetyg sudoku

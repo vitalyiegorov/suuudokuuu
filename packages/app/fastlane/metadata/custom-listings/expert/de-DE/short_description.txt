@@ -1,0 +1,1 @@
+Schwere Sudokus wählen und die SE-Schwierigkeitswertung jedes Rätsels sehen.

@@ -707,6 +707,10 @@ msgstr "Descartar alterações?"
 msgid "Dismiss"
 msgstr "Dispensar"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Dismiss setup spotlight"
+msgstr "Fechar o destaque da configuração"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "Tela"
@@ -879,6 +883,10 @@ msgstr "h"
 msgid "Hard"
 msgstr "Difícil"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Hard is set. Replay finished puzzles move by move from History and see the techniques used."
+msgstr "Difícil está selecionado. Reveja os puzzles concluídos, jogada a jogada, no Histórico e veja as técnicas utilizadas."
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -956,6 +964,10 @@ msgstr "Dicas nos sudokus mais difíceis"
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
 msgstr "Início"
+
+#: src/screens/components/home-screen/home-screen-intent-rating-link/home-screen-intent-rating-link.tsx
+msgid "How difficulty is rated"
+msgstr "Como a dificuldade é avaliada"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "How much the board and screens may move"
@@ -1211,6 +1223,10 @@ msgstr "Próxima etapa"
 msgid "Nightmare"
 msgstr "Pesadelo"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Nightmare is set. See every puzzle's SE rating; Hell and Infinity go further."
+msgstr "Pesadelo está selecionado. Veja a classificação SE de cada puzzle; Inferno e Infinito vão ainda mais longe."
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
 msgstr "Cadeia forçada Nishio"
@@ -1445,6 +1461,10 @@ msgstr "pontos por número correto."
 msgid "Português"
 msgstr "Português"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Practice harder logic"
+msgstr "Pratique lógica mais avançada"
+
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
 msgstr "Predefinições"
@@ -1495,6 +1515,10 @@ msgstr "Texto da superfície elevada"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Leia a política de privacidade do Suuudokuuu sobre coleta de dados, armazenamento e seus direitos."
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Ready for a real challenge"
+msgstr "Pronto para um verdadeiro desafio?"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
 msgstr "Soluções recentes"
@@ -1519,6 +1543,10 @@ msgstr "Cadeia forçada de região"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
 msgstr "Relaxado"
+
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Relaxed mistakes are on, with no limit. Works offline."
+msgstr "No modo relaxado, os erros são permitidos sem limite. Funciona offline."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Release notes"
@@ -1912,6 +1940,10 @@ msgstr "Svenska"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Swordfish"
 msgstr "Swordfish"
+
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Take it slow"
+msgstr "Vá com calma"
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
 msgid "Taller marks = sharper techniques"
