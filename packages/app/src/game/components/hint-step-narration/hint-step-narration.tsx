@@ -38,11 +38,11 @@ export const HintStepNarration = ({ stepScript, stepIndex, value }: Props) => {
     const isWitness = step.kind === StepScriptStepKindEnum.SHOW_CHAIN || step.kind === StepScriptStepKindEnum.SHOW_BRANCH;
     const witnessSteps = stepScript.steps
         .slice(0, stepIndex + 1)
-        .map((candidateStep, index) => ({ step: candidateStep, stepIndex: index }))
-        .filter(
-            candidate =>
-                candidate.step.narration.technique === step.narration.technique &&
-                (candidate.step.kind === StepScriptStepKindEnum.SHOW_CHAIN || candidate.step.kind === StepScriptStepKindEnum.SHOW_BRANCH)
+        .flatMap((candidateStep, index) =>
+            candidateStep.narration.technique === step.narration.technique &&
+            (candidateStep.kind === StepScriptStepKindEnum.SHOW_CHAIN || candidateStep.kind === StepScriptStepKindEnum.SHOW_BRANCH)
+                ? [{ step: candidateStep, stepIndex: index }]
+                : []
         );
 
     useEffect(() => void AccessibilityInfo.announceForAccessibility(narrationText), [narrationText]);
@@ -68,23 +68,14 @@ export const HintStepNarration = ({ stepScript, stepIndex, value }: Props) => {
             ) : null}
             {witnessSteps.length > 0 ? (
                 <View style={styles.container} testID={HintStepNarrationSelectors.CHAIN_BLOCKS}>
-                    {witnessSteps.map(candidate => {
-                        if (
-                            candidate.step.kind !== StepScriptStepKindEnum.SHOW_CHAIN &&
-                            candidate.step.kind !== StepScriptStepKindEnum.SHOW_BRANCH
-                        ) {
-                            return null;
-                        }
-
-                        return (
-                            <HintNarratedChain
-                                currentStepIndex={stepIndex}
-                                key={candidate.stepIndex}
-                                step={candidate.step}
-                                stepIndex={candidate.stepIndex}
-                            />
-                        );
-                    })}
+                    {witnessSteps.map(candidate => (
+                        <HintNarratedChain
+                            currentStepIndex={stepIndex}
+                            key={candidate.stepIndex}
+                            step={candidate.step}
+                            stepIndex={candidate.stepIndex}
+                        />
+                    ))}
                 </View>
             ) : null}
             {isWitness ? (

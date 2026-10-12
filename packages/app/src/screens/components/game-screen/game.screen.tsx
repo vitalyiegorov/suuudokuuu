@@ -148,7 +148,6 @@ export const GameScreen = () => {
     const hideAutoCandidates = maxMistakes === 0;
     const gameActionsIconColor = theme.colors.surface.raisedText;
     const isHintActive = isDefined(snapshot.stepScript);
-    const isNumpadVisible = !isWideLayout || !isHintActive;
     const areWideActionsVisible = isWideLayout && !isHintActive;
     const hintPanelAvailableHeight = Math.max(
         0,
@@ -233,7 +232,7 @@ export const GameScreen = () => {
                     {isWideLayout ? challengeHud : null}
 
                     <View style={styles.panelInputArea}>
-                        {isNumpadVisible && isWideLayout ? (
+                        {areWideActionsVisible ? (
                             <ScrollView contentContainerStyle={numpadStyles.scrollContent} style={numpadStyles.scroll}>
                                 {numpadElement}
                             </ScrollView>
