@@ -1,11 +1,9 @@
-import { UNIQUENESS_COUNT_LIMIT } from '../constants/solver-conformance-cases.constant';
+import { UNIQUENESS_COUNT_LIMIT, GRID_CELL_COUNT, GRID_SIZE } from '../../constants/grid.constant';
+import { createSeededRandom } from '../../utils/create-seeded-random.util';
+import { formatGridString } from '../../utils/format-grid-string.util';
 
-import { createRandomPartialGrid } from './create-random-partial-grid.util';
-import { createSeededRandom } from './create-seeded-random.util';
-import { formatGridString } from './format-grid-string.util';
-
+import type { SolverInterface } from '../../interfaces/solver.interface';
 import type { SolverDisagreementOptionsInterface } from '../interfaces/solver-disagreement-options.interface';
-import type { SolverInterface } from '../interfaces/solver.interface';
 
 const MIN_RANDOM_GIVENS = 15;
 const RANDOM_GIVENS_SPAN = 16;
@@ -20,7 +18,10 @@ export const collectSolverDisagreements = (
 
     for (let iteration = 0; iteration < options.iterations; iteration += 1) {
         const targetGivensCount = MIN_RANDOM_GIVENS + Math.floor(random() * RANDOM_GIVENS_SPAN);
-        const grid = createRandomPartialGrid(random, targetGivensCount);
+        const grid = new Uint8Array(GRID_CELL_COUNT);
+        for (let given = 0; given < targetGivensCount; given += 1) {
+            grid[Math.floor(random() * GRID_CELL_COUNT)] = 1 + Math.floor(random() * GRID_SIZE);
+        }
         const gridDescription = formatGridString(grid);
 
         const countFromSolverA = solverA.countSolutions(grid, UNIQUENESS_COUNT_LIMIT);

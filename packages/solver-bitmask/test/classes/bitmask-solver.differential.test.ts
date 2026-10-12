@@ -1,4 +1,4 @@
-import { collectSolverDisagreements } from '@suuudokuuu/solver-core';
+import { collectSolverDisagreements } from '@suuudokuuu/solver-core/testing';
 import { DLXSolver } from '@suuudokuuu/solver-dlx';
 import { describe, expect, it } from 'vitest';
 

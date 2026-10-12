@@ -1,4 +1,4 @@
-import { GRID_BLANK_VALUE, GRID_BOX_SIZE, GRID_CELL_COUNT, GRID_SIZE } from '../constants/grid.constant';
+import { BOX_BY_CELL, COLUMN_BY_CELL, GRID_BLANK_VALUE, GRID_CELL_COUNT, GRID_SIZE, ROW_BY_CELL } from '../../constants/grid.constant';
 
 export const isCompleteValidGrid = (grid: Uint8Array): boolean => {
     if (grid.length !== GRID_CELL_COUNT) {
@@ -20,9 +20,9 @@ export const isCompleteValidGrid = (grid: Uint8Array): boolean => {
             return false;
         }
 
-        const row = Math.floor(cell / GRID_SIZE);
-        const column = cell % GRID_SIZE;
-        const box = Math.floor(row / GRID_BOX_SIZE) * GRID_BOX_SIZE + Math.floor(column / GRID_BOX_SIZE);
+        const row = ROW_BY_CELL[cell];
+        const column = COLUMN_BY_CELL[cell];
+        const box = BOX_BY_CELL[cell];
 
         /* oxlint-disable no-bitwise -- row/column/box duplicate checks use bitmask set operations for constant-time membership tests */
         const bit = 1 << (value - 1);

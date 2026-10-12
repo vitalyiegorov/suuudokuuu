@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { GRID_CELL_COUNT } from '../../src/constants/grid.constant';
-import { isCompleteValidGrid } from '../../src/utils/is-complete-valid-grid.util';
+import { isCompleteValidGrid } from '../../src/testing/utils/is-complete-valid-grid.util';
 import { parseGridString } from '../../src/utils/parse-grid-string.util';
 
 const VALID_GRID = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
