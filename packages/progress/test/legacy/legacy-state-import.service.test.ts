@@ -180,3 +180,46 @@ it.effect('imports a pre-v31 custom theme without a schema version and with part
         assert.deepStrictEqual(themes[0].colors[ColorSchemaEnum.Dark], themeColors);
     }).pipe(Effect.provide(ProgressTestLayer))
 );
+
+const beforeFirstHistoryPersistVersion = 11;
+const beforeTimelinePersistVersion = 27;
+const beforeSemanticThemePersistVersion = 30;
+
+for (const inboundVersion of [
+    beforeFirstHistoryPersistVersion,
+    beforeTimelinePersistVersion,
+    beforeSemanticThemePersistVersion,
+    SeedPersistVersion
+]) {
+    it.effect(`discards obsolete undo and daily fields before decoding version ${inboundVersion}`, () =>
+        Effect.gen(function* () {
+            const settingsRepository = yield* SettingsRepository;
+            const currentRunRepository = yield* CurrentRunRepository;
+            const playerStatsRepository = yield* PlayerStatsRepository;
+
+            yield* settingsRepository.initialize(initialSettings);
+            yield* importPersistedRoot(
+                JSON.stringify({
+                    _persist: JSON.stringify({ version: inboundVersion }),
+                    game: JSON.stringify({
+                        ...seedState.game,
+                        ...seedState.sceneStates.hero,
+                        undoneMoves: [{ cell: { x: 1, y: 2 }, value: 3 }],
+                        dailyDayNumber: 'legacy-day',
+                        dailyCompletedDayNumbers: ['legacy-day'],
+                        dailyBestStreak: 'legacy-streak'
+                    }),
+                    settings: JSON.stringify(seedState.settings)
+                })
+            );
+
+            const currentRun = Option.getOrThrow(yield* currentRunRepository.get);
+            const playerStats = yield* playerStatsRepository.get;
+
+            assert.deepStrictEqual(currentRun.undoneMoves, []);
+            assert.strictEqual(currentRun.dailyDayNumber, 0);
+            assert.deepStrictEqual(playerStats.dailyCompletedDayNumbers, []);
+            assert.strictEqual(playerStats.dailyBestStreak, 0);
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+}

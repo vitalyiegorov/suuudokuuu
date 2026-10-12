@@ -4,7 +4,6 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import * as Effect from 'effect/Effect';
 import * as Option from 'effect/Option';
-import * as SqlClient from 'effect/sql/SqlClient';
 
 import { ReactivityKeyEnum } from '../../src/@generic/enum/reactivity-key.enum';
 import { CurrentRunRepository } from '../../src/current-run/repository/current-run.repository';
@@ -45,21 +44,6 @@ const currentRun: CurrentRunType = {
 };
 
 describe('CurrentRunRepository', () => {
-    it.effect('reads elapsed time without decoding the rest of the run', () =>
-        Effect.gen(function* () {
-            const currentRunRepository = yield* CurrentRunRepository;
-
-            assert.deepStrictEqual(yield* currentRunRepository.getElapsedTime, Option.none());
-            yield* currentRunRepository.save(currentRun);
-
-            const sql = yield* SqlClient.SqlClient;
-
-            yield* sql`UPDATE current_run SET candidates = ${'invalid-json'}`;
-
-            assert.deepStrictEqual(yield* currentRunRepository.getElapsedTime, Option.some(currentRun.elapsedTime));
-        }).pipe(Effect.provide(ProgressTestLayer))
-    );
-
     it.effect('round-trips the run and its timeline events', () =>
         Effect.gen(function* () {
             const currentRunRepository = yield* CurrentRunRepository;

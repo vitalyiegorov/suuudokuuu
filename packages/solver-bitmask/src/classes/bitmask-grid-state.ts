@@ -16,16 +16,20 @@ const COLUMN_UNIT_BY_CELL = Uint8Array.from(COLUMN_BY_CELL, column => GRID_SIZE 
 const BOX_UNIT_BY_CELL = Uint8Array.from(BOX_BY_CELL, box => GRID_SIZE * 2 + box);
 
 export class BitmaskGridState {
-    trailLength = 0;
+    private assignmentCount = 0;
 
     private readonly unitMasks = new Uint16Array(GRID_SIZE * 3);
     private readonly cells = new Uint8Array(GRID_CELL_COUNT);
     private readonly assignmentTrail = new Uint8Array(GRID_CELL_COUNT);
 
+    get trailLength(): number {
+        return this.assignmentCount;
+    }
+
     reset(): void {
         this.unitMasks.fill(NO_CANDIDATES);
         this.cells.fill(GRID_BLANK_VALUE);
-        this.trailLength = 0;
+        this.assignmentCount = 0;
     }
 
     valueAt(cell: number): number {
@@ -73,14 +77,14 @@ export class BitmaskGridState {
 
     assign(cell: number, bit: number): void {
         this.place(cell, bit);
-        this.assignmentTrail[this.trailLength] = cell;
-        this.trailLength += 1;
+        this.assignmentTrail[this.assignmentCount] = cell;
+        this.assignmentCount += 1;
     }
 
     undoTo(mark: number): void {
-        while (this.trailLength > mark) {
-            this.trailLength -= 1;
-            const cell = this.assignmentTrail[this.trailLength];
+        while (this.assignmentCount > mark) {
+            this.assignmentCount -= 1;
+            const cell = this.assignmentTrail[this.assignmentCount];
 
             this.remove(cell, bitForDigit(this.valueAt(cell)));
         }

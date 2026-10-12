@@ -47,6 +47,7 @@ describe('stats repositories', () => {
             assert.strictEqual(stats.difficulty, DifficultyEnum.Easy);
             assert.strictEqual(stats.gamesCompleted, 0);
             assert.strictEqual(stats.bestScore, 0);
+            assert.strictEqual((yield* difficultyStatsRepository.findAll).length, Object.values(DifficultyEnum).length - 1);
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 

@@ -6,7 +6,8 @@ import { describe, expect, it } from 'vitest';
 
 import { DIFFICULTY_BANDS, PUZZLE_FORGE_MAX_ATTEMPTS } from '../../../src/@generic/constants/difficulty-band.constant';
 import { forgePuzzle } from '../../../src/forge/utils/forge-puzzle.util';
-import { isSolvableWithLadder } from '../../../src/forge/utils/is-solvable-with-ladder.util';
+
+import { isSolvableWithLadder } from './is-solvable-with-ladder.util';
 
 import type { DifficultyBandInterface } from '../../../src/@generic/interfaces/difficulty-band.interface';
 

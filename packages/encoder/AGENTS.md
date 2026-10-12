@@ -17,7 +17,7 @@ pnpm test:coverage
 ```text
 src/
 ├── @generic/
-│   ├── constants/               # binary-codec, bit-encoding, base64url, grid, timeline-event-codes
+│   ├── constants/               # binary-codec, bit-encoding, base64url, timeline-event-codes
 │   ├── enums/                   # SharedPayloadKindEnum, TimelineEventKindEnum
 │   ├── interfaces/              # DecodedGameStateInterface, TimelineEventInterface, ...
 │   └── utils/                   # givens, varint, aggregate-trailer, metadata-trailer, handoff-extras, timeline-event-stream codecs
@@ -32,7 +32,7 @@ src/
 ## Binary Format Rules
 
 1. Treat bit widths in `@generic/constants/binary-codec.constant.ts` and `@generic/constants/bit-encoding.constant.ts` as format contracts.
-2. Treat grid constants in `@generic/constants/grid.constant.ts` as app and generator contracts.
+2. Treat the imported `@suuudokuuu/solver-core` grid constants as app and generator contracts.
 3. Preserve backward compatibility for shared URLs unless the change includes an explicit migration story.
 4. Emit new shareable game-state payloads with `GameStateSerializer.encodeState`, which always writes the `_`-prefixed v3 format.
 5. Keep the legacy v2 tuple codec (`GameStateSerializer.encode`/`decode`, `GameStateBinaryCodec`) and the pre-binary LZ-string colon-segmented decode path working for old shared links.

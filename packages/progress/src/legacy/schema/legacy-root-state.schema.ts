@@ -99,6 +99,12 @@ export const decodeLegacyState = Effect.fn('decodeLegacyState')(function* (
             ...legacyInitialGameState,
             ...game,
             ...(inboundVersion < TimelinePersistVersion && { timelineEvents: [], challengeTimelineEvents: [] }),
+            ...(inboundVersion < StatsPackPersistVersion && {
+                undoneMoves: [],
+                dailyDayNumber: legacyInitialGameState.dailyDayNumber,
+                dailyCompletedDayNumbers: legacyInitialGameState.dailyCompletedDayNumbers,
+                dailyBestStreak: legacyInitialGameState.dailyBestStreak
+            }),
             historyByDifficulty: { ...legacyInitialGameState.historyByDifficulty, ...Object.fromEntries(decodedHistories) }
         },
         settings: { ...initialSettings, ...settings },

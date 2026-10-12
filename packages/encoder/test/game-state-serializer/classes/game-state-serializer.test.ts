@@ -1,7 +1,5 @@
-import { BitOutputStream } from '@thi.ng/bitstream';
-
-import { givens as validSudokuString, givens as legacyGivensField, givens as legacyGivens } from '../../fixtures';
 /* oxlint-disable no-magic-numbers */
+import { BitOutputStream } from '@thi.ng/bitstream';
 import { compressToEncodedURIComponent } from 'lz-string';
 import { describe, expect, it } from 'vitest';
 
@@ -11,6 +9,7 @@ import { TimelineEventKindEnum } from '../../../src/@generic/enums/timeline-even
 import { SolutionStepInterface } from '../../../src/@generic/interfaces/solution-step.interface';
 import { GameStateSerializer } from '../../../src/game-state-serializer/classes/game-state-serializer';
 import { SudokuStringEncoder } from '../../../src/sudoku-string-encoder/classes/sudoku-string-encoder';
+import { givens } from '../../fixtures';
 
 import type { TimelineEventInterface } from '../../../src/@generic/interfaces/timeline-event.interface';
 
@@ -27,7 +26,7 @@ describe('GameStateSerializer', () => {
         it('should encode game state to a non-empty string', () => {
             expect.assertions(2);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 3, false);
 
             expect(encoded).toBeDefined();
             expect(encoded.length).toBeGreaterThan(0);
@@ -36,8 +35,8 @@ describe('GameStateSerializer', () => {
         it('should produce different output for challenge vs non-challenge', () => {
             expect.assertions(1);
 
-            const encodedNormal = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
-            const encodedChallenge = serializer.encode(validSudokuString, sampleSolutionSteps, 3, true);
+            const encodedNormal = serializer.encode(givens, sampleSolutionSteps, 3, false);
+            const encodedChallenge = serializer.encode(givens, sampleSolutionSteps, 3, true);
 
             expect(encodedNormal).not.toBe(encodedChallenge);
         });
@@ -45,7 +44,7 @@ describe('GameStateSerializer', () => {
         it('should produce URL-safe encoded string without reserved characters', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 3, false);
 
             expect(encoded).toMatch(/^_[\w-]*$/u);
         });
@@ -67,7 +66,7 @@ describe('GameStateSerializer', () => {
         it('should throw error for truncated data with less than 4 segments', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 3, false);
             const truncated = encoded.slice(0, Math.floor(encoded.length / 2));
 
             expect(() => serializer.decode(truncated)).toThrow();
@@ -78,7 +77,7 @@ describe('GameStateSerializer', () => {
         it('should return elapsedTime as the 5th element of the tuple', () => {
             expect.assertions(2);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 3, false);
             const decoded = serializer.decode(encoded);
 
             expect(decoded.length).toBe(5);
@@ -94,7 +93,7 @@ describe('GameStateSerializer', () => {
                 { cellIndex: 8, value: 2, ts: 100 }
             ];
             const expectedElapsedTime = 50 + 75 + 100;
-            const encoded = serializer.encode(validSudokuString, stepsWithKnownTime, 3, true);
+            const encoded = serializer.encode(givens, stepsWithKnownTime, 3, true);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[4]).toBe(expectedElapsedTime);
@@ -103,7 +102,7 @@ describe('GameStateSerializer', () => {
         it('should return zero elapsedTime for empty solution steps', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, [], 3, false);
+            const encoded = serializer.encode(givens, [], 3, false);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[4]).toBe(0);
@@ -121,7 +120,7 @@ describe('GameStateSerializer', () => {
                 { cellIndex: 2, value: 3, ts: step3Ts }
             ];
             const expectedTotal = step1Ts + step2Ts + step3Ts;
-            const encoded = serializer.encode(validSudokuString, stepsWithTimeDiffs, 3, true);
+            const encoded = serializer.encode(givens, stepsWithTimeDiffs, 3, true);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[4]).toBe(expectedTotal);
@@ -135,7 +134,7 @@ describe('GameStateSerializer', () => {
                 { cellIndex: 0, value: 1, ts: maxTimestamp },
                 { cellIndex: 1, value: 2, ts: maxTimestamp }
             ];
-            const encoded = serializer.encode(validSudokuString, stepsWithMaxTimestamp, 3, true);
+            const encoded = serializer.encode(givens, stepsWithMaxTimestamp, 3, true);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[4]).toBe(maxTimestamp * 2);
@@ -146,16 +145,16 @@ describe('GameStateSerializer', () => {
         it('should preserve sudokuString through encode/decode cycle', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 3, false);
             const decoded = serializer.decode(encoded);
 
-            expect(decoded[0]).toBe(validSudokuString);
+            expect(decoded[0]).toBe(givens);
         });
 
         it('should preserve maxMistakes through encode/decode cycle', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 5, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 5, false);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[2]).toBe(5);
@@ -164,7 +163,7 @@ describe('GameStateSerializer', () => {
         it('should preserve isChallenge=false through encode/decode cycle', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 3, false);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[3]).toBe(false);
@@ -173,7 +172,7 @@ describe('GameStateSerializer', () => {
         it('should preserve isChallenge=true through encode/decode cycle', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, true);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 3, true);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[3]).toBe(true);
@@ -182,7 +181,7 @@ describe('GameStateSerializer', () => {
         it('should preserve solution steps through encode/decode cycle for challenges', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, true);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 3, true);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[1]).toEqual(sampleSolutionSteps);
@@ -191,7 +190,7 @@ describe('GameStateSerializer', () => {
         it('should omit solution steps for non-challenge shares', () => {
             expect.assertions(2);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 3, false);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[1]).toEqual([]);
@@ -201,16 +200,16 @@ describe('GameStateSerializer', () => {
         it('should handle empty solution steps', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, [], 3, false);
+            const encoded = serializer.encode(givens, [], 3, false);
             const decoded = serializer.decode(encoded);
 
-            expect(decoded[0]).toBe(validSudokuString);
+            expect(decoded[0]).toBe(givens);
         });
 
         it('should handle maxMistakes of zero', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 0, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 0, false);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[2]).toBe(0);
@@ -219,7 +218,7 @@ describe('GameStateSerializer', () => {
         it('should clamp maxMistakes above the encodable limit', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 999, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 999, false);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[2]).toBe(255);
@@ -228,7 +227,7 @@ describe('GameStateSerializer', () => {
         it('should preserve the immortal maxMistakes preset', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 99, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 99, false);
             const decoded = serializer.decode(encoded);
 
             expect(decoded[2]).toBe(99);
@@ -242,7 +241,7 @@ describe('GameStateSerializer', () => {
                 { cellIndex: 80, value: 9, ts: 255 },
                 { cellIndex: 40, value: 5, ts: 128 }
             ];
-            const encoded = serializer.encode(validSudokuString, complexSteps, 3, true);
+            const encoded = serializer.encode(givens, complexSteps, 3, true);
             const decoded = serializer.decode(encoded);
 
             expect(decoded).not.toBeNull();
@@ -258,7 +257,7 @@ describe('GameStateSerializer', () => {
         it('should map a v2 challenge payload to cell timeline events', () => {
             expect.assertions(3);
 
-            const decoded = serializer.decodeState(serializer.encode(validSudokuString, sampleSolutionSteps, 3, true));
+            const decoded = serializer.decodeState(serializer.encode(givens, sampleSolutionSteps, 3, true));
 
             expect(decoded.kind).toBe(SharedPayloadKindEnum.Challenge);
             expect(decoded.timelineEvents).toHaveLength(sampleSolutionSteps.length);
@@ -268,7 +267,7 @@ describe('GameStateSerializer', () => {
         it('should map a v2 non challenge payload to a puzzle kind with no events', () => {
             expect.assertions(2);
 
-            const decoded = serializer.decodeState(serializer.encode(validSudokuString, sampleSolutionSteps, 3, false));
+            const decoded = serializer.decodeState(serializer.encode(givens, sampleSolutionSteps, 3, false));
 
             expect(decoded.kind).toBe(SharedPayloadKindEnum.Puzzle);
             expect(decoded.timelineEvents).toStrictEqual([]);
@@ -284,7 +283,7 @@ describe('GameStateSerializer', () => {
             ];
             const decoded = serializer.decodeState(
                 serializer.encodeState({
-                    field: validSudokuString,
+                    field: givens,
                     timelineEvents,
                     kind: SharedPayloadKindEnum.Challenge,
                     maxMistakes: 3,
@@ -310,7 +309,7 @@ describe('GameStateSerializer', () => {
             const candidates = { 40: [2, 6] };
             const decoded = serializer.decodeState(
                 serializer.encodeState({
-                    field: validSudokuString,
+                    field: givens,
                     timelineEvents: [],
                     kind: SharedPayloadKindEnum.Handoff,
                     maxMistakes: 3,
@@ -337,7 +336,7 @@ describe('GameStateSerializer', () => {
             const decoded = serializer.decodeState(legacyPuzzlePayload);
 
             expect(decoded.kind).toBe(SharedPayloadKindEnum.Puzzle);
-            expect(decoded.field).toBe(legacyGivensField);
+            expect(decoded.field).toBe(givens);
         });
 
         it('should populate the unknown rating sentinel for a pre-binary legacy payload', () => {
@@ -353,7 +352,7 @@ describe('GameStateSerializer', () => {
         it('should populate the unknown rating sentinel for a legacy v2 binary payload', () => {
             expect.assertions(3);
 
-            const decoded = serializer.decodeState(serializer.encode(validSudokuString, sampleSolutionSteps, 3, true));
+            const decoded = serializer.decodeState(serializer.encode(givens, sampleSolutionSteps, 3, true));
 
             expect(decoded.rating).toBe(0);
             expect(decoded.isRatingCeiling).toBe(false);
@@ -365,7 +364,7 @@ describe('GameStateSerializer', () => {
 
             const decoded = serializer.decodeState(
                 serializer.encodeState({
-                    field: validSudokuString,
+                    field: givens,
                     timelineEvents: [],
                     kind: SharedPayloadKindEnum.Puzzle,
                     maxMistakes: 3,
@@ -390,7 +389,7 @@ describe('GameStateSerializer', () => {
             expect.assertions(1);
 
             const encoded = serializer.encodeState({
-                field: validSudokuString,
+                field: givens,
                 timelineEvents: [],
                 kind: SharedPayloadKindEnum.Puzzle,
                 maxMistakes: 3,
@@ -419,7 +418,7 @@ describe('GameStateSerializer', () => {
 
             const decoded = serializer.decode(legacyPuzzle);
 
-            expect(decoded).toEqual([legacyGivens, [], 3, false, 0]);
+            expect(decoded).toEqual([givens, [], 3, false, 0]);
         });
 
         it('should decode a legacy challenge link', () => {
@@ -427,7 +426,7 @@ describe('GameStateSerializer', () => {
 
             const decoded = serializer.decode(legacyChallenge);
 
-            expect(decoded[0]).toBe(legacyGivens);
+            expect(decoded[0]).toBe(givens);
             expect(decoded[1]).toHaveLength(51);
             expect(decoded[3]).toBe(true);
             expect(decoded[4]).toBe(612);
@@ -468,14 +467,14 @@ describe('GameStateSerializer', () => {
         it('should fall back to zero when a legacy max mistakes segment is not numeric', () => {
             expect.assertions(2);
 
-            const fieldSegment = new SudokuStringEncoder().encode(legacyGivens);
+            const fieldSegment = new SudokuStringEncoder().encode(givens);
             const segments = ['', 'not-a-number', '0'].reduce(
                 (packed, segment) => `${packed}${segment.length}:${segment}`,
                 `${fieldSegment.length}:${fieldSegment}`
             );
             const decoded = serializer.decode(compressToEncodedURIComponent(segments));
 
-            expect(decoded[0]).toBe(legacyGivens);
+            expect(decoded[0]).toBe(givens);
             expect(decoded[2]).toBe(0);
         });
     });
@@ -484,25 +483,25 @@ describe('GameStateSerializer', () => {
         it('should handle content that contains colon characters', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 3, false);
             const decoded = serializer.decode(encoded);
 
-            expect(decoded[0]).toBe(validSudokuString);
+            expect(decoded[0]).toBe(givens);
         });
 
         it('should handle content that contains pipe characters', () => {
             expect.assertions(1);
 
-            const encoded = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
+            const encoded = serializer.encode(givens, sampleSolutionSteps, 3, false);
             const decoded = serializer.decode(encoded);
 
-            expect(decoded[0]).toBe(validSudokuString);
+            expect(decoded[0]).toBe(givens);
         });
 
         it('should produce consistent results across multiple encode/decode cycles', () => {
             expect.assertions(3);
 
-            const encoded1 = serializer.encode(validSudokuString, sampleSolutionSteps, 3, false);
+            const encoded1 = serializer.encode(givens, sampleSolutionSteps, 3, false);
             const decoded1 = serializer.decode(encoded1);
 
             expect(decoded1).not.toBeNull();

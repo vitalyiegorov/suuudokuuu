@@ -3,8 +3,9 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { describe, expect, it } from 'vitest';
 
 import { DIFFICULTY_BANDS } from '../../../src/@generic/constants/difficulty-band.constant';
-import { isSolvableWithLadder } from '../../../src/forge/utils/is-solvable-with-ladder.util';
 import { createPuzzleBandMatcher } from '../../../src/forge/utils/match-puzzle-band.util';
+
+import { isSolvableWithLadder } from './is-solvable-with-ladder.util';
 
 const nakedSinglesPuzzle = '349.6...1.1..37..9.57.8..435......96..61.8.5...2....749.36...1.12.8...6..6.2.943.';
 const hiddenSinglePuzzle = '2.846.9.5.75.....2.9.32.4.896.1438.75......6.7....82..32..1.54......41....9532...';

@@ -162,7 +162,7 @@ export const SE_RATING_CEILING = Math.max(...seLengthPricedBandMaximums.values()
 
 It used to be an alias for `seTechniqueRatings[Guess]`, which conflated two unrelated numbers. `seTechniqueRatings[Guess]` is **the price of guessing** — what a step costs when no technique justifies it — and `SE_RATING_CEILING` is **the top of what the ladder can express**. They are equal today at 8.5 only because the forcing chain band happens to end there. Raising the ceiling by implementing a harder band must not silently reprice guessing for every consumer, and repricing a guess must not move the ceiling.
 
-`se-rating-ceiling.constant.spec.ts` holds the invariant: the ceiling equals the maximum reachable chain or forcing band value, sits at or above every length-priced band maximum, and sits at or above every value in `seTechniqueRatings` — including the price of guessing. Deriving it from the band map rather than writing a literal keeps it correct when a new length-priced band is added.
+`se-rating-ceiling.constant.test.ts` holds the invariant: the ceiling equals the maximum reachable chain or forcing band value, sits at or above every length-priced band maximum, and sits at or above every value in `seTechniqueRatings` — including the price of guessing. Deriving it from the band map rather than writing a literal keeps it correct when a new length-priced band is added.
 
 `Guess` remains the sentinel `hardestTechnique` for ceiling results.
 
@@ -191,17 +191,17 @@ Closing the remaining 3.3% needs a tie-break that does not read cell coordinates
 
 ## Testing
 
-- Tests live in `test/**/*.test.ts` (Vitest); the spec file names below are historical
+- Tests live in `test/**/*.test.ts` (Vitest)
 - Fixtures are fixed 81-character board strings fed through `Sudoku.fromString`; never `Sudoku.create`, which uses unseeded randomness
-- `rate-puzzle.util.spec.ts` guards known-technique boards against their SE values, max-over-path aggregation, ceiling reporting for an Infinity-corpus board no technique can finish, an exact rating for a board that only the uniqueness techniques unblock, one that only a forcing chain unblocks, a hell-corpus board priced above the XY-Chain base by its chain length, and determinism across repeated calls
-- `get-step-rating.util.spec.ts` guards the length ladder: every band boundary for both chain bases and all three forcing chain bases, the 7.6 and 8.5 clamps, monotonicity in the chain length, the fallback to the table value when a step carries no length, and flat pricing for every other technique
-- `se-technique-order.constant.spec.ts` guards the ordering policy: full coverage of the enum, cheapest-first ordering, enum-ordinal tie-breaking, and the chain and forcing chain bases
-- `se-rating-ceiling.constant.spec.ts` guards the ceiling invariant: it equals the maximum reachable band value and sits at or above every band maximum and every table value, including the price of guessing
+- `rate-puzzle.util.test.ts` guards known-technique boards against their SE values, max-over-path aggregation, ceiling reporting for an Infinity-corpus board no technique can finish, an exact rating for a board that only the uniqueness techniques unblock, one that only a forcing chain unblocks, a hell-corpus board priced above the XY-Chain base by its chain length, and determinism across repeated calls
+- `get-step-rating.util.test.ts` guards the length ladder: every band boundary for both chain bases and all three forcing chain bases, the 7.6 and 8.5 clamps, monotonicity in the chain length, the fallback to the table value when a step carries no length, and flat pricing for every other technique
+- `se-technique-order.constant.test.ts` guards the ordering policy: full coverage of the enum, cheapest-first ordering, enum-ordinal tie-breaking, and the chain and forcing chain bases
+- `se-rating-ceiling.constant.test.ts` guards the ceiling invariant: it equals the maximum reachable band value and sits at or above every band maximum and every table value, including the price of guessing
 
 ## Exports
 
 ```typescript
-export { ratePuzzle, seTechniqueRatings, SE_RATING_CEILING };
+export { ratePuzzle, seTechniqueRatings, SE_RATING_CEILING, SE_CHAIN_LENGTH_INCREMENT, SE_CHAIN_RATING_MINIMUM };
 export type { PuzzleRatingInterface };
 ```
 

@@ -37,20 +37,27 @@ export class DifficultyStatsRepository extends Context.Service<DifficultyStatsRe
 
             return {
                 findAll: findAllStats().pipe(Effect.orDie),
-                findByDifficulty: Effect.fn('DifficultyStatsRepository.findByDifficulty')(function* (difficulty: DifficultyEnum) {
-                    const stats = yield* findStatsByDifficulty(difficulty);
-
-                    if (Option.isSome(stats)) {
-                        return stats.value;
-                    }
-
-                    yield* reactivity.mutation(
-                        [ReactivityKeyEnum.DifficultyStats],
-                        sql`INSERT OR IGNORE INTO difficulty_stats (difficulty) VALUES (${difficulty})`
-                    );
-
-                    return yield* findStatsByDifficulty(difficulty).pipe(Effect.map(Option.getOrThrow));
-                }, Effect.orDie),
+                findByDifficulty: (difficulty: DifficultyEnum) =>
+                    findStatsByDifficulty(difficulty).pipe(
+                        Effect.map(
+                            Option.getOrElse(() => ({
+                                difficulty,
+                                gamesCompleted: 0,
+                                gamesWon: 0,
+                                gamesWonWithoutMistakes: 0,
+                                gamesLost: 0,
+                                bestScore: 0,
+                                bestRating: 0,
+                                isBestRatingCeiling: false,
+                                bestTime: 0,
+                                averageTime: 0,
+                                hardcoreWon: 0,
+                                challengesWon: 0,
+                                challengesLost: 0
+                            }))
+                        ),
+                        Effect.orDie
+                    ),
                 save: (stats: DifficultyStatsType) =>
                     reactivity.mutation([ReactivityKeyEnum.DifficultyStats], replaceStats(stats)).pipe(Effect.orDie)
             };
