@@ -10,7 +10,6 @@ export interface MaestroContext {
     artifactsDirectory: string;
     configPath: string;
     flowsDirectory: string;
-    osLanguageMode: string;
     platform: string;
     simulatorUdid: string;
 }
@@ -38,6 +37,10 @@ const flattenMaestroScreenshotsDirectory = (testOutputDirectory: string): void =
 
 export const runMaestroScene = (context: MaestroContext, request: MaestroSceneRequest): SceneOutcome => {
     const { appearance, locale, scene, testOutputDirectory } = request;
+    if (scene.file === undefined) {
+        throw new Error(`Scene ${scene.name} has no Maestro flow.`);
+    }
+
     const maestroArguments = [
         'test',
         join(context.flowsDirectory, scene.file),
@@ -51,8 +54,6 @@ export const runMaestroScene = (context: MaestroContext, request: MaestroSceneRe
         `LOCALE_IDENTIFIER=${localeIdentifierFor(locale)}`,
         '-e',
         `APPEARANCE=${appearance}`,
-        '-e',
-        `OS_LANGUAGE_MODE=${context.osLanguageMode}`,
         '--test-output-dir',
         testOutputDirectory,
         '--debug-output',

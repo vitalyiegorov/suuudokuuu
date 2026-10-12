@@ -62,7 +62,7 @@
     },
     "settings": {
         "node": {
-            "version": ">=22.0.0"
+            "version": ">=22.22.1"
         },
         "react": {
             "version": "19.3.0"
@@ -74,13 +74,10 @@
         "**/.next/**",
         "**/.turbo/**",
         "**/.expo/**",
-        "**/.android/**",
-        "**/.ios/**",
         "**/node_modules/**",
         "**/dist/**",
         "**/public/**",
         "**/build/**",
-        "**/drizzle/**",
         "**/*.html",
         "**/*.json",
         "**/*.d.ts",
@@ -88,11 +85,8 @@
         "**/messages.ts",
         "**/babel.config.js",
         "**/fingerprint.config.js",
-        "packages/app/scripts/**",
-        "packages/landing/scripts/**",
         "packages/hell-corpus/src/constants/hell-corpus-data.constant.ts",
-        "packages/hell-corpus/src/constants/infinity-corpus-data.constant.ts",
-        "**/scripts/**"
+        "packages/hell-corpus/src/constants/infinity-corpus-data.constant.ts"
     ],
     "overrides": [
         {
@@ -1170,6 +1164,80 @@
                 "promise/no-nesting": "off"
             },
             "plugins": ["vitest", "promise"]
+        },
+        {
+            "files": ["tests/app-tests/scripts/**/*.{ts,js,mjs,cjs}", "packages/*/scripts/**/*.{ts,js,mjs,cjs}"],
+            "env": {
+                "node": true
+            },
+            "rules": {
+                "lingui/no-unlocalized-strings": "off",
+                "no-restricted-globals": "off",
+                "no-restricted-properties": [
+                    "error",
+                    {
+                        "object": "Reflect",
+                        "property": "get",
+                        "message": "Use typed property access, `in` narrowing, or decode the value with Schema."
+                    },
+                    {
+                        "object": "Reflect",
+                        "property": "apply",
+                        "message": "Call the function directly with typed arguments."
+                    },
+                    {
+                        "object": "vi",
+                        "property": "mock",
+                        "message": "Replace module mocking with a real dependency seam such as a test Layer."
+                    },
+                    {
+                        "object": "vi",
+                        "property": "doMock",
+                        "message": "Replace module mocking with a real dependency seam such as a test Layer."
+                    }
+                ],
+                "no-console": "off",
+                "no-await-in-loop": "off",
+                "func-style": "off",
+                "no-undefined": "off",
+                "max-lines": [
+                    "error",
+                    {
+                        "max": 750,
+                        "skipBlankLines": true,
+                        "skipComments": true
+                    }
+                ],
+                "max-statements": ["error", 45],
+                "max-params": ["error", 6],
+                "no-unused-vars": "error",
+                "no-unreachable": "error",
+                "no-constant-condition": "error",
+                "curly": "error",
+                "eqeqeq": "error",
+                "no-magic-numbers": [
+                    "error",
+                    {
+                        "ignore": [
+                            -20, -10, -1, 0, 0.05, 0.1, 0.5, 0.7, 0.8, 1, 1.2, 1.3, 1.8, 2, 2.5, 2.9, 3, 3.7, 4, 5, 6, 7, 8, 9, 10, 13, 20,
+                            30, 35, 40, 45, 50, 60, 70, 75, 99, 100, 155, 235, 300, 360, 400, 500, 600, 700, 800, 960, 999, 1000, 1200,
+                            3600, 8191, 0.01
+                        ]
+                    }
+                ],
+                "n/no-unsupported-features/node-builtins": [
+                    "error",
+                    {
+                        "allowExperimental": true
+                    }
+                ]
+            }
+        },
+        {
+            "files": ["tests/app-tests/scripts/**/*.ts", "packages/app/scripts/**/*.ts"],
+            "rules": {
+                "n/no-extraneous-import": "off"
+            }
         }
     ]
 }

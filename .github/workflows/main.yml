@@ -113,8 +113,7 @@ jobs:
               run: pnpm install --frozen-lockfile
 
             - name: Build expo web
-              working-directory: packages/app
-              run: pnpm exec expo export --platform=web
+              run: pnpm turbo run export:web --filter=@suuudokuuu/app
 
             - name: Build landing export
               env:

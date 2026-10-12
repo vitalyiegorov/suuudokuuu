@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { readFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
@@ -22,8 +22,8 @@ const migrationsSourcePath = join(
 const languagesSourcePath = join(repositoryRootDirectory, 'packages', 'progress', 'src', 'settings', 'constant', 'languages.constant.ts');
 
 const PersistRootKey = 'persist:root';
-export const IosStorageRelativePath = join('Documents', 'SQLite', 'ExpoSQLiteStorage');
-export const AndroidStorageRelativePath = 'files/SQLite/ExpoSQLiteStorage';
+const IosStorageRelativePath = join('Documents', 'SQLite', 'ExpoSQLiteStorage');
+const AndroidStorageRelativePath = 'files/SQLite/ExpoSQLiteStorage';
 const PersistVersionPattern = /LegacyPersistVersion\s*=\s*(\d+)/u;
 const SeedFixtureBaselinePersistVersion = 40;
 const LanguagesPattern = /export const Languages = \[([^\]]+)\]/u;
@@ -177,6 +177,7 @@ const buildPersistRootValue = (options: SeedOptions): string => {
 };
 
 const writePersistRootToDatabase = (databasePath: string, value: string): void => {
+    mkdirSync(dirname(databasePath), { recursive: true });
     const database = new DatabaseSync(databasePath);
 
     try {
@@ -212,6 +213,7 @@ const adbArguments = (serial: string, commandArguments: string[]): string[] => {
 
 const isAndroidRootAvailable = (serial: string): boolean => {
     runCommand('adb', adbArguments(serial, ['root']));
+    runCommand('adb', adbArguments(serial, ['wait-for-device']));
 
     const probe = runCommand('adb', adbArguments(serial, ['shell', 'id']));
 
@@ -229,6 +231,15 @@ const seedAndroidState = (target: SeedTarget, value: string): void => {
     }
 
     const databasePath = `/data/data/${target.appId}/${AndroidStorageRelativePath}`;
+    const prepared = runCommand(
+        'adb',
+        adbArguments(target.serial, ['shell', `mkdir -p '${dirname(databasePath)}' && touch '${databasePath}'`])
+    );
+
+    if (!prepared.succeeded) {
+        throw new Error(`Could not prepare ${databasePath}: ${prepared.output}`);
+    }
+
     const localPath = join(tmpdir(), `suuudokuuu-persist-${process.pid}.db`);
     const pulled = runCommand('adb', adbArguments(target.serial, ['pull', databasePath, localPath]));
 
@@ -244,7 +255,18 @@ const seedAndroidState = (target: SeedTarget, value: string): void => {
         throw new Error(`Could not push ${databasePath}: ${pushed.output}`);
     }
 
-    runCommand('adb', adbArguments(target.serial, ['shell', 'rm', '-f', `${databasePath}-wal`, `${databasePath}-shm`]));
+    rmSync(localPath);
+    const ownership = runCommand(
+        'adb',
+        adbArguments(target.serial, [
+            'shell',
+            `rm -f '${databasePath}-wal' '${databasePath}-shm' && chown $(stat -c %u:%g /data/data/${target.appId}) '${dirname(databasePath)}' '${databasePath}' && restorecon '${dirname(databasePath)}' '${databasePath}'`
+        ])
+    );
+
+    if (!ownership.succeeded) {
+        throw new Error(`Could not restore storage ownership for ${target.appId}: ${ownership.output}`);
+    }
 };
 
 export const seedAppState = (target: SeedTarget, options: SeedOptions): void => {

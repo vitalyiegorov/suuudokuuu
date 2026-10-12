@@ -5,7 +5,16 @@ set -euo pipefail
 script_directory="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 test_directory="$(mktemp -d)"
 trap 'rm -rf "$test_directory"' EXIT
-mkdir -p "$test_directory/bin"
+mkdir -p "$test_directory/bin" "$test_directory/container/Library"
+
+cat > "$test_directory/bin/xcrun" <<'EOF'
+#!/usr/bin/env bash
+set -euo pipefail
+if [[ "$1 $2" == 'simctl get_app_container' ]]; then
+    printf '%s\n' "$TEST_CONTAINER_PATH"
+fi
+EOF
+chmod +x "$test_directory/bin/xcrun"
 
 cat > "$test_directory/bin/maestro" <<'EOF'
 #!/usr/bin/env bash
@@ -47,21 +56,30 @@ chmod +x "$test_directory/bin/maestro"
 export PATH="$test_directory/bin:$PATH"
 export TEST_MAESTRO_CALLS="$test_directory/calls"
 export APP_ID='com.example.suuudokuuu'
-export SIMULATOR_UDID=''
+export SIMULATOR_UDID='test-simulator'
+export TEST_CONTAINER_PATH="$test_directory/container"
+export RUNNER_TEMP="$test_directory"
 export MAESTRO_OUTPUT_PATH="$test_directory/report.xml"
 export MAESTRO_DEBUG_OUTPUT_DIRECTORY="$test_directory/debug"
 
+printf 'appId: ${APP_ID}\n---\n' > "$test_directory/recoverable.flow.yaml"
+printf 'appId: ${APP_ID}\ntags:\n    - seed-rated-history\n---\n' > "$test_directory/seeded.flow.yaml"
+bash "$script_directory/run-maestro-suite.sh" "$test_directory/seeded.flow.yaml" > "$test_directory/seed.log"
+cmp "$script_directory/../fixtures/databases/rated-history.db" "$TEST_CONTAINER_PATH/Library/suuudokuuu.db"
+
 bash "$script_directory/run-maestro-suite.sh" "$test_directory/recoverable.flow.yaml" > "$test_directory/success.log"
 [[ "$(grep -c -F 'recoverable.flow.yaml' "$TEST_MAESTRO_CALLS")" -eq 2 ]]
+[[ ! -e "$TEST_CONTAINER_PATH/Library/suuudokuuu.db" ]]
 grep -q 'tests="1" failures="0"' "$MAESTRO_OUTPUT_PATH"
 grep -q $'1\trecoverable\tsuccess\t2\t' "$test_directory/flow-timings.tsv"
 
+printf 'appId: ${APP_ID}\n---\n' > "$test_directory/assertion.flow.yaml"
 if bash "$script_directory/run-maestro-suite.sh" "$test_directory/assertion.flow.yaml" > "$test_directory/failure.log"; then
     echo 'Assertion failure unexpectedly passed.' >&2
     exit 1
 fi
 [[ "$(grep -c -F 'assertion.flow.yaml' "$TEST_MAESTRO_CALLS")" -eq 1 ]]
-grep -q -F 'reset-app-state.flow.yaml' "$TEST_MAESTRO_CALLS"
+grep -q -F 'recover-after-failed-flow.flow.yaml' "$TEST_MAESTRO_CALLS"
 grep -q 'tests="1" failures="1"' "$MAESTRO_OUTPUT_PATH"
 grep -q $'1\tassertion\tfailure\t1\t' "$test_directory/flow-timings.tsv"
 

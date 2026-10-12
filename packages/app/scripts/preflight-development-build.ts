@@ -39,7 +39,7 @@ const readEasConfiguration = () => {
     return easConfigurationSchema.parse(easConfigurationContents);
 };
 
-const useLocalAppVersionSource = (): void => {
+const setLocalAppVersionSource = (): void => {
     const easConfiguration = readEasConfiguration();
 
     easConfiguration.cli.appVersionSource = localAppVersionSource;
@@ -63,7 +63,7 @@ const readResolvedExpoConfiguration = () => {
 function main(): void {
     const buildNumber = readDevelopmentBuildNumber();
 
-    useLocalAppVersionSource();
+    setLocalAppVersionSource();
 
     const resolvedBuildNumber = readResolvedExpoConfiguration().ios?.buildNumber;
 

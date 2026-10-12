@@ -3,7 +3,7 @@
 set -euo pipefail
 
 script_directory="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
-. "$script_directory/driver-failure-pattern.sh"
+MAESTRO_RECOVERABLE_FAILURE_PATTERN="$(cat "$script_directory/driver-failure-pattern.txt")"
 
 for log_line in \
     'AX snapshot failed: kAXErrorInvalidUIElement' \

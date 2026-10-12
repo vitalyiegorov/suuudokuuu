@@ -4,8 +4,7 @@ set -euo pipefail
 
 script_directory="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 app_tests_directory="$(dirname -- "$script_directory")"
-# shellcheck source=driver-failure-pattern.sh
-. "$script_directory/driver-failure-pattern.sh"
+MAESTRO_RECOVERABLE_FAILURE_PATTERN="$(cat "$script_directory/driver-failure-pattern.txt")"
 app_id="${APP_ID:?APP_ID is required}"
 simulator_udid="${SIMULATOR_UDID:-}"
 output_path="${MAESTRO_OUTPUT_PATH:-$app_tests_directory/artifacts/maestro/report.xml}"
@@ -122,21 +121,10 @@ run_flow_attempt() {
     return "$status"
 }
 
-# A failed flow can leave an in-progress game behind, which turns the next
-# flow's Start tap into a native confirmation alert that Maestro cannot see.
-# Clearing app state after every failure keeps one failure from cascading.
 reset_app_state_after_failed_flow() {
-    local reset_status=0
-
-    run_setup_flow "$app_tests_directory/flows/setup/reset-app-state.flow.yaml" \
-        "reset-app-state-$flow_index" || reset_status=$?
-    if [[ "$reset_status" -ne 0 ]]; then
-        echo "App state reset failed after $flow_name; continuing with remaining flows"
-        return 0
-    fi
-    run_setup_flow "$app_tests_directory/flows/setup/prime-deep-links.flow.yaml" \
-        "prime-deep-links-$flow_index" \
-        || echo "Deep link priming failed after app state reset; continuing with remaining flows"
+    run_setup_flow "$app_tests_directory/flows/setup/recover-after-failed-flow.flow.yaml" \
+        "recover-after-failed-flow-$flow_index" \
+        || echo "App recovery failed after $flow_name; continuing with remaining flows"
 }
 
 reset_simulator_after_driver_failure() {
@@ -158,14 +146,15 @@ for flow_path in "${selected_flow_paths[@]}"; do
     flow_started_at="$(date +%s)"
     attempts=1
 
+    FLOW_PATH="$flow_path" APP_ID="$app_id" SIMULATOR_UDID="$simulator_udid" \
+        "$script_directory/seed-flow-fixture.sh"
+
     echo "Running Maestro flow $flow_index: $flow_name"
 
     flow_status=0
     run_flow_attempt "$flow_path" "$flow_report_path" "$flow_debug_directory/attempt-1" \
         "$flow_debug_directory-attempt-1.log" || flow_status=$?
 
-    # Retry once after recoverable driver failures (Maestro #3254/#3318 on
-    # iOS 26); plain assertion failures are real results and do not retry.
     if [[ "$flow_status" -ne 0 ]] \
         && grep -qE "$MAESTRO_RECOVERABLE_FAILURE_PATTERN" "$flow_debug_directory-attempt-1.log"; then
         reset_simulator_after_driver_failure
@@ -189,8 +178,6 @@ for flow_path in "${selected_flow_paths[@]}"; do
         merge_reports
     fi
 
-    # Keep running the remaining flows so one failure cannot hide the rest;
-    # the suite still exits non-zero below.
     if [[ "$flow_status" -ne 0 ]]; then
         echo "Flow failed, continuing with remaining flows: $flow_name"
         reset_app_state_after_failed_flow

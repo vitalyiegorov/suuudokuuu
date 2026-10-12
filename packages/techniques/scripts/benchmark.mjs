@@ -115,15 +115,18 @@ const createIdentifyMoveReplayRunner = (solvableBoards, techniqueOrder) => unitD
     });
 };
 
+const FNV_PRIME = 0x01000193;
+const HEX_RADIX = 16;
+
 const hashString = value => {
     let hash = 0x811c9dc5;
 
     for (let index = 0; index < value.length; index += 1) {
         hash ^= value.charCodeAt(index);
-        hash = Math.imul(hash, 0x01000193) >>> 0;
+        hash = Math.imul(hash, FNV_PRIME) >>> 0;
     }
 
-    return hash.toString(16).padStart(8, '0');
+    return hash.toString(HEX_RADIX).padStart(8, '0');
 };
 
 const describeSolveStep = step => {

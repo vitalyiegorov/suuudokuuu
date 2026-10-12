@@ -6,9 +6,11 @@ import { buildIndexNowKeyFileName } from '../src/indexing/utils/build-indexnow-k
 import { resolveIndexNowKey } from '../src/indexing/utils/resolve-indexnow-key.util';
 import { SITE_ORIGIN } from '../src/seo/constants/site.constant';
 
-const ACCEPTED_STATUS_CODES = [200, 202];
+const HTTP_OK = 200;
+const HTTP_ACCEPTED = 202;
+const ACCEPTED_STATUS_CODES = [HTTP_OK, HTTP_ACCEPTED];
 
-const host = new URL(SITE_ORIGIN).host;
+const { host } = new URL(SITE_ORIGIN);
 const urlList = buildIndexablePages().map(({ url }) => url);
 const foreignUrls = urlList.filter(url => new URL(url).host !== host);
 
@@ -25,7 +27,7 @@ const assertKeyFileServed = async (keyLocation: string, key: string): Promise<vo
     const response = await fetch(keyLocation, { cache: 'no-store' });
     const body = await response.text();
 
-    if (response.status !== 200) {
+    if (response.status !== HTTP_OK) {
         throw new Error(
             `${keyLocation} answered ${response.status}, so IndexNow cannot verify the key. Check that the deployed export contains it.`
         );
@@ -56,7 +58,7 @@ const submitToIndexNow = (key: string): void => {
                 );
             }
 
-            console.log(`Submitted ${urlList.length} sitemap-derived URLs for ${host} to IndexNow (${response.status}).`);
+            return void console.log(`Submitted ${urlList.length} sitemap-derived URLs for ${host} to IndexNow (${response.status}).`);
         })
         .catch(handleSubmitError);
 };

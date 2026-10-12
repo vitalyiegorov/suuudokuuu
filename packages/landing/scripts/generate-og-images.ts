@@ -60,6 +60,7 @@ const getOgImageKicker = (path: string): string => {
     return OG_IMAGE_TOP_LEVEL_KICKER[topSegment] ?? SITE_NAME;
 };
 
+const BRAND_OPACITY = 0.85;
 const OUTPUT_DIRECTORY = createPublicDirectory('og');
 const OG_IMAGE_FONT_FAMILY = 'Inter';
 const OG_IMAGE_FONT_WEIGHT_REGULAR = 400;
@@ -76,8 +77,7 @@ const OG_IMAGE_FONTS = OG_IMAGE_FONT_SOURCES.map(({ modulePath, weight }) => ({
     style: 'normal' as const,
     weight
 }));
-const GRID_MOTIF_PATTERN =
-    '.4...8..6' + '6..3..1..' + '..1.6.4..' + '.......7.' + '2.6...9.4' + '.5.......' + '..7.9.2..' + '..8..5..1' + '3..1...8.';
+const GRID_MOTIF_PATTERN = '.4...8..66..3..1....1.6.4.........7.2.6...9.4.5.........7.9.2....8..5..13..1...8.';
 const GRID_MOTIF_SIZE = 9;
 const GRID_MOTIF_BOX_SIZE = 3;
 const GRID_MOTIF_CELL_PIXELS = 24;
@@ -116,7 +116,7 @@ const buildGridMotifCell = (isFilled: boolean, columnIndex: number, rowIndex: nu
             height: GRID_MOTIF_CELL_PIXELS,
             display: 'flex',
             background: isFilled ? OG_IMAGE_ACCENT_COLOR : 'transparent',
-            opacity: isFilled ? 0.85 : 1,
+            opacity: isFilled ? BRAND_OPACITY : 1,
             borderRight: isRightBoxEdge ? GRID_MOTIF_THICK_BORDER : GRID_MOTIF_THIN_BORDER,
             borderBottom: isBottomBoxEdge ? GRID_MOTIF_THICK_BORDER : GRID_MOTIF_THIN_BORDER
         }
