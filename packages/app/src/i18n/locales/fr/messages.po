@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+msgid "‹ Back"
+msgstr "‹ Retour"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -246,6 +250,18 @@ msgstr "{value, plural, one {# seconde} other {# secondes}}"
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>Client de développement requis</0><1>Les clients de développement nécessitent Metro, l’URL de lancement configurée dans <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> ou une mise à jour compatible sur le canal <3>development</3>. Ce processus d’installation ne publie aucune mise à jour.</1>"
 
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ {cell} cannot be {value}"
+msgstr "✕ {cell} ne peut pas être {value}"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no candidate for {cell}"
+msgstr "✕ aucun candidat pour {cell}"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no place for {value}"
+msgstr "✕ aucune place pour {value}"
+
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Un « + » signifie que cette grille atteint au moins SE {seRatingCeilingText}. Au-delà, les solutions peuvent s’enchaîner sur des raisonnements très longs : nous plafonnons donc le nombre affiché plutôt que d’afficher une fausse précision."
@@ -323,10 +339,14 @@ msgstr "Animer les lignes, colonnes et blocs terminés"
 msgid "Animations"
 msgstr "Animations"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Appliquer"
+
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Apply & next"
+msgstr "Appliquer et suivant"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -593,7 +613,6 @@ msgstr "Animations de complétion"
 msgid "Completion Bonuses"
 msgstr "Bonus de complétion"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -607,10 +626,6 @@ msgstr "Continuer ailleurs"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "Continuez ce sudoku exactement là où je me suis arrêté !"
-
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Continue to next hint"
-msgstr "Passer à l’indice suivant"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -709,7 +724,7 @@ msgstr "Estomper un chiffre complété dans le clavier numérique plutôt que de
 msgid "Discard changes?"
 msgstr "Abandonner les modifications ?"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Dismiss"
 msgstr "Masquer"
 
@@ -1244,9 +1259,9 @@ msgstr "Novice"
 msgid "Newspaper"
 msgstr "Journal"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Next step"
-msgstr "Étape suivante"
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Next ›"
+msgstr "Suivant ›"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1421,6 +1436,10 @@ msgstr "par erreur"
 msgid "per second"
 msgstr "par seconde"
 
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Place {placementValue}"
+msgstr "Placer {placementValue}"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Place {valueList} in the marked cell."
 msgstr "Placez {valueList} dans la case marquée."
@@ -1499,10 +1518,6 @@ msgstr "Entraînez-vous à une logique plus poussée"
 msgid "Presets"
 msgstr "Préréglages"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Previous step"
-msgstr "Étape précédente"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "Texte principal"
@@ -1532,6 +1547,10 @@ msgstr "Grille résolue."
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Quitter"
+
+#: src/game/components/hint-chain-block/hint-chain-block.tsx
+msgid "R{row}C{column} {operator} {value}"
+msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
@@ -1614,14 +1633,11 @@ msgstr "Reprendre cette partie ?"
 msgid "Retry loading development build"
 msgstr "Recharger la version de développement"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "Révéler"
-
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Reveal a digit"
-msgstr "Révéler un chiffre"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1800,11 +1816,7 @@ msgstr "Afficher le temps écoulé pendant la partie"
 msgid "Show matching notes for the selected cell"
 msgstr "Afficher les notes correspondantes pour la case sélectionnée"
 
-#: src/game/components/hint-panel/hint-panel.tsx
-msgid "Show more"
-msgstr "Afficher plus"
-
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Show more of the hint"
 msgstr "Afficher plus de l'indice"
 
@@ -1894,7 +1906,8 @@ msgstr "Stats"
 msgid "Stayed in app"
 msgstr "Resté dans l’app"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Étape {currentStepNumber} sur {stepCount}"
 

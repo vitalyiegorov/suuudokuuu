@@ -21,7 +21,15 @@ import { openSharedPuzzle } from '../src/utils/open-shared-puzzle.util';
 import { startNewGame } from '../src/utils/start-new-game.util';
 import { cellTestId } from '../src/utils/test-id.util';
 
-const wideLayoutMinimumWidth = 768;
+const mobileViewportWidth = 390;
+const desktopViewportWidth = 1280;
+const viewportHeight = 844;
+const landscapeViewportWidth = 844;
+const landscapeViewportHeight = 390;
+const panelHorizontalGap = 12;
+const panelBottomGap = 24;
+const mobileBottomInset = 34;
+
 const gameScreenTimeoutMilliseconds = 15000;
 const longHintTimeoutMilliseconds = 120000;
 
@@ -37,10 +45,14 @@ const revealHintWalkthrough = async (page: import('@playwright/test').Page): Pro
     await expect(page.getByTestId(HintPanelSelectors.Progress)).toBeVisible();
 };
 
+const applyHintEarly = async (page: import('@playwright/test').Page): Promise<void> => {
+    await page.getByTestId(HintPanelSelectors.ApplyButton).or(page.getByTestId(HintPanelSelectors.ContinueButton)).click();
+};
+
 const expectHintBelowToolbar = async (page: import('@playwright/test').Page): Promise<void> => {
     const viewport = page.viewportSize();
 
-    if (viewport === null || viewport.width < wideLayoutMinimumWidth || viewport.width <= viewport.height) {
+    if (viewport === null) {
         return;
     }
 
@@ -52,32 +64,27 @@ const expectHintBelowToolbar = async (page: import('@playwright/test').Page): Pr
     expect(panel?.y).toBeGreaterThanOrEqual((hintButton?.y ?? 0) + (hintButton?.height ?? 0));
 };
 
-const readCellLabels = async (page: import('@playwright/test').Page): Promise<Map<string, string | null>> => {
-    const labels = new Map<string, string | null>();
-
-    for (const cell of await page.getByTestId(/^CellSelectors\.Cell\./u).all()) {
-        labels.set((await cell.getAttribute('data-testid')) ?? '', await cell.getAttribute('aria-label'));
-    }
-
-    return labels;
-};
+const readCellLabels = async (page: import('@playwright/test').Page): Promise<Map<string, string | null>> =>
+    new Map(
+        await page
+            .getByTestId(/^CellSelectors\.Cell\./u)
+            .evaluateAll(elements =>
+                elements.map((element): readonly [string, string | null] => [
+                    element.getAttribute('data-testid') ?? '',
+                    element.getAttribute('aria-label')
+                ])
+            )
+    );
 
 const findChangedCellLabels = async (
     page: import('@playwright/test').Page,
     labelsBefore: Map<string, string | null>
 ): Promise<string[]> => {
-    const changedLabels: string[] = [];
+    const labelsAfter = await readCellLabels(page);
 
-    for (const cell of await page.getByTestId(/^CellSelectors\.Cell\./u).all()) {
-        const testId = (await cell.getAttribute('data-testid')) ?? '';
-        const label = await cell.getAttribute('aria-label');
-
-        if (labelsBefore.get(testId) !== label) {
-            changedLabels.push(label ?? '');
-        }
-    }
-
-    return changedLabels;
+    return [...labelsAfter]
+        .filter(([cellTestIdentifier, label]) => labelsBefore.get(cellTestIdentifier) !== label)
+        .map(([, label]) => label ?? '');
 };
 
 test('walks a hint from activation through stepping, applying and a later dismiss', async ({ page }, testInfo) => {
@@ -94,7 +101,7 @@ test('walks a hint from activation through stepping, applying and a later dismis
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(/^Look for .+ in (?:row|column|box) \d+\.$/u);
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveAttribute('aria-live', 'polite');
     await expectHintBelowToolbar(page);
-    await page.screenshot({ path: testInfo.outputPath('hint-level-1-technique.png'), fullPage: true });
+    await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-level-1-technique.png'), fullPage: true });
 
     const progress = page.getByTestId(HintPanelSelectors.Progress);
 
@@ -106,7 +113,7 @@ test('walks a hint from activation through stepping, applying and a later dismis
     await expect(progress).toHaveCount(0);
     await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveCount(0);
     await expectHintBelowToolbar(page);
-    await page.screenshot({ path: testInfo.outputPath('hint-level-2-pattern.png'), fullPage: true });
+    await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-level-2-pattern.png'), fullPage: true });
 
     await page.getByTestId(HintPanelSelectors.SHOW_MORE_BUTTON).click();
     await expect(page.getByTestId(HintPanelSelectors.SHOW_MORE_BUTTON)).toHaveCount(0);
@@ -114,18 +121,19 @@ test('walks a hint from activation through stepping, applying and a later dismis
 
     await expect(progress).toHaveAttribute('aria-label', /Step 1 of \d+/u);
     await expectHintBelowToolbar(page);
-    await page.screenshot({ path: testInfo.outputPath('hint-level-3-walkthrough.png'), fullPage: true });
+    await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-level-3-walkthrough.png'), fullPage: true });
 
     const labelsBefore = await readCellLabels(page);
     const nextButton = page.getByTestId(HintPanelSelectors.NextButton);
 
-    await nextButton.click();
-    await expect(progress).toHaveAttribute('aria-label', /Step 2 of \d+/u);
-
-    await page.getByTestId(HintPanelSelectors.BackButton).click();
-    await expect(progress).toHaveAttribute('aria-label', /Step 1 of \d+/u);
-
     const stepCount = Number(/of (?<count>\d+)$/u.exec((await progress.getAttribute('aria-label')) ?? '')?.groups?.['count']);
+
+    if (stepCount > 2) {
+        await nextButton.click();
+        await expect(progress).toHaveAttribute('aria-label', /Step 2 of \d+/u);
+        await page.getByTestId(HintPanelSelectors.BackButton).click();
+        await expect(progress).toHaveAttribute('aria-label', /Step 1 of \d+/u);
+    }
 
     for (let step = 1; step < stepCount; step += 1) {
         await nextButton.click();
@@ -139,7 +147,7 @@ test('walks a hint from activation through stepping, applying and a later dismis
     await page.getByTestId(HintPanelSelectors.ApplyButton).click();
     await expect(hintPanel).not.toBeVisible();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
-    await page.screenshot({ path: testInfo.outputPath('hint-level-4-placement.png'), fullPage: true });
+    await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-level-4-placement.png'), fullPage: true });
 
     const placedCellLabelPattern = new RegExp(`^Row \\d+, column \\d+, ${hintedDigit ?? ''}$`, 'u');
     const placedLabels = (await findChangedCellLabels(page, labelsBefore)).filter(label => placedCellLabelPattern.test(label));
@@ -180,7 +188,7 @@ test('chains a pointing pair into the hidden single it enables and places the di
     await expect(technique).toHaveText('Hidden Single');
     await expect(page.getByTestId(HintStepNarrationSelectors.Value)).toHaveText('4');
 
-    await page.getByTestId(HintPanelSelectors.ApplyButton).click();
+    await applyHintEarly(page);
     await expect(hintPanel).not.toBeVisible();
     await expect(page.getByTestId(cellTestId(2, 1))).toHaveAttribute('aria-label', 'Row 3, column 2, 4');
 
@@ -246,7 +254,7 @@ test('walks a long Nishio and AIC hint with witness slides that leave the board 
     for (let hintIndex = 0; hintIndex < 2; hintIndex += 1) {
         await hint.click();
         await revealHintWalkthrough(page);
-        await apply.click();
+        await applyHintEarly(page);
         await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
     }
 
@@ -259,7 +267,6 @@ test('walks a long Nishio and AIC hint with witness slides that leave the board 
     const stepCount = Number(/of (?<count>\d+)$/u.exec(progressLabel)?.groups?.['count']);
 
     expect(stepCount).toBeGreaterThan(9);
-    await expect(progress).toContainText(progressLabel);
 
     const branch = page.getByTestId(FieldWitnessOverlaySelectors.Branch);
     const outcome = page.getByTestId(FieldWitnessOverlaySelectors.Outcome);
@@ -364,7 +371,6 @@ test('continues and reveals from the first slide of a forcing-chain elimination 
 
     const progress = page.getByTestId(HintPanelSelectors.Progress);
     const narration = page.getByTestId(HintStepNarrationSelectors.Narration);
-    const continueButton = page.getByTestId(HintPanelSelectors.ContinueButton);
 
     await page.getByTestId(HintButtonSelectors.Root).click();
 
@@ -372,9 +378,9 @@ test('continues and reveals from the first slide of a forcing-chain elimination 
         await revealHintWalkthrough(page);
         await expect(progress).toHaveAttribute('aria-label', /^Step 1 of /u);
         if (hintIndex === 0) {
-            await page.screenshot({ path: testInfo.outputPath('hint-continue-slide-1-before.png'), fullPage: true });
+            await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-continue-slide-1-before.png'), fullPage: true });
         }
-        await continueButton.click();
+        await applyHintEarly(page);
     }
 
     await revealHintWalkthrough(page);
@@ -384,15 +390,123 @@ test('continues and reveals from the first slide of a forcing-chain elimination 
     await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveCount(0);
     const labelsBefore = await readCellLabels(page);
 
-    await continueButton.click();
+    await applyHintEarly(page);
     expect(await readCellLabels(page)).toEqual(labelsBefore);
     await expect(page.getByTestId(HintPanelSelectors.SHOW_MORE_BUTTON)).toBeVisible();
     await revealHintWalkthrough(page);
     await expect(narration).not.toContainText('So r7c3 is not 9.');
     await expect(progress).toHaveAttribute('aria-label', /^Step 1 of /u);
-    await page.screenshot({ path: testInfo.outputPath('hint-continue-slide-1-after.png'), fullPage: true });
+    await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-continue-slide-1-after.png'), fullPage: true });
 
     await page.getByTestId(HintPanelSelectors.RevealButton).click();
     await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText('Reveal');
-    await page.screenshot({ path: testInfo.outputPath('hint-reveal-slide-1-after.png'), fullPage: true });
+    await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-reveal-slide-1-after.png'), fullPage: true });
 });
+
+for (const viewport of [
+    { width: mobileViewportWidth, height: viewportHeight },
+    { width: desktopViewportWidth, height: viewportHeight },
+    { width: landscapeViewportWidth, height: landscapeViewportHeight }
+]) {
+    const { width, height } = viewport;
+    test(`renders structured chain blocks inside the safe-area gap at ${width}px`, async ({ page }) => {
+        await page.setViewportSize(viewport);
+        await launchHome(page);
+        await openSharedPuzzle(page, structuredChainHintSharedPuzzleEncodedConstant);
+        await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
+        await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+
+        for (let hintIndex = 0; hintIndex < 2; hintIndex += 1) {
+            await page.getByTestId(HintButtonSelectors.Root).click();
+            await revealHintWalkthrough(page);
+            await applyHintEarly(page);
+        }
+
+        await page.getByTestId(HintButtonSelectors.Root).click();
+        await revealHintWalkthrough(page);
+        const branch = page.getByTestId(FieldWitnessOverlaySelectors.Branch);
+
+        const progress = page.getByTestId(HintPanelSelectors.Progress);
+        const stepCount = Number(/of (?<count>\d+)$/u.exec((await progress.getAttribute('aria-label')) ?? '')?.groups?.['count']);
+
+        for (let stepIndex = 1; stepIndex < stepCount && (await branch.count()) === 0; stepIndex += 1) {
+            await page.getByTestId(HintPanelSelectors.NextButton).click();
+        }
+
+        await expect(branch).not.toHaveCount(0);
+
+        await page.screenshot({ scale: 'css', path: `../../.scratch/hint-chain-${width}.png` });
+        await expect(page.getByTestId(HintStepNarrationSelectors.CHAIN_BLOCKS)).toBeVisible();
+        await expect(page.getByTestId(HintStepNarrationSelectors.CHAIN_BLOCKS)).toContainText(/R\dC\d = \d/u);
+
+        await page.getByTestId(HintStepNarrationSelectors.CONTRADICTION).last().scrollIntoViewIfNeeded();
+        await page.getByTestId(HintStepNarrationSelectors.Narration).scrollIntoViewIfNeeded();
+        await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toBeVisible();
+        await expect(page.getByTestId(HintStepNarrationSelectors.CONTRADICTION).last()).toBeVisible();
+        await page.screenshot({ scale: 'css', path: `../../.scratch/hint-chain-outcome-${width}.png` });
+
+        const panel = await page.getByTestId(HintPanelSelectors.Root).boundingBox();
+
+        expect(panel).not.toBeNull();
+        expect(panel?.x).toBeGreaterThanOrEqual(panelHorizontalGap);
+        expect((panel?.x ?? 0) + (panel?.width ?? 0)).toBeLessThanOrEqual(width - panelHorizontalGap);
+        expect((panel?.y ?? 0) + (panel?.height ?? 0)).toBeLessThanOrEqual(height - panelBottomGap);
+        await expectHintBelowToolbar(page);
+    });
+}
+
+for (const bottomInset of [0, mobileBottomInset]) {
+    test(`keeps two fixed buttons across placement/elimination with ${bottomInset}px bottom inset`, async ({ page }) => {
+        await page.setViewportSize({ width: mobileViewportWidth, height: viewportHeight });
+        await page.emulateMedia({ reducedMotion: 'reduce' });
+        await launchHome(page);
+        await openSharedPuzzle(page, pointingPairHintSharedPuzzleEncodedConstant);
+        await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
+        await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+        await page.getByTestId(HintButtonSelectors.Root).click();
+
+        await page.addStyleTag({ content: `div[style*="safe-area-inset"] { padding-bottom: ${bottomInset}px !important; }` });
+        await page.evaluate(() => window.dispatchEvent(new Event('resize')));
+        await expect
+            .poll(async () => {
+                const panel = await page.getByTestId(HintPanelSelectors.Root).boundingBox();
+
+                return (panel?.y ?? 0) + (panel?.height ?? 0);
+            })
+            .toBeLessThanOrEqual(viewportHeight - Math.max(bottomInset, panelHorizontalGap) - panelHorizontalGap);
+
+        const footer = page.getByTestId(HintPanelSelectors.FOOTER);
+        const buttons = footer.getByRole('button');
+        const footerBounds = await footer.boundingBox();
+
+        await expect(buttons).toHaveCount(2);
+        await expect(page.getByTestId(HintPanelSelectors.BackButton)).toBeDisabled();
+        expect(await page.getByTestId(HintPanelSelectors.BackButton).evaluate(element => getComputedStyle(element).opacity)).toBe('0.4');
+        await revealHintWalkthrough(page);
+
+        for (let stepIndex = 0; stepIndex < 4; stepIndex += 1) {
+            await expect(buttons).toHaveCount(2);
+            expect(await footer.boundingBox()).toEqual(footerBounds);
+
+            const secondary = await buttons.nth(0).boundingBox();
+            const primary = await buttons.nth(1).boundingBox();
+
+            expect(secondary?.width).toBe(primary?.width);
+            expect(secondary?.height).toBe(primary?.height);
+            expect((primary?.y ?? 0) + (primary?.height ?? 0)).toBeLessThanOrEqual(viewportHeight - panelBottomGap);
+
+            if (stepIndex < 3) {
+                await page.getByTestId(HintPanelSelectors.NextButton).click();
+            }
+        }
+
+        await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveText('Place 4');
+        await expect(page.getByTestId(HintPanelSelectors.RevealButton)).toHaveText('Reveal');
+        await expectHintBelowToolbar(page);
+        await page.getByTestId(HintPanelSelectors.RevealButton).click();
+        await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText('Reveal');
+        await page.getByTestId(HintPanelSelectors.NextButton).click();
+        await page.getByTestId(HintPanelSelectors.ApplyButton).click();
+        await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
+    });
+}

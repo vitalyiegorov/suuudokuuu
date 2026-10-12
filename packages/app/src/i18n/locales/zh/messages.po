@@ -11,6 +11,10 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+msgid "‹ Back"
+msgstr "‹ 返回"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -244,6 +248,18 @@ msgstr "{value, plural, other {# 秒}}"
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>需要开发客户端</0><1>开发客户端需要 Metro、在 <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> 中配置的启动 URL，或 <3>development</3> 渠道上的兼容更新。此安装流程不会发布更新。</1>"
 
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ {cell} cannot be {value}"
+msgstr "✕ {cell} 不可能是 {value}"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no candidate for {cell}"
+msgstr "✕ {cell} 没有候选数"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no place for {value}"
+msgstr "✕ {value} 无处可放"
+
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "“+” 表示这道数独至少达到 SE {seRatingCeilingText}。超过这个点之后，解题推理可能延伸成极长的链条，因此我们为显示的数值设上限，而不去追求虚假的精确度。"
@@ -321,10 +337,14 @@ msgstr "为完成的行、列和宫格显示动画"
 msgid "Animations"
 msgstr "动画"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "应用"
+
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Apply & next"
+msgstr "应用并继续"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -591,7 +611,6 @@ msgstr "完成动画"
 msgid "Completion Bonuses"
 msgstr "完成奖励"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -605,10 +624,6 @@ msgstr "在别处继续"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "从我停下的地方继续这道数独！"
-
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Continue to next hint"
-msgstr "继续查看下一个提示"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -707,7 +722,7 @@ msgstr "让数字键盘中已完成的数字变暗，而不是移除它"
 msgid "Discard changes?"
 msgstr "放弃更改？"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Dismiss"
 msgstr "忽略"
 
@@ -1242,9 +1257,9 @@ msgstr "新手"
 msgid "Newspaper"
 msgstr "报纸"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Next step"
-msgstr "下一步"
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Next ›"
+msgstr "下一步 ›"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1419,6 +1434,10 @@ msgstr "每个错误"
 msgid "per second"
 msgstr "每秒"
 
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Place {placementValue}"
+msgstr "填入 {placementValue}"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Place {valueList} in the marked cell."
 msgstr "将 {valueList} 填入标记的单元格。"
@@ -1497,10 +1516,6 @@ msgstr "练习更高难度的逻辑"
 msgid "Presets"
 msgstr "预设"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Previous step"
-msgstr "上一步"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "主要文字"
@@ -1530,6 +1545,10 @@ msgstr "数独已解开。"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "退出"
+
+#: src/game/components/hint-chain-block/hint-chain-block.tsx
+msgid "R{row}C{column} {operator} {value}"
+msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
@@ -1612,14 +1631,11 @@ msgstr "继续这局游戏？"
 msgid "Retry loading development build"
 msgstr "重新加载开发版本"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "揭示"
-
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Reveal a digit"
-msgstr "显示一个数字"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1798,11 +1814,7 @@ msgstr "游戏时显示已用时间"
 msgid "Show matching notes for the selected cell"
 msgstr "显示所选单元格的匹配笔记"
 
-#: src/game/components/hint-panel/hint-panel.tsx
-msgid "Show more"
-msgstr "显示更多"
-
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Show more of the hint"
 msgstr "显示更多提示"
 
@@ -1892,7 +1904,8 @@ msgstr "统计"
 msgid "Stayed in app"
 msgstr "未离开应用"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "第 {currentStepNumber} 步，共 {stepCount} 步"
 

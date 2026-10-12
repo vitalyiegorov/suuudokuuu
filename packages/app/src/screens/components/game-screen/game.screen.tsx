@@ -1,9 +1,11 @@
 import { useLingui } from '@lingui/react/macro';
 import { useAppLayout } from '@suuudokuuu/ui';
+import { SpacingConstant } from '@suuudokuuu/ui/theme';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { use, useEffect, useRef, useState } from 'react';
-import { Pressable, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
@@ -23,7 +25,6 @@ import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/u
 import { useShareGame } from '../../../game/hooks/use-share-game.hook';
 import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
-import { gameGetNumpadHeight } from '../../../game/utils/game-get-numpad-height.util';
 import { gameToggleCellCandidate } from '../../../game/utils/game-toggle-cell-candidate.util';
 import { runCurrentRunCommand } from '../../../game/utils/run-current-run-command.util';
 import { useSettings } from '../../../settings/query/use-settings.query';
@@ -33,6 +34,7 @@ import { gameScreenSetSharingAvailable } from '../../utils/game-screen-set-shari
 import { GameActions } from './game-actions/game-actions';
 import { GameInputTools } from './game-input-tools/game-input-tools';
 import { GameNumpad } from './game-numpad/game-numpad';
+import { GameNumpadStyles as numpadStyles } from './game-numpad/game-numpad.styles';
 import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
 import { GameStatusBlock } from './game-status-block/game-status-block';
@@ -52,7 +54,8 @@ export const GameScreen = () => {
 
     const [, hapticImpact] = useVibration();
 
-    const { sizeClass, width: screenWidth } = useAppLayout();
+    const { sizeClass } = useAppLayout();
+    const insets = useSafeAreaInsets();
     const isWideLayout = sizeClass === 'wide';
     const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant;
     const { cellSize: boardCellSize, cellMargin: boardCellMargin, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
@@ -66,6 +69,8 @@ export const GameScreen = () => {
 
     const [hasSharing, setHasSharing] = useState(false);
     const [toolsSlotHeight, setToolsSlotHeight] = useState(0);
+    const [toolbarHeight, setToolbarHeight] = useState(0);
+    const [panelAreaHeight, setPanelAreaHeight] = useState(0);
 
     const { selectedCell } = snapshot;
     const maxMistakesReached = mistakes >= maxMistakes;
@@ -124,6 +129,14 @@ export const GameScreen = () => {
         setToolsSlotHeight(event.nativeEvent.layout.height);
     };
 
+    const handleToolbarLayout = (event: LayoutChangeEvent) => {
+        setToolbarHeight(event.nativeEvent.layout.height);
+    };
+
+    const handlePanelAreaLayout = (event: LayoutChangeEvent) => {
+        setPanelAreaHeight(event.nativeEvent.layout.height);
+    };
+
     const handleAvailableRef = (value: number) => (ref: AvailableValuesItemRef | null) => {
         availableValuesRefs.current[value] = ref;
     };
@@ -135,9 +148,19 @@ export const GameScreen = () => {
     const hideAutoCandidates = maxMistakes === 0;
     const gameActionsIconColor = theme.colors.surface.raisedText;
     const isHintActive = isDefined(snapshot.stepScript);
+    const isNumpadVisible = !isWideLayout || !isHintActive;
     const areWideActionsVisible = isWideLayout && !isHintActive;
-    const toolsSlotPointerEvents = isHintActive ? 'none' : 'auto';
-    const hintPanelAvailableHeight = toolsSlotHeight + gameGetNumpadHeight(screenWidth);
+    const hintPanelAvailableHeight = Math.max(
+        0,
+        Math.max(0, toolsSlotHeight - toolbarHeight - SpacingConstant.sm) / 2 +
+            panelAreaHeight -
+            SpacingConstant.md * 2 -
+            Math.max(0, insets.bottom - SpacingConstant.md)
+    );
+
+    const numpadElement = (
+        <GameNumpad availableValuesRefsHandler={handleAvailableRef} onSelectValue={handleSelectValue} selectedCell={selectedCell} />
+    );
 
     const statusBlock = (
         <GameStatusBlock
@@ -196,27 +219,26 @@ export const GameScreen = () => {
                     <Field cellMargin={boardCellMargin} cellSize={boardCellSize} onSelect={handleSelectCell} ref={fieldRef} />
 
                     {isWideLayout ? null : (
-                        <View
-                            onLayout={handleToolsSlotLayout}
-                            pointerEvents={toolsSlotPointerEvents}
-                            style={styles.toolsSlot(isHintActive)}
-                        >
-                            <GameInputTools hideAutoCandidates={hideAutoCandidates} isLeftHanded={isLeftHanded} />
+                        <View onLayout={handleToolsSlotLayout} style={styles.toolsSlot}>
+                            <View onLayout={handleToolbarLayout}>
+                                <GameInputTools hideAutoCandidates={hideAutoCandidates} isLeftHanded={isLeftHanded} />
+                            </View>
                         </View>
                     )}
                 </View>
 
-                <View style={styles.panelArea(boardSize)}>
+                <View onLayout={handlePanelAreaLayout} style={styles.panelArea(boardSize)}>
                     {isWideLayout ? statusBlock : null}
 
                     {isWideLayout ? challengeHud : null}
 
                     <View style={styles.panelInputArea}>
-                        <GameNumpad
-                            availableValuesRefsHandler={handleAvailableRef}
-                            onSelectValue={handleSelectValue}
-                            selectedCell={selectedCell}
-                        />
+                        {isNumpadVisible && isWideLayout ? (
+                            <ScrollView contentContainerStyle={numpadStyles.scrollContent} style={numpadStyles.scroll}>
+                                {numpadElement}
+                            </ScrollView>
+                        ) : null}
+                        {isWideLayout ? null : numpadElement}
 
                         {isWideLayout ? <GameInputTools hideAutoCandidates={hideAutoCandidates} isLeftHanded={isLeftHanded} /> : null}
                     </View>

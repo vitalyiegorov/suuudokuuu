@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+msgid "‹ Back"
+msgstr "‹ Назад"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -246,6 +250,18 @@ msgstr "{value, plural, one {# секунду} few {# секунди} many {# с
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>Потрібен клієнт для розробки</0><1>Клієнтам для розробки потрібні Metro, URL-адреса запуску, налаштована в <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, або сумісне оновлення в каналі <3>development</3>. Цей процес інсталяції не публікує оновлення.</1>"
 
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ {cell} cannot be {value}"
+msgstr "✕ {cell} не може бути {value}"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no candidate for {cell}"
+msgstr "✕ для {cell} немає кандидата"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no place for {value}"
+msgstr "✕ для {value} немає місця"
+
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Знак «+» означає, що це судоку має щонайменше SE {seRatingCeilingText}. Далі розв’язання можуть розтягуватися в дуже довгі ланцюги, тож ми обмежуємо показане число, а не вдаємо хибну точність."
@@ -323,10 +339,14 @@ msgstr "Анімувати завершені рядки, стовпці та б
 msgid "Animations"
 msgstr "Анімації"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Застосувати"
+
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Apply & next"
+msgstr "Застосувати й далі"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -593,7 +613,6 @@ msgstr "Анімації завершення"
 msgid "Completion Bonuses"
 msgstr "Бонуси за завершення"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -607,10 +626,6 @@ msgstr "Продовжити деінде"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "Продовж це судоку саме там, де я зупинився!"
-
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Continue to next hint"
-msgstr "Перейти до наступної підказки"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -709,7 +724,7 @@ msgstr "Затемнювати завершену цифру в панелі ц�
 msgid "Discard changes?"
 msgstr "Скасувати зміни?"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Dismiss"
 msgstr "Сховати"
 
@@ -1244,9 +1259,9 @@ msgstr "Новачок"
 msgid "Newspaper"
 msgstr "Газета"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Next step"
-msgstr "Наступний крок"
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Next ›"
+msgstr "Далі ›"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1421,6 +1436,10 @@ msgstr "за помилку"
 msgid "per second"
 msgstr "за секунду"
 
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Place {placementValue}"
+msgstr "Поставити {placementValue}"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Place {valueList} in the marked cell."
 msgstr "Поставте {valueList} у позначену клітинку."
@@ -1499,10 +1518,6 @@ msgstr "Тренуйте складнішу логіку"
 msgid "Presets"
 msgstr "Готові теми"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Previous step"
-msgstr "Попередній крок"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "Основний текст"
@@ -1532,6 +1547,10 @@ msgstr "Судоку розв’язано."
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Вийти"
+
+#: src/game/components/hint-chain-block/hint-chain-block.tsx
+msgid "R{row}C{column} {operator} {value}"
+msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
@@ -1614,14 +1633,11 @@ msgstr "Продовжити цю гру?"
 msgid "Retry loading development build"
 msgstr "Повторити завантаження збірки для розробки"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "Розкрити"
-
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Reveal a digit"
-msgstr "Відкрити цифру"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1800,11 +1816,7 @@ msgstr "Показувати час гри під час проходження"
 msgid "Show matching notes for the selected cell"
 msgstr "Показувати відповідні нотатки для вибраної клітинки"
 
-#: src/game/components/hint-panel/hint-panel.tsx
-msgid "Show more"
-msgstr "Показати більше"
-
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Show more of the hint"
 msgstr "Показати більше підказки"
 
@@ -1894,9 +1906,10 @@ msgstr "Статистика"
 msgid "Stayed in app"
 msgstr "Без виходу із застосунку"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
-msgstr "Крок {currentStepNumber} з {stepCount}"
+msgstr "Крок {currentStepNumber} із {stepCount}"
 
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"

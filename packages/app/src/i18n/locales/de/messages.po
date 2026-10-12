@@ -13,6 +13,10 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+msgid "‹ Back"
+msgstr "‹ Zurück"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -246,6 +250,18 @@ msgstr "{value, plural, one {# Sekunde} other {# Sekunden}}"
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>Entwicklungsclient erforderlich</0><1>Entwicklungsclients benötigen Metro, die unter <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> konfigurierte Start-URL oder ein kompatibles Update im Kanal <3>development</3>. Bei dieser Installation wird kein Update veröffentlicht.</1>"
 
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ {cell} cannot be {value}"
+msgstr "✕ {cell} kann nicht {value} sein"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no candidate for {cell}"
+msgstr "✕ kein Kandidat für {cell}"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no place for {value}"
+msgstr "✕ kein Platz für {value}"
+
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Ein „+“ bedeutet, dass dieses Rätsel mindestens SE {seRatingCeilingText} erreicht. Darüber hinaus können sich Lösungswege zu sehr langen Ketten aufziehen, deshalb deckeln wir die angezeigte Zahl, statt eine falsche Genauigkeit vorzutäuschen."
@@ -323,10 +339,14 @@ msgstr "Abgeschlossene Zeilen, Spalten und Blöcke animieren"
 msgid "Animations"
 msgstr "Animationen"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Übernehmen"
+
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Apply & next"
+msgstr "Anwenden & weiter"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -593,7 +613,6 @@ msgstr "Abschlussanimationen"
 msgid "Completion Bonuses"
 msgstr "Abschlussboni"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -607,10 +626,6 @@ msgstr "Woanders fortsetzen"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "Setze dieses Sudoku genau dort fort, wo ich aufgehört habe!"
-
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Continue to next hint"
-msgstr "Mit dem nächsten Hinweis fortfahren"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -709,7 +724,7 @@ msgstr "Abgeschlossene Zahl im Nummernblock abdunkeln statt sie zu entfernen"
 msgid "Discard changes?"
 msgstr "Änderungen verwerfen?"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Dismiss"
 msgstr "Ausblenden"
 
@@ -1244,9 +1259,9 @@ msgstr "Anfänger"
 msgid "Newspaper"
 msgstr "Zeitung"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Next step"
-msgstr "Nächster Schritt"
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Next ›"
+msgstr "Weiter ›"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1421,6 +1436,10 @@ msgstr "pro Fehler"
 msgid "per second"
 msgstr "pro Sekunde"
 
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Place {placementValue}"
+msgstr "{placementValue} einsetzen"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Place {valueList} in the marked cell."
 msgstr "Trage {valueList} in die markierte Zelle ein."
@@ -1499,10 +1518,6 @@ msgstr "Trainiere anspruchsvollere Logik"
 msgid "Presets"
 msgstr "Voreinstellungen"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Previous step"
-msgstr "Vorheriger Schritt"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "Primärer Text"
@@ -1532,6 +1547,10 @@ msgstr "Rätsel gelöst."
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Beenden"
+
+#: src/game/components/hint-chain-block/hint-chain-block.tsx
+msgid "R{row}C{column} {operator} {value}"
+msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
@@ -1614,14 +1633,11 @@ msgstr "Dieses Spiel fortsetzen?"
 msgid "Retry loading development build"
 msgstr "Entwicklungs-Build erneut laden"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "Aufdecken"
-
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Reveal a digit"
-msgstr "Eine Zahl aufdecken"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1800,11 +1816,7 @@ msgstr "Verstrichene Zeit während des Spiels anzeigen"
 msgid "Show matching notes for the selected cell"
 msgstr "Passende Notizen für die ausgewählte Zelle anzeigen"
 
-#: src/game/components/hint-panel/hint-panel.tsx
-msgid "Show more"
-msgstr "Mehr anzeigen"
-
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Show more of the hint"
 msgstr "Mehr vom Hinweis anzeigen"
 
@@ -1894,7 +1906,8 @@ msgstr "Statistik"
 msgid "Stayed in app"
 msgstr "In der App geblieben"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Schritt {currentStepNumber} von {stepCount}"
 

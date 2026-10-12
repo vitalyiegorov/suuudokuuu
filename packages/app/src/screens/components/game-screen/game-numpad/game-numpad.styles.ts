@@ -9,6 +9,14 @@ export const GameNumpadStyles = StyleSheet.create((theme, rt) => {
     const isWideLayout = appLayoutScreenIsWide(rt.screen);
 
     return {
+        scroll: {
+            flexGrow: 0,
+            flexShrink: 1,
+            minHeight: 0
+        },
+        scrollContent: {
+            alignItems: 'center'
+        },
         numpad: (isNumpadHidden: boolean) => ({
             alignSelf: 'center',
             direction: 'ltr',

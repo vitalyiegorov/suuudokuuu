@@ -5,26 +5,10 @@ appId: ${APP_ID}
       optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
-# Pin a hint-capable difficulty: the preceding Hell run persists its selection,
-# and the hint button is deliberately absent on Nightmare, Hell and Infinity.
-# A warm Home keeps its scroll position, so bring the difficulty slider back
-# above the fold before tapping (a no-op when it is already visible). Anchor on
-# the section header: the option labels overhang the horizontal screen edges by
-# a few pixels, so they can never satisfy scrollUntilVisible's 100% visibility.
-- scrollUntilVisible:
-      element:
-          text: 'Difficulty'
-      direction: UP
-      timeout: 10000
-# Settle the scroll before tapping (rule 12): a tap fired into residual scroll
-# momentum is consumed stopping the scroll and never reaches the option label
-# (CI run 33369560754 attempt 2: the slider still showed Easy after the tap).
-- waitForAnimationToEnd:
-      timeout: 3000
-- tapOn:
-      id: 'DifficultyComplexityOptionSelectors.Option.Easy'
-- runFlow: subflows/game/start-new-game.flow.yaml
-
+- runFlow:
+      file: subflows/shared/open-shared-handoff.flow.yaml
+      env:
+          SHARED_HANDOFF_LINK: suuudokuuu://shared/_MANQGaciM0yz__9dFFCq5FGCkeArJsaswTCLjQ9JvkaI
 - tapOn:
       id: 'HintButtonSelectors.Root'
 - extendedWaitUntil:
@@ -45,17 +29,57 @@ appId: ${APP_ID}
       id: 'HintPanelSelectors.ShowMoreButton'
 - assertVisible:
       id: 'HintPanelSelectors.Progress'
-
 - tapOn:
       id: 'HintPanelSelectors.NextButton'
-- assertVisible:
-      id: 'HintPanelSelectors.Progress'
 - tapOn:
       id: 'HintPanelSelectors.BackButton'
-
+- tapOn:
+      id: 'HintPanelSelectors.NextButton'
+- tapOn:
+      id: 'HintPanelSelectors.RevealButton'
+- assertVisible: 'Reveal'
+- tapOn:
+      id: 'HintPanelSelectors.DismissButton'
+- tapOn:
+      id: 'HintButtonSelectors.Root'
+- repeat:
+      times: 2
+      commands:
+          - tapOn:
+                id: 'HintPanelSelectors.ShowMoreButton'
+- tapOn:
+      id: 'HintPanelSelectors.NextButton'
 - tapOn:
       id: 'HintPanelSelectors.ApplyButton'
 - assertNotVisible:
       id: 'HintPanelSelectors.Root'
-
+- assertVisible:
+      id: 'CellSelectors.Cell.2.1'
+      text: 'Row 3, column 2, 4'
+- runFlow: subflows/game/quit-current-game.flow.yaml
+- runFlow:
+      file: subflows/shared/open-shared-handoff.flow.yaml
+      env:
+          SHARED_HANDOFF_LINK: suuudokuuu://shared/_MANQGaciM0yz__9dFFCq5FGCkeArJsaswTCLjQ9JvkaI
+- tapOn:
+      id: 'HintButtonSelectors.Root'
+- repeat:
+      times: 2
+      commands:
+          - tapOn:
+                id: 'HintPanelSelectors.ShowMoreButton'
+- repeat:
+      times: 3
+      commands:
+          - tapOn:
+                id: 'HintPanelSelectors.NextButton'
+- tapOn:
+      id: 'HintPanelSelectors.RevealButton'
+- assertVisible: 'Reveal'
+- tapOn:
+      id: 'HintPanelSelectors.NextButton'
+- tapOn:
+      id: 'HintPanelSelectors.ApplyButton'
+- assertNotVisible:
+      id: 'HintPanelSelectors.Root'
 - runFlow: subflows/game/quit-current-game.flow.yaml

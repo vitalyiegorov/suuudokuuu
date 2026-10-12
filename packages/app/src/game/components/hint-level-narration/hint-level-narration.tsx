@@ -1,7 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { HintLevelEnum, HintRegionKindEnum, StepScriptStepKindEnum, getHintRegion } from '@suuudokuuu/field-core';
 import { use, useEffect } from 'react';
-import { AccessibilityInfo, ScrollView, View } from 'react-native';
+import { AccessibilityInfo, ScrollView } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
@@ -49,24 +49,15 @@ export const HintLevelNarration = ({ hintLevel, stepScript }: Props) => {
     };
     const narrationText = getNarrationText();
 
-    const techniqueStyles = [styles.technique, { color: theme.colors.text.hint }];
     const narrationStyles = [styles.narration, { color: theme.colors.surface.raisedText }];
 
     useEffect(() => void AccessibilityInfo.announceForAccessibility(narrationText), [narrationText]);
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <BlackText numberOfLines={1} style={techniqueStyles} testID={HintStepNarrationSelectors.Technique}>
-                    {techniqueName}
-                </BlackText>
-            </View>
-
-            <ScrollView style={styles.narrationScroll}>
-                <BlackText accessibilityLiveRegion="polite" style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
-                    {narrationText}
-                </BlackText>
-            </ScrollView>
-        </View>
+        <ScrollView style={styles.narrationScroll}>
+            <BlackText accessibilityLiveRegion="polite" style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
+                {narrationText}
+            </BlackText>
+        </ScrollView>
     );
 };

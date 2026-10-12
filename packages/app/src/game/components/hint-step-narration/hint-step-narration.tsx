@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { StepScriptStepKindEnum } from '@suuudokuuu/field-core';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { use, useEffect, useRef } from 'react';
 import { AccessibilityInfo, ScrollView, type ScrollViewInstance, View } from 'react-native';
@@ -9,30 +10,38 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameGetStepNarration } from '../../utils/game-get-step-narration.util';
+import { HintNarratedChain } from '../hint-narrated-chain/hint-narrated-chain';
 
 import { HintStepNarrationSelectors } from './hint-step-narration.selectors';
 import { HintStepNarrationStyles as styles } from './hint-step-narration.styles';
 
-import type { StepScriptStepType } from '@suuudokuuu/field-core';
+import type { StepScriptInterface } from '@suuudokuuu/field-core';
 
 interface Props {
-    readonly step: StepScriptStepType;
+    readonly stepScript: StepScriptInterface;
+    readonly stepIndex: number;
     readonly value?: number;
 }
 
-export const HintStepNarration = ({ step, value }: Props) => {
+export const HintStepNarration = ({ stepScript, stepIndex, value }: Props) => {
     const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
     const narrationScrollRef = useRef<ScrollViewInstance>(null);
-
+    const step = stepScript.steps[stepIndex];
     const techniqueName =
         step.narration.technique === SolutionTechniqueEnum.Guess ? t`Reveal` : i18n._(techniqueLabelsConstant[step.narration.technique]);
     const narrationText = i18n._(gameGetStepNarration(step, techniqueName));
-
-    const techniqueStyles = [styles.technique, { color: theme.colors.text.hint }];
     const narrationStyles = [styles.narration, { color: theme.colors.surface.raisedText }];
     const chipStyles = [styles.chip, { backgroundColor: theme.colors.ink }];
     const chipTextStyles = [styles.chipText, { color: theme.colors.inkText }];
+    const witnessSteps = stepScript.steps
+        .slice(0, stepIndex + 1)
+        .map((candidateStep, index) => ({ step: candidateStep, stepIndex: index }))
+        .filter(
+            candidate =>
+                candidate.step.narration.technique === step.narration.technique &&
+                (candidate.step.kind === StepScriptStepKindEnum.SHOW_CHAIN || candidate.step.kind === StepScriptStepKindEnum.SHOW_BRANCH)
+        );
 
     useEffect(() => void AccessibilityInfo.announceForAccessibility(narrationText), [narrationText]);
 
@@ -41,31 +50,44 @@ export const HintStepNarration = ({ step, value }: Props) => {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                {isDefined(value) ? (
-                    <View style={chipStyles} testID={HintStepNarrationSelectors.Value}>
-                        <BlackText style={chipTextStyles}>{value}</BlackText>
-                    </View>
-                ) : null}
+        <ScrollView
+            key={`${stepIndex}-${narrationText}`}
+            contentContainerStyle={styles.container}
+            onContentSizeChange={handleNarrationContentSizeChange}
+            persistentScrollbar
+            ref={narrationScrollRef}
+            style={styles.narrationScroll}
+            testID={HintStepNarrationSelectors.NARRATION_SCROLL}
+        >
+            {isDefined(value) ? (
+                <View style={chipStyles} testID={HintStepNarrationSelectors.Value}>
+                    <BlackText style={chipTextStyles}>{value}</BlackText>
+                </View>
+            ) : null}
+            {witnessSteps.length > 0 ? (
+                <View style={styles.container} testID={HintStepNarrationSelectors.CHAIN_BLOCKS}>
+                    {witnessSteps.map(candidate => {
+                        if (
+                            candidate.step.kind !== StepScriptStepKindEnum.SHOW_CHAIN &&
+                            candidate.step.kind !== StepScriptStepKindEnum.SHOW_BRANCH
+                        ) {
+                            return null;
+                        }
 
-                <BlackText numberOfLines={1} style={techniqueStyles} testID={HintStepNarrationSelectors.Technique}>
-                    {techniqueName}
-                </BlackText>
-            </View>
-
-            <ScrollView
-                key={narrationText}
-                onContentSizeChange={handleNarrationContentSizeChange}
-                persistentScrollbar
-                ref={narrationScrollRef}
-                style={styles.narrationScroll}
-                testID={HintStepNarrationSelectors.NarrationScroll}
-            >
-                <BlackText style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
-                    {narrationText}
-                </BlackText>
-            </ScrollView>
-        </View>
+                        return (
+                            <HintNarratedChain
+                                currentStepIndex={stepIndex}
+                                key={candidate.stepIndex}
+                                step={candidate.step}
+                                stepIndex={candidate.stepIndex}
+                            />
+                        );
+                    })}
+                </View>
+            ) : null}
+            <BlackText accessibilityLiveRegion="polite" style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
+                {narrationText}
+            </BlackText>
+        </ScrollView>
     );
 };
