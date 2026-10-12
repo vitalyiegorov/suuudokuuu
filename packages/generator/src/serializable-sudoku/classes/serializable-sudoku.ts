@@ -1,5 +1,5 @@
 import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
-import { GRID_SIZE } from '@suuudokuuu/solver-core';
+import { GRID_CELL_COUNT, GRID_SIZE, isCompleteValidGrid } from '@suuudokuuu/solver-core';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
@@ -134,6 +134,31 @@ export class SerializableSudoku {
         return SerializableSudoku.populateFromString(new this(config), fieldString, config);
     }
 
+    static fromPuzzleAndSolution<T extends SerializableSudoku>(
+        this: new (config?: SudokuConfigInterface) => T,
+        puzzleString: string,
+        solutionString: string
+    ): T {
+        const solvedGrid = Uint8Array.from(solutionString, Number);
+        const isMatchingSolution =
+            puzzleString.length === GRID_CELL_COUNT &&
+            isCompleteValidGrid(solvedGrid) &&
+            Array.from(puzzleString).every(
+                (value, index) => value === SerializableSudoku.emptyStringValue || value === solutionString[index]
+            );
+
+        if (!isMatchingSolution) {
+            throw new Error('Invalid string format: Puzzle does not match the supplied solution');
+        }
+
+        const config = { ...defaultSudokuConfig };
+        const [gameField, difficulty] = SerializableSudoku.convertFieldFromString(puzzleString, config);
+
+        config.difficulty = difficulty;
+
+        return SerializableSudoku.restoreFields(new this(config), gameField, solvedGrid);
+    }
+
     protected static populateFromString<T extends SerializableSudoku>(game: T, fieldString: string, config: SudokuConfigInterface): T {
         if (!isNotEmptyString(fieldString)) {
             throw new Error('Invalid string format: Empty string passed');
@@ -152,9 +177,14 @@ export class SerializableSudoku {
             throw new Error('Invalid string format: No solution found for the given field');
         }
 
+        game.config.difficulty = difficulty;
+
+        return SerializableSudoku.restoreFields(game, gameField, solvedGrid);
+    }
+
+    private static restoreFields<T extends SerializableSudoku>(game: T, gameField: FieldInterface, solvedGrid: Uint8Array): T {
         game.field = SerializableSudoku.applySolvedGrid(gameField, solvedGrid);
         game.gameField = gameField;
-        game.config.difficulty = difficulty;
         game.calculateAvailableValues();
 
         return game;
