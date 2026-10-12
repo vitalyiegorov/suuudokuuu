@@ -9,8 +9,6 @@ import {
     withTiming
 } from 'react-native-reanimated';
 
-import { getIridescentColorStops } from '../utils/get-iridescent-color-stops.util';
-
 import { useReduceMotion } from './use-reduce-motion.hook';
 
 import type { ThemeInterface } from '@suuudokuuu/ui/theme';
@@ -23,7 +21,7 @@ export const useIridescentColor = (theme: Pick<ThemeInterface, 'colors'>, isActi
     const isMotionReduced = useReduceMotion();
     const sweep = useSharedValue(0);
     const isAnimating = isActive && !isMotionReduced;
-    const colorStops = getIridescentColorStops(theme);
+    const colorStops = [theme.colors.accent, theme.colors.surface.raisedText, theme.colors.board.selected, theme.colors.accent];
 
     useEffect(() => {
         if (isAnimating) {

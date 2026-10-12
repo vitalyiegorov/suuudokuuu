@@ -9,7 +9,6 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
 import { formatSeRatingValue } from '../../../@generic/utils/format-se-rating-value.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { HistoryTechniqueTilesPerRow } from '../../constants/history-technique-grid.constant';
 import { historyGetTechniqueUsageList } from '../../utils/history-get-technique-usage.util';
 import { HistorySectionTitle } from '../history-section-title/history-section-title';
 import { HistoryTechniqueTile } from '../history-technique-tile/history-technique-tile';
@@ -19,6 +18,8 @@ import { HistoryTechniquesStyles as styles } from './history-techniques.styles';
 
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import type { ReactNode } from 'react';
+
+const HistoryTechniqueTilesPerRow = 4;
 
 interface Props {
     readonly techniqueUsageCounts: Partial<Record<SolutionTechniqueEnum, number>>;

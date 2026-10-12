@@ -1,6 +1,6 @@
 import type { TimelineEventType } from '@suuudokuuu/progress';
 
 export interface ReplayTimelineInterface {
-    events: readonly TimelineEventType[];
-    givens: string;
+    readonly events: readonly TimelineEventType[];
+    readonly givens: string;
 }

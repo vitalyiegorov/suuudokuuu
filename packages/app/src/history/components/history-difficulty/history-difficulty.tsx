@@ -12,7 +12,6 @@ import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-mes
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { i18nIsRightToLeftLocale } from '../../../@generic/utils/i18n-is-right-to-left-locale.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { HistoryDifficultyChevronSize } from '../../constants/history-difficulty-chevron-size.constant';
 import { historyGetWinRate } from '../../utils/history-get-win-rate.util';
 import { HistoryDifficultyMeter } from '../history-difficulty-meter/history-difficulty-meter';
 
@@ -22,6 +21,8 @@ import { HistoryDifficultyStyles as styles } from './history-difficulty.styles';
 import type { DifficultyStatsType } from '@suuudokuuu/progress';
 
 const hardestSolveDifficulties: DifficultyEnum[] = [DifficultyEnum.Hell, DifficultyEnum.Infinity];
+
+const HistoryDifficultyChevronSize = 16;
 
 interface Props {
     readonly stats: DifficultyStatsType;

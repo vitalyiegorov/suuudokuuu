@@ -4,7 +4,6 @@ import { View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { applyColorAlpha } from '../../../@generic/utils/apply-color-alpha.util';
-import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { DailyTintAlpha } from '../../constants/daily-tint-alpha.constant';
 import { DailyRecentSolveRow } from '../daily-recent-solve-row/daily-recent-solve-row';
@@ -20,7 +19,6 @@ interface Props {
 
 export const DailyRecentSolves = ({ days }: Props) => {
     const { theme } = use(ThemeContext);
-    const { language } = useSettings();
 
     const eyebrowStyles = [styles.eyebrow, { color: theme.colors.text.hint }];
     const emptyStyles = [styles.empty, { color: theme.colors.text.hint }];
@@ -36,7 +34,7 @@ export const DailyRecentSolves = ({ days }: Props) => {
             {days.length > 0 ? (
                 <View style={listStyles}>
                     {rows.map(({ day, hasTopDivider }) => (
-                        <DailyRecentSolveRow day={day} hasTopDivider={hasTopDivider} key={day.dayNumber} language={language} />
+                        <DailyRecentSolveRow day={day} hasTopDivider={hasTopDivider} key={day.dayNumber} />
                     ))}
                 </View>
             ) : (

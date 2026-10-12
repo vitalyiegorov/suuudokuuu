@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
 import { isNotEmptyArray } from '@rnw-community/shared';
@@ -9,20 +8,12 @@ import { HistoryTechniqueChip } from '../history-technique-chip/history-techniqu
 import { CompletedGameTechniqueSummarySelectors } from './completed-game-technique-summary.selectors';
 import { CompletedGameTechniqueSummaryStyles as styles } from './completed-game-technique-summary.styles';
 
-import type { TechniqueUsageInterface } from '../../interfaces/technique-usage.interface';
-
 interface Props {
     readonly encodedState: string;
 }
 
 export const CompletedGameTechniqueSummary = ({ encodedState }: Props) => {
-    const [techniqueUsageList, setTechniqueUsageList] = useState<readonly TechniqueUsageInterface[]>([]);
-
-    useEffect(() => {
-        const timeoutId = setTimeout(() => void setTechniqueUsageList(getCompletedGameTechniqueSummary(encodedState)), 0);
-
-        return () => void clearTimeout(timeoutId);
-    }, [encodedState]);
+    const techniqueUsageList = getCompletedGameTechniqueSummary(encodedState);
 
     if (!isNotEmptyArray(techniqueUsageList)) {
         return null;

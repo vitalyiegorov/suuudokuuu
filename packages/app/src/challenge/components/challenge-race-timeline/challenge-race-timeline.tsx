@@ -5,6 +5,7 @@ import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-na
 
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { ChallengeTimelineTickCount } from '../../constants/challenge-timeline-tick-count.constant';
 import { getChallengeTimelineMarks } from '../../utils/get-challenge-timeline-marks.util';
 import { ChallengeAwayBands } from '../challenge-away-bands/challenge-away-bands';
 import { ChallengeRaceRunner } from '../challenge-race-runner/challenge-race-runner';
@@ -15,7 +16,6 @@ import { ChallengeRaceTimelineStyles as styles } from './challenge-race-timeline
 import type { ChallengeAwayRangeInterface } from '../../interfaces/challenge-away-range.interface';
 import type { ChallengeTechniqueEventInterface } from '../../interfaces/challenge-technique-event.interface';
 
-const TICK_COUNT = 44;
 const PERCENT = 100;
 const ANIMATION_DURATION_MS = 300;
 const INSTANT_DURATION_MS = 0;
@@ -44,7 +44,7 @@ export const ChallengeRaceTimeline = ({ awayRanges, events, opponentProgress, pl
         playerProgressValue.set(withTiming(playerProgress, { duration: progressDurationMs }));
     }, [playerProgress, progressDurationMs, playerProgressValue]);
 
-    const marks = getChallengeTimelineMarks(events, TICK_COUNT, totalTime).map(mark => ({ ...mark, isAway: false }));
+    const marks = getChallengeTimelineMarks(events, ChallengeTimelineTickCount, totalTime);
     const isRivalAhead = opponentProgress > playerProgress;
     const gapColor = isRivalAhead ? theme.colors.danger : theme.colors.text.primary;
     const fillAnimatedStyle = useAnimatedStyle(() => ({

@@ -9,7 +9,6 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { DailyTintAlpha } from '../../constants/daily-tint-alpha.constant';
 import { DailyWeekDayStateEnum } from '../../enums/daily-week-day-state.enum';
 import { dailyGetDateString } from '../../utils/daily-get-date-string.util';
-import { dailyGetDateText } from '../../utils/daily-get-date-text.util';
 import { DailyDifficultyBars } from '../daily-difficulty-bars/daily-difficulty-bars';
 
 import { DailyWeekDaySelectors } from './daily-week-day.selectors';
@@ -24,11 +23,10 @@ const DimmedOpacity = 0.45;
 
 interface Props {
     readonly day: DailyWeekDayInterface;
-    readonly language: string;
 }
 
-export const DailyWeekDay = ({ day, language }: Props) => {
-    const { t } = useLingui();
+export const DailyWeekDay = ({ day }: Props) => {
+    const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
 
     const { hint, primary } = theme.colors.text;
@@ -58,7 +56,7 @@ export const DailyWeekDay = ({ day, language }: Props) => {
     const isSolved = day.state === DailyWeekDayStateEnum.SOLVED || day.state === DailyWeekDayStateEnum.TODAY_SOLVED;
     const isDimmed = day.state === DailyWeekDayStateEnum.MISSED || day.state === DailyWeekDayStateEnum.UPCOMING;
     const date = new Date(dailyGetDateString(day.dayNumber));
-    const dateText = dailyGetDateText(day.dayNumber, language);
+    const dateText = i18n.date(date, { day: 'numeric', month: 'short', timeZone: 'UTC', weekday: 'short' });
     const stateText = stateTextByState[day.state];
     const contentColor = contentColorByState[day.state];
     const linkColor = applyColorAlpha(theme.colors.accent, DailyTintAlpha.link);
@@ -81,9 +79,7 @@ export const DailyWeekDay = ({ day, language }: Props) => {
             {day.isLinkedToPrevious ? <View style={linkToPreviousStyles} /> : null}
             {day.isLinkedToNext ? <View style={linkToNextStyles} /> : null}
 
-            <BlackText style={weekdayStyles}>
-                {new Intl.DateTimeFormat(language, { timeZone: 'UTC', weekday: 'short' }).format(date)}
-            </BlackText>
+            <BlackText style={weekdayStyles}>{i18n.date(date, { timeZone: 'UTC', weekday: 'short' })}</BlackText>
 
             <View style={haloStyles}>
                 <View style={circleStyles}>

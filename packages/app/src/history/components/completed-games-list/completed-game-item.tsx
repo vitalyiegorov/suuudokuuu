@@ -26,7 +26,7 @@ interface Props {
 
 export const CompletedGameItem = ({ game }: Props) => {
     const { theme } = use(ThemeContext);
-    const { t } = useLingui();
+    const { i18n, t } = useLingui();
 
     const containerStyles = [styles.container, { backgroundColor: theme.colors.candidate.fill, borderColor: theme.colors.surface.border }];
     const eyebrowStyles = [styles.eyebrow, { color: theme.colors.text.hint }];
@@ -34,8 +34,7 @@ export const CompletedGameItem = ({ game }: Props) => {
     const replayButtonStyles = [styles.replayButton, { backgroundColor: theme.colors.ink }];
     const iconColor = theme.colors.inkText;
     const replayTextStyles = [styles.replayText, { color: iconColor }];
-    const completedDate = new Date(game.completedAt);
-    const completedDateText = completedDate.toLocaleDateString();
+    const completedDateText = i18n.date(new Date(game.completedAt));
     const mistakesValue = game.maxMistakes >= 99 ? String(game.mistakes) : `${game.mistakes}/${game.maxMistakes}`;
     const elapsedTimeText = useTimerText(game.elapsedTime);
     const isReplayable = isNotEmptyString(game.encodedState);

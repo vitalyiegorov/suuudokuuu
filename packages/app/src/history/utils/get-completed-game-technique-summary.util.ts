@@ -2,11 +2,11 @@ import { getRunTechniqueEvents } from '../../challenge/utils/get-run-technique-e
 import { getTimelineCellSteps } from '../../game/utils/get-timeline-cell-steps.util';
 import { stringToGameState } from '../../game/utils/string-to-game-state.util';
 
-import { getReplayTechniqueUsageCounts } from './get-replay-technique-usage-counts.util';
 import { getReplayTimeline } from './get-replay-timeline.util';
 import { historyGetTechniqueUsageList } from './history-get-technique-usage.util';
 
 import type { TechniqueUsageInterface } from '../interfaces/technique-usage.interface';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 const CompletedGameTechniqueSummaryLimit = 3;
 
@@ -19,7 +19,11 @@ export const getCompletedGameTechniqueSummary = (encodedState: string): readonly
     }
 
     const techniqueEvents = getRunTechniqueEvents(timeline.events, timeline.givens);
-    const usageCounts = getReplayTechniqueUsageCounts(techniqueEvents);
+    const usageCounts: Partial<Record<SolutionTechniqueEnum, number>> = {};
+
+    for (const event of techniqueEvents) {
+        usageCounts[event.technique] = (usageCounts[event.technique] ?? 0) + 1;
+    }
 
     return historyGetTechniqueUsageList(usageCounts).slice(0, CompletedGameTechniqueSummaryLimit);
 };

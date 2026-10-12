@@ -4,7 +4,9 @@ import { AppIconButtonStyles as styles } from './app-icon-button.styles';
 
 import type { ComponentProps } from 'react';
 
-type Props = ComponentProps<typeof AppLinkButton>;
+interface Props extends ComponentProps<typeof AppLinkButton> {
+    readonly style?: ComponentProps<typeof AppLinkButton>['style'];
+}
 
 export const AppIconButton = ({ style, ...props }: Props) => {
     const buttonStyles = [styles.button, style];
