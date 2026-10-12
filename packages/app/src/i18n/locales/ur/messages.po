@@ -1271,7 +1271,7 @@ msgstr "اخبار"
 
 #: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Next ›"
-msgstr "‹ التالي"
+msgstr "‹ اگلا"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
