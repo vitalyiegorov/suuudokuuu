@@ -18,7 +18,7 @@ Rivalläget skickar exakt ditt pussel till en vän som en delad länk, med din i
 SPELA SOM DU VILL
 Välj Klassisk, Guld eller Tidning, eller öppna temaeditorn med live-förhandsgranskning och gör varje ruta, linje och markering precis som du vill. Inbyggd kontrastkontroll håller egna teman läsbara i både ljust och mörkt läge.
 
-DAGLIG UTMANING OCH TIPS SOM LÄR UT
+DAGENS UTMANING OCH TIPS SOM LÄR UT
 Ett nytt sudoku varje dag, med en svit som räknar hur många dagar i rad du löser det. Kört fast? Ett tips går igenom tekniken steg för steg, från nakna par till X-Wing och vidare, så att du förstår varför draget fungerar och inte bara var det ska stå.
 
 ALLT ANNAT DU VILL HA

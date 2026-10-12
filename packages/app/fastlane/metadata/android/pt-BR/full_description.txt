@@ -1,7 +1,7 @@
-suuudokuuu é um jogo de sudoku com sete níveis de dificuldade, do Iniciante ao Infinito, e uma nota Sudoku Explainer (SE) em cada tabuleiro. Jogue sudoku clássico offline e sem conta, encare o desafio diário, aprenda técnicas com dicas passo a passo e mande para um amigo o seu puzzle exato. Sem anúncios.
+suuudokuuu é um jogo de sudoku e quebra-cabeça de lógica com sete níveis de dificuldade, do Iniciante ao Infinito, e uma nota Sudoku Explainer (SE) em cada tabuleiro. Jogue sudoku clássico offline e sem conta, encare o desafio diário, aprenda técnicas com dicas passo a passo e mande para um amigo o seu sudoku exato. Sem anúncios.
 
 TODO SUDOKU TEM SUA AVALIAÇÃO
-O Suuudokuuu avalia cada sudoku na escala Sudoku Explainer (SE), de 1.0 a 12.0, a mesma que os solucionadores experientes usam. A avaliação aparece no selo de nível do tabuleiro, no seu histórico e em todo link que você compartilha. Uma explicação embutida conta o que esse número mede de verdade: o quanto um sudoku é difícil de raciocinar, e não apenas quantas pistas ele tem.
+O suuudokuuu avalia cada sudoku na escala Sudoku Explainer (SE), de 1.0 a 12.0, a mesma que os solucionadores experientes usam. A avaliação aparece no selo de nível do tabuleiro, no seu histórico e em todo link que você compartilha. Uma explicação embutida conta o que esse número mede de verdade: o quanto um sudoku é difícil de raciocinar, e não apenas quantas pistas ele tem.
 
 INFINITO: SUDOKUS COM NOTA SE DE 10.4 A 11.9
 Uma seleção de 100 sudokus com nota SE de 10.4 a 11.9, incluindo o Everest e o AI Escargot de Arto Inkala.
@@ -10,16 +10,16 @@ INFERNO: CADEIAS FORÇADAS OBRIGATÓRIAS
 O Inferno reúne sudokus verificados que exigem uma cadeia forçada: nenhum pode ser resolvido com as técnicas que o Pesadelo permite, e todos têm avaliação SE de 7.5 ou mais.
 
 SEU JOGO, MEDIDO
-A tela de estatísticas mostra o seu sudoku mais difícil, a dificuldade média das últimas partidas e o nível que você mais joga. O espectro SE distribui ao longo da escala cada sudoku que você concluiu. Seu arsenal conta cada técnica que você realmente usou — Par nu, X-Wing, Swordfish e além — pra você ver seu repertório crescer. Toda partida concluída pode ser revista jogada por jogada, e cada cartão do histórico traz um resumo das técnicas que a resolveram.
+A tela de estatísticas mostra o seu sudoku mais difícil, a dificuldade média das últimas partidas e o nível que você mais joga. O espectro SE distribui ao longo da escala cada sudoku que você concluiu. Seu arsenal conta cada técnica que você realmente usou — Par nu, X-Wing, Swordfish e além — para você ver seu repertório crescer. Toda partida concluída pode ser revista jogada por jogada, e cada cartão do histórico traz um resumo das técnicas que a resolveram.
 
 DESAFIE UM AMIGO
-O modo Rival envia a sua grade exata pra um amigo por um link, com a sua partida gravada junto. Ele joga a mesma grade e corre contra o seu tempo, jogada por jogada.
+O modo Rival envia a sua grade exata para um amigo por um link, com a sua partida gravada junto. Ele joga a mesma grade e corre contra o seu tempo, jogada por jogada.
 
 JOGUE DO SEU JEITO
 Escolha Clássico, Dourado ou Jornal, ou abra o editor de tema com pré-visualização ao vivo e deixe cada célula, linha e destaque do seu jeito. A validação de contraste garante que temas personalizados fiquem legíveis no claro e no escuro.
 
 DESAFIO DIÁRIO E DICAS QUE ENSINAM
-Um sudoku novo todo dia, com uma sequência que conta quantos dias seguidos você o resolve. Travou? Uma dica leva você passo a passo pela técnica, de pares nus a X-Wing e além, pra você entender por que a jogada funciona e não só onde ela vai.
+Um sudoku novo todo dia, com uma sequência que conta quantos dias seguidos você o resolve. Travou? Uma dica leva você passo a passo pela técnica, de pares nus a X-Wing e além, para você entender por que a jogada funciona e não só onde ela vai.
 
 TUDO MAIS QUE VOCÊ QUERIA
 • Pontuação que reconhece técnicas

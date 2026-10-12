@@ -166,8 +166,12 @@ const classifyMove =
         return [{ ...run, timelineEvents }, applyTechniqueUsageDelta(counts, technique, 1), { ...cellEvent, technique }, 1];
     };
 
+const chargeHintLevel = (run: CurrentRunType): CurrentRunType => ({
+    ...run,
+    score: Math.max(run.score - scoring.calculateHintPenalty(run), 0)
+});
+
 const applyHint = (run: CurrentRunType, eliminations: readonly StepScriptCandidateInterface[]): CurrentRunType => {
-    const penalty = scoring.calculateHintPenalty(run);
     const candidates = { ...run.candidates };
     const eliminatedCandidates = { ...run.eliminatedCandidates };
 
@@ -182,8 +186,7 @@ const applyHint = (run: CurrentRunType, eliminations: readonly StepScriptCandida
     });
 
     return {
-        ...withTimelineMarker(run, TimelineEventKindEnum.Hint),
-        score: Math.max(run.score - penalty, 0),
+        ...withTimelineMarker(chargeHintLevel(run), TimelineEventKindEnum.Hint),
         undoneMoves: [],
         candidates,
         eliminatedCandidates
@@ -405,6 +408,7 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
             screenshot: updateRun(run => (run.isChallengeRun ? withTimelineMarker(run, TimelineEventKindEnum.Screenshot) : run)),
             save: (move: Parameters<typeof saveMove>[1]) => updateRun(run => saveMove(run, move)),
             classifyMove: (move: Parameters<typeof classifyMove>[0]) => updateRunWithStats(classifyMove(move)),
+            revealHintLevel: () => updateRun(chargeHintLevel),
             hint: (eliminations: readonly StepScriptCandidateInterface[]) => updateRun(run => applyHint(run, eliminations)),
             undo: (fieldState: FieldStateType) => updateRunWithStats(undoMove(fieldState)),
             redo: (fieldState: FieldStateType) => updateRunWithStats(redoMove(fieldState)),

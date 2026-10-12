@@ -6,7 +6,7 @@ export const defaultScoringConfig: ScoringConfigInterface = {
     correctMinValue: 5,
     correctValue: 10,
     elapsedCoefficient: 0.01,
-    hintCoefficient: 0.5,
+    hintCoefficient: 0.125,
     lastInColCoefficientConstant: 2,
     lastInGroupCoefficientConstant: 3,
     lastInRowCoefficientConstant: 2,
