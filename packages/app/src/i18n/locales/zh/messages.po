@@ -2041,10 +2041,8 @@ msgstr "错误太多"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "记录你已完成的数独、最佳用时和各个难度的分数。"
 
-#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
-
 #: src/@generic/components/boot-failure/boot-failure.tsx
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "重试"
 

@@ -2041,10 +2041,8 @@ msgstr "Terlalu banyak kesalahan"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Pantau sudoku yang sudah kamu selesaikan, waktu terbaik, dan skor di semua tingkat kesulitan."
 
-#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
-
 #: src/@generic/components/boot-failure/boot-failure.tsx
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Coba lagi"
 

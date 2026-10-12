@@ -2043,10 +2043,8 @@ msgstr "Trop d’erreurs"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Suivez vos grilles de sudoku résolues, vos meilleurs temps et vos scores dans tous les niveaux de difficulté."
 
-#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
-
 #: src/@generic/components/boot-failure/boot-failure.tsx
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Réessayer"
 

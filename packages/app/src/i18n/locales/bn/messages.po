@@ -2041,10 +2041,8 @@ msgstr "খুব বেশি ভুল"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "সব কঠিনতায় আপনার সমাধান করা সুডোকু, সেরা সময় ও স্কোর দেখে নিন।"
 
-#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
-
 #: src/@generic/components/boot-failure/boot-failure.tsx
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "আবার চেষ্টা করুন"
 
