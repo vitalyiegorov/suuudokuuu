@@ -1,9 +1,9 @@
 export interface ScoredCellsInterface {
-    x: number;
-    y: number;
-    group: number;
-    values: number[];
-    isWon: boolean;
+    readonly x: number;
+    readonly y: number;
+    readonly group: number;
+    readonly values: readonly number[];
+    readonly isWon: boolean;
 }
 
 export const emptyScoredCells: ScoredCellsInterface = {
