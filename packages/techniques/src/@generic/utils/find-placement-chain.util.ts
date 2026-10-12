@@ -162,11 +162,13 @@ export const findPlacementChain = (
             return pruneChain(strategies, steps, contexts);
         }
 
+        context = applyTechniqueStep(context, step);
+
         if (steps.length >= PLACEMENT_CHAIN_MAX_STEPS) {
+            contexts.push(context);
             break;
         }
 
-        context = applyTechniqueStep(context, step);
         step = findProgressingStep(context, strategies);
     }
 
