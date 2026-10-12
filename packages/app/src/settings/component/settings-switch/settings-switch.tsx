@@ -21,7 +21,7 @@ export const SettingsSwitch = ({ setting, title, description, testID }: Props) =
         hapticImpact(ImpactFeedbackStyle.Light);
         void updateSettings({ [setting]: newValue });
     };
-    const trailing = <AppToggle onValueChange={handleValueChange} testID={testID} value={settingValue} />;
+    const trailing = <AppToggle accessibilityLabel={title} onValueChange={handleValueChange} testID={testID} value={settingValue} />;
 
     return <AppSettingsRow description={description} title={title} trailing={trailing} />;
 };

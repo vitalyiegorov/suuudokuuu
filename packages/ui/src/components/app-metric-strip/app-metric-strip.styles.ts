@@ -1,12 +1,15 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const AppMetricStripStyles = StyleSheet.create(() => ({
+export const AppMetricStripStyles = StyleSheet.create(theme => ({
     separator: {
-        height: 30,
+        backgroundColor: theme.colors.surface.border,
+        height: 28,
         marginHorizontal: 3,
         width: StyleSheet.hairlineWidth
     },
     strip: {
+        backgroundColor: theme.colors.background,
+        borderColor: 'transparent',
         alignItems: 'center',
         alignSelf: 'flex-start',
         borderCurve: 'continuous',

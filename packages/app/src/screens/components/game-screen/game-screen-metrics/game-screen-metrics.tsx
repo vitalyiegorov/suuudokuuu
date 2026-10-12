@@ -24,7 +24,7 @@ export const GameScreenMetrics = ({ elapsedTime, hasTimer, maxMistakes, maxMista
     const scoreText = String(score);
 
     return (
-        <AppMetricStrip separatorStyle={styles.separator} style={styles.container} variant="ghost">
+        <AppMetricStrip separatorStyle={styles.separator} style={styles.container}>
             <AppMetricStripItem label={t`Mistakes`} labelStyle={styles.label} style={styles.item}>
                 <GameScreenMistakesValue maxMistakes={maxMistakes} maxMistakesReached={maxMistakesReached} mistakes={mistakes} />
             </AppMetricStripItem>

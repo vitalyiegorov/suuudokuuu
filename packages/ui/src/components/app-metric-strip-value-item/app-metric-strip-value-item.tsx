@@ -3,7 +3,6 @@ import { type StyleProp, Text, type TextStyle, type ViewStyle } from 'react-nati
 import { CompactMaxFontSizeMultiplierConstant, MetricMinimumFontScaleConstant } from '../../theme/constant/font-scaling.constant';
 import { AppMetricStripItem } from '../app-metric-strip-item/app-metric-strip-item';
 import { AppMetricStripItemStyles as styles } from '../app-metric-strip-item/app-metric-strip-item.styles';
-import { useAppMetricStripColor } from '../app-metric-strip/hooks/use-app-metric-strip-color.hook';
 
 interface Props {
     readonly label: string;
@@ -15,8 +14,7 @@ interface Props {
 }
 
 export const AppMetricStripValueItem = ({ label, labelStyle, style, testID, value, valueStyle }: Props) => {
-    const { textColor } = useAppMetricStripColor();
-    const valueStyles = [styles.value, valueStyle, { color: textColor }];
+    const valueStyles = [styles.value, valueStyle];
 
     return (
         <AppMetricStripItem label={label} labelStyle={labelStyle} style={style}>

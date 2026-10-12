@@ -1,4 +1,5 @@
 import { ColorSchemaEnum } from '@suuudokuuu/progress';
+import { ReduceMotionContext } from '@suuudokuuu/ui';
 import { DarkTheme, DefaultTheme, ThemeProvider as NavigationThemeProvider } from 'expo-router';
 import { useEffect } from 'react';
 import { Appearance, Platform } from 'react-native';
@@ -6,6 +7,7 @@ import { UnistylesRuntime } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { useSettings } from '../../../settings/query/use-settings.query';
 import { updateSettings } from '../../../settings/utils/update-settings.util';
 import { ThemeContext } from '../../context/theme.context';
@@ -26,6 +28,7 @@ interface Props {
 export const ThemeProvider = ({ children }: Props) => {
     const { isDarkColorSchema, theme: selectedTheme } = useSettings();
     const customThemes = useCustomThemes();
+    const isMotionReduced = useReduceMotion();
 
     const colorScheme = isDarkColorSchema ? ColorSchemaEnum.Dark : ColorSchemaEnum.Light;
     const unistylesThemeName = getUnistylesThemeName(selectedTheme, colorScheme);
@@ -65,7 +68,9 @@ export const ThemeProvider = ({ children }: Props) => {
 
     return (
         <ThemeContext value={value}>
-            <NavigationThemeProvider value={fullNavigationTheme}>{children}</NavigationThemeProvider>
+            <NavigationThemeProvider value={fullNavigationTheme}>
+                <ReduceMotionContext value={isMotionReduced}>{children}</ReduceMotionContext>
+            </NavigationThemeProvider>
         </ThemeContext>
     );
 };

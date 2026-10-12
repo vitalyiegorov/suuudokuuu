@@ -65,7 +65,7 @@ export const CompletedGameItem = ({ game }: Props) => {
                 ) : null}
             </View>
 
-            <AppMetricStrip style={styles.metrics} variant="ghost">
+            <AppMetricStrip style={styles.metrics}>
                 <HistoryMetric label={t`Score`} value={String(game.score)} />
                 <HistoryMetric label={t`Time`} value={elapsedTimeText} />
                 <HistoryMetric label={t`Mistakes`} value={mistakesValue} />

@@ -69,7 +69,7 @@ export const UkraineSupportCard = ({ context = 'neutral', testID, variant = 'fil
                 testID={testID}
                 text={t`Help Ukraine win`}
                 textStyle={styles.buttonText}
-                variant="donation"
+                variant="inverted"
             />
         </AppSurfaceCard>
     );

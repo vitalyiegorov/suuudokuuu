@@ -1,23 +1,30 @@
 import type { ThemeInterface } from './theme.interface';
 
 export interface UnistylesThemeInterface {
-    colors: ThemeInterface['colors'];
-    spacing: {
-        xs: number;
-        sm: number;
-        md: number;
-        lg: number;
-        xl: number;
-        xxl: number;
+    readonly colors: ThemeInterface['colors'];
+    readonly spacing: {
+        readonly xs: number;
+        readonly sm: number;
+        readonly md: number;
+        readonly lg: number;
+        readonly xl: number;
+        readonly xxl: number;
     };
-    typography: {
-        fontFamily: string;
-        size: { xs: number; sm: number; md: number; lg: number; xl: number; xxl: number };
-        weight: { regular: '400'; medium: '500'; bold: '700' };
+    readonly typography: {
+        readonly fontFamily: string;
+        readonly size: {
+            readonly xs: number;
+            readonly sm: number;
+            readonly md: number;
+            readonly lg: number;
+            readonly xl: number;
+            readonly xxl: number;
+        };
+        readonly weight: { readonly regular: '400'; readonly medium: '500'; readonly bold: '700' };
     };
-    radius: { sm: number; md: number; lg: number; pill: number };
-    contentWidth: {
-        narrow: number;
-        standard: number;
+    readonly radius: { readonly sm: number; readonly md: number; readonly lg: number; readonly pill: number };
+    readonly contentWidth: {
+        readonly narrow: number;
+        readonly standard: number;
     };
 }

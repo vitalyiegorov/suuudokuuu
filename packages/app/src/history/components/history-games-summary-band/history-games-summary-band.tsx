@@ -51,21 +51,21 @@ export const HistoryGamesSummaryBand = ({ stats }: Props) => {
 
     return (
         <View style={styles.container} testID={HistoryGamesSummaryBandSelectors.Root}>
-            <AppMetricStrip separatorStyle={styles.separator} style={styles.strip} variant="ghost">
+            <AppMetricStrip separatorStyle={styles.separator} style={styles.strip}>
                 <HistoryMetric label={t`Win rate`} value={winRateText} />
                 <HistoryMetric label={t`Best score`} value={bestScoreText} />
                 <HistoryMetric label={t`Best time`} value={bestTimeValueText} />
                 <HistoryMetric label={t`Average`} value={averageTimeText} />
             </AppMetricStrip>
 
-            <AppMetricStrip separatorStyle={styles.separator} style={styles.strip} variant="ghost">
+            <AppMetricStrip separatorStyle={styles.separator} style={styles.strip}>
                 <HistoryMetric label={t`Won`} value={String(gamesWon)} />
                 <HistoryMetric label={t`Lost`} value={String(gamesLost)} />
                 <HistoryMetric label={t`Clean`} value={String(gamesWonWithoutMistakes)} />
             </AppMetricStrip>
 
             {isNotEmptyArray(outcomeMetrics) ? (
-                <AppMetricStrip separatorStyle={styles.separator} style={styles.strip} variant="ghost">
+                <AppMetricStrip separatorStyle={styles.separator} style={styles.strip}>
                     {outcomeMetrics}
                 </AppMetricStrip>
             ) : null}

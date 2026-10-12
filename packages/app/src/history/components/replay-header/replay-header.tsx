@@ -51,7 +51,7 @@ export const ReplayHeader = ({ game }: Props) => {
     );
 
     return (
-        <AppMetricStrip separatorStyle={styles.separator} style={styles.container} variant="ghost">
+        <AppMetricStrip separatorStyle={styles.separator} style={styles.container}>
             {levelItem}
             <AppMetricStripValueItem
                 label={t`Score`}

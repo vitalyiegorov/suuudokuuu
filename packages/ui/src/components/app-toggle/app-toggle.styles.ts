@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native-unistyles';
 
 import { AppToggleKnobInset, AppToggleKnobSize, AppToggleTrackHeight, AppToggleTrackWidth } from './constant/app-toggle-size.constant';
 
-export const AppToggleStyles = StyleSheet.create(() => ({
+export const AppToggleStyles = StyleSheet.create(theme => ({
     knob: {
         borderRadius: AppToggleKnobSize / 2,
         height: AppToggleKnobSize,
@@ -28,6 +28,7 @@ export const AppToggleStyles = StyleSheet.create(() => ({
         width: AppToggleTrackWidth
     },
     trackFill: {
+        backgroundColor: theme.colors.text.primary,
         bottom: 0,
         left: 0,
         position: 'absolute',
