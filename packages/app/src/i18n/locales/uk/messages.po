@@ -175,8 +175,8 @@ msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {la
 msgstr "{techniqueName}: підсвічені клітинки утворюють ланцюг, тож істинне {firstEnd} або {lastEnd}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
-msgstr "{techniqueName}: підсвічені клітинки містять рівно стільки цифр, скільки є клітинок, тож {valueList} мусить стояти в одній із них."
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "{techniqueName}: підсвічені клітинки містять рівно стільки цифр, скільки є клітинок, тож {valueList} може стояти лише в цих клітинках."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."

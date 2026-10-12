@@ -225,7 +225,7 @@ const eliminationRevealNarrations: Record<NarrationFamilyEnum, EliminationReveal
     [NarrationFamilyEnum.HIDDEN_SUBSET]: (techniqueName, valueList) =>
         msg`${techniqueName}: within one row, column or box, ${valueList} fit only in the highlighted cells, so those cells can hold nothing else.`,
     [NarrationFamilyEnum.LOCKED_SET]: (techniqueName, valueList) =>
-        msg`${techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so ${valueList} must go in one of them.`,
+        msg`${techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so ${valueList} can only go in these cells.`,
     [NarrationFamilyEnum.FISH]: (techniqueName, valueList) =>
         msg`${techniqueName}: in the highlighted base lines, ${valueList} fits only in the highlighted cells, so it is locked into the cover lines.`,
     [NarrationFamilyEnum.WING]: (techniqueName, valueList) =>

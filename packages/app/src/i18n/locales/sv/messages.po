@@ -173,8 +173,8 @@ msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {la
 msgstr "{techniqueName}: de markerade cellerna bildar en kedja, så {firstEnd} eller {lastEnd} är sann."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
-msgstr "{techniqueName}: de framhävda cellerna rymmer exakt lika många siffror som det finns celler, så {valueList} måste stå i en av dem."
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "{techniqueName}: de framhävda cellerna rymmer exakt lika många siffror som det finns celler, så {valueList} kan bara stå i dessa celler."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."

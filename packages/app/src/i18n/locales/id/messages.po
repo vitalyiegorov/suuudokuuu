@@ -173,8 +173,8 @@ msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {la
 msgstr "{techniqueName}: sel yang disorot membentuk sebuah rantai, sehingga {firstEnd} atau {lastEnd} benar."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
-msgstr "{techniqueName}: sel yang disorot memuat angka sebanyak jumlah selnya, sehingga {valueList} harus berada di salah satunya."
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "{techniqueName}: sel yang disorot memuat angka sebanyak jumlah selnya, sehingga {valueList} hanya bisa berada di sel-sel ini."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."

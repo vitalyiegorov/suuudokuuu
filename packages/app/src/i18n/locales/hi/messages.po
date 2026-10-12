@@ -173,8 +173,8 @@ msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {la
 msgstr "{techniqueName}: हाइलाइट की गई सेल एक शृंखला बनाती हैं, इसलिए {firstEnd} या {lastEnd} सही है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
-msgstr "{techniqueName}: हाइलाइट की गई सेल में ठीक उतने ही अंक हैं जितनी सेल हैं, इसलिए {valueList} इनमें से किसी एक में ही आएगा।"
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "{techniqueName}: हाइलाइट की गई सेल में ठीक उतने ही अंक हैं जितनी सेल हैं, इसलिए {valueList} केवल इन्हीं सेल में आ सकता है।"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."

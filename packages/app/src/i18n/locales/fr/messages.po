@@ -175,8 +175,8 @@ msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {la
 msgstr "{techniqueName} : les cases surlignées forment une chaîne, donc {firstEnd} ou {lastEnd} est vrai."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
-msgstr "{techniqueName} : les cases surlignées contiennent exactement autant de chiffres qu'il y a de cases, donc {valueList} doit aller dans l'une d'elles."
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "{techniqueName} : les cases surlignées contiennent exactement autant de chiffres qu'il y a de cases, donc {valueList} ne peut aller que dans ces cases."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."

@@ -175,8 +175,8 @@ msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {la
 msgstr "{techniqueName}: Die markierten Zellen bilden eine Kette, daher ist {firstEnd} oder {lastEnd} wahr."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
-msgstr "{techniqueName}: Die hervorgehobenen Zellen enthalten genau so viele Ziffern, wie es Zellen sind, daher muss {valueList} in eine von ihnen."
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "{techniqueName}: Die hervorgehobenen Zellen enthalten genau so viele Ziffern, wie es Zellen sind, daher kann {valueList} nur in diesen Zellen stehen."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."

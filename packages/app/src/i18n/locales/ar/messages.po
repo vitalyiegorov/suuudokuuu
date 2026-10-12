@@ -173,8 +173,8 @@ msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {la
 msgstr "{techniqueName}: تشكل الخلايا المحددة سلسلة، لذا فإما {firstEnd} صحيح أو {lastEnd} صحيح."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
-msgstr "{techniqueName}: تحتوي الخلايا المحددة على عدد من الأرقام يساوي عدد الخلايا تماماً، لذا يجب أن يوضع {valueList} في إحداها."
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "{techniqueName}: تحتوي الخلايا المحددة على عدد من الأرقام يساوي عدد الخلايا تماماً، لذا لا يمكن أن يوضع {valueList} إلا في هذه الخلايا."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."
