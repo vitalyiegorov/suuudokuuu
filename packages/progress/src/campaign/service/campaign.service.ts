@@ -21,7 +21,7 @@ export class CampaignService extends Context.Service<CampaignService>()('@suuudo
                     const previous = progress.find(row => row.technique === technique);
 
                     if (previous?.teachingSeen || !getUnlockedCampaignTechniques(progress).includes(technique)) {
-                        return false;
+                        return;
                     }
 
                     yield* campaignRepository.saveProgress({
@@ -31,8 +31,6 @@ export class CampaignService extends Context.Service<CampaignService>()('@suuudo
                         unassistedPracticeIds: previous?.unassistedPracticeIds ?? []
                     });
                     yield* campaignRepository.updateMastery(technique, 1, 0);
-
-                    return true;
                 },
                 effect => sql.withTransaction(effect),
                 Effect.orDie

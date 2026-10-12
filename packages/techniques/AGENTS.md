@@ -244,6 +244,7 @@ export {
     interactiveTechniqueOrder,
     isSolutionTechnique,
     createTechniqueStrategies,
+    CandidateContext,
     findPlacementChain,
     ChainLinkEnum,
     ForcingOutcomeKindEnum
@@ -262,6 +263,8 @@ export type {
 ```
 
 `createTechniqueStrategies` is exported so a consumer can build a `TechniqueManager` over a narrowed registry, for example a single technique. `findNextStep` always returns the first strategy in the given order that fires, so a full registry can only ever surface the simplest available technique. Several techniques — `HiddenQuad` most obviously, because its in-unit complement is always a smaller naked subset — can therefore never be observed through the default registry, and a filtered registry is the only way to detect them on demand.
+
+`CandidateContext` is exported so a consumer can list every deduction one technique makes on a board, `strategy.find(CandidateContext.fromSudoku(sudoku))`, where `findNextStep` returns only the first one.
 
 ## Build
 
