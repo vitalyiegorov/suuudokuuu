@@ -23,9 +23,7 @@ export const BetaScreen = () => {
             testID={BetaScreenSelectors.Root}
             title={t`Development builds`}
         >
-            {state.status === 'loading' && <BetaStatus onRetry={retry} state={state} />}
-            {state.status === 'empty' && <BetaStatus onRetry={retry} state={state} />}
-            {state.status === 'error' && <BetaStatus onRetry={retry} state={state} />}
+            {state.status !== 'ready' && <BetaStatus onRetry={retry} state={state} />}
             {state.status === 'ready' && (
                 <View accessibilityLiveRegion="polite" style={styles.readyContent}>
                     <BetaReleaseDetails release={state.release} />

@@ -10,6 +10,12 @@ export const gameTimerFocusEffect = (openPauseScreen: () => void) =>
     Effect.gen(function* () {
         const currentRunService = yield* CurrentRunService;
         const currentRunRepository = yield* CurrentRunRepository;
+        const { isChallengeRun, shouldRunTimer } = yield* currentRunService.focus();
+
+        if (!shouldRunTimer) {
+            return;
+        }
+
         const appStates = yield* Queue.unbounded<AppStateStatus>();
 
         yield* Effect.acquireRelease(
@@ -17,7 +23,6 @@ export const gameTimerFocusEffect = (openPauseScreen: () => void) =>
             subscription => Effect.sync(() => void subscription.remove())
         );
 
-        const { isChallengeRun, shouldRunTimer } = yield* currentRunService.focus();
         const tickForever = Effect.forever(Effect.andThen(Effect.sleep(Duration.seconds(1)), currentRunRepository.tick));
         const nextAppState = Queue.take(appStates);
 
@@ -40,10 +45,6 @@ export const gameTimerFocusEffect = (openPauseScreen: () => void) =>
             tickForever,
             Effect.repeat(nextAppState, { until: appState => appState !== 'active' })
         ).pipe(Effect.andThen(currentRunService.pause()), Effect.andThen(Effect.sync(openPauseScreen)));
-
-        if (!shouldRunTimer) {
-            return;
-        }
 
         yield* isChallengeRun ? runChallengeTimer(true) : pauseOnBackground;
     }).pipe(Effect.scoped);

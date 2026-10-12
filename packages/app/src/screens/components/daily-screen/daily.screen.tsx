@@ -29,7 +29,7 @@ import { DailyScreenStyles as styles } from './daily-screen.styles';
 
 const DailyScreenBottomScrollPadding = 12;
 const DailyScreenTopContentPadding = 12;
-const DailyScreenTopOverlayIntensity = 0.12;
+const DailyScreenTopOverlayIntensity = 70;
 
 export const DailyScreen = () => {
     const { t } = useLingui();

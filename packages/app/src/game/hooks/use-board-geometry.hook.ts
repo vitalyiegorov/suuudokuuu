@@ -9,12 +9,10 @@ import { gameGetBoardGeometry } from '../utils/game-get-board-geometry.util';
 import type { BoardAreaGeometryInterface } from '../interface/board-area-geometry.interface';
 import type { LayoutChangeEvent } from 'react-native';
 
-let lastMeasuredBoardArea = { width: 0, height: 0 };
-
 export const useBoardGeometry = (reservedHeight: number): BoardAreaGeometryInterface => {
     const { cellMargin } = useSettings();
 
-    const [boardArea, setBoardArea] = useState(lastMeasuredBoardArea);
+    const [boardArea, setBoardArea] = useState({ width: 0, height: 0 });
 
     const onBoardAreaLayout = (event: LayoutChangeEvent) => {
         const { width, height } = event.nativeEvent.layout;
@@ -23,9 +21,7 @@ export const useBoardGeometry = (reservedHeight: number): BoardAreaGeometryInter
             return;
         }
 
-        lastMeasuredBoardArea = { width, height };
-
-        setBoardArea(lastMeasuredBoardArea);
+        setBoardArea({ width, height });
     };
 
     const boardGeometry = gameGetBoardGeometry({

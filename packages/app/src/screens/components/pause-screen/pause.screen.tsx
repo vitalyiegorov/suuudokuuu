@@ -3,7 +3,7 @@ import { Redirect, useRouter } from 'expo-router';
 import { use } from 'react';
 import { View } from 'react-native';
 
-import { isNotEmptyString } from '@rnw-community/shared';
+import { emptyFn, isNotEmptyString } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
@@ -39,8 +39,7 @@ export const PauseScreen = () => {
     const handleResume = useResumeGame();
     const handleShare = useShareGame();
     const handleConfirmedQuit = () => {
-        void runCurrentRunCommand(currentRunService => currentRunService.reset);
-        router.dismissTo('/');
+        void runCurrentRunCommand(currentRunService => currentRunService.reset).then(() => void router.dismissTo('/'), emptyFn);
     };
     const handleQuit = () => {
         Alert(t`Stop current run?`, t`All progress will be lost`, [

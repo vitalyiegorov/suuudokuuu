@@ -9,6 +9,7 @@ import { currentRunAtom } from '../query/use-current-run.query';
 export const runCurrentRunCommand = <A>(command: (currentRunService: CurrentRunService['Service']) => Effect.Effect<A>) =>
     appRuntime.runPromise(
         Effect.flatMap(CurrentRunService, command).pipe(
-            Effect.tap(() => AtomRegistry.getResult(appAtomRegistry, currentRunAtom, { suspendOnWaiting: true }))
+            Effect.tap(() => AtomRegistry.getResult(appAtomRegistry, currentRunAtom, { suspendOnWaiting: true })),
+            Effect.tapCause(Effect.logError)
         )
     );

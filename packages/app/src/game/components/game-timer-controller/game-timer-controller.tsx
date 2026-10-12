@@ -1,3 +1,4 @@
+import * as Effect from 'effect/Effect';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback } from 'react';
 
@@ -9,7 +10,9 @@ export const GameTimerController = () => {
 
     useFocusEffect(
         useCallback(() => {
-            const timerFiber = appRuntime.runFork(gameTimerFocusEffect(() => void replace('/pause')));
+            const timerFiber = appRuntime.runFork(
+                gameTimerFocusEffect(() => void replace('/pause')).pipe(Effect.tapCause(Effect.logError))
+            );
 
             return () => void timerFiber.interruptUnsafe();
         }, [replace])

@@ -101,10 +101,7 @@ export const AvailableValuesItem = (props: Props) => {
         triggerAnimation: triggerAnimationFn
     }));
 
-    const handlePress = () => {
-        triggerAnimationFn();
-        onSelect?.(value);
-    };
+    const handlePress = () => onSelect?.(value);
 
     const isExhausted = progress >= DigitButtonExhaustedProgressConstant;
     const buttonStyles = [

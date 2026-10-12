@@ -88,13 +88,19 @@ export const ThemeEditorScreen = () => {
         setEditedToken(null);
     };
     const persistDraft = () => {
-        void appRuntime.runPromise(
+        appRuntime.runFork(
             Effect.flatMap(CustomThemeRepository, customThemeRepository =>
                 customThemeRepository.upsert({ ...draftTheme, name: draftTheme.name.trim(), updatedAt: Date.now() })
+            ).pipe(
+                Effect.tap(() =>
+                    Effect.sync(() => {
+                        changeTheme(draftTheme.id);
+                        leaveEditor();
+                    })
+                ),
+                Effect.tapCause(Effect.logError)
             )
         );
-        changeTheme(draftTheme.id);
-        leaveEditor();
     };
     const handleSave = () => {
         if (!isNotEmptyString(draftTheme.name.trim())) {
@@ -121,15 +127,19 @@ export const ThemeEditorScreen = () => {
                 text: t`Delete`,
                 style: 'destructive',
                 onPress: () => {
-                    void appRuntime.runPromise(
-                        Effect.flatMap(CustomThemeRepository, customThemeRepository => customThemeRepository.remove(draftTheme.id))
+                    appRuntime.runFork(
+                        Effect.flatMap(CustomThemeRepository, customThemeRepository => customThemeRepository.remove(draftTheme.id)).pipe(
+                            Effect.tap(() =>
+                                Effect.sync(() => {
+                                    if (activeThemeId === draftTheme.id) {
+                                        changeTheme(draftTheme.sourceTheme);
+                                    }
+                                    leaveEditor();
+                                })
+                            ),
+                            Effect.tapCause(Effect.logError)
+                        )
                     );
-
-                    if (activeThemeId === draftTheme.id) {
-                        changeTheme(draftTheme.sourceTheme);
-                    }
-
-                    leaveEditor();
                 }
             }
         ]);
@@ -147,12 +157,14 @@ export const ThemeEditorScreen = () => {
         const draftThemeName = draftTheme.name;
         const duplicateName = t`${draftThemeName} copy`;
 
-        void appRuntime.runPromise(
+        appRuntime.runFork(
             Effect.flatMap(CustomThemeRepository, customThemeRepository =>
                 customThemeRepository.upsert(createCustomTheme(duplicateName, draftTheme.id, customThemes, Date.now()))
+            ).pipe(
+                Effect.tap(() => Effect.sync(leaveEditor)),
+                Effect.tapCause(Effect.logError)
             )
         );
-        leaveEditor();
     };
     const handleSelectLightVariant = () => void setVariant(ColorSchemaEnum.Light);
     const handleSelectDarkVariant = () => void setVariant(ColorSchemaEnum.Dark);
