@@ -1,0 +1,1 @@
+Sudoku offline mit Entspannt ohne Fehlerlimit und eigenen Themes.

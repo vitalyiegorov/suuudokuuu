@@ -1,0 +1,3 @@
+teknik sudoku
+putar ulang sudoku
+riwayat langkah sudoku
