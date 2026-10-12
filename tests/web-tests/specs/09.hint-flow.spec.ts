@@ -416,7 +416,7 @@ for (const viewport of [
     { width: landscapeViewportWidth, height: landscapeViewportHeight }
 ]) {
     const { width, height } = viewport;
-    test(`renders structured chain blocks inside the safe-area gap at ${width}px`, async ({ page }) => {
+    test(`renders structured chain blocks inside the safe-area gap at ${width}px`, async ({ page }, testInfo) => {
         await page.setViewportSize(viewport);
         await launchHome(page);
         await openSharedPuzzle(page, structuredChainHintSharedPuzzleEncodedConstant);
@@ -447,7 +447,7 @@ for (const viewport of [
             /If r8c4=6 → r9c4=7 → .+So r8c4 is not 6\./u
         );
 
-        await page.screenshot({ scale: 'css', path: `../../.scratch/short-narration-hint-chain-${width}.png` });
+        await page.screenshot({ scale: 'css', path: testInfo.outputPath(`short-narration-hint-chain-${width}.png`) });
         await expect(page.getByTestId(HintStepNarrationSelectors.CHAIN_BLOCKS)).toBeVisible();
         await expect(page.getByTestId(HintStepNarrationSelectors.CHAIN_BLOCKS)).toContainText(/R\dC\d = \d/u);
 
@@ -468,7 +468,7 @@ for (const viewport of [
         await expect(finalCandidate).toBeInViewport({ ratio: 1 });
         await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toBeInViewport({ ratio: 1 });
         await expect(page.getByTestId(HintStepNarrationSelectors.CONTRADICTION).last()).toBeVisible();
-        await page.screenshot({ scale: 'css', path: `../../.scratch/short-narration-hint-chain-outcome-${width}.png` });
+        await page.screenshot({ scale: 'css', path: testInfo.outputPath(`short-narration-hint-chain-outcome-${width}.png`) });
 
         const panel = await page.getByTestId(HintPanelSelectors.Root).boundingBox();
 
