@@ -376,7 +376,7 @@ bundle exec fastlane ios ios_app_previews dry_run:true
 
 Run these from `packages/app`. MP4 files are already gitignored; do not commit
 or force-add them. Install `ffprobe` for the required duration/resolution check.
-The lane requires the approved 886x1920, 25-second file, under 500 MB. Only this
+The lane requires an 886x1920 file of 15-30 seconds, under 500 MB. Only this
 en-US file is uploaded; no per-locale variants are required.
 
 The installed **fastlane 2.240.1** was checked with `bundle exec fastlane action

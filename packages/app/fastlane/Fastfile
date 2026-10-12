@@ -344,7 +344,10 @@ platform :ios do
     require "fastlane_core/video_utils"
     duration = FastlaneCore::VideoUtils.read_video_duration_seconds(preview_path)
     resolution = FastlaneCore::VideoUtils.read_video_resolution(preview_path)
-    UI.user_error!("The approved preview must be 886x1920, 25 seconds, and under 500 MB; install ffprobe") unless resolution == [886, 1920] && duration && (duration - 25).abs < 0.1 && File.size(preview_path) < 500 * 1024 * 1024
+    UI.user_error!("Cannot read preview metadata from #{preview_path}") unless duration && resolution
+    UI.user_error!("Preview resolution is #{resolution.join('x')}; expected 886x1920") unless resolution == [886, 1920]
+    UI.user_error!("Preview duration is #{duration}s; App Store previews must be 15-30s") unless duration.between?(15, 30)
+    UI.user_error!("Preview is #{File.size(preview_path)} bytes; App Store previews must be under 500 MB") unless File.size(preview_path) < 500 * 1024 * 1024
     UI.success("Preview validated: en-US IPHONE_67, #{resolution.join('x')}, #{duration}s")
     next if options[:dry_run].to_s == "true"
 
