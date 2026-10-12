@@ -5,8 +5,7 @@ import { use } from 'react';
 import { isDefined } from '@rnw-community/shared';
 
 import { GameContext } from '../../context/game.context';
-import { useGameHistoryControls } from '../../hooks/use-game-history-controls.hook';
-import { useCurrentRun } from '../../query/use-current-run.query';
+import { gameGetHistoryControls } from '../../utils/game-get-history-controls.util';
 import { GameHistoryButton } from '../game-history-button/game-history-button';
 
 import { RedoButtonSelectors } from './redo-button.selectors';
@@ -21,14 +20,9 @@ export const RedoButton = ({ sizeStyle }: Props) => {
     const { t } = useLingui();
     const { engine, snapshot } = use(GameContext);
 
-    const { isChallengeRun, maxMistakes } = useCurrentRun();
-    const { handleRedo } = useGameHistoryControls(engine);
+    const { handleRedo } = gameGetHistoryControls(engine);
 
     const isDisabled = !snapshot.canRedo || isDefined(snapshot.stepScript) || snapshot.isWon;
-
-    if (isChallengeRun || maxMistakes === 0) {
-        return null;
-    }
 
     return (
         <GameHistoryButton

@@ -5,6 +5,7 @@ import { HintButton } from '../../../../game/components/hint-button/hint-button'
 import { InputModeButton } from '../../../../game/components/input-mode-button/input-mode-button';
 import { RedoButton } from '../../../../game/components/redo-button/redo-button';
 import { UndoButton } from '../../../../game/components/undo-button/undo-button';
+import { useCurrentRun } from '../../../../game/query/use-current-run.query';
 
 import { GameInputToolsStyles as styles } from './game-input-tools.styles';
 
@@ -13,15 +14,24 @@ interface Props {
     readonly isLeftHanded: boolean;
 }
 
-export const GameInputTools = ({ hideAutoCandidates, isLeftHanded }: Props) => (
-    <View style={styles.inputControls(isLeftHanded)}>
-        <View style={styles.utilityGroup}>
-            <UndoButton sizeStyle={styles.toolButton} />
-            <RedoButton sizeStyle={styles.toolButton} />
-            {hideAutoCandidates ? null : <AutoCandidatesButton sizeStyle={styles.toolButton} />}
-            <HintButton sizeStyle={styles.toolButton} />
-        </View>
+export const GameInputTools = ({ hideAutoCandidates, isLeftHanded }: Props) => {
+    const { isChallengeRun, maxMistakes } = useCurrentRun();
+    const canUseHistoryControls = !isChallengeRun && maxMistakes !== 0;
 
-        <InputModeButton sizeStyle={styles.primaryToolButton} />
-    </View>
-);
+    return (
+        <View style={styles.inputControls(isLeftHanded)}>
+            <View style={styles.utilityGroup}>
+                {canUseHistoryControls ? (
+                    <>
+                        <UndoButton sizeStyle={styles.toolButton} />
+                        <RedoButton sizeStyle={styles.toolButton} />
+                    </>
+                ) : null}
+                {hideAutoCandidates ? null : <AutoCandidatesButton sizeStyle={styles.toolButton} />}
+                <HintButton sizeStyle={styles.toolButton} />
+            </View>
+
+            <InputModeButton sizeStyle={styles.primaryToolButton} />
+        </View>
+    );
+};
