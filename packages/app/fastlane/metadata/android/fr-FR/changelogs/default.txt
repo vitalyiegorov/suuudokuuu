@@ -1,7 +1,5 @@
-Nouveaux Paramètres, Statistiques et Défi du jour.
-Paramètres : sections claires et nouvel interrupteur fluide.
-Statistiques : récapitulatif en bloc de sudoku et échelle de difficulté.
-Défi du jour : semaine, série, résolutions récentes, compte à rebours, partage.
-Des indices fiables, même en fin de partie difficile.
-Les noms d'onglets longs tiennent désormais dans la barre.
-Explications plus claires, série et compte à rebours traduits aussitôt, petites retouches.
+Les indices s'ouvrent en quatre étapes : technique, cases clés, démonstration, puis le coup. Chaque étape coûte un quart d'indice.
+Les indices vont droit au prochain chiffre et nomment le bloc, la ligne ou la colonne exacts.
+Continuer et Révéler fonctionnent sur chaque diapositive.
+Les grilles sont générées en arrière-plan : les parties difficiles démarrent sans figer.
+Les liens du store et du site ouvrent l'app avec la difficulté prête à jouer.

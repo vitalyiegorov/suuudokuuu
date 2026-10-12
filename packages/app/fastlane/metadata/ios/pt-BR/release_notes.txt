@@ -1,9 +1,8 @@
-Novas telas de Configurações, Estatísticas e Desafio diário, e dicas com que você sempre pode contar.
+Dicas que ensinam passo a passo, jogos novos mais rápidos e jogo com teclado mais fluido.
 
-• As Configurações estão agrupadas em seções claras, com um novo interruptor suave que fica igual em qualquer aparelho.
-• As Estatísticas começam com seu progresso em um bloco de sudoku, seguido de uma escada de dificuldade com sua taxa de vitórias em cada nível.
-• O Desafio diário mostra sua semana num relance, sua sequência e suas soluções recentes. Depois de resolver o sudoku do dia, uma contagem regressiva mostra quando chega o próximo, e você pode compartilhar seu resultado.
-• As dicas agora funcionam de forma confiável mesmo no fim dos jogos mais difíceis.
-• As explicações das dicas mostram com mais clareza quais dígitos ficam confinados às células destacadas.
-• A sequência, a contagem regressiva e os pontos mudam na hora quando você troca o idioma.
-• Pequenos ajustes: os botões de início do Inferno e do Infinito mostram o carregamento na cor certa, a taxa de vitórias cabe em uma linha, o nível na Repetição aparece no modo escuro, nomes longos de abas agora cabem na barra de abas, e a barra fica fixa durante a rolagem.
+• As dicas agora abrem em quatro passos: primeiro a técnica e onde olhar, depois as células-chave, em seguida um passo a passo guiado e só então a jogada. Cada passo custa um quarto de uma dica completa, então você paga só pela ajuda que usa.
+• As dicas vão direto ao próximo dígito que você pode colocar. As dicas de apontamento, região-linha e subconjuntos agora indicam a região, linha ou coluna exata e as células que elas liberam.
+• Continuar e Revelar funcionam em todos os slides de uma dica.
+• Os novos quebra-cabeças são gerados em segundo plano, então iniciar até o jogo mais difícil não congela mais o app.
+• Jogar com teclado físico no iPhone e no iPad não deixa mais o processador ocupado.
+• Os links da App Store e do nosso site abrem o app com uma dificuldade correspondente pronta para começar.
