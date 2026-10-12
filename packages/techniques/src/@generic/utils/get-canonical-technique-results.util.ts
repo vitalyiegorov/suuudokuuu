@@ -5,12 +5,16 @@ import type { TechniqueResultInterface } from '../interfaces/technique-result.in
 const getCandidateKey = (cell: TechniqueResultInterface['cell'], value: number): string => `${cell.y}:${cell.x}:${value}`;
 
 const getDeductionKey = (result: TechniqueResultInterface): string => {
+    if (result.kind === 'placement') {
+        return `${result.technique}:0:${getCandidateKey(result.cell, result.value)}`;
+    }
+
     const eliminationKey = result.eliminations
         .map(elimination => getCandidateKey(elimination.cell, elimination.value))
         .sort()
         .join(',');
 
-    return `${result.technique}:${eliminationKey}`;
+    return `${result.technique}:1:${eliminationKey}`;
 };
 
 const getReasonPathKey = (result: TechniqueResultInterface): string => result.reasonCells.map(cell => `${cell.y}:${cell.x}`).join(',');
