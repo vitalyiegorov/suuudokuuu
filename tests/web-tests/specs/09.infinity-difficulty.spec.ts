@@ -61,3 +61,16 @@ test('round-trips a shared Infinity link end to end with its rating carried onto
 
     await quitCurrentGame(page, PauseScreenSelectors.QuitButton);
 });
+
+test('pauses an Infinity run when the document backgrounds before game initialization', async ({ page }) => {
+    await launchHome(page);
+    await page.getByTestId(infinityOptionTestId).click();
+
+    await sendAppToBackground(page);
+    await page.getByTestId(HomeScreenSelectors.StartButton).click();
+    await expect(page.getByTestId(PauseScreenSelectors.Root)).toBeVisible({ timeout: pauseScreenTimeoutMilliseconds });
+    await bringAppToForeground(page);
+
+    await expect(page.getByTestId(PauseScreenSelectors.DetailsValue)).toHaveText(/Infinity · \d+\.\d\+? • /u);
+    await quitCurrentGame(page, PauseScreenSelectors.QuitButton);
+});
