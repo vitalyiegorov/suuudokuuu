@@ -936,6 +936,7 @@ msgstr "Text för ledtråd"
 msgid "Hints on the hardest puzzles"
 msgstr "Ledtrådar i de svåraste sudokun"
 
+#: src/challenge/components/challenge-result-home-button/challenge-result-home-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -2041,6 +2042,9 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "Följ dina lösta sudokun, bästa tider och poäng i alla svårighetsgrader."
 
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
 msgstr "Försök igen"
 
@@ -2051,6 +2055,10 @@ msgstr "Försök igen"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "Ukraina fortsätter kämpa"
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+msgid "Unable to load your game"
+msgstr "Det gick inte att läsa in ditt spel"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"

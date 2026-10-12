@@ -938,6 +938,7 @@ msgstr "Текст підказки"
 msgid "Hints on the hardest puzzles"
 msgstr "Підказки в найскладніших судоку"
 
+#: src/challenge/components/challenge-result-home-button/challenge-result-home-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -2043,6 +2044,9 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "Стежте за розв’язаними судоку, найкращим часом і балами на всіх рівнях складності."
 
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
 msgstr "Спробувати ще раз"
 
@@ -2053,6 +2057,10 @@ msgstr "Спробувати ще раз"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "Україна продовжує боротися"
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+msgid "Unable to load your game"
+msgstr "Не вдалося завантажити вашу гру"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"

@@ -9,7 +9,6 @@ import { getDefaultSettings } from '../../settings/utils/get-default-settings.ut
 import { getTheme } from '../../theme/utils/get-theme.util';
 import { appAtomRuntime } from '../runtime/app.runtime';
 
-import { hideAppSplashScreen } from './hide-app-splash-screen';
 import { i18nActivateLanguage } from './i18n-catalogs';
 
 import type { AppServices } from '../runtime/app.runtime';
@@ -30,7 +29,7 @@ const importLegacyState = Effect.gen(function* () {
     yield* Effect.promise(() => Storage.removeItem(LegacyPersistedRootKey));
 }).pipe(Effect.tapCause(Effect.logError), Effect.ignoreCause);
 
-const databaseBootAtom = appAtomRuntime
+export const databaseBootAtom = appAtomRuntime
     .atom(
         Effect.gen(function* () {
             const settingsRepository = yield* SettingsRepository;
@@ -41,7 +40,7 @@ const databaseBootAtom = appAtomRuntime
 
             const { language } = yield* settingsRepository.get;
 
-            yield* Effect.promise(() => i18nActivateLanguage(language).then(hideAppSplashScreen));
+            yield* i18nActivateLanguage(language);
         }).pipe(Effect.tapCause(Effect.logError))
     )
     .pipe(Atom.keepAlive);

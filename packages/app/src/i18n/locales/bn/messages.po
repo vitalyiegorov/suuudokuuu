@@ -936,6 +936,7 @@ msgstr "সংকেতের লেখা"
 msgid "Hints on the hardest puzzles"
 msgstr "সবচেয়ে কঠিন সুডোকুতে সংকেত"
 
+#: src/challenge/components/challenge-result-home-button/challenge-result-home-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -2041,6 +2042,9 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "সব কঠিনতায় আপনার সমাধান করা সুডোকু, সেরা সময় ও স্কোর দেখে নিন।"
 
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
 msgstr "আবার চেষ্টা করুন"
 
@@ -2051,6 +2055,10 @@ msgstr "আবার চেষ্টা করুন"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "ইউক্রেন লড়াই চালিয়ে যাচ্ছে"
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+msgid "Unable to load your game"
+msgstr "আপনার খেলা লোড করা যায়নি"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"

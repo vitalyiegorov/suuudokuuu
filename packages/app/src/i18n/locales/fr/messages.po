@@ -938,6 +938,7 @@ msgstr "Texte d'indice"
 msgid "Hints on the hardest puzzles"
 msgstr "Indices dans les grilles les plus dures"
 
+#: src/challenge/components/challenge-result-home-button/challenge-result-home-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -2043,6 +2044,9 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "Suivez vos grilles de sudoku résolues, vos meilleurs temps et vos scores dans tous les niveaux de difficulté."
 
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Try again"
 msgstr "Réessayer"
 
@@ -2053,6 +2057,10 @@ msgstr "Réessayer"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "L’Ukraine continue de se battre"
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+msgid "Unable to load your game"
+msgstr "Impossible de charger votre partie"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"

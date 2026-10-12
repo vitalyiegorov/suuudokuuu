@@ -1,6 +1,11 @@
+import './i18n-plural-rules.polyfill';
 import { i18n } from '@lingui/core';
-
-import { emptyFn } from '@rnw-community/shared';
+import * as Cause from 'effect/Cause';
+import * as Effect from 'effect/Effect';
+import * as Fiber from 'effect/Fiber';
+import * as Option from 'effect/Option';
+import * as Ref from 'effect/Ref';
+import * as Semaphore from 'effect/Semaphore';
 
 import { messages as enMessages } from '../../i18n/locales/en/messages';
 
@@ -25,16 +30,33 @@ const catalogLoaders: Record<SettingsType['language'], () => Promise<{ messages:
 i18n.load({ en: enMessages });
 i18n.activate('en');
 
-let requestedLanguage: SettingsType['language'] = 'en';
+const activationSemaphore = Semaphore.makeUnsafe(1);
+const activationFiber = Ref.makeUnsafe(Option.none<Fiber.Fiber<void, Cause.UnknownError>>());
 
-export const i18nActivateLanguage = (language: SettingsType['language']): Promise<void> => {
-    requestedLanguage = language;
+export const i18nActivateLanguage = Effect.fn('i18nActivateLanguage')(function* (language: SettingsType['language']) {
+    const fiber = yield* activationSemaphore.withPermit(
+        Effect.gen(function* () {
+            const previousFiber = yield* Ref.get(activationFiber);
 
-    if (language === i18n.locale) {
-        return Promise.resolve();
-    }
+            if (Option.isSome(previousFiber)) {
+                yield* Fiber.interrupt(previousFiber.value);
+            }
 
-    return catalogLoaders[language]()
-        .then(({ messages }) => void (requestedLanguage === language && i18n.loadAndActivate({ locale: language, messages })))
-        .catch(emptyFn);
-};
+            const nextFiber = yield* Effect.forkChild(
+                Effect.gen(function* () {
+                    if (language !== i18n.locale) {
+                        const { messages } = yield* Effect.tryPromise(catalogLoaders[language]);
+
+                        yield* Effect.sync(() => void i18n.loadAndActivate({ locale: language, messages }));
+                    }
+                })
+            );
+
+            yield* Ref.set(activationFiber, Option.some(nextFiber));
+
+            return nextFiber;
+        })
+    );
+
+    yield* Fiber.join(fiber);
+});
