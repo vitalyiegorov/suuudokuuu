@@ -302,7 +302,7 @@ msgstr "संकेत लागू करना"
 msgid "Assists"
 msgstr "सहायताएँ"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "नवीनतम डेवलपमेंट बिल्ड को फिर से लोड करने का प्रयास करता है"
 
@@ -454,7 +454,7 @@ msgstr "सेल स्पेसिंग"
 msgid "Challenge"
 msgstr "चुनौती"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Back"
 msgstr "वापस चुनौती दें"
 
@@ -462,7 +462,7 @@ msgstr "वापस चुनौती दें"
 msgid "Challenge lost"
 msgstr "चुनौती हारी"
 
-#: src/app/challenge-lost.tsx
+#: src/screens/components/challenge-lost-screen/challenge-lost.screen.tsx
 msgid "Challenge Lost"
 msgstr "चुनौती हारी"
 
@@ -478,7 +478,7 @@ msgstr "चैलेंज गेम रोके नहीं जा सकत�
 msgid "Challenge won"
 msgstr "चुनौती जीती"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Won!"
 msgstr "चुनौती जीती!"
 
@@ -648,7 +648,7 @@ msgstr "थीम हटाएं"
 msgid "Deutsch"
 msgstr "Deutsch"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Development build unavailable"
 msgstr "डेवलपमेंट बिल्ड उपलब्ध नहीं है"
 
@@ -1072,11 +1072,11 @@ msgstr "हल्का ओवरले"
 msgid "Light warm-up"
 msgstr "हल्का वार्म-अप"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "डेवलपमेंट बिल्ड लोड हो रहा है"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "नवीनतम डेवलपमेंट बिल्ड लोड हो रहा है…"
 
@@ -1211,11 +1211,11 @@ msgstr "निशियो बाध्यकारी शृंखला"
 msgid "no bonus"
 msgstr "कोई बोनस नहीं"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "अभी तक कोई पूरा डेवलपमेंट बिल्ड प्रकाशित नहीं हुआ है। कृपया बाद में फिर से देखें।"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No development build is available"
 msgstr "कोई डेवलपमेंट बिल्ड उपलब्ध नहीं है"
 
@@ -1556,7 +1556,7 @@ msgstr "गेम जारी रखें"
 msgid "Resume this game?"
 msgstr "यह गेम जारी रखें?"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Retry loading development build"
 msgstr "डेवलपमेंट बिल्ड फिर से लोड करें"
 
@@ -2040,7 +2040,7 @@ msgstr "बहुत ज़्यादा गलतियाँ"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "हर कठिनाई पर अपने हल किए सुडोकू, बेस्ट समय और स्कोर देखें।"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "फिर कोशिश करें"
 
@@ -2157,7 +2157,7 @@ msgstr "W-Wing"
 msgid "Warm gold accents for a brighter board"
 msgstr "चमकदार बोर्ड के लिए गर्म सुनहरे एक्सेंट"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "नवीनतम डेवलपमेंट बिल्ड लोड नहीं किया जा सका। कृपया फिर से कोशिश करें।"
 

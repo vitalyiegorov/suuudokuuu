@@ -5,5 +5,3 @@ export type BetaReleaseState =
     | { readonly status: 'ready'; readonly release: BetaRelease }
     | { readonly status: 'empty' }
     | { readonly status: 'error' };
-
-export type BetaReleaseStatusState = Exclude<BetaReleaseState, { readonly status: 'ready' }>;

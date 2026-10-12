@@ -304,7 +304,7 @@ msgstr "Aplicar una sugerencia"
 msgid "Assists"
 msgstr "Ayudas"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "Intenta volver a cargar la compilación de desarrollo más reciente"
 
@@ -456,7 +456,7 @@ msgstr "Espaciado de celdas"
 msgid "Challenge"
 msgstr "Desafío"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Back"
 msgstr "Devolver el reto"
 
@@ -464,7 +464,7 @@ msgstr "Devolver el reto"
 msgid "Challenge lost"
 msgstr "Reto perdido"
 
-#: src/app/challenge-lost.tsx
+#: src/screens/components/challenge-lost-screen/challenge-lost.screen.tsx
 msgid "Challenge Lost"
 msgstr "Reto perdido"
 
@@ -480,7 +480,7 @@ msgstr "Las partidas de desafío no se pueden pausar y registran cuando sales de
 msgid "Challenge won"
 msgstr "Reto ganado"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Won!"
 msgstr "¡Reto ganado!"
 
@@ -650,7 +650,7 @@ msgstr "Eliminar tema"
 msgid "Deutsch"
 msgstr "Deutsch"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Development build unavailable"
 msgstr "Compilación de desarrollo no disponible"
 
@@ -1074,11 +1074,11 @@ msgstr "Superposición clara"
 msgid "Light warm-up"
 msgstr "Calentamiento ligero"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "Cargando la compilación de desarrollo"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Cargando la compilación de desarrollo más reciente…"
 
@@ -1213,11 +1213,11 @@ msgstr "Cadena forzada Nishio"
 msgid "no bonus"
 msgstr "sin bonificación"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "Todavía no se ha publicado ninguna compilación de desarrollo completa. Vuelve a comprobarlo más tarde."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No development build is available"
 msgstr "No hay ninguna compilación de desarrollo disponible"
 
@@ -1558,7 +1558,7 @@ msgstr "Reanudar partida"
 msgid "Resume this game?"
 msgstr "¿Reanudar esta partida?"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Retry loading development build"
 msgstr "Volver a cargar la compilación de desarrollo"
 
@@ -2042,7 +2042,7 @@ msgstr "Demasiados errores"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Sigue tus sudokus resueltos, tus mejores tiempos y tus puntuaciones en todas las dificultades."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Intentar de nuevo"
 
@@ -2159,7 +2159,7 @@ msgstr "W-Wing"
 msgid "Warm gold accents for a brighter board"
 msgstr "Acentos dorados cálidos para un tablero más luminoso"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "No se ha podido cargar la compilación de desarrollo más reciente. Inténtalo de nuevo."
 

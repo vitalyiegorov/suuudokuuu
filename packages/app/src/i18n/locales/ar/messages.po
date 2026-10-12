@@ -302,7 +302,7 @@ msgstr "استخدام تلميح"
 msgid "Assists"
 msgstr "المساعدات"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "يحاول تحميل أحدث إصدار تطوير مرة أخرى"
 
@@ -454,7 +454,7 @@ msgstr "تباعد الخلايا"
 msgid "Challenge"
 msgstr "التحدي"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Back"
 msgstr "رد التحدي"
 
@@ -462,7 +462,7 @@ msgstr "رد التحدي"
 msgid "Challenge lost"
 msgstr "خسرت التحدي"
 
-#: src/app/challenge-lost.tsx
+#: src/screens/components/challenge-lost-screen/challenge-lost.screen.tsx
 msgid "Challenge Lost"
 msgstr "خسرت التحدي"
 
@@ -478,7 +478,7 @@ msgstr "لا يمكن إيقاف جولات التحدي مؤقتًا، وهي �
 msgid "Challenge won"
 msgstr "فزت بالتحدي"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Won!"
 msgstr "فزت بالتحدي!"
 
@@ -648,7 +648,7 @@ msgstr "حذف السمة"
 msgid "Deutsch"
 msgstr "Deutsch"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Development build unavailable"
 msgstr "إصدار التطوير غير متاح"
 
@@ -1072,11 +1072,11 @@ msgstr "طبقة فاتحة"
 msgid "Light warm-up"
 msgstr "إحماء خفيف"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "جارٍ تحميل إصدار التطوير"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "جارٍ تحميل أحدث إصدار تطوير…"
 
@@ -1211,11 +1211,11 @@ msgstr "سلسلة إجبار نيشيو"
 msgid "no bonus"
 msgstr "لا مكافأة"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "لم يُنشر أي إصدار تطوير مكتمل بعد. يُرجى التحقق مرة أخرى لاحقًا."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No development build is available"
 msgstr "لا يتوفر إصدار تطوير"
 
@@ -1556,7 +1556,7 @@ msgstr "متابعة اللعبة"
 msgid "Resume this game?"
 msgstr "متابعة هذه اللعبة؟"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Retry loading development build"
 msgstr "إعادة محاولة تحميل إصدار التطوير"
 
@@ -2040,7 +2040,7 @@ msgstr "أخطاء كثيرة جدًا"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "تابع ألغاز السودوكو التي حللتها وأفضل أوقاتك ونقاطك في كل مستويات الصعوبة."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "حاول مجددًا"
 
@@ -2157,7 +2157,7 @@ msgstr "W-Wing"
 msgid "Warm gold accents for a brighter board"
 msgstr "لمسات ذهبية دافئة للوحة أكثر إشراقًا"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "تعذّر تحميل أحدث إصدار تطوير. يُرجى المحاولة مرة أخرى."
 

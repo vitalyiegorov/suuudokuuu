@@ -304,7 +304,7 @@ msgstr "Applying a hint"
 msgid "Assists"
 msgstr "Assists"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "Attempts to load the latest development build again"
 
@@ -456,7 +456,7 @@ msgstr "Cell spacing"
 msgid "Challenge"
 msgstr "Challenge"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Back"
 msgstr "Challenge Back"
 
@@ -464,7 +464,7 @@ msgstr "Challenge Back"
 msgid "Challenge lost"
 msgstr "Challenge lost"
 
-#: src/app/challenge-lost.tsx
+#: src/screens/components/challenge-lost-screen/challenge-lost.screen.tsx
 msgid "Challenge Lost"
 msgstr "Challenge Lost"
 
@@ -480,7 +480,7 @@ msgstr "Challenge runs cannot be paused and record when you leave the app"
 msgid "Challenge won"
 msgstr "Challenge won"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Won!"
 msgstr "Challenge Won!"
 
@@ -650,7 +650,7 @@ msgstr "Delete theme"
 msgid "Deutsch"
 msgstr "Deutsch"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Development build unavailable"
 msgstr "Development build unavailable"
 
@@ -1074,11 +1074,11 @@ msgstr "Light overlay"
 msgid "Light warm-up"
 msgstr "Light warm-up"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "Loading development build"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Loading the latest development build…"
 
@@ -1213,11 +1213,11 @@ msgstr "Nishio Forcing Chain"
 msgid "no bonus"
 msgstr "no bonus"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "No complete development build has been published yet. Please check again later."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No development build is available"
 msgstr "No development build is available"
 
@@ -1558,7 +1558,7 @@ msgstr "Resume game"
 msgid "Resume this game?"
 msgstr "Resume this game?"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Retry loading development build"
 msgstr "Retry loading development build"
 
@@ -2042,7 +2042,7 @@ msgstr "Too many mistakes"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Try again"
 
@@ -2159,7 +2159,7 @@ msgstr "W-Wing"
 msgid "Warm gold accents for a brighter board"
 msgstr "Warm gold accents for a brighter board"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "We could not load the latest development build. Please try again."
 

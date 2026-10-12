@@ -302,7 +302,7 @@ msgstr "使用提示"
 msgid "Assists"
 msgstr "辅助操作"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "再次尝试加载最新开发版本"
 
@@ -454,7 +454,7 @@ msgstr "单元格间距"
 msgid "Challenge"
 msgstr "挑战"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Back"
 msgstr "回敬挑战"
 
@@ -462,7 +462,7 @@ msgstr "回敬挑战"
 msgid "Challenge lost"
 msgstr "挑战失败"
 
-#: src/app/challenge-lost.tsx
+#: src/screens/components/challenge-lost-screen/challenge-lost.screen.tsx
 msgid "Challenge Lost"
 msgstr "挑战失败"
 
@@ -478,7 +478,7 @@ msgstr "挑战对局无法暂停，并会记录你离开应用的时刻"
 msgid "Challenge won"
 msgstr "挑战获胜"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Won!"
 msgstr "挑战获胜！"
 
@@ -648,7 +648,7 @@ msgstr "删除主题"
 msgid "Deutsch"
 msgstr "Deutsch"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Development build unavailable"
 msgstr "开发版本不可用"
 
@@ -1072,11 +1072,11 @@ msgstr "浅色叠加层"
 msgid "Light warm-up"
 msgstr "轻度热身"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "正在加载开发版本"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "正在加载最新开发版本…"
 
@@ -1211,11 +1211,11 @@ msgstr "Nishio 强制链"
 msgid "no bonus"
 msgstr "无奖励"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "尚未发布完整的开发版本，请稍后再来查看。"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No development build is available"
 msgstr "暂无可用的开发版本"
 
@@ -1556,7 +1556,7 @@ msgstr "继续对局"
 msgid "Resume this game?"
 msgstr "继续这局游戏？"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Retry loading development build"
 msgstr "重新加载开发版本"
 
@@ -2040,7 +2040,7 @@ msgstr "错误太多"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "记录你已完成的数独、最佳用时和各个难度的分数。"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "重试"
 
@@ -2157,7 +2157,7 @@ msgstr "W-Wing"
 msgid "Warm gold accents for a brighter board"
 msgstr "温暖金色点缀，让棋盘更明亮"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "无法加载最新开发版本，请重试。"
 

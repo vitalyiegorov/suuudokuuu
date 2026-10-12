@@ -304,7 +304,7 @@ msgstr "Einen Hinweis anwenden"
 msgid "Assists"
 msgstr "Hilfestellungen"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "Versucht, den neuesten Entwicklungs-Build erneut zu laden"
 
@@ -456,7 +456,7 @@ msgstr "Zellenabstand"
 msgid "Challenge"
 msgstr "Duell"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Back"
 msgstr "Revanche fordern"
 
@@ -464,7 +464,7 @@ msgstr "Revanche fordern"
 msgid "Challenge lost"
 msgstr "Duell verloren"
 
-#: src/app/challenge-lost.tsx
+#: src/screens/components/challenge-lost-screen/challenge-lost.screen.tsx
 msgid "Challenge Lost"
 msgstr "Duell verloren"
 
@@ -480,7 +480,7 @@ msgstr "Duell-Runden lassen sich nicht pausieren und halten fest, wenn du die Ap
 msgid "Challenge won"
 msgstr "Duell gewonnen"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Won!"
 msgstr "Duell gewonnen!"
 
@@ -650,7 +650,7 @@ msgstr "Thema löschen"
 msgid "Deutsch"
 msgstr "Deutsch"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Development build unavailable"
 msgstr "Entwicklungs-Build nicht verfügbar"
 
@@ -1074,11 +1074,11 @@ msgstr "Helle Überlagerung"
 msgid "Light warm-up"
 msgstr "Leichtes Aufwärmen"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "Entwicklungs-Build wird geladen"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Neuester Entwicklungs-Build wird geladen…"
 
@@ -1213,11 +1213,11 @@ msgstr "Nishio-Zwangskette"
 msgid "no bonus"
 msgstr "kein Bonus"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "Es wurde noch kein vollständiger Entwicklungs-Build veröffentlicht. Bitte versuche es später erneut."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No development build is available"
 msgstr "Kein Entwicklungs-Build verfügbar"
 
@@ -1558,7 +1558,7 @@ msgstr "Spiel fortsetzen"
 msgid "Resume this game?"
 msgstr "Dieses Spiel fortsetzen?"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Retry loading development build"
 msgstr "Entwicklungs-Build erneut laden"
 
@@ -2042,7 +2042,7 @@ msgstr "Zu viele Fehler"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Verfolge deine gelösten Sudokus, Bestzeiten und Punktzahlen über alle Schwierigkeitsgrade hinweg."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Erneut versuchen"
 
@@ -2159,7 +2159,7 @@ msgstr "W-Wing"
 msgid "Warm gold accents for a brighter board"
 msgstr "Warme Goldakzente für ein helleres Brett"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "Der neueste Entwicklungs-Build konnte nicht geladen werden. Bitte versuche es erneut."
 
