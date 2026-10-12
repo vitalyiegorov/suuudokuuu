@@ -8,7 +8,7 @@ import { DLXSolver } from '@suuudokuuu/solver-dlx';
 
 import { writeGeneratedCorpusModule } from './shared/generated-module-writer.mjs';
 import { crossCheckPuzzleLine, validatePuzzleFormat, validateUniquePuzzle } from './shared/puzzle-verification.mjs';
-import { encodeRatingByte, packPuzzleRecord } from './shared/record-packing.mjs';
+import { encodeRatingByte, getCorpusRecordBytes, packPuzzleRecord } from './shared/record-packing.mjs';
 import { isSinglesSolvable } from './shared/singles-solvability.mjs';
 
 const SCRIPT_DIRECTORY = dirname(fileURLToPath(import.meta.url));
@@ -17,8 +17,7 @@ const OUTPUT_FILE = join(SCRIPT_DIRECTORY, '..', 'src', 'constants', 'infinity-c
 
 const MINIMUM_RATING = 10.0;
 const MAXIMUM_GIVEN_COUNT = 23;
-const POSITION_MASK_BYTES = 11;
-const RECORD_BYTES = POSITION_MASK_BYTES + Math.ceil(MAXIMUM_GIVEN_COUNT / 2) + 1;
+const RECORD_BYTES = getCorpusRecordBytes(MAXIMUM_GIVEN_COUNT);
 const RECORD_BASE64_LENGTH = Math.ceil(RECORD_BYTES / 3) * 4;
 const MAX_REPORTED_FAILURES = 20;
 
@@ -127,7 +126,8 @@ const main = () => {
         sizeName: 'INFINITY_CORPUS_SIZE',
         size: records.length,
         base64Name: 'INFINITY_CORPUS_BASE64',
-        base64: records.join('')
+        base64: records.join(''),
+        recordBytes: RECORD_BYTES
     });
 
     const elapsedMs = Date.now() - startTime;

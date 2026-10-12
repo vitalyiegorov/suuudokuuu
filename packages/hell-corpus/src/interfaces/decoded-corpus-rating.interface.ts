@@ -1,4 +1,4 @@
 export interface DecodedCorpusRatingInterface {
-    rating: number | null;
-    isCeiling: boolean;
+    readonly rating: number | null;
+    readonly isCeiling: boolean;
 }

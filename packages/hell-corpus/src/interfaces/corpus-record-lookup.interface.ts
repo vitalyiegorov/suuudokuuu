@@ -1,6 +1,6 @@
 export interface CorpusRecordLookupInterface {
-    corpusBase64: string;
-    corpusSize: number;
-    recordBase64Length: number;
-    recordBytes: number;
+    readonly corpusBase64: string;
+    readonly corpusSize: number;
+    readonly recordBase64Length: number;
+    readonly recordBytes: number;
 }
