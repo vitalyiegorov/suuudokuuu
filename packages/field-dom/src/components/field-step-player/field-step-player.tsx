@@ -4,7 +4,6 @@ import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { getFieldClassName } from '../../utils/get-field-class-name.util';
 import { getFieldStepDotState } from '../../utils/get-field-step-dot-state.util';
 
 import type { FieldStepPlayerLabelsInterface } from '../../interfaces/field-step-player-labels.interface';
@@ -14,24 +13,20 @@ import type { FieldEngine } from '@suuudokuuu/field-core';
 const maxProgressDots = 9;
 
 interface Props {
-    engine: FieldEngine;
-    labels: FieldStepPlayerLabelsInterface;
-    narrationRenderer: FieldNarrationRendererType;
-    className?: string;
+    readonly engine: FieldEngine;
+    readonly labels: FieldStepPlayerLabelsInterface;
+    readonly narrationRenderer: FieldNarrationRendererType;
 }
 
-export const FieldStepPlayer = ({ className, engine, labels, narrationRenderer }: Props) => {
+export const FieldStepPlayer = ({ engine, labels, narrationRenderer }: Props) => {
     const snapshot = useFieldSnapshot(engine);
     const { stepIndex, stepScript } = snapshot;
 
-    if (!isDefined(stepScript)) {
-        return null;
-    }
-
-    const { steps } = stepScript;
+    const hasStepScript = isDefined(stepScript);
+    const steps = stepScript?.steps ?? [];
     const currentStep = steps.at(stepIndex);
     const narration = isDefined(currentStep) ? narrationRenderer(currentStep) : null;
-    const progressLabel = labels.stepProgress(stepIndex + 1, steps.length);
+    const progressLabel = hasStepScript ? labels.stepProgress(stepIndex + 1, steps.length) : '';
     const isFirstStep = stepIndex === 0;
     const isLastStep = stepIndex >= steps.length - 1;
     const hasProgressCount = steps.length > maxProgressDots;
@@ -53,33 +48,36 @@ export const FieldStepPlayer = ({ className, engine, labels, narrationRenderer }
     };
 
     return (
-        <div aria-label={labels.stepPlayer} className={getFieldClassName('field-step-player', className)} role="group">
-            {hasProgressCount ? (
-                <span className="field-step-player__progress-count">{progressLabel}</span>
-            ) : (
-                <ol aria-label={progressLabel} className="field-step-player__progress">
-                    {steps.map((_step, dotIndex) => (
-                        <li className="field-step-player__dot" data-state={getFieldStepDotState(dotIndex, stepIndex)} key={dotIndex} />
-                    ))}
-                </ol>
-            )}
+        <div aria-label={labels.stepPlayer} className="field-step-player" data-active={hasStepScript} role="group">
+            {hasStepScript &&
+                (hasProgressCount ? (
+                    <span className="field-step-player__progress-count">{progressLabel}</span>
+                ) : (
+                    <ol aria-label={progressLabel} className="field-step-player__progress">
+                        {steps.map((_step, dotIndex) => (
+                            <li className="field-step-player__dot" data-state={getFieldStepDotState(dotIndex, stepIndex)} key={dotIndex} />
+                        ))}
+                    </ol>
+                ))}
             <p aria-live="polite" className="field-step-player__narration">
                 {narration}
             </p>
-            <div className="field-step-player__controls">
-                <button className="field-step-player__control" disabled={isFirstStep} onClick={handleBack} type="button">
-                    {labels.previousStep}
-                </button>
-                <button className="field-step-player__control" disabled={isLastStep} onClick={handleNext} type="button">
-                    {labels.nextStep}
-                </button>
-                <button className="field-step-player__control" onClick={handleReset} type="button">
-                    {labels.resetSteps}
-                </button>
-                <button className="field-step-player__control" onClick={handleApply} type="button">
-                    {labels.applySteps}
-                </button>
-            </div>
+            {hasStepScript && (
+                <div className="field-step-player__controls">
+                    <button className="field-step-player__control" disabled={isFirstStep} onClick={handleBack} type="button">
+                        {labels.previousStep}
+                    </button>
+                    <button className="field-step-player__control" disabled={isLastStep} onClick={handleNext} type="button">
+                        {labels.nextStep}
+                    </button>
+                    <button className="field-step-player__control" onClick={handleReset} type="button">
+                        {labels.resetSteps}
+                    </button>
+                    <button className="field-step-player__control" onClick={handleApply} type="button">
+                        {labels.applySteps}
+                    </button>
+                </div>
+            )}
         </div>
     );
 };

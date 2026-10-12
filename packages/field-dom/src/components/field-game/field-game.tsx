@@ -5,7 +5,6 @@ import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
 import { isDefined } from '@rnw-community/shared';
 
 import { useFieldMistakeCell } from '../../hooks/use-field-mistake-cell.hook';
-import { getFieldClassName } from '../../utils/get-field-class-name.util';
 import { FieldBoard } from '../field-board/field-board';
 import { FieldNumberPad } from '../field-number-pad/field-number-pad';
 import { FieldStepPlayer } from '../field-step-player/field-step-player';
@@ -15,14 +14,13 @@ import type { FieldNarrationRendererType } from '../../types/field-narration-ren
 import type { FieldEngine } from '@suuudokuuu/field-core';
 
 interface Props {
-    engine: FieldEngine;
-    labels: FieldGameLabelsInterface;
-    narrationRenderer: FieldNarrationRendererType;
-    givenCellKeys?: ReadonlySet<string>;
-    className?: string;
+    readonly engine: FieldEngine;
+    readonly labels: FieldGameLabelsInterface;
+    readonly narrationRenderer: FieldNarrationRendererType;
+    readonly givenCellKeys?: ReadonlySet<string>;
 }
 
-export const FieldGame = ({ className, engine, givenCellKeys, labels, narrationRenderer }: Props) => {
+export const FieldGame = ({ engine, givenCellKeys, labels, narrationRenderer }: Props) => {
     const snapshot = useFieldSnapshot(engine);
     const mistakeCell = useFieldMistakeCell(engine, snapshot);
     const boardProps = {
@@ -31,7 +29,7 @@ export const FieldGame = ({ className, engine, givenCellKeys, labels, narrationR
     };
 
     return (
-        <div className={getFieldClassName('field-game', className)} data-won={snapshot.isWon}>
+        <div className="field-game" data-won={snapshot.isWon}>
             <FieldBoard engine={engine} labels={labels.board} {...boardProps} />
             <FieldNumberPad engine={engine} labels={labels.numberPad} />
             <FieldStepPlayer engine={engine} labels={labels.stepPlayer} narrationRenderer={narrationRenderer} />

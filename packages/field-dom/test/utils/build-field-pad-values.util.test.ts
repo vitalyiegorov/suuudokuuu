@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest';
 
 import { buildFieldPadValues } from '../../src/utils/build-field-pad-values.util';
 
-import type { FieldType } from '../../src/types/field.type';
+import type { FieldSnapshotInterface } from '@suuudokuuu/field-core';
 
-const createField = (rows: string[]): FieldType =>
+const createField = (rows: string[]): FieldSnapshotInterface['field'] =>
     rows.map((row, y) =>
         Array.from(row).map((character, x) => ({
             x,

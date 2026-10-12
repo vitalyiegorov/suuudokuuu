@@ -9,19 +9,18 @@
     "sideEffects": [
         "*.css"
     ],
-    "main": "dist/cjs/index.js",
+    "main": "dist/esm/index.js",
     "module": "dist/esm/index.js",
     "types": "dist/esm/index.d.ts",
     "exports": {
         ".": {
-            "import": "./dist/esm/index.js",
-            "require": "./dist/cjs/index.js"
+            "types": "./dist/esm/index.d.ts",
+            "import": "./dist/esm/index.js"
         },
         "./styles.css": "./dist/field-dom.css"
     },
     "scripts": {
-        "build": "pnpm build:esm && pnpm build:cjs && pnpm build:styles && find ./dist -name '*.tsbuildinfo' -delete",
-        "build:cjs": "tsc --pretty -p tsconfig.build-cjs.json",
+        "build": "pnpm build:esm && pnpm build:styles && find ./dist -name '*.tsbuildinfo' -delete",
         "build:esm": "tsc --pretty -p tsconfig.build-esm.json",
         "build:styles": "cp src/styles/field-dom.css dist/field-dom.css",
         "test": "vitest run",

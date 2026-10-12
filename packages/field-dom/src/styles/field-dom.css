@@ -233,14 +233,6 @@
         flex-direction: column;
         align-items: center;
         min-width: 0;
-        padding: var(--field-button-padding);
-        border: var(--field-border-width) solid var(--field-border-color);
-        border-radius: var(--field-radius);
-        background-color: var(--field-button-background-color);
-        color: var(--field-button-color);
-        font: inherit;
-        cursor: pointer;
-        transition: background-color var(--field-transition-duration) ease-out;
     }
 
     .field-number-pad__digit-value {
@@ -261,6 +253,7 @@
         gap: calc(var(--field-gap) / 3);
     }
 
+    .field-number-pad__digit,
     .field-number-pad__action,
     .field-step-player__control {
         padding: var(--field-button-padding);
@@ -270,6 +263,11 @@
         color: var(--field-button-color);
         font: inherit;
         cursor: pointer;
+        transition: background-color var(--field-transition-duration) ease-out;
+    }
+
+    .field-number-pad__action,
+    .field-step-player__control {
         transition:
             background-color var(--field-transition-duration) ease-out,
             color var(--field-transition-duration) ease-out;
@@ -299,6 +297,14 @@
         flex-direction: column;
         gap: calc(var(--field-gap) / 2);
         width: 100%;
+    }
+
+    .field-step-player[data-active='false'] {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
     }
 
     .field-step-player__progress {
@@ -343,12 +349,8 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-        .field-cell,
-        .field-number-pad__digit,
-        .field-number-pad__action,
-        .field-step-player__control,
-        .field-step-player__dot {
-            transition: none;
+        :root {
+            --field-transition-duration: 0s;
         }
     }
 }
