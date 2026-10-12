@@ -24,7 +24,7 @@ describe('SettingsRepository', () => {
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 
-    it.effect('initializes defaults once and merges updates under the settings key', () =>
+    it.effect('initializes defaults once without invalidating and merges updates under the settings key', () =>
         Effect.gen(function* () {
             const settingsRepository = yield* SettingsRepository;
             const invalidatedKeys = yield* trackInvalidations;
@@ -34,7 +34,7 @@ describe('SettingsRepository', () => {
             yield* settingsRepository.update({ language: 'de' });
 
             assert.deepStrictEqual(yield* settingsRepository.get, { ...settings, language: 'de' });
-            assert.deepStrictEqual(invalidatedKeys, [ReactivityKeyEnum.Settings, ReactivityKeyEnum.Settings, ReactivityKeyEnum.Settings]);
+            assert.deepStrictEqual(invalidatedKeys, [ReactivityKeyEnum.Settings]);
         }).pipe(Effect.scoped, Effect.provide(ProgressTestLayer))
     );
 });
