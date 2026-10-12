@@ -1,0 +1,42 @@
+appId: ${APP_ID}
+tags:
+    - app-preview
+---
+- extendedWaitUntil:
+      visible:
+          id: 'AvailableValueItemSelectors.Button.1'
+      timeout: 10000
+- tapOn:
+      id: 'CellSelectors.Cell.0-1'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.4'
+- tapOn:
+      id: 'CellSelectors.Cell.0-4'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.7'
+- tapOn:
+      id: 'CellSelectors.Cell.0-5'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.2'
+- tapOn:
+      id: 'CellSelectors.Cell.0-6'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.5'
+- tapOn:
+      id: 'CellSelectors.Cell.0-7'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.8'
+- tapOn:
+      id: 'CellSelectors.Cell.0-8'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.6'
+- tapOn:
+      id: 'CellSelectors.Cell.1-0'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.1'
+- tapOn:
+      id: 'CellSelectors.Cell.1-1'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.6'
+- assertVisible:
+      id: 'GameScreenSelectors.Score'

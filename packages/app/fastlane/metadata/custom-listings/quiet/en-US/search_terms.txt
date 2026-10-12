@@ -1,0 +1,3 @@
+relaxing sudoku
+offline sudoku
+sudoku no mistake limit

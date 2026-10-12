@@ -1,0 +1,3 @@
+sudoku techniques
+sudoku replay
+sudoku move history

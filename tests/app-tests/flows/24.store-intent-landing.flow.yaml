@@ -1,0 +1,34 @@
+appId: ${APP_ID}
+---
+- runFlow: subflows/navigation/launch-home.flow.yaml
+- openLink:
+      link: 'suuudokuuu://start/expert'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenIntentSpotlightSelectors.Root'
+      timeout: 3000
+- assertVisible: 'Ready for a real challenge'
+- assertVisible:
+      id: 'HomeScreenIntentSpotlightSelectors.Setup'
+- assertVisible: 'Nightmare'
+- scrollUntilVisible:
+      element:
+          id: 'HomeScreenSelectors.StartButton'
+      direction: DOWN
+      timeout: 3000
+- assertVisible: 'Nightmare • Standard'
+- scroll
+- openLink:
+      link: 'suuudokuuu://start/expert'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenIntentSpotlightSelectors.Dismiss'
+      timeout: 3000
+- tapOn:
+      id: 'HomeScreenIntentSpotlightSelectors.Dismiss'
+- extendedWaitUntil:
+      notVisible:
+          id: 'HomeScreenIntentSpotlightSelectors.Root'
+      timeout: 3000
+- assertVisible:
+      id: 'HomeScreenSelectors.Root'

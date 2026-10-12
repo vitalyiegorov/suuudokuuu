@@ -1,0 +1,3 @@
+sudoku sin conexión
+sudoku relajado
+sudoku sin límite de errores

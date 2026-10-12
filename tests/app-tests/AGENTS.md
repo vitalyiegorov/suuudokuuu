@@ -6,7 +6,7 @@ use Maestro for capture — read `docs/store-screenshot-capture.md` before
 touching it or capturing store screenshots; the rules below govern the E2E
 flows, not store capture.
 
-The Android store capture smoke job in `mobile-e2e.yml` downloads the E2E APK,
+The Android store capture smoke job in `mobile-e2e.yml` runs only when the workflow is started manually (`gh workflow run mobile-e2e.yml --ref <branch>`), never on pull requests or pushes to main, because a second emulator per run overloads the Linux runner host. It downloads the E2E APK,
 boots a rootable API 34 emulator, and captures all thirteen direct-link scenes
 in English and dark appearance. Its five-minute timeout starts after APK
 installation and emulator warm-up. `--verify` fails on an unknown or empty
@@ -29,6 +29,8 @@ APP_ID=<installed-app-id> SIMULATOR_UDID=<simulator-udid> tests/app-tests/script
 ```
 
 Use a freshly rebuilt and reinstalled app when validating code, selector, deep-link, app-config, or native changes. CI installs an embedded Release E2E app, so it does not use `launch-dev-client.flow.yaml` or depend on Metro. The suite runner primes the iOS custom-scheme confirmation once in a separate Maestro session, then runs every selected numbered scenario in its own Maestro/XCTest session while preserving the installed app container. After a failed flow, the runner clears app state and re-primes deep links so leftover in-progress state cannot cascade into later flows.
+
+The iOS CI lane reads `shards/shard-0.txt` and `shards/shard-1.txt`; each line is a path relative to `flows/`. Keep every flow in `config.yaml` in exactly one manifest and run `scripts/validate-shards.sh` after changing the inventory. Android runs the full suite in one shard without these manifests.
 
 ## Robustness Rules
 

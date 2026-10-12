@@ -683,6 +683,10 @@ msgstr "Buang perubahan?"
 msgid "Dismiss"
 msgstr "Abaikan"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Dismiss setup spotlight"
+msgstr "Tutup sorotan penyiapan"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "Tampilan"
@@ -855,6 +859,10 @@ msgstr "h"
 msgid "Hard"
 msgstr "Sulit"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Hard is set. Replay finished puzzles move by move from History and see the techniques used."
+msgstr "Sulit dipilih. Putar ulang teka-teki yang selesai, langkah demi langkah, dari Riwayat dan lihat teknik yang digunakan."
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -932,6 +940,10 @@ msgstr "Petunjuk di sudoku tersulit"
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
 msgstr "Beranda"
+
+#: src/screens/components/home-screen/home-screen-intent-rating-link/home-screen-intent-rating-link.tsx
+msgid "How difficulty is rated"
+msgstr "Cara tingkat kesulitan dinilai"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "How much the board and screens may move"
@@ -1187,6 +1199,10 @@ msgstr "Langkah berikutnya"
 msgid "Nightmare"
 msgstr "Mimpi buruk"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Nightmare is set. See every puzzle's SE rating; Hell and Infinity go further."
+msgstr "Mimpi buruk dipilih. Lihat peringkat SE setiap teka-teki; Neraka dan Tak Terhingga lebih menantang lagi."
+
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
 msgstr "Rantai Paksa Nishio"
@@ -1421,6 +1437,10 @@ msgstr "poin per penempatan benar."
 msgid "Português"
 msgstr "Português"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Practice harder logic"
+msgstr "Latih logika yang lebih sulit"
+
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
 msgstr "Preset"
@@ -1471,6 +1491,10 @@ msgstr "Teks permukaan terangkat"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Baca kebijakan privasi Suuudokuuu tentang pengumpulan data, penyimpanan, dan hakmu."
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Ready for a real challenge"
+msgstr "Siap menghadapi tantangan sesungguhnya"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
 msgstr "Solusi terbaru"
@@ -1495,6 +1519,10 @@ msgstr "Rantai Paksa Region"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
 msgstr "Santai"
+
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Relaxed mistakes are on, with no limit. Works offline."
+msgstr "Mode santai mengizinkan kesalahan tanpa batas. Bisa dimainkan tanpa internet."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Release notes"
@@ -1888,6 +1916,10 @@ msgstr "Svenska"
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Swordfish"
 msgstr "Swordfish"
+
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Take it slow"
+msgstr "Santai saja"
 
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
 msgid "Taller marks = sharper techniques"
