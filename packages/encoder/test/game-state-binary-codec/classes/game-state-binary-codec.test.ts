@@ -1,3 +1,4 @@
+import { givens as givensMask, solvedBoard } from '../../fixtures';
 /* oxlint-disable no-magic-numbers */
 import { describe, expect, it } from 'vitest';
 
@@ -5,9 +6,6 @@ import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../../../src/@generic/constant
 import { GameStateBinaryCodec } from '../../../src/game-state-binary-codec/classes/game-state-binary-codec';
 
 import type { SolutionStepInterface } from '../../../src/@generic/interfaces/solution-step.interface';
-
-const solvedBoard = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
-const givensMask = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
 
 const buildStepsForEmptyCells = (): SolutionStepInterface[] => {
     const steps: SolutionStepInterface[] = [];

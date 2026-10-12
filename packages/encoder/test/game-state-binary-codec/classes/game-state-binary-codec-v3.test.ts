@@ -1,3 +1,4 @@
+import { givens, solvedBoard } from '../../fixtures';
 /* oxlint-disable no-magic-numbers */
 import { describe, expect, it } from 'vitest';
 
@@ -9,8 +10,6 @@ import {
 } from '../../../src/game-state-binary-codec/classes/game-state-binary-codec-v3';
 
 import type { TimelineEventInterface } from '../../../src/@generic/interfaces/timeline-event.interface';
-
-const givens = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
 
 const encodePuzzle = (codec: GameStateBinaryCodecV3, maxMistakes: number, timelineEvents: TimelineEventInterface[] = []): string =>
     codec.encode({
@@ -90,8 +89,6 @@ describe('GameStateBinaryCodecV3 puzzle payloads', () => {
         expect(encodePuzzle(codec, 3)).toMatch(/^[\w-]*$/u);
     });
 });
-
-const solvedBoard = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
 const BlankCell = '.';
 
 const buildCellEvents = (count: number, ts: number): TimelineEventInterface[] => {
@@ -357,5 +354,36 @@ describe('GameStateBinaryCodecV3 handoff payloads', () => {
 
         expect(decoded.score).toBe(0);
         expect(decoded.candidates).toStrictEqual({});
+    });
+});
+
+describe('handoff candidate integrity', () => {
+    const codec = new GameStateBinaryCodecV3();
+
+    it('deduplicates candidate digits without carrying into another digit', () => {
+        expect(codec.decode(encodeHandoff(codec, { candidates: { 2: [1, 1, 9, 9] } })).candidates).toStrictEqual({ 2: [1, 9] });
+    });
+
+    it.each([0, 10, 1.5])('rejects candidate digit %s', value => {
+        expect(() => encodeHandoff(codec, { candidates: { 2: [value] } })).toThrow('Invalid candidate value');
+    });
+
+    it.each(['81', '-1', '1.5', '2,0'])('rejects candidate key %s', cellIndex => {
+        expect(() => encodeHandoff(codec, { candidates: { [cellIndex]: [1] } })).toThrow('Invalid candidate cell index');
+    });
+
+    it('caps the anchor to the unsigned 32 bit maximum', () => {
+        expect(codec.decode(encodeHandoff(codec, { isChallengeRun: true, anchorSeconds: 2 ** 32 })).anchorSeconds).toBe(2 ** 32 - 1);
+    });
+
+    it.each([
+        [81, 1],
+        [0, 10],
+        [1.5, 2],
+        [2, 1.5]
+    ])('rejects invalid encoded pencil payload %s / %s', (cellIndex, value) => {
+        expect(() => encodeChallenge(codec, [{ kind: TimelineEventKindEnum.Pencil, cellIndex, value, ts: 0 }])).toThrow(
+            'Invalid timeline cell payload'
+        );
     });
 });

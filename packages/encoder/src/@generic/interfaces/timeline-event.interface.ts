@@ -1,20 +1,20 @@
 import { TimelineEventKindEnum } from '../enums/timeline-event-kind.enum';
 
 export interface CellTimelineEventInterface {
-    kind: TimelineEventKindEnum.Cell;
-    cellIndex: number;
-    value: number;
-    ts: number;
+    readonly kind: TimelineEventKindEnum.Cell;
+    readonly cellIndex: number;
+    readonly value: number;
+    readonly ts: number;
 }
 
-export interface PayloadTimelineEventInterface {
-    kind: TimelineEventKindEnum.Pencil | TimelineEventKindEnum.Mistake;
-    cellIndex: number;
-    value: number;
-    ts: number;
+interface PayloadTimelineEventInterface {
+    readonly kind: TimelineEventKindEnum.Pencil | TimelineEventKindEnum.Mistake;
+    readonly cellIndex: number;
+    readonly value: number;
+    readonly ts: number;
 }
 
-export type MarkerTimelineEventKindType =
+type MarkerTimelineEventKindType =
     | TimelineEventKindEnum.InputMode
     | TimelineEventKindEnum.AutoCandidates
     | TimelineEventKindEnum.Away
@@ -24,9 +24,9 @@ export type MarkerTimelineEventKindType =
     | TimelineEventKindEnum.Screenshot
     | TimelineEventKindEnum.Hint;
 
-export interface MarkerTimelineEventInterface {
-    kind: MarkerTimelineEventKindType;
-    ts: number;
+interface MarkerTimelineEventInterface {
+    readonly kind: MarkerTimelineEventKindType;
+    readonly ts: number;
 }
 
 export type TimelineEventInterface = CellTimelineEventInterface | PayloadTimelineEventInterface | MarkerTimelineEventInterface;

@@ -14,10 +14,9 @@ import { VALUE_BITS } from '../../../src/@generic/constants/bit-encoding.constan
 import { GRID_CELL_COUNT } from '../../../src/@generic/constants/grid.constant';
 import { bytesToBase64url } from '../../../src/@generic/utils/bytes-to-base64url.util';
 import { GameStateBinaryCodec } from '../../../src/game-state-binary-codec/classes/game-state-binary-codec';
+import { givens as givensMask } from '../../fixtures';
 
 import type { SolutionStepInterface } from '../../../src/@generic/interfaces/solution-step.interface';
-
-const givensMask = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
 const emptyCellCount = 51;
 const invalidPackedTriplet = 1023;
 const invalidPackedPair = 127;

@@ -1,3 +1,5 @@
+import { clampToRange } from './clamp-to-range.util';
+
 import type { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 
 const LARGE_FLAG = 1;
@@ -7,7 +9,7 @@ const FLAG_BITS = 1;
 export const writeVarint = (out: BitOutputStream, value: number, smallBits: number, largeBits: number): void => {
     const smallCapacity = 2 ** smallBits;
     const largeCapacity = 2 ** largeBits;
-    const safeValue = Math.min(Math.max(Math.trunc(value), 0), largeCapacity - 1);
+    const safeValue = clampToRange(value, largeCapacity - 1);
 
     if (safeValue < smallCapacity) {
         out.write(SMALL_FLAG, FLAG_BITS);

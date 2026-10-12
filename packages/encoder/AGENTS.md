@@ -23,9 +23,7 @@ src/
 │   └── utils/                   # givens, varint, aggregate-trailer, metadata-trailer, handoff-extras, timeline-event-stream codecs
 ├── game-state-binary-codec/     # v2 tuple codec (legacy) and v3 codec (current) feature
 │   └── classes/
-├── game-state-serializer/       # Public encode/decode API, dispatches by prefix and version nibble
-│   └── classes/
-├── solution/                    # Timed solution-step encoding feature
+├── game-state-serializer/       # Public API, version dispatch, and legacy step parsing
 │   └── classes/
 └── sudoku-string-encoder/       # 81-cell clue encoding feature
     └── classes/
@@ -83,12 +81,12 @@ Three generations of v3 links exist in the wild and all three must keep decoding
 | Current              | version-`2` metadata trailer (15 bits)                                                             | rating, ceiling flag, and difficulty as written                       |
 | Current + techniques | version-`2` metadata trailer plus a version-`1` technique trailer (`15 + 4 + 6 × cellEvents` bits) | the above plus one technique code per cell event                      |
 
-`GameStateBinaryCodecV3.readTrailers` snapshots the stream position before the aggregate read and rewinds to it whenever the aggregate read reports unknown counts, because `readAggregateTrailer` consumes its 4-bit version tag before rejecting a foreign tag. The rewind matters because the aggregate trailer's version tag (`1`) shares the same bit position and the same width as the metadata trailer's:
+`readAggregateTrailer` snapshots the stream position after its length guard and rewinds only when its version tag does not match, because `readAggregateTrailer` consumes its 4-bit version tag before rejecting a foreign tag. The rewind matters because the aggregate trailer's version tag (`1`) shares the same bit position and the same width as the metadata trailer's:
 
 - A v2.4.x link whose producer had no pencil/screenshot counts puts a version-`1` difficulty trailer exactly where the aggregate trailer would start, and `1` collides with `AGGREGATE_TRAILER_VERSION_V1`. It can never be misread as an aggregate trailer, because at that point at most `7 + 7 = 14` bits remain (7 trailer bits plus at most seven zero-padding bits) and `AGGREGATE_TRAILER_MIN_BITS` is `22`, so `readAggregateTrailer` bails on its length guard without consuming anything.
 - A current link without an aggregate trailer leaves `15 + 0..7 = 15..22` bits, so the length guard can pass. The version tag then reads `2`, which does not match `AGGREGATE_TRAILER_VERSION_V1`, and the rewind restores the four consumed bits before the metadata trailer is read.
 
-Base64url decoding leaves at most seven trailing zero-padding bits and a zero version tag matches nothing, so padding alone can never be mistaken for a trailer. `game-state-serializer-frozen-payloads.spec.ts` pins byte-for-byte payloads from each shipped generation; do not regenerate those strings.
+Base64url decoding leaves at most seven trailing zero-padding bits and a zero version tag matches nothing, so padding alone can never be mistaken for a trailer. `game-state-serializer-frozen-payloads.test.ts` pins byte-for-byte payloads from each shipped generation; do not regenerate those strings.
 
 The technique trailer is the fourth generation and sits after the metadata trailer, which is the only placement that leaves those frozen bytes untouched. Every shipped generation reaches that position with at most seven padding bits, while the smallest technique trailer needs `4 + 6 = 10`, so the length guard rejects all of them before the version tag is read; the frozen spec asserts `techniques: null` for all seven pinned payloads. An older app reading a new link stops after the metadata trailer and ignores the extra bits, so the stream costs old clients nothing but size.
 

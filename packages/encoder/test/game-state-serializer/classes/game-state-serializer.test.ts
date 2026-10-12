@@ -1,7 +1,11 @@
+import { BitOutputStream } from '@thi.ng/bitstream';
+
+import { givens as validSudokuString, givens as legacyGivensField, givens as legacyGivens } from '../../fixtures';
 /* oxlint-disable no-magic-numbers */
 import { compressToEncodedURIComponent } from 'lz-string';
 import { describe, expect, it } from 'vitest';
 
+import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../../../src/@generic/constants/bit-encoding.constant';
 import { SharedPayloadKindEnum } from '../../../src/@generic/enums/shared-payload-kind.enum';
 import { TimelineEventKindEnum } from '../../../src/@generic/enums/timeline-event-kind.enum';
 import { SolutionStepInterface } from '../../../src/@generic/interfaces/solution-step.interface';
@@ -12,8 +16,6 @@ import type { TimelineEventInterface } from '../../../src/@generic/interfaces/ti
 
 describe('GameStateSerializer', () => {
     const serializer = new GameStateSerializer();
-
-    const validSudokuString = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
 
     const sampleSolutionSteps: SolutionStepInterface[] = [
         { cellIndex: 2, value: 4, ts: 100 },
@@ -250,7 +252,6 @@ describe('GameStateSerializer', () => {
     });
 
     describe('decodeState', () => {
-        const legacyGivensField = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
         const legacyPuzzlePayload =
             'CwJgXAAABQMgxASIIYCCBsBxAlATiwMAA0AdgfABMAzARIGQAhgZMIGoBdBAVkoBuAHgHkARgCQAwgIwAyMABmEAe4BCAAQAMYCWADMWtUA';
 
@@ -409,7 +410,6 @@ describe('GameStateSerializer', () => {
     });
 
     describe('legacy format compatibility', () => {
-        const legacyGivens = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
         const legacyPuzzle = 'CwJgXAAABQMgxASIIYCCBsBxAlATiwMAA0AdgfABMAzARIGQAhgZMIGoBdBAVkoBuAHgHkARgCQAwgIwAyMABmEAe4BCAAQAMYCWADMWtUA';
         const legacyChallenge =
             'CwJgXAAABQMgxASIIYCCBsBxAlATiwMAA0AdgfABMAzARIGQAhgZMIGoBdBAVkoBuAHgHkARgCQAwgIwAyMABmEAe4BCAAQkhwAEACBAAIAbABgA0+fAASAAwCOAGAAIAwQFAAHAAMATQBgAeEgAQgARDABj8ACQg+gAy2wBNAGAAaHMkAFDvYABDgHCAFEMeMV8AByEAIFt0xIBEIIAjACVvGABBgCj8iQBlMRZzAFH6WwAegGHbAAkAYxFvAHMAQABY7oAWsVcggHGAKlsAC-GAXAAOmYAT7wA-AEFzexBksQBRdwAJgDGATHtxkRQcgAUu8ADS7swQKUxBAJGAAMzwiRAA';
@@ -514,5 +514,37 @@ describe('GameStateSerializer', () => {
             expect(decoded1[0]).toBe(decoded2[0]);
             expect(decoded1[2]).toBe(decoded2[2]);
         });
+    });
+});
+
+describe('legacy solution step parsing', () => {
+    it.each(['', '&l\u0080', String.fromCharCode(0)])('decodes frozen legacy steps %s', packedSteps => {
+        const segments = [new SudokuStringEncoder().encode('.'.repeat(81)), packedSteps, '3', '1'];
+        const payload = compressToEncodedURIComponent(segments.map(segment => `${segment.length}:${segment}`).join(''));
+        const decoded = new GameStateSerializer().decode(payload);
+
+        expect(decoded[1]).toStrictEqual(packedSteps === '&l\u0080' ? [{ cellIndex: 19, value: 3, ts: 100 }] : []);
+        expect(decoded[4]).toBe(packedSteps === '&l\u0080' ? 100 : 0);
+    });
+
+    it('skips invalid legacy indexes and digits while preserving valid steps', () => {
+        const out = new BitOutputStream();
+
+        for (const [cellIndex, value] of [
+            [81, 4],
+            [127, 4],
+            [0, 0],
+            [1, 15],
+            [80, 9]
+        ]) {
+            out.write(cellIndex, CELL_INDEX_BITS);
+            out.write(value, VALUE_BITS);
+            out.write(10, TIMESTAMP_BITS);
+        }
+
+        const segments = [new SudokuStringEncoder().encode('.'.repeat(81)), String.fromCharCode(...out.bytes()), '3', '1'];
+        const payload = compressToEncodedURIComponent(segments.map(segment => `${segment.length}:${segment}`).join(''));
+
+        expect(new GameStateSerializer().decode(payload)[1]).toStrictEqual([{ cellIndex: 80, value: 9, ts: 10 }]);
     });
 });

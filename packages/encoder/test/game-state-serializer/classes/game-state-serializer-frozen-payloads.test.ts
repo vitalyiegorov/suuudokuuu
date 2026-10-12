@@ -1,11 +1,10 @@
+import { givens } from '../../fixtures';
 /* oxlint-disable no-magic-numbers */
 import { describe, expect, it } from 'vitest';
 
 import { SharedPayloadKindEnum } from '../../../src/@generic/enums/shared-payload-kind.enum';
 import { TimelineEventKindEnum } from '../../../src/@generic/enums/timeline-event-kind.enum';
 import { GameStateSerializer } from '../../../src/game-state-serializer/classes/game-state-serializer';
-
-const givens = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
 
 const FROZEN_PUZZLE_PAYLOAD = '_MAPIThhRGUxFDDkJq4zrJuyYhUEGSYmTqA';
 const FROZEN_CHALLENGE_PAYLOAD = '_OwPIThhRGUxFDDkJq4zrJuyYhUEGSYmTqAalQDDhYCWCCwEA';
@@ -151,4 +150,15 @@ describe('GameStateSerializer frozen payload technique streams', () => {
             expect(serializer.decodeState(payload).techniques).toBeNull();
         }
     });
+});
+
+it('decodes a frozen pre-v2.4.0 challenge ending exactly on a byte boundary', () => {
+    const decoded = new GameStateSerializer().decodeState('_OgP4AAAAAAAAAAAAAAAAGgA');
+
+    expect(decoded.field).toBe(`11111${'.'.repeat(76)}`);
+    expect(decoded.timelineEvents).toStrictEqual([{ kind: TimelineEventKindEnum.Away, ts: 0 }]);
+    expect(decoded.pencilCount).toBeNull();
+    expect(decoded.screenshotCount).toBeNull();
+    expect(decoded.difficulty).toBeNull();
+    expect(decoded.techniques).toBeNull();
 });

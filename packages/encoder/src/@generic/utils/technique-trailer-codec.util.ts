@@ -8,6 +8,8 @@ import {
     TECHNIQUE_TRAILER_VERSION_V1
 } from '../constants/binary-codec.constant';
 
+import { clampToRange } from './clamp-to-range.util';
+
 import type { DecodedGameStateInterface } from '../interfaces/decoded-game-state.interface';
 import type { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
 
@@ -19,7 +21,7 @@ export const getTechniqueTrailerBits = (cellEventCount: number): number =>
     TECHNIQUE_TRAILER_VERSION_BITS + cellEventCount * TECHNIQUE_CODE_BITS;
 
 const toTechniqueCode = (technique: number | null | undefined): number =>
-    isDefined(technique) ? Math.min(Math.max(Math.trunc(technique), 0), TECHNIQUE_CODE_MAX) : TECHNIQUE_CODE_UNKNOWN;
+    isDefined(technique) ? clampToRange(technique, TECHNIQUE_CODE_MAX) : TECHNIQUE_CODE_UNKNOWN;
 
 const fromTechniqueCode = (code: number): number | null => (code === TECHNIQUE_CODE_UNKNOWN ? null : code);
 
