@@ -1,7 +1,7 @@
-suuudokuuu es un juego de sudoku con siete niveles de dificultad, de Novato a Infinito, y una valoración Sudoku Explainer (SE) en cada tablero. Juega al sudoku clásico sin conexión y sin cuenta, supera el reto diario, aprende técnicas con pistas paso a paso y envía a un amigo tu puzle exacto. Sin anuncios.
+suuudokuuu es un juego de sudoku y de lógica con siete niveles de dificultad, de Novato a Infinito, y una valoración Sudoku Explainer (SE) en cada tablero. Juega al sudoku clásico sin conexión y sin cuenta, supera el reto diario, aprende técnicas con pistas paso a paso y envía a un amigo tu puzle exacto. Sin anuncios.
 
 CADA SUDOKU, CON SU VALORACIÓN
-Suuudokuuu puntúa cada sudoku en la escala Sudoku Explainer (SE), de 1.0 a 12.0, la misma que usan los solucionadores serios. La valoración se ve en la etiqueta de nivel del tablero, en tu historial y en cada enlace que compartes. Una explicación integrada te cuenta qué mide de verdad ese número: lo difícil que es razonar un sudoku, no solo cuántas pistas tiene.
+suuudokuuu puntúa cada sudoku en la escala Sudoku Explainer (SE), de 1.0 a 12.0, la misma que usan los solucionadores serios. La valoración se ve en la etiqueta de nivel del tablero, en tu historial y en cada enlace que compartes. Una explicación integrada te cuenta qué mide de verdad ese número: lo difícil que es razonar un sudoku, no solo cuántas pistas tiene.
 
 INFINITO: SUDOKUS CON VALORACIÓN SE DE 10.4 A 11.9
 Una selección de 100 sudokus con valoración SE de 10.4 a 11.9, entre ellos el Everest y AI Escargot de Arto Inkala.

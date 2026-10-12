@@ -35,6 +35,16 @@ appId: ${APP_ID}
       id: 'HintStepNarrationSelectors.Technique'
 - assertVisible:
       id: 'HintStepNarrationSelectors.Narration'
+- assertNotVisible:
+      id: 'HintPanelSelectors.Progress'
+- tapOn:
+      id: 'HintPanelSelectors.ShowMoreButton'
+- assertNotVisible:
+      id: 'HintPanelSelectors.Progress'
+- tapOn:
+      id: 'HintPanelSelectors.ShowMoreButton'
+- assertVisible:
+      id: 'HintPanelSelectors.Progress'
 
 - tapOn:
       id: 'HintPanelSelectors.NextButton'

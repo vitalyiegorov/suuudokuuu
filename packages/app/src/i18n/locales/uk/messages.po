@@ -174,6 +174,10 @@ msgstr "{techniqueName}: підсвічені клітинки утворюют�
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
 msgstr "{techniqueName}: підсвічені клітинки містять рівно стільки цифр, скільки є клітинок, тож {valueList} мусить стояти в одній із них."
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "{techniqueName}: the highlighted cells hold the pattern."
+msgstr "{techniqueName}: підсвічені клітинки містять шаблон."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: підсвічені клітинки залишають лише {value} у позначеній клітинці."
@@ -245,6 +249,10 @@ msgstr "<0>Потрібен клієнт для розробки</0><1>Кліє�
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Знак «+» означає, що це судоку має щонайменше SE {seRatingCeilingText}. Далі розв’язання можуть розтягуватися в дуже довгі ланцюги, тож ми обмежуємо показане число, а не вдаємо хибну точність."
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "A direct Reveal costs one level only when you apply it."
+msgstr "Пряме відкриття цифри коштує один рівень лише тоді, коли ви його застосовуєте."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -319,10 +327,6 @@ msgstr "Анімації"
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Застосувати"
-
-#: src/scoring/components/scoring.screen.tsx
-msgid "Applying a hint"
-msgstr "Застосування підказки"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -737,6 +741,10 @@ msgstr "Дублювати"
 msgid "Each correct placement starts with a base value:"
 msgstr "Кожне правильне розміщення починається з базового значення:"
 
+#: src/scoring/components/scoring.screen.tsx
+msgid "Each hint level you reveal"
+msgstr "Кожен відкритий рівень підказки"
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Easy"
@@ -1106,6 +1114,22 @@ msgstr "Завантаження збірки для розробки"
 msgid "Loading the latest development build…"
 msgstr "Завантаження найновішої збірки для розробки…"
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in box {regionNumber}."
+msgstr "Шукайте {techniqueName} у блоці {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in column {regionNumber}."
+msgstr "Шукайте {techniqueName} у стовпці {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in row {regionNumber}."
+msgstr "Шукайте {techniqueName} у рядку {regionNumber}."
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName}."
+msgstr "Шукайте {techniqueName}."
+
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Lost"
@@ -1143,6 +1167,10 @@ msgstr "Середній"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "Меню, налаштування та текст гри"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "minimum {minimumHintPenalty} points"
+msgstr "щонайменше {minimumHintPenalty} балів"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
@@ -1772,6 +1800,14 @@ msgstr "Показувати час гри під час проходження"
 msgid "Show matching notes for the selected cell"
 msgstr "Показувати відповідні нотатки для вибраної клітинки"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more"
+msgstr "Показати більше"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more of the hint"
+msgstr "Показати більше підказки"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "Показувати рядок, стовпець і блок вибраної клітинки"
@@ -2091,8 +2127,8 @@ msgid "Undo"
 msgstr "Відмінити"
 
 #: src/scoring/components/scoring.screen.tsx
-msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
-msgstr "Скасування ходу також повертає бали, зароблені за це розміщення, тож за ту саму клітинку їх не можна отримати двічі. Закрити підказку, не застосувавши її, нічого не коштує, а скасування олівцевої позначки завжди безплатне."
+msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. A hint has up to four levels: the technique and region, the pattern cells, the full walkthrough, and placing the digit. Each level is charged when you reveal it, so dismissing a hint keeps only the levels you already saw. Undoing a pencil mark is always free."
+msgstr "Скасування ходу також повертає бали, зароблені за це розміщення, тож за ту саму клітинку їх не можна отримати двічі. Підказка має до чотирьох рівнів: прийом і область, клітинки шаблону, повне покрокове пояснення та розміщення цифри. Кожен рівень оплачується, коли ви його відкриваєте, тож закриття підказки зберігає лише ті рівні, які ви вже бачили. Скасування олівцевої позначки завжди безплатне."
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undoing a placement"

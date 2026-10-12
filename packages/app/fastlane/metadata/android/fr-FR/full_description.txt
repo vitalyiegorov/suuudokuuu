@@ -1,4 +1,4 @@
-suuudokuuu est un jeu de Sudoku avec sept niveaux de difficulté, de Novice à Infini, et une note Sudoku Explainer (SE) sur chaque grille. Jouez au sudoku classique hors ligne et sans compte, relevez le défi du jour, apprenez les techniques grâce à des indices pas à pas et envoyez à un ami votre grille exacte. Pas de pubs.
+suuudokuuu est un jeu de sudoku et de logique avec sept niveaux de difficulté, de Novice à Infini, et une note Sudoku Explainer (SE) sur chaque grille. Jouez au sudoku classique hors ligne et sans compte, relevez le défi du jour, apprenez les techniques grâce à des indices pas à pas et envoyez à un ami votre grille exacte. Sans publicité.
 
 CHAQUE GRILLE, NOTÉE
 Chaque grille porte sa note sur l'échelle Sudoku Explainer (SE), de 1.0 à 12.0, celle qu'utilisent les solveurs chevronnés : elle s'affiche dans la pastille de niveau sur la grille, dans votre historique et dans chaque lien que vous partagez. Une explication intégrée vous dit ce que ce chiffre mesure vraiment : la difficulté du raisonnement, pas le nombre d'indices.
@@ -10,16 +10,16 @@ L'ENFER : CHAÎNES FORCÉES OBLIGATOIRES
 L'Enfer réunit des grilles vérifiées qui exigent toutes une chaîne forcée : aucune ne se résout avec les techniques qu'autorise le niveau Cauchemar, et toutes sont notées SE 7.5 ou plus.
 
 VOTRE JEU, MESURÉ
-L'écran de statistiques affiche votre grille la plus dure, la difficulté moyenne de vos dernières parties et le niveau que vous jouez le plus. Le spectre SE place chaque grille terminée le long de l'échelle. Votre arsenal compte chaque technique que vous avez réellement utilisée — paire nue, X-Wing, swordfish et au-delà — pour voir votre répertoire s'étoffer. Chaque partie terminée se rejoue coup par coup, et chaque carte de l'historique porte un résumé des techniques qui l'ont résolue.
+L'écran de statistiques affiche votre grille la plus dure, la difficulté moyenne de vos dernières parties et le niveau que vous jouez le plus. Le spectre SE place chaque grille terminée le long de l'échelle. Votre arsenal compte chaque technique que vous avez réellement utilisée — paire nue, X-Wing, Swordfish et au-delà — pour voir votre répertoire s'étoffer. Chaque partie terminée se rejoue coup par coup, et chaque carte de l'historique porte un résumé des techniques qui l'ont résolue.
 
 DÉFIEZ UN AMI
-Le mode Rival envoie votre grille exacte à un ami par lien de partage, avec votre partie enregistrée. Votre ami joue la grille que vous venez de faire et court après votre temps, coup par coup.
+Le mode Rival envoie votre grille exacte à un ami par lien de partage, avec votre partie enregistrée. Votre ami joue la même grille que vous et tente de battre votre temps, coup par coup.
 
 JOUEZ À VOTRE FAÇON
 Choisissez Classique, Or ou Journal, ou ouvrez l'éditeur de thèmes avec aperçu en direct pour régler chaque case, chaque ligne et chaque surbrillance. La validation de contraste intégrée garde vos thèmes lisibles en clair comme en sombre.
 
 DÉFI DU JOUR ET INDICES QUI ENSEIGNENT
-Une nouvelle grille de Sudoku chaque jour, avec une série qui compte les jours consécutifs où vous la résolvez. Bloqué ? Un indice vous guide pas à pas dans la technique, des paires nues au X-Wing et au-delà, pour comprendre pourquoi le coup fonctionne et pas seulement où le placer.
+Une nouvelle grille de sudoku chaque jour, avec une série qui compte les jours consécutifs où vous la résolvez. Bloqué ? Un indice vous guide pas à pas dans la technique, des paires nues au X-Wing et au-delà, pour comprendre pourquoi le coup fonctionne et pas seulement où le placer.
 
 TOUT LE RESTE QUE VOUS ATTENDEZ
 • Score qui tient compte des techniques

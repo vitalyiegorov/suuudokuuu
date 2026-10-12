@@ -13,7 +13,7 @@ export const useFieldCellState = (cell: CellInterface) => {
 
     const sudoku = engine.Sudoku;
     const { selectedCell } = snapshot;
-    const stepState = buildStepScriptState(snapshot.stepScript, snapshot.stepIndex);
+    const stepState = buildStepScriptState(snapshot.stepScript, snapshot.stepIndex, snapshot.hintLevel);
     const isHintActive = isDefined(snapshot.stepScript);
     const cellKey = getCellKey(cell);
     const isEmpty = sudoku.isBlankCell(cell);

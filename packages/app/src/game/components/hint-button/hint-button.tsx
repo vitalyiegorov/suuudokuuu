@@ -11,6 +11,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { useCurrentRun } from '../../query/use-current-run.query';
 import { gameIsHintAvailable } from '../../utils/game-is-hint-available.util';
+import { gameStartHintStepScript } from '../../utils/game-start-hint-step-script.util';
 
 import { HintButtonSelectors } from './hint-button.selectors';
 
@@ -32,7 +33,7 @@ export const HintButton = ({ sizeStyle }: Props) => {
         const stepScript = findHintStepScript(engine.Sudoku, snapshot.eliminatedCandidates);
 
         if (isDefined(stepScript)) {
-            engine.startStepScript(stepScript);
+            gameStartHintStepScript(engine, stepScript);
         }
     };
 

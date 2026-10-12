@@ -115,9 +115,14 @@ pnpm --filter @suuudokuuu/web-tests lint
   narration scrolled to the top. Regenerate with `GameStateSerializer.encodeState` over the decoded
   `nishioRunHintSharedPuzzleEncodedConstant` with this field string, `rating: 80` and
   `isRatingCeiling: false`.
+- `eliminationHintSharedPuzzleEncodedConstant`: a Medium `Puzzle`-kind share of the budget-exhausted
+  `longChainBoard` in field-core. The first hint remains elimination-only under goal-directed search;
+  after three continued deductions, Nishio rules out `9` at `y=6, x=2` on the first of three slides.
 - `09.hint-flow.spec.ts` presses Continue and Reveal on the first slide of a Nishio elimination card on
-  `revealHintSharedPuzzleEncodedConstant` after its reveal is applied (the card `So r6c3 is not 6.`),
+  `eliminationHintSharedPuzzleEncodedConstant` after three eliminations are continued (the card `So r7c3 is not 9.`),
   because gating them to the last slide left the player stuck with a hidden numpad.
+
+- Every hint opens at level one (technique and region). `09.hint-flow.spec.ts` taps `HintPanelSelectors.SHOW_MORE_BUTTON` twice to reach the walkthrough before using Next, Back, or Apply; the Reveal hint has no levels and opens on the walkthrough.
 
 - `15.daily-challenge.spec.ts` needs no fixture. It pins the clock with `page.clock.setFixedTime` and
   solves the deterministic board that `forgeDailyPuzzle(dateString)` from `@suuudokuuu/puzzle-forge` (a
