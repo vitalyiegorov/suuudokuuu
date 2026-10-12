@@ -41,7 +41,7 @@ export const FieldBoard = ({ className, engine, givenCellKeys = EMPTY_GIVEN_CELL
     const focusableCellKey = selectedCellKey ?? FIRST_CELL_KEY;
     const context: FieldCellViewContextInterface = {
         givenCellKeys,
-        stepState: buildStepScriptState(snapshot.stepScript, snapshot.stepIndex),
+        stepState: buildStepScriptState(snapshot.stepScript, snapshot.stepIndex, snapshot.hintLevel),
         ...(isDefined(selectedCell) && { selectedCell }),
         ...(isDefined(mistakeCell) && { mistakeCell })
     };

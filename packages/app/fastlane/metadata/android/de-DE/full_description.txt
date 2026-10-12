@@ -1,4 +1,4 @@
-suuudokuuu ist ein Sudoku-Rätselspiel mit sieben Schwierigkeitsstufen von Anfänger bis Unendlich und einer Sudoku-Explainer-Wertung (SE) für jedes Rätsel. Spiele klassisches Sudoku offline und ohne Konto, löse die tägliche Herausforderung, lerne Techniken mit Schritt-für-Schritt-Tipps und schicke Freunden dein genaues Rätsel. Keine Werbung.
+suuudokuuu ist ein Sudoku-Rätselspiel und Logiktraining mit sieben Schwierigkeitsstufen von Anfänger bis Unendlich und einer Sudoku-Explainer-Wertung (SE) für jedes Rätsel. Spiele klassisches Sudoku offline und ohne Konto, löse die tägliche Herausforderung, lerne Techniken mit Schritt-für-Schritt-Tipps und schicke Freunden dein genaues Rätsel. Keine Werbung.
 
 JEDES RÄTSEL BEWERTET
 Jedes Rätsel trägt eine Bewertung auf der Sudoku-Explainer-Skala (SE) von 1.0 bis 12.0 – derselben Skala, mit der erfahrene Löser vergleichen. Sie steht direkt neben der Schwierigkeitsstufe auf dem Brett, in deinem Verlauf und in jedem Link, den du teilst. Eine eingebaute Erklärung zeigt dir, was die Zahl wirklich misst: wie schwer ein Rätsel zu durchdenken ist, und nicht, wie wenige Vorgaben es hat.
@@ -19,7 +19,7 @@ SPIEL, WIE DU WILLST
 Wähle Klassisch, Gold oder Zeitung, oder öffne den Theme-Editor mit Live-Vorschau und bestimme jede Zelle, jede Linie und jede Hervorhebung selbst. Die eingebaute Kontrastprüfung hält eigene Themes in Hell und Dunkel gut lesbar.
 
 TÄGLICHE HERAUSFORDERUNG UND TIPPS ZUM LERNEN
-Jeden Tag ein neues Sudoku, dazu eine Serie, die zählt, an wie vielen Tagen in Folge du es löst. Hängst du fest? Ein Tipp führt dich Schritt für Schritt durch die Technik, von Naked Pairs bis X-Wing und weiter, damit du verstehst, warum ein Zug funktioniert, und nicht nur, wohin er gehört.
+Jeden Tag ein neues Sudoku, dazu eine Serie, die zählt, an wie vielen Tagen in Folge du es löst. Hängst du fest? Ein Tipp führt dich Schritt für Schritt durch die Technik, von Nackten Paaren bis X-Wing und weiter, damit du verstehst, warum ein Zug funktioniert, und nicht nur, wohin er gehört.
 
 ALLES ANDERE, WAS DU WILLST
 • Technikbewusste Wertung

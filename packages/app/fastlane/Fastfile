@@ -335,6 +335,47 @@ platform :ios do
     )
   end
 
+  lane :ios_app_previews do |options|
+    previews_path = File.join(FASTLANE_DIR, "app-previews")
+    preview_path = File.join(previews_path, "en-US", "01_IPHONE_67.mp4")
+    UI.user_error!("Place the approved silent preview at #{preview_path}") unless File.file?(preview_path)
+    videos = Dir.glob(File.join(previews_path, "**", "*.{mp4,mov,m4v}"))
+    UI.user_error!("Only the approved global en-US preview may be uploaded") unless videos == [preview_path]
+    require "fastlane_core/video_utils"
+    duration = FastlaneCore::VideoUtils.read_video_duration_seconds(preview_path)
+    resolution = FastlaneCore::VideoUtils.read_video_resolution(preview_path)
+    UI.user_error!("Cannot read preview metadata from #{preview_path}") unless duration && resolution
+    UI.user_error!("Preview resolution is #{resolution.join('x')}; expected 886x1920") unless resolution == [886, 1920]
+    UI.user_error!("Preview duration is #{duration}s; App Store previews must be 15-30s") unless duration.between?(15, 30)
+    UI.user_error!("Preview is #{File.size(preview_path)} bytes; App Store previews must be under 500 MB") unless File.size(preview_path) < 500 * 1024 * 1024
+    UI.success("Preview validated: en-US IPHONE_67, #{resolution.join('x')}, #{duration}s")
+    next if options[:dry_run].to_s == "true"
+
+    app_store_connect_api_key(key_id: ENV["EXPO_ASC_KEY_ID"], issuer_id: ENV["EXPO_ASC_ISSUER_ID"], key_filepath: ENV["EXPO_ASC_API_KEY_PATH"])
+    app = Spaceship::ConnectAPI::App.find("com.vitalyiegorov.suuudokuuu")
+    UI.user_error!("App not found in App Store Connect") unless app
+    version = app.get_edit_app_store_version(platform: "IOS")
+    UI.user_error!("Create the next release version before uploading previews") unless version && version.version_string == app_store_version
+    UI.user_error!("Version #{version.version_string} is #{version.app_version_state}; upload before review submission") unless %w[PREPARE_FOR_SUBMISSION DEVELOPER_REJECTED REJECTED].include?(version.app_version_state)
+    UI.user_error!("The editable version needs an en-US localization before preview upload") unless version.get_app_store_version_localizations.any? { |localization| localization.locale == "en-US" }
+    UI.message("Uploading preview to #{version.version_string} (#{version.id})")
+
+    deliver(
+      app_version: app_store_version,
+      skip_app_version_update: true,
+      skip_binary_upload: true,
+      skip_metadata: true,
+      skip_screenshots: true,
+      app_previews_path: previews_path,
+      overwrite_preview_videos: false,
+      preview_frame_time_code: "00:00:05:00",
+      submit_for_review: false,
+      run_precheck_before_submit: false,
+      force: true,
+      metadata_path: IOS_METADATA_PATH
+    )
+  end
+
   lane :ios_screenshots do
     app_store_connect_api_key(
       key_id: ENV["EXPO_ASC_KEY_ID"],

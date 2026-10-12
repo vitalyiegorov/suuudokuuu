@@ -205,6 +205,23 @@ describe('CurrentRunService', () => {
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 
+    it.effect('charges every revealed hint level without a timeline marker', () =>
+        Effect.gen(function* () {
+            const currentRunService = yield* CurrentRunService;
+            const hintPenalty = scoring.calculateHintPenalty(penaltyParams);
+
+            yield* saveRun({ score: hintPenalty * 2 + 1 });
+            yield* currentRunService.revealHintLevel();
+            yield* currentRunService.revealHintLevel();
+
+            assert.deepInclude(yield* getRun, { score: 1, timelineEvents: [] });
+
+            yield* currentRunService.revealHintLevel();
+
+            assert.strictEqual((yield* getRun).score, 0);
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
     it.effect('charges a hint, strikes its eliminations and clears the redo stack', () =>
         Effect.gen(function* () {
             const currentRunService = yield* CurrentRunService;

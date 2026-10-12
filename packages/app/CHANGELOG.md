@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.26.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.0...v2.26.1) (2026-10-12)
+
+### Performance Improvements
+
+* **app:** generate native puzzles on a serialized worker runtime ([#533](https://github.com/vitalyiegorov/suuudokuuu/issues/533)) ([dafac42](https://github.com/vitalyiegorov/suuudokuuu/commit/dafac42d004dff07b83b26008291e07e0ebedd23)), closes [#172](https://github.com/vitalyiegorov/suuudokuuu/issues/172)
+
+
+# [2.26.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.25.2...v2.26.0) (2026-10-12)
+
+### Features
+
+* **field-core:** add progressive hint levels ([#506](https://github.com/vitalyiegorov/suuudokuuu/issues/506)) ([b15a447](https://github.com/vitalyiegorov/suuudokuuu/commit/b15a4475dc42bd66f6809ff2a23234b984d79c91))
+
+
+## [2.25.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.25.1...v2.25.2) (2026-10-12)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
+
+
+
+
+## [2.25.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.25.0...v2.25.1) (2026-10-12)
+
+**Note:** Version bump only for package @suuudokuuu/app
+
+
+
+
+
 # [2.25.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.24.7...v2.25.0) (2026-10-12)
 
 ### Features

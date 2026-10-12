@@ -362,3 +362,55 @@ Current artwork targets:
 Primary references: [Apple screenshot specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications),
 [Apple app preview specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/app-preview-specifications),
 and [Google Play preview asset specifications](https://support.google.com/googleplay/android-developer/answer/9866151).
+
+## Silent gameplay app preview (#480)
+
+The owner approved one global silent English preview. Copy the finished local
+artifact into the ignored upload directory:
+
+```bash
+mkdir -p fastlane/app-previews/en-US
+cp ~/suuudokuuu-store-media/01_IPHONE_67.mp4 fastlane/app-previews/en-US/
+bundle exec fastlane ios ios_app_previews dry_run:true
+```
+
+Run these from `packages/app`. MP4 files are already gitignored; do not commit
+or force-add them. Install `ffprobe` for the required duration/resolution check.
+The lane requires an 886x1920 file of 15-30 seconds, under 500 MB. Only this
+en-US file is uploaded; no per-locale variants are required.
+
+The installed **fastlane 2.240.1** was checked with `bundle exec fastlane action
+deliver` and its `Deliver::SyncAppPreviews` implementation. `app_previews_path`
+reads `<locale>/` directories. The filename token **IPHONE_67** determines
+`appPreviewSets.previewType=IPHONE_67`, the current largest 6.7/6.9-inch iPhone
+preview slot; resolution alone does not select the preview type. This differs
+from screenshots, whose largest slot is `APP_IPHONE_67`. The accepted portrait
+preview resolution is 886x1920. `skip_screenshots: true` still uploads previews
+when `app_previews_path` is set. `overwrite_preview_videos: false` preserves
+existing previews and skips a clip with a matching checksum; keep at most three
+per type. The poster frame uses `preview_frame_time_code: "00:00:05:00"`.
+
+After #506, #527, #533 and #535 merge, use the pre-authorized release flow to
+create the next App Store version. Ensure its version matches
+`packages/app/package.json` and exceeds the released version, then run:
+
+```bash
+bundle exec fastlane ios ios_app_previews
+```
+
+Set `EXPO_ASC_KEY_ID`, `EXPO_ASC_ISSUER_ID`, and `EXPO_ASC_API_KEY_PATH` securely
+as for `ios_metadata`. The lane checks the existing editable iOS version and
+allows only PREPARE_FOR_SUBMISSION, DEVELOPER_REJECTED, or REJECTED. It refuses
+a different version or a version waiting for/in review; it never cancels a
+review, creates/renames a version, or submits for review. Upload immediately
+after the release flow creates the version and **before** its review submission.
+
+After upload, check App Store Connect > version > App
+Previews and Screenshots for completed processing, one preview in the largest
+iPhone slot and the five-second poster frame. Preview processing is not review
+approval. The owner separately uploads the same silent video to YouTube for
+Play and sets its public, non-monetized URL in the Play listing.
+
+[Apple preview specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/app-preview-specifications/)
+and [fastlane deliver options](https://docs.fastlane.tools/actions/deliver/) are
+the vendor references.
