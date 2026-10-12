@@ -32,10 +32,6 @@ src/
 │   ├── field-cell-candidates/ # 3x3 candidate mini grid
 │   ├── field-number-pad/      # digits with remaining counts, mode/undo/redo
 │   ├── field-step-player/     # step controls, progress dots or count, aria-live narration
-│   ├── field-chain-witness/   # Chain paths and endpoint markers
-│   ├── field-branch-witness/  # Forcing-branch paths
-│   ├── field-witness-candidate/ # Candidate witness markers
-│   ├── field-witness-link-mask/ # Masks links around candidate markers
 │   ├── field-witness-overlay/ # SVG chain and forcing-branch witness over the board
 │   ├── field-chain-witness/   # Masked chain links and candidates
 │   ├── field-branch-witness/  # Assumption, implications, and branch outcome

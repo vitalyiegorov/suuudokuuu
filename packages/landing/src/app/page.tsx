@@ -5,12 +5,12 @@ import { FaqHeading } from '../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../seo/components/faq-question/faq-question';
 import { Faq } from '../seo/components/faq/faq';
-import { PageHeader } from '../seo/components/page-header/page-header';
 import { SoftwareApplicationFeature } from '../seo/components/software-application-feature/software-application-feature';
 import { SoftwareApplicationSchema } from '../seo/components/software-application-schema/software-application-schema';
 import { WebSiteSchema } from '../seo/components/web-site-schema/web-site-schema';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_PLAY_URL } from '../seo/constants/site.constant';
 import { buildPageMetadata } from '../seo/utils/build-page-metadata.util';
+import { resolvePageHeadline } from '../seo/utils/resolve-page-headline.util';
 
 import { glossaryPageMetadata } from './glossary/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from './hardest-sudoku-puzzles/metadata';
@@ -34,7 +34,7 @@ const HomePage = () => (
     <main>
         <WebSiteSchema metadata={homePageMetadata} />
         <p className="hero__eyebrow">Free, open-source, no ads</p>
-        <PageHeader metadata={homePageMetadata} />
+        <h1>{resolvePageHeadline(homePageMetadata)}</h1>
         <p>
             Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall,
             and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity,

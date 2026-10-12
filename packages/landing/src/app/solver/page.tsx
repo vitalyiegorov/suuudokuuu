@@ -16,6 +16,7 @@ import { buildPageMetadata } from '../../seo/utils/build-page-metadata.util';
 import { SolverWorkbench } from '../../solver/components/solver-workbench/solver-workbench';
 import { TechniqueLinkList } from '../../techniques/components/technique-link-list/technique-link-list';
 import { TechniqueSummary } from '../../techniques/components/technique-summary/technique-summary';
+import { TECHNIQUE_PAGE_LADDER } from '../../techniques/constants/technique-page-ladder.constant';
 import { seventeenClueSudokuPageMetadata } from '../17-clue-sudoku/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../hardest-sudoku-puzzles/metadata';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
@@ -28,47 +29,21 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(solverPageMetadata);
 
-const TIER_1_SINGLES = [SolutionTechniqueEnum.FullHouse, SolutionTechniqueEnum.NakedSingle, SolutionTechniqueEnum.HiddenSingle];
+const TIER_1_SINGLES = TECHNIQUE_PAGE_LADDER.filter(technique => technique <= SolutionTechniqueEnum.HiddenSingle);
 
-const TIER_2_INTERSECTIONS = [
-    SolutionTechniqueEnum.PointingPair,
-    SolutionTechniqueEnum.PointingTriple,
-    SolutionTechniqueEnum.BoxLineReduction
-];
+const TIER_2_INTERSECTIONS = TECHNIQUE_PAGE_LADDER.filter(
+    technique => technique > SolutionTechniqueEnum.HiddenSingle && technique <= SolutionTechniqueEnum.BoxLineReduction
+);
 
-const TIER_3_SUBSETS = [
-    SolutionTechniqueEnum.NakedPair,
-    SolutionTechniqueEnum.NakedTriple,
-    SolutionTechniqueEnum.NakedQuad,
-    SolutionTechniqueEnum.HiddenPair,
-    SolutionTechniqueEnum.HiddenTriple,
-    SolutionTechniqueEnum.HiddenQuad
-];
+const TIER_3_SUBSETS = TECHNIQUE_PAGE_LADDER.filter(
+    technique => technique > SolutionTechniqueEnum.BoxLineReduction && technique <= SolutionTechniqueEnum.HiddenQuad
+);
 
-const TIER_4_FISH_WINGS_CHAINS = [
-    SolutionTechniqueEnum.XWing,
-    SolutionTechniqueEnum.Swordfish,
-    SolutionTechniqueEnum.Jellyfish,
-    SolutionTechniqueEnum.FinnedXWing,
-    SolutionTechniqueEnum.FinnedSwordfish,
-    SolutionTechniqueEnum.SashimiXWing,
-    SolutionTechniqueEnum.SashimiSwordfish,
-    SolutionTechniqueEnum.XYWing,
-    SolutionTechniqueEnum.XYZWing,
-    SolutionTechniqueEnum.WWing,
-    SolutionTechniqueEnum.XChain,
-    SolutionTechniqueEnum.XYChain,
-    SolutionTechniqueEnum.SimpleColoring,
-    SolutionTechniqueEnum.AIC
-];
+const TIER_4_FISH_WINGS_CHAINS = TECHNIQUE_PAGE_LADDER.filter(
+    technique => technique > SolutionTechniqueEnum.HiddenQuad && technique <= SolutionTechniqueEnum.AIC
+);
 
-const TIER_5_UNIQUENESS_FORCING_CHAINS = [
-    SolutionTechniqueEnum.UniqueRectangle,
-    SolutionTechniqueEnum.BivalueUniversalGrave,
-    SolutionTechniqueEnum.NishioForcingChain,
-    SolutionTechniqueEnum.CellForcingChain,
-    SolutionTechniqueEnum.RegionForcingChain
-];
+const TIER_5_UNIQUENESS_FORCING_CHAINS = TECHNIQUE_PAGE_LADDER.filter(technique => technique > SolutionTechniqueEnum.AIC);
 
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SolverPage = () => (

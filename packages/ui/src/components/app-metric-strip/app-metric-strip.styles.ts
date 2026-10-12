@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native-unistyles';
 export const AppMetricStripStyles = StyleSheet.create(theme => ({
     separator: {
         backgroundColor: theme.colors.surface.border,
-        height: 28,
+        height: 30,
         marginHorizontal: 3,
         width: StyleSheet.hairlineWidth
     },

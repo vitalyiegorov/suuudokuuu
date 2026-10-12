@@ -352,5 +352,13 @@
         :root {
             --field-transition-duration: 0s;
         }
+
+        .field-cell,
+        .field-number-pad__digit,
+        .field-number-pad__action,
+        .field-step-player__control,
+        .field-step-player__dot {
+            transition: none;
+        }
     }
 }

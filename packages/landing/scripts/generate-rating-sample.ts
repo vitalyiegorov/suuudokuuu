@@ -1,5 +1,4 @@
 import { writeFileSync } from 'node:fs';
-import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
@@ -13,22 +12,8 @@ import type { RatedDifficultyType } from '../src/difficulty/types/rated-difficul
 import type { RatedSamplePuzzleInterface } from '../src/rating/interfaces/rated-sample-puzzle.interface';
 
 const RATING_SAMPLE_SIZE = 40;
-const SAMPLE_FILE_PATH = join(
-    fileURLToPath(new URL('.', import.meta.url)),
-    '..',
-    'src',
-    'rating',
-    'constants',
-    'rating-sample.constant.ts'
-);
-const REPORTS_FILE_PATH = join(
-    fileURLToPath(new URL('.', import.meta.url)),
-    '..',
-    'src',
-    'rating',
-    'constants',
-    'tier-technique-reports.constant.ts'
-);
+const SAMPLE_FILE_PATH = fileURLToPath(new URL('../src/rating/constants/rating-sample.constant.ts', import.meta.url));
+const REPORTS_FILE_PATH = fileURLToPath(new URL('../src/rating/constants/tier-technique-reports.constant.ts', import.meta.url));
 const FORGE_ATTEMPT_BUDGET = 256;
 const IN_BAND_RETRY_LIMIT = 8;
 

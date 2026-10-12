@@ -48,7 +48,11 @@ export const FieldStepPlayer = ({ engine, labels, narrationRenderer }: Props) =>
     };
 
     return (
-        <div aria-label={labels.stepPlayer} className="field-step-player" data-active={hasStepScript} role="group">
+        <div
+            {...(hasStepScript && { 'aria-label': labels.stepPlayer, role: 'group' })}
+            className="field-step-player"
+            data-active={hasStepScript}
+        >
             {hasStepScript &&
                 (hasProgressCount ? (
                     <span className="field-step-player__progress-count">{progressLabel}</span>

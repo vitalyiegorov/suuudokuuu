@@ -9,7 +9,6 @@ export const AppMetricStripItemStyles = StyleSheet.create(theme => ({
     },
     label: {
         color: theme.colors.text.primary,
-        opacity: 0.55,
         fontSize: 9,
         fontWeight: '900',
         letterSpacing: 0.3,
@@ -18,10 +17,9 @@ export const AppMetricStripItemStyles = StyleSheet.create(theme => ({
     },
     value: {
         color: theme.colors.text.primary,
-        letterSpacing: -0.2,
         fontVariant: ['tabular-nums'],
         fontSize: 18,
-        fontWeight: '800',
+        fontWeight: '900',
         lineHeight: 20,
         textAlign: 'center'
     }

@@ -60,7 +60,7 @@ src/
 │   ├── components/          # tier-ladder and technique-frequency tables, SE range and tier band renderers
 │   ├── constants/           # committed rated puzzle sample and the technique ladder order
 │   ├── interfaces/          # rated sample entry, logical solve result and per-tier report view models
-│   └── utils/               # solvePuzzleLogically and the memoised tier reports
+│   └── utils/               # solvePuzzleLogically and accessors for the committed tier reports
 ├── seo/
 │   ├── components/          # JsonLd, PageHeader, the compound FAQPage/SoftwareApplication/BreadcrumbList schemas, and the visible Breadcrumbs, UpdatedDate and HowTo renderers
 │   ├── constants/           # site identity and schema.org constants
@@ -103,7 +103,7 @@ Every SEO page lives at its own `src/app/<route>/page.tsx`. Never collapse conte
 
 Per-page visible copy — section headings, prose, bullets, FAQ questions and answers, CTA text, legal text — is written inline as JSX in the route `page.tsx`. A reader must be able to grep a visible sentence and land on the route that renders it.
 
-The `<h1>` is the one exception: it lives in the sidecar as `headline` and is rendered by `PageHeader`. On articles it is also the `Article` schema headline. Never write an `<h1>` in a route file.
+The `<h1>` is the one exception: it lives in the sidecar as `headline` and is rendered by `PageHeader`. On articles it is also the `Article` schema headline. The home route renders a plain `<h1>` using `resolvePageHeadline(homePageMetadata)` so the hero has no updated-date line. Other routes use `PageHeader`.
 
 Do not move body copy into registries, keyed content objects, string arrays, slug dispatchers, or prop bags. Do not build fixed JSX lists by mapping over arrays of strings just to shorten a file.
 
@@ -235,9 +235,9 @@ To add a technique page:
 
 ## Guide pages and the generated solve data
 
-The guides under `src/app/guides` publish measured numbers, never hand-written ones. `TierLadderTable` and `TechniqueFrequencyTable` call `getTierTechniqueReports()` during static generation; the reports are memoised per build so both guides share one computation.
+The guides under `src/app/guides` publish measured numbers, never hand-written ones. `TierLadderTable` and `TechniqueFrequencyTable` call `getTierTechniqueReports()` during static generation; the reports are committed in `tier-technique-reports.constant.ts` and both guides read that same data.
 
-`RATING_SAMPLE_PUZZLES` in `src/rating/constants/rating-sample.constant.ts` is a committed, fixed sample of `RATING_SAMPLE_SIZE` rated puzzles per difficulty, each entry a `{ puzzle, rating, isRatingCeiling }` record. Sourcing is random and the Hell corpus is large, so the sample is frozen in source to keep every build deterministic and every published number reproducible. The file is written by `scripts/generate-rating-sample.ts` (`pnpm --filter @suuudokuuu/landing generate:rating-sample`): the five generated tiers come from `forgePuzzle(difficulty)` in `@suuudokuuu/puzzle-forge`, retried until the board is in band so the sample proves the tier contract; the Hell entries are the first `RATING_SAMPLE_SIZE` records of `@suuudokuuu/hell-corpus`, which carry a verified rating. Regenerating the sample changes every number on both guides, the six rated difficulty landers and their printable booklets, so treat it as data, not as code to tidy.
+`RATING_SAMPLE_PUZZLES` in `src/rating/constants/rating-sample.constant.ts` is a committed, fixed sample of `RATING_SAMPLE_SIZE` rated puzzles per difficulty, each entry a `{ puzzle, rating, isRatingCeiling }` record. Sourcing is random and the Hell corpus is large, so the sample is frozen in source to keep every build deterministic and every published number reproducible. The file is written by `scripts/generate-rating-sample.ts` (`pnpm --filter @suuudokuuu/landing generate:rating-sample`): the five generated tiers come from `forgePuzzle(difficulty)` in `@suuudokuuu/puzzle-forge`, retried until the board is in band so the sample proves the tier contract; the Hell entries are spread evenly across `@suuudokuuu/hell-corpus`, which carry a verified rating. The same script writes the derived reports, and `check:tier-reports` checks them against the fixed sample. Regenerating the sample changes every number on both guides, the six rated difficulty landers and their printable booklets, so treat it as data, not as code to tidy.
 
 The sample, the tier reports and both guide tables cover the six tiers in `RATED_DIFFICULTY_LADDER`, typed `RatedDifficultyType`; `DIFFICULTY_LADDER`, `DIFFICULTY_NAMES` and `DIFFICULTY_PAGE_PATHS` cover every `DifficultyEnum` member. Infinity is deliberately outside the rated sample: its puzzles carry the SE ratings independent raters publish, above `SE_RATING_CEILING`, and our technique ladder cannot finish any of them, so they would put unmeasured numbers into tables that promise measured ones. The Infinity lander and booklet read their facts from `src/difficulty/constants/infinity-corpus.constant.ts`, which derives the rating and clue ranges from `@suuudokuuu/hell-corpus`, and the booklet prints the first `PRINTABLE_BOOKLET_SIZE` records of that corpus unchanged. Keep each entry on one line: the generator emits tier arrays at top level precisely so a full entry fits inside the 140-column print width and the file stays under the `max-lines` limit.
 

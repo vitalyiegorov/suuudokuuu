@@ -58,7 +58,9 @@ const submitToIndexNow = (key: string): void => {
                 );
             }
 
-            return void console.log(`Submitted ${urlList.length} sitemap-derived URLs for ${host} to IndexNow (${response.status}).`);
+            console.log(`Submitted ${urlList.length} sitemap-derived URLs for ${host} to IndexNow (${response.status}).`);
+
+            return undefined;
         })
         .catch(handleSubmitError);
 };

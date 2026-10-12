@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const FieldChainWitness = ({ chain, filledCells }: Props) => {
-    const maskId = useId();
+    const maskId = useId().replaceAll(':', '');
 
     return (
         <>

@@ -3,7 +3,7 @@
 import { track } from '@vercel/analytics';
 import { useSyncExternalStore } from 'react';
 
-import { emptyFn, isDefined } from '@rnw-community/shared';
+import { isDefined } from '@rnw-community/shared';
 
 import {
     COMFORT_SCALE_CSS_PROPERTY,
@@ -42,7 +42,9 @@ const applyComfortScaleStep = (step: ComfortScaleStepInterface) => {
     try {
         window.localStorage.setItem(COMFORT_SCALE_STORAGE_KEY, step.id);
     } catch {
-        emptyFn();
+        notifyActiveStepListeners();
+
+        return;
     }
     notifyActiveStepListeners();
 };
