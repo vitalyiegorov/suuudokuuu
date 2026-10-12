@@ -36,7 +36,7 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
         borderCurve: 'continuous',
         borderRadius: theme.radius.lg,
         borderWidth: 1,
-        gap: theme.spacing.sm,
+        gap: theme.spacing.xs,
         maxWidth: hintPanelMaxWidth,
         padding: theme.spacing.md,
         width: '100%',

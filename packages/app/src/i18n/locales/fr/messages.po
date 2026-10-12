@@ -352,6 +352,10 @@ msgstr "Appliquer et suivant"
 msgid "Assists"
 msgstr "Aides"
 
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "At least one end of this chain must be true."
+msgstr "Au moins une extrémité de cette chaîne doit être vraie."
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "Tente de charger à nouveau la dernière version de développement"
@@ -626,6 +630,10 @@ msgstr "Continuer ailleurs"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "Continuez ce sudoku exactement là où je me suis arrêté !"
+
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "Contradiction, so {cell} is not {value}."
+msgstr "Contradiction : {cell} n’est donc pas {value}."
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1006,6 +1014,10 @@ msgstr "Comment fonctionne le score"
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "J'ai terminé ce sudoku en {elapsedTimeString}. Pouvez-vous faire mieux ?"
+
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "If {cell} were {value}, these cells would be forced in turn."
+msgstr "Si {cell} valait {value}, ces cellules seraient forcées à leur tour."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."

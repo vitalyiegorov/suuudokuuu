@@ -270,6 +270,7 @@ test('walks a long Nishio and AIC hint with witness slides that leave the board 
 
     const branch = page.getByTestId(FieldWitnessOverlaySelectors.Branch);
     const outcome = page.getByTestId(FieldWitnessOverlaySelectors.Outcome);
+    const chain = page.getByTestId(FieldWitnessOverlaySelectors.Chain);
     const techniqueNames = new Set<string>();
     let sawBranch = false;
     let sawOutcome = false;
@@ -288,6 +289,11 @@ test('walks a long Nishio and AIC hint with witness slides that leave the board 
             await expect(outcome).toHaveCount(0);
             await next.click();
             await expect(outcome).not.toHaveCount(0);
+        }
+
+        if ((await chain.count()) > 0) {
+            await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText('At least one end of this chain must be true.');
+            await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveAttribute('aria-label', /^Follow the chain .+/u);
         }
 
         if (stepIndex < stepCount - 1) {
@@ -385,7 +391,8 @@ test('continues and reveals from the first slide of a forcing-chain elimination 
 
     await revealHintWalkthrough(page);
     await expect(progress).toHaveAttribute('aria-label', 'Step 1 of 3');
-    await expect(narration).toContainText('So r7c3 is not 9.');
+    await expect(narration).toHaveText('Contradiction, so R7C3 is not 9.');
+    await expect(narration).toHaveAttribute('aria-label', /So r7c3 is not 9\./u);
 
     await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveCount(0);
     const labelsBefore = await readCellLabels(page);
@@ -394,7 +401,7 @@ test('continues and reveals from the first slide of a forcing-chain elimination 
     expect(await readCellLabels(page)).toEqual(labelsBefore);
     await expect(page.getByTestId(HintPanelSelectors.SHOW_MORE_BUTTON)).toBeVisible();
     await revealHintWalkthrough(page);
-    await expect(narration).not.toContainText('So r7c3 is not 9.');
+    await expect(narration).not.toHaveAttribute('aria-label', /So r7c3 is not 9\./u);
     await expect(progress).toHaveAttribute('aria-label', /^Step 1 of /u);
     await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-continue-slide-1-after.png'), fullPage: true });
 
@@ -434,8 +441,13 @@ for (const viewport of [
         }
 
         await expect(branch).not.toHaveCount(0);
+        await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText('Contradiction, so R8C4 is not 6.');
+        await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveAttribute(
+            'aria-label',
+            /If r8c4=6 → r9c4=7 → .+So r8c4 is not 6\./u
+        );
 
-        await page.screenshot({ scale: 'css', path: `../../.scratch/hint-chain-${width}.png` });
+        await page.screenshot({ scale: 'css', path: `../../.scratch/short-narration-hint-chain-${width}.png` });
         await expect(page.getByTestId(HintStepNarrationSelectors.CHAIN_BLOCKS)).toBeVisible();
         await expect(page.getByTestId(HintStepNarrationSelectors.CHAIN_BLOCKS)).toContainText(/R\dC\d = \d/u);
 
@@ -454,8 +466,9 @@ for (const viewport of [
         const finalCandidate = chainBlocks.getByText(/^R\dC\d = \d$/u).last();
         await finalCandidate.scrollIntoViewIfNeeded();
         await expect(finalCandidate).toBeInViewport({ ratio: 1 });
+        await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toBeInViewport({ ratio: 1 });
         await expect(page.getByTestId(HintStepNarrationSelectors.CONTRADICTION).last()).toBeVisible();
-        await page.screenshot({ scale: 'css', path: `../../.scratch/hint-chain-outcome-${width}.png` });
+        await page.screenshot({ scale: 'css', path: `../../.scratch/short-narration-hint-chain-outcome-${width}.png` });
 
         const panel = await page.getByTestId(HintPanelSelectors.Root).boundingBox();
 

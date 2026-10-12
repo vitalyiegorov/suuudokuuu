@@ -5,7 +5,7 @@ const narrationLineHeight = 22;
 
 export const HintStepNarrationStyles = StyleSheet.create(theme => ({
     container: {
-        gap: theme.spacing.sm,
+        gap: theme.spacing.xs,
         minHeight: 0
     },
     chip: {

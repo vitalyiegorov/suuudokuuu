@@ -10,6 +10,7 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameGetStepNarration } from '../../utils/game-get-step-narration.util';
+import { HintChainSentence } from '../hint-chain-sentence/hint-chain-sentence';
 import { HintNarratedChain } from '../hint-narrated-chain/hint-narrated-chain';
 
 import { HintStepNarrationSelectors } from './hint-step-narration.selectors';
@@ -34,6 +35,7 @@ export const HintStepNarration = ({ stepScript, stepIndex, value }: Props) => {
     const narrationStyles = [styles.narration, { color: theme.colors.surface.raisedText }];
     const chipStyles = [styles.chip, { backgroundColor: theme.colors.ink }];
     const chipTextStyles = [styles.chipText, { color: theme.colors.inkText }];
+    const isWitness = step.kind === StepScriptStepKindEnum.SHOW_CHAIN || step.kind === StepScriptStepKindEnum.SHOW_BRANCH;
     const witnessSteps = stepScript.steps
         .slice(0, stepIndex + 1)
         .map((candidateStep, index) => ({ step: candidateStep, stepIndex: index }))
@@ -85,9 +87,13 @@ export const HintStepNarration = ({ stepScript, stepIndex, value }: Props) => {
                     })}
                 </View>
             ) : null}
-            <BlackText accessibilityLiveRegion="polite" style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
-                {narrationText}
-            </BlackText>
+            {isWitness ? (
+                <HintChainSentence narrationText={narrationText} step={step} />
+            ) : (
+                <BlackText accessibilityLiveRegion="polite" style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
+                    {narrationText}
+                </BlackText>
+            )}
         </ScrollView>
     );
 };

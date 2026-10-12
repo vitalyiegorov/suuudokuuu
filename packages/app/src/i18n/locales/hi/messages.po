@@ -350,6 +350,10 @@ msgstr "लागू करें और आगे बढ़ें"
 msgid "Assists"
 msgstr "सहायताएँ"
 
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "At least one end of this chain must be true."
+msgstr "इस श्रृंखला का कम से कम एक सिरा सही होना चाहिए।"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "नवीनतम डेवलपमेंट बिल्ड को फिर से लोड करने का प्रयास करता है"
@@ -624,6 +628,10 @@ msgstr "कहीं और जारी रखें"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "इस सुडोकू को ठीक वहीं से जारी रखो जहाँ मैंने छोड़ा था!"
+
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "Contradiction, so {cell} is not {value}."
+msgstr "विरोधाभास, इसलिए {cell}, {value} नहीं है।"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1004,6 +1012,10 @@ msgstr "स्कोर कैसे काम करता है"
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "मैंने यह सुडोकू {elapsedTimeString} में पूरा किया। क्या आप मुझे हरा सकते हैं?"
+
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "If {cell} were {value}, these cells would be forced in turn."
+msgstr "यदि {cell}, {value} होता, तो ये खाने क्रमशः तय हो जाते।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."

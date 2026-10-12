@@ -352,6 +352,10 @@ msgstr "Застосувати й далі"
 msgid "Assists"
 msgstr "Допоміжні дії"
 
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "At least one end of this chain must be true."
+msgstr "Принаймні один кінець цього ланцюжка має бути істинним."
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "Намагається знову завантажити найновішу збірку для розробки"
@@ -626,6 +630,10 @@ msgstr "Продовжити деінде"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "Продовж це судоку саме там, де я зупинився!"
+
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "Contradiction, so {cell} is not {value}."
+msgstr "Суперечність, отже {cell} — не {value}."
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1006,6 +1014,10 @@ msgstr "Як працює підрахунок балів"
 #: src/game/hooks/use-share-challenge/use-share-challenge.hook.ts
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "Мій результат у цьому судоку: {elapsedTimeString}. Зможеш краще?"
+
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "If {cell} were {value}, these cells would be forced in turn."
+msgstr "Якби {cell} було {value}, ці клітинки послідовно визначалися б."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
