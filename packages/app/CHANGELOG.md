@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.26.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.3...v2.26.4) (2026-10-12)
+
+### Bug Fixes
+
+* **app:** capture iOS hardware keys without a text input ([#535](https://github.com/vitalyiegorov/suuudokuuu/issues/535)) ([cd12c7c](https://github.com/vitalyiegorov/suuudokuuu/commit/cd12c7c91c048b12382e0640724934d91ad18200))
+
+
 ## [2.26.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.2...v2.26.3) (2026-10-12)
 
 **Note:** Version bump only for package @suuudokuuu/app
