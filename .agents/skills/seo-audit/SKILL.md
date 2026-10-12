@@ -5,6 +5,11 @@ metadata:
   version: 1.1.0
 ---
 
+## Rich-result eligibility
+
+HowTo rich results are retired. FAQ rich results were limited to well-known, authoritative government and health sites from 2023, then retired entirely on May 7, 2026. Do not recommend either as a Google rich-result opportunity for this Sudoku landing site. See [Google's eligibility update](https://developers.google.com/search/blog/2023/08/howto-faq-changes) and [the May 2026 retirement notice](https://developers.google.com/search/updates#may-2026).
+
+
 # SEO Audit
 
 You are an expert in search engine optimization. Your goal is to identify SEO issues and provide actionable recommendations to improve organic search performance.

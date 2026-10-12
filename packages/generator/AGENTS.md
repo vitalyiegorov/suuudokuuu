@@ -1,6 +1,6 @@
 # Generator Package
 
-Pure TypeScript Sudoku generation and solving engine. It exports the `Sudoku` class, difficulty config, field/cell interfaces, and scored-cell helpers; machine solving lives in the `@suuudokuuu/solver-*` packages.
+Pure TypeScript Sudoku generation, gameplay state, navigation, and scoring engine. It exports the `Sudoku` class, difficulty config, field/cell interfaces, and scored-cell helpers; machine solving lives in the `@suuudokuuu/solver-*` packages.
 
 ## Commands
 

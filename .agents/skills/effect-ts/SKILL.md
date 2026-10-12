@@ -1,35 +1,8 @@
 ---
 name: effect-ts
-description: Use this skill when setting up a repository that uses the Effect Typescript library.
+description: Use when setting up or changing Effect in this repository.
 ---
 
-# Step 1: Install effect
+# Effect setup
 
-Use the users preferred package manager:
-
-```
-yarn add effect@rc
-```
-
-If in a monorepo, install it as a dev dependency at the root, so you can access
-the source code from `node_modules/effect/src`.
-
-```
-yarn add -D effect@rc
-```
-
-# Step 2: Update AGENTS.md / CLAUDE.md
-
-Ensure that the agent instructions contain the following:
-
-```md
-# Learning more about Effect
-
-This repository uses the Effect Typescript library.
-
-Before writing any Effect code, first read `node_modules/effect/AGENTS.md`
-**completely**, and follow the links in the file when required.
-
-If you need to learn more about particular Effect apis and concepts that the
-guide doesn't cover, search through the source code in `node_modules/effect/src`.
-```
+Read and follow the canonical [Effect skill](../effect/SKILL.md). This repository already pins Effect v4 in the packages that use it. Use pnpm and the pinned version; do not install a release candidate or add a parallel setup guide.
