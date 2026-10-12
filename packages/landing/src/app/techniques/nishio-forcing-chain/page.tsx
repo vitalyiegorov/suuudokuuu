@@ -14,7 +14,6 @@ import { TechniquePageHeader } from '../../../techniques/components/technique-pa
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
 import { aicPageMetadata } from '../aic/metadata';
-import { bugPageMetadata } from '../bug/metadata';
 import { cellForcingChainPageMetadata } from '../cell-forcing-chain/metadata';
 
 import { nishioForcingChainPageMetadata } from './metadata';
@@ -133,7 +132,7 @@ const NishioForcingChainPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={cellForcingChainPageMetadata} previous={bugPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.NishioForcingChain} />
     </main>
 );
 

@@ -12,8 +12,6 @@ import { TechniqueNavigation } from '../../../techniques/components/technique-na
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
-import { finnedSwordfishPageMetadata } from '../finned-swordfish/metadata';
-import { jellyfishPageMetadata } from '../jellyfish/metadata';
 
 import { finnedXWingPageMetadata } from './metadata';
 
@@ -135,7 +133,7 @@ const FinnedXWingPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={finnedSwordfishPageMetadata} previous={jellyfishPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.FinnedXWing} />
     </main>
 );
 
