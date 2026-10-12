@@ -2,6 +2,8 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, renameSync, rmdirSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { type SceneOutcome } from './capture-device.ts';
 import { type Scene, localeIdentifierFor } from './screenshot-scenes.ts';
 
@@ -37,7 +39,7 @@ const flattenMaestroScreenshotsDirectory = (testOutputDirectory: string): void =
 
 export const runMaestroScene = (context: MaestroContext, request: MaestroSceneRequest): SceneOutcome => {
     const { appearance, locale, scene, testOutputDirectory } = request;
-    if (scene.file === undefined) {
+    if (!isDefined(scene.file)) {
         throw new Error(`Scene ${scene.name} has no Maestro flow.`);
     }
 

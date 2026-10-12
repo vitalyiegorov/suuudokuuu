@@ -7,6 +7,7 @@ app_tests_directory="$(dirname -- "$script_directory")"
 MAESTRO_RECOVERABLE_FAILURE_PATTERN="$(cat "$script_directory/driver-failure-pattern.txt")"
 app_id="${APP_ID:?APP_ID is required}"
 simulator_udid="${SIMULATOR_UDID:-}"
+android_serial="${ANDROID_SERIAL:-}"
 output_path="${MAESTRO_OUTPUT_PATH:-$app_tests_directory/artifacts/maestro/report.xml}"
 debug_output_directory="${MAESTRO_DEBUG_OUTPUT_DIRECTORY:-$app_tests_directory/artifacts/maestro}"
 report_directory="$(dirname -- "$output_path")/.maestro-flow-reports"
@@ -146,16 +147,20 @@ for flow_path in "${selected_flow_paths[@]}"; do
     flow_started_at="$(date +%s)"
     attempts=1
 
-    FLOW_PATH="$flow_path" APP_ID="$app_id" SIMULATOR_UDID="$simulator_udid" \
-        "$script_directory/seed-flow-fixture.sh"
-
-    echo "Running Maestro flow $flow_index: $flow_name"
-
+    rm -f "$flow_debug_directory-attempt-1.log"
     flow_status=0
-    run_flow_attempt "$flow_path" "$flow_report_path" "$flow_debug_directory/attempt-1" \
-        "$flow_debug_directory-attempt-1.log" || flow_status=$?
+    FLOW_PATH="$flow_path" APP_ID="$app_id" SIMULATOR_UDID="$simulator_udid" ANDROID_SERIAL="$android_serial" \
+        "$script_directory/seed-flow-fixture.sh" || flow_status=$?
 
-    if [[ "$flow_status" -ne 0 ]] \
+    if [[ "$flow_status" -eq 0 ]]; then
+        echo "Running Maestro flow $flow_index: $flow_name"
+        run_flow_attempt "$flow_path" "$flow_report_path" "$flow_debug_directory/attempt-1" \
+            "$flow_debug_directory-attempt-1.log" || flow_status=$?
+    else
+        echo "Seed fixture failed for $flow_name" >&2
+    fi
+
+    if [[ "$flow_status" -ne 0 && -f "$flow_debug_directory-attempt-1.log" ]] \
         && grep -qE "$MAESTRO_RECOVERABLE_FAILURE_PATTERN" "$flow_debug_directory-attempt-1.log"; then
         reset_simulator_after_driver_failure
         attempts=2

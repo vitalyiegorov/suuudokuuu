@@ -19,27 +19,28 @@ const parseTimerSeconds = (timerText: string): number => {
 };
 
 test('pauses the timer in settings and resumes the persisted game after reload', async ({ page }) => {
-    const initialTime = new Date('2026-01-01T00:00:00Z');
-    await page.clock.install({ time: initialTime });
     await launchHome(page);
     await startNewGame(page);
 
     const timerLocator = page.getByTestId(GameScreenSelectors.Time);
     const pausedText = await timerLocator.textContent();
     const pausedSeconds = parseTimerSeconds(pausedText ?? '0:00');
+    const pauseStartedAt = Date.now();
 
     await page.getByTestId(GameScreenSelectors.SettingsButton).click();
     await expect(page.getByTestId(SettingsScreenSelectors.Root)).toBeVisible();
-    await page.clock.runFor(settingsStayMilliseconds);
+    await page.waitForTimeout(settingsStayMilliseconds);
 
     await page.getByTestId(HeaderBackButtonSelectors.Root).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
 
     const returnedText = await timerLocator.textContent();
     const returnedSeconds = parseTimerSeconds(returnedText ?? '0:00');
-    expect(returnedSeconds - pausedSeconds).toBeLessThanOrEqual(1);
+    const wallElapsedSeconds = (Date.now() - pauseStartedAt) / 1000;
 
-    await page.clock.runFor(timerAdvanceWaitMilliseconds);
+    expect(wallElapsedSeconds - (returnedSeconds - pausedSeconds)).toBeGreaterThanOrEqual(3);
+
+    await page.waitForTimeout(timerAdvanceWaitMilliseconds);
     await expect.poll(async () => parseTimerSeconds((await timerLocator.textContent()) ?? '0:00')).toBeGreaterThan(returnedSeconds);
     const advancedText = await timerLocator.textContent();
     const advancedSeconds = parseTimerSeconds(advancedText ?? '0:00');

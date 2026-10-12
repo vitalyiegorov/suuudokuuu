@@ -130,7 +130,7 @@ end
   violations << "#{flow_path}: launch flows must not open URLs" if contents.include?('openLink')
 end
 
-business_flow_paths = Dir.glob(File.join(flows_directory, '[0-9][0-9].*.flow.yaml'))
+business_flow_paths = Dir.glob(File.join(flows_directory, '*.flow.yaml'))
 business_flow_paths.each do |flow_path|
   contents = File.read(flow_path)
   unless contents.include?('HomeScreenSelectors.Root') || contents.include?('subflows/game/quit-current-game.flow.yaml')

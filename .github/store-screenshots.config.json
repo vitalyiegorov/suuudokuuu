@@ -48,7 +48,6 @@
         "2048x2732": "iPad 12.9\"",
         "2732x2048": "iPad 12.9\""
     },
-    "maestro-env": "OS_LANGUAGE_MODE=true\n",
     "rct-use-prebuilt-rncore": true,
     "rct-use-rn-dep": true,
     "build-env": "APP_VARIANT=production\nSTORE_CAPTURE=1\n",

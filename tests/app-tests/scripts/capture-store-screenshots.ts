@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
@@ -40,8 +40,6 @@ const repositoryRootDirectory = dirname(dirname(appTestsDirectory));
 const configPath = join(appTestsDirectory, 'config.yaml');
 const screenshotsFlowsDirectory = join(appTestsDirectory, 'flows', 'screenshots');
 const defaultOutputRootDirectory = join(repositoryRootDirectory, 'packages', 'app', 'fastlane', 'screenshots', 'raw');
-
-const recoverableFailurePattern = new RegExp(readFileSync(join(scriptDirectory, 'driver-failure-pattern.txt'), 'utf8').trim(), 'u');
 
 const DefaultLaunchSettleMilliseconds = 3500;
 const DefaultSceneSettleMilliseconds = 2000;
@@ -257,7 +255,7 @@ const captureCombination = (locale: string, appearance: string): CaptureResult[]
             const maestroRequest = { appearance, locale, scene, testOutputDirectory };
             sceneOutcome = runMaestroScene(maestroContext, maestroRequest);
 
-            if (!sceneOutcome.succeeded && recoverableFailurePattern.test(sceneOutcome.failureOutput)) {
+            if (!sceneOutcome.succeeded) {
                 recycleIosDriver(deviceContext);
                 sceneOutcome = runMaestroScene(maestroContext, maestroRequest);
             }
@@ -270,6 +268,13 @@ const captureCombination = (locale: string, appearance: string): CaptureResult[]
 
             if (width < height) {
                 execFileSync('sips', ['--rotate', '90', screenshotPath]);
+            }
+
+            const metadata = execFileSync('sips', ['-g', 'orientation', screenshotPath], { encoding: 'utf8' });
+            const screenshotOrientation = /orientation: (.+)/u.exec(metadata)?.[1].trim();
+
+            if (isDefined(screenshotOrientation) && screenshotOrientation !== '1' && screenshotOrientation !== '<nil>') {
+                throw new Error(`Landscape screenshot ${screenshotPath} has unsupported EXIF orientation ${screenshotOrientation}.`);
             }
         }
 

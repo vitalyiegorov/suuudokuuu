@@ -260,7 +260,7 @@ const seedAndroidState = (target: SeedTarget, value: string): void => {
         'adb',
         adbArguments(target.serial, [
             'shell',
-            `rm -f '${databasePath}-wal' '${databasePath}-shm' && chown $(stat -c %u:%g /data/data/${target.appId}) '${dirname(databasePath)}' '${databasePath}' && restorecon '${dirname(databasePath)}' '${databasePath}'`
+            `rm -f '${databasePath}-wal' '${databasePath}-shm' && chown $(stat -c %u:%g /data/data/${target.appId}) '/data/data/${target.appId}/files' '${dirname(databasePath)}' '${databasePath}' && restorecon '/data/data/${target.appId}/files' '${dirname(databasePath)}' '${databasePath}'`
         ])
     );
 
