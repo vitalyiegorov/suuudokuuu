@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 import { z } from 'zod';
 
-import { getErrorMessage } from './shared.util.ts';
+import { getErrorMessage } from '@rnw-community/shared';
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appDirectory = dirname(scriptDirectory);

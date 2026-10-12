@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { build } from 'esbuild';
 import { z } from 'zod';
 
-import { getErrorMessage, isNotEmptyArray, isString } from './shared.util.ts';
+import { getErrorMessage, isNotEmptyArray, isString } from '@rnw-community/shared';
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appDirectory = dirname(scriptDirectory);

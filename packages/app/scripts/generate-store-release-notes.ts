@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 import Anthropic from '@anthropic-ai/sdk';
 import { z } from 'zod';
 
-import { getErrorMessage, isNotEmptyString } from './shared.util.ts';
+import { getErrorMessage, isNotEmptyString } from '@rnw-community/shared';
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appDirectory = dirname(scriptDirectory);
