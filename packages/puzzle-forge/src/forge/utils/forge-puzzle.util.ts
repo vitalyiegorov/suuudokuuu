@@ -6,25 +6,25 @@ import { createSeededRandom } from '@suuudokuuu/solver-core';
 import { isDefined } from '@rnw-community/shared';
 
 import { DIFFICULTY_BANDS, PUZZLE_FORGE_MAX_ATTEMPTS, PUZZLE_FORGE_SEED_RANGE } from '../../@generic/constants/difficulty-band.constant';
+import { PuzzleCorpusEnum } from '../../@generic/enums/puzzle-corpus.enum';
 
-import { matchPuzzleBand } from './match-puzzle-band.util';
+import { createPuzzleBandMatcher } from './match-puzzle-band.util';
 
 import type { DifficultyBandInterface } from '../../@generic/interfaces/difficulty-band.interface';
 import type { ForgedPuzzleInterface } from '../../@generic/interfaces/forged-puzzle.interface';
 import type { PuzzleBandMatchInterface } from '../../@generic/interfaces/puzzle-band-match.interface';
-import type { PuzzleCorpusType } from '../../@generic/types/puzzle-corpus.type';
 import type { DifficultyEnum, SudokuConfigInterface } from '@suuudokuuu/generator';
 import type { RatedCorpusPuzzleInterface } from '@suuudokuuu/hell-corpus';
 import type { SeededRandomType } from '@suuudokuuu/solver-core';
 
-interface CandidateInterface {
-    sudoku: Sudoku;
-    match: PuzzleBandMatchInterface;
+interface AttemptInterface {
+    readonly sudoku: Sudoku;
+    readonly match: PuzzleBandMatchInterface;
 }
 
-const corpusPickers: Record<PuzzleCorpusType, (random: SeededRandomType) => RatedCorpusPuzzleInterface> = {
-    hell: pickHellPuzzleRecord,
-    infinity: pickInfinityPuzzle
+const corpusPickers: Record<PuzzleCorpusEnum, (random: SeededRandomType) => RatedCorpusPuzzleInterface> = {
+    [PuzzleCorpusEnum.HELL]: pickHellPuzzleRecord,
+    [PuzzleCorpusEnum.INFINITY]: pickInfinityPuzzle
 };
 
 const createBandConfig = (difficulty: DifficultyEnum, band: DifficultyBandInterface): SudokuConfigInterface => ({
@@ -32,26 +32,23 @@ const createBandConfig = (difficulty: DifficultyEnum, band: DifficultyBandInterf
     difficultyBlankCells: { ...defaultSudokuConfig.difficultyBlankCells, [difficulty]: band.blankCells }
 });
 
-const createCandidate = (
+const createAttempt = (
     config: SudokuConfigInterface,
     difficulty: DifficultyEnum,
-    band: DifficultyBandInterface,
+    matchBand: (sudoku: Sudoku) => PuzzleBandMatchInterface,
     random: SeededRandomType
-): CandidateInterface => {
+): AttemptInterface => {
     const sudoku = new Sudoku({ ...config, random });
 
     sudoku.create(difficulty);
 
-    return { sudoku, match: matchPuzzleBand(sudoku.toString(), band) };
+    return { sudoku, match: matchBand(sudoku) };
 };
 
 const createAttemptRandom = (attemptSeedRandom: SeededRandomType): SeededRandomType =>
     createSeededRandom(Math.floor(attemptSeedRandom() * PUZZLE_FORGE_SEED_RANGE));
 
-const isBetterMatch = (match: PuzzleBandMatchInterface, bestMatch: PuzzleBandMatchInterface): boolean =>
-    match.isWithinBand === bestMatch.isWithinBand ? match.isAboveSimplerLadder && !bestMatch.isAboveSimplerLadder : match.isWithinBand;
-
-const forgeCorpusPuzzle = (corpus: PuzzleCorpusType, seed: number): ForgedPuzzleInterface => {
+const forgeCorpusPuzzle = (corpus: PuzzleCorpusEnum, seed: number): ForgedPuzzleInterface => {
     const { puzzle, rating, isCeiling } = corpusPickers[corpus](createSeededRandom(seed));
 
     return { sudoku: Sudoku.fromString(puzzle, defaultSudokuConfig), isInBand: true, rating, isRatingCeiling: isCeiling };
@@ -69,18 +66,19 @@ export const forgePuzzle = (
     }
 
     const config = createBandConfig(difficulty, band);
+    const matchBand = createPuzzleBandMatcher(band);
     const attemptSeedRandom = createSeededRandom(seed);
-    let bestCandidate = createCandidate(config, difficulty, band, createAttemptRandom(attemptSeedRandom));
+    let bestAttempt = createAttempt(config, difficulty, matchBand, createAttemptRandom(attemptSeedRandom));
 
-    for (let attempt = 1; attempt < maxAttempts && !bestCandidate.match.isWithinBand; attempt += 1) {
-        const candidate = createCandidate(config, difficulty, band, createAttemptRandom(attemptSeedRandom));
+    for (let attempt = 1; attempt < maxAttempts && !bestAttempt.match.isWithinBand; attempt += 1) {
+        const attemptResult = createAttempt(config, difficulty, matchBand, createAttemptRandom(attemptSeedRandom));
 
-        if (isBetterMatch(candidate.match, bestCandidate.match)) {
-            bestCandidate = candidate;
+        if (attemptResult.match.isWithinBand || (attemptResult.match.isAboveSimplerLadder && !bestAttempt.match.isAboveSimplerLadder)) {
+            bestAttempt = attemptResult;
         }
     }
 
-    const { rating, isCeiling } = ratePuzzle(bestCandidate.sudoku.toString());
+    const { rating, isCeiling } = ratePuzzle(bestAttempt.sudoku.toString());
 
-    return { sudoku: bestCandidate.sudoku, isInBand: bestCandidate.match.isWithinBand, rating, isRatingCeiling: isCeiling };
+    return { sudoku: bestAttempt.sudoku, isInBand: bestAttempt.match.isWithinBand, rating, isRatingCeiling: isCeiling };
 };

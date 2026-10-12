@@ -1,9 +1,9 @@
-import type { PuzzleCorpusType } from '../types/puzzle-corpus.type';
+import type { PuzzleCorpusEnum } from '../enums/puzzle-corpus.enum';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface DifficultyBandInterface {
-    blankCells: number;
-    corpus: PuzzleCorpusType | null;
-    simplerLadderMaxTechnique: SolutionTechniqueEnum | null;
-    bandLadderMaxTechnique: SolutionTechniqueEnum | null;
+    readonly blankCells: number;
+    readonly corpus: PuzzleCorpusEnum | null;
+    readonly simplerLadderMaxTechnique: SolutionTechniqueEnum | null;
+    readonly bandLadderMaxTechnique: SolutionTechniqueEnum | null;
 }
