@@ -37,7 +37,11 @@ appId: ${APP_ID}
       id: 'HintPanelSelectors.NextButton'
 - tapOn:
       id: 'HintPanelSelectors.RevealButton'
-- assertVisible: 'Reveal'
+- extendedWaitUntil:
+      visible:
+          id: 'HintStepNarrationSelectors.Technique'
+          text: 'Reveal'
+      timeout: 3000
 - tapOn:
       id: 'HintPanelSelectors.DismissButton'
 - tapOn:
@@ -75,7 +79,11 @@ appId: ${APP_ID}
                 id: 'HintPanelSelectors.NextButton'
 - tapOn:
       id: 'HintPanelSelectors.RevealButton'
-- assertVisible: 'Reveal'
+- extendedWaitUntil:
+      visible:
+          id: 'HintStepNarrationSelectors.Technique'
+          text: 'Reveal'
+      timeout: 3000
 - tapOn:
       id: 'HintPanelSelectors.NextButton'
 - tapOn:
