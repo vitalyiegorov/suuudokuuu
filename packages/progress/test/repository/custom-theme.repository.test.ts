@@ -7,9 +7,9 @@ import { CustomThemeRepository } from '../../src/custom-theme/repository/custom-
 import { themeColors } from '../progress-fixtures';
 import { ProgressTestLayer } from '../progress-test.layer';
 
-import type { CustomThemeSchema } from '../../src/custom-theme/schema/custom-theme.schema';
+import type { CustomThemeType } from '../../src/custom-theme/type/custom-theme.type';
 
-const firstTheme: typeof CustomThemeSchema.Type = {
+const firstTheme: CustomThemeType = {
     id: 'custom-first',
     name: 'First',
     schemaVersion: 2,
@@ -18,8 +18,8 @@ const firstTheme: typeof CustomThemeSchema.Type = {
     createdAt: 1000,
     updatedAt: 1000
 };
-const secondTheme: typeof CustomThemeSchema.Type = { ...firstTheme, id: 'custom-second', name: 'Second' };
-const thirdTheme: typeof CustomThemeSchema.Type = { ...firstTheme, id: 'custom-third', name: 'Third' };
+const secondTheme: CustomThemeType = { ...firstTheme, id: 'custom-second', name: 'Second' };
+const thirdTheme: CustomThemeType = { ...firstTheme, id: 'custom-third', name: 'Third' };
 
 describe('CustomThemeRepository', () => {
     it.effect('keeps insertion order across updates and removes by id', () =>

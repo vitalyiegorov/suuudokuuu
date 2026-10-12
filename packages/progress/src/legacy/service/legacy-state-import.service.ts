@@ -2,7 +2,6 @@ import * as Context from 'effect/Context';
 import * as Effect from 'effect/Effect';
 import * as Layer from 'effect/Layer';
 import * as Option from 'effect/Option';
-import { isObject } from 'effect/Predicate';
 import * as Schema from 'effect/Schema';
 import * as SqlClient from 'effect/sql/SqlClient';
 
@@ -11,22 +10,21 @@ import { CompletedGameRepository } from '../../completed-game/repository/complet
 import { initialCurrentRun } from '../../current-run/constant/initial-current-run.constant';
 import { CurrentRunRepository } from '../../current-run/repository/current-run.repository';
 import { CustomThemeRepository } from '../../custom-theme/repository/custom-theme.repository';
+import { CustomThemeSchema } from '../../custom-theme/schema/custom-theme.schema';
 import { DifficultyStatsRepository } from '../../difficulty-stats/repository/difficulty-stats.repository';
 import { PlayerStatsRepository } from '../../player-stats/repository/player-stats.repository';
 import { SettingsRepository } from '../../settings/repository/settings.repository';
 import { legacyInitialGameState } from '../constant/legacy-initial-state.constant';
+import { decodeLegacyState } from '../schema/legacy-root-state.schema';
 import { LegacyPersistVersion, makeLegacyMigrations } from '../utils/make-legacy-migrations.util';
 
 import type { ColorSchemaEnum } from '../../custom-theme/enum/color-schema.enum';
 import type { ThemeEnum } from '../../custom-theme/enum/theme.enum';
 import type { ThemeColorsType } from '../../custom-theme/type/theme-colors.type';
-import type { LegacyRootStateInterface } from '../interface/legacy-root-state.interface';
 
 const PersistedRootSchema = Schema.fromJsonString(Schema.Record(Schema.String, Schema.fromJsonString(Schema.Unknown)));
 const PersistMetadataSchema = Schema.Struct({ version: Schema.Number });
 const isDifficulty = Schema.is(DifficultySchema);
-
-const isLegacyRootState = (value: object): value is Partial<LegacyRootStateInterface> => isObject(value);
 
 export class LegacyStateImportService extends Context.Service<LegacyStateImportService>()('@suuudokuuu/progress/LegacyStateImportService', {
     make: Effect.gen(function* () {
@@ -53,26 +51,20 @@ export class LegacyStateImportService extends Context.Service<LegacyStateImportS
                 const initialSettings = yield* settingsRepository.get;
                 const migrations = makeLegacyMigrations(initialSettings, getThemeColors);
 
-                if (!isLegacyRootState(slices)) {
-                    return;
-                }
-
                 const pendingVersions = Object.keys(migrations)
                     .map(Number)
                     .filter(version => version > inboundVersion && version <= LegacyPersistVersion)
                     .sort((firstVersion, secondVersion) => firstVersion - secondVersion);
-                let migratedState: Partial<LegacyRootStateInterface> = slices;
+                let migratedState = yield* decodeLegacyState(slices, initialSettings, inboundVersion).pipe(Effect.orDie);
 
                 for (const version of pendingVersions) {
-                    migratedState = migrations[version]({
-                        game: legacyInitialGameState,
-                        settings: initialSettings,
-                        customThemes: { themes: [] },
-                        ...migratedState
-                    });
+                    migratedState = migrations[version](migratedState);
                 }
 
-                const { game, settings, customThemes } = migratedState;
+                const { game, settings } = migratedState;
+                const customThemes = yield* Schema.decodeUnknownEffect(Schema.Array(Schema.toType(CustomThemeSchema)))(
+                    migratedState.customThemes.themes
+                ).pipe(Effect.orDie);
                 const gameState = { ...legacyInitialGameState, ...game };
                 const histories = Object.values(gameState.historyByDifficulty).filter(history => isDifficulty(history.difficulty));
 
@@ -86,7 +78,9 @@ export class LegacyStateImportService extends Context.Service<LegacyStateImportS
                                 }
                             );
                             yield* settingsRepository.save({ ...initialSettings, ...settings });
-                            yield* Effect.forEach(customThemes?.themes ?? [], customThemeRepository.upsert, { discard: true });
+                            yield* Effect.forEach(customThemes, theme => customThemeRepository.upsert(theme), {
+                                discard: true
+                            });
 
                             if (gameState.sudokuString !== '') {
                                 yield* currentRunRepository.save({ ...initialCurrentRun, ...gameState });
@@ -102,10 +96,10 @@ export class LegacyStateImportService extends Context.Service<LegacyStateImportS
                                     }),
                                 { discard: true }
                             );
-                            yield* Effect.forEach(
-                                histories.flatMap(history => [...history.completedGames].reverse()),
-                                completedGame => completedGameRepository.insert({ ...completedGame, dailyDayNumber: null }),
-                                { discard: true }
+                            yield* completedGameRepository.insertMany(
+                                histories
+                                    .flatMap(history => [...history.completedGames].reverse())
+                                    .map(completedGame => ({ ...completedGame, dailyDayNumber: null }))
                             );
                             yield* playerStatsRepository.save({
                                 techniqueUsageCounts: gameState.techniqueUsageCounts,

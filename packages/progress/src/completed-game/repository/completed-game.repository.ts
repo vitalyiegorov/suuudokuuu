@@ -37,9 +37,13 @@ export class CompletedGameRepository extends Context.Service<CompletedGameReposi
             Request: CompletedGameSchema,
             execute: game => sql`INSERT INTO completed_games ${sql.insert(game)}`
         });
+        const insertGames = SqlSchema.void({
+            Request: Schema.Array(CompletedGameSchema),
+            execute: games => sql`INSERT INTO completed_games ${sql.insert(games)}`
+        });
         const trimGames = (difficulty: DifficultyEnum) => sql`
-            DELETE FROM completed_games WHERE difficulty = ${difficulty} AND id NOT IN (
-                SELECT id FROM completed_games WHERE difficulty = ${difficulty}
+            DELETE FROM completed_games WHERE difficulty = ${difficulty} AND daily_day_number IS NULL AND id NOT IN (
+                SELECT id FROM completed_games WHERE difficulty = ${difficulty} AND daily_day_number IS NULL
                 ORDER BY completed_at DESC, id DESC LIMIT ${maxCompletedGamesPerDifficulty}
             )
         `;
@@ -54,6 +58,24 @@ export class CompletedGameRepository extends Context.Service<CompletedGameReposi
                         sql.withTransaction(insertGame(game).pipe(Effect.andThen(trimGames(game.difficulty))))
                     )
                     .pipe(Effect.orDie),
+            insertMany: Effect.fn('CompletedGameRepository.insertMany')(function* (games: readonly CompletedGameType[]) {
+                if (games.length === 0) {
+                    return;
+                }
+
+                yield* reactivity.mutation(
+                    [ReactivityKeyEnum.CompletedGames],
+                    sql.withTransaction(
+                        insertGames(games).pipe(
+                            Effect.andThen(
+                                Effect.forEach(new Set(games.map(game => game.difficulty)), difficulty => trimGames(difficulty), {
+                                    discard: true
+                                })
+                            )
+                        )
+                    )
+                );
+            }, Effect.orDie),
             removeAll: reactivity.mutation([ReactivityKeyEnum.CompletedGames], sql`DELETE FROM completed_games`).pipe(Effect.orDie)
         };
     })

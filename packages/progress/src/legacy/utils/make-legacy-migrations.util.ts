@@ -7,6 +7,7 @@ import { getDayNumber } from '../../@generic/utils/get-day-number.util';
 import { ColorSchemaEnum } from '../../custom-theme/enum/color-schema.enum';
 import { ThemeEnum } from '../../custom-theme/enum/theme.enum';
 import { emptyLegacyHistory, emptyLegacyRatingSnapshot, legacyInitialGameState } from '../constant/legacy-initial-state.constant';
+import { decodeFirstHistory } from '../schema/legacy-root-state.schema';
 
 import { migrateCustomThemeColors } from './migrate-custom-theme-colors.util';
 
@@ -27,9 +28,6 @@ const CustomThemeSchemaVersion = 2;
 const initialCustomThemesState: LegacyRootStateInterface['customThemes'] = { themes: [] };
 const isDifficulty = Schema.is(DifficultySchema);
 
-const FirstHistorySchema = Schema.Struct({ history: Schema.Struct({ byDifficulty: Schema.Record(Schema.String, Schema.Unknown) }) });
-const decodeFirstHistory = Schema.decodeUnknownOption(FirstHistorySchema);
-
 const resetBestScores = (state: LegacyRootStateInterface): LegacyRootStateInterface => {
     const gameState = state.game;
     const resetHistory = { ...gameState.historyByDifficulty };
@@ -37,7 +35,7 @@ const resetBestScores = (state: LegacyRootStateInterface): LegacyRootStateInterf
     Object.keys(resetHistory)
         .filter(isDifficulty)
         .forEach(difficulty => {
-            resetHistory[difficulty].bestScore = 0;
+            resetHistory[difficulty] = { ...resetHistory[difficulty], bestScore: 0 };
         });
 
     return {
@@ -193,7 +191,10 @@ const migrateCustomThemesToSemanticTokens = (
 ): LegacyRootStateInterface => {
     const customThemesState = { ...initialCustomThemesState, ...state.customThemes };
     const themes = customThemesState.themes.map(theme => {
-        const sourceTheme = Object.values(ThemeEnum).includes(theme.sourceTheme) ? theme.sourceTheme : ThemeEnum.BlackAndWhite;
+        const sourceTheme = Option.getOrElse(
+            Schema.decodeUnknownOption(Schema.Enum(ThemeEnum))(theme.sourceTheme),
+            () => ThemeEnum.BlackAndWhite
+        );
         const storedColors: Partial<Record<ColorSchemaEnum, unknown>> = { ...theme.colors };
 
         return {
@@ -245,7 +246,7 @@ const migrateFirstPersistedHistory = (state: LegacyRootStateInterface): LegacyRo
             ...legacyInitialGameState.historyByDifficulty,
             ...Option.getOrElse(
                 Option.map(decodeFirstHistory(state), ({ history }) => history.byDifficulty),
-                () => ({})
+                () => state.game.historyByDifficulty
             )
         }
     }

@@ -6,36 +6,41 @@ import type { SettingsType } from '../../settings/type/settings.type';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export interface LegacyRatingSnapshotInterface {
-    rating: number;
-    isRatingCeiling: boolean;
+    readonly rating: number;
+    readonly isRatingCeiling: boolean;
 }
 
 export interface LegacyHistoryInterface {
-    difficulty: DifficultyEnum;
-    gamesCompleted: number;
-    gamesWon: number;
-    gamesWonWithoutMistakes: number;
-    gamesLost: number;
-    bestScore: number;
-    bestRating: LegacyRatingSnapshotInterface;
-    bestTime: number;
-    averageTime: number;
-    hardcoreWon: number;
-    challengesWon: number;
-    challengesLost: number;
-    completedGames: Omit<CompletedGameType, 'dailyDayNumber'>[];
+    readonly difficulty: DifficultyEnum;
+    readonly gamesCompleted: number;
+    readonly gamesWon: number;
+    readonly gamesWonWithoutMistakes: number;
+    readonly gamesLost: number;
+    readonly bestScore: number;
+    readonly bestRating: LegacyRatingSnapshotInterface;
+    readonly bestTime: number;
+    readonly averageTime: number;
+    readonly hardcoreWon: number;
+    readonly challengesWon: number;
+    readonly challengesLost: number;
+    readonly completedGames: Omit<CompletedGameType, 'dailyDayNumber'>[];
 }
 
 export interface LegacyGameStateInterface extends CurrentRunType {
-    historyByDifficulty: Record<DifficultyEnum, LegacyHistoryInterface>;
-    techniqueUsageCounts: PlayerStatsType['techniqueUsageCounts'];
-    playedDayNumbers: readonly number[];
-    dailyCompletedDayNumbers: readonly number[];
-    dailyBestStreak: number;
+    readonly historyByDifficulty: Record<DifficultyEnum, LegacyHistoryInterface>;
+    readonly techniqueUsageCounts: PlayerStatsType['techniqueUsageCounts'];
+    readonly playedDayNumbers: readonly number[];
+    readonly dailyCompletedDayNumbers: readonly number[];
+    readonly dailyBestStreak: number;
 }
 
 export interface LegacyRootStateInterface {
-    game: LegacyGameStateInterface;
-    settings: SettingsType;
-    customThemes: { readonly themes: readonly CustomThemeType[] };
+    readonly game: LegacyGameStateInterface;
+    readonly settings: SettingsType;
+    readonly customThemes: {
+        readonly themes: readonly (Omit<CustomThemeType, 'colors' | 'sourceTheme'> & {
+            readonly colors: Record<string, unknown>;
+            readonly sourceTheme: string;
+        })[];
+    };
 }

@@ -4,15 +4,16 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import * as Effect from 'effect/Effect';
 import * as Option from 'effect/Option';
+import * as SqlClient from 'effect/sql/SqlClient';
 
 import { ReactivityKeyEnum } from '../../src/@generic/enum/reactivity-key.enum';
 import { CurrentRunRepository } from '../../src/current-run/repository/current-run.repository';
 import { ProgressTestLayer } from '../progress-test.layer';
 import { trackInvalidations } from '../track-invalidations.util';
 
-import type { CurrentRunSchema } from '../../src/current-run/schema/current-run.schema';
+import type { CurrentRunType } from '../../src/current-run/type/current-run.type';
 
-const currentRun: typeof CurrentRunSchema.Type = {
+const currentRun: CurrentRunType = {
     sudokuString: '530070000600195000098000060800060003400803001700020006060000280000419005000080079',
     difficulty: DifficultyEnum.Medium,
     rating: 2.6,
@@ -44,6 +45,21 @@ const currentRun: typeof CurrentRunSchema.Type = {
 };
 
 describe('CurrentRunRepository', () => {
+    it.effect('reads elapsed time without decoding the rest of the run', () =>
+        Effect.gen(function* () {
+            const currentRunRepository = yield* CurrentRunRepository;
+
+            assert.deepStrictEqual(yield* currentRunRepository.getElapsedTime, Option.none());
+            yield* currentRunRepository.save(currentRun);
+
+            const sql = yield* SqlClient.SqlClient;
+
+            yield* sql`UPDATE current_run SET candidates = ${'invalid-json'}`;
+
+            assert.deepStrictEqual(yield* currentRunRepository.getElapsedTime, Option.some(currentRun.elapsedTime));
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
     it.effect('round-trips the run and its timeline events', () =>
         Effect.gen(function* () {
             const currentRunRepository = yield* CurrentRunRepository;

@@ -2,12 +2,13 @@ import { assert, describe, it } from '@effect/vitest';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import * as Effect from 'effect/Effect';
+import * as SqlClient from 'effect/sql/SqlClient';
 
 import { DifficultyStatsRepository } from '../../src/difficulty-stats/repository/difficulty-stats.repository';
 import { PlayerStatsRepository } from '../../src/player-stats/repository/player-stats.repository';
 import { ProgressTestLayer } from '../progress-test.layer';
 
-import type { PlayerStatsSchema } from '../../src/player-stats/schema/player-stats.schema';
+import type { PlayerStatsType } from '../../src/player-stats/type/player-stats.type';
 
 const firstDay = 20_400;
 const secondDay = 20_401;
@@ -26,7 +27,7 @@ const hardStats = {
     challengesWon: 1,
     challengesLost: 1
 };
-const playerStats: typeof PlayerStatsSchema.Type = {
+const playerStats: PlayerStatsType = {
     techniqueUsageCounts: { [SolutionTechniqueEnum.NakedSingle]: 14, [SolutionTechniqueEnum.XWing]: 2 },
     dailyBestStreak: 6,
     playedDayNumbers: [firstDay, secondDay],
@@ -34,6 +35,21 @@ const playerStats: typeof PlayerStatsSchema.Type = {
 };
 
 describe('stats repositories', () => {
+    it.effect('restores empty stats when a difficulty row is missing', () =>
+        Effect.gen(function* () {
+            const difficultyStatsRepository = yield* DifficultyStatsRepository;
+            const sql = yield* SqlClient.SqlClient;
+
+            yield* sql`DELETE FROM difficulty_stats WHERE difficulty = ${DifficultyEnum.Easy}`;
+
+            const stats = yield* difficultyStatsRepository.findByDifficulty(DifficultyEnum.Easy);
+
+            assert.strictEqual(stats.difficulty, DifficultyEnum.Easy);
+            assert.strictEqual(stats.gamesCompleted, 0);
+            assert.strictEqual(stats.bestScore, 0);
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
     it.effect('seed empty stats for every difficulty and overwrite them per difficulty', () =>
         Effect.gen(function* () {
             const difficultyStatsRepository = yield* DifficultyStatsRepository;
