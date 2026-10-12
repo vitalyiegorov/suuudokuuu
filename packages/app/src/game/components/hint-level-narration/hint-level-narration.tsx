@@ -63,7 +63,7 @@ export const HintLevelNarration = ({ hintLevel, stepScript }: Props) => {
             </View>
 
             <ScrollView style={styles.narrationScroll}>
-                <BlackText style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
+                <BlackText accessibilityLiveRegion="polite" style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
                     {narrationText}
                 </BlackText>
             </ScrollView>

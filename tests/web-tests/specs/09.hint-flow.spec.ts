@@ -91,6 +91,7 @@ test('walks a hint from activation through stepping, applying and a later dismis
     await expect(hintPanel).toBeVisible();
     await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText(/.+/u);
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(/^Look for .+ in (?:row|column|box) \d+\.$/u);
+    await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveAttribute('aria-live', 'polite');
     await expectHintBelowToolbar(page);
     await page.screenshot({ path: testInfo.outputPath('hint-level-1-technique.png'), fullPage: true });
 
