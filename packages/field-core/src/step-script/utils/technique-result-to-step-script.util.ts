@@ -12,7 +12,7 @@ import type { CellInterface } from '@suuudokuuu/generator';
 import type { ChainCandidateInterface, ForcingOutcomeType, SolutionTechniqueEnum, TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const getPatternCandidates = (result: TechniqueResultInterface, patternCells: CellInterface[]): StepScriptCandidateInterface[] =>
-    result.patternCandidates?.map(({ cell, value }) => ({ cell, value })) ??
+    (result.patternCandidates ?? result.chain)?.map(({ cell, value }) => ({ cell, value })) ??
     patternCells.flatMap(cell => [...new Set(result.eliminations.map(elimination => elimination.value))].map(value => ({ cell, value })));
 
 const createRevealStep = (

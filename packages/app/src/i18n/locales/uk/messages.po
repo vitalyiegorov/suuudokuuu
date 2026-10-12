@@ -107,6 +107,10 @@ msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells
 msgstr "{techniqueName}: одна з клітинок-кліщів завжди дорівнює {valueList}, тож позначені клітинки, що бачать обидві, не можуть бути {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: кожна позначена клітинка бачить усі підсвічені клітинки, тож {cellList} не можуть бути {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: кожна інша порожня клітинка має по два кандидати, тож {value} має стояти в позначеній клітинці, щоб уникнути смертельного візерунка."
 
@@ -121,6 +125,14 @@ msgstr "{techniqueName}: кожна можливість у підсвічени
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
 msgstr "{techniqueName}: від підсвічених клітинок кожну можливість простежують, доки вона не дійде до суперечності або до того самого результату."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName}: у стовпці {columnNumber} цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать в одному блоці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName}: у рядку {rowNumber} цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать в одному блоці."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
@@ -139,20 +151,28 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: у підсвіченому рядку цифра {value} може стояти лише в позначеній клітинці."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName}: один кінець ланцюга завжди дорівнює {valueList}, тож позначені клітинки, що бачать обидва кінці, не можуть бути {valueList}."
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "{techniqueName}: у цьому блоці цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать у стовпці {columnNumber}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
-msgstr "{techniqueName}: цифри {valueList} зосереджені в підсвічених клітинках, тому їх виключено з решти клітинок."
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "{techniqueName}: у цьому блоці цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать у рядку {rowNumber}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: один кінець ланцюга завжди істинний, а кожен позначений кандидат суперечить обом кінцям, тож {cellList} не може бути {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: у підсвіченому блоці лишилась одна порожня клітинка — там стоїть {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
-msgstr "{techniqueName}: підсвічені клітинки утворюють ланцюг, тож або один його кінець, або інший дорівнює {valueList}."
+msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName}: підсвічені клітинки утворюють ланцюг, тож істинне {firstEnd} або {lastEnd}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
+msgstr "{techniqueName}: підсвічені клітинки містять рівно стільки цифр, скільки є клітинок, тож {valueList} мусить стояти в одній із них."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."
@@ -191,8 +211,8 @@ msgid "{techniqueName}: the marked cells either see both colors or carry a color
 msgstr "{techniqueName}: позначені клітинки або бачать обидва кольори, або мають колір, що суперечить сам собі, тож вони не можуть бути {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
-msgstr "{techniqueName}: ця закономірність виключає {valueList} у позначених клітинках."
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: ці клітинки зарезервовані для цього набору цифр, тож {cellList} не можуть бути {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
@@ -201,6 +221,10 @@ msgstr "{techniqueName}: щоб уникнути смертельного віз
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
 msgstr "{techniqueName}: як би не розв'язалася підсвічена клітинка-опора, одна з її клітинок-кліщів стає {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: within one row, column or box, {valueList} fit only in the highlighted cells, so those cells can hold nothing else."
+msgstr "{techniqueName}: у межах одного рядка, стовпця чи блоку цифри {valueList} можуть стояти лише в підсвічених клітинках, тож у цих клітинках не може бути нічого іншого."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"

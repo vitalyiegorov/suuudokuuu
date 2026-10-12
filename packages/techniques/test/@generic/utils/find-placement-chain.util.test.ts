@@ -1,6 +1,7 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { describe, expect, it } from 'vitest';
 
+import { CandidateContext } from '../../../src/@generic/classes/candidate-context/candidate-context';
 import { TechniqueManager } from '../../../src/@generic/classes/technique-manager/technique-manager';
 import {
     PLACEMENT_CHAIN_DEFAULT_SCAN_COST,
@@ -22,7 +23,9 @@ const fullHouseBoard = '12345678................................................
 const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
 const shippedGreedyStepCap = 4;
 const budgetPrunedBoard = '000009080800300002067500000002700600030045010000010005001000090005007100490000000';
-const budgetExhaustedBoard = '006003000097005130020091080000000070600000000041000009000500800000304700004016005';
+const pointingPairDetourBoard = '..6....9...45....8.27....4..4..7..6.......8.......2...4156...8.2.9...41.3.8.4...5';
+const budgetExhaustedBoard = '..6..1...8.3..91...9......7...2...5....1..4...3..468.12.9..4.3.3..5.....65..3..1.';
+const aicDetourBoard = '..31...5..4...5...75.2....13..5..71..8..6............9.....4..6.2..5.9..9..7...8.';
 const maxScanCost = Math.max(PLACEMENT_CHAIN_DEFAULT_SCAN_COST, ...Object.values(PLACEMENT_CHAIN_SCAN_COSTS));
 const pointingPairChain = ['PointingPair elimination 0-6=4', 'HiddenSingle placement 2-1=4'];
 
@@ -164,15 +167,82 @@ describe('findPlacementChain', () => {
         expect(placement?.value).toBe(sudoku.getCorrectValue(placement?.cell));
     });
 
-    it('should give up at the step cap when no placement follows the cap of eliminations', () => {
-        expect.assertions(2);
+    it('should fall back to the shortest placement route when the step cap is spent on irrelevant eliminations', () => {
+        expect.assertions(4);
 
         const sudoku = createSudoku(columnQuadBoard);
         const calls: SolutionTechniqueEnum[] = [];
         const strategies = [createIrrelevantStrategy(sudoku, PLACEMENT_CHAIN_MAX_STEPS), ...createCountingStrategies(calls)];
+        const chain = findPlacementChain(sudoku, strategies);
+        const placement = chain.at(-1);
 
-        expect(findPlacementChain(sudoku, strategies)).toEqual([]);
-        expect(calls).toEqual([]);
+        expect(chain.length).toBeLessThanOrEqual(2);
+        expect(placement?.kind).toBe('placement');
+        expect(placement?.value).toBe(sudoku.getCorrectValue(placement?.cell));
+        expect(getSpentWork(calls)).toBeLessThanOrEqual(PLACEMENT_CHAIN_WORK_BUDGET + maxScanCost);
+    });
+
+    it('should search the context after the final capped elimination for a placement route', () => {
+        expect.assertions(2);
+
+        const sudoku = createSudoku(columnQuadBoard);
+        const allEliminations = createIrrelevantStrategy(sudoku, PLACEMENT_CHAIN_MAX_STEPS).find(CandidateContext.fromSudoku(sudoku));
+        const eliminations = allEliminations.flatMap(result => result.eliminations);
+        const irrelevantStrategy: TechniqueStrategyInterface = {
+            technique: SolutionTechniqueEnum.XWing,
+            find: context =>
+                allEliminations
+                    .filter(result =>
+                        result.eliminations.some(elimination => context.getCandidates(elimination.cell).includes(elimination.value))
+                    )
+                    .slice(0, 1)
+        };
+        const placementCell = sudoku.Field.flat().find(cell => sudoku.isBlankCell(cell));
+        const gatedStrategy: TechniqueStrategyInterface = {
+            technique: SolutionTechniqueEnum.Swordfish,
+            find: context =>
+                placementCell === undefined ||
+                eliminations.some(elimination => context.getCandidates(elimination.cell).includes(elimination.value))
+                    ? []
+                    : [
+                          {
+                              technique: SolutionTechniqueEnum.Swordfish,
+                              cell: placementCell,
+                              value: sudoku.getCorrectValue(placementCell),
+                              kind: 'placement',
+                              eliminations: [],
+                              reasonCells: []
+                          }
+                      ]
+        };
+        const chain = findPlacementChain(sudoku, [irrelevantStrategy, gatedStrategy]);
+
+        expect(chain).toHaveLength(PLACEMENT_CHAIN_MAX_STEPS + 1);
+        expect(chain.at(-1)?.kind).toBe('placement');
+    });
+
+    it('should reach the forcing-chain placement in two steps when the greedy search spends its budget on pointing pairs', () => {
+        expect.assertions(2);
+
+        const sudoku = createSudoku(pointingPairDetourBoard);
+        const greedySteps = new TechniqueManager(sudoku).solveLogically().steps;
+
+        expect(greedySteps.findIndex(step => step.kind === 'placement')).toBeGreaterThan(PLACEMENT_CHAIN_MAX_STEPS / 2);
+        expect(describeChain(findPlacementChain(sudoku))).toEqual(['NishioForcingChain elimination 0-3=4', 'HiddenSingle placement 0-5=4']);
+    });
+
+    it('should reach a digit through the greedy prefix when no two-step route starts from the board', () => {
+        expect.assertions(2);
+
+        const sudoku = createSudoku(aicDetourBoard);
+        const chain = findPlacementChain(sudoku);
+
+        expect(describeChain(chain)).toEqual([
+            'PointingPair elimination 3-4=4',
+            'NishioForcingChain elimination 3-8=8',
+            'HiddenSingle placement 5-6=8'
+        ]);
+        expect(chain.at(-1)?.value).toBe(sudoku.getCorrectValue(chain.at(-1)?.cell));
     });
 
     it('should bound the scans of a pruned chain by the work budget', () => {
@@ -215,7 +285,7 @@ describe('findPlacementChain', () => {
         expect(placement?.value).toBe(sudoku.getCorrectValue(placement?.cell));
     });
 
-    it('should give up with an empty chain when the work budget runs out before a placement', () => {
+    it('should give up with an empty chain when the work budget runs out and no greedy step leads to a short placement route', () => {
         expect.assertions(4);
 
         const sudoku = createSudoku(budgetExhaustedBoard);
@@ -225,6 +295,8 @@ describe('findPlacementChain', () => {
         expect(placementIndex).toBeLessThan(PLACEMENT_CHAIN_MAX_STEPS);
         expect(findPlacementChain(sudoku, createCountingStrategies(calls))).toEqual([]);
         expect(getSpentWork(calls)).toBeGreaterThanOrEqual(PLACEMENT_CHAIN_WORK_BUDGET);
-        expect(getSpentWork(calls)).toBeLessThan(PLACEMENT_CHAIN_WORK_BUDGET + maxScanCost);
+        expect(getSpentWork(calls.filter(technique => !singlesOrder.includes(technique)))).toBeLessThan(
+            2 * PLACEMENT_CHAIN_WORK_BUDGET + 2 * maxScanCost
+        );
     });
 });
