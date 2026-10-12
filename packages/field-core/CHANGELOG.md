@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.26.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.25.2...v2.26.0) (2026-10-12)
+
+### Features
+
+* **field-core:** add progressive hint levels ([#506](https://github.com/vitalyiegorov/suuudokuuu/issues/506)) ([b15a447](https://github.com/vitalyiegorov/suuudokuuu/commit/b15a4475dc42bd66f6809ff2a23234b984d79c91))
+
+
 # [2.23.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.22.2...v2.23.0) (2026-10-09)
 
 ### Features
