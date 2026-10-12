@@ -1,0 +1,1 @@
+Aplica una lógica más compleja y repasa tu sudoku terminado jugada a jugada. Consulta las técnicas que usaste y la valoración de dificultad.
