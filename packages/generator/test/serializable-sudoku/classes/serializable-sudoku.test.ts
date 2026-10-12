@@ -211,3 +211,26 @@ describe('SerializableSudoku - default config', () => {
         expect(sudoku.Difficulty).toStrictEqual(defaultSudokuConfig.difficulty);
     });
 });
+
+describe('SerializableSudoku - supplied solution', () => {
+    const puzzle = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
+    const solved = SerializableSudoku.fromString(puzzle, { ...defaultSudokuConfig });
+    const solution = solved.FullField.flatMap(row => row.map(cell => cell.value)).join('');
+
+    it('should restore the same game as solving the puzzle', () => {
+        expect.assertions(3);
+
+        const restored = ExtendedSerializableSudoku.fromPuzzleAndSolution(puzzle, solution);
+
+        expect(restored).toBeInstanceOf(ExtendedSerializableSudoku);
+        expect(restored.FullField).toStrictEqual(solved.FullField);
+        expect(restored.Difficulty).toStrictEqual(solved.Difficulty);
+    });
+
+    it('should reject a solution that is invalid or contradicts the givens', () => {
+        expect.assertions(2);
+
+        expect(() => SerializableSudoku.fromPuzzleAndSolution(puzzle, '1'.repeat(puzzle.length))).toThrow('Puzzle does not match');
+        expect(() => SerializableSudoku.fromPuzzleAndSolution(`...5${puzzle.slice(4)}`, solution)).toThrow('Puzzle does not match');
+    });
+});

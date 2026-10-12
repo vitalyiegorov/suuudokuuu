@@ -4,6 +4,7 @@ import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export interface FieldEngineOptionsInterface {
     sudokuString: string;
+    readonly solutionString?: string;
     difficulty: DifficultyEnum;
     candidates?: FieldCandidatesType;
     eliminatedCandidates?: FieldCandidatesType;

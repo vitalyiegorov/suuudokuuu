@@ -152,6 +152,10 @@ msgstr "{techniqueName}:突出显示的宫只剩一个空格，{value} 应填在
 msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
 msgstr "{techniqueName}:突出显示的单元格构成一条链，因此链的一端或另一端必定是 {valueList}。"
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "{techniqueName}: the highlighted cells hold the pattern."
+msgstr "{techniqueName}：高亮的单元格包含该模式。"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}:突出显示的单元格让标记单元格只剩下 {value} 可填。"
@@ -219,6 +223,10 @@ msgstr "<0>需要开发客户端</0><1>开发客户端需要 Metro、在 <2>EXPO
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "“+” 表示这道数独至少达到 SE {seRatingCeilingText}。超过这个点之后，解题推理可能延伸成极长的链条，因此我们为显示的数值设上限，而不去追求虚假的精确度。"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "A direct Reveal costs one level only when you apply it."
+msgstr "直接揭示数字仅在应用时收取一个提示等级的费用。"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
@@ -293,10 +301,6 @@ msgstr "动画"
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "应用"
-
-#: src/scoring/components/scoring.screen.tsx
-msgid "Applying a hint"
-msgstr "使用提示"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
@@ -683,6 +687,10 @@ msgstr "放弃更改？"
 msgid "Dismiss"
 msgstr "忽略"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Dismiss setup spotlight"
+msgstr "关闭设置提示"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Display"
 msgstr "显示"
@@ -706,6 +714,10 @@ msgstr "复制"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each correct placement starts with a base value:"
 msgstr "每次正确填入都会从基础值开始："
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "Each hint level you reveal"
+msgstr "每揭示一个提示层级"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -855,6 +867,10 @@ msgstr "h"
 msgid "Hard"
 msgstr "困难"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Hard is set. Replay finished puzzles move by move from History and see the techniques used."
+msgstr "已选择困难。从历史记录中逐步回放已完成的谜题，查看所用技巧。"
+
 #: src/@generic/utils/get-mistakes-type-text.util.ts
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -932,6 +948,10 @@ msgstr "最难数独中的提示"
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
 msgstr "首页"
+
+#: src/screens/components/home-screen/home-screen-intent-rating-link/home-screen-intent-rating-link.tsx
+msgid "How difficulty is rated"
+msgstr "难度如何评级"
 
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "How much the board and screens may move"
@@ -1068,6 +1088,22 @@ msgstr "正在加载开发版本"
 msgid "Loading the latest development build…"
 msgstr "正在加载最新开发版本…"
 
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in box {regionNumber}."
+msgstr "在宫 {regionNumber} 中寻找{techniqueName}。"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in column {regionNumber}."
+msgstr "在第 {regionNumber} 列中寻找{techniqueName}。"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} in row {regionNumber}."
+msgstr "在第 {regionNumber} 行中寻找{techniqueName}。"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName}."
+msgstr "寻找{techniqueName}。"
+
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Lost"
@@ -1105,6 +1141,10 @@ msgstr "中等"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Menus, settings, and game text"
 msgstr "菜单、设置和游戏文字"
+
+#: src/scoring/components/scoring.screen.tsx
+msgid "minimum {minimumHintPenalty} points"
+msgstr "至少 {minimumHintPenalty} 分"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Minimum Score"
@@ -1186,6 +1226,10 @@ msgstr "下一步"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Nightmare"
 msgstr "噩梦"
+
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Nightmare is set. See every puzzle's SE rating; Hell and Infinity go further."
+msgstr "已选择噩梦。查看每道谜题的 SE 评级；地狱和无限难度更进一步。"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Nishio Forcing Chain"
@@ -1421,6 +1465,10 @@ msgstr "每次正确填入的分数。"
 msgid "Português"
 msgstr "Português"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Practice harder logic"
+msgstr "练习更高难度的逻辑"
+
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
 msgstr "预设"
@@ -1471,6 +1519,10 @@ msgstr "凸起表面文字"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "阅读 Suuudokuuu 隐私政策，了解数据收集、存储以及你的权利。"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Ready for a real challenge"
+msgstr "准备好迎接真正的挑战了吗？"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
 msgstr "最近的解答"
@@ -1495,6 +1547,10 @@ msgstr "区域强制链"
 #: src/screens/components/home-screen/home.screen.tsx
 msgid "Relaxed"
 msgstr "轻松"
+
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Relaxed mistakes are on, with no limit. Works offline."
+msgstr "轻松模式允许无限次犯错，也支持离线游玩。"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Release notes"
@@ -1718,6 +1774,14 @@ msgstr "游戏时显示已用时间"
 msgid "Show matching notes for the selected cell"
 msgstr "显示所选单元格的匹配笔记"
 
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more"
+msgstr "显示更多"
+
+#: src/game/components/hint-panel/hint-panel.tsx
+msgid "Show more of the hint"
+msgstr "显示更多提示"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "显示所选单元格所在的行、列和宫格"
@@ -1889,6 +1953,10 @@ msgstr "Svenska"
 msgid "Swordfish"
 msgstr "Swordfish"
 
+#: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
+msgid "Take it slow"
+msgstr "慢慢来"
+
 #: src/challenge/components/challenge-technique-preview/challenge-technique-preview.tsx
 msgid "Taller marks = sharper techniques"
 msgstr "标记越高，技巧越精妙"
@@ -2033,8 +2101,8 @@ msgid "Undo"
 msgstr "撤销"
 
 #: src/scoring/components/scoring.screen.tsx
-msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. Dismissing a hint without applying it costs nothing, and undoing a pencil mark is always free."
-msgstr "撤销也会收回该次填入所得的分数，因此同一个单元格永远不会重复得分。忽略提示而不使用不会有任何代价，撤销笔记也始终免费。"
+msgid "Undo also returns the points that the undone placement earned, so replaying the same cell can never earn them twice. A hint has up to four levels: the technique and region, the pattern cells, the full walkthrough, and placing the digit. Each level is charged when you reveal it, so dismissing a hint keeps only the levels you already saw. Undoing a pencil mark is always free."
+msgstr "撤销也会收回被撤销落子所得的分数，因此重新填写同一格永远不会重复得分。一条提示最多有四个层级：技巧与区域、模式单元格、完整讲解以及填入数字。每个层级在揭示时计费，因此关闭提示只会计入你已看过的层级。撤销铅笔标记始终免费。"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Undoing a placement"

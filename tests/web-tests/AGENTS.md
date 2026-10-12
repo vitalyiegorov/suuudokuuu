@@ -108,6 +108,12 @@ pnpm --filter @suuudokuuu/web-tests lint
   card `So r4c3 is not 4.` `09.hint-flow.spec.ts` presses Continue and Reveal on the first slide of each
   card, because gating them to the last slide left the player stuck with a hidden numpad.
 
+- `eliminationHintSharedPuzzleEncodedConstant`: a Medium `Puzzle`-kind share whose first hint teaches
+  an elimination without placing a digit. `09.hint-flow.spec.ts` commits that deduction with Continue
+  and checks the next logical hint starts at level one.
+
+- Every hint opens at level one (technique and region). `09.hint-flow.spec.ts` taps `HintPanelSelectors.SHOW_MORE_BUTTON` twice to reach the walkthrough before using Next, Back, or Apply; the Reveal hint has no levels and opens on the walkthrough.
+
 - `15.daily-challenge.spec.ts` needs no fixture. It pins the clock with `page.clock.setFixedTime` and
   solves the deterministic board that `forgeDailyPuzzle(dateString)` from `@suuudokuuu/puzzle-forge` (a
   dev dependency of this package) forges for that date, the same call the app makes, so the run is a real

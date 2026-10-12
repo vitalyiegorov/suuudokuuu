@@ -1,0 +1,29 @@
+Lös sudokupussel i suuudokuuu på den svårighetsnivå du väljer och spela sedan upp varje avklarat pussel drag för drag. Din historik sammanfattar teknikerna som använts, även avancerade mönster.
+
+VARJE PUSSEL BETYGSATT
+Varje pussel får ett betyg på Sudoku Explainer-skalan (SE), 1.0 till 12.0, samma skala som seriösa lösare använder. Betyget syns direkt vid svårighetsgraden på brädet, i din historik och i varje länk du delar. En inbyggd förklaring berättar vad siffran faktiskt mäter: hur svårt pusslet är att resonera sig igenom, inte hur få ledtrådar det har.
+
+OÄNDLIGHET: SUDOKUPUSSEL MED SE 10.4 TILL 11.9
+En handplockad samling med 100 sudokupussel med SE 10.4 till 11.9, däribland Arto Inkalas Everest och AI Escargot.
+
+HELVETE: TVINGANDE KEDJOR KRÄVS
+Helvete består av verifierade pussel som alla kräver en tvingande kedja: inget av dem går att lösa med de tekniker som Mardröm tillåter, och vart och ett är betygsatt SE 7.5 eller högre.
+
+DITT SPEL, MÄTT
+Statistiken visar din svåraste lösning, din snittsvårighet på sistone och nivån du spelar mest. SE-spektrumet placerar varje avklarat pussel längs skalan. Din arsenal räknar varje teknik du faktiskt använt – naket par, X-Wing, Swordfish och vidare – så att du ser din repertoar växa. Varje avklarat spel kan spelas upp drag för drag, och varje kort i historiken bär en sammanfattning av teknikerna som löste det.
+
+UTMANA EN VÄN
+Rivalläget skickar exakt ditt pussel till en vän som en delad länk, med din inspelade omgång bifogad. Vännen spelar samma rutnät som du och tävlar mot din tid, drag för drag.
+
+SPELA SOM DU VILL
+Välj Klassisk, Guld eller Tidning, eller öppna temaeditorn med live-förhandsgranskning och gör varje ruta, linje och markering precis som du vill. Inbyggd kontrastkontroll håller egna teman läsbara i både ljust och mörkt läge.
+
+DAGENS UTMANING OCH TIPS SOM LÄR UT
+Ett nytt sudoku varje dag, med en svit som räknar hur många dagar i rad du löser det. Kört fast? Ett tips går igenom tekniken steg för steg, från nakna par till X-Wing och vidare, så att du förstår varför draget fungerar och inte bara var det ska stå.
+
+ALLT ANNAT DU VILL HA
+• Teknikmedveten poängsättning
+• 13 språk
+• Öppen källkod
+
+Läs mer på www.suuudokuuu.com.

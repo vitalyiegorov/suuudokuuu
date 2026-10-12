@@ -246,6 +246,9 @@ export const HomeScreenStyles = StyleSheet.create(theme => ({
         gap: 16,
         width: '100%'
     },
+    intentContentStack: {
+        gap: 20
+    },
     scrollContent: {
         alignItems: 'center',
         alignSelf: 'center',
