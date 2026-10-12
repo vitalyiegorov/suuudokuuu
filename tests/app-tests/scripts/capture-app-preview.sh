@@ -9,6 +9,7 @@ repository_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 capture_directory="$repository_root/.scratch/app-preview-$(date -u +%Y%m%dT%H%M%SZ)"
 preview_directory="$repository_root/packages/app/fastlane/app-previews/en-US"
 recording_pid=""
+original_content_size="$(xcrun simctl ui "$SIMULATOR_UDID" content_size)"
 
 stop_recording() {
     if [[ -n "$recording_pid" ]]; then
@@ -18,7 +19,12 @@ stop_recording() {
     fi
 }
 
-trap stop_recording EXIT
+restore_simulator() {
+    stop_recording
+    xcrun simctl ui "$SIMULATOR_UDID" content_size "$original_content_size"
+}
+
+trap restore_simulator EXIT
 mkdir -p "$capture_directory" "$preview_directory"
 export TMPDIR="$capture_directory"
 
