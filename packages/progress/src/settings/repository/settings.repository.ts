@@ -35,8 +35,7 @@ export class SettingsRepository extends Context.Service<SettingsRepository>()('@
         return {
             get,
             save,
-            initialize: (settings: SettingsType) =>
-                reactivity.mutation([ReactivityKeyEnum.Settings], insertSettings(settings)).pipe(Effect.orDie),
+            initialize: (settings: SettingsType) => insertSettings(settings).pipe(Effect.orDie),
             update: (patch: Partial<SettingsType>) =>
                 reactivity
                     .mutation(
