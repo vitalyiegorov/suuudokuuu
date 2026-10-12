@@ -135,6 +135,7 @@ export const GameScreen = () => {
     const hideAutoCandidates = maxMistakes === 0;
     const gameActionsIconColor = theme.colors.surface.raisedText;
     const isHintActive = isDefined(snapshot.stepScript);
+    const areWideActionsVisible = isWideLayout && !isHintActive;
     const toolsSlotPointerEvents = isHintActive ? 'none' : 'auto';
     const hintPanelAvailableHeight = toolsSlotHeight + gameGetNumpadHeight(screenWidth);
 
@@ -220,7 +221,7 @@ export const GameScreen = () => {
                         {isWideLayout ? <GameInputTools hideAutoCandidates={hideAutoCandidates} isLeftHanded={isLeftHanded} /> : null}
                     </View>
 
-                    {isWideLayout ? gameActionsWithPause : null}
+                    {areWideActionsVisible ? gameActionsWithPause : null}
 
                     {isWideLayout ? <HintPanel /> : null}
                 </View>

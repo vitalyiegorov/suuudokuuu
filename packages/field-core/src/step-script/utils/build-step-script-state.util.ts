@@ -1,6 +1,7 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { HintLevelEnum } from '../enums/hint-level.enum';
 import { StepScriptStepKindEnum } from '../enums/step-script-step-kind.enum';
 
 import type { StepScriptStateInterface } from '../interfaces/step-script-state.interface';
@@ -67,7 +68,26 @@ const collectPlacedValues = (steps: StepScriptStepType[]): ReadonlyMap<string, n
     return placedValues;
 };
 
-export const buildStepScriptState = (stepScript: StepScriptInterface | null, stepIndex: number): StepScriptStateInterface => {
+export const buildStepScriptState = (
+    stepScript: StepScriptInterface | null,
+    stepIndex: number,
+    hintLevel = HintLevelEnum.WALKTHROUGH
+): StepScriptStateInterface => {
+    if (hintLevel !== HintLevelEnum.WALKTHROUGH) {
+        const patternCells =
+            hintLevel === HintLevelEnum.PATTERN && isDefined(stepScript)
+                ? (stepScript.steps.find(step => step.kind === StepScriptStepKindEnum.RevealCandidates)?.patternCells ?? [])
+                : [];
+
+        return {
+            patternCellKeys: new Set(patternCells.map(getCellKey)),
+            targetCellKey: null,
+            revealedCandidates: new Map(),
+            eliminatedCandidates: new Map(),
+            placedValues: new Map()
+        };
+    }
+
     const currentStep = stepScript?.steps[stepIndex];
 
     if (currentStep?.kind === StepScriptStepKindEnum.SHOW_CHAIN || currentStep?.kind === StepScriptStepKindEnum.SHOW_BRANCH) {
