@@ -21,7 +21,7 @@ stop_recording() {
 
 restore_simulator() {
     stop_recording
-    xcrun simctl ui "$SIMULATOR_UDID" content_size "$original_content_size"
+    xcrun simctl ui "$SIMULATOR_UDID" content_size "$original_content_size" || true
 }
 
 trap restore_simulator EXIT
