@@ -5,7 +5,6 @@ import { SE_RATING_CEILING } from '../constants/se-rating-ceiling.constant';
 import { seTechniqueOrder } from '../constants/se-technique-order.constant';
 import { seTechniqueRatings } from '../constants/se-technique-rating.constant';
 
-import { getCeilingReason } from './get-ceiling-reason.util';
 import { getStepRating } from './get-step-rating.util';
 
 import type { PuzzleRatingInterface } from '../interfaces/puzzle-rating.interface';
@@ -28,8 +27,7 @@ export const ratePuzzle = (puzzleString: string): PuzzleRatingInterface => {
         return {
             rating: SE_RATING_CEILING,
             hardestTechnique: SolutionTechniqueEnum.Guess,
-            isCeiling: true,
-            ceilingReason: getCeilingReason(solveResult)
+            isCeiling: true
         };
     }
 
