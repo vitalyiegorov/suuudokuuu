@@ -9,11 +9,11 @@ import type { FieldSnapshotInterface } from '../interfaces/field-snapshot.interf
 export abstract class FieldStore {
     protected readonly events = new TypedEventEmitter<FieldEventMapInterface>();
 
-    private readonly listeners = new Set<UnsubscribeType>();
+    private readonly listeners = new Set<() => void>();
 
     private snapshot: FieldSnapshotInterface | null = null;
 
-    readonly subscribe = (listener: UnsubscribeType): UnsubscribeType => {
+    readonly subscribe = (listener: () => void): UnsubscribeType => {
         this.listeners.add(listener);
 
         return () => void this.listeners.delete(listener);
