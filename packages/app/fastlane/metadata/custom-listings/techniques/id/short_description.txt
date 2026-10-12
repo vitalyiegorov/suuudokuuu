@@ -1,0 +1,1 @@
+Putar ulang sudoku yang selesai dan tinjau teknik yang kamu gunakan.

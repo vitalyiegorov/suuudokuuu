@@ -1,0 +1,1 @@
+Choose a hard Sudoku board and see its SE difficulty rating.
