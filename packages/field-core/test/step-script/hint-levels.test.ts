@@ -1,5 +1,6 @@
 import { it } from '@effect/vitest';
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { CandidateContext, SolutionTechniqueEnum, createTechniqueStrategies } from '@suuudokuuu/techniques';
 import * as Effect from 'effect/Effect';
 import { assert, describe } from 'vitest';
 
@@ -18,7 +19,21 @@ import type { CellInterface } from '@suuudokuuu/generator';
 
 const nakedPairBoard = '.34.7.91.672195348.9.34.567859761423426.5379.713924856961537284287419635345286179';
 
-const createCell = (y: number, x: number): CellInterface => ({ x, y, value: 0, group: Math.floor(y / 3) * 3 + Math.floor(x / 3) });
+const hiddenSingleBoard = [
+    '001004800',
+    '302000045',
+    '540003090',
+    '800040300',
+    '000905410',
+    '400006002',
+    '030008600',
+    '050370000',
+    '100400000'
+].join('');
+
+const fieldCells = new FieldEngine({ sudokuString: nakedPairBoard, difficulty: DifficultyEnum.Newbie }).Sudoku.Field;
+
+const createCell = (y: number, x: number): CellInterface => fieldCells[y][x];
 
 const createHintEngine = (): { engine: FieldEngine; script: StepScriptInterface } => {
     const engine = new FieldEngine({ sudokuString: nakedPairBoard, difficulty: DifficultyEnum.Newbie });
@@ -95,6 +110,27 @@ describe('getHintRegion', () => {
             assert.deepEqual(getHintRegion([createCell(2, 0), createCell(2, 5)]), { kind: HintRegionKindEnum.ROW, number: 3 });
             assert.deepEqual(getHintRegion([createCell(0, 5), createCell(7, 5)]), { kind: HintRegionKindEnum.COLUMN, number: 6 });
             assert.deepEqual(getHintRegion([createCell(3, 3), createCell(4, 5)]), { kind: HintRegionKindEnum.BOX, number: 5 });
+            assert.deepEqual(getHintRegion([createCell(0, 6), createCell(1, 8)]), { kind: HintRegionKindEnum.BOX, number: 3 });
+            assert.deepEqual(getHintRegion([createCell(6, 0), createCell(8, 1)]), { kind: HintRegionKindEnum.BOX, number: 7 });
+            assert.deepEqual(getHintRegion([createCell(7, 7), createCell(8, 8)]), { kind: HintRegionKindEnum.BOX, number: 9 });
+        })
+    );
+
+    it.effect('numbers the box of a real hidden single rows first', () =>
+        Effect.sync(() => {
+            const engine = new FieldEngine({ sudokuString: hiddenSingleBoard, difficulty: DifficultyEnum.Hard });
+            const [hiddenSingleStrategy] = createTechniqueStrategies().filter(
+                strategy => strategy.technique === SolutionTechniqueEnum.HiddenSingle
+            );
+            const hiddenSingle = hiddenSingleStrategy
+                .find(CandidateContext.fromSudoku(engine.Sudoku))
+                .find(
+                    result =>
+                        result.cell.y === 8 && result.cell.x === 4 && result.reasonCells.every(cell => cell.group === result.cell.group)
+                );
+
+            assert(hiddenSingle !== undefined, 'Expected a box hidden single at R9C5');
+            assert.deepEqual(getHintRegion(hiddenSingle.reasonCells, hiddenSingle.cell), { kind: HintRegionKindEnum.BOX, number: 8 });
         })
     );
 
