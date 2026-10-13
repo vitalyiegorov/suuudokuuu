@@ -1,5 +1,6 @@
 import { isDefined } from '@rnw-community/shared';
 
+import { ASSUMPTION_REASON, NAKED_SINGLE_REASON } from '../../constants/hypothesis-reason.constant';
 import { ForcingOutcomeKindEnum } from '../../enums/forcing-outcome-kind.enum';
 import { createCandidateMask } from '../../utils/create-candidate-mask.util';
 import { getEliminatedMask } from '../../utils/get-eliminated-mask.util';
@@ -8,6 +9,7 @@ import { getSingleMaskValue } from '../../utils/get-single-mask-value.util';
 import { hasMaskValue } from '../../utils/has-mask-value.util';
 import { removeMaskValue } from '../../utils/remove-mask-value.util';
 import { CandidateContext } from '../candidate-context/candidate-context';
+import { HypothesisPathTracer } from '../hypothesis-path-tracer/hypothesis-path-tracer';
 
 import type { HypothesisBoardInterface } from '../../interfaces/hypothesis-board.interface';
 import type { HypothesisPropagationStateInterface } from '../../interfaces/hypothesis-propagation-state.interface';
@@ -49,8 +51,11 @@ export class HypothesisPropagator {
             masks: Uint16Array.from(this.board.candidateMasks),
             placedValues: new Int8Array(this.board.cells.length),
             placedCellIndexes: [],
+            placementOrders: new Int8Array(this.board.cells.length),
+            placementReasons: [],
             pendingCellIndexes: [cellIndex],
-            pendingValues: [value]
+            pendingValues: [value],
+            pendingReasons: [ASSUMPTION_REASON]
         };
     }
 
@@ -69,29 +74,38 @@ export class HypothesisPropagator {
         let pendingIndex = 0;
 
         while (pendingIndex < state.pendingCellIndexes.length && !isDefined(state.contradiction)) {
-            this.assign(state, state.pendingCellIndexes[pendingIndex], state.pendingValues[pendingIndex]);
+            this.assign(
+                state,
+                state.pendingCellIndexes[pendingIndex],
+                state.pendingValues[pendingIndex],
+                state.pendingReasons[pendingIndex]
+            );
             pendingIndex += 1;
         }
 
         state.pendingCellIndexes = [];
         state.pendingValues = [];
+        state.pendingReasons = [];
 
         return !isDefined(state.contradiction);
     }
 
-    private assign(state: HypothesisPropagationStateInterface, cellIndex: number, value: number): void {
+    private assign(state: HypothesisPropagationStateInterface, cellIndex: number, value: number, reason: number): void {
         if (state.placedValues[cellIndex] === value) {
             return;
         }
 
         if (!hasMaskValue(state.masks[cellIndex], value)) {
             state.contradiction = { kind: ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT, cell: this.board.cells[cellIndex], value };
+            state.contradictionEliminations = new HypothesisPathTracer(this.board, state).getConflictEliminations(cellIndex, value, reason);
 
             return;
         }
 
         state.placedValues[cellIndex] = value;
         state.placedCellIndexes.push(cellIndex);
+        state.placementOrders[cellIndex] = state.placedCellIndexes.length;
+        state.placementReasons.push(reason);
         state.masks[cellIndex] = 0;
 
         for (const peerIndex of this.board.peerIndexes[cellIndex]) {
@@ -110,6 +124,7 @@ export class HypothesisPropagator {
 
         if (state.masks[peerIndex] === 0) {
             state.contradiction = { kind: ForcingOutcomeKindEnum.EMPTY_CELL, cell: this.board.cells[peerIndex] };
+            state.contradictionEliminations = new HypothesisPathTracer(this.board, state).getEmptyCellEliminations(peerIndex);
 
             return false;
         }
@@ -119,6 +134,7 @@ export class HypothesisPropagator {
         if (singleValue > 0) {
             state.pendingCellIndexes.push(peerIndex);
             state.pendingValues.push(singleValue);
+            state.pendingReasons.push(NAKED_SINGLE_REASON);
         }
 
         return true;
@@ -128,9 +144,9 @@ export class HypothesisPropagator {
         const { unitCellIndexes, valueCount } = this.board;
         let hasQueuedAssignments = false;
 
-        for (const cellIndexes of unitCellIndexes) {
+        for (let unitIndex = 0; unitIndex < unitCellIndexes.length; unitIndex += 1) {
             for (let value = 1; value <= valueCount; value += 1) {
-                hasQueuedAssignments = this.queueUnitHiddenSingle(state, cellIndexes, value) || hasQueuedAssignments;
+                hasQueuedAssignments = this.queueUnitHiddenSingle(state, unitIndex, value) || hasQueuedAssignments;
 
                 if (isDefined(state.contradiction)) {
                     return hasQueuedAssignments;
@@ -141,7 +157,8 @@ export class HypothesisPropagator {
         return hasQueuedAssignments;
     }
 
-    private queueUnitHiddenSingle(state: HypothesisPropagationStateInterface, unitCellIndexes: number[], value: number): boolean {
+    private queueUnitHiddenSingle(state: HypothesisPropagationStateInterface, unitIndex: number, value: number): boolean {
+        const unitCellIndexes = this.board.unitCellIndexes[unitIndex];
         const positionIndex = this.getUnitHiddenSinglePosition(state, unitCellIndexes, value);
 
         if (positionIndex === CONTRADICTION_POSITION) {
@@ -150,6 +167,7 @@ export class HypothesisPropagator {
                 unitCells: unitCellIndexes.map(cellIndex => this.board.cells[cellIndex]),
                 value
             };
+            state.contradictionEliminations = new HypothesisPathTracer(this.board, state).getNoPositionEliminations(unitIndex, value);
 
             return false;
         }
@@ -160,6 +178,7 @@ export class HypothesisPropagator {
 
         state.pendingCellIndexes.push(positionIndex);
         state.pendingValues.push(value);
+        state.pendingReasons.push(unitIndex);
 
         return true;
     }
@@ -201,7 +220,10 @@ export class HypothesisPropagator {
             hasContradiction: isDefined(state.contradiction),
             placedValues: state.placedValues,
             placedCellIndexes: state.placedCellIndexes,
+            placementOrders: state.placementOrders,
+            placementReasons: state.placementReasons,
             eliminatedMasks,
+            contradictionEliminations: state.contradictionEliminations ?? [],
             ...(isDefined(state.contradiction) && { contradiction: state.contradiction })
         };
     }
@@ -214,14 +236,19 @@ export class HypothesisPropagator {
             cellIndexByKey[CandidateContext.getCellKey(cell)] = cellIndex;
         });
 
+        const unitCellIndexes = context
+            .getUnits()
+            .map(unit => unit.cells.map(unitCell => cellIndexByKey[CandidateContext.getCellKey(unitCell)]));
+
         return new HypothesisPropagator({
             cells,
             cellValues: cells.map(cell => (context.isBlankCell(cell) ? 0 : cell.value)),
             candidateMasks: Uint16Array.from(cells, cell => createCandidateMask(context.getCandidates(cell))),
             peerIndexes: cells.map(cell => context.getPeers(cell).map(peer => cellIndexByKey[CandidateContext.getCellKey(peer)])),
-            unitCellIndexes: context
-                .getUnits()
-                .map(unit => unit.cells.map(unitCell => cellIndexByKey[CandidateContext.getCellKey(unitCell)])),
+            unitCellIndexes,
+            cellUnitIndexes: cells.map((_, cellIndex) =>
+                unitCellIndexes.flatMap((unitCells, unitIndex) => (unitCells.includes(cellIndex) ? [unitIndex] : []))
+            ),
             valueCount: context.getValues().length
         });
     }
