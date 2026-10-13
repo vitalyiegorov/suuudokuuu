@@ -28,9 +28,9 @@
         }
     ],
     "capture-scenes": [
-        { "name": "home", "deepLink": "suuudokuuu://" },
-        { "name": "game", "deepLink": "suuudokuuu://game" },
-        { "name": "stats", "deepLink": "suuudokuuu://history" }
+        { "name": "home", "deepLink": "suuudokuuu://", "readySelector": { "id": "HomeScreenSelectors.Root" } },
+        { "name": "hero-board", "deepLink": "suuudokuuu://game", "readySelector": { "id": "GameScreenSelectors.Root" } },
+        { "name": "stats", "deepLink": "suuudokuuu://history", "readySelector": { "id": "HistoryScreenSelectors.Root" } }
     ],
     "screenshots-dir": "tests/app-tests/flows/screenshots",
     "seed-command": "node tests/app-tests/scripts/ci-seed-scene.ts",

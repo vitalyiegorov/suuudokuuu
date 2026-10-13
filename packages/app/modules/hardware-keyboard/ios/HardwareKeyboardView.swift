@@ -25,7 +25,7 @@ final class HardwareKeyboardView: ExpoView {
   override var canBecomeFirstResponder: Bool { active }
 
   override var keyCommands: [UIKeyCommand]? {
-    guard active else { return nil }
+    guard active, isFrontmost else { return nil }
 
     return Self.inputs.map { input in
       let command = UIKeyCommand(input: input, modifierFlags: [], action: #selector(handleKeyCommand))
@@ -45,6 +45,16 @@ final class HardwareKeyboardView: ExpoView {
     refocus()
   }
 
+  private var isFrontmost: Bool {
+    var frontmostController = window?.rootViewController
+    while let presentedController = frontmostController?.presentedViewController {
+      frontmostController = presentedController
+    }
+    guard let frontmostView = frontmostController?.view else { return false }
+
+    return isDescendant(of: frontmostView)
+  }
+
   @objc private func refocus() {
     if active {
       becomeFirstResponder()
@@ -52,7 +62,7 @@ final class HardwareKeyboardView: ExpoView {
   }
 
   @objc private func handleKeyCommand(_ command: UIKeyCommand) {
-    guard let input = command.input else { return }
+    guard isFrontmost, let input = command.input else { return }
 
     onKeyPress(["key": Self.namedKeys[input] ?? input])
   }
