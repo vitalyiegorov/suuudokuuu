@@ -4,6 +4,7 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { getCellKey } from '../../../src/@generic/utils/get-cell-key.util';
 import { FieldEngine } from '../../../src/field-engine/classes/field-engine';
 import { StepScriptStepKindEnum } from '../../../src/step-script/enums/step-script-step-kind.enum';
 import { findHintStepScript, findRevealStepScript } from '../../../src/step-script/utils/find-hint-step-script.util';
@@ -17,6 +18,7 @@ const longChainBoard = '00007094007009000530000507008740010046308000000000708080
 const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
 const pointingPairDetourBoard = '..6....9...45....8.27....4..4..7..6.......8.......2...4156...8.2.9...41.3.8.4...5';
 const aicDetourBoard = '..31...5..4...5...75.2....13..5..71..8..6............9.....4..6.2..5.9..9..7...8.';
+const revealTargetBoard = '001004800302000045540003090800040300000905410400006002030008600050370000100460000';
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 
 const createEngine = (sudokuString: string, showAutoCandidates = false): FieldEngine =>
@@ -285,6 +287,32 @@ describe('findHintStepScript', () => {
         engine.applyStepScript();
 
         expect(getBlankCount(engine)).toBe(blankCount - 1);
+    });
+
+    it('reveals the open hint target cell', () => {
+        const engine = createEngine(revealTargetBoard);
+        const revealScript = findRevealStepScript(engine.Sudoku, engine.getSnapshot().eliminatedCandidates, engine.Sudoku.Field[4][8]);
+
+        expect(revealScript?.placement).toMatchObject({ cell: { y: 4, x: 8 }, value: 8 });
+        expect(findRevealStepScript(engine.Sudoku)?.placement?.cell).not.toMatchObject({ y: 4, x: 8 });
+    });
+
+    it('falls back to the fewest candidates left after the player eliminations', () => {
+        const engine = createEngine(revealTargetBoard);
+        const [lastCell] = engine.Sudoku.Field[8].slice(-1);
+        const correctValue = engine.Sudoku.getCorrectValue(lastCell);
+        const eliminatedCandidates = {
+            [getCellKey(lastCell)]: engine.Sudoku.getCellCandidates(lastCell).filter(value => value !== correctValue)
+        };
+
+        expect(findRevealStepScript(engine.Sudoku, eliminatedCandidates)?.placement).toMatchObject({
+            cell: { y: 8, x: 8 },
+            value: correctValue
+        });
+        expect(findRevealStepScript(engine.Sudoku, eliminatedCandidates, engine.Sudoku.Field[0][2])?.placement?.cell).toMatchObject({
+            y: 8,
+            x: 8
+        });
     });
 
     it('returns null on a solved board', () => {
