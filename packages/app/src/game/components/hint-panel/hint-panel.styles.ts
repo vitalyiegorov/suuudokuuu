@@ -1,6 +1,5 @@
+import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
-
-import { isDefined } from '@rnw-community/shared';
 
 import { gameGetHintFooterHeight } from '../../utils/game-get-hint-footer-height.util';
 
@@ -13,26 +12,23 @@ const dotSize = 6;
 const dotActiveSize = 8;
 
 export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
-    region: (availableHeight: number | undefined, insets: EdgeInsets) => ({
-        marginBottom: isDefined(availableHeight) ? 0 : Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md,
-        bottom: isDefined(availableHeight) ? Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md : 0,
-        height: availableHeight,
-        flexBasis: isDefined(availableHeight) ? 'auto' : 0,
-        flexGrow: isDefined(availableHeight) ? 0 : 1,
-        flexShrink: 1,
-        minHeight: 0,
-        justifyContent: 'flex-end',
-        left: isDefined(availableHeight) ? insets.left + theme.spacing.md : 0,
-        right: isDefined(availableHeight) ? insets.right + theme.spacing.md : 0,
-        position: isDefined(availableHeight) ? 'absolute' : 'relative',
-        zIndex: 10
-    }),
-    container: (availableHeight: number | undefined) => ({
+    region: (controlsTop: number, insets: EdgeInsets) => {
+        const isWideLayout = appLayoutScreenIsWide(rt.screen);
+
+        return {
+            bottom: Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md - (isWideLayout ? 0 : rt.insets.bottom + theme.spacing.xs),
+            justifyContent: 'flex-end',
+            left: isWideLayout ? 0 : insets.left + theme.spacing.md,
+            position: 'absolute',
+            right: isWideLayout ? 0 : insets.right + theme.spacing.md,
+            top: isWideLayout ? controlsTop : controlsTop + theme.spacing.sm,
+            zIndex: 10
+        };
+    },
+    container: {
         alignSelf: 'center',
-        flexGrow: 1,
         flexShrink: 1,
         minHeight: 0,
-        height: availableHeight,
         borderCurve: 'continuous',
         borderRadius: theme.radius.lg,
         borderWidth: 1,
@@ -41,7 +37,7 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
         padding: theme.spacing.md,
         width: '100%',
         overflow: 'hidden'
-    }),
+    },
     header: {
         alignItems: 'center',
         flexDirection: 'row',

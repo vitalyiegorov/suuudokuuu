@@ -49,19 +49,25 @@ const applyHintEarly = async (page: import('@playwright/test').Page): Promise<vo
     await page.getByTestId(HintPanelSelectors.ApplyButton).or(page.getByTestId(HintPanelSelectors.ContinueButton)).click();
 };
 
-const expectHintBelowToolbar = async (page: import('@playwright/test').Page): Promise<void> => {
-    const viewport = page.viewportSize();
+const readBoardBounds = async (page: import('@playwright/test').Page): Promise<readonly (number | undefined)[]> => {
+    const firstCell = await page.getByTestId(cellTestId(0, 0)).boundingBox();
+    const lastCell = await page.getByTestId(cellTestId(8, 8)).boundingBox();
 
-    if (viewport === null) {
-        return;
-    }
+    return [firstCell?.x, firstCell?.y, lastCell?.x, lastCell?.y, lastCell?.width, lastCell?.height];
+};
 
-    const panel = await page.getByTestId(HintPanelSelectors.Root).boundingBox();
-    const hintButton = await page.getByTestId(HintButtonSelectors.Root).boundingBox();
+const expectHintReplacesControls = async (
+    page: import('@playwright/test').Page,
+    boardBounds: readonly (number | undefined)[]
+): Promise<void> => {
+    expect(await readBoardBounds(page)).toEqual(boardBounds);
+    expect(
+        await page.getByTestId(HintButtonSelectors.Root).evaluate(element => {
+            const bounds = element.getBoundingClientRect();
 
-    expect(panel).not.toBeNull();
-    expect(hintButton).not.toBeNull();
-    expect(panel?.y).toBeGreaterThanOrEqual((hintButton?.y ?? 0) + (hintButton?.height ?? 0));
+            return element.contains(document.elementFromPoint(bounds.x + bounds.width / 2, bounds.y + bounds.height / 2));
+        })
+    ).toBe(false);
 };
 
 const readCellLabels = async (page: import('@playwright/test').Page): Promise<Map<string, string | null>> =>
@@ -93,6 +99,7 @@ test('walks a hint from activation through stepping, applying and a later dismis
     await startNewGame(page);
 
     const hintPanel = page.getByTestId(HintPanelSelectors.Root);
+    const boardBounds = await readBoardBounds(page);
 
     await page.getByTestId(HintButtonSelectors.Root).click();
 
@@ -100,7 +107,7 @@ test('walks a hint from activation through stepping, applying and a later dismis
     await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText(/.+/u);
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(/^Look for .+ in (?:row|column|box) \d+\.$/u);
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveAttribute('aria-live', 'polite');
-    await expectHintBelowToolbar(page);
+    await expectHintReplacesControls(page, boardBounds);
     await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-level-1-technique.png'), fullPage: true });
 
     const progress = page.getByTestId(HintPanelSelectors.Progress);
@@ -112,7 +119,7 @@ test('walks a hint from activation through stepping, applying and a later dismis
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(/the highlighted cells hold the pattern\.$/u);
     await expect(progress).toHaveCount(0);
     await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveCount(0);
-    await expectHintBelowToolbar(page);
+    await expectHintReplacesControls(page, boardBounds);
     await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-level-2-pattern.png'), fullPage: true });
 
     await page.getByTestId(HintPanelSelectors.SHOW_MORE_BUTTON).click();
@@ -120,7 +127,7 @@ test('walks a hint from activation through stepping, applying and a later dismis
     await expect(progress).toBeVisible();
 
     await expect(progress).toHaveAttribute('aria-label', /Step 1 of \d+/u);
-    await expectHintBelowToolbar(page);
+    await expectHintReplacesControls(page, boardBounds);
     await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-level-3-walkthrough.png'), fullPage: true });
 
     const labelsBefore = await readCellLabels(page);
@@ -429,6 +436,9 @@ for (const viewport of [
             await applyHintEarly(page);
         }
 
+        await expect(page.getByTestId(HintPanelSelectors.Root)).toHaveCount(0);
+        const boardBounds = await readBoardBounds(page);
+
         await page.getByTestId(HintButtonSelectors.Root).click();
         await revealHintWalkthrough(page);
         const branch = page.getByTestId(FieldWitnessOverlaySelectors.Branch);
@@ -476,7 +486,7 @@ for (const viewport of [
         expect(panel?.x).toBeGreaterThanOrEqual(panelHorizontalGap);
         expect((panel?.x ?? 0) + (panel?.width ?? 0)).toBeLessThanOrEqual(width - panelHorizontalGap);
         expect((panel?.y ?? 0) + (panel?.height ?? 0)).toBeLessThanOrEqual(height - panelBottomGap);
-        await expectHintBelowToolbar(page);
+        await expectHintReplacesControls(page, boardBounds);
     });
 }
 
@@ -488,6 +498,8 @@ for (const bottomInset of [0, mobileBottomInset]) {
         await openSharedPuzzle(page, pointingPairHintSharedPuzzleEncodedConstant);
         await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
         await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+        const boardBounds = await readBoardBounds(page);
+
         await page.getByTestId(HintButtonSelectors.Root).click();
 
         await page.addStyleTag({ content: `div[style*="safe-area-inset"] { padding-bottom: ${bottomInset}px !important; }` });
@@ -527,7 +539,7 @@ for (const bottomInset of [0, mobileBottomInset]) {
 
         await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveText('Place 4');
         await expect(page.getByTestId(HintPanelSelectors.RevealButton)).toHaveText('Reveal');
-        await expectHintBelowToolbar(page);
+        await expectHintReplacesControls(page, boardBounds);
         await page.getByTestId(HintPanelSelectors.RevealButton).click();
         await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText('Reveal');
         await page.getByTestId(HintPanelSelectors.NextButton).click();
