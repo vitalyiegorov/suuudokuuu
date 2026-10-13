@@ -2,6 +2,8 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, readdirSync, renameSync, rmdirSync } from 'node:fs';
 import { join } from 'node:path';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { type SceneOutcome } from './capture-device.ts';
 import { type Scene, localeIdentifierFor } from './screenshot-scenes.ts';
 
@@ -10,7 +12,6 @@ export interface MaestroContext {
     artifactsDirectory: string;
     configPath: string;
     flowsDirectory: string;
-    osLanguageMode: string;
     platform: string;
     simulatorUdid: string;
 }
@@ -38,6 +39,10 @@ const flattenMaestroScreenshotsDirectory = (testOutputDirectory: string): void =
 
 export const runMaestroScene = (context: MaestroContext, request: MaestroSceneRequest): SceneOutcome => {
     const { appearance, locale, scene, testOutputDirectory } = request;
+    if (!isDefined(scene.file)) {
+        throw new Error(`Scene ${scene.name} has no Maestro flow.`);
+    }
+
     const maestroArguments = [
         'test',
         join(context.flowsDirectory, scene.file),
@@ -51,8 +56,6 @@ export const runMaestroScene = (context: MaestroContext, request: MaestroSceneRe
         `LOCALE_IDENTIFIER=${localeIdentifierFor(locale)}`,
         '-e',
         `APPEARANCE=${appearance}`,
-        '-e',
-        `OS_LANGUAGE_MODE=${context.osLanguageMode}`,
         '--test-output-dir',
         testOutputDirectory,
         '--debug-output',

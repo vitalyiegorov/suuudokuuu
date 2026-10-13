@@ -4,7 +4,6 @@ import { PauseScreenSelectors } from '@suuudokuuu/app/src/selectors';
 import { bringAppToForeground } from '../src/utils/bring-app-to-foreground.util';
 import { launchHome } from '../src/utils/launch-home.util';
 import { quitCurrentGame } from '../src/utils/quit-current-game.util';
-import { quitPausedGame } from '../src/utils/quit-paused-game.util';
 import { sendAppToBackground } from '../src/utils/send-app-to-background.util';
 import { startNewGame } from '../src/utils/start-new-game.util';
 
@@ -28,6 +27,6 @@ test('quits from the pause screen when the app language translates OK', async ({
     await expect(page.getByTestId(PauseScreenSelectors.Root)).toBeVisible({ timeout: pauseScreenTimeoutMilliseconds });
     await bringAppToForeground(page);
 
-    await quitPausedGame(page);
+    await quitCurrentGame(page, PauseScreenSelectors.QuitButton);
     await startNewGame(page);
 });

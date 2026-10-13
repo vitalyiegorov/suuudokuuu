@@ -11,15 +11,14 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { writeGeneratedCorpusModule } from './shared/generated-module-writer.mjs';
 import { crossCheckPuzzleLine, validatePuzzleFormat, validateUniquePuzzle } from './shared/puzzle-verification.mjs';
 import { ratePuzzlesInParallel } from './shared/rate-puzzles-in-parallel.mjs';
-import { encodeRatingByte, packPuzzleRecord } from './shared/record-packing.mjs';
+import { encodeRatingByte, getCorpusRecordBytes, packPuzzleRecord } from './shared/record-packing.mjs';
 import { isSinglesSolvable } from './shared/singles-solvability.mjs';
 
 const SCRIPT_DIRECTORY = dirname(fileURLToPath(import.meta.url));
 const OUTPUT_FILE = join(SCRIPT_DIRECTORY, '..', 'src', 'constants', 'hell-corpus-data.constant.ts');
 
 const MAXIMUM_GIVEN_COUNT = 28;
-const POSITION_MASK_BYTES = 11;
-const RECORD_BYTES = POSITION_MASK_BYTES + Math.ceil(MAXIMUM_GIVEN_COUNT / 2) + 1;
+const RECORD_BYTES = getCorpusRecordBytes(MAXIMUM_GIVEN_COUNT);
 const RECORD_BASE64_LENGTH = Math.ceil(RECORD_BYTES / 3) * 4;
 const HELL_TECHNIQUES = new Set([
     SolutionTechniqueEnum.NishioForcingChain,
@@ -207,7 +206,8 @@ const main = async () => {
         sizeName: 'HELL_CORPUS_SIZE',
         size: records.length,
         base64Name: 'HELL_CORPUS_BASE64',
-        base64: records.join('')
+        base64: records.join(''),
+        recordBytes: RECORD_BYTES
     });
 
     const elapsedMs = Date.now() - startTime;

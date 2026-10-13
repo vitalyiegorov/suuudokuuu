@@ -2,7 +2,7 @@ import type { LogicalSolveOutcomeType } from '../types/logical-solve-outcome.typ
 import type { TechniqueResultInterface } from './technique-result.interface';
 
 export interface LogicalSolveResultInterface {
-    outcome: LogicalSolveOutcomeType;
-    steps: TechniqueResultInterface[];
-    wasSearchCapped: boolean;
+    readonly outcome: LogicalSolveOutcomeType;
+    readonly steps: TechniqueResultInterface[];
+    readonly wasSearchCapped: boolean;
 }

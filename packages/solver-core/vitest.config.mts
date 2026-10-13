@@ -8,7 +8,7 @@ export default mergeConfig(createVitestConfig(), {
             provider: 'v8',
             reporter: ['text-summary', 'lcov'],
             include: ['src/**/*.ts'],
-            exclude: ['src/index.ts'],
+            exclude: ['src/index.ts', 'src/testing/**/*.ts'],
             thresholds: { statements: 99, branches: 97, lines: 99, functions: 100 }
         }
     }

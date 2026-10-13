@@ -68,11 +68,15 @@ accessibility tree:
    briefly, `simctl io screenshot` (Android: `adb exec-out screencap -p`).
 
 Scene definitions live in `scripts/screenshot-scenes.ts`: each scene carries
-its `deepLink`, optional `sceneState`/`seedDifficulty`, and its legacy Maestro
-flow file. A scene without a `deepLink` (currently only the win scene)
+its `deepLink`, optional `sceneState`/`seedDifficulty`, and an optional Maestro
+flow file. A scene without a `deepLink` (currently the win and pause scenes)
 automatically falls back to its Maestro flow, so the two mechanisms mix
 freely. Device commands are in `scripts/capture-device.ts`, the Maestro
 fallback in `scripts/maestro-scene.ts`.
+
+For iPad landscape captures, the macOS runner reads pixel dimensions with
+`sips` and rotates portrait pixel captures by 90 degrees. Images that already
+have landscape dimensions stay unchanged.
 
 ## Why it is built this way
 
@@ -157,20 +161,9 @@ state the app itself persisted, so they cannot drift from the reducers.
 
 The app no longer writes `persist:root` itself (state lives in the SQLite
 tables of `suuudokuuu.db`), so the fixture is now frozen in the legacy shape
-and edited by hand. The procedure that originally produced it, kept for
-reference, read the row back after a Maestro run:
-
-```bash
-sed -e '/quit-current-game/d' -e '/^- stopApp$/d' \
-  flows/screenshots/01.hero-board.flow.yaml > /tmp/bake.flow.yaml
-maestro --udid <udid> test -e APP_ID=<bundle-id> /tmp/bake.flow.yaml
-sqlite3 "$(xcrun simctl get_app_container <udid> <app> data)/Documents/SQLite/ExpoSQLiteStorage" \
-  "select value from storage where key='persist:root';"
-```
-
-Copy the relevant slice into the fixture. Seed a clean state first — an
-in-progress game makes the flow hit the "Stop current run?" confirmation and
-never reach the board.
+and edited by hand. It was originally captured from the legacy storage row
+before the SQLite migration; the removed hero-board Maestro flow is no longer
+a way to regenerate it from the current app.
 
 The fixture is not, and cannot be, kept in sync with every `SettingsState`
 field by hand: it once fell three fields behind (`allowHintsOnHardDifficulties`,

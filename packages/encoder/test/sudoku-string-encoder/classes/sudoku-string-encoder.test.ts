@@ -1,3 +1,4 @@
+import { solvedBoard as original } from '../../fixtures';
 /* oxlint-disable no-magic-numbers */
 import { beforeEach, describe, expect, it } from 'vitest';
 
@@ -54,8 +55,6 @@ describe('SudokuStringEncoder', () => {
 
         it('should round-trip a fully filled grid', () => {
             expect.assertions(1);
-
-            const original = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
             expect(encoder.decode(encoder.encode(original))).toBe(original);
         });
 

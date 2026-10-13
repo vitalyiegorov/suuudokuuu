@@ -9,6 +9,8 @@ import * as SqlSchema from 'effect/sql/SqlSchema';
 import { ReactivityKeyEnum } from '../../@generic/enum/reactivity-key.enum';
 import { PlayerStatsSchema } from '../schema/player-stats.schema';
 
+import type { PlayerStatsType } from '../type/player-stats.type';
+
 export class PlayerStatsRepository extends Context.Service<PlayerStatsRepository>()('@suuudokuuu/progress/PlayerStatsRepository', {
     make: Effect.gen(function* () {
         const sql = yield* SqlClient.SqlClient;
@@ -25,7 +27,7 @@ export class PlayerStatsRepository extends Context.Service<PlayerStatsRepository
 
         return {
             get: findPlayerStats().pipe(Effect.orDie),
-            save: (playerStats: typeof PlayerStatsSchema.Type) =>
+            save: (playerStats: PlayerStatsType) =>
                 reactivity.mutation([ReactivityKeyEnum.PlayerStats], replacePlayerStats(playerStats)).pipe(Effect.orDie)
         };
     })

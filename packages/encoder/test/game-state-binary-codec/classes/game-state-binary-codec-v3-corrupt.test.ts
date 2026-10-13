@@ -152,3 +152,41 @@ describe('GameStateBinaryCodecV3 corrupt payloads', () => {
         expect(decoded.difficulty).toBeNull();
     });
 });
+
+describe('absolute cell payload validation', () => {
+    const codec = new GameStateBinaryCodecV3();
+
+    it.each([
+        [81, 1],
+        [127, 9],
+        [0, 10],
+        [80, 16]
+    ])('rejects tagged cell index %s and value %s', (cellIndex, value) => {
+        const payload = buildPayload(out => {
+            writeHeader(out, SharedPayloadKindEnum.Challenge, true);
+            writeEmptyGivensMask(out);
+            out.write(1, EVENT_COUNT_BITS);
+            out.write(1, TAG_CELL_FLAG_BITS);
+            out.write(0, TAG_SUBCODE_BITS);
+            out.write(0, 7);
+            out.write(cellIndex, 7);
+            out.write(value - 1, 4);
+        });
+
+        expect(() => codec.decode(payload)).toThrow('Invalid timeline cell payload');
+    });
+
+    it('rejects an out of range candidate index', () => {
+        const payload = buildPayload(out => {
+            writeHeader(out, SharedPayloadKindEnum.Handoff, false);
+            writeEmptyGivensMask(out);
+            out.write(0, EVENT_COUNT_BITS);
+            out.write(0, 13);
+            out.write(1, 7);
+            out.write(81, 7);
+            out.write(1, 9);
+        });
+
+        expect(() => codec.decode(payload)).toThrow('Invalid candidate cell index');
+    });
+});

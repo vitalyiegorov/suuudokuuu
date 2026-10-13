@@ -1,19 +1,30 @@
-import { isDefined } from '@rnw-community/shared';
+import { TechniqueManager, createTechniqueStrategies } from '@suuudokuuu/techniques';
 
-import { isSolvableWithLadder } from './is-solvable-with-ladder.util';
+import { isDefined } from '@rnw-community/shared';
 
 import type { DifficultyBandInterface } from '../../@generic/interfaces/difficulty-band.interface';
 import type { PuzzleBandMatchInterface } from '../../@generic/interfaces/puzzle-band-match.interface';
+import type { Sudoku } from '@suuudokuuu/generator';
 
-export const matchPuzzleBand = (puzzleString: string, band: DifficultyBandInterface): PuzzleBandMatchInterface => {
-    const isAboveSimplerLadder =
-        !isDefined(band.simplerLadderMaxTechnique) || !isSolvableWithLadder(puzzleString, band.simplerLadderMaxTechnique);
+export const createPuzzleBandMatcher = (band: DifficultyBandInterface): ((sudoku: Sudoku) => PuzzleBandMatchInterface) => {
+    const ladderMaxTechnique = band.bandLadderMaxTechnique ?? band.simplerLadderMaxTechnique;
+    const strategies = createTechniqueStrategies().filter(
+        strategy => !isDefined(ladderMaxTechnique) || strategy.technique <= ladderMaxTechnique
+    );
 
-    if (!isAboveSimplerLadder) {
-        return { isAboveSimplerLadder, isWithinBand: false };
-    }
+    return sudoku => {
+        if (!isDefined(ladderMaxTechnique)) {
+            return { isAboveSimplerLadder: true, isWithinBand: true };
+        }
 
-    const isWithinBand = !isDefined(band.bandLadderMaxTechnique) || isSolvableWithLadder(puzzleString, band.bandLadderMaxTechnique);
+        const { outcome, steps } = new TechniqueManager(sudoku, strategies).solveLogically();
+        const { simplerLadderMaxTechnique } = band;
+        const isAboveSimplerLadder =
+            !isDefined(simplerLadderMaxTechnique) || outcome !== 'solved' || steps.some(step => step.technique > simplerLadderMaxTechnique);
 
-    return { isAboveSimplerLadder, isWithinBand };
+        return {
+            isAboveSimplerLadder,
+            isWithinBand: isAboveSimplerLadder && (!isDefined(band.bandLadderMaxTechnique) || outcome === 'solved')
+        };
+    };
 };

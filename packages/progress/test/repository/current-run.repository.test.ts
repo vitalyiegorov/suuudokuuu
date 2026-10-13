@@ -10,9 +10,9 @@ import { CurrentRunRepository } from '../../src/current-run/repository/current-r
 import { ProgressTestLayer } from '../progress-test.layer';
 import { trackInvalidations } from '../track-invalidations.util';
 
-import type { CurrentRunSchema } from '../../src/current-run/schema/current-run.schema';
+import type { CurrentRunType } from '../../src/current-run/type/current-run.type';
 
-const currentRun: typeof CurrentRunSchema.Type = {
+const currentRun: CurrentRunType = {
     sudokuString: '530070000600195000098000060800060003400803001700020006060000280000419005000080079',
     difficulty: DifficultyEnum.Medium,
     rating: 2.6,

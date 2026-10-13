@@ -6,7 +6,8 @@ import { describe, expect, it } from 'vitest';
 
 import { DIFFICULTY_BANDS, PUZZLE_FORGE_MAX_ATTEMPTS } from '../../../src/@generic/constants/difficulty-band.constant';
 import { forgePuzzle } from '../../../src/forge/utils/forge-puzzle.util';
-import { isSolvableWithLadder } from '../../../src/forge/utils/is-solvable-with-ladder.util';
+
+import { isSolvableWithLadder } from './is-solvable-with-ladder.util';
 
 import type { DifficultyBandInterface } from '../../../src/@generic/interfaces/difficulty-band.interface';
 
@@ -28,7 +29,54 @@ const getBlankCellCount = (puzzleString: string): number => puzzleString.split('
 const isTooEasyForBand = (puzzleString: string, band: DifficultyBandInterface): boolean =>
     band.simplerLadderMaxTechnique !== null && isSolvableWithLadder(puzzleString, band.simplerLadderMaxTechnique);
 
+const seededForgeFixtures = [
+    {
+        difficulty: DifficultyEnum.Newbie,
+        puzzle: '...4......47..5..958.9..1....625.481..8.6..53.52.18.9..745...68...89752.895......',
+        rating: 1.5
+    },
+    {
+        difficulty: DifficultyEnum.Easy,
+        puzzle: '.9....8.61..4.8..2...2795.1..97346....1.9....7.6..1...96..2......3.......87..396.',
+        rating: 1.5
+    },
+    {
+        difficulty: DifficultyEnum.Medium,
+        puzzle: '5.....7.92..9.5.....7..3.24.73....4.....179.3....38.5..1.3.......47...1.7..2.....',
+        rating: 3.4
+    },
+    {
+        difficulty: DifficultyEnum.Hard,
+        puzzle: '.147....3587..............2......6..9..6..8.5.5..3..19..637..5........64.91..5...',
+        rating: 4.4
+    },
+    {
+        difficulty: DifficultyEnum.Nightmare,
+        puzzle: '..5..942.....481...1.6......2..8...36..9....4..3.74....5.........2...91.9...3..6.',
+        rating: 7.2
+    },
+    {
+        difficulty: DifficultyEnum.Hell,
+        puzzle: '5.......1..9..872..6.4...8...2..75.....1....23...2...7..5.413..9..........36....8',
+        rating: 8
+    },
+    {
+        difficulty: DifficultyEnum.Infinity,
+        puzzle: '....3...7..9..5.1....6..8....1..2.5.3..8.........7.6....4...5..29...4....1.....49',
+        rating: 11.7
+    }
+];
+
 describe('forgePuzzle', () => {
+    it.each(seededForgeFixtures)('should preserve the seeded $difficulty board and rating', ({ difficulty, puzzle, rating }) => {
+        const result = forgePuzzle(difficulty, PUZZLE_FORGE_MAX_ATTEMPTS, sampleSeed);
+
+        expect(result.sudoku.toString()).toBe(puzzle);
+        expect(result.rating).toBe(rating);
+        expect(result.isInBand).toBe(true);
+        expect(result.isRatingCeiling).toBe(false);
+    });
+
     it.each(generatedDifficulties)(
         'should forge a %s board that needs a technique inside the tier band',
         difficulty => {
@@ -99,20 +147,6 @@ describe('forgePuzzle', () => {
     );
 
     it(
-        'should forge the identical generated board for the same seed',
-        () => {
-            expect.assertions(2);
-
-            const first = forgePuzzle(DifficultyEnum.Easy, generousAttemptBudget, sampleSeed);
-            const second = forgePuzzle(DifficultyEnum.Easy, generousAttemptBudget, sampleSeed);
-
-            expect(first.sudoku.toString()).toBe(second.sudoku.toString());
-            expect(first.rating).toBe(second.rating);
-        },
-        forgeTimeoutMs
-    );
-
-    it(
         'should forge a different generated board for a different seed',
         () => {
             expect.assertions(1);
@@ -124,17 +158,6 @@ describe('forgePuzzle', () => {
         },
         forgeTimeoutMs
     );
-
-    it('should pick the identical corpus board for the same seed', () => {
-        expect.assertions(2);
-
-        expect(forgePuzzle(DifficultyEnum.Hell, PUZZLE_FORGE_MAX_ATTEMPTS, sampleSeed).sudoku.toString()).toBe(
-            forgePuzzle(DifficultyEnum.Hell, PUZZLE_FORGE_MAX_ATTEMPTS, sampleSeed).sudoku.toString()
-        );
-        expect(forgePuzzle(DifficultyEnum.Infinity, PUZZLE_FORGE_MAX_ATTEMPTS, sampleSeed).sudoku.toString()).toBe(
-            forgePuzzle(DifficultyEnum.Infinity, PUZZLE_FORGE_MAX_ATTEMPTS, sampleSeed).sudoku.toString()
-        );
-    });
 
     it(
         'should stay unpredictable when no seed is supplied',
@@ -153,11 +176,12 @@ describe('forgePuzzle', () => {
     );
 
     it('should return the closest board it found when the attempt budget runs out', () => {
-        expect.assertions(2);
+        expect.assertions(3);
 
-        const { isInBand, sudoku } = forgePuzzle(DifficultyEnum.Nightmare, 1);
+        const { isInBand, sudoku } = forgePuzzle(DifficultyEnum.Nightmare, 1, sampleSeed);
 
-        expect(typeof isInBand).toBe('boolean');
+        expect(isInBand).toBe(false);
+        expect(isTooEasyForBand(sudoku.toString(), DIFFICULTY_BANDS[DifficultyEnum.Nightmare])).toBe(true);
         expect(getBlankCellCount(sudoku.toString())).toBe(DIFFICULTY_BANDS[DifficultyEnum.Nightmare].blankCells);
     });
 });

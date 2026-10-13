@@ -19,11 +19,7 @@ export const getToggledCandidates = (candidates: FieldCandidatesType, cell: Cell
     return { ...candidates, [cellKey]: nextCellCandidates };
 };
 
-export const getCandidatesWithoutValue = (
-    candidates: FieldCandidatesType,
-    cell: CellInterface,
-    value: number
-): FieldCandidatesType | null => {
+const getCandidatesWithoutValue = (candidates: FieldCandidatesType, cell: CellInterface, value: number): FieldCandidatesType | null => {
     const cellKey = getCellKey(cell);
     const cellCandidates = candidates[cellKey] ?? [];
 

@@ -2,33 +2,39 @@ import { isDefined } from '@rnw-community/shared';
 
 import { ASSUMPTION_REASON, NAKED_SINGLE_REASON } from '../../constants/hypothesis-reason.constant';
 import { ForcingOutcomeKindEnum } from '../../enums/forcing-outcome-kind.enum';
-import { createCandidateMask } from '../../utils/create-candidate-mask.util';
-import { getEliminatedMask } from '../../utils/get-eliminated-mask.util';
 import { getPropagationKey } from '../../utils/get-propagation-key.util';
-import { getSingleMaskValue } from '../../utils/get-single-mask-value.util';
+import { getValueBit } from '../../utils/get-value-bit.util';
 import { hasMaskValue } from '../../utils/has-mask-value.util';
-import { removeMaskValue } from '../../utils/remove-mask-value.util';
 import { CandidateContext } from '../candidate-context/candidate-context';
 import { HypothesisPathTracer } from '../hypothesis-path-tracer/hypothesis-path-tracer';
 
 import type { HypothesisBoardInterface } from '../../interfaces/hypothesis-board.interface';
-import type { HypothesisPropagationStateInterface } from '../../interfaces/hypothesis-propagation-state.interface';
+import type { HypothesisPlacementsInterface } from '../../interfaces/hypothesis-placements.interface';
 import type { HypothesisPropagationInterface } from '../../interfaces/hypothesis-propagation.interface';
+import type { IndexedCandidateInterface } from '../../interfaces/indexed-candidate.interface';
+import type { ForcingContradictionType } from '../../types/forcing-outcome.type';
 
 const NO_HIDDEN_SINGLE_POSITION = -1;
 const CONTRADICTION_POSITION = -2;
+const INTEGER_BIT_WIDTH = 32;
 
 export class HypothesisPropagator {
     private readonly propagations = new Map<number, HypothesisPropagationInterface>();
+    private masks = new Uint16Array();
+    private placedValues = new Int8Array();
+    private placedCellIndexes: number[] = [];
+    private placementOrders = new Int8Array();
+    private placementReasons: number[] = [];
+    private pendingCellIndexes: number[] = [];
+    private pendingValues: number[] = [];
+    private pendingReasons: number[] = [];
+    private contradiction: ForcingContradictionType | null = null;
+    private contradictionEliminations: IndexedCandidateInterface[] = [];
 
     constructor(private readonly board: HypothesisBoardInterface) {}
 
     getBoard(): HypothesisBoardInterface {
         return this.board;
-    }
-
-    getPropagationCount(): number {
-        return this.propagations.size;
     }
 
     propagate(cellIndex: number, value: number): HypothesisPropagationInterface {
@@ -39,116 +45,121 @@ export class HypothesisPropagator {
             return cachedPropagation;
         }
 
-        const propagation = this.runPropagation(cellIndex, value);
+        this.resetPropagation(cellIndex, value);
+
+        let isProgressing = true;
+
+        while (isProgressing) {
+            isProgressing = this.drainPendingAssignments() && this.queueHiddenSingles();
+        }
+
+        const propagation = this.createPropagation();
 
         this.propagations.set(propagationKey, propagation);
 
         return propagation;
     }
 
-    private createPropagationState(cellIndex: number, value: number): HypothesisPropagationStateInterface {
+    private resetPropagation(cellIndex: number, value: number): void {
+        this.masks = Uint16Array.from(this.board.candidateMasks);
+        this.placedValues = new Int8Array(this.board.cells.length);
+        this.placedCellIndexes = [];
+        this.placementOrders = new Int8Array(this.board.cells.length);
+        this.placementReasons = [];
+        this.pendingCellIndexes = [cellIndex];
+        this.pendingValues = [value];
+        this.pendingReasons = [ASSUMPTION_REASON];
+        this.contradiction = null;
+        this.contradictionEliminations = [];
+    }
+
+    private getPlacements(): HypothesisPlacementsInterface {
         return {
-            masks: Uint16Array.from(this.board.candidateMasks),
-            placedValues: new Int8Array(this.board.cells.length),
-            placedCellIndexes: [],
-            placementOrders: new Int8Array(this.board.cells.length),
-            placementReasons: [],
-            pendingCellIndexes: [cellIndex],
-            pendingValues: [value],
-            pendingReasons: [ASSUMPTION_REASON]
+            placedValues: this.placedValues,
+            placedCellIndexes: this.placedCellIndexes,
+            placementOrders: this.placementOrders,
+            placementReasons: this.placementReasons
         };
     }
 
-    private runPropagation(cellIndex: number, value: number): HypothesisPropagationInterface {
-        const state = this.createPropagationState(cellIndex, value);
-        let isProgressing = true;
-
-        while (isProgressing) {
-            isProgressing = this.drainPendingAssignments(state) && this.queueHiddenSingles(state);
-        }
-
-        return this.createPropagation(state);
+    private getPathTracer(): HypothesisPathTracer {
+        return new HypothesisPathTracer(this.board, this.getPlacements());
     }
 
-    private drainPendingAssignments(state: HypothesisPropagationStateInterface): boolean {
+    private drainPendingAssignments(): boolean {
         let pendingIndex = 0;
 
-        while (pendingIndex < state.pendingCellIndexes.length && !isDefined(state.contradiction)) {
-            this.assign(
-                state,
-                state.pendingCellIndexes[pendingIndex],
-                state.pendingValues[pendingIndex],
-                state.pendingReasons[pendingIndex]
-            );
+        while (pendingIndex < this.pendingCellIndexes.length && !isDefined(this.contradiction)) {
+            this.assign(this.pendingCellIndexes[pendingIndex], this.pendingValues[pendingIndex], this.pendingReasons[pendingIndex]);
             pendingIndex += 1;
         }
 
-        state.pendingCellIndexes = [];
-        state.pendingValues = [];
-        state.pendingReasons = [];
+        this.pendingCellIndexes = [];
+        this.pendingValues = [];
+        this.pendingReasons = [];
 
-        return !isDefined(state.contradiction);
+        return !isDefined(this.contradiction);
     }
 
-    private assign(state: HypothesisPropagationStateInterface, cellIndex: number, value: number, reason: number): void {
-        if (state.placedValues[cellIndex] === value) {
+    private assign(cellIndex: number, value: number, reason: number): void {
+        if (this.placedValues[cellIndex] === value) {
             return;
         }
 
-        if (!hasMaskValue(state.masks[cellIndex], value)) {
-            state.contradiction = { kind: ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT, cell: this.board.cells[cellIndex], value };
-            state.contradictionEliminations = new HypothesisPathTracer(this.board, state).getConflictEliminations(cellIndex, value, reason);
+        if (!hasMaskValue(this.masks[cellIndex], value)) {
+            this.contradiction = { kind: ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT, cell: this.board.cells[cellIndex], value };
+            this.contradictionEliminations = this.getPathTracer().getConflictEliminations(cellIndex, value, reason);
 
             return;
         }
 
-        state.placedValues[cellIndex] = value;
-        state.placedCellIndexes.push(cellIndex);
-        state.placementOrders[cellIndex] = state.placedCellIndexes.length;
-        state.placementReasons.push(reason);
-        state.masks[cellIndex] = 0;
+        this.placedValues[cellIndex] = value;
+        this.placedCellIndexes.push(cellIndex);
+        this.placementOrders[cellIndex] = this.placedCellIndexes.length;
+        this.placementReasons.push(reason);
+        this.masks[cellIndex] = 0;
 
         for (const peerIndex of this.board.peerIndexes[cellIndex]) {
-            if (!this.removePeerCandidate(state, peerIndex, value)) {
+            if (!this.removePeerCandidate(peerIndex, value)) {
                 return;
             }
         }
     }
 
-    private removePeerCandidate(state: HypothesisPropagationStateInterface, peerIndex: number, value: number): boolean {
-        if (!hasMaskValue(state.masks[peerIndex], value)) {
+    private removePeerCandidate(peerIndex: number, value: number): boolean {
+        if (!hasMaskValue(this.masks[peerIndex], value)) {
             return true;
         }
 
-        state.masks[peerIndex] = removeMaskValue(state.masks[peerIndex], value);
+        this.masks[peerIndex] -= getValueBit(value);
 
-        if (state.masks[peerIndex] === 0) {
-            state.contradiction = { kind: ForcingOutcomeKindEnum.EMPTY_CELL, cell: this.board.cells[peerIndex] };
-            state.contradictionEliminations = new HypothesisPathTracer(this.board, state).getEmptyCellEliminations(peerIndex);
+        if (this.masks[peerIndex] === 0) {
+            this.contradiction = { kind: ForcingOutcomeKindEnum.EMPTY_CELL, cell: this.board.cells[peerIndex] };
+            this.contradictionEliminations = this.getPathTracer().getEmptyCellEliminations(peerIndex);
 
             return false;
         }
 
-        const singleValue = getSingleMaskValue(state.masks[peerIndex]);
+        const singleValue = INTEGER_BIT_WIDTH - Math.clz32(this.masks[peerIndex]);
 
-        if (singleValue > 0) {
-            state.pendingCellIndexes.push(peerIndex);
-            state.pendingValues.push(singleValue);
-            state.pendingReasons.push(NAKED_SINGLE_REASON);
+        if (this.masks[peerIndex] === getValueBit(singleValue)) {
+            this.pendingCellIndexes.push(peerIndex);
+            this.pendingValues.push(singleValue);
+            this.pendingReasons.push(NAKED_SINGLE_REASON);
         }
 
         return true;
     }
 
-    private queueHiddenSingles(state: HypothesisPropagationStateInterface): boolean {
+    private queueHiddenSingles(): boolean {
         const { unitCellIndexes, valueCount } = this.board;
         let hasQueuedAssignments = false;
 
         for (let unitIndex = 0; unitIndex < unitCellIndexes.length; unitIndex += 1) {
             for (let value = 1; value <= valueCount; value += 1) {
-                hasQueuedAssignments = this.queueUnitHiddenSingle(state, unitIndex, value) || hasQueuedAssignments;
+                hasQueuedAssignments = this.queueUnitHiddenSingle(unitIndex, value) || hasQueuedAssignments;
 
-                if (isDefined(state.contradiction)) {
+                if (isDefined(this.contradiction)) {
                     return hasQueuedAssignments;
                 }
             }
@@ -157,17 +168,17 @@ export class HypothesisPropagator {
         return hasQueuedAssignments;
     }
 
-    private queueUnitHiddenSingle(state: HypothesisPropagationStateInterface, unitIndex: number, value: number): boolean {
+    private queueUnitHiddenSingle(unitIndex: number, value: number): boolean {
         const unitCellIndexes = this.board.unitCellIndexes[unitIndex];
-        const positionIndex = this.getUnitHiddenSinglePosition(state, unitCellIndexes, value);
+        const positionIndex = this.getUnitHiddenSinglePosition(unitCellIndexes, value);
 
         if (positionIndex === CONTRADICTION_POSITION) {
-            state.contradiction = {
+            this.contradiction = {
                 kind: ForcingOutcomeKindEnum.NO_POSITION,
                 unitCells: unitCellIndexes.map(cellIndex => this.board.cells[cellIndex]),
                 value
             };
-            state.contradictionEliminations = new HypothesisPathTracer(this.board, state).getNoPositionEliminations(unitIndex, value);
+            this.contradictionEliminations = this.getPathTracer().getNoPositionEliminations(unitIndex, value);
 
             return false;
         }
@@ -176,16 +187,16 @@ export class HypothesisPropagator {
             return false;
         }
 
-        state.pendingCellIndexes.push(positionIndex);
-        state.pendingValues.push(value);
-        state.pendingReasons.push(unitIndex);
+        this.pendingCellIndexes.push(positionIndex);
+        this.pendingValues.push(value);
+        this.pendingReasons.push(unitIndex);
 
         return true;
     }
 
-    private getUnitHiddenSinglePosition(state: HypothesisPropagationStateInterface, unitCellIndexes: number[], value: number): number {
+    private getUnitHiddenSinglePosition(unitCellIndexes: readonly number[], value: number): number {
         const { cellValues } = this.board;
-        const { masks, placedValues } = state;
+        const { masks, placedValues } = this;
         let singlePositionIndex = CONTRADICTION_POSITION;
 
         for (const cellIndex of unitCellIndexes) {
@@ -205,51 +216,44 @@ export class HypothesisPropagator {
         return singlePositionIndex;
     }
 
-    private createPropagation(state: HypothesisPropagationStateInterface): HypothesisPropagationInterface {
+    private createPropagation(): HypothesisPropagationInterface {
         const eliminatedMasks = new Uint16Array(this.board.cells.length);
 
         for (let cellIndex = 0; cellIndex < eliminatedMasks.length; cellIndex += 1) {
-            eliminatedMasks[cellIndex] = getEliminatedMask(
-                this.board.candidateMasks[cellIndex],
-                state.masks[cellIndex],
-                state.placedValues[cellIndex]
-            );
+            const placedValue = this.placedValues[cellIndex];
+
+            eliminatedMasks[cellIndex] =
+                this.board.candidateMasks[cellIndex] - this.masks[cellIndex] - (placedValue > 0 ? getValueBit(placedValue) : 0);
         }
 
         return {
-            hasContradiction: isDefined(state.contradiction),
-            placedValues: state.placedValues,
-            placedCellIndexes: state.placedCellIndexes,
-            placementOrders: state.placementOrders,
-            placementReasons: state.placementReasons,
+            ...this.getPlacements(),
+            hasContradiction: isDefined(this.contradiction),
             eliminatedMasks,
-            contradictionEliminations: state.contradictionEliminations ?? [],
-            ...(isDefined(state.contradiction) && { contradiction: state.contradiction })
+            contradictionEliminations: this.contradictionEliminations,
+            ...(isDefined(this.contradiction) && { contradiction: this.contradiction })
         };
     }
 
     static fromContext(context: CandidateContext): HypothesisPropagator {
         const cells = context.getCells();
-        const cellIndexByKey: Record<string, number> = {};
-
-        cells.forEach((cell, cellIndex) => {
-            cellIndexByKey[CandidateContext.getCellKey(cell)] = cellIndex;
-        });
-
-        const unitCellIndexes = context
-            .getUnits()
-            .map(unit => unit.cells.map(unitCell => cellIndexByKey[CandidateContext.getCellKey(unitCell)]));
+        const valueCount = context.getValues().length;
+        const unitCellIndexes = context.getUnits().map(unit => unit.cells.map(unitCell => unitCell.y * valueCount + unitCell.x));
 
         return new HypothesisPropagator({
             cells,
             cellValues: cells.map(cell => (context.isBlankCell(cell) ? 0 : cell.value)),
-            candidateMasks: Uint16Array.from(cells, cell => createCandidateMask(context.getCandidates(cell))),
-            peerIndexes: cells.map(cell => context.getPeers(cell).map(peer => cellIndexByKey[CandidateContext.getCellKey(peer)])),
+            candidateMasks: Uint16Array.from(cells, cell =>
+                context
+                    .getCandidates(cell)
+                    .reduce((mask, candidate) => (hasMaskValue(mask, candidate) ? mask : mask + getValueBit(candidate)), 0)
+            ),
+            peerIndexes: cells.map(cell => context.getPeers(cell).map(peer => peer.y * valueCount + peer.x)),
             unitCellIndexes,
             cellUnitIndexes: cells.map((_, cellIndex) =>
                 unitCellIndexes.flatMap((unitCells, unitIndex) => (unitCells.includes(cellIndex) ? [unitIndex] : []))
             ),
-            valueCount: context.getValues().length
+            valueCount
         });
     }
 }

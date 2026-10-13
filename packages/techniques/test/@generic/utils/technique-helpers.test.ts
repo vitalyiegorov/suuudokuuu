@@ -12,7 +12,6 @@ import { getSearchScope } from '../../../src/@generic/utils/get-search-scope.uti
 import { getUniqueCells } from '../../../src/@generic/utils/get-unique-cells.util';
 import { getUniqueValues } from '../../../src/@generic/utils/get-unique-values.util';
 import { hasSameCandidates } from '../../../src/@generic/utils/has-same-candidates.util';
-import { hasStrongLinkBetween } from '../../../src/@generic/utils/has-strong-link-between.util';
 import { isForcedPlacement } from '../../../src/@generic/utils/is-forced-placement.util';
 import { isSameCell } from '../../../src/@generic/utils/is-same-cell.util';
 import { createCandidateContextFromMap } from '../test-utils/create-candidate-context-from-map.spec.util';
@@ -59,7 +58,7 @@ describe('technique helpers', () => {
         expect(getUniqueCells(cells).map(cell => `${cell.y}:${cell.x}`)).toEqual(['0:0', '0:1']);
     });
 
-    it('answers peer, candidate, and link questions', () => {
+    it('answers peer and candidate questions', () => {
         expect.assertions(6);
 
         const context = createCandidateContextFromMap([0, 0, [1, 2]], [0, 1, [1, 3]], [1, 0, [1, 4]], [4, 4, [5]]);
@@ -69,10 +68,10 @@ describe('technique helpers', () => {
         const [firstColumnCell] = context.getColumnCells(0);
 
         expect(isSameCell(firstCell, firstColumnCell)).toBe(true);
-        expect(canSee(context, firstCell, secondCell)).toBe(true);
-        expect(canSee(context, firstCell, distantCell)).toBe(false);
+        expect(canSee(firstCell, secondCell)).toBe(true);
+        expect(canSee(firstCell, distantCell)).toBe(false);
+        expect(canSee(firstCell, firstCell)).toBe(false);
         expect(hasSameCandidates([1, 2], [2, 1])).toBe(true);
-        expect(hasStrongLinkBetween(context, firstCell, thirdCell, 1)).toBe(true);
         expect(getBivalueCells(context)).toEqual([firstCell, secondCell, thirdCell]);
     });
 

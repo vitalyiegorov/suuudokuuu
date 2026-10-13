@@ -12,8 +12,6 @@ import { TechniqueNavigation } from '../../../techniques/components/technique-na
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
-import { aicPageMetadata } from '../aic/metadata';
-import { xyChainPageMetadata } from '../xy-chain/metadata';
 
 import { simpleColoringPageMetadata } from './metadata';
 
@@ -136,7 +134,7 @@ const SimpleColoringPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={aicPageMetadata} previous={xyChainPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.SimpleColoring} />
     </main>
 );
 

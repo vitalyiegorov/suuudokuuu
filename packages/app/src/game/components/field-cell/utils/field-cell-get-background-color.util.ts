@@ -1,4 +1,4 @@
-import { mixColors } from '../../../../theme/utils/mix-colors.util';
+import { mixColors } from '@suuudokuuu/ui/theme';
 
 import type { FieldCellBackgroundColorParamsInterface } from '../interface/field-cell-background-color-params.interface';
 

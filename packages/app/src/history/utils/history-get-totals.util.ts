@@ -2,7 +2,6 @@ import { getDayNumber, getDayStreak } from '@suuudokuuu/progress';
 
 import { isNotEmptyArray, isPositiveNumber } from '@rnw-community/shared';
 
-import { historyGetBestRating } from './history-get-best-rating.util';
 import { historyGetWinRate } from './history-get-win-rate.util';
 
 import type { DifficultyStatsType } from '@suuudokuuu/progress';
@@ -13,10 +12,7 @@ export const historyGetTotals = (histories: readonly DifficultyStatsType[], play
     const gamesLost = histories.reduce((total, history) => total + history.gamesLost, 0);
     const cleanWins = histories.reduce((total, history) => total + history.gamesWonWithoutMistakes, 0);
     const hardcoreWins = histories.reduce((total, history) => total + history.hardcoreWon, 0);
-    const challengesWon = histories.reduce((total, history) => total + history.challengesWon, 0);
-    const challengesLost = histories.reduce((total, history) => total + history.challengesLost, 0);
     const bestScore = histories.reduce((best, history) => Math.max(best, history.bestScore), 0);
-    const bestRating = historyGetBestRating(histories);
     const bestTimes = histories.map(history => history.bestTime).filter(isPositiveNumber);
     const bestTime = isNotEmptyArray(bestTimes) ? Math.min(...bestTimes) : 0;
     const averageTimeTotal = histories.reduce((total, history) => total + history.averageTime * history.gamesWon, 0);
@@ -26,16 +22,12 @@ export const historyGetTotals = (histories: readonly DifficultyStatsType[], play
 
     return {
         averageTime,
-        bestRating,
         bestScore,
         bestTime,
-        challengesLost,
-        challengesWon,
         cleanWins,
         dayStreak,
         gamesCompleted,
         gamesLost,
-        gamesWon,
         hardcoreWins,
         winRate
     };

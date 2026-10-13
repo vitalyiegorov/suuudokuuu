@@ -1,5 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
 import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
+import { Redirect } from 'expo-router';
 import { use } from 'react';
 import { View } from 'react-native';
 
@@ -19,18 +20,18 @@ import { SharedScreenSelectors } from './shared-screen.selectors';
 import { SharedScreenStyles as styles } from './shared-screen.styles';
 
 interface Props {
-    stateString: string;
+    readonly stateString: string;
 }
 
 export const SharedScreen = ({ stateString }: Props) => {
     const { t } = useLingui();
     const { createFromState, isCreatingGame } = use(GameContext);
 
-    const { gameState, isReadable, kind } = decodeSharedGameState(stateString);
+    const { gameState, kind } = decodeSharedGameState(stateString);
     const resumeTimeText = useTimerText(gameState.elapsedTime);
 
-    if (!isReadable || !isNotEmptyString(gameState.sudokuString)) {
-        return null;
+    if (!isNotEmptyString(gameState.sudokuString)) {
+        return <Redirect href="/" />;
     }
 
     const { challengeState, challengeTime } = gameState;

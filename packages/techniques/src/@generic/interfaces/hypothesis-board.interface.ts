@@ -1,11 +1,11 @@
 import type { CellInterface } from '@suuudokuuu/generator';
 
 export interface HypothesisBoardInterface {
-    readonly cells: CellInterface[];
-    readonly cellValues: number[];
+    readonly cells: readonly CellInterface[];
+    readonly cellValues: readonly number[];
     readonly candidateMasks: Uint16Array;
-    readonly peerIndexes: number[][];
-    readonly unitCellIndexes: number[][];
-    readonly cellUnitIndexes: number[][];
+    readonly peerIndexes: readonly (readonly number[])[];
+    readonly unitCellIndexes: readonly (readonly number[])[];
+    readonly cellUnitIndexes: readonly (readonly number[])[];
     readonly valueCount: number;
 }

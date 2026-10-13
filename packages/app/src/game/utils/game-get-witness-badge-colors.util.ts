@@ -1,9 +1,6 @@
-import { compositeColors } from '../../theme/utils/composite-colors.util';
-import { getContrastRatio } from '../../theme/utils/get-contrast-ratio.util';
-import { parseColor } from '../../theme/utils/parse-color.util';
+import { compositeColors, getContrastRatio, parseColor } from '@suuudokuuu/ui/theme';
 
-import type { ParsedColorInterface } from '../../theme/utils/parse-color.util';
-import type { ThemeInterface } from '@suuudokuuu/ui/theme';
+import type { ParsedColorInterface, ThemeInterface } from '@suuudokuuu/ui/theme';
 
 const opaqueWhite: ParsedColorInterface = { red: 255, green: 255, blue: 255, alpha: 1 };
 

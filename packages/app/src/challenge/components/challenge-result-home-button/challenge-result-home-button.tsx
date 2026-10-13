@@ -1,19 +1,15 @@
-import LucideHouse from 'lucide-react-native/icons/house';
-import { use } from 'react';
+import { useLingui } from '@lingui/react/macro';
 
-import { GlassIconButton } from '../../../@generic/components/glass-icon-button/glass-icon-button';
+import { emptyFn } from '@rnw-community/shared';
+
+import { GameResultHomeButton } from '../../../@generic/components/game-result-home-button/game-result-home-button';
 import { runCurrentRunCommand } from '../../../game/utils/run-current-run-command.util';
-import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeResultFooterSelectors } from '../challenge-result-footer/challenge-result-footer.selectors';
 
 export const ChallengeResultHomeButton = () => {
-    const { theme } = use(ThemeContext);
+    const { t } = useLingui();
 
-    const handleGoHome = () => void runCurrentRunCommand(currentRunService => currentRunService.reset);
+    const handleGoHome = () => void runCurrentRunCommand(currentRunService => currentRunService.reset).catch(emptyFn);
 
-    return (
-        <GlassIconButton href="/" onPress={handleGoHome} replace testID={ChallengeResultFooterSelectors.HomeButton}>
-            <LucideHouse color={theme.colors.inkText} />
-        </GlassIconButton>
-    );
+    return <GameResultHomeButton accessibilityLabel={t`Home`} onPress={handleGoHome} testID={ChallengeResultFooterSelectors.HomeButton} />;
 };

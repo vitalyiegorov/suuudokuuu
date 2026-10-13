@@ -389,7 +389,7 @@ msgstr "Hjälpmedel"
 msgid "At least one end of this chain must be true."
 msgstr "Minst en ände av kedjan måste vara sann."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "Försöker läsa in den senaste utvecklingsversionen igen"
 
@@ -546,7 +546,7 @@ msgstr "Rutavstånd"
 msgid "Challenge"
 msgstr "Utmaning"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Back"
 msgstr "Utmana tillbaka"
 
@@ -554,7 +554,7 @@ msgstr "Utmana tillbaka"
 msgid "Challenge lost"
 msgstr "Utmaning förlorad"
 
-#: src/app/challenge-lost.tsx
+#: src/screens/components/challenge-lost-screen/challenge-lost.screen.tsx
 msgid "Challenge Lost"
 msgstr "Utmaning förlorad"
 
@@ -570,7 +570,7 @@ msgstr "Utmaningsrundor kan inte pausas och registrerar när du lämnar appen"
 msgid "Challenge won"
 msgstr "Utmaning vunnen"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Won!"
 msgstr "Utmaning vunnen!"
 
@@ -751,7 +751,7 @@ msgstr "Ta bort tema"
 msgid "Deutsch"
 msgstr "Deutsch"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Development build unavailable"
 msgstr "Utvecklingsversionen är inte tillgänglig"
 
@@ -1047,6 +1047,7 @@ msgstr "Text för ledtråd"
 msgid "Hints on the hardest puzzles"
 msgstr "Ledtrådar i de svåraste sudokun"
 
+#: src/challenge/components/challenge-result-home-button/challenge-result-home-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -1203,11 +1204,11 @@ msgstr "Lätt uppvärmning"
 msgid "Link {revealedLinkCount} of {linkCount}"
 msgstr "Länk {revealedLinkCount} av {linkCount}"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "Läser in utvecklingsversionen"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Läser in den senaste utvecklingsversionen…"
 
@@ -1379,11 +1380,11 @@ msgstr "Tvingande Nishio-kedja"
 msgid "no bonus"
 msgstr "ingen bonus"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "Ingen fullständig utvecklingsversion har publicerats ännu. Kom tillbaka senare."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No development build is available"
 msgstr "Ingen utvecklingsversion är tillgänglig"
 
@@ -1752,7 +1753,7 @@ msgstr "Återuppta spelet"
 msgid "Resume this game?"
 msgstr "Återuppta det här spelet?"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Retry loading development build"
 msgstr "Försök läsa in utvecklingsversionen igen"
 
@@ -2286,7 +2287,8 @@ msgstr "För många misstag"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Följ dina lösta sudokun, bästa tider och poäng i alla svårighetsgrader."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Försök igen"
 
@@ -2297,6 +2299,10 @@ msgstr "Försök igen"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "Ukraina fortsätter kämpa"
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+msgid "Unable to load your game"
+msgstr "Det gick inte att läsa in ditt spel"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"
@@ -2407,7 +2413,7 @@ msgstr "W-Wing"
 msgid "Warm gold accents for a brighter board"
 msgstr "Varma gulddetaljer för ett ljusare bräde"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "Den senaste utvecklingsversionen kunde inte läsas in. Försök igen."
 

@@ -2,7 +2,6 @@ import { ASSUMPTION_REASON, NAKED_SINGLE_REASON } from '../../constants/hypothes
 import { getMaskValues } from '../../utils/get-mask-values.util';
 import { getValueBit } from '../../utils/get-value-bit.util';
 import { hasMaskValue } from '../../utils/has-mask-value.util';
-import { removeMaskValue } from '../../utils/remove-mask-value.util';
 
 import type { HypothesisBoardInterface } from '../../interfaces/hypothesis-board.interface';
 import type { HypothesisPlacementsInterface } from '../../interfaces/hypothesis-placements.interface';
@@ -130,7 +129,9 @@ export class HypothesisPathTracer {
         this.replayMasks[cellIndex] = 0;
 
         for (const peerIndex of this.board.peerIndexes[cellIndex]) {
-            this.replayMasks[peerIndex] = removeMaskValue(this.replayMasks[peerIndex], value);
+            if (hasMaskValue(this.replayMasks[peerIndex], value)) {
+                this.replayMasks[peerIndex] -= getValueBit(value);
+            }
         }
     }
 

@@ -1,35 +1,7 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-export const seTechniqueOrder: SolutionTechniqueEnum[] = [
-    SolutionTechniqueEnum.FullHouse,
-    SolutionTechniqueEnum.HiddenSingle,
-    SolutionTechniqueEnum.NakedSingle,
-    SolutionTechniqueEnum.PointingPair,
-    SolutionTechniqueEnum.PointingTriple,
-    SolutionTechniqueEnum.BoxLineReduction,
-    SolutionTechniqueEnum.NakedPair,
-    SolutionTechniqueEnum.XWing,
-    SolutionTechniqueEnum.HiddenPair,
-    SolutionTechniqueEnum.FinnedXWing,
-    SolutionTechniqueEnum.SashimiXWing,
-    SolutionTechniqueEnum.NakedTriple,
-    SolutionTechniqueEnum.Swordfish,
-    SolutionTechniqueEnum.HiddenTriple,
-    SolutionTechniqueEnum.FinnedSwordfish,
-    SolutionTechniqueEnum.SashimiSwordfish,
-    SolutionTechniqueEnum.XYWing,
-    SolutionTechniqueEnum.XYZWing,
-    SolutionTechniqueEnum.WWing,
-    SolutionTechniqueEnum.UniqueRectangle,
-    SolutionTechniqueEnum.SimpleColoring,
-    SolutionTechniqueEnum.NakedQuad,
-    SolutionTechniqueEnum.Jellyfish,
-    SolutionTechniqueEnum.HiddenQuad,
-    SolutionTechniqueEnum.BivalueUniversalGrave,
-    SolutionTechniqueEnum.XChain,
-    SolutionTechniqueEnum.XYChain,
-    SolutionTechniqueEnum.AIC,
-    SolutionTechniqueEnum.NishioForcingChain,
-    SolutionTechniqueEnum.CellForcingChain,
-    SolutionTechniqueEnum.RegionForcingChain
-];
+import { seTechniqueRatings } from './se-technique-rating.constant';
+
+export const seTechniqueOrder: readonly SolutionTechniqueEnum[] = Object.values(SolutionTechniqueEnum)
+    .filter((technique): technique is SolutionTechniqueEnum => typeof technique === 'number' && technique !== SolutionTechniqueEnum.Guess)
+    .sort((left, right) => seTechniqueRatings[left] - seTechniqueRatings[right] || left - right);

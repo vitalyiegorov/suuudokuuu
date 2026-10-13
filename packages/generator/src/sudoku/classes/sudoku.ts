@@ -1,6 +1,5 @@
-/* oxlint-disable max-lines */
 import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
-import { GRID_SIZE, UNIQUENESS_COUNT_LIMIT } from '@suuudokuuu/solver-core';
+import { GRID_BLANK_VALUE, GRID_SIZE, UNIQUENESS_COUNT_LIMIT } from '@suuudokuuu/solver-core';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -21,6 +20,10 @@ const maxClueRemovalAttempts = 50;
 
 export class Sudoku extends SerializableSudoku {
     private readonly fieldFillingValues: number[];
+    private readonly fillingUnavailableValues = Array.from(
+        { length: this.config.fieldSize * this.config.fieldSize },
+        () => new Uint8Array(this.config.fieldSize + 1)
+    );
     private readonly coordinates: { x: number; y: number }[] = [];
     private readonly solver = new BitmaskSolver();
 
@@ -43,18 +46,7 @@ export class Sudoku extends SerializableSudoku {
         this.config = { ...this.config, difficulty };
         const targetBlankCells = getBlankCellCountByConfig(this.config);
 
-        for (let attempt = 0; attempt < maxFieldAttempts; attempt += 1) {
-            this.field = cloneField(this.emptyField);
-            if (!this.fillRecursive()) {
-                throw new Error('Unable to create a game field');
-            }
-            this.gameField = cloneField(this.field);
-
-            if (this.removeClues(targetBlankCells, maxClueRemovalAttempts) >= targetBlankCells) {
-                break;
-            }
-        }
-
+        this.createBestField(targetBlankCells);
         this.calculateAvailableValues();
     }
 
@@ -145,74 +137,80 @@ export class Sudoku extends SerializableSudoku {
     }
 
     getCellCandidates(cell: CellInterface): number[] {
-        const candidates: number[] = [];
-        for (const value of this.fieldFillingValues) {
-            const candidateCell = { ...cell, value };
-            if (
-                !this.hasValueInRow(this.gameField, candidateCell) &&
-                !this.hasValueInColumn(this.gameField, candidateCell) &&
-                !this.hasValueInGroup(this.gameField, candidateCell)
-            ) {
-                candidates.push(value);
-            }
-        }
+        const unavailableValues = this.getUnavailableValues(this.gameField, cell);
 
-        return candidates;
+        return this.fieldFillingValues.filter(value => unavailableValues[value] === 0);
     }
 
-    // oxlint-disable-next-line max-statements
     setCellValue(cell: CellInterface): ScoredCellsInterface {
-        const scoredCells = { ...emptyScoredCells };
-        if (this.isCorrectValue(cell)) {
-            this.gameField[cell.y][cell.x].value = cell.value;
-            const blankCell = { ...cell, value: this.config.blankCellValue };
-
-            this.calculateAvailableValues();
-
-            if (!this.hasValueInColumn(this.gameField, blankCell)) {
-                scoredCells.x = cell.x;
-            }
-
-            if (!this.hasValueInRow(this.gameField, blankCell)) {
-                scoredCells.y = cell.y;
-            }
-
-            if (!this.hasValueInGroup(this.gameField, blankCell)) {
-                scoredCells.group = cell.group;
-            }
-
-            // HINT: No possible values left - winner!
-            if (this.possibleValues.length === 0) {
-                scoredCells.values = this.fieldFillingValues;
-                scoredCells.isWon = true;
-                // HINT: This value is completed!
-            } else if (!this.possibleValues.includes(cell.value)) {
-                scoredCells.values = [cell.value];
-            }
-
-            return scoredCells;
+        if (!this.isCorrectValue(cell)) {
+            throw new Error('Cell value is wrong');
         }
-        throw new Error('Cell value is wrong');
+        this.gameField[cell.y][cell.x].value = cell.value;
+        const blankCell = { ...cell, value: this.config.blankCellValue };
+        this.calculateAvailableValues();
+        const isWon = this.possibleValues.length === 0;
+        const values = isWon ? [...this.fieldFillingValues] : [];
+        if (!isWon && !this.possibleValues.includes(cell.value)) {
+            values.push(cell.value);
+        }
+
+        return {
+            x: this.gameField.some(row => row[cell.x].value === this.config.blankCellValue) ? emptyScoredCells.x : cell.x,
+            y: this.gameField[cell.y].some(({ value }) => value === this.config.blankCellValue) ? emptyScoredCells.y : cell.y,
+            group: this.hasValueInGroup(this.gameField, blankCell) ? emptyScoredCells.group : cell.group,
+            values,
+            isWon
+        };
     }
 
-    private hasValueInRow(field: FieldInterface, cell: CellInterface): boolean {
-        for (let x = 0; x < this.config.fieldSize; x += 1) {
-            if (field[cell.y][x].value === cell.value) {
-                return true;
+    private createBestField(targetBlankCells: number): void {
+        let bestBlankCount = -1;
+        let bestField = this.field;
+        let bestGameField = this.gameField;
+
+        for (let attempt = 0; attempt < maxFieldAttempts; attempt += 1) {
+            const blankCount = this.createAttempt(targetBlankCells);
+            if (blankCount > bestBlankCount) {
+                bestBlankCount = blankCount;
+                bestField = this.field;
+                bestGameField = this.gameField;
+            }
+            if (blankCount >= targetBlankCells) {
+                break;
             }
         }
 
-        return false;
+        this.field = bestField;
+        this.gameField = bestGameField;
     }
 
-    private hasValueInColumn(field: FieldInterface, cell: CellInterface): boolean {
-        for (const row of field) {
-            if (row[cell.x].value === cell.value) {
-                return true;
+    private createAttempt(targetBlankCells: number): number {
+        this.field = cloneField(this.emptyField);
+        this.fillRecursive(0);
+
+        return this.removeClues(targetBlankCells);
+    }
+
+    private getUnavailableValues(
+        field: FieldInterface,
+        cell: Pick<CellInterface, 'x' | 'y'>,
+        unavailableValues = new Uint8Array(this.config.fieldSize + 1)
+    ): Uint8Array {
+        unavailableValues.fill(0);
+        for (let coordinate = 0; coordinate < this.config.fieldSize; coordinate += 1) {
+            unavailableValues[field[cell.y][coordinate].value] = 1;
+            unavailableValues[field[coordinate][cell.x].value] = 1;
+        }
+        const boxStartY = cell.y - (cell.y % this.config.fieldGroupHeight);
+        const boxStartX = cell.x - (cell.x % this.config.fieldGroupWidth);
+        for (let y = 0; y < this.config.fieldGroupHeight; y += 1) {
+            for (let x = 0; x < this.config.fieldGroupWidth; x += 1) {
+                unavailableValues[field[y + boxStartY][x + boxStartX].value] = 1;
             }
         }
 
-        return false;
+        return unavailableValues;
     }
 
     private hasValueInGroup(field: FieldInterface, cell: CellInterface): boolean {
@@ -230,94 +228,72 @@ export class Sudoku extends SerializableSudoku {
         return false;
     }
 
-    private hasBlankCells(): [hasBlankCells: boolean, lastY: number, lastX: number] {
-        let y: number;
-        let x = 0;
-
-        for (y = 0; y < this.field.length; y += 1) {
-            for (x = 0; x < this.field[y].length; x += 1) {
-                if (this.field[y][x].value === this.config.blankCellValue) {
-                    return [true, y, x];
-                }
-            }
-        }
-
-        return [false, y, x];
-    }
-
-    /**
-     * TODO: Can we improve generation speed? =)
-     * HINT: This algorithm is based on backtracking
-     * inspired by https://dev.to/christinamcmahon/use-backtracking-algorithm-to-solve-sudoku-270
-     */
-
-    private fillRecursive(): boolean {
-        const [needsFilling, emptyY, emptyX] = this.hasBlankCells();
-
-        if (!needsFilling) {
+    private fillRecursive(cellIndex: number): boolean {
+        if (cellIndex === this.config.fieldSize * this.config.fieldSize) {
             return true;
         }
-
+        const y = Math.floor(cellIndex / this.config.fieldSize);
+        const x = cellIndex % this.config.fieldSize;
+        const cell = this.field[y][x];
+        const unavailableValues = this.getUnavailableValues(this.field, cell, this.fillingUnavailableValues[cellIndex]);
         for (const value of shuffle(this.fieldFillingValues, this.config.random)) {
-            const cell = { ...this.field[emptyY][emptyX], value };
-
-            if (
-                !this.hasValueInRow(this.field, cell) &&
-                !this.hasValueInColumn(this.field, cell) &&
-                !this.hasValueInGroup(this.field, cell)
-            ) {
-                this.field[emptyY][emptyX] = cell;
-
-                if (this.fillRecursive()) {
+            if (unavailableValues[value] === 0) {
+                cell.value = value;
+                if (this.fillRecursive(cellIndex + 1)) {
                     return true;
                 }
-
-                this.field[emptyY][emptyX].value = this.config.blankCellValue;
+                cell.value = this.config.blankCellValue;
             }
         }
 
         return false;
     }
 
-    // oxlint-disable-next-line max-statements
-    private removeClues(targetBlankCells: number, maxAttempts: number): number {
+    private removeClues(targetBlankCells: number): number {
         let maxBlanks = 0;
-        let bestGameField = cloneField(this.gameField);
+        const solvedGrid = fieldToGrid(this.field, this.config.blankCellValue);
+        let bestGrid = solvedGrid;
 
-        for (let attempt = 0; attempt < maxAttempts; attempt += 1) {
-            this.gameField = cloneField(this.field);
-            const grid = fieldToGrid(this.gameField);
-
-            let blankCells = 0;
-            for (const { x, y } of shuffle(this.coordinates, this.config.random)) {
-                const backup = grid[y * GRID_SIZE + x];
-                this.gameField[y][x].value = this.config.blankCellValue;
-                grid[y * GRID_SIZE + x] = this.config.blankCellValue;
-                blankCells += 1;
-
-                if (this.solver.countSolutions(grid, UNIQUENESS_COUNT_LIMIT) !== 1) {
-                    this.gameField[y][x].value = backup;
-                    grid[y * GRID_SIZE + x] = backup;
-                    blankCells -= 1;
-                }
-
-                if (blankCells >= targetBlankCells) {
-                    break;
-                }
-            }
-
+        for (let attempt = 0; attempt < maxClueRemovalAttempts; attempt += 1) {
+            const grid = solvedGrid.slice();
+            const blankCells = this.removeCluesFromGrid(grid, targetBlankCells);
             if (blankCells > maxBlanks) {
                 maxBlanks = blankCells;
-                bestGameField = cloneField(this.gameField);
+                bestGrid = grid;
             }
-
             if (maxBlanks >= targetBlankCells) {
                 break;
             }
         }
-
-        this.gameField = bestGameField;
+        this.applyGameGrid(bestGrid);
 
         return maxBlanks;
+    }
+
+    private removeCluesFromGrid(grid: Uint8Array, targetBlankCells: number): number {
+        let blankCells = 0;
+        for (const { x, y } of shuffle(this.coordinates, this.config.random)) {
+            const cellIndex = y * GRID_SIZE + x;
+            const backup = grid[cellIndex];
+            grid[cellIndex] = GRID_BLANK_VALUE;
+            if (this.solver.countSolutions(grid, UNIQUENESS_COUNT_LIMIT) === 1) {
+                blankCells += 1;
+            } else {
+                grid[cellIndex] = backup;
+            }
+            if (blankCells >= targetBlankCells) {
+                break;
+            }
+        }
+
+        return blankCells;
+    }
+
+    private applyGameGrid(grid: Uint8Array): void {
+        this.gameField = cloneField(this.field);
+        for (const { x, y } of this.coordinates) {
+            const value = grid[y * GRID_SIZE + x];
+            this.gameField[y][x].value = value === GRID_BLANK_VALUE ? this.config.blankCellValue : value;
+        }
     }
 }

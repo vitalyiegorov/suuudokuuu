@@ -3,6 +3,7 @@ import Link from 'next/link';
 
 import { getDifficultyClueCount } from '../../difficulty/utils/get-difficulty-clue-count.util';
 import { PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE } from '../../printable/constants/printable-layout.constant';
+import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
@@ -30,6 +31,7 @@ export const metadata: Metadata = buildPageMetadata(sudokuForSeniorsPageMetadata
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SudokuForSeniorsPage = () => (
     <main>
+        <ArticleSchema metadata={sudokuForSeniorsPageMetadata} />
         <PageHeader metadata={sudokuForSeniorsPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Sudoku for seniors</BreadcrumbListItem>

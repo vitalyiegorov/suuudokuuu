@@ -5,6 +5,7 @@ import type { PageMetadataInterface } from '../seo/interfaces/page-metadata.inte
 export const homePageMetadata: PageMetadataInterface = {
     path: '/',
     title: SITE_NAME,
+    headline: 'Play Free Online Sudoku',
     metaTitle: 'Play Sudoku Online Free — No Ads, Seven Difficulty Levels',
     metaDescription: SITE_DESCRIPTION,
     publishedAt: '2026-08-11T00:00:00.000Z',

@@ -37,7 +37,7 @@ export class AICTechnique implements TechniqueStrategyInterface {
         return this.findBroadResults(context, graph, startNodes);
     }
 
-    protected collectResults(scan: AICScanInterface, requiresStrongLink: boolean): void {
+    private collectResults(scan: AICScanInterface, requiresStrongLink: boolean): void {
         const { path, results } = scan;
         const currentNode = path[path.length - 1];
 

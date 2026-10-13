@@ -1,5 +1,6 @@
 import { FieldEngine } from '@suuudokuuu/field-core';
-import { useState } from 'react';
+import * as Result from 'effect/Result';
+import { useEffect, useRef, useState } from 'react';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
@@ -13,16 +14,26 @@ import type { Dispatch, SetStateAction } from 'react';
 export const useGameEngineState = (onInvalidState: OnEventFn<unknown>): [FieldEngine, Dispatch<SetStateAction<FieldEngine>>] => {
     const currentRun = useCurrentRun();
     const { difficulty, sudokuString } = currentRun;
+    const invalidStateHandlerRef = useRef(onInvalidState);
+    const [initialEngine] = useState(() =>
+        Result.try(() =>
+            isNotEmptyString(sudokuString)
+                ? gameCreateEngine(currentRun)
+                : new FieldEngine({ sudokuString: GameEmptySudokuStringConstant, difficulty })
+        )
+    );
+    const [engine, setEngine] = useState(() =>
+        Result.getOrElse(initialEngine, () => new FieldEngine({ sudokuString: GameEmptySudokuStringConstant, difficulty }))
+    );
 
-    return useState(() => {
-        if (isNotEmptyString(sudokuString)) {
-            try {
-                return gameCreateEngine(currentRun);
-            } catch (error: unknown) {
-                onInvalidState(error);
-            }
+    useEffect(() => {
+        invalidStateHandlerRef.current = onInvalidState;
+    }, [onInvalidState]);
+    useEffect(() => {
+        if (Result.isFailure(initialEngine)) {
+            invalidStateHandlerRef.current(initialEngine.failure);
         }
+    }, [initialEngine]);
 
-        return new FieldEngine({ sudokuString: GameEmptySudokuStringConstant, difficulty });
-    });
+    return [engine, setEngine];
 };

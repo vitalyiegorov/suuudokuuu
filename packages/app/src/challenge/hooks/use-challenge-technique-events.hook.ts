@@ -1,5 +1,5 @@
 import { useCurrentRun } from '../../game/query/use-current-run.query';
-import { stringToGameState } from '../../game/utils/string-to-game-state.util';
+import { decodeSharedGameState } from '../../game/utils/decode-shared-game-state.util';
 import { getRunTechniqueEvents } from '../utils/get-run-technique-events.util';
 
 import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-technique-event.interface';
@@ -7,7 +7,7 @@ import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-t
 export const useChallengeTechniqueEvents = (): ChallengeTechniqueEventInterface[] => {
     const { challengeState } = useCurrentRun();
 
-    const rivalGameState = stringToGameState(challengeState);
+    const rivalGameState = decodeSharedGameState(challengeState).gameState;
 
     return getRunTechniqueEvents(rivalGameState.challengeTimelineEvents, rivalGameState.sudokuString);
 };

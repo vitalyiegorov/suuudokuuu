@@ -3,8 +3,9 @@ import Link from 'next/link';
 
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -39,6 +40,7 @@ const EasySudokuPage = () => {
 
     return (
         <main>
+            <ArticleSchema metadata={easySudokuPageMetadata} />
             <PageHeader metadata={easySudokuPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
@@ -61,7 +63,7 @@ const EasySudokuPage = () => {
                     </li>
                     <li>Full houses and naked singles still clear most of the grid; the hidden single is the one addition over Newbie.</li>
                     <li>
-                        Our sample of {easyReport.sampleSize} Easy boards measures SE <SeRatingRange report={easyReport} />.
+                        Our sample of {easyReport.sampleSize} Easy boards measures SE {formatSeRatingRange(easyReport)}.
                     </li>
                     <li>A board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier.</li>
                 </ul>
@@ -82,10 +84,10 @@ const EasySudokuPage = () => {
             <h2>How hard is it, honestly</h2>
             <p>
                 Easy sits at the bottom of the SE (Sudoku Explainer) scale alongside Newbie: our sample of {easyReport.sampleSize} boards
-                measures SE <SeRatingRange report={easyReport} />. The two tiers share a range because SE prices a hidden single at 1.5,
-                below a naked single at 2.3 — so the technique that defines Easy is, by that scale, cheaper than the one that defines
-                Newbie. What genuinely changes is where you have to look: a naked single is read off one cell, a hidden single off a whole
-                unit. It suits players who have cleared a few Newbie boards and want a puzzle that takes noticeably longer to finish.
+                measures SE {formatSeRatingRange(easyReport)}. The two tiers share a range because SE prices a hidden single at 1.5, below a
+                naked single at 2.3 — so the technique that defines Easy is, by that scale, cheaper than the one that defines Newbie. What
+                genuinely changes is where you have to look: a naked single is read off one cell, a hidden single off a whole unit. It suits
+                players who have cleared a few Newbie boards and want a puzzle that takes noticeably longer to finish.
             </p>
             <h2>Where to go next</h2>
             <p>

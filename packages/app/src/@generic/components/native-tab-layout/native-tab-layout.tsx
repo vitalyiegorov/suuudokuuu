@@ -6,8 +6,6 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { TabBarInsetContext } from '../main-tab-layout/context/tab-bar-inset.context';
 import { MainTabSelectors } from '../main-tab-layout/main-tab-layout.selectors';
 
-import { NativeTabBarOccupiedHeight } from './constant/native-tab-layout.constant';
-
 const PlayIcon = { default: 'play', selected: 'play.fill' } as const;
 const DailyIcon = { default: 'calendar', selected: 'calendar.circle.fill' } as const;
 const StatsIcon = { default: 'chart.bar', selected: 'chart.bar.fill' } as const;
@@ -19,7 +17,7 @@ export const NativeTabLayout = () => {
     const labelStyle = { color: theme.colors.text.hint };
 
     return (
-        <TabBarInsetContext value={NativeTabBarOccupiedHeight}>
+        <TabBarInsetContext value={64}>
             <NativeTabs
                 backgroundColor={theme.colors.background}
                 blurEffect="systemChromeMaterial"

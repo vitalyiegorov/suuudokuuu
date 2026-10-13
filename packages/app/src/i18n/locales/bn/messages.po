@@ -389,7 +389,7 @@ msgstr "সহায়তা"
 msgid "At least one end of this chain must be true."
 msgstr "এই চেইনের অন্তত একটি প্রান্ত সত্য হতে হবে।"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড আবার লোড করার চেষ্টা করে"
 
@@ -546,7 +546,7 @@ msgstr "ঘরের ফাঁক"
 msgid "Challenge"
 msgstr "চ্যালেঞ্জ"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Back"
 msgstr "পাল্টা চ্যালেঞ্জ"
 
@@ -554,7 +554,7 @@ msgstr "পাল্টা চ্যালেঞ্জ"
 msgid "Challenge lost"
 msgstr "চ্যালেঞ্জ হারা"
 
-#: src/app/challenge-lost.tsx
+#: src/screens/components/challenge-lost-screen/challenge-lost.screen.tsx
 msgid "Challenge Lost"
 msgstr "চ্যালেঞ্জ হারা"
 
@@ -570,7 +570,7 @@ msgstr "চ্যালেঞ্জ রান থামানো যায় �
 msgid "Challenge won"
 msgstr "চ্যালেঞ্জ জয়"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Won!"
 msgstr "চ্যালেঞ্জ জয়!"
 
@@ -751,7 +751,7 @@ msgstr "থিম মুছুন"
 msgid "Deutsch"
 msgstr "Deutsch"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Development build unavailable"
 msgstr "ডেভেলপমেন্ট বিল্ড উপলভ্য নয়"
 
@@ -1047,6 +1047,7 @@ msgstr "সংকেতের লেখা"
 msgid "Hints on the hardest puzzles"
 msgstr "সবচেয়ে কঠিন সুডোকুতে সংকেত"
 
+#: src/challenge/components/challenge-result-home-button/challenge-result-home-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -1203,11 +1204,11 @@ msgstr "হালকা ওয়ার্ম-আপ"
 msgid "Link {revealedLinkCount} of {linkCount}"
 msgstr "{linkCount}-এর মধ্যে সংযোগ {revealedLinkCount}"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "ডেভেলপমেন্ট বিল্ড লোড হচ্ছে"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড লোড হচ্ছে…"
 
@@ -1379,11 +1380,11 @@ msgstr "নিশিও বাধ্যকারী শৃঙ্খল"
 msgid "no bonus"
 msgstr "কোনো বোনাস নেই"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "এখনো কোনো সম্পূর্ণ ডেভেলপমেন্ট বিল্ড প্রকাশিত হয়নি। পরে আবার দেখুন।"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No development build is available"
 msgstr "কোনো ডেভেলপমেন্ট বিল্ড উপলভ্য নেই"
 
@@ -1752,7 +1753,7 @@ msgstr "খেলা চালিয়ে যান"
 msgid "Resume this game?"
 msgstr "এই খেলা চালিয়ে যাবেন?"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Retry loading development build"
 msgstr "ডেভেলপমেন্ট বিল্ড আবার লোড করুন"
 
@@ -2286,7 +2287,8 @@ msgstr "খুব বেশি ভুল"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "সব কঠিনতায় আপনার সমাধান করা সুডোকু, সেরা সময় ও স্কোর দেখে নিন।"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "আবার চেষ্টা করুন"
 
@@ -2297,6 +2299,10 @@ msgstr "আবার চেষ্টা করুন"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "ইউক্রেন লড়াই চালিয়ে যাচ্ছে"
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+msgid "Unable to load your game"
+msgstr "আপনার খেলা লোড করা যায়নি"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"
@@ -2407,7 +2413,7 @@ msgstr "W-Wing"
 msgid "Warm gold accents for a brighter board"
 msgstr "আরও উজ্জ্বল বোর্ডের জন্য উষ্ণ সোনালি আভা"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড লোড করা যায়নি। আবার চেষ্টা করুন।"
 

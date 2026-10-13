@@ -1,84 +1,32 @@
-import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { describe, expect, it } from 'vitest';
 
+import { DAILY_DIFFICULTY_LADDER } from '../../../src/@generic/constants/daily-challenge.constant';
 import { DIFFICULTY_BANDS } from '../../../src/@generic/constants/difficulty-band.constant';
 import { forgeDailyPuzzle } from '../../../src/daily/utils/forge-daily-puzzle.util';
 import { getDailyDifficulty } from '../../../src/daily/utils/get-daily-difficulty.util';
-import { isSolvableWithLadder } from '../../../src/forge/utils/is-solvable-with-ladder.util';
 
-const sampleDateString = '2026-08-23';
-const nextDateString = '2026-08-24';
-const forgeTimeoutMs = 120_000;
 const generousAttemptBudget = 200;
+const seededDailyFixtures = [
+    { date: '2026-08-23', puzzle: '2....8.3.9.5.1.2..168.4.95.5.7..9.8...38..5...91.2.3.44..2.17..3..5.7..1..2.63.9.', rating: 2.3 },
+    { date: '2026-08-24', puzzle: '..591263..9.3.8.1..8....9.....13586....26..5...34..1....8...5......713..46....2..', rating: 2.3 },
+    { date: '2026-08-25', puzzle: '..87...355.1.9..2............9....6..67.2.3..1.....547.4...6.7.7.35....89.......3', rating: 2.6 },
+    { date: '2026-08-26', puzzle: '721..9........3...........9.6...8....37.128..9.....34...52.7..63.....21...9..6..3', rating: 4.2 }
+];
 
 describe('forgeDailyPuzzle', () => {
-    it(
-        'should forge the identical board every time the same UTC date is asked for',
-        () => {
-            expect.assertions(3);
+    it.each(seededDailyFixtures)('should preserve the daily board and rating for $date', ({ date, puzzle, rating }) => {
+        const result = forgeDailyPuzzle(date, generousAttemptBudget);
+        const difficulty = getDailyDifficulty(date);
 
-            const first = forgeDailyPuzzle(sampleDateString, generousAttemptBudget);
-            const second = forgeDailyPuzzle(sampleDateString, generousAttemptBudget);
+        expect(result.sudoku.toString()).toBe(puzzle);
+        expect(result.rating).toBe(rating);
+        expect(result.isInBand).toBe(true);
+        expect(result.isRatingCeiling).toBe(false);
+        expect(result.sudoku.Difficulty).toBe(difficulty);
+        expect(puzzle.split('').filter(character => character === '.')).toHaveLength(DIFFICULTY_BANDS[difficulty].blankCells);
+    });
 
-            expect(first.sudoku.toString()).toBe(second.sudoku.toString());
-            expect(first.rating).toBe(second.rating);
-            expect(first.sudoku.Difficulty).toBe(getDailyDifficulty(sampleDateString));
-        },
-        forgeTimeoutMs
-    );
-
-    it(
-        'should forge a different board for a different UTC date',
-        () => {
-            expect.assertions(1);
-
-            const today = forgeDailyPuzzle(sampleDateString, generousAttemptBudget);
-            const tomorrow = forgeDailyPuzzle(nextDateString, generousAttemptBudget);
-
-            expect(today.sudoku.toString()).not.toBe(tomorrow.sudoku.toString());
-        },
-        forgeTimeoutMs
-    );
-
-    it(
-        'should keep the daily board inside the band of its rotated tier',
-        () => {
-            expect.assertions(2);
-
-            const difficulty = getDailyDifficulty(sampleDateString);
-            const band = DIFFICULTY_BANDS[difficulty];
-            const { isInBand, sudoku } = forgeDailyPuzzle(sampleDateString, generousAttemptBudget);
-            const puzzleString = sudoku.toString();
-
-            expect(isInBand).toBe(true);
-            expect(puzzleString.split('').filter(character => character === '.')).toHaveLength(band.blankCells);
-        },
-        forgeTimeoutMs
-    );
-
-    it(
-        'should never serve a corpus tier as the daily board',
-        () => {
-            expect.assertions(1);
-
-            const difficulty = getDailyDifficulty(sampleDateString);
-
-            expect(DIFFICULTY_BANDS[difficulty].corpus).toBeNull();
-        },
-        forgeTimeoutMs
-    );
-
-    it(
-        'should stay solvable with the tier ladder',
-        () => {
-            expect.assertions(1);
-
-            const difficulty = getDailyDifficulty(sampleDateString);
-            const band = DIFFICULTY_BANDS[difficulty];
-            const { sudoku } = forgeDailyPuzzle(sampleDateString, generousAttemptBudget);
-
-            expect(isSolvableWithLadder(sudoku.toString(), band.bandLadderMaxTechnique ?? SolutionTechniqueEnum.AIC)).toBe(true);
-        },
-        forgeTimeoutMs
-    );
+    it.each(DAILY_DIFFICULTY_LADDER)('should keep the daily %s tier generated', difficulty => {
+        expect(DIFFICULTY_BANDS[difficulty].corpus).toBeNull();
+    });
 });

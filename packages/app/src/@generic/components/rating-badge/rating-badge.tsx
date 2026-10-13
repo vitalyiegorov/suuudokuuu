@@ -29,7 +29,7 @@ export const RatingBadge = ({ isCeiling, rating, onPress }: Props) => {
     const ratingLabel = formatSeRatingValue(rating, isCeiling);
     const rampColor = ratingBadgeGetColor(theme, rating);
     const pillStyles = [styles.pill, { backgroundColor: theme.colors.surface.subtle, borderColor: rampColor }];
-    const valueStyles = [BlackTextStyles.text, { color: theme.colors.text.primary }, styles.value, { color: rampColor }];
+    const valueStyles = [BlackTextStyles.text, styles.value, { color: rampColor }];
 
     const badge = (
         <View style={pillStyles} testID={RatingBadgeSelectors.Root}>

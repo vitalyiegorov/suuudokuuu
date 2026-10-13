@@ -1,14 +1,14 @@
 # Suuudokuuu Generator
 
-Sudoku puzzle generator package
+Pure TypeScript Sudoku puzzle generator using `@suuudokuuu/solver-bitmask` for solving and uniqueness checks.
 
 ## Public API
 
 The package exports `Sudoku`, difficulty/config, field/cell, available-value, and scored-cell APIs. `createEmptyField` is an internal utility.
 
-> CS video Stanford Lecture: Don Knuth—"Dancing Links" (2018)www.youtube.com › watch
-
 ## References
+
+Machine solvers live in `@suuudokuuu/solver-bitmask` and `@suuudokuuu/solver-dlx`.
 
 https://cs.uwaterloo.ca/~a23gao/cs486686_s19/slides/lec06_csp_backtracking_search_nosol
 

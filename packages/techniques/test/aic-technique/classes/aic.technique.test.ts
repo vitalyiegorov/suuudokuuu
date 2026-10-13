@@ -3,22 +3,12 @@ import { describe, expect, it } from 'vitest';
 
 import { CandidateContext } from '../../../src/@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-technique.enum';
+import { wasContextSearchCapped } from '../../../src/@generic/utils/context-scan-state.util';
 import { AICTechnique } from '../../../src/aic-technique/classes/aic.technique';
-import { AIC_MAX_LINK_VISITS } from '../../../src/aic-technique/constants/aic.constant';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
 import { expectTechniqueResults } from '../../@generic/test-utils/expect-technique-results.spec.util';
 
-import type { AICScanInterface } from '../../../src/aic-technique/interfaces/aic-scan.interface';
 import type { CandidateCellSpecType } from '../../@generic/types/candidate-cell-spec.spec.type';
-
-class BudgetExhaustingAICTechnique extends AICTechnique {
-    readonly scans: AICScanInterface[] = [];
-
-    protected override collectResults(scan: AICScanInterface, _requiresStrongLink: boolean): void {
-        this.scans.push(scan);
-        scan.linkVisits = AIC_MAX_LINK_VISITS;
-    }
-}
 
 const aicCandidateSpecs: CandidateCellSpecType[] = [
     [0, 0, [1, 2]],
@@ -118,15 +108,17 @@ describe('AICTechnique', () => {
         expect(new AICTechnique().find(context, { cell: targetCell, value: 6, intent: 'direct' })).toEqual([]);
     });
 
-    it('gives every broad-search start node its own visit budget', () => {
-        expect.assertions(2);
+    it('continues to later start nodes after an earlier real-board search exhausts its visit budget', () => {
+        const context = CandidateContext.fromSudoku(
+            Sudoku.fromString('504678900670095348098340567859760403406853790703904856960537084087409635345086079', defaultSudokuConfig)
+        );
 
-        const context = createCandidateContextFromMap([0, 0, [1]], [0, 1, [2]]);
-        const technique = new BudgetExhaustingAICTechnique();
+        const results = new AICTechnique().find(context);
 
-        technique.find(context);
-
-        expect(technique.scans).toHaveLength(2);
-        expect(technique.scans.map(scan => scan.linkVisits)).toStrictEqual([AIC_MAX_LINK_VISITS, AIC_MAX_LINK_VISITS]);
+        expect(wasContextSearchCapped(context)).toBe(true);
+        expect(results.map(result => [result.cell.y, result.cell.x, result.value])).toEqual([
+            [0, 1, 1],
+            [0, 1, 2]
+        ]);
     });
 });

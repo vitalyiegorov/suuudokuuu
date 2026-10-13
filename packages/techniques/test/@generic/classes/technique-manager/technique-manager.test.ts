@@ -462,8 +462,17 @@ describe('TechniqueManager', () => {
         const manager = new TechniqueManager(sudoku, [createEmptyStrategy()]);
         const result = manager.findNextStep();
 
-        expect(result).toEqual(expect.objectContaining({ technique: SolutionTechniqueEnum.Guess }));
-        expect(result?.kind).toBe('guess');
+        const [[cell]] = sudoku.Field;
+
+        expect(result).toEqual({
+            technique: SolutionTechniqueEnum.Guess,
+            cell,
+            value: sudoku.getCorrectValue(cell),
+            kind: 'guess',
+            eliminations: [],
+            reasonCells: [cell]
+        });
+        expect(result?.reasonCells).toEqual([cell]);
     });
 
     it('should return null when the puzzle has no blank cells', () => {

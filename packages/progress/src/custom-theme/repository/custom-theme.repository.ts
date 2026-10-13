@@ -10,6 +10,8 @@ import { ReactivityKeyEnum } from '../../@generic/enum/reactivity-key.enum';
 import { CustomThemeSchema } from '../schema/custom-theme.schema';
 import { CustomThemeIdSchema } from '../schema/theme-id.schema';
 
+import type { CustomThemeType } from '../type/custom-theme.type';
+
 export class CustomThemeRepository extends Context.Service<CustomThemeRepository>()('@suuudokuuu/progress/CustomThemeRepository', {
     make: Effect.gen(function* () {
         const sql = yield* SqlClient.SqlClient;
@@ -30,7 +32,7 @@ export class CustomThemeRepository extends Context.Service<CustomThemeRepository
 
         return {
             findAll: findAllThemes().pipe(Effect.orDie),
-            upsert: (theme: typeof CustomThemeSchema.Type) =>
+            upsert: (theme: CustomThemeType) =>
                 reactivity.mutation([ReactivityKeyEnum.CustomThemes], upsertTheme(theme)).pipe(Effect.orDie),
             remove: (id: typeof CustomThemeIdSchema.Type) =>
                 reactivity.mutation([ReactivityKeyEnum.CustomThemes], deleteTheme(id)).pipe(Effect.orDie),

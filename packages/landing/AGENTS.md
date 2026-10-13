@@ -60,11 +60,11 @@ src/
 │   ├── components/          # tier-ladder and technique-frequency tables, SE range and tier band renderers
 │   ├── constants/           # committed rated puzzle sample and the technique ladder order
 │   ├── interfaces/          # rated sample entry, logical solve result and per-tier report view models
-│   └── utils/               # solvePuzzleLogically and the memoised tier reports
+│   └── utils/               # solvePuzzleLogically and accessors for the committed tier reports
 ├── seo/
-│   ├── components/          # JsonLd, PageHeader, the compound FAQPage/HowTo/SoftwareApplication/BreadcrumbList schemas, and the visible Breadcrumbs, UpdatedDate and HowTo renderers
+│   ├── components/          # JsonLd, PageHeader, the compound FAQPage/SoftwareApplication/BreadcrumbList schemas, and the visible Breadcrumbs, UpdatedDate and HowTo renderers
 │   ├── constants/           # site identity and schema.org constants
-│   ├── interfaces/          # page metadata, page alternates, shared slot props
+│   ├── interfaces/          # page metadata and shared slot props
 │   ├── registries/          # metadata-only aggregators consumed by sitemap.ts
 │   ├── types/               # sitemap change frequency, slot component type
 │   └── utils/               # metadata factory, locale URLs, alternates, slot toolkit, node text extraction
@@ -103,7 +103,7 @@ Every SEO page lives at its own `src/app/<route>/page.tsx`. Never collapse conte
 
 Per-page visible copy — section headings, prose, bullets, FAQ questions and answers, CTA text, legal text — is written inline as JSX in the route `page.tsx`. A reader must be able to grep a visible sentence and land on the route that renders it.
 
-The `<h1>` is the one exception: it is also the `Article` schema headline, so it lives in the sidecar as `headline` and is rendered by `PageHeader`. Never write an `<h1>` in a route file.
+The `<h1>` is the one exception: it lives in the sidecar as `headline` and is rendered by `PageHeader`. On articles it is also the `Article` schema headline. The home route renders a plain `<h1>` using `resolvePageHeadline(homePageMetadata)` so the hero has no updated-date line. Other routes use `PageHeader`.
 
 Do not move body copy into registries, keyed content objects, string arrays, slug dispatchers, or prop bags. Do not build fixed JSX lists by mapping over arrays of strings just to shorten a file.
 
@@ -119,7 +119,7 @@ A route page never re-discovers itself with `.find(...)` against a registry. It 
 
 Every `page.tsx` has a sibling `metadata.ts` exporting a `PageMetadataInterface` object. `publishedAt` and `updatedAt` are required by the type, so TypeScript guarantees every page carries a freshness signal into `sitemap.ts`, into the `Article` schema, into the visible `<time>` line and into the Open Graph date tags. There are no fallback dates and no central last-modified map.
 
-`title` is the short name used by breadcrumbs, prev/next chains and `llms.txt`. `headline` is the rendered `<h1>`, optional and falling back to `title`. `PageHeader` renders the `<h1>` and `ArticleSchema` reads the same resolved value, so a page never states its own name twice. See `docs/seo-pages.md` §2.2.
+`title` is the short name used by breadcrumbs, prev/next chains and `llms.txt`. `headline` is the rendered `<h1>`, optional and falling back to `title`. `PageHeader` renders the `<h1>` and article routes render `ArticleSchema` explicitly with the same resolved value. Home and collection hubs omit `ArticleSchema`, so a page never states its own name twice. See `docs/seo-pages.md` §2.2.
 
 ```ts
 export const howToPlayPageMetadata: PageMetadataInterface = {
@@ -219,7 +219,7 @@ To add a technique page:
 1. Find a board where the technique fires. Boards from `packages/techniques/src/**/*.spec.ts` work, and so does any real solve position.
 2. Create `src/app/techniques/<slug>/metadata.ts` with `...buildTechniquePageNames(SolutionTechniqueEnum.<Member>)` in place of `title` and `headline` and a keyword-first `metaTitle`, and register it in `page-metadata.registry.ts`.
 3. Copy the structure of an existing technique page: `TechniquePageHeader metadata=`, a definition-first opening sentence, `TechniqueSummary`, prose sections, `TechniqueWorkedExample`, `HowTo` with `HowToStep` children, a mistakes list, `FaqPage` with `Faq`/`FaqQuestion`/`FaqAnswer` children, and `TechniqueNavigation`.
-4. Point the `previous` and `next` props at the neighbouring sidecars in `SolutionTechniqueEnum` order.
+4. Pass the page’s `SolutionTechniqueEnum` member as the `technique` prop to `TechniqueNavigation`. Its previous and next links derive from `TECHNIQUE_PAGE_LADDER`; never hand-wire neighbouring sidecars. The optional `previous` and `next` props remain temporarily for the seven route files protected by open PR #531 and must be removed when those callers migrate.
 5. Write 600 to 900 words of copy inline. Use typographic apostrophes; `react/no-unescaped-entities` rejects raw `'` in JSX text.
 6. Keep the `max-lines-per-function` disable on the page component. Long-form copy in a route file is the reason it is there.
 
@@ -227,17 +227,17 @@ To add a technique page:
 
 `TechniqueWorkedExample` (server) renders `TechniqueExampleBoard` inside `TechniquePlayableBoard` (client). The prerendered table is the baseline and the SEO artefact; the live board is an opt-in island.
 
-- The static `<table class="sudoku-board">`, its candidate grid, and the `solver-output` list are always in the exported HTML, wrapped in a `<details open>` that stays in the DOM after the island mounts. View-source is the crawlability contract; never move the table behind a client-only render.
-- The island mounts on user intent, not on visibility. `TechniquePlayableBoard` ships only a button and a `useState` flag; the engine arrives through `next/dynamic(..., { ssr: false })` when the reader presses “Try it on a live board”. On-visible gating would charge every scrolling reader the full `field-core` + `field-dom` + `techniques` + `generator` payload for a widget most readers never touch, so intent gating is the rule here. The island chunk must never appear in the page's script or preload list.
+- The static `<table class="sudoku-board">`, its candidate grid, and the `solver-output` list are always in the exported HTML, inside the static panel of an ARIA tablist. The panel stays in the DOM after the island mounts, and switching tabs only changes its visibility. View-source is the crawlability contract; never move the table behind a client-only render.
+- The island mounts on user intent, not on visibility. `TechniquePlayableBoard` ships the tablist and its view/loading state; the engine arrives through `next/dynamic(..., { ssr: false })` when the reader presses “Try it on a live board”. On-visible gating would charge every scrolling reader the full `field-core` + `field-dom` + `techniques` + `generator` payload for a widget most readers never touch, so intent gating is the rule here. The island chunk must never appear in the page's script or preload list.
 - `TechniqueLiveBoard` owns the engine: `new FieldEngine({ sudokuString: board, difficulty, showAutoCandidates: true })`, `getGivenCellKeys(board)`, and `findStepScript(engine.Sudoku, createTechniqueStrategies().filter(...))` narrowed to the page's technique — the same narrowing `buildTechniqueExample` uses, which is why the walkthrough reproduces the static solver output exactly.
 - `field-dom` ships no strings. `FIELD_LABELS` in `src/techniques/constants/field-labels.constant.ts` supplies every control label, and `renderTechniqueNarration` turns the structured `{ technique, cells, values }` payload into prose generically for all 31 pages. Do not hand-write per-technique narration.
 - Theming happens by overriding `--field-*` custom properties on `.technique-embed__live` in `global.css`. The packaged stylesheet is wrapped in `@layer field-dom`, so the unlayered landing rules win. Map every colour to the existing `--landing-*` token so the live board matches the static table.
 
 ## Guide pages and the generated solve data
 
-The guides under `src/app/guides` publish measured numbers, never hand-written ones. `TierLadderTable` and `TechniqueFrequencyTable` call `getTierTechniqueReports()` during static generation; the reports are memoised per build so both guides share one computation.
+The guides under `src/app/guides` publish measured numbers, never hand-written ones. `TierLadderTable` and `TechniqueFrequencyTable` call `getTierTechniqueReports()` during static generation; the reports are committed in `tier-technique-reports.constant.ts` and both guides read that same data.
 
-`RATING_SAMPLE_PUZZLES` in `src/rating/constants/rating-sample.constant.ts` is a committed, fixed sample of `RATING_SAMPLE_SIZE` rated puzzles per difficulty, each entry a `{ puzzle, rating, isRatingCeiling }` record. Sourcing is random and the Hell corpus is large, so the sample is frozen in source to keep every build deterministic and every published number reproducible. The file is written by `scripts/generate-rating-sample.ts` (`pnpm --filter @suuudokuuu/landing generate:rating-sample`): the five generated tiers come from `forgePuzzle(difficulty)` in `@suuudokuuu/puzzle-forge`, retried until the board is in band so the sample proves the tier contract; the Hell entries are the first `RATING_SAMPLE_SIZE` records of `@suuudokuuu/hell-corpus`, which carry a verified rating. Regenerating the sample changes every number on both guides, the six rated difficulty landers and their printable booklets, so treat it as data, not as code to tidy.
+`RATING_SAMPLE_PUZZLES` in `src/rating/constants/rating-sample.constant.ts` is a committed, fixed sample of `RATING_SAMPLE_SIZE` rated puzzles per difficulty, each entry a `{ puzzle, rating, isRatingCeiling }` record. Sourcing is random and the Hell corpus is large, so the sample is frozen in source to keep every build deterministic and every published number reproducible. The file is written by `scripts/generate-rating-sample.ts` (`pnpm --filter @suuudokuuu/landing generate:rating-sample`): the five generated tiers come from `forgePuzzle(difficulty)` in `@suuudokuuu/puzzle-forge`, retried until the board is in band so the sample proves the tier contract; the Hell entries are spread evenly across `@suuudokuuu/hell-corpus`, which carry a verified rating. The same script writes the derived reports, and `check:tier-reports` checks them against the fixed sample. Regenerating the sample changes every number on both guides, the six rated difficulty landers and their printable booklets, so treat it as data, not as code to tidy.
 
 The sample, the tier reports and both guide tables cover the six tiers in `RATED_DIFFICULTY_LADDER`, typed `RatedDifficultyType`; `DIFFICULTY_LADDER`, `DIFFICULTY_NAMES` and `DIFFICULTY_PAGE_PATHS` cover every `DifficultyEnum` member. Infinity is deliberately outside the rated sample: its puzzles carry the SE ratings independent raters publish, above `SE_RATING_CEILING`, and our technique ladder cannot finish any of them, so they would put unmeasured numbers into tables that promise measured ones. The Infinity lander and booklet read their facts from `src/difficulty/constants/infinity-corpus.constant.ts`, which derives the rating and clue ranges from `@suuudokuuu/hell-corpus`, and the booklet prints the first `PRINTABLE_BOOKLET_SIZE` records of that corpus unchanged. Keep each entry on one line: the generator emits tier arrays at top level precisely so a full entry fits inside the 140-column print width and the file stays under the `max-lines` limit.
 
@@ -245,7 +245,7 @@ Clue counts come from `DIFFICULTY_BANDS` in `@suuudokuuu/puzzle-forge` via `getD
 
 `solvePuzzleLogically` is a thin adapter over `TechniqueManager.solveLogically()` from `@suuudokuuu/techniques`, which threads one `CandidateContext` through the whole solve. The shared driver reports `solved`, `stuck` or `contradiction` and stops; the landing wraps it so it can enumerate every technique a board uses: it applies the placements the shared driver found, and when the outcome is not `solved` it fills one cell from the solution and runs the shared driver again from there. Anything that needed such a fill is reported as past the technique ladder. Guides must never present that outcome as proof a puzzle needs guessing — it means the required technique is not implemented yet.
 
-Prose on these pages reads its numbers from `getTierTechniqueReport(difficulty)` rather than repeating literals, so copy cannot drift from the tables. `SeRatingRange` renders a report's measured SE spread and `TierBandRequirement` renders the band contract the forge enforces; use them instead of writing a rating or a band into copy by hand.
+Prose on these pages reads its numbers from `getTierTechniqueReport(difficulty)` rather than repeating literals, so copy cannot drift from the tables. `formatSeRatingRange(report)` returns a report’s measured SE spread as plain text; call it directly in JSX so FAQ JSON-LD can extract its numbers. `TierBandRequirement` renders the band contract the forge enforces; use them instead of writing a rating or a band into copy by hand. `HowTo` renders the visible step list only; it never emits HowTo JSON-LD.
 
 ## Knip
 

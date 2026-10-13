@@ -5,18 +5,12 @@ appId: ${APP_ID}
       optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
-# This rival payload predates the rating trailer and the technique trailer, so it is
-# the only end-to-end cover of the legacy decode path. Do not re-encode it: the
-# arsenal below is derived by replaying the run through the full technique registry
-# precisely because the payload carries no stored techniques.
 - runFlow:
       file: subflows/shared/open-shared-challenge.flow.yaml
       env:
           SHARED_CHALLENGE_LINK: suuudokuuu://shared/_KAOADKxQxGAEwAiG0eSR7tZLUwnibscwQ0-A5fIIKC45kkWcIIQQQRgYUgCGSyNYgAAAAAAAAAAAAASWSrfOcD6yrHa0SAMNhPEITYFvbWxiFMlBQUFBQUFBQUFBQUFBQUFCQkFAgICAgICBQIFCQIJCQUFCQkFAgICAgICAgICAgICAgICAgICAgICAgIA
 
 - assertVisible: '.*Nightmare.*'
-# This fixture predates the rating trailer, so the rival chip must not show a
-# rating badge for its unknown (0) rating.
 - assertNotVisible:
       id: 'RatingBadgeSelectors.Root'
 - assertVisible:
@@ -25,10 +19,6 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'ChallengeAcceptScreenSelectors.Timeline'
 - assertVisible: 'Taller marks = sharper techniques'
-# The arsenal grid sits below the fold on the shorter Android viewport, dimmed behind
-# the floating accept/decline footer, so its Root/Card ids are off-screen on entry.
-# Scroll the "AIC" label into view first (iOS passes only because of its taller
-# viewport), which also brings the arsenal Root on screen for the assertions below.
 - scrollUntilVisible:
       element:
           text: 'AIC'
@@ -37,10 +27,6 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'ChallengeRunStatsSelectors.TechniqueTile.26'
 - assertVisible: 'AIC'
-# The arsenal's second row sits at the very bottom of the scroll content, behind the
-# sticky accept/decline footer. Scrolling to the card stops as soon as its top edge
-# clears the fold, which leaves the label below the screen on the shorter Android
-# viewport, so scroll to the deepest element of the row - its label - instead.
 - scrollUntilVisible:
       element:
           text: 'Hidden Pair'
@@ -49,17 +35,10 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'ChallengeRunStatsSelectors.TechniqueTile.10'
 - assertVisible: 'Hidden Pair'
-# Declining unmounts a fully rendered accept screen (arsenal grid, technique
-# timeline) and remounts the full Home scroll content, which is clearly slower
-# native work than the default budget under CI farm load, so give it more room
-# than 3000. Retry the dismissal handoff once against the same mid-transition
-# tap swallow as the accept path (see accept-shared-challenge.flow.yaml).
-- retry:
-      maxRetries: 1
-      commands:
-          - tapOn:
-                id: 'ChallengeAcceptScreenSelectors.MaybeLaterButton'
-          - extendedWaitUntil:
-                visible:
-                    id: 'HomeScreenSelectors.Root'
-                timeout: 10000
+- waitForAnimationToEnd
+- tapOn:
+      id: 'ChallengeAcceptScreenSelectors.MaybeLaterButton'
+- extendedWaitUntil:
+      visible:
+          id: 'HomeScreenSelectors.Root'
+      timeout: 10000

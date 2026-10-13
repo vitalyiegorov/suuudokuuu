@@ -1,9 +1,11 @@
-import { DifficultyEnum } from '@suuudokuuu/generator';
+import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { describe, expect, it } from 'vitest';
 
 import { DIFFICULTY_BANDS } from '../../../src/@generic/constants/difficulty-band.constant';
-import { matchPuzzleBand } from '../../../src/forge/utils/match-puzzle-band.util';
+import { createPuzzleBandMatcher } from '../../../src/forge/utils/match-puzzle-band.util';
+
+import { isSolvableWithLadder } from './is-solvable-with-ladder.util';
 
 const nakedSinglesPuzzle = '349.6...1.1..37..9.57.8..435......96..61.8.5...2....749.36...1.12.8...6..6.2.943.';
 const hiddenSinglePuzzle = '2.846.9.5.75.....2.9.32.4.896.1438.75......6.7....82..32..1.54......41....9532...';
@@ -14,52 +16,42 @@ const openBand = {
     bandLadderMaxTechnique: null
 };
 
-describe('matchPuzzleBand', () => {
-    it('should accept a naked-singles board for the Newbie band', () => {
-        expect.assertions(2);
-
-        const match = matchPuzzleBand(nakedSinglesPuzzle, DIFFICULTY_BANDS[DifficultyEnum.Newbie]);
-
-        expect(match.isAboveSimplerLadder).toBe(true);
-        expect(match.isWithinBand).toBe(true);
-    });
-
-    it('should reject a naked-singles board as too easy for the Easy band', () => {
-        expect.assertions(2);
-
-        const match = matchPuzzleBand(nakedSinglesPuzzle, DIFFICULTY_BANDS[DifficultyEnum.Easy]);
-
-        expect(match.isAboveSimplerLadder).toBe(false);
-        expect(match.isWithinBand).toBe(false);
-    });
-
-    it('should accept a hidden-single board for the Easy band', () => {
-        expect.assertions(2);
-
-        const match = matchPuzzleBand(hiddenSinglePuzzle, DIFFICULTY_BANDS[DifficultyEnum.Easy]);
-
-        expect(match.isAboveSimplerLadder).toBe(true);
-        expect(match.isWithinBand).toBe(true);
-    });
-
-    it('should reject a hidden-single board as too easy for the Medium band', () => {
-        expect.assertions(1);
-
-        expect(matchPuzzleBand(hiddenSinglePuzzle, DIFFICULTY_BANDS[DifficultyEnum.Medium]).isWithinBand).toBe(false);
-    });
-
+describe('createPuzzleBandMatcher', () => {
     it('should accept anything for a band that is open on both sides', () => {
         expect.assertions(2);
 
-        const match = matchPuzzleBand(nakedSinglesPuzzle, openBand);
+        const match = createPuzzleBandMatcher(openBand)(Sudoku.fromString(nakedSinglesPuzzle, defaultSudokuConfig));
 
         expect(match.isAboveSimplerLadder).toBe(true);
         expect(match.isWithinBand).toBe(true);
     });
 
-    it('should treat the Newbie ladder ceiling as the naked single', () => {
-        expect.assertions(1);
+    it('should reject a puzzle that is above the band ceiling', () => {
+        expect(
+            createPuzzleBandMatcher(DIFFICULTY_BANDS[DifficultyEnum.Newbie])(Sudoku.fromString(hiddenSinglePuzzle, defaultSudokuConfig))
+        ).toStrictEqual({
+            isAboveSimplerLadder: true,
+            isWithinBand: false
+        });
+    });
 
-        expect(DIFFICULTY_BANDS[DifficultyEnum.Newbie].bandLadderMaxTechnique).toBe(SolutionTechniqueEnum.NakedSingle);
+    it('should enforce the simpler ceiling when the upper ceiling is open', () => {
+        const match = createPuzzleBandMatcher({ ...openBand, simplerLadderMaxTechnique: SolutionTechniqueEnum.NakedSingle });
+
+        expect(match(Sudoku.fromString(nakedSinglesPuzzle, defaultSudokuConfig)).isWithinBand).toBe(false);
+        expect(match(Sudoku.fromString(hiddenSinglePuzzle, defaultSudokuConfig)).isWithinBand).toBe(true);
+    });
+
+    it.each(Object.values(DIFFICULTY_BANDS))('should preserve the two-ladder classification for ceiling $bandLadderMaxTechnique', band => {
+        const match = createPuzzleBandMatcher(band);
+
+        for (const puzzle of [nakedSinglesPuzzle, hiddenSinglePuzzle]) {
+            const isAboveSimplerLadder =
+                band.simplerLadderMaxTechnique === null || !isSolvableWithLadder(puzzle, band.simplerLadderMaxTechnique);
+            const isWithinBand =
+                isAboveSimplerLadder && (band.bandLadderMaxTechnique === null || isSolvableWithLadder(puzzle, band.bandLadderMaxTechnique));
+
+            expect(match(Sudoku.fromString(puzzle, defaultSudokuConfig))).toStrictEqual({ isAboveSimplerLadder, isWithinBand });
+        }
     });
 });

@@ -39,19 +39,17 @@ export const GameScreenMetricsStyles = StyleSheet.create((_theme, rt) => {
         label: {
             fontSize: isCompactStrip ? CompactLabelFontSize : LabelFontSize,
             letterSpacing: isCompactStrip ? CompactLabelLetterSpacing : LabelLetterSpacing,
-            lineHeight: isCompactStrip ? CompactLabelLineHeight : LabelLineHeight,
-            opacity: 0.55,
-            textTransform: 'uppercase'
+            lineHeight: isCompactStrip ? CompactLabelLineHeight : LabelLineHeight
         },
         separator: {
             height: 28,
             marginHorizontal: 0
         },
         value: {
-            fontSize: isCompactStrip ? CompactValueFontSize : ValueFontSize,
             fontVariant: ['tabular-nums'],
             fontWeight: '800',
             letterSpacing: -0.2,
+            fontSize: isCompactStrip ? CompactValueFontSize : ValueFontSize,
             lineHeight: isCompactStrip ? CompactValueLineHeight : ValueLineHeight
         }
     };

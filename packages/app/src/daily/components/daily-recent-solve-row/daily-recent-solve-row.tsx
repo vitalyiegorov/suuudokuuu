@@ -10,7 +10,7 @@ import { applyColorAlpha } from '../../../@generic/utils/apply-color-alpha.util'
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { DailyTintAlpha } from '../../constants/daily-tint-alpha.constant';
-import { dailyGetDateText } from '../../utils/daily-get-date-text.util';
+import { dailyGetDateString } from '../../utils/daily-get-date-string.util';
 import { DailyDifficultyBars } from '../daily-difficulty-bars/daily-difficulty-bars';
 import { DailyRecentSolveResult } from '../daily-recent-solve-result/daily-recent-solve-result';
 
@@ -25,11 +25,10 @@ const CheckStrokeWidth = 3;
 interface Props {
     readonly day: DailyCompletedDayInterface;
     readonly hasTopDivider: boolean;
-    readonly language: string;
 }
 
-export const DailyRecentSolveRow = ({ day, hasTopDivider, language }: Props) => {
-    const { t } = useLingui();
+export const DailyRecentSolveRow = ({ day, hasTopDivider }: Props) => {
+    const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
 
     const { hint, primary } = theme.colors.text;
@@ -48,7 +47,12 @@ export const DailyRecentSolveRow = ({ day, hasTopDivider, language }: Props) => 
 
             <View style={styles.details}>
                 <BlackText numberOfLines={1} style={dateStyles}>
-                    {dailyGetDateText(day.dayNumber, language)}
+                    {i18n.date(new Date(dailyGetDateString(day.dayNumber)), {
+                        day: 'numeric',
+                        month: 'short',
+                        timeZone: 'UTC',
+                        weekday: 'short'
+                    })}
                 </BlackText>
 
                 <View style={styles.difficulty}>

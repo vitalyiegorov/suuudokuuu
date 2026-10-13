@@ -6,21 +6,17 @@ import {
 } from '../constants/se-chain-rating.constant';
 import { seTechniqueRatings } from '../constants/se-technique-rating.constant';
 
-import type { SolutionTechniqueEnum, TechniqueResultInterface } from '@suuudokuuu/techniques';
-
-const NOT_LENGTH_PRICED_MAXIMUM = 0;
-
-const getBandMaximum = (technique: SolutionTechniqueEnum): number => seLengthPricedBandMaximums.get(technique) ?? NOT_LENGTH_PRICED_MAXIMUM;
+import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const getChainLengthDifficulty = (chainLength: number): number =>
     SE_CHAIN_LENGTH_THRESHOLDS.filter(threshold => chainLength > threshold).length * SE_CHAIN_LENGTH_INCREMENT;
 
 export const getStepRating = (step: TechniqueResultInterface): number => {
     const techniqueRating = seTechniqueRatings[step.technique];
-    const bandMaximum = getBandMaximum(step.technique);
+    const bandMaximum = seLengthPricedBandMaximums.get(step.technique) ?? 0;
     const chainLength = step.chainLength ?? 0;
 
-    if (bandMaximum === NOT_LENGTH_PRICED_MAXIMUM || chainLength <= 0) {
+    if (bandMaximum <= 0 || chainLength <= 0) {
         return techniqueRating;
     }
 

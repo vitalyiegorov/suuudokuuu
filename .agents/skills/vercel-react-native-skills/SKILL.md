@@ -11,6 +11,16 @@ metadata:
   version: '1.0.0'
 ---
 
+## Repository overrides
+
+These repository rules take precedence over the generic guidance below:
+
+- React Compiler owns memoization: do not add manual `memo`, `useMemo`, or `useCallback` unless a framework API explicitly requires stable callback identity.
+- Hermes does not implement `toSorted`; use a copied array with `.sort()` where immutable sorting is needed.
+- App styles use Unistyles, rather than React Native `StyleSheet` or Nativewind.
+- The landing site is a static export. Server-only request, cache, and rendering rules do not apply to it.
+
+
 # React Native Skills
 
 Comprehensive best practices for React Native and Expo applications. Contains

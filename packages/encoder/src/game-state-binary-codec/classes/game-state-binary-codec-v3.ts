@@ -13,7 +13,6 @@ import {
     PAYLOAD_KIND_BITS
 } from '../../@generic/constants/binary-codec.constant';
 import { GRID_CELL_COUNT } from '../../@generic/constants/grid.constant';
-import { payloadKindByCode } from '../../@generic/constants/timeline-event-codes.constant';
 import { SharedPayloadKindEnum } from '../../@generic/enums/shared-payload-kind.enum';
 import {
     type AggregateTrailerInterface,
@@ -23,6 +22,7 @@ import {
 } from '../../@generic/utils/aggregate-trailer-codec.util';
 import { base64urlToBytes } from '../../@generic/utils/base64url-to-bytes.util';
 import { bytesToBase64url } from '../../@generic/utils/bytes-to-base64url.util';
+import { clampToRange } from '../../@generic/utils/clamp-to-range.util';
 import { readGivens, writeGivens } from '../../@generic/utils/givens-codec.util';
 import {
     type HandoffExtrasInterface,
@@ -47,8 +47,14 @@ import {
 import type { DecodedGameStateInterface } from '../../@generic/interfaces/decoded-game-state.interface';
 import type { TimelineEventInterface } from '../../@generic/interfaces/timeline-event.interface';
 
+const payloadKindByCode: Record<number, SharedPayloadKindEnum> = {
+    [SharedPayloadKindEnum.Puzzle]: SharedPayloadKindEnum.Puzzle,
+    [SharedPayloadKindEnum.Handoff]: SharedPayloadKindEnum.Handoff,
+    [SharedPayloadKindEnum.Challenge]: SharedPayloadKindEnum.Challenge
+};
+
 export type EncodableGameStateInterface = Omit<DecodedGameStateInterface, 'elapsedTime' | 'techniques'> & {
-    techniques?: (number | null)[];
+    readonly techniques?: (number | null)[];
 };
 
 export class GameStateBinaryCodecV3 {
@@ -103,7 +109,7 @@ export class GameStateBinaryCodecV3 {
         out.write(state.kind, PAYLOAD_KIND_BITS);
         out.write(hasTagStream ? 1 : 0, HAS_TAG_STREAM_BITS);
         out.write(state.isChallengeRun ? 1 : 0, IS_CHALLENGE_RUN_BITS);
-        out.write(this.clampMaxMistakes(state.maxMistakes), MAX_MISTAKES_BITS);
+        out.write(clampToRange(state.maxMistakes, MAX_MISTAKES_LIMIT), MAX_MISTAKES_BITS);
     }
 
     private writePayloadBody(
@@ -144,12 +150,7 @@ export class GameStateBinaryCodecV3 {
         cellEventCount: number
     ): HandoffExtrasInterface & AggregateTrailerInterface & MetadataTrailerInterface & TechniqueTrailerInterface {
         const handoffExtras = kind === SharedPayloadKindEnum.Handoff ? readHandoffExtras(input, isChallengeRun) : emptyHandoffExtras;
-        const positionBeforeAggregateTrailer = input.position;
         const aggregateTrailer = kind === SharedPayloadKindEnum.Puzzle ? emptyAggregateTrailer : readAggregateTrailer(input);
-
-        if (!isDefined(aggregateTrailer.pencilCount)) {
-            input.seek(positionBeforeAggregateTrailer);
-        }
 
         return {
             ...handoffExtras,
@@ -167,9 +168,5 @@ export class GameStateBinaryCodecV3 {
         }
 
         return kind;
-    }
-
-    private clampMaxMistakes(maxMistakes: number): number {
-        return Math.min(Math.max(Math.trunc(maxMistakes), 0), MAX_MISTAKES_LIMIT);
     }
 }

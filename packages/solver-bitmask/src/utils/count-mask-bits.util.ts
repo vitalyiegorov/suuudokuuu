@@ -1,12 +1,9 @@
-export const countMaskBits = (mask: number): number => {
-    let remaining = mask;
-    let bits = 0;
+import { GRID_DIGIT_MASK } from '@suuudokuuu/solver-core';
 
-    while (remaining !== 0) {
-        // oxlint-disable-next-line no-bitwise -- Brian Kernighan's bit-count algorithm clears the lowest set bit each iteration
-        remaining &= remaining - 1;
-        bits += 1;
-    }
+const MASK_BIT_COUNTS = new Uint8Array(GRID_DIGIT_MASK + 1);
 
-    return bits;
-};
+for (let mask = 1; mask <= GRID_DIGIT_MASK; mask += 1) {
+    MASK_BIT_COUNTS[mask] = MASK_BIT_COUNTS[Math.floor(mask / 2)] + (mask % 2);
+}
+
+export const countMaskBits = (mask: number): number => MASK_BIT_COUNTS[mask];

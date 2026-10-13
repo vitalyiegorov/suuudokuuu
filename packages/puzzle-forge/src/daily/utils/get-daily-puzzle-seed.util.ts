@@ -1,6 +1,5 @@
-import { DAILY_SEED_NAMESPACE } from '../../@generic/constants/daily-challenge.constant';
-
 /* oxlint-disable no-bitwise -- FNV-1a is defined by its 32-bit offset basis, its prime and unsigned bit mixing */
+const DAILY_SEED_NAMESPACE = 'suuudokuuu-daily-';
 const FNV_OFFSET_BASIS = 0x811c9dc5;
 const FNV_PRIME = 0x0100_0193;
 
@@ -12,6 +11,6 @@ export const getDailyPuzzleSeed = (dateString: string): number => {
         hash = Math.imul(hash ^ seedInput.charCodeAt(index), FNV_PRIME) >>> 0;
     }
 
-    return hash >>> 0;
+    return hash;
 };
 /* oxlint-enable no-bitwise */

@@ -1,17 +1,10 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { describe, expect, it } from 'vitest';
 
-import { SE_FORCING_CHAIN_RATING_MAXIMUM } from '../../src/constants/se-chain-rating.constant';
-import { SE_RATING_CEILING } from '../../src/constants/se-rating-ceiling.constant';
 import { seTechniqueOrder } from '../../src/constants/se-technique-order.constant';
 import { seTechniqueRatings } from '../../src/constants/se-technique-rating.constant';
 
 const enumMemberCount = Object.keys(SolutionTechniqueEnum).length / 2;
-
-const expectedOrderedRatings =
-    '1.0 1.5 2.3 2.6 2.6 2.8 3.0 3.2 3.4 3.4 3.5 3.6 3.8 4.0 4.0 4.1 4.2 4.4 4.4 4.5 4.6 5.0 5.2 5.4 5.6 6.6 7.0 7.2 7.5 8.0 8.0';
-
-const formatOrderedRatings = (): string => seTechniqueOrder.map(technique => seTechniqueRatings[technique].toFixed(1)).join(' ');
 
 describe('seTechniqueOrder', () => {
     it('should cover every technique except the guess fallback exactly once', () => {
@@ -22,10 +15,50 @@ describe('seTechniqueOrder', () => {
         expect(seTechniqueOrder).toHaveLength(enumMemberCount - 1);
     });
 
-    it('should list every technique with its rating from cheapest to most expensive', () => {
+    it('should preserve the established solve order', () => {
         expect.assertions(1);
 
-        expect(formatOrderedRatings()).toBe(expectedOrderedRatings);
+        expect(seTechniqueOrder).toEqual([
+            SolutionTechniqueEnum.FullHouse,
+            SolutionTechniqueEnum.HiddenSingle,
+            SolutionTechniqueEnum.NakedSingle,
+            SolutionTechniqueEnum.PointingPair,
+            SolutionTechniqueEnum.PointingTriple,
+            SolutionTechniqueEnum.BoxLineReduction,
+            SolutionTechniqueEnum.NakedPair,
+            SolutionTechniqueEnum.XWing,
+            SolutionTechniqueEnum.HiddenPair,
+            SolutionTechniqueEnum.FinnedXWing,
+            SolutionTechniqueEnum.SashimiXWing,
+            SolutionTechniqueEnum.NakedTriple,
+            SolutionTechniqueEnum.Swordfish,
+            SolutionTechniqueEnum.HiddenTriple,
+            SolutionTechniqueEnum.FinnedSwordfish,
+            SolutionTechniqueEnum.SashimiSwordfish,
+            SolutionTechniqueEnum.XYWing,
+            SolutionTechniqueEnum.XYZWing,
+            SolutionTechniqueEnum.WWing,
+            SolutionTechniqueEnum.UniqueRectangle,
+            SolutionTechniqueEnum.SimpleColoring,
+            SolutionTechniqueEnum.NakedQuad,
+            SolutionTechniqueEnum.Jellyfish,
+            SolutionTechniqueEnum.HiddenQuad,
+            SolutionTechniqueEnum.BivalueUniversalGrave,
+            SolutionTechniqueEnum.XChain,
+            SolutionTechniqueEnum.XYChain,
+            SolutionTechniqueEnum.AIC,
+            SolutionTechniqueEnum.NishioForcingChain,
+            SolutionTechniqueEnum.CellForcingChain,
+            SolutionTechniqueEnum.RegionForcingChain
+        ]);
+    });
+
+    it('should list techniques from cheapest to most expensive', () => {
+        expect.assertions(1);
+
+        const orderedRatings = seTechniqueOrder.map(technique => seTechniqueRatings[technique]);
+
+        expect(orderedRatings).toEqual([...orderedRatings].sort((left, right) => left - right));
     });
 
     it('should break equal ratings by the registry enum ordinal', () => {
@@ -50,17 +83,6 @@ describe('seTechniqueRatings', () => {
         expect.assertions(1);
 
         expect(Object.keys(seTechniqueRatings)).toHaveLength(enumMemberCount);
-    });
-
-    it('should use the top of the forcing chain band as the reported ceiling', () => {
-        expect.assertions(4);
-
-        const orderedRatings = seTechniqueOrder.map(technique => seTechniqueRatings[technique]);
-
-        expect(SE_RATING_CEILING).toBe(SE_FORCING_CHAIN_RATING_MAXIMUM);
-        expect(SE_RATING_CEILING).toBe(seTechniqueRatings[SolutionTechniqueEnum.Guess]);
-        expect(SE_RATING_CEILING).toBeGreaterThanOrEqual(Math.max(...orderedRatings));
-        expect(SE_RATING_CEILING.toFixed(1)).toBe('8.5');
     });
 
     it('should price the uniqueness techniques at their published values', () => {

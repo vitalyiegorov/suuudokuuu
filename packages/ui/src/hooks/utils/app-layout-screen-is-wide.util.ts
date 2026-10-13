@@ -2,10 +2,7 @@ import { Breakpoints } from '../../theme/constant/breakpoints.constant';
 
 import { appLayoutGetSizeClass } from './app-layout-get-size-class.util';
 
-interface AppLayoutScreenInterface {
-    readonly width: number;
-    readonly height: number;
-}
+import type { AppLayoutInterface } from '../../interface/app-layout.interface';
 
-export const appLayoutScreenIsWide = (screen: AppLayoutScreenInterface): boolean =>
+export const appLayoutScreenIsWide = (screen: Pick<AppLayoutInterface, 'width' | 'height'>): boolean =>
     appLayoutGetSizeClass(screen.width, screen.height, Breakpoints.md) === 'wide';

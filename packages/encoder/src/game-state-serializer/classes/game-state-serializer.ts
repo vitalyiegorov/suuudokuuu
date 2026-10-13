@@ -1,14 +1,20 @@
+import { BitInputStream } from '@thi.ng/bitstream';
 import { decompressFromEncodedURIComponent } from 'lz-string';
+
+import { isNotEmptyString } from '@rnw-community/shared';
 
 import { BYTE_BITS } from '../../@generic/constants/base64url.constant';
 import { CODEC_PREFIX, CODEC_VERSION_BITS, CODEC_VERSION_V3 } from '../../@generic/constants/binary-codec.constant';
+import { CELL_INDEX_BITS, TIMESTAMP_BITS, VALUE_BITS } from '../../@generic/constants/bit-encoding.constant';
 import { SharedPayloadKindEnum } from '../../@generic/enums/shared-payload-kind.enum';
 import { TimelineEventKindEnum } from '../../@generic/enums/timeline-event-kind.enum';
 import { SolutionStepInterface } from '../../@generic/interfaces/solution-step.interface';
 import { base64urlToBytes } from '../../@generic/utils/base64url-to-bytes.util';
+import { isValidCellIndex } from '../../@generic/utils/is-valid-cell-index.util';
+import { isValidCellValue } from '../../@generic/utils/is-valid-cell-value.util';
+import { stringToUint8Array } from '../../@generic/utils/string-to-uint8array.util';
 import { GameStateBinaryCodec } from '../../game-state-binary-codec/classes/game-state-binary-codec';
 import { GameStateBinaryCodecV3 } from '../../game-state-binary-codec/classes/game-state-binary-codec-v3';
-import { Solution } from '../../solution/classes/solution';
 import { SudokuStringEncoder } from '../../sudoku-string-encoder/classes/sudoku-string-encoder';
 
 import type { DecodedGameStateInterface } from '../../@generic/interfaces/decoded-game-state.interface';
@@ -62,14 +68,14 @@ export class GameStateSerializer {
         }
 
         const [field, steps, maxMistakes, isChallenge] = segments;
-        const solution = Solution.fromString(steps);
+        const solutionSteps = this.parseLegacySteps(steps);
 
         return [
             this.sudokuEncoder.decode(field),
-            solution.getSteps(),
+            solutionSteps,
             parseInt(maxMistakes, 10) || 0,
             isChallenge === '1',
-            solution.getElapsedTime()
+            solutionSteps.reduce((total, step) => total + step.ts, 0)
         ] as const;
     }
 
@@ -105,6 +111,28 @@ export class GameStateSerializer {
             isRatingCeiling: false,
             difficulty: null
         };
+    }
+
+    private parseLegacySteps(packed: string): SolutionStepInterface[] {
+        if (!isNotEmptyString(packed)) {
+            return [];
+        }
+
+        const input = new BitInputStream(stringToUint8Array(packed));
+        const steps: SolutionStepInterface[] = [];
+        const bitsPerStep = CELL_INDEX_BITS + VALUE_BITS + TIMESTAMP_BITS;
+
+        while (input.position + bitsPerStep <= input.length) {
+            const cellIndex = input.read(CELL_INDEX_BITS);
+            const value = input.read(VALUE_BITS);
+            const ts = input.read(TIMESTAMP_BITS);
+
+            if (isValidCellIndex(cellIndex) && isValidCellValue(value)) {
+                steps.push({ cellIndex, value, ts });
+            }
+        }
+
+        return steps;
     }
 
     private parseSegments(packed: string): string[] {

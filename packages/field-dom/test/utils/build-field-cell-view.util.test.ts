@@ -7,6 +7,9 @@ import type { FieldCellViewContextInterface } from '../../src/interfaces/field-c
 const createCell = (y: number, x: number, value = 0) => ({ x, y, value, group: Math.floor(y / 3) * 3 + Math.floor(x / 3) });
 
 const emptyStepState = {
+    hintRegion: null,
+    regionCellKeys: new Set<string>(),
+    revealedImplicationCount: 0,
     patternCellKeys: new Set<string>(),
     targetCellKey: null,
     revealedCandidates: new Map<string, number[]>(),
@@ -71,7 +74,7 @@ describe('buildFieldCellView', () => {
             eliminatedCandidates: new Map([['0-0', [7]]]),
             placedValues: new Map([['0-0', 3]])
         };
-        const view = buildFieldCellView(cell, [9], createContext({ stepState }));
+        const view = buildFieldCellView(cell, [9, 3, 9], createContext({ stepState }));
 
         expect(view.candidates).toEqual([3, 7, 9]);
         expect(view.eliminatedCandidates).toEqual([7]);

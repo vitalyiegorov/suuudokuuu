@@ -28,15 +28,8 @@ export interface BetaReleaseCandidate extends ReleaseMetadata {
     readonly tagName: string;
 }
 
-export interface BetaRelease extends ReleaseMetadata {
-    readonly apkUrl: string;
+export interface BetaRelease extends Omit<BetaReleaseCandidate, 'checksumsUrl'> {
     readonly checksums: ReleaseChecksums;
-    readonly ipaUrl: string;
-    readonly name: string;
-    readonly publishedAt: string;
-    readonly releaseNotes: string;
-    readonly runNumber: number;
-    readonly tagName: string;
 }
 
 export type ResolveBetaReleaseResult =

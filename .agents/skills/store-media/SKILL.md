@@ -75,9 +75,9 @@ before relying on them.
   `submit.production.android.track` in `eas.json` and resolve the version code
   with `google_play_track_version_codes` (supply cannot infer one when it
   uploads no binary).
-- `tests/app-tests/flows/screenshots/` - capture flows (15 scenes),
+- `tests/app-tests/flows/screenshots/` - capture flows for the Maestro-only win and pause scenes,
   `tests/app-tests/scripts/capture-store-screenshots.ts` - runner,
-  `bake-landscape-screenshot.ts` - physical rotation bake.
+  `tests/app-tests/scripts/screenshot-scenes.ts` defines all fifteen scenes: thirteen direct-link captures and two Maestro captures. The runner rotates landscape pixels with `sips` and rejects remaining EXIF orientation metadata other than 1.
 - `.github/workflows/native-publish.yml` - store publish; `fastlane
   store_preflight` gates both jobs; metadata pushes after each `eas submit`;
   screenshots upload only with the `push_screenshots` checkbox.
@@ -221,8 +221,8 @@ Android emulator) are in the capture doc.
 - ImageMagick silently degrades composites to grayscale when a flat
   neutral layer is involved: force `-define png:color-type=2|6` on writes.
 - Maestro writes landscape screenshots in the portrait framebuffer with a
-  PNG eXIf orientation-6 hint; stores need baked pixels - the runner's
-  bake handles it.
+  PNG eXIf orientation-6 hint; stores need baked pixels. The runner rotates with
+  `sips` and asserts that orientation is 1 or absent before reporting success.
 - iPad GameScreen captures show a stray iPadOS predictive-text toolbar
   (suspected hidden hardware-keyboard listener in-app). Still unfixed, and
   present in every committed iPad shot - verified byte-for-byte identical

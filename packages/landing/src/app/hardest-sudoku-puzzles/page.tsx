@@ -3,6 +3,7 @@ import { SE_RATING_CEILING } from '@suuudokuuu/rating';
 import Link from 'next/link';
 
 import { PuzzleBoard } from '../../puzzle/components/puzzle-board/puzzle-board';
+import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
@@ -36,6 +37,7 @@ const AI_ESCARGOT_GIVENS = '1000070900300200080096005000053009000100800026000040
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HardestSudokuPuzzlesPage = () => (
     <main>
+        <ArticleSchema metadata={hardestSudokuPuzzlesPageMetadata} />
         <PageHeader metadata={hardestSudokuPuzzlesPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Hardest sudoku puzzles</BreadcrumbListItem>

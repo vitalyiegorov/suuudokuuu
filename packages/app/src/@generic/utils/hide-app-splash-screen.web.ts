@@ -1,7 +1,5 @@
-import { WebSplashElementId } from '../constants/web-splash.constant';
-
 export const hideAppSplashScreen = (): Promise<void> => {
-    document.getElementById(WebSplashElementId)?.remove();
+    document.getElementById('app-splash')?.remove();
 
     return Promise.resolve();
 };

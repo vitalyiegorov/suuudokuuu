@@ -12,8 +12,6 @@ import { TechniqueNavigation } from '../../../techniques/components/technique-na
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
-import { jellyfishPageMetadata } from '../jellyfish/metadata';
-import { xWingPageMetadata } from '../x-wing/metadata';
 
 import { swordfishPageMetadata } from './metadata';
 
@@ -139,7 +137,7 @@ const SwordfishPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={jellyfishPageMetadata} previous={xWingPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.Swordfish} />
     </main>
 );
 

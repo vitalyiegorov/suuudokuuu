@@ -12,8 +12,6 @@ import { TechniqueNavigation } from '../../../techniques/components/technique-na
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
-import { finnedSwordfishPageMetadata } from '../finned-swordfish/metadata';
-import { sashimiSwordfishPageMetadata } from '../sashimi-swordfish/metadata';
 
 import { sashimiXWingPageMetadata } from './metadata';
 
@@ -137,7 +135,7 @@ const SashimiXWingPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={sashimiSwordfishPageMetadata} previous={finnedSwordfishPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.SashimiXWing} />
     </main>
 );
 

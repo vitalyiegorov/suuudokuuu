@@ -1,5 +1,6 @@
 import Link from 'next/link';
 
+import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
@@ -24,6 +25,7 @@ export const metadata: Metadata = buildPageMetadata(whySuuudokuuuPageMetadata);
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const WhySuuudokuuuPage = () => (
     <main>
+        <ArticleSchema metadata={whySuuudokuuuPageMetadata} />
         <PageHeader metadata={whySuuudokuuuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Why {SITE_NAME}</BreadcrumbListItem>

@@ -3,15 +3,48 @@ import {
     DevelopmentChecksumsAssetName,
     DevelopmentIpaAssetName,
     DevelopmentReleaseAssetNames,
+    DevelopmentMetadataMarkerPrefix,
     DevelopmentReleaseTagPattern,
     MaximumChecksumsByteLength
 } from './beta-release.constant.js';
 import { githubReleaseSchema, githubReleasesSchema } from './github-release.schema.js';
-import { parseReleaseMetadata } from './parse-release-metadata.util.js';
-import { validateReleaseAssetUrl } from './validate-release-asset-url.util.js';
+import { releaseMetadataSchema } from './release-metadata.schema.js';
 
-import type { BetaReleaseCandidate } from './beta-release.interface.js';
+import type { BetaReleaseCandidate, ParsedReleaseMetadata } from './beta-release.interface.js';
 import type { GithubRelease, GithubReleaseAsset } from './github-release.schema.js';
+
+const MetadataMarkerPattern = /^<!-- suuudokuuu-development-metadata (.+?) -->/u;
+
+const parseMetadataJson = (metadataJson: string) => {
+    try {
+        const metadataInput: unknown = JSON.parse(metadataJson);
+        const metadataResult = releaseMetadataSchema.safeParse(metadataInput);
+
+        return metadataResult.success ? metadataResult.data : null;
+    } catch {
+        return null;
+    }
+};
+
+const parseReleaseMetadata = (releaseBody: string): ParsedReleaseMetadata | null => {
+    const markerOccurrences = releaseBody.split(DevelopmentMetadataMarkerPrefix).length - 1;
+    const markerMatch = MetadataMarkerPattern.exec(releaseBody);
+    const completeMarker = markerMatch?.at(0) ?? null;
+    const metadataJson = markerMatch?.at(1) ?? null;
+    if (markerOccurrences !== 1 || completeMarker === null || metadataJson === null) {
+        return null;
+    }
+
+    const metadata = parseMetadataJson(metadataJson);
+    if (metadata === null) {
+        return null;
+    }
+
+    return {
+        metadata,
+        releaseNotes: releaseBody.slice(completeMarker.length).trim()
+    };
+};
 
 interface NumberedBetaReleaseCandidate {
     readonly artifactAttempt: number;
@@ -76,21 +109,6 @@ const hasExactAssets = (release: GithubRelease) => {
     );
 };
 
-const hasValidAssetUrls = (
-    tagName: string,
-    ipaAsset: GithubReleaseAsset,
-    apkAsset: GithubReleaseAsset,
-    checksumsAsset: GithubReleaseAsset
-) =>
-    validateReleaseAssetUrl(ipaAsset.browser_download_url, tagName, DevelopmentIpaAssetName) &&
-    validateReleaseAssetUrl(apkAsset.browser_download_url, tagName, DevelopmentApkAssetName) &&
-    validateReleaseAssetUrl(checksumsAsset.browser_download_url, tagName, DevelopmentChecksumsAssetName);
-
-const isEligibleRelease = (
-    release: GithubRelease,
-    tag: Pick<NumberedBetaReleaseCandidate, 'artifactAttempt' | 'publishAttempt' | 'tagNumber'> | null
-) => !release.draft && release.prerelease && tag !== null && release.body !== null && hasExactAssets(release);
-
 const createCandidate = (
     release: GithubRelease,
     tag: Pick<NumberedBetaReleaseCandidate, 'artifactAttempt' | 'tagNumber'>,
@@ -100,7 +118,13 @@ const createCandidate = (
     if (parsedMetadata === null || release.name === null || release.published_at === null) {
         return null;
     }
-    if (!hasValidAssetUrls(release.tag_name, assets.ipa, assets.apk, assets.checksums)) {
+    if (
+        ![assets.ipa, assets.apk, assets.checksums].every(
+            asset =>
+                asset.browser_download_url ===
+                `https://github.com/vitalyiegorov/suuudokuuu/releases/download/${release.tag_name}/${asset.name}`
+        )
+    ) {
         return null;
     }
 
@@ -124,7 +148,7 @@ const createCandidate = (
 const createNumberedCandidate = (release: GithubRelease): NumberedBetaReleaseCandidate | null => {
     const tag = parseTagNumber(release.tag_name);
     const assets = getCandidateAssets(release);
-    if (!isEligibleRelease(release, tag) || tag === null || release.body === null || assets === null) {
+    if (release.draft || !release.prerelease || tag === null || release.body === null || assets === null || !hasExactAssets(release)) {
         return null;
     }
 

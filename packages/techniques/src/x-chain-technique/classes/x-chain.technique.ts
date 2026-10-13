@@ -10,7 +10,7 @@ import { ChainLinkEnum } from '../../@generic/enums/chain-link.enum';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { collectChainResults } from '../../@generic/utils/collect-chain-results.util';
 import { compareCells } from '../../@generic/utils/compare-cells.util';
-import { markContextSearchCapped } from '../../@generic/utils/context-scan-state.util';
+import { getContextUnitValueIndex, markContextSearchCapped } from '../../@generic/utils/context-scan-state.util';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { getCanonicalTechniqueResults } from '../../@generic/utils/get-canonical-technique-results.util';
 import { getChainEndpointEliminations } from '../../@generic/utils/get-chain-endpoint-eliminations.util';
@@ -60,7 +60,7 @@ export class XChainTechnique implements TechniqueStrategyInterface {
         return context
             .getBlankCells()
             .filter(cell => context.getCandidates(cell).includes(value))
-            .filter(cell => !target || (!isSameCell(cell, target.cell) && getTargetEliminations(context, cell, target, value).length > 0))
+            .filter(cell => !target || (!isSameCell(cell, target.cell) && getTargetEliminations(cell, target, value).length > 0))
             .sort(compareCells);
     }
 
@@ -75,9 +75,9 @@ export class XChainTechnique implements TechniqueStrategyInterface {
                 return;
             }
 
-            const canonicalResults = getCanonicalTechniqueResults(scan.results);
-
-            scan.results.splice(0, scan.results.length, ...canonicalResults);
+            if (scan.results.length > scan.resultsAtStart) {
+                scan.results.splice(0, scan.results.length, ...getCanonicalTechniqueResults(scan.results));
+            }
         }
     }
 
@@ -169,9 +169,10 @@ export class XChainTechnique implements TechniqueStrategyInterface {
 
     private getStrongNeighborsByCellKey(context: CandidateContext, value: number): Record<string, CellInterface[]> {
         const neighborsByCellKey: Record<string, CellInterface[]> = {};
+        const index = getContextUnitValueIndex(context);
 
-        for (const unit of context.getUnits()) {
-            const cells = unit.cells.filter(cell => context.getCandidates(cell).includes(value));
+        for (let unitPosition = 0; unitPosition < index.units.length; unitPosition += 1) {
+            const { cells } = index.getUnitValueEntry(unitPosition, value);
             const [firstCell, secondCell] = cells;
 
             if (cells.length === 2 && isDefined(firstCell) && isDefined(secondCell)) {

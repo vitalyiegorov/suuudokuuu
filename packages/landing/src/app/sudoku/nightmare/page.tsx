@@ -3,8 +3,9 @@ import Link from 'next/link';
 
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -42,6 +43,7 @@ const NightmareSudokuPage = () => {
 
     return (
         <main>
+            <ArticleSchema metadata={nightmareSudokuPageMetadata} />
             <PageHeader metadata={nightmareSudokuPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
@@ -64,7 +66,7 @@ const NightmareSudokuPage = () => {
                     </li>
                     <li>Chain and coloring techniques: X-Chain, XY-Chain, simple coloring and AIC.</li>
                     <li>
-                        Our sample of {nightmareReport.sampleSize} Nightmare boards measures SE <SeRatingRange report={nightmareReport} />.
+                        Our sample of {nightmareReport.sampleSize} Nightmare boards measures SE {formatSeRatingRange(nightmareReport)}.
                     </li>
                     <li>Nightmare is capped at AIC — a board resisting that is beyond what the generated tiers hand you.</li>
                 </ul>
@@ -86,8 +88,8 @@ const NightmareSudokuPage = () => {
             <h2>How hard is it, honestly</h2>
             <p>
                 Our sample of {nightmareReport.sampleSize} Nightmare boards measures SE (Sudoku Explainer){' '}
-                <SeRatingRange report={nightmareReport} />, with the <TechniqueLink technique={nightmareReport.typicalHardestTechnique} />{' '}
-                as the most common hardest step. AIC is the ceiling here: every Nightmare board falls to it, and the{' '}
+                {formatSeRatingRange(nightmareReport)}, with the <TechniqueLink technique={nightmareReport.typicalHardestTechnique} /> as
+                the most common hardest step. AIC is the ceiling here: every Nightmare board falls to it, and the{' '}
                 <Link href={hellSudokuPageMetadata.path}>Hell tier</Link> begins exactly where it stops, with boards that need a forcing
                 chain. Some of those Hell boards carry more givens than Nightmare does, which is the clearest evidence on the site that clue
                 count and difficulty are separate facts. The measured tables live in our{' '}
@@ -111,8 +113,8 @@ const NightmareSudokuPage = () => {
                 <Faq>
                     <FaqQuestion>How hard is Nightmare sudoku?</FaqQuestion>
                     <FaqAnswer>
-                        It is Suuudokuuu’s hardest generated tier, measured at SE <SeRatingRange report={nightmareReport} /> across a sample
-                        of {nightmareReport.sampleSize} boards. Every one of them needs chain or coloring logic on top of the fish and wing
+                        It is Suuudokuuu’s hardest generated tier, measured at SE {formatSeRatingRange(nightmareReport)} across a sample of{' '}
+                        {nightmareReport.sampleSize} boards. Every one of them needs chain or coloring logic on top of the fish and wing
                         patterns Hard already requires.
                     </FaqAnswer>
                 </Faq>

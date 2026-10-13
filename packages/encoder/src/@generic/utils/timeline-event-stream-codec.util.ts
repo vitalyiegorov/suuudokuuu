@@ -10,15 +10,41 @@ import {
 } from '../constants/binary-codec.constant';
 import { VALUE_BITS } from '../constants/bit-encoding.constant';
 import { GRID_EMPTY_CELL } from '../constants/grid.constant';
-import { cellPayloadKinds, timelineEventKindByCode } from '../constants/timeline-event-codes.constant';
 import { TimelineEventKindEnum } from '../enums/timeline-event-kind.enum';
 
-import { collectEmptyCells, getPositionBits, readPackedValues, writePackedValues } from './givens-codec.util';
+import { collectEmptyCells, readCellPositions, writeCellPositions, readPackedValues, writePackedValues } from './givens-codec.util';
+import { isValidCellIndex } from './is-valid-cell-index.util';
+import { isValidCellValue } from './is-valid-cell-value.util';
 import { readVarint, writeVarint } from './varint.util';
 
-import type { TimelineEventStreamsInterface } from '../interfaces/timeline-event-streams.interface';
 import type { CellTimelineEventInterface, TimelineEventInterface } from '../interfaces/timeline-event.interface';
 import type { BitInputStream, BitOutputStream } from '@thi.ng/bitstream';
+
+const timelineEventKindByCode: Record<number, TimelineEventKindEnum> = {
+    [TimelineEventKindEnum.Cell]: TimelineEventKindEnum.Cell,
+    [TimelineEventKindEnum.Pencil]: TimelineEventKindEnum.Pencil,
+    [TimelineEventKindEnum.InputMode]: TimelineEventKindEnum.InputMode,
+    [TimelineEventKindEnum.AutoCandidates]: TimelineEventKindEnum.AutoCandidates,
+    [TimelineEventKindEnum.Mistake]: TimelineEventKindEnum.Mistake,
+    [TimelineEventKindEnum.Away]: TimelineEventKindEnum.Away,
+    [TimelineEventKindEnum.Return]: TimelineEventKindEnum.Return,
+    [TimelineEventKindEnum.Pause]: TimelineEventKindEnum.Pause,
+    [TimelineEventKindEnum.Resume]: TimelineEventKindEnum.Resume,
+    [TimelineEventKindEnum.Screenshot]: TimelineEventKindEnum.Screenshot,
+    [TimelineEventKindEnum.Hint]: TimelineEventKindEnum.Hint
+};
+
+interface TimelineEventStreamsInterface {
+    readonly kinds: TimelineEventKindEnum[];
+    readonly timestamps: number[];
+    readonly cellIndexes: number[];
+    readonly cellValues: number[];
+    readonly payloadIndexes: number[];
+    readonly payloadValues: number[];
+}
+
+const isCellPayloadKind = (kind: TimelineEventKindEnum): kind is TimelineEventKindEnum.Pencil | TimelineEventKindEnum.Mistake =>
+    kind === TimelineEventKindEnum.Pencil || kind === TimelineEventKindEnum.Mistake;
 
 const writeCellCharsToField = (
     field: string,
@@ -60,27 +86,18 @@ const writeEventTags = (out: BitOutputStream, events: TimelineEventInterface[]):
 };
 
 const writeCellEvents = (out: BitOutputStream, givens: string, events: TimelineEventInterface[]): void => {
-    const emptyCells = collectEmptyCells(givens);
-    const cellValues: number[] = [];
+    const cellEvents = events.filter(event => event.kind === TimelineEventKindEnum.Cell);
 
-    for (const event of events) {
-        if (event.kind === TimelineEventKindEnum.Cell) {
-            const position = emptyCells.indexOf(event.cellIndex);
-            if (position === -1) {
-                throw new Error('Invalid timeline cell event');
-            }
-
-            const width = getPositionBits(emptyCells.length);
-            if (width > 0) {
-                out.write(position, width);
-            }
-
-            emptyCells.splice(position, 1);
-            cellValues.push(event.value);
-        }
-    }
-
-    writePackedValues(out, cellValues);
+    writeCellPositions(
+        out,
+        collectEmptyCells(givens),
+        cellEvents.map(event => event.cellIndex),
+        'Invalid timeline cell event'
+    );
+    writePackedValues(
+        out,
+        cellEvents.map(event => event.value)
+    );
 };
 
 export const writeTimelineEvents = (
@@ -102,7 +119,11 @@ export const writeTimelineEvents = (
     }
 
     for (const event of events) {
-        if (cellPayloadKinds.includes(event.kind) && 'cellIndex' in event) {
+        if (isCellPayloadKind(event.kind) && 'cellIndex' in event) {
+            if (!isValidCellIndex(event.cellIndex) || !isValidCellValue(event.value)) {
+                throw new Error('Invalid timeline cell payload');
+            }
+
             out.write(event.cellIndex, CELL_INDEX_BITS_ABSOLUTE);
             out.write(event.value - 1, VALUE_BITS);
         }
@@ -137,20 +158,7 @@ const readCellIndexes = (input: BitInputStream, field: string, cellCount: number
         throw new Error('Invalid timeline cell event count');
     }
 
-    const cellIndexes: number[] = [];
-    for (let cellEventIndex = 0; cellEventIndex < cellCount; cellEventIndex += 1) {
-        const width = getPositionBits(emptyCells.length);
-        const position = width > 0 ? input.read(width) : 0;
-
-        if (position >= emptyCells.length) {
-            throw new Error('Invalid timeline cell event position');
-        }
-
-        cellIndexes.push(emptyCells[position]);
-        emptyCells.splice(position, 1);
-    }
-
-    return cellIndexes;
+    return readCellPositions(input, emptyCells, cellCount, 'Invalid timeline cell event position');
 };
 
 const readEventStreams = (input: BitInputStream, field: string, kinds: TimelineEventKindEnum[]): TimelineEventStreamsInterface => {
@@ -162,9 +170,16 @@ const readEventStreams = (input: BitInputStream, field: string, kinds: TimelineE
     const payloadValues: number[] = [];
 
     for (const kind of kinds) {
-        if (cellPayloadKinds.includes(kind)) {
-            payloadIndexes.push(input.read(CELL_INDEX_BITS_ABSOLUTE));
-            payloadValues.push(input.read(VALUE_BITS) + 1);
+        if (isCellPayloadKind(kind)) {
+            const cellIndex = input.read(CELL_INDEX_BITS_ABSOLUTE);
+            const value = input.read(VALUE_BITS) + 1;
+
+            if (!isValidCellIndex(cellIndex) || !isValidCellValue(value)) {
+                throw new Error('Invalid timeline cell payload');
+            }
+
+            payloadIndexes.push(cellIndex);
+            payloadValues.push(value);
         }
     }
 
@@ -186,7 +201,7 @@ const buildEvents = (streams: TimelineEventStreamsInterface): TimelineEventInter
             return;
         }
 
-        if (kind === TimelineEventKindEnum.Pencil || kind === TimelineEventKindEnum.Mistake) {
+        if (isCellPayloadKind(kind)) {
             events.push({
                 kind,
                 cellIndex: streams.payloadIndexes[payloadEventIndex],

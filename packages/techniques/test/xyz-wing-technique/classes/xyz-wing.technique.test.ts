@@ -1,5 +1,7 @@
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { describe, expect, it } from 'vitest';
 
+import { CandidateContext } from '../../../src/@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-technique.enum';
 import { XYZWingTechnique } from '../../../src/xyz-wing-technique/classes/xyz-wing.technique';
 import { createCandidateContextFromMap } from '../../@generic/test-utils/create-candidate-context-from-map.spec.util';
@@ -24,5 +26,15 @@ describe('XYZWingTechnique', () => {
                 ]
             }
         ]);
+    });
+
+    it('does not eliminate candidates on a real board without a wing', () => {
+        const context = CandidateContext.fromSudoku(
+            Sudoku.fromString('000000051000000023004005000000000600000130000007680000429006500370400000810000000', defaultSudokuConfig)
+        );
+
+        expect(context.getBlankCells().some(cell => context.getCandidates(cell).length === 3)).toBe(true);
+        expect(context.getBlankCells().some(cell => context.getCandidates(cell).length === 2)).toBe(true);
+        expect(new XYZWingTechnique().find(context)).toEqual([]);
     });
 });

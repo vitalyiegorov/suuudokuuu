@@ -13,9 +13,11 @@ import { TIMESTAMP_BITS } from '../../@generic/constants/bit-encoding.constant';
 import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../../@generic/constants/grid.constant';
 import { base64urlToBytes } from '../../@generic/utils/base64url-to-bytes.util';
 import { bytesToBase64url } from '../../@generic/utils/bytes-to-base64url.util';
+import { clampToRange } from '../../@generic/utils/clamp-to-range.util';
 import {
     collectEmptyCells,
-    getPositionBits,
+    readCellPositions,
+    writeCellPositions,
     readGivens,
     readPackedValues,
     writeGivens,
@@ -38,7 +40,7 @@ export class GameStateBinaryCodec {
         out.write(CODEC_VERSION, CODEC_VERSION_BITS);
         out.write(isChallenge ? 1 : 0, 1);
         out.write(0, CODEC_RESERVED_BITS);
-        out.write(this.clampMaxMistakes(maxMistakes), MAX_MISTAKES_BITS);
+        out.write(clampToRange(maxMistakes, MAX_MISTAKES_LIMIT), MAX_MISTAKES_BITS);
 
         writeGivens(out, givens);
 
@@ -68,14 +70,6 @@ export class GameStateBinaryCodec {
         return [field, steps, maxMistakes, isChallenge, elapsedTime];
     }
 
-    private clampMaxMistakes(maxMistakes: number): number {
-        return Math.min(Math.max(Math.trunc(maxMistakes), 0), MAX_MISTAKES_LIMIT);
-    }
-
-    private clampTimestamp(ts: number): number {
-        return Math.min(Math.max(Math.trunc(ts), 0), this.maxTimestamp);
-    }
-
     private removeStepsFromField(field: string, steps: SolutionStepInterface[]): string {
         const chars = field.split('');
 
@@ -94,30 +88,19 @@ export class GameStateBinaryCodec {
 
         out.write(steps.length, STEP_COUNT_BITS);
 
-        this.writeStepPositions(out, emptyCells, steps);
+        writeCellPositions(
+            out,
+            emptyCells,
+            steps.map(step => step.cellIndex),
+            'Invalid solution step cell'
+        );
         writePackedValues(
             out,
             steps.map(step => step.value)
         );
 
         for (const step of steps) {
-            out.write(this.clampTimestamp(step.ts), TIMESTAMP_BITS);
-        }
-    }
-
-    private writeStepPositions(out: BitOutputStream, emptyCells: number[], steps: SolutionStepInterface[]): void {
-        for (const step of steps) {
-            const position = emptyCells.indexOf(step.cellIndex);
-            if (position === -1) {
-                throw new Error('Invalid solution step cell');
-            }
-
-            const width = getPositionBits(emptyCells.length);
-            if (width > 0) {
-                out.write(position, width);
-            }
-
-            emptyCells.splice(position, 1);
+            out.write(clampToRange(step.ts, this.maxTimestamp), TIMESTAMP_BITS);
         }
     }
 
@@ -129,7 +112,7 @@ export class GameStateBinaryCodec {
             throw new Error('Invalid solution step count');
         }
 
-        const cellIndexes = this.readStepCellIndexes(input, emptyCells, count);
+        const cellIndexes = readCellPositions(input, emptyCells, count, 'Invalid solution step position');
         const values = readPackedValues(input, count);
 
         const timestamps: number[] = [];
@@ -142,23 +125,5 @@ export class GameStateBinaryCodec {
             value: values[stepIndex],
             ts: timestamps[stepIndex]
         }));
-    }
-
-    private readStepCellIndexes(input: BitInputStream, emptyCells: number[], count: number): number[] {
-        const cellIndexes: number[] = [];
-
-        for (let stepIndex = 0; stepIndex < count; stepIndex += 1) {
-            const width = getPositionBits(emptyCells.length);
-            const position = width > 0 ? input.read(width) : 0;
-
-            if (position >= emptyCells.length) {
-                throw new Error('Invalid solution step position');
-            }
-
-            cellIndexes.push(emptyCells[position]);
-            emptyCells.splice(position, 1);
-        }
-
-        return cellIndexes;
     }
 }

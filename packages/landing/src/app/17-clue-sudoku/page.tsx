@@ -1,6 +1,7 @@
 import { HELL_CORPUS_MAXIMUM_GIVEN_COUNT, HELL_CORPUS_MINIMUM_GIVEN_COUNT } from '@suuudokuuu/hell-corpus';
 import Link from 'next/link';
 
+import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
@@ -28,6 +29,7 @@ export const metadata: Metadata = buildPageMetadata(seventeenClueSudokuPageMetad
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SeventeenClueSudokuPage = () => (
     <main>
+        <ArticleSchema metadata={seventeenClueSudokuPageMetadata} />
         <PageHeader metadata={seventeenClueSudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>17-clue sudoku</BreadcrumbListItem>

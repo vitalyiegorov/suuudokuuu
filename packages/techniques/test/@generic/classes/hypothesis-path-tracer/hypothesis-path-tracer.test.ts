@@ -7,7 +7,6 @@ import { HypothesisPropagator } from '../../../../src/@generic/classes/hypothesi
 import { ForcingOutcomeKindEnum } from '../../../../src/@generic/enums/forcing-outcome-kind.enum';
 import { getValueBit } from '../../../../src/@generic/utils/get-value-bit.util';
 import { hasMaskValue } from '../../../../src/@generic/utils/has-mask-value.util';
-import { removeMaskValue } from '../../../../src/@generic/utils/remove-mask-value.util';
 import { CellForcingChainTechnique } from '../../../../src/cell-forcing-chain-technique/classes/cell-forcing-chain.technique';
 import { NishioForcingChainTechnique } from '../../../../src/nishio-forcing-chain-technique/classes/nishio-forcing-chain.technique';
 import { RegionForcingChainTechnique } from '../../../../src/region-forcing-chain-technique/classes/region-forcing-chain.technique';
@@ -48,7 +47,9 @@ class BranchReplay {
         this.values[cellIndex] = candidate.value;
         this.masks[cellIndex] = 0;
         this.board.peerIndexes[cellIndex].forEach(peerIndex => {
-            this.masks[peerIndex] = removeMaskValue(this.masks[peerIndex], candidate.value);
+            if (hasMaskValue(this.masks[peerIndex], candidate.value)) {
+                this.masks[peerIndex] -= getValueBit(candidate.value);
+            }
         });
 
         return true;
@@ -64,7 +65,7 @@ class BranchReplay {
         );
     }
 
-    private hasNoPosition(unitCellIndexes: number[], value: number, exceptCellIndex = -1): boolean {
+    private hasNoPosition(unitCellIndexes: readonly number[], value: number, exceptCellIndex = -1): boolean {
         return unitCellIndexes.every(
             cellIndex =>
                 cellIndex === exceptCellIndex ||

@@ -1,4 +1,5 @@
 import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
+import { SpacingConstant } from '@suuudokuuu/ui/theme';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { AppIconButtonSize } from '../../../../@generic/components/app-icon-button/constant/app-icon-button-size.constant';
@@ -6,7 +7,11 @@ import { GamePanelHorizontalPaddingConstant, GamePanelWideRowWidthConstant } fro
 import { PanelControlPillRadiusConstant, PanelControlPrimarySizeConstant } from '../../../../game/constant/panel-control-size.constant';
 import { gameGetNumpadRowWidth } from '../../../../game/utils/game-get-numpad-row-width.util';
 
-import { GameInputToolsMinRowWidthConstant, GameInputToolsWideSizeConstant } from './constant/game-input-tools.constant';
+const GameInputToolsCountConstant = 5;
+const gameInputToolsGapsWidth = SpacingConstant.sm * (GameInputToolsCountConstant - 1);
+const GameInputToolsWideSizeConstant = Math.floor((GamePanelWideRowWidthConstant - gameInputToolsGapsWidth) / GameInputToolsCountConstant);
+const GameInputToolsMinRowWidthConstant =
+    AppIconButtonSize * (GameInputToolsCountConstant - 1) + PanelControlPrimarySizeConstant + gameInputToolsGapsWidth;
 
 export const GameInputToolsStyles = StyleSheet.create((theme, rt) => {
     const isWideLayout = appLayoutScreenIsWide(rt.screen);

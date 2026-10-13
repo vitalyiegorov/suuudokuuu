@@ -17,7 +17,7 @@ export const PauseScreenStats = ({ timeText, scoreText, mistakesText }: Props) =
     const isCalmMode = useSettings().calmMode;
 
     return (
-        <AppMetricStrip separatorStyle={styles.separator} style={styles.strip} variant="ghost">
+        <AppMetricStrip separatorStyle={styles.separator} style={styles.strip}>
             <AppMetricStripValueItem
                 label={t`Time`}
                 labelStyle={styles.label}

@@ -4,14 +4,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
 
-import {
-    ChromeScrollPageContentInsetTop,
-    ChromeScrollPageContentTuck,
-    ChromeScrollPageFooterExtraReserve,
-    ChromeScrollPageFooterFadeIntensity,
-    ChromeScrollPageFooterMinReserve,
-    ChromeScrollPageTopFadeHeight
-} from '../../constants/chrome-scroll-page.constant';
+import { AppScreenChromeLayoutConfig } from '../../constants/screen-chrome-config.constant';
 import { ChromePage } from '../chrome-page/chrome-page';
 import { StickyFooterBand } from '../sticky-footer-band/sticky-footer-band';
 
@@ -25,6 +18,13 @@ interface Props {
     readonly footer: ReactNode;
     readonly testID?: string;
 }
+
+const ChromeScrollPageTopFadeHeight = 144;
+const ChromeScrollPageContentTuck = 36;
+const ChromeScrollPageContentInsetTop = AppScreenChromeLayoutConfig.headerTopInset + 40;
+const ChromeScrollPageFooterFadeIntensity = 80;
+const ChromeScrollPageFooterMinReserve = 132;
+const ChromeScrollPageFooterExtraReserve = 88;
 
 export const ChromeScrollPage = ({ children, footer, testID }: Props) => {
     const insets = useSafeAreaInsets();

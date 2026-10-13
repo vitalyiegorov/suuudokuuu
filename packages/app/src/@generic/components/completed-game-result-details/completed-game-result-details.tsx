@@ -28,7 +28,7 @@ export const CompletedGameResultDetails = ({
 
     return (
         <>
-            <AppMetricStrip style={styles.strip} variant="ghost">
+            <AppMetricStrip style={styles.strip}>
                 <AppMetricStripValueItem label={t`Time`} style={styles.item} testID={timeTestID} value={timeText} />
                 <AppMetricStripValueItem label={t`Mistakes`} style={styles.item} testID={mistakesTestID} value={String(mistakes)} />
             </AppMetricStrip>

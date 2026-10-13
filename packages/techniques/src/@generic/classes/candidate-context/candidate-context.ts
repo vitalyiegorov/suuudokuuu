@@ -1,5 +1,6 @@
 import { isDefined, isEmptyArray, isNotEmptyArray } from '@rnw-community/shared';
 
+import { isSameCell } from '../../utils/is-same-cell.util';
 import { BoardGeometry } from '../board-geometry/board-geometry';
 
 import type { CandidateEliminationInterface } from '../../interfaces/candidate-elimination.interface';
@@ -142,9 +143,13 @@ export class CandidateContext {
 
         const otherCells = cells.slice(1);
 
-        return this.getPeers(firstCell).filter(peer =>
-            otherCells.every(cell => this.getPeers(cell).some(otherPeer => this.isSameCell(peer, otherPeer)))
-        );
+        const firstCellIndex = this.geometry.getCellIndex(firstCell);
+        const otherPeerIndexes = otherCells.map(cell => this.geometry.getPeerCellIndexes(this.geometry.getCellIndex(cell)));
+
+        return this.geometry
+            .getPeerCellIndexes(firstCellIndex)
+            .filter(peerCellIndex => otherPeerIndexes.every(peerIndexes => peerIndexes.includes(peerCellIndex)))
+            .map(peerCellIndex => this.getCachedCells()[peerCellIndex]);
     }
 
     private createCandidatesFromMap(candidateMap: CandidateMapType): readonly (readonly number[])[] {
@@ -238,11 +243,7 @@ export class CandidateContext {
     }
 
     private createFieldWithValue(cell: CellInterface, value: number): FieldInterface {
-        return this.field.map(row => row.map(fieldCell => (this.isSameCell(fieldCell, cell) ? { ...fieldCell, value } : fieldCell)));
-    }
-
-    private isSameCell(cell: CellInterface, otherCell: CellInterface): boolean {
-        return cell.x === otherCell.x && cell.y === otherCell.y;
+        return this.field.map(row => row.map(fieldCell => (isSameCell(fieldCell, cell) ? { ...fieldCell, value } : fieldCell)));
     }
 
     static fromSudoku(sudoku: Sudoku): CandidateContext {

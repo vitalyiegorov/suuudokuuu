@@ -1,46 +1,34 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import {
-    AppSettingsRowContentGap,
-    AppSettingsRowDescriptionFontSize,
-    AppSettingsRowDescriptionLineHeight,
-    AppSettingsRowGap,
-    AppSettingsRowLeadingPadding,
-    AppSettingsRowMinHeight,
-    AppSettingsRowTitleFontSize,
-    AppSettingsRowTitleLetterSpacing,
-    AppSettingsRowTitleLineHeight,
-    AppSettingsRowTrailingPadding,
-    AppSettingsRowVerticalPadding
-} from './constant/app-settings-row-size.constant';
-
 export const AppSettingsRowStyles = StyleSheet.create(theme => ({
     content: {
         flex: 1,
-        gap: AppSettingsRowContentGap,
+        gap: 2,
         minWidth: 0
     },
     description: {
+        color: theme.colors.text.hint,
         fontFamily: theme.typography.fontFamily,
-        fontSize: AppSettingsRowDescriptionFontSize,
-        lineHeight: AppSettingsRowDescriptionLineHeight
+        fontSize: 13,
+        lineHeight: 17
     },
     row: {
         alignItems: 'center',
         flexDirection: 'row',
-        gap: AppSettingsRowGap,
+        gap: 12,
         justifyContent: 'space-between',
-        minHeight: AppSettingsRowMinHeight,
-        paddingStart: AppSettingsRowLeadingPadding,
-        paddingEnd: AppSettingsRowTrailingPadding,
-        paddingVertical: AppSettingsRowVerticalPadding,
+        minHeight: 58,
+        paddingStart: 16,
+        paddingEnd: 14,
+        paddingVertical: 11,
         width: '100%'
     },
     title: {
+        color: theme.colors.text.primary,
         fontFamily: theme.typography.fontFamily,
-        fontSize: AppSettingsRowTitleFontSize,
-        letterSpacing: AppSettingsRowTitleLetterSpacing,
-        lineHeight: AppSettingsRowTitleLineHeight
+        fontSize: 16,
+        letterSpacing: -0.19,
+        lineHeight: 21
     },
     trailing: {
         alignItems: 'center',

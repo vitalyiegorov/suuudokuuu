@@ -12,8 +12,8 @@ import {
 } from '@rnw-community/react-native-screen-chrome';
 import { isDefined } from '@rnw-community/shared';
 
-import { ScreenChromeContentInsetTop } from '../../constants/screen-chrome-content-inset.constant';
-import { useBackdropRecomposite } from '../../hooks/use-backdrop-recomposite/use-backdrop-recomposite.hook';
+import { AppScreenChromeConfig } from '../../constants/screen-chrome-config.constant';
+import { backdropRecompositeRef } from '../../utils/backdrop-recomposite-ref.util';
 import { HeaderBackButton } from '../header-back-button/header-back-button';
 import { Header } from '../header/header';
 import { TabBarInsetContext } from '../main-tab-layout/context/tab-bar-inset.context';
@@ -34,12 +34,12 @@ interface Props {
 }
 
 const CollapsibleChromePageFooterContentInset = 96;
+const ScreenChromeContentInsetTop = AppScreenChromeConfig.headerHeight + 8;
 
 export const CollapsibleChromePage = (props: Props) => {
     const { children, contentContainerStyle, footer, style, testID, title } = props;
 
     const tabBarInset = use(TabBarInsetContext);
-    const backdropRecompositeRef = useBackdropRecomposite();
 
     const footerInset = isDefined(footer) ? CollapsibleChromePageFooterContentInset : 0;
     const contentInsetBottom = footerInset + tabBarInset;

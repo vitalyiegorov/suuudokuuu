@@ -10,6 +10,7 @@ import { SoftwareApplicationSchema } from '../seo/components/software-applicatio
 import { WebSiteSchema } from '../seo/components/web-site-schema/web-site-schema';
 import { SITE_DESCRIPTION, SITE_NAME, SITE_PLAY_URL } from '../seo/constants/site.constant';
 import { buildPageMetadata } from '../seo/utils/build-page-metadata.util';
+import { resolvePageHeadline } from '../seo/utils/resolve-page-headline.util';
 
 import { glossaryPageMetadata } from './glossary/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from './hardest-sudoku-puzzles/metadata';
@@ -33,7 +34,7 @@ const HomePage = () => (
     <main>
         <WebSiteSchema metadata={homePageMetadata} />
         <p className="hero__eyebrow">Free, open-source, no ads</p>
-        <h1>Play Free Online Sudoku</h1>
+        <h1>{resolvePageHeadline(homePageMetadata)}</h1>
         <p>
             Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall,
             and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity,

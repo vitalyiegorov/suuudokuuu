@@ -15,4 +15,5 @@ test('answers an unknown path with the landing 404 document and its site chrome'
     expect(html).toContain('<header class="site-header">');
     expect(html).toContain('<footer class="site-footer">');
     expect(html).toContain('<meta name="robots" content="noindex"/>');
+    expect(html).not.toMatch(/<meta name="robots" content="[^"]*\bindex\b[^"]*"/u);
 });

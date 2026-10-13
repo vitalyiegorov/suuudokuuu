@@ -12,7 +12,7 @@ import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getMistakesTypeText } from '../../../@generic/utils/get-mistakes-type-text.util';
-import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
+import { decodeSharedGameState } from '../../../game/utils/decode-shared-game-state.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { ChallengeLossReason } from '../../enums/challenge-loss-reason.enum';
 import { ChallengeResult } from '../../interfaces/challenge-result.interface';
@@ -55,7 +55,7 @@ export const ChallengeResultScreen = (props: Props) => {
     const durationParts = getChallengeDurationParts(marginSeconds);
     const playerSummary = getChallengeRecordingSummary(timelineEvents, elapsedTime);
     const rivalSummary = getChallengeRivalRunSummary(challengeState, challengeTime);
-    const rivalGameState = stringToGameState(challengeState);
+    const rivalGameState = decodeSharedGameState(challengeState).gameState;
     const lostByMistakes = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Mistakes;
     const lostByTime = result === ChallengeResult.Lost && lossReason === ChallengeLossReason.Time;
 

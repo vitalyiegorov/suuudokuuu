@@ -12,8 +12,6 @@ import { TechniqueNavigation } from '../../../techniques/components/technique-na
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
-import { simpleColoringPageMetadata } from '../simple-coloring/metadata';
-import { xChainPageMetadata } from '../x-chain/metadata';
 
 import { xyChainPageMetadata } from './metadata';
 
@@ -139,7 +137,7 @@ const XYChainPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={simpleColoringPageMetadata} previous={xChainPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.XYChain} />
     </main>
 );
 

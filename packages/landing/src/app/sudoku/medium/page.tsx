@@ -3,8 +3,9 @@ import Link from 'next/link';
 
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -42,6 +43,7 @@ const MediumSudokuPage = () => {
 
     return (
         <main>
+            <ArticleSchema metadata={mediumSudokuPageMetadata} />
             <PageHeader metadata={mediumSudokuPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
@@ -66,7 +68,7 @@ const MediumSudokuPage = () => {
                     </li>
                     <li>Intersections: pointing pair, pointing triple, box line reduction. Subsets: naked pair, hidden pair.</li>
                     <li>
-                        Our sample of {mediumReport.sampleSize} Medium boards measures SE <SeRatingRange report={mediumReport} />.
+                        Our sample of {mediumReport.sampleSize} Medium boards measures SE {formatSeRatingRange(mediumReport)}.
                     </li>
                     <li>Nothing in the tier ever needs a fish, a wing or a chain — a board that does is promoted to Hard instead.</li>
                 </ul>
@@ -87,7 +89,7 @@ const MediumSudokuPage = () => {
             </p>
             <h2>How hard is it, honestly</h2>
             <p>
-                Our sample of {mediumReport.sampleSize} Medium boards measures SE <SeRatingRange report={mediumReport} />, and{' '}
+                Our sample of {mediumReport.sampleSize} Medium boards measures SE {formatSeRatingRange(mediumReport)}, and{' '}
                 {mediumReport.singlesOnlyPuzzleCount} of {mediumReport.sampleSize} finished on singles alone — this is the first tier where
                 that number is zero by construction. The most common hardest step in the sample is the{' '}
                 <TechniqueLink technique={mediumReport.typicalHardestTechnique} />, and the hardest anything reached is the{' '}

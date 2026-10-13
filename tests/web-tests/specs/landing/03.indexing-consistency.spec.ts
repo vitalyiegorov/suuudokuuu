@@ -31,7 +31,7 @@ test('every sitemap URL is a unique canonical-origin page the static export actu
     expect(statuses).toEqual(urls.map(url => `${url} ${okStatus}`));
 });
 
-test('robots.txt advertises the sitemap and keeps the build output out of the index', async ({ request }) => {
+test('robots.txt advertises the sitemap and allows crawlers to load rendering assets', async ({ request }) => {
     const response = await request.get(robotsPath);
 
     expect(response.status()).toBe(okStatus);
@@ -39,7 +39,7 @@ test('robots.txt advertises the sitemap and keeps the build output out of the in
     const robots = await response.text();
 
     expect(robots).toContain(`Sitemap: ${SITE_ORIGIN}${sitemapPath}`);
-    expect(robots).toContain('Disallow: /_next/');
+    expect(robots).not.toMatch(/^Disallow:\s*\/_next(?:\/|\s|$)/gmu);
     expect(robots).toContain('Allow: /');
 });
 

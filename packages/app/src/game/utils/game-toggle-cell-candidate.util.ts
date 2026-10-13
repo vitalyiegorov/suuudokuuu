@@ -1,3 +1,5 @@
+import { emptyFn } from '@rnw-community/shared';
+
 import { runCurrentRunCommand } from './run-current-run-command.util';
 
 import type { FieldEngine } from '@suuudokuuu/field-core';
@@ -7,5 +9,5 @@ export const gameToggleCellCandidate = (engine: FieldEngine, cell: CellInterface
     engine.toggleCandidate(cell, cell.value);
     void runCurrentRunCommand(currentRunService =>
         currentRunService.toggleCellCandidate({ cell, candidates: engine.serialize().candidates })
-    );
+    ).catch(emptyFn);
 };

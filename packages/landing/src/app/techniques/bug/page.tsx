@@ -13,7 +13,6 @@ import { TechniqueNavigation } from '../../../techniques/components/technique-na
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
-import { nishioForcingChainPageMetadata } from '../nishio-forcing-chain/metadata';
 import { uniqueRectanglePageMetadata } from '../unique-rectangle/metadata';
 import { xyChainPageMetadata } from '../xy-chain/metadata';
 
@@ -139,7 +138,7 @@ const BugPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={nishioForcingChainPageMetadata} previous={uniqueRectanglePageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.BivalueUniversalGrave} />
     </main>
 );
 

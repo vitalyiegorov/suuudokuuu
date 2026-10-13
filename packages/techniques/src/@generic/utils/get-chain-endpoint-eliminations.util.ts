@@ -26,7 +26,5 @@ export const getChainEndpointEliminations = (
         return [];
     }
 
-    return target
-        ? getTargetEliminations(context, lastCell, target, value)
-        : getCommonPeerEliminations(context, [firstCell, lastCell], value, path);
+    return target ? getTargetEliminations(lastCell, target, value) : getCommonPeerEliminations(context, [firstCell, lastCell], value, path);
 };

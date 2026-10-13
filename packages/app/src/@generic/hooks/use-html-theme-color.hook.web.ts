@@ -3,13 +3,13 @@ import { useCallback } from 'react';
 
 import { isDefined } from '@rnw-community/shared';
 
-const getThemeColorMeta = (initialColor?: string) => {
+const getThemeColorMeta = () => {
     const tag = document.querySelector<HTMLMetaElement>(`meta[name='theme-color']`);
 
     if (!isDefined(tag)) {
         const meta = document.createElement('meta');
         meta.name = 'theme-color';
-        meta.content = initialColor ?? '';
+        meta.content = '';
         document.head.appendChild(meta);
 
         return meta;

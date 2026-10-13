@@ -389,7 +389,7 @@ msgstr "المساعدات"
 msgid "At least one end of this chain must be true."
 msgstr "يجب أن يكون أحد طرفي هذه السلسلة صحيحًا على الأقل."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "يحاول تحميل أحدث إصدار تطوير مرة أخرى"
 
@@ -546,7 +546,7 @@ msgstr "تباعد الخلايا"
 msgid "Challenge"
 msgstr "التحدي"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Back"
 msgstr "رد التحدي"
 
@@ -554,7 +554,7 @@ msgstr "رد التحدي"
 msgid "Challenge lost"
 msgstr "خسرت التحدي"
 
-#: src/app/challenge-lost.tsx
+#: src/screens/components/challenge-lost-screen/challenge-lost.screen.tsx
 msgid "Challenge Lost"
 msgstr "خسرت التحدي"
 
@@ -570,7 +570,7 @@ msgstr "لا يمكن إيقاف جولات التحدي مؤقتًا، وهي �
 msgid "Challenge won"
 msgstr "فزت بالتحدي"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Won!"
 msgstr "فزت بالتحدي!"
 
@@ -751,7 +751,7 @@ msgstr "حذف السمة"
 msgid "Deutsch"
 msgstr "Deutsch"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Development build unavailable"
 msgstr "إصدار التطوير غير متاح"
 
@@ -1047,6 +1047,7 @@ msgstr "نص التلميح"
 msgid "Hints on the hardest puzzles"
 msgstr "التلميحات في أصعب الألغاز"
 
+#: src/challenge/components/challenge-result-home-button/challenge-result-home-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -1203,11 +1204,11 @@ msgstr "إحماء خفيف"
 msgid "Link {revealedLinkCount} of {linkCount}"
 msgstr "الرابط {revealedLinkCount} من {linkCount}"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "جارٍ تحميل إصدار التطوير"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "جارٍ تحميل أحدث إصدار تطوير…"
 
@@ -1379,11 +1380,11 @@ msgstr "سلسلة إجبار نيشيو"
 msgid "no bonus"
 msgstr "لا مكافأة"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "لم يُنشر أي إصدار تطوير مكتمل بعد. يُرجى التحقق مرة أخرى لاحقًا."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No development build is available"
 msgstr "لا يتوفر إصدار تطوير"
 
@@ -1752,7 +1753,7 @@ msgstr "متابعة اللعبة"
 msgid "Resume this game?"
 msgstr "متابعة هذه اللعبة؟"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Retry loading development build"
 msgstr "إعادة محاولة تحميل إصدار التطوير"
 
@@ -2286,7 +2287,8 @@ msgstr "أخطاء كثيرة جدًا"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "تابع ألغاز السودوكو التي حللتها وأفضل أوقاتك ونقاطك في كل مستويات الصعوبة."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "حاول مجددًا"
 
@@ -2297,6 +2299,10 @@ msgstr "حاول مجددًا"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "أوكرانيا تواصل القتال"
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+msgid "Unable to load your game"
+msgstr "تعذّر تحميل لعبتك"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"
@@ -2407,7 +2413,7 @@ msgstr "W-Wing"
 msgid "Warm gold accents for a brighter board"
 msgstr "لمسات ذهبية دافئة للوحة أكثر إشراقًا"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "تعذّر تحميل أحدث إصدار تطوير. يُرجى المحاولة مرة أخرى."
 

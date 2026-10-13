@@ -1,9 +1,11 @@
-import { isNotEmptyArray } from '@rnw-community/shared';
+import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { TechniqueManager } from '@suuudokuuu/techniques';
 
-import { getTimelineCellSteps } from '../../game/utils/get-timeline-cell-steps.util';
+import { isNotEmptyArray, isNotEmptyString } from '@rnw-community/shared';
 
-import { getChallengeTechniqueEvents } from './get-challenge-technique-events.util';
 import { getTapeTechniqueEvents } from './get-tape-technique-events.util';
+import { getTechniqueTier } from './get-technique-tier.util';
 
 import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-technique-event.interface';
 import type { TimelineEventType } from '@suuudokuuu/progress';
@@ -15,5 +17,27 @@ export const getRunTechniqueEvents = (events: readonly TimelineEventType[], give
         return storedTechniqueEvents;
     }
 
-    return getChallengeTechniqueEvents(givens, getTimelineCellSteps(events));
+    if (!isNotEmptyString(givens)) {
+        return [];
+    }
+
+    const sudoku = Sudoku.fromString(givens, defaultSudokuConfig);
+    const techniqueEvents: ChallengeTechniqueEventInterface[] = [];
+    let cumulativeTime = 0;
+
+    for (const event of events) {
+        cumulativeTime += event.ts;
+
+        if (event.kind === TimelineEventKindEnum.Cell) {
+            const column = event.cellIndex % defaultSudokuConfig.fieldSize;
+            const row = Math.floor(event.cellIndex / defaultSudokuConfig.fieldSize);
+            const cell = { ...sudoku.Field[row][column], value: event.value };
+            const classification = new TechniqueManager(sudoku).identifyMove(cell);
+
+            sudoku.Field[row][column] = cell;
+            techniqueEvents.push({ cumulativeTime, technique: classification.technique, tier: getTechniqueTier(classification.technique) });
+        }
+    }
+
+    return techniqueEvents;
 };
