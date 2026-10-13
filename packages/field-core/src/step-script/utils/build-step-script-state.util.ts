@@ -1,4 +1,5 @@
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
+import { ForcingOutcomeKindEnum } from '@suuudokuuu/techniques';
 
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
@@ -109,15 +110,20 @@ const getRegionCells = (region: HintRegionInterface): Pick<CellInterface, 'x' | 
     return isDefined(region.cell) ? [region.cell] : [];
 };
 
-const getWitnessCells = (step: StepScriptStepType): CellInterface[] =>
-    step.kind === StepScriptStepKindEnum.SHOW_BRANCH
-        ? [
-              step.branch.assumption.cell,
-              ...step.branch.implications.map(implication => implication.cell),
-              ...step.outcomeCells,
-              ...step.outcomeCandidates.map(candidate => candidate.cell)
-          ]
-        : [];
+const getWitnessCells = (step: StepScriptStepType): CellInterface[] => {
+    if (step.kind !== StepScriptStepKindEnum.SHOW_BRANCH) {
+        return [];
+    }
+
+    const { assumption, outcome } = step.branch;
+
+    return [
+        assumption.cell,
+        ...step.outcomeCells,
+        ...step.outcomeCandidates.map(candidate => candidate.cell),
+        ...(outcome.kind === ForcingOutcomeKindEnum.COMMON_PLACEMENT ? [outcome.cell] : [])
+    ];
+};
 
 const getFirstDeductionRegion = (steps: readonly StepScriptStepType[]): HintRegionInterface | null => {
     const revealIndex = steps.findIndex(isRevealStep);
