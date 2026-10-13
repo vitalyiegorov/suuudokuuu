@@ -8,10 +8,10 @@ import { PrintableDownloadFact } from '../../../printable/components/printable-d
 import { PRINTABLE_BOOKLET_PUZZLES_PER_PAGE } from '../../../printable/constants/printable-layout.constant';
 import { PRINTABLE_BOOKLET_PAGE_COUNT } from '../../../printable/constants/printable-page-count.constant';
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_BOOKLET_SIZE } from '../../../printable/constants/printable-sample.constant';
-import { getPrintableFileSizeLabel } from '../../../printable/utils/get-printable-file-size-label.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -42,6 +42,7 @@ const nightmareReport = getTierTechniqueReport(DifficultyEnum.Nightmare);
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PrintableNightmareSudokuPage = () => (
     <main>
+        <ArticleSchema metadata={printableNightmareSudokuPageMetadata} />
         <PageHeader metadata={printableNightmareSudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem path={printableSudokuPageMetadata.path}>Printable sudoku</BreadcrumbListItem>
@@ -53,7 +54,7 @@ const PrintableNightmareSudokuPage = () => (
             <Link href={swordfishPageMetadata.path}>swordfish</Link> and the <Link href={xyWingPageMetadata.path}>XY-Wing</Link> — and kept
             only because that solver stalled. What finishes them is chain reasoning, and a chain is far easier to build on paper, where you
             can pencil the links in and follow them, than on a cramped screen. Our sample of {nightmareReport.sampleSize} boards measures
-            the tier at SE <SeRatingRange report={nightmareReport} />.
+            the tier at SE {formatSeRatingRange(nightmareReport)}.
         </p>
         <TechniqueSummary>
             <ul>
@@ -65,7 +66,7 @@ const PrintableNightmareSudokuPage = () => (
                     {PRINTABLE_BOOKLET_SIZE} puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key.
                 </li>
                 <li>
-                    Our sample of {nightmareReport.sampleSize} Nightmare boards measures SE <SeRatingRange report={nightmareReport} />.
+                    Our sample of {nightmareReport.sampleSize} Nightmare boards measures SE {formatSeRatingRange(nightmareReport)}.
                 </li>
                 <li>A chain has no fixed shape, which is why marking it in pencil helps more here than at the easier tiers.</li>
             </ul>
@@ -74,7 +75,6 @@ const PrintableNightmareSudokuPage = () => (
         <PrintableDownloadCard fileName="nightmare.pdf" title="Nightmare Sudoku">
             <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
             <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
-            <PrintableDownloadFact>{getPrintableFileSizeLabel('nightmare.pdf')} PDF, US Letter</PrintableDownloadFact>
             <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
         </PrintableDownloadCard>
         <h2>What is inside the booklet</h2>
@@ -123,8 +123,8 @@ const PrintableNightmareSudokuPage = () => (
             <Faq>
                 <FaqQuestion>How many puzzles are in the printable Nightmare sudoku PDF?</FaqQuestion>
                 <FaqAnswer>
-                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, four to a page, with the solved grids at
-                    the back.
+                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a
+                    page, with the solved grids at the back.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

@@ -1,11 +1,4 @@
-export const ChallengeDurationUnit = {
-    Day: 'day',
-    Hour: 'hour',
-    Minute: 'minute',
-    Second: 'second'
-} as const;
-
-export type ChallengeDurationUnit = (typeof ChallengeDurationUnit)[keyof typeof ChallengeDurationUnit];
+import type { ChallengeDurationUnit } from '../enums/challenge-duration-unit.enum';
 
 export interface ChallengeDurationPartInterface {
     readonly unit: ChallengeDurationUnit;

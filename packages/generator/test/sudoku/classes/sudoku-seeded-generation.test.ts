@@ -18,11 +18,11 @@ const createPuzzleString = (currentSeed: number): string => {
 };
 
 describe('Sudoku - Seeded Generation', () => {
-    /**
-     * HINT: mulberry32 is integer and bitwise only, so its stream is identical on every JavaScript
-     * engine. This proves same-process reproducibility, which is the part a test can observe. The
-     * cross-engine half follows from the PRNG never touching a float or a host random source.
-     */
+    it('preserves the seeded daily puzzle for 2026-10-12', () => {
+        const dailySeed = 1039959815;
+        expect(createPuzzleString(dailySeed)).toBe('5.462.193.28731456361495827.93286.747425.963.685.7421981796234543.15.982259843761');
+    });
+
     it('should produce an identical puzzle for the same seed', () => {
         expect.assertions(1);
 

@@ -356,7 +356,7 @@ msgstr "Aides"
 msgid "At least one end of this chain must be true."
 msgstr "Au moins une extrémité de cette chaîne doit être vraie."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "Tente de charger à nouveau la dernière version de développement"
 
@@ -513,7 +513,7 @@ msgstr "Espacement des cellules"
 msgid "Challenge"
 msgstr "Défi"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Back"
 msgstr "Prendre sa revanche"
 
@@ -521,7 +521,7 @@ msgstr "Prendre sa revanche"
 msgid "Challenge lost"
 msgstr "Défi perdu"
 
-#: src/app/challenge-lost.tsx
+#: src/screens/components/challenge-lost-screen/challenge-lost.screen.tsx
 msgid "Challenge Lost"
 msgstr "Défi perdu"
 
@@ -537,7 +537,7 @@ msgstr "Les parties en mode défi ne peuvent pas être mises en pause et enregis
 msgid "Challenge won"
 msgstr "Défi gagné"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Won!"
 msgstr "Défi gagné !"
 
@@ -714,7 +714,7 @@ msgstr "Supprimer le thème"
 msgid "Deutsch"
 msgstr "Deutsch"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Development build unavailable"
 msgstr "Version de développement indisponible"
 
@@ -1014,6 +1014,7 @@ msgstr "Texte d'indice"
 msgid "Hints on the hardest puzzles"
 msgstr "Indices dans les grilles les plus dures"
 
+#: src/challenge/components/challenge-result-home-button/challenge-result-home-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -1166,11 +1167,11 @@ msgstr "Superposition claire"
 msgid "Light warm-up"
 msgstr "Échauffement léger"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "Chargement de la version de développement"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Chargement de la dernière version de développement…"
 
@@ -1337,11 +1338,11 @@ msgstr "Chaîne forcée Nishio"
 msgid "no bonus"
 msgstr "pas de bonus"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "Aucune version de développement complète n’a encore été publiée. Revenez plus tard."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No development build is available"
 msgstr "Aucune version de développement n’est disponible"
 
@@ -1710,7 +1711,7 @@ msgstr "Reprendre la partie"
 msgid "Resume this game?"
 msgstr "Reprendre cette partie ?"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Retry loading development build"
 msgstr "Recharger la version de développement"
 
@@ -2242,7 +2243,8 @@ msgstr "Trop d’erreurs"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Suivez vos grilles de sudoku résolues, vos meilleurs temps et vos scores dans tous les niveaux de difficulté."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Réessayer"
 
@@ -2253,6 +2255,10 @@ msgstr "Réessayer"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "L’Ukraine continue de se battre"
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+msgid "Unable to load your game"
+msgstr "Impossible de charger votre partie"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"
@@ -2363,7 +2369,7 @@ msgstr "W-Wing"
 msgid "Warm gold accents for a brighter board"
 msgstr "Accents dorés chaleureux pour une grille plus lumineuse"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "Impossible de charger la dernière version de développement. Réessayez."
 

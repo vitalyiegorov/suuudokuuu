@@ -1,5 +1,4 @@
 import {
-    ActivityIndicator,
     Pressable,
     type PressableProps,
     type PressableStateCallbackType,
@@ -9,28 +8,28 @@ import {
     View,
     type ViewStyle
 } from 'react-native';
-import { useUnistyles } from 'react-native-unistyles';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { MaxFontSizeMultiplierConstant } from '../../theme/constant/font-scaling.constant';
 
+import { AppButtonIcon } from './app-button-icon/app-button-icon';
+import { AppButtonLoader } from './app-button-loader/app-button-loader';
 import { AppButtonStyles as styles } from './app-button.styles';
-import { AppButtonDefaultIconSize } from './constant/app-button-default-icon-size.constant';
-import { AppButtonLoaderTestId } from './constant/app-button-loader-test-id.constant';
-import { type AppButtonVariant, appButtonGetColors } from './utils/app-button-get-colors.util';
+import { appButtonGetTextColor } from './utils/app-button-get-text-color.util';
 
+import type { UnistylesThemeInterface } from '../../theme/interface/unistyles-theme.interface';
 import type { LucideIcon } from 'lucide-react-native';
 import type { ReactNode } from 'react';
 
 export type AppButtonSize = 'compact' | 'regular' | 'large';
+export type AppButtonVariant = 'primary' | 'secondary' | 'ghost' | 'inverted' | 'glass' | 'dangerFilled' | 'boardSelected';
 
 export interface AppButtonProps extends Omit<PressableProps, 'style'> {
     readonly text?: string;
     readonly icon?: LucideIcon;
     readonly textStyle?: TextProps['style'];
     readonly style?: StyleProp<ViewStyle>;
-    readonly iconSize?: number;
     readonly isLoading?: boolean;
     readonly children?: ReactNode;
     readonly size?: AppButtonSize;
@@ -42,7 +41,6 @@ export const AppButton = ({
     style,
     textStyle,
     onPress,
-    iconSize = AppButtonDefaultIconSize,
     isLoading = false,
     disabled,
     icon: Icon,
@@ -52,17 +50,10 @@ export const AppButton = ({
     accessibilityState: accessibilityStateProp,
     ...restProps
 }: AppButtonProps) => {
-    const { theme } = useUnistyles();
-    const colors = appButtonGetColors(theme, variant);
-    const buttonStyles = [styles.button, styles[size], { backgroundColor: colors.backgroundColor, borderColor: colors.borderColor }, style];
-    let textSizeStyles = styles.textRegular;
-    if (size === 'compact') {
-        textSizeStyles = styles.textCompact;
-    }
-    if (size === 'large') {
-        textSizeStyles = styles.textLarge;
-    }
-    const textStyles = [styles.text, textSizeStyles, { color: colors.textColor }, textStyle];
+    styles.useVariants({ size, variant });
+    const tintProps = (theme: UnistylesThemeInterface) => ({ color: appButtonGetTextColor(theme, variant) });
+    const buttonStyles = [styles.button, style];
+    const textStyles = [styles.text, textStyle];
     const shouldShowText = isNotEmptyString(text);
     const isDisabled = isLoading || disabled === true;
     const accessibilityState = { ...accessibilityStateProp, busy: isLoading, disabled: isDisabled };
@@ -71,13 +62,20 @@ export const AppButton = ({
     const pressableStyles = ({ pressed }: PressableStateCallbackType) => [...buttonStyles, pressed && styles.pressed];
 
     return (
-        <Pressable onPress={onPress} style={pressableStyles} {...restProps} accessibilityState={accessibilityState} disabled={isDisabled}>
+        <Pressable
+            accessibilityRole="button"
+            onPress={onPress}
+            style={pressableStyles}
+            {...restProps}
+            accessibilityState={accessibilityState}
+            disabled={isDisabled}
+        >
             <View pointerEvents="none" style={contentStyles}>
                 {isDefined(children) && children}
 
                 {!isDefined(children) && (
                     <>
-                        {isDefined(Icon) && <Icon color={colors.textColor} size={iconSize} />}
+                        {isDefined(Icon) && <AppButtonIcon icon={Icon} uniProps={tintProps} />}
                         {shouldShowText && (
                             <Text
                                 adjustsFontSizeToFit
@@ -95,7 +93,7 @@ export const AppButton = ({
 
             {isLoading && (
                 <View pointerEvents="none" style={styles.loaderOverlay}>
-                    <ActivityIndicator color={colors.textColor} testID={AppButtonLoaderTestId} />
+                    <AppButtonLoader testID="AppButtonSelectors.Loader" uniProps={tintProps} />
                 </View>
             )}
         </Pressable>

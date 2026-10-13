@@ -11,7 +11,6 @@ import { startNewGame } from '../src/utils/start-new-game.util';
 
 const settingsStayMilliseconds = 4000;
 const timerAdvanceWaitMilliseconds = 2500;
-const minimumObservedPauseSeconds = 3;
 
 const parseTimerSeconds = (timerText: string): number => {
     const [minutesText, secondsText] = timerText.split(':');
@@ -39,15 +38,15 @@ test('pauses the timer in settings and resumes the persisted game after reload',
     const returnedSeconds = parseTimerSeconds(returnedText ?? '0:00');
     const wallElapsedSeconds = (Date.now() - pauseStartedAt) / 1000;
 
-    expect(wallElapsedSeconds - (returnedSeconds - pausedSeconds)).toBeGreaterThanOrEqual(minimumObservedPauseSeconds);
+    expect(wallElapsedSeconds - (returnedSeconds - pausedSeconds)).toBeGreaterThanOrEqual(3);
 
     await page.waitForTimeout(timerAdvanceWaitMilliseconds);
+    await expect.poll(async () => parseTimerSeconds((await timerLocator.textContent()) ?? '0:00')).toBeGreaterThan(returnedSeconds);
     const advancedText = await timerLocator.textContent();
     const advancedSeconds = parseTimerSeconds(advancedText ?? '0:00');
 
     expect(advancedSeconds).toBeGreaterThan(returnedSeconds);
 
-    await page.reload();
     await page.goto('/');
     await expect(page.getByTestId(HomeScreenSelectors.ResumeButton)).toBeVisible();
 

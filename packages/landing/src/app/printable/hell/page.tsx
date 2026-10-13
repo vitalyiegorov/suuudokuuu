@@ -8,10 +8,10 @@ import { PrintableDownloadFact } from '../../../printable/components/printable-d
 import { PRINTABLE_BOOKLET_PUZZLES_PER_PAGE } from '../../../printable/constants/printable-layout.constant';
 import { PRINTABLE_BOOKLET_PAGE_COUNT } from '../../../printable/constants/printable-page-count.constant';
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_BOOKLET_SIZE } from '../../../printable/constants/printable-sample.constant';
-import { getPrintableFileSizeLabel } from '../../../printable/utils/get-printable-file-size-label.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -42,6 +42,7 @@ const hellReport = getTierTechniqueReport(DifficultyEnum.Hell);
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PrintableHellSudokuPage = () => (
     <main>
+        <ArticleSchema metadata={printableHellSudokuPageMetadata} />
         <PageHeader metadata={printableHellSudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem path={printableSudokuPageMetadata.path}>Printable sudoku</BreadcrumbListItem>
@@ -50,7 +51,7 @@ const PrintableHellSudokuPage = () => (
         <p>
             Every puzzle in this booklet needs a forcing chain: none can be finished with the techniques Nightmare allows, and each is drawn
             from our bundled and independently verified Hell corpus rather than generated fresh. Our published sample of{' '}
-            {hellReport.sampleSize} boards measures the tier at SE <SeRatingRange report={hellReport} />, with the{' '}
+            {hellReport.sampleSize} boards measures the tier at SE {formatSeRatingRange(hellReport)}, with the{' '}
             <TechniqueLink technique={hellReport.typicalHardestTechnique} /> as the most common hardest step. See the{' '}
             <Link href={seventeenClueSudokuPageMetadata.path}>17-clue guide</Link> for why the clue count is not what makes them hard.
         </p>
@@ -64,7 +65,7 @@ const PrintableHellSudokuPage = () => (
                     {PRINTABLE_BOOKLET_SIZE} puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key.
                 </li>
                 <li>
-                    Our sample of {hellReport.sampleSize} Hell boards measures SE <SeRatingRange report={hellReport} />, with the{' '}
+                    Our sample of {hellReport.sampleSize} Hell boards measures SE {formatSeRatingRange(hellReport)}, with the{' '}
                     <TechniqueLink technique={hellReport.typicalHardestTechnique} /> as the most common hardest step.
                 </li>
                 <li>Hardness here comes from the technique each board requires, not from the clue count.</li>
@@ -74,7 +75,6 @@ const PrintableHellSudokuPage = () => (
         <PrintableDownloadCard fileName="hell.pdf" title="Hell Sudoku">
             <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
             <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
-            <PrintableDownloadFact>{getPrintableFileSizeLabel('hell.pdf')} PDF, US Letter</PrintableDownloadFact>
             <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
         </PrintableDownloadCard>
         <h2>What is inside the booklet</h2>
@@ -130,8 +130,8 @@ const PrintableHellSudokuPage = () => (
             <Faq>
                 <FaqQuestion>How many puzzles are in the printable Hell sudoku PDF?</FaqQuestion>
                 <FaqAnswer>
-                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, four to a page, with the solved grids at
-                    the back.
+                    {PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a
+                    page, with the solved grids at the back.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

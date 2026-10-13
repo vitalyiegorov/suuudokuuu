@@ -1,9 +1,9 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
+import { getContextUnitValueIndex } from '../../@generic/utils/context-scan-state.util';
 import { getCombinations } from '../../@generic/utils/get-combinations.util';
 
-import type { CandidateUnitInterface } from '../../@generic/interfaces/candidate-unit.interface';
 import type { CandidateLinkGraphInterface } from '../interfaces/candidate-link-graph.interface';
 import type { CandidateNodeInterface } from '../interfaces/candidate-node.interface';
 import type { CandidateLinkGraphBuilderType } from '../types/candidate-link-graph-builder.type';
@@ -61,25 +61,15 @@ const addCellLinks = (context: CandidateContext, builder: CandidateLinkGraphBuil
     }
 };
 
-const addUnitValueLinks = (
-    context: CandidateContext,
-    builder: CandidateLinkGraphBuilderType,
-    unit: CandidateUnitInterface,
-    value: number
-): void => {
-    addGroupLinks(
-        builder,
-        unit.cells.filter(cell => context.getCandidates(cell).includes(value)).map(cell => getOrCreateNode(builder, cell, value))
-    );
-};
-
 const addUnitLinks = (context: CandidateContext, builder: CandidateLinkGraphBuilderType): void => {
-    const values = context.getValues();
-    const units = context.getUnits();
+    const index = getContextUnitValueIndex(context);
 
-    for (const value of values) {
-        for (const unit of units) {
-            addUnitValueLinks(context, builder, unit, value);
+    for (const value of context.getValues()) {
+        for (let unitPosition = 0; unitPosition < index.units.length; unitPosition += 1) {
+            addGroupLinks(
+                builder,
+                index.getUnitValueEntry(unitPosition, value).cells.map(cell => getOrCreateNode(builder, cell, value))
+            );
         }
     }
 };

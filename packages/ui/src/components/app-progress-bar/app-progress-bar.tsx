@@ -1,27 +1,17 @@
 import { type StyleProp, View, type ViewStyle } from 'react-native';
-import { useUnistyles } from 'react-native-unistyles';
 
 import { AppProgressBarStyles as styles } from './app-progress-bar.styles';
 
-type AppProgressBarSize = 'compact' | 'regular';
-type AppProgressBarVariant = 'default' | 'inverted';
-
 interface Props {
     readonly percent: number;
-    readonly size?: AppProgressBarSize;
     readonly style?: StyleProp<ViewStyle>;
-    readonly variant?: AppProgressBarVariant;
 }
 
-export const AppProgressBar = ({ percent, size = 'regular', style, variant = 'default' }: Props) => {
-    const { theme } = useUnistyles();
-    const isInvertedVariant = variant === 'inverted';
-    const trackColor = isInvertedVariant ? theme.colors.overlayDark : theme.colors.numpad.track;
-    const fillColor = isInvertedVariant ? theme.colors.inkText : theme.colors.numpad.trackFilled;
+export const AppProgressBar = ({ percent, style }: Props) => {
     const boundedPercent = Math.max(0, Math.min(100, percent));
     const remainderPercent = 100 - boundedPercent;
-    const trackStyles = [styles.track, styles[size], { backgroundColor: trackColor }, style];
-    const fillStyles = [styles.fill, { backgroundColor: fillColor, flex: boundedPercent }];
+    const trackStyles = [styles.track, style];
+    const fillStyles = [styles.fill, { flex: boundedPercent }];
     const remainderStyles = [styles.remainder, { flex: remainderPercent }];
 
     return (

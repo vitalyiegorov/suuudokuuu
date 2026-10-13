@@ -1,5 +1,5 @@
 export interface RatedCorpusPuzzleInterface {
-    puzzle: string;
-    rating: number;
-    isCeiling: boolean;
+    readonly puzzle: string;
+    readonly rating: number;
+    readonly isCeiling: boolean;
 }

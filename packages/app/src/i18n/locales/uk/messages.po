@@ -356,7 +356,7 @@ msgstr "Допоміжні дії"
 msgid "At least one end of this chain must be true."
 msgstr "Принаймні один кінець цього ланцюжка має бути істинним."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "Намагається знову завантажити найновішу збірку для розробки"
 
@@ -513,7 +513,7 @@ msgstr "Відступи клітинок"
 msgid "Challenge"
 msgstr "Виклик"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Back"
 msgstr "Відповісти на виклик"
 
@@ -521,7 +521,7 @@ msgstr "Відповісти на виклик"
 msgid "Challenge lost"
 msgstr "Виклик програно"
 
-#: src/app/challenge-lost.tsx
+#: src/screens/components/challenge-lost-screen/challenge-lost.screen.tsx
 msgid "Challenge Lost"
 msgstr "Виклик програно"
 
@@ -537,7 +537,7 @@ msgstr "Партії-виклики не можна ставити на пауз
 msgid "Challenge won"
 msgstr "Виклик виграно"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Won!"
 msgstr "Виклик виграно!"
 
@@ -714,7 +714,7 @@ msgstr "Видалити тему"
 msgid "Deutsch"
 msgstr "Deutsch"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Development build unavailable"
 msgstr "Збірка для розробки недоступна"
 
@@ -1014,6 +1014,7 @@ msgstr "Текст підказки"
 msgid "Hints on the hardest puzzles"
 msgstr "Підказки в найскладніших судоку"
 
+#: src/challenge/components/challenge-result-home-button/challenge-result-home-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -1166,11 +1167,11 @@ msgstr "Світле накладання"
 msgid "Light warm-up"
 msgstr "Легка розминка"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "Завантаження збірки для розробки"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Завантаження найновішої збірки для розробки…"
 
@@ -1337,11 +1338,11 @@ msgstr "Примусовий ланцюг Нішіо"
 msgid "no bonus"
 msgstr "без бонусу"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "Повну збірку для розробки ще не опубліковано. Перевірте пізніше."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No development build is available"
 msgstr "Немає доступних збірок для розробки"
 
@@ -1710,7 +1711,7 @@ msgstr "Продовжити гру"
 msgid "Resume this game?"
 msgstr "Продовжити цю гру?"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Retry loading development build"
 msgstr "Повторити завантаження збірки для розробки"
 
@@ -2242,7 +2243,8 @@ msgstr "Забагато помилок"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Стежте за розв’язаними судоку, найкращим часом і балами на всіх рівнях складності."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Спробувати ще раз"
 
@@ -2253,6 +2255,10 @@ msgstr "Спробувати ще раз"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "Україна продовжує боротися"
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+msgid "Unable to load your game"
+msgstr "Не вдалося завантажити вашу гру"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"
@@ -2363,7 +2369,7 @@ msgstr "W-Wing"
 msgid "Warm gold accents for a brighter board"
 msgstr "Теплі золоті акценти для яскравішої дошки"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "Не вдалося завантажити найновішу збірку для розробки. Повторіть спробу."
 

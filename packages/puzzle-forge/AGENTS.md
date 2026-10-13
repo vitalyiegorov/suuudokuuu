@@ -32,7 +32,7 @@ src/
 ├── @generic/
 │   ├── constants/       # DIFFICULTY_BANDS, the attempt budget, and the daily challenge scheme
 │   ├── interfaces/      # band, band match, and forged-puzzle contracts
-│   └── types/           # the corpus discriminator
+│   └── enums/           # the corpus discriminator
 ├── daily/
 │   └── utils/           # UTC date keys, the daily seed, the tier rotation, and the daily entry point
 └── forge/
@@ -54,7 +54,7 @@ src/
 The daily challenge is reproducible from nothing but a UTC calendar date. No table is stored anywhere, so a client, a build step and a future `/daily/YYYY-MM-DD` archive page all derive the same board independently, and the app never talks to a server for one.
 
 1. **The key is the UTC date string.** `getDailyDateString(timestamp)` is `new Date(timestamp).toISOString().slice(0, 10)`, so the day boundary is UTC midnight everywhere on earth. `getDailyDayNumber(dateString)` is `Math.floor(Date.parse(`${dateString}T00:00:00.000Z`) / 86_400_000)` — whole UTC days since the epoch, and the exact inverse of the date string. Never use a local calendar date here: two players in different time zones must get the same puzzle at the same moment.
-2. **The seed is FNV-1a over a namespaced key.** `getDailyPuzzleSeed(dateString)` hashes `` `suuudokuuu-daily-${dateString}` `` with 32-bit FNV-1a: offset basis `0x811c9dc5`, prime `0x01000193`, `Math.imul` per UTF-16 code unit, `>>> 0` after every step. `2026-08-23` therefore always yields `2317164260`, and `get-daily-puzzle-seed.util.spec.ts` pins that value. Changing the namespace string, the hash, or the date format reshuffles every past and future daily, so treat all three as frozen.
+2. **The seed is FNV-1a over a namespaced key.** `getDailyPuzzleSeed(dateString)` hashes `` `suuudokuuu-daily-${dateString}` `` with 32-bit FNV-1a: offset basis `0x811c9dc5`, prime `0x01000193`, `Math.imul` per UTF-16 code unit, `>>> 0` after every step. `2026-08-23` therefore always yields `2317164260`, and `get-daily-puzzle-seed.util.test.ts` pins that value. Changing the namespace string, the hash, or the date format reshuffles every past and future daily, so treat all three as frozen.
 3. **The tier rotates by day number.** `DAILY_DIFFICULTY_LADDER` is the four generated tiers below `Nightmare` — `Newbie`, `Easy`, `Medium`, `Hard` — and `getDailyDifficulty(dateString)` indexes it with `dayNumber % 4`. A daily is never a corpus tier, so it is always a genuinely generated, band-checked board rather than a corpus pick.
 4. **Every draw in the pipeline comes from that one seed.** `forgeDailyPuzzle(dateString)` calls `forgePuzzle(tier, budget, seed)`. `forgePuzzle` builds one master `createSeededRandom(seed)` stream and draws each rejection-sampling attempt's own PRNG seed from it, so attempt N is a pure function of the daily seed and the attempt index. It is not `seed + attempt`: adjacent seeds would then share attempt streams and two neighbouring days could forge the same board.
 5. **Determinism is a property of mulberry32, not of the test runner.** `createSeededRandom` in `@suuudokuuu/solver-core` is integer and bitwise only, so it produces byte-identical streams on Hermes, JSC and every browser engine. Tests can only prove same-process reproducibility; the cross-engine half follows from the PRNG never touching a host random source or a float intermediate.
@@ -62,7 +62,7 @@ The daily challenge is reproducible from nothing but a UTC calendar date. No tab
 
 ## Cost Rules
 
-1. Band checks run cheap ladders first. `matchPuzzleBand` rejects with the simpler ladder before it pays for the band ladder, so puzzles that are too easy for a tier are discarded before any fish, wing or chain scan runs.
+1. Band checks run one solve with the band ladder, whose simpler ladder is a prefix. A puzzle is above the simpler ladder when that solve stalls or uses a technique above the simpler ceiling. Build the strategies once per forge request and reuse them for every attempt.
 2. Raising a blank-cell target past 58 makes clue removal, not classification, the bottleneck. Measure before moving one.
 3. Keep the attempt budget bounded. Puzzle creation happens on a phone while the player waits.
 

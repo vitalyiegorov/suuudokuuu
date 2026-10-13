@@ -3,8 +3,9 @@ import Link from 'next/link';
 
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -38,6 +39,7 @@ const NewbieSudokuPage = () => {
 
     return (
         <main>
+            <ArticleSchema metadata={newbieSudokuPageMetadata} />
             <PageHeader metadata={newbieSudokuPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
@@ -60,7 +62,7 @@ const NewbieSudokuPage = () => {
                     </li>
                     <li>No pencil marks, no elimination logic and no guessing are ever required.</li>
                     <li>
-                        Our sample of {newbieReport.sampleSize} Newbie boards measures SE <SeRatingRange report={newbieReport} />.
+                        Our sample of {newbieReport.sampleSize} Newbie boards measures SE {formatSeRatingRange(newbieReport)}.
                     </li>
                     <li>A board that needs a hidden single or anything harder is rejected and regenerated, never labelled Newbie.</li>
                 </ul>
@@ -79,9 +81,9 @@ const NewbieSudokuPage = () => {
             <h2>How hard is it, honestly</h2>
             <p>
                 Every Newbie board is rated on the SE (Sudoku Explainer) scale the moment it is created. Our published sample of{' '}
-                {newbieReport.sampleSize} Newbie boards measures SE <SeRatingRange report={newbieReport} /> — the very bottom of a scale
-                that runs to 12, and below what most SE-based charts even bother to name. Newbie exists to teach the row-column-box overlap
-                that every later technique builds on, not to test it. The measured range for this tier and every other is published in our{' '}
+                {newbieReport.sampleSize} Newbie boards measures SE {formatSeRatingRange(newbieReport)} — the very bottom of a scale that
+                runs to 12, and below what most SE-based charts even bother to name. Newbie exists to teach the row-column-box overlap that
+                every later technique builds on, not to test it. The measured range for this tier and every other is published in our{' '}
                 <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link>. Treat a fast, mistake-free
                 Newbie solve as confirmation you’re ready for Easy, not as a benchmark worth chasing for its own sake.
             </p>
@@ -103,7 +105,7 @@ const NewbieSudokuPage = () => {
                     <FaqAnswer>
                         It is the easiest tier Suuudokuuu offers, and the generator guarantees it: a board only ships as Newbie once a
                         solver limited to full houses and naked singles has finished it. Our sample measures SE{' '}
-                        <SeRatingRange report={newbieReport} />, with no candidate tracking and no risk of a forced guess.
+                        {formatSeRatingRange(newbieReport)}, with no candidate tracking and no risk of a forced guess.
                     </FaqAnswer>
                 </Faq>
                 <Faq>

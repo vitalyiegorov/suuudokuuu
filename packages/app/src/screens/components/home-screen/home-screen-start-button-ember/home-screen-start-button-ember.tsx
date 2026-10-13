@@ -4,19 +4,19 @@ import Animated, { Easing, cancelAnimation, useAnimatedStyle, useSharedValue, wi
 
 import { useReduceMotion } from '../../../../@generic/hooks/use-reduce-motion.hook';
 
-import {
-    HomeScreenStartButtonEmberEntranceDurationMs,
-    HomeScreenStartButtonEmberEntranceEasingFirstX,
-    HomeScreenStartButtonEmberEntranceEasingFirstY,
-    HomeScreenStartButtonEmberEntranceEasingSecondX,
-    HomeScreenStartButtonEmberEntranceEasingSecondY,
-    HomeScreenStartButtonEmberEntranceScale
-} from './constant/home-screen-start-button-ember.constant';
 import { HomeScreenStartButtonEmberSelectors } from './home-screen-start-button-ember.selectors';
 import { HomeScreenStartButtonEmberStyles as styles } from './home-screen-start-button-ember.styles';
 
 import type { ReactNode } from 'react';
 import type { StyleProp, ViewStyle } from 'react-native';
+
+const HomeScreenStartButtonEmberEntranceScale = 0.98;
+const HomeScreenStartButtonEmberEntranceDurationMs = 180;
+
+const HomeScreenStartButtonEmberEntranceEasingFirstX = 0.16;
+const HomeScreenStartButtonEmberEntranceEasingFirstY = 1;
+const HomeScreenStartButtonEmberEntranceEasingSecondX = 0.3;
+const HomeScreenStartButtonEmberEntranceEasingSecondY = 1;
 
 interface Props {
     readonly children: ReactNode;

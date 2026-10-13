@@ -1,7 +1,8 @@
 import { GRID_CELL_COUNT } from '@suuudokuuu/solver-core';
 import { describe, expect, it } from 'vitest';
 
-import { HELL_CORPUS_MINIMUM_GIVEN_COUNT, HELL_CORPUS_RECORD_BYTES } from '../../src/constants/hell-corpus.constant';
+import { HELL_CORPUS_RECORD_BYTES } from '../../src/constants/hell-corpus-data.constant';
+import { HELL_CORPUS_MINIMUM_GIVEN_COUNT } from '../../src/constants/hell-corpus.constant';
 import { decodeHellCorpusRecord } from '../../src/utils/decode-hell-corpus-record.util';
 
 const ROYLE_17 = '000000010400000000020000000000050407008000300001090000300400200050100000000806000';

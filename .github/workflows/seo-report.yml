@@ -25,9 +25,6 @@ jobs:
               with:
                   fetch-depth: 0
 
-            - name: Enable Corepack
-              run: corepack enable
-
             - name: Setup pnpm
               uses: pnpm/action-setup@v6
 

@@ -8,6 +8,8 @@ const RATING_SCALE = 10;
 const RATING_VALUE_MASK = 0x7f;
 const CEILING_FLAG_BIT = 0x80;
 
+export const getCorpusRecordBytes = maximumGivenCount => POSITION_MASK_BYTES + Math.ceil(maximumGivenCount / 2) + 1;
+
 export const encodeRatingByte = (rating, isCeiling) => {
     const scaledRating = Math.round(rating * RATING_SCALE);
     const clampedValue = Math.min(scaledRating, RATING_VALUE_MASK);

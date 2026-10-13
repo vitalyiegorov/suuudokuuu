@@ -3,8 +3,6 @@ export type { ScoredCellsInterface } from './@generic/interfaces/scored-cells.in
 export type { FieldInterface } from './@generic/interfaces/field.interface';
 export type { SudokuConfigInterface } from './@generic/interfaces/sudoku-config.interface';
 
-export type { AvailableValuesType } from './@generic/types/available-values.type';
-
 export { DifficultyEnum } from './@generic/enums/difficulty.enum';
 
 export { Sudoku } from './sudoku/classes/sudoku';

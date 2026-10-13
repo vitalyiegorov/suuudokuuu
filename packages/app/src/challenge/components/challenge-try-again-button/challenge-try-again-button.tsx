@@ -4,7 +4,7 @@ import { use } from 'react';
 
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { GameContext } from '../../../game/context/game.context';
-import { stringToGameState } from '../../../game/utils/string-to-game-state.util';
+import { decodeSharedGameState } from '../../../game/utils/decode-shared-game-state.util';
 
 import { ChallengeTryAgainButtonSelectors } from './challenge-try-again-button.selectors';
 
@@ -20,7 +20,7 @@ export const ChallengeTryAgainButton = ({ gameState }: Props) => {
     const { t } = useLingui();
 
     const handleTryAgain = () => {
-        createFromState(stringToGameState(gameState.challengeState));
+        createFromState(decodeSharedGameState(gameState.challengeState).gameState);
     };
 
     return (

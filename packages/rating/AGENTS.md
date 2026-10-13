@@ -30,10 +30,7 @@ src/
 │   └── se-technique-order.constant.ts   # Cheapest-SE-first solve order
 ├── interfaces/
 │   └── puzzle-rating.interface.ts
-├── types/
-│   └── ceiling-reason.type.ts
 └── utils/
-    ├── get-ceiling-reason.util.ts       # Why a result is a ceiling result
     ├── get-step-rating.util.ts          # Per-step value, length-priced for chains
     └── rate-puzzle.util.ts              # Public API
 ```
@@ -50,10 +47,9 @@ The input is always a puzzle string, never a live `Sudoku` instance, so a rating
 
 ```typescript
 interface PuzzleRatingInterface {
-    rating: number;
-    hardestTechnique: SolutionTechniqueEnum;
-    isCeiling: boolean;
-    ceilingReason?: CeilingReasonType;
+    readonly rating: number;
+    readonly hardestTechnique: SolutionTechniqueEnum;
+    readonly isCeiling: boolean;
 }
 ```
 
@@ -61,7 +57,7 @@ An input that is already complete produces no steps and rates at the cheapest va
 
 ### Ordering policy
 
-SE rates a puzzle as the hardest technique on the _rating-optimal_ path, so the solve must always reach for the cheapest technique that still makes progress. `seTechniqueOrder` is the SE-cheapest-first permutation of the registry and is passed to `solveLogically` as its plain enum-array parameter. It lists every technique except `Guess` exactly once, sorted by SE value and tie-broken by enum ordinal.
+SE rates a puzzle as the hardest technique on the _rating-optimal_ path, so the solve must always reach for the cheapest technique that still makes progress. `seTechniqueOrder` is the SE-cheapest-first permutation of the registry and is passed to `solveLogically` as its plain enum-array parameter. It derives every technique except `Guess` from the enum, sorted by SE value and tie-broken by enum ordinal, as a readonly array.
 
 The order deliberately differs from `SolutionTechniqueEnum` ordinals: SE prices a Hidden Single (1.5) below a Naked Single (2.3), an X-Wing (3.2) below a Hidden Pair (3.4) and a Naked Triple (3.6), and a Naked Quad (5.0) above every wing. The registry-order rule in `packages/techniques/AGENTS.md` stays true; SE ordering lives only here.
 
@@ -70,18 +66,6 @@ A length-priced chain is ordered by the cheapest value it can report, which is i
 ### Ceiling reporting
 
 `solveLogically` returns `stuck` when no registered technique makes progress, and `contradiction` when a blank cell loses every candidate. Neither outcome yields a real SE number, so both report the ceiling: `rating` is the hardest value the ladder can express, `hardestTechnique` is `Guess`, and `isCeiling` is `true`. Consumers render that as "N+" (today "8.5+").
-
-`ceilingReason` says which of three different situations produced that ceiling, and is present only on ceiling results:
-
-| Reason          | Meaning                                                                                     |
-| --------------- | ------------------------------------------------------------------------------------------- |
-| `contradiction` | The solve drove a blank cell to zero candidates                                             |
-| `search-capped` | Some scan on the path exhausted a search cap, so the ladder was truncated rather than spent |
-| `beyond-ladder` | Every technique ran to completion and none made progress                                    |
-
-`getCeilingReason` resolves them in that precedence order: a contradiction is reported even when a scan was also truncated, because the contradiction is the harder fact. Only `beyond-ladder` is a genuine "this puzzle is harder than everything we implement" claim; `search-capped` is "we gave up early" and should not be read as a difficulty statement. `isCeiling` keeps its exact previous meaning and is unchanged by this split.
-
-`contradiction` is a defensive path for `ratePuzzle` specifically: `Sudoku.fromString` refuses a board with no solution, so a contradiction can only come from a detector making an unsound deduction. It is covered at the `getCeilingReason` level rather than with a puzzle-string fixture.
 
 This is a first-class path, not an edge case. The curated Infinity corpus rates 10.6–11.9 on the published SE scale, far beyond the implemented ladder, so every one of its records comes back as a ceiling result. A ceiling rating equal to a non-ceiling one is not a contradiction: `isCeiling` is what separates "solved by the hardest technique we have" from "harder than every technique we have".
 
@@ -178,7 +162,7 @@ export const SE_RATING_CEILING = Math.max(...seLengthPricedBandMaximums.values()
 
 It used to be an alias for `seTechniqueRatings[Guess]`, which conflated two unrelated numbers. `seTechniqueRatings[Guess]` is **the price of guessing** — what a step costs when no technique justifies it — and `SE_RATING_CEILING` is **the top of what the ladder can express**. They are equal today at 8.5 only because the forcing chain band happens to end there. Raising the ceiling by implementing a harder band must not silently reprice guessing for every consumer, and repricing a guess must not move the ceiling.
 
-`se-rating-ceiling.constant.spec.ts` holds the invariant: the ceiling equals the maximum reachable chain or forcing band value, sits at or above every length-priced band maximum, and sits at or above every value in `seTechniqueRatings` — including the price of guessing. Deriving it from the band map rather than writing a literal keeps it correct when a new length-priced band is added.
+`se-rating-ceiling.constant.test.ts` holds the invariant: the ceiling equals the maximum reachable chain or forcing band value, sits at or above every length-priced band maximum, and sits at or above every value in `seTechniqueRatings` — including the price of guessing. Deriving it from the band map rather than writing a literal keeps it correct when a new length-priced band is added.
 
 `Guess` remains the sentinel `hardestTechnique` for ceiling results.
 
@@ -200,26 +184,25 @@ Closing the remaining 3.3% needs a tie-break that does not read cell coordinates
 ## Rules
 
 - Rating input is a puzzle string. Never rate a live `Sudoku` instance, which would make the result depend on play state.
-- Every enum member needs a value in `seTechniqueRatings` and a slot in `seTechniqueOrder` (except `Guess`, which is the ceiling sentinel).
+- Every enum member needs a value in `seTechniqueRatings` and automatically enters `seTechniqueOrder` (except `Guess`, which is the ceiling sentinel).
 - Approximate values must stay listed as approximations in this file with a stated rationale.
 - Ratings must be invariant under the runtime symmetry transforms, which permute and relabel but preserve logical structure. Invariance is currently about 97% by board; see the transform invariance section before relying on it.
 - `SE_RATING_CEILING` and `seTechniqueRatings[Guess]` are separate numbers with separate meanings. Never redefine either in terms of the other.
 
 ## Testing
 
-- Tests live in `test/**/*.test.ts` (Vitest); the spec file names below are historical
+- Tests live in `test/**/*.test.ts` (Vitest)
 - Fixtures are fixed 81-character board strings fed through `Sudoku.fromString`; never `Sudoku.create`, which uses unseeded randomness
-- `rate-puzzle.util.spec.ts` guards known-technique boards against their SE values, max-over-path aggregation, ceiling reporting for an Infinity-corpus board no technique can finish, an exact rating for a board that only the uniqueness techniques unblock, one that only a forcing chain unblocks, a hell-corpus board priced above the XY-Chain base by its chain length, and determinism across repeated calls
-- `get-step-rating.util.spec.ts` guards the length ladder: every band boundary for both chain bases and all three forcing chain bases, the 7.6 and 8.5 clamps, monotonicity in the chain length, the fallback to the table value when a step carries no length, and flat pricing for every other technique
-- `se-technique-order.constant.spec.ts` guards the ordering policy: full coverage of the enum, cheapest-first ordering, enum-ordinal tie-breaking, the chain and forcing chain bases, and the ceiling matching the forcing chain band maximum
-- `se-rating-ceiling.constant.spec.ts` guards the ceiling invariant: it equals the maximum reachable band value and sits at or above every band maximum and every table value, including the price of guessing
-- `get-ceiling-reason.util.spec.ts` guards all four reason combinations, including the precedence of `contradiction` over `search-capped`
+- `rate-puzzle.util.test.ts` guards known-technique boards against their SE values, max-over-path aggregation, ceiling reporting for an Infinity-corpus board no technique can finish, an exact rating for a board that only the uniqueness techniques unblock, one that only a forcing chain unblocks, a hell-corpus board priced above the XY-Chain base by its chain length, and determinism across repeated calls
+- `get-step-rating.util.test.ts` guards the length ladder: every band boundary for both chain bases and all three forcing chain bases, the 7.6 and 8.5 clamps, monotonicity in the chain length, the fallback to the table value when a step carries no length, and flat pricing for every other technique
+- `se-technique-order.constant.test.ts` guards the ordering policy: full coverage of the enum, cheapest-first ordering, enum-ordinal tie-breaking, and the chain and forcing chain bases
+- `se-rating-ceiling.constant.test.ts` guards the ceiling invariant: it equals the maximum reachable band value and sits at or above every band maximum and every table value, including the price of guessing
 
 ## Exports
 
 ```typescript
-export { ratePuzzle, seTechniqueOrder, seTechniqueRatings, SE_RATING_CEILING };
-export type { PuzzleRatingInterface, CeilingReasonType };
+export { ratePuzzle, seTechniqueRatings, SE_RATING_CEILING, SE_CHAIN_LENGTH_INCREMENT, SE_CHAIN_RATING_MINIMUM };
+export type { PuzzleRatingInterface };
 ```
 
 ## Build

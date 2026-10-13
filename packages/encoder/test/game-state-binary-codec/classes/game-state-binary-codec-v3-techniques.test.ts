@@ -1,3 +1,4 @@
+import { givens } from '../../fixtures';
 /* oxlint-disable no-magic-numbers */
 import { describe, expect, it } from 'vitest';
 
@@ -9,8 +10,6 @@ import {
 } from '../../../src/game-state-binary-codec/classes/game-state-binary-codec-v3';
 
 import type { TimelineEventInterface } from '../../../src/@generic/interfaces/timeline-event.interface';
-
-const givens = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
 
 const emptyCellIndexes = [2, 3, 5, 6, 7, 8, 10, 11, 15, 16, 17, 19, 22, 23, 24, 26];
 

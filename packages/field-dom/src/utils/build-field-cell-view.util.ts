@@ -4,8 +4,6 @@ import { isDefined } from '@rnw-community/shared';
 
 import { BLANK_CELL_VALUE } from '../constants/field-grid.constant';
 
-import { mergeCandidateValues } from './merge-candidate-values.util';
-
 import type { FieldCellViewContextInterface } from '../interfaces/field-cell-view-context.interface';
 import type { FieldCellViewInterface } from '../interfaces/field-cell-view.interface';
 import type { FieldCellType } from '../types/field-cell.type';
@@ -27,7 +25,7 @@ export const buildFieldCellView = (
         key,
         value: cell.value,
         placedValue: stepState.placedValues.get(key) ?? BLANK_CELL_VALUE,
-        candidates: mergeCandidateValues(candidates, stepState.revealedCandidates.get(key) ?? []),
+        candidates: [...new Set([...candidates, ...(stepState.revealedCandidates.get(key) ?? [])])].sort((left, right) => left - right),
         eliminatedCandidates: stepState.eliminatedCandidates.get(key) ?? [],
         isGiven: givenCellKeys.has(key),
         isSelected,

@@ -1,3 +1,5 @@
+import { PRINTABLE_BOOKLET_SIZE } from '../../../printable/constants/printable-sample.constant';
+
 import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadata.interface';
 
 export const printableEasySudokuPageMetadata: PageMetadataInterface = {
@@ -5,7 +7,7 @@ export const printableEasySudokuPageMetadata: PageMetadataInterface = {
     title: 'Printable Easy Sudoku',
     headline: 'Printable Easy Sudoku (PDF)',
     metaTitle: 'Printable Easy Sudoku PDF — Free Puzzles & Solutions',
-    metaDescription: 'Download a free printable Easy sudoku PDF booklet: 16 single-technique puzzles for a relaxed solve, with solutions.',
+    metaDescription: `Download a free printable Easy sudoku PDF booklet: ${PRINTABLE_BOOKLET_SIZE} single-technique puzzles for a relaxed solve, with solutions.`,
     publishedAt: '2026-08-11T00:00:00.000Z',
     updatedAt: '2026-08-23T00:00:00.000Z',
     changeFrequency: 'monthly',

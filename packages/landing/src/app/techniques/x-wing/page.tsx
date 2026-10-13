@@ -12,8 +12,6 @@ import { TechniqueNavigation } from '../../../techniques/components/technique-na
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
-import { hiddenQuadPageMetadata } from '../hidden-quad/metadata';
-import { swordfishPageMetadata } from '../swordfish/metadata';
 
 import { xWingPageMetadata } from './metadata';
 
@@ -136,7 +134,7 @@ const XWingPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={swordfishPageMetadata} previous={hiddenQuadPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.XWing} />
     </main>
 );
 

@@ -11,7 +11,7 @@ import { infinitySharedPuzzleEncodedConstant } from '../src/constants/shared-cha
 import { bringAppToForeground } from '../src/utils/bring-app-to-foreground.util';
 import { launchHome } from '../src/utils/launch-home.util';
 import { openSharedPuzzle } from '../src/utils/open-shared-puzzle.util';
-import { quitPausedGame } from '../src/utils/quit-paused-game.util';
+import { quitCurrentGame } from '../src/utils/quit-current-game.util';
 import { sendAppToBackground } from '../src/utils/send-app-to-background.util';
 
 const gameScreenTimeoutMilliseconds = 15000;
@@ -41,7 +41,7 @@ test('starts a curated Infinity puzzle from the home screen with its rating visi
 
     expect(pageErrors).toEqual([]);
 
-    await quitPausedGame(page);
+    await quitCurrentGame(page, PauseScreenSelectors.QuitButton);
 });
 
 test('round-trips a shared Infinity link end to end with its rating carried onto the pause screen', async ({ page }) => {
@@ -59,5 +59,18 @@ test('round-trips a shared Infinity link end to end with its rating carried onto
     await bringAppToForeground(page);
     await expect(page.getByTestId(PauseScreenSelectors.DetailsValue)).toHaveText(/Infinity · 11\.9/u);
 
-    await quitPausedGame(page);
+    await quitCurrentGame(page, PauseScreenSelectors.QuitButton);
+});
+
+test('pauses an Infinity run when the document backgrounds before game initialization', async ({ page }) => {
+    await launchHome(page);
+    await page.getByTestId(infinityOptionTestId).click();
+
+    await sendAppToBackground(page);
+    await page.getByTestId(HomeScreenSelectors.StartButton).click();
+    await expect(page.getByTestId(PauseScreenSelectors.Root)).toBeVisible({ timeout: pauseScreenTimeoutMilliseconds });
+    await bringAppToForeground(page);
+
+    await expect(page.getByTestId(PauseScreenSelectors.DetailsValue)).toHaveText(/Infinity · \d+\.\d\+? • /u);
+    await quitCurrentGame(page, PauseScreenSelectors.QuitButton);
 });

@@ -5,9 +5,8 @@ Lightweight React DOM components that render a `@suuudokuuu/field-core` `FieldEn
 ## Commands
 
 ```bash
-pnpm build              # Build ESM + CommonJS + copy the stylesheet
+pnpm build              # Build ESM + copy the stylesheet
 pnpm build:esm         # TypeScript -> /dist/esm
-pnpm build:cjs         # TypeScript -> /dist/cjs
 pnpm build:styles      # Copy src/styles/field-dom.css -> dist/field-dom.css
 pnpm test              # Vitest tests
 pnpm test:coverage     # With coverage report
@@ -34,6 +33,9 @@ src/
 │   ├── field-number-pad/      # digits with remaining counts, mode/undo/redo
 │   ├── field-step-player/     # step controls, progress dots or count, aria-live narration
 │   ├── field-witness-overlay/ # SVG chain and forcing-branch witness over the board
+│   ├── field-chain-witness/   # Masked chain links and candidates
+│   ├── field-branch-witness/  # Assumption, implications, and branch outcome
+│   ├── field-witness-candidate/ # Candidate position in a chain or branch
 │   └── field-game/            # composition shell over the four pieces
 ├── constants/field-grid.constant.ts
 ├── hooks/use-field-mistake-cell.hook.ts
@@ -58,7 +60,7 @@ The snapshot carries no given/user distinction, so the consumer supplies `givenC
 
 ### Step scripts
 
-`@suuudokuuu/field-core`'s `buildStepScriptState(stepScript, stepIndex)` folds steps `0..stepIndex` into pattern cells, revealed candidates, struck candidates, and placed values; `FieldBoard` passes the result as `context.stepState`. `FieldStepPlayer` renders nothing when `snapshot.stepScript` is `null`. Narration is structured, never prose: `narrationRenderer(step)` receives the whole step (kind plus `{ technique, cells, values }`) and returns the consumer's localized node.
+`@suuudokuuu/field-core`'s `buildStepScriptState(stepScript, stepIndex)` folds steps `0..stepIndex` into pattern cells, revealed candidates, struck candidates, and placed values; `FieldBoard` passes the result as `context.stepState`. `FieldStepPlayer` keeps an empty live narration region mounted when `snapshot.stepScript` is `null`; controls and progress appear only while a script is running. Narration is structured, never prose: `narrationRenderer(step)` receives the whole step (kind plus `{ technique, cells, values }`) and returns the consumer's localized node.
 
 ### Witness overlay
 

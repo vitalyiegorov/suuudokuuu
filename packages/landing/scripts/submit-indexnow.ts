@@ -2,13 +2,15 @@ import { getErrorMessage, isNotEmptyArray, isNotEmptyString } from '@rnw-communi
 
 import { INDEXNOW_ENDPOINT, INDEXNOW_KEY_ENVIRONMENT_VARIABLE } from '../src/indexing/constants/indexnow.constant';
 import { buildIndexablePages } from '../src/indexing/utils/build-indexable-pages.util';
-import { buildIndexNowKeyLocation } from '../src/indexing/utils/build-indexnow-key-location.util';
+import { buildIndexNowKeyFileName } from '../src/indexing/utils/build-indexnow-key-file-name.util';
 import { resolveIndexNowKey } from '../src/indexing/utils/resolve-indexnow-key.util';
 import { SITE_ORIGIN } from '../src/seo/constants/site.constant';
 
-const ACCEPTED_STATUS_CODES = [200, 202];
+const HTTP_OK = 200;
+const HTTP_ACCEPTED = 202;
+const ACCEPTED_STATUS_CODES = [HTTP_OK, HTTP_ACCEPTED];
 
-const host = new URL(SITE_ORIGIN).host;
+const { host } = new URL(SITE_ORIGIN);
 const urlList = buildIndexablePages().map(({ url }) => url);
 const foreignUrls = urlList.filter(url => new URL(url).host !== host);
 
@@ -25,7 +27,7 @@ const assertKeyFileServed = async (keyLocation: string, key: string): Promise<vo
     const response = await fetch(keyLocation, { cache: 'no-store' });
     const body = await response.text();
 
-    if (response.status !== 200) {
+    if (response.status !== HTTP_OK) {
         throw new Error(
             `${keyLocation} answered ${response.status}, so IndexNow cannot verify the key. Check that the deployed export contains it.`
         );
@@ -39,7 +41,7 @@ const assertKeyFileServed = async (keyLocation: string, key: string): Promise<vo
 };
 
 const submitToIndexNow = (key: string): void => {
-    const keyLocation = buildIndexNowKeyLocation(key);
+    const keyLocation = `${SITE_ORIGIN}/${buildIndexNowKeyFileName(key)}`;
 
     assertKeyFileServed(keyLocation, key)
         .then(() =>
@@ -57,6 +59,8 @@ const submitToIndexNow = (key: string): void => {
             }
 
             console.log(`Submitted ${urlList.length} sitemap-derived URLs for ${host} to IndexNow (${response.status}).`);
+
+            return undefined;
         })
         .catch(handleSubmitError);
 };

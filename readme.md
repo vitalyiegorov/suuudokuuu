@@ -155,7 +155,7 @@ The app uses [react-native-reanimated](https://docs.swmansion.com/react-native-r
 
 - [app](packages/app/readme.md) - React Native / Expo application package
 - [generator](packages/generator/readme.md) - Sudoku puzzle generator
-- [app-tests](tests/app-tests/readme.md) - Maestro tests for the app package
+- [app-tests](tests/app-tests/AGENTS.md) - Maestro tests for the app package
 
 ## Acknowledgements
 

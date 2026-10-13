@@ -64,7 +64,9 @@ export class XYChainTechnique implements TechniqueStrategyInterface {
             return true;
         }
 
-        scan.results.splice(0, scan.results.length, ...getCanonicalTechniqueResults(scan.results));
+        if (scan.results.length > scan.resultsAtStart) {
+            scan.results.splice(0, scan.results.length, ...getCanonicalTechniqueResults(scan.results));
+        }
 
         return false;
     }
@@ -72,10 +74,7 @@ export class XYChainTechnique implements TechniqueStrategyInterface {
     private getRoots(context: CandidateContext, eliminationValue: number, target?: TechniqueSearchTargetInterface): CellInterface[] {
         return getBivalueCells(context)
             .filter(cell => context.getCandidates(cell).includes(eliminationValue))
-            .filter(
-                cell =>
-                    !target || (!isSameCell(cell, target.cell) && getTargetEliminations(context, cell, target, eliminationValue).length > 0)
-            )
+            .filter(cell => !target || (!isSameCell(cell, target.cell) && getTargetEliminations(cell, target, eliminationValue).length > 0))
             .sort(compareCells);
     }
 

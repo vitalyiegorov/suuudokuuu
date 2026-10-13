@@ -1,9 +1,4 @@
 export interface HistoryRatingSnapshotInterface {
-    rating: number;
-    isRatingCeiling: boolean;
+    readonly rating: number;
+    readonly isRatingCeiling: boolean;
 }
-
-export const emptyHistoryRatingSnapshot: HistoryRatingSnapshotInterface = {
-    rating: 0,
-    isRatingCeiling: false
-};

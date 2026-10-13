@@ -1,5 +1,5 @@
 export interface FieldPadValueInterface {
-    value: number;
-    remaining: number;
-    isComplete: boolean;
+    readonly value: number;
+    readonly remaining: number;
+    readonly isComplete: boolean;
 }

@@ -71,7 +71,7 @@ describe('buildFieldCellView', () => {
             eliminatedCandidates: new Map([['0-0', [7]]]),
             placedValues: new Map([['0-0', 3]])
         };
-        const view = buildFieldCellView(cell, [9], createContext({ stepState }));
+        const view = buildFieldCellView(cell, [9, 3, 9], createContext({ stepState }));
 
         expect(view.candidates).toEqual([3, 7, 9]);
         expect(view.eliminatedCandidates).toEqual([7]);

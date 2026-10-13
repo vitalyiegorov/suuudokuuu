@@ -1,9 +1,10 @@
 import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
+import { DigitButtonFontSizeCapDivider, DigitButtonFontSizeDivider } from '../constant/font-size.constant';
 import { GameNumpadWideDigitSizeConstant } from '../constant/game-numpad-digits.constant';
 import { PanelControlPillRadiusConstant, PanelControlSizeConstant } from '../constant/panel-control-size.constant';
-import { getDigitButtonFontSize } from '../utils/get-digit-button-font-size.util';
+import { getFittedFontSize } from '../utils/get-fitted-font-size.util';
 
 export const DigitButtonStyles = StyleSheet.create((_theme, rt) => {
     const digitSize = appLayoutScreenIsWide(rt.screen) ? GameNumpadWideDigitSizeConstant : PanelControlSizeConstant;
@@ -24,7 +25,12 @@ export const DigitButtonStyles = StyleSheet.create((_theme, rt) => {
             width: digitSize
         },
         digitText: (fontSizeMultiplier: number, fontScale: number) => ({
-            fontSize: getDigitButtonFontSize(digitSize, fontSizeMultiplier, fontScale)
+            fontSize: getFittedFontSize(
+                digitSize / DigitButtonFontSizeDivider,
+                digitSize / DigitButtonFontSizeCapDivider,
+                fontSizeMultiplier,
+                fontScale
+            )
         }),
         exhausted: {
             opacity: 0.35

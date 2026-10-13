@@ -12,8 +12,6 @@ import { TechniqueNavigation } from '../../../techniques/components/technique-na
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
-import { hiddenPairPageMetadata } from '../hidden-pair/metadata';
-import { nakedTriplePageMetadata } from '../naked-triple/metadata';
 
 import { nakedQuadPageMetadata } from './metadata';
 
@@ -124,7 +122,7 @@ const NakedQuadPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={hiddenPairPageMetadata} previous={nakedTriplePageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.NakedQuad} />
     </main>
 );
 

@@ -13,7 +13,6 @@ import { TechniqueNavigation } from '../../../techniques/components/technique-na
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
-import { simpleColoringPageMetadata } from '../simple-coloring/metadata';
 import { uniqueRectanglePageMetadata } from '../unique-rectangle/metadata';
 
 import { aicPageMetadata } from './metadata';
@@ -142,7 +141,7 @@ const AICPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={uniqueRectanglePageMetadata} previous={simpleColoringPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.AIC} />
     </main>
 );
 

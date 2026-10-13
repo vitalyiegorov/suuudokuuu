@@ -2,8 +2,6 @@
     "ignore": [
         "packages/app/lingui.config.js",
         "packages/app/fingerprint.config.js",
-        "**/babel.config.js",
-        "**/selectors.ts",
         "packages/hell-corpus/scripts/shared/rate-puzzle-worker.mjs",
         ".agents/**"
     ],
@@ -15,7 +13,6 @@
         "eas-build-cache-provider",
         "serve"
     ],
-    "ignoreBinaries": ["xcrun", "maestro", "adb", "sqlite3", "convert"],
     "workspaces": {
         "packages/field-core": {
             "entry": ["src/index.ts!", "src/react/use-field-snapshot.hook.ts!"]
@@ -40,11 +37,11 @@
                 "vercel-functions/shared/create-node-handler.util.ts!",
                 "metro/wa-sqlite-factory.web.js!",
                 "src/@generic/runtime/sqlite-opfs.worker.ts!"
-            ],
-            "ignoreDependencies": ["@react-native-masked-view/masked-view", "expo-linear-gradient"]
+            ]
         },
         "tests/app-tests": {
             "entry": ["scripts/ci-seed-scene.ts"]
         }
-    }
+    },
+    "ignoreBinaries": ["adb", "convert", "sips", "maestro"]
 }

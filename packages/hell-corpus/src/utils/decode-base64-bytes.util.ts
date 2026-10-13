@@ -1,10 +1,14 @@
-import { BASE64_ALPHABET } from '../constants/base64-alphabet.constant';
+const BASE64_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 
 const BASE64_GROUP_CHAR_COUNT = 4;
 const BASE64_GROUP_BYTE_COUNT = 3;
 const LOW_NIBBLE_MASK = 0xf;
 
 export const decodeBase64Bytes = (base64: string): Uint8Array => {
+    if (base64.length % BASE64_GROUP_CHAR_COUNT !== 0) {
+        throw new Error('Invalid corpus base64 length');
+    }
+
     const groupCount = base64.length / BASE64_GROUP_CHAR_COUNT;
     const bytes = new Uint8Array(groupCount * BASE64_GROUP_BYTE_COUNT);
 
@@ -14,6 +18,10 @@ export const decodeBase64Bytes = (base64: string): Uint8Array => {
         const second = BASE64_ALPHABET.indexOf(base64.charAt(charOffset + 1));
         const third = BASE64_ALPHABET.indexOf(base64.charAt(charOffset + 2));
         const fourth = BASE64_ALPHABET.indexOf(base64.charAt(charOffset + 3));
+
+        if (first < 0 || second < 0 || third < 0 || fourth < 0) {
+            throw new Error('Invalid corpus base64 character');
+        }
 
         const byteOffset = group * BASE64_GROUP_BYTE_COUNT;
 

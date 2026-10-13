@@ -1,9 +1,9 @@
 import { BLANK_CELL_VALUE } from '../constants/field-grid.constant';
 
 import type { FieldPadValueInterface } from '../interfaces/field-pad-value.interface';
-import type { FieldType } from '../types/field.type';
+import type { FieldSnapshotInterface } from '@suuudokuuu/field-core';
 
-export const buildFieldPadValues = (field: FieldType): FieldPadValueInterface[] => {
+export const buildFieldPadValues = (field: FieldSnapshotInterface['field']): FieldPadValueInterface[] => {
     const fieldSize = field.length;
     const placedCounts = new Map<number, number>();
 

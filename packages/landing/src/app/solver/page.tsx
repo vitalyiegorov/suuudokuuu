@@ -1,5 +1,7 @@
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import Link from 'next/link';
 
+import { ArticleSchema } from '../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../seo/components/faq-heading/faq-heading';
@@ -27,24 +29,26 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(solverPageMetadata);
 
-const SINGLES_COUNT = 3;
-const INTERSECTIONS_COUNT = 3;
-const SUBSETS_COUNT = 6;
-const FISH_WINGS_CHAINS_COUNT = 14;
-const TIER_1_END = SINGLES_COUNT;
-const TIER_2_END = TIER_1_END + INTERSECTIONS_COUNT;
-const TIER_3_END = TIER_2_END + SUBSETS_COUNT;
-const TIER_4_END = TIER_3_END + FISH_WINGS_CHAINS_COUNT;
+const TIER_1_SINGLES = TECHNIQUE_PAGE_LADDER.filter(technique => technique <= SolutionTechniqueEnum.HiddenSingle);
 
-const TIER_1_SINGLES = TECHNIQUE_PAGE_LADDER.slice(0, TIER_1_END);
-const TIER_2_INTERSECTIONS = TECHNIQUE_PAGE_LADDER.slice(TIER_1_END, TIER_2_END);
-const TIER_3_SUBSETS = TECHNIQUE_PAGE_LADDER.slice(TIER_2_END, TIER_3_END);
-const TIER_4_FISH_WINGS_CHAINS = TECHNIQUE_PAGE_LADDER.slice(TIER_3_END, TIER_4_END);
-const TIER_5_UNIQUENESS_FORCING_CHAINS = TECHNIQUE_PAGE_LADDER.slice(TIER_4_END);
+const TIER_2_INTERSECTIONS = TECHNIQUE_PAGE_LADDER.filter(
+    technique => technique > SolutionTechniqueEnum.HiddenSingle && technique <= SolutionTechniqueEnum.BoxLineReduction
+);
+
+const TIER_3_SUBSETS = TECHNIQUE_PAGE_LADDER.filter(
+    technique => technique > SolutionTechniqueEnum.BoxLineReduction && technique <= SolutionTechniqueEnum.HiddenQuad
+);
+
+const TIER_4_FISH_WINGS_CHAINS = TECHNIQUE_PAGE_LADDER.filter(
+    technique => technique > SolutionTechniqueEnum.HiddenQuad && technique <= SolutionTechniqueEnum.AIC
+);
+
+const TIER_5_UNIQUENESS_FORCING_CHAINS = TECHNIQUE_PAGE_LADDER.filter(technique => technique > SolutionTechniqueEnum.AIC);
 
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SolverPage = () => (
     <main>
+        <ArticleSchema metadata={solverPageMetadata} />
         <PageHeader metadata={solverPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem>Sudoku solver</BreadcrumbListItem>

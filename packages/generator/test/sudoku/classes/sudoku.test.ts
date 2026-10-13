@@ -1,7 +1,9 @@
-/* oxlint-disable prefer-destructuring */
+import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
+import { createSeededRandom } from '@suuudokuuu/solver-core';
 import { describe, expect, it, vi } from 'vitest';
 
 import { DifficultyEnum } from '../../../src/@generic/enums/difficulty.enum';
+import { emptyScoredCells } from '../../../src/@generic/interfaces/scored-cells.interface';
 import { defaultSudokuConfig, getBlankCellCountByConfig } from '../../../src/@generic/interfaces/sudoku-config.interface';
 import { Sudoku } from '../../../src/sudoku/classes/sudoku';
 
@@ -16,8 +18,6 @@ class ExtendedSudoku extends Sudoku {
 const difficultiesReachableByRandomDigging = Object.values(DifficultyEnum).filter(
     difficulty => difficulty !== DifficultyEnum.Hell && difficulty !== DifficultyEnum.Infinity
 );
-
-const unreachableTargetTimeoutMs = 60000;
 
 describe('Sudoku - Basic Operations', () => {
     const testFieldsString = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
@@ -62,24 +62,42 @@ describe('Sudoku - Basic Operations', () => {
         expect(blanks).toBe(getBlankCellCountByConfig({ ...defaultSudokuConfig, difficulty }));
     });
 
-    it(
-        'create() keeps the best attempt when the blank target is unreachable by digging',
-        () => {
-            const unreachableBlankCells = defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize;
-            const sudoku = new Sudoku({
-                ...defaultSudokuConfig,
-                difficultyBlankCells: { ...defaultSudokuConfig.difficultyBlankCells, [DifficultyEnum.Newbie]: unreachableBlankCells }
-            });
+    it('keeps the best field when later uniqueness attempts reject more removals', () => {
+        const unreachableBlankCells = defaultSudokuConfig.fieldSize * defaultSudokuConfig.fieldSize;
+        const firstFieldChecks = 50 * unreachableBlankCells;
+        const firstFieldBlankLimit = 60;
+        const laterFieldBlankLimit = 50;
+        let solutionChecks = 0;
+        const countSolutionsSpy = vi.spyOn(BitmaskSolver.prototype, 'countSolutions').mockImplementation(grid => {
+            solutionChecks += 1;
+            const blankLimit = solutionChecks <= firstFieldChecks ? firstFieldBlankLimit : laterFieldBlankLimit;
 
-            sudoku.create(DifficultyEnum.Newbie);
+            return [...grid].filter(value => value === 0).length <= blankLimit ? 1 : 2;
+        });
+        const sudoku = new Sudoku({
+            ...defaultSudokuConfig,
+            random: createSeededRandom(1),
+            difficultyBlankCells: { ...defaultSudokuConfig.difficultyBlankCells, [DifficultyEnum.Newbie]: unreachableBlankCells }
+        });
+        sudoku.create(DifficultyEnum.Newbie);
+        countSolutionsSpy.mockRestore();
+        const blanks = sudoku.Field.flat().filter(cell => cell.value === defaultSudokuConfig.blankCellValue).length;
 
-            const blanks = sudoku.Field.flat().filter(cell => cell.value === defaultSudokuConfig.blankCellValue).length;
+        expect(blanks).toBe(firstFieldBlankLimit);
+        expect(sudoku.Field.flat().filter(cell => cell.value !== defaultSudokuConfig.blankCellValue)).toEqual(
+            sudoku.FullField.flat().filter(cell => sudoku.Field[cell.y][cell.x].value !== defaultSudokuConfig.blankCellValue)
+        );
+    });
 
-            expect(blanks).toBeGreaterThan(0);
-            expect(blanks).toBeLessThan(unreachableBlankCells);
-        },
-        unreachableTargetTimeoutMs
-    );
+    it('generates a unique puzzle using a nonzero blank marker', () => {
+        const blankCellValue = -1;
+        const sudoku = new Sudoku({ ...defaultSudokuConfig, blankCellValue, random: createSeededRandom(1) });
+        sudoku.create(DifficultyEnum.Newbie);
+        const grid = Uint8Array.from(sudoku.Field.flat(), cell => (cell.value === blankCellValue ? 0 : cell.value));
+
+        expect(sudoku.Field.flat().filter(cell => cell.value === blankCellValue)).toHaveLength(10);
+        expect(new BitmaskSolver().countSolutions(grid, 2)).toBe(1);
+    });
 
     it('getCorrectValue() with no cell returns blankCellValue', () => {
         const sudoku = new Sudoku();
@@ -87,18 +105,8 @@ describe('Sudoku - Basic Operations', () => {
         expect(sudoku.getCorrectValue()).toBe(defaultSudokuConfig.blankCellValue);
     });
 
-    it('create() finishes without throwing and produces correct number of blanks', () => {
-        const sudoku = new Sudoku();
-        sudoku.create(DifficultyEnum.Newbie);
-
-        const blanks = sudoku.Field.flat().filter(cell => cell.value === defaultSudokuConfig.blankCellValue).length;
-
-        expect(blanks).toBe(getBlankCellCountByConfig(defaultSudokuConfig));
-    });
-
     it('getCorrectValue(cell) returns a number 1–fieldSize for a blank cell', () => {
-        const sudoku = new Sudoku();
-        sudoku.create(DifficultyEnum.Hard);
+        const sudoku = Sudoku.fromString(testFieldsString);
 
         const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
 
@@ -189,22 +197,35 @@ describe('Sudoku - Cell Value Operations', () => {
         expect(() => sudoku.setCellValue(badCell)).toThrow('Cell value is wrong');
     });
 
-    it('should handle failure to create game field', () => {
-        expect.assertions(1);
-
-        const sudoku = new Sudoku();
-
-        // oxlint-disable-next-line typescript/no-explicit-any
-        vi.spyOn(sudoku as any, 'fillRecursive').mockImplementation(() => false);
-
-        expect(() => void sudoku.create(DifficultyEnum.Easy)).toThrow('Unable to create a game field');
-    });
-
     describe('Sudoku - Scoring (deterministic)', () => {
+        it('returns scoring arrays detached from future candidate calculations', () => {
+            const sudoku = Sudoku.fromString('41735268985279613496314827524168539779623485153897142638546791262951374.174829563');
+            const {
+                7: { 8: cell }
+            } = sudoku.Field;
+            const scored = sudoku.setCellValue({ ...cell, value: sudoku.getCorrectValue(cell) });
+            expect(scored.values).not.toBe(emptyScoredCells.values);
+            const repeated = sudoku.setCellValue({ ...cell, value: sudoku.getCorrectValue(cell) });
+            expect(scored.values).not.toBe(repeated.values);
+        });
+
+        it('does not share empty scoring values between results', () => {
+            const sudoku = Sudoku.fromString('417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.');
+            const {
+                0: { 6: cell }
+            } = sudoku.Field;
+            const first = sudoku.setCellValue({ ...cell, value: sudoku.getCorrectValue(cell) });
+            const second = sudoku.setCellValue({ ...cell, value: sudoku.getCorrectValue(cell) });
+            expect(first.values).not.toBe(second.values);
+            expect(first.values).not.toBe(emptyScoredCells.values);
+        });
+
         it('complete a row', () => {
             const sudoku = Sudoku.fromString('417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.');
 
-            const cell = sudoku.Field[0][6];
+            const {
+                0: { 6: cell }
+            } = sudoku.Field;
             const correct = sudoku.getCorrectValue(cell);
             const scored = sudoku.setCellValue({ ...cell, value: correct });
 
@@ -218,7 +239,9 @@ describe('Sudoku - Cell Value Operations', () => {
         it('complete a column', () => {
             const sudoku = Sudoku.fromString('417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.');
 
-            const cell = sudoku.Field[2][2];
+            const {
+                2: { 2: cell }
+            } = sudoku.Field;
             const correct = sudoku.getCorrectValue(cell);
             const scored = sudoku.setCellValue({ ...cell, value: correct });
 
@@ -232,7 +255,9 @@ describe('Sudoku - Cell Value Operations', () => {
         it('complete a group', () => {
             const sudoku = Sudoku.fromString('417352.898.27.613..6.14827..416.53..79623.8.15389.142638546.912..9.13...1748.9.6.');
 
-            const cell = sudoku.Field[3][0];
+            const {
+                3: { 0: cell }
+            } = sudoku.Field;
             const correct = sudoku.getCorrectValue(cell);
             const scored = sudoku.setCellValue({ ...cell, value: correct });
 
@@ -246,7 +271,9 @@ describe('Sudoku - Cell Value Operations', () => {
         it('complete all values', () => {
             const sudoku = Sudoku.fromString('417352.898.27.613..6.14827.2416.53..79623.8.15389.142638546.912.29.13...1748.9.6.');
 
-            const cell = sudoku.Field[8][4];
+            const {
+                8: { 4: cell }
+            } = sudoku.Field;
             const correct = sudoku.getCorrectValue(cell);
             const scored = sudoku.setCellValue({ ...cell, value: correct });
 
@@ -260,7 +287,9 @@ describe('Sudoku - Cell Value Operations', () => {
         it('complete whole game', () => {
             const sudoku = Sudoku.fromString('41735268985279613496314827524168539779623485153897142638546791262951374.174829563');
 
-            const cell = sudoku.Field[7][8];
+            const {
+                7: { 8: cell }
+            } = sudoku.Field;
             const correct = sudoku.getCorrectValue(cell);
             const scored = sudoku.setCellValue({ ...cell, value: correct });
 
@@ -270,41 +299,6 @@ describe('Sudoku - Cell Value Operations', () => {
             expect(scored.isWon).toBe(true);
             expect(scored.values).toStrictEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
         });
-    });
-
-    it('should handle game winning scenario', () => {
-        const sudoku = new Sudoku();
-        sudoku.create(DifficultyEnum.Newbie);
-
-        while (sudoku.PossibleValues.length > 0) {
-            const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
-
-            expect(blankCell).toBeDefined();
-
-            const correctValue = sudoku.getCorrectValue(blankCell);
-            // oxlint-disable-next-line typescript/no-non-null-assertion
-            const cellToSet = { ...blankCell!, value: correctValue };
-            sudoku.setCellValue(cellToSet);
-        }
-
-        expect(sudoku.PossibleValues).toHaveLength(0);
-        expect(sudoku.Field.flat().every(cell => cell.value !== defaultSudokuConfig.blankCellValue)).toBe(true);
-    });
-
-    it('should handle value completion scoring', () => {
-        const sudoku = new Sudoku();
-        sudoku.create(DifficultyEnum.Easy);
-
-        const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
-
-        expect(blankCell).toBeDefined();
-
-        const correctValue = sudoku.getCorrectValue(blankCell);
-        // oxlint-disable-next-line typescript/no-non-null-assertion
-        const cellToSet = { ...blankCell!, value: correctValue };
-        const scoredCells = sudoku.setCellValue(cellToSet);
-
-        expect(scoredCells.values).toBeDefined();
     });
 });
 
@@ -324,7 +318,9 @@ describe('Sudoku - Candidates', () => {
     it('getCellCandidates should return single possible cell value', () => {
         const sudoku = Sudoku.fromString('27.3459.838.6..75..598.2..45.7986.4.1264378.5498...673.6312.5.784.793.267125.84.9');
 
-        const cell = sudoku.Field[2][0];
+        const {
+            2: { 0: cell }
+        } = sudoku.Field;
         const candidates = sudoku.getCellCandidates(cell);
 
         expect(candidates).toStrictEqual([6]);
@@ -333,7 +329,9 @@ describe('Sudoku - Candidates', () => {
     it('getCellCandidates should return multiple possible cell values', () => {
         const sudoku = Sudoku.fromString('27.3459.838.6..75..598.2..45.7986.4.1264378.5498...673.6312.5.784.793.267125.84.9');
 
-        const cell = sudoku.Field[5][4];
+        const {
+            5: { 4: cell }
+        } = sudoku.Field;
         const candidates = sudoku.getCellCandidates(cell);
 
         expect(candidates).toStrictEqual([1, 5]);

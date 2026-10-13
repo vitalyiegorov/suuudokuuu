@@ -1,6 +1,7 @@
 import * as Context from 'effect/Context';
 import * as Effect from 'effect/Effect';
 import * as Layer from 'effect/Layer';
+import * as Option from 'effect/Option';
 import * as Reactivity from 'effect/reactivity/Reactivity';
 import * as Schema from 'effect/Schema';
 import * as SqlClient from 'effect/sql/SqlClient';
@@ -10,6 +11,7 @@ import { ReactivityKeyEnum } from '../../@generic/enum/reactivity-key.enum';
 import { DifficultySchema } from '../../@generic/schema/difficulty.schema';
 import { DifficultyStatsSchema } from '../schema/difficulty-stats.schema';
 
+import type { DifficultyStatsType } from '../type/difficulty-stats.type';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 export class DifficultyStatsRepository extends Context.Service<DifficultyStatsRepository>()(
@@ -23,7 +25,7 @@ export class DifficultyStatsRepository extends Context.Service<DifficultyStatsRe
                 Result: DifficultyStatsSchema,
                 execute: () => sql`SELECT * FROM difficulty_stats`
             });
-            const findStatsByDifficulty = SqlSchema.findOne({
+            const findStatsByDifficulty = SqlSchema.findOneOption({
                 Request: DifficultySchema,
                 Result: DifficultyStatsSchema,
                 execute: difficulty => sql`SELECT * FROM difficulty_stats WHERE difficulty = ${difficulty}`
@@ -35,8 +37,28 @@ export class DifficultyStatsRepository extends Context.Service<DifficultyStatsRe
 
             return {
                 findAll: findAllStats().pipe(Effect.orDie),
-                findByDifficulty: (difficulty: DifficultyEnum) => findStatsByDifficulty(difficulty).pipe(Effect.orDie),
-                save: (stats: typeof DifficultyStatsSchema.Type) =>
+                findByDifficulty: (difficulty: DifficultyEnum) =>
+                    findStatsByDifficulty(difficulty).pipe(
+                        Effect.map(
+                            Option.getOrElse(() => ({
+                                difficulty,
+                                gamesCompleted: 0,
+                                gamesWon: 0,
+                                gamesWonWithoutMistakes: 0,
+                                gamesLost: 0,
+                                bestScore: 0,
+                                bestRating: 0,
+                                isBestRatingCeiling: false,
+                                bestTime: 0,
+                                averageTime: 0,
+                                hardcoreWon: 0,
+                                challengesWon: 0,
+                                challengesLost: 0
+                            }))
+                        ),
+                        Effect.orDie
+                    ),
+                save: (stats: DifficultyStatsType) =>
                     reactivity.mutation([ReactivityKeyEnum.DifficultyStats], replaceStats(stats)).pipe(Effect.orDie)
             };
         })

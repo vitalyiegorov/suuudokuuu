@@ -8,10 +8,10 @@ import { PrintableDownloadFact } from '../../../printable/components/printable-d
 import { PRINTABLE_BOOKLET_PUZZLES_PER_PAGE } from '../../../printable/constants/printable-layout.constant';
 import { PRINTABLE_BOOKLET_PAGE_COUNT } from '../../../printable/constants/printable-page-count.constant';
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_BOOKLET_SIZE } from '../../../printable/constants/printable-sample.constant';
-import { getPrintableFileSizeLabel } from '../../../printable/utils/get-printable-file-size-label.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -40,6 +40,7 @@ const newbieReport = getTierTechniqueReport(DifficultyEnum.Newbie);
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PrintableNewbieSudokuPage = () => (
     <main>
+        <ArticleSchema metadata={printableNewbieSudokuPageMetadata} />
         <PageHeader metadata={printableNewbieSudokuPageMetadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem path={printableSudokuPageMetadata.path}>Printable sudoku</BreadcrumbListItem>
@@ -61,7 +62,7 @@ const PrintableNewbieSudokuPage = () => (
                     {PRINTABLE_BOOKLET_SIZE} puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key.
                 </li>
                 <li>
-                    Our sample of {newbieReport.sampleSize} Newbie boards measures SE <SeRatingRange report={newbieReport} />.
+                    Our sample of {newbieReport.sampleSize} Newbie boards measures SE {formatSeRatingRange(newbieReport)}.
                 </li>
                 <li>No pencil marks, no elimination logic and no guessing required for any puzzle in the booklet.</li>
             </ul>
@@ -70,7 +71,6 @@ const PrintableNewbieSudokuPage = () => (
         <PrintableDownloadCard fileName="newbie.pdf" title="Newbie Sudoku">
             <PrintableDownloadFact>{PRINTABLE_BOOKLET_SIZE} puzzles</PrintableDownloadFact>
             <PrintableDownloadFact>{PRINTABLE_BOOKLET_PAGE_COUNT} pages</PrintableDownloadFact>
-            <PrintableDownloadFact>{getPrintableFileSizeLabel('newbie.pdf')} PDF, US Letter</PrintableDownloadFact>
             <PrintableDownloadFact>Solutions included on the last pages</PrintableDownloadFact>
         </PrintableDownloadCard>
         <h2>What is inside the booklet</h2>
@@ -79,7 +79,7 @@ const PrintableNewbieSudokuPage = () => (
             {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, and closes with every solved grid on the final pages so answers never sit next
             to an unsolved puzzle. Every grid is drawn with vector lines and the standard PDF Helvetica font, so it stays sharp at any print
             size and never depends on a scanned image. Our published sample of {newbieReport.sampleSize} Newbie boards measures SE{' '}
-            <SeRatingRange report={newbieReport} /> — numbers the{' '}
+            {formatSeRatingRange(newbieReport)} — numbers the{' '}
             <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> measures directly rather than
             assumes.
         </p>
@@ -88,9 +88,9 @@ const PrintableNewbieSudokuPage = () => (
             This is the booklet to print for a short daily habit rather than a long sitting: fold it into a notebook, work one grid at a
             time, and there is never a candidate to write down or a pair to track across the row. It also suits a classroom introducing the
             rules for the first time, since a full class can finish a puzzle in the same short window without anyone stalling on an
-            intersection they have not been taught yet. The four-per-page layout still leaves each grid large enough to write in
-            comfortably, even for a child’s handwriting, and the answer key at the back means a teacher never has to solve the sheet
-            themselves to check it.
+            intersection they have not been taught yet. The {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}-per-page layout still leaves each grid
+            large enough to write in comfortably, even for a child’s handwriting, and the answer key at the back means a teacher never has
+            to solve the sheet themselves to check it.
         </p>
         <h2>Where to go next</h2>
         <p>
@@ -126,9 +126,9 @@ const PrintableNewbieSudokuPage = () => (
             <Faq>
                 <FaqQuestion>Can I print this Newbie booklet in large print?</FaqQuestion>
                 <FaqAnswer>
-                    The standard PDF already uses a generous four-puzzles-per-page layout. For bigger cells specifically, see the{' '}
-                    <Link href={printableEasySudokuPageMetadata.path}>printable Easy sudoku booklet</Link>, which is also the source tier
-                    for our large-print PDF.
+                    The standard PDF already uses a generous {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}-puzzles-per-page layout. For bigger cells
+                    specifically, see the <Link href={printableEasySudokuPageMetadata.path}>printable Easy sudoku booklet</Link>, which is
+                    also the source tier for our large-print PDF.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

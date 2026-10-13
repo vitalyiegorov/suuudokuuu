@@ -1,17 +1,15 @@
+import { givens as givensMask, solvedBoard } from '../../fixtures';
 /* oxlint-disable no-magic-numbers */
 import { describe, expect, it } from 'vitest';
 
 import { DIFFICULTY_CODE_MAX } from '../../../src/@generic/constants/binary-codec.constant';
-import { GRID_CELL_COUNT, GRID_EMPTY_CELL, GRID_SIZE } from '../../../src/@generic/constants/grid.constant';
+import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../../../src/@generic/constants/grid.constant';
 import { SharedPayloadKindEnum } from '../../../src/@generic/enums/shared-payload-kind.enum';
 import { TimelineEventKindEnum } from '../../../src/@generic/enums/timeline-event-kind.enum';
 import { GameStateSerializer } from '../../../src/game-state-serializer/classes/game-state-serializer';
 
 import type { SolutionStepInterface } from '../../../src/@generic/interfaces/solution-step.interface';
 import type { TimelineEventInterface } from '../../../src/@generic/interfaces/timeline-event.interface';
-
-const solvedBoard = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
-const givensMask = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
 
 const buildStepsForEmptyCells = (): SolutionStepInterface[] => {
     const steps: SolutionStepInterface[] = [];
@@ -82,7 +80,7 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
         const candidates: Record<string, number[]> = {};
 
         for (let cellIndex = 0; cellIndex < cellCount; cellIndex += 1) {
-            candidates[`${cellIndex % GRID_SIZE},${Math.floor(cellIndex / GRID_SIZE)}`] = [1, 4, 7];
+            candidates[cellIndex] = [1, 4, 7];
         }
 
         return candidates;
@@ -139,8 +137,9 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
     });
 
     it('should keep a v3 handoff share with pencil marks and a technique stream under 320 characters', () => {
-        expect.assertions(1);
+        expect.assertions(2);
 
+        const candidates = buildPencilMarks(18);
         const encoded = serializer.encodeState({
             techniques: buildCellEvents().map((_, index) => index % 26),
             field: solvedBoard,
@@ -149,7 +148,7 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
             maxMistakes: 3,
             isChallengeRun: true,
             score: 4820,
-            candidates: buildPencilMarks(18),
+            candidates,
             anchorSeconds: 1800000000,
             pencilCount: 0,
             screenshotCount: 0,
@@ -159,6 +158,7 @@ describe('GameStateSerializer v3 encoded size characterization', () => {
         });
 
         expect(encoded.length).toBeLessThanOrEqual(320);
+        expect(serializer.decodeState(encoded).candidates).toStrictEqual(candidates);
     });
 
     it('should keep every v3 payload url path safe', () => {

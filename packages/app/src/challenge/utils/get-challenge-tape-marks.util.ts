@@ -5,22 +5,20 @@ import { isDefined } from '@rnw-community/shared';
 import { techniqueComplexityConstant } from '../constants/technique-complexity.constant';
 import { ChallengeTechniqueTierEnum } from '../enums/challenge-technique-tier.enum';
 
+import { getChallengeTimelineSlot } from './get-challenge-timeline-slot.util';
 import { getTechniqueTier } from './get-technique-tier.util';
 
 import type { TimelineEventType } from '@suuudokuuu/progress';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface ChallengeTapeMarkInterface {
-    complexity: number;
-    isAway: boolean;
-    tier: ChallengeTechniqueTierEnum | null;
+    readonly complexity: number;
+    readonly isAway: boolean;
+    readonly tier: ChallengeTechniqueTierEnum | null;
 }
 
 const buildEmptyMarks = (tickCount: number): ChallengeTapeMarkInterface[] =>
     Array.from({ length: tickCount }, () => ({ complexity: 0, isAway: false, tier: null }));
-
-const getSlot = (cumulativeTime: number, elapsedTime: number, tickCount: number): number =>
-    Math.min(tickCount - 1, Math.max(0, Math.floor((cumulativeTime / elapsedTime) * tickCount)));
 
 const getPlacementComplexity = (technique: SolutionTechniqueEnum | undefined): number =>
     isDefined(technique) ? techniqueComplexityConstant[technique] : 0;
@@ -82,7 +80,7 @@ export const getChallengeTapeMarks = (
 
     for (const event of events) {
         cumulativeTime += event.ts;
-        awayStartSlot = applyEvent(marks, event, getSlot(cumulativeTime, elapsedTime, tickCount), awayStartSlot);
+        awayStartSlot = applyEvent(marks, event, getChallengeTimelineSlot(cumulativeTime, elapsedTime, tickCount), awayStartSlot);
     }
 
     if (isDefined(awayStartSlot)) {

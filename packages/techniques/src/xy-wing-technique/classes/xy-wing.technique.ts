@@ -2,8 +2,10 @@ import { isDefined } from '@rnw-community/shared';
 
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
+import { getBivalueCells } from '../../@generic/utils/get-bivalue-cells.util';
 import { getCombinations } from '../../@generic/utils/get-combinations.util';
 import { getCommonPeerEliminations } from '../../@generic/utils/get-common-peer-eliminations.util';
+import { isBivalueCell } from '../../@generic/utils/is-bivalue-cell.util';
 
 import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
@@ -16,8 +18,8 @@ export class XYWingTechnique implements TechniqueStrategyInterface {
     find(context: CandidateContext): TechniqueResultInterface[] {
         const results: TechniqueResultInterface[] = [];
 
-        for (const pivot of context.getBlankCells().filter(cell => context.getCandidates(cell).length === 2)) {
-            const pincers = context.getPeers(pivot).filter(cell => context.getCandidates(cell).length === 2);
+        for (const pivot of getBivalueCells(context)) {
+            const pincers = context.getPeers(pivot).filter(cell => isBivalueCell(context, cell));
 
             for (const [firstPincer, secondPincer] of getCombinations(pincers, 2)) {
                 const eliminationValue = this.getEliminationValue(context, pivot, firstPincer, secondPincer);

@@ -4,16 +4,16 @@ import type { ScoringConfigInterface } from '../interface/scoring-config.interfa
 import type { DifficultyEnum, ScoredCellsInterface } from '@suuudokuuu/generator';
 
 interface CalculateScoreParams {
-    difficulty: DifficultyEnum;
-    scoredCells: ScoredCellsInterface;
-    mistakes: number;
-    elapsedTime: number;
-    maxMistakes: number;
+    readonly difficulty: DifficultyEnum;
+    readonly scoredCells: ScoredCellsInterface;
+    readonly mistakes: number;
+    readonly elapsedTime: number;
+    readonly maxMistakes: number;
 }
 
 interface CalculatePenaltyParams {
-    difficulty: DifficultyEnum;
-    maxMistakes: number;
+    readonly difficulty: DifficultyEnum;
+    readonly maxMistakes: number;
 }
 
 export class SudokuScoring {
@@ -51,19 +51,19 @@ export class SudokuScoring {
         let bonusScore = score;
 
         if (scoredCells.x !== emptyScoredCells.x) {
-            bonusScore += this.getCompletedRowBonus(bonusScore);
+            bonusScore += Math.floor(bonusScore * this.config.lastInRowCoefficientConstant);
         }
 
         if (scoredCells.y !== emptyScoredCells.y) {
-            bonusScore += this.getCompletedColBonus(bonusScore);
+            bonusScore += Math.floor(bonusScore * this.config.lastInColCoefficientConstant);
         }
 
         if (scoredCells.group !== emptyScoredCells.group) {
-            bonusScore += this.getCompletedGroupBonus(bonusScore);
+            bonusScore += Math.floor(bonusScore * this.config.lastInGroupCoefficientConstant);
         }
 
         if (scoredCells.values.length === 1) {
-            bonusScore += this.getCompletedValuesBonus(bonusScore);
+            bonusScore += Math.floor(bonusScore * this.config.lastValueCoefficient);
         }
 
         return bonusScore;
@@ -89,21 +89,5 @@ export class SudokuScoring {
 
     private getDifficultyBonus(score: number, difficulty: DifficultyEnum): number {
         return Math.floor(score * this.config.difficultyCoefficients[difficulty]);
-    }
-
-    private getCompletedRowBonus(score: number): number {
-        return Math.floor(score * this.config.lastInRowCoefficientConstant);
-    }
-
-    private getCompletedColBonus(score: number): number {
-        return Math.floor(score * this.config.lastInColCoefficientConstant);
-    }
-
-    private getCompletedGroupBonus(score: number): number {
-        return Math.floor(score * this.config.lastInGroupCoefficientConstant);
-    }
-
-    private getCompletedValuesBonus(score: number): number {
-        return Math.floor(score * this.config.lastValueCoefficient);
     }
 }

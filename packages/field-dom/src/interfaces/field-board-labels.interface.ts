@@ -1,6 +1,6 @@
 import type { FieldCellType } from '../types/field-cell.type';
 
 export interface FieldBoardLabelsInterface {
-    board: string;
-    cell: (cell: FieldCellType) => string;
+    readonly board: string;
+    readonly cell: (cell: FieldCellType) => string;
 }

@@ -5,10 +5,13 @@ const AppSettingsSectionHairline = 0.5;
 
 export const AppSettingsSectionStyles = StyleSheet.create(theme => ({
     divider: {
+        backgroundColor: theme.colors.surface.border,
         height: AppSettingsSectionHairline,
         marginStart: AppSettingsSectionInset
     },
     group: {
+        backgroundColor: theme.colors.surface.group,
+        borderColor: theme.colors.surface.border,
         borderCurve: 'continuous',
         borderRadius: 22,
         borderWidth: AppSettingsSectionHairline,
@@ -20,6 +23,7 @@ export const AppSettingsSectionStyles = StyleSheet.create(theme => ({
         width: '100%'
     },
     title: {
+        color: theme.colors.text.hint,
         fontFamily: theme.typography.fontFamily,
         fontSize: 12.5,
         letterSpacing: 0.75,

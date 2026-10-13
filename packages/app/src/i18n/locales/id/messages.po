@@ -354,7 +354,7 @@ msgstr "Bantuan"
 msgid "At least one end of this chain must be true."
 msgstr "Setidaknya satu ujung rantai ini harus benar."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
 msgstr "Mencoba memuat kembali build pengembangan terbaru"
 
@@ -511,7 +511,7 @@ msgstr "Jarak sel"
 msgid "Challenge"
 msgstr "Tantangan"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Back"
 msgstr "Tantang balik"
 
@@ -519,7 +519,7 @@ msgstr "Tantang balik"
 msgid "Challenge lost"
 msgstr "Tantangan kalah"
 
-#: src/app/challenge-lost.tsx
+#: src/screens/components/challenge-lost-screen/challenge-lost.screen.tsx
 msgid "Challenge Lost"
 msgstr "Tantangan kalah"
 
@@ -535,7 +535,7 @@ msgstr "Permainan tantangan tidak bisa dijeda dan mencatat saat kamu meninggalka
 msgid "Challenge won"
 msgstr "Tantangan menang"
 
-#: src/app/challenge-won.tsx
+#: src/screens/components/challenge-won-screen/challenge-won.screen.tsx
 msgid "Challenge Won!"
 msgstr "Tantangan menang!"
 
@@ -712,7 +712,7 @@ msgstr "Hapus tema"
 msgid "Deutsch"
 msgstr "Deutsch"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Development build unavailable"
 msgstr "Build pengembangan tidak tersedia"
 
@@ -1012,6 +1012,7 @@ msgstr "Teks petunjuk"
 msgid "Hints on the hardest puzzles"
 msgstr "Petunjuk di sudoku tersulit"
 
+#: src/challenge/components/challenge-result-home-button/challenge-result-home-button.tsx
 #: src/screens/components/loser-screen/loser-screen-actions/loser-screen-actions.tsx
 #: src/screens/components/winner-screen/winner-screen-actions/winner-screen-actions.tsx
 msgid "Home"
@@ -1164,11 +1165,11 @@ msgstr "Lapisan terang"
 msgid "Light warm-up"
 msgstr "Pemanasan ringan"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "Memuat build pengembangan"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Memuat build pengembangan terbaru…"
 
@@ -1335,11 +1336,11 @@ msgstr "Rantai Paksa Nishio"
 msgid "no bonus"
 msgstr "tanpa bonus"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "Belum ada build pengembangan lengkap yang diterbitkan. Silakan periksa lagi nanti."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No development build is available"
 msgstr "Tidak ada build pengembangan yang tersedia"
 
@@ -1708,7 +1709,7 @@ msgstr "Lanjutkan permainan"
 msgid "Resume this game?"
 msgstr "Lanjutkan permainan ini?"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Retry loading development build"
 msgstr "Coba lagi memuat build pengembangan"
 
@@ -2240,7 +2241,8 @@ msgstr "Terlalu banyak kesalahan"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Pantau sudoku yang sudah kamu selesaikan, waktu terbaik, dan skor di semua tingkat kesulitan."
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Coba lagi"
 
@@ -2251,6 +2253,10 @@ msgstr "Coba lagi"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
 msgstr "Ukraina terus berjuang"
+
+#: src/@generic/components/boot-failure/boot-failure.tsx
+msgid "Unable to load your game"
+msgstr "Tidak dapat memuat permainan Anda"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Unable to open link"
@@ -2361,7 +2367,7 @@ msgstr "W-Wing"
 msgid "Warm gold accents for a brighter board"
 msgstr "Aksen emas hangat untuk papan yang lebih cerah"
 
-#: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
+#: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "Build pengembangan terbaru tidak dapat dimuat. Silakan coba lagi."
 

@@ -1,6 +1,6 @@
 import { isDefined } from '@rnw-community/shared';
 
-import { GuessTechnique } from '../../../guess-technique/classes/guess.technique';
+import { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import { applyTechniqueStep } from '../../utils/apply-technique-step.util';
 import { canSee } from '../../utils/can-see.util';
 import { wasContextSearchCapped } from '../../utils/context-scan-state.util';
@@ -10,24 +10,22 @@ import { isForcedPlacement } from '../../utils/is-forced-placement.util';
 import { isSameCell } from '../../utils/is-same-cell.util';
 import { CandidateContext } from '../candidate-context/candidate-context';
 
-import type { SolutionTechniqueEnum } from '../../enums/solution-technique.enum';
 import type { LogicalSolveResultInterface } from '../../interfaces/logical-solve-result.interface';
 import type { MoveClassificationInterface } from '../../interfaces/move-classification.interface';
 import type { TechniqueResultInterface } from '../../interfaces/technique-result.interface';
+import type { TechniqueSearchTargetInterface } from '../../interfaces/technique-search-target.interface';
 import type { TechniqueStrategyInterface } from '../../interfaces/technique-strategy.interface';
 import type { LogicalSolveOutcomeType } from '../../types/logical-solve-outcome.type';
 import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 
 export class TechniqueManager {
     private readonly strategies: TechniqueStrategyInterface[];
-    private readonly guessTechnique: GuessTechnique;
 
     constructor(
         private readonly sudoku: Sudoku,
         strategies: TechniqueStrategyInterface[] = createTechniqueStrategies()
     ) {
         this.strategies = strategies;
-        this.guessTechnique = new GuessTechnique(sudoku);
     }
 
     findNextStep(): TechniqueResultInterface | null {
@@ -43,7 +41,7 @@ export class TechniqueManager {
 
         const [blankCell] = context.getBlankCells();
 
-        return isDefined(blankCell) ? this.guessTechnique.findForCell(blankCell) : null;
+        return isDefined(blankCell) ? this.createGuessResult(blankCell) : null;
     }
 
     solveLogically(techniqueOrder?: readonly SolutionTechniqueEnum[]): LogicalSolveResultInterface {
@@ -70,11 +68,10 @@ export class TechniqueManager {
         const orderedStrategies = this.getOrderedStrategies(techniqueOrder);
         const targetValue = this.getTargetValue(cell);
         const technique =
-            this.findDirectTechnique(context, orderedStrategies, cell, targetValue) ??
-            this.findEnablingTechnique(context, orderedStrategies, cell, targetValue) ??
-            this.findComposedTechnique(context, orderedStrategies, cell, targetValue);
+            this.findTechnique(context, orderedStrategies, { cell, value: targetValue, intent: 'direct' }) ??
+            this.findIndirectTechnique(context, orderedStrategies, cell, targetValue);
 
-        return { technique: technique ?? this.guessTechnique.technique, value: targetValue };
+        return { technique: technique ?? SolutionTechniqueEnum.Guess, value: targetValue };
     }
 
     private getOrderedStrategies(techniqueOrder?: readonly SolutionTechniqueEnum[]): TechniqueStrategyInterface[] {
@@ -99,15 +96,30 @@ export class TechniqueManager {
         return context.isSolved() ? 'solved' : 'stuck';
     }
 
-    private findDirectTechnique(
+    private createGuessResult(cell: CellInterface): TechniqueResultInterface {
+        return {
+            technique: SolutionTechniqueEnum.Guess,
+            cell,
+            value: this.sudoku.getCorrectValue(cell),
+            kind: 'guess',
+            eliminations: [],
+            reasonCells: [cell]
+        };
+    }
+
+    private findTechnique(
         context: CandidateContext,
         strategies: TechniqueStrategyInterface[],
-        cell: CellInterface,
-        value: number
+        target: TechniqueSearchTargetInterface
     ): SolutionTechniqueEnum | null {
         for (const strategy of strategies) {
-            const results = strategy.find(context, { cell, value, intent: 'direct' });
-            const result = results.find(candidate => this.isDirectResult(context, candidate, cell, value));
+            const result = strategy
+                .find(context, target)
+                .find(candidate =>
+                    target.intent === 'direct'
+                        ? this.isDirectResult(context, candidate, target.cell, target.value)
+                        : this.isEnablingResult(context, candidate, target.cell, target.value)
+                );
 
             if (isDefined(result)) {
                 return result.technique;
@@ -117,7 +129,7 @@ export class TechniqueManager {
         return null;
     }
 
-    private findEnablingTechnique(
+    private findIndirectTechnique(
         context: CandidateContext,
         strategies: TechniqueStrategyInterface[],
         cell: CellInterface,
@@ -127,22 +139,14 @@ export class TechniqueManager {
             return null;
         }
 
-        for (const strategy of strategies) {
-            const results = strategy.find(context, { cell, value, intent: 'enabling' });
-            const result = results.find(candidate => this.isEnablingResult(context, candidate, cell, value));
-
-            if (isDefined(result)) {
-                return result.technique;
-            }
-        }
-
-        return null;
+        return (
+            this.findTechnique(context, strategies, { cell, value, intent: 'enabling' }) ??
+            this.findComposedTechnique(context, strategies, cell, value)
+        );
     }
 
     private isEnablingResult(context: CandidateContext, result: TechniqueResultInterface, cell: CellInterface, value: number): boolean {
-        const clearsPeerCandidate = result.eliminations.some(
-            elimination => elimination.value === value && canSee(context, elimination.cell, cell)
-        );
+        const clearsPeerCandidate = result.eliminations.some(elimination => elimination.value === value && canSee(elimination.cell, cell));
 
         return clearsPeerCandidate && isForcedPlacement(context.withEliminations(result.eliminations), cell, value);
     }
@@ -153,10 +157,6 @@ export class TechniqueManager {
         cell: CellInterface,
         value: number
     ): SolutionTechniqueEnum | null {
-        if (isForcedPlacement(context, cell, value)) {
-            return null;
-        }
-
         let composedContext = context;
         let hardestStrategyIndex = -1;
 

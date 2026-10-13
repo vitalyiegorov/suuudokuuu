@@ -8,6 +8,9 @@ import {
 } from '../constants/binary-codec.constant';
 import { GRID_SIZE } from '../constants/grid.constant';
 
+import { clampToRange } from './clamp-to-range.util';
+import { isValidCellIndex } from './is-valid-cell-index.util';
+import { isValidCellValue } from './is-valid-cell-value.util';
 import { readVarint, writeVarint } from './varint.util';
 
 import type { DecodedGameStateInterface } from '../interfaces/decoded-game-state.interface';
@@ -17,7 +20,19 @@ export type HandoffExtrasInterface = Pick<DecodedGameStateInterface, 'anchorSeco
 
 const CANDIDATE_BIT_BASE = 2;
 
-const getCandidateMask = (values: number[]): number => values.reduce((mask, value) => mask + CANDIDATE_BIT_BASE ** (value - 1), 0);
+const getCandidateMask = (values: number[]): number => {
+    let mask = 0;
+
+    for (const value of new Set(values)) {
+        if (!isValidCellValue(value)) {
+            throw new Error('Invalid candidate value');
+        }
+
+        mask += CANDIDATE_BIT_BASE ** (value - 1);
+    }
+
+    return mask;
+};
 
 const getCandidateValues = (mask: number): number[] => {
     const values: number[] = [];
@@ -41,12 +56,18 @@ export const writeHandoffExtras = (out: BitOutputStream, extras: HandoffExtrasIn
     out.write(filledEntries.length, CANDIDATE_COUNT_BITS);
 
     for (const [cellIndex, values] of filledEntries) {
-        out.write(parseInt(cellIndex, 10), CELL_INDEX_BITS_ABSOLUTE);
+        const position = Number(cellIndex);
+
+        if (!isValidCellIndex(position)) {
+            throw new Error('Invalid candidate cell index');
+        }
+
+        out.write(position, CELL_INDEX_BITS_ABSOLUTE);
         out.write(getCandidateMask(values), CANDIDATE_MASK_BITS);
     }
 
     if (isChallengeRun) {
-        out.write(Math.max(Math.trunc(extras.anchorSeconds), 0), ANCHOR_SECONDS_BITS);
+        out.write(clampToRange(extras.anchorSeconds, 2 ** ANCHOR_SECONDS_BITS - 1), ANCHOR_SECONDS_BITS);
     }
 };
 
@@ -57,6 +78,10 @@ export const readHandoffExtras = (input: BitInputStream, isChallengeRun: boolean
 
     for (let entryIndex = 0; entryIndex < candidateCount; entryIndex += 1) {
         const cellIndex = input.read(CELL_INDEX_BITS_ABSOLUTE);
+
+        if (!isValidCellIndex(cellIndex)) {
+            throw new Error('Invalid candidate cell index');
+        }
 
         candidates[cellIndex] = getCandidateValues(input.read(CANDIDATE_MASK_BITS));
     }

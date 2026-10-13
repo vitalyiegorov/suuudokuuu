@@ -3,12 +3,10 @@ import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 import { AbstractFishTechnique } from '../../@generic/classes/abstract-fish-technique';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 import { forEachCombination } from '../../@generic/utils/get-combinations.util';
-import { isSameCell } from '../../@generic/utils/is-same-cell.util';
 
 import type { UnitValueIndex } from '../../@generic/classes/unit-value-index/unit-value-index';
 import type { FinnedFishTechniqueDescriptorInterface } from '../../@generic/interfaces/finned-fish-technique-descriptor.interface';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
-import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
 import type { UnitValueEntryInterface } from '../../@generic/interfaces/unit-value-entry.interface';
 import type { FishBaseType } from '../../@generic/types/fish-base.type';
 import type { CellInterface } from '@suuudokuuu/generator';
@@ -16,10 +14,7 @@ import type { CellInterface } from '@suuudokuuu/generator';
 const noLineIndex = -1;
 const noGroup = -1;
 
-export class FinnedFishTechnique
-    extends AbstractFishTechnique<FinnedFishTechniqueDescriptorInterface>
-    implements TechniqueStrategyInterface
-{
+export class FinnedFishTechnique extends AbstractFishTechnique<FinnedFishTechniqueDescriptorInterface> {
     private get sashimi(): boolean {
         return this.descriptor.sashimi;
     }
@@ -42,7 +37,7 @@ export class FinnedFishTechnique
             const finGroup = canEliminateTarget ? this.getScanFinGroup(index, base, coverIndexes) : noGroup;
             const isTargetedScan = targetGroup === noGroup || finGroup === targetGroup;
 
-            if (finGroup !== noGroup && isTargetedScan && this.isFinnedFishScan(index, base, coverIndexes)) {
+            if (finGroup !== noGroup && isTargetedScan && this.sashimi === this.isSashimiScan(index, base, coverIndexes)) {
                 const eliminations = this.getCoverEliminations({
                     index,
                     coverIndexes,
@@ -50,8 +45,9 @@ export class FinnedFishTechnique
                     baseType: base.baseType,
                     baseIndexes,
                     value: base.value,
-                    isEligibleCell: cell => cell.group === finGroup
-                }).filter(elimination => !isDefined(targetCell) || isSameCell(elimination.cell, targetCell));
+                    isEligibleCell: cell => cell.group === finGroup,
+                    targetCell
+                });
 
                 if (isNotEmptyArray(eliminations)) {
                     results.push(...createEliminationResults(this.technique, eliminations, this.getScanCells(index, base, coverIndexes)));
@@ -103,10 +99,6 @@ export class FinnedFishTechnique
         }
 
         return finGroup;
-    }
-
-    private isFinnedFishScan(index: UnitValueIndex, base: FishBaseType, coverIndexes: readonly number[]): boolean {
-        return this.sashimi === this.isSashimiScan(index, base, coverIndexes);
     }
 
     private isSashimiScan(index: UnitValueIndex, base: FishBaseType, coverIndexes: readonly number[]): boolean {

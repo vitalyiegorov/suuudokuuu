@@ -2,20 +2,25 @@ import type { FieldHistoryEntryInterface } from '../interfaces/field-history-ent
 import type { FieldHistoryStateInterface } from '../interfaces/field-history-state.interface';
 
 export class FieldHistory {
-    private entries: FieldHistoryEntryInterface[] = [];
-    private index = -1;
+    private readonly states: FieldHistoryStateInterface[] = [];
+    private index = 0;
 
     get CanUndo(): boolean {
-        return this.index >= 0;
+        return this.index > 0;
     }
 
     get CanRedo(): boolean {
-        return this.index < this.entries.length - 1;
+        return this.index < this.states.length - 1;
     }
 
     push(entry: FieldHistoryEntryInterface): void {
-        this.entries = [...this.entries.slice(0, this.index + 1), entry];
-        this.index = this.entries.length - 1;
+        if (this.states.length === 0) {
+            this.states.push(entry.previous);
+        }
+
+        this.states.splice(this.index + 1);
+        this.states.push(entry.next);
+        this.index = this.states.length - 1;
     }
 
     undo(): FieldHistoryStateInterface | null {
@@ -23,11 +28,9 @@ export class FieldHistory {
             return null;
         }
 
-        const { previous } = this.entries[this.index];
-
         this.index -= 1;
 
-        return previous;
+        return this.states[this.index];
     }
 
     redo(): FieldHistoryStateInterface | null {
@@ -37,6 +40,6 @@ export class FieldHistory {
 
         this.index += 1;
 
-        return this.entries[this.index].next;
+        return this.states[this.index];
     }
 }

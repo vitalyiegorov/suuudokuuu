@@ -1,22 +1,16 @@
 import { execFileSync } from 'node:child_process';
 import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import Anthropic from '@anthropic-ai/sdk';
 import { z } from 'zod';
 
+import { getErrorMessage, isNotEmptyString } from '@rnw-community/shared';
+
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appDirectory = dirname(scriptDirectory);
 const repositoryRootDirectory = dirname(dirname(appDirectory));
-
-const requireFromScript = createRequire(import.meta.url);
-const sharedUtilities: {
-    getErrorMessage: (error: unknown) => string;
-    isNotEmptyString: (value: unknown) => value is string;
-} = requireFromScript('@rnw-community/shared');
-const { getErrorMessage, isNotEmptyString } = sharedUtilities;
 
 const iosReleaseNotesCharacterLimit = 4000;
 const androidChangelogCharacterLimit = 500;
@@ -40,7 +34,7 @@ const nonShippingPathspecs = [
     ':(exclude)*.md'
 ];
 
-const conventionalCommitPattern = /^(?<type>[a-z]+)(?:\((?<scope>[a-z0-9,-]+)\))?(?<breaking>!)?:\s*(?<subject>.+)$/i;
+const conventionalCommitPattern = /^(?<type>[a-z]+)(?:\((?<scope>[a-z0-9,-]+)\))?(?<breaking>!)?:\s*(?<subject>\S.*)$/iu;
 
 interface LocaleStoreFolder {
     appLocale: string;
@@ -158,11 +152,11 @@ function getReleaseNoteBullets(commitSubjects: string[]): string[] {
     const seenNormalizedBullets = new Set<string>();
     const bullets: string[] = [];
 
-    for (const commitSubject of commitSubjects) {
+    commitSubjects.forEach(commitSubject => {
         const commitMatch = conventionalCommitPattern.exec(commitSubject);
 
         if (commitMatch === null || commitMatch.groups === undefined) {
-            continue;
+            return;
         }
 
         const commitGroups: ConventionalCommitGroups = {
@@ -172,19 +166,17 @@ function getReleaseNoteBullets(commitSubjects: string[]): string[] {
         };
 
         if (!isUserFacingCommit(commitGroups)) {
-            continue;
+            return;
         }
 
         const bullet = toSentenceCase(commitGroups.subject);
         const normalizedBullet = bullet.toLowerCase();
 
-        if (bullet.length === 0 || seenNormalizedBullets.has(normalizedBullet)) {
-            continue;
+        if (bullet.length > 0 && !seenNormalizedBullets.has(normalizedBullet)) {
+            seenNormalizedBullets.add(normalizedBullet);
+            bullets.push(bullet);
         }
-
-        seenNormalizedBullets.add(normalizedBullet);
-        bullets.push(bullet);
-    }
+    });
 
     return bullets;
 }
@@ -247,11 +239,11 @@ function reportStaleLocaleReleaseNotes(metadataDirectory: string): void {
 }
 
 function getCodepointLength(text: string): number {
-    return [...text].length;
+    return Array.from(text).length;
 }
 
 function trimToCodepointLineBoundary(text: string, codepointLimit: number): string {
-    const codepoints = [...text];
+    const codepoints = Array.from(text);
 
     if (codepoints.length <= codepointLimit) {
         return text;
@@ -386,7 +378,7 @@ function checkReleaseNotesFreshness(metadataDirectory: string): void {
     const stateFileContents: unknown = JSON.parse(readFileSync(stateFilePath, 'utf8'));
     const state = releaseNotesStateSchema.parse(stateFileContents);
 
-    let commitSubjectsSinceGeneration: string[] = [];
+    let commitSubjectsSinceGeneration: string[];
     try {
         commitSubjectsSinceGeneration = getCommitSubjects(state.generatedAtCommit, 'HEAD');
     } catch {
@@ -584,7 +576,7 @@ async function main(): Promise<void> {
     const headRef = isPendingRelease ? 'HEAD' : latestTag;
     const commitSubjects = getCommitSubjects(baseRef, headRef);
     const bullets = getReleaseNoteBullets(commitSubjects);
-    const version = isPendingRelease ? `${readAppVersion()} (upcoming release)` : latestTag.replace(/^v/, '');
+    const version = isPendingRelease ? `${readAppVersion()} (upcoming release)` : latestTag.replace(/^v/u, '');
 
     let hasGeneratedNotes = false;
 

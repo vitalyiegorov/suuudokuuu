@@ -1,13 +1,11 @@
-import {
-    SettingsOptionSheetBaseContentHeight,
-    SettingsOptionSheetCompactMaxOptionCount,
-    SettingsOptionSheetDetentPrecision,
-    SettingsOptionSheetExpandedDetent,
-    SettingsOptionSheetMaxInitialDetent,
-    SettingsOptionSheetMinInitialDetent,
-    SettingsOptionSheetMinimumScreenHeight,
-    SettingsOptionSheetRowMinHeight
-} from '../constant/settings-option-sheet-layout.constant';
+const SettingsOptionSheetBaseContentHeight = 147;
+const SettingsOptionSheetCompactMaxOptionCount = 4;
+const SettingsOptionSheetDetentPrecision = 100;
+const SettingsOptionSheetExpandedDetent = 0.88;
+const SettingsOptionSheetMaxInitialDetent = 0.64;
+const SettingsOptionSheetMinInitialDetent = 0.32;
+const SettingsOptionSheetMinimumScreenHeight = 1;
+const SettingsOptionSheetRowMinHeight = 68;
 
 export const settingsOptionSheetGetAllowedDetents = (optionCount: number, screenHeight: number) => {
     const contentHeight = SettingsOptionSheetBaseContentHeight + SettingsOptionSheetRowMinHeight * optionCount;

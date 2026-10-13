@@ -26,7 +26,11 @@ export const readAggregateTrailer = (input: BitInputStream): AggregateTrailerInt
         return emptyAggregateTrailer;
     }
 
+    const positionBeforeTrailer = input.position;
+
     if (input.read(AGGREGATE_TRAILER_VERSION_BITS) !== AGGREGATE_TRAILER_VERSION_V1) {
+        input.seek(positionBeforeTrailer);
+
         return emptyAggregateTrailer;
     }
 

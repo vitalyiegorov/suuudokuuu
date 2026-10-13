@@ -1,6 +1,10 @@
+import './i18n-plural-rules.polyfill';
 import { i18n } from '@lingui/core';
-
-import { emptyFn } from '@rnw-community/shared';
+import * as Cause from 'effect/Cause';
+import * as Effect from 'effect/Effect';
+import * as Fiber from 'effect/Fiber';
+import * as FiberHandle from 'effect/FiberHandle';
+import * as Scope from 'effect/Scope';
 
 import { messages as enMessages } from '../../i18n/locales/en/messages';
 
@@ -25,16 +29,19 @@ const catalogLoaders: Record<SettingsType['language'], () => Promise<{ messages:
 i18n.load({ en: enMessages });
 i18n.activate('en');
 
-let requestedLanguage: SettingsType['language'] = 'en';
+const activationHandle = Effect.runSync(
+    FiberHandle.make<unknown, Cause.UnknownError>().pipe(Effect.provideService(Scope.Scope, Scope.makeUnsafe()))
+);
 
-export const i18nActivateLanguage = (language: SettingsType['language']): Promise<void> => {
-    requestedLanguage = language;
-
-    if (language === i18n.locale) {
-        return Promise.resolve();
-    }
-
-    return catalogLoaders[language]()
-        .then(({ messages }) => void (requestedLanguage === language && i18n.loadAndActivate({ locale: language, messages })))
-        .catch(emptyFn);
-};
+export const i18nActivateLanguage = Effect.fn('i18nActivateLanguage')(function* (language: SettingsType['language']) {
+    const fiber = yield* FiberHandle.run(
+        activationHandle,
+        Effect.gen(function* () {
+            if (language !== i18n.locale) {
+                const { messages } = yield* Effect.tryPromise(catalogLoaders[language]);
+                yield* Effect.sync(() => void i18n.loadAndActivate({ locale: language, messages }));
+            }
+        })
+    );
+    yield* Fiber.join(fiber);
+});

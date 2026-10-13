@@ -1,7 +1,6 @@
 import { type StyleProp, Text, type TextStyle, View, type ViewStyle } from 'react-native';
 
 import { CompactMaxFontSizeMultiplierConstant, MetricMinimumFontScaleConstant } from '../../theme/constant/font-scaling.constant';
-import { useAppMetricStripColor } from '../app-metric-strip/hooks/use-app-metric-strip-color.hook';
 
 import { AppMetricStripItemStyles as styles } from './app-metric-strip-item.styles';
 
@@ -15,9 +14,8 @@ interface Props {
 }
 
 export const AppMetricStripItem = ({ children, label, labelStyle, style }: Props) => {
-    const { textColor } = useAppMetricStripColor();
     const itemStyles = [styles.item, style];
-    const labelStyles = [styles.label, labelStyle, { color: textColor }];
+    const labelStyles = [styles.label, labelStyle];
 
     return (
         <View style={itemStyles}>

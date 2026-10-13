@@ -36,7 +36,13 @@ export class SettingsRepository extends Context.Service<SettingsRepository>()('@
             get,
             save,
             initialize: (settings: SettingsType) => insertSettings(settings).pipe(Effect.orDie),
-            update: (patch: Partial<SettingsType>) => Effect.flatMap(get, settings => save({ ...settings, ...patch }))
+            update: (patch: Partial<SettingsType>) =>
+                reactivity
+                    .mutation(
+                        [ReactivityKeyEnum.Settings],
+                        sql.withTransaction(Effect.flatMap(get, settings => replaceSettings({ ...settings, ...patch })))
+                    )
+                    .pipe(Effect.orDie)
         };
     })
 }) {

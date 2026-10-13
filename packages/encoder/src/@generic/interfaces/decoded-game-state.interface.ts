@@ -2,19 +2,19 @@ import type { SharedPayloadKindEnum } from '../enums/shared-payload-kind.enum';
 import type { TimelineEventInterface } from './timeline-event.interface';
 
 export interface DecodedGameStateInterface {
-    field: string;
-    timelineEvents: TimelineEventInterface[];
-    kind: SharedPayloadKindEnum;
-    maxMistakes: number;
-    elapsedTime: number;
-    isChallengeRun: boolean;
-    score: number;
-    candidates: Record<number, number[]>;
-    anchorSeconds: number;
-    pencilCount: number | null;
-    screenshotCount: number | null;
-    techniques: (number | null)[] | null;
-    rating: number;
-    isRatingCeiling: boolean;
-    difficulty: number | null;
+    readonly field: string;
+    readonly timelineEvents: TimelineEventInterface[];
+    readonly kind: SharedPayloadKindEnum;
+    readonly maxMistakes: number;
+    readonly elapsedTime: number;
+    readonly isChallengeRun: boolean;
+    readonly score: number;
+    readonly candidates: Record<number, number[]>;
+    readonly anchorSeconds: number;
+    readonly pencilCount: number | null;
+    readonly screenshotCount: number | null;
+    readonly techniques: (number | null)[] | null;
+    readonly rating: number;
+    readonly isRatingCeiling: boolean;
+    readonly difficulty: number | null;
 }

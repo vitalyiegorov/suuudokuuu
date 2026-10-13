@@ -4,11 +4,13 @@ import * as AtomRegistry from 'effect/reactivity/AtomRegistry';
 
 import { appAtomRegistry } from '../../@generic/constants/app-atom-registry.constant';
 import { appRuntime } from '../../@generic/runtime/app.runtime';
+import { logErrorCause } from '../../@generic/utils/log-error-cause.util';
 import { currentRunAtom } from '../query/use-current-run.query';
 
 export const runCurrentRunCommand = <A>(command: (currentRunService: CurrentRunService['Service']) => Effect.Effect<A>) =>
     appRuntime.runPromise(
         Effect.flatMap(CurrentRunService, command).pipe(
-            Effect.tap(() => AtomRegistry.getResult(appAtomRegistry, currentRunAtom, { suspendOnWaiting: true }))
+            Effect.tap(() => AtomRegistry.getResult(appAtomRegistry, currentRunAtom, { suspendOnWaiting: true })),
+            Effect.tapCause(logErrorCause)
         )
     );

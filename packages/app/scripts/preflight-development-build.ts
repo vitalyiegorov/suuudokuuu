@@ -1,16 +1,11 @@
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
-import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { z } from 'zod';
 
-const requireFromScript = createRequire(import.meta.url);
-const sharedUtilities: {
-    getErrorMessage: (error: unknown) => string;
-} = requireFromScript('@rnw-community/shared');
-const { getErrorMessage } = sharedUtilities;
+import { getErrorMessage } from '@rnw-community/shared';
 
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appDirectory = dirname(scriptDirectory);
@@ -44,7 +39,7 @@ const readEasConfiguration = () => {
     return easConfigurationSchema.parse(easConfigurationContents);
 };
 
-const useLocalAppVersionSource = (): void => {
+const setLocalAppVersionSource = (): void => {
     const easConfiguration = readEasConfiguration();
 
     easConfiguration.cli.appVersionSource = localAppVersionSource;
@@ -68,7 +63,7 @@ const readResolvedExpoConfiguration = () => {
 function main(): void {
     const buildNumber = readDevelopmentBuildNumber();
 
-    useLocalAppVersionSource();
+    setLocalAppVersionSource();
 
     const resolvedBuildNumber = readResolvedExpoConfiguration().ios?.buildNumber;
 

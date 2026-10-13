@@ -45,7 +45,7 @@ export const PauseScreenProgressCard = ({ sudoku, label, meta, progressPercent }
                     {percentText}
                 </BlackText>
 
-                <AppProgressBar percent={progressPercent} size="compact" style={styles.progress} variant="inverted" />
+                <AppProgressBar percent={progressPercent} style={styles.progress} />
 
                 <BlackText adjustsFontSizeToFit minimumFontScale={0.72} numberOfLines={1} style={metaStyles}>
                     {meta}

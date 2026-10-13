@@ -3,7 +3,7 @@ import type { FieldNumberPadLabelsInterface } from './field-number-pad-labels.in
 import type { FieldStepPlayerLabelsInterface } from './field-step-player-labels.interface';
 
 export interface FieldGameLabelsInterface {
-    board: FieldBoardLabelsInterface;
-    numberPad: FieldNumberPadLabelsInterface;
-    stepPlayer: FieldStepPlayerLabelsInterface;
+    readonly board: FieldBoardLabelsInterface;
+    readonly numberPad: FieldNumberPadLabelsInterface;
+    readonly stepPlayer: FieldStepPlayerLabelsInterface;
 }

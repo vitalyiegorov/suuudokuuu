@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { ColorSchemaEnum, CustomThemeRepository } from '@suuudokuuu/progress';
 import { AppButton, AppSettingsSection, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
+import { validateCustomThemeColors } from '@suuudokuuu/ui/theme';
 import * as Effect from 'effect/Effect';
 import { router, useLocalSearchParams, usePreventRemove } from 'expo-router';
 import RotateCcw from 'lucide-react-native/icons/rotate-ccw';
@@ -14,6 +15,7 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { StickyFooterBand } from '../../../@generic/components/sticky-footer-band/sticky-footer-band';
 import { appRuntime } from '../../../@generic/runtime/app.runtime';
+import { logErrorCause } from '../../../@generic/utils/log-error-cause.util';
 import { ThemeEditorColorRow } from '../../../settings/component/theme-editor-color-row/theme-editor-color-row';
 import { ThemeEditorColorSheet } from '../../../settings/component/theme-editor-color-sheet/theme-editor-color-sheet';
 import { ThemePreviewBoard } from '../../../settings/component/theme-preview-board/theme-preview-board';
@@ -28,7 +30,6 @@ import { isPresetThemeId } from '../../../theme/type-guard/is-preset-theme-id.ty
 import { cloneThemeColors } from '../../../theme/utils/clone-theme-colors.util';
 import { createCustomTheme } from '../../../theme/utils/create-custom-theme.util';
 import { getTheme } from '../../../theme/utils/get-theme.util';
-import { validateCustomThemeColors } from '../../../theme/utils/validate-custom-theme-colors.util';
 
 import { ThemeEditorScreenSelectors } from './theme-editor-screen.selectors';
 import { ThemeEditorScreenStyles as styles } from './theme-editor-screen.styles';
@@ -88,13 +89,19 @@ export const ThemeEditorScreen = () => {
         setEditedToken(null);
     };
     const persistDraft = () => {
-        void appRuntime.runPromise(
+        appRuntime.runFork(
             Effect.flatMap(CustomThemeRepository, customThemeRepository =>
                 customThemeRepository.upsert({ ...draftTheme, name: draftTheme.name.trim(), updatedAt: Date.now() })
+            ).pipe(
+                Effect.tap(() =>
+                    Effect.sync(() => {
+                        changeTheme(draftTheme.id);
+                        leaveEditor();
+                    })
+                ),
+                Effect.tapCause(logErrorCause)
             )
         );
-        changeTheme(draftTheme.id);
-        leaveEditor();
     };
     const handleSave = () => {
         if (!isNotEmptyString(draftTheme.name.trim())) {
@@ -121,15 +128,19 @@ export const ThemeEditorScreen = () => {
                 text: t`Delete`,
                 style: 'destructive',
                 onPress: () => {
-                    void appRuntime.runPromise(
-                        Effect.flatMap(CustomThemeRepository, customThemeRepository => customThemeRepository.remove(draftTheme.id))
+                    appRuntime.runFork(
+                        Effect.flatMap(CustomThemeRepository, customThemeRepository => customThemeRepository.remove(draftTheme.id)).pipe(
+                            Effect.tap(() =>
+                                Effect.sync(() => {
+                                    if (activeThemeId === draftTheme.id) {
+                                        changeTheme(draftTheme.sourceTheme);
+                                    }
+                                    leaveEditor();
+                                })
+                            ),
+                            Effect.tapCause(logErrorCause)
+                        )
                     );
-
-                    if (activeThemeId === draftTheme.id) {
-                        changeTheme(draftTheme.sourceTheme);
-                    }
-
-                    leaveEditor();
                 }
             }
         ]);
@@ -147,12 +158,14 @@ export const ThemeEditorScreen = () => {
         const draftThemeName = draftTheme.name;
         const duplicateName = t`${draftThemeName} copy`;
 
-        void appRuntime.runPromise(
+        appRuntime.runFork(
             Effect.flatMap(CustomThemeRepository, customThemeRepository =>
                 customThemeRepository.upsert(createCustomTheme(duplicateName, draftTheme.id, customThemes, Date.now()))
+            ).pipe(
+                Effect.tap(() => Effect.sync(leaveEditor)),
+                Effect.tapCause(logErrorCause)
             )
         );
-        leaveEditor();
     };
     const handleSelectLightVariant = () => void setVariant(ColorSchemaEnum.Light);
     const handleSelectDarkVariant = () => void setVariant(ColorSchemaEnum.Dark);

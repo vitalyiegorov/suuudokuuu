@@ -132,7 +132,7 @@ const CellForcingChainPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={regionForcingChainPageMetadata} previous={nishioForcingChainPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.CellForcingChain} />
     </main>
 );
 

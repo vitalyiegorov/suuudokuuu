@@ -5,8 +5,8 @@ import { useUnistyles } from 'react-native-unistyles';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
+import { ChallengeTimelineTickCount } from '../../constants/challenge-timeline-tick-count.constant';
 import { getChallengeTapeMarks } from '../../utils/get-challenge-tape-marks.util';
-import { getTapeAxisTime } from '../../utils/get-tape-axis-time.util';
 import { getTapeTechniqueEvents } from '../../utils/get-tape-technique-events.util';
 import { ChallengeRaceBadge } from '../challenge-race-badge/challenge-race-badge';
 import { ChallengeTimelineTrack } from '../challenge-timeline-track/challenge-timeline-track';
@@ -14,7 +14,6 @@ import { ChallengeTimelineTrack } from '../challenge-timeline-track/challenge-ti
 import { ChallengeRecordHudSelectors } from './challenge-record-hud.selectors';
 import { ChallengeRecordHudStyles as styles } from './challenge-record-hud.styles';
 
-const TickCount = 44;
 const FullProgress = 1;
 const BadgeLookaheadSeconds = 1;
 const BlinkPeriodSeconds = 2;
@@ -30,8 +29,11 @@ export const ChallengeRecordHud = () => {
     const dotOpacity = isDotLit ? 1 : DimDotOpacity;
     const dotStyles = [styles.recordDot, { backgroundColor: theme.colors.danger, opacity: dotOpacity }];
     const badgeStyles = [styles.badge, { color: theme.colors.text.primary }];
-    const axisTime = getTapeAxisTime(elapsedTime, TickCount);
-    const marks = getChallengeTapeMarks(timelineEvents, axisTime, TickCount);
+    const safeElapsedTime = Math.max(Math.trunc(elapsedTime), 0);
+    const secondsPerSlot = Math.floor(safeElapsedTime / ChallengeTimelineTickCount);
+    const axisTime =
+        safeElapsedTime < ChallengeTimelineTickCount ? safeElapsedTime : Math.ceil(safeElapsedTime / secondsPerSlot) * secondsPerSlot;
+    const marks = getChallengeTapeMarks(timelineEvents, axisTime, ChallengeTimelineTickCount);
     const techniqueEvents = getTapeTechniqueEvents(timelineEvents);
     const badgeElapsedTime = elapsedTime + BadgeLookaheadSeconds;
 

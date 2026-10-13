@@ -1,26 +1,17 @@
 {
     "$schema": "https://turborepo.dev/schema.json",
     "agentGuidance": false,
-    "globalDependencies": ["tsconfig*.json", "types/**", "app.json", ".env*"],
+    "globalDependencies": ["tsconfig*.json", "types/**", ".env*"],
     "tasks": {
-        "release": {
-            "dependsOn": ["^release"],
-            "outputs": ["dist/**", "build/**"]
-        },
         "ts": {
             "outputs": ["node_modules/.cache/tsbuildinfo.json", "**/node_modules/.cache/tsbuildinfo.json"]
         },
         "effect:check": {
             "outputs": []
         },
-        "deadcode": {
-            "outputs": []
-        },
-        "cpd": {
-            "outputs": ["report/jscpd/**"]
-        },
         "export:web": {
-            "outputs": ["dist/**"]
+            "outputs": ["dist/**"],
+            "dependsOn": ["^build"]
         },
         "build": {
             "dependsOn": ["^build"],
@@ -34,12 +25,6 @@
         "test": {},
         "test:coverage": {
             "outputs": ["coverage/**"]
-        },
-        "//#cpd": {
-            "outputs": ["report/jscpd/**"]
-        },
-        "//#deadcode": {
-            "outputs": []
         }
     }
 }

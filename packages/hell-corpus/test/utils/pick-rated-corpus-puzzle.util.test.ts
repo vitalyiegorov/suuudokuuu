@@ -19,6 +19,6 @@ describe('pickRatedCorpusPuzzle', () => {
 
         expect(result.puzzle).toHaveLength(SAMPLE_PUZZLE.length);
         expect(result.rating).toBe(SAMPLE_RATING);
-        expect(typeof result.isCeiling).toBe('boolean');
+        expect(result.isCeiling).toBe(false);
     });
 });

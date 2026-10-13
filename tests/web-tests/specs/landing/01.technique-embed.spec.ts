@@ -63,10 +63,16 @@ test('gates the live board behind intent, then walks the elimination and takes d
     await expect(staticDetails.locator('td.sudoku-cell')).toHaveCount(staticSudokuCellCount);
     await expect(staticDetails).toBeHidden();
 
+    const narration = page.locator('.field-step-player__narration');
+    await expect(narration).toHaveCount(1);
+    await expect(narration).toBeEmpty();
+    await expect(narration).toHaveAttribute('aria-live', 'polite');
+    const originalNarrationElement = await narration.elementHandle();
+
     await page.getByRole('button', { name: 'Show me the technique' }).click();
 
-    const narration = page.locator('.field-step-player__narration');
     await expect(narration).toHaveText(/.+/u);
+    expect(await narration.evaluate((element, originalElement) => element === originalElement, originalNarrationElement)).toBe(true);
     await expect(liveBoard.locator("[data-pattern='true']").first()).toBeVisible();
 
     const targetCell = liveBoard.getByRole('gridcell', { name: eliminatedCandidateCellLabel });
@@ -85,7 +91,9 @@ test('gates the live board behind intent, then walks the elimination and takes d
 
     await page.locator('.field-step-player__controls').getByRole('button', { name: 'Apply to the board' }).click();
 
-    await expect(narration).toHaveCount(0);
+    await expect(narration).toHaveCount(1);
+    await expect(narration).toBeEmpty();
+    expect(await narration.evaluate((element, originalElement) => element === originalElement, originalNarrationElement)).toBe(true);
     await expect(liveBoard.locator("[data-pattern='true']")).toHaveCount(0);
     await expect(targetCandidate).toHaveAttribute('data-eliminated', 'false');
     await expect(targetCandidate).toHaveAttribute('data-present', 'false');

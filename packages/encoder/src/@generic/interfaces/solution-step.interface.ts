@@ -1,5 +1,5 @@
 export interface SolutionStepInterface {
-    cellIndex: number;
-    value: number;
-    ts: number;
+    readonly cellIndex: number;
+    readonly value: number;
+    readonly ts: number;
 }

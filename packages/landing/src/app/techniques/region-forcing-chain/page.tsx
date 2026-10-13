@@ -130,7 +130,7 @@ const RegionForcingChainPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation previous={cellForcingChainPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.RegionForcingChain} />
     </main>
 );
 

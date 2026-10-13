@@ -1,6 +1,7 @@
 import { mkdtempSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 import { GameStateSerializer, TimelineEventKindEnum, applyCellEventsToField } from '@suuudokuuu/encoder';
 import { DifficultyEnum } from '@suuudokuuu/generator';
@@ -21,7 +22,7 @@ const LastCellIndex = 54;
 const SeedElapsedSeconds = 12;
 const SeedScore = 120;
 const MillisecondsPerSecond = 1000;
-const SeedFinishedAtMs = Date.UTC(2026, 0, 1, 12);
+const SeedFinishedAtMs = Date.parse('2026-01-01T12:00:00Z');
 
 const fixtures = new Map([
     ['unrated-history', { link: UnratedChallengeLink, keepsFinishedRun: false }],
@@ -29,7 +30,7 @@ const fixtures = new Map([
     ['rated-result', { link: RatedChallengeLink, keepsFinishedRun: true }]
 ]);
 
-const fixturesDirectory = join(import.meta.dirname, '..', 'fixtures', 'databases');
+const fixturesDirectory = join(fileURLToPath(new URL('.', import.meta.url)), '..', 'fixtures', 'databases');
 
 const writeFixture = Effect.fn('writeFixture')(
     function* (link: string, keepsFinishedRun: boolean, databasePath: string) {
@@ -91,7 +92,7 @@ const readContent = Effect.fn('readContent')(function* (databasePath: string) {
 const checkFixtures = Effect.gen(function* () {
     const directory = yield* Effect.acquireRelease(
         Effect.sync(() => mkdtempSync(join(tmpdir(), 'seed-flow-state-'))),
-        temporaryDirectory => Effect.sync(() => rmSync(temporaryDirectory, { force: true, recursive: true }))
+        temporaryDirectory => Effect.sync(() => void rmSync(temporaryDirectory, { force: true, recursive: true }))
     );
 
     yield* writeFixtures(directory);
@@ -104,7 +105,7 @@ const checkFixtures = Effect.gen(function* () {
     );
 
     if (isNotEmptyArray(staleFixtures)) {
-        return yield* Effect.die(
+        yield* Effect.die(
             `Stale seed fixtures: ${staleFixtures.join(', ')}. Regenerate them with pnpm --filter ./tests/app-tests seed:flow`
         );
     }

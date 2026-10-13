@@ -2,10 +2,11 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { HELL_CORPUS_MAXIMUM_GIVEN_COUNT, HELL_CORPUS_MINIMUM_GIVEN_COUNT } from '@suuudokuuu/hell-corpus';
 import Link from 'next/link';
 
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
 import { TierLadderTable } from '../../../rating/components/tier-ladder-table/tier-ladder-table';
 import { RATING_SAMPLE_SIZE, RATING_SAMPLE_TOTAL } from '../../../rating/constants/rating-sample.constant';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -48,6 +49,7 @@ const SudokuCluesVsDifficultyPage = () => {
 
     return (
         <main>
+            <ArticleSchema metadata={sudokuCluesVsDifficultyPageMetadata} />
             <PageHeader metadata={sudokuCluesVsDifficultyPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem>Clues versus difficulty</BreadcrumbListItem>
@@ -66,17 +68,17 @@ const SudokuCluesVsDifficultyPage = () => {
                     </li>
                     <li>
                         Our whole generated ladder fits between {newbieReport.clueCount} and {nightmareReport.clueCount} clues —{' '}
-                        {newbieToNightmareClueDrop} givens — while the measured difficulty runs from SE{' '}
-                        <SeRatingRange report={newbieReport} /> to SE <SeRatingRange report={nightmareReport} />.
+                        {newbieToNightmareClueDrop} givens — while the measured difficulty runs from SE {formatSeRatingRange(newbieReport)}{' '}
+                        to SE {formatSeRatingRange(nightmareReport)}.
                     </li>
                     <li>
                         {mediumReport.clueCount}-clue Medium and {hardReport.clueCount}-clue Hard are one given apart and a whole technique
-                        band apart: SE <SeRatingRange report={mediumReport} /> against SE <SeRatingRange report={hardReport} />.
+                        band apart: SE {formatSeRatingRange(mediumReport)} against SE {formatSeRatingRange(hardReport)}.
                     </li>
                     <li>
                         Our hardest measured tier ignores clue count entirely: Hell boards carry {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to{' '}
-                        {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues and measure SE <SeRatingRange report={hellReport} /> against SE{' '}
-                        <SeRatingRange report={nightmareReport} /> for {nightmareReport.clueCount}-clue Nightmare.
+                        {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues and measure SE {formatSeRatingRange(hellReport)} against SE{' '}
+                        {formatSeRatingRange(nightmareReport)} for {nightmareReport.clueCount}-clue Nightmare.
                     </li>
                     <li>
                         Clue count is a weak lower bound, not a ranking: {newbieReport.singlesOnlyPuzzleCount} of {newbieReport.sampleSize}{' '}
@@ -120,19 +122,19 @@ const SudokuCluesVsDifficultyPage = () => {
                 {newbieReport.clueCount} clues and <Link href={nightmareSudokuPageMetadata.path}>Nightmare</Link>, four tiers later, at{' '}
                 {nightmareReport.clueCount}. That is {newbieToNightmareClueDrop} givens across the entire generated ladder — a range narrow
                 enough that a reader shown only the clue counts would call these puzzles interchangeable. The SE column says otherwise: SE{' '}
-                <SeRatingRange report={newbieReport} /> at the gentle end and SE <SeRatingRange report={nightmareReport} /> at the hard end,
-                from a deduction a beginner reads off one cell to a chain that has to be built link by link.
+                {formatSeRatingRange(newbieReport)} at the gentle end and SE {formatSeRatingRange(nightmareReport)} at the hard end, from a
+                deduction a beginner reads off one cell to a chain that has to be built link by link.
             </p>
             <h2>One clue, one whole band</h2>
             <p>
                 The sharpest result on this page is the pair in the middle. <Link href={mediumSudokuPageMetadata.path}>Medium</Link> carries{' '}
                 {mediumReport.clueCount} clues and <Link href={hardSudokuPageMetadata.path}>Hard</Link> carries {hardReport.clueCount} — a
                 single given between them. Yet no Medium board in the sample ever needs a fish or a wing, and every Hard board does, by
-                construction. Measured, that one clue is worth SE <SeRatingRange report={mediumReport} /> against SE{' '}
-                <SeRatingRange report={hardReport} />. Compare that with the other end of the ladder, where removing{' '}
-                {newbieToMediumClueDrop} givens between Newbie and Medium moves the same distance. There is no exchange rate between clues
-                and difficulty: one given is worth a band here and a tenth of one there. The number printed on the grid and the reasoning
-                the grid demands are simply different quantities.
+                construction. Measured, that one clue is worth SE {formatSeRatingRange(mediumReport)} against SE{' '}
+                {formatSeRatingRange(hardReport)}. Compare that with the other end of the ladder, where removing {newbieToMediumClueDrop}{' '}
+                givens between Newbie and Medium moves the same distance. There is no exchange rate between clues and difficulty: one given
+                is worth a band here and a tenth of one there. The number printed on the grid and the reasoning the grid demands are simply
+                different quantities.
             </p>
             <h2>The seventeen-clue minimum is not the ceiling</h2>
             <p>
@@ -141,9 +143,9 @@ const SudokuCluesVsDifficultyPage = () => {
                 rated, those minimum-clue boards measured no harder than Nightmare. So Hell now selects on technique instead: it keeps only
                 boards that need a forcing chain, which no Nightmare board ever does, whatever their clue count. The survivors carry{' '}
                 {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues — some of them more than{' '}
-                {nightmareReport.clueCount}-clue Nightmare — and measure SE <SeRatingRange report={hellReport} /> against Nightmare at SE{' '}
-                <SeRatingRange report={nightmareReport} />. Rarity and difficulty are different properties, and only one of them is visible
-                in the clue count.
+                {nightmareReport.clueCount}-clue Nightmare — and measure SE {formatSeRatingRange(hellReport)} against Nightmare at SE{' '}
+                {formatSeRatingRange(nightmareReport)}. Rarity and difficulty are different properties, and only one of them is visible in
+                the clue count.
             </p>
             <h2>How to judge difficulty instead</h2>
             <p>
@@ -162,10 +164,9 @@ const SudokuCluesVsDifficultyPage = () => {
                 <Faq>
                     <FaqQuestion>Does a sudoku with fewer clues mean it is harder?</FaqQuestion>
                     <FaqAnswer>
-                        Not reliably. In our sample, {mediumReport.clueCount}-clue puzzles measure SE{' '}
-                        <SeRatingRange report={mediumReport} /> and {hardReport.clueCount}-clue puzzles measure SE{' '}
-                        <SeRatingRange report={hardReport} /> — one given apart, an entire technique band apart. The whole generated ladder
-                        spans only {newbieToNightmareClueDrop} givens.
+                        Not reliably. In our sample, {mediumReport.clueCount}-clue puzzles measure SE {formatSeRatingRange(mediumReport)}{' '}
+                        and {hardReport.clueCount}-clue puzzles measure SE {formatSeRatingRange(hardReport)} — one given apart, an entire
+                        technique band apart. The whole generated ladder spans only {newbieToNightmareClueDrop} givens.
                     </FaqAnswer>
                 </Faq>
                 <Faq>

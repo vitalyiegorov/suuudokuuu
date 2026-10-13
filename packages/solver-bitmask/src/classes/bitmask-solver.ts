@@ -1,6 +1,7 @@
 import { GRID_BLANK_VALUE, GRID_CELL_COUNT, GRID_SIZE } from '@suuudokuuu/solver-core';
 
 import { ALL_UNIT_CELLS } from '../constants/unit-cells.constant';
+import { PropagationStepResult } from '../enums/propagation-step-result.enum';
 import { countMaskBits } from '../utils/count-mask-bits.util';
 import { bitForDigit } from '../utils/digit-bit.util';
 
@@ -12,8 +13,6 @@ const NO_CANDIDATES = 0;
 const SINGLE_CANDIDATE_COUNT = 1;
 const MRV_EARLY_BREAK_CANDIDATE_COUNT = 2;
 const NO_BLANK_CELL = -1;
-
-type PropagationStepResult = 'changed' | 'contradiction' | 'unchanged';
 
 export class BitmaskSolver implements SolverInterface {
     private readonly gridState = new BitmaskGridState();
@@ -66,19 +65,19 @@ export class BitmaskSolver implements SolverInterface {
     }
 
     private propagateNakedSingles(): PropagationStepResult {
-        let result: PropagationStepResult = 'unchanged';
+        let result: PropagationStepResult = PropagationStepResult.UNCHANGED;
 
         for (let cell = 0; cell < GRID_CELL_COUNT; cell += 1) {
             if (this.gridState.valueAt(cell) === GRID_BLANK_VALUE) {
                 const candidates = this.gridState.candidatesFor(cell);
 
                 if (candidates === NO_CANDIDATES) {
-                    return 'contradiction';
+                    return PropagationStepResult.CONTRADICTION;
                 }
 
                 if (countMaskBits(candidates) === SINGLE_CANDIDATE_COUNT) {
                     this.gridState.assign(cell, candidates);
-                    result = 'changed';
+                    result = PropagationStepResult.CHANGED;
                 }
             }
         }
@@ -104,56 +103,37 @@ export class BitmaskSolver implements SolverInterface {
         }
 
         if (admittingCount === 0) {
-            return 'contradiction';
+            return PropagationStepResult.CONTRADICTION;
         }
 
         if (admittingCount === SINGLE_CANDIDATE_COUNT) {
             this.gridState.assign(admittingCell, bit);
 
-            return 'changed';
+            return PropagationStepResult.CHANGED;
         }
 
-        return 'unchanged';
+        return PropagationStepResult.UNCHANGED;
     }
 
-    private propagateHiddenSinglesForUnit(unitCells: Uint8Array, unitType: number, unitIndex: number): PropagationStepResult {
-        let result: PropagationStepResult = 'unchanged';
+    private propagateHiddenSinglesForUnit(unitCells: Uint8Array, unitIndex: number): PropagationStepResult {
+        let result: PropagationStepResult = PropagationStepResult.UNCHANGED;
 
         for (let digit = 1; digit <= GRID_SIZE; digit += 1) {
             const bit = bitForDigit(digit);
-            const usedDigitsMask = this.gridState.usedDigitsMaskFor(unitType, unitIndex);
+            const usedDigitsMask = this.gridState.usedDigitsMaskFor(unitIndex);
             // oxlint-disable-next-line no-bitwise -- reads the live used-digit mask to decide whether this digit still needs placing in the unit
             const isAlreadyPlaced = (usedDigitsMask & bit) !== NO_CANDIDATES;
 
             if (!isAlreadyPlaced) {
                 const outcome = this.propagateHiddenSingleForDigit(unitCells, bit);
 
-                if (outcome === 'contradiction') {
-                    return 'contradiction';
+                if (outcome === PropagationStepResult.CONTRADICTION) {
+                    return PropagationStepResult.CONTRADICTION;
                 }
 
-                if (outcome === 'changed') {
-                    result = 'changed';
+                if (outcome === PropagationStepResult.CHANGED) {
+                    result = PropagationStepResult.CHANGED;
                 }
-            }
-        }
-
-        return result;
-    }
-
-    private propagateHiddenSinglesForUnitType(unitType: number): PropagationStepResult {
-        let result: PropagationStepResult = 'unchanged';
-        const units = ALL_UNIT_CELLS[unitType];
-
-        for (let unitIndex = 0; unitIndex < GRID_SIZE; unitIndex += 1) {
-            const outcome = this.propagateHiddenSinglesForUnit(units[unitIndex], unitType, unitIndex);
-
-            if (outcome === 'contradiction') {
-                return 'contradiction';
-            }
-
-            if (outcome === 'changed') {
-                result = 'changed';
             }
         }
 
@@ -161,17 +141,17 @@ export class BitmaskSolver implements SolverInterface {
     }
 
     private propagateHiddenSingles(): PropagationStepResult {
-        let result: PropagationStepResult = 'unchanged';
+        let result: PropagationStepResult = PropagationStepResult.UNCHANGED;
 
-        for (let unitType = 0; unitType < ALL_UNIT_CELLS.length; unitType += 1) {
-            const outcome = this.propagateHiddenSinglesForUnitType(unitType);
+        for (let unitIndex = 0; unitIndex < ALL_UNIT_CELLS.length; unitIndex += 1) {
+            const outcome = this.propagateHiddenSinglesForUnit(ALL_UNIT_CELLS[unitIndex], unitIndex);
 
-            if (outcome === 'contradiction') {
-                return 'contradiction';
+            if (outcome === PropagationStepResult.CONTRADICTION) {
+                return PropagationStepResult.CONTRADICTION;
             }
 
-            if (outcome === 'changed') {
-                result = 'changed';
+            if (outcome === PropagationStepResult.CHANGED) {
+                result = PropagationStepResult.CHANGED;
             }
         }
 
@@ -184,17 +164,17 @@ export class BitmaskSolver implements SolverInterface {
         while (changed) {
             const nakedSinglesResult = this.propagateNakedSingles();
 
-            if (nakedSinglesResult === 'contradiction') {
+            if (nakedSinglesResult === PropagationStepResult.CONTRADICTION) {
                 return false;
             }
 
             const hiddenSinglesResult = this.propagateHiddenSingles();
 
-            if (hiddenSinglesResult === 'contradiction') {
+            if (hiddenSinglesResult === PropagationStepResult.CONTRADICTION) {
                 return false;
             }
 
-            changed = nakedSinglesResult === 'changed' || hiddenSinglesResult === 'changed';
+            changed = nakedSinglesResult === PropagationStepResult.CHANGED || hiddenSinglesResult === PropagationStepResult.CHANGED;
         }
 
         return true;

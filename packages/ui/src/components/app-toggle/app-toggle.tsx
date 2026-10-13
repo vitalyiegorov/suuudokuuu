@@ -1,9 +1,9 @@
-import { useEffect } from 'react';
+import { use, useEffect } from 'react';
 import { Pressable, View } from 'react-native';
 import Animated, { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 import { useUnistyles } from 'react-native-unistyles';
 
-import { useReduceMotionEnabled } from '../../hooks/use-reduce-motion-enabled.hook';
+import { ReduceMotionContext } from '../../context/reduce-motion.context';
 import { resolveUnistyleForAnimated } from '../../utils/resolve-unistyle-for-animated.util';
 
 import { AppToggleStyles as styles } from './app-toggle.styles';
@@ -14,15 +14,16 @@ import { AppToggleHitSlop, AppToggleKnobTravel, AppToggleOffKnobScale } from './
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 interface Props {
+    readonly accessibilityLabel: string;
     readonly disabled?: boolean;
     readonly onValueChange: (value: boolean) => void;
     readonly testID?: string;
     readonly value: boolean;
 }
 
-export const AppToggle = ({ disabled = false, onValueChange, testID, value }: Props) => {
+export const AppToggle = ({ accessibilityLabel, disabled = false, onValueChange, testID, value }: Props) => {
     const { theme } = useUnistyles();
-    const isReduceMotionEnabled = useReduceMotionEnabled();
+    const isReduceMotionEnabled = use(ReduceMotionContext);
     const progress = useSharedValue(value ? 1 : 0);
     const pressed = useSharedValue(0);
 
@@ -33,19 +34,13 @@ export const AppToggle = ({ disabled = false, onValueChange, testID, value }: Pr
     }, [value, isReduceMotionEnabled, progress]);
 
     const handlePress = () => {
-        if (!disabled) {
-            onValueChange(!value);
-        }
+        onValueChange(!value);
     };
     const handlePressIn = () => {
-        if (!disabled) {
-            pressed.set(isReduceMotionEnabled ? 1 : withTiming(1, AppTogglePressTimingConfig));
-        }
+        pressed.set(isReduceMotionEnabled ? 1 : withTiming(1, AppTogglePressTimingConfig));
     };
     const handlePressOut = () => {
-        if (!disabled) {
-            pressed.set(isReduceMotionEnabled ? 0 : withTiming(0, AppTogglePressTimingConfig));
-        }
+        pressed.set(isReduceMotionEnabled ? 0 : withTiming(0, AppTogglePressTimingConfig));
     };
 
     const knobOffColor = theme.colors.text.primary;
@@ -66,17 +61,16 @@ export const AppToggle = ({ disabled = false, onValueChange, testID, value }: Pr
     }));
     const pressableStyles = [resolveUnistyleForAnimated(styles.pressable), pressableAnimatedStyles];
     const trackStyles = [styles.track, { opacity: disabled ? AppToggleDisabledOpacity : 1 }];
-    const trackFillStyles = [
-        resolveUnistyleForAnimated(styles.trackFill),
-        { backgroundColor: theme.colors.text.primary },
-        trackFillAnimatedStyles
-    ];
+    const trackFillStyles = [resolveUnistyleForAnimated(styles.trackFill), trackFillAnimatedStyles];
     const knobStyles = [resolveUnistyleForAnimated(styles.knob), knobAnimatedStyles];
     const accessibilityState = { checked: value, disabled };
 
     return (
         <AnimatedPressable
+            aria-checked={value}
+            accessibilityLabel={accessibilityLabel}
             accessibilityRole="switch"
+            disabled={disabled}
             accessibilityState={accessibilityState}
             hitSlop={AppToggleHitSlop}
             onPress={handlePress}

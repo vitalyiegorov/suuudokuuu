@@ -1,6 +1,6 @@
 # Generator Package
 
-Pure TypeScript Sudoku generation and solving engine. It exports the `Sudoku` class, difficulty config, field/cell interfaces, and scored-cell helpers; machine solving lives in the `@suuudokuuu/solver-*` packages.
+Pure TypeScript Sudoku generation, gameplay state, navigation, and scoring engine. It exports the `Sudoku` class, difficulty config, field/cell interfaces, and scored-cell helpers; machine solving lives in the `@suuudokuuu/solver-*` packages.
 
 ## Commands
 
@@ -40,7 +40,7 @@ src/
 
 1. Treat the generator's clue-removal loop and its solver-backed uniqueness checks as invariant-heavy code. Small readability refactors are fine; broad rewrites need focused tests first.
 2. Keep solver methods deterministic for a given field. Randomness belongs in generation and shuffle steps.
-3. All generation randomness flows through `config.random`, a `SeededRandomType` from `@suuudokuuu/solver-core`. `defaultSudokuConfig.random` is `Math.random`, so every existing caller is unchanged, and passing `createSeededRandom(seed)` in a cloned config makes `create()` fully reproducible. `shuffle` takes the generator as a required argument precisely so a new randomness site cannot silently reach for `Math.random`: never call `Math.random` inside this package. `sudoku-seeded-generation.spec.ts` proves same-seed reproducibility, and the daily challenge's seed derivation is documented in `packages/puzzle-forge/AGENTS.md`.
+3. All generation randomness flows through `config.random`, a `SeededRandomType` from `@suuudokuuu/solver-core`. `defaultSudokuConfig.random` is `Math.random`, so every existing caller is unchanged, and passing `createSeededRandom(seed)` in a cloned config makes `create()` fully reproducible. `shuffle` takes the generator as a required argument precisely so a new randomness site cannot silently reach for `Math.random`: never call `Math.random` inside this package. `test/sudoku/classes/sudoku-seeded-generation.test.ts` proves same-seed reproducibility, and the daily challenge's seed derivation is documented in `packages/puzzle-forge/AGENTS.md`.
 4. Do not replace structured field/cell operations with ad hoc string parsing inside the generator.
 5. Use constants or config values for grid dimensions when touching generic Sudoku logic.
 6. Algorithm-heavy `max-statements` disables must stay local to the narrow method and carry a short justification.
@@ -48,8 +48,8 @@ src/
 ## File Organization
 
 1. Classes live one folder per class.
-2. Interfaces stay in `src/interfaces` and use the `*Interface` suffix.
-3. Utility functions stay in `src/util` and use the `.util.ts` suffix.
+2. Interfaces stay in `src/@generic/interfaces` and use the `*Interface` suffix.
+3. Utility functions stay in `src/@generic/utils` and use the `.util.ts` suffix.
 4. Keep one utility per file.
 5. Re-export public API directly from `src/index.ts`.
 6. Tests live in `test/**/*.test.ts` (Vitest, `@effect/vitest` for Effect code), not colocated `.spec.ts` files.

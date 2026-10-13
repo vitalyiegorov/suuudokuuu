@@ -1,4 +1,3 @@
-import { useAppMetricStripColor } from '@suuudokuuu/ui';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { use } from 'react';
 import { Text } from 'react-native';
@@ -15,8 +14,7 @@ interface Props {
 
 export const GameScreenMistakesValue = ({ maxMistakes, maxMistakesReached, mistakes }: Props) => {
     const { theme } = use(ThemeContext);
-    const { textColor } = useAppMetricStripColor();
-    const mistakesColor = maxMistakesReached ? theme.colors.danger : textColor;
+    const mistakesColor = maxMistakesReached ? theme.colors.danger : theme.colors.text.primary;
     const mistakesTextStyles = [styles.value, { color: mistakesColor, textAlign: 'center' as const }];
 
     return (

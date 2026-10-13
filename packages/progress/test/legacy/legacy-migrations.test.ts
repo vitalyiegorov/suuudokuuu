@@ -180,8 +180,8 @@ describe('legacy migrations', () => {
         ]);
     });
 
-    it('should reset every stored best score', () => {
-        expect.assertions(1);
+    it('should reset every stored best score without mutating the stored history', () => {
+        expect.assertions(2);
 
         const state = buildState({
             game: {
@@ -194,6 +194,7 @@ describe('legacy migrations', () => {
         });
 
         expect(runMigration(15, state).game.historyByDifficulty[DifficultyEnum.Easy].bestScore).toBe(0);
+        expect(state.game.historyByDifficulty[DifficultyEnum.Easy].bestScore).toBe(4200);
     });
 
     it('should keep a complete history entry untouched while defaulting its gaps', () => {

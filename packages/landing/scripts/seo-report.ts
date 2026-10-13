@@ -156,7 +156,7 @@ const buildDateRange = (endDate: Date): DateRangeInterface => ({
 const toBase64Url = (value: string): string => Buffer.from(value).toString('base64url');
 
 const parseServiceAccount = (rawKey: string): ServiceAccountInterface => {
-    let parsed: unknown = null;
+    let parsed: unknown;
 
     try {
         parsed = JSON.parse(rawKey);
@@ -194,7 +194,9 @@ const signServiceAccountJwt = ({ clientEmail, privateKey }: ServiceAccountInterf
     try {
         return `${header}.${claims}.${signer.sign(privateKey).toString('base64url')}`;
     } catch (error) {
-        throw new Error(`${SERVICE_ACCOUNT_ENVIRONMENT_VARIABLE} does not hold a usable RSA private key: ${getErrorMessage(error)}`);
+        throw new Error(`${SERVICE_ACCOUNT_ENVIRONMENT_VARIABLE} does not hold a usable RSA private key: ${getErrorMessage(error)}`, {
+            cause: error
+        });
     }
 };
 
@@ -249,7 +251,7 @@ const toSearchTotals = (row: Record<string, unknown>): SearchTotalsInterface => 
 
 const querySearchTotals = async (accessToken: string, range: DateRangeInterface): Promise<SearchWindowInterface> => {
     const payload = await requestSearchConsole(accessToken, '/searchAnalytics/query', { startDate: range.start, endDate: range.end });
-    const firstRow = readArray(payload['rows'])[0];
+    const [firstRow] = readArray(payload['rows']);
 
     return { range, totals: toSearchTotals(isJsonRecord(firstRow) ? firstRow : {}) };
 };

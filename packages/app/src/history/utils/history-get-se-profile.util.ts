@@ -1,11 +1,11 @@
 import { isNotEmptyArray, isPositiveNumber } from '@rnw-community/shared';
 
-import { HistorySeProfileRecentWinsSampleSize } from '../constants/history-se-profile.constant';
-
 import { historyGetBestRating } from './history-get-best-rating.util';
 
 import type { HistorySeProfileInterface } from '../interfaces/history-se-profile.interface';
 import type { CompletedGameType, DifficultyStatsType } from '@suuudokuuu/progress';
+
+const HistorySeProfileRecentWinsSampleSize = 20;
 
 export const historyGetSeProfile = (
     histories: readonly DifficultyStatsType[],

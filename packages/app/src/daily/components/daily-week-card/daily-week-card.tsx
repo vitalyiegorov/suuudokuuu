@@ -1,6 +1,7 @@
 import { plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
 import { use } from 'react';
+import { View } from 'react-native';
 
 import { isPositiveNumber } from '@rnw-community/shared';
 
@@ -8,8 +9,10 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { applyColorAlpha } from '../../../@generic/utils/apply-color-alpha.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { DailyTintAlpha } from '../../constants/daily-tint-alpha.constant';
+import { dailyGetWeekDays } from '../../utils/daily-get-week-days.util';
 import { DailyCard } from '../daily-card/daily-card';
-import { DailyWeekStrip } from '../daily-week-strip/daily-week-strip';
+import { DailyWeekDay } from '../daily-week-day/daily-week-day';
+import { DailyWeekStripSelectors } from '../daily-week-strip/daily-week-strip.selectors';
 
 import { DailyWeekCardSelectors } from './daily-week-card.selectors';
 import { DailyWeekCardStyles as styles } from './daily-week-card.styles';
@@ -36,7 +39,11 @@ export const DailyWeekCard = ({ bestStreak, completedDayNumbers, todayDayNumber 
 
     return (
         <DailyCard>
-            <DailyWeekStrip completedDayNumbers={completedDayNumbers} todayDayNumber={todayDayNumber} />
+            <View style={styles.strip} testID={DailyWeekStripSelectors.Root}>
+                {dailyGetWeekDays(todayDayNumber, completedDayNumbers).map(day => (
+                    <DailyWeekDay day={day} key={day.dayNumber} />
+                ))}
+            </View>
 
             {bestStreakLine}
         </DailyCard>

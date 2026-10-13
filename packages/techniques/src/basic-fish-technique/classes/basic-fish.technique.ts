@@ -1,17 +1,15 @@
-import { isDefined, isEmptyArray } from '@rnw-community/shared';
+import { isEmptyArray } from '@rnw-community/shared';
 
 import { AbstractFishTechnique } from '../../@generic/classes/abstract-fish-technique';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
-import { isSameCell } from '../../@generic/utils/is-same-cell.util';
 
 import type { UnitValueIndex } from '../../@generic/classes/unit-value-index/unit-value-index';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
-import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
 import type { UnitValueEntryInterface } from '../../@generic/interfaces/unit-value-entry.interface';
 import type { FishBaseType } from '../../@generic/types/fish-base.type';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-export class BasicFishTechnique extends AbstractFishTechnique implements TechniqueStrategyInterface {
+export class BasicFishTechnique extends AbstractFishTechnique {
     protected override isCandidateUnit(entry: UnitValueEntryInterface): boolean {
         return entry.cells.length >= 2 && entry.cells.length <= this.size;
     }
@@ -29,8 +27,9 @@ export class BasicFishTechnique extends AbstractFishTechnique implements Techniq
             coverType: base.coverType,
             baseType: base.baseType,
             baseIndexes: this.getBaseIndexes(index, base),
-            value: base.value
-        }).filter(elimination => !isDefined(targetCell) || isSameCell(elimination.cell, targetCell));
+            value: base.value,
+            targetCell
+        });
 
         if (isEmptyArray(eliminations)) {
             return [];

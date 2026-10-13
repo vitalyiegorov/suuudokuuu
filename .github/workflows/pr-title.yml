@@ -31,7 +31,7 @@ jobs:
                   cache: pnpm
 
             - name: Install dependencies
-              run: pnpm install --frozen-lockfile
+              run: pnpm install --frozen-lockfile --ignore-scripts
 
             - name: Lint the PR Title
               run: printf '%s\n' "$PR_TITLE" | node_modules/.bin/commitlint

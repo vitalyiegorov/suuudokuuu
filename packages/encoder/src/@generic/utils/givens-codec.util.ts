@@ -128,7 +128,7 @@ export const collectEmptyCells = (field: string): number[] => {
     return emptyCells;
 };
 
-export const getPositionBits = (length: number): number => {
+const getPositionBits = (length: number): number => {
     let bits = 0;
     let capacity = 1;
 
@@ -138,4 +138,40 @@ export const getPositionBits = (length: number): number => {
     }
 
     return bits;
+};
+
+export const writeCellPositions = (out: BitOutputStream, emptyCells: number[], cellIndexes: number[], errorMessage: string): void => {
+    for (const cellIndex of cellIndexes) {
+        const position = emptyCells.indexOf(cellIndex);
+
+        if (position === -1) {
+            throw new Error(errorMessage);
+        }
+
+        const width = getPositionBits(emptyCells.length);
+
+        if (width > 0) {
+            out.write(position, width);
+        }
+
+        emptyCells.splice(position, 1);
+    }
+};
+
+export const readCellPositions = (input: BitInputStream, emptyCells: number[], count: number, errorMessage: string): number[] => {
+    const cellIndexes: number[] = [];
+
+    for (let cellIndex = 0; cellIndex < count; cellIndex += 1) {
+        const width = getPositionBits(emptyCells.length);
+        const position = width > 0 ? input.read(width) : 0;
+
+        if (position >= emptyCells.length) {
+            throw new Error(errorMessage);
+        }
+
+        cellIndexes.push(emptyCells[position]);
+        emptyCells.splice(position, 1);
+    }
+
+    return cellIndexes;
 };

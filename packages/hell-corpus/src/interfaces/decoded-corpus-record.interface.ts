@@ -1,5 +1,5 @@
 export interface DecodedCorpusRecordInterface {
-    puzzle: string;
-    rating: number | null;
-    isCeiling: boolean;
+    readonly puzzle: string;
+    readonly rating: number | null;
+    readonly isCeiling: boolean;
 }

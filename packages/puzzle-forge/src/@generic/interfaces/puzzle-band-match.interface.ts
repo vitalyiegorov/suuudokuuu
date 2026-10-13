@@ -1,4 +1,4 @@
 export interface PuzzleBandMatchInterface {
-    isAboveSimplerLadder: boolean;
-    isWithinBand: boolean;
+    readonly isAboveSimplerLadder: boolean;
+    readonly isWithinBand: boolean;
 }

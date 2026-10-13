@@ -25,7 +25,7 @@ export const AppLinkButton = ({ href, onPress, replace, ...restProps }: Props) =
         hapticImpact(ImpactFeedbackStyle.Light);
 
         if (isDefined(href)) {
-            if (isDefined(replace)) {
+            if (replace === true) {
                 router.replace(href);
             } else {
                 router.navigate(href);

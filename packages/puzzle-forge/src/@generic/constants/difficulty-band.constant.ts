@@ -1,6 +1,8 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
+import { PuzzleCorpusEnum } from '../enums/puzzle-corpus.enum';
+
 import type { DifficultyBandInterface } from '../interfaces/difficulty-band.interface';
 
 export const DIFFICULTY_BANDS: Record<DifficultyEnum, DifficultyBandInterface> = {
@@ -36,13 +38,13 @@ export const DIFFICULTY_BANDS: Record<DifficultyEnum, DifficultyBandInterface> =
     },
     [DifficultyEnum.Hell]: {
         blankCells: 64,
-        corpus: 'hell',
+        corpus: PuzzleCorpusEnum.HELL,
         simplerLadderMaxTechnique: SolutionTechniqueEnum.AIC,
         bandLadderMaxTechnique: null
     },
     [DifficultyEnum.Infinity]: {
         blankCells: 81,
-        corpus: 'infinity',
+        corpus: PuzzleCorpusEnum.INFINITY,
         simplerLadderMaxTechnique: SolutionTechniqueEnum.HiddenSingle,
         bandLadderMaxTechnique: null
     }

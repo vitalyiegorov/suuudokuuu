@@ -1,11 +1,5 @@
-import { isDefined } from '@rnw-community/shared';
-
 import { AbstractForcingChainTechnique } from '../../@generic/classes/abstract-forcing-chain-technique';
-import { FORCING_CHAIN_MIN_BRANCHES } from '../../@generic/constants/forcing-chain-scan.constant';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
-import { markContextSearchCapped } from '../../@generic/utils/context-scan-state.util';
-import { createForcingChainResults } from '../../@generic/utils/create-forcing-chain-results.util';
-import { hasForcingChainScanBudget } from '../../@generic/utils/has-forcing-chain-scan-budget.util';
 import { hasMaskValue } from '../../@generic/utils/has-mask-value.util';
 import { propagateForScan } from '../../@generic/utils/propagate-for-scan.util';
 
@@ -26,28 +20,15 @@ export class RegionForcingChainTechnique extends AbstractForcingChainTechnique {
         }
     }
 
-    private collectUnitValueResults(scan: ForcingChainScanInterface, unitCellIndexes: number[], value: number): boolean {
-        const board = scan.propagator.getBoard();
+    private collectUnitValueResults(scan: ForcingChainScanInterface, unitCellIndexes: readonly number[], value: number): boolean {
         const positionIndexes = this.getPositionIndexes(scan, unitCellIndexes, value);
 
-        if (positionIndexes.length < FORCING_CHAIN_MIN_BRANCHES) {
-            return true;
-        }
-
-        if (!hasForcingChainScanBudget(scan, positionIndexes.length)) {
-            markContextSearchCapped(scan.context);
-
-            return false;
-        }
-
-        const propagations = positionIndexes.map(positionIndex => propagateForScan(scan, positionIndex, value));
-
-        scan.results.push(...createForcingChainResults(this.technique, board, propagations, scan.scope));
-
-        return !isDefined(scan.scope.directTarget) || scan.results.length === 0;
+        return this.collectBranchResults(scan, positionIndexes.length, branchIndex =>
+            propagateForScan(scan, positionIndexes[branchIndex], value)
+        );
     }
 
-    private getPositionIndexes(scan: ForcingChainScanInterface, unitCellIndexes: number[], value: number): number[] {
+    private getPositionIndexes(scan: ForcingChainScanInterface, unitCellIndexes: readonly number[], value: number): number[] {
         const board = scan.propagator.getBoard();
 
         if (unitCellIndexes.some(cellIndex => board.cellValues[cellIndex] === value)) {

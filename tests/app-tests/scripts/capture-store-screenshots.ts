@@ -1,11 +1,11 @@
+import { execFileSync } from 'node:child_process';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 
-import { getErrorMessage, isPositiveNumber } from '@rnw-community/shared';
+import { getErrorMessage, isDefined, isNotEmptyString, isPositiveNumber } from '@rnw-community/shared';
 
-import { bakeLandscapeScreenshot } from './bake-landscape-screenshot.ts';
 import {
     type DeviceContext,
     type SceneOutcome,
@@ -53,13 +53,10 @@ const parseCommaSeparatedList = (value: string): string[] =>
         .map(item => item.trim())
         .filter(item => item.length > 0);
 
-const isDefinedString = (value: unknown): value is string => typeof value === 'string' && value.length > 0;
-
 const { values: cliOptions } = parseArgs({
     options: {
         'app-id': { type: 'string' },
         appearances: { type: 'string' },
-        'capture-mode': { type: 'string' },
         'device-class': { type: 'string' },
         locales: { type: 'string' },
         orientation: { type: 'string' },
@@ -78,11 +75,9 @@ const {
     ANDROID_SERIAL,
     APP_ID,
     CAPTURE_LAUNCH_SETTLE_MS,
-    CAPTURE_MODE,
     CAPTURE_SCENE_SETTLE_MS,
     DEVICE_CLASS,
     ORIENTATION,
-    OS_LANGUAGE_MODE,
     SCREENSHOT_OUTPUT_DIR,
     SCREENSHOT_PLATFORM,
     SIMULATOR_UDID,
@@ -94,20 +89,16 @@ const appId = cliOptions['app-id'] ?? APP_ID;
 const deviceClass = platform === 'android' ? 'android' : (cliOptions['device-class'] ?? DEVICE_CLASS ?? 'iphone');
 const simulatorUdid = cliOptions.udid ?? SIMULATOR_UDID ?? '';
 const orientation = cliOptions.orientation ?? ORIENTATION ?? 'portrait';
-const captureMode = cliOptions['capture-mode'] ?? CAPTURE_MODE ?? 'fast';
 const statusBarMode = cliOptions['status-bar'] ?? STATUS_BAR ?? 'clean';
 const androidSerial = cliOptions.serial ?? ANDROID_SERIAL ?? '';
-const skipsLanguageSheet = captureMode === 'fast' || OS_LANGUAGE_MODE === 'true';
-const osLanguageMode = skipsLanguageSheet ? 'true' : 'false';
 const outputRootDirectory = cliOptions['output-dir'] ?? SCREENSHOT_OUTPUT_DIR ?? defaultOutputRootDirectory;
-const parsedLaunchSettleMilliseconds = Number(CAPTURE_LAUNCH_SETTLE_MS);
-const launchSettleMilliseconds = isPositiveNumber(parsedLaunchSettleMilliseconds)
-    ? parsedLaunchSettleMilliseconds
-    : DefaultLaunchSettleMilliseconds;
-const parsedSceneSettleMilliseconds = Number(CAPTURE_SCENE_SETTLE_MS);
-const sceneSettleMilliseconds = isPositiveNumber(parsedSceneSettleMilliseconds)
-    ? parsedSceneSettleMilliseconds
-    : DefaultSceneSettleMilliseconds;
+const readSettleMilliseconds = (value: string | undefined, fallback: number): number => {
+    const parsed = Number(value);
+
+    return isPositiveNumber(parsed) ? parsed : fallback;
+};
+const launchSettleMilliseconds = readSettleMilliseconds(CAPTURE_LAUNCH_SETTLE_MS, DefaultLaunchSettleMilliseconds);
+const sceneSettleMilliseconds = readSettleMilliseconds(CAPTURE_SCENE_SETTLE_MS, DefaultSceneSettleMilliseconds);
 
 const deviceContext: DeviceContext = { androidSerial, platform, scriptDirectory, simulatorUdid, statusBarMode };
 const maestroContext: MaestroContext = {
@@ -115,7 +106,6 @@ const maestroContext: MaestroContext = {
     artifactsDirectory: join(appTestsDirectory, 'artifacts', 'screenshots-debug'),
     configPath,
     flowsDirectory: screenshotsFlowsDirectory,
-    osLanguageMode,
     platform,
     simulatorUdid
 };
@@ -128,16 +118,15 @@ if (orientation === 'landscape' && deviceClass !== 'ipad') {
     throw new Error('Landscape capture is only supported for the ipad device class; the app locks iPhone to portrait.');
 }
 
-const selectedLocales = cliOptions.locales !== undefined ? parseCommaSeparatedList(cliOptions.locales) : AllLocales;
-const selectedAppearances = cliOptions.appearances !== undefined ? parseCommaSeparatedList(cliOptions.appearances) : AllAppearances;
-const selectedSceneNames =
-    cliOptions.scenes !== undefined ? parseCommaSeparatedList(cliOptions.scenes) : AllScenes.map(scene => scene.name);
+const selectedLocales = isDefined(cliOptions.locales) ? parseCommaSeparatedList(cliOptions.locales) : AllLocales;
+const selectedAppearances = isDefined(cliOptions.appearances) ? parseCommaSeparatedList(cliOptions.appearances) : AllAppearances;
+const selectedSceneNames = isDefined(cliOptions.scenes) ? parseCommaSeparatedList(cliOptions.scenes) : AllScenes.map(scene => scene.name);
 const selectedScenes = AllScenes.filter(scene => selectedSceneNames.includes(scene.name));
 const verifiesAndroidScenes = cliOptions.verify === true;
 const reportDirectory = cliOptions['report-dir'] ?? join(appTestsDirectory, 'artifacts', 'screenshots-debug');
 
 const seedTargetForRun = (): SeedTarget => ({
-    appId: isDefinedString(appId) ? appId : '',
+    appId: isNotEmptyString(appId) ? appId : '',
     platform,
     serial: androidSerial,
     udid: simulatorUdid
@@ -145,7 +134,7 @@ const seedTargetForRun = (): SeedTarget => ({
 
 const seedOptionsForScene = (scene: Scene, locale: string, appearance: string) => ({
     appearance,
-    difficulty: isDefinedString(scene.seedDifficulty) ? scene.seedDifficulty : DefaultSeedDifficulty,
+    difficulty: isNotEmptyString(scene.seedDifficulty) ? scene.seedDifficulty : DefaultSeedDifficulty,
     language: locale,
     sceneState: scene.sceneState
 });
@@ -168,7 +157,7 @@ const captureSceneDirectly = (scene: Scene, locale: string, appearance: string, 
         waitForRender(launchSettleMilliseconds);
         const launchedProcessId = verifiesAndroidScenes ? readAndroidAppPid(deviceContext, target.appId) : '';
 
-        if (isDefinedString(scene.deepLink) && scene.deepLink !== HomeDeepLink) {
+        if (isNotEmptyString(scene.deepLink) && scene.deepLink !== HomeDeepLink) {
             const deepLinkOutcome = openDeepLink(deviceContext, scene.deepLink);
 
             if (verifiesAndroidScenes && !deepLinkOutcome.succeeded) {
@@ -250,54 +239,63 @@ const captureCombination = (locale: string, appearance: string): CaptureResult[]
     const deviceClassSegment = orientation === 'landscape' ? `${deviceClass}-landscape` : deviceClass;
     const deviceClassPathSegments = platform === 'ios' ? [deviceClassSegment] : [];
     const testOutputDirectory = join(outputRootDirectory, platform, ...deviceClassPathSegments, locale, appearance);
-    const usesDirectCapture = captureMode === 'fast';
-
     mkdirSync(testOutputDirectory, { recursive: true });
+    applyStatusBarOverride(deviceContext);
 
-    if (usesDirectCapture) {
-        applyStatusBarOverride(deviceContext);
-    }
-
-    // oxlint-disable-next-line max-statements -- Per-scene branch between direct capture and the Maestro fallback
     return selectedScenes.map(scene => {
         const startedAt = Date.now();
-        const capturesWithoutMaestro = usesDirectCapture && isDefinedString(scene.deepLink);
+        const capturesWithoutMaestro = isNotEmptyString(scene.deepLink);
         const screenshotPath = join(testOutputDirectory, `${sceneScreenshotBaseName(scene)}.png`);
+        let sceneOutcome: SceneOutcome;
 
         if (capturesWithoutMaestro) {
-            const directOutcome = captureSceneDirectly(scene, locale, appearance, testOutputDirectory);
-
-            if (directOutcome.succeeded && orientation === 'landscape') {
-                bakeLandscapeScreenshot(screenshotPath);
-            }
-
-            return reportSceneOutcome({ appearance, locale, scene, startedAt, suffix: ', direct' }, directOutcome);
-        }
-
-        if (usesDirectCapture) {
+            sceneOutcome = captureSceneDirectly(scene, locale, appearance, testOutputDirectory);
+        } else {
             seedAppState(seedTargetForRun(), seedOptionsForScene(scene, locale, appearance));
-        }
-
-        const maestroRequest = { appearance, locale, scene, testOutputDirectory };
-        const firstAttempt = runMaestroScene(maestroContext, maestroRequest);
-        let sceneOutcome = firstAttempt;
-
-        if (!firstAttempt.succeeded) {
-            recycleIosDriver(deviceContext);
+            const maestroRequest = { appearance, locale, scene, testOutputDirectory };
             sceneOutcome = runMaestroScene(maestroContext, maestroRequest);
+
+            if (!sceneOutcome.succeeded) {
+                recycleIosDriver(deviceContext);
+                sceneOutcome = runMaestroScene(maestroContext, maestroRequest);
+            }
         }
 
         if (sceneOutcome.succeeded && orientation === 'landscape') {
-            bakeLandscapeScreenshot(screenshotPath);
+            const dimensions = execFileSync('sips', ['-g', 'pixelWidth', '-g', 'pixelHeight', screenshotPath], { encoding: 'utf8' });
+            const width = Number(/pixelWidth: (\d+)/u.exec(dimensions)?.[1]);
+            const height = Number(/pixelHeight: (\d+)/u.exec(dimensions)?.[1]);
+
+            if (width < height) {
+                execFileSync('sips', ['--rotate', '90', screenshotPath]);
+            }
+
+            const metadata = execFileSync('sips', ['-g', 'orientation', screenshotPath], { encoding: 'utf8' });
+            const screenshotOrientation = /orientation: (.+)/u.exec(metadata)?.[1].trim();
+
+            if (isDefined(screenshotOrientation) && screenshotOrientation !== '1' && screenshotOrientation !== '<nil>') {
+                throw new Error(`Landscape screenshot ${screenshotPath} has unsupported EXIF orientation ${screenshotOrientation}.`);
+            }
         }
 
-        return reportSceneOutcome({ appearance, locale, scene, startedAt, suffix: '' }, sceneOutcome);
+        return reportSceneOutcome({ appearance, locale, scene, startedAt, suffix: capturesWithoutMaestro ? ', direct' : '' }, sceneOutcome);
     });
 };
 
-// oxlint-disable-next-line max-statements -- CLI orchestration: argument validation, rotation, capture loop and reporting
+const validateSelection = (selected: string[], allowed: string[], name: string): void => {
+    if (selected.length === 0) {
+        throw new Error(`Select at least one ${name}.`);
+    }
+
+    const unknown = selected.filter(value => !allowed.includes(value));
+
+    if (unknown.length > 0) {
+        throw new Error(`Unknown ${name}: ${unknown.join(', ')}.`);
+    }
+};
+
 const main = (): void => {
-    if (!isDefinedString(appId)) {
+    if (!isNotEmptyString(appId)) {
         process.stderr.write('APP_ID is required. Pass --app-id=<bundle-id> or set the APP_ID environment variable.\n');
         process.exitCode = 1;
 
@@ -311,50 +309,24 @@ const main = (): void => {
         return;
     }
 
-    if (selectedSceneNames.length === 0) {
-        throw new Error('Select at least one scene.');
-    }
-
-    const unknownScenes = selectedSceneNames.filter(name => !AllScenes.some(scene => scene.name === name));
-
-    if (unknownScenes.length > 0) {
-        throw new Error(`Unknown scene: ${unknownScenes.join(', ')}.`);
-    }
-
-    if (selectedLocales.length === 0) {
-        throw new Error('Select at least one locale.');
-    }
-
-    const unsupportedLocales = selectedLocales.filter(locale => !AllLocales.includes(locale));
-
-    if (unsupportedLocales.length > 0) {
-        throw new Error(`Unknown locale: ${unsupportedLocales.join(', ')}.`);
-    }
-
-    if (selectedAppearances.length === 0) {
-        throw new Error('Select at least one appearance.');
-    }
-
-    const unsupportedAppearances = selectedAppearances.filter(appearance => !AllAppearances.includes(appearance));
-
-    if (unsupportedAppearances.length > 0) {
-        throw new Error(`Unknown appearance: ${unsupportedAppearances.join(', ')}.`);
-    }
+    validateSelection(
+        selectedSceneNames,
+        AllScenes.map(scene => scene.name),
+        'scene'
+    );
+    validateSelection(selectedLocales, AllLocales, 'locale');
+    validateSelection(selectedAppearances, AllAppearances, 'appearance');
 
     if (verifiesAndroidScenes && platform !== 'android') {
         throw new Error('--verify is only supported on Android.');
     }
 
-    if (verifiesAndroidScenes && !isDefinedString(androidSerial)) {
+    if (verifiesAndroidScenes && !isNotEmptyString(androidSerial)) {
         throw new Error('Android serial is required for --verify. Pass --serial or set ANDROID_SERIAL.');
     }
 
-    if (verifiesAndroidScenes && captureMode !== 'fast') {
-        throw new Error('--verify requires --capture-mode=fast.');
-    }
-
     if (verifiesAndroidScenes) {
-        const unsupportedScenes = selectedScenes.filter(scene => !isDefinedString(scene.deepLink));
+        const unsupportedScenes = selectedScenes.filter(scene => !isNotEmptyString(scene.deepLink));
 
         if (unsupportedScenes.length > 0) {
             throw new Error(`--verify requires a deep link for every scene: ${unsupportedScenes.map(scene => scene.name).join(', ')}`);
@@ -364,7 +336,7 @@ const main = (): void => {
     deviceContext.simulatorUdid = simulatorUdid || (platform === 'ios' ? detectBootedIosSimulatorUdid(deviceClass) : '');
     maestroContext.simulatorUdid = deviceContext.simulatorUdid;
 
-    if (platform === 'ios' && !isDefinedString(deviceContext.simulatorUdid)) {
+    if (platform === 'ios' && !isNotEmptyString(deviceContext.simulatorUdid)) {
         process.stderr.write('No booted iOS simulator found. Boot one or pass --udid=<simulator-udid>.\n');
         process.exitCode = 1;
 

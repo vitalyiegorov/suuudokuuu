@@ -3,8 +3,9 @@ import Link from 'next/link';
 
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
-import { SeRatingRange } from '../../../rating/components/se-rating-range/se-rating-range';
+import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
+import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -47,6 +48,7 @@ const HardSudokuPage = () => {
 
     return (
         <main>
+            <ArticleSchema metadata={hardSudokuPageMetadata} />
             <PageHeader metadata={hardSudokuPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
@@ -73,7 +75,7 @@ const HardSudokuPage = () => {
                         and W-Wing.
                     </li>
                     <li>
-                        Our sample of {hardReport.sampleSize} Hard boards measures SE <SeRatingRange report={hardReport} />.
+                        Our sample of {hardReport.sampleSize} Hard boards measures SE {formatSeRatingRange(hardReport)}.
                     </li>
                     <li>Hard is capped at the W-Wing — a board that resists every fish and wing is graded Nightmare instead.</li>
                 </ul>
@@ -95,7 +97,7 @@ const HardSudokuPage = () => {
             </p>
             <h2>How hard is it, honestly</h2>
             <p>
-                Our sample of {hardReport.sampleSize} Hard boards measures SE (Sudoku Explainer) <SeRatingRange report={hardReport} /> —
+                Our sample of {hardReport.sampleSize} Hard boards measures SE (Sudoku Explainer) {formatSeRatingRange(hardReport)} —
                 squarely in the range the solving community associates with fish and wing patterns, and well below the chain territory above
                 7. The most common hardest step is the <TechniqueLink technique={hardReport.typicalHardestTechnique} />, and the hardest
                 anything in the sample reached is the <TechniqueLink technique={hardReport.hardestTechniqueReached} />. This is where casual

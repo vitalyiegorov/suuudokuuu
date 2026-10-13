@@ -1,6 +1,6 @@
 import type { CellInterface } from '@suuudokuuu/generator';
 
 export interface CandidateEliminationInterface {
-    cell: CellInterface;
-    value: number;
+    readonly cell: CellInterface;
+    readonly value: number;
 }

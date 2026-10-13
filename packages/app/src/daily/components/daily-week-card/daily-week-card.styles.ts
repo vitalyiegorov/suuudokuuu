@@ -1,6 +1,12 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const DailyWeekCardStyles = StyleSheet.create(theme => ({
+    strip: {
+        flexDirection: 'row',
+        paddingBottom: theme.spacing.md,
+        paddingHorizontal: theme.spacing.sm,
+        paddingTop: 14
+    },
     bestStreak: {
         borderTopWidth: 1,
         fontSize: 13,

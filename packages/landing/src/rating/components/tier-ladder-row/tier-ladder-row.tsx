@@ -3,13 +3,13 @@ import Link from 'next/link';
 import { DIFFICULTY_NAMES } from '../../../difficulty/constants/difficulty-name.constant';
 import { DIFFICULTY_PAGE_PATHS } from '../../../difficulty/constants/difficulty-page-path.constant';
 import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
-import { SeRatingRange } from '../se-rating-range/se-rating-range';
+import { formatSeRatingRange } from '../../utils/format-se-rating-range.util';
 import { TierBandRequirement } from '../tier-band-requirement/tier-band-requirement';
 
 import type { TierTechniqueReportInterface } from '../../interfaces/tier-technique-report.interface';
 
 interface Props {
-    report: TierTechniqueReportInterface;
+    readonly report: TierTechniqueReportInterface;
 }
 
 export const TierLadderRow = ({ report }: Props) => {
@@ -25,9 +25,7 @@ export const TierLadderRow = ({ report }: Props) => {
             <td>
                 <TierBandRequirement report={report} />
             </td>
-            <td>
-                <SeRatingRange report={report} />
-            </td>
+            <td>{formatSeRatingRange(report)}</td>
             <td>
                 {report.singlesOnlyPuzzleCount} of {report.sampleSize}
             </td>

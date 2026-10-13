@@ -12,8 +12,6 @@ import { TechniqueNavigation } from '../../../techniques/components/technique-na
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../techniques/components/technique-worked-example/technique-worked-example';
-import { xChainPageMetadata } from '../x-chain/metadata';
-import { xyzWingPageMetadata } from '../xyz-wing/metadata';
 
 import { wWingPageMetadata } from './metadata';
 
@@ -135,7 +133,7 @@ const WWingPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={xChainPageMetadata} previous={xyzWingPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.WWing} />
     </main>
 );
 

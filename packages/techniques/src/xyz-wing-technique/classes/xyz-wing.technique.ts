@@ -5,6 +5,7 @@ import { createEliminationResults } from '../../@generic/utils/create-eliminatio
 import { getCombinations } from '../../@generic/utils/get-combinations.util';
 import { getCommonPeerEliminations } from '../../@generic/utils/get-common-peer-eliminations.util';
 import { getUniqueValues } from '../../@generic/utils/get-unique-values.util';
+import { isBivalueCell } from '../../@generic/utils/is-bivalue-cell.util';
 
 import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
@@ -20,7 +21,7 @@ export class XYZWingTechnique implements TechniqueStrategyInterface {
             const pivotCandidates = context.getCandidates(pivot);
             const pincers = context
                 .getPeers(pivot)
-                .filter(cell => context.getCandidates(cell).length === 2)
+                .filter(cell => isBivalueCell(context, cell))
                 .filter(cell => context.getCandidates(cell).every(candidate => pivotCandidates.includes(candidate)));
 
             for (const [firstPincer, secondPincer] of getCombinations(pincers, 2)) {
