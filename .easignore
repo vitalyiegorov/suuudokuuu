@@ -89,8 +89,9 @@ junit.xml
 
 # expo
 .expo
-android
-ios
+packages/app/android
+packages/app/ios
+packages/app/fastlane
 *.apk
 *.aab
 google-service-account.json

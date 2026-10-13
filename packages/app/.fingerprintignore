@@ -1,12 +1,2 @@
 # HINT: We bump version on each master commit.
 package.json
-
-# Ignore the entire android directory
-**/android/**/*
-
-# Ignore the entire ios directory but still keep ios/Podfile and ios/Podfile.lock
-**/ios/**/*
-!**/ios/Podfile
-!**/ios/Podfile.lock
-
-
