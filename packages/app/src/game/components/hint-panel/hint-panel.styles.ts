@@ -26,6 +26,7 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
     },
     container: {
         alignSelf: 'center',
+        flexGrow: appLayoutScreenIsWide(rt.screen) ? 0 : 1,
         flexShrink: 1,
         minHeight: 0,
         borderCurve: 'continuous',
@@ -38,6 +39,7 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
         overflow: 'hidden'
     },
     page: {
+        flexGrow: 1,
         flexShrink: 1,
         gap: theme.spacing.sm,
         minHeight: 0
