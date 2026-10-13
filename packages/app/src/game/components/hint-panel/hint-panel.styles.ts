@@ -16,11 +16,11 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
 
         return {
             bottom: Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md - (isWideLayout ? 0 : rt.insets.bottom + theme.spacing.xs),
-            justifyContent: 'flex-end',
+            justifyContent: 'flex-start',
             left: isWideLayout ? 0 : insets.left + theme.spacing.md,
             position: 'absolute',
             right: isWideLayout ? 0 : insets.right + theme.spacing.md,
-            top: isWideLayout ? controlsTop : controlsTop + theme.spacing.sm,
+            top: isWideLayout ? controlsTop : controlsTop + theme.spacing.md,
             zIndex: 10
         };
     },
