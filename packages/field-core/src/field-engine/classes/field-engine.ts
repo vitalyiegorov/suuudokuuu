@@ -223,6 +223,7 @@ export class FieldEngine extends FieldStore {
             ...this.hintPages.CurrentPage,
             hintPageIndex: this.hintPages.PageIndex,
             hintPageCount: this.hintPages.PageCount,
+            isNextPageCharged: this.hintPages.IsNextPageCharged,
             ...(isDefined(this.selectedCell) && { selectedCell: this.selectedCell })
         };
     }

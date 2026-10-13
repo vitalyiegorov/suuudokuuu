@@ -1,12 +1,14 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { HintLevelEnum } from '../../step-script/enums/hint-level.enum';
 import { getStepLinkCount } from '../../step-script/utils/get-step-link-count.util';
 
 import type { HintPageInterface } from '../../step-script/interfaces/hint-page.interface';
 import type { StepScriptInterface } from '../../step-script/interfaces/step-script.interface';
 
-const singleLinkPageLimit = 8;
+const singleLinkPageLimit = 6;
 const linkGroupSize = 4;
 const hintLevelOrder: readonly HintLevelEnum[] = [HintLevelEnum.TECHNIQUE, HintLevelEnum.PATTERN, HintLevelEnum.WALKTHROUGH];
 const emptyHintPage: HintPageInterface = { hintLevel: HintLevelEnum.WALKTHROUGH, stepIndex: 0, revealedImplicationCount: 0 };
@@ -34,6 +36,12 @@ export class FieldHintPages {
 
     get PageCount(): number {
         return this.pages.length;
+    }
+
+    get IsNextPageCharged(): boolean {
+        const nextPage = this.pages.at(this.pageIndex + 1);
+
+        return isDefined(nextPage) && hintLevelOrder.indexOf(nextPage.hintLevel) > hintLevelOrder.indexOf(this.revealedHintLevel);
     }
 
     start(script: StepScriptInterface, hintLevel: HintLevelEnum): void {

@@ -15,6 +15,7 @@ import type { StepScriptInterface } from '../../src/step-script/interfaces/step-
 const chainBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
 const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
 const longBranchImplicationCount = 10;
+const firstGroupedLinkCount = 7;
 const forcingHintIndex = 11;
 
 const createEngine = (sudokuString: string): FieldEngine => new FieldEngine({ sudokuString, difficulty: DifficultyEnum.Medium });
@@ -71,7 +72,13 @@ describe('hint pages', () => {
             assert.strictEqual(engine.hintNext(), false);
             assert.strictEqual(engine.hintSkipToEnd(), 0);
             engine.hintBack();
-            assert.deepInclude(engine.getSnapshot(), { hintPageIndex: 0, hintPageCount: 0, revealedImplicationCount: 0, stepIndex: 0 });
+            assert.deepInclude(engine.getSnapshot(), {
+                hintPageIndex: 0,
+                hintPageCount: 0,
+                revealedImplicationCount: 0,
+                stepIndex: 0,
+                isNextPageCharged: false
+            });
         })
     );
 
@@ -102,10 +109,16 @@ describe('hint pages', () => {
 
             engine.startStepScript(script, HintLevelEnum.TECHNIQUE);
 
+            assert.strictEqual(engine.getSnapshot().isNextPageCharged, true);
             assert.strictEqual(engine.hintNext(), true);
-            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.PATTERN, hintPageIndex: 1 });
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.PATTERN, hintPageIndex: 1, isNextPageCharged: true });
             assert.strictEqual(engine.hintNext(), true);
-            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, hintPageIndex: 2, stepIndex: 0 });
+            assert.deepInclude(engine.getSnapshot(), {
+                hintLevel: HintLevelEnum.WALKTHROUGH,
+                hintPageIndex: 2,
+                stepIndex: 0,
+                isNextPageCharged: false
+            });
             assert.strictEqual(engine.hintNext(), false);
             assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, hintPageIndex: 3, stepIndex: 1 });
 
@@ -113,7 +126,7 @@ describe('hint pages', () => {
             engine.hintBack();
             engine.hintBack();
 
-            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.TECHNIQUE, hintPageIndex: 0 });
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.TECHNIQUE, hintPageIndex: 0, isNextPageCharged: false });
 
             engine.hintBack();
 
@@ -175,7 +188,7 @@ describe('hint pages', () => {
 
             engine.startStepScript(script, HintLevelEnum.TECHNIQUE);
 
-            assert.isAtMost(implicationCount, 8);
+            assert.isAtMost(implicationCount, 6);
             assert.deepEqual(
                 collectRevealedImplicationCounts(engine, branchIndex),
                 Array.from({ length: implicationCount }, (_, index) => index + 1)
@@ -189,7 +202,7 @@ describe('hint pages', () => {
         })
     );
 
-    it.effect('reveals a long forcing branch in groups of four implications', () =>
+    it.effect('reveals a forcing branch of more than six implications in groups of four', () =>
         Effect.sync(() => {
             const { engine, script, branch } = findBranchHint();
             const implications = Array.from(
@@ -202,6 +215,12 @@ describe('hint pages', () => {
             engine.startStepScript(longScript);
 
             assert.deepEqual(collectRevealedImplicationCounts(engine, script.steps.indexOf(branch)), [4, 8, 10]);
+
+            const sevenLinkBranch = { ...branch, branch: { ...branch.branch, implications: implications.slice(0, firstGroupedLinkCount) } };
+
+            engine.startStepScript({ ...script, steps: script.steps.map(step => (step === branch ? sevenLinkBranch : step)) });
+
+            assert.deepEqual(collectRevealedImplicationCounts(engine, script.steps.indexOf(branch)), [4, firstGroupedLinkCount]);
         })
     );
 
