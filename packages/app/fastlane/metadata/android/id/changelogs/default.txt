@@ -1,7 +1,5 @@
-Pengaturan, Statistik, dan Tantangan harian yang baru.
-Pengaturan: bagian yang rapi dan sakelar baru yang halus.
-Statistik: ringkasan kotak sudoku dan tangga kesulitan dengan persentase menang.
-Harian: strip minggu, rentetan, solusi terbaru, hitung mundur, dan berbagi.
-Petunjuk kini andal, bahkan di akhir permainan sulit.
-Nama tab yang panjang kini muat di bilah tab.
-Penjelasan lebih jelas, rentetan dan hitung mundur langsung ganti bahasa, perbaikan kecil.
+Petunjuk kini terbuka dalam empat langkah: teknik, sel kunci, penjelasan, lalu langkahnya. Tiap langkah berharga seperempat petunjuk penuh.
+Petunjuk langsung menuju angka berikutnya dan menyebut kotak, baris, atau kolom yang tepat.
+Lanjutkan dan Ungkap berfungsi di setiap slide petunjuk.
+Teka-teki baru dibuat di latar belakang, game sulit mulai tanpa macet.
+Tautan toko dan situs membuka aplikasi dengan tingkat kesulitan yang sesuai.

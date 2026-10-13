@@ -1,1 +1,8 @@
-Estrenamos pantallas de Configuración, Estadísticas y Reto diario. Las pistas ahora funcionan con mayor fiabilidad, incluso en las partidas más difíciles. También mejoramos las explicaciones, la visualización de tu racha y varios detalles de los temas claros y oscuros.
+Sugerencias que enseñan paso a paso, partidas nuevas más rápidas y un juego con teclado más fluido.
+
+• Las sugerencias ahora se abren en cuatro pasos: primero la técnica y dónde mirar, luego las celdas clave, después un recorrido guiado y, solo al final, la jugada. Cada paso cuesta una cuarta parte de una sugerencia completa, así que solo pagas la ayuda que usas.
+• Las sugerencias van directo al siguiente dígito que puedes colocar. Las de pares apuntadores, región-línea y subconjuntos ahora indican la región, fila o columna exacta y las celdas que despejan.
+• Continuar y Revelar funcionan en todas las diapositivas de una sugerencia.
+• Los puzles nuevos se generan en segundo plano, así que iniciar incluso la partida más difícil ya no congela la app.
+• Jugar con un teclado físico en iPhone y iPad ya no mantiene ocupado el procesador.
+• Los enlaces de la App Store y de nuestro sitio web abren la app con una dificultad adecuada lista para empezar.

@@ -1,7 +1,5 @@
-Nya Inställningar, Statistik och Dagens utmaning.
-Inställningar: tydliga sektioner och ett nytt mjukt reglage.
-Statistik: översikt i ett sudokublock och svårighetsstege med vinstgrad.
-Dagligt: veckoremsa, svit, senaste lösningar, nedräkning och delning.
-Ledtrådar fungerar pålitligt, även sent i svåra partier.
-Långa fliknamn får nu plats i flikfältet.
-Tydligare förklaringar, svit och nedräkning byter språk direkt, små fixar.
+Ledtrådar öppnas nu i fyra steg: teknik, nyckelceller, genomgång och draget. Varje steg kostar en fjärdedel av en hel ledtråd.
+Ledtrådarna går rakt på nästa siffra och nämner exakt 3×3-ruta, rad eller kolumn.
+Fortsätt och Avslöja fungerar på varje ledtrådsbild.
+Nya pussel skapas i bakgrunden, så svåra spel startar utan att frysa.
+Länkar från butiken och webben öppnar appen med rätt svårighetsgrad redo att spela.

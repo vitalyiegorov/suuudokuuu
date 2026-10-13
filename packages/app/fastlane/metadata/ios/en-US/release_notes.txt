@@ -1,9 +1,8 @@
-Fresh new Settings, Statistics and Daily challenge screens, plus hints you can always count on.
+Hints that teach step by step, faster new games and smoother keyboard play.
 
-• Settings are grouped into clean sections, with a smooth new switch that looks the same on every device.
-• Statistics open with your progress laid out in a sudoku box, followed by a difficulty ladder with your win rate on every level.
-• The Daily challenge shows your week at a glance, your streak and your recent solves. Once today's puzzle is solved, a countdown shows when the next one arrives, and you can share your result.
-• Hints now work reliably, even late in the toughest games.
-• Hint explanations say more clearly which digits are locked into the highlighted cells.
-• Streak, countdown and points labels update right away when you switch the language.
-• Small polish: the Hell and Infinity start buttons show their loader in the right color, the win rate stays on one line, the replay level is visible in dark mode, long tab names now fit in the tab bar, and the bar stays put while you scroll.
+• Hints now open in four steps: first the technique and where to look, then the key cells, then a guided walkthrough, and only then the move itself. Each step costs a quarter of a full hint, so you only pay for the help you use.
+• Hints head straight for the next digit you can place. Pointing, box-line and subset hints now name the exact box, row or column and the cells they clear.
+• Continue and Reveal work on every slide of a hint.
+• New puzzles are generated in the background, so starting even the hardest game no longer freezes the app.
+• Playing with a hardware keyboard on iPhone and iPad no longer keeps the processor busy.
+• Links from the App Store and our website open the app with a matching difficulty ready to start.

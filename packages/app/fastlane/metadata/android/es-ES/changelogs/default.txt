@@ -1,7 +1,5 @@
-Nuevos Ajustes, Estadísticas y Reto diario.
-Ajustes: secciones claras y un nuevo interruptor suave.
-Estadísticas: resumen en bloque de sudoku y escalera de dificultad con victorias.
-Diario: semana, racha, soluciones recientes, cuenta atrás y compartir.
-Las sugerencias funcionan con fiabilidad hasta el final de las partidas difíciles.
-Los nombres largos de las pestañas ya caben.
-Explicaciones más claras, racha y cuenta atrás en tu idioma al instante y pequeños arreglos.
+Las sugerencias ahora se abren en cuatro pasos: técnica, celdas clave, recorrido y jugada. Cada paso cuesta una cuarta parte de una sugerencia completa.
+Las sugerencias van directas al siguiente dígito e indican la región, fila o columna exacta.
+Continuar y Revelar funcionan en cada diapositiva.
+Los puzles nuevos se generan en segundo plano y las partidas difíciles arrancan sin congelarse.
+Los enlaces de la tienda y la web abren la app con la dificultad lista para jugar.
