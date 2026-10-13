@@ -18,9 +18,8 @@ import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const hellCorpusStride = 20;
 const maxHintsPerBoard = 200;
-const maxPatternCells = 12;
+const maxTintedCellsPerPage = 12;
 const maxMedianBranchLinks = 8;
-const maxOversizedPatternShare = 0.05;
 const minWithinBandShare = 0.95;
 const difficultyTolerance = 1;
 const corpusTimeoutMilliseconds = 120_000;
@@ -28,7 +27,7 @@ const corpusTimeoutMilliseconds = 120_000;
 class HintUsefulnessMetrics {
     readonly branchLinkCounts: number[] = [];
     readonly pageCounts: number[] = [];
-    readonly patternCellCounts: number[] = [];
+    readonly tintedCellCounts: number[] = [];
     hintCount = 0;
     fallbackCount = 0;
     withinBandCount = 0;
@@ -38,12 +37,23 @@ class HintUsefulnessMetrics {
         this.fallbackCount += Number(script.technique === SolutionTechniqueEnum.Guess);
         this.withinBandCount += Number(isWithinBand);
         this.pageCounts.push(pageCount);
-        this.patternCellCounts.push(buildStepScriptState(script, 0, HintLevelEnum.PATTERN).patternCellKeys.size);
         this.branchLinkCounts.push(
             ...script.steps.flatMap(step => (step.kind === StepScriptStepKindEnum.SHOW_BRANCH ? [step.branch.implications.length] : []))
         );
     }
 }
+
+const getTintedCellCount = (engine: FieldEngine): number => {
+    const { hintLevel, revealedImplicationCount, stepIndex, stepScript } = engine.getSnapshot();
+    const { patternCellKeys, regionCellKeys, targetCellKey } = buildStepScriptState(
+        stepScript,
+        stepIndex,
+        hintLevel,
+        revealedImplicationCount
+    );
+
+    return new Set([...patternCellKeys, ...regionCellKeys, ...(targetCellKey === null ? [] : [targetCellKey])]).size;
+};
 
 const getMedian = (values: readonly number[]): number => {
     const sortedValues = [...values].sort((left, right) => left - right);
@@ -92,6 +102,13 @@ const playHints = (puzzle: string, metrics: HintUsefulnessMetrics): void => {
 
         engine.startStepScript(script, HintLevelEnum.TECHNIQUE);
         metrics.record(script, engine.getSnapshot().hintPageCount, isWithinCheapestBand(engine, script.technique));
+        metrics.tintedCellCounts.push(getTintedCellCount(engine));
+
+        while (engine.getSnapshot().hintPageIndex < engine.getSnapshot().hintPageCount - 1) {
+            engine.hintNext();
+            metrics.tintedCellCounts.push(getTintedCellCount(engine));
+        }
+
         engine.applyStepScript();
     }
 };
@@ -107,7 +124,6 @@ describe('hint usefulness over a Hell corpus sample', () => {
                     playHints(getHellCorpusRecord(index).puzzle, metrics);
                 }
 
-                const oversizedPatternShare = metrics.patternCellCounts.filter(count => count > maxPatternCells).length / metrics.hintCount;
                 const withinBandShare = metrics.withinBandCount / metrics.hintCount;
 
                 yield* Effect.promise(() =>
@@ -116,9 +132,9 @@ describe('hint usefulness over a Hell corpus sample', () => {
                             hints: metrics.hintCount,
                             medianBranchLinks: getMedian(metrics.branchLinkCounts),
                             branchLinks: getDistribution(metrics.branchLinkCounts),
-                            oversizedPatternShare,
                             fallbackShare: metrics.fallbackCount / metrics.hintCount,
                             withinBandShare,
+                            maxTintedCellsPerPage: Math.max(...metrics.tintedCellCounts),
                             pageCounts: getDistribution(metrics.pageCounts)
                         })
                     )
@@ -126,9 +142,9 @@ describe('hint usefulness over a Hell corpus sample', () => {
 
                 assert.isAbove(metrics.hintCount, 0);
                 assert.isAtMost(getMedian(metrics.branchLinkCounts), maxMedianBranchLinks);
-                assert.isBelow(oversizedPatternShare, maxOversizedPatternShare);
                 assert.strictEqual(metrics.fallbackCount, 0);
                 assert.isAtLeast(withinBandShare, minWithinBandShare);
+                assert.isAtMost(Math.max(...metrics.tintedCellCounts), maxTintedCellsPerPage);
             }),
         corpusTimeoutMilliseconds
     );

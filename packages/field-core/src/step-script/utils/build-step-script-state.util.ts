@@ -25,28 +25,15 @@ const addCandidateValues = (target: Map<string, number[]>, cellKey: string, valu
     target.set(cellKey, mergedValues);
 };
 
-const collectPatternCellKeys = (steps: readonly StepScriptStepType[]): ReadonlySet<string> => {
-    const patternCellKeys = new Set<string>();
-
-    for (const step of steps) {
-        if (step.kind === StepScriptStepKindEnum.RevealCandidates) {
-            for (const cell of step.patternCells) {
-                patternCellKeys.add(getCellKey(cell));
-            }
-        }
-    }
-
-    return patternCellKeys;
-};
-
-const collectRevealedCandidates = (steps: readonly StepScriptStepType[]): ReadonlyMap<string, number[]> => {
+const collectRevealedCandidates = (
+    revealStep: StepScriptStepType | undefined,
+    patternCellKeys: ReadonlySet<string>
+): ReadonlyMap<string, number[]> => {
     const revealedCandidates = new Map<string, number[]>();
 
-    for (const step of steps) {
-        if (step.kind === StepScriptStepKindEnum.RevealCandidates) {
-            for (const candidate of step.candidates) {
-                addCandidateValues(revealedCandidates, getCellKey(candidate.cell), [candidate.value]);
-            }
+    if (revealStep?.kind === StepScriptStepKindEnum.RevealCandidates) {
+        for (const candidate of revealStep.candidates.filter(({ cell }) => patternCellKeys.has(getCellKey(cell)))) {
+            addCandidateValues(revealedCandidates, getCellKey(candidate.cell), [candidate.value]);
         }
     }
 
@@ -111,6 +98,10 @@ const getRegionCells = (region: HintRegionInterface): Pick<CellInterface, 'x' | 
 };
 
 const getWitnessCells = (step: StepScriptStepType): CellInterface[] => {
+    if (step.kind === StepScriptStepKindEnum.SHOW_CHAIN) {
+        return [step.chain[0], step.chain[step.chain.length - 1]].filter(isDefined).map(candidate => candidate.cell);
+    }
+
     if (step.kind !== StepScriptStepKindEnum.SHOW_BRANCH) {
         return [];
     }
@@ -125,6 +116,23 @@ const getWitnessCells = (step: StepScriptStepType): CellInterface[] => {
     ];
 };
 
+const isWitnessStep = (step: StepScriptStepType | undefined): boolean =>
+    step?.kind === StepScriptStepKindEnum.SHOW_CHAIN || step?.kind === StepScriptStepKindEnum.SHOW_BRANCH;
+
+const getDeductionStartIndex = (steps: readonly StepScriptStepType[], revealIndex: number): number =>
+    revealIndex > 0 && isWitnessStep(steps[revealIndex - 1]) ? getDeductionStartIndex(steps, revealIndex - 1) : revealIndex;
+
+const getDeductionPatternCells = (steps: readonly StepScriptStepType[], revealIndex: number): CellInterface[] => {
+    const revealStep = steps.at(revealIndex);
+    const witnessCells = steps.slice(getDeductionStartIndex(steps, revealIndex), revealIndex).flatMap(getWitnessCells);
+
+    if (isNotEmptyArray(witnessCells)) {
+        return witnessCells;
+    }
+
+    return revealStep?.kind === StepScriptStepKindEnum.RevealCandidates ? revealStep.patternCells : [];
+};
+
 const getFirstDeductionRegion = (steps: readonly StepScriptStepType[]): HintRegionInterface | null => {
     const revealIndex = steps.findIndex(isRevealStep);
     const revealStep = steps.find(isRevealStep);
@@ -136,13 +144,6 @@ const getFirstDeductionRegion = (steps: readonly StepScriptStepType[]): HintRegi
     const eliminationCell = steps.slice(revealIndex).find(isStrikeStep)?.eliminations.at(0)?.cell;
 
     return getHintRegion(revealStep.patternCells, revealStep.narration.placement?.cell ?? eliminationCell);
-};
-
-const getFirstDeductionPatternCells = (steps: readonly StepScriptStepType[]): CellInterface[] => {
-    const revealIndex = steps.findIndex(isRevealStep);
-    const witnessCells = steps.slice(0, Math.max(revealIndex, 0)).flatMap(getWitnessCells);
-
-    return isNotEmptyArray(witnessCells) ? witnessCells : (steps.find(isRevealStep)?.patternCells ?? []);
 };
 
 export const buildStepScriptState = (
@@ -169,7 +170,10 @@ export const buildStepScriptState = (
     }
 
     if (hintLevel === HintLevelEnum.PATTERN) {
-        return { ...emptyState, patternCellKeys: new Set(getFirstDeductionPatternCells(scriptSteps).map(getCellKey)) };
+        return {
+            ...emptyState,
+            patternCellKeys: new Set(getDeductionPatternCells(scriptSteps, scriptSteps.findIndex(isRevealStep)).map(getCellKey))
+        };
     }
 
     const currentStep = scriptSteps.at(stepIndex);
@@ -184,12 +188,14 @@ export const buildStepScriptState = (
 
     const steps = scriptSteps.slice(0, stepIndex + 1);
     const placement = steps.find(step => isDefined(step.narration.placement))?.narration.placement;
+    const revealIndex = steps.reduce((lastRevealIndex, step, index) => (isRevealStep(step) ? index : lastRevealIndex), -1);
+    const patternCellKeys = new Set(getDeductionPatternCells(steps, revealIndex).map(getCellKey));
 
     return {
         ...emptyState,
-        patternCellKeys: collectPatternCellKeys(steps),
+        patternCellKeys,
         targetCellKey: isDefined(placement) ? getCellKey(placement.cell) : null,
-        revealedCandidates: collectRevealedCandidates(steps),
+        revealedCandidates: collectRevealedCandidates(steps.at(revealIndex), patternCellKeys),
         eliminatedCandidates: collectEliminatedCandidates(steps),
         placedValues: collectPlacedValues(steps)
     };
