@@ -232,7 +232,7 @@ test('chains a pointing pair into the hidden single it enables and places the di
     await page.getByTestId(HintButtonSelectors.Root).click();
     await next.click();
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(
-        'Pointing Pair: in this box, 4 fits only in the highlighted cells, and they all lie in column 7.'
+        'Pointing Pair: in box 6, 4 fits only in the highlighted cells, and they all lie in column 7.'
     );
     await next.click();
 
@@ -373,9 +373,7 @@ test('teaches the reported Hardcore board a lone pointing pair, then a short Nis
 
     await page.getByTestId(HintButtonSelectors.Root).click();
     await next.click();
-    await expect(narration).toHaveText(
-        /^Pointing Pair: in this box, 5 fits only in the highlighted cells, and they all lie in (?:row|column) \d\.$/u
-    );
+    await expect(narration).toHaveText('Pointing Pair: in box 8, 5 fits only in the highlighted cells, and they all lie in row 7.');
     await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
     await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveText('Apply & next');
     await page.getByTestId(HintPanelSelectors.ContinueButton).click();
@@ -386,6 +384,9 @@ test('teaches the reported Hardcore board a lone pointing pair, then a short Nis
     await next.click();
     await expect(technique).toHaveText('Nishio Forcing Chain');
 
+    await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
+    await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toBeVisible();
+    expect(await countTintedCells(page, backgroundsBefore)).toBeLessThanOrEqual(maxPatternCellCount);
     await applyHintEarly(page);
     await expect(page.getByTestId(cellTestId(4, 8))).toHaveAttribute('aria-label', 'Row 5, column 9, 8');
 });

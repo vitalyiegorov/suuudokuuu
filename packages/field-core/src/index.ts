@@ -18,5 +18,6 @@ export { StepScriptStepKindEnum } from './step-script/enums/step-script-step-kin
 export { buildStepScriptState } from './step-script/utils/build-step-script-state.util';
 export { findHintStepScript, findRevealStepScript } from './step-script/utils/find-hint-step-script.util';
 export { findStepScript } from './step-script/utils/find-step-script.util';
+export { getBoxNumber } from './step-script/utils/get-box-number.util';
 export { getHintRegion } from './step-script/utils/get-hint-region.util';
 export { getCellKey } from './@generic/utils/get-cell-key.util';

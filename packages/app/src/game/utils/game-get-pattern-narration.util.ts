@@ -9,22 +9,25 @@ import { gameGetStepNarration } from './game-get-step-narration.util';
 import type { MessageDescriptor } from '@lingui/core';
 import type { HintRegionInterface, StepScriptCandidateInterface, StepScriptInterface } from '@suuudokuuu/field-core';
 
-type UnitPatternNarrationType = (techniqueName: string, value: number) => MessageDescriptor;
+type UnitPatternNarrationType = (techniqueName: string, value: number, regionNumber: number) => MessageDescriptor;
 
 const hiddenSinglePatternNarrations: Partial<Record<HintRegionKindEnum, UnitPatternNarrationType>> = {
-    [HintRegionKindEnum.ROW]: (techniqueName, value) => msg`${techniqueName}: in the highlighted row, ${value} fits in only one cell.`,
-    [HintRegionKindEnum.COLUMN]: (techniqueName, value) =>
-        msg`${techniqueName}: in the highlighted column, ${value} fits in only one cell.`,
-    [HintRegionKindEnum.BOX]: (techniqueName, value) => msg`${techniqueName}: in the highlighted box, ${value} fits in only one cell.`
+    [HintRegionKindEnum.ROW]: (techniqueName, value, regionNumber) =>
+        msg`${techniqueName}: in row ${regionNumber}, ${value} fits in only one cell.`,
+    [HintRegionKindEnum.COLUMN]: (techniqueName, value, regionNumber) =>
+        msg`${techniqueName}: in column ${regionNumber}, ${value} fits in only one cell.`,
+    [HintRegionKindEnum.BOX]: (techniqueName, value, regionNumber) =>
+        msg`${techniqueName}: in box ${regionNumber}, ${value} fits in only one cell.`
 };
 
 const fullHousePatternNarrations: Partial<Record<HintRegionKindEnum, UnitPatternNarrationType>> = {
-    [HintRegionKindEnum.ROW]: techniqueName => msg`${techniqueName}: the highlighted row has one empty cell left.`,
-    [HintRegionKindEnum.COLUMN]: techniqueName => msg`${techniqueName}: the highlighted column has one empty cell left.`,
-    [HintRegionKindEnum.BOX]: techniqueName => msg`${techniqueName}: the highlighted box has one empty cell left.`
+    [HintRegionKindEnum.ROW]: (techniqueName, _value, regionNumber) => msg`${techniqueName}: row ${regionNumber} has one empty cell left.`,
+    [HintRegionKindEnum.COLUMN]: (techniqueName, _value, regionNumber) =>
+        msg`${techniqueName}: column ${regionNumber} has one empty cell left.`,
+    [HintRegionKindEnum.BOX]: (techniqueName, _value, regionNumber) => msg`${techniqueName}: box ${regionNumber} has one empty cell left.`
 };
 
-const getSingleCellPatternNarration: UnitPatternNarrationType = (techniqueName, value) =>
+const getSingleCellPatternNarration = (techniqueName: string, value: number): MessageDescriptor =>
     msg`${techniqueName}: the highlighted cells leave ${value} only one place.`;
 
 const getPlacementPatternNarration = (
@@ -34,6 +37,7 @@ const getPlacementPatternNarration = (
     techniqueName: string
 ): MessageDescriptor => {
     const regionKind = hintRegion?.kind ?? HintRegionKindEnum.CELL;
+    const regionNumber = hintRegion?.number ?? 0;
 
     if (technique === SolutionTechniqueEnum.NakedSingle) {
         const cellName = `R${cell.y + 1}C${cell.x + 1}`;
@@ -42,11 +46,11 @@ const getPlacementPatternNarration = (
     }
 
     if (technique === SolutionTechniqueEnum.HiddenSingle) {
-        return (hiddenSinglePatternNarrations[regionKind] ?? getSingleCellPatternNarration)(techniqueName, value);
+        return (hiddenSinglePatternNarrations[regionKind] ?? getSingleCellPatternNarration)(techniqueName, value, regionNumber);
     }
 
     if (technique === SolutionTechniqueEnum.FullHouse) {
-        return (fullHousePatternNarrations[regionKind] ?? getSingleCellPatternNarration)(techniqueName, value);
+        return (fullHousePatternNarrations[regionKind] ?? getSingleCellPatternNarration)(techniqueName, value, regionNumber);
     }
 
     return getSingleCellPatternNarration(techniqueName, value);

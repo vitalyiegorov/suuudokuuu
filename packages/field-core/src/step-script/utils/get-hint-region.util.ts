@@ -1,16 +1,11 @@
-import { defaultSudokuConfig } from '@suuudokuuu/generator';
-
 import { isDefined } from '@rnw-community/shared';
 
 import { HintRegionKindEnum } from '../enums/hint-region-kind.enum';
 
+import { getBoxNumber } from './get-box-number.util';
+
 import type { HintRegionInterface } from '../interfaces/hint-region.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
-
-const { fieldGroupHeight, fieldGroupWidth, fieldSize } = defaultSudokuConfig;
-
-const getBoxNumber = (cell: Pick<CellInterface, 'x' | 'y'>): number =>
-    Math.floor(cell.y / fieldGroupHeight) * (fieldSize / fieldGroupWidth) + Math.floor(cell.x / fieldGroupWidth) + 1;
 
 const getTargetRegion = (targetCell?: CellInterface): HintRegionInterface | null =>
     isDefined(targetCell) ? { kind: HintRegionKindEnum.CELL, number: getBoxNumber(targetCell), cell: targetCell } : null;

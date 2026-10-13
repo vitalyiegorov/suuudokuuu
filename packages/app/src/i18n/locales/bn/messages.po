@@ -109,12 +109,32 @@ msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lin
 msgstr "{techniqueName}: {valueList} অবশ্যই বেস লাইনে থাকবে, তাই কভার লাইনগুলো চিহ্নিত ঘরে এটি হারায়।"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName}: একটি শৃঙ্খল হাইলাইট করা দুই প্রান্তকে যুক্ত করে, তাই {firstEnd} অথবা {lastEnd} সত্য।"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
 msgstr "{techniqueName}: একটি পিনসার ঘর সবসময় {valueList}, তাই দুই পিনসারকেই দেখতে পাওয়া চিহ্নিত ঘরগুলো {valueList} হতে পারে না।"
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
 msgstr "{techniqueName}: ধরে নিন {cellName} হলো {value}, তারপর এটি কী কী বাধ্য করে তা অনুসরণ করুন।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: box {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: ব্লক {regionNumber}-এ শুধু একটি খালি ঘর বাকি, তাই {value} সেখানেই বসবে।"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: box {regionNumber} has one empty cell left."
+msgstr "{techniqueName}: ব্লক {regionNumber}-এ শুধু একটি খালি ঘর বাকি।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: column {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: কলাম {regionNumber}-এ শুধু একটি খালি ঘর বাকি, তাই {value} সেখানেই বসবে।"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: column {regionNumber} has one empty cell left."
+msgstr "{techniqueName}: কলাম {regionNumber}-এ শুধু একটি খালি ঘর বাকি।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
@@ -137,64 +157,60 @@ msgid "{techniqueName}: from the highlighted cells, every possibility is followe
 msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো থেকে প্রতিটি সম্ভাবনা অনুসরণ করা হয় যতক্ষণ না তা বিরোধ বা একই ফলাফলে পৌঁছায়।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
-msgstr "{techniqueName}: কলাম {columnNumber}-এ, {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, আর সেগুলো সবই একটি বাক্সে।"
+msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "{techniqueName}: ব্লক {boxNumber}-এ, {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, আর সেগুলো সবই কলাম {columnNumber}-এ।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
-msgstr "{techniqueName}: সারি {rowNumber}-এ, {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, আর সেগুলো সবই একটি বাক্সে।"
+msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "{techniqueName}: ব্লক {boxNumber}-এ, {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, আর সেগুলো সবই সারি {rowNumber}-এ।"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in box {regionNumber}, {value} fits in only one cell."
+msgstr "{techniqueName}: ব্লক {regionNumber}-এ, {value} শুধু একটি ঘরেই বসতে পারে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in box {regionNumber}, {value} fits only in the marked cell."
+msgstr "{techniqueName}: ব্লক {regionNumber}-এ, {value} শুধু চিহ্নিত ঘরেই বসতে পারে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "{techniqueName}: কলাম {columnNumber}-এ, {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, আর সেগুলো সবই ব্লক {boxNumber}-এ।"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in column {regionNumber}, {value} fits in only one cell."
+msgstr "{techniqueName}: কলাম {regionNumber}-এ, {value} শুধু একটি ঘরেই বসতে পারে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {regionNumber}, {value} fits only in the marked cell."
+msgstr "{techniqueName}: কলাম {regionNumber}-এ, {value} শুধু চিহ্নিত ঘরেই বসতে পারে।"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in row {regionNumber}, {value} fits in only one cell."
+msgstr "{techniqueName}: সারি {regionNumber}-এ, {value} শুধু একটি ঘরেই বসতে পারে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {regionNumber}, {value} fits only in the marked cell."
+msgstr "{techniqueName}: সারি {regionNumber}-এ, {value} শুধু চিহ্নিত ঘরেই বসতে পারে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "{techniqueName}: সারি {rowNumber}-এ, {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, আর সেগুলো সবই ব্লক {boxNumber}-এ।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
 msgstr "{techniqueName}: হাইলাইট করা বেস লাইনে {valueList} শুধু হাইলাইট করা ঘরগুলোতেই বসতে পারে, তাই এটি কভার লাইনে আটকা পড়ে।"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in the highlighted box, {value} fits in only one cell."
-msgstr "{techniqueName}: হাইলাইট করা বাক্সে, {value} শুধু একটি ঘরেই বসতে পারে।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
-msgstr "{techniqueName}: হাইলাইট করা বাক্সে, {value} শুধু চিহ্নিত ঘরেই বসতে পারে।"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in the highlighted column, {value} fits in only one cell."
-msgstr "{techniqueName}: হাইলাইট করা কলামে, {value} শুধু একটি ঘরেই বসতে পারে।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
-msgstr "{techniqueName}: হাইলাইট করা কলামে, {value} শুধু চিহ্নিত ঘরেই বসতে পারে।"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in the highlighted row, {value} fits in only one cell."
-msgstr "{techniqueName}: হাইলাইট করা সারিতে, {value} শুধু একটি ঘরেই বসতে পারে।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
-msgstr "{techniqueName}: হাইলাইট করা সারিতে, {value} শুধু চিহ্নিত ঘরেই বসতে পারে।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
-msgstr "{techniqueName}: এই বাক্সে, {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, আর সেগুলো সবই কলাম {columnNumber}-এ।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
-msgstr "{techniqueName}: এই বাক্সে, {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, আর সেগুলো সবই সারি {rowNumber}-এ।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
 msgstr "{techniqueName}: শৃঙ্খলের একটি প্রান্ত সবসময় সত্য, আর প্রতিটি চিহ্নিত সম্ভাব্য অঙ্ক দুই প্রান্তের সঙ্গেই সংঘাত করে, তাই {cellList} {valueList} হতে পারে না।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: হাইলাইট করা বাক্সে শুধু একটি খালি ঘর বাকি, তাই {value} সেখানেই বসবে।"
+msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: সারি {regionNumber}-এ শুধু একটি খালি ঘর বাকি, তাই {value} সেখানেই বসবে।"
 
 #: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: the highlighted box has one empty cell left."
-msgstr "{techniqueName}: হাইলাইট করা বাক্সে শুধু একটি খালি ঘর বাকি।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
-msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো একটি শৃঙ্খল গঠন করে, তাই {firstEnd} অথবা {lastEnd} সত্য।"
+msgid "{techniqueName}: row {regionNumber} has one empty cell left."
+msgstr "{techniqueName}: সারি {regionNumber}-এ শুধু একটি খালি ঘর বাকি।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
@@ -219,22 +235,6 @@ msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো {val
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
 msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো {valueList}-এর একটি মারাত্মক প্যাটার্ন রেখে যেত।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: হাইলাইট করা কলামে শুধু একটি খালি ঘর বাকি, তাই {value} সেখানেই বসবে।"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: the highlighted column has one empty cell left."
-msgstr "{techniqueName}: হাইলাইট করা কলামে শুধু একটি খালি ঘর বাকি।"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: হাইলাইট করা সারিতে শুধু একটি খালি ঘর বাকি, তাই {value} সেখানেই বসবে।"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: the highlighted row has one empty cell left."
-msgstr "{techniqueName}: হাইলাইট করা সারিতে শুধু একটি খালি ঘর বাকি।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
