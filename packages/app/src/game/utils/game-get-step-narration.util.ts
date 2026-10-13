@@ -91,8 +91,8 @@ const getRefutationNarration = (
     return msg`If ${path} → ${cell} would have to be ${value}, which is no longer possible. So ${assumptionCell} is not ${assumptionValue}.`;
 };
 
-const isContradiction = (outcome: ForcingOutcomeType): outcome is ForcingContradictionType =>
-    outcome.kind !== ForcingOutcomeKindEnum.COMMON_PLACEMENT && outcome.kind !== ForcingOutcomeKindEnum.COMMON_ELIMINATIONS;
+const isCellContradiction = (outcome: ForcingOutcomeType): outcome is ForcingContradictionType =>
+    outcome.kind === ForcingOutcomeKindEnum.EMPTY_CELL || outcome.kind === ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT;
 
 const findRefutedBranch = (
     eliminations: readonly StepScriptCandidateInterface[],
@@ -280,7 +280,7 @@ export const gameGetStepNarration = (
     if (step.kind === StepScriptStepKindEnum.StrikeCandidates) {
         const refutedBranch = findRefutedBranch(step.eliminations, scriptSteps);
 
-        if (isDefined(refutedBranch) && isContradiction(refutedBranch.outcome)) {
+        if (isDefined(refutedBranch) && isCellContradiction(refutedBranch.outcome)) {
             return getRefutationNarration(refutedBranch.outcome, formatCandidate(refutedBranch.assumption), refutedBranch.assumption);
         }
 
