@@ -107,6 +107,10 @@ msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells
 msgstr "{techniqueName} : une case pince vaut toujours {valueList}, donc les cases marquées qui voient les deux pinces ne peuvent pas valoir {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName} : chaque case marquée voit toutes les cases surlignées, donc {cellList} ne peuvent pas valoir {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName} : chaque autre case vide a deux candidats, donc {value} doit aller dans la case marquée pour éviter un motif mortel."
 
@@ -121,6 +125,14 @@ msgstr "{techniqueName} : chaque possibilité dans les cases surlignées mène �
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
 msgstr "{techniqueName} : à partir des cases surlignées, chaque possibilité est suivie jusqu'à une contradiction ou au même résultat."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName} : dans la colonne {columnNumber}, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans un même bloc."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName} : dans la ligne {rowNumber}, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans un même bloc."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
@@ -139,20 +151,28 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName} : dans la ligne surlignée, {value} ne peut aller que dans la case marquée."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName} : une extrémité de la chaîne vaut toujours {valueList}, donc les cases marquées qui voient les deux extrémités ne peuvent pas valoir {valueList}."
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "{techniqueName} : dans ce bloc, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans la colonne {columnNumber}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
-msgstr "{techniqueName} : les chiffres {valueList} sont confinés aux cases surlignées, ce qui les exclut des autres cases."
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "{techniqueName} : dans ce bloc, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans la ligne {rowNumber}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName} : une extrémité de la chaîne est toujours vraie et chaque candidat marqué entre en conflit avec les deux extrémités, donc {cellList} ne peut pas valoir {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName} : il ne reste qu’une case vide dans le bloc surligné, donc {value} va là."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
-msgstr "{techniqueName} : les cases surlignées forment une chaîne, donc l'une de ses extrémités ou l'autre vaut {valueList}."
+msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName} : les cases surlignées forment une chaîne, donc {firstEnd} ou {lastEnd} est vrai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
+msgstr "{techniqueName} : les cases surlignées contiennent exactement autant de chiffres qu'il y a de cases, donc {valueList} doit aller dans l'une d'elles."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."
@@ -191,8 +211,8 @@ msgid "{techniqueName}: the marked cells either see both colors or carry a color
 msgstr "{techniqueName} : les cases marquées voient les deux couleurs ou portent une couleur qui se contredit, elles ne peuvent donc pas être {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
-msgstr "{techniqueName} : le motif élimine {valueList} dans les cases marquées."
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName} : ces cases sont réservées à cet ensemble de chiffres, donc {cellList} ne peuvent pas valoir {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
@@ -201,6 +221,10 @@ msgstr "{techniqueName} : pour éviter le motif mortel, {valueList} est exclu de
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
 msgstr "{techniqueName} : quelle que soit la façon de résoudre la case pivot surlignée, l'une de ses cases pinces devient {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: within one row, column or box, {valueList} fit only in the highlighted cells, so those cells can hold nothing else."
+msgstr "{techniqueName} : dans une ligne, une colonne ou un bloc, {valueList} ne peut aller que dans les cases surlignées, donc ces cases ne peuvent rien contenir d'autre."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"

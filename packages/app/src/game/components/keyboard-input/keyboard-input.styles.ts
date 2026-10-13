@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const UseKeyboardControlsStyles = StyleSheet.create(() => ({
+export const KeyboardInputStyles = StyleSheet.create(() => ({
     hiddenInput: {
         height: 0,
         position: 'absolute',

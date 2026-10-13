@@ -2,6 +2,8 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum, TechniqueManager, createTechniqueStrategies } from '@suuudokuuu/techniques';
 import { describe, expect, it } from 'vitest';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { StepScriptStepKindEnum } from '../../../src/step-script/enums/step-script-step-kind.enum';
 import { techniqueResultToStepScript } from '../../../src/step-script/utils/technique-result-to-step-script.util';
 
@@ -66,6 +68,8 @@ const hiddenTripleBoard = [
     '....98...',
     '....41...'
 ];
+
+const aicLoopBoard = '..31...5..4...5...75.2....13..5..71..8..6............9.....4..6.2..5.9..9..7...8.';
 
 const findResult = (board: string[], technique: SolutionTechniqueEnum): TechniqueResultInterface => {
     const sudoku = Sudoku.fromStrings({ ...defaultSudokuConfig }, ...board);
@@ -177,6 +181,26 @@ describe('techniqueResultToStepScript', () => {
 
         expect(revealStep.narration.values).toEqual([1, 8, 9]);
         expect(revealedByCell).toEqual(['1-3=1', '1-3=8', '1-3=9', '2-3=1', '2-3=8', '2-3=9', '4-3=1', '4-3=9']);
+    });
+
+    it('reveals the chain candidates instead of painting the eliminated digits into every chain cell', () => {
+        expect.assertions(4);
+
+        const { steps } = new TechniqueManager(Sudoku.fromString(aicLoopBoard, defaultSudokuConfig)).solveLogically();
+        const result = steps.find(
+            step => step.technique === SolutionTechniqueEnum.AIC && step.chain?.[0].value !== step.chain?.at(-1)?.value
+        );
+        const revealStep = isDefined(result)
+            ? techniqueResultToStepScript(result).steps.find(step => step.kind === StepScriptStepKindEnum.RevealCandidates)
+            : undefined;
+        const describeCandidates = (candidates: readonly { cell: { y: number; x: number }; value: number }[] = []): string[] =>
+            candidates.map(({ cell, value }) => `r${cell.y + 1}c${cell.x + 1}=${value}`);
+        const revealedCandidates = revealStep?.kind === StepScriptStepKindEnum.RevealCandidates ? revealStep.candidates : [];
+
+        expect(describeCandidates(result?.eliminations)).toEqual(['r5c6=2', 'r5c6=3', 'r5c6=9']);
+        expect(describeCandidates(revealedCandidates)).toEqual(['r5c6=7', 'r5c3=7', 'r6c2=7', 'r6c2=1', 'r6c5=1', 'r5c6=1']);
+        expect(revealStep?.narration.values).toEqual([1, 7]);
+        expect(revealStep?.patternCells).toEqual(result?.reasonCells);
     });
 
     it('keeps a guess result playable as a placement script', () => {

@@ -104,13 +104,23 @@ pnpm --filter @suuudokuuu/web-tests lint
   placement `1` at `y=5, x=8`, with more than nine slides. `09.hint-flow.spec.ts` walks it to prove the
   witness overlay draws branch and outcome slides without changing the board until Apply.
 - `nishioRunHintSharedPuzzleEncodedConstant`: a Hardcore (`maxMistakes: 0`) `Puzzle`-kind share of a
-  player-reported board. Its first hints are capped eliminations; the fifth is the three-slide Nishio
-  card `So r4c3 is not 4.` `09.hint-flow.spec.ts` presses Continue and Reveal on the first slide of each
-  card, because gating them to the last slide left the player stuck with a hidden numpad.
-
-- `eliminationHintSharedPuzzleEncodedConstant`: a Medium `Puzzle`-kind share whose first hint teaches
-  an elimination without placing a digit. `09.hint-flow.spec.ts` commits that deduction with Continue
-  and checks the next logical hint starts at level one.
+  player-reported board whose first digit needs a forcing chain. Its first hint is the five-slide Nishio
+  route to `9` at `y=2, x=0`; before the goal-directed fallback it showed capped pointing-pair
+  eliminations. `09.hint-flow.spec.ts` applies it.
+- `aicDetourHintSharedPuzzleEncodedConstant`: a Hardcore (`maxMistakes: 0`) `Puzzle`-kind share (rating
+  `8.0`) of the 24-clue board from the AIC hint report. No two-step route starts from the board, so the
+  first hint is the seven-slide route Pointing Pair, Nishio `r4c9≠8`, Hidden Single `8` at `y=5, x=6`;
+  before the fallback walked the greedy steps it showed a lone Pointing Pair and then Swordfish, Finned
+  X-Wing and AIC eliminations. `09.hint-flow.spec.ts` applies it and checks that a slide opens with its
+  narration scrolled to the top. Regenerate with `GameStateSerializer.encodeState` over the decoded
+  `nishioRunHintSharedPuzzleEncodedConstant` with this field string, `rating: 80` and
+  `isRatingCeiling: false`.
+- `eliminationHintSharedPuzzleEncodedConstant`: a Medium `Puzzle`-kind share of the budget-exhausted
+  `longChainBoard` in field-core. The first hint remains elimination-only under goal-directed search;
+  after three continued deductions, Nishio rules out `9` at `y=6, x=2` on the first of three slides.
+- `09.hint-flow.spec.ts` presses Continue and Reveal on the first slide of a Nishio elimination card on
+  `eliminationHintSharedPuzzleEncodedConstant` after three eliminations are continued (the card `So r7c3 is not 9.`),
+  because gating them to the last slide left the player stuck with a hidden numpad.
 
 - Every hint opens at level one (technique and region). `09.hint-flow.spec.ts` taps `HintPanelSelectors.SHOW_MORE_BUTTON` twice to reach the walkthrough before using Next, Back, or Apply; the Reveal hint has no levels and opens on the walkthrough.
 

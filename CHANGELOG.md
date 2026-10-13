@@ -3,6 +3,44 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.26.6](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.5...v2.26.6) (2026-10-12)
+
+### Bug Fixes
+
+* **techniques:** goal-directed hints and clear locked-set narration ([#527](https://github.com/vitalyiegorov/suuudokuuu/issues/527)) ([998c0b2](https://github.com/vitalyiegorov/suuudokuuu/commit/998c0b2e3111da84f3026ba9514d8f71c61228b9))
+
+
+## [2.26.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.4...v2.26.5) (2026-10-12)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
+
+
+
+
+## [2.26.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.3...v2.26.4) (2026-10-12)
+
+### Bug Fixes
+
+* **app:** capture iOS hardware keys without a text input ([#535](https://github.com/vitalyiegorov/suuudokuuu/issues/535)) ([cd12c7c](https://github.com/vitalyiegorov/suuudokuuu/commit/cd12c7c91c048b12382e0640724934d91ad18200))
+
+
+## [2.26.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.2...v2.26.3) (2026-10-12)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
+
+
+
+
+## [2.26.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.1...v2.26.2) (2026-10-12)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
+
+
+
+
 ## [2.26.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.0...v2.26.1) (2026-10-12)
 
 ### Performance Improvements

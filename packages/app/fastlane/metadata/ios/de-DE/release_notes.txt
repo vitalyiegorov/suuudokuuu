@@ -1,9 +1,8 @@
-Neue Bildschirme für Einstellungen, Statistik und die Tägliche Herausforderung – und Hinweise, auf die du dich immer verlassen kannst.
+Hinweise, die Schritt für Schritt etwas beibringen, schnellere neue Partien und flüssigeres Spielen mit der Tastatur.
 
-• Die Einstellungen sind in übersichtliche Abschnitte gegliedert, mit einem neuen, weichen Schalter, der auf jedem Gerät gleich aussieht.
-• Die Statistik zeigt deinen Fortschritt jetzt als Sudoku-Block, gefolgt von einer Schwierigkeitsleiter mit deiner Gewinnrate für jede Schwierigkeit.
-• Die Tägliche Herausforderung zeigt deine Woche auf einen Blick, deine Serie und deine letzten Lösungen. Ist das heutige Rätsel gelöst, zählt ein Countdown bis zum nächsten, und du kannst dein Ergebnis teilen.
-• Hinweise funktionieren jetzt zuverlässig, auch spät in den schwersten Partien.
-• Hinweis-Erklärungen sagen klarer, welche Ziffern auf die markierten Zellen beschränkt sind.
-• Die Anzeigen für Serie, Countdown und Punkte wechseln sofort, wenn du die Sprache änderst.
-• Feinschliff: Die Start-Buttons von Hölle und Unendlich zeigen ihre Ladeanzeige in der richtigen Farbe, die Gewinnrate bleibt in einer Zeile, die Stufe in der Wiederholung ist im Dunkelmodus sichtbar, lange Tab-Namen passen jetzt in die Tableiste, und die Leiste bleibt beim Scrollen stehen.
+• Hinweise öffnen sich jetzt in vier Schritten: zuerst die Technik und wohin du schauen sollst, dann die Schlüsselzellen, dann eine geführte Erklärung und erst zuletzt der Zug selbst. Jeder Schritt kostet ein Viertel eines vollen Hinweises, du zahlst also nur für die Hilfe, die du nutzt.
+• Hinweise steuern direkt die nächste Ziffer an, die du setzen kannst. Hinweise zu Pointing, Block-Linien-Wechselwirkung und Teilmengen nennen jetzt den genauen Block, die Zeile oder Spalte und die Zellen, die sie bereinigen.
+• Fortsetzen und Aufdecken funktionieren auf jeder Folie eines Hinweises.
+• Neue Rätsel werden im Hintergrund erzeugt, sodass selbst der Start der schwersten Partie die App nicht mehr einfrieren lässt.
+• Wer auf iPhone und iPad mit einer externen Tastatur spielt, lastet den Prozessor nicht mehr unnötig aus.
+• Links aus dem App Store und von unserer Website öffnen die App mit einer passenden Schwierigkeit, bereit zum Start.

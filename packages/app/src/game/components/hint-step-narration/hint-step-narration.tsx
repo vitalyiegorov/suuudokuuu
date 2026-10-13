@@ -1,7 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
-import { use, useEffect } from 'react';
-import { AccessibilityInfo, ScrollView, View } from 'react-native';
+import { use, useEffect, useRef } from 'react';
+import { AccessibilityInfo, ScrollView, type ScrollViewInstance, View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -23,6 +23,7 @@ interface Props {
 export const HintStepNarration = ({ step, value }: Props) => {
     const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
+    const narrationScrollRef = useRef<ScrollViewInstance>(null);
 
     const techniqueName =
         step.narration.technique === SolutionTechniqueEnum.Guess ? t`Reveal` : i18n._(techniqueLabelsConstant[step.narration.technique]);
@@ -34,6 +35,10 @@ export const HintStepNarration = ({ step, value }: Props) => {
     const chipTextStyles = [styles.chipText, { color: theme.colors.inkText }];
 
     useEffect(() => void AccessibilityInfo.announceForAccessibility(narrationText), [narrationText]);
+
+    const handleNarrationContentSizeChange = () => {
+        narrationScrollRef.current?.flashScrollIndicators();
+    };
 
     return (
         <View style={styles.container}>
@@ -49,7 +54,14 @@ export const HintStepNarration = ({ step, value }: Props) => {
                 </BlackText>
             </View>
 
-            <ScrollView style={styles.narrationScroll}>
+            <ScrollView
+                key={narrationText}
+                onContentSizeChange={handleNarrationContentSizeChange}
+                persistentScrollbar
+                ref={narrationScrollRef}
+                style={styles.narrationScroll}
+                testID={HintStepNarrationSelectors.NarrationScroll}
+            >
                 <BlackText style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
                     {narrationText}
                 </BlackText>
