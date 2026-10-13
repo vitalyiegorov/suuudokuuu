@@ -12,11 +12,14 @@ const { fieldGroupHeight, fieldGroupWidth, fieldSize } = defaultSudokuConfig;
 const getBoxNumber = (cell: Pick<CellInterface, 'x' | 'y'>): number =>
     Math.floor(cell.y / fieldGroupHeight) * (fieldSize / fieldGroupWidth) + Math.floor(cell.x / fieldGroupWidth) + 1;
 
-export const getHintRegion = (cells: readonly CellInterface[], placementCell?: CellInterface): HintRegionInterface | null => {
+const getTargetRegion = (targetCell?: CellInterface): HintRegionInterface | null =>
+    isDefined(targetCell) ? { kind: HintRegionKindEnum.CELL, number: getBoxNumber(targetCell), cell: targetCell } : null;
+
+export const getHintRegion = (cells: readonly CellInterface[], targetCell?: CellInterface): HintRegionInterface | null => {
     const [firstCell] = cells;
 
     if (cells.length < 2) {
-        return isDefined(placementCell) ? { kind: HintRegionKindEnum.ROW, number: placementCell.y + 1 } : null;
+        return getTargetRegion(targetCell);
     }
 
     if (cells.every(cell => cell.y === firstCell.y)) {
@@ -31,5 +34,5 @@ export const getHintRegion = (cells: readonly CellInterface[], placementCell?: C
         return { kind: HintRegionKindEnum.BOX, number: getBoxNumber(firstCell) };
     }
 
-    return isDefined(placementCell) ? { kind: HintRegionKindEnum.ROW, number: placementCell.y + 1 } : null;
+    return getTargetRegion(targetCell);
 };

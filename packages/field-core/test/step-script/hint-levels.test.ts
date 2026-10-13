@@ -13,6 +13,7 @@ import { buildStepScriptState } from '../../src/step-script/utils/build-step-scr
 import { findHintStepScript } from '../../src/step-script/utils/find-hint-step-script.util';
 import { findStepScript } from '../../src/step-script/utils/find-step-script.util';
 import { getHintRegion } from '../../src/step-script/utils/get-hint-region.util';
+import { techniqueResultToStepScript } from '../../src/step-script/utils/technique-result-to-step-script.util';
 
 import type { StepScriptInterface } from '../../src/step-script/interfaces/step-script.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
@@ -142,7 +143,7 @@ describe('getHintRegion', () => {
         })
     );
 
-    it.effect('uses the chain placement row after a scattered elimination pattern', () =>
+    it.effect('names the first deduction elimination target instead of the chain placement', () =>
         Effect.sync(() => {
             const engine = new FieldEngine({
                 sudokuString: '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.',
@@ -162,24 +163,76 @@ describe('getHintRegion', () => {
             assert(script !== null, 'Expected an elimination-then-placement hint');
 
             const firstReveal = script.steps.find(step => step.kind === StepScriptStepKindEnum.RevealCandidates);
+            const firstStrike = script.steps.find(step => step.kind === StepScriptStepKindEnum.StrikeCandidates);
 
-            assert(firstReveal !== undefined, 'Expected a pattern');
+            assert(firstReveal !== undefined && firstStrike !== undefined, 'Expected an elimination deduction');
             assert.isUndefined(firstReveal.narration.placement);
             assert(script.placement !== undefined, 'Expected a chain placement');
-            assert.isNull(getHintRegion(firstReveal.patternCells));
-            assert.deepEqual(getHintRegion(firstReveal.patternCells, script.placement.cell), {
-                kind: HintRegionKindEnum.ROW,
-                number: 3
+
+            const [targetElimination] = firstStrike.eliminations;
+            const techniqueState = buildStepScriptState(script, 0, HintLevelEnum.TECHNIQUE);
+
+            assert.deepEqual(techniqueState.hintRegion, getHintRegion(firstReveal.patternCells, targetElimination.cell));
+            assert.notDeepEqual(techniqueState.hintRegion, getHintRegion(firstReveal.patternCells, script.placement.cell));
+            assert.deepEqual(techniqueState.hintRegion, {
+                kind: HintRegionKindEnum.CELL,
+                number: Math.floor(targetElimination.cell.y / 3) * 3 + Math.floor(targetElimination.cell.x / 3) + 1,
+                cell: targetElimination.cell
             });
+            assert.deepEqual(techniqueState.regionCellKeys, new Set([getCellKey(targetElimination.cell)]));
         })
     );
 
-    it.effect('uses the first deduction placement row when pattern cells span regions', () =>
+    it.effect('names the target cell when pattern cells span regions', () =>
         Effect.sync(() => {
             assert.deepEqual(getHintRegion([createCell(0, 0), createCell(4, 8)], createCell(6, 2)), {
-                kind: HintRegionKindEnum.ROW,
-                number: 7
+                kind: HintRegionKindEnum.CELL,
+                number: 7,
+                cell: createCell(6, 2)
             });
+            assert.deepEqual(getHintRegion([createCell(1, 1)], createCell(1, 1)), {
+                kind: HintRegionKindEnum.CELL,
+                number: 1,
+                cell: createCell(1, 1)
+            });
+        })
+    );
+});
+
+describe('technique level region highlight', () => {
+    const findHiddenSingleScript = (sudokuString: string, isUnit: (cells: readonly CellInterface[]) => boolean): StepScriptInterface => {
+        const engine = new FieldEngine({ sudokuString, difficulty: DifficultyEnum.Hard });
+        const [hiddenSingleStrategy] = createTechniqueStrategies().filter(
+            strategy => strategy.technique === SolutionTechniqueEnum.HiddenSingle
+        );
+        const hiddenSingle = hiddenSingleStrategy
+            .find(CandidateContext.fromSudoku(engine.Sudoku))
+            .find(result => isUnit(result.reasonCells));
+
+        assert(hiddenSingle !== undefined, 'Expected a hidden single');
+
+        return techniqueResultToStepScript(hiddenSingle);
+    };
+
+    it.effect('highlights every cell of the named row, column, or box', () =>
+        Effect.sync(() => {
+            const rowScript = findHiddenSingleScript(nakedPairBoard, cells => cells.every(cell => cell.y === cells[0].y));
+            const columnScript = findHiddenSingleScript(nakedPairBoard, cells => cells.every(cell => cell.x === cells[0].x));
+            const boxScript = findHiddenSingleScript(hiddenSingleBoard, cells => cells.every(cell => cell.group === cells[0].group));
+            const rowState = buildStepScriptState(rowScript, 0, HintLevelEnum.TECHNIQUE);
+            const columnState = buildStepScriptState(columnScript, 0, HintLevelEnum.TECHNIQUE);
+            const boxState = buildStepScriptState(boxScript, 0, HintLevelEnum.TECHNIQUE);
+
+            assert.deepEqual(rowState.regionCellKeys, new Set(rowScript.patternCells.map(getCellKey)));
+            assert.strictEqual(rowState.hintRegion?.kind, HintRegionKindEnum.ROW);
+            assert.deepEqual(columnState.regionCellKeys, new Set(columnScript.patternCells.map(getCellKey)));
+            assert.strictEqual(columnState.hintRegion?.kind, HintRegionKindEnum.COLUMN);
+            assert.deepEqual(boxState.hintRegion, { kind: HintRegionKindEnum.BOX, number: 8 });
+            assert.deepEqual(boxState.regionCellKeys, new Set(['6-3', '6-4', '6-5', '7-3', '7-4', '7-5', '8-3', '8-4', '8-5']));
+            assert.strictEqual(buildStepScriptState(boxScript, 0, HintLevelEnum.PATTERN).regionCellKeys.size, 0);
+            assert.deepEqual(buildStepScriptState(boxScript, 0).hintRegion, boxState.hintRegion);
+            assert.isNull(buildStepScriptState(null, 0, HintLevelEnum.TECHNIQUE).hintRegion);
+            assert.strictEqual(buildStepScriptState(null, 0, HintLevelEnum.TECHNIQUE).regionCellKeys.size, 0);
         })
     );
 });

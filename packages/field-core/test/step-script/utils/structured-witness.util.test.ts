@@ -2,7 +2,9 @@ import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generat
 import { ForcingOutcomeKindEnum, SolutionTechniqueEnum, TechniqueManager, createTechniqueStrategies } from '@suuudokuuu/techniques';
 import { describe, expect, it } from 'vitest';
 
+import { getCellKey } from '../../../src/@generic/utils/get-cell-key.util';
 import { FieldEngine } from '../../../src/field-engine/classes/field-engine';
+import { HintLevelEnum } from '../../../src/step-script/enums/hint-level.enum';
 import { StepScriptStepKindEnum } from '../../../src/step-script/enums/step-script-step-kind.enum';
 import { buildStepScriptState } from '../../../src/step-script/utils/build-step-script-state.util';
 import { findHintStepScript } from '../../../src/step-script/utils/find-hint-step-script.util';
@@ -13,6 +15,7 @@ import type { StepScriptStepType } from '../../../src/step-script/types/step-scr
 import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const board = '000000051000000023004005000000000600000130000007680000429006500370400000810000000';
+const maxPatternLevelCells = 12;
 const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
 
 const findResult = (technique: SolutionTechniqueEnum): TechniqueResultInterface => {
@@ -72,6 +75,8 @@ describe('structured witness playback', () => {
 
         expect(buildStepScriptState(script, 1)).toEqual({
             explanation: script.steps[1],
+            hintRegion: buildStepScriptState(script, revealIndex).hintRegion,
+            regionCellKeys: new Set(),
             patternCellKeys: new Set(),
             targetCellKey: null,
             revealedCandidates: new Map(),
@@ -80,6 +85,21 @@ describe('structured witness playback', () => {
         });
         expect(buildStepScriptState(script, revealIndex).explanation).toBeUndefined();
         expect(buildStepScriptState(script, revealIndex).patternCellKeys.size).toBeGreaterThan(0);
+    });
+
+    it('highlights only the forcing witness at the pattern level', () => {
+        const script = techniqueResultToStepScript(findResult(SolutionTechniqueEnum.CellForcingChain));
+        const witnessCellKeys = new Set(
+            script.steps.flatMap(step =>
+                step.kind === StepScriptStepKindEnum.SHOW_BRANCH
+                    ? [step.branch.assumption, ...step.branch.implications, ...step.outcomeCandidates].map(({ cell }) => getCellKey(cell))
+                    : []
+            )
+        );
+        const patternState = buildStepScriptState(script, 0, HintLevelEnum.PATTERN);
+
+        expect(witnessCellKeys.size).toBeGreaterThan(0);
+        expect(patternState.patternCellKeys).toEqual(witnessCellKeys);
     });
 
     it('walks the Nishio and AIC third hint of the #455 board without writing a hypothesis', () => {
@@ -109,6 +129,10 @@ describe('structured witness playback', () => {
             [5, 5, 7]
         ]);
         expect(nishio).toMatchObject({ branch: { outcome: { kind: ForcingOutcomeKindEnum.EMPTY_CELL, cell: { y: 5, x: 6 } } } });
+
+        const nishioScript = { ...script, steps: script.steps.slice(script.steps.findIndex(step => step === nishio)) };
+
+        expect(buildStepScriptState(nishioScript, 0, HintLevelEnum.PATTERN).patternCellKeys.size).toBeLessThanOrEqual(maxPatternLevelCells);
         expect(aic?.narration.technique).toBe(SolutionTechniqueEnum.AIC);
         expect(script.placement).toMatchObject({ cell: { y: 5, x: 8 }, value: 1 });
 
