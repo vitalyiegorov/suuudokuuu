@@ -1,6 +1,7 @@
 import { SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { getCellKey } from '@suuudokuuu/field-core';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import * as Clock from 'effect/Clock';
 import * as Context from 'effect/Context';
 import * as Effect from 'effect/Effect';
@@ -12,6 +13,7 @@ import * as Struct from 'effect/Struct';
 
 import { getDayNumber } from '../../@generic/utils/get-day-number.util';
 import { getDayStreak } from '../../@generic/utils/get-day-streak.util';
+import { CampaignRepository } from '../../campaign/repository/campaign.repository';
 import { CompletedGameRepository } from '../../completed-game/repository/completed-game.repository';
 import { DifficultyStatsRepository } from '../../difficulty-stats/repository/difficulty-stats.repository';
 import { PlayerStatsRepository } from '../../player-stats/repository/player-stats.repository';
@@ -27,12 +29,14 @@ import type { CurrentRunType } from '../type/current-run.type';
 import type { CellTimelineEventType, TimelineEventType } from '../type/timeline-event.type';
 import type { StepScriptCandidateInterface } from '@suuudokuuu/field-core';
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
-import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 type TechniqueUsageCountsType = PlayerStatsType['techniqueUsageCounts'];
 type FieldStateType = Pick<CurrentRunType, 'candidates' | 'eliminatedCandidates' | 'sudokuString'>;
 type InputStateType = Pick<CurrentRunType, 'inputMode' | 'showAutoCandidates'>;
-type StatsMoveType = (run: CurrentRunType, counts: TechniqueUsageCountsType) => [CurrentRunType, TechniqueUsageCountsType];
+type StatsMoveType = (
+    run: CurrentRunType,
+    counts: TechniqueUsageCountsType
+) => [CurrentRunType, TechniqueUsageCountsType, CellTimelineEventType?, number?];
 type TimelineMarkerKindType = Exclude<
     TimelineEventType['kind'],
     TimelineEventKindEnum.Cell | TimelineEventKindEnum.Mistake | TimelineEventKindEnum.Pencil
@@ -130,7 +134,8 @@ const saveMove = (
         cellIndex: getCellIndex(correctCell),
         value: correctCell.value,
         ts: getTimelineTimestampDelta(run),
-        score
+        score,
+        assisted: run.timelineEvents.some(event => event.kind === TimelineEventKindEnum.Hint)
     } as const;
 
     return {
@@ -158,7 +163,7 @@ const classifyMove =
 
         const timelineEvents = run.timelineEvents.map(event => (event === cellEvent ? { ...cellEvent, technique } : event));
 
-        return [{ ...run, timelineEvents }, applyTechniqueUsageDelta(counts, technique, 1)];
+        return [{ ...run, timelineEvents }, applyTechniqueUsageDelta(counts, technique, 1), { ...cellEvent, technique }, 1];
     };
 
 const chargeHintLevel = (run: CurrentRunType): CurrentRunType => ({
@@ -206,7 +211,9 @@ const undoMove =
 
         return [
             { ...nextRun, timelineEvents, score, undoneMoves: [...run.undoneMoves, undoneMove] },
-            applyTechniqueUsageDelta(counts, undoneMove.technique, -1)
+            applyTechniqueUsageDelta(counts, undoneMove.technique, -1),
+            undoneMove,
+            -1
         ];
     };
 
@@ -224,7 +231,9 @@ const redoMove =
 
         return [
             { ...nextRun, timelineEvents, undoneMoves: run.undoneMoves.slice(0, -1), score: run.score + (redoneMove.score ?? 0) },
-            applyTechniqueUsageDelta(counts, redoneMove.technique, 1)
+            applyTechniqueUsageDelta(counts, redoneMove.technique, 1),
+            redoneMove,
+            1
         ];
     };
 
@@ -318,6 +327,7 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
         const playerStatsRepository = yield* PlayerStatsRepository;
         const difficultyStatsRepository = yield* DifficultyStatsRepository;
         const completedGameRepository = yield* CompletedGameRepository;
+        const campaignRepository = yield* CampaignRepository;
 
         const updateRunWithStats = Effect.fnUntraced(
             function* (statsMove: StatsMoveType) {
@@ -328,7 +338,10 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
                 }
 
                 const playerStats = yield* playerStatsRepository.get;
-                const [nextRun, techniqueUsageCounts] = statsMove(currentRun.value, playerStats.techniqueUsageCounts);
+                const [nextRun, techniqueUsageCounts, cellEvent, masteryDelta] = statsMove(
+                    currentRun.value,
+                    playerStats.techniqueUsageCounts
+                );
 
                 if (nextRun !== currentRun.value) {
                     yield* currentRunRepository.save(nextRun);
@@ -336,6 +349,17 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
 
                 if (techniqueUsageCounts !== playerStats.techniqueUsageCounts) {
                     yield* playerStatsRepository.save({ ...playerStats, techniqueUsageCounts });
+
+                    const technique = cellEvent?.technique;
+
+                    if (
+                        isNotUndefined(technique) &&
+                        technique !== SolutionTechniqueEnum.Guess &&
+                        isNotUndefined(cellEvent?.assisted) &&
+                        isNotUndefined(masteryDelta)
+                    ) {
+                        yield* campaignRepository.updateMastery(technique, masteryDelta, cellEvent.assisted ? 0 : masteryDelta);
+                    }
                 }
             },
             effect => sql.withTransaction(effect),
@@ -446,7 +470,8 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
                 CurrentRunRepository.layer,
                 PlayerStatsRepository.layer,
                 DifficultyStatsRepository.layer,
-                CompletedGameRepository.layer
+                CompletedGameRepository.layer,
+                CampaignRepository.layer
             )
         )
     );

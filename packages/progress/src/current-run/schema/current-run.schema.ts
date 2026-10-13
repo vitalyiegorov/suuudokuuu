@@ -10,7 +10,8 @@ export const CellTimelineEventSchema = Schema.Struct({
     value: Schema.Number,
     ts: Schema.Number,
     technique: Schema.optionalKey(Schema.Enum(SolutionTechniqueEnum)),
-    score: Schema.optionalKey(Schema.Number)
+    score: Schema.optionalKey(Schema.Number),
+    assisted: Schema.optionalKey(Schema.Boolean)
 });
 
 export const TimelineEventSchema = Schema.Union([

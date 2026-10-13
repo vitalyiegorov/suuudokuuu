@@ -8,6 +8,7 @@ import * as Option from 'effect/Option';
 import * as TestClock from 'effect/testing/TestClock';
 
 import { getDayNumber } from '../../src/@generic/utils/get-day-number.util';
+import { CampaignRepository } from '../../src/campaign/repository/campaign.repository';
 import { CompletedGameRepository } from '../../src/completed-game/repository/completed-game.repository';
 import { initialCurrentRun } from '../../src/current-run/constant/initial-current-run.constant';
 import { CurrentRunRepository } from '../../src/current-run/repository/current-run.repository';
@@ -170,7 +171,8 @@ describe('CurrentRunService', () => {
                         value: 4,
                         ts: thinkTime,
                         score: placementScore,
-                        technique: SolutionTechniqueEnum.NakedSingle
+                        technique: SolutionTechniqueEnum.NakedSingle,
+                        assisted: false
                     }
                 ]
             });
@@ -205,20 +207,129 @@ describe('CurrentRunService', () => {
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 
-    it.effect('charges every revealed hint level without a timeline marker', () =>
+    it.effect('updates only the moved technique through duplicate classification, undo and redo', () =>
+        Effect.gen(function* () {
+            const currentRunService = yield* placeClassifiedCell;
+            const campaignRepository = yield* CampaignRepository;
+
+            yield* campaignRepository.updateMastery(SolutionTechniqueEnum.HiddenSingle, 3, 2);
+
+            assert.deepStrictEqual(yield* campaignRepository.getMastery, [
+                { technique: SolutionTechniqueEnum.NakedSingle, seenCount: 1, unassistedCount: 1 },
+                { technique: SolutionTechniqueEnum.HiddenSingle, seenCount: 3, unassistedCount: 2 }
+            ]);
+
+            yield* currentRunService.undo({ sudokuString: startedSudokuString, candidates: {}, eliminatedCandidates: {} });
+
+            assert.deepStrictEqual(yield* campaignRepository.getMastery, [
+                { technique: SolutionTechniqueEnum.NakedSingle, seenCount: 0, unassistedCount: 0 },
+                { technique: SolutionTechniqueEnum.HiddenSingle, seenCount: 3, unassistedCount: 2 }
+            ]);
+
+            yield* currentRunService.redo({ sudokuString: placedSudokuString, candidates: placedCandidates, eliminatedCandidates: {} });
+            yield* currentRunService.classifyMove({ cell: placedCell, technique: SolutionTechniqueEnum.NakedSingle });
+
+            assert.deepStrictEqual(yield* campaignRepository.getMastery, [
+                { technique: SolutionTechniqueEnum.NakedSingle, seenCount: 1, unassistedCount: 1 },
+                { technique: SolutionTechniqueEnum.HiddenSingle, seenCount: 3, unassistedCount: 2 }
+            ]);
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
+    it.effect('counts place undo place as one net observed move', () =>
+        Effect.gen(function* () {
+            const currentRunService = yield* placeClassifiedCell;
+            const campaignRepository = yield* CampaignRepository;
+
+            yield* currentRunService.undo({ sudokuString: startedSudokuString, candidates: {}, eliminatedCandidates: {} });
+            yield* currentRunService.save({
+                sudokuString: placedSudokuString,
+                candidates: placedCandidates,
+                eliminatedCandidates: {},
+                correctCell: placedCell,
+                scoredCells: emptyScoredCells
+            });
+            yield* currentRunService.classifyMove({ cell: placedCell, technique: SolutionTechniqueEnum.NakedSingle });
+
+            assert.deepStrictEqual(yield* campaignRepository.getMastery, [
+                { technique: SolutionTechniqueEnum.NakedSingle, seenCount: 1, unassistedCount: 1 }
+            ]);
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
+    it.effect('records hinted placements as seen without unassisted credit across undo and redo', () =>
         Effect.gen(function* () {
             const currentRunService = yield* CurrentRunService;
-            const hintPenalty = scoring.calculateHintPenalty(penaltyParams);
+            const campaignRepository = yield* CampaignRepository;
 
-            yield* saveRun({ score: hintPenalty * 2 + 1 });
-            yield* currentRunService.revealHintLevel();
-            yield* currentRunService.revealHintLevel();
+            yield* saveRun();
+            yield* currentRunService.hint([]);
+            yield* currentRunService.save({
+                sudokuString: placedSudokuString,
+                candidates: {},
+                eliminatedCandidates: {},
+                correctCell: placedCell,
+                scoredCells: emptyScoredCells
+            });
+            yield* currentRunService.classifyMove({ cell: placedCell, technique: SolutionTechniqueEnum.NakedSingle });
+            yield* currentRunService.undo({ sudokuString: startedSudokuString, candidates: {}, eliminatedCandidates: {} });
+            yield* currentRunService.redo({ sudokuString: placedSudokuString, candidates: {}, eliminatedCandidates: {} });
 
-            assert.deepInclude(yield* getRun, { score: 1, timelineEvents: [] });
+            assert.deepStrictEqual(yield* campaignRepository.getMastery, [
+                { technique: SolutionTechniqueEnum.NakedSingle, seenCount: 1, unassistedCount: 0 }
+            ]);
+            assert.deepStrictEqual((yield* getPlayerStats).techniqueUsageCounts, { [SolutionTechniqueEnum.NakedSingle]: 1 });
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
 
-            yield* currentRunService.revealHintLevel();
+    it.effect('excludes guessed placements from technique mastery', () =>
+        Effect.gen(function* () {
+            const currentRunService = yield* CurrentRunService;
+            const campaignRepository = yield* CampaignRepository;
 
-            assert.strictEqual((yield* getRun).score, 0);
+            yield* saveRun();
+            yield* currentRunService.save({
+                sudokuString: placedSudokuString,
+                candidates: {},
+                eliminatedCandidates: {},
+                correctCell: placedCell,
+                scoredCells: emptyScoredCells
+            });
+            yield* currentRunService.classifyMove({ cell: placedCell, technique: SolutionTechniqueEnum.Guess });
+
+            assert.deepStrictEqual(yield* campaignRepository.getMastery, []);
+            assert.deepStrictEqual((yield* getPlayerStats).techniqueUsageCounts, { [SolutionTechniqueEnum.Guess]: 1 });
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
+    it.effect('does not subtract campaign mastery when undoing a legacy or shared placement', () =>
+        Effect.gen(function* () {
+            const currentRunService = yield* CurrentRunService;
+            const campaignRepository = yield* CampaignRepository;
+
+            yield* saveRun({
+                sudokuString: placedSudokuString,
+                timelineEvents: [
+                    {
+                        kind: TimelineEventKindEnum.Cell,
+                        cellIndex: 2,
+                        value: 4,
+                        ts: 0,
+                        technique: SolutionTechniqueEnum.NakedSingle
+                    }
+                ]
+            });
+            yield* currentRunService.undo({ sudokuString: startedSudokuString, candidates: {}, eliminatedCandidates: {} });
+
+            assert.deepStrictEqual(yield* campaignRepository.getMastery, []);
+            yield* currentRunService.redo({ sudokuString: placedSudokuString, candidates: {}, eliminatedCandidates: {} });
+            assert.deepStrictEqual(yield* campaignRepository.getMastery, []);
+            yield* campaignRepository.updateMastery(SolutionTechniqueEnum.NakedSingle, 2, 2);
+            yield* currentRunService.undo({ sudokuString: startedSudokuString, candidates: {}, eliminatedCandidates: {} });
+
+            assert.deepStrictEqual(yield* campaignRepository.getMastery, [
+                { technique: SolutionTechniqueEnum.NakedSingle, seenCount: 2, unassistedCount: 2 }
+            ]);
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 
@@ -357,6 +468,23 @@ describe('CurrentRunService', () => {
                 playedDayNumbers: [firstDay],
                 dailyCompletedDayNumbers: []
             });
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
+    it.effect('charges every revealed hint level without a timeline marker', () =>
+        Effect.gen(function* () {
+            const currentRunService = yield* CurrentRunService;
+            const hintPenalty = scoring.calculateHintPenalty(penaltyParams);
+
+            yield* saveRun({ score: hintPenalty * 2 + 1 });
+            yield* currentRunService.revealHintLevel();
+            yield* currentRunService.revealHintLevel();
+
+            assert.deepInclude(yield* getRun, { score: 1, timelineEvents: [] });
+
+            yield* currentRunService.revealHintLevel();
+
+            assert.strictEqual((yield* getRun).score, 0);
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 });

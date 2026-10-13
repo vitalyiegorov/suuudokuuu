@@ -33,7 +33,7 @@
             "dest": "/_app/index.html"
         },
         {
-            "src": "^/(?:shared|history|settings|start)(?:/.*)?$",
+            "src": "^/(?:shared|history|settings|campaign|start)(?:/.*)?$",
             "dest": "/_app/index.html"
         },
         { "handle": "filesystem" },

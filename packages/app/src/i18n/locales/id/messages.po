@@ -11,6 +11,10 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+msgid "‹ Back"
+msgstr "‹ Kembali"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -169,8 +173,8 @@ msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {la
 msgstr "{techniqueName}: sel yang disorot membentuk sebuah rantai, sehingga {firstEnd} atau {lastEnd} benar."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
-msgstr "{techniqueName}: sel yang disorot memuat angka sebanyak jumlah selnya, sehingga {valueList} harus berada di salah satunya."
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "{techniqueName}: sel yang disorot memuat angka sebanyak jumlah selnya, sehingga {valueList} hanya bisa berada di sel-sel ini."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."
@@ -243,6 +247,18 @@ msgstr "{value, plural, one {# detik} other {# detik}}"
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>Klien pengembangan diperlukan</0><1>Klien pengembangan memerlukan Metro, URL peluncuran yang dikonfigurasi di <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, atau pembaruan kompatibel pada saluran <3>development</3>. Alur penginstalan ini tidak menerbitkan pembaruan.</1>"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ {cell} cannot be {value}"
+msgstr "✕ {cell} tidak mungkin {value}"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no candidate for {cell}"
+msgstr "✕ tidak ada kandidat untuk {cell}"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no place for {value}"
+msgstr "✕ tidak ada tempat untuk {value}"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
@@ -321,14 +337,22 @@ msgstr "Animasikan baris, kolom, dan kotak yang selesai"
 msgid "Animations"
 msgstr "Animasi"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Terapkan"
 
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Apply & next"
+msgstr "Terapkan & berikutnya"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
 msgstr "Bantuan"
+
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "At least one end of this chain must be true."
+msgstr "Setidaknya satu ujung rantai ini harus benar."
 
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -438,6 +462,11 @@ msgstr "Dibuat:"
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Calm play"
 msgstr "Permainan tenang"
+
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Campaign progress could not be loaded."
+msgstr "Progres kampanye tidak dapat dimuat."
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
@@ -575,6 +604,10 @@ msgstr "Commit {commitShortSha}"
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "Selesaikan baris, kolom, dan blok untuk bonus besar"
 
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "Complete the previous lesson to unlock this one."
+msgstr "Selesaikan pelajaran sebelumnya untuk membuka pelajaran ini."
+
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Completed"
 msgstr "Selesai"
@@ -582,6 +615,10 @@ msgstr "Selesai"
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
 msgstr "Game yang selesai siap diputar ulang."
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Completed practices: {completedCount}/{practiceCount}"
+msgstr "Latihan selesai: {completedCount}/{practiceCount}"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Completion animations"
@@ -591,7 +628,6 @@ msgstr "Animasi penyelesaian"
 msgid "Completion Bonuses"
 msgstr "Bonus penyelesaian"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -606,9 +642,9 @@ msgstr "Lanjutkan di tempat lain"
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "Lanjutkan Sudoku ini tepat di tempat aku berhenti!"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Continue to next hint"
-msgstr "Lanjut ke petunjuk berikutnya"
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "Contradiction, so {cell} is not {value}."
+msgstr "Kontradiksi, jadi {cell} bukan {value}."
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -707,7 +743,7 @@ msgstr "Redupkan angka yang sudah lengkap di numpad, bukan menghapusnya"
 msgid "Discard changes?"
 msgstr "Buang perubahan?"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Dismiss"
 msgstr "Abaikan"
 
@@ -799,6 +835,14 @@ msgstr "Sel terisi"
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
 msgstr "Skor akhir"
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Find a candidate this technique can remove. Select its cell, then choose the digit to remove."
+msgstr "Temukan kandidat yang dapat dihapus dengan teknik ini. Pilih selnya, lalu pilih angka yang akan dihapus."
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Find a cell this technique can fill. Select it, then choose the digit it proves."
+msgstr "Temukan sel yang dapat diisi dengan teknik ini. Pilih selnya, lalu pilih angka yang dibuktikan oleh teknik ini."
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
@@ -991,6 +1035,10 @@ msgstr "Cara kerja skor"
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "Aku menyelesaikan sudoku ini dalam {elapsedTimeString}. Bisa kalahkan aku?"
 
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "If {cell} were {value}, these cells would be forced in turn."
+msgstr "Jika {cell} adalah {value}, sel-sel ini akan dipaksakan secara berurutan."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
 msgstr "Jika {path} → {cell} kehabisan kandidat. Jadi {assumptionCell} bukan {assumptionValue}."
@@ -1006,6 +1054,10 @@ msgstr "Jika {path} → {value} tidak punya tempat lagi di sel yang dibingkai. J
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "Abadi"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "In progress"
+msgstr "Sedang berlangsung"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1085,6 +1137,14 @@ msgstr "Besar"
 msgid "Larger digits for easier reading"
 msgstr "Angka lebih besar agar mudah dibaca"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Learn one deduction at a time. Solve every practice in a lesson without help to unlock the next lesson."
+msgstr "Pelajari satu deduksi setiap kali. Selesaikan semua latihan dalam pelajaran tanpa bantuan untuk membuka pelajaran berikutnya."
+
+#: src/campaign/components/campaign-entry/campaign-entry.tsx
+msgid "Learn techniques"
+msgstr "Pelajari teknik"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Left-handed layout"
 msgstr "Tata letak kidal"
@@ -1112,6 +1172,10 @@ msgstr "Memuat build pengembangan"
 #: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "Memuat build pengembangan terbaru…"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Locked"
+msgstr "Terkunci"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "Look for {techniqueName} in box {regionNumber}."
@@ -1141,6 +1205,10 @@ msgstr "Kontras rendah"
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
 msgstr "m"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Mastered"
+msgstr "Dikuasai"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
@@ -1243,9 +1311,13 @@ msgstr "Pemula"
 msgid "Newspaper"
 msgstr "Koran"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Next step"
-msgstr "Langkah berikutnya"
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+msgid "Next"
+msgstr "Berikutnya"
+
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Next ›"
+msgstr "Berikutnya ›"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1354,6 +1426,10 @@ msgstr "OK"
 msgid "Open commit {commitShortSha} on GitHub"
 msgstr "Buka commit {commitShortSha} di GitHub"
 
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Open lesson"
+msgstr "Buka pelajaran"
+
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
 msgstr "Buka sudoku"
@@ -1419,6 +1495,10 @@ msgstr "per kesalahan"
 #: src/scoring/components/scoring.screen.tsx
 msgid "per second"
 msgstr "per detik"
+
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Place {placementValue}"
+msgstr "Tempatkan {placementValue}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Place {valueList} in the marked cell."
@@ -1490,17 +1570,33 @@ msgstr "poin per penempatan benar."
 msgid "Português"
 msgstr "Português"
 
+#: src/campaign/components/campaign-practice-button/campaign-practice-button.tsx
+msgid "Practice {number}"
+msgstr "Latihan {number}"
+
+#: src/campaign/components/campaign-practice-button/campaign-practice-button.tsx
+msgid "Practice {number} · Complete"
+msgstr "Latihan {number} · Selesai"
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Practice complete with assistance. Retry without mistakes to master it."
+msgstr "Latihan selesai dengan bantuan. Coba lagi tanpa kesalahan untuk menguasainya."
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Practice complete without help."
+msgstr "Latihan selesai tanpa bantuan."
+
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Practice harder logic"
 msgstr "Latih logika yang lebih sulit"
 
+#: src/campaign/hooks/use-campaign-practice.hook.ts
+msgid "Practice progress could not be saved. Try again."
+msgstr "Progres latihan tidak dapat disimpan. Coba lagi."
+
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
 msgstr "Preset"
-
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Previous step"
-msgstr "Langkah sebelumnya"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
@@ -1531,6 +1627,10 @@ msgstr "Sudoku terpecahkan."
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Keluar"
+
+#: src/game/components/hint-chain-block/hint-chain-block.tsx
+msgid "R{row}C{column} {operator} {value}"
+msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
@@ -1613,14 +1713,15 @@ msgstr "Lanjutkan permainan ini?"
 msgid "Retry loading development build"
 msgstr "Coba lagi memuat build pengembangan"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Retry practice"
+msgstr "Ulangi latihan"
+
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "Ungkap"
-
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Reveal a digit"
-msgstr "Tampilkan satu angka"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1716,6 +1817,10 @@ msgstr "Tangkapan layar"
 msgid "SE {seValueText}"
 msgstr "SE {seValueText}"
 
+#: src/campaign/components/campaign-mastery-row/campaign-mastery-row.tsx
+msgid "Seen: {seenCount} · Unassisted: {unassistedCount}"
+msgstr "Dilihat: {seenCount} · Tanpa bantuan: {unassistedCount}"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
 msgstr "Latar belakang kandidat terpilih"
@@ -1799,13 +1904,13 @@ msgstr "Tampilkan waktu berjalan saat bermain"
 msgid "Show matching notes for the selected cell"
 msgstr "Tampilkan catatan yang cocok untuk sel yang dipilih"
 
-#: src/game/components/hint-panel/hint-panel.tsx
-msgid "Show more"
-msgstr "Tampilkan lebih banyak"
-
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Show more of the hint"
 msgstr "Tampilkan lebih banyak petunjuk"
+
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+msgid "Show teaching example"
+msgstr "Tampilkan contoh pembelajaran"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
@@ -1834,6 +1939,10 @@ msgstr "Papan abu-abu lembut seperti kertas"
 #: src/app/game.tsx
 msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
 msgstr "Selesaikan sudoku online dengan petunjuk, catatan, dan pelacakan kesalahan."
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Solve puzzles to build your technique mastery."
+msgstr "Selesaikan teka-teki untuk menguasai teknik."
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 #: src/screens/components/winner-screen/winner.screen.tsx
@@ -1893,7 +2002,8 @@ msgstr "Statistik"
 msgid "Stayed in app"
 msgstr "Tetap di aplikasi"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Langkah {currentStepNumber} dari {stepCount}"
 
@@ -1986,6 +2096,22 @@ msgstr "Santai saja"
 msgid "Taller marks = sharper techniques"
 msgstr "Tanda lebih tinggi = teknik lebih tajam"
 
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "Teaching example"
+msgstr "Contoh pembelajaran"
+
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+msgid "Teaching progress could not be saved."
+msgstr "Progres pembelajaran tidak dapat disimpan."
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Technique campaign"
+msgstr "Jalur belajar teknik"
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Technique mastery"
+msgstr "Penguasaan teknik"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "Teks dan label"
@@ -2002,6 +2128,10 @@ msgstr "Teks pada bilah numpad terisi"
 msgid "Text on ink"
 msgstr "Teks pada tinta"
 
+#: src/campaign/hooks/use-campaign-practice.hook.ts
+msgid "That deduction does not match this technique. This attempt counts as assisted. Retry for an unassisted completion."
+msgstr "Deduksi itu tidak sesuai dengan teknik ini. Percobaan ini dihitung sebagai dibantu. Coba lagi untuk menyelesaikan tanpa bantuan."
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Tautan commit tidak dapat dibuka di perangkat ini."
@@ -2013,6 +2143,10 @@ msgstr "Tautan penginstalan tidak dapat dibuka. Periksa pengaturan browsermu dan
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "The SE difficulty scale"
 msgstr "Skala kesulitan SE"
+
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "The teaching example explains the technique. Practices transform the teaching board and change its digits while keeping the answer hidden."
+msgstr "Contoh pembelajaran menjelaskan tekniknya. Latihan mengubah papan contoh dan mengganti angkanya sambil menyembunyikan jawaban."
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
@@ -2036,6 +2170,12 @@ msgstr "Nama tema"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Papan ini belum selesai kali ini. Perjuangan untuk kebebasan di Ukraina terus berlanjut. Setiap donasi $1 berarti."
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+#: src/campaign/hooks/use-campaign-practice.hook.ts
+msgid "This lesson is unavailable."
+msgstr "Pelajaran ini tidak tersedia."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
@@ -2125,6 +2265,10 @@ msgstr "Tidak dapat membuka tautan"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "Tidak dapat memulai penginstalan"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Unassisted practices: {unassistedCount}/{practiceCount}"
+msgstr "Latihan tanpa bantuan: {unassistedCount}/{practiceCount}"
 
 #: src/game/components/undo-button/undo-button.tsx
 msgid "Undo"

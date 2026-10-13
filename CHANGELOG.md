@@ -3,6 +3,21 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.27.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.7...v2.27.0) (2026-10-13)
+
+### Features
+
+* **app:** hint panel with chain blocks and one fixed button row ([#561](https://github.com/vitalyiegorov/suuudokuuu/issues/561)) ([1ede215](https://github.com/vitalyiegorov/suuudokuuu/commit/1ede21577310aa50b4c19f6b0f9129586bf7e509))
+
+
+## [2.26.7](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.6...v2.26.7) (2026-10-13)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
+
+
+
+
 ## [2.26.6](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.5...v2.26.6) (2026-10-12)
 
 ### Bug Fixes
