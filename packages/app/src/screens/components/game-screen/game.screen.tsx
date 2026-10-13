@@ -79,6 +79,7 @@ export const GameScreen = () => {
     };
 
     const handleConfirmedExit = () => {
+        engine.stopStepScript();
         void runCurrentRunCommand(currentRunService => currentRunService.reset);
         router.dismissTo('/');
     };

@@ -1,5 +1,5 @@
 import { HintLevelEnum } from '@suuudokuuu/field-core';
-import { use, useEffect, useRef } from 'react';
+import { use } from 'react';
 import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -26,21 +26,14 @@ interface Props {
 
 export const HintPanel = ({ controlsTop }: Props) => {
     const { theme } = use(ThemeContext);
-    const { engine, snapshot } = use(GameContext);
+    const { snapshot } = use(GameContext);
 
     const insets = useSafeAreaInsets();
-    const engineRef = useRef(engine);
-
-    useEffect(() => {
-        engineRef.current = engine;
-    }, [engine]);
 
     const isMotionReduced = useReduceMotion();
 
     const { stepScript, stepIndex } = snapshot;
     const currentStep = stepScript?.steps[stepIndex];
-
-    useEffect(() => () => void engineRef.current.stopStepScript(), []);
 
     if (!isDefined(stepScript) || !isDefined(currentStep)) {
         return null;

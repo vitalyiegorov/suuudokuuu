@@ -5,6 +5,7 @@ import {
     HintButtonSelectors,
     HintPanelSelectors,
     HintStepNarrationSelectors,
+    PauseScreenSelectors,
     SharedScreenSelectors
 } from '@suuudokuuu/app/src/selectors';
 
@@ -16,8 +17,10 @@ import {
     revealHintSharedPuzzleEncodedConstant,
     structuredChainHintSharedPuzzleEncodedConstant
 } from '../src/constants/shared-challenge-links.constant';
+import { bringAppToForeground } from '../src/utils/bring-app-to-foreground.util';
 import { launchHome } from '../src/utils/launch-home.util';
 import { openSharedPuzzle } from '../src/utils/open-shared-puzzle.util';
+import { sendAppToBackground } from '../src/utils/send-app-to-background.util';
 import { startNewGame } from '../src/utils/start-new-game.util';
 import { cellTestId } from '../src/utils/test-id.util';
 
@@ -547,3 +550,33 @@ for (const bottomInset of [0, mobileBottomInset]) {
         await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
     });
 }
+
+test('keeps the open hint on the same level and slide across pause and resume without charging again', async ({ page }) => {
+    await page.setViewportSize({ width: mobileViewportWidth, height: viewportHeight });
+    await launchHome(page);
+    await openSharedPuzzle(page, pointingPairHintSharedPuzzleEncodedConstant);
+    await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+
+    const progress = page.getByTestId(HintPanelSelectors.Progress);
+    const score = page.getByTestId(GameScreenSelectors.Score);
+
+    await page.getByTestId(HintButtonSelectors.Root).click();
+    await revealHintWalkthrough(page);
+    await page.getByTestId(HintPanelSelectors.NextButton).click();
+    await expect(progress).toHaveAttribute('aria-label', 'Step 2 of 4');
+
+    const narrationBefore = await page.getByTestId(HintStepNarrationSelectors.Narration).textContent();
+    const scoreBefore = await score.textContent();
+
+    await sendAppToBackground(page);
+    await expect(page.getByTestId(PauseScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+    await bringAppToForeground(page);
+    await page.getByTestId(PauseScreenSelectors.ResumeButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+
+    await expect(page.getByTestId(HintPanelSelectors.Root)).toBeVisible();
+    await expect(progress).toHaveAttribute('aria-label', 'Step 2 of 4');
+    await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(narrationBefore ?? '');
+    await expect(score).toHaveText(scoreBefore ?? '');
+});
