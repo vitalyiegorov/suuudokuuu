@@ -1,4 +1,5 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import Link from 'next/link';
 
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -7,6 +8,7 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { Faq } from '../../../seo/components/faq/faq';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../seo/components/how-to/how-to';
+import { SITE_ORIGIN } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
@@ -51,6 +53,9 @@ const BoxLineReductionPage = () => (
         <p>
             Box line reduction is the harder of the two to see by eye, because you have to notice an absence along a whole line rather than
             a cluster inside a box. Solvers who keep full pencil marks find it easily; solvers who cross-hatch tend to miss it.
+        </p>
+        <p>
+            <Link href={`${SITE_ORIGIN}/campaign`}>Practice this technique in the app</Link>
         </p>
         <h2>Worked example</h2>
         <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.BoxLineReduction}>

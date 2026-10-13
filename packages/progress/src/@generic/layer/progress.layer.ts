@@ -1,5 +1,7 @@
 import * as Layer from 'effect/Layer';
 
+import { CampaignRepository } from '../../campaign/repository/campaign.repository';
+import { CampaignService } from '../../campaign/service/campaign.service';
 import { CompletedGameRepository } from '../../completed-game/repository/completed-game.repository';
 import { CurrentRunRepository } from '../../current-run/repository/current-run.repository';
 import { CurrentRunService } from '../../current-run/service/current-run.service';
@@ -11,6 +13,8 @@ import { SettingsRepository } from '../../settings/repository/settings.repositor
 import { StoreReviewService } from '../../store-review/service/store-review.service';
 
 export const ProgressLayer = Layer.mergeAll(
+    CampaignRepository.layer,
+    CampaignService.layer,
     SettingsRepository.layer,
     CustomThemeRepository.layer,
     CurrentRunRepository.layer,

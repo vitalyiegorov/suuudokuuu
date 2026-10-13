@@ -1,4 +1,5 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import Link from 'next/link';
 
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -7,6 +8,7 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { Faq } from '../../../seo/components/faq/faq';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../seo/components/how-to/how-to';
+import { SITE_ORIGIN } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
@@ -51,6 +53,9 @@ const FullHousePage = () => (
         <p>
             The technique is worth naming even though it looks trivial. When a solver reports that a puzzle was finished with nothing but
             full houses and singles, that is a precise statement about difficulty: no candidate bookkeeping was ever required.
+        </p>
+        <p>
+            <Link href={`${SITE_ORIGIN}/campaign`}>Practice this technique in the app</Link>
         </p>
         <h2>Worked example</h2>
         <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.FullHouse}>

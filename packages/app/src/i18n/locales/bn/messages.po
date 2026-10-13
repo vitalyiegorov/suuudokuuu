@@ -463,6 +463,11 @@ msgstr "বিল্ড করা হয়েছে:"
 msgid "Calm play"
 msgstr "শান্ত খেলা"
 
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Campaign progress could not be loaded."
+msgstr "অভিযানের অগ্রগতি লোড করা যায়নি।"
+
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "আপনি কি তাদের হারাতে পারবেন?"
@@ -599,6 +604,10 @@ msgstr "কমিট {commitShortSha}"
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "বড় বোনাসের জন্য সারি, কলাম ও ব্লক পূর্ণ করুন"
 
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "Complete the previous lesson to unlock this one."
+msgstr "এই পাঠটি আনলক করতে আগের পাঠটি সম্পূর্ণ করুন।"
+
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Completed"
 msgstr "সম্পন্ন"
@@ -606,6 +615,10 @@ msgstr "সম্পন্ন"
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
 msgstr "সম্পন্ন খেলাগুলো রিপ্লের জন্য প্রস্তুত থাকবে।"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Completed practices: {completedCount}/{practiceCount}"
+msgstr "সম্পন্ন অনুশীলন: {completedCount}/{practiceCount}"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Completion animations"
@@ -823,6 +836,14 @@ msgstr "পূর্ণ ঘর"
 msgid "Final score"
 msgstr "চূড়ান্ত স্কোর"
 
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Find a candidate this technique can remove. Select its cell, then choose the digit to remove."
+msgstr "এই কৌশল দিয়ে বাদ দেওয়া যায় এমন একটি সম্ভাব্য সংখ্যা খুঁজুন। তার ঘর নির্বাচন করুন, তারপর বাদ দেওয়ার সংখ্যাটি বেছে নিন।"
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Find a cell this technique can fill. Select it, then choose the digit it proves."
+msgstr "এই কৌশল দিয়ে পূরণ করা যায় এমন একটি ঘর খুঁজুন। সেটি নির্বাচন করুন, তারপর কৌশলটি যে সংখ্যা প্রমাণ করে তা বেছে নিন।"
+
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "একটি সুদোকু শেষ করলে এটি এখানে দেখাবে।"
@@ -1033,6 +1054,10 @@ msgstr "যদি {path} → ফ্রেম করা ঘরগুলিতে 
 msgid "Immortal"
 msgstr "অমর"
 
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "In progress"
+msgstr "চলমান"
+
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "অসম্পূর্ণ"
@@ -1111,6 +1136,14 @@ msgstr "বড়"
 msgid "Larger digits for easier reading"
 msgstr "সহজে পড়ার জন্য বড় সংখ্যা"
 
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Learn one deduction at a time. Solve every practice in a lesson without help to unlock the next lesson."
+msgstr "একবারে একটি সিদ্ধান্ত শিখুন। পরবর্তী পাঠ খুলতে পাঠের সব অনুশীলন সাহায্য ছাড়া সমাধান করুন।"
+
+#: src/campaign/components/campaign-entry/campaign-entry.tsx
+msgid "Learn techniques"
+msgstr "কৌশল শিখুন"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Left-handed layout"
 msgstr "বাঁ-হাতি বিন্যাস"
@@ -1138,6 +1171,10 @@ msgstr "ডেভেলপমেন্ট বিল্ড লোড হচ্ছ
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading the latest development build…"
 msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড লোড হচ্ছে…"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Locked"
+msgstr "লক করা"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "Look for {techniqueName} in box {regionNumber}."
@@ -1167,6 +1204,10 @@ msgstr "কম কনট্রাস্ট"
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
 msgstr "m"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Mastered"
+msgstr "আয়ত্ত করা হয়েছে"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
@@ -1268,6 +1309,10 @@ msgstr "নতুন"
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Newspaper"
 msgstr "সংবাদপত্র"
+
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+msgid "Next"
+msgstr "পরবর্তী"
 
 #: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Next ›"
@@ -1379,6 +1424,10 @@ msgstr "ঠিক আছে"
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
 msgstr "GitHub-এ {commitShortSha} কমিট খুলুন"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Open lesson"
+msgstr "পাঠ খুলুন"
 
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
@@ -1520,9 +1569,29 @@ msgstr "প্রতি সঠিক বসানোতে পয়েন্ট
 msgid "Português"
 msgstr "Português"
 
+#: src/campaign/components/campaign-practice-button/campaign-practice-button.tsx
+msgid "Practice {number}"
+msgstr "অনুশীলন {number}"
+
+#: src/campaign/components/campaign-practice-button/campaign-practice-button.tsx
+msgid "Practice {number} · Complete"
+msgstr "অনুশীলন {number} · সম্পূর্ণ"
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Practice complete with assistance. Retry without mistakes to master it."
+msgstr "সাহায্য নিয়ে অনুশীলন সম্পন্ন হয়েছে। আয়ত্ত করতে ভুল ছাড়া আবার চেষ্টা করুন।"
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Practice complete without help."
+msgstr "সাহায্য ছাড়া অনুশীলন সম্পূর্ণ হয়েছে।"
+
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Practice harder logic"
 msgstr "আরও কঠিন যুক্তির অনুশীলন করুন"
+
+#: src/campaign/hooks/use-campaign-practice.hook.ts
+msgid "Practice progress could not be saved. Try again."
+msgstr "অনুশীলনের অগ্রগতি সংরক্ষণ করা যায়নি। আবার চেষ্টা করুন।"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
@@ -1643,6 +1712,10 @@ msgstr "এই খেলা চালিয়ে যাবেন?"
 msgid "Retry loading development build"
 msgstr "ডেভেলপমেন্ট বিল্ড আবার লোড করুন"
 
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+msgid "Retry practice"
+msgstr "অনুশীলন আবার করুন"
+
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 #: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
@@ -1743,6 +1816,10 @@ msgstr "স্ক্রিনশট"
 msgid "SE {seValueText}"
 msgstr "SE {seValueText}"
 
+#: src/campaign/components/campaign-mastery-row/campaign-mastery-row.tsx
+msgid "Seen: {seenCount} · Unassisted: {unassistedCount}"
+msgstr "দেখা হয়েছে: {seenCount} · সাহায্য ছাড়া: {unassistedCount}"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
 msgstr "নির্বাচিত প্রার্থীর ব্যাকগ্রাউন্ড"
@@ -1830,6 +1907,10 @@ msgstr "নির্বাচিত ঘরের মিলে যাওয়া �
 msgid "Show more of the hint"
 msgstr "ইঙ্গিতের আরও অংশ দেখান"
 
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+msgid "Show teaching example"
+msgstr "শেখানোর উদাহরণ দেখান"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "নির্বাচিত ঘরের সারি, কলাম ও বাক্স দেখান"
@@ -1857,6 +1938,10 @@ msgstr "কাগজের অনুভূতি সহ নরম ধূসর �
 #: src/app/game.tsx
 msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
 msgstr "সংকেত, নোট আর ভুল গোনাসহ অনলাইনে সুডোকু সমাধান করুন।"
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Solve puzzles to build your technique mastery."
+msgstr "কৌশল আয়ত্ত করতে ধাঁধা সমাধান করুন।"
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 #: src/screens/components/winner-screen/winner.screen.tsx
@@ -2010,6 +2095,22 @@ msgstr "ধীরে সুস্থে খেলুন"
 msgid "Taller marks = sharper techniques"
 msgstr "উঁচু চিহ্ন = ধারালো কৌশল"
 
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "Teaching example"
+msgstr "শেখানোর উদাহরণ"
+
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+msgid "Teaching progress could not be saved."
+msgstr "শেখার অগ্রগতি সংরক্ষণ করা যায়নি।"
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Technique campaign"
+msgstr "কৌশল শেখার অভিযান"
+
+#: src/campaign/components/campaign-screen/campaign-screen.tsx
+msgid "Technique mastery"
+msgstr "কৌশলে দক্ষতা"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "লেখা ও লেবেল"
@@ -2026,6 +2127,10 @@ msgstr "পূর্ণ নম্বর প্যাড ট্র্যাকে
 msgid "Text on ink"
 msgstr "কালির উপরের লেখা"
 
+#: src/campaign/hooks/use-campaign-practice.hook.ts
+msgid "That deduction does not match this technique. This attempt counts as assisted. Retry for an unassisted completion."
+msgstr "এই সিদ্ধান্ত এই কৌশলের সঙ্গে মেলে না। এই প্রচেষ্টা সাহায্যসহ হিসেবে গণনা হবে। সাহায্য ছাড়া সম্পন্ন করতে আবার চেষ্টা করুন।"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "এই ডিভাইসে কমিটের লিংকটি খোলা যায়নি।"
@@ -2037,6 +2142,10 @@ msgstr "ইনস্টল লিংকটি খোলা যায়নি।
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "The SE difficulty scale"
 msgstr "SE কঠিনতার স্কেল"
+
+#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
+msgid "The teaching example explains the technique. Practices transform the teaching board and change its digits while keeping the answer hidden."
+msgstr "শিক্ষণ উদাহরণটি কৌশল ব্যাখ্যা করে। অনুশীলনগুলো উত্তর গোপন রেখে উদাহরণের বোর্ডের রূপ এবং সংখ্যাগুলো বদলে দেয়।"
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
@@ -2060,6 +2169,12 @@ msgstr "থিমের নাম"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "এই বোর্ডটি এবার শেষ হয়নি। ইউক্রেনে স্বাধীনতার লড়াই চলছে। প্রতিটি $1 অনুদান গুরুত্বপূর্ণ।"
+
+#: src/campaign/components/campaign-practice/campaign-practice.tsx
+#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
+#: src/campaign/hooks/use-campaign-practice.hook.ts
+msgid "This lesson is unavailable."
+msgstr "এই পাঠটি উপলভ্য নয়।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
@@ -2144,6 +2259,10 @@ msgstr "লিংক খোলা যায়নি"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "ইনস্টলেশন শুরু করা যায়নি"
+
+#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
+msgid "Unassisted practices: {unassistedCount}/{practiceCount}"
+msgstr "সাহায্য ছাড়া অনুশীলন: {unassistedCount}/{practiceCount}"
 
 #: src/game/components/undo-button/undo-button.tsx
 msgid "Undo"
