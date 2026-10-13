@@ -12,7 +12,7 @@ import {
 import {
     aicDetourHintSharedPuzzleEncodedConstant,
     eliminationHintSharedPuzzleEncodedConstant,
-    nishioRunHintSharedPuzzleEncodedConstant,
+    hardcoreHintSharedPuzzleEncodedConstant,
     pointingPairHintSharedPuzzleEncodedConstant,
     revealHintSharedPuzzleEncodedConstant,
     structuredChainHintSharedPuzzleEncodedConstant
@@ -35,6 +35,9 @@ const panelHorizontalGap = 12;
 const panelBottomGap = 24;
 const mobileBottomInset = 34;
 const walkthroughFirstPage = 3;
+const structuredChainHintIndex = 11;
+const aicDetourForcingHintIndex = 6;
+const maxPatternCellCount = 12;
 
 const gameScreenTimeoutMilliseconds = 15000;
 const longHintTimeoutMilliseconds = 120000;
@@ -57,12 +60,34 @@ const revealHintWalkthrough = async (page: Page): Promise<void> => {
 
 const applyHintEarly = async (page: Page): Promise<void> => {
     const showAnswer = page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON);
+    const apply = page.getByTestId(HintPanelSelectors.ApplyButton);
 
     if ((await showAnswer.count()) > 0) {
         await showAnswer.click();
     }
 
-    await page.getByTestId(HintPanelSelectors.ApplyButton).or(page.getByTestId(HintPanelSelectors.ContinueButton)).click();
+    const isPlacement = (await apply.count()) > 0;
+
+    await apply.or(page.getByTestId(HintPanelSelectors.ContinueButton)).click();
+
+    if (isPlacement) {
+        await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
+    } else {
+        await expect(page.getByTestId(HintPanelSelectors.Progress)).toHaveAttribute('aria-label', /^Step 1 of \d+$/u);
+    }
+};
+
+const openHintAfter = async (page: Page, appliedHintCount: number): Promise<void> => {
+    for (let hintIndex = 0; hintIndex <= appliedHintCount; hintIndex += 1) {
+        if ((await page.getByTestId(HintPanelSelectors.Root).count()) === 0) {
+            await page.getByTestId(HintButtonSelectors.Root).click();
+        }
+
+        if (hintIndex < appliedHintCount) {
+            await revealHintWalkthrough(page);
+            await applyHintEarly(page);
+        }
+    }
 };
 
 const readBoardBounds = async (page: Page): Promise<readonly (number | undefined)[]> => {
@@ -146,7 +171,8 @@ test('walks a hint from activation through the stepper, applying and a later dis
     await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-level-1-technique.png'), fullPage: true });
 
     await next.click();
-    await expect(narration).toHaveText(/the highlighted cells hold the pattern\.$/u);
+    await expect(narration).not.toHaveText(/^Look for /u);
+    await expect(narration).toHaveText(/^[^:]+: [^1-9]*[1-9]/u);
     await expect(progress).toHaveAttribute('aria-label', /^Step 2 of \d+$/u);
     await expect(back).toBeEnabled();
     await back.click();
@@ -204,7 +230,11 @@ test('chains a pointing pair into the hidden single it enables and places the di
     const next = page.getByTestId(HintPanelSelectors.NextButton);
 
     await page.getByTestId(HintButtonSelectors.Root).click();
-    await revealHintWalkthrough(page);
+    await next.click();
+    await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(
+        'Pointing Pair: in this box, 4 fits only in the highlighted cells, and they all lie in column 7.'
+    );
+    await next.click();
 
     await expect(progress).toHaveAttribute('aria-label', 'Step 3 of 6');
     await expect(technique).toHaveText('Pointing Pair');
@@ -272,22 +302,15 @@ test('walks a long Nishio and AIC hint link by link while the board stays untouc
     test.setTimeout(longHintTimeoutMilliseconds);
     await openSharedHintPuzzle(page, structuredChainHintSharedPuzzleEncodedConstant);
 
-    const hint = page.getByTestId(HintButtonSelectors.Root);
     const apply = page.getByTestId(HintPanelSelectors.ApplyButton);
     const progress = page.getByTestId(HintPanelSelectors.Progress);
     const next = page.getByTestId(HintPanelSelectors.NextButton);
     const back = page.getByTestId(HintPanelSelectors.BackButton);
 
-    for (let hintIndex = 0; hintIndex < 2; hintIndex += 1) {
-        await hint.click();
-        await revealHintWalkthrough(page);
-        await applyHintEarly(page);
-        await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
-    }
+    await openHintAfter(page, structuredChainHintIndex);
 
     const labelsBefore = await readCellLabels(page);
 
-    await hint.click();
     await revealHintWalkthrough(page);
 
     const pageCount = await readPageCount(page);
@@ -340,23 +363,34 @@ test('walks a long Nishio and AIC hint link by link while the board stays untouc
     await expect(page.getByTestId(cellTestId(5, 8))).toHaveAttribute('aria-label', 'Row 6, column 9, 1');
 });
 
-test('leads the player-reported Hardcore board through the Nishio pattern to a digit', async ({ page }) => {
-    await openSharedHintPuzzle(page, nishioRunHintSharedPuzzleEncodedConstant);
+test('teaches the reported Hardcore board a lone pointing pair, then a short Nishio pattern to a digit', async ({ page }) => {
+    await openSharedHintPuzzle(page, hardcoreHintSharedPuzzleEncodedConstant);
+
+    const technique = page.getByTestId(HintStepNarrationSelectors.Technique);
+    const narration = page.getByTestId(HintStepNarrationSelectors.Narration);
+    const next = page.getByTestId(HintPanelSelectors.NextButton);
+    const backgroundsBefore = await readCellAttributes(page, 'background');
 
     await page.getByTestId(HintButtonSelectors.Root).click();
-    await page.getByTestId(HintPanelSelectors.NextButton).click();
-    await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(/the highlighted cells hold the pattern\.$/u);
-    await page.getByTestId(HintPanelSelectors.NextButton).click();
+    await next.click();
+    await expect(narration).toHaveText(
+        /^Pointing Pair: in this box, 5 fits only in the highlighted cells, and they all lie in (?:row|column) \d\.$/u
+    );
+    await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
+    await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveText('Apply & next');
+    await page.getByTestId(HintPanelSelectors.ContinueButton).click();
 
-    await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText('Nishio Forcing Chain');
-    await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveCount(0);
+    await next.click();
+    await expect(narration).toHaveText('Nishio Forcing Chain: assume R5C5 is 8 and follow what it forces.');
+    expect(await countTintedCells(page, backgroundsBefore)).toBeLessThanOrEqual(maxPatternCellCount);
+    await next.click();
+    await expect(technique).toHaveText('Nishio Forcing Chain');
 
     await applyHintEarly(page);
-    await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
-    await expect(page.getByTestId(cellTestId(2, 0))).toHaveAttribute('aria-label', 'Row 3, column 1, 9');
+    await expect(page.getByTestId(cellTestId(4, 8))).toHaveAttribute('aria-label', 'Row 5, column 9, 8');
 });
 
-test('routes the reported AIC board through its pointing pair to a digit and opens each page at the top', async ({ page }) => {
+test('routes the reported AIC board through lone pointing pairs to a Nishio digit and opens each page at the top', async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 640 });
     await openSharedHintPuzzle(page, aicDetourHintSharedPuzzleEncodedConstant);
 
@@ -366,13 +400,14 @@ test('routes the reported AIC board through its pointing pair to a digit and ope
 
     await page.getByTestId(HintButtonSelectors.Root).click();
     await revealHintWalkthrough(page);
-
     await expect(technique).toHaveText('Pointing Pair');
-    await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveCount(0);
+    await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
+    await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveText('Apply & next');
+    await page.getByTestId(HintPanelSelectors.ContinueButton).click();
 
-    while ((await technique.textContent()) !== 'Nishio Forcing Chain') {
-        await next.click();
-    }
+    await openHintAfter(page, aicDetourForcingHintIndex - 1);
+    await revealHintWalkthrough(page);
+    await expect(technique).toHaveText('Nishio Forcing Chain');
 
     await narrationScroll.evaluate(element => {
         element.scrollTop = element.scrollHeight;
@@ -417,6 +452,10 @@ test('continues forcing-chain elimination hints and shows the answer from their 
     await page.getByTestId(HintPanelSelectors.ContinueButton).click();
     expect(await readCellLabels(page)).toEqual(labelsBefore);
     await expect(progress).toHaveAttribute('aria-label', /^Step 1 of \d+$/u);
+
+    await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
+    await expect(narration).toHaveText(/^If r2c7=6 → r\dc\d runs out of candidates\. So r2c7 is not 6\.$/u);
+    await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveText('Apply & next');
 });
 
 for (const viewport of [
@@ -429,16 +468,9 @@ for (const viewport of [
         await page.setViewportSize(viewport);
         await openSharedHintPuzzle(page, structuredChainHintSharedPuzzleEncodedConstant);
 
-        for (let hintIndex = 0; hintIndex < 2; hintIndex += 1) {
-            await page.getByTestId(HintButtonSelectors.Root).click();
-            await revealHintWalkthrough(page);
-            await applyHintEarly(page);
-        }
-
-        await expect(page.getByTestId(HintPanelSelectors.Root)).toHaveCount(0);
         const boardBounds = await readBoardBounds(page);
 
-        await page.getByTestId(HintButtonSelectors.Root).click();
+        await openHintAfter(page, structuredChainHintIndex);
         await revealHintWalkthrough(page);
 
         const contradiction = page.getByTestId(HintStepNarrationSelectors.CONTRADICTION);
@@ -449,10 +481,10 @@ for (const viewport of [
         }
 
         await expect(page.getByTestId(FieldWitnessOverlaySelectors.Branch)).not.toHaveCount(0);
-        await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText('Contradiction, so R8C4 is not 6.');
+        await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText('Contradiction, so R8C5 is not 6.');
         await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveAttribute(
             'aria-label',
-            /If r8c4=6 → r9c4=7 → .+So r8c4 is not 6\./u
+            /If r8c5=6 → r9c4=7 → .+So r8c5 is not 6\./u
         );
 
         const chainBlocks = page.getByTestId(HintStepNarrationSelectors.CHAIN_BLOCKS);

@@ -27,6 +27,9 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'HintPanelSelectors.Progress'
       text: 'Step 2 of 6'
+- assertVisible:
+      id: 'HintStepNarrationSelectors.Narration'
+      text: 'Pointing Pair: in this box, 4 fits only in the highlighted cells, and they all lie in column 7.'
 - tapOn:
       id: 'HintPanelSelectors.BackButton'
 - assertVisible:
