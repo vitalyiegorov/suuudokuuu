@@ -1,47 +1,41 @@
 import { use } from 'react';
-import { Circle, G, Text } from 'react-native-svg';
+import { Circle, Text } from 'react-native-svg';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { gameGetWitnessBadgeColors } from '../../utils/game-get-witness-badge-colors.util';
 import { gameGetWitnessPoint } from '../../utils/game-get-witness-point.util';
 
 import type { ChainCandidateInterface } from '@suuudokuuu/techniques';
 
-const markerRadiusRatio = 0.13;
-const markerWidthRatio = 0.045;
-const markerMinimumWidth = 1.5;
-const digitSizeRatio = 0.21;
-const digitBaselineRatio = 0.075;
+const badgeRadiusRatio = 0.24;
+const badgeStrokeRatio = 0.05;
+const badgeStrokeMinimumWidth = 1.5;
+const digitSizeRatio = 0.32;
+const digitBaselineRatio = 0.35;
 
 interface Props {
     readonly candidate: Pick<ChainCandidateInterface, 'cell' | 'value'>;
     readonly cellMargin: number;
     readonly cellSize: number;
-    readonly strokeDasharray?: string;
-    readonly opacity?: number;
+    readonly fill: string;
+    readonly textColor: string;
 }
 
-export const FieldWitnessCandidate = ({ candidate, cellMargin, cellSize, strokeDasharray, opacity = 1 }: Props) => {
+export const FieldWitnessCandidate = ({ candidate, cellMargin, cellSize, fill, textColor }: Props) => {
     const { theme } = use(ThemeContext);
     const center = gameGetWitnessPoint(candidate.cell, candidate.value, cellSize, cellMargin);
-    const digitBaseline = center.y + cellSize * digitBaselineRatio;
-    const markerRadius = cellSize * markerRadiusRatio;
-    const markerWidth = Math.max(markerMinimumWidth, cellSize * markerWidthRatio);
     const digitSize = cellSize * digitSizeRatio;
+    const digitBaseline = center.y + digitSize * digitBaselineRatio;
+    const badgeRadius = cellSize * badgeRadiusRatio;
+    const badgeStroke = gameGetWitnessBadgeColors(theme).fill;
+    const strokeWidth = Math.max(badgeStrokeMinimumWidth, cellSize * badgeStrokeRatio);
 
     return (
-        <G opacity={opacity}>
-            <Circle
-                cx={center.x}
-                cy={center.y}
-                fill={theme.colors.surface.raised}
-                r={markerRadius}
-                stroke={theme.colors.accent}
-                strokeDasharray={strokeDasharray}
-                strokeWidth={markerWidth}
-            />
-            <Text fill={theme.colors.text.primary} fontSize={digitSize} textAnchor="middle" x={center.x} y={digitBaseline}>
+        <>
+            <Circle cx={center.x} cy={center.y} fill={fill} r={badgeRadius} stroke={badgeStroke} strokeWidth={strokeWidth} />
+            <Text fill={textColor} fontSize={digitSize} fontFamily="Inter_700Bold" textAnchor="middle" x={center.x} y={digitBaseline}>
                 {candidate.value}
             </Text>
-        </G>
+        </>
     );
 };

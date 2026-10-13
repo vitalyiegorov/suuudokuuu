@@ -3,6 +3,7 @@ import { use } from 'react';
 import { Line } from 'react-native-svg';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { gameGetWitnessBadgeColors } from '../../utils/game-get-witness-badge-colors.util';
 import { gameGetWitnessPoint } from '../../utils/game-get-witness-point.util';
 import { FieldWitnessCandidate } from '../field-witness-candidate/field-witness-candidate';
 import { FieldWitnessLinkMask } from '../field-witness-link-mask/field-witness-link-mask';
@@ -26,6 +27,7 @@ interface Props {
 
 export const FieldChainWitness = ({ boardSize, cellMargin, cellSize, chain, filledCells }: Props) => {
     const { theme } = use(ThemeContext);
+    const badgeColors = gameGetWitnessBadgeColors(theme);
     const lineWidth = Math.max(lineMinimumWidth, cellSize * lineWidthRatio);
     const weakDash = `${lineWidth * 2},${lineWidth * weakDashGapRatio}`;
 
@@ -36,7 +38,7 @@ export const FieldChainWitness = ({ boardSize, cellMargin, cellSize, chain, fill
                     const previous = gameGetWitnessPoint(chain[index].cell, chain[index].value, cellSize, cellMargin);
                     const current = gameGetWitnessPoint(candidate.cell, candidate.value, cellSize, cellMargin);
                     const isStrong = candidate.link === ChainLinkEnum.STRONG;
-                    const stroke = isStrong ? theme.colors.accent : theme.colors.text.hint;
+                    const stroke = isStrong ? badgeColors.fill : theme.colors.text.hint;
                     const strokeDasharray = isStrong ? '' : weakDash;
                     const isNewest = index === chain.length - 2;
                     const strokeOpacity = isNewest ? 1 : earlierLinkOpacity;
@@ -58,15 +60,18 @@ export const FieldChainWitness = ({ boardSize, cellMargin, cellSize, chain, fill
                 })}
             </FieldWitnessLinkMask>
             {chain.map((candidate, index) => {
-                const candidateOpacity = index === chain.length - 1 ? 1 : earlierLinkOpacity;
+                const isNewest = index === chain.length - 1;
+                const fill = isNewest ? badgeColors.fill : theme.colors.surface.raised;
+                const textColor = isNewest ? badgeColors.text : theme.colors.text.primary;
 
                 return (
                     <FieldWitnessCandidate
                         candidate={candidate}
                         cellMargin={cellMargin}
                         cellSize={cellSize}
+                        fill={fill}
                         key={`candidate-${index}`}
-                        opacity={candidateOpacity}
+                        textColor={textColor}
                     />
                 );
             })}
