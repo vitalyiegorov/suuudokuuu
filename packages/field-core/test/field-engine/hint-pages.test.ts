@@ -15,6 +15,7 @@ import type { StepScriptInterface } from '../../src/step-script/interfaces/step-
 const chainBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
 const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
 const longBranchImplicationCount = 10;
+const forcingHintIndex = 11;
 
 const createEngine = (sudokuString: string): FieldEngine => new FieldEngine({ sudokuString, difficulty: DifficultyEnum.Medium });
 
@@ -29,12 +30,14 @@ const requireHint = (engine: FieldEngine): StepScriptInterface => {
 const findBranchHint = (): { engine: FieldEngine; script: StepScriptInterface; branch: StepScriptBranchStepInterface } => {
     const engine = new FieldEngine({ sudokuString: columnQuadBoard, difficulty: DifficultyEnum.Medium, showAutoCandidates: true });
 
-    engine.startStepScript(requireHint(engine));
-    engine.applyStepScript();
-    engine.startStepScript(requireHint(engine));
-    engine.applyStepScript();
+    let script = requireHint(engine);
 
-    const script = requireHint(engine);
+    for (let hintIndex = 0; hintIndex < forcingHintIndex; hintIndex += 1) {
+        engine.startStepScript(script);
+        engine.applyStepScript();
+        script = requireHint(engine);
+    }
+
     const branch = script.steps.find(step => step.kind === StepScriptStepKindEnum.SHOW_BRANCH);
 
     assert(branch?.kind === StepScriptStepKindEnum.SHOW_BRANCH, 'Expected a forcing branch');
@@ -47,9 +50,11 @@ const collectRevealedImplicationCounts = (engine: FieldEngine, stepIndex: number
 
     engine.hintSkipToEnd();
 
-    while (engine.getSnapshot().hintPageIndex > 0) {
-        if (engine.getSnapshot().stepIndex === stepIndex) {
-            counts.unshift(engine.getSnapshot().revealedImplicationCount);
+    for (let pageIndex = engine.getSnapshot().hintPageIndex; pageIndex >= 0; pageIndex -= 1) {
+        const snapshot = engine.getSnapshot();
+
+        if (snapshot.hintLevel === HintLevelEnum.WALKTHROUGH && snapshot.stepIndex === stepIndex) {
+            counts.unshift(snapshot.revealedImplicationCount);
         }
 
         engine.hintBack();
@@ -207,9 +212,11 @@ describe('hint pages', () => {
 
             engine.startStepScript(script);
 
-            while (engine.getSnapshot().stepIndex < branchIndex) {
+            while (engine.getSnapshot().stepIndex <= branchIndex) {
                 engine.stepScriptNext();
             }
+
+            engine.stepScriptBack();
 
             assert.deepInclude(engine.getSnapshot(), {
                 stepIndex: branchIndex,

@@ -32,6 +32,8 @@ const hiddenSingleBoard = [
     '100400000'
 ].join('');
 
+const forcingHintIndex = 11;
+
 const fieldCells = new FieldEngine({ sudokuString: nakedPairBoard, difficulty: DifficultyEnum.Newbie }).Sudoku.Field;
 
 const createCell = (y: number, x: number): CellInterface => fieldCells[y][x];
@@ -150,7 +152,7 @@ describe('getHintRegion', () => {
                 difficulty: DifficultyEnum.Medium
             });
 
-            for (let hintIndex = 0; hintIndex < 8; hintIndex += 1) {
+            for (let hintIndex = 0; hintIndex < forcingHintIndex; hintIndex += 1) {
                 const script = findHintStepScript(engine.Sudoku, engine.getSnapshot().eliminatedCandidates);
 
                 assert(script !== null, 'Expected a progressing hint');

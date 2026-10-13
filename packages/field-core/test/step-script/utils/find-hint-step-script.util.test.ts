@@ -9,6 +9,7 @@ import { FieldEngine } from '../../../src/field-engine/classes/field-engine';
 import { StepScriptStepKindEnum } from '../../../src/step-script/enums/step-script-step-kind.enum';
 import { findHintStepScript, findRevealStepScript } from '../../../src/step-script/utils/find-hint-step-script.util';
 
+import type { FieldCandidatesType } from '../../../src/field-engine/types/field-candidates.type';
 import type { StepScriptInterface } from '../../../src/step-script/interfaces/step-script.interface';
 
 const pointingPairBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
@@ -19,13 +20,16 @@ const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.....
 const pointingPairDetourBoard = '..6....9...45....8.27....4..4..7..6.......8.......2...4156...8.2.9...41.3.8.4...5';
 const aicDetourBoard = '..31...5..4...5...75.2....13..5..71..8..6............9.....4..6.2..5.9..9..7...8.';
 const revealTargetBoard = '001004800302000045540003090800040300000905410400006002030008600050370000100460000';
+const continuedEliminations: Partial<Record<SolutionTechniqueEnum, FieldCandidatesType>> = {
+    [SolutionTechniqueEnum.XChain]: { '4-1': [8], '4-5': [8], '4-6': [6, 9] }
+};
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 
 const createEngine = (sudokuString: string, showAutoCandidates = false): FieldEngine =>
     new FieldEngine({ sudokuString, difficulty: DifficultyEnum.Medium, showAutoCandidates });
 
 const requireScript = (engine: FieldEngine): StepScriptInterface => {
-    const script = findHintStepScript(engine.Sudoku);
+    const script = findHintStepScript(engine.Sudoku, engine.getSnapshot().eliminatedCandidates);
 
     if (script === null) {
         throw new Error('Expected a hint step script');
@@ -63,7 +67,7 @@ describe('findHintStepScript', () => {
         });
     });
 
-    it('searches past irrelevant eliminations to the naked quad that enables the first placement', () => {
+    it('searches past irrelevant eliminations to the hidden pair that enables the first placement', () => {
         expect.assertions(2);
 
         const script = requireScript(createEngine(columnQuadBoard));
@@ -71,8 +75,8 @@ describe('findHintStepScript', () => {
         expect(script.steps.map(step => [step.kind, step.narration.technique])).toEqual([
             [StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.PointingPair],
             [StepScriptStepKindEnum.StrikeCandidates, SolutionTechniqueEnum.PointingPair],
-            [StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.NakedQuad],
-            [StepScriptStepKindEnum.StrikeCandidates, SolutionTechniqueEnum.NakedQuad],
+            [StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.HiddenPair],
+            [StepScriptStepKindEnum.StrikeCandidates, SolutionTechniqueEnum.HiddenPair],
             [StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.HiddenSingle],
             [StepScriptStepKindEnum.PlaceValue, SolutionTechniqueEnum.HiddenSingle]
         ]);
@@ -89,7 +93,9 @@ describe('findHintStepScript', () => {
         const engine = createEngine(columnQuadBoard);
         const hintTechniques: SolutionTechniqueEnum[] = [];
 
-        for (let script = findHintStepScript(engine.Sudoku); script !== null; script = findHintStepScript(engine.Sudoku)) {
+        const findNextHint = (): StepScriptInterface | null => findHintStepScript(engine.Sudoku, engine.getSnapshot().eliminatedCandidates);
+
+        for (let script = findNextHint(); script !== null; script = findNextHint()) {
             hintTechniques.push(...script.steps.map(step => step.narration.technique));
             engine.startStepScript(script);
             engine.applyStepScript();
@@ -194,43 +200,21 @@ describe('findHintStepScript', () => {
         });
     });
 
-    it('leads to a digit instead of a dead-end pointing pair when the first placement needs a forcing chain', () => {
-        expect.assertions(4);
-
-        const engine = createEngine(pointingPairDetourBoard);
-        const script = requireScript(engine);
-
-        expect(script.technique).toBe(SolutionTechniqueEnum.NishioForcingChain);
-        expect(script.eliminations.map(({ cell, value }) => `${cell.y}-${cell.x}=${value}`)).toEqual(['0-3=4']);
-        expect(script.steps.at(-1)?.narration.technique).toBe(SolutionTechniqueEnum.HiddenSingle);
-        expect(script.placement && { y: script.placement.cell.y, x: script.placement.cell.x, value: script.placement.value }).toEqual({
-            y: 0,
-            x: 5,
-            value: engine.Sudoku.getCorrectValue(engine.Sudoku.Field[0][5])
-        });
-    });
-
-    it('ends the first hint of the reported AIC board in a digit instead of a lone pointing pair', () => {
+    it.each([
+        ['the forcing-chain detour board', pointingPairDetourBoard],
+        ['the reported AIC board', aicDetourBoard]
+    ])('teaches the lone pointing pair on %s instead of a far harder route to a digit', (_label, board) => {
         expect.assertions(3);
 
-        const engine = createEngine(aicDetourBoard);
+        const engine = createEngine(board);
         const script = requireScript(engine);
 
-        expect(script.steps.map(step => step.narration.technique)).toEqual([
-            SolutionTechniqueEnum.PointingPair,
-            SolutionTechniqueEnum.PointingPair,
-            SolutionTechniqueEnum.NishioForcingChain,
-            SolutionTechniqueEnum.NishioForcingChain,
-            SolutionTechniqueEnum.NishioForcingChain,
-            SolutionTechniqueEnum.HiddenSingle,
-            SolutionTechniqueEnum.HiddenSingle
+        expect(script.steps.map(step => [step.kind, step.narration.technique])).toEqual([
+            [StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.PointingPair],
+            [StepScriptStepKindEnum.StrikeCandidates, SolutionTechniqueEnum.PointingPair]
         ]);
-        expect(script.eliminations.map(({ cell, value }) => `${cell.y}-${cell.x}=${value}`)).toEqual(['3-4=4', '5-4=4', '3-8=8']);
-        expect(script.placement && { y: script.placement.cell.y, x: script.placement.cell.x, value: script.placement.value }).toEqual({
-            y: 5,
-            x: 6,
-            value: engine.Sudoku.getCorrectValue(engine.Sudoku.Field[5][6])
-        });
+        expect(script.placement).toBeUndefined();
+        expect(script.eliminations.every(({ cell, value }) => engine.Sudoku.getCorrectValue(cell) !== value)).toBe(true);
     });
 
     it('teaches the first elimination when the placement chain exceeds its budget and advances after applying it', () => {
@@ -330,11 +314,11 @@ describe('findHintStepScript', () => {
         [SolutionTechniqueEnum.BoxLineReduction, '289..5731.6.9..845..518.629...2.9154592814367..475.298.5...89..9.....5...2759.4.6'],
         [SolutionTechniqueEnum.NakedPair, '72589146349863572136124795884...6.7.51672.8.4.7..8.6..68.9..5...54....8..3...8...'],
         [SolutionTechniqueEnum.NakedTriple, '8.4..926..7...2...9..68..475.9..74..4...9...37..2..9..2.793.854..5..8............'],
-        [SolutionTechniqueEnum.NakedQuad, '39.6.......7.......6..9.12......5....2..1..6....4.6....85.6.791......4.......7.32'],
+        [SolutionTechniqueEnum.NakedQuad, '12.4..6....61..2.3.8.2..4.12..6785.4...9........5..76...27.....597814326...3..9..'],
         [SolutionTechniqueEnum.HiddenPair, '3....4..6....2..7..658....113.5..9..6..291.....9.........9..7.484..........46..32'],
         [SolutionTechniqueEnum.HiddenTriple, '165.32...7.9..1..34........6.....2..2....5.84..7...1..8...6...7.1...85.2.7.....4.'],
         [SolutionTechniqueEnum.XWing, '867945123913682745452317....294.35811358.9..4.48.51.3.376198452594..6.1.2815.4..6'],
-        [SolutionTechniqueEnum.Swordfish, '9143..5..65..1..343.7..4..12.9...4..46..9....5.1846..28..7..2.979.48..5.1.5..9..7'],
+        [SolutionTechniqueEnum.Swordfish, '53.7..9......3..7...8..5..36.31794...8..2..9...9..8.31...4..3...6..9..4...2..6..9'],
         [SolutionTechniqueEnum.FinnedXWing, '5132948764.96.51322..31.94593..2.48112.4.93677.413.529342..1698857963214691842753'],
         [SolutionTechniqueEnum.FinnedSwordfish, '8724596311.4683.72.6372148.2168347....9217368738596124.81362..76279458133.51782.6'],
         [SolutionTechniqueEnum.SashimiXWing, '1234567..457189236689273451231.956.4..634152..4562.9133.85641.2562.1.34..14.32865'],
@@ -342,14 +326,18 @@ describe('findHintStepScript', () => {
         [SolutionTechniqueEnum.XYWing, '724581396953762814186..4752569423178..18.926.2.81.694..12..85378.5.17.29.972.5.81'],
         [SolutionTechniqueEnum.XYZWing, '812756943569348721347.....64.6..7.3.2.1....747534.21.9.7...439.934.75.18.2.9..4.7'],
         [SolutionTechniqueEnum.WWing, '361849275294.5.816785126934.42..17.8.18...3..67329845143691258785.6..1..12..856.3'],
-        [SolutionTechniqueEnum.XChain, '324875691891..67..576...38..6..5.81....6.892.2.8.97.636...832.94...6...8.8.7....6'],
-        [SolutionTechniqueEnum.XYChain, '152489..3864731952.7.652481.173..5..5.......7..8527..9..1945...486.73.95..5...3.4'],
-        [SolutionTechniqueEnum.AIC, '4695713828.7.2.4.12.1.....798..1.....42.6..1917.9.28.3.1..9..3.79..8...6.2.......'],
+        [SolutionTechniqueEnum.XChain, '2.5..4.13...3.1.521.325..4..31.2.4.55.413.....2...53.1..6572139712..3586359816..4'],
+        [SolutionTechniqueEnum.XYChain, '583162794.127.98.579.5.821.865473921.2.69548.9..8215....8956172259317648.7.284359'],
+        [SolutionTechniqueEnum.AIC, '1423....5853.4....9765.1...4....389..2.91...3.....4..6......5.9.....5.1.5.7.3...8'],
         [SolutionTechniqueEnum.NishioForcingChain, '.62....4545.6...12.13245....2.153.6464...253113546....571384...3947261582865..473']
     ])('includes technique %i in a hint that places the solution digit', (technique, board) => {
         expect.assertions(5);
 
-        const engine = createEngine(board);
+        const engine = new FieldEngine({
+            sudokuString: board,
+            difficulty: DifficultyEnum.Medium,
+            eliminatedCandidates: continuedEliminations[technique] ?? {}
+        });
         const script = requireScript(engine);
         const placement = script.placement ?? { cell: engine.Sudoku.Field[0][0], value: 0 };
         const solutionValue = engine.Sudoku.getCorrectValue(placement.cell);
