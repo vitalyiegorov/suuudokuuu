@@ -9,6 +9,7 @@ import { isDefined } from '@rnw-community/shared';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { GameContext } from '../../context/game.context';
 import { gameGetStepNarration } from '../../utils/game-get-step-narration.util';
 import { HintChainBlocks } from '../hint-chain-blocks/hint-chain-blocks';
 import { HintChainSentence } from '../hint-chain-sentence/hint-chain-sentence';
@@ -27,10 +28,11 @@ interface Props {
 export const HintStepNarration = ({ step, revealedImplicationCount, value }: Props) => {
     const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
+    const { snapshot } = use(GameContext);
     const narrationScrollRef = useRef<ScrollViewInstance>(null);
     const techniqueName =
         step.narration.technique === SolutionTechniqueEnum.Guess ? t`Reveal` : i18n._(techniqueLabelsConstant[step.narration.technique]);
-    const narrationText = i18n._(gameGetStepNarration(step, techniqueName));
+    const narrationText = i18n._(gameGetStepNarration(step, techniqueName, snapshot.stepScript?.steps));
     const narrationStyles = [styles.narration, { color: theme.colors.surface.raisedText }];
     const chipStyles = [styles.chip, { backgroundColor: theme.colors.ink }];
     const chipTextStyles = [styles.chipText, { color: theme.colors.inkText }];
