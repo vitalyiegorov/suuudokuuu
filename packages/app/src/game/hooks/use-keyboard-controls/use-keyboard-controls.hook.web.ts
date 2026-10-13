@@ -52,6 +52,15 @@ export const useKeyboardControls = (
             const { key, code, shiftKey } = e;
             const sudoku = engine.Sudoku;
 
+            if (isDefined(engine.getSnapshot().stepScript)) {
+                if (key === 'Escape') {
+                    e.preventDefault();
+                    engine.stopStepScript();
+                }
+
+                return;
+            }
+
             if (ARROW_KEYS.includes(key)) {
                 e.preventDefault();
                 onSelectCell(gameGetArrowTargetCell(sudoku, selectedCell ?? sudoku.Field[0][0], key));

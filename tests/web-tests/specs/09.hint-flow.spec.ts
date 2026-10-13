@@ -592,3 +592,45 @@ test('keeps the open hint on the same page across pause and resume without charg
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(narrationBefore ?? '');
     await expect(score).toHaveText(scoreBefore ?? '');
 });
+
+test('ignores board keys while a hint is open and closes the hint with Escape', async ({ page }) => {
+    await openSharedHintPuzzle(page, pointingPairHintSharedPuzzleEncodedConstant);
+
+    const hintPanel = page.getByTestId(HintPanelSelectors.Root);
+    const placedCell = page.getByTestId(cellTestId(2, 1));
+    const dialogMessages: string[] = [];
+
+    page.on('dialog', dialog => {
+        dialogMessages.push(dialog.message());
+        void dialog.dismiss();
+    });
+
+    await placedCell.click();
+    await page.keyboard.press('4');
+    await expect(placedCell).toHaveAttribute('aria-label', 'Row 3, column 2, 4');
+
+    const [blankCellTestId = ''] = [...(await readCellLabels(page))].find(([, label]) => label?.endsWith(', empty') ?? false) ?? [];
+    const blankCell = page.getByTestId(blankCellTestId);
+
+    await blankCell.click();
+    await page.getByTestId(HintButtonSelectors.Root).click();
+    await expect(hintPanel).toBeVisible();
+    await expect(blankCell).toHaveAttribute('aria-selected', 'true');
+
+    const labelsBefore = await readCellLabels(page);
+
+    for (const digit of ['1', '2', '3', '4', '5', '6', '7', '8', '9']) {
+        await page.keyboard.press(digit);
+    }
+
+    await page.keyboard.press('Control+z');
+    expect(await findChangedCellLabels(page, labelsBefore)).toEqual([]);
+    await expect(hintPanel).toBeVisible();
+
+    await page.keyboard.press('Escape');
+    await expect(hintPanel).not.toBeVisible();
+    expect(dialogMessages).toEqual([]);
+
+    await page.keyboard.press('Control+z');
+    await expect(placedCell).toHaveAttribute('aria-label', 'Row 3, column 2, empty');
+});

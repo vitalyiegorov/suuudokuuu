@@ -108,7 +108,7 @@ export const GameScreen = () => {
     const handleSelectValue = (value: number) => {
         const targetCell = snapshot.selectedCell;
 
-        if (!engine.Sudoku.isBlankCell(targetCell)) {
+        if (isDefined(snapshot.stepScript) || !engine.Sudoku.isBlankCell(targetCell)) {
             return;
         }
 

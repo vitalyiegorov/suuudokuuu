@@ -1,3 +1,5 @@
+import { isDefined } from '@rnw-community/shared';
+
 import { KeyboardInput } from '../../components/keyboard-input/keyboard-input';
 import { gameToggleInputMode } from '../../utils/game-toggle-input-mode.util';
 
@@ -18,6 +20,14 @@ export const useKeyboardControls = (
 ) => {
     const handleKeyPress = (event: NativeSyntheticEvent<{ readonly key: string }>) => {
         const action = keyboardKeyToAction(event.nativeEvent.key, engine.Sudoku, selectedCell);
+
+        if (isDefined(engine.getSnapshot().stepScript)) {
+            if (action.type === 'exit') {
+                engine.stopStepScript();
+            }
+
+            return;
+        }
 
         if (action.type === 'select-cell') {
             onSelectCell(action.cell);
