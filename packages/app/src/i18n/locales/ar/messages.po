@@ -100,6 +100,10 @@ msgstr "{score, plural, zero {# نقطة} one {# نقطة} two {# نقطتان} 
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, zero {تتابع # يوم} one {تتابع # يوم} two {تتابع # يومين} few {تتابع # أيام} many {تتابع # يومًا} other {تتابع # يوم}}"
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
+msgstr "{techniqueName}: الخلية {cellName} ترى كل الأرقام المحددة ما عدا رقماً واحداً."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
 msgstr "{techniqueName}: يجب أن يقع {valueList} في خطوط الأساس، لذا تفقده خطوط التغطية في الخلايا المعلمة."
@@ -107,6 +111,10 @@ msgstr "{techniqueName}: يجب أن يقع {valueList} في خطوط الأسا
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
 msgstr "{techniqueName}: إحدى خليتي الكماشة هي دائماً {valueList}، لذا لا يمكن أن تكون الخلايا المعلمة التي ترى الخليتين معاً {valueList}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
+msgstr "{techniqueName}: افترض أن {cellName} هي {value} وتتبّع ما يفرضه ذلك."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
@@ -140,13 +148,25 @@ msgstr "{techniqueName}: في الصف {rowNumber}، لا يمكن لـ {valueLi
 msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
 msgstr "{techniqueName}: في خطوط الأساس المحددة، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، لذا فهو محصور في خطوط التغطية."
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in the highlighted box, {value} fits in only one cell."
+msgstr "{techniqueName}: في المربع المحدد، لا يمكن لـ {value} أن يوضع إلا في خلية واحدة."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
 msgstr "{techniqueName}: في المربع المحدد، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits in only one cell."
+msgstr "{techniqueName}: في العمود المحدد، لا يمكن لـ {value} أن يوضع إلا في خلية واحدة."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
 msgstr "{techniqueName}: في العمود المحدد، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits in only one cell."
+msgstr "{techniqueName}: في الصف المحدد، لا يمكن لـ {value} أن يوضع إلا في خلية واحدة."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
@@ -168,6 +188,10 @@ msgstr "{techniqueName}: أحد طرفي السلسلة صحيح دائماً، 
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: بقي في المربع المحدد خلية فارغة واحدة، لذا توضع {value} هناك."
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left."
+msgstr "{techniqueName}: بقي في المربع المحدد خلية فارغة واحدة."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
 msgstr "{techniqueName}: تشكل الخلايا المحددة سلسلة، لذا فإما {firstEnd} صحيح أو {lastEnd} صحيح."
@@ -176,9 +200,9 @@ msgstr "{techniqueName}: تشكل الخلايا المحددة سلسلة، ل�
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
 msgstr "{techniqueName}: تحتوي الخلايا المحددة على عدد من الأرقام يساوي عدد الخلايا تماماً، لذا لا يمكن أن يوضع {valueList} إلا في هذه الخلايا."
 
-#: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "{techniqueName}: the highlighted cells hold the pattern."
-msgstr "{techniqueName}: الخلايا المميزة تحتوي على النمط."
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave {value} only one place."
+msgstr "{techniqueName}: الخلايا المحددة لا تترك لـ {value} إلا مكاناً واحداً."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -200,9 +224,17 @@ msgstr "{techniqueName}: ستترك الخلايا المحددة نمطاً ق�
 msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: بقي في العمود المحدد خلية فارغة واحدة، لذا توضع {value} هناك."
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left."
+msgstr "{techniqueName}: بقي في العمود المحدد خلية فارغة واحدة."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: بقي في الصف المحدد خلية فارغة واحدة، لذا توضع {value} هناك."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left."
+msgstr "{techniqueName}: بقي في الصف المحدد خلية فارغة واحدة."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
@@ -219,6 +251,10 @@ msgstr "{techniqueName}: هذه الخلايا محجوزة لتلك المجم�
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
 msgstr "{techniqueName}: لتجنب النمط القاتل، يُستبعد {valueList} من الخلايا المعلمة."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
+msgstr "{techniqueName}: جرّب كل احتمال محدد بدوره وتتبّع ما يفرضه."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
@@ -1196,6 +1232,7 @@ msgid "Look for {techniqueName} in row {regionNumber}."
 msgstr "ابحث عن {techniqueName} في الصف {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
+#: src/game/utils/game-get-pattern-narration.util.ts
 msgid "Look for {techniqueName}."
 msgstr "ابحث عن {techniqueName}."
 

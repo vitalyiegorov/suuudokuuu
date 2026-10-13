@@ -80,7 +80,7 @@ export const HintPanel = ({ controlsTop }: Props) => {
                     {hintLevel === HintLevelEnum.WALKTHROUGH ? (
                         <HintStepNarration revealedImplicationCount={revealedImplicationCount} step={currentStep} value={placementValue} />
                     ) : (
-                        <HintLevelNarration hintLevel={hintLevel} hintRegion={hintRegion} technique={stepScript.technique} />
+                        <HintLevelNarration hintLevel={hintLevel} hintRegion={hintRegion} stepScript={stepScript} />
                     )}
                     {isLastPage ? null : <HintPanelShowAnswer />}
                 </Animated.View>

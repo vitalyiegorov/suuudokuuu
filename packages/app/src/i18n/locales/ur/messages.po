@@ -100,6 +100,10 @@ msgstr "{score, plural, one {# پوائنٹ} other {# پوائنٹس}}"
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {# دن کا تسلسل} other {# دن کا تسلسل}}"
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
+msgstr "{techniqueName}: {cellName} ایک کے سوا تمام نمایاں ہندسے دیکھتا ہے۔"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
 msgstr "{techniqueName}: {valueList} کو بنیادی لائنوں میں ہی ہونا ہے، اس لیے کور لائنیں معلم خانوں میں اسے کھو دیتی ہیں۔"
@@ -107,6 +111,10 @@ msgstr "{techniqueName}: {valueList} کو بنیادی لائنوں میں ہی 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
 msgstr "{techniqueName}: ایک پنسر خانہ ہمیشہ {valueList} ہوتا ہے، اس لیے دونوں پنسر کو دیکھنے والے معلم خانے {valueList} نہیں ہو سکتے۔"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
+msgstr "{techniqueName}: فرض کریں کہ {cellName} میں {value} ہے اور دیکھیں کہ اس سے کیا کیا لازم آتا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
@@ -140,13 +148,25 @@ msgstr "{techniqueName}: قطار {rowNumber} میں، {valueList} صرف نما
 msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
 msgstr "{techniqueName}: نمایاں کردہ بنیادی لائنوں میں {valueList} صرف نمایاں خانوں میں آ سکتا ہے، اس لیے وہ کور لائنوں میں بند ہو جاتا ہے۔"
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in the highlighted box, {value} fits in only one cell."
+msgstr "{techniqueName}: نمایاں کردہ باکس میں، {value} صرف ایک خانے میں ہی آ سکتا ہے۔"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
 msgstr "{techniqueName}: نمایاں کردہ باکس میں، {value} صرف معلم خانے میں ہی آ سکتا ہے۔"
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in the highlighted column, {value} fits in only one cell."
+msgstr "{techniqueName}: نمایاں کردہ کالم میں، {value} صرف ایک خانے میں ہی آ سکتا ہے۔"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
 msgstr "{techniqueName}: نمایاں کردہ کالم میں، {value} صرف معلم خانے میں ہی آ سکتا ہے۔"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in the highlighted row, {value} fits in only one cell."
+msgstr "{techniqueName}: نمایاں کردہ قطار میں، {value} صرف ایک خانے میں ہی آ سکتا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
@@ -168,6 +188,10 @@ msgstr "{techniqueName}: زنجیر کا ایک سرا ہمیشہ درست ہو�
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: نمایاں کردہ باکس میں صرف ایک خالی خانہ بچا ہے، اس لیے {value} وہیں جائے گا۔"
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: the highlighted box has one empty cell left."
+msgstr "{techniqueName}: نمایاں کردہ باکس میں صرف ایک خالی خانہ بچا ہے۔"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
 msgstr "{techniqueName}: نمایاں کردہ خانے ایک زنجیر بناتے ہیں، اس لیے {firstEnd} یا {lastEnd} درست ہے۔"
@@ -176,9 +200,9 @@ msgstr "{techniqueName}: نمایاں کردہ خانے ایک زنجیر بنا
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
 msgstr "{techniqueName}: نمایاں خانوں میں بالکل اتنے ہی ہندسے ہیں جتنے خانے ہیں، اس لیے {valueList} صرف انہی خانوں میں آ سکتا ہے۔"
 
-#: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "{techniqueName}: the highlighted cells hold the pattern."
-msgstr "{techniqueName}: نمایاں خانوں میں پیٹرن موجود ہے۔"
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave {value} only one place."
+msgstr "{techniqueName}: نمایاں کردہ خانے {value} کے لیے صرف ایک جگہ چھوڑتے ہیں۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -200,9 +224,17 @@ msgstr "{techniqueName}: نمایاں کردہ خانے {valueList} کا ایک 
 msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: نمایاں کردہ کالم میں صرف ایک خالی خانہ بچا ہے، اس لیے {value} وہیں جائے گا۔"
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: the highlighted column has one empty cell left."
+msgstr "{techniqueName}: نمایاں کردہ کالم میں صرف ایک خالی خانہ بچا ہے۔"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: نمایاں کردہ قطار میں صرف ایک خالی خانہ بچا ہے، اس لیے {value} وہیں جائے گا۔"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: the highlighted row has one empty cell left."
+msgstr "{techniqueName}: نمایاں کردہ قطار میں صرف ایک خالی خانہ بچا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
@@ -219,6 +251,10 @@ msgstr "{techniqueName}: یہ خانے ہندسوں کے اسی مجموعے ک�
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
 msgstr "{techniqueName}: مہلک نمونے سے بچنے کے لیے معلم خانوں سے {valueList} خارج کر دیا جاتا ہے۔"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
+msgstr "{techniqueName}: ہر نمایاں امکان کو باری باری آزمائیں اور دیکھیں کہ اس سے کیا کیا لازم آتا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
@@ -1196,6 +1232,7 @@ msgid "Look for {techniqueName} in row {regionNumber}."
 msgstr "{techniqueName} کو قطار {regionNumber} میں تلاش کریں۔"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
+#: src/game/utils/game-get-pattern-narration.util.ts
 msgid "Look for {techniqueName}."
 msgstr "{techniqueName} تلاش کریں۔"
 

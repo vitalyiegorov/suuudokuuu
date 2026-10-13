@@ -8,29 +8,29 @@ import { isDefined } from '@rnw-community/shared';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { gameGetPatternNarration } from '../../utils/game-get-pattern-narration.util';
 import { HintStepNarrationSelectors } from '../hint-step-narration/hint-step-narration.selectors';
 import { HintStepNarrationStyles as styles } from '../hint-step-narration/hint-step-narration.styles';
 
-import type { HintRegionInterface } from '@suuudokuuu/field-core';
-import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import type { HintRegionInterface, StepScriptInterface } from '@suuudokuuu/field-core';
 
 interface Props {
     readonly hintLevel: HintLevelEnum;
     readonly hintRegion: HintRegionInterface | null;
-    readonly technique: SolutionTechniqueEnum;
+    readonly stepScript: StepScriptInterface;
 }
 
-export const HintLevelNarration = ({ hintLevel, hintRegion, technique }: Props) => {
+export const HintLevelNarration = ({ hintLevel, hintRegion, stepScript }: Props) => {
     const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const techniqueName = i18n._(techniqueLabelsConstant[technique]);
+    const techniqueName = i18n._(techniqueLabelsConstant[stepScript.technique]);
     const regionNumber = hintRegion?.number;
     const regionCell = hintRegion?.cell;
 
     const getNarrationText = () => {
         if (hintLevel === HintLevelEnum.PATTERN) {
-            return t`${techniqueName}: the highlighted cells hold the pattern.`;
+            return i18n._(gameGetPatternNarration(stepScript, hintRegion, techniqueName));
         }
 
         if (hintRegion?.kind === HintRegionKindEnum.ROW) {
