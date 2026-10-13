@@ -1,0 +1,13 @@
+export enum NarrationFamilyEnum {
+    FISH = 'FISH',
+    WING = 'WING',
+    CHAIN = 'CHAIN',
+    COLORING = 'COLORING',
+    UNIQUE_RECTANGLE = 'UNIQUE_RECTANGLE',
+    BUG = 'BUG',
+    FORCING_CHAIN = 'FORCING_CHAIN',
+    POINTING = 'POINTING',
+    BOX_LINE = 'BOX_LINE',
+    HIDDEN_SUBSET = 'HIDDEN_SUBSET',
+    LOCKED_SET = 'LOCKED_SET'
+}

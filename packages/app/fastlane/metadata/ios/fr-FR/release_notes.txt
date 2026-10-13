@@ -1,9 +1,8 @@
-De nouveaux écrans Paramètres, Statistiques et Défi du jour, et des indices sur lesquels vous pouvez toujours compter.
+Des indices qui enseignent pas à pas, des nouvelles parties plus rapides et un jeu au clavier plus fluide.
 
-• Les Paramètres sont regroupés en sections claires, avec un nouvel interrupteur fluide identique sur tous les appareils.
-• Les Statistiques s'ouvrent sur votre progression présentée dans un bloc de sudoku, suivie d'une échelle de difficulté avec votre taux de victoires à chaque niveau.
-• Le Défi du jour affiche votre semaine en un coup d'œil, votre série et vos résolutions récentes. Une fois la grille du jour résolue, un compte à rebours indique l'arrivée de la suivante, et vous pouvez partager votre résultat.
-• Les indices fonctionnent désormais de façon fiable, même en fin de partie sur les grilles les plus difficiles.
-• Les explications des indices précisent mieux quels chiffres sont confinés aux cases surlignées.
-• La série, le compte à rebours et les points changent immédiatement de langue quand vous en changez.
-• Petites finitions : le chargement des boutons de départ Enfer et Infini a la bonne couleur, le taux de victoires tient sur une ligne, le niveau de la relecture est visible en mode sombre, les noms d'onglets longs tiennent désormais dans la barre d'onglets, et celle-ci reste en place pendant le défilement.
+• Les indices s'ouvrent désormais en quatre étapes : d'abord la technique et où regarder, puis les cases clés, ensuite une démonstration guidée, et seulement après le coup lui-même. Chaque étape coûte un quart d'un indice complet : vous ne payez que l'aide que vous utilisez.
+• Les indices vont droit au prochain chiffre que vous pouvez placer. Les indices de paires pointantes, de bloc-ligne et de sous-ensembles nomment maintenant le bloc, la ligne ou la colonne exacts et les cases qu'ils libèrent.
+• Continuer et Révéler fonctionnent sur chaque diapositive d'un indice.
+• Les nouvelles grilles sont générées en arrière-plan : lancer même la partie la plus difficile ne fige plus l'application.
+• Jouer avec un clavier physique sur iPhone et iPad ne sollicite plus inutilement le processeur.
+• Les liens depuis l'App Store et notre site web ouvrent l'application avec une difficulté adaptée, prête à démarrer.

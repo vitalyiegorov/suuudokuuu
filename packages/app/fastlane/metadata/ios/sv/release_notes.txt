@@ -1,9 +1,8 @@
-Nya skärmar för Inställningar, Statistik och Dagens utmaning – och ledtrådar du alltid kan lita på.
+Ledtrådar som lär ut steg för steg, snabbare nya spel och smidigare spelande med tangentbord.
 
-• Inställningarna är samlade i tydliga sektioner, med ett nytt mjukt reglage som ser likadant ut på alla enheter.
-• Statistiken börjar med din utveckling i ett sudokublock, följt av en svårighetsstege med din vinstgrad på varje nivå.
-• Dagens utmaning visar din vecka i en överblick, din svit och dina senaste lösningar. När dagens pussel är löst visar en nedräkning när nästa kommer, och du kan dela ditt resultat.
-• Ledtrådar fungerar nu pålitligt, även sent i de svåraste partierna.
-• Ledtrådarnas förklaringar säger tydligare vilka siffror som är låsta till de markerade cellerna.
-• Svit, nedräkning och poäng uppdateras direkt när du byter språk.
-• Småputs: startknapparna för Helvete och Oändlighet visar laddningen i rätt färg, vinstgraden håller sig på en rad, nivån i reprisen syns i mörkt läge, långa fliknamn får nu plats i flikfältet, och fältet ligger kvar när du skrollar.
+• Ledtrådar öppnas nu i fyra steg: först tekniken och var du ska titta, sedan nyckelcellerna, sedan en guidad genomgång och först därefter själva draget. Varje steg kostar en fjärdedel av en hel ledtråd, så du betalar bara för den hjälp du använder.
+• Ledtrådarna går rakt på nästa siffra du kan placera. Ledtrådar för pekande par, ruta–linje och delmängder nämner nu exakt vilken 3×3-ruta, rad eller kolumn det gäller och vilka celler de rensar.
+• Fortsätt och Avslöja fungerar på varje bild i en ledtråd.
+• Nya pussel skapas i bakgrunden, så att starta även det svåraste spelet fryser inte längre appen.
+• Att spela med externt tangentbord på iPhone och iPad håller inte längre processorn sysselsatt.
+• Länkar från App Store och vår webbplats öppnar appen med en matchande svårighetsgrad redo att starta.

@@ -1,9 +1,8 @@
-Nuevas pantallas de Ajustes, Estadísticas y Reto diario, y sugerencias con las que siempre puedes contar.
+Sugerencias que enseñan paso a paso, partidas nuevas más rápidas y un juego con teclado más fluido.
 
-• Los Ajustes se agrupan en secciones claras, con un nuevo interruptor suave que se ve igual en cualquier dispositivo.
-• Las Estadísticas empiezan con tu progreso en un bloque de sudoku, seguido de una escalera de dificultad con tu porcentaje de victorias en cada nivel.
-• El Reto diario muestra tu semana de un vistazo, tu racha y tus soluciones recientes. Cuando resuelves el sudoku de hoy, una cuenta atrás te indica cuándo llega el siguiente y puedes compartir tu resultado.
-• Las sugerencias ahora funcionan con fiabilidad incluso al final de las partidas más difíciles.
-• Las explicaciones de las sugerencias indican con más claridad qué dígitos quedan confinados a las celdas destacadas.
-• La racha, la cuenta atrás y los puntos se actualizan al instante cuando cambias de idioma.
-• Pequeños retoques: los botones de inicio de Infierno e Infinito muestran la carga en el color correcto, el porcentaje de victorias cabe en una línea, el nivel de la repetición se ve en modo oscuro, los nombres largos de las pestañas ya caben en la barra de pestañas y la barra se queda fija al desplazarte.
+• Las sugerencias ahora se abren en cuatro pasos: primero la técnica y dónde mirar, luego las celdas clave, después un recorrido guiado y, solo al final, la jugada. Cada paso cuesta una cuarta parte de una sugerencia completa, así que solo pagas la ayuda que usas.
+• Las sugerencias van directas al siguiente dígito que puedes colocar. Las de pares apuntadores, región-línea y subconjuntos ahora indican la región, fila o columna exacta y las celdas que despejan.
+• Continuar y Revelar funcionan en todas las diapositivas de una sugerencia.
+• Los puzles nuevos se generan en segundo plano, así que empezar incluso la partida más difícil ya no congela la aplicación.
+• Jugar con un teclado físico en iPhone y iPad ya no mantiene el procesador ocupado.
+• Los enlaces de la App Store y de nuestra web abren la aplicación con una dificultad adecuada lista para empezar.

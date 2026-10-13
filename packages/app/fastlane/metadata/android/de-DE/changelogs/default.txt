@@ -1,7 +1,5 @@
-Neue Einstellungen, Statistik und Tägliche Herausforderung.
-Einstellungen: klare Abschnitte und ein neuer, weicher Schalter.
-Statistik: Sudoku-Block-Übersicht und Schwierigkeitsleiter mit Gewinnrate.
-Täglich: Wochenleiste, Serie, letzte Lösungen, Countdown und Teilen.
-Hinweise funktionieren jetzt zuverlässig, auch spät in schweren Partien.
-Lange Tab-Namen passen jetzt in die Tableiste.
-Klarere Erklärungen, Serie und Countdown sofort in neuer Sprache, kleine Fixes.
+Hinweise öffnen sich jetzt in vier Schritten: Technik, Schlüsselzellen, Erklärung, dann der Zug. Jeder Schritt kostet ein Viertel eines vollen Hinweises.
+Hinweise steuern direkt die nächste Ziffer an und nennen den genauen Block, die Zeile oder Spalte.
+Fortsetzen und Aufdecken funktionieren auf jeder Hinweisfolie.
+Neue Rätsel entstehen im Hintergrund, schwere Partien starten ohne Einfrieren.
+Store- und Website-Links öffnen die App mit passender Schwierigkeit.

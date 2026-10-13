@@ -105,6 +105,10 @@ msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells
 msgstr "{techniqueName}: একটি পিনসার ঘর সবসময় {valueList}, তাই দুই পিনসারকেই দেখতে পাওয়া চিহ্নিত ঘরগুলো {valueList} হতে পারে না।"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: প্রতিটি চিহ্নিত ঘর হাইলাইট করা সব ঘর দেখতে পায়, তাই {cellList} {valueList} হতে পারে না।"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: বাকি প্রতিটি ফাঁকা ঘরে দুটি করে প্রার্থী আছে, তাই মারাত্মক প্যাটার্ন এড়াতে {value} চিহ্নিত ঘরে বসবে।"
 
@@ -119,6 +123,14 @@ msgstr "{techniqueName}: হাইলাইট করা ঘরগুলোর �
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
 msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো থেকে প্রতিটি সম্ভাবনা অনুসরণ করা হয় যতক্ষণ না তা বিরোধ বা একই ফলাফলে পৌঁছায়।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName}: কলাম {columnNumber}-এ, {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, আর সেগুলো সবই একটি বাক্সে।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName}: সারি {rowNumber}-এ, {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, আর সেগুলো সবই একটি বাক্সে।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
@@ -137,20 +149,28 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: হাইলাইট করা সারিতে, {value} শুধু চিহ্নিত ঘরেই বসতে পারে।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName}: শৃঙ্খলের একটি প্রান্ত সবসময় {valueList}, তাই দুই প্রান্তকেই দেখতে পাওয়া চিহ্নিত ঘরগুলো {valueList} হতে পারে না।"
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "{techniqueName}: এই বাক্সে, {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, আর সেগুলো সবই কলাম {columnNumber}-এ।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
-msgstr "{techniqueName}: {valueList} সংখ্যাগুলি হাইলাইট করা ঘরগুলিতে আটকে আছে, তাই অন্য ঘর থেকে সেগুলি বাদ যায়।"
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "{techniqueName}: এই বাক্সে, {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, আর সেগুলো সবই সারি {rowNumber}-এ।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: শৃঙ্খলের একটি প্রান্ত সবসময় সত্য, আর প্রতিটি চিহ্নিত সম্ভাব্য অঙ্ক দুই প্রান্তের সঙ্গেই সংঘাত করে, তাই {cellList} {valueList} হতে পারে না।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: হাইলাইট করা বাক্সে শুধু একটি খালি ঘর বাকি, তাই {value} সেখানেই বসবে।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
-msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো একটি শৃঙ্খল গঠন করে, তাই এর এক প্রান্ত অথবা অন্য প্রান্ত {valueList}।"
+msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো একটি শৃঙ্খল গঠন করে, তাই {firstEnd} অথবা {lastEnd} সত্য।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
+msgstr "{techniqueName}: হাইলাইট করা ঘরগুলোতে ঠিক যতগুলো ঘর ততগুলো অঙ্ক থাকে, তাই {valueList} এদের একটিতেই বসবে।"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."
@@ -189,8 +209,8 @@ msgid "{techniqueName}: the marked cells either see both colors or carry a color
 msgstr "{techniqueName}: চিহ্নিত ঘরগুলো হয় দুটি রঙই দেখে, নয়তো এমন একটি রঙ বহন করে যা নিজেকেই খণ্ডন করে, তাই সেগুলো {valueList} হতে পারে না।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
-msgstr "{techniqueName}: এই প্যাটার্ন চিহ্নিত ঘরগুলি থেকে {valueList} বাদ দেয়।"
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: ওই ঘরগুলো সেই অঙ্কগুলোর জন্য সংরক্ষিত, তাই {cellList} {valueList} হতে পারে না।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
@@ -199,6 +219,10 @@ msgstr "{techniqueName}: মারাত্মক প্যাটার্ন �
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
 msgstr "{techniqueName}: হাইলাইট করা পিভট ঘর যেভাবেই সমাধান হোক, তার একটি পিনসার ঘর {valueList} হয়ে যায়।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: within one row, column or box, {valueList} fit only in the highlighted cells, so those cells can hold nothing else."
+msgstr "{techniqueName}: একটি সারি, কলাম বা বাক্সের মধ্যে {valueList} শুধু হাইলাইট করা ঘরেই বসতে পারে, তাই ওই ঘরগুলোতে আর কিছু বসতে পারে না।"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"

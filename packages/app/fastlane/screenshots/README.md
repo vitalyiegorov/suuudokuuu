@@ -36,8 +36,10 @@ stays at the source capture resolution. Filenames sort into upload order.
 
 ## iPhone Duo sets
 
-Apple requires iPhone Duo screenshots at 1398×2034 and 2007×2853 from April
-2027, and `deliver` has no display type for them yet. Xcode ships no Duo
+Apple accepts iPhone Duo screenshots at 1398×2034 and 2007×2853. From April
+2027, apps built with the iOS 27.1 SDK or later need Duo screenshots; see
+[Apple's screenshot specifications](https://developer.apple.com/help/app-store-connect/reference/app-information/screenshot-specifications).
+`deliver` has no display type for them yet. Xcode ships no Duo
 simulator, so `compose-screenshots.sh <locale> duo` frames the 6.9" iPhone raws
 onto both canvases for the deployed variant only, into
 `variants/<variant>/iphone-duo/<size>/<locale>/`, outside the folder `deliver`
@@ -45,8 +47,28 @@ uploads. The device fills 93% of the canvas height so real UI stays above half
 of every image. `store_preflight` checks sizes, alpha, locales and filenames.
 
 Upload by hand until `deliver` supports the display type: in App Store Connect
-open the version, pick each locale, and add both size folders to the iPhone Duo
-slots. Move the sets into the `deliver` path once it gains the display type.
+open an editable version, pick the locale, select App Previews and Screenshots,
+then iPhone Duo. View All Sizes in Media Manager exposes the Duo upload input.
+The Console observed on 2026-10-11 groups both resolutions in one Duo carousel
+with a combined limit of ten screenshots. Choose an ordered gallery from the
+prepared folders; do not upload both complete nine-image folders together.
+Wait for processing, reload the version, and verify the thumbnails persisted.
+Move the sets into the `deliver` path once it gains the display type.
+
+The #482 manual upload test passed on 2026-10-11 in app `6449440933`, editable
+version 2.23.1, English (U.S.). The uploaded files were
+`1398x2034/en-US/01_iphone_hero-board.png` and
+`2007x2853/en-US/02_iphone_hell.png` under `variants/dark/iphone-duo/`.
+Both processed thumbnails remained after reloading, and the carousel showed
+two of ten screenshots. This tests both accepted sizes before April 2027.
+
+The full upload was completed later on 2026-10-11 for all twelve iOS locales.
+Each gallery has nine images: `01_iphone_hero-board.png` at 1398×2034, followed
+by frames 02–09 at 2007×2853. This covers both sizes within the combined limit.
+After reloading the version, each locale was selected again and showed nine
+of ten screenshots, for 108 persisted images. Spanish (Mexico) uses the
+approved Spanish assets and committed es-MX version metadata. The editable
+version remains Prepare for Submission; these uploads have not released it.
 
 ## Curated store ordering
 

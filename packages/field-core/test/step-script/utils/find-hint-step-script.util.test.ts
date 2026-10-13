@@ -15,6 +15,8 @@ const guessBoard = '800000000003600000070090200050007000000045700000100030001000
 
 const longChainBoard = '000070940070090005300005070087400100463080000000007080800700000700000028050268000'.replaceAll('0', '.');
 const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
+const pointingPairDetourBoard = '..6....9...45....8.27....4..4..7..6.......8.......2...4156...8.2.9...41.3.8.4...5';
+const aicDetourBoard = '..31...5..4...5...75.2....13..5..71..8..6............9.....4..6.2..5.9..9..7...8.';
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 
 const createEngine = (sudokuString: string, showAutoCandidates = false): FieldEngine =>
@@ -187,6 +189,45 @@ describe('findHintStepScript', () => {
             expect(script.placement?.cell).toEqual(revealCell);
             expect(engine.Sudoku.Field[revealCell.y][revealCell.x].value).toBe(engine.Sudoku.getCorrectValue(revealCell));
             expect(engine.getSnapshot().mistakes).toBe(0);
+        });
+    });
+
+    it('leads to a digit instead of a dead-end pointing pair when the first placement needs a forcing chain', () => {
+        expect.assertions(4);
+
+        const engine = createEngine(pointingPairDetourBoard);
+        const script = requireScript(engine);
+
+        expect(script.technique).toBe(SolutionTechniqueEnum.NishioForcingChain);
+        expect(script.eliminations.map(({ cell, value }) => `${cell.y}-${cell.x}=${value}`)).toEqual(['0-3=4']);
+        expect(script.steps.at(-1)?.narration.technique).toBe(SolutionTechniqueEnum.HiddenSingle);
+        expect(script.placement && { y: script.placement.cell.y, x: script.placement.cell.x, value: script.placement.value }).toEqual({
+            y: 0,
+            x: 5,
+            value: engine.Sudoku.getCorrectValue(engine.Sudoku.Field[0][5])
+        });
+    });
+
+    it('ends the first hint of the reported AIC board in a digit instead of a lone pointing pair', () => {
+        expect.assertions(3);
+
+        const engine = createEngine(aicDetourBoard);
+        const script = requireScript(engine);
+
+        expect(script.steps.map(step => step.narration.technique)).toEqual([
+            SolutionTechniqueEnum.PointingPair,
+            SolutionTechniqueEnum.PointingPair,
+            SolutionTechniqueEnum.NishioForcingChain,
+            SolutionTechniqueEnum.NishioForcingChain,
+            SolutionTechniqueEnum.NishioForcingChain,
+            SolutionTechniqueEnum.HiddenSingle,
+            SolutionTechniqueEnum.HiddenSingle
+        ]);
+        expect(script.eliminations.map(({ cell, value }) => `${cell.y}-${cell.x}=${value}`)).toEqual(['3-4=4', '5-4=4', '3-8=8']);
+        expect(script.placement && { y: script.placement.cell.y, x: script.placement.cell.x, value: script.placement.value }).toEqual({
+            y: 5,
+            x: 6,
+            value: engine.Sudoku.getCorrectValue(engine.Sudoku.Field[5][6])
         });
     });
 

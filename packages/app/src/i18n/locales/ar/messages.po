@@ -105,6 +105,10 @@ msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells
 msgstr "{techniqueName}: إحدى خليتي الكماشة هي دائماً {valueList}، لذا لا يمكن أن تكون الخلايا المعلمة التي ترى الخليتين معاً {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: كل خلية معلمة ترى جميع الخلايا المحددة، لذا لا يمكن أن تكون {cellList} {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: لكل خلية فارغة أخرى مرشحان فقط، لذا يجب وضع {value} في الخلية المعلمة لتجنب نمط قاتل."
 
@@ -119,6 +123,14 @@ msgstr "{techniqueName}: كل احتمال في الخلايا المحددة ي
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
 msgstr "{techniqueName}: انطلاقاً من الخلايا المحددة، يُتتبع كل احتمال حتى يصل إلى تناقض أو إلى النتيجة نفسها."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName}: في العمود {columnNumber}، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في مربع واحد."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
+msgstr "{techniqueName}: في الصف {rowNumber}، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في مربع واحد."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
@@ -137,20 +149,28 @@ msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked 
 msgstr "{techniqueName}: في الصف المحدد، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always {valueList}, so the marked cells that see both ends cannot be {valueList}."
-msgstr "{techniqueName}: أحد طرفي السلسلة هو دائماً {valueList}، لذا لا يمكن أن تكون الخلايا المعلمة التي ترى الطرفين معاً {valueList}."
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "{techniqueName}: في هذا المربع، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في العمود {columnNumber}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the digits {valueList} are locked into the highlighted cells, which rules them out of other cells."
-msgstr "{techniqueName}: الأرقام {valueList} محصورة في الخلايا المحددة، مما يستبعدها من الخلايا الأخرى."
+msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "{techniqueName}: في هذا المربع، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في الصف {rowNumber}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: أحد طرفي السلسلة صحيح دائماً، وكل مرشح معلَّم يتعارض مع الطرفين معاً، لذا لا يمكن أن تكون {cellList} هي {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
 msgstr "{techniqueName}: بقي في المربع المحدد خلية فارغة واحدة، لذا توضع {value} هناك."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so either one end or the other end of it is {valueList}."
-msgstr "{techniqueName}: تشكل الخلايا المحددة سلسلة، لذا فإما أن يكون أحد طرفيها أو الطرف الآخر {valueList}."
+msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName}: تشكل الخلايا المحددة سلسلة، لذا فإما {firstEnd} صحيح أو {lastEnd} صحيح."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
+msgstr "{techniqueName}: تحتوي الخلايا المحددة على عدد من الأرقام يساوي عدد الخلايا تماماً، لذا يجب أن يوضع {valueList} في إحداها."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."
@@ -189,8 +209,8 @@ msgid "{techniqueName}: the marked cells either see both colors or carry a color
 msgstr "{techniqueName}: الخلايا المحددة إما ترى اللونين معًا أو تحمل لونًا يناقض نفسه، لذا لا يمكن أن تكون {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the pattern rules {valueList} out of the marked cells."
-msgstr "{techniqueName}: هذا النمط يستبعد {valueList} من الخلايا المعلمة."
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: هذه الخلايا محجوزة لتلك المجموعة من الأرقام، لذا لا يمكن أن تكون {cellList} {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
@@ -199,6 +219,10 @@ msgstr "{techniqueName}: لتجنب النمط القاتل، يُستبعد {va
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
 msgstr "{techniqueName}: مهما كان حل خلية المحور المحددة، تصبح إحدى خليتي الكماشة التابعتين لها {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: within one row, column or box, {valueList} fit only in the highlighted cells, so those cells can hold nothing else."
+msgstr "{techniqueName}: داخل صف أو عمود أو مربع واحد، لا يمكن لـ {valueList} أن توضع إلا في الخلايا المحددة، لذا لا يمكن أن تحتوي هذه الخلايا على شيء آخر."
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"

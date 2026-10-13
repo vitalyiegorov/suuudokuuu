@@ -1,0 +1,1 @@
+Encare uma lógica mais difícil e reveja seu sudoku concluído jogada por jogada. Veja as técnicas que usou e a avaliação de dificuldade.

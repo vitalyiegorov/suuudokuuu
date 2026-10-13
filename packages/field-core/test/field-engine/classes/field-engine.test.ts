@@ -633,4 +633,19 @@ describe('FieldEngine', () => {
             expect(engine.getSnapshot().stepScript).toBeNull();
         });
     });
+
+    it('should play identically with a supplied solution', () => {
+        expect.assertions(2);
+
+        const solved = createEngine();
+        const restored = createEngine({ solutionString: solved.Sudoku.FullField.flatMap(row => row.map(cell => cell.value)).join('') });
+
+        expect(restored.getSnapshot()).toStrictEqual(solved.getSnapshot());
+
+        for (const engine of [solved, restored]) {
+            engine.placeValue(getCell(engine, 0, 0), 4);
+        }
+
+        expect(restored.getSnapshot()).toStrictEqual(solved.getSnapshot());
+    });
 });

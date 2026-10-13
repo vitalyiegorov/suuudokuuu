@@ -2,7 +2,7 @@ module.exports = function (api) {
     api.cache(true);
 
     return {
-        presets: ['babel-preset-expo'],
+        presets: [['babel-preset-expo', { worklets: false }]],
         plugins: [
             [
                 'react-native-unistyles/plugin',
@@ -13,7 +13,8 @@ module.exports = function (api) {
                 }
             ],
             'macros',
-            '@lingui/babel-plugin-lingui-macro'
+            '@lingui/babel-plugin-lingui-macro',
+            ['react-native-worklets/plugin', { bundleMode: true, importForwarding: { moduleNames: ['@suuudokuuu/puzzle-forge'] } }]
         ]
     };
 };

@@ -8,3 +8,4 @@ export const revealHintSharedPuzzleEncodedConstant = '_MAOAGBKIgOCIhmJCSdF6-r0U8
 export const structuredChainHintSharedPuzzleEncodedConstant = '_MAMEQgRyQAvATMAHHehYIMMrDmRaBVaA';
 export const nishioRunHintSharedPuzzleEncodedConstant = '_MACdb0cSgWGxewkEQqSJ4ruELmsackXva7IcqtA';
 export const eliminationHintSharedPuzzleEncodedConstant = '_MAMLJGFOToAqQQNcRjGRmTgEBzz4-ypOQAg';
+export const aicDetourHintSharedPuzzleEncodedConstant = '_MAAxIjQyZIAEEpSRFMjqmmYIlUD7YpUC';

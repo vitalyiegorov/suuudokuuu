@@ -9,6 +9,7 @@ import {
 } from '@suuudokuuu/app/src/selectors';
 
 import {
+    aicDetourHintSharedPuzzleEncodedConstant,
     eliminationHintSharedPuzzleEncodedConstant,
     nishioRunHintSharedPuzzleEncodedConstant,
     pointingPairHintSharedPuzzleEncodedConstant,
@@ -297,9 +298,67 @@ test('walks a long Nishio and AIC hint with witness slides that leave the board 
     await expect(page.getByTestId(cellTestId(5, 8))).toHaveAttribute('aria-label', 'Row 6, column 9, 1');
 });
 
-test('continues and reveals from the first slide of a forcing-chain elimination hint', async ({ page }, testInfo) => {
+test('leads the player-reported Hardcore board straight to a digit instead of capped eliminations', async ({ page }) => {
     await launchHome(page);
     await openSharedPuzzle(page, nishioRunHintSharedPuzzleEncodedConstant);
+    await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+
+    await page.getByTestId(HintButtonSelectors.Root).click();
+    await revealHintWalkthrough(page);
+
+    await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText('Nishio Forcing Chain');
+    await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveCount(0);
+
+    await page.getByTestId(HintPanelSelectors.ApplyButton).click();
+    await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
+    await expect(page.getByTestId(cellTestId(2, 0))).toHaveAttribute('aria-label', 'Row 3, column 1, 9');
+});
+
+test('routes the reported AIC board through its pointing pair to a digit and opens each slide at the top', async ({ page }) => {
+    await page.setViewportSize({ width: 360, height: 640 });
+    await launchHome(page);
+    await openSharedPuzzle(page, aicDetourHintSharedPuzzleEncodedConstant);
+    await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+
+    const progress = page.getByTestId(HintPanelSelectors.Progress);
+    const technique = page.getByTestId(HintStepNarrationSelectors.Technique);
+    const narrationScroll = page.getByTestId(HintStepNarrationSelectors.NarrationScroll);
+    const nextButton = page.getByTestId(HintPanelSelectors.NextButton);
+
+    await page.getByTestId(HintButtonSelectors.Root).click();
+    await revealHintWalkthrough(page);
+
+    await expect(progress).toHaveAttribute('aria-label', 'Step 1 of 7');
+    await expect(technique).toHaveText('Pointing Pair');
+    await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveCount(0);
+
+    await nextButton.click();
+    await nextButton.click();
+    await expect(technique).toHaveText('Nishio Forcing Chain');
+    await narrationScroll.evaluate(element => {
+        element.scrollTop = element.scrollHeight;
+    });
+    expect(await narrationScroll.evaluate(element => element.scrollTop)).toBeGreaterThan(0);
+
+    await nextButton.click();
+    await expect(progress).toHaveAttribute('aria-label', 'Step 4 of 7');
+    expect(await narrationScroll.evaluate(element => element.scrollTop)).toBe(0);
+
+    for (let step = 4; step < 7; step += 1) {
+        await nextButton.click();
+    }
+
+    await expect(page.getByTestId(HintStepNarrationSelectors.Value)).toHaveText('8');
+    await page.getByTestId(HintPanelSelectors.ApplyButton).click();
+    await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
+    await expect(page.getByTestId(cellTestId(5, 6))).toHaveAttribute('aria-label', 'Row 6, column 7, 8');
+});
+
+test('continues and reveals from the first slide of a forcing-chain elimination hint', async ({ page }, testInfo) => {
+    await launchHome(page);
+    await openSharedPuzzle(page, eliminationHintSharedPuzzleEncodedConstant);
     await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
 
@@ -309,7 +368,7 @@ test('continues and reveals from the first slide of a forcing-chain elimination 
 
     await page.getByTestId(HintButtonSelectors.Root).click();
 
-    for (let hintIndex = 0; hintIndex < 4; hintIndex += 1) {
+    for (let hintIndex = 0; hintIndex < 3; hintIndex += 1) {
         await revealHintWalkthrough(page);
         await expect(progress).toHaveAttribute('aria-label', /^Step 1 of /u);
         if (hintIndex === 0) {
@@ -320,12 +379,16 @@ test('continues and reveals from the first slide of a forcing-chain elimination 
 
     await revealHintWalkthrough(page);
     await expect(progress).toHaveAttribute('aria-label', 'Step 1 of 3');
-    await expect(narration).toContainText('So r4c3 is not 4.');
+    await expect(narration).toContainText('So r7c3 is not 9.');
+
+    await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveCount(0);
+    const labelsBefore = await readCellLabels(page);
 
     await continueButton.click();
+    expect(await readCellLabels(page)).toEqual(labelsBefore);
     await expect(page.getByTestId(HintPanelSelectors.SHOW_MORE_BUTTON)).toBeVisible();
     await revealHintWalkthrough(page);
-    await expect(narration).not.toContainText('So r4c3 is not 4.');
+    await expect(narration).not.toContainText('So r7c3 is not 9.');
     await expect(progress).toHaveAttribute('aria-label', /^Step 1 of /u);
     await page.screenshot({ path: testInfo.outputPath('hint-continue-slide-1-after.png'), fullPage: true });
 

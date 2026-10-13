@@ -1,4 +1,4 @@
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { CandidateContext } from '../classes/candidate-context/candidate-context';
 import {
@@ -7,6 +7,7 @@ import {
     PLACEMENT_CHAIN_SCAN_COSTS,
     PLACEMENT_CHAIN_WORK_BUDGET
 } from '../constants/placement-chain.constant';
+import { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
 
 import { applyTechniqueStep } from './apply-technique-step.util';
 import { createTechniqueStrategies } from './create-technique-strategies.util';
@@ -95,15 +96,10 @@ const pruneChain = (
     return keptSteps;
 };
 
-export const findPlacementChain = (
-    sudoku: Sudoku,
-    unbudgetedStrategies = createTechniqueStrategies(),
-    previousEliminations: CandidateEliminationInterface[] = [],
-    includeFirstStepOnExhaustion = false
-): TechniqueResultInterface[] => {
+const createBudgetedStrategies = (unbudgetedStrategies: TechniqueStrategyInterface[]): TechniqueStrategyInterface[] => {
     let spentWork = 0;
 
-    const strategies = unbudgetedStrategies.map((strategy): TechniqueStrategyInterface => ({
+    return unbudgetedStrategies.map(strategy => ({
         technique: strategy.technique,
         find: (context, target) => {
             if (spentWork >= PLACEMENT_CHAIN_WORK_BUDGET) {
@@ -115,6 +111,39 @@ export const findPlacementChain = (
             return strategy.find(context, target);
         }
     }));
+};
+
+const singleTechniques = new Set([SolutionTechniqueEnum.FullHouse, SolutionTechniqueEnum.NakedSingle, SolutionTechniqueEnum.HiddenSingle]);
+
+const findShortPlacementRoute = (
+    strategies: TechniqueStrategyInterface[],
+    singleStrategies: TechniqueStrategyInterface[],
+    context: CandidateContext
+): TechniqueResultInterface[] => {
+    for (const strategy of strategies) {
+        for (const result of strategy.find(context).filter(candidate => isProgressingResult(context, candidate))) {
+            if (result.kind === 'placement') {
+                return [result];
+            }
+
+            const enabledPlacement = findProgressingStep(applyTechniqueStep(context, result), singleStrategies);
+
+            if (isDefined(enabledPlacement)) {
+                return [result, enabledPlacement];
+            }
+        }
+    }
+
+    return [];
+};
+
+export const findPlacementChain = (
+    sudoku: Sudoku,
+    unbudgetedStrategies = createTechniqueStrategies(),
+    previousEliminations: CandidateEliminationInterface[] = [],
+    includeFirstStepOnExhaustion = false
+): TechniqueResultInterface[] => {
+    const strategies = createBudgetedStrategies(unbudgetedStrategies);
     const steps: TechniqueResultInterface[] = [];
     const contexts: CandidateContext[] = [];
 
@@ -133,12 +162,25 @@ export const findPlacementChain = (
             return pruneChain(strategies, steps, contexts);
         }
 
+        context = applyTechniqueStep(context, step);
+
         if (steps.length >= PLACEMENT_CHAIN_MAX_STEPS) {
-            return includeFirstStepOnExhaustion ? steps.slice(0, 1) : [];
+            contexts.push(context);
+            break;
         }
 
-        context = applyTechniqueStep(context, step);
         step = findProgressingStep(context, strategies);
+    }
+
+    const shortRouteStrategies = createBudgetedStrategies(unbudgetedStrategies);
+    const singleStrategies = unbudgetedStrategies.filter(strategy => singleTechniques.has(strategy.technique));
+
+    for (const [contextIndex, routeContext] of contexts.entries()) {
+        const shortRoute = findShortPlacementRoute(shortRouteStrategies, singleStrategies, routeContext);
+
+        if (isNotEmptyArray(shortRoute)) {
+            return pruneChain(shortRouteStrategies, [...steps.slice(0, contextIndex), ...shortRoute], contexts.slice(0, contextIndex + 1));
+        }
     }
 
     return includeFirstStepOnExhaustion ? steps.slice(0, 1) : [];
