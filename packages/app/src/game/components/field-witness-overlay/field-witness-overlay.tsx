@@ -15,9 +15,10 @@ interface Props {
     readonly cellSize: number;
     readonly explanation: NonNullable<StepScriptStateInterface['explanation']>;
     readonly filledCells: readonly CellInterface[];
+    readonly revealedImplicationCount: number;
 }
 
-export const FieldWitnessOverlay = ({ cellMargin, cellSize, explanation, filledCells }: Props) => {
+export const FieldWitnessOverlay = ({ cellMargin, cellSize, explanation, filledCells, revealedImplicationCount }: Props) => {
     const boardSize = cellSize * 9 + cellMargin * 2;
     const isChain = explanation.kind === StepScriptStepKindEnum.SHOW_CHAIN;
     const testID = isChain ? FieldWitnessOverlaySelectors.Chain : FieldWitnessOverlaySelectors.Branch;
@@ -30,11 +31,16 @@ export const FieldWitnessOverlay = ({ cellMargin, cellSize, explanation, filledC
                         boardSize={boardSize}
                         cellMargin={cellMargin}
                         cellSize={cellSize}
-                        chain={explanation.chain}
+                        chain={explanation.chain.slice(0, revealedImplicationCount + 1)}
                         filledCells={filledCells}
                     />
                 ) : (
-                    <FieldBranchWitness cellMargin={cellMargin} cellSize={cellSize} step={explanation} />
+                    <FieldBranchWitness
+                        cellMargin={cellMargin}
+                        cellSize={cellSize}
+                        revealedImplicationCount={revealedImplicationCount}
+                        step={explanation}
+                    />
                 )}
             </Svg>
         </View>

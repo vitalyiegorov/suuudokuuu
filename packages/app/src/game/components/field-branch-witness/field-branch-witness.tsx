@@ -11,16 +11,22 @@ import type { StepScriptBranchStepInterface } from '@suuudokuuu/field-core';
 const outlineWidthRatio = 0.045;
 const outlineMinimumWidth = 1.5;
 const centerCandidateValue = 5;
+const earlierImplicationOpacity = 0.5;
 
 interface Props {
     readonly step: StepScriptBranchStepInterface;
     readonly cellMargin: number;
     readonly cellSize: number;
+    readonly revealedImplicationCount: number;
 }
 
-export const FieldBranchWitness = ({ cellMargin, cellSize, step }: Props) => {
+export const FieldBranchWitness = ({ cellMargin, cellSize, revealedImplicationCount, step }: Props) => {
     const { theme } = use(ThemeContext);
-    const { assumption, implications } = step.branch;
+    const { assumption } = step.branch;
+    const implications = step.branch.implications.slice(0, revealedImplicationCount);
+    const isOutcomeVisible = implications.length === step.branch.implications.length;
+    const outcomeCells = isOutcomeVisible ? step.outcomeCells : [];
+    const outcomeCandidates = isOutcomeVisible ? step.outcomeCandidates : [];
     const outlineWidth = Math.max(outlineMinimumWidth, cellSize * outlineWidthRatio);
     const outlineSize = cellSize - outlineWidth;
     const outlineOffset = outlineSize / 2;
@@ -29,7 +35,7 @@ export const FieldBranchWitness = ({ cellMargin, cellSize, step }: Props) => {
 
     return (
         <>
-            {step.outcomeCells.map((cell, index) => {
+            {outcomeCells.map((cell, index) => {
                 const center = gameGetWitnessPoint(cell, centerCandidateValue, cellSize, cellMargin);
                 const originX = center.x - outlineOffset;
                 const originY = center.y - outlineOffset;
@@ -48,11 +54,21 @@ export const FieldBranchWitness = ({ cellMargin, cellSize, step }: Props) => {
                     />
                 );
             })}
-            {implications.map((implication, index) => (
-                <FieldWitnessCandidate candidate={implication} cellMargin={cellMargin} cellSize={cellSize} key={`implication-${index}`} />
-            ))}
+            {implications.map((implication, index) => {
+                const implicationOpacity = index === implications.length - 1 ? 1 : earlierImplicationOpacity;
+
+                return (
+                    <FieldWitnessCandidate
+                        candidate={implication}
+                        cellMargin={cellMargin}
+                        cellSize={cellSize}
+                        key={`implication-${index}`}
+                        opacity={implicationOpacity}
+                    />
+                );
+            })}
             <FieldWitnessCandidate candidate={assumption} cellMargin={cellMargin} cellSize={cellSize} strokeDasharray={assumptionDash} />
-            {step.outcomeCandidates.map((candidate, index) => {
+            {outcomeCandidates.map((candidate, index) => {
                 const center = gameGetWitnessPoint(candidate.cell, candidate.value, cellSize, cellMargin);
 
                 return (

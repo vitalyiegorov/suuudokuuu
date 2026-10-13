@@ -5,7 +5,7 @@ export interface FieldCellBackgroundColorParamsInterface {
     readonly isActiveValue: boolean;
     readonly isCellHighlighted: boolean;
     readonly isEmpty: boolean;
-    readonly isPatternCell: boolean;
+    readonly isHintCell: boolean;
     readonly isTargetCell: boolean;
     readonly isWrong: boolean;
     readonly showAreas: boolean;

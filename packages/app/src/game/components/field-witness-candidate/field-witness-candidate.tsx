@@ -17,9 +17,10 @@ interface Props {
     readonly cellMargin: number;
     readonly cellSize: number;
     readonly strokeDasharray?: string;
+    readonly opacity?: number;
 }
 
-export const FieldWitnessCandidate = ({ candidate, cellMargin, cellSize, strokeDasharray }: Props) => {
+export const FieldWitnessCandidate = ({ candidate, cellMargin, cellSize, strokeDasharray, opacity = 1 }: Props) => {
     const { theme } = use(ThemeContext);
     const center = gameGetWitnessPoint(candidate.cell, candidate.value, cellSize, cellMargin);
     const digitBaseline = center.y + cellSize * digitBaselineRatio;
@@ -28,7 +29,7 @@ export const FieldWitnessCandidate = ({ candidate, cellMargin, cellSize, strokeD
     const digitSize = cellSize * digitSizeRatio;
 
     return (
-        <G>
+        <G opacity={opacity}>
             <Circle
                 cx={center.x}
                 cy={center.y}

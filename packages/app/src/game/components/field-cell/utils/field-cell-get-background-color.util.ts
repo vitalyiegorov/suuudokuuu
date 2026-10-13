@@ -1,11 +1,15 @@
+import { mixColors } from '../../../../theme/utils/mix-colors.util';
+
 import type { FieldCellBackgroundColorParamsInterface } from '../interface/field-cell-background-color-params.interface';
+
+const hintTintProgress = 0.28;
 
 export const fieldCellGetBackgroundColor = (params: FieldCellBackgroundColorParamsInterface) => {
     const {
         isActive,
         isActiveValue,
         isCellHighlighted,
-        isPatternCell,
+        isHintCell,
         isTargetCell,
         isWrong,
         isEmpty,
@@ -19,8 +23,12 @@ export const fieldCellGetBackgroundColor = (params: FieldCellBackgroundColorPara
         return theme.colors.accent;
     } else if (isActive) {
         return theme.colors.board.selected;
-    } else if (isPatternCell) {
-        return theme.colors.candidate.fillSelected;
+    } else if (isHintCell) {
+        return mixColors(
+            isEmpty || !showFilledNumbers ? theme.colors.surface.raised : theme.colors.board.filled,
+            theme.colors.accent,
+            hintTintProgress
+        );
     } else if (isWrong) {
         return theme.colors.board.error;
     } else if (isActiveValue && showIdenticalNumbers) {

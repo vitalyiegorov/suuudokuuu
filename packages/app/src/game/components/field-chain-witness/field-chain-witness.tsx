@@ -13,6 +13,8 @@ import type { ChainCandidateInterface } from '@suuudokuuu/techniques';
 const lineWidthRatio = 0.045;
 const lineMinimumWidth = 1.5;
 const weakDashGapRatio = 1.5;
+const earlierLinkOpacity = 0.5;
+const newestLinkWidthRatio = 1.6;
 
 interface Props {
     readonly boardSize: number;
@@ -36,13 +38,17 @@ export const FieldChainWitness = ({ boardSize, cellMargin, cellSize, chain, fill
                     const isStrong = candidate.link === ChainLinkEnum.STRONG;
                     const stroke = isStrong ? theme.colors.accent : theme.colors.text.hint;
                     const strokeDasharray = isStrong ? '' : weakDash;
+                    const isNewest = index === chain.length - 2;
+                    const strokeOpacity = isNewest ? 1 : earlierLinkOpacity;
+                    const strokeWidth = isNewest ? lineWidth * newestLinkWidthRatio : lineWidth;
 
                     return (
                         <Line
                             key={`link-${index}`}
                             stroke={stroke}
                             strokeDasharray={strokeDasharray}
-                            strokeWidth={lineWidth}
+                            strokeOpacity={strokeOpacity}
+                            strokeWidth={strokeWidth}
                             x1={previous.x}
                             x2={current.x}
                             y1={previous.y}
@@ -51,9 +57,19 @@ export const FieldChainWitness = ({ boardSize, cellMargin, cellSize, chain, fill
                     );
                 })}
             </FieldWitnessLinkMask>
-            {chain.map((candidate, index) => (
-                <FieldWitnessCandidate candidate={candidate} cellMargin={cellMargin} cellSize={cellSize} key={`candidate-${index}`} />
-            ))}
+            {chain.map((candidate, index) => {
+                const candidateOpacity = index === chain.length - 1 ? 1 : earlierLinkOpacity;
+
+                return (
+                    <FieldWitnessCandidate
+                        candidate={candidate}
+                        cellMargin={cellMargin}
+                        cellSize={cellSize}
+                        key={`candidate-${index}`}
+                        opacity={candidateOpacity}
+                    />
+                );
+            })}
         </>
     );
 };
