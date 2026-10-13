@@ -5,14 +5,17 @@ import { CandidateContext } from '../../../src/@generic/classes/candidate-contex
 import { TechniqueManager } from '../../../src/@generic/classes/technique-manager/technique-manager';
 import {
     PLACEMENT_CHAIN_DEFAULT_SCAN_COST,
+    PLACEMENT_CHAIN_DIFFICULTIES,
     PLACEMENT_CHAIN_MAX_STEPS,
     PLACEMENT_CHAIN_SCAN_COSTS,
     PLACEMENT_CHAIN_WORK_BUDGET
 } from '../../../src/@generic/constants/placement-chain.constant';
+import { ForcingOutcomeKindEnum } from '../../../src/@generic/enums/forcing-outcome-kind.enum';
 import { SolutionTechniqueEnum } from '../../../src/@generic/enums/solution-technique.enum';
 import { createTechniqueStrategies } from '../../../src/@generic/utils/create-technique-strategies.util';
 import { findPlacementChain } from '../../../src/@generic/utils/find-placement-chain.util';
 
+import type { CandidateEliminationInterface } from '../../../src/@generic/interfaces/candidate-elimination.interface';
 import type { TechniqueResultInterface } from '../../../src/@generic/interfaces/technique-result.interface';
 import type { TechniqueStrategyInterface } from '../../../src/@generic/interfaces/technique-strategy.interface';
 
@@ -26,6 +29,9 @@ const budgetPrunedBoard = '00000908080030000206750000000270060003004501000001000
 const pointingPairDetourBoard = '..6....9...45....8.27....4..4..7..6.......8.......2...4156...8.2.9...41.3.8.4...5';
 const budgetExhaustedBoard = '..6..1...8.3..91...9......7...2...5....1..4...3..468.12.9..4.3.3..5.....65..3..1.';
 const aicDetourBoard = '..31...5..4...5...75.2....13..5..71..8..6............9.....4..6.2..5.9..9..7...8.';
+const reportedBoard = '001004800302000045540003090800040300000905410400006002030008600050370000100460000';
+const reportedBranchMaximumImplications = 24;
+const witnessHintLimit = 20;
 const maxScanCost = Math.max(PLACEMENT_CHAIN_DEFAULT_SCAN_COST, ...Object.values(PLACEMENT_CHAIN_SCAN_COSTS));
 const pointingPairChain = ['PointingPair elimination 0-6=4', 'HiddenSingle placement 2-1=4'];
 
@@ -38,6 +44,37 @@ const describeChain = (chain: TechniqueResultInterface[]): string[] =>
 
 const createNarrowedStrategies = (technique: SolutionTechniqueEnum): TechniqueStrategyInterface[] =>
     createTechniqueStrategies().filter(strategy => [...singlesOrder, technique].includes(strategy.technique));
+
+const isChainBandTechnique = (technique: SolutionTechniqueEnum): boolean =>
+    singlesOrder.includes(technique) ||
+    PLACEMENT_CHAIN_DIFFICULTIES[technique] >= PLACEMENT_CHAIN_DIFFICULTIES[SolutionTechniqueEnum.XChain];
+
+const createChainBandStrategies = (): TechniqueStrategyInterface[] =>
+    createTechniqueStrategies().filter(strategy => isChainBandTechnique(strategy.technique));
+
+const findHint = (sudoku: Sudoku, eliminations: CandidateEliminationInterface[] = []): TechniqueResultInterface[] =>
+    findPlacementChain(sudoku, createTechniqueStrategies(), eliminations, true);
+
+const createForcingPlacement = (sudoku: Sudoku, cellIndex: number, implicationCount: number): TechniqueResultInterface => {
+    const cell = sudoku.Field.flat().filter(fieldCell => sudoku.isBlankCell(fieldCell))[cellIndex];
+    const value = sudoku.getCorrectValue(cell);
+
+    return {
+        technique: SolutionTechniqueEnum.CellForcingChain,
+        cell,
+        value,
+        kind: 'placement',
+        eliminations: [],
+        reasonCells: [cell],
+        branches: [
+            {
+                assumption: { cell, value },
+                implications: Array.from({ length: implicationCount }, () => ({ cell, value })),
+                outcome: { kind: ForcingOutcomeKindEnum.COMMON_PLACEMENT, cell, value }
+            }
+        ]
+    };
+};
 
 const createIrrelevantStrategy = (sudoku: Sudoku, eliminationCount = 1): TechniqueStrategyInterface => {
     const results = sudoku.Field.flat()
@@ -64,8 +101,8 @@ const createIrrelevantStrategy = (sudoku: Sudoku, eliminationCount = 1): Techniq
 const getSpentWork = (calls: SolutionTechniqueEnum[]): number =>
     calls.reduce((spentWork, technique) => spentWork + (PLACEMENT_CHAIN_SCAN_COSTS[technique] ?? PLACEMENT_CHAIN_DEFAULT_SCAN_COST), 0);
 
-const createCountingStrategies = (calls: SolutionTechniqueEnum[]): TechniqueStrategyInterface[] =>
-    createTechniqueStrategies().map(strategy => ({
+const createCountingStrategies = (calls: SolutionTechniqueEnum[], strategies = createTechniqueStrategies()): TechniqueStrategyInterface[] =>
+    strategies.map(strategy => ({
         technique: strategy.technique,
         find: (context, target) => {
             calls.push(strategy.technique);
@@ -75,26 +112,32 @@ const createCountingStrategies = (calls: SolutionTechniqueEnum[]): TechniqueStra
     }));
 
 describe('findPlacementChain', () => {
-    it('preserves Nishio and AIC witnesses in the third hint from the original column quad board', () => {
+    it('preserves Nishio and AIC witnesses in the first forcing-chain hint from the original column quad board', () => {
         const sudoku = createSudoku(columnQuadBoard);
+        const eliminations: CandidateEliminationInterface[] = [];
+        let chain = findHint(sudoku);
 
-        for (let hintNumber = 1; hintNumber <= 2; hintNumber += 1) {
-            const chain = findPlacementChain(sudoku);
-            const placement = chain.find(step => step.kind === 'placement');
+        for (
+            let hintNumber = 1;
+            hintNumber < witnessHintLimit && chain.every(step => step.technique !== SolutionTechniqueEnum.NishioForcingChain);
+            hintNumber += 1
+        ) {
+            const lastStep = chain.at(-1);
 
-            expect(placement).toBeDefined();
-
-            if (placement !== undefined) {
-                sudoku.setCellValue({ ...placement.cell, value: placement.value });
+            if (lastStep?.kind === 'placement') {
+                sudoku.setCellValue({ ...lastStep.cell, value: lastStep.value });
+            } else {
+                eliminations.push(...chain[0].eliminations);
             }
+
+            chain = findHint(sudoku, eliminations);
         }
 
-        const thirdChain = findPlacementChain(sudoku);
-        const nishio = thirdChain.find(step => step.technique === SolutionTechniqueEnum.NishioForcingChain);
-        const aic = thirdChain.find(step => step.technique === SolutionTechniqueEnum.AIC);
-        const placement = thirdChain.find(step => step.kind === 'placement');
+        const nishio = chain.find(step => step.technique === SolutionTechniqueEnum.NishioForcingChain);
+        const aic = chain.find(step => step.technique === SolutionTechniqueEnum.AIC);
+        const placement = chain.find(step => step.kind === 'placement');
 
-        expect(nishio?.branches?.[0].outcome).toMatchObject({ kind: 'EMPTY_CELL', cell: { y: 5, x: 6 } });
+        expect(nishio?.branches?.[0].outcome).toMatchObject({ kind: 'ASSIGNMENT_CONFLICT', cell: { y: 4, x: 4 } });
         expect(aic?.chain?.length).toBeGreaterThan(3);
         expect(placement && [placement.cell.y, placement.cell.x, placement.value]).toEqual([5, 8, 1]);
     });
@@ -221,28 +264,59 @@ describe('findPlacementChain', () => {
         expect(chain.at(-1)?.kind).toBe('placement');
     });
 
-    it('should reach the forcing-chain placement in two steps when the greedy search spends its budget on pointing pairs', () => {
+    it('should reach the forcing-chain placement in two steps when the greedy search spends its budget on chains', () => {
         expect.assertions(2);
 
         const sudoku = createSudoku(pointingPairDetourBoard);
-        const greedySteps = new TechniqueManager(sudoku).solveLogically().steps;
+        const greedySteps = new TechniqueManager(sudoku, createChainBandStrategies()).solveLogically().steps;
 
         expect(greedySteps.findIndex(step => step.kind === 'placement')).toBeGreaterThan(PLACEMENT_CHAIN_MAX_STEPS / 2);
-        expect(describeChain(findPlacementChain(sudoku))).toEqual(['NishioForcingChain elimination 0-3=4', 'HiddenSingle placement 0-5=4']);
+        expect(describeChain(findPlacementChain(sudoku, createChainBandStrategies()))).toEqual([
+            'NishioForcingChain elimination 0-3=4',
+            'HiddenSingle placement 0-5=4'
+        ]);
     });
 
-    it('should reach a digit through the greedy prefix when no two-step route starts from the board', () => {
-        expect.assertions(2);
+    it.each([
+        ['pointing pair detour', pointingPairDetourBoard, 'PointingPair elimination 4-1=3'],
+        ['AIC detour', aicDetourBoard, 'PointingPair elimination 3-4=4'],
+        ['reported', reportedBoard, 'PointingPair elimination 6-7=5']
+    ])(
+        'should teach the cheapest step alone on the %s board instead of a route through a much harder technique',
+        (_, board, cheapestStep) => {
+            expect.assertions(2);
 
-        const sudoku = createSudoku(aicDetourBoard);
-        const chain = findPlacementChain(sudoku);
+            const sudoku = createSudoku(board);
 
-        expect(describeChain(chain)).toEqual([
-            'PointingPair elimination 3-4=4',
-            'NishioForcingChain elimination 3-8=8',
-            'HiddenSingle placement 5-6=8'
-        ]);
-        expect(chain.at(-1)?.value).toBe(sudoku.getCorrectValue(chain.at(-1)?.cell));
+            expect(describeChain(findHint(sudoku))).toEqual([cheapestStep]);
+            expect(findPlacementChain(sudoku)).toEqual([]);
+        }
+    );
+
+    it('should reach the reported digit through the shortest trimmed Nishio branch once the pointing pair is applied', () => {
+        expect.assertions(3);
+
+        const sudoku = createSudoku(reportedBoard);
+        const [pointingPair] = findHint(sudoku);
+        const chain = findHint(sudoku, pointingPair.eliminations);
+
+        expect(describeChain(chain)).toEqual(['NishioForcingChain elimination 4-4=8', 'HiddenSingle placement 4-8=8']);
+        expect(chain[0].branches?.[0].implications.length).toBeLessThanOrEqual(reportedBranchMaximumImplications);
+        expect(chain[1].value).toBe(sudoku.getCorrectValue(chain[1].cell));
+    });
+
+    it('should prefer the forcing-chain result with the shortest trimmed branches', () => {
+        expect.assertions(1);
+
+        const sudoku = createSudoku(pointingPairBoard);
+        const longPlacement = createForcingPlacement(sudoku, 0, 5);
+        const shortPlacement = createForcingPlacement(sudoku, 1, 1);
+        const forcingStrategy: TechniqueStrategyInterface = {
+            technique: SolutionTechniqueEnum.CellForcingChain,
+            find: () => [longPlacement, shortPlacement]
+        };
+
+        expect(findPlacementChain(sudoku, [forcingStrategy])).toEqual([shortPlacement]);
     });
 
     it('should bound the scans of a pruned chain by the work budget', () => {
@@ -265,7 +339,7 @@ describe('findPlacementChain', () => {
         expect(placementIndex).toBeGreaterThanOrEqual(shippedGreedyStepCap);
         expect(describeChain(findPlacementChain(sudoku))).toEqual([
             'PointingPair elimination 7-0=5',
-            'NakedQuad elimination 2-5=1',
+            'HiddenPair elimination 2-5=1',
             'HiddenSingle placement 2-4=9'
         ]);
     });
@@ -275,8 +349,8 @@ describe('findPlacementChain', () => {
 
         const sudoku = createSudoku(budgetPrunedBoard);
         const calls: SolutionTechniqueEnum[] = [];
-        const [firstGreedyStep] = new TechniqueManager(sudoku).solveLogically().steps;
-        const chain = findPlacementChain(sudoku, createCountingStrategies(calls));
+        const [firstGreedyStep] = new TechniqueManager(sudoku, createChainBandStrategies()).solveLogically().steps;
+        const chain = findPlacementChain(sudoku, createCountingStrategies(calls, createChainBandStrategies()));
         const placement = chain.at(-1);
 
         expect(getSpentWork(calls)).toBeGreaterThanOrEqual(PLACEMENT_CHAIN_WORK_BUDGET);
@@ -290,10 +364,12 @@ describe('findPlacementChain', () => {
 
         const sudoku = createSudoku(budgetExhaustedBoard);
         const calls: SolutionTechniqueEnum[] = [];
-        const placementIndex = new TechniqueManager(sudoku).solveLogically().steps.findIndex(step => step.kind === 'placement');
+        const placementIndex = new TechniqueManager(sudoku, createChainBandStrategies())
+            .solveLogically()
+            .steps.findIndex(step => step.kind === 'placement');
 
         expect(placementIndex).toBeLessThan(PLACEMENT_CHAIN_MAX_STEPS);
-        expect(findPlacementChain(sudoku, createCountingStrategies(calls))).toEqual([]);
+        expect(findPlacementChain(sudoku, createCountingStrategies(calls, createChainBandStrategies()))).toEqual([]);
         expect(getSpentWork(calls)).toBeGreaterThanOrEqual(PLACEMENT_CHAIN_WORK_BUDGET);
         expect(getSpentWork(calls.filter(technique => !singlesOrder.includes(technique)))).toBeLessThan(
             2 * PLACEMENT_CHAIN_WORK_BUDGET + 2 * maxScanCost
