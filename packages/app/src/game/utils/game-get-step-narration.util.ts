@@ -183,25 +183,24 @@ type EliminationRevealNarrationType = (techniqueName: string, valueList: string,
 
 type EliminationStrikeNarrationType = (techniqueName: string, valueList: string, cellList: string) => MessageDescriptor;
 
-const getPointingNarration: EliminationRevealNarrationType = (techniqueName, valueList, [{ cell: firstCell }, { cell: secondCell }]) => {
-    const boxNumber = getBoxNumber(firstCell);
-    const rowNumber = firstCell.y + 1;
-    const columnNumber = firstCell.x + 1;
+const getLockedCandidatesNarration =
+    (isPointing: boolean): EliminationRevealNarrationType =>
+    (techniqueName, valueList, [{ cell: firstCell }, { cell: secondCell }]) => {
+        const boxNumber = getBoxNumber(firstCell);
+        const rowNumber = firstCell.y + 1;
+        const columnNumber = firstCell.x + 1;
+        const isRowLine = firstCell.y === secondCell.y;
 
-    return firstCell.y === secondCell.y
-        ? msg`${techniqueName}: in box ${boxNumber}, ${valueList} fits only in the highlighted cells, and they all lie in row ${rowNumber}.`
-        : msg`${techniqueName}: in box ${boxNumber}, ${valueList} fits only in the highlighted cells, and they all lie in column ${columnNumber}.`;
-};
+        if (isPointing) {
+            return isRowLine
+                ? msg`${techniqueName}: in box ${boxNumber}, ${valueList} fits only in the highlighted cells, and they all lie in row ${rowNumber}.`
+                : msg`${techniqueName}: in box ${boxNumber}, ${valueList} fits only in the highlighted cells, and they all lie in column ${columnNumber}.`;
+        }
 
-const getBoxLineNarration: EliminationRevealNarrationType = (techniqueName, valueList, [{ cell: firstCell }, { cell: secondCell }]) => {
-    const boxNumber = getBoxNumber(firstCell);
-    const rowNumber = firstCell.y + 1;
-    const columnNumber = firstCell.x + 1;
-
-    return firstCell.y === secondCell.y
-        ? msg`${techniqueName}: in row ${rowNumber}, ${valueList} fits only in the highlighted cells, and they all lie in box ${boxNumber}.`
-        : msg`${techniqueName}: in column ${columnNumber}, ${valueList} fits only in the highlighted cells, and they all lie in box ${boxNumber}.`;
-};
+        return isRowLine
+            ? msg`${techniqueName}: in row ${rowNumber}, ${valueList} fits only in the highlighted cells, and they all lie in box ${boxNumber}.`
+            : msg`${techniqueName}: in column ${columnNumber}, ${valueList} fits only in the highlighted cells, and they all lie in box ${boxNumber}.`;
+    };
 
 const getSeesAllStrikeNarration: EliminationStrikeNarrationType = (techniqueName, valueList, cellList) =>
     msg`${techniqueName}: each marked cell sees all the highlighted cells, so ${cellList} cannot be ${valueList}.`;
@@ -210,8 +209,8 @@ const getDeadlyPatternStrikeNarration: EliminationStrikeNarrationType = (techniq
     msg`${techniqueName}: to avoid the deadly pattern, ${valueList} is ruled out of the marked cells.`;
 
 const eliminationRevealNarrations: Record<NarrationFamilyEnum, EliminationRevealNarrationType> = {
-    [NarrationFamilyEnum.POINTING]: getPointingNarration,
-    [NarrationFamilyEnum.BOX_LINE]: getBoxLineNarration,
+    [NarrationFamilyEnum.POINTING]: getLockedCandidatesNarration(true),
+    [NarrationFamilyEnum.BOX_LINE]: getLockedCandidatesNarration(false),
     [NarrationFamilyEnum.HIDDEN_SUBSET]: (techniqueName, valueList) =>
         msg`${techniqueName}: within one row, column or box, ${valueList} fit only in the highlighted cells, so those cells can hold nothing else.`,
     [NarrationFamilyEnum.LOCKED_SET]: (techniqueName, valueList) =>

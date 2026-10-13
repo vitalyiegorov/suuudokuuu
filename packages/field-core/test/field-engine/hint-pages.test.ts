@@ -176,7 +176,6 @@ describe('hint pages', () => {
             assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, hintPageCount: 1, stepIndex: 0 });
             assert.strictEqual(engine.hintNext(), false);
             assert.strictEqual(engine.hintSkipToEnd(), 0);
-            assert.strictEqual(engine.revealNextHintLevel(), false);
         })
     );
 

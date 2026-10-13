@@ -1,4 +1,3 @@
-import { useLingui } from '@lingui/react/macro';
 import { HintLevelEnum, buildStepScriptState } from '@suuudokuuu/field-core';
 import { use } from 'react';
 import { View } from 'react-native';
@@ -42,7 +41,6 @@ interface Props {
 }
 
 export const HintPanel = ({ controlsTop }: Props) => {
-    const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const { snapshot } = use(GameContext);
 
@@ -62,9 +60,6 @@ export const HintPanel = ({ controlsTop }: Props) => {
     const isLastPage = hintPageIndex >= hintPageCount - 1;
     const isSinglePage = hintPageCount <= 1;
     const placementValue = isLastPage ? stepScript.placement?.value : null;
-    const currentStepNumber = hintPageIndex + 1;
-    const stepCount = hintPageCount;
-    const stepLabel = t`Step ${currentStepNumber} of ${stepCount}`;
     const panelEnteringAnimation = isMotionReduced ? panelReducedEntering : panelEntering;
 
     return (
@@ -89,7 +84,7 @@ export const HintPanel = ({ controlsTop }: Props) => {
                         <HintPanelApplyButton style={styles.footerButton} />
                     </View>
                 ) : (
-                    <HintStepper>{stepLabel}</HintStepper>
+                    <HintStepper />
                 )}
             </Animated.View>
         </Animated.View>

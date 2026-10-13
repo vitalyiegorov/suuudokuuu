@@ -2048,7 +2048,7 @@ msgstr "आंकड़े"
 msgid "Stayed in app"
 msgstr "ऐप में ही रहे"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-stepper/hint-stepper.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "कुल {stepCount} में से चरण {currentStepNumber}"
 

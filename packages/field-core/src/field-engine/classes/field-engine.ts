@@ -158,10 +158,6 @@ export class FieldEngine extends FieldStore {
         return Math.max(this.showHintPage(this.hintPages.PageCount - 1), 0);
     }
 
-    revealNextHintLevel(): boolean {
-        return isDefined(this.stepScript) && this.showHintPage(this.hintPages.findLevelPageIndex(1)) >= 0;
-    }
-
     stepScriptNext(): boolean {
         return this.showHintPage(this.hintPages.findStepPageIndex(this.hintPages.CurrentPage.stepIndex + 1)) >= 0;
     }
@@ -171,7 +167,7 @@ export class FieldEngine extends FieldStore {
     }
 
     stepScriptReset(): boolean {
-        return this.showHintPage(this.hintPages.findLevelPageIndex(0)) >= 0;
+        return this.showHintPage(this.hintPages.findLevelPageIndex()) >= 0;
     }
 
     applyStepScript(): void {

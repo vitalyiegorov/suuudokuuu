@@ -52,16 +52,16 @@ describe('progressive hint levels', () => {
         Effect.sync(() => {
             const { engine, script } = createHintEngine();
 
-            assert.strictEqual(engine.revealNextHintLevel(), false);
+            assert.strictEqual(engine.hintNext(), false);
             engine.startStepScript(script);
             assert.strictEqual(engine.getSnapshot().hintLevel, HintLevelEnum.WALKTHROUGH);
             engine.startStepScript(script, HintLevelEnum.TECHNIQUE);
             assert.strictEqual(engine.getSnapshot().hintLevel, HintLevelEnum.TECHNIQUE);
-            assert.strictEqual(engine.revealNextHintLevel(), true);
+            assert.strictEqual(engine.hintNext(), true);
             assert.strictEqual(engine.getSnapshot().hintLevel, HintLevelEnum.PATTERN);
-            assert.strictEqual(engine.revealNextHintLevel(), true);
+            assert.strictEqual(engine.hintNext(), true);
             assert.strictEqual(engine.getSnapshot().hintLevel, HintLevelEnum.WALKTHROUGH);
-            assert.strictEqual(engine.revealNextHintLevel(), false);
+            assert.strictEqual(engine.hintNext(), false);
             engine.startStepScript(script, HintLevelEnum.TECHNIQUE);
             engine.stopStepScript();
             assert.deepInclude(engine.getSnapshot(), { stepScript: null, hintLevel: HintLevelEnum.WALKTHROUGH });

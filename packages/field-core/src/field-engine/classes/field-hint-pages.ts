@@ -85,9 +85,7 @@ export class FieldHintPages {
         return stepIndex < 0 ? -1 : this.pages.map(page => page.stepIndex).lastIndexOf(stepIndex);
     }
 
-    findLevelPageIndex(levelOffset: number): number {
-        const hintLevel = hintLevelOrder.at(hintLevelOrder.indexOf(this.CurrentPage.hintLevel) + levelOffset);
-
-        return this.pages.findIndex(page => page.hintLevel === hintLevel);
+    findLevelPageIndex(): number {
+        return this.pages.findIndex(page => page.hintLevel === this.CurrentPage.hintLevel);
     }
 }
