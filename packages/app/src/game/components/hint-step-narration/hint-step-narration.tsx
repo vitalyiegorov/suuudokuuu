@@ -10,25 +10,24 @@ import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameGetStepNarration } from '../../utils/game-get-step-narration.util';
+import { HintChainBlocks } from '../hint-chain-blocks/hint-chain-blocks';
 import { HintChainSentence } from '../hint-chain-sentence/hint-chain-sentence';
-import { HintNarratedChain } from '../hint-narrated-chain/hint-narrated-chain';
 
 import { HintStepNarrationSelectors } from './hint-step-narration.selectors';
 import { HintStepNarrationStyles as styles } from './hint-step-narration.styles';
 
-import type { StepScriptInterface } from '@suuudokuuu/field-core';
+import type { StepScriptStepType } from '@suuudokuuu/field-core';
 
 interface Props {
-    readonly stepScript: StepScriptInterface;
-    readonly stepIndex: number;
-    readonly value?: number;
+    readonly step: StepScriptStepType;
+    readonly revealedImplicationCount: number;
+    readonly value: number | null | undefined;
 }
 
-export const HintStepNarration = ({ stepScript, stepIndex, value }: Props) => {
+export const HintStepNarration = ({ step, revealedImplicationCount, value }: Props) => {
     const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
     const narrationScrollRef = useRef<ScrollViewInstance>(null);
-    const step = stepScript.steps[stepIndex];
     const techniqueName =
         step.narration.technique === SolutionTechniqueEnum.Guess ? t`Reveal` : i18n._(techniqueLabelsConstant[step.narration.technique]);
     const narrationText = i18n._(gameGetStepNarration(step, techniqueName));
@@ -36,14 +35,6 @@ export const HintStepNarration = ({ stepScript, stepIndex, value }: Props) => {
     const chipStyles = [styles.chip, { backgroundColor: theme.colors.ink }];
     const chipTextStyles = [styles.chipText, { color: theme.colors.inkText }];
     const isWitness = step.kind === StepScriptStepKindEnum.SHOW_CHAIN || step.kind === StepScriptStepKindEnum.SHOW_BRANCH;
-    const witnessSteps = stepScript.steps
-        .slice(0, stepIndex + 1)
-        .flatMap((candidateStep, index) =>
-            candidateStep.narration.technique === step.narration.technique &&
-            (candidateStep.kind === StepScriptStepKindEnum.SHOW_CHAIN || candidateStep.kind === StepScriptStepKindEnum.SHOW_BRANCH)
-                ? [{ step: candidateStep, stepIndex: index }]
-                : []
-        );
 
     useEffect(() => void AccessibilityInfo.announceForAccessibility(narrationText), [narrationText]);
 
@@ -53,7 +44,6 @@ export const HintStepNarration = ({ stepScript, stepIndex, value }: Props) => {
 
     return (
         <ScrollView
-            key={`${stepIndex}-${narrationText}`}
             contentContainerStyle={styles.container}
             onContentSizeChange={handleNarrationContentSizeChange}
             persistentScrollbar
@@ -66,20 +56,11 @@ export const HintStepNarration = ({ stepScript, stepIndex, value }: Props) => {
                     <BlackText style={chipTextStyles}>{value}</BlackText>
                 </View>
             ) : null}
-            {witnessSteps.length > 0 ? (
-                <View style={styles.container} testID={HintStepNarrationSelectors.CHAIN_BLOCKS}>
-                    {witnessSteps.map(candidate => (
-                        <HintNarratedChain
-                            currentStepIndex={stepIndex}
-                            key={candidate.stepIndex}
-                            step={candidate.step}
-                            stepIndex={candidate.stepIndex}
-                        />
-                    ))}
-                </View>
-            ) : null}
             {isWitness ? (
-                <HintChainSentence narrationText={narrationText} step={step} />
+                <>
+                    <HintChainBlocks revealedImplicationCount={revealedImplicationCount} step={step} />
+                    <HintChainSentence narrationText={narrationText} revealedImplicationCount={revealedImplicationCount} step={step} />
+                </>
             ) : (
                 <BlackText accessibilityLiveRegion="polite" style={narrationStyles} testID={HintStepNarrationSelectors.Narration}>
                     {narrationText}

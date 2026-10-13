@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 msgid "‹ Back"
 msgstr "‹ Voltar"
 
@@ -337,7 +337,6 @@ msgstr "Animar linhas, colunas e blocos concluídos"
 msgid "Animations"
 msgstr "Animações"
 
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Aplicar"
@@ -584,6 +583,10 @@ msgstr "Vitória limpa"
 msgid "Close"
 msgstr "Fechar"
 
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+msgid "Close hint"
+msgstr "Fechar dica"
+
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
 msgstr "Seguro para daltônicos"
@@ -742,10 +745,6 @@ msgstr "Esmaecer um número completo no teclado numérico em vez de removê-lo"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Discard changes?"
 msgstr "Descartar alterações?"
-
-#: src/game/components/hint-panel-header/hint-panel-header.tsx
-msgid "Dismiss"
-msgstr "Dispensar"
 
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Dismiss setup spotlight"
@@ -1164,6 +1163,10 @@ msgstr "Sobreposição clara"
 msgid "Light warm-up"
 msgstr "Aquecimento leve"
 
+#: src/game/components/hint-chain-blocks/hint-chain-blocks.tsx
+msgid "Link {revealedLinkCount} of {linkCount}"
+msgstr "Ligação {revealedLinkCount} de {linkCount}"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading development build"
 msgstr "Carregando a build de desenvolvimento"
@@ -1175,6 +1178,10 @@ msgstr "Carregando a build de desenvolvimento mais recente…"
 #: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
 msgid "Locked"
 msgstr "Bloqueada"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} around cell {cellName}."
+msgstr "Procure {techniqueName} em torno da célula {cellName}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "Look for {techniqueName} in box {regionNumber}."
@@ -1314,7 +1321,7 @@ msgstr "Jornal"
 msgid "Next"
 msgstr "Próxima"
 
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+#: src/game/components/hint-stepper-next/hint-stepper-next.tsx
 msgid "Next ›"
 msgstr "Avançar ›"
 
@@ -1717,10 +1724,13 @@ msgid "Retry practice"
 msgstr "Repetir prática"
 
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "Revelar"
+
+#: src/game/components/hint-stepper-next/hint-stepper-next.tsx
+msgid "Reveals more of the hint"
+msgstr "Mostra mais da dica"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1887,6 +1897,10 @@ msgstr "compartilhável"
 msgid "Show all candidates"
 msgstr "Mostrar todos os candidatos"
 
+#: src/game/components/hint-panel-show-answer/hint-panel-show-answer.tsx
+msgid "Show answer"
+msgstr "Mostrar resposta"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
 msgstr "Mostrar células com o mesmo número da célula selecionada"
@@ -1902,10 +1916,6 @@ msgstr "Mostrar o tempo decorrido enquanto você joga"
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show matching notes for the selected cell"
 msgstr "Mostrar anotações correspondentes para a célula selecionada"
-
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
-msgid "Show more of the hint"
-msgstr "Mostrar mais da dica"
 
 #: src/campaign/components/campaign-teaching/campaign-teaching.tsx
 msgid "Show teaching example"
@@ -2001,8 +2011,7 @@ msgstr "Estatísticas"
 msgid "Stayed in app"
 msgstr "Ficou no app"
 
-#: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
+#: src/game/components/hint-panel/hint-panel.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Etapa {currentStepNumber} de {stepCount}"
 

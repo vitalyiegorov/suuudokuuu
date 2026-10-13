@@ -19,40 +19,43 @@ appId: ${APP_ID}
       id: 'HintStepNarrationSelectors.Technique'
 - assertVisible:
       id: 'HintStepNarrationSelectors.Narration'
-- assertNotVisible:
-      id: 'HintPanelSelectors.Progress'
-- tapOn:
-      id: 'HintPanelSelectors.ShowMoreButton'
-- assertNotVisible:
-      id: 'HintPanelSelectors.Progress'
-- tapOn:
-      id: 'HintPanelSelectors.ShowMoreButton'
 - assertVisible:
       id: 'HintPanelSelectors.Progress'
+      text: 'Step 1 of 6'
 - tapOn:
       id: 'HintPanelSelectors.NextButton'
+- assertVisible:
+      id: 'HintPanelSelectors.Progress'
+      text: 'Step 2 of 6'
 - tapOn:
       id: 'HintPanelSelectors.BackButton'
+- assertVisible:
+      id: 'HintPanelSelectors.Progress'
+      text: 'Step 1 of 6'
+- repeat:
+      times: 3
+      commands:
+          - tapOn:
+                id: 'HintPanelSelectors.NextButton'
 - tapOn:
-      id: 'HintPanelSelectors.NextButton'
-- tapOn:
-      id: 'HintPanelSelectors.RevealButton'
-- extendedWaitUntil:
-      visible:
-          id: 'HintStepNarrationSelectors.Technique'
-          text: 'Reveal'
-      timeout: 3000
+      id: 'HintPanelSelectors.BackButton'
+- assertVisible:
+      id: 'HintPanelSelectors.Progress'
+      text: 'Step 3 of 6'
 - tapOn:
       id: 'HintPanelSelectors.DismissButton'
+- assertNotVisible:
+      id: 'HintPanelSelectors.Root'
 - tapOn:
       id: 'HintButtonSelectors.Root'
 - repeat:
-      times: 2
+      times: 5
       commands:
           - tapOn:
-                id: 'HintPanelSelectors.ShowMoreButton'
-- tapOn:
-      id: 'HintPanelSelectors.NextButton'
+                id: 'HintPanelSelectors.NextButton'
+- assertVisible:
+      id: 'HintPanelSelectors.ApplyButton'
+      text: 'Place 4'
 - tapOn:
       id: 'HintPanelSelectors.ApplyButton'
 - assertNotVisible:
@@ -67,27 +70,16 @@ appId: ${APP_ID}
           SHARED_HANDOFF_LINK: suuudokuuu://shared/_MANQGaciM0yz__9dFFCq5FGCkeArJsaswTCLjQ9JvkaI
 - tapOn:
       id: 'HintButtonSelectors.Root'
-- repeat:
-      times: 2
-      commands:
-          - tapOn:
-                id: 'HintPanelSelectors.ShowMoreButton'
-- repeat:
-      times: 3
-      commands:
-          - tapOn:
-                id: 'HintPanelSelectors.NextButton'
 - tapOn:
-      id: 'HintPanelSelectors.RevealButton'
-- extendedWaitUntil:
-      visible:
-          id: 'HintStepNarrationSelectors.Technique'
-          text: 'Reveal'
-      timeout: 3000
-- tapOn:
-      id: 'HintPanelSelectors.NextButton'
+      id: 'HintPanelSelectors.ShowAnswerButton'
+- assertVisible:
+      id: 'HintPanelSelectors.Progress'
+      text: 'Step 6 of 6'
 - tapOn:
       id: 'HintPanelSelectors.ApplyButton'
 - assertNotVisible:
       id: 'HintPanelSelectors.Root'
+- assertVisible:
+      id: 'CellSelectors.Cell.2.1'
+      text: 'Row 3, column 2, 4'
 - runFlow: subflows/game/quit-current-game.flow.yaml

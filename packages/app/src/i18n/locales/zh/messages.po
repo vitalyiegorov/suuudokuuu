@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 msgid "‹ Back"
 msgstr "‹ 返回"
 
@@ -337,7 +337,6 @@ msgstr "为完成的行、列和宫格显示动画"
 msgid "Animations"
 msgstr "动画"
 
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "应用"
@@ -584,6 +583,10 @@ msgstr "完胜"
 msgid "Close"
 msgstr "关闭"
 
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+msgid "Close hint"
+msgstr "关闭提示"
+
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
 msgstr "色盲友好"
@@ -742,10 +745,6 @@ msgstr "让数字键盘中已完成的数字变暗，而不是移除它"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Discard changes?"
 msgstr "放弃更改？"
-
-#: src/game/components/hint-panel-header/hint-panel-header.tsx
-msgid "Dismiss"
-msgstr "忽略"
 
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Dismiss setup spotlight"
@@ -1164,6 +1163,10 @@ msgstr "浅色叠加层"
 msgid "Light warm-up"
 msgstr "轻度热身"
 
+#: src/game/components/hint-chain-blocks/hint-chain-blocks.tsx
+msgid "Link {revealedLinkCount} of {linkCount}"
+msgstr "第 {revealedLinkCount} 环，共 {linkCount} 环"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading development build"
 msgstr "正在加载开发版本"
@@ -1175,6 +1178,10 @@ msgstr "正在加载最新开发版本…"
 #: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
 msgid "Locked"
 msgstr "已锁定"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} around cell {cellName}."
+msgstr "在单元格 {cellName} 周围寻找{techniqueName}。"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "Look for {techniqueName} in box {regionNumber}."
@@ -1314,7 +1321,7 @@ msgstr "报纸"
 msgid "Next"
 msgstr "下一步"
 
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+#: src/game/components/hint-stepper-next/hint-stepper-next.tsx
 msgid "Next ›"
 msgstr "下一步 ›"
 
@@ -1717,10 +1724,13 @@ msgid "Retry practice"
 msgstr "重试练习"
 
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "揭示"
+
+#: src/game/components/hint-stepper-next/hint-stepper-next.tsx
+msgid "Reveals more of the hint"
+msgstr "显示更多提示内容"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1887,6 +1897,10 @@ msgstr "可分享"
 msgid "Show all candidates"
 msgstr "显示所有候选数字"
 
+#: src/game/components/hint-panel-show-answer/hint-panel-show-answer.tsx
+msgid "Show answer"
+msgstr "显示答案"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
 msgstr "显示与所选单元格数字相同的单元格"
@@ -1902,10 +1916,6 @@ msgstr "游戏时显示已用时间"
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show matching notes for the selected cell"
 msgstr "显示所选单元格的匹配笔记"
-
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
-msgid "Show more of the hint"
-msgstr "显示更多提示"
 
 #: src/campaign/components/campaign-teaching/campaign-teaching.tsx
 msgid "Show teaching example"
@@ -2001,8 +2011,7 @@ msgstr "统计"
 msgid "Stayed in app"
 msgstr "未离开应用"
 
-#: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
+#: src/game/components/hint-panel/hint-panel.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "第 {currentStepNumber} 步，共 {stepCount} 步"
 

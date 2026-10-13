@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 msgid "‹ Back"
 msgstr "العودة ›"
 
@@ -337,7 +337,6 @@ msgstr "تحريك الصفوف والأعمدة والمربعات المكتم
 msgid "Animations"
 msgstr "الحركات"
 
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "تطبيق"
@@ -584,6 +583,10 @@ msgstr "فوز نظيف"
 msgid "Close"
 msgstr "إغلاق"
 
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+msgid "Close hint"
+msgstr "إغلاق التلميح"
+
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
 msgstr "مناسب لعمى الألوان"
@@ -742,10 +745,6 @@ msgstr "تعتيم الرقم المكتمل في لوحة الأرقام بدل
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Discard changes?"
 msgstr "تجاهل التغييرات؟"
-
-#: src/game/components/hint-panel-header/hint-panel-header.tsx
-msgid "Dismiss"
-msgstr "تجاهل"
 
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Dismiss setup spotlight"
@@ -1164,6 +1163,10 @@ msgstr "طبقة فاتحة"
 msgid "Light warm-up"
 msgstr "إحماء خفيف"
 
+#: src/game/components/hint-chain-blocks/hint-chain-blocks.tsx
+msgid "Link {revealedLinkCount} of {linkCount}"
+msgstr "الرابط {revealedLinkCount} من {linkCount}"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading development build"
 msgstr "جارٍ تحميل إصدار التطوير"
@@ -1175,6 +1178,10 @@ msgstr "جارٍ تحميل أحدث إصدار تطوير…"
 #: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
 msgid "Locked"
 msgstr "مقفل"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} around cell {cellName}."
+msgstr "ابحث عن {techniqueName} حول الخلية {cellName}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "Look for {techniqueName} in box {regionNumber}."
@@ -1314,7 +1321,7 @@ msgstr "صحيفة"
 msgid "Next"
 msgstr "التالي"
 
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+#: src/game/components/hint-stepper-next/hint-stepper-next.tsx
 msgid "Next ›"
 msgstr "‹ التالي"
 
@@ -1717,10 +1724,13 @@ msgid "Retry practice"
 msgstr "إعادة التدريب"
 
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "كشف"
+
+#: src/game/components/hint-stepper-next/hint-stepper-next.tsx
+msgid "Reveals more of the hint"
+msgstr "يكشف المزيد من التلميح"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1887,6 +1897,10 @@ msgstr "قابل للمشاركة"
 msgid "Show all candidates"
 msgstr "إظهار كل المرشحات"
 
+#: src/game/components/hint-panel-show-answer/hint-panel-show-answer.tsx
+msgid "Show answer"
+msgstr "إظهار الإجابة"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
 msgstr "إظهار الخلايا التي تحمل نفس رقم الخلية المحددة"
@@ -1902,10 +1916,6 @@ msgstr "إظهار الوقت المنقضي أثناء اللعب"
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show matching notes for the selected cell"
 msgstr "إظهار الملاحظات المطابقة للخلية المحددة"
-
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
-msgid "Show more of the hint"
-msgstr "عرض المزيد من التلميح"
 
 #: src/campaign/components/campaign-teaching/campaign-teaching.tsx
 msgid "Show teaching example"
@@ -2001,8 +2011,7 @@ msgstr "الإحصاءات"
 msgid "Stayed in app"
 msgstr "بقيت في التطبيق"
 
-#: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
+#: src/game/components/hint-panel/hint-panel.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "الخطوة {currentStepNumber} من {stepCount}"
 

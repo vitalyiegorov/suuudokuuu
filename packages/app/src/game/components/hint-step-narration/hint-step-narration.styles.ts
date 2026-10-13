@@ -21,10 +21,16 @@ export const HintStepNarrationStyles = StyleSheet.create(theme => ({
         fontWeight: '900'
     },
     narrationScroll: {
-        flexBasis: 0,
-        flexGrow: 1,
-        minHeight: 0,
-        flexShrink: 1
+        flexGrow: 0,
+        flexShrink: 1,
+        minHeight: 0
+    },
+    linkProgress: {
+        color: theme.colors.text.hint,
+        fontSize: theme.typography.size.sm,
+        fontVariant: ['tabular-nums'],
+        fontWeight: '700',
+        textAlign: 'left'
     },
     narration: {
         fontSize: theme.typography.size.md,

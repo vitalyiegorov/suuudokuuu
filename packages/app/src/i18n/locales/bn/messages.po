@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 msgid "‹ Back"
 msgstr "‹ ফিরে"
 
@@ -337,7 +337,6 @@ msgstr "সম্পূর্ণ সারি, কলাম ও বাক্স�
 msgid "Animations"
 msgstr "অ্যানিমেশন"
 
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "প্রয়োগ করুন"
@@ -584,6 +583,10 @@ msgstr "নিখুঁত জয়"
 msgid "Close"
 msgstr "বন্ধ করুন"
 
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+msgid "Close hint"
+msgstr "সংকেত বন্ধ করুন"
+
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
 msgstr "বর্ণান্ধতা-বান্ধব"
@@ -742,10 +745,6 @@ msgstr "নম্বর প্যাডে সম্পূর্ণ সংখ্
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Discard changes?"
 msgstr "পরিবর্তনগুলো বাতিল করবেন?"
-
-#: src/game/components/hint-panel-header/hint-panel-header.tsx
-msgid "Dismiss"
-msgstr "সরিয়ে দিন"
 
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Dismiss setup spotlight"
@@ -1164,6 +1163,10 @@ msgstr "হালকা ওভারলে"
 msgid "Light warm-up"
 msgstr "হালকা ওয়ার্ম-আপ"
 
+#: src/game/components/hint-chain-blocks/hint-chain-blocks.tsx
+msgid "Link {revealedLinkCount} of {linkCount}"
+msgstr "{linkCount}-এর মধ্যে সংযোগ {revealedLinkCount}"
+
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Loading development build"
 msgstr "ডেভেলপমেন্ট বিল্ড লোড হচ্ছে"
@@ -1175,6 +1178,10 @@ msgstr "সর্বশেষ ডেভেলপমেন্ট বিল্ড 
 #: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
 msgid "Locked"
 msgstr "লক করা"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} around cell {cellName}."
+msgstr "{cellName} ঘরের আশেপাশে {techniqueName} খুঁজুন।"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "Look for {techniqueName} in box {regionNumber}."
@@ -1314,7 +1321,7 @@ msgstr "সংবাদপত্র"
 msgid "Next"
 msgstr "পরবর্তী"
 
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+#: src/game/components/hint-stepper-next/hint-stepper-next.tsx
 msgid "Next ›"
 msgstr "পরবর্তী ›"
 
@@ -1717,10 +1724,13 @@ msgid "Retry practice"
 msgstr "অনুশীলন আবার করুন"
 
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "প্রকাশ"
+
+#: src/game/components/hint-stepper-next/hint-stepper-next.tsx
+msgid "Reveals more of the hint"
+msgstr "সংকেতের আরও অংশ দেখায়"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1887,6 +1897,10 @@ msgstr "শেয়ারযোগ্য"
 msgid "Show all candidates"
 msgstr "সব প্রার্থী দেখান"
 
+#: src/game/components/hint-panel-show-answer/hint-panel-show-answer.tsx
+msgid "Show answer"
+msgstr "উত্তর দেখান"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
 msgstr "নির্বাচিত ঘরের একই সংখ্যার ঘরগুলো দেখান"
@@ -1902,10 +1916,6 @@ msgstr "খেলার সময় অতিবাহিত সময় দেখ�
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show matching notes for the selected cell"
 msgstr "নির্বাচিত ঘরের মিলে যাওয়া নোট দেখান"
-
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
-msgid "Show more of the hint"
-msgstr "ইঙ্গিতের আরও অংশ দেখান"
 
 #: src/campaign/components/campaign-teaching/campaign-teaching.tsx
 msgid "Show teaching example"
@@ -2001,8 +2011,7 @@ msgstr "পরিসংখ্যান"
 msgid "Stayed in app"
 msgstr "অ্যাপেই ছিলেন"
 
-#: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
+#: src/game/components/hint-panel/hint-panel.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "{stepCount}-এর মধ্যে ধাপ {currentStepNumber}"
 

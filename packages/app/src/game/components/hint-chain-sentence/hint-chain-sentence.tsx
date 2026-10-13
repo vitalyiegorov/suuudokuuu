@@ -13,9 +13,10 @@ import type { StepScriptBranchStepInterface, StepScriptChainStepInterface } from
 interface Props {
     readonly step: StepScriptBranchStepInterface | StepScriptChainStepInterface;
     readonly narrationText: string;
+    readonly revealedImplicationCount: number;
 }
 
-export const HintChainSentence = ({ step, narrationText }: Props) => {
+export const HintChainSentence = ({ step, narrationText, revealedImplicationCount }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
     const narrationStyles = [styles.narration, { color: theme.colors.surface.raisedText }];
@@ -24,6 +25,7 @@ export const HintChainSentence = ({ step, narrationText }: Props) => {
     const { value } = assumption;
     const isContradiction =
         step.kind === StepScriptStepKindEnum.SHOW_BRANCH &&
+        revealedImplicationCount >= step.branch.implications.length &&
         step.branch.outcome.kind !== ForcingOutcomeKindEnum.COMMON_PLACEMENT &&
         step.branch.outcome.kind !== ForcingOutcomeKindEnum.COMMON_ELIMINATIONS;
     const branchSentence = isContradiction
