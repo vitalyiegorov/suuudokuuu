@@ -1,4 +1,4 @@
-import { ForcingOutcomeKindEnum } from '@suuudokuuu/techniques';
+import { ForcingOutcomeKindEnum, SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
@@ -9,7 +9,7 @@ import type { StepScriptNarrationInterface } from '../interfaces/step-script-nar
 import type { StepScriptInterface } from '../interfaces/step-script.interface';
 import type { StepScriptStepType } from '../types/step-script-step.type';
 import type { CellInterface } from '@suuudokuuu/generator';
-import type { ChainCandidateInterface, ForcingOutcomeType, SolutionTechniqueEnum, TechniqueResultInterface } from '@suuudokuuu/techniques';
+import type { ChainCandidateInterface, ForcingOutcomeType, TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const getPatternCandidates = (result: TechniqueResultInterface, patternCells: CellInterface[]): StepScriptCandidateInterface[] =>
     (result.patternCandidates ?? result.chain)?.map(({ cell, value }) => ({ cell, value })) ??
@@ -92,8 +92,13 @@ const createWitnessSteps = ({ branches = [], chain = [], technique }: TechniqueR
     }))
 ];
 
+const getPatternCells = ({ reasonCells, technique }: TechniqueResultInterface): CellInterface[] =>
+    technique === SolutionTechniqueEnum.NakedSingle
+        ? reasonCells.filter((cell, cellIndex) => reasonCells.findIndex(reasonCell => reasonCell.value === cell.value) === cellIndex)
+        : [...reasonCells];
+
 export const techniqueResultToStepScript = (result: TechniqueResultInterface): StepScriptInterface => {
-    const patternCells = [...result.reasonCells];
+    const patternCells = getPatternCells(result);
     const eliminations = result.eliminations.map(elimination => ({ cell: elimination.cell, value: elimination.value }));
     const placement = { cell: result.cell, value: result.value };
     const hasPlacement = result.kind !== 'elimination';
