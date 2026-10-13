@@ -1,4 +1,3 @@
-import { useAppLayout } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { View } from 'react-native';
 
@@ -25,7 +24,6 @@ interface Props {
 
 export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selectedCell }: Props) => {
     const { engine, snapshot } = use(GameContext);
-    const { sizeClass } = useAppLayout();
     const { keepExhaustedDigits } = useSettings();
 
     const sudoku = engine.Sudoku;
@@ -33,7 +31,7 @@ export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selected
     const canPress = sudoku.isBlankCell(selectedCell);
     const numpadDigits = keepExhaustedDigits ? GameNumpadDigitsConstant : sudoku.PossibleValues;
     const remainingDigitCounts = gameGetRemainingDigitCounts(snapshot.field);
-    const isNumpadHidden = isDefined(snapshot.stepScript) && sizeClass !== 'wide';
+    const isNumpadHidden = isDefined(snapshot.stepScript);
     const numpadPointerEvents = isNumpadHidden ? 'none' : 'auto';
 
     return (

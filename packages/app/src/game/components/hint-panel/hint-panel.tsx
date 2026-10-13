@@ -1,5 +1,5 @@
 import { HintLevelEnum } from '@suuudokuuu/field-core';
-import { use, useEffect, useRef } from 'react';
+import { use } from 'react';
 import { View } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -21,41 +21,31 @@ const enterDurationMs = 180;
 const exitDurationMs = 120;
 
 interface Props {
-    readonly availableHeight?: number;
+    readonly controlsTop: number;
 }
 
-export const HintPanel = ({ availableHeight }: Props) => {
+export const HintPanel = ({ controlsTop }: Props) => {
     const { theme } = use(ThemeContext);
-    const { engine, snapshot } = use(GameContext);
+    const { snapshot } = use(GameContext);
 
     const insets = useSafeAreaInsets();
-    const engineRef = useRef(engine);
-
-    useEffect(() => {
-        engineRef.current = engine;
-    }, [engine]);
 
     const isMotionReduced = useReduceMotion();
 
     const { stepScript, stepIndex } = snapshot;
     const currentStep = stepScript?.steps[stepIndex];
 
-    useEffect(() => () => void engineRef.current.stopStepScript(), []);
-
     if (!isDefined(stepScript) || !isDefined(currentStep)) {
         return null;
     }
 
-    const containerStyles = [
-        styles.container(availableHeight),
-        { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border }
-    ];
+    const containerStyles = [styles.container, { backgroundColor: theme.colors.surface.raised, borderColor: theme.colors.surface.border }];
     const isWalkthrough = snapshot.hintLevel === HintLevelEnum.WALKTHROUGH;
     const placementValue = currentStep.narration.placement?.value;
     const motionProps = isMotionReduced ? {} : { entering: FadeIn.duration(enterDurationMs), exiting: FadeOut.duration(exitDurationMs) };
 
     return (
-        <Animated.View pointerEvents="box-none" style={styles.region(availableHeight, insets)} {...motionProps}>
+        <Animated.View pointerEvents="box-none" style={styles.region(controlsTop, insets)} {...motionProps}>
             <View style={containerStyles} testID={HintPanelSelectors.Root}>
                 <HintPanelHeader />
                 {isWalkthrough ? (
