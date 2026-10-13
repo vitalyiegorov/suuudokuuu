@@ -11,6 +11,10 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+msgid "‹ Back"
+msgstr "‹ वापस"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -169,8 +173,8 @@ msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {la
 msgstr "{techniqueName}: हाइलाइट की गई सेल एक शृंखला बनाती हैं, इसलिए {firstEnd} या {lastEnd} सही है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
-msgstr "{techniqueName}: हाइलाइट की गई सेल में ठीक उतने ही अंक हैं जितनी सेल हैं, इसलिए {valueList} इनमें से किसी एक में ही आएगा।"
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "{techniqueName}: हाइलाइट की गई सेल में ठीक उतने ही अंक हैं जितनी सेल हैं, इसलिए {valueList} केवल इन्हीं सेल में आ सकता है।"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."
@@ -243,6 +247,18 @@ msgstr "{value, plural, one {# सेकंड} other {# सेकंड}}"
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>डेवलपमेंट क्लाइंट आवश्यक है</0><1>डेवलपमेंट क्लाइंट को Metro, <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> में कॉन्फ़िगर किया गया लॉन्च URL या <3>development</3> चैनल पर संगत अपडेट चाहिए। यह इंस्टॉलेशन प्रक्रिया कोई अपडेट प्रकाशित नहीं करती।</1>"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ {cell} cannot be {value}"
+msgstr "✕ {cell}, {value} नहीं हो सकता"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no candidate for {cell}"
+msgstr "✕ {cell} में कोई उम्मीदवार नहीं"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no place for {value}"
+msgstr "✕ {value} के लिए कोई जगह नहीं"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
@@ -321,14 +337,22 @@ msgstr "पूरी हुई पंक्तियों, कॉलमों �
 msgid "Animations"
 msgstr "ऐनिमेशन"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "लागू करें"
 
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Apply & next"
+msgstr "लागू करें और आगे बढ़ें"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
 msgstr "सहायताएँ"
+
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "At least one end of this chain must be true."
+msgstr "इस श्रृंखला का कम से कम एक सिरा सही होना चाहिए।"
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -591,7 +615,6 @@ msgstr "पूर्णता ऐनिमेशन"
 msgid "Completion Bonuses"
 msgstr "पूरा करने के बोनस"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -606,9 +629,9 @@ msgstr "कहीं और जारी रखें"
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "इस सुडोकू को ठीक वहीं से जारी रखो जहाँ मैंने छोड़ा था!"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Continue to next hint"
-msgstr "अगले संकेत पर जाएँ"
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "Contradiction, so {cell} is not {value}."
+msgstr "विरोधाभास, इसलिए {cell}, {value} नहीं है।"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -707,7 +730,7 @@ msgstr "पूर्ण अंक को नंबर पैड से हटा
 msgid "Discard changes?"
 msgstr "बदलाव छोड़ें?"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Dismiss"
 msgstr "हटाएँ"
 
@@ -990,6 +1013,10 @@ msgstr "स्कोर कैसे काम करता है"
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "मैंने यह सुडोकू {elapsedTimeString} में पूरा किया। क्या आप मुझे हरा सकते हैं?"
 
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "If {cell} were {value}, these cells would be forced in turn."
+msgstr "यदि {cell}, {value} होता, तो ये खाने क्रमशः तय हो जाते।"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
 msgstr "यदि {path} → {cell} में कोई उम्मीदवार नहीं बचता। इसलिए {assumptionCell} {assumptionValue} नहीं है।"
@@ -1242,9 +1269,9 @@ msgstr "नया खिलाड़ी"
 msgid "Newspaper"
 msgstr "न्यूज़पेपर"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Next step"
-msgstr "अगला चरण"
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Next ›"
+msgstr "आगे ›"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1419,6 +1446,10 @@ msgstr "प्रति गलती"
 msgid "per second"
 msgstr "प्रति सेकंड"
 
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Place {placementValue}"
+msgstr "{placementValue} रखें"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Place {valueList} in the marked cell."
 msgstr "{valueList} को चिह्नित सेल में रखें।"
@@ -1497,10 +1528,6 @@ msgstr "और कठिन तर्क का अभ्यास करें"
 msgid "Presets"
 msgstr "प्रीसेट"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Previous step"
-msgstr "पिछला चरण"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "प्राथमिक टेक्स्ट"
@@ -1530,6 +1557,10 @@ msgstr "सुडोकू हल हो गया।"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "छोड़ें"
+
+#: src/game/components/hint-chain-block/hint-chain-block.tsx
+msgid "R{row}C{column} {operator} {value}"
+msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
@@ -1612,14 +1643,11 @@ msgstr "यह गेम जारी रखें?"
 msgid "Retry loading development build"
 msgstr "डेवलपमेंट बिल्ड फिर से लोड करें"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "प्रकट करें"
-
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Reveal a digit"
-msgstr "एक अंक दिखाएँ"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1798,11 +1826,7 @@ msgstr "खेलते समय बीता हुआ समय दिखा�
 msgid "Show matching notes for the selected cell"
 msgstr "चयनित सेल के मिलते-जुलते नोट्स दिखाएं"
 
-#: src/game/components/hint-panel/hint-panel.tsx
-msgid "Show more"
-msgstr "और दिखाएँ"
-
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Show more of the hint"
 msgstr "संकेत का और भाग दिखाएँ"
 
@@ -1892,9 +1916,10 @@ msgstr "आंकड़े"
 msgid "Stayed in app"
 msgstr "ऐप में ही रहे"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
-msgstr "{stepCount} में से चरण {currentStepNumber}"
+msgstr "कुल {stepCount} में से चरण {currentStepNumber}"
 
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Step time"

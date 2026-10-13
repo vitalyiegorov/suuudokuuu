@@ -11,6 +11,10 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+msgid "‹ Back"
+msgstr "‹ Kembali"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -169,8 +173,8 @@ msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {la
 msgstr "{techniqueName}: sel yang disorot membentuk sebuah rantai, sehingga {firstEnd} atau {lastEnd} benar."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
-msgstr "{techniqueName}: sel yang disorot memuat angka sebanyak jumlah selnya, sehingga {valueList} harus berada di salah satunya."
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "{techniqueName}: sel yang disorot memuat angka sebanyak jumlah selnya, sehingga {valueList} hanya bisa berada di sel-sel ini."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."
@@ -243,6 +247,18 @@ msgstr "{value, plural, one {# detik} other {# detik}}"
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>Klien pengembangan diperlukan</0><1>Klien pengembangan memerlukan Metro, URL peluncuran yang dikonfigurasi di <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, atau pembaruan kompatibel pada saluran <3>development</3>. Alur penginstalan ini tidak menerbitkan pembaruan.</1>"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ {cell} cannot be {value}"
+msgstr "✕ {cell} tidak mungkin {value}"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no candidate for {cell}"
+msgstr "✕ tidak ada kandidat untuk {cell}"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no place for {value}"
+msgstr "✕ tidak ada tempat untuk {value}"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
@@ -321,14 +337,22 @@ msgstr "Animasikan baris, kolom, dan kotak yang selesai"
 msgid "Animations"
 msgstr "Animasi"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "Terapkan"
 
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Apply & next"
+msgstr "Terapkan & berikutnya"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
 msgstr "Bantuan"
+
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "At least one end of this chain must be true."
+msgstr "Setidaknya satu ujung rantai ini harus benar."
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -591,7 +615,6 @@ msgstr "Animasi penyelesaian"
 msgid "Completion Bonuses"
 msgstr "Bonus penyelesaian"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -606,9 +629,9 @@ msgstr "Lanjutkan di tempat lain"
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "Lanjutkan Sudoku ini tepat di tempat aku berhenti!"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Continue to next hint"
-msgstr "Lanjut ke petunjuk berikutnya"
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "Contradiction, so {cell} is not {value}."
+msgstr "Kontradiksi, jadi {cell} bukan {value}."
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -707,7 +730,7 @@ msgstr "Redupkan angka yang sudah lengkap di numpad, bukan menghapusnya"
 msgid "Discard changes?"
 msgstr "Buang perubahan?"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Dismiss"
 msgstr "Abaikan"
 
@@ -990,6 +1013,10 @@ msgstr "Cara kerja skor"
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "Aku menyelesaikan sudoku ini dalam {elapsedTimeString}. Bisa kalahkan aku?"
 
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "If {cell} were {value}, these cells would be forced in turn."
+msgstr "Jika {cell} adalah {value}, sel-sel ini akan dipaksakan secara berurutan."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
 msgstr "Jika {path} → {cell} kehabisan kandidat. Jadi {assumptionCell} bukan {assumptionValue}."
@@ -1242,9 +1269,9 @@ msgstr "Pemula"
 msgid "Newspaper"
 msgstr "Koran"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Next step"
-msgstr "Langkah berikutnya"
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Next ›"
+msgstr "Berikutnya ›"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1419,6 +1446,10 @@ msgstr "per kesalahan"
 msgid "per second"
 msgstr "per detik"
 
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Place {placementValue}"
+msgstr "Tempatkan {placementValue}"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Place {valueList} in the marked cell."
 msgstr "Tempatkan {valueList} di sel yang ditandai."
@@ -1497,10 +1528,6 @@ msgstr "Latih logika yang lebih sulit"
 msgid "Presets"
 msgstr "Preset"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Previous step"
-msgstr "Langkah sebelumnya"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "Teks utama"
@@ -1530,6 +1557,10 @@ msgstr "Sudoku terpecahkan."
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Keluar"
+
+#: src/game/components/hint-chain-block/hint-chain-block.tsx
+msgid "R{row}C{column} {operator} {value}"
+msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
@@ -1612,14 +1643,11 @@ msgstr "Lanjutkan permainan ini?"
 msgid "Retry loading development build"
 msgstr "Coba lagi memuat build pengembangan"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "Ungkap"
-
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Reveal a digit"
-msgstr "Tampilkan satu angka"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1798,11 +1826,7 @@ msgstr "Tampilkan waktu berjalan saat bermain"
 msgid "Show matching notes for the selected cell"
 msgstr "Tampilkan catatan yang cocok untuk sel yang dipilih"
 
-#: src/game/components/hint-panel/hint-panel.tsx
-msgid "Show more"
-msgstr "Tampilkan lebih banyak"
-
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Show more of the hint"
 msgstr "Tampilkan lebih banyak petunjuk"
 
@@ -1892,7 +1916,8 @@ msgstr "Statistik"
 msgid "Stayed in app"
 msgstr "Tetap di aplikasi"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Langkah {currentStepNumber} dari {stepCount}"
 

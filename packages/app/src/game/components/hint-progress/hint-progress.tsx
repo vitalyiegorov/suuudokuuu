@@ -1,29 +1,33 @@
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 
 import { HintPanelStyles as styles } from '../hint-panel/hint-panel.styles';
+import { HintProgressDot } from '../hint-progress-dot/hint-progress-dot';
 
 import type { StepScriptInterface } from '@suuudokuuu/field-core';
 
-const maxProgressDots = 9;
+const maxProgressDots = 3;
 
 interface Props {
-    readonly progressLabel: string;
     readonly stepIndex: number;
     readonly stepScript: StepScriptInterface;
 }
 
-export const HintProgress = ({ progressLabel, stepIndex, stepScript }: Props) => {
-    if (stepScript.steps.length > maxProgressDots) {
-        return <Text style={styles.progressText}>{progressLabel}</Text>;
-    }
+export const HintProgress = ({ stepIndex, stepScript }: Props) => {
+    const firstDotIndex = Math.max(0, Math.min(stepIndex - Math.floor(maxProgressDots / 2), stepScript.steps.length - maxProgressDots));
 
     return (
         <View style={styles.dots}>
-            {stepScript.steps.map((step, index) => {
-                const isCurrentStep = index === stepIndex;
-                const dotStyles = isCurrentStep ? styles.dotActive : styles.dot;
+            {stepScript.steps.slice(firstDotIndex, firstDotIndex + maxProgressDots).map((step, index) => {
+                const dotStepIndex = index + firstDotIndex;
 
-                return <View key={`${step.kind}-${index}`} style={dotStyles} />;
+                return (
+                    <HintProgressDot
+                        currentStepIndex={stepIndex}
+                        stepCount={stepScript.steps.length}
+                        key={`${step.kind}-${dotStepIndex}`}
+                        stepIndex={dotStepIndex}
+                    />
+                );
             })}
         </View>
     );
