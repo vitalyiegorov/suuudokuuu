@@ -17,6 +17,7 @@ import { Field, FieldRef } from '../../../game/components/field/field';
 import { GameTimerController } from '../../../game/components/game-timer-controller/game-timer-controller';
 import { HintPanel } from '../../../game/components/hint-panel/hint-panel';
 import { GameToolsSlotReservedHeightConstant } from '../../../game/constant/board-cell-size.constant';
+import { HiddenFromAccessibilityPropsConstant } from '../../../game/constant/hidden-from-accessibility-props.constant';
 import { GameContext } from '../../../game/context/game.context';
 import { useBoardGeometry } from '../../../game/hooks/use-board-geometry.hook';
 import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/use-keyboard-controls.hook';
@@ -224,7 +225,11 @@ export const GameScreen = () => {
                     </View>
 
                     {isWideLayout ? (
-                        <View pointerEvents={wideActionsPointerEvents} style={styles.wideActions(isHintActive)}>
+                        <View
+                            pointerEvents={wideActionsPointerEvents}
+                            style={styles.wideActions(isHintActive)}
+                            {...(isHintActive && HiddenFromAccessibilityPropsConstant)}
+                        >
                             {gameActionsWithPause}
                         </View>
                     ) : null}
