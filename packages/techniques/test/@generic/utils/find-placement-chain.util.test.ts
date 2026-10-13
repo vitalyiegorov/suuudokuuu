@@ -30,9 +30,29 @@ const pointingPairDetourBoard = '..6....9...45....8.27....4..4..7..6.......8....
 const budgetExhaustedBoard = '..6..1...8.3..91...9......7...2...5....1..4...3..468.12.9..4.3.3..5.....65..3..1.';
 const aicDetourBoard = '..31...5..4...5...75.2....13..5..71..8..6............9.....4..6.2..5.9..9..7...8.';
 const reportedBoard = '001004800302000045540003090800040300000905410400006002030008600050370000100460000';
+const nakedQuadOverHiddenPairBoard = '53..2.9...24.3..5...9..........1.827...7...9.....981.............64....91.2.5.43.';
+const nishioOverUniqueRectangleBoard = '...4.62.7..2.9...6...8..15......89255......7...7.5.4..63.1..7......89....19...5.2';
+const nishioOverUniqueRectangleEliminations: [number, number, number][] = [
+    [1, 0, 8],
+    [1, 1, 5],
+    [1, 3, 8],
+    [2, 0, 8],
+    [4, 1, 4],
+    [4, 1, 6],
+    [4, 1, 8],
+    [4, 3, 3],
+    [4, 3, 6],
+    [4, 4, 2],
+    [4, 5, 2],
+    [5, 3, 3],
+    [5, 3, 6],
+    [5, 5, 2],
+    [7, 3, 2]
+];
 const reportedBranchMaximumImplications = 24;
 const witnessHintLimit = 20;
 const maxScanCost = Math.max(PLACEMENT_CHAIN_DEFAULT_SCAN_COST, ...Object.values(PLACEMENT_CHAIN_SCAN_COSTS));
+const columnQuadChain = ['PointingPair elimination 7-0=5', 'HiddenPair elimination 2-5=1', 'HiddenSingle placement 2-4=9'];
 const pointingPairChain = ['PointingPair elimination 0-6=4', 'HiddenSingle placement 2-1=4'];
 
 const singlesOrder = [SolutionTechniqueEnum.FullHouse, SolutionTechniqueEnum.NakedSingle, SolutionTechniqueEnum.HiddenSingle];
@@ -210,18 +230,13 @@ describe('findPlacementChain', () => {
         expect(placement?.value).toBe(sudoku.getCorrectValue(placement?.cell));
     });
 
-    it('should fall back to the shortest placement route when the step cap is spent on irrelevant eliminations', () => {
-        expect.assertions(4);
+    it('should search in difficulty order whatever order the strategies are listed in', () => {
+        expect.assertions(2);
 
         const sudoku = createSudoku(columnQuadBoard);
         const calls: SolutionTechniqueEnum[] = [];
-        const strategies = [createIrrelevantStrategy(sudoku, PLACEMENT_CHAIN_MAX_STEPS), ...createCountingStrategies(calls)];
-        const chain = findPlacementChain(sudoku, strategies);
-        const placement = chain.at(-1);
 
-        expect(chain.length).toBeLessThanOrEqual(2);
-        expect(placement?.kind).toBe('placement');
-        expect(placement?.value).toBe(sudoku.getCorrectValue(placement?.cell));
+        expect(describeChain(findPlacementChain(sudoku, createCountingStrategies(calls).reverse()))).toEqual(columnQuadChain);
         expect(getSpentWork(calls)).toBeLessThanOrEqual(PLACEMENT_CHAIN_WORK_BUDGET + maxScanCost);
     });
 
@@ -293,6 +308,35 @@ describe('findPlacementChain', () => {
         }
     );
 
+    it.each([
+        [SolutionTechniqueEnum.NakedQuad, nakedQuadOverHiddenPairBoard, [], 'HiddenPair elimination 2-6=6'],
+        [
+            SolutionTechniqueEnum.NishioForcingChain,
+            nishioOverUniqueRectangleBoard,
+            nishioOverUniqueRectangleEliminations,
+            'UniqueRectangle elimination 5-1=2'
+        ]
+    ])(
+        'should teach the cheapest step instead of technique %i that comes first in registry order',
+        (registryFirstTechnique, board, eliminationTuples, cheapestStep) => {
+            expect.assertions(2);
+
+            const sudoku = createSudoku(board);
+            const eliminations = eliminationTuples.map(([y, x, value]) => ({ cell: sudoku.Field[y][x], value }));
+            const context = CandidateContext.fromSudoku(sudoku).withEliminations(eliminations);
+            const registryFirstStrategy = createTechniqueStrategies().find(strategy => strategy.technique === registryFirstTechnique);
+
+            expect(
+                registryFirstStrategy
+                    ?.find(context)
+                    .some(result =>
+                        result.eliminations.some(elimination => context.getCandidates(elimination.cell).includes(elimination.value))
+                    )
+            ).toBe(true);
+            expect(describeChain(findHint(sudoku, eliminations))).toEqual([cheapestStep]);
+        }
+    );
+
     it('should reach the reported digit through the shortest trimmed Nishio branch once the pointing pair is applied', () => {
         expect.assertions(3);
 
@@ -337,11 +381,7 @@ describe('findPlacementChain', () => {
         const placementIndex = new TechniqueManager(sudoku).solveLogically().steps.findIndex(step => step.kind === 'placement');
 
         expect(placementIndex).toBeGreaterThanOrEqual(shippedGreedyStepCap);
-        expect(describeChain(findPlacementChain(sudoku))).toEqual([
-            'PointingPair elimination 7-0=5',
-            'HiddenPair elimination 2-5=1',
-            'HiddenSingle placement 2-4=9'
-        ]);
+        expect(describeChain(findPlacementChain(sudoku))).toEqual(columnQuadChain);
     });
 
     it('should keep the unpruned prefix when the work budget runs out while pruning', () => {

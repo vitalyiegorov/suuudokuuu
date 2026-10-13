@@ -20,7 +20,6 @@ const hellCorpusStride = 20;
 const maxHintsPerBoard = 200;
 const maxTintedCellsPerPage = 12;
 const maxMedianBranchLinks = 8;
-const minWithinBandShare = 0.95;
 const difficultyTolerance = 1;
 const corpusTimeoutMilliseconds = 120_000;
 
@@ -83,10 +82,9 @@ const isWithinCheapestBand = (engine: FieldEngine, technique: SolutionTechniqueE
             .filter(cell => engine.Sudoku.isBlankCell(cell))
             .flatMap(cell => (eliminatedCandidates[getCellKey(cell)] ?? []).map(value => ({ cell, value })))
     );
-    const bandMinimum = seTechniqueRatings[technique] - difficultyTolerance;
 
     return !createTechniqueStrategies()
-        .filter(strategy => seTechniqueRatings[strategy.technique] < bandMinimum)
+        .filter(strategy => seTechniqueRatings[strategy.technique] + difficultyTolerance < seTechniqueRatings[technique])
         .some(strategy => strategy.find(context).some(result => isProgressingResult(context, result)));
 };
 
@@ -124,8 +122,6 @@ describe('hint usefulness over a Hell corpus sample', () => {
                     playHints(getHellCorpusRecord(index).puzzle, metrics);
                 }
 
-                const withinBandShare = metrics.withinBandCount / metrics.hintCount;
-
                 yield* Effect.promise(() =>
                     annotate(
                         JSON.stringify({
@@ -133,7 +129,7 @@ describe('hint usefulness over a Hell corpus sample', () => {
                             medianBranchLinks: getMedian(metrics.branchLinkCounts),
                             branchLinks: getDistribution(metrics.branchLinkCounts),
                             fallbackShare: metrics.fallbackCount / metrics.hintCount,
-                            withinBandShare,
+                            withinBandShare: metrics.withinBandCount / metrics.hintCount,
                             maxTintedCellsPerPage: Math.max(...metrics.tintedCellCounts),
                             pageCounts: getDistribution(metrics.pageCounts)
                         })
@@ -143,7 +139,7 @@ describe('hint usefulness over a Hell corpus sample', () => {
                 assert.isAbove(metrics.hintCount, 0);
                 assert.isAtMost(getMedian(metrics.branchLinkCounts), maxMedianBranchLinks);
                 assert.strictEqual(metrics.fallbackCount, 0);
-                assert.isAtLeast(withinBandShare, minWithinBandShare);
+                assert.strictEqual(metrics.withinBandCount, metrics.hintCount);
                 assert.isAtMost(Math.max(...metrics.tintedCellCounts), maxTintedCellsPerPage);
             }),
         corpusTimeoutMilliseconds

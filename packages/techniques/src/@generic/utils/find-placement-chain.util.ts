@@ -206,10 +206,14 @@ const findPlacementRoute = (
 
 export const findPlacementChain = (
     sudoku: Sudoku,
-    unbudgetedStrategies = createTechniqueStrategies(),
+    registryStrategies = createTechniqueStrategies(),
     previousEliminations: CandidateEliminationInterface[] = [],
     includeFirstStepOnExhaustion = false
 ): TechniqueResultInterface[] => {
+    const unbudgetedStrategies = [...registryStrategies].sort(
+        (firstStrategy, secondStrategy) =>
+            PLACEMENT_CHAIN_DIFFICULTIES[firstStrategy.technique] - PLACEMENT_CHAIN_DIFFICULTIES[secondStrategy.technique]
+    );
     const strategies = createBudgetedStrategies(unbudgetedStrategies);
     const sudokuContext = CandidateContext.fromSudoku(sudoku);
     const context = previousEliminations.length > 0 ? sudokuContext.withEliminations(previousEliminations) : sudokuContext;
