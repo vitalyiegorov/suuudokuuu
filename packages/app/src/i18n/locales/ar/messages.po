@@ -11,6 +11,10 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+msgid "‹ Back"
+msgstr "العودة ›"
+
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -169,8 +173,8 @@ msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {la
 msgstr "{techniqueName}: تشكل الخلايا المحددة سلسلة، لذا فإما {firstEnd} صحيح أو {lastEnd} صحيح."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} must go in one of them."
-msgstr "{techniqueName}: تحتوي الخلايا المحددة على عدد من الأرقام يساوي عدد الخلايا تماماً، لذا يجب أن يوضع {valueList} في إحداها."
+msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "{techniqueName}: تحتوي الخلايا المحددة على عدد من الأرقام يساوي عدد الخلايا تماماً، لذا لا يمكن أن يوضع {valueList} إلا في هذه الخلايا."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "{techniqueName}: the highlighted cells hold the pattern."
@@ -243,6 +247,18 @@ msgstr "{value, plural, zero {# ثانية} one {# ثانية} two {# ثانيت
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
 msgstr "<0>يلزم تطبيق عميل للتطوير</0><1>تحتاج تطبيقات عميل التطوير إلى Metro أو إلى عنوان التشغيل المضبوط في <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2> أو إلى تحديث متوافق على قناة <3>development</3>. لا تنشر عملية التثبيت هذه أي تحديث.</1>"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ {cell} cannot be {value}"
+msgstr "✕ لا يمكن أن تكون {cell} هي {value}"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no candidate for {cell}"
+msgstr "✕ لا يوجد مرشح في {cell}"
+
+#: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
+msgid "✕ no place for {value}"
+msgstr "✕ لا موضع للرقم {value}"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
@@ -321,14 +337,22 @@ msgstr "تحريك الصفوف والأعمدة والمربعات المكتم
 msgid "Animations"
 msgstr "الحركات"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "تطبيق"
 
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Apply & next"
+msgstr "تطبيق والتالي"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
 msgstr "المساعدات"
+
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "At least one end of this chain must be true."
+msgstr "يجب أن يكون أحد طرفي هذه السلسلة صحيحًا على الأقل."
 
 #: src/screens/components/beta-screen/components/beta-status/beta-status.tsx
 msgid "Attempts to load the latest development build again"
@@ -604,7 +628,6 @@ msgstr "حركات الإكمال"
 msgid "Completion Bonuses"
 msgstr "مكافآت الإكمال"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/home-screen/home-screen-continue-row/home-screen-continue-row.tsx
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
@@ -619,9 +642,9 @@ msgstr "المتابعة في مكان آخر"
 msgid "Continue this Sudoku exactly where I left off!"
 msgstr "أكمل هذا السودوكو من حيث توقفت تمامًا!"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Continue to next hint"
-msgstr "الانتقال إلى التلميح التالي"
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "Contradiction, so {cell} is not {value}."
+msgstr "تناقض، لذا {cell} ليس {value}."
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -720,7 +743,7 @@ msgstr "تعتيم الرقم المكتمل في لوحة الأرقام بدل
 msgid "Discard changes?"
 msgstr "تجاهل التغييرات؟"
 
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Dismiss"
 msgstr "تجاهل"
 
@@ -1011,6 +1034,10 @@ msgstr "كيف يعمل احتساب النقاط"
 msgid "I completed this Sudoku in {elapsedTimeString}. Can you beat me?"
 msgstr "أنهيت هذا السودوكو في {elapsedTimeString}. هل يمكنك التفوق علي؟"
 
+#: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
+msgid "If {cell} were {value}, these cells would be forced in turn."
+msgstr "لو كانت {cell} تساوي {value}، لاضطرت هذه الخلايا بالتتابع."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "If {path} → {cell} runs out of candidates. So {assumptionCell} is not {assumptionValue}."
 msgstr "إذا {path} → لا يبقى أي مرشح في {cell}. إذن {assumptionCell} ليست {assumptionValue}."
@@ -1287,9 +1314,9 @@ msgstr "صحيفة"
 msgid "Next"
 msgstr "التالي"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Next step"
-msgstr "الخطوة التالية"
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Next ›"
+msgstr "‹ التالي"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1468,6 +1495,10 @@ msgstr "لكل خطأ"
 msgid "per second"
 msgstr "لكل ثانية"
 
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+msgid "Place {placementValue}"
+msgstr "ضع {placementValue}"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Place {valueList} in the marked cell."
 msgstr "ضع {valueList} في الخلية المعلمة."
@@ -1566,10 +1597,6 @@ msgstr "تعذر حفظ تقدم التدريب. حاول مجددًا."
 msgid "Presets"
 msgstr "الإعدادات المسبقة"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
-msgid "Previous step"
-msgstr "الخطوة السابقة"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "النص الأساسي"
@@ -1599,6 +1626,10 @@ msgstr "تم حل اللغز."
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "إنهاء"
+
+#: src/game/components/hint-chain-block/hint-chain-block.tsx
+msgid "R{row}C{column} {operator} {value}"
+msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
@@ -1685,14 +1716,11 @@ msgstr "إعادة محاولة تحميل إصدار التطوير"
 msgid "Retry practice"
 msgstr "إعادة التدريب"
 
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "كشف"
-
-#: src/game/components/hint-panel-elimination-actions/hint-panel-elimination-actions.tsx
-msgid "Reveal a digit"
-msgstr "كشف رقم"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1875,11 +1903,7 @@ msgstr "إظهار الوقت المنقضي أثناء اللعب"
 msgid "Show matching notes for the selected cell"
 msgstr "إظهار الملاحظات المطابقة للخلية المحددة"
 
-#: src/game/components/hint-panel/hint-panel.tsx
-msgid "Show more"
-msgstr "عرض المزيد"
-
-#: src/game/components/hint-panel/hint-panel.tsx
+#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Show more of the hint"
 msgstr "عرض المزيد من التلميح"
 
@@ -1977,7 +2001,8 @@ msgstr "الإحصاءات"
 msgid "Stayed in app"
 msgstr "بقيت في التطبيق"
 
-#: src/game/components/hint-panel-step-controls/hint-panel-step-controls.tsx
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "الخطوة {currentStepNumber} من {stepCount}"
 

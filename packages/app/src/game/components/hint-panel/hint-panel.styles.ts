@@ -1,94 +1,94 @@
-import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { GamePanelHorizontalPaddingConstant } from '../../constant/board-cell-size.constant';
+import { gameGetHintFooterHeight } from '../../utils/game-get-hint-footer-height.util';
+
+import type { EdgeInsets } from 'react-native-safe-area-context';
 
 const hintPanelMaxWidth = 480;
 const hintPanelControlSize = 44;
 
-export const HintPanelStyles = StyleSheet.create((theme, rt) => {
-    const isWideLayout = appLayoutScreenIsWide(rt.screen);
-    const dotSize = isWideLayout ? 8 : 6;
-    const dotActiveSize = isWideLayout ? 10 : 8;
+const dotSize = 6;
+const dotActiveSize = 8;
 
-    return {
-        region: (availableHeight: number | undefined) => ({
-            bottom: isWideLayout ? 0 : rt.insets.bottom + theme.spacing.sm,
-            ...(isDefined(availableHeight) && { height: availableHeight + theme.spacing.xs }),
-            justifyContent: 'flex-end',
-            left: isWideLayout ? 0 : GamePanelHorizontalPaddingConstant,
-            paddingTop: isWideLayout ? 0 : theme.spacing.md,
-            position: isWideLayout ? 'relative' : 'absolute',
-            flexShrink: 1,
-            minHeight: 0,
-            right: isWideLayout ? 0 : GamePanelHorizontalPaddingConstant,
-            zIndex: 10
-        }),
-        container: (availableHeight: number | undefined) => ({
-            alignSelf: 'center',
-            flexShrink: 1,
-            minHeight: 0,
-            borderCurve: 'continuous',
-            borderRadius: theme.radius.lg,
-            borderWidth: 1,
-            gap: theme.spacing.sm,
-            marginBottom: 'auto',
-            maxWidth: hintPanelMaxWidth,
-            padding: theme.spacing.md,
-            width: '100%',
-            maxHeight: availableHeight ?? '100%'
-        }),
-        controls: {
-            alignItems: 'center',
-            flexDirection: 'row',
-            flexShrink: 0,
-            gap: theme.spacing.xs,
-            height: hintPanelControlSize,
-            justifyContent: 'space-between'
-        },
-        actions: {
-            flexDirection: 'row',
-            gap: theme.spacing.sm,
-            justifyContent: 'flex-end'
-        },
-        dismissButton: {
-            borderRadius: hintPanelControlSize / 2,
-            flexShrink: 0,
-            height: hintPanelControlSize,
-            width: hintPanelControlSize
-        },
-        stepControls: {
-            alignItems: 'center',
-            flexDirection: 'row',
-            gap: theme.spacing.xs
-        },
-        dots: {
-            alignItems: 'center',
-            flexDirection: 'row',
-            gap: theme.spacing.xs / 2
-        },
-        progressText: {
-            color: theme.colors.text.primary,
-            fontSize: 12,
-            fontVariant: ['tabular-nums']
-        },
-        dot: {
-            backgroundColor: theme.colors.text.hint,
-            borderRadius: theme.radius.pill,
-            height: dotSize,
-            width: dotSize
-        },
-        dotActive: {
-            backgroundColor: theme.colors.accent,
-            borderRadius: theme.radius.pill,
-            height: dotActiveSize,
-            width: dotActiveSize
-        },
-        stepButton: {
-            paddingHorizontal: 0,
-            width: hintPanelControlSize
-        }
-    };
-});
+export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
+    region: (availableHeight: number | undefined, insets: EdgeInsets) => ({
+        marginBottom: isDefined(availableHeight) ? 0 : Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md,
+        bottom: isDefined(availableHeight) ? Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md : 0,
+        height: availableHeight,
+        flexBasis: isDefined(availableHeight) ? 'auto' : 0,
+        flexGrow: isDefined(availableHeight) ? 0 : 1,
+        flexShrink: 1,
+        minHeight: 0,
+        justifyContent: 'flex-end',
+        left: isDefined(availableHeight) ? insets.left + theme.spacing.md : 0,
+        right: isDefined(availableHeight) ? insets.right + theme.spacing.md : 0,
+        position: isDefined(availableHeight) ? 'absolute' : 'relative',
+        zIndex: 10
+    }),
+    container: (availableHeight: number | undefined) => ({
+        alignSelf: 'center',
+        flexGrow: 1,
+        flexShrink: 1,
+        minHeight: 0,
+        height: availableHeight,
+        borderCurve: 'continuous',
+        borderRadius: theme.radius.lg,
+        borderWidth: 1,
+        gap: theme.spacing.xs,
+        maxWidth: hintPanelMaxWidth,
+        padding: theme.spacing.md,
+        width: '100%',
+        overflow: 'hidden'
+    }),
+    header: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        flexShrink: 0
+    },
+    dismissButton: {
+        height: hintPanelControlSize,
+        width: hintPanelControlSize
+    },
+    technique: {
+        color: theme.colors.text.hint,
+        flex: 1,
+        fontSize: theme.typography.size.xs,
+        fontWeight: '900',
+        letterSpacing: 0.6,
+        textAlign: 'left',
+        textTransform: 'uppercase'
+    },
+    actions: {
+        flexDirection: 'row',
+        flexShrink: 0,
+        gap: theme.spacing.sm,
+        marginTop: 'auto'
+    },
+    footerButton: {
+        borderRadius: theme.radius.pill,
+        flex: 1,
+        height: gameGetHintFooterHeight(rt.fontScale)
+    },
+    disabledButton: {
+        opacity: 0.4
+    },
+    dots: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: theme.spacing.xs / 2
+    },
+    dotControl: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: hintPanelControlSize,
+        width: hintPanelControlSize
+    },
+    dot: (isSelected: boolean) => ({
+        backgroundColor: isSelected ? theme.colors.accent : theme.colors.text.hint,
+        borderRadius: theme.radius.pill,
+        height: isSelected ? dotActiveSize : dotSize,
+        width: isSelected ? dotActiveSize : dotSize
+    })
+}));

@@ -1,4 +1,5 @@
 export enum HintPanelSelectors {
+    FOOTER = 'HintPanelSelectors.Footer',
     Root = 'HintPanelSelectors.Root',
     Progress = 'HintPanelSelectors.Progress',
     BackButton = 'HintPanelSelectors.BackButton',
