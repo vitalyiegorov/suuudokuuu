@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.28.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.28.0...v2.28.1) (2026-10-13)
+
+### Bug Fixes
+
+* **app:** keep local native modules in the EAS archive and the fingerprint ([#564](https://github.com/vitalyiegorov/suuudokuuu/issues/564)) ([104c230](https://github.com/vitalyiegorov/suuudokuuu/commit/104c2304dd50dfdf5702bcaa9938d58481f94c2d))
+
+
 # [2.28.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.27.0...v2.28.0) (2026-10-13)
 
 ### Features
