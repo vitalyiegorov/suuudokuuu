@@ -1,4 +1,4 @@
-export interface ForcingChainPlacementInterface {
+export interface IndexedCandidateInterface {
     readonly cellIndex: number;
     readonly value: number;
 }

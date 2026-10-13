@@ -1,5 +1,6 @@
 import { isDefined } from '@rnw-community/shared';
 
+import { HypothesisPathTracer } from '../classes/hypothesis-path-tracer/hypothesis-path-tracer';
 import { FORCING_CHAIN_MIN_BRANCHES, FORCING_CHAIN_MIN_CELLS } from '../constants/forcing-chain-scan.constant';
 import { ForcingOutcomeKindEnum } from '../enums/forcing-outcome-kind.enum';
 
@@ -11,10 +12,9 @@ import { getMaskValues } from './get-mask-values.util';
 import { isSameCell } from './is-same-cell.util';
 
 import type { SolutionTechniqueEnum } from '../enums/solution-technique.enum';
-import type { CandidateEliminationInterface } from '../interfaces/candidate-elimination.interface';
-import type { ForcingChainPlacementInterface } from '../interfaces/forcing-chain-placement.interface';
 import type { HypothesisBoardInterface } from '../interfaces/hypothesis-board.interface';
 import type { HypothesisPropagationInterface } from '../interfaces/hypothesis-propagation.interface';
+import type { IndexedCandidateInterface } from '../interfaces/indexed-candidate.interface';
 import type { TechniqueResultInterface } from '../interfaces/technique-result.interface';
 import type { TechniqueSearchScopeInterface } from '../interfaces/technique-search-scope.interface';
 import type { ForcingOutcomeType } from '../types/forcing-outcome.type';
@@ -30,9 +30,9 @@ const getCommonPlacements = (
     board: HypothesisBoardInterface,
     propagations: HypothesisPropagationInterface[],
     scope: TechniqueSearchScopeInterface
-): ForcingChainPlacementInterface[] => {
+): IndexedCandidateInterface[] => {
     const [firstPropagation, ...otherPropagations] = propagations;
-    const placements: ForcingChainPlacementInterface[] = [];
+    const placements: IndexedCandidateInterface[] = [];
 
     for (const cellIndex of firstPropagation.placedCellIndexes) {
         const value = firstPropagation.placedValues[cellIndex];
@@ -57,15 +57,13 @@ const getCommonEliminations = (
     board: HypothesisBoardInterface,
     propagations: HypothesisPropagationInterface[],
     scope: TechniqueSearchScopeInterface
-): CandidateEliminationInterface[] => {
-    const eliminations: CandidateEliminationInterface[] = [];
+): IndexedCandidateInterface[] => {
+    const eliminations: IndexedCandidateInterface[] = [];
 
     for (let cellIndex = 0; cellIndex < board.cells.length; cellIndex += 1) {
-        const cell = board.cells[cellIndex];
-
         for (const value of getMaskValues(getCommonEliminationMask(propagations, cellIndex), board.valueCount)) {
-            if (isScopedElimination(cell, value, scope)) {
-                eliminations.push({ cell, value });
+            if (isScopedElimination(board.cells[cellIndex], value, scope)) {
+                eliminations.push({ cellIndex, value });
             }
         }
     }
@@ -76,7 +74,7 @@ const getCommonEliminations = (
 const createForcingPlacementResult = (
     technique: SolutionTechniqueEnum,
     board: HypothesisBoardInterface,
-    placement: ForcingChainPlacementInterface,
+    placement: IndexedCandidateInterface,
     reasonCells: CellInterface[]
 ): TechniqueResultInterface => ({
     ...createPlacementResult(technique, board.cells[placement.cellIndex], placement.value, reasonCells),
@@ -87,6 +85,18 @@ const getBranchOutcome = (result: TechniqueResultInterface): ForcingOutcomeType 
     result.kind === 'placement'
         ? { kind: ForcingOutcomeKindEnum.COMMON_PLACEMENT, cell: result.cell, value: result.value }
         : { kind: ForcingOutcomeKindEnum.COMMON_ELIMINATIONS, eliminations: result.eliminations };
+
+const addBranches = (
+    board: HypothesisBoardInterface,
+    propagations: HypothesisPropagationInterface[],
+    result: TechniqueResultInterface,
+    getPath: (tracer: HypothesisPathTracer) => number[]
+): TechniqueResultInterface => ({
+    ...result,
+    branches: propagations.map(propagation =>
+        createForcingBranch(board, propagation, getBranchOutcome(result), () => getPath(new HypothesisPathTracer(board, propagation)))
+    )
+});
 
 export const createForcingChainResults = (
     technique: SolutionTechniqueEnum,
@@ -108,14 +118,17 @@ export const createForcingChainResults = (
     }
 
     const placementResults = getCommonPlacements(board, propagations, scope).map(placement =>
-        createForcingPlacementResult(technique, board, placement, reasonCells)
+        addBranches(board, propagations, createForcingPlacementResult(technique, board, placement, reasonCells), tracer =>
+            tracer.getPlacementPath(placement.cellIndex)
+        )
     );
+    const eliminations = getCommonEliminations(board, propagations, scope);
+    const eliminationResults = createEliminationResults(
+        technique,
+        eliminations.map(elimination => ({ cell: board.cells[elimination.cellIndex], value: elimination.value })),
+        reasonCells,
+        reasonCells.length
+    ).map(result => addBranches(board, propagations, result, tracer => tracer.getEliminationPath(eliminations)));
 
-    return [
-        ...placementResults,
-        ...createEliminationResults(technique, getCommonEliminations(board, propagations, scope), reasonCells, reasonCells.length)
-    ].map(result => ({
-        ...result,
-        branches: propagations.map(propagation => createForcingBranch(board, propagation, getBranchOutcome(result)))
-    }));
+    return [...placementResults, ...eliminationResults];
 };

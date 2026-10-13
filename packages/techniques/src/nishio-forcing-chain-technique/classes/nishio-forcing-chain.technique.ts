@@ -1,6 +1,7 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { AbstractForcingChainTechnique } from '../../@generic/classes/abstract-forcing-chain-technique';
+import { HypothesisPathTracer } from '../../@generic/classes/hypothesis-path-tracer/hypothesis-path-tracer';
 import { FORCING_CHAIN_MIN_CELLS } from '../../@generic/constants/forcing-chain-scan.constant';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { markContextSearchCapped } from '../../@generic/utils/context-scan-state.util';
@@ -65,7 +66,11 @@ export class NishioForcingChainTechnique extends AbstractForcingChainTechnique {
             return true;
         }
 
-        const branches = [createForcingBranch(board, propagation, contradiction)];
+        const branches = [
+            createForcingBranch(board, propagation, contradiction, () =>
+                new HypothesisPathTracer(board, propagation).getEliminationPath(propagation.contradictionEliminations)
+            )
+        ];
 
         scan.results.push(
             ...createEliminationResults(this.technique, [{ cell: board.cells[cellIndex], value }], reasonCells, reasonCells.length).map(

@@ -3,6 +3,8 @@ import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 import { CandidateContext } from '../classes/candidate-context/candidate-context';
 import {
     PLACEMENT_CHAIN_DEFAULT_SCAN_COST,
+    PLACEMENT_CHAIN_DIFFICULTIES,
+    PLACEMENT_CHAIN_DIFFICULTY_TOLERANCE,
     PLACEMENT_CHAIN_MAX_STEPS,
     PLACEMENT_CHAIN_SCAN_COSTS,
     PLACEMENT_CHAIN_WORK_BUDGET
@@ -96,6 +98,9 @@ const pruneChain = (
     return keptSteps;
 };
 
+const getBranchPathLength = (result: TechniqueResultInterface): number =>
+    (result.branches ?? []).reduce((pathLength, branch) => pathLength + 1 + branch.implications.length, 0);
+
 const createBudgetedStrategies = (unbudgetedStrategies: TechniqueStrategyInterface[]): TechniqueStrategyInterface[] => {
     let spentWork = 0;
 
@@ -108,7 +113,9 @@ const createBudgetedStrategies = (unbudgetedStrategies: TechniqueStrategyInterfa
 
             spentWork += PLACEMENT_CHAIN_SCAN_COSTS[strategy.technique] ?? PLACEMENT_CHAIN_DEFAULT_SCAN_COST;
 
-            return strategy.find(context, target);
+            return [...strategy.find(context, target)].sort(
+                (firstResult, secondResult) => getBranchPathLength(firstResult) - getBranchPathLength(secondResult)
+            );
         }
     }));
 };
@@ -137,22 +144,16 @@ const findShortPlacementRoute = (
     return [];
 };
 
-export const findPlacementChain = (
-    sudoku: Sudoku,
-    unbudgetedStrategies = createTechniqueStrategies(),
-    previousEliminations: CandidateEliminationInterface[] = [],
-    includeFirstStepOnExhaustion = false
+const findGreedyPlacementChain = (
+    strategies: TechniqueStrategyInterface[],
+    startContext: CandidateContext,
+    firstStep: TechniqueResultInterface,
+    contexts: CandidateContext[]
 ): TechniqueResultInterface[] => {
-    const strategies = createBudgetedStrategies(unbudgetedStrategies);
     const steps: TechniqueResultInterface[] = [];
-    const contexts: CandidateContext[] = [];
 
-    let context = CandidateContext.fromSudoku(sudoku);
-
-    if (previousEliminations.length > 0) {
-        context = context.withEliminations(previousEliminations);
-    }
-    let step = findProgressingStep(context, strategies);
+    let context = startContext;
+    let step: TechniqueResultInterface | null = firstStep;
 
     while (isDefined(step)) {
         steps.push(step);
@@ -166,10 +167,27 @@ export const findPlacementChain = (
 
         if (steps.length >= PLACEMENT_CHAIN_MAX_STEPS) {
             contexts.push(context);
-            break;
+
+            return steps;
         }
 
         step = findProgressingStep(context, strategies);
+    }
+
+    return steps;
+};
+
+const findPlacementRoute = (
+    unbudgetedStrategies: TechniqueStrategyInterface[],
+    strategies: TechniqueStrategyInterface[],
+    startContext: CandidateContext,
+    firstStep: TechniqueResultInterface
+): TechniqueResultInterface[] => {
+    const contexts: CandidateContext[] = [];
+    const steps = findGreedyPlacementChain(strategies, startContext, firstStep, contexts);
+
+    if (steps.at(-1)?.kind === 'placement') {
+        return steps;
     }
 
     const shortRouteStrategies = createBudgetedStrategies(unbudgetedStrategies);
@@ -183,5 +201,37 @@ export const findPlacementChain = (
         }
     }
 
-    return includeFirstStepOnExhaustion ? steps.slice(0, 1) : [];
+    return [];
+};
+
+export const findPlacementChain = (
+    sudoku: Sudoku,
+    unbudgetedStrategies = createTechniqueStrategies(),
+    previousEliminations: CandidateEliminationInterface[] = [],
+    includeFirstStepOnExhaustion = false
+): TechniqueResultInterface[] => {
+    const strategies = createBudgetedStrategies(unbudgetedStrategies);
+    const sudokuContext = CandidateContext.fromSudoku(sudoku);
+    const context = previousEliminations.length > 0 ? sudokuContext.withEliminations(previousEliminations) : sudokuContext;
+    const firstStep = findProgressingStep(context, strategies);
+
+    if (!isDefined(firstStep)) {
+        return [];
+    }
+
+    const difficultyLimit = PLACEMENT_CHAIN_DIFFICULTIES[firstStep.technique] + PLACEMENT_CHAIN_DIFFICULTY_TOLERANCE;
+    const isWithinDifficulty = (strategy: TechniqueStrategyInterface): boolean =>
+        PLACEMENT_CHAIN_DIFFICULTIES[strategy.technique] <= difficultyLimit;
+    const route = findPlacementRoute(
+        unbudgetedStrategies.filter(isWithinDifficulty),
+        strategies.filter(isWithinDifficulty),
+        context,
+        firstStep
+    );
+
+    if (isNotEmptyArray(route) || !includeFirstStepOnExhaustion) {
+        return route;
+    }
+
+    return [firstStep];
 };
