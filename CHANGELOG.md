@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.28.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.27.0...v2.28.0) (2026-10-13)
+
+### Features
+
+* **app:** guided technique campaign and technique-mastery stats ([#531](https://github.com/vitalyiegorov/suuudokuuu/issues/531)) ([f13aa8b](https://github.com/vitalyiegorov/suuudokuuu/commit/f13aa8b21fd2654ff998fefbedfde36fb0316584))
+
+
 # [2.27.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.26.7...v2.27.0) (2026-10-13)
 
 ### Features
