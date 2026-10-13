@@ -77,6 +77,8 @@ describe('structured witness playback', () => {
             explanation: script.steps[1],
             hintRegion: buildStepScriptState(script, revealIndex).hintRegion,
             regionCellKeys: new Set(),
+            revealedImplicationCount:
+                script.steps[1].kind === StepScriptStepKindEnum.SHOW_BRANCH ? script.steps[1].branch.implications.length : 0,
             patternCellKeys: new Set(),
             targetCellKey: null,
             revealedCandidates: new Map(),

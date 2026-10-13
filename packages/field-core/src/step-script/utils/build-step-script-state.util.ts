@@ -8,6 +8,7 @@ import { HintRegionKindEnum } from '../enums/hint-region-kind.enum';
 import { StepScriptStepKindEnum } from '../enums/step-script-step-kind.enum';
 
 import { getHintRegion } from './get-hint-region.util';
+import { getStepLinkCount } from './get-step-link-count.util';
 
 import type { HintRegionInterface } from '../interfaces/hint-region.interface';
 import type { StepScriptRevealCandidatesStepInterface } from '../interfaces/step-script-reveal-candidates-step.interface';
@@ -141,13 +142,15 @@ const getFirstDeductionPatternCells = (steps: readonly StepScriptStepType[]): Ce
 export const buildStepScriptState = (
     stepScript: StepScriptInterface | null,
     stepIndex: number,
-    hintLevel = HintLevelEnum.WALKTHROUGH
+    hintLevel = HintLevelEnum.WALKTHROUGH,
+    revealedImplicationCount = Number.POSITIVE_INFINITY
 ): StepScriptStateInterface => {
     const scriptSteps = stepScript?.steps ?? [];
     const hintRegion = getFirstDeductionRegion(scriptSteps);
     const emptyState: StepScriptStateInterface = {
         hintRegion,
         regionCellKeys: new Set(),
+        revealedImplicationCount: 0,
         patternCellKeys: new Set(),
         targetCellKey: null,
         revealedCandidates: new Map(),
@@ -166,7 +169,11 @@ export const buildStepScriptState = (
     const currentStep = scriptSteps.at(stepIndex);
 
     if (currentStep?.kind === StepScriptStepKindEnum.SHOW_CHAIN || currentStep?.kind === StepScriptStepKindEnum.SHOW_BRANCH) {
-        return { ...emptyState, explanation: currentStep };
+        return {
+            ...emptyState,
+            explanation: currentStep,
+            revealedImplicationCount: Math.min(revealedImplicationCount, getStepLinkCount(currentStep))
+        };
     }
 
     const steps = scriptSteps.slice(0, stepIndex + 1);

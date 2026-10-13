@@ -15,6 +15,7 @@ import {
 import { getNeighbourCell } from '../utils/get-neighbour-cell.util';
 import { pruneCandidates } from '../utils/prune-candidates.util';
 
+import { FieldHintPages } from './field-hint-pages';
 import { FieldHistory } from './field-history';
 import { FieldStore } from './field-store';
 
@@ -32,6 +33,7 @@ import type { CellInterface, DifficultyEnum } from '@suuudokuuu/generator';
 export class FieldEngine extends FieldStore {
     private readonly difficulty: DifficultyEnum;
     private readonly history = new FieldHistory();
+    private readonly hintPages = new FieldHintPages();
 
     private sudoku: Sudoku;
     private selectedCell?: CellInterface;
@@ -40,8 +42,6 @@ export class FieldEngine extends FieldStore {
     private showAutoCandidates: boolean;
     private mistakes: number;
     private stepScript: StepScriptInterface | null = null;
-    private stepIndex = 0;
-    private hintLevel = HintLevelEnum.WALKTHROUGH;
 
     constructor(options: FieldEngineOptionsInterface) {
         super();
@@ -141,54 +141,37 @@ export class FieldEngine extends FieldStore {
 
     startStepScript(script: StepScriptInterface, hintLevel = HintLevelEnum.WALKTHROUGH): void {
         this.stepScript = script;
-        this.stepIndex = 0;
-        this.hintLevel = hintLevel;
+        this.hintPages.start(script, hintLevel);
         delete this.selectedCell;
         this.publish();
     }
 
+    hintNext(): boolean {
+        return this.showHintPage(this.hintPages.PageIndex + 1) > 0;
+    }
+
+    hintBack(): void {
+        this.showHintPage(this.hintPages.PageIndex - 1);
+    }
+
+    hintSkipToEnd(): number {
+        return Math.max(this.showHintPage(this.hintPages.PageCount - 1), 0);
+    }
+
     revealNextHintLevel(): boolean {
-        if (!isDefined(this.stepScript) || this.hintLevel === HintLevelEnum.WALKTHROUGH) {
-            return false;
-        }
-
-        this.hintLevel = this.hintLevel === HintLevelEnum.TECHNIQUE ? HintLevelEnum.PATTERN : HintLevelEnum.WALKTHROUGH;
-        this.publish();
-
-        return true;
+        return isDefined(this.stepScript) && this.showHintPage(this.hintPages.findLevelPageIndex(1)) >= 0;
     }
 
     stepScriptNext(): boolean {
-        if (!isDefined(this.stepScript) || this.stepIndex >= this.stepScript.steps.length - 1) {
-            return false;
-        }
-
-        this.stepIndex += 1;
-        this.publish();
-
-        return true;
+        return this.showHintPage(this.hintPages.findStepPageIndex(this.hintPages.CurrentPage.stepIndex + 1)) >= 0;
     }
 
     stepScriptBack(): boolean {
-        if (!isDefined(this.stepScript) || this.stepIndex === 0) {
-            return false;
-        }
-
-        this.stepIndex -= 1;
-        this.publish();
-
-        return true;
+        return this.showHintPage(this.hintPages.findStepPageIndex(this.hintPages.CurrentPage.stepIndex - 1)) >= 0;
     }
 
     stepScriptReset(): boolean {
-        if (!isDefined(this.stepScript)) {
-            return false;
-        }
-
-        this.stepIndex = 0;
-        this.publish();
-
-        return true;
+        return this.showHintPage(this.hintPages.findLevelPageIndex(0)) >= 0;
     }
 
     applyStepScript(): void {
@@ -219,8 +202,7 @@ export class FieldEngine extends FieldStore {
     stopStepScript(): void {
         if (isDefined(this.stepScript)) {
             this.stepScript = null;
-            this.stepIndex = 0;
-            this.hintLevel = HintLevelEnum.WALKTHROUGH;
+            this.hintPages.clear();
             this.publish();
         }
     }
@@ -238,10 +220,21 @@ export class FieldEngine extends FieldStore {
             canUndo: this.history.CanUndo,
             canRedo: this.history.CanRedo,
             stepScript: this.stepScript,
-            stepIndex: this.stepIndex,
-            hintLevel: this.hintLevel,
+            ...this.hintPages.CurrentPage,
+            hintPageIndex: this.hintPages.PageIndex,
+            hintPageCount: this.hintPages.PageCount,
             ...(isDefined(this.selectedCell) && { selectedCell: this.selectedCell })
         };
+    }
+
+    private showHintPage(pageIndex: number): number {
+        const revealedLevelCount = this.hintPages.showPage(pageIndex);
+
+        if (revealedLevelCount >= 0) {
+            this.publish();
+        }
+
+        return revealedLevelCount;
     }
 
     private registerPlacement(cell: CellInterface): FieldMoveResultInterface {
