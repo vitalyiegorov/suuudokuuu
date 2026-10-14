@@ -67,6 +67,10 @@ msgstr "{backgroundLabel}-এর উপর {foregroundLabel}: {contrastRatioText
 msgid "{gamesCompleted, plural, one {# game played} other {# games played}}"
 msgstr "{gamesCompleted, plural, one {#টি খেলা খেলা হয়েছে} other {#টি খেলা খেলা হয়েছে}}"
 
+#: src/history/components/completed-game-technique-summary/completed-game-technique-summary.tsx
+msgid "{hintCount, plural, one {# hint} other {# hints}}"
+msgstr "{hintCount, plural, one {# সংকেত} other {# সংকেত}}"
+
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# ঘণ্টা} other {# ঘণ্টা}}"
@@ -90,6 +94,10 @@ msgstr "{remaining, plural, one {{value} বসান, আর # বাকি} ot
 #: src/game/components/candidate-input-item/candidate-input-item.tsx
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {{value} নোট করুন, আর # বাকি} other {{value} নোট করুন, আর # বাকি}}"
+
+#: src/history/components/completed-game-technique-summary/completed-game-technique-summary.tsx
+msgid "{revealCount, plural, one {# reveal} other {# reveals}}"
+msgstr "{revealCount, plural, one {# প্রকাশ} other {# প্রকাশ}}"
 
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
@@ -2396,6 +2404,10 @@ msgstr "অ্যাপের লেখার জন্য ইউক্রেন
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Urdu for app text"
 msgstr "অ্যাপের লেখার জন্য উর্দু ব্যবহার করুন"
+
+#: src/history/components/replay-technique/replay-technique.tsx
+msgid "via hint"
+msgstr "সংকেতের মাধ্যমে"
 
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Vibrate on taps and game actions"

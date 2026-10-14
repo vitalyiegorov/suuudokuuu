@@ -1,9 +1,12 @@
+import { plural } from '@lingui/core/macro';
+import { useLingui } from '@lingui/react/macro';
 import * as Effect from 'effect/Effect';
 import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
-import { isNotEmptyArray } from '@rnw-community/shared';
+import { isNotEmptyArray, isNotEmptyString } from '@rnw-community/shared';
 
+import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { logErrorCause } from '../../../@generic/utils/log-error-cause.util';
 import { getCompletedGameTechniqueSummary } from '../../utils/get-completed-game-technique-summary.util';
@@ -12,13 +15,18 @@ import { HistoryTechniqueChip } from '../history-technique-chip/history-techniqu
 import { CompletedGameTechniqueSummarySelectors } from './completed-game-technique-summary.selectors';
 import { CompletedGameTechniqueSummaryStyles as styles } from './completed-game-technique-summary.styles';
 
+import type { CompletedGameSummaryInterface } from '../../interfaces/completed-game-summary.interface';
+
 interface Props {
     readonly encodedState: string;
 }
 
+const emptySummary: CompletedGameSummaryInterface = { techniqueUsageList: [], hintCount: 0, revealCount: 0 };
+
 export const CompletedGameTechniqueSummary = ({ encodedState }: Props) => {
-    const [summary, setSummary] = useState<readonly [string, ReturnType<typeof getCompletedGameTechniqueSummary>]>(['', []]);
-    const techniqueUsageList = summary[0] === encodedState ? summary[1] : [];
+    const { t } = useLingui();
+    const [summary, setSummary] = useState<readonly [string, CompletedGameSummaryInterface]>(['', emptySummary]);
+    const { techniqueUsageList, hintCount, revealCount } = summary[0] === encodedState ? summary[1] : emptySummary;
 
     useEffect(() => {
         const fiber = appRuntime.runFork(
@@ -31,19 +39,31 @@ export const CompletedGameTechniqueSummary = ({ encodedState }: Props) => {
         return () => void fiber.interruptUnsafe();
     }, [encodedState]);
 
-    if (!isNotEmptyArray(techniqueUsageList)) {
-        return null;
-    }
+    const hintSummaryText = [
+        hintCount > 0 && t({ message: plural(hintCount, { one: '# hint', other: '# hints' }) }),
+        revealCount > 0 && t({ message: plural(revealCount, { one: '# reveal', other: '# reveals' }) })
+    ]
+        .filter(isNotEmptyString)
+        .join(' · ');
 
     return (
-        <View style={styles.row} testID={CompletedGameTechniqueSummarySelectors.Root}>
-            {techniqueUsageList.map(usage => (
-                <HistoryTechniqueChip
-                    key={usage.technique}
-                    testID={`${CompletedGameTechniqueSummarySelectors.Root}.Chip.${usage.technique}`}
-                    usage={usage}
-                />
-            ))}
-        </View>
+        <>
+            {isNotEmptyArray(techniqueUsageList) ? (
+                <View style={styles.row} testID={CompletedGameTechniqueSummarySelectors.Root}>
+                    {techniqueUsageList.map(usage => (
+                        <HistoryTechniqueChip
+                            key={usage.technique}
+                            testID={`${CompletedGameTechniqueSummarySelectors.Root}.Chip.${usage.technique}`}
+                            usage={usage}
+                        />
+                    ))}
+                </View>
+            ) : null}
+            {isNotEmptyString(hintSummaryText) ? (
+                <BlackText style={styles.hintSummary} testID={CompletedGameTechniqueSummarySelectors.HintSummary}>
+                    {hintSummaryText}
+                </BlackText>
+            ) : null}
+        </>
     );
 };

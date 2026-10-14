@@ -5,7 +5,7 @@ import { initialCurrentRun } from '@suuudokuuu/progress';
 
 import { isDefined, isNumber } from '@rnw-community/shared';
 
-import { withTimelineCellTechniques } from './with-timeline-cell-techniques.util';
+import { withTimelineCellMetadata } from './with-timeline-cell-metadata.util';
 
 import type { CurrentRunType } from '@suuudokuuu/progress';
 
@@ -44,7 +44,7 @@ const getKeyedCandidates = (indexedCandidates: Record<number, number[]>): Record
 export const decodeSharedGameState = (gameStateString = ''): DecodedSharedGameStateInterface => {
     try {
         const decoded = serializer.decodeState(gameStateString);
-        const timelineEvents = withTimelineCellTechniques(decoded.timelineEvents, decoded.techniques);
+        const timelineEvents = withTimelineCellMetadata(decoded);
         const isChallenge = decoded.kind === SharedPayloadKindEnum.Challenge;
         const isHandoff = decoded.kind === SharedPayloadKindEnum.Handoff;
         const encodedDifficulty = isNumber(decoded.difficulty) ? Object.values(DifficultyEnum)[decoded.difficulty] : null;

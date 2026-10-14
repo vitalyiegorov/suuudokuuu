@@ -29,6 +29,7 @@ import type { SerializedFieldStateInterface } from '../interfaces/serialized-fie
 import type { FieldDirectionType } from '../types/field-direction.type';
 import type { FieldInputModeType } from '../types/field-input-mode.type';
 import type { CellInterface, DifficultyEnum } from '@suuudokuuu/generator';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export class FieldEngine extends FieldStore {
     private readonly difficulty: DifficultyEnum;
@@ -112,13 +113,15 @@ export class FieldEngine extends FieldStore {
         return this.placeValue(selectedCell, value);
     }
 
-    placeValue(cell: CellInterface, value: number): FieldMoveResultInterface | null {
+    placeValue(cell: CellInterface, value: number, hintTechnique?: SolutionTechniqueEnum): FieldMoveResultInterface | null {
         if (!this.sudoku.isBlankCell(cell)) {
             return null;
         }
         const targetCell = { ...cell, value };
 
-        return this.sudoku.isCorrectValue(targetCell) ? this.registerPlacement(targetCell) : this.registerMistake(targetCell);
+        return this.sudoku.isCorrectValue(targetCell)
+            ? this.registerPlacement(targetCell, hintTechnique)
+            : this.registerMistake(targetCell);
     }
 
     toggleCandidate(cell: CellInterface, value: number): void {
@@ -189,7 +192,11 @@ export class FieldEngine extends FieldStore {
         const { placement } = script;
 
         if (isDefined(placement)) {
-            this.placeValue(placement.cell, placement.value);
+            this.placeValue(
+                placement.cell,
+                placement.value,
+                script.steps.findLast(step => isDefined(step.narration.placement))?.narration.technique ?? script.technique
+            );
         }
 
         this.stopStepScript();
@@ -234,14 +241,14 @@ export class FieldEngine extends FieldStore {
         return revealedLevelCount;
     }
 
-    private registerPlacement(cell: CellInterface): FieldMoveResultInterface {
+    private registerPlacement(cell: CellInterface, hintTechnique?: SolutionTechniqueEnum): FieldMoveResultInterface {
         const previousState = this.captureState();
         const scoredCells = this.sudoku.setCellValue(cell);
         this.candidateState = { ...this.candidateState, candidates: pruneCandidates(this.sudoku, this.candidateState.candidates, cell) };
         this.selectedCell = { ...cell };
         this.history.push({ previous: previousState, next: this.captureState() });
 
-        const result: FieldMoveResultInterface = { cell, isCorrect: true, scoredCells };
+        const result: FieldMoveResultInterface = { cell, isCorrect: true, scoredCells, ...(isDefined(hintTechnique) && { hintTechnique }) };
 
         this.publish();
         this.events.emit('moveApplied', result);

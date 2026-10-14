@@ -30,6 +30,7 @@ import {
     readHandoffExtras,
     writeHandoffExtras
 } from '../../@generic/utils/handoff-extras-codec.util';
+import { type HintTrailerInterface, readHintTrailer, writeHintTrailer } from '../../@generic/utils/hint-trailer-codec.util';
 import { type MetadataTrailerInterface, readMetadataTrailer, writeMetadataTrailer } from '../../@generic/utils/metadata-trailer-codec.util';
 import {
     type TechniqueTrailerInterface,
@@ -53,8 +54,9 @@ const payloadKindByCode: Record<number, SharedPayloadKindEnum> = {
     [SharedPayloadKindEnum.Challenge]: SharedPayloadKindEnum.Challenge
 };
 
-export type EncodableGameStateInterface = Omit<DecodedGameStateInterface, 'elapsedTime' | 'techniques'> & {
+export type EncodableGameStateInterface = Omit<DecodedGameStateInterface, 'elapsedTime' | 'techniques' | 'hints'> & {
     readonly techniques?: (number | null)[];
+    readonly hints?: boolean[];
 };
 
 export class GameStateBinaryCodecV3 {
@@ -140,6 +142,10 @@ export class GameStateBinaryCodecV3 {
 
         if (isNotEmptyArray(state.techniques) && cellEventCount > 0) {
             writeTechniqueTrailer(out, state.techniques, cellEventCount);
+
+            if (isDefined(state.hints) && state.hints.includes(true)) {
+                writeHintTrailer(out, state.hints, cellEventCount);
+            }
         }
     }
 
@@ -148,16 +154,15 @@ export class GameStateBinaryCodecV3 {
         kind: SharedPayloadKindEnum,
         isChallengeRun: boolean,
         cellEventCount: number
-    ): HandoffExtrasInterface & AggregateTrailerInterface & MetadataTrailerInterface & TechniqueTrailerInterface {
+    ): HandoffExtrasInterface & AggregateTrailerInterface & MetadataTrailerInterface & TechniqueTrailerInterface & HintTrailerInterface {
         const handoffExtras = kind === SharedPayloadKindEnum.Handoff ? readHandoffExtras(input, isChallengeRun) : emptyHandoffExtras;
         const aggregateTrailer = kind === SharedPayloadKindEnum.Puzzle ? emptyAggregateTrailer : readAggregateTrailer(input);
 
-        return {
-            ...handoffExtras,
-            ...aggregateTrailer,
-            ...readMetadataTrailer(input),
-            ...readTechniqueTrailer(input, cellEventCount)
-        };
+        const metadataTrailer = readMetadataTrailer(input);
+        const techniqueTrailer = readTechniqueTrailer(input, cellEventCount);
+        const hintTrailer = techniqueTrailer.techniques === null ? { hints: null } : readHintTrailer(input, cellEventCount);
+
+        return { ...handoffExtras, ...aggregateTrailer, ...metadataTrailer, ...techniqueTrailer, ...hintTrailer };
     }
 
     private readPayloadKind(input: BitInputStream): SharedPayloadKindEnum {

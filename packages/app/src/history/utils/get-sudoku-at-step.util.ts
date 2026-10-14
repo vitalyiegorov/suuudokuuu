@@ -1,3 +1,4 @@
+import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { getCellKey } from '@suuudokuuu/field-core';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { getTimelineCellTechniques } from '@suuudokuuu/progress';
@@ -20,6 +21,8 @@ export const getSudokuAtStep = (gameState: CurrentRunType, currentStep: number) 
     const steps = getTimelineCellSteps(events);
     const storedTechniques = getTimelineCellTechniques(events);
     const effectiveStep = Math.min(currentStep, steps.length);
+    const isHintedMove =
+        effectiveStep > 0 && events.filter(event => event.kind === TimelineEventKindEnum.Cell)[effectiveStep - 1].hinted === true;
     let elapsedTime = 0;
     let highlightedCellKey = '';
     let solutionStep: SolutionStepInterface | null = null;
@@ -44,5 +47,5 @@ export const getSudokuAtStep = (gameState: CurrentRunType, currentStep: number) 
         solutionStep = steps[i];
     }
 
-    return { sudoku, highlightedCellKey, elapsedTime, solutionStep, moveClassification };
+    return { sudoku, highlightedCellKey, elapsedTime, solutionStep, moveClassification, isHintedMove };
 };

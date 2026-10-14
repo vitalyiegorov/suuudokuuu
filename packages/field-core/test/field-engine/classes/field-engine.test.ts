@@ -3,10 +3,12 @@ import { SolutionTechniqueEnum, TechniqueManager, createTechniqueStrategies } fr
 import { describe, expect, it, vi } from 'vitest';
 
 import { FieldEngine } from '../../../src/field-engine/classes/field-engine';
+import { findRevealStepScript } from '../../../src/step-script/utils/find-hint-step-script.util';
 import { findStepScript } from '../../../src/step-script/utils/find-step-script.util';
 import { techniqueResultToStepScript } from '../../../src/step-script/utils/technique-result-to-step-script.util';
 
 import type { FieldEngineOptionsInterface } from '../../../src/field-engine/interfaces/field-engine-options.interface';
+import type { FieldMoveResultInterface } from '../../../src/field-engine/interfaces/field-move-result.interface';
 import type { StepScriptInterface } from '../../../src/step-script/interfaces/step-script.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
@@ -564,6 +566,22 @@ describe('FieldEngine', () => {
 
             expect(engine.getSnapshot().field[0][2].value).toBe(4);
             expect(engine.getSnapshot().stepScript).toBeNull();
+        });
+
+        it('reports the placement step technique of an applied script and none for a manual move', () => {
+            expect.assertions(2);
+
+            const engine = createEngine();
+            const moves: FieldMoveResultInterface[] = [];
+            const script = requireStepScript(findRevealStepScript(engine.Sudoku));
+
+            engine.on('moveApplied', move => void moves.push(move));
+            engine.startStepScript({ ...script, technique: SolutionTechniqueEnum.HiddenSingle });
+            engine.applyStepScript();
+            engine.placeValue(getCell(engine, 0, 3), 8);
+
+            expect(moves[0]?.hintTechnique).toBe(SolutionTechniqueEnum.Guess);
+            expect(moves[1]).not.toHaveProperty('hintTechnique');
         });
 
         it('refuses to walk past the last step or before the first one', () => {

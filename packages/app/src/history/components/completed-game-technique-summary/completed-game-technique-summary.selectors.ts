@@ -1,3 +1,4 @@
 export enum CompletedGameTechniqueSummarySelectors {
-    Root = 'CompletedGameTechniqueSummarySelectors.Root'
+    Root = 'CompletedGameTechniqueSummarySelectors.Root',
+    HintSummary = 'CompletedGameTechniqueSummarySelectors.HintSummary'
 }

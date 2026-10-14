@@ -137,6 +137,23 @@ describe('gameStateToString', () => {
         expect(Object.keys(decoded.timelineEvents[0])).toStrictEqual(['kind', 'cellIndex', 'value', 'ts']);
     });
 
+    it('should carry hint-applied placements with their technique and omit hints for manual-only runs', () => {
+        expect.assertions(3);
+
+        const events: TimelineEventType[] = [
+            { kind: TimelineEventKindEnum.Cell, cellIndex: 2, value: 4, ts: 10, technique: SolutionTechniqueEnum.NakedSingle },
+            { kind: TimelineEventKindEnum.Cell, cellIndex: 3, value: 6, ts: 10, technique: SolutionTechniqueEnum.Guess, hinted: true }
+        ];
+        const decoded = serializer.decodeState(gameStateToString(buildCurrentRunType(events), SharedPayloadKindEnum.Handoff));
+        const manualDecoded = serializer.decodeState(
+            gameStateToString(buildCurrentRunType(events.slice(0, 1)), SharedPayloadKindEnum.Handoff)
+        );
+
+        expect(decoded.techniques).toStrictEqual([SolutionTechniqueEnum.NakedSingle, SolutionTechniqueEnum.Guess]);
+        expect(decoded.hints).toStrictEqual([false, true]);
+        expect(manualDecoded.hints).toBeNull();
+    });
+
     it('should carry score and pencil marks in a handoff share', () => {
         expect.assertions(2);
 

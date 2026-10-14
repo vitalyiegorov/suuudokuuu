@@ -67,6 +67,10 @@ msgstr "{foregroundLabel} على {backgroundLabel}: {contrastRatioText} — ال
 msgid "{gamesCompleted, plural, one {# game played} other {# games played}}"
 msgstr "{gamesCompleted, plural, zero {# ألعاب ملعوبة} one {# لعبة ملعوبة} two {# لعبتان ملعوبتان} few {# ألعاب ملعوبة} many {# لعبة ملعوبة} other {# لعبة ملعوبة}}"
 
+#: src/history/components/completed-game-technique-summary/completed-game-technique-summary.tsx
+msgid "{hintCount, plural, one {# hint} other {# hints}}"
+msgstr "{hintCount, plural, zero {# تلميحات} one {# تلميح} two {# تلميحان} few {# تلميحات} many {# تلميحًا} other {# تلميح}}"
+
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, zero {# ساعة} one {# ساعة} two {# ساعتان} few {# ساعات} many {# ساعة} other {# ساعة}}"
@@ -90,6 +94,10 @@ msgstr "{remaining, plural, zero {أدخل {value}، المتبقي #} one {أد
 #: src/game/components/candidate-input-item/candidate-input-item.tsx
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, zero {دوّن {value}، المتبقي #} one {دوّن {value}، المتبقي #} two {دوّن {value}، المتبقي #} few {دوّن {value}، المتبقي #} many {دوّن {value}، المتبقي #} other {دوّن {value}، المتبقي #}}"
+
+#: src/history/components/completed-game-technique-summary/completed-game-technique-summary.tsx
+msgid "{revealCount, plural, one {# reveal} other {# reveals}}"
+msgstr "{revealCount, plural, zero {# كشف} one {# كشف} two {# كشفان} few {# كشوفات} many {# كشفًا} other {# كشف}}"
 
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
@@ -2396,6 +2404,10 @@ msgstr "استخدم الأوكرانية لنص التطبيق"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Urdu for app text"
 msgstr "استخدم الأردية لنص التطبيق"
+
+#: src/history/components/replay-technique/replay-technique.tsx
+msgid "via hint"
+msgstr "عبر تلميح"
 
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Vibrate on taps and game actions"

@@ -282,6 +282,37 @@ describe('CurrentRunService', () => {
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 
+    it.effect('records the technique a hint used and keeps hint-applied placements out of the arsenal across undo and redo', () =>
+        Effect.gen(function* () {
+            const currentRunService = yield* CurrentRunService;
+            const campaignRepository = yield* CampaignRepository;
+            const fieldState = { sudokuString: placedSudokuString, candidates: {}, eliminatedCandidates: {} };
+
+            yield* saveRun();
+            yield* currentRunService.hint([]);
+            yield* currentRunService.save({
+                ...fieldState,
+                correctCell: placedCell,
+                scoredCells: emptyScoredCells,
+                hintTechnique: SolutionTechniqueEnum.Guess
+            });
+            yield* currentRunService.classifyMove({ cell: placedCell, technique: SolutionTechniqueEnum.NakedSingle });
+
+            assert.deepInclude((yield* getRun).timelineEvents.at(-1), {
+                kind: TimelineEventKindEnum.Cell,
+                technique: SolutionTechniqueEnum.Guess,
+                hinted: true
+            });
+
+            yield* currentRunService.undo({ ...fieldState, sudokuString: startedSudokuString });
+            yield* currentRunService.redo(fieldState);
+
+            assert.deepInclude((yield* getRun).timelineEvents.at(-1), { technique: SolutionTechniqueEnum.Guess, hinted: true });
+            assert.deepStrictEqual((yield* getPlayerStats).techniqueUsageCounts, {});
+            assert.deepStrictEqual(yield* campaignRepository.getMastery, []);
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
     it.effect('excludes guessed placements from technique mastery', () =>
         Effect.gen(function* () {
             const currentRunService = yield* CurrentRunService;

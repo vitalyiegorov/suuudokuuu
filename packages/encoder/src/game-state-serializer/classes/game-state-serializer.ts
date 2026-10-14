@@ -107,6 +107,7 @@ export class GameStateSerializer {
             pencilCount: null,
             screenshotCount: null,
             techniques: null,
+            hints: null,
             rating: 0,
             isRatingCeiling: false,
             difficulty: null

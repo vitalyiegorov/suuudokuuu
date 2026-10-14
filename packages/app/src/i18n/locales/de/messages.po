@@ -69,6 +69,10 @@ msgstr "{foregroundLabel} auf {backgroundLabel}: {contrastRatioText} — Minimum
 msgid "{gamesCompleted, plural, one {# game played} other {# games played}}"
 msgstr "{gamesCompleted, plural, one {# Spiel gespielt} other {# Spiele gespielt}}"
 
+#: src/history/components/completed-game-technique-summary/completed-game-technique-summary.tsx
+msgid "{hintCount, plural, one {# hint} other {# hints}}"
+msgstr "{hintCount, plural, one {# Hinweis} other {# Hinweise}}"
+
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# Std.} other {# Std.}}"
@@ -92,6 +96,10 @@ msgstr "{remaining, plural, one {{value} eintragen, noch # zu setzen} other {{va
 #: src/game/components/candidate-input-item/candidate-input-item.tsx
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, one {{value} notieren, noch # zu setzen} other {{value} notieren, noch # zu setzen}}"
+
+#: src/history/components/completed-game-technique-summary/completed-game-technique-summary.tsx
+msgid "{revealCount, plural, one {# reveal} other {# reveals}}"
+msgstr "{revealCount, plural, one {# Aufdeckung} other {# Aufdeckungen}}"
 
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
@@ -2398,6 +2406,10 @@ msgstr "Ukrainisch als App-Sprache verwenden"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Urdu for app text"
 msgstr "Urdu als App-Sprache verwenden"
+
+#: src/history/components/replay-technique/replay-technique.tsx
+msgid "via hint"
+msgstr "per Hinweis"
 
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Vibrate on taps and game actions"

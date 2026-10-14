@@ -18,6 +18,7 @@ import { ReplayStepCard } from '../../../history/components/replay-controls/repl
 import { ReplayStepNavigation } from '../../../history/components/replay-controls/replay-step-navigation/replay-step-navigation';
 import { ReplayField } from '../../../history/components/replay-field/replay-field';
 import { ReplayHeader } from '../../../history/components/replay-header/replay-header';
+import { ReplayTechnique } from '../../../history/components/replay-technique/replay-technique';
 import { completedGamesAtom } from '../../../history/query/use-completed-games.query';
 import { getReplayTimeline } from '../../../history/utils/get-replay-timeline.util';
 import { getSudokuAtStep } from '../../../history/utils/get-sudoku-at-step.util';
@@ -66,7 +67,7 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
         setCurrentStep(Math.min(Math.max(step, 0), totalSteps));
     };
 
-    const { sudoku, highlightedCellKey, elapsedTime, moveClassification } = getSudokuAtStep(gameState, currentStep);
+    const { sudoku, highlightedCellKey, elapsedTime, moveClassification, isHintedMove } = getSudokuAtStep(gameState, currentStep);
     const awayRanges = getChallengeAwayRanges(replayTimeline.events, completedGame.elapsedTime);
     const headerRow = (
         <View style={styles.headerRow}>
@@ -80,10 +81,11 @@ export const ReplayScreen = ({ difficulty, completedAt }: Props) => {
                 awayRanges={awayRanges}
                 currentStep={currentStep}
                 elapsedTime={elapsedTime}
-                moveClassification={moveClassification}
                 onScrubStep={handleScrubStep}
                 totalSteps={totalSteps}
-            />
+            >
+                <ReplayTechnique classification={moveClassification} isHinted={isHintedMove} />
+            </ReplayStepCard>
             <ReplayStepNavigation
                 currentStep={currentStep}
                 gameState={gameState}
