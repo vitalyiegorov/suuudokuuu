@@ -2,6 +2,6 @@ appId: ${APP_ID}
 ---
 - extendedWaitUntil:
       visible:
-          id: 'PreviewPause'
+          id: 'PauseScreenSelectors.Root'
       timeout: 800
       optional: true
