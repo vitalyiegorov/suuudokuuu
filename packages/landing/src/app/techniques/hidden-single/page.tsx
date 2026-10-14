@@ -1,5 +1,4 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
-import Link from 'next/link';
 
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -8,7 +7,6 @@ import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { Faq } from '../../../seo/components/faq/faq';
 import { HowToStep } from '../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../seo/components/how-to/how-to';
-import { SITE_ORIGIN } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueNavigation } from '../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../techniques/components/technique-page-header/technique-page-header';
@@ -53,9 +51,6 @@ const HiddenSinglePage = () => (
         <p>
             A hidden single never needs an elimination step first, which is why it sits directly after full houses and naked singles in the
             Suuudokuuu solving order. Only when the board runs out of all three does the engine reach for intersections and subsets.
-        </p>
-        <p>
-            <Link href={`${SITE_ORIGIN}/campaign`}>Practice this technique in the app</Link>
         </p>
         <h2>Worked example</h2>
         <TechniqueWorkedExample board={EXAMPLE_BOARD} technique={SolutionTechniqueEnum.HiddenSingle}>

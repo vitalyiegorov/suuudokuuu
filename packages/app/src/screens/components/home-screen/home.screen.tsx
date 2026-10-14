@@ -21,7 +21,6 @@ import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getBrand } from '../../../@generic/utils/get-brand.util';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getSudokuProgress } from '../../../@generic/utils/get-sudoku-progress.util';
-import { CampaignEntry } from '../../../campaign/components/campaign-entry/campaign-entry';
 import { ChallengeModeSwitch } from '../../../challenge/components/challenge-mode-switch/challenge-mode-switch';
 import {
     DifficultyComplexitySliderDifficulties,
@@ -201,7 +200,6 @@ export const HomeScreen = () => {
                     <View style={styles.setupSection}>
                         {intentIntroduction}
 
-                        <CampaignEntry />
                         <HomeScreenSectionHeader>
                             <ChallengeModeSwitch />
                         </HomeScreenSectionHeader>

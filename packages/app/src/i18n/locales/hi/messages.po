@@ -506,11 +506,6 @@ msgstr "बिल्ड किया गया:"
 msgid "Calm play"
 msgstr "शांत खेल"
 
-#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "Campaign progress could not be loaded."
-msgstr "अभियान की प्रगति लोड नहीं हो सकी।"
-
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Can you beat them?"
 msgstr "क्या आप उनसे बेहतर कर सकते हैं?"
@@ -651,10 +646,6 @@ msgstr "कमिट {commitShortSha}"
 msgid "Complete rows, columns, and blocks for huge bonuses"
 msgstr "बड़े बोनस के लिए पंक्तियाँ, स्तंभ और ब्लॉक पूरे करें"
 
-#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
-msgid "Complete the previous lesson to unlock this one."
-msgstr "इस पाठ को अनलॉक करने के लिए पिछला पाठ पूरा करें।"
-
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Completed"
 msgstr "पूर्ण"
@@ -662,10 +653,6 @@ msgstr "पूर्ण"
 #: src/history/components/history-games-list/history-games-list.tsx
 msgid "Completed games will be ready for replay."
 msgstr "पूरी की गई गेम रीप्ले के लिए तैयार होंगी।"
-
-#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Completed practices: {completedCount}/{practiceCount}"
-msgstr "पूरे किए गए अभ्यास: {completedCount}/{practiceCount}"
 
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Completion animations"
@@ -879,14 +866,6 @@ msgstr "भरी हुई सेल"
 msgid "Final score"
 msgstr "अंतिम स्कोर"
 
-#: src/campaign/components/campaign-practice/campaign-practice.tsx
-msgid "Find a candidate this technique can remove. Select its cell, then choose the digit to remove."
-msgstr "ऐसा उम्मीदवार खोजें जिसे यह तकनीक हटा सकती है। उसका खाना चुनें, फिर हटाने वाला अंक चुनें।"
-
-#: src/campaign/components/campaign-practice/campaign-practice.tsx
-msgid "Find a cell this technique can fill. Select it, then choose the digit it proves."
-msgstr "ऐसा खाना खोजें जिसे यह तकनीक भर सकती है। उसे चुनें, फिर वह अंक चुनें जिसे यह सिद्ध करती है।"
-
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "एक सुडोकू पूरा करें और यह यहाँ दिखेगा।"
@@ -1098,10 +1077,6 @@ msgstr "यदि {path} → घेरे गए सेल में {value} क
 msgid "Immortal"
 msgstr "अमर"
 
-#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "In progress"
-msgstr "जारी है"
-
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "अधूरा"
@@ -1180,14 +1155,6 @@ msgstr "बड़ा"
 msgid "Larger digits for easier reading"
 msgstr "आसान पढ़ने के लिए बड़े अंक"
 
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "Learn one deduction at a time. Solve every practice in a lesson without help to unlock the next lesson."
-msgstr "एक बार में एक निष्कर्ष सीखें। अगला पाठ खोलने के लिए पाठ के सभी अभ्यास बिना मदद के हल करें।"
-
-#: src/campaign/components/campaign-entry/campaign-entry.tsx
-msgid "Learn techniques"
-msgstr "तकनीकें सीखें"
-
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Left-handed layout"
 msgstr "बाएँ हाथ का लेआउट"
@@ -1219,10 +1186,6 @@ msgstr "डेवलपमेंट बिल्ड लोड हो रहा �
 #: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading the latest development build…"
 msgstr "नवीनतम डेवलपमेंट बिल्ड लोड हो रहा है…"
-
-#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Locked"
-msgstr "लॉक है"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "Look for {techniqueName} around cell {cellName}."
@@ -1257,10 +1220,6 @@ msgstr "कम कंट्रास्ट"
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "m"
 msgstr "m"
-
-#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Mastered"
-msgstr "महारत हासिल"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
@@ -1362,10 +1321,6 @@ msgstr "नया खिलाड़ी"
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Newspaper"
 msgstr "न्यूज़पेपर"
-
-#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
-msgid "Next"
-msgstr "आगे"
 
 #: src/game/components/hint-stepper-next/hint-stepper-next.tsx
 msgid "Next ›"
@@ -1477,10 +1432,6 @@ msgstr "ठीक है"
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
 msgstr "GitHub पर कमिट {commitShortSha} खोलें"
-
-#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Open lesson"
-msgstr "पाठ खोलें"
 
 #: src/screens/components/shared-screen/shared-screen.tsx
 msgid "Open puzzle"
@@ -1622,29 +1573,9 @@ msgstr "प्रति सही स्थान अंक।"
 msgid "Português"
 msgstr "Português"
 
-#: src/campaign/components/campaign-practice-button/campaign-practice-button.tsx
-msgid "Practice {number}"
-msgstr "अभ्यास {number}"
-
-#: src/campaign/components/campaign-practice-button/campaign-practice-button.tsx
-msgid "Practice {number} · Complete"
-msgstr "अभ्यास {number} · पूरा"
-
-#: src/campaign/components/campaign-practice/campaign-practice.tsx
-msgid "Practice complete with assistance. Retry without mistakes to master it."
-msgstr "अभ्यास मदद से पूरा हुआ। इसमें महारत पाने के लिए बिना गलतियों के दोबारा प्रयास करें।"
-
-#: src/campaign/components/campaign-practice/campaign-practice.tsx
-msgid "Practice complete without help."
-msgstr "अभ्यास बिना मदद के पूरा हुआ।"
-
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Practice harder logic"
 msgstr "और कठिन तर्क का अभ्यास करें"
-
-#: src/campaign/hooks/use-campaign-practice.hook.ts
-msgid "Practice progress could not be saved. Try again."
-msgstr "अभ्यास की प्रगति सहेजी नहीं जा सकी। फिर से प्रयास करें।"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Presets"
@@ -1765,10 +1696,6 @@ msgstr "यह गेम जारी रखें?"
 msgid "Retry loading development build"
 msgstr "डेवलपमेंट बिल्ड फिर से लोड करें"
 
-#: src/campaign/components/campaign-practice/campaign-practice.tsx
-msgid "Retry practice"
-msgstr "अभ्यास फिर करें"
-
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
@@ -1872,10 +1799,6 @@ msgstr "स्क्रीनशॉट"
 msgid "SE {seValueText}"
 msgstr "SE {seValueText}"
 
-#: src/campaign/components/campaign-mastery-row/campaign-mastery-row.tsx
-msgid "Seen: {seenCount} · Unassisted: {unassistedCount}"
-msgstr "देखे गए: {seenCount} · बिना मदद: {unassistedCount}"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected candidate background"
 msgstr "चुने हुए उम्मीदवार की बैकग्राउंड"
@@ -1963,10 +1886,6 @@ msgstr "खेलते समय बीता हुआ समय दिखा�
 msgid "Show matching notes for the selected cell"
 msgstr "चयनित सेल के मिलते-जुलते नोट्स दिखाएं"
 
-#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
-msgid "Show teaching example"
-msgstr "सीखने का उदाहरण दिखाएँ"
-
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show the row, column, and box for the selected cell"
 msgstr "चुने हुए सेल की पंक्ति, कॉलम और बॉक्स दिखाएँ"
@@ -1994,10 +1913,6 @@ msgstr "कागज़ जैसा महसूस होने वाला �
 #: src/app/game.tsx
 msgid "Solve a Sudoku puzzle online with hints, notes, and mistake tracking."
 msgstr "संकेत, नोट और गलतियों की गिनती के साथ ऑनलाइन सुडोकू हल करें।"
-
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "Solve puzzles to build your technique mastery."
-msgstr "तकनीकों में महारत पाने के लिए पहेलियाँ हल करें।"
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 #: src/screens/components/winner-screen/winner.screen.tsx
@@ -2150,22 +2065,6 @@ msgstr "आराम से खेलें"
 msgid "Taller marks = sharper techniques"
 msgstr "ऊँचे निशान = तेज़ तकनीकें"
 
-#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
-msgid "Teaching example"
-msgstr "सीखने का उदाहरण"
-
-#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
-msgid "Teaching progress could not be saved."
-msgstr "सीखने की प्रगति सहेजी नहीं जा सकी।"
-
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "Technique campaign"
-msgstr "तकनीक सीखने का अभियान"
-
-#: src/campaign/components/campaign-screen/campaign-screen.tsx
-msgid "Technique mastery"
-msgstr "तकनीक में महारत"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "टेक्स्ट और लेबल"
@@ -2182,10 +2081,6 @@ msgstr "भरे हुए नंबर पैड ट्रैक पर टे
 msgid "Text on ink"
 msgstr "स्याही पर टेक्स्ट"
 
-#: src/campaign/hooks/use-campaign-practice.hook.ts
-msgid "That deduction does not match this technique. This attempt counts as assisted. Retry for an unassisted completion."
-msgstr "यह निष्कर्ष इस तकनीक से मेल नहीं खाता। यह प्रयास मदद के साथ गिना जाएगा। बिना मदद पूरा करने के लिए फिर से प्रयास करें।"
-
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "इस डिवाइस पर कमिट लिंक नहीं खोला जा सका।"
@@ -2197,10 +2092,6 @@ msgstr "इंस्टॉल लिंक नहीं खोला जा स�
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "The SE difficulty scale"
 msgstr "SE कठिनाई पैमाना"
-
-#: src/campaign/components/campaign-lesson-screen/campaign-lesson-screen.tsx
-msgid "The teaching example explains the technique. Practices transform the teaching board and change its digits while keeping the answer hidden."
-msgstr "शिक्षण उदाहरण तकनीक समझाता है। अभ्यास उत्तर छिपाए रखते हुए उदाहरण के बोर्ड का रूप बदलते हैं और उसके अंक बदलते हैं।"
 
 #: src/challenge/components/challenge-accept-time-block/challenge-accept-time-block.tsx
 msgid "Their time to beat"
@@ -2224,12 +2115,6 @@ msgstr "थीम का नाम"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "इस बार यह बोर्ड पूरा नहीं हुआ। यूक्रेन में आज़ादी की लड़ाई जारी है। हर $1 दान मायने रखता है।"
-
-#: src/campaign/components/campaign-practice/campaign-practice.tsx
-#: src/campaign/components/campaign-teaching/campaign-teaching.tsx
-#: src/campaign/hooks/use-campaign-practice.hook.ts
-msgid "This lesson is unavailable."
-msgstr "यह पाठ उपलब्ध नहीं है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
@@ -2319,10 +2204,6 @@ msgstr "लिंक नहीं खोला जा सका"
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "Unable to start installation"
 msgstr "इंस्टॉलेशन शुरू नहीं किया जा सका"
-
-#: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
-msgid "Unassisted practices: {unassistedCount}/{practiceCount}"
-msgstr "बिना मदद के अभ्यास: {unassistedCount}/{practiceCount}"
 
 #: src/game/components/undo-button/undo-button.tsx
 msgid "Undo"

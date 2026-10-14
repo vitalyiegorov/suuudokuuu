@@ -13,6 +13,7 @@ import { completedGameDailyDayNumberMigration } from '../../src/migration/0002-c
 import { storeReviewMigration } from '../../src/migration/0003-store-review.migration';
 import { currentRunEliminatedCandidatesMigration } from '../../src/migration/0004-current-run-eliminated-candidates.migration';
 import { techniqueCampaignMigration } from '../../src/migration/0005-technique-campaign.migration';
+import { hintsOnHardDifficultiesDefaultMigration } from '../../src/migration/0006-hints-on-hard-difficulties-default.migration';
 import { runDatabaseMigrations } from '../../src/migration/run-database-migrations.util';
 import { SettingsSchema } from '../../src/settings/schema/settings.schema';
 import { initialSettings } from '../progress-fixtures';
@@ -40,17 +41,7 @@ describe('database migrations', () => {
 
             assert.deepStrictEqual(
                 tables.map(table => table.name),
-                [
-                    'campaign_progress',
-                    'completed_games',
-                    'current_run',
-                    'custom_themes',
-                    'difficulty_stats',
-                    'player_stats',
-                    'settings',
-                    'store_review',
-                    'technique_mastery'
-                ]
+                ['completed_games', 'current_run', 'custom_themes', 'difficulty_stats', 'player_stats', 'settings', 'store_review']
             );
             assert.deepStrictEqual(yield* runDatabaseMigrations, []);
         }).pipe(Effect.provide(ProgressTestLayer))
@@ -68,7 +59,8 @@ describe('database migrations', () => {
                 [3, 'store_review'],
                 [4, 'current_run_eliminated_candidates'],
                 [5, 'technique_campaign'],
-                [6, 'hints_on_hard_difficulties_default']
+                [6, 'hints_on_hard_difficulties_default'],
+                [7, 'drop_technique_campaign']
             ]);
             assert.deepStrictEqual(yield* sql`SELECT daily_day_number, score FROM completed_games`, [{ dailyDayNumber: null, score: 900 }]);
         }).pipe(Effect.provide(makeTestSqlClientLayer()))
@@ -92,7 +84,8 @@ describe('database migrations', () => {
             assert.deepStrictEqual(yield* runDatabaseMigrations, [
                 [4, 'current_run_eliminated_candidates'],
                 [5, 'technique_campaign'],
-                [6, 'hints_on_hard_difficulties_default']
+                [6, 'hints_on_hard_difficulties_default'],
+                [7, 'drop_technique_campaign']
             ]);
             assert.deepStrictEqual(yield* sql`SELECT eliminated_candidates, score FROM current_run`, [
                 { eliminatedCandidates, score: initialCurrentRun.score }
@@ -115,10 +108,35 @@ describe('database migrations', () => {
             });
             yield* sql`INSERT INTO settings ${sql.insert({ id: 1, ...(yield* Schema.encodeEffect(SettingsSchema)(initialSettings)) })}`;
 
-            assert.deepStrictEqual(yield* runDatabaseMigrations, [[6, 'hints_on_hard_difficulties_default']]);
+            assert.deepStrictEqual(yield* runDatabaseMigrations, [
+                [6, 'hints_on_hard_difficulties_default'],
+                [7, 'drop_technique_campaign']
+            ]);
             assert.deepStrictEqual(yield* sql`SELECT allow_hints_on_hard_difficulties, has_timer FROM settings`, [
                 { allowHintsOnHardDifficulties: 1, hasTimer: 1 }
             ]);
+        }).pipe(Effect.provide(makeTestSqlClientLayer()))
+    );
+
+    it.effect('drops the technique campaign tables and their progress when upgrading', () =>
+        Effect.gen(function* () {
+            const sql = yield* SqlClient.SqlClient;
+
+            yield* Migrator.make({})({
+                loader: Migrator.fromRecord({
+                    '0001_initial': initialMigration,
+                    '0002_completed_game_daily_day_number': completedGameDailyDayNumberMigration,
+                    '0003_store_review': storeReviewMigration,
+                    '0004_current_run_eliminated_candidates': currentRunEliminatedCandidatesMigration,
+                    '0005_technique_campaign': techniqueCampaignMigration,
+                    '0006_hints_on_hard_difficulties_default': hintsOnHardDifficultiesDefaultMigration
+                })
+            });
+            yield* sql`INSERT INTO technique_mastery ${sql.insert({ technique: 1, seenCount: 2, unassistedCount: 1 })}`;
+            yield* sql`INSERT INTO campaign_progress ${sql.insert({ technique: 1, teachingSeen: 1 })}`;
+
+            assert.deepStrictEqual(yield* runDatabaseMigrations, [[7, 'drop_technique_campaign']]);
+            assert.deepStrictEqual(yield* sql`SELECT name FROM sqlite_master WHERE name IN ('campaign_progress', 'technique_mastery')`, []);
         }).pipe(Effect.provide(makeTestSqlClientLayer()))
     );
 });

@@ -575,15 +575,6 @@ importers:
       '@effect/vitest':
         specifier: 4.0.0
         version: 4.0.0(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))(vitest@5.0.3)
-      '@suuudokuuu/rating':
-        specifier: workspace:*
-        version: link:../rating
-      '@suuudokuuu/solver-bitmask':
-        specifier: workspace:*
-        version: link:../solver-bitmask
-      '@suuudokuuu/solver-core':
-        specifier: workspace:*
-        version: link:../solver-core
       '@suuudokuuu/test-kit':
         specifier: workspace:*
         version: link:../../tests/test-kit
@@ -833,9 +824,6 @@ importers:
       '@suuudokuuu/app':
         specifier: workspace:*
         version: link:../../packages/app
-      '@suuudokuuu/field-core':
-        specifier: workspace:*
-        version: link:../../packages/field-core
       '@suuudokuuu/generator':
         specifier: workspace:*
         version: link:../../packages/generator
@@ -845,9 +833,6 @@ importers:
       '@suuudokuuu/puzzle-forge':
         specifier: workspace:*
         version: link:../../packages/puzzle-forge
-      '@suuudokuuu/techniques':
-        specifier: workspace:*
-        version: link:../../packages/techniques
       serve:
         specifier: ^14.2.6
         version: 14.2.6(supports-color@8.1.1)

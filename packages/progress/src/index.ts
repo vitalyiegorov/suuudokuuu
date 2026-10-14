@@ -40,9 +40,3 @@ export { defaultScoringConfig } from './scoring/constant/default-scoring-config.
 export { LegacyStateImportService } from './legacy/service/legacy-state-import.service';
 
 export { StoreReviewService } from './store-review/service/store-review.service';
-
-export { CampaignRepository } from './campaign/repository/campaign.repository';
-export { CampaignService } from './campaign/service/campaign.service';
-export { campaignLessons } from './campaign/constant/campaign-lessons.constant';
-export { getUnlockedCampaignTechniques } from './campaign/utils/get-unlocked-campaign-techniques.util';
-export { getLessonUnassistedPracticeCount } from './campaign/utils/get-lesson-unassisted-practice-count.util';

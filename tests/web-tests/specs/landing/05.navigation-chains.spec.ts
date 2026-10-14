@@ -1,6 +1,5 @@
 import { expect, test } from '@playwright/test';
 import { SITE_ORIGIN } from '@suuudokuuu/landing/src/seo/constants/site.constant';
-import { TECHNIQUE_PAGE_PATHS } from '@suuudokuuu/landing/src/techniques/constants/technique-page-path.constant';
 
 import { fetchPageHtml } from '../../src/utils/fetch-page-html.util';
 import { readJsonLdSchema } from '../../src/utils/json-ld.util';
@@ -73,9 +72,3 @@ test('the technique hub lists every technique page and publishes the same list a
     });
     expect(HeadingPattern.exec(html)?.[1]).toBe('Sudoku Techniques');
 });
-
-for (const [, path] of Object.entries(TECHNIQUE_PAGE_PATHS).filter(([technique]) => Number(technique) > 0 && Number(technique) <= 7)) {
-    test(`${path} links to the campaign curriculum`, async ({ request }) => {
-        expect(await fetchPageHtml(request, path)).toContain(`href="${SITE_ORIGIN}/campaign"`);
-    });
-}

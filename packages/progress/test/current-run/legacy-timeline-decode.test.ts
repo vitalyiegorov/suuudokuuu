@@ -19,7 +19,7 @@ const legacyCellEvent = {
 } as const;
 
 describe('Legacy timeline decoding', () => {
-    it.effect('decodes current-run JSON columns without assisted or hint metadata', () =>
+    it.effect('decodes current-run JSON columns without hint metadata', () =>
         Effect.gen(function* () {
             const encodedRun = yield* Schema.encodeEffect(CurrentRunSchema)(initialCurrentRun);
             const decodedRun = yield* Schema.decodeUnknownEffect(CurrentRunSchema)({
@@ -32,12 +32,11 @@ describe('Legacy timeline decoding', () => {
             assert.deepStrictEqual(decodedRun.timelineEvents, [legacyCellEvent]);
             assert.deepStrictEqual(decodedRun.undoneMoves, [legacyCellEvent]);
             assert.deepStrictEqual(decodedRun.challengeTimelineEvents, [legacyCellEvent]);
-            assert.notProperty(decodedRun.timelineEvents[0], 'assisted');
             assert.notProperty(decodedRun.timelineEvents[0], 'hinted');
         })
     );
 
-    it.effect('decodes a completed-game row and its frozen legacy replay timeline without assisted or hint metadata', () =>
+    it.effect('decodes a completed-game row and its frozen legacy replay timeline without hint metadata', () =>
         Effect.gen(function* () {
             const completedGame = yield* Schema.decodeUnknownEffect(CompletedGameSchema)({
                 difficulty: DifficultyEnum.Medium,
@@ -56,7 +55,6 @@ describe('Legacy timeline decoding', () => {
 
             assert.deepStrictEqual(timeline[0], { kind: TimelineEventKindEnum.Cell, cellIndex: 2, value: 4, ts: 7 });
             assert.deepStrictEqual(timeline, decodedState.timelineEvents);
-            assert.notProperty(timeline[0], 'assisted');
             assert.notProperty(timeline[0], 'hinted');
             assert.isNull(decodedState.hints);
         })
