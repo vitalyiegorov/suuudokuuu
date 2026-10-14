@@ -4,7 +4,7 @@ import { isDeepStrictEqual } from 'node:util';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { DEFAULT_LOCALE, HREFLANG_DEFAULT_KEY } from '../src/seo/constants/site.constant';
+import { DEFAULT_LOCALE, HREFLANG_DEFAULT_KEY, SUPPORTED_LOCALES } from '../src/seo/constants/site.constant';
 
 const EXPORT_DIRECTORY = join(import.meta.dirname, '..', 'out');
 
@@ -13,6 +13,8 @@ const LinkTagPattern = /<(?:xhtml:)?link\b[^>]*>/gu;
 const SitemapEntryPattern = /<url>([\s\S]*?)<\/url>/gu;
 
 const SitemapLocationPattern = /<loc>([^<]+)<\/loc>/u;
+
+const HtmlLangPattern = /<html\b[^>]*\slang="([^"]*)"/u;
 
 const AttributePattern = /\s([\w-]+)="([^"]*)"/gu;
 
@@ -51,14 +53,14 @@ const listHtmlFiles = (directory: string): string[] =>
         return entry.name.endsWith('.html') ? [entryPath] : [];
     });
 
-const pageClusters = new Map(
-    listHtmlFiles(EXPORT_DIRECTORY).flatMap(file => {
-        const markup = readFileSync(file, 'utf8');
-        const canonical = readCanonical(markup);
+const pages = listHtmlFiles(EXPORT_DIRECTORY).flatMap(file => {
+    const markup = readFileSync(file, 'utf8');
+    const canonical = readCanonical(markup);
 
-        return isDefined(canonical) ? [[canonical, readCluster(markup)] as const] : [];
-    })
-);
+    return isDefined(canonical) ? [{ canonical, cluster: readCluster(markup), lang: HtmlLangPattern.exec(markup)?.[1] ?? '' }] : [];
+});
+
+const pageClusters = new Map(pages.map(({ canonical, cluster }) => [canonical, cluster]));
 
 const sitemapClusters = new Map(
     Array.from(readFileSync(join(EXPORT_DIRECTORY, 'sitemap.xml'), 'utf8').matchAll(SitemapEntryPattern), ([, entry = '']) => [
@@ -75,8 +77,11 @@ const checkAlternate = (url: string, cluster: Record<string, string>, alternateU
     return isDeepStrictEqual(pageClusters.get(alternateUrl), cluster) ? [] : [`${url} and ${alternateUrl} declare different clusters`];
 };
 
-const checkPage = ([url, cluster]: [string, Record<string, string>]): string[] => [
-    ...(Object.values(cluster).includes(url) ? [] : [`${url} does not list itself as an alternate`]),
+const checkPage = ({ canonical: url, cluster, lang }: (typeof pages)[number]): string[] => [
+    ...(cluster[lang] === url ? [] : [`${url} is not the hreflang="${lang}" alternate its <html lang> claims`]),
+    ...Object.keys(cluster)
+        .filter(hreflang => hreflang !== HREFLANG_DEFAULT_KEY && !SUPPORTED_LOCALES.some(locale => locale === hreflang))
+        .map(hreflang => `${url} declares hreflang="${hreflang}", which is not a supported locale`),
     ...(isDefined(cluster[HREFLANG_DEFAULT_KEY]) && cluster[HREFLANG_DEFAULT_KEY] === cluster[DEFAULT_LOCALE]
         ? []
         : [`${url} has no ${HREFLANG_DEFAULT_KEY} alternate pointing to its ${DEFAULT_LOCALE} page`]),
@@ -85,7 +90,10 @@ const checkPage = ([url, cluster]: [string, Record<string, string>]): string[] =
 ];
 
 const problems = [
-    ...Array.from(pageClusters).flatMap(checkPage),
+    ...pages.flatMap(checkPage),
+    ...pages
+        .filter(({ canonical }, index) => pages.findIndex(page => page.canonical === canonical) !== index)
+        .map(({ canonical }) => `${canonical} is the canonical of more than one exported page`),
     ...Array.from(sitemapClusters.keys())
         .filter(url => !pageClusters.has(url))
         .map(url => `${url} is in sitemap.xml but no exported page declares it canonical`)
