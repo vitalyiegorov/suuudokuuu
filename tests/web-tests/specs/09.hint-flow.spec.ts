@@ -1,12 +1,20 @@
 import { expect, test } from '@playwright/test';
 import {
+    CompletedGameItemSelectors,
+    CompletedGameTechniqueSummarySelectors,
     FieldWitnessOverlaySelectors,
     GameScreenSelectors,
     HintButtonSelectors,
     HintPanelSelectors,
     HintStepNarrationSelectors,
+    HistoryDifficultySelectors,
+    HistoryGamesScreenSelectors,
+    HomeScreenSelectors,
     PauseScreenSelectors,
-    SharedScreenSelectors
+    ReplayControlsSelectors,
+    ReplayTechniqueSelectors,
+    SharedScreenSelectors,
+    WinnerScreenSelectors
 } from '@suuudokuuu/app/src/selectors';
 
 import {
@@ -22,7 +30,7 @@ import { launchHome } from '../src/utils/launch-home.util';
 import { openSharedPuzzle } from '../src/utils/open-shared-puzzle.util';
 import { sendAppToBackground } from '../src/utils/send-app-to-background.util';
 import { startNewGame } from '../src/utils/start-new-game.util';
-import { cellTestId } from '../src/utils/test-id.util';
+import { cellTestId, valueButtonTestId } from '../src/utils/test-id.util';
 
 import type { Page } from '@playwright/test';
 
@@ -39,7 +47,13 @@ const structuredChainHintIndex = 11;
 const aicDetourForcingHintIndex = 6;
 const maxPatternCellCount = 12;
 
+const revealPuzzle = '8..........36......7..9.2...5...7.......457.....1...3...1....68..85...1..9....4..';
+const revealPuzzleSolution = '812753649943682175675491283154237896369845721287169534521974368438526917796318452';
+const revealedCellIndex = 69;
+const fieldSize = 9;
+
 const gameScreenTimeoutMilliseconds = 15000;
+const winnerScreenTimeoutMilliseconds = 30000;
 const longHintTimeoutMilliseconds = 120000;
 
 const readPageCount = async (page: Page): Promise<number> =>
@@ -279,6 +293,38 @@ test('shows a solution reveal as one page with the digit and its placement', asy
     await page.getByTestId(HintPanelSelectors.ApplyButton).click();
     await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
     await expect(page.getByTestId(cellTestId(7, 6))).toHaveAttribute('aria-label', 'Row 8, column 7, 9');
+});
+
+test('replays a reveal hint as a badged Guess and counts it on the history card', async ({ page }) => {
+    await openSharedHintPuzzle(page, revealHintSharedPuzzleEncodedConstant);
+
+    await page.getByTestId(HintButtonSelectors.Root).click();
+    await page.getByTestId(HintPanelSelectors.ApplyButton).click();
+    await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
+
+    for (let cellIndex = 0; cellIndex < revealPuzzle.length; cellIndex += 1) {
+        if (revealPuzzle.charAt(cellIndex) === '.' && cellIndex !== revealedCellIndex) {
+            await page.getByTestId(cellTestId(Math.floor(cellIndex / fieldSize), cellIndex % fieldSize)).click();
+            await page.getByTestId(valueButtonTestId(Number(revealPuzzleSolution.charAt(cellIndex)))).click();
+        }
+    }
+
+    await expect(page.getByTestId(WinnerScreenSelectors.Root)).toBeVisible({ timeout: winnerScreenTimeoutMilliseconds });
+    await page.getByTestId(WinnerScreenSelectors.HomeButton).click();
+    await expect(page.getByTestId(HomeScreenSelectors.Root)).toBeVisible();
+    await page.getByText('Stats').click();
+    await page.getByTestId(`${HistoryDifficultySelectors.Card}.Medium`).click();
+    await expect(page.getByTestId(HistoryGamesScreenSelectors.Root)).toBeVisible();
+    await expect(page.getByTestId(CompletedGameTechniqueSummarySelectors.HintSummary)).toHaveText('1 reveal');
+
+    await page.getByTestId(CompletedGameItemSelectors.ReplayButton).click();
+    await page.getByTestId(ReplayControlsSelectors.NextButton).click();
+    await expect(page.getByTestId(ReplayTechniqueSelectors.Technique)).toHaveText('Guess 9');
+    await expect(page.getByTestId(ReplayTechniqueSelectors.HintBadge)).toHaveText('via hint');
+
+    await page.getByTestId(ReplayControlsSelectors.NextButton).click();
+    await expect(page.getByTestId(ReplayTechniqueSelectors.Technique)).toBeVisible();
+    await expect(page.getByTestId(ReplayTechniqueSelectors.HintBadge)).toHaveCount(0);
 });
 
 test('starts a fresh hint at level one after continuing an elimination', async ({ page }) => {

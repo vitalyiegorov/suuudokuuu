@@ -6,22 +6,21 @@ import { BlackText } from '../../../../@generic/components/black-text/black-text
 import { useTimerText } from '../../../../@generic/hooks/use-timer-text.hook';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import { ReplayScrubber } from '../../replay-scrubber/replay-scrubber';
-import { ReplayTechnique } from '../../replay-technique/replay-technique';
 import { ReplayControlsStyles as styles } from '../replay-controls.styles';
 
 import type { ChallengeAwayRangeInterface } from '../../../../challenge/interfaces/challenge-away-range.interface';
-import type { MoveClassificationInterface } from '@suuudokuuu/techniques';
+import type { ReactNode } from 'react';
 
 interface Props {
     readonly awayRanges: ChallengeAwayRangeInterface[];
+    readonly children: ReactNode;
     readonly currentStep: number;
     readonly elapsedTime: number;
-    readonly moveClassification: MoveClassificationInterface | null;
     readonly onScrubStep: (step: number) => void;
     readonly totalSteps: number;
 }
 
-export const ReplayStepCard = ({ awayRanges, currentStep, elapsedTime, moveClassification, onScrubStep, totalSteps }: Props) => {
+export const ReplayStepCard = ({ awayRanges, children, currentStep, elapsedTime, onScrubStep, totalSteps }: Props) => {
     const { theme } = use(ThemeContext);
     const elapsedTimeText = useTimerText(elapsedTime);
     const cardStyles = [styles.card, { backgroundColor: theme.colors.surface.subtle, borderColor: theme.colors.surface.border }];
@@ -37,7 +36,7 @@ export const ReplayStepCard = ({ awayRanges, currentStep, elapsedTime, moveClass
                 </BlackText>
             </View>
 
-            <ReplayTechnique classification={moveClassification} />
+            {children}
 
             <ReplayScrubber awayRanges={awayRanges} currentStep={currentStep} onScrubStep={onScrubStep} totalSteps={totalSteps} />
         </View>

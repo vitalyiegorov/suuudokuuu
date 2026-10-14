@@ -32,10 +32,14 @@ export const getRunTechniqueEvents = (events: readonly TimelineEventType[], give
             const column = event.cellIndex % defaultSudokuConfig.fieldSize;
             const row = Math.floor(event.cellIndex / defaultSudokuConfig.fieldSize);
             const cell = { ...sudoku.Field[row][column], value: event.value };
-            const classification = new TechniqueManager(sudoku).identifyMove(cell);
+
+            if (event.hinted !== true) {
+                const { technique } = new TechniqueManager(sudoku).identifyMove(cell);
+
+                techniqueEvents.push({ cumulativeTime, technique, tier: getTechniqueTier(technique) });
+            }
 
             sudoku.Field[row][column] = cell;
-            techniqueEvents.push({ cumulativeTime, technique: classification.technique, tier: getTechniqueTier(classification.technique) });
         }
     }
 

@@ -1,6 +1,6 @@
 import { GameStateSerializer } from '@suuudokuuu/encoder';
 
-import { withTimelineCellTechniques } from '../../game/utils/with-timeline-cell-techniques.util';
+import { withTimelineCellMetadata } from '../../game/utils/with-timeline-cell-metadata.util';
 
 import { getChallengeAwayRanges } from './get-challenge-away-ranges.util';
 import { getChallengeAwaySeconds } from './get-challenge-away-seconds.util';
@@ -30,7 +30,7 @@ export const getChallengeRivalRunSummary = (challengeState: string, totalTime: n
             exitCount: awayRanges.length,
             pencilCount: decoded.pencilCount,
             screenshotCount: decoded.screenshotCount,
-            techniqueEvents: getRunTechniqueEvents(withTimelineCellTechniques(decoded.timelineEvents, decoded.techniques), decoded.field)
+            techniqueEvents: getRunTechniqueEvents(withTimelineCellMetadata(decoded), decoded.field)
         };
     } catch {
         return emptyChallengeRunSummary;

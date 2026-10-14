@@ -14,7 +14,7 @@ export const getTapeTechniqueEvents = (events: readonly TimelineEventType[]): Ch
     for (const event of events) {
         cumulativeTime += event.ts;
 
-        if (event.kind === TimelineEventKindEnum.Cell && isDefined(event.technique)) {
+        if (event.kind === TimelineEventKindEnum.Cell && isDefined(event.technique) && event.hinted !== true) {
             techniqueEvents.push({
                 cumulativeTime,
                 technique: event.technique,

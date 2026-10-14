@@ -47,6 +47,7 @@ export * from './history/components/replay-controls/replay-controls.selectors';
 export * from './history/components/replay-header/replay-header.selectors';
 export * from './history/components/replay-scrubber/replay-scrubber.selectors';
 export * from './history/components/replay-share-action/replay-share-action.selectors';
+export * from './history/components/replay-technique/replay-technique.selectors';
 export * from './scoring/components/scoring-screen.selectors';
 export * from './screens/components/game-screen/game-screen.selectors';
 export * from './screens/components/daily-screen/daily-screen.selectors';

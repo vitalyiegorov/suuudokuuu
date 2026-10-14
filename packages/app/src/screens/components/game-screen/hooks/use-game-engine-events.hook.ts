@@ -12,7 +12,7 @@ import * as StoreReview from 'expo-store-review';
 import { use, useEffect, useRef } from 'react';
 import { AccessibilityInfo } from 'react-native';
 
-import { isNotEmptyString } from '@rnw-community/shared';
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { animationDurationConstant } from '../../../../@generic/constants/animation.constant';
 import { useVibration } from '../../../../@generic/hooks/use-vibration.hook';
@@ -73,12 +73,20 @@ const subscribeMoves = (
     engine.on('moveApplied', move => {
         appRuntime.runFork(
             Effect.flatMap(CurrentRunService, currentRunService =>
-                currentRunService.save({ ...gameGetFieldStatePayload(engine), correctCell: move.cell, scoredCells: move.scoredCells })
+                currentRunService.save({
+                    ...gameGetFieldStatePayload(engine),
+                    correctCell: move.cell,
+                    scoredCells: move.scoredCells,
+                    ...(isDefined(move.hintTechnique) && { hintTechnique: move.hintTechnique })
+                })
             ).pipe(Effect.tapCause(logErrorCause))
         );
         eventStateRef.current.haptics[0](Haptics.NotificationFeedbackType.Success);
         fieldRef.current?.triggerCellSuccess(move.cell);
         fieldRef.current?.triggerAnimation(move.scoredCells);
+        if (isDefined(move.hintTechnique)) {
+            return;
+        }
         const classification = classifyMove(engine.Sudoku.toString(), move.cell);
         FiberSet.addUnsafe(
             pendingClassifications,

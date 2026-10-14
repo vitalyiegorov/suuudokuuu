@@ -67,6 +67,10 @@ msgstr "{backgroundLabel}上的{foregroundLabel}：{contrastRatioText} — 最�
 msgid "{gamesCompleted, plural, one {# game played} other {# games played}}"
 msgstr "{gamesCompleted, plural, one {已玩 # 局} other {已玩 # 局}}"
 
+#: src/history/components/completed-game-technique-summary/completed-game-technique-summary.tsx
+msgid "{hintCount, plural, one {# hint} other {# hints}}"
+msgstr "{hintCount, plural, other {# 次提示}}"
+
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, other {# 小时}}"
@@ -90,6 +94,10 @@ msgstr "{remaining, plural, other {填入 {value}，还剩 # 个}}"
 #: src/game/components/candidate-input-item/candidate-input-item.tsx
 msgid "{remaining, plural, one {Note {value}, # left to place} other {Note {value}, # left to place}}"
 msgstr "{remaining, plural, other {标记 {value}，还剩 # 个}}"
+
+#: src/history/components/completed-game-technique-summary/completed-game-technique-summary.tsx
+msgid "{revealCount, plural, one {# reveal} other {# reveals}}"
+msgstr "{revealCount, plural, other {# 次揭示}}"
 
 #: src/daily/components/daily-recent-solve-result/daily-recent-solve-result.tsx
 msgid "{score, plural, one {# point} other {# points}}"
@@ -2396,6 +2404,10 @@ msgstr "使用乌克兰语显示应用文字"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Use Urdu for app text"
 msgstr "使用乌尔都语显示应用文字"
+
+#: src/history/components/replay-technique/replay-technique.tsx
+msgid "via hint"
+msgstr "来自提示"
 
 #: src/settings/component/settings-feedback-section/settings-feedback-section.tsx
 msgid "Vibrate on taps and game actions"
