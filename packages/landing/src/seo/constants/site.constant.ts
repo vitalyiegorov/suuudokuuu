@@ -1,3 +1,4 @@
+import type { LocaleType } from '../types/locale.type';
 import type { Viewport } from 'next';
 
 export const SITE_NAME = 'Suuudokuuu';
@@ -38,7 +39,7 @@ export const DEFAULT_LOCALE = 'en';
 
 export const SUPPORTED_LOCALES = [DEFAULT_LOCALE, 'es'] as const;
 
-export const LOCALE_NAMES: Readonly<Record<(typeof SUPPORTED_LOCALES)[number], string>> = {
+export const LOCALE_NAMES: Readonly<Record<LocaleType, string>> = {
     en: 'English',
     es: 'Español'
 };
