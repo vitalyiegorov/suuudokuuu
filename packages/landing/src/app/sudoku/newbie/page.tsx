@@ -1,7 +1,9 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import Link from 'next/link';
 
+import { DifficultyBoard } from '../../../difficulty/components/difficulty-board/difficulty-board';
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
+import { buildDifficultyPlayUrl } from '../../../difficulty/utils/build-difficulty-play-url.util';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
 import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
@@ -13,7 +15,6 @@ import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { Faq } from '../../../seo/components/faq/faq';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
-import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
@@ -45,6 +46,9 @@ const NewbieSudokuPage = () => {
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
                 <BreadcrumbListItem>Newbie</BreadcrumbListItem>
             </PageHeader>
+            <DifficultyBoard difficulty={DifficultyEnum.Newbie}>
+                A Newbie board from the same generator the app uses. Play it right here.
+            </DifficultyBoard>
             <p>
                 Newbie is Suuudokuuu’s beginner tier, the gentlest possible introduction to the grid. A Newbie board starts with{' '}
                 {getDifficultyClueCount(DifficultyEnum.Newbie)} of the 81 cells already filled. Every remaining cell can be found with the
@@ -67,7 +71,7 @@ const NewbieSudokuPage = () => {
                     <li>A board that needs a hidden single or anything harder is rejected and regenerated, never labelled Newbie.</li>
                 </ul>
             </TechniqueSummary>
-            <a className="hero__cta" href={SITE_PLAY_URL}>
+            <a className="hero__cta" href={buildDifficultyPlayUrl(DifficultyEnum.Newbie)}>
                 Play Newbie Sudoku now
             </a>
             <h2>What makes a puzzle Newbie</h2>

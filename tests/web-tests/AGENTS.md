@@ -202,6 +202,7 @@ specs at `specs/`.
 | `07.printables.spec.ts`           | The printable hub lists seven tiers plus the extras, and every `.pdf` link answers 200 with the `%PDF-` magic bytes.                                                                                                                                                 |
 | `08.faq-rendering.spec.ts`        | A `FaqPage` renders one `<details>` per entry and the visible summaries are exactly the `FAQPage` schema questions, in order.                                                                                                                                        |
 | `09.not-found.spec.ts`            | An unknown path answers 404 with the landing 404 document and its site chrome.                                                                                                                                                                                       |
+| `11.difficulty-board.spec.ts`     | A tier lander serves its board as static HTML with a tier deep link, then plays it in place on intent and forges a new tier puzzle.                                                                                                                                  |
 
 Rules specific to this scope:
 

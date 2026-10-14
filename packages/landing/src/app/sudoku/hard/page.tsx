@@ -1,7 +1,9 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import Link from 'next/link';
 
+import { DifficultyBoard } from '../../../difficulty/components/difficulty-board/difficulty-board';
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
+import { buildDifficultyPlayUrl } from '../../../difficulty/utils/build-difficulty-play-url.util';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
 import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
@@ -13,7 +15,6 @@ import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { Faq } from '../../../seo/components/faq/faq';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
-import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
@@ -54,6 +55,9 @@ const HardSudokuPage = () => {
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
                 <BreadcrumbListItem>Hard</BreadcrumbListItem>
             </PageHeader>
+            <DifficultyBoard difficulty={DifficultyEnum.Hard}>
+                A Hard board from the same generator the app uses. Play it right here.
+            </DifficultyBoard>
             <p>
                 Hard Sudoku is a difficulty tier that starts at {getDifficultyClueCount(DifficultyEnum.Hard)} clues out of 81 cells and is
                 defined by what a subset-only solver cannot finish: every board in the tier has been run through a solver equipped with
@@ -80,7 +84,7 @@ const HardSudokuPage = () => {
                     <li>Hard is capped at the W-Wing — a board that resists every fish and wing is graded Nightmare instead.</li>
                 </ul>
             </TechniqueSummary>
-            <a className="hero__cta" href={SITE_PLAY_URL}>
+            <a className="hero__cta" href={buildDifficultyPlayUrl(DifficultyEnum.Hard)}>
                 Play Hard Sudoku now
             </a>
             <h2>What makes a puzzle Hard</h2>

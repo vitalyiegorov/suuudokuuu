@@ -1,7 +1,9 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import Link from 'next/link';
 
+import { DifficultyBoard } from '../../../difficulty/components/difficulty-board/difficulty-board';
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
+import { buildDifficultyPlayUrl } from '../../../difficulty/utils/build-difficulty-play-url.util';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
 import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
@@ -13,7 +15,6 @@ import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { Faq } from '../../../seo/components/faq/faq';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
-import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { howToPlayPageMetadata } from '../../how-to-play/metadata';
@@ -46,6 +47,9 @@ const EasySudokuPage = () => {
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
                 <BreadcrumbListItem>Easy</BreadcrumbListItem>
             </PageHeader>
+            <DifficultyBoard difficulty={DifficultyEnum.Easy}>
+                An Easy board from the same generator the app uses. Play it right here.
+            </DifficultyBoard>
             <p>
                 Easy is the first tier where Suuudokuuu expects a genuine, if gentle, solve. An Easy board carries{' '}
                 {getDifficultyClueCount(DifficultyEnum.Easy)} clues out of 81 cells, a handful fewer than Newbie. Full houses and naked
@@ -68,7 +72,7 @@ const EasySudokuPage = () => {
                     <li>A board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier.</li>
                 </ul>
             </TechniqueSummary>
-            <a className="hero__cta" href={SITE_PLAY_URL}>
+            <a className="hero__cta" href={buildDifficultyPlayUrl(DifficultyEnum.Easy)}>
                 Play Easy Sudoku now
             </a>
             <h2>What makes a puzzle Easy</h2>

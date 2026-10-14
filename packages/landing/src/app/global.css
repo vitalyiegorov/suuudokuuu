@@ -707,12 +707,14 @@ strong {
         text-align: center;
     }
 
-    .technique-embed__live .field-game {
+    .technique-embed__live .field-game,
+    .difficulty-board__live .field-game {
         width: 100%;
         max-width: 100%;
     }
 
-    .technique-embed__live .field-board {
+    .technique-embed__live .field-board,
+    .difficulty-board__live .field-board {
         margin-inline: auto;
     }
 
@@ -727,7 +729,8 @@ strong {
     }
 }
 
-.technique-embed__live {
+.technique-embed__live,
+.difficulty-board__live {
     --field-font-family: var(--landing-font-family);
     --field-cell-size: var(--landing-cell-size);
     --field-border-color: var(--landing-border-color);
@@ -753,6 +756,49 @@ strong {
     align-items: flex-start;
     gap: 1rem;
     margin: 1rem 0 0;
+}
+
+.difficulty-board {
+    margin: 1rem 0 2rem;
+}
+
+.difficulty-board:has(.field-game) .difficulty-board__static {
+    display: none;
+}
+
+.difficulty-board__static {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.difficulty-board__static .puzzle-board {
+    margin: 0 0 0.5rem;
+}
+
+.difficulty-board__play {
+    margin: 0;
+    border: 0;
+    font: inherit;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.difficulty-board__play:disabled {
+    cursor: progress;
+    opacity: 0.7;
+}
+
+.difficulty-board__play:focus-visible {
+    outline: 2px solid var(--landing-accent-color);
+    outline-offset: 2px;
+}
+
+.difficulty-board__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
 }
 
 .technique-embed__footer {
