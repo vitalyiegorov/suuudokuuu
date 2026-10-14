@@ -19,6 +19,8 @@ import {
     SITE_PRIVACY_URL,
     SITE_TAGLINE
 } from '../../../seo/constants/site.constant';
+import { StoreBadgeCampaignEnum } from '../../enums/store-badge-campaign.enum';
+import { StoreBadges } from '../store-badges/store-badges';
 
 export const SiteFooter = () => (
     <footer className="site-footer">
@@ -26,6 +28,7 @@ export const SiteFooter = () => (
             <div className="site-footer__brand-block">
                 <p className="site-footer__brand">{SITE_NAME}</p>
                 <p className="site-footer__tagline">{SITE_TAGLINE}</p>
+                <StoreBadges campaign={StoreBadgeCampaignEnum.FOOTER} />
             </div>
             <nav aria-label="Footer" className="site-footer__nav">
                 <div className="site-footer__group">
@@ -58,7 +61,9 @@ export const SiteFooter = () => (
         </div>
         <p className="site-footer__note">
             Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read{' '}
-            <Link href={whySuuudokuuuPageMetadata.path}>why</Link> or browse the <a href={SITE_GITHUB_URL}>full source on GitHub</a>.
+            <Link href={whySuuudokuuuPageMetadata.path}>why</Link> or browse the <a href={SITE_GITHUB_URL}>full source on GitHub</a>. Apple
+            and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of
+            Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC.
         </p>
     </footer>
 );

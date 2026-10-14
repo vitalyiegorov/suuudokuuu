@@ -10,6 +10,12 @@ export const SITE_GITHUB_URL = 'https://github.com/vitalyiegorov/suuudokuuu';
 
 export const SITE_LICENSE = 'MIT';
 
+export const SITE_APP_STORE_ID = '6449440933';
+
+export const SITE_APP_STORE_URL = `https://apps.apple.com/app/id${SITE_APP_STORE_ID}`;
+
+export const SITE_GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.vitaliiyehorov.suuudokuuu';
+
 export const SITE_TAGLINE = 'Free offline Sudoku for iOS, Android and the web';
 
 export const SITE_DESCRIPTION =

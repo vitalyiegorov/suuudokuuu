@@ -158,6 +158,27 @@ strong {
         0 4px 18px rgb(77 163 255 / 22%);
 }
 
+.store-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin: 0 0 2.5rem;
+}
+
+.store-badges img {
+    display: block;
+    width: auto;
+    height: 40px;
+}
+
+.hero__cta + .store-badges {
+    margin-top: -1.5rem;
+}
+
+.site-footer__brand-block .store-badges {
+    margin: 1rem 0 0;
+}
+
 .link-list,
 .technique-index {
     margin: 0 0 2rem;

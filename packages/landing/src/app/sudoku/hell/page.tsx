@@ -2,6 +2,8 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import { HELL_CORPUS_MAXIMUM_GIVEN_COUNT, HELL_CORPUS_MINIMUM_GIVEN_COUNT, hellCorpusSize } from '@suuudokuuu/hell-corpus';
 import Link from 'next/link';
 
+import { StoreBadges } from '../../../chrome/components/store-badges/store-badges';
+import { StoreBadgeCampaignEnum } from '../../../chrome/enums/store-badge-campaign.enum';
 import { DifficultyBoard } from '../../../difficulty/components/difficulty-board/difficulty-board';
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import { buildDifficultyPlayUrl } from '../../../difficulty/utils/build-difficulty-play-url.util';
@@ -123,6 +125,7 @@ const HellSudokuPage = () => {
                 <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or head{' '}
                 <Link href={homePageMetadata.path}>home</Link>.
             </p>
+            <StoreBadges campaign={StoreBadgeCampaignEnum.DIFFICULTY} />
             <FaqPage>
                 <FaqHeading>Hell Sudoku FAQ</FaqHeading>
                 <Faq>

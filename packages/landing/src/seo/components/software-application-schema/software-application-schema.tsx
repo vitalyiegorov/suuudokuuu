@@ -1,5 +1,13 @@
 import { SCHEMA_CONTEXT } from '../../constants/schema.constant';
-import { DEFAULT_LOCALE, SITE_GITHUB_URL, SITE_LICENSE } from '../../constants/site.constant';
+import {
+    DEFAULT_LOCALE,
+    SITE_APP_STORE_URL,
+    SITE_GITHUB_URL,
+    SITE_GOOGLE_PLAY_URL,
+    SITE_LICENSE,
+    SITE_NAME,
+    SITE_ORIGIN
+} from '../../constants/site.constant';
 import { buildLocaleUrl } from '../../utils/build-locale-url.util';
 import { extractNodeText } from '../../utils/extract-node-text.util';
 import { findSlots } from '../../utils/find-slots.util';
@@ -11,6 +19,8 @@ import type { ReactNode } from 'react';
 const APPLICATION_CATEGORY = 'GameApplication';
 
 const OPERATING_SYSTEMS = 'iOS, Android, Web';
+
+const STORE_URLS = [SITE_APP_STORE_URL, SITE_GOOGLE_PLAY_URL];
 
 interface Props {
     path: string;
@@ -35,7 +45,16 @@ export const SoftwareApplicationSchema = ({ children, description, name, path }:
         isAccessibleForFree: true,
         license: SITE_LICENSE,
         codeRepository: SITE_GITHUB_URL,
-        sameAs: [SITE_GITHUB_URL],
+        downloadUrl: STORE_URLS,
+        installUrl: STORE_URLS,
+        sameAs: [SITE_GITHUB_URL, ...STORE_URLS],
+        author: {
+            '@type': 'Organization',
+            name: SITE_NAME,
+            url: SITE_ORIGIN,
+            logo: `${SITE_ORIGIN}/brand/icon-512.png`,
+            sameAs: [SITE_GITHUB_URL, ...STORE_URLS]
+        },
         featureList
     };
 

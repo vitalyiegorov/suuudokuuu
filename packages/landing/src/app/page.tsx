@@ -1,6 +1,8 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import Link from 'next/link';
 
+import { StoreBadges } from '../chrome/components/store-badges/store-badges';
+import { StoreBadgeCampaignEnum } from '../chrome/enums/store-badge-campaign.enum';
 import { DifficultyBoard } from '../difficulty/components/difficulty-board/difficulty-board';
 import { FaqAnswer } from '../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../seo/components/faq-heading/faq-heading';
@@ -50,6 +52,7 @@ const HomePage = () => (
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play now
         </a>
+        <StoreBadges campaign={StoreBadgeCampaignEnum.HOME} />
         <h2>Why players stay</h2>
         <SoftwareApplicationSchema description={SITE_DESCRIPTION} name={SITE_NAME} path={homePageMetadata.path}>
             <SoftwareApplicationFeature>

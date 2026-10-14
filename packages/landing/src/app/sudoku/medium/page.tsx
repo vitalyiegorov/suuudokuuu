@@ -1,6 +1,8 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import Link from 'next/link';
 
+import { StoreBadges } from '../../../chrome/components/store-badges/store-badges';
+import { StoreBadgeCampaignEnum } from '../../../chrome/enums/store-badge-campaign.enum';
 import { DifficultyBoard } from '../../../difficulty/components/difficulty-board/difficulty-board';
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import { buildDifficultyPlayUrl } from '../../../difficulty/utils/build-difficulty-play-url.util';
@@ -113,6 +115,7 @@ const MediumSudokuPage = () => {
                 <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or head{' '}
                 <Link href={homePageMetadata.path}>home</Link>.
             </p>
+            <StoreBadges campaign={StoreBadgeCampaignEnum.DIFFICULTY} />
             <FaqPage>
                 <FaqHeading>Medium Sudoku FAQ</FaqHeading>
                 <Faq>
