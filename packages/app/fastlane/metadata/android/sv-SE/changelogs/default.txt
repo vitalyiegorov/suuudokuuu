@@ -1,5 +1,4 @@
 Tips som lär ut: kompakt panel med Bakåt, Nästa och Visa svaret.
 Ditt öppna tips överlever en paus.
-Ny guidad teknikkampanj med statistik över behärskning.
 Drag med tips märks i repriser och historiken visar antalet tips.
 Tips finns även på de svåraste pusslen.

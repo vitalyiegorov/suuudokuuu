@@ -1,7 +1,6 @@
-Pistas que enseñan, una campaña de técnicas y más estadísticas.
+Pistas que enseñan.
 
 • Las pistas son ahora un panel compacto paso a paso con Atrás, Siguiente y un claro «Mostrar respuesta». El tablero mantiene su tamaño completo y tu pista abierta sobrevive a una pausa.
-• Nueva campaña guiada de técnicas con estadísticas de dominio, para que veas qué has aprendido de verdad.
 • Las jugadas hechas con una pista llevan una insignia en la repetición, y las tarjetas del historial muestran cuántas pistas usaste.
 • Las pistas también están activadas en los puzles más difíciles.
 • El teclado físico funciona con más fiabilidad en iPhone y iPad.

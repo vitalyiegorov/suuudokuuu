@@ -1,5 +1,4 @@
 Las pistas ahora enseñan: panel compacto con Atrás, Siguiente y Mostrar respuesta.
 Tu pista abierta sobrevive a una pausa.
-Nueva campaña guiada de técnicas con estadísticas de dominio.
 Las jugadas con pista llevan insignia en la repetición y el historial cuenta las pistas.
 Pistas activadas también en los puzles más difíciles.

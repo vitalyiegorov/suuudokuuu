@@ -1,5 +1,4 @@
 Dicas que ensinam: painel compacto com Voltar, Avançar e Mostrar resposta.
 Sua dica aberta sobrevive a uma pausa.
-Nova campanha guiada de técnicas com estatísticas de domínio.
 Jogadas com dica ganham selo no replay e o histórico mostra as dicas usadas.
 Dicas ativas também nos quebra-cabeças mais difíceis.

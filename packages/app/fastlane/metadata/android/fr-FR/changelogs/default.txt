@@ -1,5 +1,4 @@
 Les indices enseignent : panneau compact avec Retour, Suivant et Afficher la réponse.
 Votre indice ouvert survit à une pause.
-Nouvelle campagne guidée de techniques avec statistiques de maîtrise.
 Les coups avec indice sont signalés dans le replay, l'historique compte les indices.
 Indices aussi actifs sur les grilles les plus difficiles.

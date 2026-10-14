@@ -1,7 +1,6 @@
-Tips som lär ut, en teknikkampanj och mer statistik.
+Tips som lär ut.
 
 • Tipsen är nu en kompakt panel steg för steg med Bakåt, Nästa och ett tydligt "Visa svaret". Brädet behåller sin fulla storlek och ditt öppna tips överlever en paus.
-• Ny guidad teknikkampanj med statistik över teknikbehärskning, så att du ser vad du faktiskt har lärt dig.
 • Drag som gjorts med ett tips märks i repriserna, och historikkorten visar hur många tips du använde.
 • Tips finns nu också på de svåraste pusslen.
 • Externt tangentbord fungerar mer pålitligt på iPhone och iPad.

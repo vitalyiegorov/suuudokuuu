@@ -1,7 +1,6 @@
-Petunjuk yang mengajar, kampanye teknik, dan statistik lebih lengkap.
+Petunjuk yang mengajar.
 
 • Petunjuk kini berupa panel ringkas langkah demi langkah dengan Kembali, Berikutnya, dan "Tampilkan jawaban" yang jelas. Papan tetap berukuran penuh, dan petunjuk yang terbuka tetap ada saat kamu menjeda.
-• Kampanye teknik terpandu baru dengan statistik penguasaan teknik, jadi kamu bisa melihat apa yang benar-benar sudah kamu kuasai.
 • Langkah yang dibuat dengan petunjuk diberi lencana di tayangan ulang, dan kartu riwayat menampilkan jumlah petunjuk yang kamu pakai.
 • Petunjuk kini juga aktif untuk teka-teki tersulit.
 • Keyboard fisik lebih andal di iPhone dan iPad.

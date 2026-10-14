@@ -1,7 +1,6 @@
-Hints that teach, a technique campaign and richer stats.
+Hints that teach.
 
 • Hints are now a compact step-by-step panel with Back, Next and a clear Show answer. The board stays full size, and your open hint survives a pause.
-• New guided technique campaign with technique-mastery stats, so you can see which skills you have truly learned.
 • Moves placed with a hint are badged in the replay, and history cards show how many hints you used.
 • Hints are now on for the hardest puzzles too.
 • Hardware keyboard input is more reliable on iPhone and iPad.

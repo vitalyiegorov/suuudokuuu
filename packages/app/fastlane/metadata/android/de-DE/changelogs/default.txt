@@ -1,5 +1,4 @@
 Hinweise bringen jetzt etwas bei: kompaktes Schrittpanel mit Zurück, Weiter und Antwort zeigen.
 Dein offener Hinweis übersteht eine Pause.
-Neue geführte Techniken-Kampagne mit Statistiken zur Beherrschung.
 Mit Hinweis gesetzte Züge sind im Replay markiert, der Verlauf zeigt die Hinweiszahl.
 Hinweise gibt es auch bei den schwersten Rätseln.

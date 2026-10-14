@@ -1,7 +1,6 @@
-Hinweise, die etwas beibringen, eine Techniken-Kampagne und mehr Statistiken.
+Hinweise, die etwas beibringen.
 
 • Hinweise sind jetzt ein kompaktes Schritt-für-Schritt-Panel mit Zurück, Weiter und einem klaren „Antwort zeigen“. Das Spielfeld bleibt in voller Größe, und dein offener Hinweis übersteht eine Pause.
-• Neue geführte Techniken-Kampagne mit Statistiken zur Technik-Beherrschung, damit du siehst, was du wirklich gelernt hast.
 • Mit Hinweis gesetzte Züge sind im Replay markiert, und Verlaufskarten zeigen, wie viele Hinweise du genutzt hast.
 • Hinweise gibt es jetzt auch bei den schwersten Rätseln.
 • Eingaben per externer Tastatur sind auf iPhone und iPad zuverlässiger.

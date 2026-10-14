@@ -1,5 +1,4 @@
 Petunjuk yang mengajar: panel ringkas dengan Kembali, Berikutnya, dan Tampilkan jawaban.
 Petunjuk yang terbuka tetap ada saat dijeda.
-Kampanye teknik terpandu baru dengan statistik penguasaan.
 Langkah dengan petunjuk diberi lencana di tayangan ulang, riwayat menampilkan jumlahnya.
 Petunjuk juga aktif untuk teka-teki tersulit.

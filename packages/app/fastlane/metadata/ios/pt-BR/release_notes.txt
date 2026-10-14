@@ -1,7 +1,6 @@
-Dicas que ensinam, uma campanha de técnicas e mais estatísticas.
+Dicas que ensinam.
 
 • As dicas agora são um painel compacto passo a passo, com Voltar, Avançar e um claro "Mostrar resposta". O tabuleiro mantém o tamanho total e a dica aberta sobrevive a uma pausa.
-• Nova campanha guiada de técnicas com estatísticas de domínio, para você ver o que realmente aprendeu.
 • Jogadas feitas com dica ganham um selo no replay, e os cartões do histórico mostram quantas dicas você usou.
 • As dicas agora também estão ativas nos quebra-cabeças mais difíceis.
 • O teclado físico ficou mais confiável no iPhone e no iPad.

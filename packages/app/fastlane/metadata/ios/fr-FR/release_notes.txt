@@ -1,7 +1,6 @@
-Des indices qui enseignent, une campagne de techniques et de nouvelles statistiques.
+Des indices qui enseignent.
 
 • Les indices prennent la forme d'un panneau compact, pas à pas, avec Retour, Suivant et un « Afficher la réponse » clair. La grille garde sa taille complète et votre indice ouvert survit à une pause.
-• Nouvelle campagne guidée de techniques avec des statistiques de maîtrise, pour voir ce que vous avez vraiment appris.
 • Les coups joués avec un indice sont signalés dans le replay, et les cartes d'historique indiquent le nombre d'indices utilisés.
 • Les indices sont désormais aussi actifs sur les grilles les plus difficiles.
 • Le clavier physique est plus fiable sur iPhone et iPad.
