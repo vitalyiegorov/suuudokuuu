@@ -33,7 +33,7 @@ export const getDefaultSettings = (): SettingsType => ({
     showActiveCandidates: true,
     keepActiveCell: true,
     keepExhaustedDigits: true,
-    allowHintsOnHardDifficulties: false,
+    allowHintsOnHardDifficulties: true,
     isLeftHanded: false,
     calmMode: false,
     motionPreference: 'system',

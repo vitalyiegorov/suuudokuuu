@@ -11,7 +11,11 @@ import { CurrentRunSchema } from '../../src/current-run/schema/current-run.schem
 import { initialMigration } from '../../src/migration/0001-initial.migration';
 import { completedGameDailyDayNumberMigration } from '../../src/migration/0002-completed-game-daily-day-number.migration';
 import { storeReviewMigration } from '../../src/migration/0003-store-review.migration';
+import { currentRunEliminatedCandidatesMigration } from '../../src/migration/0004-current-run-eliminated-candidates.migration';
+import { techniqueCampaignMigration } from '../../src/migration/0005-technique-campaign.migration';
 import { runDatabaseMigrations } from '../../src/migration/run-database-migrations.util';
+import { SettingsSchema } from '../../src/settings/schema/settings.schema';
+import { initialSettings } from '../progress-fixtures';
 import { ProgressTestLayer } from '../progress-test.layer';
 
 const gameFinishedBeforeUpgrade = {
@@ -63,7 +67,8 @@ describe('database migrations', () => {
                 [2, 'completed_game_daily_day_number'],
                 [3, 'store_review'],
                 [4, 'current_run_eliminated_candidates'],
-                [5, 'technique_campaign']
+                [5, 'technique_campaign'],
+                [6, 'hints_on_hard_difficulties_default']
             ]);
             assert.deepStrictEqual(yield* sql`SELECT daily_day_number, score FROM completed_games`, [{ dailyDayNumber: null, score: 900 }]);
         }).pipe(Effect.provide(makeTestSqlClientLayer()))
@@ -86,10 +91,33 @@ describe('database migrations', () => {
 
             assert.deepStrictEqual(yield* runDatabaseMigrations, [
                 [4, 'current_run_eliminated_candidates'],
-                [5, 'technique_campaign']
+                [5, 'technique_campaign'],
+                [6, 'hints_on_hard_difficulties_default']
             ]);
             assert.deepStrictEqual(yield* sql`SELECT eliminated_candidates, score FROM current_run`, [
                 { eliminatedCandidates, score: initialCurrentRun.score }
+            ]);
+        }).pipe(Effect.provide(makeTestSqlClientLayer()))
+    );
+
+    it.effect('turns hints on the hardest puzzles on for settings saved with the old default', () =>
+        Effect.gen(function* () {
+            const sql = yield* SqlClient.SqlClient;
+
+            yield* Migrator.make({})({
+                loader: Migrator.fromRecord({
+                    '0001_initial': initialMigration,
+                    '0002_completed_game_daily_day_number': completedGameDailyDayNumberMigration,
+                    '0003_store_review': storeReviewMigration,
+                    '0004_current_run_eliminated_candidates': currentRunEliminatedCandidatesMigration,
+                    '0005_technique_campaign': techniqueCampaignMigration
+                })
+            });
+            yield* sql`INSERT INTO settings ${sql.insert({ id: 1, ...(yield* Schema.encodeEffect(SettingsSchema)(initialSettings)) })}`;
+
+            assert.deepStrictEqual(yield* runDatabaseMigrations, [[6, 'hints_on_hard_difficulties_default']]);
+            assert.deepStrictEqual(yield* sql`SELECT allow_hints_on_hard_difficulties, has_timer FROM settings`, [
+                { allowHintsOnHardDifficulties: 1, hasTimer: 1 }
             ]);
         }).pipe(Effect.provide(makeTestSqlClientLayer()))
     );
