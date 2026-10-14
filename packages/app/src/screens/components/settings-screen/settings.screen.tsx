@@ -4,7 +4,6 @@ import Constants from 'expo-constants';
 import { View } from 'react-native';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
-import { CampaignEntry } from '../../../campaign/components/campaign-entry/campaign-entry';
 import { SettingsAppFooter } from '../../../settings/component/settings-app-footer/settings-app-footer';
 import { SettingsFeedbackSection } from '../../../settings/component/settings-feedback-section/settings-feedback-section';
 import { SettingsGuidanceSection } from '../../../settings/component/settings-guidance-section/settings-guidance-section';
@@ -87,7 +86,6 @@ export const SettingsScreen = () => {
             </View>
 
             <View style={styles.secondaryColumn}>
-                <CampaignEntry />
                 <SettingsGuidanceSection />
 
                 <SettingsAppFooter version={version} />
