@@ -47,6 +47,7 @@ export const SoftwareApplicationSchema = ({ children, description, name, path }:
         codeRepository: SITE_GITHUB_URL,
         downloadUrl: STORE_URLS,
         installUrl: STORE_URLS,
+        screenshot: `${SITE_ORIGIN}/brand/app-screenshot.png`,
         sameAs: [SITE_GITHUB_URL, ...STORE_URLS],
         author: {
             '@type': 'Organization',
