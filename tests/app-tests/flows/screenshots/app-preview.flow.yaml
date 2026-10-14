@@ -7,36 +7,53 @@ tags:
           id: 'AvailableValueItemSelectors.Button.1'
       timeout: 10000
 - tapOn:
+      id: 'CellSelectors.Cell.8-8'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.2'
+- runFlow: ../subflows/preview/pause.flow.yaml
+- tapOn:
+      id: 'CellSelectors.Cell.8-4'
+- tapOn:
+      id: 'AvailableValueItemSelectors.Button.5'
+- runFlow: ../subflows/preview/pause.flow.yaml
+- tapOn:
+      id: 'InputModeButtonSelectors.Root'
+- tapOn:
+      id: 'CellSelectors.Cell.1-3'
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.3'
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.9'
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.9'
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.4'
+- tapOn:
+      id: 'CellSelectors.Cell.3-6'
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.1'
+- tapOn:
+      id: 'CandidateInputItemSelectors.Button.2'
+- tapOn:
+      id: 'InputModeButtonSelectors.Root'
+- runFlow: ../subflows/preview/pause.flow.yaml
+- tapOn:
+      id: 'HintButtonSelectors.Root'
+- runFlow: ../subflows/preview/pause.flow.yaml
+- tapOn:
+      id: 'HintPanelSelectors.NextButton'
+- runFlow: ../subflows/preview/pause.flow.yaml
+- tapOn:
+      id: 'HintPanelSelectors.NextButton'
+- runFlow: ../subflows/preview/pause.flow.yaml
+- tapOn:
+      id: 'HintPanelSelectors.NextButton'
+- runFlow: ../subflows/preview/pause.flow.yaml
+- tapOn:
+      id: 'HintPanelSelectors.ApplyButton'
+- runFlow: ../subflows/preview/pause.flow.yaml
+- tapOn:
       id: 'CellSelectors.Cell.0-1'
 - tapOn:
       id: 'AvailableValueItemSelectors.Button.4'
-- tapOn:
-      id: 'CellSelectors.Cell.0-4'
-- tapOn:
-      id: 'AvailableValueItemSelectors.Button.7'
-- tapOn:
-      id: 'CellSelectors.Cell.0-5'
-- tapOn:
-      id: 'AvailableValueItemSelectors.Button.2'
-- tapOn:
-      id: 'CellSelectors.Cell.0-6'
-- tapOn:
-      id: 'AvailableValueItemSelectors.Button.5'
-- tapOn:
-      id: 'CellSelectors.Cell.0-7'
-- tapOn:
-      id: 'AvailableValueItemSelectors.Button.8'
-- tapOn:
-      id: 'CellSelectors.Cell.0-8'
-- tapOn:
-      id: 'AvailableValueItemSelectors.Button.6'
-- tapOn:
-      id: 'CellSelectors.Cell.1-0'
-- tapOn:
-      id: 'AvailableValueItemSelectors.Button.1'
-- tapOn:
-      id: 'CellSelectors.Cell.1-1'
-- tapOn:
-      id: 'AvailableValueItemSelectors.Button.6'
-- assertVisible:
-      id: 'GameScreenSelectors.Score'
+- runFlow: ../subflows/preview/pause.flow.yaml

@@ -317,6 +317,21 @@
                 "6-2": [3, 7, 9]
             }
         },
+        "preview": {
+            "difficulty": "Medium",
+            "sudokuString": "9..172586165.8..7.82756.43.69...8.57..1...3.8..86.7....869...1......6895.39..164.",
+            "rating": 1.5,
+            "isRatingCeiling": false,
+            "elapsedTime": 74,
+            "score": 0,
+            "mistakes": 0,
+            "maxMistakes": 3,
+            "candidates": {},
+            "settingsOverrides": {
+                "hasTimer": false,
+                "showComboAnimation": true
+            }
+        },
         "infinity": {
             "difficulty": "Infinity",
             "sudokuString": "800000000003600000070090200050007000000045700000100030001000068008500010090000400",

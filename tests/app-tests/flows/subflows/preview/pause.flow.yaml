@@ -1,0 +1,7 @@
+appId: ${APP_ID}
+---
+- extendedWaitUntil:
+      visible:
+          id: 'PreviewPause'
+      timeout: 800
+      optional: true
