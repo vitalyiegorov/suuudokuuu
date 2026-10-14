@@ -31,7 +31,7 @@ const NakedSinglePage = () => (
         <TechniquePageHeader metadata={nakedSinglePageMetadata} />
         <p>
             A naked single is an empty cell whose row, column and box between them already contain eight of the nine digits, so exactly one
-            candidate survives and that candidate is the answer.
+            candidate survives and that candidate is the answer. It is also called a sole candidate.
         </p>
         <TechniqueSummary>
             <p>

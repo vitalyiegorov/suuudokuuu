@@ -31,7 +31,7 @@ const HiddenSinglePage = () => (
         <TechniquePageHeader metadata={hiddenSinglePageMetadata} />
         <p>
             A hidden single is a digit that can legally go in only one cell of a row, column or box, so that cell must take the digit even
-            though it still shows other candidates.
+            though it still shows other candidates. Some guides call it a unique candidate or a pinned digit.
         </p>
         <TechniqueSummary>
             <p>

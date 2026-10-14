@@ -34,6 +34,14 @@ export const metadata: Metadata = buildPageMetadata(hardestSudokuPuzzlesPageMeta
 
 const AI_ESCARGOT_GIVENS = '100007090030020008009600500005300900010080002600004000300000010040000007007000300';
 
+const EASTER_MONSTER_GIVENS = '100000089000009002000000450007600000030040000900002005004070000500008010060300000';
+
+const GOLDEN_NUGGET_GIVENS = '000000039000001005003050800008090006070002000100400000009080050020000600400700000';
+
+const PLATINUM_BLONDE_GIVENS = '000000012000000003002300400001800005060070800000009000008500000900040500470006000';
+
+const EVEREST_GIVENS = '800000000003600000070090200050007000000045700000100030001000068008500010090000400';
+
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HardestSudokuPuzzlesPage = () => (
     <main>
@@ -53,11 +61,11 @@ const HardestSudokuPuzzlesPage = () => (
             the hardest technique its optimal solve path requires — our{' '}
             <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> explains how the technique ladder
             becomes a number. Suuudokuuu does rate every puzzle it generates, but our open-source rater prices the ladder only as far as
-            forcing chains and reports {SE_RATING_CEILING} with a ceiling flag above that — so it would return the same figure for all four
-            puzzles below. The values quoted here are attributed to their publishers and to the sudoku-solving community that maintains
-            SE-based difficulty trackers, not to our own rater — no single figure below is a Suuudokuuu measurement, and different SE
-            implementations are known to disagree by several tenths at this end of the scale, which is why we attribute rather than link to
-            one disputed number.
+            forcing chains and reports {SE_RATING_CEILING} with a ceiling flag above that — so it returns that same figure for every puzzle
+            below. The values quoted here are attributed to their publishers and to the sudoku-solving community that maintains SE-based
+            difficulty trackers, not to our own rater — no single figure below is a Suuudokuuu measurement, and different SE implementations
+            are known to disagree by several tenths at this end of the scale, which is why we attribute rather than link to one disputed
+            number.
         </p>
         <TechniqueSummary>
             <ul>
@@ -68,49 +76,70 @@ const HardestSudokuPuzzlesPage = () => (
                 </li>
                 <li>
                     AI Escargot (2006, 23 givens) is commonly cited near SE 10.6, Platinum Blonde near SE 10.9, and Arto Inkala’s 2010
-                    “Everest” near SE 11.9.
+                    “Everest” and Golden Nugget near SE 11.9.
                 </li>
                 <li>
                     These puzzles resist every bounded pattern, so closing them takes forcing chains and nets rather than pattern spotting.
                 </li>
                 <li>
                     The SE figures here are values independent raters commonly cite. Suuudokuuu rates every puzzle it generates, but its
-                    rater caps at {SE_RATING_CEILING} and would report all four of these at that ceiling.
+                    rater caps at {SE_RATING_CEILING} and reports every puzzle on this page at that ceiling.
                 </li>
             </ul>
         </TechniqueSummary>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play Sudoku now
         </a>
-        <h2>Four puzzles that defined “hardest”</h2>
+        <h2>The most difficult sudoku puzzles ever published</h2>
+        <p>
+            Every grid below is printed as its source publishes it, and each has exactly one solution. The SE ratings are the figures the
+            source or the solving community attributes to each puzzle; where no source publishes one, we quote none.
+        </p>
         <h3>AI Escargot (2006)</h3>
         <p>
             Finnish mathematician Arto Inkala published AI Escargot in late 2006 and called it the world’s hardest sudoku. The 23 givens
             trace a spiral across the grid, which is where the name comes from — “escargot” is French for snail. Rated at roughly SE 10.6,
             it needs chains and forcing logic well beyond the fish and wing patterns that finish most “expert” puzzles, and it remains the
-            puzzle most people mean when they first ask about the hardest sudoku ever made.
+            puzzle most people mean when they first ask about the hardest sudoku ever made. Source:{' '}
+            <a href="https://www.sudokuwiki.org/Escargot">SudokuWiki, “AI Escargot”</a>.
         </p>
         <PuzzleBoard givens={AI_ESCARGOT_GIVENS}>Arto Inkala’s AI Escargot (2006), 23 givens, commonly rated around SE 10.6.</PuzzleBoard>
+        <h3>Easter Monster</h3>
+        <p>
+            Easter Monster comes from the solving community’s lists of the hardest known puzzles, and it is famous less for a number than
+            for a result: Bob Hanson and Dave Marans published a complete logical solution for it in 2008, and SudokuOne calls it perhaps
+            the most difficult sudoku solved without a computer solver. Its givens form an almost symmetrical pattern, and that symmetry is
+            what lets a human-sized proof exist at all. We found no published SE figure we can attribute to a source, so we quote none.
+            Sources: <a href="https://www.stolaf.edu/people/hansonr/sudoku/easter_monster.htm">Hanson and Marans, “Easter Monster”</a> and{' '}
+            <a href="https://www.sudokuone.com/sweb/extra/easter/a_em.htm">SudokuOne, “A General Sudoku Logic”</a>.
+        </p>
+        <PuzzleBoard givens={EASTER_MONSTER_GIVENS}>Easter Monster as published by Hanson and Marans (2008), 21 givens.</PuzzleBoard>
+        <h3>Golden Nugget</h3>
+        <p>
+            Golden Nugget is a hand-crafted extreme puzzle posted to the Sudoku Players’ Forum as an open challenge, built for maximum
+            resistance to logical solving. It is commonly cited at SE 11.9, level with Everest at the top of the scale, though — as with
+            every puzzle at this end — the exact figure moves depending on which rater produced it. Source:{' '}
+            <a href="http://forum.enjoysudoku.com/golden-nugget-challenge-t35955.html">Sudoku Players’ Forum, “Golden Nugget challenge”</a>.
+        </p>
+        <PuzzleBoard givens={GOLDEN_NUGGET_GIVENS}>Golden Nugget, 21 givens, commonly rated around SE 11.9.</PuzzleBoard>
         <h3>Platinum Blonde</h3>
         <p>
             Platinum Blonde is a computer-generated puzzle built specifically to push the SE scale, commonly cited at roughly SE 10.9. Its
-            givens sit almost entirely in one half of the grid, so the opening moves look deceptively open — the difficulty only shows up
-            once ordinary subset and fish techniques run out and the solve has to fall back on chains and coloring nets that span the whole
-            board at once.
+            21 givens run in a band from the top-right corner to the bottom-left, so the opening looks deceptively open — the difficulty
+            only shows up once ordinary subset and fish techniques run out and the solve has to fall back on chains and coloring nets that
+            span the whole board at once. Source:{' '}
+            <a href="https://groups.google.com/g/sci.math/c/HXZfuNub7Cs">sci.math, “Platinum Blonde”</a>.
         </p>
+        <PuzzleBoard givens={PLATINUM_BLONDE_GIVENS}>Platinum Blonde, 21 givens, commonly rated around SE 10.9.</PuzzleBoard>
         <h3>Inkala’s Everest (2010)</h3>
         <p>
             Arto Inkala followed AI Escargot with a second puzzle in 2010, again promoted as the world’s hardest sudoku. The solving
             community nicknamed it “Everest,” and independent raters place it at roughly SE 11.9 — noticeably higher than AI Escargot, and
-            high enough that different SE implementations disagree by several tenths depending on which chain types they model.
+            high enough that different SE implementations disagree by several tenths depending on which chain types they model. Source:{' '}
+            <a href="https://www.sudokuwiki.org/Arto_Inkala_Sudoku">SudokuWiki, “Arto Inkala Sudoku”</a>.
         </p>
-        <h3>Golden Nugget</h3>
-        <p>
-            Golden Nugget is another hand-crafted extreme puzzle from the online sudoku-solving community, built the same way as Platinum
-            Blonde: by search, for maximum resistance to logical solving. Different raters place it in the same SE 11 territory as Everest,
-            though — as with every puzzle at this end of the scale — the exact figure moves depending on which rater produced it.
-        </p>
-        <h2>Why these puzzles defeat human solvers</h2>
+        <PuzzleBoard givens={EVEREST_GIVENS}>Arto Inkala’s “Everest” (2010), 21 givens, commonly rated around SE 11.9.</PuzzleBoard>
+        <h2>Why the hardest sudoku in the world defeats human solvers</h2>
         <p>
             Every pattern technique on Suuudokuuu’s <Link href={techniquesPageMetadata.path}>technique index</Link>, up through{' '}
             <Link href={aicPageMetadata.path}>AIC</Link> and <Link href={xChainPageMetadata.path}>X-Chain</Link>, justifies one placement or

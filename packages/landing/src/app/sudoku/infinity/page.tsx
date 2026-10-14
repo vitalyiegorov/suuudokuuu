@@ -4,6 +4,8 @@ import { SE_RATING_CEILING } from '@suuudokuuu/rating';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import Link from 'next/link';
 
+import { StoreBadges } from '../../../chrome/components/store-badges/store-badges';
+import { StoreBadgeCampaignEnum } from '../../../chrome/enums/store-badge-campaign.enum';
 import { DifficultyBoard } from '../../../difficulty/components/difficulty-board/difficulty-board';
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import {
@@ -128,6 +130,7 @@ const InfinitySudokuPage = () => {
                 <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or head{' '}
                 <Link href={homePageMetadata.path}>home</Link>.
             </p>
+            <StoreBadges campaign={StoreBadgeCampaignEnum.DIFFICULTY} />
             <FaqPage>
                 <FaqHeading>Infinity Sudoku FAQ</FaqHeading>
                 <Faq>

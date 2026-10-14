@@ -31,7 +31,7 @@ const PointingPairPage = () => (
         <TechniquePageHeader metadata={pointingPairPageMetadata} />
         <p>
             A pointing pair occurs when a digit can only go in two cells of a box and both of those cells lie on the same row or column, so
-            the digit can be erased from every other cell of that line.
+            the digit can be erased from every other cell of that line. Many solvers and apps call it locked candidates, or pointing.
         </p>
         <TechniqueSummary>
             <p>

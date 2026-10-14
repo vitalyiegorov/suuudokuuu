@@ -7,11 +7,11 @@ import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadat
 export const nakedSinglePageMetadata: PageMetadataInterface = {
     path: '/techniques/naked-single',
     ...buildTechniquePageNames(SolutionTechniqueEnum.NakedSingle),
-    metaTitle: 'Naked Single Sudoku Technique — One Candidate Left',
+    metaTitle: 'Naked Single (Sole Candidate) Sudoku Technique',
     metaDescription:
         'A naked single is an empty Sudoku cell where its row, column and box rule out eight of nine digits, leaving one candidate. Worked example and steps.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-11T00:00:00.000Z',
+    updatedAt: '2026-10-14T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

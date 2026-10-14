@@ -27,7 +27,8 @@ const XYWingPage = () => (
         <TechniquePageHeader metadata={xyWingPageMetadata} />
         <p>
             An XY-Wing links three cells that each hold exactly two candidates so that, whichever value the middle cell turns out to hold, a
-            shared candidate can be erased from any cell that sees both of the other two.
+            shared candidate can be erased from any cell that sees both of the other two. Many books and apps call the same pattern a
+            Y-Wing.
         </p>
         <TechniqueSummary>
             <p>

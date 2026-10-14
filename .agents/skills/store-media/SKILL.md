@@ -138,6 +138,7 @@ Screenshots, end to end:
 
 ## Store requirements (learned the hard way, all verified live)
 
+- **App Store campaign links** need the provider token `pt=126397444` (plus `mt=8`) next to `ct=`; the landing site keeps it in `SITE_APP_STORE_PROVIDER_TOKEN`.
 - **The App Store version must exceed the released one.** `packages/app/package.json`
   is the only version that matters: `app.config.js` stamps the binary from it and
   the fastlane lanes pass it to `deliver`. It silently diverged once - the store

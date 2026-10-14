@@ -7,11 +7,11 @@ import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadat
 export const nakedPairPageMetadata: PageMetadataInterface = {
     path: '/techniques/naked-pair',
     ...buildTechniquePageNames(SolutionTechniqueEnum.NakedPair),
-    metaTitle: 'Naked Pair Sudoku Technique — How to Spot and Use It',
+    metaTitle: 'Naked Pair Sudoku Technique — Two Cells, Two Candidates',
     metaDescription:
         'A naked pair is two cells in one unit holding the same two candidates and nothing else, which locks those digits into the pair and clears them from other cells.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-11T00:00:00.000Z',
+    updatedAt: '2026-10-14T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };
