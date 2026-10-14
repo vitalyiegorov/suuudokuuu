@@ -1,7 +1,8 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const CompletedGameTechniqueSummaryStyles = StyleSheet.create(theme => ({
-    help: {
+    hintSummary: {
+        color: theme.colors.text.hint,
         fontSize: theme.typography.size.xs,
         fontWeight: '700',
         lineHeight: 16,

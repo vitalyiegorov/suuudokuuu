@@ -1,15 +1,14 @@
 import { plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
 import * as Effect from 'effect/Effect';
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
-import { isNotEmptyArray } from '@rnw-community/shared';
+import { isNotEmptyArray, isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { logErrorCause } from '../../../@generic/utils/log-error-cause.util';
-import { ThemeContext } from '../../../theme/context/theme.context';
 import { getCompletedGameTechniqueSummary } from '../../utils/get-completed-game-technique-summary.util';
 import { HistoryTechniqueChip } from '../history-technique-chip/history-technique-chip';
 
@@ -26,7 +25,6 @@ const emptySummary: CompletedGameSummaryInterface = { techniqueUsageList: [], hi
 
 export const CompletedGameTechniqueSummary = ({ encodedState }: Props) => {
     const { t } = useLingui();
-    const { theme } = use(ThemeContext);
     const [summary, setSummary] = useState<readonly [string, CompletedGameSummaryInterface]>(['', emptySummary]);
     const { techniqueUsageList, hintCount, revealCount } = summary[0] === encodedState ? summary[1] : emptySummary;
 
@@ -41,11 +39,12 @@ export const CompletedGameTechniqueSummary = ({ encodedState }: Props) => {
         return () => void fiber.interruptUnsafe();
     }, [encodedState]);
 
-    const helpText = [
-        ...(hintCount > 0 ? [t({ message: plural(hintCount, { one: '# hint', other: '# hints' }) })] : []),
-        ...(revealCount > 0 ? [t({ message: plural(revealCount, { one: '# reveal', other: '# reveals' }) })] : [])
-    ].join(' · ');
-    const helpTextStyles = [styles.help, { color: theme.colors.text.hint }];
+    const hintSummaryText = [
+        hintCount > 0 && t({ message: plural(hintCount, { one: '# hint', other: '# hints' }) }),
+        revealCount > 0 && t({ message: plural(revealCount, { one: '# reveal', other: '# reveals' }) })
+    ]
+        .filter(isNotEmptyString)
+        .join(' · ');
 
     return (
         <>
@@ -60,11 +59,11 @@ export const CompletedGameTechniqueSummary = ({ encodedState }: Props) => {
                     ))}
                 </View>
             ) : null}
-            {helpText === '' ? null : (
-                <BlackText style={helpTextStyles} testID={CompletedGameTechniqueSummarySelectors.HintSummary}>
-                    {helpText}
+            {isNotEmptyString(hintSummaryText) ? (
+                <BlackText style={styles.hintSummary} testID={CompletedGameTechniqueSummarySelectors.HintSummary}>
+                    {hintSummaryText}
                 </BlackText>
-            )}
+            ) : null}
         </>
     );
 };
