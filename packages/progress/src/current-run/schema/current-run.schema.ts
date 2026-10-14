@@ -11,7 +11,6 @@ export const CellTimelineEventSchema = Schema.Struct({
     ts: Schema.Number,
     technique: Schema.optionalKey(Schema.Enum(SolutionTechniqueEnum)),
     score: Schema.optionalKey(Schema.Number),
-    assisted: Schema.optionalKey(Schema.Boolean),
     hinted: Schema.optionalKey(Schema.Boolean)
 });
 

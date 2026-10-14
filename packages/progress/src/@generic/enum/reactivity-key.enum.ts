@@ -5,7 +5,5 @@ export enum ReactivityKeyEnum {
     RunClock = 'run_clock',
     DifficultyStats = 'difficulty_stats',
     CompletedGames = 'completed_games',
-    PlayerStats = 'player_stats',
-    TECHNIQUE_MASTERY = 'TECHNIQUE_MASTERY',
-    CAMPAIGN_PROGRESS = 'CAMPAIGN_PROGRESS'
+    PlayerStats = 'player_stats'
 }
