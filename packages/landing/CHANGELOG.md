@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.32.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.31.0...v2.32.0) (2026-10-14)
+
+### Features
+
+* **landing:** store badges, install schema and query-matched titles ([#611](https://github.com/vitalyiegorov/suuudokuuu/issues/611)) ([dbf8a31](https://github.com/vitalyiegorov/suuudokuuu/commit/dbf8a3110c5009558e7bb5858a8b945328f45e20)), closes [#587](https://github.com/vitalyiegorov/suuudokuuu/issues/587) [#582](https://github.com/vitalyiegorov/suuudokuuu/issues/582) [#613](https://github.com/vitalyiegorov/suuudokuuu/issues/613)
+
+
 # [2.31.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.30.0...v2.31.0) (2026-10-14)
 
 ### Features
