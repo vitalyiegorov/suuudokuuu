@@ -1,12 +1,12 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
-import { easySudokuPageMetadata } from '../../app/sudoku/easy/metadata';
-import { hardSudokuPageMetadata } from '../../app/sudoku/hard/metadata';
-import { hellSudokuPageMetadata } from '../../app/sudoku/hell/metadata';
-import { infinitySudokuPageMetadata } from '../../app/sudoku/infinity/metadata';
-import { mediumSudokuPageMetadata } from '../../app/sudoku/medium/metadata';
-import { newbieSudokuPageMetadata } from '../../app/sudoku/newbie/metadata';
-import { nightmareSudokuPageMetadata } from '../../app/sudoku/nightmare/metadata';
+import { easySudokuPageMetadata } from '../../app/(en)/sudoku/easy/metadata';
+import { hardSudokuPageMetadata } from '../../app/(en)/sudoku/hard/metadata';
+import { hellSudokuPageMetadata } from '../../app/(en)/sudoku/hell/metadata';
+import { infinitySudokuPageMetadata } from '../../app/(en)/sudoku/infinity/metadata';
+import { mediumSudokuPageMetadata } from '../../app/(en)/sudoku/medium/metadata';
+import { newbieSudokuPageMetadata } from '../../app/(en)/sudoku/newbie/metadata';
+import { nightmareSudokuPageMetadata } from '../../app/(en)/sudoku/nightmare/metadata';
 
 export const DIFFICULTY_PAGE_PATHS: Record<DifficultyEnum, string> = {
     [DifficultyEnum.Newbie]: newbieSudokuPageMetadata.path,

@@ -15,8 +15,8 @@
         "effect:check": "turbo run effect:check",
         "format": "oxfmt",
         "format:check": "oxfmt --check",
-        "i18n:check": "pnpm i18n:sync && git diff --name-only --exit-code HEAD -- packages/app/src/i18n/locales",
-        "i18n:sync": "pnpm --filter @suuudokuuu/app i18n:sync",
+        "i18n:check": "pnpm i18n:sync && git diff --name-only --exit-code HEAD -- packages/app/src/i18n/locales packages/landing/src/i18n/locales",
+        "i18n:sync": "pnpm --filter @suuudokuuu/app --filter @suuudokuuu/landing i18n:sync",
         "lint": "oxlint",
         "lint:fix": "oxlint --fix",
         "postinstall": "turbo run build",
@@ -56,7 +56,7 @@
         "oxfmt": "^0.71.0",
         "oxlint": "^1.86.0",
         "oxlint-tsgolint": "^7.0.2003",
-        "turbo": "^2.11.7",
+        "turbo": "^2.11.8",
         "typescript": "npm:@typescript/typescript6@^6.0.2"
     },
     "engines": {

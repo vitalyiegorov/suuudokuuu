@@ -12,6 +12,7 @@ import {
     DEFAULT_COMFORT_SCALE_STEP
 } from '../../constants/comfort-scale.constant';
 
+import type { ComfortScaleStepEnum } from '../../enums/comfort-scale-step.enum';
 import type { ComfortScaleStepInterface } from '../../interfaces/comfort-scale-step.interface';
 
 const activeStepListeners = new Set<() => void>();
@@ -28,9 +29,9 @@ const notifyActiveStepListeners = () => {
     activeStepListeners.forEach(listener => void listener());
 };
 
-const getServerActiveStepId = (): string => DEFAULT_COMFORT_SCALE_STEP.id;
+const getServerActiveStepId = (): ComfortScaleStepEnum => DEFAULT_COMFORT_SCALE_STEP.id;
 
-const getClientActiveStepId = (): string => {
+const getClientActiveStepId = (): ComfortScaleStepEnum => {
     const currentScale = document.documentElement.style.getPropertyValue(COMFORT_SCALE_CSS_PROPERTY);
     const currentStep = COMFORT_SCALE_STEPS.find(step => String(step.scale) === currentScale);
 
@@ -49,7 +50,12 @@ const applyComfortScaleStep = (step: ComfortScaleStepInterface) => {
     notifyActiveStepListeners();
 };
 
-export const ComfortControl = () => {
+interface Props {
+    label: string;
+    stepLabels: Readonly<Record<ComfortScaleStepEnum, string>>;
+}
+
+export const ComfortControl = ({ label, stepLabels }: Props) => {
     const activeStepId = useSyncExternalStore(subscribeToActiveStep, getClientActiveStepId, getServerActiveStepId);
 
     const handleSelectStep = (step: ComfortScaleStepInterface) => () => {
@@ -58,10 +64,10 @@ export const ComfortControl = () => {
     };
 
     return (
-        <div aria-label="Text size" className="comfort-control" role="group">
+        <div aria-label={label} className="comfort-control" role="group">
             {COMFORT_SCALE_STEPS.map(step => (
                 <button
-                    aria-label={step.label}
+                    aria-label={stepLabels[step.id]}
                     aria-pressed={step.id === activeStepId}
                     className="comfort-control__step"
                     key={step.id}

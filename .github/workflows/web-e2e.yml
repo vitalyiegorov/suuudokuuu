@@ -44,6 +44,9 @@ jobs:
             - name: Build landing export
               run: pnpm turbo run build --filter=@suuudokuuu/landing
 
+            - name: Check landing hreflang clusters
+              run: pnpm --filter @suuudokuuu/landing check:hreflang
+
             - name: Install Playwright browsers
               run: pnpm --filter @suuudokuuu/web-tests exec playwright install --with-deps chromium webkit
 

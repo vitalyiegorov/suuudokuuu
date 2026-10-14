@@ -11,7 +11,7 @@ const sitemap = (): MetadataRoute.Sitemap =>
         lastModified: pageMetadata.updatedAt,
         changeFrequency: pageMetadata.changeFrequency,
         priority: pageMetadata.priority,
-        alternates: { languages: buildLanguageAlternates(pageMetadata.path) }
+        alternates: { languages: buildLanguageAlternates(pageMetadata) }
     }));
 
 export default sitemap;

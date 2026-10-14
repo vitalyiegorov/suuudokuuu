@@ -1,0 +1,274 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-10-14 16:13+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: es\n"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Full House</0> — the simplest possible move, filling the last empty cell in a unit."
+msgstr "<0>Última celda libre</0>: el movimiento más sencillo posible, rellenar la única celda vacía que queda en una unidad."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Hidden Single</0> — a digit that only fits in one cell of a unit."
+msgstr "<0>Único oculto</0>: un número que solo cabe en una celda de una unidad."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Naked Single</0> — a cell left with exactly one candidate."
+msgstr "<0>Único desnudo</0>: una celda a la que solo le queda un candidato."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "An Easy board to start with. Play it right here, or pick any of seven difficulty levels in the app."
+msgstr "Un tablero Fácil para empezar. Juégalo aquí mismo o elige cualquiera de los siete niveles de dificultad en la app."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Clues versus difficulty"
+msgstr "Pistas frente a dificultad"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Default text size"
+msgstr "Tamaño de texto normal"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Difficulty"
+msgstr "Dificultad"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Difficulty guides"
+msgstr "Guías de dificultad"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Difficulty levels"
+msgstr "Niveles de dificultad"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Difficulty rating"
+msgstr "Calificación de dificultad"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Does {SITE_NAME} have ads?"
+msgstr "¿{SITE_NAME} tiene anuncios?"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Does it work offline?"
+msgstr "¿Funciona sin conexión?"
+
+#: src/chrome/components/store-badges/store-badges.tsx
+msgid "Download on the App Store"
+msgstr "Descárgalo en el App Store"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every puzzle guaranteed to have exactly one solution, no guessing required"
+msgstr "Cada sudoku tiene garantizada una única solución, sin necesidad de adivinar"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every technique {SITE_NAME} uses to generate hints is documented with a worked example board pulled straight from the solving engine. Start with the <0>full technique index</0>, or jump into one of the first patterns most players learn."
+msgstr "Cada técnica que {SITE_NAME} usa para dar pistas está documentada con un tablero de ejemplo resuelto, sacado directamente del motor de resolución. Empieza por el <0>índice completo de técnicas</0> o ve directo a uno de los primeros patrones que aprende casi todo el mundo."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every tier from Newbie to Infinity now has its own guide, breaking down exactly what separates one level from the next — clue counts, required techniques and an honest read on how hard each one really is. Start on the <0>Sudoku difficulty levels</0> hub, or see how it compares to the <1>hardest puzzles</1> ever published."
+msgstr "Cada nivel, de Novato a Infinito, tiene ahora su propia guía, que explica con precisión qué separa un nivel del siguiente: número de pistas, técnicas necesarias y una valoración honesta de lo difícil que es de verdad. Empieza por la página de <0>niveles de dificultad del sudoku</0> o mira cómo se compara con los <1>sudokus más difíciles</1> jamás publicados."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Footer"
+msgstr "Pie de página"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "Gratuito y de código abierto con licencia {SITE_LICENSE}. Sin anuncios, sin cuenta y sin rastreo en el juego: lee <0>por qué</0> o explora el <1>código fuente completo en GitHub</1>. Apple y el logotipo de Apple son marcas comerciales de Apple Inc., registradas en EE. UU. y en otros países. App Store es una marca de servicio de Apple Inc. Google Play y el logotipo de Google Play son marcas comerciales de Google LLC."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free offline Sudoku for iOS, Android and the web"
+msgstr "Sudoku gratis y sin conexión para iOS, Android y la web"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same streaks and stats everywhere. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "Jugar al sudoku online gratis significa resolver el clásico rompecabezas numérico de 9×9 en el navegador o en una app sin pagar, sin límites de instalación y sin muros de pago, y {SITE_NAME} es una versión gratuita y de código abierto: siete niveles de dificultad de Novato a Infinito, guías que explican cada técnica, sin anuncios y sin rastreo en el juego. Resuelve en la web o instala la app y conserva las mismas rachas y estadísticas en todas partes. Descubre <0>por qué {SITE_NAME} está hecho así</0>, con todos los argumentos verificables."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Free, open-source, no ads"
+msgstr "Gratis, de código abierto y sin anuncios"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Frequently asked questions"
+msgstr "Preguntas frecuentes"
+
+#: src/chrome/components/store-badges/store-badges.tsx
+msgid "Get it on Google Play"
+msgstr "Disponible en Google Play"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/chrome/components/site-header/site-header.tsx
+msgid "How to play"
+msgstr "Cómo jugar"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Is {SITE_NAME} free?"
+msgstr "¿{SITE_NAME} es gratis?"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Language"
+msgstr "Idioma"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Large print sudoku"
+msgstr "Sudoku en letra grande"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Large text size"
+msgstr "Texto grande"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Largest text size"
+msgstr "Texto muy grande"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Learn"
+msgstr "Aprender"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Learn to solve"
+msgstr "Aprende a resolver"
+
+#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+msgid "Loading the board…"
+msgstr "Cargando el tablero…"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "New to Sudoku?"
+msgstr "¿Eres nuevo en el sudoku?"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "No ads, no account and no tracking inside the game, on the web or in the app"
+msgstr "Sin anuncios, sin cuenta y sin rastreo dentro del juego, ni en la web ni en la app"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "No. There are no ads anywhere and no tracking inside the game; this website uses only cookieless, anonymous page analytics."
+msgstr "No. No hay anuncios en ninguna parte ni rastreo dentro del juego; esta web solo usa analítica de páginas anónima y sin cookies."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Play"
+msgstr "Jugar"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Play {SITE_NAME}"
+msgstr "Jugar a {SITE_NAME}"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Play now"
+msgstr "Jugar ahora"
+
+#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+msgid "Play this puzzle here"
+msgstr "Juega este sudoku aquí"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Primary"
+msgstr "Principal"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Print"
+msgstr "Imprimir"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Printable"
+msgstr "Para imprimir"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Printable sudoku"
+msgstr "Sudokus para imprimir"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Privacy policy"
+msgstr "Política de privacidad"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Project"
+msgstr "Proyecto"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Read the <0>how to play guide</0> for the three rules and a walkthrough of your first moves, or look up any term in the <1>sudoku glossary</1>, which defines every technique and every piece of vocabulary the guides use."
+msgstr "Lee la <0>guía de cómo jugar</0> para conocer las tres reglas y seguir paso a paso tus primeros movimientos, o busca cualquier término en el <1>glosario de sudoku</1>, que define cada técnica y todo el vocabulario que usan las guías."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Seven difficulty levels from Newbie through Hell to Infinity, the top tier serving record puzzles such as Everest and AI Escargot"
+msgstr "Siete niveles de dificultad, de Novato a Infierno y hasta Infinito, el nivel más alto, con sudokus de récord como Everest y AI Escargot"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Seven: Newbie, Easy, Medium, Hard, Nightmare, Hell and Infinity. Hell puzzles come from a bundled, verified corpus of boards that each need a forcing chain, beyond anything Nightmare asks for, and <0>Infinity</0> serves record puzzles such as Everest and AI Escargot."
+msgstr "Siete: Novato, Fácil, Intermedio, Difícil, Pesadilla, Infierno e Infinito. Los sudokus de Infierno salen de una colección verificada, incluida en la app, de tableros que exigen una cadena forzada, más allá de todo lo que pide Pesadilla, e <0>Infinito</0> ofrece sudokus de récord como Everest y AI Escargot."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Shareable puzzle links and full game replays for any solve"
+msgstr "Enlaces para compartir sudokus y repeticiones completas de cualquier partida"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Solver"
+msgstr "Solucionador"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Source on GitHub"
+msgstr "Código en GitHub"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Stuck on a puzzle?"
+msgstr "¿Te has atascado con un sudoku?"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku for seniors"
+msgstr "Sudoku para mayores"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku glossary"
+msgstr "Glosario de sudoku"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku solver"
+msgstr "Solucionador de sudoku"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku techniques"
+msgstr "Técnicas de sudoku"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Technique-aware hints that name the exact solving pattern, not just the next digit"
+msgstr "Pistas que nombran la técnica exacta para resolver, no solo el siguiente número"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Techniques"
+msgstr "Técnicas"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Text size"
+msgstr "Tamaño del texto"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Type or paste the grid into the <0>step-by-step sudoku solver</0> and it will name every move — Hidden Single, Naked Pair, X-Wing — instead of just filling the board in. It checks that your puzzle has exactly one solution first, and it runs entirely in your browser."
+msgstr "Escribe o pega la cuadrícula en el <0>solucionador de sudoku paso a paso</0> y te dirá el nombre de cada movimiento (único oculto, par desnudo, X-Wing) en lugar de limitarse a rellenar el tablero. Primero comprueba que tu sudoku tenga una única solución, y funciona por completo en tu navegador."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "What difficulty levels exist?"
+msgstr "¿Qué niveles de dificultad hay?"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Why {SITE_NAME}"
+msgstr "Por qué {SITE_NAME}"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Why players stay"
+msgstr "Por qué los jugadores se quedan"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Works fully offline once installed, on iOS, Android and the web"
+msgstr "Funciona totalmente sin conexión una vez instalado, en iOS, Android y la web"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "Sí. {SITE_NAME} es gratuito y de código abierto, sin compras dentro de la app, sin suscripciones y sin niveles de dificultad de pago."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
+msgstr "Sí. Una vez instalado, {SITE_NAME} genera y resuelve los sudokus por completo en tu dispositivo, así que funciona igual sin conexión."

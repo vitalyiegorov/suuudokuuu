@@ -1,3 +1,6 @@
+import type { LocaleType } from '../types/locale.type';
+import type { Viewport } from 'next';
+
 export const SITE_NAME = 'Suuudokuuu';
 
 export const SITE_ORIGIN = 'https://www.suuudokuuu.com';
@@ -27,8 +30,20 @@ export const SITE_THEME_COLOR = '#000000';
 
 export const SITE_BACKGROUND_COLOR = '#000000';
 
+export const SITE_VIEWPORT: Viewport = {
+    themeColor: SITE_THEME_COLOR,
+    colorScheme: 'dark'
+};
+
 export const DEFAULT_LOCALE = 'en';
 
-export const SUPPORTED_LOCALES = [DEFAULT_LOCALE] as const;
+export const SUPPORTED_LOCALES = [DEFAULT_LOCALE, 'es'] as const;
+
+export const LOCALE_NAMES: Readonly<Record<LocaleType, string>> = {
+    en: 'English',
+    es: 'Español'
+};
+
+export const RIGHT_TO_LEFT_LOCALES: readonly string[] = ['ar', 'ur'];
 
 export const HREFLANG_DEFAULT_KEY = 'x-default';

@@ -1,4 +1,4 @@
-import { techniquesPageMetadata } from '../../app/techniques/metadata';
+import { techniquesPageMetadata } from '../../app/(en)/techniques/metadata';
 import { TECHNIQUE_LADDER } from '../../rating/constants/technique-ladder.constant';
 
 import { TECHNIQUE_PAGE_PATHS } from './technique-page-path.constant';

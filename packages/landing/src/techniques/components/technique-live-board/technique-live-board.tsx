@@ -1,6 +1,7 @@
 'use client';
 
 import '@suuudokuuu/field-dom/styles.css';
+import { useLingui } from '@lingui/react/macro';
 import { FieldEngine, findStepScript } from '@suuudokuuu/field-core';
 import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
 import { FieldGame, getGivenCellKeys } from '@suuudokuuu/field-dom';
@@ -12,8 +13,8 @@ import { useState } from 'react';
 import { isDefined } from '@rnw-community/shared';
 
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
-import { FIELD_LABELS } from '../../constants/field-labels.constant';
 import { TECHNIQUE_NAMES } from '../../constants/technique-name.constant';
+import { buildFieldLabels } from '../../utils/build-field-labels.util';
 import { renderTechniqueNarration } from '../../utils/render-technique-narration.util';
 
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
@@ -24,6 +25,8 @@ interface Props {
 }
 
 export const TechniqueLiveBoard = ({ board, technique }: Props) => {
+    const { i18n } = useLingui();
+    const fieldLabels = buildFieldLabels(i18n);
     const [engine] = useState(() => new FieldEngine({ sudokuString: board, difficulty: DifficultyEnum.Hard, showAutoCandidates: true }));
     const snapshot = useFieldSnapshot(engine);
     const givenCellKeys = getGivenCellKeys(board);
@@ -47,7 +50,7 @@ export const TechniqueLiveBoard = ({ board, technique }: Props) => {
                     Show me the technique
                 </button>
             )}
-            <FieldGame engine={engine} givenCellKeys={givenCellKeys} labels={FIELD_LABELS} narrationRenderer={renderTechniqueNarration} />
+            <FieldGame engine={engine} givenCellKeys={givenCellKeys} labels={fieldLabels} narrationRenderer={renderTechniqueNarration} />
             <p className="technique-embed__footer">
                 Pick a cell, type a digit, switch to notes for candidates, and undo whenever you like.{' '}
                 <a href={SITE_PLAY_URL}>Play full puzzles</a>.

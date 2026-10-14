@@ -1,7 +1,5 @@
-import { DEFAULT_LOCALE, SITE_ORIGIN } from '../constants/site.constant';
+import { SITE_ORIGIN } from '../constants/site.constant';
 
-export const buildLocaleUrl = (locale: string, path: string): string => {
-    const localePrefix = locale === DEFAULT_LOCALE ? '' : `/${locale}`;
+import { buildLocalePath } from './build-locale-path.util';
 
-    return `${SITE_ORIGIN}${localePrefix}${path}`;
-};
+export const buildLocaleUrl = (locale: string, path: string): string => `${SITE_ORIGIN}${buildLocalePath(locale, path)}`;

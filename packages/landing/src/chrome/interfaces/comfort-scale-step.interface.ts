@@ -1,6 +1,7 @@
+import type { ComfortScaleStepEnum } from '../enums/comfort-scale-step.enum';
+
 export interface ComfortScaleStepInterface {
-    id: string;
-    label: string;
+    id: ComfortScaleStepEnum;
     symbol: string;
     scale: number;
 }

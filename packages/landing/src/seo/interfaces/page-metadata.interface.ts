@@ -1,3 +1,5 @@
+import type { DEFAULT_LOCALE } from '../constants/site.constant';
+import type { LocaleType } from '../types/locale.type';
 import type { SitemapChangeFrequencyType } from '../types/sitemap-change-frequency.type';
 
 export interface PageMetadataInterface {
@@ -10,4 +12,12 @@ export interface PageMetadataInterface {
     readonly updatedAt: string;
     readonly changeFrequency: SitemapChangeFrequencyType;
     readonly priority: number;
+    readonly translations?: Readonly<
+        Partial<
+            Record<
+                Exclude<LocaleType, typeof DEFAULT_LOCALE>,
+                Required<Pick<PageMetadataInterface, 'title' | 'headline' | 'metaTitle' | 'metaDescription'>>
+            >
+        >
+    >;
 }

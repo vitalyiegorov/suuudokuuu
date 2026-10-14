@@ -3,8 +3,14 @@ import type { NextConfig } from 'next';
 const nextConfig: NextConfig = {
     output: 'export',
     reactStrictMode: true,
+    agentRules: false,
     images: {
         unoptimized: true
+    },
+    experimental: {
+        globalNotFound: true,
+        memoryBasedWorkersCount: true,
+        swcPlugins: [['@lingui/swc-plugin', {}]]
     }
 };
 

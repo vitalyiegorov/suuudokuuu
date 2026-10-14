@@ -2,8 +2,7 @@ import { expect, test } from '@playwright/test';
 import {
     COMFORT_SCALE_CSS_PROPERTY,
     COMFORT_SCALE_STEPS,
-    COMFORT_SCALE_STORAGE_KEY,
-    DEFAULT_COMFORT_SCALE_STEP
+    COMFORT_SCALE_STORAGE_KEY
 } from '@suuudokuuu/landing/src/chrome/constants/comfort-scale.constant';
 
 import { fetchPageHtml } from '../../src/utils/fetch-page-html.util';
@@ -13,6 +12,10 @@ import type { Page } from '@playwright/test';
 const techniquePagePath = '/techniques/x-wing';
 
 const [, , LARGEST_COMFORT_SCALE_STEP] = COMFORT_SCALE_STEPS;
+
+const defaultStepName = 'Default text size';
+
+const largestStepName = 'Largest text size';
 
 const readRootFontSize = async (page: Page): Promise<number> =>
     page.evaluate(() => Number.parseFloat(window.getComputedStyle(document.documentElement).fontSize));
@@ -29,8 +32,8 @@ test('renders the three text-size steps with the default one pressed', async ({ 
     const textSizeGroup = page.getByRole('group', { name: 'Text size' });
 
     await expect(textSizeGroup.getByRole('button')).toHaveText(COMFORT_SCALE_STEPS.map(step => step.symbol));
-    await expect(textSizeGroup.getByRole('button', { name: DEFAULT_COMFORT_SCALE_STEP.label })).toHaveAttribute('aria-pressed', 'true');
-    await expect(textSizeGroup.getByRole('button', { name: LARGEST_COMFORT_SCALE_STEP.label })).toHaveAttribute('aria-pressed', 'false');
+    await expect(textSizeGroup.getByRole('button', { name: defaultStepName })).toHaveAttribute('aria-pressed', 'true');
+    await expect(textSizeGroup.getByRole('button', { name: largestStepName })).toHaveAttribute('aria-pressed', 'false');
 });
 
 test('grows the root type scale and the board with it, and keeps the choice across a reload', async ({ page }) => {
@@ -40,12 +43,12 @@ test('grows the root type scale and the board with it, and keeps the choice acro
     const defaultFontSize = await readRootFontSize(page);
     const defaultCellWidth = await readBoardCellWidth(page);
 
-    await page.getByRole('button', { name: LARGEST_COMFORT_SCALE_STEP.label }).click();
+    await page.getByRole('button', { name: largestStepName }).click();
 
     const textSizeGroup = page.getByRole('group', { name: 'Text size' });
 
-    await expect(textSizeGroup.getByRole('button', { name: LARGEST_COMFORT_SCALE_STEP.label })).toHaveAttribute('aria-pressed', 'true');
-    await expect(textSizeGroup.getByRole('button', { name: DEFAULT_COMFORT_SCALE_STEP.label })).toHaveAttribute('aria-pressed', 'false');
+    await expect(textSizeGroup.getByRole('button', { name: largestStepName })).toHaveAttribute('aria-pressed', 'true');
+    await expect(textSizeGroup.getByRole('button', { name: defaultStepName })).toHaveAttribute('aria-pressed', 'false');
 
     const scaledFontSize = await readRootFontSize(page);
 
@@ -55,7 +58,7 @@ test('grows the root type scale and the board with it, and keeps the choice acro
 
     await page.reload();
 
-    await expect(textSizeGroup.getByRole('button', { name: LARGEST_COMFORT_SCALE_STEP.label })).toHaveAttribute('aria-pressed', 'true');
+    await expect(textSizeGroup.getByRole('button', { name: largestStepName })).toHaveAttribute('aria-pressed', 'true');
     expect(await readRootFontSize(page)).toBeCloseTo(scaledFontSize, 1);
     expect(await readBoardCellWidth(page)).toBeGreaterThan(defaultCellWidth);
 });
@@ -89,13 +92,10 @@ for (const storageMethod of ['getItem', 'setItem']) {
         const textSizeGroup = page.getByRole('group', { name: 'Text size' });
         const defaultFontSize = await readRootFontSize(page);
 
-        await expect(textSizeGroup.getByRole('button', { name: DEFAULT_COMFORT_SCALE_STEP.label })).toHaveAttribute('aria-pressed', 'true');
-        await textSizeGroup.getByRole('button', { name: LARGEST_COMFORT_SCALE_STEP.label }).click();
-        await expect(textSizeGroup.getByRole('button', { name: LARGEST_COMFORT_SCALE_STEP.label })).toHaveAttribute('aria-pressed', 'true');
-        await expect(textSizeGroup.getByRole('button', { name: DEFAULT_COMFORT_SCALE_STEP.label })).toHaveAttribute(
-            'aria-pressed',
-            'false'
-        );
+        await expect(textSizeGroup.getByRole('button', { name: defaultStepName })).toHaveAttribute('aria-pressed', 'true');
+        await textSizeGroup.getByRole('button', { name: largestStepName }).click();
+        await expect(textSizeGroup.getByRole('button', { name: largestStepName })).toHaveAttribute('aria-pressed', 'true');
+        await expect(textSizeGroup.getByRole('button', { name: defaultStepName })).toHaveAttribute('aria-pressed', 'false');
         expect(await readRootFontSize(page)).toBeCloseTo(defaultFontSize * LARGEST_COMFORT_SCALE_STEP.scale, 1);
         expect(consoleErrors).toEqual([]);
     });

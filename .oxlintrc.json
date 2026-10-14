@@ -926,6 +926,33 @@
             "plugins": ["react"]
         },
         {
+            "files": ["packages/landing/src/**/*.{ts,tsx}"],
+            "rules": {
+                "lingui/t-call-in-function": "error",
+                "lingui/no-single-tag-to-translate": "error",
+                "lingui/no-single-variables-to-translate": "error",
+                "lingui/no-trans-inside-trans": "error",
+                "lingui/no-expression-in-message": "error"
+            }
+        },
+        {
+            "files": [
+                "packages/landing/src/home/**/*.{ts,tsx}",
+                "packages/landing/src/chrome/components/**/*.{ts,tsx}",
+                "packages/landing/src/difficulty/components/difficulty-{playable,live}-board/*.tsx",
+                "packages/landing/src/techniques/utils/build-field-labels.util.ts"
+            ],
+            "rules": {
+                "lingui/no-unlocalized-strings": [
+                    "error",
+                    {
+                        "ignore": ["^(?![A-Z])\\S+$", "^[A-Z0-9_-]+$", "use client"],
+                        "ignoreNames": [{ "regex": { "pattern": "className", "flags": "i" } }]
+                    }
+                ]
+            }
+        },
+        {
             "files": ["**/*.{ts,tsx}"],
             "rules": {
                 "react/display-name": "off",
@@ -1002,7 +1029,7 @@
                 "react/only-export-components": [
                     "error",
                     {
-                        "allowExportNames": ["metadata", "viewport"]
+                        "allowExportNames": ["metadata", "viewport", "generateMetadata", "generateStaticParams", "dynamicParams"]
                     }
                 ],
                 "eslint-react/no-context-provider": "error",
