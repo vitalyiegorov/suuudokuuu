@@ -1,7 +1,9 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import Link from 'next/link';
 
+import { DifficultyBoard } from '../../../difficulty/components/difficulty-board/difficulty-board';
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
+import { buildDifficultyPlayUrl } from '../../../difficulty/utils/build-difficulty-play-url.util';
 import { getDifficultyClueCount } from '../../../difficulty/utils/get-difficulty-clue-count.util';
 import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
@@ -13,7 +15,6 @@ import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { Faq } from '../../../seo/components/faq/faq';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
-import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
@@ -49,6 +50,9 @@ const NightmareSudokuPage = () => {
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
                 <BreadcrumbListItem>Nightmare</BreadcrumbListItem>
             </PageHeader>
+            <DifficultyBoard difficulty={DifficultyEnum.Nightmare}>
+                A Nightmare board from the same generator the app uses. Play it right here.
+            </DifficultyBoard>
             <p>
                 Nightmare is Suuudokuuu’s expert tier — what most other apps would call very hard or expert. A Nightmare board carries just{' '}
                 {getDifficultyClueCount(DifficultyEnum.Nightmare)} clues out of 81 cells, and it is the tier where bounded patterns stop
@@ -71,7 +75,7 @@ const NightmareSudokuPage = () => {
                     <li>Nightmare is capped at AIC — a board resisting that is beyond what the generated tiers hand you.</li>
                 </ul>
             </TechniqueSummary>
-            <a className="hero__cta" href={SITE_PLAY_URL}>
+            <a className="hero__cta" href={buildDifficultyPlayUrl(DifficultyEnum.Nightmare)}>
                 Play Nightmare Sudoku now
             </a>
             <h2>What makes a puzzle Nightmare</h2>

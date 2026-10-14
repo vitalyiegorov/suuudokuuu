@@ -48,10 +48,10 @@ src/
 │   ├── interfaces/          # comfort-scale step view model
 │   └── utils/               # buildComfortScaleInitScript, the pre-hydration scale script
 ├── difficulty/
-│   ├── components/          # prev/next difficulty chain
+│   ├── components/          # prev/next difficulty chain, the playable tier board and its live-board island
 │   ├── constants/           # difficulty display names, ladder order, difficulty page paths, Infinity corpus facts
 │   ├── types/               # RatedDifficultyType, the tiers the rated sample covers
-│   └── utils/               # clue count per difficulty, derived from DIFFICULTY_BANDS
+│   └── utils/               # clue count per difficulty, derived from DIFFICULTY_BANDS, and the tier deep link into /play
 ├── indexing/
 │   ├── constants/           # IndexNow env-var name, endpoint and key pattern, llms.txt section names
 │   ├── interfaces/          # the indexable page view model
@@ -85,7 +85,7 @@ The site carries cookieless, anonymous analytics; the game carries none, and the
 
 `src/app/layout.tsx` renders `<Analytics />` only when `VERCEL` is `1`, `<SpeedInsights />` only when `VERCEL_ENV` is `production`, and `<MicrosoftClarity />` only when `VERCEL_ENV` is `production` and `NEXT_PUBLIC_CLARITY_PROJECT_ID` is set. Those variables exist only during a Vercel build, so a local, fork or CI export contains no analytics markup at all — grep `out/index.html` for `clarity` or `vercel` to prove it. Clarity is an inline `next/script` snippet from `buildMicrosoftClarityScript`, which denies both `ad_Storage` and `analytics_Storage` through `consentv2`, so it never sets a cookie. There is no consent banner because nothing is stored.
 
-Funnel events go through `track()` from `@vercel/analytics`, called from client islands that already exist: `island_opened` and `walkthrough_started` from the technique board island, `solver_used` from the solver workbench, `comfort_scale_set` from the comfort control. Never add a `'use client'` boundary just to fire an event, and never send anything a reader typed — the technique name, the solver outcome kind and the comfort step id are the whole payload vocabulary.
+Funnel events go through `track()` from `@vercel/analytics`, called from client islands that already exist: `island_opened` and `walkthrough_started` from the technique board island, `solver_used` from the solver workbench, `board_opened` from the difficulty board island, `comfort_scale_set` from the comfort control. Never add a `'use client'` boundary just to fire an event, and never send anything a reader typed — the technique name, the difficulty tier, the solver outcome kind and the comfort step id are the whole payload vocabulary.
 
 `TechniquePlayableBoard` takes the technique's name as a plain `techniqueName` string resolved by its server parent, because value-importing `SolutionTechniqueEnum` inside that island drags the whole `@suuudokuuu/techniques` package into every technique page's script list. Keep the enum a type-only import there; the dynamic `TechniqueLiveBoard` chunk already carries the package and may read `TECHNIQUE_NAMES` directly.
 
@@ -232,6 +232,14 @@ To add a technique page:
 - `TechniqueLiveBoard` owns the engine: `new FieldEngine({ sudokuString: board, difficulty, showAutoCandidates: true })`, `getGivenCellKeys(board)`, and `findStepScript(engine.Sudoku, createTechniqueStrategies().filter(...))` narrowed to the page's technique — the same narrowing `buildTechniqueExample` uses, which is why the walkthrough reproduces the static solver output exactly.
 - `field-dom` ships no strings. `FIELD_LABELS` in `src/techniques/constants/field-labels.constant.ts` supplies every control label, and `renderTechniqueNarration` turns the structured `{ technique, cells, values }` payload into prose generically for all 31 pages. Do not hand-write per-technique narration.
 - Theming happens by overriding `--field-*` custom properties on `.technique-embed__live` in `global.css`. The packaged stylesheet is wrapped in `@layer field-dom`, so the unlayered landing rules win. Map every colour to the existing `--landing-*` token so the live board matches the static table.
+
+## The difficulty board island
+
+Every `/sudoku/<tier>` lander and the home page render `DifficultyBoard difficulty=` directly under their heading, with the caption copy as children. It is the same intent-gated pattern as the technique island, sized for a first screen on mobile.
+
+- `DifficultyBoard` (server) calls `forgeSerializablePuzzle(difficulty, seed)` from `@suuudokuuu/puzzle-forge` during static generation, the exact call the app makes, so a tier's board comes from that tier's band or, for Hell and Infinity, from the same corpus. The fixed seed keeps every export identical. The static `PuzzleBoard` table is in the exported HTML, so the board costs no layout shift and no script.
+- `DifficultyPlayableBoard` (client) ships only the play button. Pressing it loads `DifficultyLiveBoard` through `next/dynamic(..., { ssr: false })`, which builds a `FieldEngine` from the same puzzle and solution; the static table stays in the DOM and is hidden by CSS once `.field-game` mounts. `New <tier> puzzle` dynamic-imports `@suuudokuuu/puzzle-forge` on click, so neither the engine nor the forge and its corpora ever enter a page's script list.
+- Every play link for a tier goes through `buildDifficultyPlayUrl(difficulty)`, which appends `?difficulty=<DifficultyEnum value>` to `SITE_PLAY_URL`. The app's `/play` route validates that parameter with `DifficultySchema` and stores it as the selected difficulty without starting or replacing a run.
 
 ## Guide pages and the generated solve data
 

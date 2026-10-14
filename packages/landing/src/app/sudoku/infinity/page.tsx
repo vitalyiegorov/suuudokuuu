@@ -4,6 +4,7 @@ import { SE_RATING_CEILING } from '@suuudokuuu/rating';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import Link from 'next/link';
 
+import { DifficultyBoard } from '../../../difficulty/components/difficulty-board/difficulty-board';
 import { DifficultyNavigation } from '../../../difficulty/components/difficulty-navigation/difficulty-navigation';
 import {
     INFINITY_HIGHEST_RATING,
@@ -11,6 +12,7 @@ import {
     INFINITY_MAXIMUM_GIVEN_COUNT,
     INFINITY_MINIMUM_GIVEN_COUNT
 } from '../../../difficulty/constants/infinity-corpus.constant';
+import { buildDifficultyPlayUrl } from '../../../difficulty/utils/build-difficulty-play-url.util';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
 import { formatSeRatingRange } from '../../../rating/utils/format-se-rating-range.util';
 import { getTierTechniqueReport } from '../../../rating/utils/get-tier-technique-reports.util';
@@ -22,7 +24,6 @@ import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { Faq } from '../../../seo/components/faq/faq';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
-import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueLink } from '../../../techniques/components/technique-link/technique-link';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
@@ -58,6 +59,9 @@ const InfinitySudokuPage = () => {
                 <BreadcrumbListItem path={sudokuDifficultiesPageMetadata.path}>Sudoku difficulties</BreadcrumbListItem>
                 <BreadcrumbListItem>Infinity</BreadcrumbListItem>
             </PageHeader>
+            <DifficultyBoard difficulty={DifficultyEnum.Infinity}>
+                An Infinity record puzzle from the same curated set the app uses, reshuffled. Play it right here.
+            </DifficultyBoard>
             <p>
                 Infinity is Suuudokuuu’s tier beyond Hell: a curated set of the hardest sudoku puzzles ever published, the record grids the
                 solving community still argues about, ready to play for free. Every Infinity board is a known puzzle with a published Sudoku
@@ -77,7 +81,7 @@ const InfinitySudokuPage = () => {
                     <li>Each game reshuffles the grid, so a familiar record puzzle never looks the same twice.</li>
                 </ul>
             </TechniqueSummary>
-            <a className="hero__cta" href={SITE_PLAY_URL}>
+            <a className="hero__cta" href={buildDifficultyPlayUrl(DifficultyEnum.Infinity)}>
                 Play Infinity Sudoku now
             </a>
             <h2>What makes a puzzle Infinity</h2>

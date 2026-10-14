@@ -1,4 +1,5 @@
 export { SqlNameTransforms } from './@generic/constant/sql-name-transforms.constant';
+export { DifficultySchema } from './@generic/schema/difficulty.schema';
 export { ReactivityKeyEnum } from './@generic/enum/reactivity-key.enum';
 export { ProgressLayer } from './@generic/layer/progress.layer';
 export { getDayNumber } from './@generic/utils/get-day-number.util';

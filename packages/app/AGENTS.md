@@ -195,8 +195,9 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
 
 1. Expo Router routes live under `src/app`.
 2. Shared puzzle links enter through `shared/[url].tsx`.
-3. Keep `suuudokuuu://` and associated domain behavior working when touching app config, router files, encoder payloads, or sharing hooks.
-4. Prefer route files that delegate to screen components instead of embedding large screen logic directly.
+3. `/play?difficulty=<DifficultyEnum value>` is the landing's tier deep link. `play.tsx` validates it with `DifficultySchema` and stores it as `lastGameDifficulty`; it never starts or replaces a run, and an unknown value is ignored.
+4. Keep `suuudokuuu://` and associated domain behavior working when touching app config, router files, encoder payloads, or sharing hooks.
+5. Prefer route files that delegate to screen components instead of embedding large screen logic directly.
 
 ## i18n
 

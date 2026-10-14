@@ -1,5 +1,7 @@
+import { DifficultyEnum } from '@suuudokuuu/generator';
 import Link from 'next/link';
 
+import { DifficultyBoard } from '../difficulty/components/difficulty-board/difficulty-board';
 import { FaqAnswer } from '../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../seo/components/faq-heading/faq-heading';
 import { FaqPage } from '../seo/components/faq-page/faq-page';
@@ -35,6 +37,9 @@ const HomePage = () => (
         <WebSiteSchema metadata={homePageMetadata} />
         <p className="hero__eyebrow">Free, open-source, no ads</p>
         <h1>{resolvePageHeadline(homePageMetadata)}</h1>
+        <DifficultyBoard difficulty={DifficultyEnum.Easy}>
+            An Easy board to start with. Play it right here, or pick any of seven difficulty levels in the app.
+        </DifficultyBoard>
         <p>
             Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall,
             and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity,
