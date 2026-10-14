@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.33.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.32.2...v2.33.0) (2026-10-14)
+
+### Features
+
+* **landing:** locale routing, hreflang and a Spanish home page ([#615](https://github.com/vitalyiegorov/suuudokuuu/issues/615)) ([54ee789](https://github.com/vitalyiegorov/suuudokuuu/commit/54ee7899a64be2241633c18cf4d2200334e6323c))
+
+
 ## [2.32.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.32.1...v2.32.2) (2026-10-14)
 
 **Note:** Version bump only for package @suuudokuuu/root
