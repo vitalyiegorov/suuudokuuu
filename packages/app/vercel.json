@@ -33,6 +33,13 @@
             "dest": "/_app/index.html"
         },
         {
+            "src": "^/campaign(?:/.*)?$",
+            "status": 308,
+            "headers": {
+                "Location": "/play"
+            }
+        },
+        {
             "src": "^/(?:shared|history|settings|start)(?:/.*)?$",
             "dest": "/_app/index.html"
         },
