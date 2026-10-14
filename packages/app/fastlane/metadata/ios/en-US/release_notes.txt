@@ -1,8 +1,8 @@
-Hints that teach step by step, faster new games and smoother keyboard play.
+Hints that teach, a technique campaign and richer stats.
 
-• Hints now open in four steps: first the technique and where to look, then the key cells, then a guided walkthrough, and only then the move itself. Each step costs a quarter of a full hint, so you only pay for the help you use.
-• Hints head straight for the next digit you can place. Pointing, box-line and subset hints now name the exact box, row or column and the cells they clear.
-• Continue and Reveal work on every slide of a hint.
-• New puzzles are generated in the background, so starting even the hardest game no longer freezes the app.
-• Playing with a hardware keyboard on iPhone and iPad no longer keeps the processor busy.
-• Links from the App Store and our website open the app with a matching difficulty ready to start.
+• Hints are now a compact step-by-step panel with Back, Next and a clear Show answer. The board stays full size, and your open hint survives a pause.
+• New guided technique campaign with technique-mastery stats, so you can see which skills you have truly learned.
+• Moves placed with a hint are badged in the replay, and history cards show how many hints you used.
+• Hints are now on for the hardest puzzles too.
+• Hardware keyboard input is more reliable on iPhone and iPad.
+• Chain and branch links on the board are easier to read.

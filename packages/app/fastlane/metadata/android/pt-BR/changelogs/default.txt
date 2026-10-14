@@ -1,5 +1,5 @@
-As dicas agora abrem em quatro passos: técnica, células-chave, passo a passo e a jogada. Cada passo custa um quarto de uma dica completa.
-As dicas vão direto ao próximo dígito e indicam a região, linha ou coluna exata.
-Continuar e Revelar funcionam em todos os slides da dica.
-Os quebra-cabeças são gerados em segundo plano e jogos difíceis começam sem travar.
-Links da loja e do site abrem o app com a dificuldade pronta para jogar.
+Dicas que ensinam: painel compacto com Voltar, Avançar e Mostrar resposta.
+Sua dica aberta sobrevive a uma pausa.
+Nova campanha guiada de técnicas com estatísticas de domínio.
+Jogadas com dica ganham selo no replay e o histórico mostra as dicas usadas.
+Dicas ativas também nos quebra-cabeças mais difíceis.

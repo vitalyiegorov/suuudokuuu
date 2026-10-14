@@ -1,5 +1,5 @@
-Las sugerencias ahora se abren en cuatro pasos: técnica, celdas clave, recorrido y jugada. Cada paso cuesta una cuarta parte de una sugerencia completa.
-Las sugerencias van directas al siguiente dígito e indican la región, fila o columna exacta.
-Continuar y Revelar funcionan en cada diapositiva.
-Los puzles nuevos se generan en segundo plano y las partidas difíciles arrancan sin congelarse.
-Los enlaces de la tienda y la web abren la app con la dificultad lista para jugar.
+Las pistas ahora enseñan: panel compacto con Atrás, Siguiente y Mostrar respuesta.
+Tu pista abierta sobrevive a una pausa.
+Nueva campaña guiada de técnicas con estadísticas de dominio.
+Las jugadas con pista llevan insignia en la repetición y el historial cuenta las pistas.
+Pistas activadas también en los puzles más difíciles.

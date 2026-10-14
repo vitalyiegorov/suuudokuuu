@@ -1,5 +1,5 @@
-Ledtrådar öppnas nu i fyra steg: teknik, nyckelceller, genomgång och draget. Varje steg kostar en fjärdedel av en hel ledtråd.
-Ledtrådarna går rakt på nästa siffra och nämner exakt 3×3-ruta, rad eller kolumn.
-Fortsätt och Avslöja fungerar på varje ledtrådsbild.
-Nya pussel skapas i bakgrunden, så svåra spel startar utan att frysa.
-Länkar från butiken och webben öppnar appen med rätt svårighetsgrad redo att spela.
+Tips som lär ut: kompakt panel med Bakåt, Nästa och Visa svaret.
+Ditt öppna tips överlever en paus.
+Ny guidad teknikkampanj med statistik över behärskning.
+Drag med tips märks i repriser och historiken visar antalet tips.
+Tips finns även på de svåraste pusslen.

@@ -1,8 +1,8 @@
-Des indices qui enseignent pas à pas, des nouvelles parties plus rapides et un jeu au clavier plus fluide.
+Des indices qui enseignent, une campagne de techniques et de nouvelles statistiques.
 
-• Les indices s'ouvrent désormais en quatre étapes : d'abord la technique et où regarder, puis les cases clés, ensuite une démonstration guidée, et seulement après le coup lui-même. Chaque étape coûte un quart d'un indice complet : vous ne payez que l'aide que vous utilisez.
-• Les indices vont droit au prochain chiffre que vous pouvez placer. Les indices de paires pointantes, de bloc-ligne et de sous-ensembles nomment maintenant le bloc, la ligne ou la colonne exacts et les cases qu'ils libèrent.
-• Continuer et Révéler fonctionnent sur chaque diapositive d'un indice.
-• Les nouvelles grilles sont générées en arrière-plan : lancer même la partie la plus difficile ne fige plus l'application.
-• Jouer avec un clavier physique sur iPhone et iPad ne sollicite plus inutilement le processeur.
-• Les liens depuis l'App Store et notre site web ouvrent l'application avec une difficulté adaptée, prête à démarrer.
+• Les indices prennent la forme d'un panneau compact, pas à pas, avec Retour, Suivant et un « Afficher la réponse » clair. La grille garde sa taille complète et votre indice ouvert survit à une pause.
+• Nouvelle campagne guidée de techniques avec des statistiques de maîtrise, pour voir ce que vous avez vraiment appris.
+• Les coups joués avec un indice sont signalés dans le replay, et les cartes d'historique indiquent le nombre d'indices utilisés.
+• Les indices sont désormais aussi actifs sur les grilles les plus difficiles.
+• Le clavier physique est plus fiable sur iPhone et iPad.
+• Les liens de chaînes et de branches sur la grille sont plus lisibles.

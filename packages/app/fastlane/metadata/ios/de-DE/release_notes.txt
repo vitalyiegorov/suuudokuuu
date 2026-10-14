@@ -1,8 +1,8 @@
-Hinweise, die Schritt für Schritt etwas beibringen, schnellere neue Partien und flüssigeres Spielen mit der Tastatur.
+Hinweise, die etwas beibringen, eine Techniken-Kampagne und mehr Statistiken.
 
-• Hinweise öffnen sich jetzt in vier Schritten: zuerst die Technik und wohin du schauen sollst, dann die Schlüsselzellen, dann eine geführte Erklärung und erst zuletzt der Zug selbst. Jeder Schritt kostet ein Viertel eines vollen Hinweises, du zahlst also nur für die Hilfe, die du nutzt.
-• Hinweise steuern direkt die nächste Ziffer an, die du setzen kannst. Hinweise zu Pointing, Block-Linien-Wechselwirkung und Teilmengen nennen jetzt den genauen Block, die Zeile oder Spalte und die Zellen, die sie bereinigen.
-• Fortsetzen und Aufdecken funktionieren auf jeder Folie eines Hinweises.
-• Neue Rätsel werden im Hintergrund erzeugt, sodass selbst der Start der schwersten Partie die App nicht mehr einfrieren lässt.
-• Wer auf iPhone und iPad mit einer externen Tastatur spielt, lastet den Prozessor nicht mehr unnötig aus.
-• Links aus dem App Store und von unserer Website öffnen die App mit einer passenden Schwierigkeit, bereit zum Start.
+• Hinweise sind jetzt ein kompaktes Schritt-für-Schritt-Panel mit Zurück, Weiter und einem klaren „Antwort zeigen“. Das Spielfeld bleibt in voller Größe, und dein offener Hinweis übersteht eine Pause.
+• Neue geführte Techniken-Kampagne mit Statistiken zur Technik-Beherrschung, damit du siehst, was du wirklich gelernt hast.
+• Mit Hinweis gesetzte Züge sind im Replay markiert, und Verlaufskarten zeigen, wie viele Hinweise du genutzt hast.
+• Hinweise gibt es jetzt auch bei den schwersten Rätseln.
+• Eingaben per externer Tastatur sind auf iPhone und iPad zuverlässiger.
+• Ketten- und Verzweigungslinien auf dem Spielfeld sind besser lesbar.

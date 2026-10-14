@@ -1,5 +1,5 @@
-Hinweise öffnen sich jetzt in vier Schritten: Technik, Schlüsselzellen, Erklärung, dann der Zug. Jeder Schritt kostet ein Viertel eines vollen Hinweises.
-Hinweise steuern direkt die nächste Ziffer an und nennen den genauen Block, die Zeile oder Spalte.
-Fortsetzen und Aufdecken funktionieren auf jeder Hinweisfolie.
-Neue Rätsel entstehen im Hintergrund, schwere Partien starten ohne Einfrieren.
-Store- und Website-Links öffnen die App mit passender Schwierigkeit.
+Hinweise bringen jetzt etwas bei: kompaktes Schrittpanel mit Zurück, Weiter und Antwort zeigen.
+Dein offener Hinweis übersteht eine Pause.
+Neue geführte Techniken-Kampagne mit Statistiken zur Beherrschung.
+Mit Hinweis gesetzte Züge sind im Replay markiert, der Verlauf zeigt die Hinweiszahl.
+Hinweise gibt es auch bei den schwersten Rätseln.
