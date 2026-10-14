@@ -1,4 +1,4 @@
-import { SITE_APP_STORE_URL, SITE_GOOGLE_PLAY_URL, SITE_ORIGIN } from '../../../seo/constants/site.constant';
+import { SITE_APP_STORE_PROVIDER_TOKEN, SITE_APP_STORE_URL, SITE_GOOGLE_PLAY_URL, SITE_ORIGIN } from '../../../seo/constants/site.constant';
 
 import type { StoreBadgeCampaignEnum } from '../../enums/store-badge-campaign.enum';
 
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const StoreBadges = ({ campaign }: Props) => {
-    const appStoreParameters = new URLSearchParams({ ct: campaign });
+    const appStoreParameters = new URLSearchParams({ pt: SITE_APP_STORE_PROVIDER_TOKEN, ct: campaign, mt: '8' });
     const googlePlayReferrer = new URLSearchParams({ utm_source: CAMPAIGN_SOURCE, utm_medium: 'badge', utm_campaign: campaign });
     const googlePlayParameters = new URLSearchParams({ referrer: googlePlayReferrer.toString() });
 
