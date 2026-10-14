@@ -73,12 +73,12 @@ jobs:
 
             - name: Commit Lingui catalog changes
               run: |
-                  if git diff --quiet HEAD -- packages/app/src/i18n/locales; then
+                  if git diff --quiet HEAD -- packages/app/src/i18n/locales packages/landing/src/i18n/locales; then
                     echo "Lingui catalogs are up to date."
                     exit 0
                   fi
 
-                  git add packages/app/src/i18n/locales
+                  git add packages/app/src/i18n/locales packages/landing/src/i18n/locales
                   git commit -m "chore: sync lingui catalogs [skip ci]"
                   git push origin HEAD:main
 
@@ -119,6 +119,9 @@ jobs:
               env:
                   INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
               run: pnpm turbo run build --filter=@suuudokuuu/landing
+
+            - name: Check landing hreflang clusters
+              run: pnpm --filter @suuudokuuu/landing check:hreflang
 
             - name: Pull Vercel project settings
               working-directory: packages/app
