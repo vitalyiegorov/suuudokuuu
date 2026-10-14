@@ -185,7 +185,7 @@ Most of that list is answered automatically by the weekly SEO report below; the 
 
 ## 9. Weekly SEO report
 
-`.github/workflows/seo-report.yml` runs `scripts/seo-report.ts` every Monday at 06:00 UTC, and on `workflow_dispatch`. The script pulls the last 28 days of Search Console data against the prior 28 days, the top 20 queries, the top 20 pages, the sitemap submission status, and the CrUX field Core Web Vitals for the origin. It appends a markdown table to the run summary and commits the raw JSON to `reports/seo/<YYYY-MM-DD>.json` on `main`, so the history is greppable from a checkout instead of living in a dashboard.
+`.github/workflows/seo-report.yml` runs `scripts/seo-report.ts` every Monday at 06:00 UTC, and on `workflow_dispatch`. The script pulls the last 28 days of Search Console data against the prior 28 days, the top 20 queries, the top 20 pages, the sitemap submission status, and the CrUX field Core Web Vitals for the origin. It appends a markdown table to the run summary and commits the raw JSON to `reports/seo/<YYYY-MM-DD>.json` on `main` with the `PUSH_TO_PROTECTED_TOKEN` secret, which the `main` ruleset lets bypass the pull-request rule like the release workflow, so the history is greppable from a checkout instead of living in a dashboard.
 
 Run it locally with `pnpm --filter @suuudokuuu/landing seo:report`. Without the secrets it prints which sections it is skipping, writes nothing and exits `0`, exactly like `submit:indexnow`. With secrets present it prints the same markdown to stdout when `GITHUB_STEP_SUMMARY` is unset.
 
