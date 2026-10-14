@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.29.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.28.3...v2.29.0) (2026-10-14)
+
+### Features
+
+* hints that teach, with a compact panel and useful steps ([#577](https://github.com/vitalyiegorov/suuudokuuu/issues/577)) ([f92796d](https://github.com/vitalyiegorov/suuudokuuu/commit/f92796d414b8700601f59870507a4f41cc7a4c0a)), closes [#572](https://github.com/vitalyiegorov/suuudokuuu/issues/572) [#569](https://github.com/vitalyiegorov/suuudokuuu/issues/569) [#573](https://github.com/vitalyiegorov/suuudokuuu/issues/573) [#570](https://github.com/vitalyiegorov/suuudokuuu/issues/570) [#575](https://github.com/vitalyiegorov/suuudokuuu/issues/575) [#574](https://github.com/vitalyiegorov/suuudokuuu/issues/574) [#568](https://github.com/vitalyiegorov/suuudokuuu/issues/568) [#455](https://github.com/vitalyiegorov/suuudokuuu/issues/455) [#455](https://github.com/vitalyiegorov/suuudokuuu/issues/455) [#576](https://github.com/vitalyiegorov/suuudokuuu/issues/576) [#455](https://github.com/vitalyiegorov/suuudokuuu/issues/455)
+
+
 ## [2.28.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.28.2...v2.28.3) (2026-10-13)
 
 **Note:** Version bump only for package @suuudokuuu/field-dom
