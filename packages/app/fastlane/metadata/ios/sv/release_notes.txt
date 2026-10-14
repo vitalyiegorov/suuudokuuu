@@ -1,8 +1,7 @@
-Ledtrådar som lär ut steg för steg, snabbare nya spel och smidigare spelande med tangentbord.
+Tips som lär ut.
 
-• Ledtrådar öppnas nu i fyra steg: först tekniken och var du ska titta, sedan nyckelcellerna, sedan en guidad genomgång och först därefter själva draget. Varje steg kostar en fjärdedel av en hel ledtråd, så du betalar bara för den hjälp du använder.
-• Ledtrådarna går rakt på nästa siffra du kan placera. Ledtrådar för pekande par, ruta–linje och delmängder nämner nu exakt vilken 3×3-ruta, rad eller kolumn det gäller och vilka celler de rensar.
-• Fortsätt och Avslöja fungerar på varje bild i en ledtråd.
-• Nya pussel skapas i bakgrunden, så att starta även det svåraste spelet fryser inte längre appen.
-• Att spela med externt tangentbord på iPhone och iPad håller inte längre processorn sysselsatt.
-• Länkar från App Store och vår webbplats öppnar appen med en matchande svårighetsgrad redo att starta.
+• Tipsen är nu en kompakt panel steg för steg med Bakåt, Nästa och ett tydligt "Visa svaret". Brädet behåller sin fulla storlek och ditt öppna tips överlever en paus.
+• Drag som gjorts med ett tips märks i repriserna, och historikkorten visar hur många tips du använde.
+• Tips finns nu också på de svåraste pusslen.
+• Externt tangentbord fungerar mer pålitligt på iPhone och iPad.
+• Kedje- och grenlänkar på brädet är lättare att läsa.

@@ -1,5 +1,4 @@
-Hints now open in four steps: technique, key cells, walkthrough, then the move. Each step costs a quarter of a full hint.
-Hints head straight for the next digit and name the exact box, row or column.
-Continue and Reveal work on every hint slide.
-New puzzles are generated in the background, so hard games start without freezing.
-Store and website links open the app with a matching difficulty ready to play.
+Hints now teach: a compact step panel with Back, Next and Show answer.
+Your open hint survives a pause.
+Hint-placed moves are badged in the replay, and history shows hint counts.
+Hints are on for the hardest puzzles too.

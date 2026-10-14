@@ -1,5 +1,4 @@
-Petunjuk kini terbuka dalam empat langkah: teknik, sel kunci, penjelasan, lalu langkahnya. Tiap langkah berharga seperempat petunjuk penuh.
-Petunjuk langsung menuju angka berikutnya dan menyebut kotak, baris, atau kolom yang tepat.
-Lanjutkan dan Ungkap berfungsi di setiap slide petunjuk.
-Teka-teki baru dibuat di latar belakang, game sulit mulai tanpa macet.
-Tautan toko dan situs membuka aplikasi dengan tingkat kesulitan yang sesuai.
+Petunjuk yang mengajar: panel ringkas dengan Kembali, Berikutnya, dan Tampilkan jawaban.
+Petunjuk yang terbuka tetap ada saat dijeda.
+Langkah dengan petunjuk diberi lencana di tayangan ulang, riwayat menampilkan jumlahnya.
+Petunjuk juga aktif untuk teka-teki tersulit.

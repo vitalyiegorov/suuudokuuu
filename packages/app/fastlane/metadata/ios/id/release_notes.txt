@@ -1,8 +1,7 @@
-Petunjuk yang mengajar selangkah demi selangkah, game baru lebih cepat, dan bermain dengan keyboard lebih mulus.
+Petunjuk yang mengajar.
 
-• Petunjuk sekarang terbuka dalam empat langkah: pertama teknik dan ke mana harus melihat, lalu sel kunci, lalu penjelasan terpandu, dan baru terakhir langkahnya sendiri. Setiap langkah berharga seperempat petunjuk penuh, jadi kamu hanya membayar bantuan yang kamu pakai.
-• Petunjuk langsung menuju angka berikutnya yang bisa kamu tempatkan. Petunjuk pointing, kotak-garis, dan subset kini menyebutkan kotak, baris, atau kolom yang tepat beserta sel yang dibersihkannya.
-• Lanjutkan dan Ungkap berfungsi di setiap slide petunjuk.
-• Teka-teki baru dibuat di latar belakang, jadi memulai game tersulit pun tidak lagi membuat aplikasi macet.
-• Bermain dengan keyboard fisik di iPhone dan iPad tidak lagi membuat prosesor terus sibuk.
-• Tautan dari App Store dan situs web kami membuka aplikasi dengan tingkat kesulitan yang sesuai, siap dimulai.
+• Petunjuk kini berupa panel ringkas langkah demi langkah dengan Kembali, Berikutnya, dan "Tampilkan jawaban" yang jelas. Papan tetap berukuran penuh, dan petunjuk yang terbuka tetap ada saat kamu menjeda.
+• Langkah yang dibuat dengan petunjuk diberi lencana di tayangan ulang, dan kartu riwayat menampilkan jumlah petunjuk yang kamu pakai.
+• Petunjuk kini juga aktif untuk teka-teki tersulit.
+• Keyboard fisik lebih andal di iPhone dan iPad.
+• Tautan rantai dan cabang di papan lebih mudah dibaca.

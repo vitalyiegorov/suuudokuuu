@@ -1,5 +1,4 @@
-Les indices s'ouvrent en quatre étapes : technique, cases clés, démonstration, puis le coup. Chaque étape coûte un quart d'indice.
-Les indices vont droit au prochain chiffre et nomment le bloc, la ligne ou la colonne exacts.
-Continuer et Révéler fonctionnent sur chaque diapositive.
-Les grilles sont générées en arrière-plan : les parties difficiles démarrent sans figer.
-Les liens du store et du site ouvrent l'app avec la difficulté prête à jouer.
+Les indices enseignent : panneau compact avec Retour, Suivant et Afficher la réponse.
+Votre indice ouvert survit à une pause.
+Les coups avec indice sont signalés dans le replay, l'historique compte les indices.
+Indices aussi actifs sur les grilles les plus difficiles.

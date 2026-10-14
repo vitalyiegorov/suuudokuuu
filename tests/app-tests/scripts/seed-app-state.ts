@@ -149,12 +149,6 @@ const buildPersistRootValue = (options: SeedOptions): string => {
         throw new Error(`Unsupported language "${options.language}". Supported: ${supportedLanguages.join(', ')}`);
     }
 
-    const settings = {
-        ...fixture.settings,
-        isDarkColorSchema: options.appearance === 'dark',
-        language: options.language,
-        lastGameDifficulty: options.difficulty
-    };
     const requestedSceneState = options.sceneState ?? '';
     const hasSceneState = requestedSceneState.length > 0;
 
@@ -162,7 +156,15 @@ const buildPersistRootValue = (options: SeedOptions): string => {
         throw new Error(`Unknown scene state "${requestedSceneState}". Known: ${Object.keys(fixture.sceneStates).join(', ')}`);
     }
 
-    const game = { ...fixture.game, ...(hasSceneState && fixture.sceneStates[requestedSceneState]) };
+    const { settingsOverrides, ...sceneGame } = hasSceneState ? fixture.sceneStates[requestedSceneState] : {};
+    const game = { ...fixture.game, ...sceneGame };
+    const settings = {
+        ...fixture.settings,
+        ...(isRecord(settingsOverrides) && settingsOverrides),
+        isDarkColorSchema: options.appearance === 'dark',
+        language: options.language,
+        lastGameDifficulty: options.difficulty
+    };
 
     reanchorChallengeWallClockStart(game);
 

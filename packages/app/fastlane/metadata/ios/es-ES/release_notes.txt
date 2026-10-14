@@ -1,8 +1,7 @@
-Sugerencias que enseñan paso a paso, partidas nuevas más rápidas y un juego con teclado más fluido.
+Pistas que enseñan.
 
-• Las sugerencias ahora se abren en cuatro pasos: primero la técnica y dónde mirar, luego las celdas clave, después un recorrido guiado y, solo al final, la jugada. Cada paso cuesta una cuarta parte de una sugerencia completa, así que solo pagas la ayuda que usas.
-• Las sugerencias van directas al siguiente dígito que puedes colocar. Las de pares apuntadores, región-línea y subconjuntos ahora indican la región, fila o columna exacta y las celdas que despejan.
-• Continuar y Revelar funcionan en todas las diapositivas de una sugerencia.
-• Los puzles nuevos se generan en segundo plano, así que empezar incluso la partida más difícil ya no congela la aplicación.
-• Jugar con un teclado físico en iPhone y iPad ya no mantiene el procesador ocupado.
-• Los enlaces de la App Store y de nuestra web abren la aplicación con una dificultad adecuada lista para empezar.
+• Las pistas son ahora un panel compacto paso a paso con Atrás, Siguiente y un claro «Mostrar respuesta». El tablero mantiene su tamaño completo y tu pista abierta sobrevive a una pausa.
+• Las jugadas hechas con una pista llevan una insignia en la repetición, y las tarjetas del historial muestran cuántas pistas usaste.
+• Las pistas también están activadas en los puzles más difíciles.
+• El teclado físico funciona con más fiabilidad en iPhone y iPad.
+• Los enlaces de cadenas y ramas del tablero se leen mejor.

@@ -40,8 +40,8 @@
             ]
         },
         "tests/app-tests": {
-            "entry": ["scripts/ci-seed-scene.ts"]
+            "entry": ["scripts/ci-seed-scene.ts", "scripts/compose-app-preview.ts"]
         }
     },
-    "ignoreBinaries": ["adb", "convert", "sips", "maestro"]
+    "ignoreBinaries": ["adb", "convert", "ffmpeg", "sips", "maestro"]
 }

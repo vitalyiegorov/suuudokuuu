@@ -1,8 +1,7 @@
-Dicas que ensinam passo a passo, jogos novos mais rápidos e jogo com teclado mais fluido.
+Dicas que ensinam.
 
-• As dicas agora abrem em quatro passos: primeiro a técnica e onde olhar, depois as células-chave, em seguida um passo a passo guiado e só então a jogada. Cada passo custa um quarto de uma dica completa, então você paga só pela ajuda que usa.
-• As dicas vão direto ao próximo dígito que você pode colocar. As dicas de apontamento, região-linha e subconjuntos agora indicam a região, linha ou coluna exata e as células que elas liberam.
-• Continuar e Revelar funcionam em todos os slides de uma dica.
-• Os novos quebra-cabeças são gerados em segundo plano, então iniciar até o jogo mais difícil não congela mais o app.
-• Jogar com teclado físico no iPhone e no iPad não deixa mais o processador ocupado.
-• Os links da App Store e do nosso site abrem o app com uma dificuldade correspondente pronta para começar.
+• As dicas agora são um painel compacto passo a passo, com Voltar, Avançar e um claro "Mostrar resposta". O tabuleiro mantém o tamanho total e a dica aberta sobrevive a uma pausa.
+• Jogadas feitas com dica ganham um selo no replay, e os cartões do histórico mostram quantas dicas você usou.
+• As dicas agora também estão ativas nos quebra-cabeças mais difíceis.
+• O teclado físico ficou mais confiável no iPhone e no iPad.
+• Os links de cadeias e ramificações no tabuleiro ficaram mais fáceis de ler.
