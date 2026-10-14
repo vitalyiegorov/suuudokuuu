@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.30.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.29.0...v2.30.0) (2026-10-14)
+
+### Features
+
+* **app:** record and badge hint-applied moves, hints on by default ([#579](https://github.com/vitalyiegorov/suuudokuuu/issues/579)) ([26eb8d3](https://github.com/vitalyiegorov/suuudokuuu/commit/26eb8d3026b8f5140b1f15f3a17f3f145cdc0a4e))
+
+
 # [2.29.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.28.3...v2.29.0) (2026-10-14)
 
 ### Features
