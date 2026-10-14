@@ -1,3 +1,4 @@
+import type { TranslatedLocaleType } from '../types/locale.type';
 import type { SitemapChangeFrequencyType } from '../types/sitemap-change-frequency.type';
 
 export interface PageMetadataInterface {
@@ -10,4 +11,7 @@ export interface PageMetadataInterface {
     readonly updatedAt: string;
     readonly changeFrequency: SitemapChangeFrequencyType;
     readonly priority: number;
+    readonly translations?: Readonly<
+        Partial<Record<TranslatedLocaleType, Required<Pick<PageMetadataInterface, 'title' | 'headline' | 'metaTitle' | 'metaDescription'>>>>
+    >;
 }

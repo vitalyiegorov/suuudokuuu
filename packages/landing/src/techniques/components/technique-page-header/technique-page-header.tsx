@@ -1,5 +1,5 @@
-import { homePageMetadata } from '../../../app/metadata';
-import { techniquesPageMetadata } from '../../../app/techniques/metadata';
+import { homePageMetadata } from '../../../app/(en)/metadata';
+import { techniquesPageMetadata } from '../../../app/(en)/techniques/metadata';
 import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { PageHeader } from '../../../seo/components/page-header/page-header';

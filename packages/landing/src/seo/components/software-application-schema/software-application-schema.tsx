@@ -1,6 +1,5 @@
 import { SCHEMA_CONTEXT } from '../../constants/schema.constant';
 import {
-    DEFAULT_LOCALE,
     SITE_APP_STORE_URL,
     SITE_GITHUB_URL,
     SITE_GOOGLE_PLAY_URL,
@@ -14,6 +13,7 @@ import { findSlots } from '../../utils/find-slots.util';
 import { JsonLd } from '../json-ld/json-ld';
 import { SoftwareApplicationFeature } from '../software-application-feature/software-application-feature';
 
+import type { LocaleType } from '../../types/locale.type';
 import type { ReactNode } from 'react';
 
 const APPLICATION_CATEGORY = 'GameApplication';
@@ -23,13 +23,14 @@ const OPERATING_SYSTEMS = 'iOS, Android, Web';
 const STORE_URLS = [SITE_APP_STORE_URL, SITE_GOOGLE_PLAY_URL];
 
 interface Props {
+    locale: LocaleType;
     path: string;
     name: string;
     description: string;
     children: ReactNode;
 }
 
-export const SoftwareApplicationSchema = ({ children, description, name, path }: Props) => {
+export const SoftwareApplicationSchema = ({ children, description, locale, name, path }: Props) => {
     const featureElements = findSlots(children, SoftwareApplicationFeature);
     const featureList = featureElements.map(featureElement => extractNodeText(featureElement.props.children));
 
@@ -38,7 +39,7 @@ export const SoftwareApplicationSchema = ({ children, description, name, path }:
         '@type': 'SoftwareApplication',
         name,
         description,
-        url: buildLocaleUrl(DEFAULT_LOCALE, path),
+        url: buildLocaleUrl(locale, path),
         applicationCategory: APPLICATION_CATEGORY,
         operatingSystem: OPERATING_SYSTEMS,
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },

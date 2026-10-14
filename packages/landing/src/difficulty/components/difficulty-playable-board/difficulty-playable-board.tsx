@@ -1,5 +1,6 @@
 'use client';
 
+import { useLingui } from '@lingui/react/macro';
 import { track } from '@vercel/analytics';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
@@ -19,8 +20,9 @@ interface Props {
 }
 
 export const DifficultyPlayableBoard = ({ children, difficulty, puzzle, solution }: Props) => {
+    const { t } = useLingui();
     const [isLive, setIsLive] = useState(false);
-    const playLabel = isLive ? 'Loading the board…' : 'Play this puzzle here';
+    const playLabel = isLive ? t`Loading the board…` : t`Play this puzzle here`;
 
     const handlePlay = () => {
         track('board_opened', { difficulty });

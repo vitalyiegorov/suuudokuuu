@@ -486,6 +486,12 @@ importers:
 
   packages/landing:
     dependencies:
+      '@lingui/core':
+        specifier: 6.9.0
+        version: 6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)
+      '@lingui/react':
+        specifier: 6.9.0
+        version: 6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)(react@19.3.0)
       '@rnw-community/shared':
         specifier: ^2.15.0
         version: 2.15.0
@@ -535,6 +541,12 @@ importers:
       '@expo-google-fonts/inter':
         specifier: ^0.4.2
         version: 0.4.2
+      '@lingui/format-po':
+        specifier: 6.9.0
+        version: 6.9.0
+      '@lingui/swc-plugin':
+        specifier: 6.7.1
+        version: 6.7.1(@lingui/core@6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0))
       '@suuudokuuu/hell-corpus':
         specifier: workspace:*
         version: link:../hell-corpus
@@ -2402,6 +2414,11 @@ packages:
     peerDependenciesMeta:
       babel-plugin-macros:
         optional: true
+
+  '@lingui/swc-plugin@6.7.1':
+    resolution: {integrity: sha512-AgfQCypr6VhWCoJTO033j+8LqcPHAYuV5YYoqLQgRZDVB5kjpBqun8WdrRLMkprag0g2lnCUd51KWU7yZywC8w==}
+    peerDependencies:
+      '@lingui/core': 5 || 6
 
   '@messageformat/date-skeleton@1.1.0':
     resolution: {integrity: sha512-rmGAfB1tIPER+gh3p/RgA+PVeRE/gxuQ2w4snFWPF5xtb5mbWR7Cbw7wCOftcUypbD6HVoxrVdyyghPm3WzP5A==}
@@ -10027,6 +10044,11 @@ snapshots:
       babel-plugin-macros: 3.1.0
     transitivePeerDependencies:
       - '@babel/core'
+
+  '@lingui/swc-plugin@6.7.1(@lingui/core@6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0))':
+    dependencies:
+      '@lingui/conf': 6.9.0
+      '@lingui/core': 6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)
 
   '@messageformat/date-skeleton@1.1.0': {}
 

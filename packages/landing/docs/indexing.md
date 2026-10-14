@@ -38,7 +38,7 @@ These come from `docs/seo-pages.md` §4 and from a production indexing incident 
 
 ### 3.1 Submitted URLs come from the sitemap function, never from a content registry
 
-`src/indexing/utils/build-indexable-pages.util.ts` is the single enumeration of every indexable URL. `src/app/sitemap.ts` maps over it to produce `sitemap.xml`. `buildLlmsTxt` groups it into `llms.txt`. `scripts/submit-indexnow.ts` submits it.
+`src/indexing/utils/build-indexable-pages.util.ts` is the single enumeration of every indexable URL. It carries one entry per page per published locale, with the localized title and description. `src/app/sitemap.ts` maps over it to produce `sitemap.xml`, with each entry's hreflang alternates as `xhtml:link` elements, and `check:hreflang` proves those alternates match the exported pages. `buildLlmsTxt` groups it into `llms.txt`. `scripts/submit-indexnow.ts` submits it.
 
 Nothing else may walk `PAGE_METADATA_REGISTRY` to build a URL list. Two enumerations look equivalent until one grows a filter, a locale or a conditional entry the other lacks; from that moment the submitted set silently stops matching the crawlable set, and on a multi-host build it submits URLs that do not belong to the host being submitted for, which corrupts ownership signals in the search consoles.
 

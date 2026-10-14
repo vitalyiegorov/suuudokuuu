@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { homePageMetadata } from '@suuudokuuu/landing/src/app/metadata';
+import { homePageMetadata } from '@suuudokuuu/landing/src/app/(en)/metadata';
 import { SITE_ORIGIN } from '@suuudokuuu/landing/src/seo/constants/site.constant';
 import { resolvePageHeadline } from '@suuudokuuu/landing/src/seo/utils/resolve-page-headline.util';
 

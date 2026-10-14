@@ -10,13 +10,19 @@
         "generate:og-images": "tsx scripts/generate-og-images.ts",
         "generate:printables": "tsx scripts/generate-printables.ts",
         "generate:rating-sample": "tsx scripts/generate-rating-sample.ts",
+        "check:hreflang": "tsx scripts/check-hreflang.ts",
         "check:tier-reports": "tsx scripts/check-tier-reports.ts",
+        "i18n:compile": "lingui compile --strict --typescript",
+        "i18n:extract": "lingui extract --overwrite --clean",
+        "i18n:sync": "pnpm i18n:extract && pnpm i18n:compile",
         "seo:report": "tsx scripts/seo-report.ts",
         "start": "pnpm generate:printables && pnpm generate:og-images && pnpm generate:indexing && next dev",
         "submit:indexnow": "tsx scripts/submit-indexnow.ts",
         "ts": "tsc -p ."
     },
     "dependencies": {
+        "@lingui/core": "6.9.0",
+        "@lingui/react": "6.9.0",
         "@rnw-community/shared": "^2.15.0",
         "@suuudokuuu/field-core": "workspace:*",
         "@suuudokuuu/field-dom": "workspace:*",
@@ -35,6 +41,8 @@
     },
     "devDependencies": {
         "@expo-google-fonts/inter": "^0.4.2",
+        "@lingui/format-po": "6.9.0",
+        "@lingui/swc-plugin": "6.7.1",
         "@suuudokuuu/hell-corpus": "workspace:*",
         "@types/react": "~19.3.0",
         "@types/react-dom": "~19.3.0",

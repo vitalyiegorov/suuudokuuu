@@ -13,18 +13,18 @@ The site is a fully static Next.js App Router export (`output: 'export'`). Every
 A content page is always the same five parts. Nothing else is a page.
 
 ```text
-src/app/<route>/
+src/app/(en)/<route>/
   metadata.ts   the sidecar: path, titles, dates, changeFrequency, priority
   page.tsx      the route: metadata export, JSON-LD, breadcrumbs, all body copy
 ```
 
-1. **Route file** — `src/app/<route>/page.tsx`, one per URL, exporting `metadata` and a default component.
-2. **Metadata sidecar** — `src/app/<route>/metadata.ts`, one exported `PageMetadataInterface` object.
+1. **Route file** — `src/app/(en)/<route>/page.tsx`, one per URL, exporting `metadata` and a default component.
+2. **Metadata sidecar** — `src/app/(en)/<route>/metadata.ts`, one exported `PageMetadataInterface` object.
 3. **Registry entry** — the sidecar is imported into `src/seo/registries/page-metadata.registry.ts` so `sitemap.ts` sees it.
 4. **Page header** — `PageHeader metadata=` with `BreadcrumbListItem` children, which emits the visible trail and the `BreadcrumbList` JSON-LD from those children, plus the `<h1>` and the visible updated date from the sidecar. Article routes render `ArticleSchema` explicitly; home and collection hubs omit it.
 5. **Schema and cross-links** — the compound schema primitives the page needs, plus in-prose `<Link>`s to sibling pages, always resolved through the neighbour’s sidecar (`href={xWingPageMetadata.path}`), never through a hardcoded string.
 
-`src/app/techniques/x-wing/page.tsx` is the reference technique page, `src/app/sudoku/hard/page.tsx` the reference difficulty lander, `src/app/printable/hard/page.tsx` the reference article-schema page, and `src/app/solver/page.tsx` the reference tool page.
+`src/app/(en)/techniques/x-wing/page.tsx` is the reference technique page, `src/app/(en)/sudoku/hard/page.tsx` the reference difficulty lander, `src/app/(en)/printable/hard/page.tsx` the reference article-schema page, `src/app/(en)/solver/page.tsx` the reference tool page, and `src/app/[locale]/page.tsx` with `src/home/components/home-page/home-page.tsx` the reference localized page.
 
 ---
 
@@ -32,7 +32,7 @@ src/app/<route>/
 
 ### 2.1 One static route file per SEO page
 
-Every page lives at its own `src/app/<route>/page.tsx`. Never collapse content pages into a dynamic `src/app/[slug]/page.tsx`, and never generate a family of pages from a slug-keyed content map. Adding a page means adding a folder; deleting a page means deleting that folder.
+Every page lives at its own `src/app/(en)/<route>/page.tsx`; a localized page adds `src/app/[locale]/<route>/page.tsx`. Never collapse content pages into a dynamic `src/app/[slug]/page.tsx`, and never generate a family of pages from a slug-keyed content map. Adding a page means adding a folder; deleting a page means deleting that folder.
 
 The reason is not aesthetic. A dynamic route makes the content invisible to `grep`, hides which URLs actually exist behind a `generateStaticParams` array, and pushes per-page copy into a registry — which then has to grow a shape wide enough for every page in the family, and every page pays for every other page’s fields.
 
@@ -211,7 +211,7 @@ Check this table before writing a new component. Most concerns already have one.
 | Concern                                  | Primitive or utility                                                                | Shape                                                                                                          |
 | ---------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
 | Page metadata object                     | `buildPageMetadata(pageMetadata)` — `src/seo/utils/build-page-metadata.util.ts`     | takes a `PageMetadataInterface`; returns title, description, alternates, Open Graph, Twitter, and date tags    |
-| Canonical plus hreflang                  | `buildAlternates(path)`, `buildLanguageAlternates(path)`                            | called inside `buildPageMetadata`; call directly only outside a page                                           |
+| Canonical plus hreflang                  | `buildAlternates(metadata, locale)`, `buildLanguageAlternates(metadata)`            | called inside `buildPageMetadata`; call directly only outside a page                                           |
 | Absolute URL for a path                  | `buildLocaleUrl(locale, path)`                                                      | the only way to build a site URL; never concatenate `SITE_ORIGIN` by hand                                      |
 | Any JSON-LD payload                      | `JsonLd data=`                                                                      | escapes angle brackets; every schema primitive renders through it                                              |
 | FAQ, schema and visible together         | `FaqPage` + `FaqHeading` + `Faq` → `FaqQuestion` / `FaqAnswer`                      | emits `FAQPage` JSON-LD and an `<h2>` plus a `<details>` accordion from one set of children                    |
@@ -273,7 +273,7 @@ Any metadata route whose output depends on the request host or locale must opt o
 
 A time-based `revalidate` on a host-dependent `sitemap.ts` or `robots.ts` lets the platform serve one host’s cached output for another host. The observed symptom was every domain reporting an identical indexed page count after sitemap submission, which is exactly what a shared cache entry looks like. Identical counts alone are not proof — verify by comparing response bodies and hashes per host, not counts.
 
-This landing package is single-host and fully static today, so both metadata routes correctly export `dynamic = 'force-static'`. The rule matters the moment a locale segment, a white-label host, or a preview domain is introduced: the choice is `force-static` for genuinely host-independent output or `force-dynamic` for host-dependent output. Time-based revalidation is never the right answer for a metadata route.
+This landing package is single-host and fully static today, so both metadata routes correctly export `dynamic = 'force-static'`. The `[locale]` segment does not change that: locales are resolved at build time, and the one sitemap lists every locale's URLs. The rule matters the moment a locale segment, a white-label host, or a preview domain is introduced: the choice is `force-static` for genuinely host-independent output or `force-dynamic` for host-dependent output. Time-based revalidation is never the right answer for a metadata route.
 
 ### 4.3 Verification key files must be served as exact plaintext
 
@@ -291,8 +291,8 @@ Treat a rejected submission as a configuration question, not a retry loop: reche
 
 ## 5. Adding a new content page
 
-1. Create `src/app/<route>/metadata.ts` with a `PageMetadataInterface` object: `path`, a short `title`, the `<h1>` text as `headline`, a keyword-first `metaTitle`, a `metaDescription` that reads as a sentence, `publishedAt`, `updatedAt`, `changeFrequency`, `priority`.
-2. Create `src/app/<route>/page.tsx` and export `const metadata: Metadata = buildPageMetadata(<page>Metadata);`.
+1. Create `src/app/(en)/<route>/metadata.ts` with a `PageMetadataInterface` object: `path`, a short `title`, the `<h1>` text as `headline`, a keyword-first `metaTitle`, a `metaDescription` that reads as a sentence, `publishedAt`, `updatedAt`, `changeFrequency`, `priority`.
+2. Create `src/app/(en)/<route>/page.tsx` and export `const metadata: Metadata = buildPageMetadata(<page>Metadata);`.
 3. Register the sidecar in `src/seo/registries/page-metadata.registry.ts`, placed in the reading order of the site, not alphabetically.
 4. Open with `PageHeader metadata=` and `BreadcrumbListItem` children — it renders the trail, the `<h1>` and the visible updated date — then a definition-first opening paragraph that answers the query in the first sentence. The home route alone renders a plain `<h1>` through `resolvePageHeadline`.
 5. Write the body copy inline. Reach for the concern → primitive table before writing any new component.

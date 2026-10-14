@@ -22,13 +22,13 @@
         },
         "packages/landing": {
             "entry": [
-                "src/app/**/{page,layout,template,default,error,not-found,loading,route,sitemap,robots,manifest,metadata}.{ts,tsx}!",
+                "src/app/**/{page,layout,template,default,error,not-found,global-not-found,loading,route,sitemap,robots,manifest,metadata}.{ts,tsx}!",
                 "src/seo/components/**/*.tsx!",
                 "src/seo/utils/*.util.ts!",
                 "scripts/*.ts!"
             ],
             "project": ["src/**/*.{ts,tsx}", "scripts/**/*.ts"],
-            "ignoreDependencies": ["@expo-google-fonts/inter"]
+            "ignoreDependencies": ["@expo-google-fonts/inter", "@lingui/swc-plugin"]
         },
         "packages/app": {
             "entry": [

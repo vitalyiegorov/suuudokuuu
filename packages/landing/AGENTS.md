@@ -17,6 +17,8 @@ pnpm --filter @suuudokuuu/landing ts
 pnpm --filter @suuudokuuu/landing lint
 pnpm --filter @suuudokuuu/landing generate:rating-sample      # re-forge the committed guide sample, changes every published number
 pnpm --filter @suuudokuuu/landing check:tier-reports           # ~65 s, fails when the committed reports drift from the sample
+pnpm --filter @suuudokuuu/landing check:hreflang               # after build: every hreflang cluster in out/ is reciprocal and matches sitemap.xml
+pnpm --filter @suuudokuuu/landing i18n:sync                    # extract and strictly compile the Lingui catalogs
 pnpm --filter @suuudokuuu/landing submit:indexnow --dry-run   # print the sitemap-derived URL list
 pnpm --filter @suuudokuuu/landing submit:indexnow             # needs INDEXNOW_KEY, run after deploy
 pnpm --filter @suuudokuuu/landing seo:report                  # needs GCP_SA_KEY and CRUX_API_KEY, run weekly by CI
@@ -34,16 +36,19 @@ src/
 │   └── utils/               # buildMicrosoftClarityScript, the cookieless consentv2 snippet
 ├── app/                     # App Router routes and native metadata routes
 │   ├── global.css           # system font stack and every visible class, no next/font network fetches
-│   ├── layout.tsx           # root layout, site chrome, metadataBase, viewport
+│   ├── global-not-found.tsx # the 404 document, needed because the site has two root layouts
 │   ├── manifest.ts          # /manifest.webmanifest
-│   ├── metadata.ts          # home page metadata sidecar
-│   ├── page.tsx             # placeholder home page
 │   ├── robots.ts            # /robots.txt
 │   ├── sitemap.ts           # /sitemap.xml, built from buildIndexablePages()
-│   ├── guides/              # long-form guide articles built on generated solve data
-│   └── techniques/          # /techniques hub plus one folder per technique page
+│   ├── (en)/                # English root layout and every English route, served from the site root
+│   │   ├── layout.tsx       # <SiteDocument locale="en">, metadataBase, viewport
+│   │   ├── metadata.ts      # home page metadata sidecar, including its translations
+│   │   ├── page.tsx         # English home route
+│   │   ├── guides/          # long-form guide articles built on generated solve data
+│   │   └── techniques/      # /techniques hub plus one folder per technique page
+│   └── [locale]/            # localized root layout and the localized routes, served from /<locale>
 ├── chrome/
-│   ├── components/          # site header, site footer, and the comfort-control text-size stepper
+│   ├── components/          # site document, header, footer, language switcher, and the comfort-control text-size stepper
 │   ├── constants/           # comfort-scale steps, storage key, CSS custom property name
 │   ├── interfaces/          # comfort-scale step view model
 │   └── utils/               # buildComfortScaleInitScript, the pre-hydration scale script
@@ -52,6 +57,12 @@ src/
 │   ├── constants/           # difficulty display names, ladder order, difficulty page paths, Infinity corpus facts
 │   ├── types/               # RatedDifficultyType, the tiers the rated sample covers
 │   └── utils/               # clue count per difficulty, derived from DIFFICULTY_BANDS, and the tier deep link into /play
+├── home/
+│   └── components/          # the home page body, rendered by the English and the localized home routes
+├── i18n/
+│   ├── components/          # LocaleProvider, the client-island Lingui provider
+│   ├── locales/             # Lingui catalogs: messages.po plus the compiled messages.ts per locale
+│   └── utils/               # activateLocale, the server-side Lingui activation
 ├── indexing/
 │   ├── constants/           # IndexNow env-var name, endpoint and key pattern, llms.txt section names
 │   ├── interfaces/          # the indexable page view model
@@ -83,7 +94,7 @@ There are no CSS modules. `noPropertyAccessFromIndexSignature` forces `styles['x
 
 The site carries cookieless, anonymous analytics; the game carries none, and the published copy says exactly that. Do not widen either claim without changing the other.
 
-`src/app/layout.tsx` renders `<Analytics />` only when `VERCEL` is `1`, `<SpeedInsights />` only when `VERCEL_ENV` is `production`, and `<MicrosoftClarity />` only when `VERCEL_ENV` is `production` and `NEXT_PUBLIC_CLARITY_PROJECT_ID` is set. Those variables exist only during a Vercel build, so a local, fork or CI export contains no analytics markup at all — grep `out/index.html` for `clarity` or `vercel` to prove it. Clarity is an inline `next/script` snippet from `buildMicrosoftClarityScript`, which denies both `ad_Storage` and `analytics_Storage` through `consentv2`, so it never sets a cookie. There is no consent banner because nothing is stored.
+`SiteDocument` (`src/chrome/components/site-document/site-document.tsx`), rendered by both root layouts, renders `<Analytics />` only when `VERCEL` is `1`, `<SpeedInsights />` only when `VERCEL_ENV` is `production`, and `<MicrosoftClarity />` only when `VERCEL_ENV` is `production` and `NEXT_PUBLIC_CLARITY_PROJECT_ID` is set. Those variables exist only during a Vercel build, so a local, fork or CI export contains no analytics markup at all — grep `out/index.html` for `clarity` or `vercel` to prove it. Clarity is an inline `next/script` snippet from `buildMicrosoftClarityScript`, which denies both `ad_Storage` and `analytics_Storage` through `consentv2`, so it never sets a cookie. There is no consent banner because nothing is stored.
 
 Funnel events go through `track()` from `@vercel/analytics`, called from client islands that already exist: `island_opened` and `walkthrough_started` from the technique board island, `solver_used` from the solver workbench, `board_opened` from the difficulty board island, `comfort_scale_set` from the comfort control. Never add a `'use client'` boundary just to fire an event, and never send anything a reader typed — the technique name, the difficulty tier, the solver outcome kind and the comfort step id are the whole payload vocabulary.
 
@@ -97,11 +108,11 @@ Funnel events go through `track()` from `@vercel/analytics`, called from client 
 
 ### 1. One static route file per SEO page
 
-Every SEO page lives at its own `src/app/<route>/page.tsx`. Never collapse content pages into a dynamic `src/app/[slug]/page.tsx`. Adding a page means adding a route folder; deleting a page means deleting that folder. `sitemap.ts` and future listing pages are the only legitimate enumeration endpoints.
+Every SEO page lives at its own `src/app/(en)/<route>/page.tsx`. Never collapse content pages into a dynamic `src/app/[slug]/page.tsx`. The `[locale]` segment is the one dynamic segment: it only selects the language of a route that also exists in English, see Localization below. Adding a page means adding a route folder; deleting a page means deleting that folder. `sitemap.ts` and future listing pages are the only legitimate enumeration endpoints.
 
 ### 2. Copy stays in the page file
 
-Per-page visible copy — section headings, prose, bullets, FAQ questions and answers, CTA text, legal text — is written inline as JSX in the route `page.tsx`. A reader must be able to grep a visible sentence and land on the route that renders it.
+Per-page visible copy — section headings, prose, bullets, FAQ questions and answers, CTA text, legal text — is written inline as JSX in the route `page.tsx`. A reader must be able to grep a visible sentence and land on the route that renders it. A localized page is the exception: its copy is written once with `<Trans>` in a page component under `src/<domain>/components/<page>`, which both the English and the `[locale]` route render, so the grep lands on that component.
 
 The `<h1>` is the one exception: it lives in the sidecar as `headline` and is rendered by `PageHeader`. On articles it is also the `Article` schema headline. The home route renders a plain `<h1>` using `resolvePageHeadline(homePageMetadata)` so the hero has no updated-date line. Other routes use `PageHeader`.
 
@@ -183,13 +194,25 @@ Do not add `next/font/google`. Offline CI builds must not depend on font downloa
 
 Site name, origin, locales, tagline, description and theme colors live in `src/seo/constants/site.constant.ts`. Do not re-declare the origin or the site name anywhere else. URLs are built with `buildLocaleUrl`, canonical and hreflang with `buildAlternates` / `buildLanguageAlternates`.
 
-### 12. No Lingui yet
+### 12. A localized page is published only when it is fully translated
 
-The landing package is English-only and is deliberately excluded from the Lingui override in the root `.oxlintrc.json`. Plain JSX text is correct here. The locale plumbing (`DEFAULT_LOCALE`, `SUPPORTED_LOCALES`, `buildLocaleUrl`, `x-default` hreflang) is already in place so adding locales is a constants change plus a route segment, not a rewrite. When Lingui is introduced, add `packages/landing/**/*.{ts,tsx}` to the Lingui override in the root `.oxlintrc.json`.
+There is no English fallback under a locale URL. See Localization below.
+
+## Localization
+
+English is served from the site root. Every other locale is served under `/<locale>`, where the segment is the lowercase BCP 47 tag and the hreflang value is the tag itself: `es` is `/es`, `pt-BR` is `/pt-br`. The codes follow the app's thirteen languages: `uk`, `ar`, `bn`, `zh`, `en`, `fr`, `de`, `hi`, `id`, `pt-BR` (the app's `pt` catalog), `es`, `sv` and `ur`.
+
+- `SUPPORTED_LOCALES` in `site.constant.ts` lists only the locales that have a landing catalog. Adding a locale means appending its code there and to `LOCALE_NAMES`, running `i18n:sync`, and translating its `messages.po`.
+- A page is published in a locale when its sidecar has a `translations.<locale>` entry carrying the translated `title`, `headline`, `metaTitle` and `metaDescription`. `getPageLocales` turns that into the page's locale list, which drives `generateStaticParams` in the `[locale]` route, the hreflang alternates, the sitemap, `llms.txt`, IndexNow and the header's `LanguageSwitcher`. Sidecars stay plain strings, because scripts and Playwright specs import them without the Lingui macro transform.
+- Body copy goes through Lingui macros. `lingui compile --strict` (run by `i18n:sync`, so by `pnpm i18n:check` in CI) fails on any untranslated message, and `lingui/no-unlocalized-strings` lints the localized modules listed in the root `.oxlintrc.json`; add a page's component folder there when localizing it. One catalog per locale means every catalog locale translates every macro message; split the catalog per page once two localized pages need different locale sets.
+- `SiteDocument` renders `<html lang dir>`, with `dir="rtl"` for `RIGHT_TO_LEFT_LOCALES` (`ar`, `ur`), and activates the locale for server components through `activateLocale`. A localized page component calls `activateLocale` too, because Next renders layouts and pages independently. `extractNodeText` resolves `<Trans>` children through the active locale, so FAQ and feature JSON-LD stay in the page's language.
+- Client islands read translations from `LocaleProvider`, which receives the locale's whole compiled catalog. That is a few kilobytes today; give client strings their own catalog before localized server copy grows the payload.
+- `pnpm --filter @suuudokuuu/landing check:hreflang` reads `out/` after a build and fails unless every page lists itself and an `x-default` that points to its English URL, every alternate exists in the export and declares the same cluster, and `sitemap.xml` carries exactly the same clusters. The web E2E workflow and the production deploy run it after the landing build.
+- Not localized yet: Open Graph images (a localized page reuses the English image), the technique and solver step narration, and the store badge artwork.
 
 ## Adding a page
 
-1. Create `src/app/<route>/page.tsx` and its sibling `metadata.ts`.
+1. Create `src/app/(en)/<route>/page.tsx` and its sibling `metadata.ts`.
 2. Export `metadata` from the page with `buildPageMetadata(<page>Metadata)`.
 3. Register the sidecar in `src/seo/registries/page-metadata.registry.ts`.
 4. Write the body copy inline in the page.

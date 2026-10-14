@@ -1,11 +1,12 @@
 'use client';
 
 import '@suuudokuuu/field-dom/styles.css';
+import { useLingui } from '@lingui/react/macro';
 import { FieldEngine } from '@suuudokuuu/field-core';
 import { FieldBoard, FieldStepPlayer, getGivenCellKeys } from '@suuudokuuu/field-dom';
 import { useState } from 'react';
 
-import { FIELD_LABELS } from '../../../techniques/constants/field-labels.constant';
+import { buildFieldLabels } from '../../../techniques/utils/build-field-labels.util';
 import { renderTechniqueNarration } from '../../../techniques/utils/render-technique-narration.util';
 
 import type { StepScriptInterface } from '@suuudokuuu/field-core';
@@ -26,13 +27,15 @@ const startEngine = (board: string, difficulty: DifficultyEnum, script: StepScri
 };
 
 export const SolverStepPreview = ({ board, difficulty, script }: Props) => {
+    const { i18n } = useLingui();
+    const fieldLabels = buildFieldLabels(i18n);
     const [engine] = useState(() => startEngine(board, difficulty, script));
     const givenCellKeys = getGivenCellKeys(board);
 
     return (
         <div className="solver-preview">
-            <FieldBoard engine={engine} givenCellKeys={givenCellKeys} labels={FIELD_LABELS.board} />
-            <FieldStepPlayer engine={engine} labels={FIELD_LABELS.stepPlayer} narrationRenderer={renderTechniqueNarration} />
+            <FieldBoard engine={engine} givenCellKeys={givenCellKeys} labels={fieldLabels.board} />
+            <FieldStepPlayer engine={engine} labels={fieldLabels.stepPlayer} narrationRenderer={renderTechniqueNarration} />
         </div>
     );
 };

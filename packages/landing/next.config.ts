@@ -8,8 +8,10 @@ const nextConfig: NextConfig = {
         unoptimized: true
     },
     experimental: {
+        globalNotFound: true,
         memoryBasedWorkersCount: true,
-        preloadEntriesOnStart: false
+        preloadEntriesOnStart: false,
+        swcPlugins: [['@lingui/swc-plugin', {}]]
     }
 };
 
