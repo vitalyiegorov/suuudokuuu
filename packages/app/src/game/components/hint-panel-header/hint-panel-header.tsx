@@ -14,7 +14,6 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { HintPanelSelectors } from '../hint-panel/hint-panel.selectors';
 import { HintPanelStyles as styles } from '../hint-panel/hint-panel.styles';
-import { HintProgress } from '../hint-progress/hint-progress';
 import { HintStepNarrationSelectors } from '../hint-step-narration/hint-step-narration.selectors';
 
 export const HintPanelHeader = () => {
@@ -24,30 +23,22 @@ export const HintPanelHeader = () => {
     const { stepScript, stepIndex, hintLevel } = snapshot;
     const technique = hintLevel === HintLevelEnum.WALKTHROUGH ? stepScript?.steps[stepIndex]?.narration.technique : stepScript?.technique;
 
-    if (!isDefined(technique) || !isDefined(stepScript)) {
+    if (!isDefined(technique)) {
         return null;
     }
 
     const techniqueName = technique === SolutionTechniqueEnum.Guess ? t`Reveal` : i18n._(techniqueLabelsConstant[technique]);
-    const currentStepNumber = stepIndex + 1;
-    const stepCount = stepScript.steps.length;
-    const progressLabel = t`Step ${currentStepNumber} of ${stepCount}`;
     const handleDismiss = () => {
         engine.stopStepScript();
     };
 
     return (
         <View style={styles.header}>
-            <BlackText numberOfLines={1} style={styles.technique} testID={HintStepNarrationSelectors.Technique}>
+            <BlackText numberOfLines={2} style={styles.technique} testID={HintStepNarrationSelectors.Technique}>
                 {techniqueName}
             </BlackText>
-            {hintLevel === HintLevelEnum.WALKTHROUGH ? (
-                <View accessibilityLabel={progressLabel} testID={HintPanelSelectors.Progress}>
-                    <HintProgress stepIndex={stepIndex} stepScript={stepScript} />
-                </View>
-            ) : null}
             <AppIconButton
-                accessibilityLabel={t`Dismiss`}
+                accessibilityLabel={t`Close hint`}
                 onPress={handleDismiss}
                 size="compact"
                 style={styles.dismissButton}

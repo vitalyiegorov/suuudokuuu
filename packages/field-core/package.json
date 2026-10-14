@@ -36,6 +36,7 @@
     "devDependencies": {
         "@effect/vitest": "4.0.0",
         "@suuudokuuu/hell-corpus": "workspace:*",
+        "@suuudokuuu/rating": "workspace:*",
         "@suuudokuuu/solver-core": "workspace:*",
         "@suuudokuuu/test-kit": "workspace:*",
         "@types/react": "~19.3.0",

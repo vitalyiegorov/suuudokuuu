@@ -6,5 +6,6 @@ export interface HypothesisBoardInterface {
     readonly candidateMasks: Uint16Array;
     readonly peerIndexes: readonly (readonly number[])[];
     readonly unitCellIndexes: readonly (readonly number[])[];
+    readonly cellUnitIndexes: readonly (readonly number[])[];
     readonly valueCount: number;
 }

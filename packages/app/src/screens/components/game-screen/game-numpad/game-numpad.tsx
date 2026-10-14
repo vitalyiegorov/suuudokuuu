@@ -1,4 +1,3 @@
-import { useAppLayout } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { View } from 'react-native';
 
@@ -8,6 +7,7 @@ import { AvailableValuesItem } from '../../../../game/components/available-value
 import { CandidateInputItem } from '../../../../game/components/candidate-input-item/candidate-input-item';
 import { DigitButtonExhaustedProgressConstant } from '../../../../game/constant/digit-button-exhausted-progress.constant';
 import { GameNumpadDigitsConstant } from '../../../../game/constant/game-numpad-digits.constant';
+import { HiddenFromAccessibilityPropsConstant } from '../../../../game/constant/hidden-from-accessibility-props.constant';
 import { GameContext } from '../../../../game/context/game.context';
 import { gameGetRemainingDigitCounts } from '../../../../game/utils/game-get-remaining-digit-counts.util';
 import { useSettings } from '../../../../settings/query/use-settings.query';
@@ -25,7 +25,6 @@ interface Props {
 
 export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selectedCell }: Props) => {
     const { engine, snapshot } = use(GameContext);
-    const { sizeClass } = useAppLayout();
     const { keepExhaustedDigits } = useSettings();
 
     const sudoku = engine.Sudoku;
@@ -33,11 +32,15 @@ export const GameNumpad = ({ availableValuesRefsHandler, onSelectValue, selected
     const canPress = sudoku.isBlankCell(selectedCell);
     const numpadDigits = keepExhaustedDigits ? GameNumpadDigitsConstant : sudoku.PossibleValues;
     const remainingDigitCounts = gameGetRemainingDigitCounts(snapshot.field);
-    const isNumpadHidden = isDefined(snapshot.stepScript) && sizeClass !== 'wide';
+    const isNumpadHidden = isDefined(snapshot.stepScript);
     const numpadPointerEvents = isNumpadHidden ? 'none' : 'auto';
 
     return (
-        <View pointerEvents={numpadPointerEvents} style={styles.numpad(isNumpadHidden)}>
+        <View
+            pointerEvents={numpadPointerEvents}
+            style={styles.numpad(isNumpadHidden)}
+            {...(isNumpadHidden && HiddenFromAccessibilityPropsConstant)}
+        >
             {numpadDigits.map(value => {
                 const isExhausted = !sudoku.PossibleValues.includes(value);
                 const valueProgress = isExhausted ? DigitButtonExhaustedProgressConstant : sudoku.getValueProgress(value);

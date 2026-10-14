@@ -36,7 +36,12 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
     const { engine, snapshot } = use(GameContext);
 
     const sudoku = engine.Sudoku;
-    const { explanation } = buildStepScriptState(snapshot.stepScript, snapshot.stepIndex, snapshot.hintLevel);
+    const { explanation, revealedImplicationCount } = buildStepScriptState(
+        snapshot.stepScript,
+        snapshot.stepIndex,
+        snapshot.hintLevel,
+        snapshot.revealedImplicationCount
+    );
 
     const [comboAnimationGenerations, setComboAnimationGenerations] = useState<Record<string, number>>({});
     const [successGenerations, setSuccessGenerations] = useState<Record<string, number>>({});
@@ -92,7 +97,13 @@ export const Field = ({ cellSize, cellMargin, onSelect, ref }: Props) => {
                 </View>
             ))}
             {isWitnessVisible ? (
-                <FieldWitnessOverlay cellMargin={cellMargin} cellSize={cellSize} explanation={explanation} filledCells={filledCells} />
+                <FieldWitnessOverlay
+                    cellMargin={cellMargin}
+                    cellSize={cellSize}
+                    explanation={explanation}
+                    filledCells={filledCells}
+                    revealedImplicationCount={revealedImplicationCount}
+                />
             ) : null}
         </View>
     );

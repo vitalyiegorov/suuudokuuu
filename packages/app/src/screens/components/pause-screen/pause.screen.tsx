@@ -39,6 +39,7 @@ export const PauseScreen = () => {
     const handleResume = useResumeGame();
     const handleShare = useShareGame();
     const handleConfirmedQuit = () => {
+        engine.stopStepScript();
         void runCurrentRunCommand(currentRunService => currentRunService.reset).then(() => void router.dismissTo('/'), emptyFn);
     };
     const handleQuit = () => {

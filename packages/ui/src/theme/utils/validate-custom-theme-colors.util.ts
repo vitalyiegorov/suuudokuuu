@@ -1,8 +1,9 @@
 import { isDefined } from '@rnw-community/shared';
 
+import { compositeColors } from './composite-colors.util';
+import { getContrastRatio } from './get-contrast-ratio.util';
 import { parseColor } from './parse-color.util';
 
-import type { ParsedColorInterface } from '../interface/parsed-color.interface';
 import type { ThemeContrastIssueInterface } from '../interface/theme-contrast-issue.interface';
 import type { ThemeInterface } from '../interface/theme.interface';
 
@@ -140,55 +141,6 @@ const ThemeContrastPairs: readonly ThemeContrastPairInterface[] = [
         minimumRatio: ThemeContrastMinimumRatio
     }
 ];
-
-const MaxColorChannelValue = 255;
-const SrgbLinearizationThreshold = 0.03928;
-const SrgbLinearSlope = 12.92;
-const SrgbGammaOffset = 0.055;
-const SrgbGammaDivisor = 1.055;
-const SrgbGammaExponent = 2.4;
-
-const linearizeSrgbChannel = (channel: number): number => {
-    const normalized = channel / MaxColorChannelValue;
-
-    return normalized <= SrgbLinearizationThreshold
-        ? normalized / SrgbLinearSlope
-        : ((normalized + SrgbGammaOffset) / SrgbGammaDivisor) ** SrgbGammaExponent;
-};
-
-const RedLuminanceCoefficient = 0.2126;
-const GreenLuminanceCoefficient = 0.7152;
-const BlueLuminanceCoefficient = 0.0722;
-
-const getRelativeLuminance = (color: ParsedColorInterface): number =>
-    RedLuminanceCoefficient * linearizeSrgbChannel(color.red) +
-    GreenLuminanceCoefficient * linearizeSrgbChannel(color.green) +
-    BlueLuminanceCoefficient * linearizeSrgbChannel(color.blue);
-
-const getContrastRatio = (foreground: ParsedColorInterface, background: ParsedColorInterface): number => {
-    const foregroundLuminance = getRelativeLuminance(foreground);
-    const backgroundLuminance = getRelativeLuminance(background);
-    const lighter = Math.max(foregroundLuminance, backgroundLuminance);
-    const darker = Math.min(foregroundLuminance, backgroundLuminance);
-
-    return (lighter + 0.05) / (darker + 0.05);
-};
-
-const compositeColors = (foreground: ParsedColorInterface, background: ParsedColorInterface): ParsedColorInterface => {
-    if (foreground.alpha >= 1) {
-        return foreground;
-    }
-
-    const blendChannel = (foregroundChannel: number, backgroundChannel: number) =>
-        foregroundChannel * foreground.alpha + backgroundChannel * (1 - foreground.alpha);
-
-    return {
-        red: blendChannel(foreground.red, background.red),
-        green: blendChannel(foreground.green, background.green),
-        blue: blendChannel(foreground.blue, background.blue),
-        alpha: 1
-    };
-};
 
 const OpaqueWhite = { red: 255, green: 255, blue: 255, alpha: 1 };
 

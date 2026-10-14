@@ -9,12 +9,20 @@ import { techniqueResultToStepScript } from './technique-result-to-step-script.u
 import type { FieldCandidatesType } from '../../field-engine/types/field-candidates.type';
 import type { StepScriptCandidateInterface } from '../interfaces/step-script-candidate.interface';
 import type { StepScriptInterface } from '../interfaces/step-script.interface';
-import type { Sudoku } from '@suuudokuuu/generator';
+import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
 
-export const findRevealStepScript = (sudoku: Sudoku): StepScriptInterface | null => {
+export const findRevealStepScript = (
+    sudoku: Sudoku,
+    eliminatedCandidates: FieldCandidatesType = {},
+    targetCell?: CellInterface
+): StepScriptInterface | null => {
     const blankCells = sudoku.Field.flat().filter(cell => sudoku.isBlankCell(cell));
-    const fewestCandidates = Math.min(...blankCells.map(cell => sudoku.getCellCandidates(cell).length));
-    const revealCell = blankCells.find(cell => sudoku.getCellCandidates(cell).length === fewestCandidates);
+    const getCandidateCount = (cell: CellInterface): number =>
+        sudoku.getCellCandidates(cell).filter(value => !(eliminatedCandidates[getCellKey(cell)] ?? []).includes(value)).length;
+    const fewestCandidates = Math.min(...blankCells.map(getCandidateCount));
+    const revealCell = sudoku.isBlankCell(targetCell)
+        ? sudoku.Field[targetCell.y][targetCell.x]
+        : blankCells.find(cell => getCandidateCount(cell) === fewestCandidates);
 
     return isDefined(revealCell)
         ? techniqueResultToStepScript({
@@ -35,7 +43,7 @@ export const findHintStepScript = (sudoku: Sudoku, eliminatedCandidates: FieldCa
     const chain = findPlacementChain(sudoku, createTechniqueStrategies(), previousEliminations, true);
 
     if (!isNotEmptyArray(chain)) {
-        return findRevealStepScript(sudoku);
+        return findRevealStepScript(sudoku, eliminatedCandidates);
     }
 
     if (chain[chain.length - 1].kind === 'elimination') {

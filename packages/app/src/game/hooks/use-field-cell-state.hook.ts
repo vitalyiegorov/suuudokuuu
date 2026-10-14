@@ -13,7 +13,7 @@ export const useFieldCellState = (cell: CellInterface) => {
 
     const sudoku = engine.Sudoku;
     const { selectedCell } = snapshot;
-    const stepState = buildStepScriptState(snapshot.stepScript, snapshot.stepIndex, snapshot.hintLevel);
+    const stepState = buildStepScriptState(snapshot.stepScript, snapshot.stepIndex, snapshot.hintLevel, snapshot.revealedImplicationCount);
     const isHintActive = isDefined(snapshot.stepScript);
     const cellKey = getCellKey(cell);
     const isEmpty = sudoku.isBlankCell(cell);
@@ -31,7 +31,7 @@ export const useFieldCellState = (cell: CellInterface) => {
         isActiveValue: sudoku.isSameCellValue(cell, selectedCell) && !isHintActive,
         isEmpty,
         isHighlighted: sudoku.isCellHighlighted(cell, selectedCell) && !isHintActive,
-        isPatternCell: stepState.patternCellKeys.has(cellKey),
+        isHintCell: stepState.patternCellKeys.has(cellKey) || stepState.regionCellKeys.has(cellKey),
         isTargetCell: stepState.targetCellKey === cellKey,
         isWrong: sudoku.isCellWrong(cell, selectedCell),
         shouldShowCandidates: isEmpty && candidates.length > 0 && !isDefined(hintValue)

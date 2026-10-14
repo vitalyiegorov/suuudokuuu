@@ -51,7 +51,7 @@ export const FieldCell = (props: Props) => {
 
     const { i18n } = useLingui();
     const { engine } = use(GameContext);
-    const { candidates, isActive, isActiveValue, isEmpty, isHighlighted, isPatternCell, isTargetCell, isWrong } = useFieldCellState(cell);
+    const { candidates, isActive, isActiveValue, isEmpty, isHighlighted, isHintCell, isTargetCell, isWrong } = useFieldCellState(cell);
     const { theme } = use(ThemeContext);
 
     const isMotionReduced = useReduceMotion();
@@ -75,7 +75,7 @@ export const FieldCell = (props: Props) => {
         isActiveValue,
         isCellHighlighted: isHighlighted,
         isEmpty,
-        isPatternCell,
+        isHintCell,
         isTargetCell,
         isWrong,
         showAreas,

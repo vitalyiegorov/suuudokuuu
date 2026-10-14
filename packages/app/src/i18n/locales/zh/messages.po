@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 msgid "‹ Back"
 msgstr "‹ 返回"
 
@@ -100,13 +100,41 @@ msgstr "{score, plural, other {# 分}}"
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, other {连续 # 天}}"
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
+msgstr "{techniqueName}:{cellName} 已看到除一个之外的所有突出显示的数字。"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
 msgstr "{techniqueName}:{valueList} 必须位于基线中，因此覆盖线在标记的单元格中不再包含它。"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName}:一条链连接突出显示的两端，因此 {firstEnd} 或 {lastEnd} 必定成立。"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
 msgstr "{techniqueName}:某个钳形单元格必定是 {valueList}，因此同时看到两个钳形单元格的标记单元格不可能是 {valueList}。"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
+msgstr "{techniqueName}:假设 {cellName} 是 {value}，然后推演它迫使出的结果。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: box {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}:宫 {regionNumber} 只剩一个空格，{value} 应填在那里。"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: box {regionNumber} has one empty cell left."
+msgstr "{techniqueName}:宫 {regionNumber} 只剩一个空格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: column {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}:第 {regionNumber} 列只剩一个空格，{value} 应填在那里。"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: column {regionNumber} has one empty cell left."
+msgstr "{techniqueName}:第 {regionNumber} 列只剩一个空格。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
@@ -129,56 +157,68 @@ msgid "{techniqueName}: from the highlighted cells, every possibility is followe
 msgstr "{techniqueName}:从突出显示的单元格出发，沿每种可能性推演，直到出现矛盾或得到相同的结果。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
-msgstr "{techniqueName}:在第 {columnNumber} 列中，{valueList} 只能填入突出显示的单元格，而它们都位于同一个宫内。"
+msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "{techniqueName}:在宫 {boxNumber} 中，{valueList} 只能填入突出显示的单元格，而它们都位于第 {columnNumber} 列。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
-msgstr "{techniqueName}:在第 {rowNumber} 行中，{valueList} 只能填入突出显示的单元格，而它们都位于同一个宫内。"
+msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "{techniqueName}:在宫 {boxNumber} 中，{valueList} 只能填入突出显示的单元格，而它们都位于第 {rowNumber} 行。"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in box {regionNumber}, {value} fits in only one cell."
+msgstr "{techniqueName}:在宫 {regionNumber} 中，{value} 只能填入一个单元格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in box {regionNumber}, {value} fits only in the marked cell."
+msgstr "{techniqueName}:在宫 {regionNumber} 中，{value} 只能填入标记的单元格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "{techniqueName}:在第 {columnNumber} 列中，{valueList} 只能填入突出显示的单元格，而它们都位于宫 {boxNumber} 内。"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in column {regionNumber}, {value} fits in only one cell."
+msgstr "{techniqueName}:在第 {regionNumber} 列中，{value} 只能填入一个单元格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {regionNumber}, {value} fits only in the marked cell."
+msgstr "{techniqueName}:在第 {regionNumber} 列中，{value} 只能填入标记的单元格。"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in row {regionNumber}, {value} fits in only one cell."
+msgstr "{techniqueName}:在第 {regionNumber} 行中，{value} 只能填入一个单元格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {regionNumber}, {value} fits only in the marked cell."
+msgstr "{techniqueName}:在第 {regionNumber} 行中，{value} 只能填入标记的单元格。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "{techniqueName}:在第 {rowNumber} 行中，{valueList} 只能填入突出显示的单元格，而它们都位于宫 {boxNumber} 内。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
 msgstr "{techniqueName}:在突出显示的基线中，{valueList} 只能填入突出显示的单元格，因此它被锁定在覆盖线中。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
-msgstr "{techniqueName}:在突出显示的宫中，{value} 只能填入标记的单元格。"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
-msgstr "{techniqueName}:在突出显示的列中，{value} 只能填入标记的单元格。"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
-msgstr "{techniqueName}:在突出显示的行中，{value} 只能填入标记的单元格。"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
-msgstr "{techniqueName}:在这个宫中，{valueList} 只能填入突出显示的单元格，而它们都位于第 {columnNumber} 列。"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
-msgstr "{techniqueName}:在这个宫中，{valueList} 只能填入突出显示的单元格，而它们都位于第 {rowNumber} 行。"
-
-#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
 msgstr "{techniqueName}:链的某一端必定成立，而每个标记的候选数都与两端冲突，因此 {cellList} 不可能是 {valueList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}:突出显示的宫只剩一个空格，{value} 应填在那里。"
+msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}:第 {regionNumber} 行只剩一个空格，{value} 应填在那里。"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
-msgstr "{techniqueName}:突出显示的单元格构成一条链，因此 {firstEnd} 或 {lastEnd} 必定成立。"
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: row {regionNumber} has one empty cell left."
+msgstr "{techniqueName}:第 {regionNumber} 行只剩一个空格。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
 msgstr "{techniqueName}:突出显示的单元格中数字的个数恰好等于单元格的个数，因此 {valueList} 只能填入这些单元格。"
 
-#: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "{techniqueName}: the highlighted cells hold the pattern."
-msgstr "{techniqueName}：高亮的单元格包含该模式。"
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave {value} only one place."
+msgstr "{techniqueName}:突出显示的单元格只给 {value} 留下一个位置。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -197,14 +237,6 @@ msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {v
 msgstr "{techniqueName}:突出显示的单元格会留下 {valueList} 的致命模式。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}:突出显示的列只剩一个空格，{value} 应填在那里。"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}:突出显示的行只剩一个空格，{value} 应填在那里。"
-
-#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
 msgstr "{techniqueName}:标记的单元格已看到除 {value} 之外的所有突出显示的数字。"
 
@@ -219,6 +251,10 @@ msgstr "{techniqueName}:这些单元格被这组数字占用，因此 {cellList}
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
 msgstr "{techniqueName}:为避免致命模式，标记的单元格中排除了 {valueList}。"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
+msgstr "{techniqueName}:依次尝试每种突出显示的可能性，并推演它迫使出的结果。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
@@ -337,7 +373,6 @@ msgstr "为完成的行、列和宫格显示动画"
 msgid "Animations"
 msgstr "动画"
 
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "应用"
@@ -584,6 +619,10 @@ msgstr "完胜"
 msgid "Close"
 msgstr "关闭"
 
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+msgid "Close hint"
+msgstr "关闭提示"
+
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
 msgstr "色盲友好"
@@ -742,10 +781,6 @@ msgstr "让数字键盘中已完成的数字变暗，而不是移除它"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Discard changes?"
 msgstr "放弃更改？"
-
-#: src/game/components/hint-panel-header/hint-panel-header.tsx
-msgid "Dismiss"
-msgstr "忽略"
 
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Dismiss setup spotlight"
@@ -1165,6 +1200,10 @@ msgstr "浅色叠加层"
 msgid "Light warm-up"
 msgstr "轻度热身"
 
+#: src/game/components/hint-chain-blocks/hint-chain-blocks.tsx
+msgid "Link {revealedLinkCount} of {linkCount}"
+msgstr "第 {revealedLinkCount} 环，共 {linkCount} 环"
+
 #: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "正在加载开发版本"
@@ -1176,6 +1215,10 @@ msgstr "正在加载最新开发版本…"
 #: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
 msgid "Locked"
 msgstr "已锁定"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} around cell {cellName}."
+msgstr "在单元格 {cellName} 周围寻找{techniqueName}。"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "Look for {techniqueName} in box {regionNumber}."
@@ -1190,6 +1233,7 @@ msgid "Look for {techniqueName} in row {regionNumber}."
 msgstr "在第 {regionNumber} 行中寻找{techniqueName}。"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
+#: src/game/utils/game-get-pattern-narration.util.ts
 msgid "Look for {techniqueName}."
 msgstr "寻找{techniqueName}。"
 
@@ -1315,7 +1359,7 @@ msgstr "报纸"
 msgid "Next"
 msgstr "下一步"
 
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+#: src/game/components/hint-stepper-next/hint-stepper-next.tsx
 msgid "Next ›"
 msgstr "下一步 ›"
 
@@ -1718,10 +1762,13 @@ msgid "Retry practice"
 msgstr "重试练习"
 
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "揭示"
+
+#: src/game/components/hint-stepper-next/hint-stepper-next.tsx
+msgid "Reveals more of the hint"
+msgstr "显示更多提示内容"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1888,6 +1935,10 @@ msgstr "可分享"
 msgid "Show all candidates"
 msgstr "显示所有候选数字"
 
+#: src/game/components/hint-panel-show-answer/hint-panel-show-answer.tsx
+msgid "Show answer"
+msgstr "显示答案"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
 msgstr "显示与所选单元格数字相同的单元格"
@@ -1903,10 +1954,6 @@ msgstr "游戏时显示已用时间"
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show matching notes for the selected cell"
 msgstr "显示所选单元格的匹配笔记"
-
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
-msgid "Show more of the hint"
-msgstr "显示更多提示"
 
 #: src/campaign/components/campaign-teaching/campaign-teaching.tsx
 msgid "Show teaching example"
@@ -2002,8 +2049,7 @@ msgstr "统计"
 msgid "Stayed in app"
 msgstr "未离开应用"
 
-#: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
+#: src/game/components/hint-stepper/hint-stepper.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "第 {currentStepNumber} 步，共 {stepCount} 步"
 

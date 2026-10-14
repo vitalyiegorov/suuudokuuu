@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const HintChainBlocksStyles = StyleSheet.create(theme => ({
+    container: {
+        gap: theme.spacing.xs
+    },
     chain: {
         direction: 'ltr',
         flexDirection: 'row',
@@ -34,7 +37,7 @@ export const HintChainBlocksStyles = StyleSheet.create(theme => ({
         fontSize: theme.typography.size.sm
     },
     faded: {
-        opacity: 0.45
+        opacity: 0.6
     },
     contradiction: {
         maxWidth: '100%',

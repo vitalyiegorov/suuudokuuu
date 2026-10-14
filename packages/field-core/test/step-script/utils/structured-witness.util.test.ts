@@ -2,7 +2,9 @@ import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generat
 import { ForcingOutcomeKindEnum, SolutionTechniqueEnum, TechniqueManager, createTechniqueStrategies } from '@suuudokuuu/techniques';
 import { describe, expect, it } from 'vitest';
 
+import { getCellKey } from '../../../src/@generic/utils/get-cell-key.util';
 import { FieldEngine } from '../../../src/field-engine/classes/field-engine';
+import { HintLevelEnum } from '../../../src/step-script/enums/hint-level.enum';
 import { StepScriptStepKindEnum } from '../../../src/step-script/enums/step-script-step-kind.enum';
 import { buildStepScriptState } from '../../../src/step-script/utils/build-step-script-state.util';
 import { findHintStepScript } from '../../../src/step-script/utils/find-hint-step-script.util';
@@ -13,6 +15,10 @@ import type { StepScriptStepType } from '../../../src/step-script/types/step-scr
 import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const board = '000000051000000023004005000000000600000130000007680000429006500370400000810000000';
+const maxPatternLevelCells = 12;
+const forcingHintIndex = 11;
+const hardcoreBoard = '001004800302000045540003090800040300000905410400006002030008600050370000100460000';
+const hardcoreHintCount = 10;
 const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
 
 const findResult = (technique: SolutionTechniqueEnum): TechniqueResultInterface => {
@@ -27,7 +33,7 @@ const findResult = (technique: SolutionTechniqueEnum): TechniqueResultInterface 
 };
 
 const findHint = (engine: FieldEngine): StepScriptInterface => {
-    const script = findHintStepScript(engine.Sudoku);
+    const script = findHintStepScript(engine.Sudoku, engine.getSnapshot().eliminatedCandidates);
 
     if (script === null) {
         throw new Error('Expected a hint step script');
@@ -72,6 +78,10 @@ describe('structured witness playback', () => {
 
         expect(buildStepScriptState(script, 1)).toEqual({
             explanation: script.steps[1],
+            hintRegion: buildStepScriptState(script, revealIndex).hintRegion,
+            regionCellKeys: new Set(),
+            revealedImplicationCount:
+                script.steps[1].kind === StepScriptStepKindEnum.SHOW_BRANCH ? script.steps[1].branch.implications.length : 0,
             patternCellKeys: new Set(),
             targetCellKey: null,
             revealedCandidates: new Map(),
@@ -82,13 +92,51 @@ describe('structured witness playback', () => {
         expect(buildStepScriptState(script, revealIndex).patternCellKeys.size).toBeGreaterThan(0);
     });
 
-    it('walks the Nishio and AIC third hint of the #455 board without writing a hypothesis', () => {
+    it('highlights only the forcing assumptions and outcomes at the pattern level', () => {
+        const script = techniqueResultToStepScript(findResult(SolutionTechniqueEnum.CellForcingChain));
+        const branchSteps = script.steps.filter(step => step.kind === StepScriptStepKindEnum.SHOW_BRANCH);
+        const witnessCellKeys = new Set(
+            branchSteps.flatMap(step => [
+                getCellKey(step.branch.assumption.cell),
+                ...step.outcomeCells.map(getCellKey),
+                ...step.outcomeCandidates.map(({ cell }) => getCellKey(cell)),
+                ...(step.branch.outcome.kind === ForcingOutcomeKindEnum.COMMON_PLACEMENT ? [getCellKey(step.branch.outcome.cell)] : [])
+            ])
+        );
+        const implicationCellKeys = branchSteps.flatMap(step => step.branch.implications.map(({ cell }) => getCellKey(cell)));
+        const patternState = buildStepScriptState(script, 0, HintLevelEnum.PATTERN);
+
+        expect(witnessCellKeys.size).toBeGreaterThan(0);
+        expect(implicationCellKeys.some(cellKey => !witnessCellKeys.has(cellKey))).toBe(true);
+        expect(patternState.patternCellKeys).toEqual(witnessCellKeys);
+    });
+
+    it('keeps every forcing pattern of the reported Hardcore board within the pattern cell limit', () => {
+        const engine = new FieldEngine({ sudokuString: hardcoreBoard, difficulty: DifficultyEnum.Hard });
+        const forcingPatternSizes: number[] = [];
+
+        for (let hintIndex = 0; hintIndex < hardcoreHintCount; hintIndex += 1) {
+            const script = findHint(engine);
+
+            if (script.steps.some(step => step.kind === StepScriptStepKindEnum.SHOW_BRANCH)) {
+                forcingPatternSizes.push(buildStepScriptState(script, 0, HintLevelEnum.PATTERN).patternCellKeys.size);
+            }
+
+            engine.startStepScript(script);
+            engine.applyStepScript();
+        }
+
+        expect(forcingPatternSizes.length).toBeGreaterThan(0);
+        expect(forcingPatternSizes.every(size => size > 0 && size <= maxPatternLevelCells)).toBe(true);
+    });
+
+    it('walks the Nishio and AIC twelfth hint of the #455 board without writing a hypothesis', () => {
         const engine = new FieldEngine({ sudokuString: columnQuadBoard, difficulty: DifficultyEnum.Medium, showAutoCandidates: true });
 
-        engine.startStepScript(findHint(engine));
-        engine.applyStepScript();
-        engine.startStepScript(findHint(engine));
-        engine.applyStepScript();
+        for (let hintIndex = 0; hintIndex < forcingHintIndex; hintIndex += 1) {
+            engine.startStepScript(findHint(engine));
+            engine.applyStepScript();
+        }
 
         const script = findHint(engine);
         const before = engine.serialize();
@@ -98,17 +146,17 @@ describe('structured witness playback', () => {
 
         expect(nishio?.narration.technique).toBe(SolutionTechniqueEnum.NishioForcingChain);
         expect(nishio && getNarratedCandidates(nishio)).toEqual([
-            [7, 3, 6],
+            [7, 4, 6],
             [8, 3, 7],
             [1, 3, 1],
             [0, 3, 8],
-            [4, 3, 9],
-            [4, 4, 8],
-            [7, 5, 9],
-            [5, 8, 1],
-            [5, 5, 7]
+            [4, 4, 8]
         ]);
-        expect(nishio).toMatchObject({ branch: { outcome: { kind: ForcingOutcomeKindEnum.EMPTY_CELL, cell: { y: 5, x: 6 } } } });
+        expect(nishio).toMatchObject({ branch: { outcome: { kind: ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT, cell: { y: 4, x: 4 } } } });
+
+        const nishioScript = { ...script, steps: script.steps.slice(script.steps.findIndex(step => step === nishio)) };
+
+        expect(buildStepScriptState(nishioScript, 0, HintLevelEnum.PATTERN).patternCellKeys.size).toBeLessThanOrEqual(maxPatternLevelCells);
         expect(aic?.narration.technique).toBe(SolutionTechniqueEnum.AIC);
         expect(script.placement).toMatchObject({ cell: { y: 5, x: 8 }, value: 1 });
 

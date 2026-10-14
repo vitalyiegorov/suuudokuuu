@@ -369,6 +369,9 @@ importers:
       '@suuudokuuu/hell-corpus':
         specifier: workspace:*
         version: link:../hell-corpus
+      '@suuudokuuu/rating':
+        specifier: workspace:*
+        version: link:../rating
       '@suuudokuuu/solver-core':
         specifier: workspace:*
         version: link:../solver-core

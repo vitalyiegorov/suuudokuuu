@@ -1,5 +1,6 @@
 import { msg } from '@lingui/core/macro';
-import { StepScriptStepKindEnum } from '@suuudokuuu/field-core';
+import { HintRegionKindEnum, StepScriptStepKindEnum, getBoxNumber, getHintRegion } from '@suuudokuuu/field-core';
+import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { ChainLinkEnum, ForcingOutcomeKindEnum, SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { isDefined } from '@rnw-community/shared';
@@ -7,9 +8,14 @@ import { isDefined } from '@rnw-community/shared';
 import { NarrationFamilyEnum } from '../enums/narration-family.enum';
 
 import type { MessageDescriptor } from '@lingui/core';
-import type { StepScriptBranchStepInterface, StepScriptChainStepInterface, StepScriptStepType } from '@suuudokuuu/field-core';
+import type {
+    StepScriptBranchStepInterface,
+    StepScriptChainStepInterface,
+    StepScriptCandidateInterface,
+    StepScriptStepType
+} from '@suuudokuuu/field-core';
 import type { CellInterface } from '@suuudokuuu/generator';
-import type { ChainCandidateInterface, ForcingContradictionType } from '@suuudokuuu/techniques';
+import type { ChainCandidateInterface, ForcingBranchInterface, ForcingContradictionType, ForcingOutcomeType } from '@suuudokuuu/techniques';
 
 const narrationFamilies: Partial<Record<SolutionTechniqueEnum, NarrationFamilyEnum>> = {
     [SolutionTechniqueEnum.PointingPair]: NarrationFamilyEnum.POINTING,
@@ -85,6 +91,21 @@ const getRefutationNarration = (
     return msg`If ${path} → ${cell} would have to be ${value}, which is no longer possible. So ${assumptionCell} is not ${assumptionValue}.`;
 };
 
+const isCellContradiction = (outcome: ForcingOutcomeType): outcome is ForcingContradictionType =>
+    outcome.kind === ForcingOutcomeKindEnum.EMPTY_CELL || outcome.kind === ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT;
+
+const findRefutedBranch = (
+    eliminations: readonly StepScriptCandidateInterface[],
+    scriptSteps: readonly StepScriptStepType[]
+): ForcingBranchInterface | undefined =>
+    scriptSteps
+        .flatMap(scriptStep => (scriptStep.kind === StepScriptStepKindEnum.SHOW_BRANCH ? [scriptStep.branch] : []))
+        .find(({ assumption }) =>
+            eliminations.some(
+                ({ cell, value }) => value === assumption.value && cell.x === assumption.cell.x && cell.y === assumption.cell.y
+            )
+        );
+
 const getBranchNarration = ({ branch, branchIndex, branchCount }: StepScriptBranchStepInterface): MessageDescriptor => {
     const { assumption, implications, outcome } = branch;
     const path = [assumption, ...implications].map(formatCandidate).join(' → ');
@@ -105,80 +126,47 @@ const getBranchNarration = ({ branch, branchIndex, branchCount }: StepScriptBran
     return getRefutationNarration(outcome, path, assumption);
 };
 
-const isSameRow = (cells: CellInterface[]): boolean => cells.every(cell => cell.y === cells[0].y);
+type UnitPlacementNarrationType = (techniqueName: string, value: string, regionNumber: number) => MessageDescriptor;
 
-const isSameColumn = (cells: CellInterface[]): boolean => cells.every(cell => cell.x === cells[0].x);
+const getRemainingValueNarration = (techniqueName: string, value: string): MessageDescriptor =>
+    msg`${techniqueName}: the highlighted cells leave only ${value} for the marked cell.`;
 
-const isSameBox = (cells: CellInterface[]): boolean => cells.every(cell => cell.group === cells[0].group);
-
-const getUnitKind = (cells: CellInterface[]): 'row' | 'column' | 'box' | null => {
-    if (cells.length !== 9) {
-        return null;
-    }
-
-    if (isSameRow(cells)) {
-        return 'row';
-    }
-
-    if (isSameColumn(cells)) {
-        return 'column';
-    }
-
-    if (isSameBox(cells)) {
-        return 'box';
-    }
-
-    return null;
+const hiddenSingleNarrations: Partial<Record<HintRegionKindEnum, UnitPlacementNarrationType>> = {
+    [HintRegionKindEnum.ROW]: (techniqueName, value, regionNumber) =>
+        msg`${techniqueName}: in row ${regionNumber}, ${value} fits only in the marked cell.`,
+    [HintRegionKindEnum.COLUMN]: (techniqueName, value, regionNumber) =>
+        msg`${techniqueName}: in column ${regionNumber}, ${value} fits only in the marked cell.`,
+    [HintRegionKindEnum.BOX]: (techniqueName, value, regionNumber) =>
+        msg`${techniqueName}: in box ${regionNumber}, ${value} fits only in the marked cell.`
 };
 
-const getHiddenSingleNarration = (techniqueName: string, unit: 'row' | 'column' | 'box' | null, value: string): MessageDescriptor => {
-    if (unit === 'row') {
-        return msg`${techniqueName}: in the highlighted row, ${value} fits only in the marked cell.`;
-    }
-
-    if (unit === 'column') {
-        return msg`${techniqueName}: in the highlighted column, ${value} fits only in the marked cell.`;
-    }
-
-    if (unit === 'box') {
-        return msg`${techniqueName}: in the highlighted box, ${value} fits only in the marked cell.`;
-    }
-
-    return msg`${techniqueName}: the highlighted cells leave only ${value} for the marked cell.`;
-};
-
-const getFullHouseNarration = (techniqueName: string, unit: 'row' | 'column' | 'box' | null, value: string): MessageDescriptor => {
-    if (unit === 'row') {
-        return msg`${techniqueName}: the highlighted row has one empty cell left, so ${value} goes there.`;
-    }
-
-    if (unit === 'column') {
-        return msg`${techniqueName}: the highlighted column has one empty cell left, so ${value} goes there.`;
-    }
-
-    if (unit === 'box') {
-        return msg`${techniqueName}: the highlighted box has one empty cell left, so ${value} goes there.`;
-    }
-
-    return msg`${techniqueName}: the highlighted cells leave only ${value} for the marked cell.`;
+const fullHouseNarrations: Partial<Record<HintRegionKindEnum, UnitPlacementNarrationType>> = {
+    [HintRegionKindEnum.ROW]: (techniqueName, value, regionNumber) =>
+        msg`${techniqueName}: row ${regionNumber} has one empty cell left, so ${value} goes there.`,
+    [HintRegionKindEnum.COLUMN]: (techniqueName, value, regionNumber) =>
+        msg`${techniqueName}: column ${regionNumber} has one empty cell left, so ${value} goes there.`,
+    [HintRegionKindEnum.BOX]: (techniqueName, value, regionNumber) =>
+        msg`${techniqueName}: box ${regionNumber} has one empty cell left, so ${value} goes there.`
 };
 
 const getPlacementRevealNarration = (step: StepScriptStepType, techniqueName: string, value: string): MessageDescriptor => {
-    const unit = getUnitKind(step.narration.cells);
+    const { cells, technique } = step.narration;
+    const unit = cells.length === defaultSudokuConfig.fieldSize ? getHintRegion(cells) : null;
+    const family = getNarrationFamily(technique);
 
-    if (step.narration.technique === SolutionTechniqueEnum.NakedSingle) {
+    if (technique === SolutionTechniqueEnum.NakedSingle) {
         return msg`${techniqueName}: the marked cell sees every highlighted digit except ${value}.`;
     }
 
-    if (step.narration.technique === SolutionTechniqueEnum.HiddenSingle) {
-        return getHiddenSingleNarration(techniqueName, unit, value);
-    }
+    if (technique === SolutionTechniqueEnum.HiddenSingle || technique === SolutionTechniqueEnum.FullHouse) {
+        const unitNarrations = technique === SolutionTechniqueEnum.HiddenSingle ? hiddenSingleNarrations : fullHouseNarrations;
 
-    if (step.narration.technique === SolutionTechniqueEnum.FullHouse) {
-        return getFullHouseNarration(techniqueName, unit, value);
+        return (unitNarrations[unit?.kind ?? HintRegionKindEnum.CELL] ?? getRemainingValueNarration)(
+            techniqueName,
+            value,
+            unit?.number ?? 0
+        );
     }
-
-    const family = getNarrationFamily(step.narration.technique);
 
     if (family === NarrationFamilyEnum.BUG) {
         return msg`${techniqueName}: every other empty cell has two candidates, so ${value} must go in the marked cell to avoid a deadly pattern.`;
@@ -188,30 +176,31 @@ const getPlacementRevealNarration = (step: StepScriptStepType, techniqueName: st
         return msg`${techniqueName}: every possibility in the highlighted cells leads to ${value} in the marked cell.`;
     }
 
-    return msg`${techniqueName}: the highlighted cells leave only ${value} for the marked cell.`;
+    return getRemainingValueNarration(techniqueName, value);
 };
 
 type EliminationRevealNarrationType = (techniqueName: string, valueList: string, revealed: ChainCandidateInterface[]) => MessageDescriptor;
 
 type EliminationStrikeNarrationType = (techniqueName: string, valueList: string, cellList: string) => MessageDescriptor;
 
-const getPointingNarration: EliminationRevealNarrationType = (techniqueName, valueList, [{ cell: firstCell }, { cell: secondCell }]) => {
-    const rowNumber = firstCell.y + 1;
-    const columnNumber = firstCell.x + 1;
+const getLockedCandidatesNarration =
+    (isPointing: boolean): EliminationRevealNarrationType =>
+    (techniqueName, valueList, [{ cell: firstCell }, { cell: secondCell }]) => {
+        const boxNumber = getBoxNumber(firstCell);
+        const rowNumber = firstCell.y + 1;
+        const columnNumber = firstCell.x + 1;
+        const isRowLine = firstCell.y === secondCell.y;
 
-    return firstCell.y === secondCell.y
-        ? msg`${techniqueName}: in this box, ${valueList} fits only in the highlighted cells, and they all lie in row ${rowNumber}.`
-        : msg`${techniqueName}: in this box, ${valueList} fits only in the highlighted cells, and they all lie in column ${columnNumber}.`;
-};
+        if (isPointing) {
+            return isRowLine
+                ? msg`${techniqueName}: in box ${boxNumber}, ${valueList} fits only in the highlighted cells, and they all lie in row ${rowNumber}.`
+                : msg`${techniqueName}: in box ${boxNumber}, ${valueList} fits only in the highlighted cells, and they all lie in column ${columnNumber}.`;
+        }
 
-const getBoxLineNarration: EliminationRevealNarrationType = (techniqueName, valueList, [{ cell: firstCell }, { cell: secondCell }]) => {
-    const rowNumber = firstCell.y + 1;
-    const columnNumber = firstCell.x + 1;
-
-    return firstCell.y === secondCell.y
-        ? msg`${techniqueName}: in row ${rowNumber}, ${valueList} fits only in the highlighted cells, and they all lie in one box.`
-        : msg`${techniqueName}: in column ${columnNumber}, ${valueList} fits only in the highlighted cells, and they all lie in one box.`;
-};
+        return isRowLine
+            ? msg`${techniqueName}: in row ${rowNumber}, ${valueList} fits only in the highlighted cells, and they all lie in box ${boxNumber}.`
+            : msg`${techniqueName}: in column ${columnNumber}, ${valueList} fits only in the highlighted cells, and they all lie in box ${boxNumber}.`;
+    };
 
 const getSeesAllStrikeNarration: EliminationStrikeNarrationType = (techniqueName, valueList, cellList) =>
     msg`${techniqueName}: each marked cell sees all the highlighted cells, so ${cellList} cannot be ${valueList}.`;
@@ -220,8 +209,8 @@ const getDeadlyPatternStrikeNarration: EliminationStrikeNarrationType = (techniq
     msg`${techniqueName}: to avoid the deadly pattern, ${valueList} is ruled out of the marked cells.`;
 
 const eliminationRevealNarrations: Record<NarrationFamilyEnum, EliminationRevealNarrationType> = {
-    [NarrationFamilyEnum.POINTING]: getPointingNarration,
-    [NarrationFamilyEnum.BOX_LINE]: getBoxLineNarration,
+    [NarrationFamilyEnum.POINTING]: getLockedCandidatesNarration(true),
+    [NarrationFamilyEnum.BOX_LINE]: getLockedCandidatesNarration(false),
     [NarrationFamilyEnum.HIDDEN_SUBSET]: (techniqueName, valueList) =>
         msg`${techniqueName}: within one row, column or box, ${valueList} fit only in the highlighted cells, so those cells can hold nothing else.`,
     [NarrationFamilyEnum.LOCKED_SET]: (techniqueName, valueList) =>
@@ -234,7 +223,7 @@ const eliminationRevealNarrations: Record<NarrationFamilyEnum, EliminationReveal
         const firstEnd = formatChainCandidate(revealed[0]);
         const lastEnd = formatChainCandidate(revealed[revealed.length - 1]);
 
-        return msg`${techniqueName}: the highlighted cells form a chain, so ${firstEnd} or ${lastEnd} is true.`;
+        return msg`${techniqueName}: a chain links the highlighted ends, so ${firstEnd} or ${lastEnd} is true.`;
     },
     [NarrationFamilyEnum.COLORING]: (techniqueName, valueList) =>
         msg`${techniqueName}: the highlighted cells split into two colors for ${valueList}, and exactly one color holds every ${valueList}.`,
@@ -266,7 +255,11 @@ const eliminationStrikeNarrations: Record<NarrationFamilyEnum, EliminationStrike
         msg`${techniqueName}: every possibility ends in a contradiction or the same result, so ${valueList} is ruled out of the marked cells.`
 };
 
-export const gameGetStepNarration = (step: StepScriptStepType, techniqueName: string): MessageDescriptor => {
+export const gameGetStepNarration = (
+    step: StepScriptStepType,
+    techniqueName: string,
+    scriptSteps: readonly StepScriptStepType[] = []
+): MessageDescriptor => {
     const valueList = joinValues(step.narration.values);
 
     if (step.kind === StepScriptStepKindEnum.SHOW_CHAIN) {
@@ -290,6 +283,12 @@ export const gameGetStepNarration = (step: StepScriptStepType, techniqueName: st
     }
 
     if (step.kind === StepScriptStepKindEnum.StrikeCandidates) {
+        const refutedBranch = findRefutedBranch(step.eliminations, scriptSteps);
+
+        if (isDefined(refutedBranch) && isCellContradiction(refutedBranch.outcome)) {
+            return getRefutationNarration(refutedBranch.outcome, formatCandidate(refutedBranch.assumption), refutedBranch.assumption);
+        }
+
         const cellList = [...new Set(step.narration.cells.map(formatCell))].join(', ');
 
         return eliminationStrikeNarrations[getNarrationFamily(step.narration.technique)](techniqueName, valueList, cellList);

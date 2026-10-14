@@ -20,4 +20,8 @@ export interface FieldSnapshotInterface {
     stepScript: StepScriptInterface | null;
     stepIndex: number;
     readonly hintLevel: HintLevelEnum;
+    readonly revealedImplicationCount: number;
+    readonly hintPageIndex: number;
+    readonly hintPageCount: number;
+    readonly isNextPageCharged: boolean;
 }

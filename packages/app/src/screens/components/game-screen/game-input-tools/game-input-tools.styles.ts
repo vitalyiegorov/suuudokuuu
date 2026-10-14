@@ -21,7 +21,7 @@ export const GameInputToolsStyles = StyleSheet.create((theme, rt) => {
     const primaryToolSize = isWideLayout ? GameInputToolsWideSizeConstant : PanelControlPrimarySizeConstant;
 
     return {
-        inputControls: (isLeftHanded: boolean) => {
+        inputControls: (isLeftHanded: boolean, areToolsHidden: boolean) => {
             const narrowFlexDirection = isLeftHanded ? 'row-reverse' : 'row';
 
             return {
@@ -31,6 +31,7 @@ export const GameInputToolsStyles = StyleSheet.create((theme, rt) => {
                 flexDirection: isWideLayout ? 'row' : narrowFlexDirection,
                 gap: theme.spacing.sm,
                 justifyContent: 'space-between',
+                opacity: areToolsHidden ? 0 : 1,
                 width: isWideLayout ? GamePanelWideRowWidthConstant : narrowRowWidth
             };
         },

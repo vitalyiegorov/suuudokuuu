@@ -11,7 +11,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
+#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 msgid "‹ Back"
 msgstr "العودة ›"
 
@@ -100,13 +100,41 @@ msgstr "{score, plural, zero {# نقطة} one {# نقطة} two {# نقطتان} 
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, zero {تتابع # يوم} one {تتابع # يوم} two {تتابع # يومين} few {تتابع # أيام} many {تتابع # يومًا} other {تتابع # يوم}}"
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
+msgstr "{techniqueName}: الخلية {cellName} ترى كل الأرقام المحددة ما عدا رقماً واحداً."
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
 msgstr "{techniqueName}: يجب أن يقع {valueList} في خطوط الأساس، لذا تفقده خطوط التغطية في الخلايا المعلمة."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
+msgstr "{techniqueName}: تربط سلسلة بين الطرفين المحددين، لذا فإما {firstEnd} صحيح أو {lastEnd} صحيح."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
 msgstr "{techniqueName}: إحدى خليتي الكماشة هي دائماً {valueList}، لذا لا يمكن أن تكون الخلايا المعلمة التي ترى الخليتين معاً {valueList}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
+msgstr "{techniqueName}: افترض أن {cellName} هي {value} وتتبّع ما يفرضه ذلك."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: box {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: بقي في المربع {regionNumber} خلية فارغة واحدة، لذا توضع {value} هناك."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: box {regionNumber} has one empty cell left."
+msgstr "{techniqueName}: بقي في المربع {regionNumber} خلية فارغة واحدة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: column {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: بقي في العمود {regionNumber} خلية فارغة واحدة، لذا توضع {value} هناك."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: column {regionNumber} has one empty cell left."
+msgstr "{techniqueName}: بقي في العمود {regionNumber} خلية فارغة واحدة."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
@@ -129,56 +157,68 @@ msgid "{techniqueName}: from the highlighted cells, every possibility is followe
 msgstr "{techniqueName}: انطلاقاً من الخلايا المحددة، يُتتبع كل احتمال حتى يصل إلى تناقض أو إلى النتيجة نفسها."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
-msgstr "{techniqueName}: في العمود {columnNumber}، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في مربع واحد."
+msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "{techniqueName}: في المربع {boxNumber}، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في العمود {columnNumber}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in one box."
-msgstr "{techniqueName}: في الصف {rowNumber}، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في مربع واحد."
+msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "{techniqueName}: في المربع {boxNumber}، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في الصف {rowNumber}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in box {regionNumber}, {value} fits in only one cell."
+msgstr "{techniqueName}: في المربع {regionNumber}، لا يمكن لـ {value} أن يوضع إلا في خلية واحدة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in box {regionNumber}, {value} fits only in the marked cell."
+msgstr "{techniqueName}: في المربع {regionNumber}، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "{techniqueName}: في العمود {columnNumber}، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في المربع {boxNumber}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in column {regionNumber}, {value} fits in only one cell."
+msgstr "{techniqueName}: في العمود {regionNumber}، لا يمكن لـ {value} أن يوضع إلا في خلية واحدة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in column {regionNumber}, {value} fits only in the marked cell."
+msgstr "{techniqueName}: في العمود {regionNumber}، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: in row {regionNumber}, {value} fits in only one cell."
+msgstr "{techniqueName}: في الصف {regionNumber}، لا يمكن لـ {value} أن يوضع إلا في خلية واحدة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {regionNumber}, {value} fits only in the marked cell."
+msgstr "{techniqueName}: في الصف {regionNumber}، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "{techniqueName}: في الصف {rowNumber}، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في المربع {boxNumber}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
 msgstr "{techniqueName}: في خطوط الأساس المحددة، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، لذا فهو محصور في خطوط التغطية."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted box, {value} fits only in the marked cell."
-msgstr "{techniqueName}: في المربع المحدد، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted column, {value} fits only in the marked cell."
-msgstr "{techniqueName}: في العمود المحدد، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted row, {value} fits only in the marked cell."
-msgstr "{techniqueName}: في الصف المحدد، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
-msgstr "{techniqueName}: في هذا المربع، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في العمود {columnNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in this box, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
-msgstr "{techniqueName}: في هذا المربع، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في الصف {rowNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
 msgstr "{techniqueName}: أحد طرفي السلسلة صحيح دائماً، وكل مرشح معلَّم يتعارض مع الطرفين معاً، لذا لا يمكن أن تكون {cellList} هي {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted box has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: بقي في المربع المحدد خلية فارغة واحدة، لذا توضع {value} هناك."
+msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "{techniqueName}: بقي في الصف {regionNumber} خلية فارغة واحدة، لذا توضع {value} هناك."
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells form a chain, so {firstEnd} or {lastEnd} is true."
-msgstr "{techniqueName}: تشكل الخلايا المحددة سلسلة، لذا فإما {firstEnd} صحيح أو {lastEnd} صحيح."
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: row {regionNumber} has one empty cell left."
+msgstr "{techniqueName}: بقي في الصف {regionNumber} خلية فارغة واحدة."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
 msgstr "{techniqueName}: تحتوي الخلايا المحددة على عدد من الأرقام يساوي عدد الخلايا تماماً، لذا لا يمكن أن يوضع {valueList} إلا في هذه الخلايا."
 
-#: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "{techniqueName}: the highlighted cells hold the pattern."
-msgstr "{techniqueName}: الخلايا المميزة تحتوي على النمط."
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: the highlighted cells leave {value} only one place."
+msgstr "{techniqueName}: الخلايا المحددة لا تترك لـ {value} إلا مكاناً واحداً."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
@@ -197,14 +237,6 @@ msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {v
 msgstr "{techniqueName}: ستترك الخلايا المحددة نمطاً قاتلاً من {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted column has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: بقي في العمود المحدد خلية فارغة واحدة، لذا توضع {value} هناك."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted row has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: بقي في الصف المحدد خلية فارغة واحدة، لذا توضع {value} هناك."
-
-#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
 msgstr "{techniqueName}: الخلية المعلمة ترى كل الأرقام المحددة ما عدا {value}."
 
@@ -219,6 +251,10 @@ msgstr "{techniqueName}: هذه الخلايا محجوزة لتلك المجم�
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
 msgstr "{techniqueName}: لتجنب النمط القاتل، يُستبعد {valueList} من الخلايا المعلمة."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
+msgstr "{techniqueName}: جرّب كل احتمال محدد بدوره وتتبّع ما يفرضه."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
@@ -337,7 +373,6 @@ msgstr "تحريك الصفوف والأعمدة والمربعات المكتم
 msgid "Animations"
 msgstr "الحركات"
 
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Apply"
 msgstr "تطبيق"
@@ -584,6 +619,10 @@ msgstr "فوز نظيف"
 msgid "Close"
 msgstr "إغلاق"
 
+#: src/game/components/hint-panel-header/hint-panel-header.tsx
+msgid "Close hint"
+msgstr "إغلاق التلميح"
+
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
 msgstr "مناسب لعمى الألوان"
@@ -742,10 +781,6 @@ msgstr "تعتيم الرقم المكتمل في لوحة الأرقام بدل
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Discard changes?"
 msgstr "تجاهل التغييرات؟"
-
-#: src/game/components/hint-panel-header/hint-panel-header.tsx
-msgid "Dismiss"
-msgstr "تجاهل"
 
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Dismiss setup spotlight"
@@ -1165,6 +1200,10 @@ msgstr "طبقة فاتحة"
 msgid "Light warm-up"
 msgstr "إحماء خفيف"
 
+#: src/game/components/hint-chain-blocks/hint-chain-blocks.tsx
+msgid "Link {revealedLinkCount} of {linkCount}"
+msgstr "الرابط {revealedLinkCount} من {linkCount}"
+
 #: src/screens/components/beta-screen/components/beta-loading-status/beta-loading-status.tsx
 msgid "Loading development build"
 msgstr "جارٍ تحميل إصدار التطوير"
@@ -1176,6 +1215,10 @@ msgstr "جارٍ تحميل أحدث إصدار تطوير…"
 #: src/campaign/components/campaign-lesson-row/campaign-lesson-row.tsx
 msgid "Locked"
 msgstr "مقفل"
+
+#: src/game/components/hint-level-narration/hint-level-narration.tsx
+msgid "Look for {techniqueName} around cell {cellName}."
+msgstr "ابحث عن {techniqueName} حول الخلية {cellName}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 msgid "Look for {techniqueName} in box {regionNumber}."
@@ -1190,6 +1233,7 @@ msgid "Look for {techniqueName} in row {regionNumber}."
 msgstr "ابحث عن {techniqueName} في الصف {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
+#: src/game/utils/game-get-pattern-narration.util.ts
 msgid "Look for {techniqueName}."
 msgstr "ابحث عن {techniqueName}."
 
@@ -1315,7 +1359,7 @@ msgstr "صحيفة"
 msgid "Next"
 msgstr "التالي"
 
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
+#: src/game/components/hint-stepper-next/hint-stepper-next.tsx
 msgid "Next ›"
 msgstr "‹ التالي"
 
@@ -1718,10 +1762,13 @@ msgid "Retry practice"
 msgstr "إعادة التدريب"
 
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-panel-reveal-button/hint-panel-reveal-button.tsx
 #: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "كشف"
+
+#: src/game/components/hint-stepper-next/hint-stepper-next.tsx
+msgid "Reveals more of the hint"
+msgstr "يكشف المزيد من التلميح"
 
 #: src/challenge/components/challenge-race-status/challenge-race-status.tsx
 #: src/challenge/components/challenge-result-margin-card/challenge-result-margin-card.tsx
@@ -1888,6 +1935,10 @@ msgstr "قابل للمشاركة"
 msgid "Show all candidates"
 msgstr "إظهار كل المرشحات"
 
+#: src/game/components/hint-panel-show-answer/hint-panel-show-answer.tsx
+msgid "Show answer"
+msgstr "إظهار الإجابة"
+
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show cells with the same number as the selected cell"
 msgstr "إظهار الخلايا التي تحمل نفس رقم الخلية المحددة"
@@ -1903,10 +1954,6 @@ msgstr "إظهار الوقت المنقضي أثناء اللعب"
 #: src/settings/component/settings-guidance-section/settings-guidance-section.tsx
 msgid "Show matching notes for the selected cell"
 msgstr "إظهار الملاحظات المطابقة للخلية المحددة"
-
-#: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
-msgid "Show more of the hint"
-msgstr "عرض المزيد من التلميح"
 
 #: src/campaign/components/campaign-teaching/campaign-teaching.tsx
 msgid "Show teaching example"
@@ -2002,8 +2049,7 @@ msgstr "الإحصاءات"
 msgid "Stayed in app"
 msgstr "بقيت في التطبيق"
 
-#: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-progress-dot/hint-progress-dot.tsx
+#: src/game/components/hint-stepper/hint-stepper.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "الخطوة {currentStepNumber} من {stepCount}"
 

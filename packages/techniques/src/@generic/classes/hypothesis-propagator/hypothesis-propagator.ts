@@ -1,13 +1,17 @@
 import { isDefined } from '@rnw-community/shared';
 
+import { ASSUMPTION_REASON, NAKED_SINGLE_REASON } from '../../constants/hypothesis-reason.constant';
 import { ForcingOutcomeKindEnum } from '../../enums/forcing-outcome-kind.enum';
 import { getPropagationKey } from '../../utils/get-propagation-key.util';
 import { getValueBit } from '../../utils/get-value-bit.util';
 import { hasMaskValue } from '../../utils/has-mask-value.util';
 import { CandidateContext } from '../candidate-context/candidate-context';
+import { HypothesisPathTracer } from '../hypothesis-path-tracer/hypothesis-path-tracer';
 
 import type { HypothesisBoardInterface } from '../../interfaces/hypothesis-board.interface';
+import type { HypothesisPlacementsInterface } from '../../interfaces/hypothesis-placements.interface';
 import type { HypothesisPropagationInterface } from '../../interfaces/hypothesis-propagation.interface';
+import type { IndexedCandidateInterface } from '../../interfaces/indexed-candidate.interface';
 import type { ForcingContradictionType } from '../../types/forcing-outcome.type';
 
 const NO_HIDDEN_SINGLE_POSITION = -1;
@@ -19,9 +23,13 @@ export class HypothesisPropagator {
     private masks = new Uint16Array();
     private placedValues = new Int8Array();
     private placedCellIndexes: number[] = [];
+    private placementOrders = new Int8Array();
+    private placementReasons: number[] = [];
     private pendingCellIndexes: number[] = [];
     private pendingValues: number[] = [];
+    private pendingReasons: number[] = [];
     private contradiction: ForcingContradictionType | null = null;
+    private contradictionEliminations: IndexedCandidateInterface[] = [];
 
     constructor(private readonly board: HypothesisBoardInterface) {}
 
@@ -56,38 +64,59 @@ export class HypothesisPropagator {
         this.masks = Uint16Array.from(this.board.candidateMasks);
         this.placedValues = new Int8Array(this.board.cells.length);
         this.placedCellIndexes = [];
+        this.placementOrders = new Int8Array(this.board.cells.length);
+        this.placementReasons = [];
         this.pendingCellIndexes = [cellIndex];
         this.pendingValues = [value];
+        this.pendingReasons = [ASSUMPTION_REASON];
         this.contradiction = null;
+        this.contradictionEliminations = [];
+    }
+
+    private getPlacements(): HypothesisPlacementsInterface {
+        return {
+            placedValues: this.placedValues,
+            placedCellIndexes: this.placedCellIndexes,
+            placementOrders: this.placementOrders,
+            placementReasons: this.placementReasons
+        };
+    }
+
+    private getPathTracer(): HypothesisPathTracer {
+        return new HypothesisPathTracer(this.board, this.getPlacements());
     }
 
     private drainPendingAssignments(): boolean {
         let pendingIndex = 0;
 
         while (pendingIndex < this.pendingCellIndexes.length && !isDefined(this.contradiction)) {
-            this.assign(this.pendingCellIndexes[pendingIndex], this.pendingValues[pendingIndex]);
+            this.assign(this.pendingCellIndexes[pendingIndex], this.pendingValues[pendingIndex], this.pendingReasons[pendingIndex]);
             pendingIndex += 1;
         }
 
         this.pendingCellIndexes = [];
         this.pendingValues = [];
+        this.pendingReasons = [];
 
         return !isDefined(this.contradiction);
     }
 
-    private assign(cellIndex: number, value: number): void {
+    private assign(cellIndex: number, value: number, reason: number): void {
         if (this.placedValues[cellIndex] === value) {
             return;
         }
 
         if (!hasMaskValue(this.masks[cellIndex], value)) {
             this.contradiction = { kind: ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT, cell: this.board.cells[cellIndex], value };
+            this.contradictionEliminations = this.getPathTracer().getConflictEliminations(cellIndex, value, reason);
 
             return;
         }
 
         this.placedValues[cellIndex] = value;
         this.placedCellIndexes.push(cellIndex);
+        this.placementOrders[cellIndex] = this.placedCellIndexes.length;
+        this.placementReasons.push(reason);
         this.masks[cellIndex] = 0;
 
         for (const peerIndex of this.board.peerIndexes[cellIndex]) {
@@ -106,6 +135,7 @@ export class HypothesisPropagator {
 
         if (this.masks[peerIndex] === 0) {
             this.contradiction = { kind: ForcingOutcomeKindEnum.EMPTY_CELL, cell: this.board.cells[peerIndex] };
+            this.contradictionEliminations = this.getPathTracer().getEmptyCellEliminations(peerIndex);
 
             return false;
         }
@@ -115,6 +145,7 @@ export class HypothesisPropagator {
         if (this.masks[peerIndex] === getValueBit(singleValue)) {
             this.pendingCellIndexes.push(peerIndex);
             this.pendingValues.push(singleValue);
+            this.pendingReasons.push(NAKED_SINGLE_REASON);
         }
 
         return true;
@@ -124,9 +155,9 @@ export class HypothesisPropagator {
         const { unitCellIndexes, valueCount } = this.board;
         let hasQueuedAssignments = false;
 
-        for (const cellIndexes of unitCellIndexes) {
+        for (let unitIndex = 0; unitIndex < unitCellIndexes.length; unitIndex += 1) {
             for (let value = 1; value <= valueCount; value += 1) {
-                hasQueuedAssignments = this.queueUnitHiddenSingle(cellIndexes, value) || hasQueuedAssignments;
+                hasQueuedAssignments = this.queueUnitHiddenSingle(unitIndex, value) || hasQueuedAssignments;
 
                 if (isDefined(this.contradiction)) {
                     return hasQueuedAssignments;
@@ -137,7 +168,8 @@ export class HypothesisPropagator {
         return hasQueuedAssignments;
     }
 
-    private queueUnitHiddenSingle(unitCellIndexes: readonly number[], value: number): boolean {
+    private queueUnitHiddenSingle(unitIndex: number, value: number): boolean {
+        const unitCellIndexes = this.board.unitCellIndexes[unitIndex];
         const positionIndex = this.getUnitHiddenSinglePosition(unitCellIndexes, value);
 
         if (positionIndex === CONTRADICTION_POSITION) {
@@ -146,6 +178,7 @@ export class HypothesisPropagator {
                 unitCells: unitCellIndexes.map(cellIndex => this.board.cells[cellIndex]),
                 value
             };
+            this.contradictionEliminations = this.getPathTracer().getNoPositionEliminations(unitIndex, value);
 
             return false;
         }
@@ -156,6 +189,7 @@ export class HypothesisPropagator {
 
         this.pendingCellIndexes.push(positionIndex);
         this.pendingValues.push(value);
+        this.pendingReasons.push(unitIndex);
 
         return true;
     }
@@ -193,10 +227,10 @@ export class HypothesisPropagator {
         }
 
         return {
+            ...this.getPlacements(),
             hasContradiction: isDefined(this.contradiction),
-            placedValues: this.placedValues,
-            placedCellIndexes: this.placedCellIndexes,
             eliminatedMasks,
+            contradictionEliminations: this.contradictionEliminations,
             ...(isDefined(this.contradiction) && { contradiction: this.contradiction })
         };
     }
@@ -204,6 +238,7 @@ export class HypothesisPropagator {
     static fromContext(context: CandidateContext): HypothesisPropagator {
         const cells = context.getCells();
         const valueCount = context.getValues().length;
+        const unitCellIndexes = context.getUnits().map(unit => unit.cells.map(unitCell => unitCell.y * valueCount + unitCell.x));
 
         return new HypothesisPropagator({
             cells,
@@ -214,7 +249,10 @@ export class HypothesisPropagator {
                     .reduce((mask, candidate) => (hasMaskValue(mask, candidate) ? mask : mask + getValueBit(candidate)), 0)
             ),
             peerIndexes: cells.map(cell => context.getPeers(cell).map(peer => peer.y * valueCount + peer.x)),
-            unitCellIndexes: context.getUnits().map(unit => unit.cells.map(unitCell => unitCell.y * valueCount + unitCell.x)),
+            unitCellIndexes,
+            cellUnitIndexes: cells.map((_, cellIndex) =>
+                unitCellIndexes.flatMap((unitCells, unitIndex) => (unitCells.includes(cellIndex) ? [unitIndex] : []))
+            ),
             valueCount
         });
     }

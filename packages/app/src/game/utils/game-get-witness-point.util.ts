@@ -1,6 +1,11 @@
 import type { CellInterface } from '@suuudokuuu/generator';
 
+const witnessSpreadRatio = 0.22;
+
+const getCellCenter = (index: number, cellSize: number, cellMargin: number): number =>
+    index * cellSize + Math.floor(index / 3) * cellMargin + cellSize / 2;
+
 export const gameGetWitnessPoint = (cell: CellInterface, value: number, cellSize: number, cellMargin: number) => ({
-    x: cell.x * cellSize + Math.floor(cell.x / 3) * cellMargin + 1 + ((((value - 1) % 3) + 0.5) * (cellSize - 2)) / 3,
-    y: cell.y * cellSize + Math.floor(cell.y / 3) * cellMargin + 1 + ((Math.floor((value - 1) / 3) + 0.5) * (cellSize - 2)) / 3
+    x: getCellCenter(cell.x, cellSize, cellMargin) + (((value - 1) % 3) - 1) * cellSize * witnessSpreadRatio,
+    y: getCellCenter(cell.y, cellSize, cellMargin) + (Math.floor((value - 1) / 3) - 1) * cellSize * witnessSpreadRatio
 });

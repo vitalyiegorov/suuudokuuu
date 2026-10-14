@@ -1,6 +1,5 @@
+import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
-
-import { isDefined } from '@rnw-community/shared';
 
 import { gameGetHintFooterHeight } from '../../utils/game-get-hint-footer-height.util';
 
@@ -9,30 +8,27 @@ import type { EdgeInsets } from 'react-native-safe-area-context';
 const hintPanelMaxWidth = 480;
 const hintPanelControlSize = 44;
 
-const dotSize = 6;
-const dotActiveSize = 8;
+const hintPanelStepperButtonMinWidth = 80;
 
 export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
-    region: (availableHeight: number | undefined, insets: EdgeInsets) => ({
-        marginBottom: isDefined(availableHeight) ? 0 : Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md,
-        bottom: isDefined(availableHeight) ? Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md : 0,
-        height: availableHeight,
-        flexBasis: isDefined(availableHeight) ? 'auto' : 0,
-        flexGrow: isDefined(availableHeight) ? 0 : 1,
-        flexShrink: 1,
-        minHeight: 0,
-        justifyContent: 'flex-end',
-        left: isDefined(availableHeight) ? insets.left + theme.spacing.md : 0,
-        right: isDefined(availableHeight) ? insets.right + theme.spacing.md : 0,
-        position: isDefined(availableHeight) ? 'absolute' : 'relative',
-        zIndex: 10
-    }),
-    container: (availableHeight: number | undefined) => ({
+    region: (controlsTop: number, insets: EdgeInsets) => {
+        const isWideLayout = appLayoutScreenIsWide(rt.screen);
+
+        return {
+            bottom: Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md - (isWideLayout ? 0 : rt.insets.bottom + theme.spacing.xs),
+            justifyContent: 'flex-start',
+            left: isWideLayout ? 0 : insets.left + theme.spacing.md,
+            position: 'absolute',
+            right: isWideLayout ? 0 : insets.right + theme.spacing.md,
+            top: isWideLayout ? controlsTop : controlsTop + theme.spacing.md,
+            zIndex: 10
+        };
+    },
+    container: {
         alignSelf: 'center',
-        flexGrow: 1,
+        flexGrow: appLayoutScreenIsWide(rt.screen) ? 0 : 1,
         flexShrink: 1,
         minHeight: 0,
-        height: availableHeight,
         borderCurve: 'continuous',
         borderRadius: theme.radius.lg,
         borderWidth: 1,
@@ -41,7 +37,13 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
         padding: theme.spacing.md,
         width: '100%',
         overflow: 'hidden'
-    }),
+    },
+    page: {
+        flexGrow: 1,
+        flexShrink: 1,
+        gap: theme.spacing.sm,
+        minHeight: 0
+    },
     header: {
         alignItems: 'center',
         flexDirection: 'row',
@@ -54,41 +56,36 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
     technique: {
         color: theme.colors.text.hint,
         flex: 1,
-        fontSize: theme.typography.size.xs,
-        fontWeight: '900',
-        letterSpacing: 0.6,
-        textAlign: 'left',
-        textTransform: 'uppercase'
+        fontSize: theme.typography.size.sm,
+        fontWeight: '800',
+        textAlign: 'left'
     },
     actions: {
+        alignItems: 'center',
         flexDirection: 'row',
         flexShrink: 0,
         gap: theme.spacing.sm,
-        marginTop: 'auto'
+        marginTop: theme.spacing.xs
     },
     footerButton: {
         borderRadius: theme.radius.pill,
         flex: 1,
         height: gameGetHintFooterHeight(rt.fontScale)
     },
+    stepperButton: {
+        borderRadius: theme.radius.pill,
+        height: gameGetHintFooterHeight(rt.fontScale),
+        minWidth: hintPanelStepperButtonMinWidth
+    },
     disabledButton: {
         opacity: 0.4
     },
-    dots: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        gap: theme.spacing.xs / 2
-    },
-    dotControl: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        height: hintPanelControlSize,
-        width: hintPanelControlSize
-    },
-    dot: (isSelected: boolean) => ({
-        backgroundColor: isSelected ? theme.colors.accent : theme.colors.text.hint,
-        borderRadius: theme.radius.pill,
-        height: isSelected ? dotActiveSize : dotSize,
-        width: isSelected ? dotActiveSize : dotSize
-    })
+    stepperLabel: {
+        color: theme.colors.text.hint,
+        flex: 1,
+        fontSize: theme.typography.size.sm,
+        fontVariant: ['tabular-nums'],
+        fontWeight: '700',
+        textAlign: 'center'
+    }
 }));

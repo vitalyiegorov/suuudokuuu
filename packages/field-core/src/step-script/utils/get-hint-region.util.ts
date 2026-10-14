@@ -2,14 +2,19 @@ import { isDefined } from '@rnw-community/shared';
 
 import { HintRegionKindEnum } from '../enums/hint-region-kind.enum';
 
+import { getBoxNumber } from './get-box-number.util';
+
 import type { HintRegionInterface } from '../interfaces/hint-region.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-export const getHintRegion = (cells: readonly CellInterface[], placementCell?: CellInterface): HintRegionInterface | null => {
+const getTargetRegion = (targetCell?: CellInterface): HintRegionInterface | null =>
+    isDefined(targetCell) ? { kind: HintRegionKindEnum.CELL, number: getBoxNumber(targetCell), cell: targetCell } : null;
+
+export const getHintRegion = (cells: readonly CellInterface[], targetCell?: CellInterface): HintRegionInterface | null => {
     const [firstCell] = cells;
 
     if (cells.length < 2) {
-        return isDefined(placementCell) ? { kind: HintRegionKindEnum.ROW, number: placementCell.y + 1 } : null;
+        return getTargetRegion(targetCell);
     }
 
     if (cells.every(cell => cell.y === firstCell.y)) {
@@ -21,8 +26,8 @@ export const getHintRegion = (cells: readonly CellInterface[], placementCell?: C
     }
 
     if (cells.every(cell => cell.group === firstCell.group)) {
-        return { kind: HintRegionKindEnum.BOX, number: firstCell.group + 1 };
+        return { kind: HintRegionKindEnum.BOX, number: getBoxNumber(firstCell) };
     }
 
-    return isDefined(placementCell) ? { kind: HintRegionKindEnum.ROW, number: placementCell.y + 1 } : null;
+    return getTargetRegion(targetCell);
 };

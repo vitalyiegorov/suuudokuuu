@@ -118,4 +118,29 @@ describe('buildStepScriptState', () => {
 
         expect(buildStepScriptState(multiStrikeScript, 1).eliminatedCandidates.get('0-4')).toEqual([3, 7]);
     });
+
+    it('tints only the current deduction of a merged hint chain', () => {
+        expect.assertions(4);
+
+        const singleCells = [placementCell, createCell(2, 0), createCell(2, 1)];
+        const mergedScript: StepScriptInterface = {
+            ...nakedPairScript,
+            steps: [
+                ...nakedPairScript.steps.slice(0, 2),
+                {
+                    kind: StepScriptStepKindEnum.RevealCandidates,
+                    patternCells: singleCells,
+                    candidates: [{ cell: placementCell, value: 5 }],
+                    narration: { technique: SolutionTechniqueEnum.HiddenSingle, cells: singleCells, values: [5] }
+                },
+                nakedPairScript.steps[2]
+            ]
+        };
+        const stepState = buildStepScriptState(mergedScript, 3);
+
+        expect([...stepState.patternCellKeys]).toEqual(['2-2', '2-0', '2-1']);
+        expect([...stepState.revealedCandidates.keys()]).toEqual(['2-2']);
+        expect(stepState.eliminatedCandidates.get('0-4')).toEqual([3]);
+        expect(stepState.targetCellKey).toBe('2-2');
+    });
 });
