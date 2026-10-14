@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.31.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.30.0...v2.31.0) (2026-10-14)
+
+### Features
+
+* **landing:** playable board on every difficulty page and the home page ([#612](https://github.com/vitalyiegorov/suuudokuuu/issues/612)) ([69316c1](https://github.com/vitalyiegorov/suuudokuuu/commit/69316c1366f80e2ca8ce217127bbb6319953e573))
+
+
 # [2.30.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.29.0...v2.30.0) (2026-10-14)
 
 **Note:** Version bump only for package @suuudokuuu/landing
