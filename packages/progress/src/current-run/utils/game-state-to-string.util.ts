@@ -60,11 +60,13 @@ const getIndexedCandidates = (candidates: CurrentRunType['candidates']): Record<
 export const gameStateToString = (gameState: CurrentRunType, kind = SharedPayloadKindEnum.Puzzle): string => {
     const timelineEvents = toShareableTimelineEvents(gameState.timelineEvents);
     const techniques = getTimelineCellTechniques(timelineEvents);
+    const hints = timelineEvents.flatMap(event => (event.kind === TimelineEventKindEnum.Cell ? [event.hinted === true] : []));
     const encodedState = Result.try(() =>
         serializer.encodeState({
             field: gameState.sudokuString,
             timelineEvents,
             ...(techniques.some(isNotNull) && { techniques }),
+            ...(hints.includes(true) && { hints }),
             kind,
             maxMistakes: gameState.maxMistakes,
             isChallengeRun: gameState.isChallengeRun,

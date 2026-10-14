@@ -64,8 +64,12 @@ const isCellEvent = (event: TimelineEventType): event is CellTimelineEventType =
 
 const isLastEventAway = (run: CurrentRunType): boolean => run.timelineEvents.at(-1)?.kind === TimelineEventKindEnum.Away;
 
-const applyTechniqueUsageDelta = (counts: TechniqueUsageCountsType, technique: SolutionTechniqueEnum | undefined, delta: number) => {
-    if (isUndefined(technique)) {
+const applyTechniqueUsageDelta = (
+    counts: TechniqueUsageCountsType,
+    { technique, hinted }: Pick<CellTimelineEventType, 'hinted' | 'technique'>,
+    delta: number
+) => {
+    if (isUndefined(technique) || hinted === true) {
         return counts;
     }
 
@@ -124,8 +128,9 @@ const saveMove = (
         candidates,
         eliminatedCandidates,
         correctCell,
-        scoredCells
-    }: FieldStateType & { correctCell: CellInterface; scoredCells: ScoredCellsInterface }
+        scoredCells,
+        hintTechnique
+    }: FieldStateType & { correctCell: CellInterface; scoredCells: ScoredCellsInterface; hintTechnique?: SolutionTechniqueEnum }
 ): CurrentRunType => {
     const { difficulty, mistakes, elapsedTime, maxMistakes } = run;
     const score = scoring.calculate({ scoredCells, difficulty, mistakes, elapsedTime, maxMistakes });
@@ -135,7 +140,8 @@ const saveMove = (
         value: correctCell.value,
         ts: getTimelineTimestampDelta(run),
         score,
-        assisted: run.timelineEvents.some(event => event.kind === TimelineEventKindEnum.Hint)
+        assisted: run.timelineEvents.some(event => event.kind === TimelineEventKindEnum.Hint),
+        ...(isNotUndefined(hintTechnique) && { technique: hintTechnique, hinted: true })
     } as const;
 
     return {
@@ -163,7 +169,7 @@ const classifyMove =
 
         const timelineEvents = run.timelineEvents.map(event => (event === cellEvent ? { ...cellEvent, technique } : event));
 
-        return [{ ...run, timelineEvents }, applyTechniqueUsageDelta(counts, technique, 1), { ...cellEvent, technique }, 1];
+        return [{ ...run, timelineEvents }, applyTechniqueUsageDelta(counts, { technique }, 1), { ...cellEvent, technique }, 1];
     };
 
 const chargeHintLevel = (run: CurrentRunType): CurrentRunType => ({
@@ -211,7 +217,7 @@ const undoMove =
 
         return [
             { ...nextRun, timelineEvents, score, undoneMoves: [...run.undoneMoves, undoneMove] },
-            applyTechniqueUsageDelta(counts, undoneMove.technique, -1),
+            applyTechniqueUsageDelta(counts, undoneMove, -1),
             undoneMove,
             -1
         ];
@@ -231,7 +237,7 @@ const redoMove =
 
         return [
             { ...nextRun, timelineEvents, undoneMoves: run.undoneMoves.slice(0, -1), score: run.score + (redoneMove.score ?? 0) },
-            applyTechniqueUsageDelta(counts, redoneMove.technique, 1),
+            applyTechniqueUsageDelta(counts, redoneMove, 1),
             redoneMove,
             1
         ];
