@@ -10,11 +10,9 @@
         "@playwright/test": "^1.63.0",
         "@rnw-community/shared": "^2.15.0",
         "@suuudokuuu/app": "workspace:*",
-        "@suuudokuuu/field-core": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/landing": "workspace:*",
         "@suuudokuuu/puzzle-forge": "workspace:*",
-        "@suuudokuuu/techniques": "workspace:*",
         "serve": "^14.2.6"
     }
 }
