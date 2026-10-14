@@ -1,7 +1,5 @@
 'use client';
 
-import { msg } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react/macro';
 import { track } from '@vercel/analytics';
 import { useSyncExternalStore } from 'react';
 
@@ -13,16 +11,9 @@ import {
     COMFORT_SCALE_STORAGE_KEY,
     DEFAULT_COMFORT_SCALE_STEP
 } from '../../constants/comfort-scale.constant';
-import { ComfortScaleStepEnum } from '../../enums/comfort-scale-step.enum';
 
+import type { ComfortScaleStepEnum } from '../../enums/comfort-scale-step.enum';
 import type { ComfortScaleStepInterface } from '../../interfaces/comfort-scale-step.interface';
-import type { MessageDescriptor } from '@lingui/core';
-
-const COMFORT_SCALE_STEP_LABELS: Readonly<Record<ComfortScaleStepEnum, MessageDescriptor>> = {
-    [ComfortScaleStepEnum.DEFAULT]: msg`Default text size`,
-    [ComfortScaleStepEnum.LARGE]: msg`Large text size`,
-    [ComfortScaleStepEnum.LARGEST]: msg`Largest text size`
-};
 
 const activeStepListeners = new Set<() => void>();
 
@@ -59,8 +50,12 @@ const applyComfortScaleStep = (step: ComfortScaleStepInterface) => {
     notifyActiveStepListeners();
 };
 
-export const ComfortControl = () => {
-    const { i18n, t } = useLingui();
+interface Props {
+    label: string;
+    stepLabels: Readonly<Record<ComfortScaleStepEnum, string>>;
+}
+
+export const ComfortControl = ({ label, stepLabels }: Props) => {
     const activeStepId = useSyncExternalStore(subscribeToActiveStep, getClientActiveStepId, getServerActiveStepId);
 
     const handleSelectStep = (step: ComfortScaleStepInterface) => () => {
@@ -69,10 +64,10 @@ export const ComfortControl = () => {
     };
 
     return (
-        <div aria-label={t`Text size`} className="comfort-control" role="group">
+        <div aria-label={label} className="comfort-control" role="group">
             {COMFORT_SCALE_STEPS.map(step => (
                 <button
-                    aria-label={i18n._(COMFORT_SCALE_STEP_LABELS[step.id])}
+                    aria-label={stepLabels[step.id]}
                     aria-pressed={step.id === activeStepId}
                     className="comfort-control__step"
                     key={step.id}

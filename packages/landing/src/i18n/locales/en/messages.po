@@ -7,10 +7,6 @@ msgstr ""
 "X-Generator: @lingui/cli\n"
 "Language: en\n"
 
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "{cellLabel}, empty"
-msgstr "{cellLabel}, empty"
-
 #: src/home/components/home-page/home-page.tsx
 msgid "<0>Full House</0> — the simplest possible move, filling the last empty cell in a unit."
 msgstr "<0>Full House</0> — the simplest possible move, filling the last empty cell in a unit."
@@ -27,15 +23,11 @@ msgstr "<0>Naked Single</0> — a cell left with exactly one candidate."
 msgid "An Easy board to start with. Play it right here, or pick any of seven difficulty levels in the app."
 msgstr "An Easy board to start with. Play it right here, or pick any of seven difficulty levels in the app."
 
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "Apply to the board"
-msgstr "Apply to the board"
-
 #: src/chrome/components/site-footer/site-footer.tsx
 msgid "Clues versus difficulty"
 msgstr "Clues versus difficulty"
 
-#: src/chrome/components/comfort-control/comfort-control.tsx
+#: src/chrome/components/site-header/site-header.tsx
 msgid "Default text size"
 msgstr "Default text size"
 
@@ -66,14 +58,6 @@ msgstr "Does it work offline?"
 #: src/chrome/components/store-badges/store-badges.tsx
 msgid "Download on the App Store"
 msgstr "Download on the App Store"
-
-#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
-msgid "Easy"
-msgstr "Easy"
-
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "Enter {value}, {remaining} still missing"
-msgstr "Enter {value}, {remaining} still missing"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Every puzzle guaranteed to have exactly one solution, no guessing required"
@@ -115,32 +99,16 @@ msgstr "Frequently asked questions"
 msgid "Get it on Google Play"
 msgstr "Get it on Google Play"
 
-#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
-msgid "Hard"
-msgstr "Hard"
-
-#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
-msgid "Hell"
-msgstr "Hell"
-
 #: src/chrome/components/site-footer/site-footer.tsx
 #: src/chrome/components/site-header/site-header.tsx
 msgid "How to play"
 msgstr "How to play"
 
-#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
-msgid "Infinity"
-msgstr "Infinity"
-
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "Interactive Sudoku board"
-msgstr "Interactive Sudoku board"
-
 #: src/home/components/home-page/home-page.tsx
 msgid "Is {SITE_NAME} free?"
 msgstr "Is {SITE_NAME} free?"
 
-#: src/chrome/components/language-switcher/language-switcher.tsx
+#: src/chrome/components/site-header/site-header.tsx
 msgid "Language"
 msgstr "Language"
 
@@ -148,11 +116,11 @@ msgstr "Language"
 msgid "Large print sudoku"
 msgstr "Large print sudoku"
 
-#: src/chrome/components/comfort-control/comfort-control.tsx
+#: src/chrome/components/site-header/site-header.tsx
 msgid "Large text size"
 msgstr "Large text size"
 
-#: src/chrome/components/comfort-control/comfort-control.tsx
+#: src/chrome/components/site-header/site-header.tsx
 msgid "Largest text size"
 msgstr "Largest text size"
 
@@ -164,33 +132,13 @@ msgstr "Learn"
 msgid "Learn to solve"
 msgstr "Learn to solve"
 
-#: src/difficulty/components/difficulty-playable-board/difficulty-playable-board.tsx
+#: src/difficulty/components/difficulty-board/difficulty-board.tsx
 msgid "Loading the board…"
 msgstr "Loading the board…"
-
-#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
-msgid "Medium"
-msgstr "Medium"
-
-#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
-msgid "New {difficultyName} puzzle"
-msgstr "New {difficultyName} puzzle"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "New to Sudoku?"
 msgstr "New to Sudoku?"
-
-#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
-msgid "Newbie"
-msgstr "Newbie"
-
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "Next step"
-msgstr "Next step"
-
-#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
-msgid "Nightmare"
-msgstr "Nightmare"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "No ads, no account and no tracking inside the game, on the web or in the app"
@@ -200,22 +148,10 @@ msgstr "No ads, no account and no tracking inside the game, on the web or in the
 msgid "No. There are no ads anywhere and no tracking inside the game; this website uses only cookieless, anonymous page analytics."
 msgstr "No. There are no ads anywhere and no tracking inside the game; this website uses only cookieless, anonymous page analytics."
 
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "Notes"
-msgstr "Notes"
-
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "Number pad"
-msgstr "Number pad"
-
 #: src/chrome/components/site-footer/site-footer.tsx
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Play"
 msgstr "Play"
-
-#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
-msgid "Play {difficultyName} in the full app"
-msgstr "Play {difficultyName} in the full app"
 
 #: src/chrome/components/site-footer/site-footer.tsx
 msgid "Play {SITE_NAME}"
@@ -225,13 +161,9 @@ msgstr "Play {SITE_NAME}"
 msgid "Play now"
 msgstr "Play now"
 
-#: src/difficulty/components/difficulty-playable-board/difficulty-playable-board.tsx
+#: src/difficulty/components/difficulty-board/difficulty-board.tsx
 msgid "Play this puzzle here"
 msgstr "Play this puzzle here"
-
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "Previous step"
-msgstr "Previous step"
 
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Primary"
@@ -261,14 +193,6 @@ msgstr "Project"
 msgid "Read the <0>how to play guide</0> for the three rules and a walkthrough of your first moves, or look up any term in the <1>sudoku glossary</1>, which defines every technique and every piece of vocabulary the guides use."
 msgstr "Read the <0>how to play guide</0> for the three rules and a walkthrough of your first moves, or look up any term in the <1>sudoku glossary</1>, which defines every technique and every piece of vocabulary the guides use."
 
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "Redo"
-msgstr "Redo"
-
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "Restart walkthrough"
-msgstr "Restart walkthrough"
-
 #: src/home/components/home-page/home-page.tsx
 msgid "Seven difficulty levels from Newbie through Hell to Infinity, the top tier serving record puzzles such as Everest and AI Escargot"
 msgstr "Seven difficulty levels from Newbie through Hell to Infinity, the top tier serving record puzzles such as Everest and AI Escargot"
@@ -288,10 +212,6 @@ msgstr "Solver"
 #: src/chrome/components/site-footer/site-footer.tsx
 msgid "Source on GitHub"
 msgstr "Source on GitHub"
-
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "Step {step} of {stepCount}"
-msgstr "Step {step} of {stepCount}"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Stuck on a puzzle?"
@@ -313,10 +233,6 @@ msgstr "Sudoku solver"
 msgid "Sudoku techniques"
 msgstr "Sudoku techniques"
 
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "Technique walkthrough"
-msgstr "Technique walkthrough"
-
 #: src/home/components/home-page/home-page.tsx
 msgid "Technique-aware hints that name the exact solving pattern, not just the next digit"
 msgstr "Technique-aware hints that name the exact solving pattern, not just the next digit"
@@ -325,17 +241,13 @@ msgstr "Technique-aware hints that name the exact solving pattern, not just the 
 msgid "Techniques"
 msgstr "Techniques"
 
-#: src/chrome/components/comfort-control/comfort-control.tsx
+#: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "Text size"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Type or paste the grid into the <0>step-by-step sudoku solver</0> and it will name every move — Hidden Single, Naked Pair, X-Wing — instead of just filling the board in. It checks that your puzzle has exactly one solution first, and it runs entirely in your browser."
 msgstr "Type or paste the grid into the <0>step-by-step sudoku solver</0> and it will name every move — Hidden Single, Naked Pair, X-Wing — instead of just filling the board in. It checks that your puzzle has exactly one solution first, and it runs entirely in your browser."
-
-#: src/techniques/utils/build-field-labels.util.ts
-msgid "Undo"
-msgstr "Undo"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "What difficulty levels exist?"

@@ -28,7 +28,7 @@
         ".agents/**",
         ".claude/**",
         "**/CHANGELOG.md",
-        "packages/{app,landing}/src/i18n/locales/*/messages.ts",
+        "packages/{app,landing}/src/i18n/locales/**/messages.ts",
         "packages/hell-corpus/src/constants/hell-corpus-data.constant.ts",
         "packages/landing/next-env.d.ts"
     ]

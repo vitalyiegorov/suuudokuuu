@@ -60,7 +60,7 @@ src/
 ├── home/
 │   └── components/          # the home page body, rendered by the English and the localized home routes
 ├── i18n/
-│   ├── components/          # LocaleProvider, the client-island Lingui provider
+│   ├── components/          # IslandLocaleProvider and LocaleProvider, the Lingui context for live-board islands
 │   ├── locales/             # Lingui catalogs: messages.po plus the compiled messages.ts per locale
 │   └── utils/               # activateLocale, the server-side Lingui activation
 ├── indexing/
@@ -206,7 +206,7 @@ English is served from the site root. Every other locale is served under `/<loca
 - A page is published in a locale when its sidecar has a `translations.<locale>` entry carrying the translated `title`, `headline`, `metaTitle` and `metaDescription`. `getPageLocales` turns that into the page's locale list, which drives `generateStaticParams` in the `[locale]` route, the hreflang alternates, the sitemap, `llms.txt`, IndexNow and the header's `LanguageSwitcher`. Sidecars stay plain strings, because scripts and Playwright specs import them without the Lingui macro transform.
 - Body copy goes through Lingui macros. `lingui compile --strict` (run by `i18n:sync`, so by `pnpm i18n:check` in CI) fails on any untranslated message, and `lingui/no-unlocalized-strings` lints the localized modules listed in the root `.oxlintrc.json`; add a page's component folder there when localizing it. One catalog per locale means every catalog locale translates every macro message; split the catalog per page once two localized pages need different locale sets.
 - `SiteDocument` renders `<html lang dir>`, with `dir="rtl"` for `RIGHT_TO_LEFT_LOCALES` (`ar`, `ur`), and activates the locale for server components through `activateLocale`. A localized page component calls `activateLocale` too, because Next renders layouts and pages independently. `extractNodeText` resolves `<Trans>` children through the active locale, so FAQ and feature JSON-LD stay in the page's language.
-- Client islands read translations from `LocaleProvider`, which receives the locale's whole compiled catalog. That is a few kilobytes today; give client strings their own catalog before localized server copy grows the payload.
+- Strings are resolved on the server wherever a client component can take them as props (header controls, the board's play button). Only the live boards translate on the client: their strings live in the files listed as `CLIENT_MESSAGE_SOURCES` in `lingui.config.ts`, which compile into a separate `client/messages` catalog, and `IslandLocaleProvider` wraps each live-board island with just that catalog. Pages without a live board ship no Lingui runtime and no messages.
 - `pnpm --filter @suuudokuuu/landing check:hreflang` reads `out/` after a build and fails unless every page lists itself and an `x-default` that points to its English URL, every alternate exists in the export and declares the same cluster, and `sitemap.xml` carries exactly the same clusters. The web E2E workflow and the production deploy run it after the landing build.
 - Not localized yet: Open Graph images (a localized page reuses the English image), the technique and solver step narration, and the store badge artwork.
 

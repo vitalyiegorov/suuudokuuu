@@ -1,6 +1,5 @@
 'use client';
 
-import { useLingui } from '@lingui/react/macro';
 import { usePathname } from 'next/navigation';
 
 import { isNotEmptyString } from '@rnw-community/shared';
@@ -11,12 +10,12 @@ import { LanguageSwitcherLink } from '../language-switcher-link/language-switche
 import type { LocaleType } from '../../../seo/types/locale.type';
 
 interface Props {
+    label: string;
     locale: LocaleType;
     translatedPageLocales: Readonly<Record<string, readonly LocaleType[]>>;
 }
 
-export const LanguageSwitcher = ({ locale, translatedPageLocales }: Props) => {
-    const { t } = useLingui();
+export const LanguageSwitcher = ({ label, locale, translatedPageLocales }: Props) => {
     const pathname = usePathname();
     const pathWithoutLocale = pathname.slice(buildLocalePath(locale, '').length);
     const pagePath = isNotEmptyString(pathWithoutLocale) ? pathWithoutLocale : '/';
@@ -27,7 +26,7 @@ export const LanguageSwitcher = ({ locale, translatedPageLocales }: Props) => {
     }
 
     return (
-        <nav aria-label={t`Language`} className="language-switcher">
+        <nav aria-label={label} className="language-switcher">
             {pageLocales.map(pageLocale => (
                 <LanguageSwitcherLink
                     href={buildLocalePath(pageLocale, pagePath)}

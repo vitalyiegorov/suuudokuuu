@@ -13,6 +13,7 @@ import { SITE_NAME, SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { PAGE_METADATA_REGISTRY } from '../../../seo/registries/page-metadata.registry';
 import { buildLocalePath } from '../../../seo/utils/build-locale-path.util';
 import { getPageLocales } from '../../../seo/utils/get-page-locales.util';
+import { ComfortScaleStepEnum } from '../../enums/comfort-scale-step.enum';
 import { ComfortControl } from '../comfort-control/comfort-control';
 import { LanguageSwitcher } from '../language-switcher/language-switcher';
 
@@ -31,6 +32,11 @@ interface Props {
 
 export const SiteHeader = ({ locale }: Props) => {
     const { t } = useLingui();
+    const comfortStepLabels = {
+        [ComfortScaleStepEnum.DEFAULT]: t`Default text size`,
+        [ComfortScaleStepEnum.LARGE]: t`Large text size`,
+        [ComfortScaleStepEnum.LARGEST]: t`Largest text size`
+    };
     const homePath = getPageLocales(homePageMetadata).includes(locale)
         ? buildLocalePath(locale, homePageMetadata.path)
         : homePageMetadata.path;
@@ -59,8 +65,8 @@ export const SiteHeader = ({ locale }: Props) => {
                 </Link>
             </nav>
             <div className="site-header__controls">
-                <LanguageSwitcher locale={locale} translatedPageLocales={TRANSLATED_PAGE_LOCALES} />
-                <ComfortControl />
+                <LanguageSwitcher label={t`Language`} locale={locale} translatedPageLocales={TRANSLATED_PAGE_LOCALES} />
+                <ComfortControl label={t`Text size`} stepLabels={comfortStepLabels} />
                 <a className="site-header__play" href={SITE_PLAY_URL}>
                     <Trans>Play</Trans>
                 </a>

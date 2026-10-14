@@ -12,7 +12,6 @@ import {
     VERCEL_ENVIRONMENT_VARIABLE,
     VERCEL_PRODUCTION_ENVIRONMENT_NAME
 } from '../../../analytics/constants/analytics.constant';
-import { LocaleProvider } from '../../../i18n/components/locale-provider/locale-provider';
 import { activateLocale } from '../../../i18n/utils/activate-locale.util';
 import { RIGHT_TO_LEFT_LOCALES } from '../../../seo/constants/site.constant';
 import { buildComfortScaleInitScript } from '../../utils/build-comfort-scale-init-script.util';
@@ -28,7 +27,7 @@ interface Props {
 }
 
 export const SiteDocument = ({ children, locale }: Props) => {
-    const i18n = activateLocale(locale);
+    activateLocale(locale);
     const comfortScaleInitScript = { __html: buildComfortScaleInitScript() };
     const direction = RIGHT_TO_LEFT_LOCALES.includes(locale) ? 'rtl' : 'ltr';
     const clarityProjectId = process.env[CLARITY_PROJECT_ID_ENVIRONMENT_VARIABLE];
@@ -40,11 +39,9 @@ export const SiteDocument = ({ children, locale }: Props) => {
         <html dir={direction} lang={locale}>
             <body>
                 <script dangerouslySetInnerHTML={comfortScaleInitScript} />
-                <LocaleProvider locale={locale} messages={i18n.messages}>
-                    <SiteHeader locale={locale} />
-                    {children}
-                    <SiteFooter />
-                </LocaleProvider>
+                <SiteHeader locale={locale} />
+                {children}
+                <SiteFooter />
                 {isVercelDeployment ? <Analytics /> : null}
                 {isProductionDeployment ? <SpeedInsights /> : null}
                 {isClarityEnabled ? <MicrosoftClarity projectId={clarityProjectId} /> : null}

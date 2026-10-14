@@ -1,6 +1,7 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import Link from 'next/link';
 
+import { IslandLocaleProvider } from '../../../i18n/components/island-locale-provider/island-locale-provider';
 import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
@@ -73,7 +74,9 @@ const SolverPage = () => (
                 <li>Everything runs in your browser: nothing is uploaded, nothing is stored, no account is needed.</li>
             </ul>
         </TechniqueSummary>
-        <SolverWorkbench />
+        <IslandLocaleProvider>
+            <SolverWorkbench />
+        </IslandLocaleProvider>
         <h2>Why a narrated solve beats a bare answer</h2>
         <p>
             Most sudoku solvers online do exactly one thing: they fill the grid. That answers “what goes here” and nothing else. If you were
