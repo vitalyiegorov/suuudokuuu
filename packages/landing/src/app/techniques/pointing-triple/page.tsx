@@ -31,7 +31,7 @@ const PointingTriplePage = () => (
         <TechniquePageHeader metadata={pointingTriplePageMetadata} />
         <p>
             A pointing triple occurs when a digit can only go in three cells of a box and all three sit on the same row or column, which
-            locks the digit into that line and clears it from the line outside the box.
+            locks the digit into that line and clears it from the line outside the box. It is the three-cell form of locked candidates.
         </p>
         <TechniqueSummary>
             <p>

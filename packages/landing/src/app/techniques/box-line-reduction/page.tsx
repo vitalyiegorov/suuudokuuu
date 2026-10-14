@@ -31,7 +31,8 @@ const BoxLineReductionPage = () => (
         <TechniquePageHeader metadata={boxLineReductionPageMetadata} />
         <p>
             Box line reduction happens when a digit can only go in cells of one row or column that all belong to the same box, which forces
-            the digit into that box segment and removes it from the rest of the box.
+            the digit into that box segment and removes it from the rest of the box. It is also called claiming, or locked candidates type
+            2.
         </p>
         <TechniqueSummary>
             <p>

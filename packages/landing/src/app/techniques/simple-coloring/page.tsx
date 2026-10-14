@@ -27,7 +27,7 @@ const SimpleColoringPage = () => (
         <TechniquePageHeader metadata={simpleColoringPageMetadata} />
         <p>
             Simple coloring assigns two alternating colors to a chain of strong links on one digit, then erases any candidate for that digit
-            that can see cells of both colors at once.
+            that can see cells of both colors at once. It is also known as singles chains or single-digit coloring.
         </p>
         <TechniqueSummary>
             <p>

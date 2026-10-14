@@ -7,11 +7,11 @@ import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadat
 export const jellyfishPageMetadata: PageMetadataInterface = {
     path: '/techniques/jellyfish',
     ...buildTechniquePageNames(SolutionTechniqueEnum.Jellyfish),
-    metaTitle: 'Jellyfish Sudoku Technique — How to Spot and Use It',
+    metaTitle: 'Jellyfish Sudoku Technique — The Four-Line Fish',
     metaDescription:
         'A Jellyfish extends X-Wing and Swordfish to four lines: a digit confined to the same four columns across four rows is erased everywhere else in those columns.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-11T00:00:00.000Z',
+    updatedAt: '2026-10-14T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

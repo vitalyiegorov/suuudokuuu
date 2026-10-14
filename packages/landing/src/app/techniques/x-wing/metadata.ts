@@ -7,11 +7,11 @@ import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadat
 export const xWingPageMetadata: PageMetadataInterface = {
     path: '/techniques/x-wing',
     ...buildTechniquePageNames(SolutionTechniqueEnum.XWing),
-    metaTitle: 'X-Wing Sudoku Technique — How to Spot and Use It',
+    metaTitle: 'X-Wing Sudoku Technique — The Two-Line Fish Pattern',
     metaDescription:
         'An X-Wing traps a digit in the same two lines across two rows or columns, letting it be erased everywhere else those lines cross.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-11T00:00:00.000Z',
+    updatedAt: '2026-10-14T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

@@ -7,11 +7,11 @@ import type { PageMetadataInterface } from '../../../seo/interfaces/page-metadat
 export const pointingTriplePageMetadata: PageMetadataInterface = {
     path: '/techniques/pointing-triple',
     ...buildTechniquePageNames(SolutionTechniqueEnum.PointingTriple),
-    metaTitle: 'Pointing Triple Sudoku Technique — Three Cells, One Line',
+    metaTitle: 'Pointing Triple (Locked Candidates) Sudoku Technique',
     metaDescription:
         'A pointing triple happens when a digit fits in three cells of a box and all share one row or column, so strike the digit from the rest of that line.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-11T00:00:00.000Z',
+    updatedAt: '2026-10-14T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

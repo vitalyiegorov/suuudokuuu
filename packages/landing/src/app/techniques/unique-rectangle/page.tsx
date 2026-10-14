@@ -28,7 +28,7 @@ const UniqueRectanglePage = () => (
         <p>
             A Unique Rectangle is a uniqueness technique: when three corners of a rectangle spanning two rows, two columns and exactly two
             boxes hold the same two candidates and nothing else, the fourth corner cannot take either of those two digits, because doing so
-            would give the puzzle a second solution.
+            would give the puzzle a second solution. Some apps list it simply as uniqueness or as the deadly pattern.
         </p>
         <TechniqueSummary>
             <p>
