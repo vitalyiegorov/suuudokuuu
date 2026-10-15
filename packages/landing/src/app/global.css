@@ -342,9 +342,33 @@ strong {
 }
 
 .language-switcher {
-    display: flex;
-    gap: 0.6rem;
+    position: relative;
     font-size: 0.85rem;
+}
+
+.language-switcher__current {
+    color: var(--landing-muted-text-color);
+    cursor: pointer;
+}
+
+.language-switcher__current:hover,
+.language-switcher__menu[open] .language-switcher__current {
+    color: var(--landing-text-color);
+}
+
+.language-switcher__list {
+    position: absolute;
+    inset-inline-end: 0;
+    z-index: 10;
+    display: grid;
+    gap: 0.45rem;
+    margin: 0.5rem 0 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--landing-border-color);
+    border-radius: 0.75rem;
+    background-color: var(--landing-surface-color);
+    list-style: none;
+    white-space: nowrap;
 }
 
 .language-switcher a {

@@ -1,5 +1,7 @@
 import { isDefined } from '@rnw-community/shared';
 
+import { getActiveLocale } from '../../../i18n/utils/get-active-locale.util';
+import { localizePageMetadata } from '../../utils/localize-page-metadata.util';
 import { resolvePageHeadline } from '../../utils/resolve-page-headline.util';
 import { Breadcrumbs } from '../breadcrumbs/breadcrumbs';
 import { UpdatedDate } from '../updated-date/updated-date';
@@ -18,7 +20,7 @@ export const PageHeader = ({ children, metadata }: Props) => {
     return (
         <>
             {breadcrumbs}
-            <h1>{resolvePageHeadline(metadata)}</h1>
+            <h1>{resolvePageHeadline(localizePageMetadata(metadata, getActiveLocale()))}</h1>
             <UpdatedDate updatedAt={metadata.updatedAt} />
         </>
     );

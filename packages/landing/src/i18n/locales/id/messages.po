@@ -1,0 +1,1933 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-10-15 06:50+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: id\n"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells — only one fewer than Medium, which is exactly why the tier is defined by the techniques it requires rather than by its clue count."
+msgstr "{clueCount} angka awal dari 81 sel — hanya satu lebih sedikit daripada Sedang, itulah sebabnya tingkat ini ditentukan oleh teknik yang dibutuhkan, bukan oleh jumlah angka awalnya."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, a third of the grid filled in before you start."
+msgstr "{clueCount} angka awal dari 81 sel, sepertiga grid sudah terisi sebelum Anda mulai."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, and every blank is reachable with a full house or a naked single."
+msgstr "{clueCount} angka awal dari 81 sel, dan setiap sel kosong bisa dijangkau dengan sel kosong terakhir atau tunggal telanjang."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need a hidden single and nothing harder."
+msgstr "{clueCount} angka awal dari 81 sel, dijamin membutuhkan tunggal tersembunyi dan tidak lebih sulit dari itu."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need at least one chain or coloring technique beyond every fish and wing."
+msgstr "{clueCount} angka awal dari 81 sel, dijamin membutuhkan minimal satu teknik rantai atau pewarnaan di atas semua fish dan wing."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need at least one fish or wing pattern beyond every subset."
+msgstr "{clueCount} angka awal dari 81 sel, dijamin membutuhkan minimal satu pola fish atau wing di atas semua subset."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to stall on singles and yield to an intersection or a subset."
+msgstr "{clueCount} angka awal dari 81 sel, dijamin buntu di teknik tunggal dan baru terpecahkan dengan irisan atau subset."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, solvable with full houses and naked singles alone."
+msgstr "{clueCount} angka awal dari 81 sel, bisa diselesaikan hanya dengan sel kosong terakhir dan tunggal telanjang."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, solved start to finish with full houses, naked singles and hidden singles."
+msgstr "{clueCount} angka awal dari 81 sel, diselesaikan dari awal sampai akhir dengan sel kosong terakhir, tunggal telanjang, dan tunggal tersembunyi."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, well under a third of the grid."
+msgstr "{clueCount} angka awal dari 81 sel, jauh di bawah sepertiga grid."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{easyClueCount} clues, and every puzzle needs at least one hidden single, never more. See the <0>Easy sudoku lander</0> to play it digitally."
+msgstr "{easyClueCount} angka awal, dan setiap sudoku membutuhkan paling tidak satu tunggal tersembunyi, tidak lebih. Lihat <0>halaman sudoku mudah</0> untuk memainkannya secara digital."
+
+#: src/printable/components/printable-download-card/printable-download-card.tsx
+msgid "{fileSizeKilobytes} KB PDF, US Letter"
+msgstr "{fileSizeKilobytes} KB PDF, US Letter"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{hardClueCount} clues, guaranteed to stall on subsets and to yield to fish and wing patterns. See the <0>Hard sudoku lander</0> to play it digitally."
+msgstr "{hardClueCount} angka awal, dijamin buntu di subset dan baru terpecahkan dengan pola fish dan wing. Lihat <0>halaman sudoku sulit</0> untuk memainkannya secara digital."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "{hellCorpusSize} verified puzzles with {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues, drawn from the tdoku 17-clue catalog and the magictour top1465 list rather than generated fresh."
+msgstr "{hellCorpusSize} sudoku terverifikasi dengan {HELL_CORPUS_MINIMUM_GIVEN_COUNT} sampai {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} angka awal, diambil dari katalog 17 angka awal tdoku dan daftar top1465 magictour, bukan dibuat baru."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "{infinityCorpusSize} record puzzles with {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues, published at SE {lowestRatingLabel} to {highestRatingLabel}."
+msgstr "{infinityCorpusSize} sudoku rekor dengan {INFINITY_MINIMUM_GIVEN_COUNT} sampai {INFINITY_MAXIMUM_GIVEN_COUNT} angka awal, dipublikasikan dengan peringkat SE {lowestRatingLabel} sampai {highestRatingLabel}."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets. See the <0>Medium sudoku lander</0> to play it digitally."
+msgstr "{mediumClueCount} angka awal, dijamin buntu di teknik tunggal dan baru terpecahkan dengan irisan dan subset. Lihat <0>halaman sudoku sedang</0> untuk memainkannya secara digital."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{newbieClueCount} clues, solved with full houses and naked singles alone. See the <0>Newbie sudoku lander</0> to play it digitally."
+msgstr "{newbieClueCount} angka awal, diselesaikan hanya dengan sel kosong terakhir dan tunggal telanjang. Lihat <0>halaman sudoku pemula</0> untuk memainkannya secara digital."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{nightmareClueCount} clues, guaranteed to stall on wings and to yield to chains and coloring. See the <0>Nightmare sudoku lander</0> to play it digitally."
+msgstr "{nightmareClueCount} angka awal, dijamin buntu di wing dan baru terpecahkan dengan rantai dan pewarnaan. Lihat <0>halaman sudoku mimpi buruk</0> untuk memainkannya secara digital."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_BLANK_GRID_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_BLANK_GRID_PAGE_COUNT} halaman"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "{PRINTABLE_BOOKLET_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_BOOKLET_PAGE_COUNT} halaman"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles"
+msgstr "{PRINTABLE_BOOKLET_SIZE} sudoku"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with the solved grids at the back."
+msgstr "{PRINTABLE_BOOKLET_SIZE} sudoku di {PRINTABLE_BOOKLET_PAGE_COUNT} halaman, {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} sudoku per halaman, dengan kunci jawaban di bagian belakang."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with the solved grids at the back."
+msgstr "{PRINTABLE_BOOKLET_SIZE} sudoku di {PRINTABLE_BOOKLET_PAGE_COUNT} halaman, dicetak {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} per halaman dengan kunci jawaban di bagian belakang."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key."
+msgstr "{PRINTABLE_BOOKLET_SIZE} sudoku, dicetak {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} per halaman, lengkap dengan kunci jawaban."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} record puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key."
+msgstr "{PRINTABLE_BOOKLET_SIZE} sudoku rekor, dicetak {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} per halaman, lengkap dengan kunci jawaban."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_LARGE_PRINT_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_LARGE_PRINT_PAGE_COUNT} halaman"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_LARGE_PRINT_SIZE} puzzles"
+msgstr "{PRINTABLE_LARGE_PRINT_SIZE} sudoku"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Box rule.</0> Each of the nine 3×3 boxes must contain the digits 1 to 9 exactly once each."
+msgstr "<0>Aturan kotak.</0> Setiap dari sembilan kotak 3×3 harus berisi angka 1 sampai 9, masing-masing tepat satu kali."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Column rule.</0> Each of the nine columns must contain the digits 1 to 9 exactly once each."
+msgstr "<0>Aturan kolom.</0> Setiap dari sembilan kolom harus berisi angka 1 sampai 9, masing-masing tepat satu kali."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Easy.</0> Adds hidden singles, still no candidate tracking required."
+msgstr "<0>Mudah.</0> Menambahkan tunggal tersembunyi, tetap tanpa perlu mencatat kandidat."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Easy</0> — {easyClueCount} clues, guaranteed to need at least one hidden single and never more than that."
+msgstr "<0>Mudah</0> — {easyClueCount} angka awal, dijamin membutuhkan minimal satu tunggal tersembunyi dan tidak lebih sulit dari itu."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Full House</0> — the simplest possible move, filling the last empty cell in a unit."
+msgstr "<0>Sel Kosong Terakhir</0> — langkah paling sederhana, yaitu mengisi sel kosong terakhir dalam satu unit."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Hard.</0> Always stalls on subsets and always yields to a fish or a wing pattern."
+msgstr "<0>Sulit.</0> Selalu buntu di subset dan selalu terpecahkan dengan fish atau wing."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Hard</0> — {hardClueCount} clues, guaranteed to stall on subsets and to yield to fish and wing patterns."
+msgstr "<0>Sulit</0> — {hardClueCount} angka awal, dijamin buntu di subset dan baru terpecahkan dengan pola fish dan wing."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Hell.</0> Always stalls on chains and AIC and always needs a forcing chain, drawn from a bundled, verified corpus."
+msgstr "<0>Neraka.</0> Selalu buntu di rantai dan AIC, dan selalu membutuhkan rantai paksa, diambil dari korpus bawaan yang terverifikasi."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Hell</0> — guaranteed to stall on AIC and to need a forcing chain, drawn from a bundled, verified corpus rather than generated to a band."
+msgstr "<0>Neraka</0> — dijamin buntu di AIC dan membutuhkan rantai paksa, diambil dari korpus bawaan yang terverifikasi, bukan dibuat sesuai rentang teknik."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Hidden Single</0> — a digit that only fits in one cell of a unit."
+msgstr "<0>Tunggal Tersembunyi</0> — angka yang hanya muat di satu sel dalam sebuah unit."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Infinity.</0> The hardest sudoku puzzles ever published, such as Everest and AI Escargot, chosen by their published rating rather than a technique band — see the <1>Infinity lander</1>."
+msgstr "<0>Tak Terhingga.</0> Sudoku tersulit yang pernah dipublikasikan, seperti Everest dan AI Escargot, dipilih berdasarkan peringkat yang dipublikasikan, bukan rentang teknik — lihat <1>halaman Tak Terhingga</1>."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Infinity</0> — {infinityCorpusSize} of the hardest puzzles ever published, chosen by their published SE rating of {infinityLowestRating} to {infinityHighestRating} rather than by a technique band, and past the reach of every technique on the ladder."
+msgstr "<0>Tak Terhingga</0> — {infinityCorpusSize} sudoku tersulit yang pernah dipublikasikan, dipilih berdasarkan peringkat SE terpublikasi sebesar {infinityLowestRating} sampai {infinityHighestRating}, bukan rentang teknik, dan di luar jangkauan semua teknik pada tangga kami."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Medium.</0> Always stalls on singles and always yields to intersections and subsets — pointing pairs, box line reduction, naked and hidden pairs through quads."
+msgstr "<0>Sedang.</0> Selalu buntu di teknik tunggal dan selalu terpecahkan dengan irisan dan subset — pasangan penunjuk, reduksi kotak-baris, pasangan hingga kuad telanjang dan tersembunyi."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Medium</0> — {mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets."
+msgstr "<0>Sedang</0> — {mediumClueCount} angka awal, dijamin buntu di teknik tunggal dan baru terpecahkan dengan irisan dan subset."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Naked Single</0> — a cell left with exactly one candidate."
+msgstr "<0>Tunggal Telanjang</0> — sel yang hanya menyisakan satu kandidat."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Newbie.</0> Solvable with full houses and naked singles alone."
+msgstr "<0>Pemula.</0> Bisa diselesaikan hanya dengan sel kosong terakhir dan tunggal telanjang."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Newbie</0> — {newbieClueCount} clues, solved with full houses and naked singles alone."
+msgstr "<0>Pemula</0> — {newbieClueCount} angka awal, diselesaikan hanya dengan sel kosong terakhir dan tunggal telanjang."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Nightmare.</0> Always stalls on fish and wings and always yields to chain or coloring logic."
+msgstr "<0>Mimpi buruk.</0> Selalu buntu di fish dan wing, dan selalu terpecahkan dengan logika rantai atau pewarnaan."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Nightmare</0> — {nightmareClueCount} clues, guaranteed to stall on wings and to yield to chains and coloring."
+msgstr "<0>Mimpi buruk</0> — {nightmareClueCount} angka awal, dijamin buntu di wing dan baru terpecahkan dengan rantai dan pewarnaan."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Row rule.</0> Each of the nine rows must contain the digits 1 to 9 exactly once each."
+msgstr "<0>Aturan baris.</0> Setiap dari sembilan baris harus berisi angka 1 sampai 9, masing-masing tepat satu kali."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "A board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier."
+msgstr "Sudoku yang bisa diselesaikan oleh solver dengan sel kosong terakhir dan tunggal telanjang saja akan ditolak karena terlalu mudah untuk tingkat ini."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "A board that needs a hidden single or anything harder is rejected and regenerated, never labelled Newbie."
+msgstr "Sudoku yang membutuhkan tunggal tersembunyi atau teknik yang lebih sulit akan ditolak dan dibuat ulang, tidak pernah diberi label Pemula."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "A chain follows an alternating sequence of strong and weak links between candidates, starting from one end and reasoning outward until the two ends prove an elimination no matter which of them turns out to be true. X-Chain does this with a single digit; XY-Chain walks a path of bivalue cells instead, changing digit at every step. Simple coloring assigns two alternating colours to a network of strong links on one digit and clears any candidate that can see both colours. AIC folds all of them into one technique, mixing digits and link types along a single continuous chain. The difference from a fish or a wing is not subtlety but shape: a wing is a fixed arrangement of three or four cells you learn to recognise, while a chain has no fixed size and has to be built move by move. Nightmare is capped at AIC — anything that still resists is beyond what the generated tiers will hand you."
+msgstr "Rantai mengikuti urutan tautan kuat dan lemah yang berselang-seling di antara kandidat, dimulai dari satu ujung dan bernalar ke arah luar sampai kedua ujungnya membuktikan sebuah eliminasi, apa pun ujung yang ternyata benar. X-Chain melakukannya dengan satu angka; XY-Chain menyusuri jalur sel bivalue, dengan angka yang berganti di setiap langkah. Pewarnaan sederhana memberi dua warna bergantian pada jaringan tautan kuat dari satu angka dan menghapus setiap kandidat yang melihat kedua warna itu. AIC menggabungkan semuanya menjadi satu teknik, dengan angka dan jenis tautan yang bercampur sepanjang satu rantai yang tak terputus. Perbedaannya dengan fish atau wing bukan soal kerumitan, melainkan bentuk: wing adalah susunan tetap tiga atau empat sel yang bisa Anda kenali, sedangkan rantai tidak punya ukuran tetap dan harus dibangun langkah demi langkah. Mimpi buruk dibatasi sampai AIC — apa pun yang masih belum terpecahkan berada di luar jangkauan tingkat yang dibuat otomatis."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A chain follows an alternating sequence of strong and weak links, starting from a candidate and working outward until it proves an elimination or a placement no matter which branch turns out to be true. X-Chain works on a single digit; XY-Chain follows a path of bivalue cells instead. Simple coloring assigns two alternating colours to a network of strong links on one digit and clears any candidate that sees both colours, and AIC generalises the whole family, mixing digits and cell types along one continuous chain. Hell starts where all of that runs out. A forcing chain assumes a candidate, a cell’s possibilities or a house’s placements, follows every consequence, and keeps only what holds in every branch — the <0>Nishio</0>, <1>cell</1> and <2>region forcing chain</2> pages walk through one of each. A board makes the Hell corpus only if its hardest step on the rating-optimal path is a forcing chain, and only if our ladder can still finish it, so no Hell board ever asks you to guess."
+msgstr "Rantai mengikuti urutan tautan kuat dan lemah yang berselang-seling, dimulai dari sebuah kandidat dan bernalar ke arah luar sampai terbukti ada eliminasi atau penempatan, apa pun cabang yang ternyata benar. X-Chain bekerja dengan satu angka; XY-Chain menyusuri jalur sel bivalue. Pewarnaan sederhana memberi dua warna bergantian pada jaringan tautan kuat dari satu angka dan menghapus setiap kandidat yang melihat kedua warna itu, sedangkan AIC menggeneralisasi seluruh keluarga ini, dengan angka dan jenis sel yang bercampur sepanjang satu rantai tak terputus. Neraka dimulai tepat ketika semua itu habis. Rantai paksa mengandaikan sebuah kandidat, kemungkinan isi sebuah sel, atau penempatan sebuah wilayah, menelusuri setiap konsekuensinya, dan hanya menyimpan apa yang berlaku di setiap cabang — halaman <0>Nishio</0>, <1>sel</1>, dan <2>rantai paksa region</2> menguraikan masing-masing satu contoh. Sebuah sudoku masuk ke korpus Neraka hanya jika langkah tersulit pada jalur dengan peringkat optimal adalah rantai paksa, dan hanya jika tangga kami masih bisa menyelesaikannya, jadi tidak ada sudoku Neraka yang meminta Anda menebak."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape and is built link by link, which is far easier to track by writing each strong and weak link down than by scrolling a small screen."
+msgstr "Rantai tidak punya bentuk tetap dan dibangun tautan demi tautan, yang jauh lebih mudah dilacak dengan menuliskan setiap tautan kuat dan lemah daripada menggulir layar kecil."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape, which is why marking it in pencil helps more here than at the easier tiers."
+msgstr "Rantai tidak punya bentuk tetap, itulah sebabnya menandainya dengan pensil lebih membantu di sini daripada di tingkat yang lebih mudah."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape: it is built link by link, and the only way to keep track of it is to write it down. On paper you can mark each strong and weak link as you go, follow the alternation to the far end, and see immediately which cells both ends can see. That is genuinely awkward on a phone screen you have to scroll. It is also the booklet where a wrong elimination compounds worst: mark a candidate as gone that should have stayed, and every link after it is unsound, so treat the solution pages as a real checkpoint rather than a formality."
+msgstr "Rantai tidak punya bentuk tetap: ia dibangun tautan demi tautan, dan satu-satunya cara melacaknya adalah dengan menuliskannya. Di atas kertas Anda bisa menandai setiap tautan kuat dan lemah, mengikuti pola selang-seling sampai ujung yang jauh, dan langsung melihat sel mana yang terlihat oleh kedua ujung. Itu benar-benar merepotkan di layar ponsel yang harus digulir. Ini juga buklet di mana eliminasi yang salah paling parah dampaknya: jika Anda menghapus kandidat yang seharusnya tetap ada, setiap tautan sesudahnya menjadi tidak sah, jadi anggaplah halaman kunci jawaban sebagai titik pemeriksaan sungguhan, bukan formalitas."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "A clue, or given, is a digit printed on the board before you start. A candidate is a digit you are still considering for a blank cell, based on what its row, column and box currently rule out."
+msgstr "Angka awal adalah angka yang sudah tercetak di papan sebelum Anda mulai. Kandidat adalah angka yang masih Anda pertimbangkan untuk sebuah sel kosong, berdasarkan apa yang saat ini tidak mungkin menurut baris, kolom, dan kotaknya."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "A cover page states the puzzle and page counts up front, then {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page so a single sheet holds {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} complete grids. The last pages hold every solved grid at the same layout, so checking an answer never means hunting through a different page format. The whole file is vector graphics and a standard PDF font, so it prints cleanly at any size a printer supports. Our published sample of {sampleSize} Easy boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "Halaman sampul menyebutkan jumlah sudoku dan halaman di awal, lalu {PRINTABLE_BOOKLET_SIZE} sudoku dicetak {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} per halaman sehingga satu lembar memuat {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} grid lengkap. Halaman terakhir memuat setiap grid yang sudah terselesaikan dengan tata letak yang sama, jadi memeriksa jawaban tidak berarti mencari-cari di format halaman yang berbeda. Seluruh berkas ini berupa grafik vektor dan font PDF standar, sehingga tercetak jernih di ukuran apa pun yang didukung printer. Sampel terpublikasi kami berisi {sampleSize} sudoku Mudah dengan SE {seRatingRange} — angka yang diukur langsung oleh <0>panduan peringkat kesulitan sudoku</0>, bukan sekadar diasumsikan."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "A digit confined to two cells of one box that also share a row or column. It can then be erased from the rest of that row or column, since one of those two cells must hold it."
+msgstr "Sebuah angka yang terbatas pada dua sel dalam satu kotak yang juga berada di baris atau kolom yang sama. Angka itu lalu bisa dihapus dari sisa baris atau kolom tersebut, karena salah satu dari dua sel itu pasti berisi angka tersebut."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "A finished grid satisfies all three at the same time. That overlap is what makes Sudoku solvable by logic: a digit that is already ruled out by its row, its column and its box has nowhere left to go, which is the basis of almost every solving technique. Every named technique on this site, from the simplest single to the longest chain, is ultimately just a more efficient way of tracking that overlap across many cells at once instead of one cell at a time."
+msgstr "Grid yang selesai memenuhi ketiga aturan itu sekaligus. Tumpang tindih itulah yang membuat sudoku bisa diselesaikan dengan logika: angka yang sudah tersingkir oleh baris, kolom, dan kotaknya tidak punya tempat lagi, dan itulah dasar hampir semua teknik penyelesaian. Setiap teknik bernama di situs ini, dari tunggal paling sederhana sampai rantai terpanjang, pada dasarnya hanyalah cara yang lebih efisien untuk melacak tumpang tindih itu di banyak sel sekaligus, bukan satu sel per satu sel."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "A fish is easy to miss on a screen where only a handful of cells are visible at once, because the pattern lives in where one digit can go across two, three or four whole lines at the same time. On a full printed grid you can mark that digit’s remaining positions down a column and read the shape off the page. Wings need the opposite view — a few bivalue cells that see each other across the grid — and circling them in pencil makes the overlap obvious. Because both families are easy to apply incorrectly the first few times, checking your work against the solution pages at the back is worth doing every time until the shape becomes automatic."
+msgstr "Fish mudah terlewat di layar yang hanya menampilkan beberapa sel sekaligus, karena polanya terletak pada tempat sebuah angka bisa berada di dua, tiga, atau empat garis penuh pada saat yang sama. Pada grid cetak penuh, Anda bisa menandai posisi sisa angka itu di sepanjang kolom dan membaca bentuknya langsung dari halaman. Wing membutuhkan sudut pandang sebaliknya — beberapa sel bivalue yang saling melihat di seluruh grid — dan melingkarinya dengan pensil membuat tumpang tindihnya jelas terlihat. Karena kedua keluarga ini mudah salah diterapkan pada beberapa kali pertama, memeriksa pekerjaan Anda dengan halaman kunci jawaban di bagian belakang layak dilakukan setiap kali sampai bentuknya terbiasa."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "A fish looks at one digit across several lines at once. The X-Wing is the smallest: a digit confined to the same two columns across two rows can be erased from the rest of those columns, because whichever row ends up holding it, the columns are already fixed. A <0>swordfish</0> stretches the same idea over three lines and a jellyfish over four. Finned and sashimi variants relax the base pattern by allowing one extra candidate that still supports a smaller, safe elimination once you account for it — and in our sample they fire far more often than the textbook shapes do. Wings work differently: an XY-Wing links three bivalue cells so a candidate shared between two of them can be erased wherever both can see, XYZ-Wing gives the pivot that candidate too, and W-Wing joins two matching bivalue cells through a strong link on one shared digit. Hard is capped at the W-Wing: a board that still will not move after every fish and wing has been tried is a Nightmare board, not a Hard one."
+msgstr "Fish melihat satu angka di beberapa garis sekaligus. X-Wing adalah yang terkecil: angka yang terbatas pada dua kolom yang sama di dua baris bisa dihapus dari sisa kolom tersebut, karena baris mana pun yang akhirnya menampung angka itu, kolomnya sudah terkunci. <0>Swordfish</0> memperluas gagasan yang sama ke tiga garis dan jellyfish ke empat garis. Varian finned dan sashimi melonggarkan pola dasar dengan mengizinkan satu kandidat tambahan yang tetap mendukung eliminasi yang lebih kecil namun aman setelah diperhitungkan — dan dalam sampel kami varian ini muncul jauh lebih sering daripada bentuk buku teks. Wing bekerja dengan cara berbeda: XY-Wing menghubungkan tiga sel bivalue sehingga kandidat yang dimiliki dua di antaranya bisa dihapus di mana pun keduanya terlihat, XYZ-Wing memberi kandidat itu juga kepada sel pivot, dan W-Wing menghubungkan dua sel bivalue yang sama melalui tautan kuat pada satu angka bersama. Sulit dibatasi sampai W-Wing: sudoku yang masih buntu setelah semua fish dan wing dicoba adalah sudoku Mimpi buruk, bukan Sulit."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "A fish spans whole rows or columns at once, which is easier to trace by marking a digit’s remaining positions down a printed column than by scrolling a screen. Wings need the opposite view — a few bivalue cells seen at a glance."
+msgstr "Fish membentang di seluruh baris atau kolom sekaligus, yang lebih mudah dilacak dengan menandai sisa posisi sebuah angka di sepanjang kolom cetak daripada dengan menggulir layar. Wing membutuhkan sudut pandang sebaliknya — beberapa sel bivalue yang terlihat sekilas."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A forcing chain, on every board, layered on top of the chains, coloring, fish, wings and subsets the earlier tiers already require. X-Chain, XY-Chain, Simple Coloring and AIC will carry you far, but never all the way through; a <0>Nishio forcing chain</0> is the usual way to break the deadlock."
+msgstr "Rantai paksa di setiap sudoku, di atas rantai, pewarnaan, fish, wing, dan subset yang sudah dibutuhkan tingkat-tingkat sebelumnya. X-Chain, XY-Chain, Pewarnaan Sederhana, dan AIC akan membawa Anda jauh, tetapi tidak pernah sampai akhir; <0>rantai paksa Nishio</0> biasanya jalan untuk memecahkan kebuntuan."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "A Hard board from the same generator the app uses. Play it right here."
+msgstr "Sebuah sudoku Sulit dari generator yang sama dengan yang dipakai aplikasi. Mainkan langsung di sini."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A Hell board from the same verified corpus the app uses. Play it right here."
+msgstr "Sebuah sudoku Neraka dari korpus terverifikasi yang sama dengan yang dipakai aplikasi. Mainkan langsung di sini."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "A Medium board from the same generator the app uses. Play it right here."
+msgstr "Sebuah sudoku Sedang dari generator yang sama dengan yang dipakai aplikasi. Mainkan langsung di sini."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "A Newbie board from the same generator the app uses. Play it right here."
+msgstr "Sebuah sudoku Pemula dari generator yang sama dengan yang dipakai aplikasi. Mainkan langsung di sini."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "A Nightmare board from the same generator the app uses. Play it right here."
+msgstr "Sebuah sudoku Mimpi buruk dari generator yang sama dengan yang dipakai aplikasi. Mainkan langsung di sini."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "A well-formed puzzle always has exactly one solution and never requires a guess."
+msgstr "Sudoku yang tersusun baik selalu memiliki tepat satu solusi dan tidak pernah membutuhkan tebakan."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "A well-formed Sudoku never does. If a puzzle has more than one valid completion it is considered broken, because logic alone can no longer point to a single answer."
+msgstr "Sudoku yang tersusun baik tidak pernah begitu. Jika sebuah sudoku punya lebih dari satu penyelesaian yang valid, sudoku itu dianggap rusak, karena logika saja tidak lagi bisa menunjuk satu jawaban."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "After that, look at a single blank cell and cross off every digit that already appears in its row, its column and its box. If only one digit survives, that is a <0>naked single</0>, and it can be placed immediately. If a cell still has several candidates left, check whether one of those candidates cannot go anywhere else in the same unit — that is a <1>hidden single</1>, and it is just as safe to place. Together these two patterns solve most of an easy puzzle without any deeper reasoning."
+msgstr "Setelah itu, perhatikan satu sel kosong dan coret setiap angka yang sudah muncul di baris, kolom, dan kotaknya. Jika hanya satu angka yang tersisa, itulah <0>tunggal telanjang</0>, dan bisa langsung ditempatkan. Jika sebuah sel masih punya beberapa kandidat, periksa apakah salah satu kandidat itu tidak bisa ditempatkan di tempat lain dalam unit yang sama — itulah <1>tunggal tersembunyi</1>, yang sama amannya untuk ditempatkan. Kedua pola ini bersama-sama menyelesaikan sebagian besar sudoku mudah tanpa penalaran yang lebih dalam."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Also the source tier for the large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles."
+msgstr "Juga merupakan tingkat sumber untuk PDF cetak besar, dengan sampel {PRINTABLE_LARGE_PRINT_SIZE} sudoku."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "An almost-fish: the rows or columns line up as an X-Wing or <0>swordfish</0> except for one or two extra candidates, the fin. The elimination still holds, but only in the cells that both the fish and the fin can see."
+msgstr "Fish yang hampir lengkap: baris atau kolomnya membentuk X-Wing atau <0>swordfish</0> kecuali untuk satu atau dua kandidat tambahan, yaitu fin. Eliminasinya tetap berlaku, tetapi hanya di sel yang terlihat oleh fish sekaligus fin."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "An Easy board from the same generator the app uses. Play it right here."
+msgstr "Sebuah sudoku Mudah dari generator yang sama dengan yang dipakai aplikasi. Mainkan langsung di sini."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "An Easy board to start with. Play it right here, or pick any of seven difficulty levels in the app."
+msgstr "Sebuah sudoku Mudah untuk memulai. Mainkan langsung di sini, atau pilih salah satu dari tujuh tingkat kesulitan di aplikasi."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "An Infinity record puzzle from the same curated set the app uses, reshuffled. Play it right here."
+msgstr "Sebuah sudoku rekor Tak Terhingga dari kumpulan pilihan yang sama dengan yang dipakai aplikasi, dengan susunan yang diacak ulang. Mainkan langsung di sini."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "An intersection or a pair only becomes visible once you can see every remaining candidate in a row, column or box at a glance, which is why paper genuinely helps here more than a screen does: write small digits in the corner of each blank cell, then scan a line for a digit trapped inside one box, or two cells sharing exactly two candidates between them. Neither pattern places a digit by itself — each one only removes candidates — so expect to mark a few eliminations before a fresh naked single actually appears. Working in pencil rather than pen means a wrong mark costs nothing to erase."
+msgstr "Irisan atau pasangan baru terlihat setelah Anda bisa melihat semua kandidat yang tersisa di satu baris, kolom, atau kotak sekaligus, itulah sebabnya kertas benar-benar lebih membantu di sini daripada layar: tulis angka kecil di sudut setiap sel kosong, lalu pindai satu garis untuk mencari angka yang terkurung di satu kotak, atau dua sel yang berbagi tepat dua kandidat. Tidak satu pun dari kedua pola ini menempatkan angka dengan sendirinya — masing-masing hanya menghapus kandidat — jadi bersiaplah menandai beberapa eliminasi sebelum tunggal telanjang baru benar-benar muncul. Bekerja dengan pensil, bukan pulpen, berarti tanda yang salah bisa dihapus tanpa masalah."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "An intersection technique works on the overlap between one box and one row or column. A pointing pair or pointing triple finds a digit confined to two or three cells of a box that all share a line, and erases it from the rest of that line; box line reduction is the mirror image, working from a line back into a box. Naked and hidden pairs are the entry point to subset reasoning: two cells that share exactly two candidates, or two digits that fit in exactly two cells of a unit, either way locking those two cells away from everything else in it. None of these place a digit outright — they only eliminate candidates — but at {clueCount} clues a Medium puzzle always has at least one waiting, and it is usually enough to unlock a fresh naked single a move or two later. The tier is capped at the other end too: nothing in it ever needs a fish, a wing or a chain, because a board that does is promoted to Hard instead."
+msgstr "Teknik irisan bekerja pada tumpang tindih antara satu kotak dan satu baris atau kolom. Pasangan atau tripel penunjuk menemukan angka yang terbatas pada dua atau tiga sel sebuah kotak yang semuanya berada di satu garis, lalu menghapusnya dari sisa garis itu; reduksi kotak-baris adalah bayangan cerminnya, bekerja dari sebuah garis kembali ke sebuah kotak. Pasangan telanjang dan tersembunyi adalah pintu masuk ke penalaran subset: dua sel yang berbagi tepat dua kandidat, atau dua angka yang hanya muat di tepat dua sel dalam sebuah unit, keduanya mengunci dua sel itu dari yang lain di unit tersebut. Tidak satu pun menempatkan angka secara langsung — hanya menghapus kandidat — tetapi dengan {clueCount} angka awal, sudoku Sedang selalu punya setidaknya satu yang menunggu, dan biasanya itu cukup untuk membuka tunggal telanjang baru satu atau dua langkah kemudian. Tingkat ini juga dibatasi di ujung lainnya: tidak ada yang membutuhkan fish, wing, atau rantai, karena sudoku yang membutuhkannya dinaikkan ke Sulit."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Anywhere from {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT}. Hell does not use clue count to choose its puzzles; a board qualifies by needing a forcing chain, whatever its number of givens."
+msgstr "Berkisar dari {HELL_CORPUS_MINIMUM_GIVEN_COUNT} sampai {HELL_CORPUS_MAXIMUM_GIVEN_COUNT}. Neraka tidak memakai jumlah angka awal untuk memilih sudokunya; sebuah sudoku memenuhi syarat karena membutuhkan rantai paksa, berapa pun jumlah angka awalnya."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Are the solutions included?"
+msgstr "Apakah kunci jawaban disertakan?"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Are these 17-clue puzzles?"
+msgstr "Apakah ini sudoku 17 angka awal?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Arto Inkala’s Everest (2010), 21 givens, published at SE 11.9."
+msgstr "Everest karya Arto Inkala (2010), 21 angka awal, dipublikasikan dengan SE 11,9."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "At {clueCount} clues out of 81 cells, this booklet is the first one worth solving with a pencil. Singles carry a Medium grid part of the way, but every puzzle in it provably stalls on them — that is the test each board had to fail to be printed here — until you spot a <0>pointing pair</0> or a <1>box-line reduction</1>, an intersection between a box and a line that only eliminates candidates, never places a digit outright. Nothing in the booklet needs a fish, a wing or a chain."
+msgstr "Dengan {clueCount} angka awal dari 81 sel, buklet ini adalah yang pertama yang layak dikerjakan dengan pensil. Teknik tunggal membawa grid Sedang sampai setengah jalan, tetapi setiap sudoku di dalamnya terbukti buntu di teknik itu — itulah ujian yang harus gagal dilewati setiap sudoku agar bisa dicetak di sini — sampai Anda menemukan <0>pasangan penunjuk</0> atau <1>reduksi kotak-baris</1>, irisan antara kotak dan garis yang hanya menghapus kandidat, tidak pernah langsung menempatkan angka. Tidak ada sudoku di buklet ini yang membutuhkan fish, wing, atau rantai."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "At least one <0>hidden single</0> per puzzle, on top of the full houses and naked singles Newbie already uses, and nothing harder."
+msgstr "Minimal satu <0>tunggal tersembunyi</0> per sudoku, di atas sel kosong terakhir dan tunggal telanjang yang sudah dipakai Pemula, dan tidak ada yang lebih sulit."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "At least one <0>pointing pair</0>, <1>box-line reduction</1>, or a naked or hidden pair, on top of the singles the easier booklets already use. Nothing needs a fish, a wing or a chain."
+msgstr "Minimal satu <0>pasangan penunjuk</0>, <1>reduksi kotak-baris</1>, atau pasangan telanjang atau tersembunyi, di atas teknik tunggal yang sudah dipakai buklet yang lebih mudah. Tidak ada yang membutuhkan fish, wing, atau rantai."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "At least one chain or coloring technique — <0>swordfish</0>-level fish and <1>XY-Wing</1>-level wings are not enough on their own — on top of every fish and wing the Hard tier already needs."
+msgstr "Minimal satu teknik rantai atau pewarnaan — fish setingkat <0>swordfish</0> dan wing setingkat <1>XY-Wing</1> saja tidak cukup — di atas semua fish dan wing yang sudah dibutuhkan tingkat Sulit."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "At least one fish (<0>X-Wing</0> and its larger and finned relatives) or one bivalue wing pattern, on top of every intersection and subset the easier booklets already need."
+msgstr "Minimal satu fish (<0>X-Wing</0> beserta kerabatnya yang lebih besar dan finned) atau satu pola wing bivalue, di atas semua irisan dan subset yang sudah dibutuhkan buklet yang lebih mudah."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Blank sudoku grid"
+msgstr "Grid sudoku kosong"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Blank Sudoku Grid"
+msgstr "Grid Sudoku Kosong"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Boards that need a forcing chain are rare and expensive to search for on demand, so Suuudokuuu ships a bundled corpus that has already been checked by a Dancing Links exact-cover solver and a bitmask solver, rated, and filtered to forcing-chain boards before it is packed."
+msgstr "Sudoku yang membutuhkan rantai paksa jarang ada dan mahal untuk dicari sesuai permintaan, jadi Suuudokuuu membawa korpus bawaan yang sudah diperiksa oleh solver exact-cover Dancing Links dan solver bitmask, dinilai, dan disaring menjadi sudoku rantai paksa sebelum dikemas."
+
+#: src/seo/components/breadcrumbs/breadcrumbs.tsx
+msgid "Breadcrumb"
+msgstr "Jalur navigasi"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Can a Sudoku have two solutions?"
+msgstr "Bisakah sudoku punya dua solusi?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Can I play AI Escargot and Everest here?"
+msgstr "Bisakah saya memainkan AI Escargot dan Everest di sini?"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Can I print this Newbie booklet in large print?"
+msgstr "Bisakah buklet Pemula ini dicetak dengan ukuran besar?"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Can I use them in a classroom?"
+msgstr "Bisakah dipakai di kelas?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Chain and coloring techniques: X-Chain, XY-Chain, simple coloring and AIC."
+msgstr "Teknik rantai dan pewarnaan: X-Chain, XY-Chain, pewarnaan sederhana, dan AIC."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Chains falling into place? The <0>printable Hell sudoku booklet</0> is the last tier, where every puzzle needs a forcing chain. Step back to <1>printable Hard sudoku</1> for fish and wings only, or play Nightmare on a screen at the <2>Nightmare sudoku lander</2>."
+msgstr "Rantai sudah mulai terasa? <0>Buklet sudoku Neraka cetak</0> adalah tingkat terakhir, tempat setiap sudoku membutuhkan rantai paksa. Mundurlah ke <1>sudoku sulit cetak</1> untuk fish dan wing saja, atau mainkan Mimpi buruk di layar pada <2>halaman sudoku mimpi buruk</2>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Check every row, column and box for one that already has eight of its nine cells filled, and place the missing digit in the empty one."
+msgstr "Periksa setiap baris, kolom, dan kotak yang sembilan selnya sudah terisi delapan, lalu tempatkan angka yang hilang di sel kosongnya."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Cleared a few Nightmare boards? <0>Hell Sudoku</0> is the last tier, where every board needs a forcing chain. Step back to <1>Hard Sudoku</1> if fish and wings still feel unreliable. Prefer paper? Download the <2>printable Nightmare sudoku booklet</2>. Browse the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "Sudah mencoba beberapa sudoku Mimpi buruk? <0>Sudoku Neraka</0> adalah tingkat terakhir, tempat setiap sudoku membutuhkan rantai paksa. Mundurlah ke <1>Sudoku Sulit</1> jika fish dan wing masih belum meyakinkan. Lebih suka kertas? Unduh <2>buklet sudoku Mimpi buruk cetak</2>. Telusuri <3>indeks teknik</3>, <4>panduan cara bermain</4>, setiap tingkat di hub <5>Tingkat kesulitan sudoku</5>, atau kembali ke <6>beranda</6>."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Clue count is not the difficulty. It is only the input: fewer starting digits mean fewer immediate placements, which forces the solver — human or machine — to reach for a wider set of named techniques before the grid moves again. Suuudokuuu strips digits from a solved grid down to a per-tier target, verifies the result still has exactly one solution, and then does the part that actually defines the tier: it solves the candidate twice, once with the technique ladder of the tier below and once with its own, and keeps the board only if the first solve fails and the second succeeds. Boards that miss are discarded and a fresh one is generated. That is why each tier above is stated as a guarantee rather than a hope. The <0>full technique index</0> lists every pattern that ladder contains, in the order a solver tries them. Within a band two boards can still differ a lot — <1>clues versus difficulty</1> measures exactly how much."
+msgstr "Jumlah angka awal bukanlah tingkat kesulitan. Itu hanya masukannya: lebih sedikit angka awal berarti lebih sedikit penempatan langsung, sehingga pemecah — manusia maupun mesin — harus memakai lebih banyak teknik bernama sebelum grid bergerak lagi. Suuudokuuu menghapus angka dari grid yang sudah selesai sampai target per tingkat, memverifikasi bahwa hasilnya tetap punya tepat satu solusi, lalu melakukan bagian yang benar-benar menentukan tingkat itu: sudoku diselesaikan dua kali, sekali dengan tangga teknik tingkat di bawahnya dan sekali dengan tangga tingkatnya sendiri, dan hanya disimpan jika penyelesaian pertama gagal dan yang kedua berhasil. Sudoku yang meleset dibuang dan yang baru dibuat. Itulah sebabnya setiap tingkat di atas dinyatakan sebagai jaminan, bukan harapan. <0>Indeks teknik lengkap</0> mencantumkan setiap pola dalam tangga itu, sesuai urutan yang dicoba pemecah. Dalam satu rentang, dua sudoku masih bisa sangat berbeda — <1>angka awal versus kesulitan</1> mengukur persis seberapa besar bedanya."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Clues versus difficulty"
+msgstr "Angka awal versus kesulitan"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Comfortable spotting intersections and subsets? Move up to <0>Hard Sudoku</0>, where a fish or a wing is always required, or drop back to <1>Easy Sudoku</1> to revisit singles. Prefer paper? Download the <2>printable Medium sudoku booklet</2>. Browse the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "Sudah nyaman menemukan irisan dan subset? Naiklah ke <0>Sudoku Sulit</0>, tempat fish atau wing selalu diperlukan, atau turunlah ke <1>Sudoku Mudah</1> untuk mengulang teknik tunggal. Lebih suka kertas? Unduh <2>buklet sudoku Sedang cetak</2>. Telusuri <3>indeks teknik</3>, <4>panduan cara bermain</4>, setiap tingkat di hub <5>Tingkat kesulitan sudoku</5>, atau kembali ke <6>beranda</6>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Cross off candidates cell by cell"
+msgstr "Coret kandidat sel demi sel"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Default text size"
+msgstr "Ukuran teks standar"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Difficulty"
+msgstr "Tingkat kesulitan"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Difficulty guides"
+msgstr "Panduan tingkat kesulitan"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Difficulty levels"
+msgstr "Tingkat kesulitan"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Difficulty rating"
+msgstr "Peringkat kesulitan"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Do Easy puzzles ever need pencil marks?"
+msgstr "Apakah sudoku Mudah pernah membutuhkan catatan pensil?"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Do I need pen and paper to solve Sudoku?"
+msgstr "Apakah saya perlu pulpen dan kertas untuk menyelesaikan sudoku?"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Do I need pencil marks for Newbie puzzles?"
+msgstr "Apakah saya perlu catatan pensil untuk sudoku Pemula?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Do Infinity puzzles have a unique solution?"
+msgstr "Apakah sudoku Tak Terhingga punya solusi tunggal?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Do Nightmare puzzles ever need guessing?"
+msgstr "Apakah sudoku Mimpi buruk pernah membutuhkan tebakan?"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Do not scan for the hardest cell first. Start by looking for the easiest possible placements, because clearing those first makes every later cell easier too."
+msgstr "Jangan mencari sel tersulit lebih dulu. Mulailah dengan mencari penempatan yang paling mudah, karena menyelesaikannya lebih dulu membuat setiap sel berikutnya lebih mudah juga."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Do you ever have to guess?"
+msgstr "Apakah kita pernah harus menebak?"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Does {SITE_NAME} have ads?"
+msgstr "Apakah {SITE_NAME} memiliki iklan?"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Does a low clue count make these puzzles hard?"
+msgstr "Apakah jumlah angka awal yang sedikit membuat sudoku ini sulit?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Does a lower clue count always mean a harder puzzle?"
+msgstr "Apakah jumlah angka awal yang lebih sedikit selalu berarti sudoku yang lebih sulit?"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Does it work offline?"
+msgstr "Apakah bisa dimainkan offline?"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Does Suuudokuuu offer a large-print version of this booklet?"
+msgstr "Apakah Suuudokuuu menyediakan versi cetak besar dari buklet ini?"
+
+#: src/printable/components/printable-download-card/printable-download-card.tsx
+msgid "Download {title} (PDF)"
+msgstr "Unduh {title} (PDF)"
+
+#: src/chrome/components/store-badges/store-badges.tsx
+msgid "Download on the App Store"
+msgstr "Unduh di App Store"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Download the PDF and open it in any PDF reader, then print at 100% scale on US Letter paper. Every grid is drawn with vector lines and standard PDF fonts, so there is nothing to rasterize and no quality loss at any print size."
+msgstr "Unduh PDF dan buka di aplikasi pembaca PDF mana pun, lalu cetak dengan skala 100% di kertas US Letter. Setiap grid digambar dengan garis vektor dan font PDF standar, jadi tidak ada yang perlu dirasterisasi dan tidak ada penurunan kualitas di ukuran cetak apa pun."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Each game reshuffles the grid, so a familiar record puzzle never looks the same twice."
+msgstr "Setiap permainan mengacak ulang grid, sehingga sudoku rekor yang sudah Anda kenal tidak pernah terlihat sama dua kali."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Each tier links to a full page with a live puzzle preview and the honest difficulty facts from our <0>sudoku difficulty rating guide</0>. The PDF itself only ever needs a printer."
+msgstr "Setiap tingkat menaut ke halaman lengkap dengan pratinjau sudoku langsung dan fakta kesulitan yang jujur dari <0>panduan peringkat kesulitan sudoku</0> kami. PDF-nya sendiri hanya membutuhkan printer."
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Easier difficulty"
+msgstr "Kesulitan lebih mudah"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Easy"
+msgstr "Mudah"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy boards carry {clueCount} clues and are guaranteed to need at least one hidden single and nothing harder."
+msgstr "Sudoku Mudah memiliki {clueCount} angka awal dan dijamin membutuhkan minimal satu tunggal tersembunyi dan tidak lebih sulit dari itu."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Easy is the booklet people reach for when they want to finish a puzzle without stopping to think hard about it — on a train, over a coffee break, or as a wind-down before bed. Every deduction still reads off the board rather than off a candidate grid, so there is rarely a reason to write a candidate in the margin; the hidden single asks you to scan a whole unit rather than one cell, which is a change of habit and not of difficulty. That makes it a natural size for printing several at once and working through a small stack over a week, since no single puzzle demands the concentration a Medium or Hard grid does."
+msgstr "Mudah adalah buklet yang dipilih orang ketika ingin menyelesaikan sudoku tanpa perlu berpikir keras — di kereta, saat istirahat minum kopi, atau untuk bersantai sebelum tidur. Setiap deduksi masih bisa dibaca langsung dari papan, bukan dari grid kandidat, jadi nyaris tidak ada alasan menulis kandidat di pinggir; tunggal tersembunyi meminta Anda memindai seluruh unit, bukan satu sel, yang merupakan perubahan kebiasaan dan bukan perubahan kesulitan. Itu membuatnya cocok untuk dicetak beberapa sekaligus dan dikerjakan sedikit demi sedikit sepanjang minggu, karena tidak ada satu sudoku pun yang menuntut konsentrasi seperti grid Sedang atau Sulit."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy is the first tier where Suuudokuuu expects a genuine, if gentle, solve. An Easy board carries {clueCount} clues out of 81 cells, a handful fewer than Newbie. Full houses and naked singles still clear most of the grid, but never all of it: at least one cell always needs a <0>hidden single</0>, where a digit fits only one cell of a row, column or box even though that cell still shows other candidates. That one extra pattern is the entire step up from Newbie to Easy, and it is a guarantee rather than a tendency: a board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier, and a board that needs anything past the hidden single is rejected as too hard."
+msgstr "Mudah adalah tingkat pertama tempat Suuudokuuu mengharapkan penyelesaian yang sungguh-sungguh, meski ringan. Sudoku Mudah memiliki {clueCount} angka awal dari 81 sel, beberapa lebih sedikit daripada Pemula. Sel kosong terakhir dan tunggal telanjang masih menyelesaikan sebagian besar grid, tetapi tidak pernah seluruhnya: selalu ada setidaknya satu sel yang membutuhkan <0>tunggal tersembunyi</0>, yaitu angka yang hanya muat di satu sel pada sebuah baris, kolom, atau kotak meskipun sel itu masih menampilkan kandidat lain. Satu pola tambahan itulah seluruh peningkatan dari Pemula ke Mudah, dan itu merupakan jaminan, bukan kecenderungan: sudoku yang bisa diselesaikan oleh solver dengan sel kosong terakhir dan tunggal telanjang saja ditolak karena terlalu mudah untuk tingkat ini, dan sudoku yang membutuhkan lebih dari tunggal tersembunyi ditolak karena terlalu sulit."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy sits at the bottom of the SE (Sudoku Explainer) scale alongside Newbie: our sample of {sampleSize} boards measures SE {seRatingRange}. The two tiers share a range because SE prices a hidden single at 1.5, below a naked single at 2.3 — so the technique that defines Easy is, by that scale, cheaper than the one that defines Newbie. What genuinely changes is where you have to look: a naked single is read off one cell, a hidden single off a whole unit. It suits players who have cleared a few Newbie boards and want a puzzle that takes noticeably longer to finish."
+msgstr "Mudah berada di dasar skala SE (Sudoku Explainer) bersama Pemula: sampel kami berisi {sampleSize} sudoku dengan SE {seRatingRange}. Kedua tingkat berbagi rentang yang sama karena SE memberi nilai 1,5 untuk tunggal tersembunyi, lebih rendah daripada 2,3 untuk tunggal telanjang — jadi teknik yang menentukan Mudah, menurut skala itu, lebih murah daripada yang menentukan Pemula. Yang benar-benar berubah adalah tempat Anda harus melihat: tunggal telanjang dibaca dari satu sel, tunggal tersembunyi dari seluruh unit. Cocok untuk pemain yang sudah menyelesaikan beberapa sudoku Pemula dan ingin sudoku yang jelas lebih lama diselesaikan."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Easy starts at {clueCount} clues, six below Newbie, and adds exactly one technique: every puzzle in this booklet needs at least one <0>hidden single</0>, and none of them needs anything harder. That single extra pattern is what makes this the booklet people print for a relaxed coffee-break solve rather than a teaching aid. It is also the source tier for our large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles for readers who want bigger cells."
+msgstr "Mudah dimulai dari {clueCount} angka awal, enam lebih sedikit daripada Pemula, dan menambahkan tepat satu teknik: setiap sudoku di buklet ini membutuhkan minimal satu <0>tunggal tersembunyi</0>, dan tidak ada yang membutuhkan yang lebih sulit. Satu pola tambahan itulah yang menjadikannya buklet yang dicetak untuk penyelesaian santai saat istirahat kopi, bukan alat bantu belajar. Ini juga tingkat sumber untuk PDF cetak besar kami, dengan sampel {PRINTABLE_LARGE_PRINT_SIZE} sudoku untuk pembaca yang menginginkan sel lebih besar."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy stays within singles-only logic, so it is still beginner-friendly. The only added skill over Newbie is spotting a digit that fits nowhere else in a unit."
+msgstr "Mudah tetap berada dalam logika teknik tunggal saja, jadi masih ramah pemula. Satu-satunya keterampilan tambahan dibanding Pemula adalah menemukan angka yang tidak muat di tempat lain dalam sebuah unit."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Easy Sudoku"
+msgstr "Sudoku Mudah"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy Sudoku FAQ"
+msgstr "FAQ Sudoku Mudah"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Every board is checked for exactly one solution by two independent solving algorithms."
+msgstr "Setiap sudoku diperiksa memiliki tepat satu solusi oleh dua algoritma penyelesaian yang independen."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every booklet below is a free printable sudoku PDF built from the same puzzle sources the app plays — its generator and technique detectors, and for Hell and Infinity its bundled, verified corpora. Pick a difficulty for a {PRINTABLE_BOOKLET_SIZE}-puzzle booklet with solutions on the last pages, or grab the large-print set or a blank sudoku grid below. No sign-up, no ads, no watermark."
+msgstr "Setiap buklet di bawah ini adalah PDF sudoku cetak gratis yang dibuat dari sumber sudoku yang sama dengan yang dimainkan aplikasi — generator dan pendeteksi tekniknya, dan untuk Neraka dan Tak Terhingga, korpus bawaannya yang terverifikasi. Pilih tingkat kesulitan untuk mendapatkan buklet berisi {PRINTABLE_BOOKLET_SIZE} sudoku dengan kunci jawaban di halaman terakhir, atau ambil set cetak besar atau grid sudoku kosong di bawah. Tanpa pendaftaran, tanpa iklan, tanpa tanda air."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Every candidate board is solved twice: once with the tier below’s technique ladder, which must fail, and once with its own ladder, which must succeed. Boards that miss either test are discarded and regenerated."
+msgstr "Setiap sudoku kandidat diselesaikan dua kali: sekali dengan tangga teknik tingkat di bawahnya, yang harus gagal, dan sekali dengan tangganya sendiri, yang harus berhasil. Sudoku yang gagal di salah satu ujian dibuang dan dibuat ulang."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Every Hell board needs a forcing chain: none can be solved with the techniques Nightmare allows, up to AIC."
+msgstr "Setiap sudoku Neraka membutuhkan rantai paksa: tidak ada yang bisa diselesaikan dengan teknik yang diizinkan Mimpi buruk, sampai AIC."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every level is free to play, with no ads and no sign-up. <0>Play a puzzle now</0> at any of the seven levels, or read the full breakdown of clue counts and required techniques on the <1>Sudoku difficulty levels</1> hub. Learning on paper? Start with the <2>printable Newbie sudoku PDF</2>."
+msgstr "Setiap tingkat gratis dimainkan, tanpa iklan dan tanpa pendaftaran. <0>Mainkan sudoku sekarang</0> di salah satu dari tujuh tingkat, atau baca rincian lengkap jumlah angka awal dan teknik yang dibutuhkan di hub <1>Tingkat kesulitan sudoku</1>. Belajar di kertas? Mulailah dengan <2>PDF sudoku Pemula cetak</2>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every named technique is a faster way of tracking the same row, column and box overlap across many cells at once."
+msgstr "Setiap teknik bernama adalah cara yang lebih cepat untuk melacak tumpang tindih baris, kolom, dan kotak yang sama di banyak sel sekaligus."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Every Newbie board is rated on the SE (Sudoku Explainer) scale the moment it is created. Our published sample of {sampleSize} Newbie boards measures SE {seRatingRange} — the very bottom of a scale that runs to 12, and below what most SE-based charts even bother to name. Newbie exists to teach the row-column-box overlap that every later technique builds on, not to test it. The measured range for this tier and every other is published in our <0>sudoku difficulty rating guide</0>. Treat a fast, mistake-free Newbie solve as confirmation you’re ready for Easy, not as a benchmark worth chasing for its own sake."
+msgstr "Setiap sudoku Pemula dinilai pada skala SE (Sudoku Explainer) begitu dibuat. Sampel terpublikasi kami berisi {sampleSize} sudoku Pemula dengan SE {seRatingRange} — dasar paling bawah dari skala yang berjalan sampai 12, dan di bawah apa yang bahkan disebut dalam sebagian besar bagan berbasis SE. Pemula ada untuk mengajarkan tumpang tindih baris-kolom-kotak yang menjadi dasar setiap teknik berikutnya, bukan untuk mengujinya. Rentang terukur untuk tingkat ini dan semua tingkat lainnya dipublikasikan di <0>panduan peringkat kesulitan sudoku</0> kami. Anggaplah penyelesaian Pemula yang cepat dan tanpa kesalahan sebagai tanda Anda siap untuk Mudah, bukan tolok ukur yang layak dikejar demi dirinya sendiri."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every PDF is set to US Letter and drawn with vector lines and text, so it prints crisply at any size. Open the file, print at 100% scale (not “fit to page”, which can distort the grid on some printers), and print single-sided if you want to keep the solutions on separate sheets from the puzzles."
+msgstr "Setiap PDF diatur ke US Letter dan digambar dengan garis dan teks vektor, jadi tercetak tajam di ukuran apa pun. Buka berkasnya, cetak dengan skala 100% (bukan “fit to page”, yang bisa mendistorsi grid di beberapa printer), dan cetak satu sisi jika Anda ingin kunci jawaban berada di lembar terpisah dari sudokunya."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every puzzle guaranteed to have exactly one solution, no guessing required"
+msgstr "Setiap sudoku dijamin memiliki tepat satu solusi, tanpa perlu menebak"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle in this booklet comes from a bundled corpus that Suuudokuuu checks with two independent solving algorithms — a Dancing Links exact-cover solver and a typed-array bitmask solver — before it ships, so each grid is confirmed to have exactly one solution. The corpus draws from the tdoku project’s 17-clue catalog and the magictour top1465 hard-puzzle list, and each puzzle is also solved logically and rated on the SE scale as the corpus is packed. Only boards whose hardest step is a forcing chain survive; anything that falls to a chain, coloring or AIC is dropped, because neither the clue count nor the source list alone would be enough to promise a Hell puzzle. Every survivor still solves on our technique ladder without guessing, so every puzzle here is guaranteed solvable by logic before you ever pick up a pencil."
+msgstr "Setiap sudoku di buklet ini berasal dari korpus bawaan yang diperiksa Suuudokuuu dengan dua algoritma penyelesaian independen — solver exact-cover Dancing Links dan solver bitmask berbasis typed-array — sebelum dirilis, sehingga setiap grid terkonfirmasi memiliki tepat satu solusi. Korpus ini diambil dari katalog 17 angka awal proyek tdoku dan daftar sudoku sulit top1465 magictour, dan setiap sudoku juga diselesaikan secara logis dan dinilai pada skala SE saat korpus dikemas. Hanya sudoku yang langkah tersulitnya adalah rantai paksa yang lolos; apa pun yang runtuh oleh rantai, pewarnaan, atau AIC dibuang, karena jumlah angka awal maupun daftar sumber saja tidak cukup untuk menjamin sebuah sudoku Neraka. Setiap sudoku yang lolos tetap bisa diselesaikan pada tangga teknik kami tanpa menebak, jadi setiap sudoku di sini dijamin bisa diselesaikan dengan logika sebelum Anda memegang pensil."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle in this booklet needs a forcing chain: none can be finished with the techniques Nightmare allows, and each is drawn from our bundled and independently verified Hell corpus rather than generated fresh. Our published sample of {sampleSize} boards measures the tier at SE {seRatingRange}, with the <0/> as the most common hardest step. See the <1>17-clue guide</1> for why the clue count is not what makes them hard."
+msgstr "Setiap sudoku di buklet ini membutuhkan rantai paksa: tidak ada yang bisa diselesaikan dengan teknik yang diizinkan Mimpi buruk, dan masing-masing diambil dari korpus Neraka kami yang bawaan dan terverifikasi secara independen, bukan dibuat baru. Sampel terpublikasi kami berisi {sampleSize} sudoku dengan tingkat SE {seRatingRange}, dengan <0/> sebagai langkah tersulit yang paling sering muncul. Lihat <1>panduan 17 angka awal</1> untuk mengetahui mengapa jumlah angka awal bukan yang membuatnya sulit."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle needs a forcing chain, drawn from a bundled and independently verified corpus of boards with {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues."
+msgstr "Setiap sudoku membutuhkan rantai paksa, diambil dari korpus bawaan yang terverifikasi secara independen dengan {HELL_CORPUS_MINIMUM_GIVEN_COUNT} sampai {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} angka awal."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every puzzle needs a forcing chain, drawn from our bundled, verified Hell corpus. See the <0>Hell sudoku lander</0> to play it digitally."
+msgstr "Setiap sudoku membutuhkan rantai paksa, diambil dari korpus Neraka kami yang bawaan dan terverifikasi. Lihat <0>halaman sudoku neraka</0> untuk memainkannya secara digital."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every Sudoku rule is really the same constraint applied to three different kinds of unit. Learn the constraint once and you already know all three rules."
+msgstr "Setiap aturan Sudoku sebenarnya adalah batasan yang sama yang diterapkan pada tiga jenis unit. Pelajari batasan itu sekali dan Anda sudah tahu ketiga aturannya."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every technique {SITE_NAME} uses to generate hints is documented with a worked example board pulled straight from the solving engine. Start with the <0>full technique index</0>, or jump into one of the first patterns most players learn."
+msgstr "Setiap teknik yang dipakai {SITE_NAME} untuk membuat petunjuk didokumentasikan dengan contoh papan yang diambil langsung dari mesin penyelesaian. Mulailah dengan <0>indeks teknik lengkap</0>, atau langsung ke salah satu pola pertama yang dipelajari kebanyakan pemain."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every tier from Newbie to Infinity now has its own guide, breaking down exactly what separates one level from the next — clue counts, required techniques and an honest read on how hard each one really is. Start on the <0>Sudoku difficulty levels</0> hub, or see how it compares to the <1>hardest puzzles</1> ever published."
+msgstr "Setiap tingkat dari Pemula sampai Tak Terhingga kini punya panduannya sendiri, yang menguraikan persis apa yang membedakan satu tingkat dari berikutnya — jumlah angka awal, teknik yang dibutuhkan, dan penilaian jujur seberapa sulit masing-masing. Mulailah di hub <0>Tingkat kesulitan sudoku</0>, atau lihat perbandingannya dengan <1>sudoku tersulit</1> yang pernah dipublikasikan."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Everything Medium needs, plus at least one fish or wing pattern: X-Wing, swordfish, jellyfish, their finned and sashimi variants, XY-Wing, XYZ-Wing or W-Wing. One of those is always required, because a board that does not need one is graded Medium instead."
+msgstr "Semua yang dibutuhkan Sedang, ditambah minimal satu pola fish atau wing: X-Wing, swordfish, jellyfish, varian finned dan sashimi-nya, XY-Wing, XYZ-Wing, atau W-Wing. Salah satunya selalu diperlukan, karena sudoku yang tidak membutuhkannya dinilai Sedang."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Exactly one technique. Every Newbie board can be finished with full houses and naked singles; every Easy board provably cannot, and needs at least one hidden single to break the deadlock."
+msgstr "Tepat satu teknik. Setiap sudoku Pemula bisa diselesaikan dengan sel kosong terakhir dan tunggal telanjang; setiap sudoku Mudah terbukti tidak bisa, dan membutuhkan minimal satu tunggal tersembunyi untuk memecahkan kebuntuan."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Fill every empty cell with a digit from 1 to 9 so that no digit repeats in a row, a column or a 3×3 box."
+msgstr "Isi setiap sel kosong dengan angka 1 sampai 9 sehingga tidak ada angka yang berulang dalam satu baris, satu kolom, atau satu kotak 3×3."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Finished a Hell board and want more? <0>Infinity Sudoku</0> serves the record puzzles — Everest, Platinum Blonde, AI Escargot — that sit past even our forcing chains. Not ready for chains yet? Step back to <1>Nightmare Sudoku</1>, which asks for the same reasoning with more of the grid already filled in. Prefer paper? Download the <2>printable Hell sudoku PDF</2>. Browse the <3>technique index</3>, especially X-Chain, XY-Chain, Simple Coloring and AIC, the <4>how to play guide</4>, the <5>17-clue sudoku guide</5>, every tier on the <6>Sudoku difficulty levels</6> hub, or head <7>home</7>."
+msgstr "Sudah menyelesaikan sudoku Neraka dan ingin lagi? <0>Sudoku Tak Terhingga</0> menyajikan sudoku rekor — Everest, Platinum Blonde, AI Escargot — yang berada di luar jangkauan rantai paksa kami. Belum siap dengan rantai? Mundurlah ke <1>Sudoku Mimpi Buruk</1>, yang meminta penalaran yang sama dengan lebih banyak bagian grid yang sudah terisi. Lebih suka kertas? Unduh <2>PDF sudoku Neraka cetak</2>. Telusuri <3>indeks teknik</3>, terutama X-Chain, XY-Chain, Pewarnaan Sederhana, dan AIC, <4>panduan cara bermain</4>, <5>panduan sudoku 17 angka awal</5>, setiap tingkat di hub <6>Tingkat kesulitan sudoku</6>, atau kembali ke <7>beranda</7>."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Fish patterns: X-Wing, swordfish, jellyfish and their finned and sashimi variants. Wing patterns: XY-Wing, XYZ-Wing and W-Wing."
+msgstr "Pola fish: X-Wing, swordfish, jellyfish, dan varian finned serta sashimi-nya. Pola wing: XY-Wing, XYZ-Wing, dan W-Wing."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Footer"
+msgstr "Footer"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "For each remaining blank cell, rule out every digit already used in its row, column and box. If exactly one digit is left, place it."
+msgstr "Untuk setiap sel kosong yang tersisa, singkirkan semua angka yang sudah dipakai di baris, kolom, dan kotaknya. Jika hanya satu angka yang tersisa, tempatkan angka itu."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "For each unit with several blank cells, check whether a digit that is still missing from the unit only fits in one of them, even if that cell has other candidates too."
+msgstr "Untuk setiap unit dengan beberapa sel kosong, periksa apakah ada angka yang masih hilang dari unit itu yang hanya muat di salah satunya, meskipun sel itu juga punya kandidat lain."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "Gratis dan sumber terbuka di bawah lisensi {SITE_LICENSE}. Tanpa iklan, tanpa akun, tanpa pelacakan di dalam game — baca <0>alasannya</0> atau telusuri <1>kode sumber lengkap di GitHub</1>. Apple dan logo Apple adalah merek dagang Apple Inc., terdaftar di AS dan negara lain. App Store adalah merek layanan Apple Inc. Google Play dan logo Google Play adalah merek dagang Google LLC."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free offline Sudoku for iOS, Android and the web"
+msgstr "Sudoku offline gratis untuk iOS, Android, dan web"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same streaks and stats everywhere. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "Sudoku online gratis berarti memainkan teka-teki angka klasik 9×9 di peramban atau aplikasi tanpa pembelian, batas pemasangan, atau paywall, dan {SITE_NAME} adalah implementasi gratis dan sumber terbuka darinya — tujuh tingkat kesulitan dari Pemula sampai Tak Terhingga, panduan yang menjelaskan teknik, tanpa iklan dan tanpa pelacakan di dalam game. Mainkan di web atau pasang aplikasinya, lalu pertahankan rentetan dan statistik yang sama di mana pun. Lihat <0>mengapa {SITE_NAME} dibuat seperti ini</0> untuk penjelasan lengkap yang bisa diverifikasi."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Free, open-source, no ads"
+msgstr "Gratis, sumber terbuka, tanpa iklan"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Frequently asked questions"
+msgstr "Pertanyaan yang sering diajukan"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Full House and Naked Single are the first two strategies Suuudokuuu’s solving engine tries on every board at every difficulty, because they are the cheapest deductions to verify. What sets Newbie apart is that the tier is defined as the boards that never need anything else. Strip more digits and a solver eventually stalls without hidden singles, intersections or subsets, and the generator throws those boards back rather than labelling them Newbie. If you can read a row and name the one digit missing from it, you already have every skill a Newbie puzzle asks for."
+msgstr "Sel Kosong Terakhir dan Tunggal Telanjang adalah dua strategi pertama yang dicoba mesin penyelesaian Suuudokuuu di setiap sudoku pada setiap tingkat kesulitan, karena keduanya adalah deduksi yang paling murah diverifikasi. Yang membuat Pemula berbeda adalah tingkat ini didefinisikan sebagai sudoku yang tidak pernah membutuhkan hal lain. Hapus lebih banyak angka dan solver pada akhirnya akan buntu tanpa tunggal tersembunyi, irisan, atau subset, dan generator membuang sudoku semacam itu alih-alih memberinya label Pemula. Jika Anda bisa membaca satu baris dan menyebut satu angka yang hilang darinya, Anda sudah punya semua keterampilan yang diminta sudoku Pemula."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Full houses and naked singles still clear most of the grid; the hidden single is the one addition over Newbie."
+msgstr "Sel kosong terakhir dan tunggal telanjang masih menyelesaikan sebagian besar grid; tunggal tersembunyi adalah satu-satunya tambahan dibanding Pemula."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Full houses and singles as a baseline, plus pointing pairs, pointing triples, box line reduction and the naked or hidden subsets up to quads whenever singles run dry. At least one of those is always required, and nothing harder ever is."
+msgstr "Sel kosong terakhir dan teknik tunggal sebagai dasar, ditambah pasangan penunjuk, tripel penunjuk, reduksi kotak-baris, dan subset telanjang atau tersembunyi sampai kuad setiap kali teknik tunggal habis. Minimal satu dari semua itu selalu diperlukan, dan tidak pernah ada yang lebih sulit."
+
+#: src/chrome/components/store-badges/store-badges.tsx
+msgid "Get it on Google Play"
+msgstr "Dapatkan di Google Play"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Getting started"
+msgstr "Memulai"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Good for a first sudoku habit"
+msgstr "Cocok untuk membangun kebiasaan bermain sudoku"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Good for a relaxed solve"
+msgstr "Cocok untuk penyelesaian santai"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hard"
+msgstr "Sulit"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard boards carry {clueCount} clues and are guaranteed to need at least one fish or wing pattern beyond every subset."
+msgstr "Sudoku Sulit memiliki {clueCount} angka awal dan dijamin membutuhkan minimal satu pola fish atau wing di atas semua subset."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Hard drops to {clueCount} clues, and this is the first printable booklet on the site where subsets alone will not carry you to the end. Every puzzle in it was tested against a solver that already knows every intersection and every subset, and kept only because that solver stalled. What finishes them is a fish or a wing: the <0>X-Wing</0> and its larger and finned relatives, or one of the bivalue wing patterns."
+msgstr "Sulit turun ke {clueCount} angka awal, dan ini adalah buklet cetak pertama di situs ini yang tidak bisa diselesaikan sampai akhir hanya dengan subset. Setiap sudoku di dalamnya diuji dengan solver yang sudah menguasai setiap irisan dan setiap subset, dan hanya disimpan karena solver itu buntu. Yang menyelesaikannya adalah fish atau wing: <0>X-Wing</0> beserta kerabatnya yang lebih besar dan finned, atau salah satu pola wing bivalue."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard is capped at the W-Wing — a board that resists every fish and wing is graded Nightmare instead."
+msgstr "Sulit dibatasi sampai W-Wing — sudoku yang bertahan melawan semua fish dan wing dinilai Mimpi buruk."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hard Sudoku"
+msgstr "Sudoku Sulit"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard Sudoku FAQ"
+msgstr "FAQ Sudoku Sulit"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard Sudoku is a difficulty tier that starts at {clueCount} clues out of 81 cells and is defined by what a subset-only solver cannot finish: every board in the tier has been run through a solver equipped with every intersection and every subset up to the <0>hidden quad</0>, and kept only because that solver got stuck. What breaks the deadlock is a fish — <1>X-Wing</1>, <2>swordfish</2>, <3>jellyfish</3> and their <4>finned</4> and <5>sashimi</5> variants — or a wing: <6>XY-Wing</6>, <7>XYZ-Wing</7> and <8>W-Wing</8>."
+msgstr "Sudoku Sulit adalah tingkat kesulitan yang dimulai dari {clueCount} angka awal dari 81 sel dan didefinisikan oleh apa yang tidak bisa diselesaikan solver yang hanya memakai subset: setiap sudoku di tingkat ini sudah dijalankan melalui solver yang dilengkapi setiap irisan dan setiap subset sampai <0>kuad tersembunyi</0>, dan hanya disimpan karena solver itu macet. Yang memecahkan kebuntuan adalah fish — <1>X-Wing</1>, <2>swordfish</2>, <3>jellyfish</3> beserta varian <4>finned</4> dan <5>sashimi</5>-nya — atau wing: <6>XY-Wing</6>, <7>XYZ-Wing</7>, dan <8>W-Wing</8>."
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Harder difficulty"
+msgstr "Kesulitan lebih tinggi"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Harder than anything else in the app, by a wide margin. Our sample of {sampleSize} <0>Hell</0> boards measures SE {hellSeRatingRange}; Infinity starts at {lowestRatingLabel}. The Infinity ratings are not our own measurements. Suuudokuuu’s rater prices the SE ladder only as far as forcing chains and nets and reports {SE_RATING_CEILING} with a ceiling flag above that, so for these puzzles we quote the figures independent raters publish, as the <1>difficulty rating guide</1> explains."
+msgstr "Lebih sulit daripada apa pun di aplikasi, dengan selisih yang jauh. Sampel kami berisi {sampleSize} sudoku <0>Neraka</0> dengan SE {hellSeRatingRange}; Tak Terhingga dimulai dari {lowestRatingLabel}. Peringkat Tak Terhingga bukan hasil pengukuran kami. Penilai Suuudokuuu hanya menilai tangga SE sampai rantai paksa dan jaring paksa, dan melaporkan {SE_RATING_CEILING} dengan tanda batas atas di atas itu, jadi untuk sudoku ini kami mengutip angka yang dipublikasikan penilai independen, seperti yang dijelaskan <1>panduan peringkat kesulitan</1>."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Hardness here comes from the technique each board requires, not from the clue count."
+msgstr "Tingkat kesulitan di sini berasal dari teknik yang dibutuhkan setiap sudoku, bukan dari jumlah angka awal."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hell"
+msgstr "Neraka"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Hell is Suuudokuuu’s hardest technique-graded tier — what most competitors call evil or extreme. A Hell board is defined by the reasoning it demands, not by how few clues it starts with: no Hell board can be finished with any technique Nightmare allows, so every one needs a forcing chain. Unlike the generated tiers, Hell is drawn from a bundled corpus of published hard puzzles, verified by two independent solvers before it ships, and every board still solves on our technique ladder without guessing. Expect to use every chain and coloring pattern first — <0>X-Chain</0>, <1>XY-Chain</1>, <2>simple coloring</2> and <3>AIC</3> — before a forcing chain breaks the deadlock."
+msgstr "Neraka adalah tingkat berbasis teknik tersulit di Suuudokuuu — yang oleh kebanyakan pesaing disebut evil atau extreme. Sudoku Neraka ditentukan oleh penalaran yang dituntutnya, bukan oleh seberapa sedikit angka awalnya: tidak ada sudoku Neraka yang bisa diselesaikan dengan teknik apa pun yang diizinkan Mimpi buruk, jadi setiap sudoku membutuhkan rantai paksa. Berbeda dengan tingkat yang dibuat otomatis, Neraka diambil dari korpus bawaan berisi sudoku sulit yang pernah dipublikasikan, diverifikasi oleh dua solver independen sebelum dirilis, dan setiap sudoku tetap bisa diselesaikan pada tangga teknik kami tanpa menebak. Bersiaplah memakai setiap pola rantai dan pewarnaan lebih dulu — <0>X-Chain</0>, <1>XY-Chain</1>, <2>pewarnaan sederhana</2>, dan <3>AIC</3> — sebelum rantai paksa memecahkan kebuntuan."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hell Sudoku"
+msgstr "Sudoku Neraka"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Hell Sudoku FAQ"
+msgstr "FAQ Sudoku Neraka"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Home"
+msgstr "Beranda"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "How do I print these puzzles?"
+msgstr "Bagaimana cara mencetak sudoku ini?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How does Suuudokuuu guarantee a tier’s technique requirement?"
+msgstr "Bagaimana Suuudokuuu menjamin teknik yang dibutuhkan setiap tingkat?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "How hard is Easy sudoku?"
+msgstr "Seberapa sulit sudoku Mudah?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How hard is it, honestly"
+msgstr "Seberapa sulit sebenarnya"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "How hard is Newbie sudoku?"
+msgstr "Seberapa sulit sudoku Pemula?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How hard is Nightmare sudoku?"
+msgstr "Seberapa sulit sudoku Mimpi buruk?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "How hard these puzzles are"
+msgstr "Seberapa sulit sudoku ini"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "How is a fish or wing easier to verify on paper?"
+msgstr "Mengapa fish atau wing lebih mudah diverifikasi di kertas?"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "How many clues does a Hard sudoku have?"
+msgstr "Berapa banyak angka awal sudoku Sulit?"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "How many clues does a Hell sudoku have?"
+msgstr "Berapa banyak angka awal sudoku Neraka?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "How many clues does a Medium sudoku have?"
+msgstr "Berapa banyak angka awal sudoku Sedang?"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "How many clues does a Newbie puzzle have?"
+msgstr "Berapa banyak angka awal sudoku Pemula?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How many clues does a Nightmare sudoku have?"
+msgstr "Berapa banyak angka awal sudoku Mimpi buruk?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "How many clues does an easy sudoku have?"
+msgstr "Berapa banyak angka awal sudoku mudah?"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "How many puzzles are in the printable Easy sudoku PDF?"
+msgstr "Berapa banyak sudoku dalam PDF sudoku Mudah cetak?"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "How many puzzles are in the printable Hard sudoku PDF?"
+msgstr "Berapa banyak sudoku dalam PDF sudoku Sulit cetak?"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "How many puzzles are in the printable Hell sudoku PDF?"
+msgstr "Berapa banyak sudoku dalam PDF sudoku Neraka cetak?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "How many puzzles are in the printable Infinity sudoku PDF?"
+msgstr "Berapa banyak sudoku dalam PDF sudoku Tak Terhingga cetak?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "How many puzzles are in the printable Medium sudoku PDF?"
+msgstr "Berapa banyak sudoku dalam PDF sudoku Sedang cetak?"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "How many puzzles are in the printable Newbie sudoku PDF?"
+msgstr "Berapa banyak sudoku dalam PDF sudoku Pemula cetak?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "How many puzzles are in the printable Nightmare sudoku PDF?"
+msgstr "Berapa banyak sudoku dalam PDF sudoku Mimpi buruk cetak?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How many sudoku difficulty levels does Suuudokuuu have?"
+msgstr "Berapa banyak tingkat kesulitan sudoku yang dimiliki Suuudokuuu?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How the ladder is built"
+msgstr "Bagaimana tangga ini disusun"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "How the puzzles are verified"
+msgstr "Bagaimana sudoku diverifikasi"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/chrome/components/site-header/site-header.tsx
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "How to play"
+msgstr "Cara bermain"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "How to play Sudoku FAQ"
+msgstr "FAQ cara bermain Sudoku"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "How to print these puzzles"
+msgstr "Cara mencetak sudoku ini"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "How to start solving a Sudoku puzzle"
+msgstr "Cara mulai menyelesaikan sudoku"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Includes Everest (SE 11.9), Platinum Blonde (SE 10.9) and AI Escargot (SE 10.6)."
+msgstr "Termasuk Everest (SE 11,9), Platinum Blonde (SE 10,9), dan AI Escargot (SE 10,6)."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Infinity"
+msgstr "Tak Terhingga"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Infinity is Suuudokuuu’s tier beyond Hell: a curated set of the hardest sudoku puzzles ever published, the record grids the solving community still argues about, ready to play for free. Every Infinity board is a known puzzle with a published Sudoku Explainer (SE) rating of at least {minimumRatingLabel} — Arto Inkala’s Everest, Platinum Blonde, AI Escargot, Golden Nugget and {additionalPuzzleCount} more — checked for a single solution before it ships. These are the puzzles our <0>hardest sudoku puzzles</0> guide describes; Infinity is where you play them."
+msgstr "Tak Terhingga adalah tingkat Suuudokuuu di atas Neraka: kumpulan pilihan sudoku tersulit yang pernah dipublikasikan, grid rekor yang masih diperdebatkan komunitas penyelesai, siap dimainkan gratis. Setiap sudoku Tak Terhingga adalah sudoku yang dikenal dengan peringkat Sudoku Explainer (SE) terpublikasi minimal {minimumRatingLabel} — Everest karya Arto Inkala, Platinum Blonde, AI Escargot, Golden Nugget, dan {additionalPuzzleCount} lainnya — dan diperiksa memiliki solusi tunggal sebelum dirilis. Inilah sudoku yang diuraikan panduan <0>sudoku tersulit</0> kami; Tak Terhingga adalah tempat memainkannya."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Infinity puzzles carry {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues and are checked for a single solution by two independent solving algorithms."
+msgstr "Sudoku Tak Terhingga memiliki {INFINITY_MINIMUM_GIVEN_COUNT} sampai {INFINITY_MAXIMUM_GIVEN_COUNT} angka awal dan diperiksa memiliki solusi tunggal oleh dua algoritma penyelesaian independen."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Infinity Sudoku"
+msgstr "Sudoku Tak Terhingga"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Infinity Sudoku FAQ"
+msgstr "FAQ Sudoku Tak Terhingga"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Intersections and pairs are found by marking every remaining candidate in a unit, so the layout leaves space in each cell specifically for those pencil marks."
+msgstr "Irisan dan pasangan ditemukan dengan menandai setiap kandidat yang tersisa dalam sebuah unit, jadi tata letaknya menyisakan ruang di setiap sel khusus untuk catatan pensil itu."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Intersections: pointing pair, pointing triple, box line reduction. Subsets: naked pair, hidden pair."
+msgstr "Irisan: pasangan penunjuk, tripel penunjuk, reduksi kotak-baris. Subset: pasangan telanjang, pasangan tersembunyi."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Is {SITE_NAME} free?"
+msgstr "Apakah {SITE_NAME} gratis?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Is AI Escargot in the printable booklet?"
+msgstr "Apakah AI Escargot ada di buklet cetak?"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Is Hard sudoku harder than Nightmare?"
+msgstr "Apakah sudoku Sulit lebih sulit daripada Mimpi buruk?"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Is Hell harder than Nightmare?"
+msgstr "Apakah Neraka lebih sulit daripada Mimpi buruk?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Is Infinity harder than Hell?"
+msgstr "Apakah Tak Terhingga lebih sulit daripada Neraka?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Is Medium sudoku hard?"
+msgstr "Apakah sudoku Sedang sulit?"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Is Newbie the right level for a child or a first-time solver?"
+msgstr "Apakah Pemula tingkat yang tepat untuk anak-anak atau pemain pertama kali?"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Is the printable Easy sudoku PDF free?"
+msgstr "Apakah PDF sudoku Mudah cetak gratis?"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Is the printable Hard sudoku PDF free?"
+msgstr "Apakah PDF sudoku Sulit cetak gratis?"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Is the printable Hell sudoku PDF free?"
+msgstr "Apakah PDF sudoku Neraka cetak gratis?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Is the printable Infinity sudoku PDF free?"
+msgstr "Apakah PDF sudoku Tak Terhingga cetak gratis?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Is the printable Medium sudoku PDF free?"
+msgstr "Apakah PDF sudoku Sedang cetak gratis?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Is the printable Nightmare sudoku PDF free?"
+msgstr "Apakah PDF sudoku Mimpi buruk cetak gratis?"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Is this printable Newbie sudoku booklet free?"
+msgstr "Apakah buklet sudoku Pemula cetak ini gratis?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "It is a real step up from Easy, but every technique it needs still works inside a single box or line at a time — the longer fish and chain patterns only start at Hard and beyond."
+msgstr "Ini lompatan nyata dari Mudah, tetapi setiap teknik yang dibutuhkannya masih bekerja di dalam satu kotak atau satu garis sekaligus — pola fish dan rantai yang lebih panjang baru dimulai dari Sulit ke atas."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "It is Suuudokuuu’s hardest generated tier, measured at SE {seRatingRange} across a sample of {sampleSize} boards. Every one of them needs chain or coloring logic on top of the fish and wing patterns Hard already requires."
+msgstr "Ini adalah tingkat buatan tersulit di Suuudokuuu, diukur pada SE {seRatingRange} dari sampel {sampleSize} sudoku. Setiap sudokunya membutuhkan logika rantai atau pewarnaan di atas pola fish dan wing yang sudah dibutuhkan Sulit."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "It is the easiest tier Suuudokuuu offers, and the generator guarantees it: a board only ships as Newbie once a solver limited to full houses and naked singles has finished it. Our sample measures SE {seRatingRange}, with no candidate tracking and no risk of a forced guess."
+msgstr "Ini tingkat termudah yang ditawarkan Suuudokuuu, dan generator menjaminnya: sebuah sudoku hanya dirilis sebagai Pemula setelah solver yang dibatasi pada sel kosong terakhir dan tunggal telanjang berhasil menyelesaikannya. Sampel kami diukur pada SE {seRatingRange}, tanpa pelacakan kandidat dan tanpa risiko terpaksa menebak."
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Language"
+msgstr "Bahasa"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Large print sudoku"
+msgstr "Sudoku cetak besar"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Large Print Sudoku"
+msgstr "Sudoku Cetak Besar"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Large print sudoku, printable"
+msgstr "Sudoku cetak besar, siap cetak"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Large text size"
+msgstr "Ukuran teks besar"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Largest text size"
+msgstr "Ukuran teks terbesar"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Learn"
+msgstr "Belajar"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Learn techniques in difficulty order rather than memorising every pattern at once. The <0>sudoku techniques index</0> lists them from full house up to the subset patterns, each with a worked example."
+msgstr "Pelajari teknik berdasarkan urutan kesulitan, bukan dengan menghafal semua pola sekaligus. <0>Indeks teknik sudoku</0> mencantumkannya dari sel kosong terakhir sampai pola subset, masing-masing dengan contoh pengerjaan."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Learn to solve"
+msgstr "Belajar menyelesaikan"
+
+#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+msgid "Loading the board…"
+msgstr "Memuat papan…"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Look for hidden singles"
+msgstr "Cari tunggal tersembunyi"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Medium"
+msgstr "Sedang"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium boards carry {clueCount} clues and are guaranteed to stall on singles and yield to an intersection or a subset."
+msgstr "Sudoku Sedang memiliki {clueCount} angka awal dan dijamin buntu di teknik tunggal serta baru terpecahkan dengan irisan atau subset."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium is where Suuudokuuu starts asking for pencil marks. A Medium board carries {clueCount} clues out of 81 cells, and singles alone provably never finish it: every board in the tier has been checked against a singles-only solver and rejected if that solver got through. Once full houses and singles run out, the puzzle stalls until you spot an intersection — a digit confined to where a box and a line overlap — or a pair locked together. <0>Pointing pairs</0>, <1>pointing triples</1> and <2>box line reduction</2> cover the intersections; <3>naked pairs</3> and <4>hidden pairs</4> cover the smallest subset pattern."
+msgstr "Sedang adalah tingkat pertama tempat Suuudokuuu mulai meminta catatan pensil. Sudoku Sedang memiliki {clueCount} angka awal dari 81 sel, dan teknik tunggal saja terbukti tidak pernah menyelesaikannya: setiap sudoku di tingkat ini diperiksa dengan solver yang hanya memakai teknik tunggal dan ditolak jika solver itu berhasil menyelesaikannya. Setelah sel kosong terakhir dan teknik tunggal habis, sudoku akan buntu sampai Anda menemukan irisan — angka yang terbatas pada tempat kotak dan garis bertumpang tindih — atau pasangan yang saling terkunci. <0>Pasangan penunjuk</0>, <1>tripel penunjuk</1>, dan <2>reduksi kotak-baris</2> mencakup irisan; <3>pasangan telanjang</3> dan <4>pasangan tersembunyi</4> mencakup pola subset terkecil."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Medium Sudoku"
+msgstr "Sudoku Sedang"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium Sudoku FAQ"
+msgstr "FAQ Sudoku Sedang"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "New solvers should start at Newbie and move up one tier at a time; each step adds exactly one new technique over the tier before it, all the way up to Hard. See the <0>how to play guide</0> first if the three core rules are still unfamiliar."
+msgstr "Pemain baru sebaiknya mulai dari Pemula dan naik satu tingkat demi satu tingkat; setiap langkah menambahkan tepat satu teknik baru dibanding tingkat sebelumnya, sampai Sulit. Lihat dulu <0>panduan cara bermain</0> jika tiga aturan inti masih terasa asing."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "New to Sudoku?"
+msgstr "Baru mengenal Sudoku?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "New to the grid itself? Start with the <0>how to play guide</0> for the three rules and your first placements before picking a tier above."
+msgstr "Baru mengenal grid-nya? Mulailah dengan <0>panduan cara bermain</0> untuk tiga aturan dan penempatan pertama Anda sebelum memilih tingkat di atas."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Newbie"
+msgstr "Pemula"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie boards carry {clueCount} clues and are guaranteed to finish with full houses and naked singles alone."
+msgstr "Sudoku Pemula memiliki {clueCount} angka awal dan dijamin selesai hanya dengan sel kosong terakhir dan tunggal telanjang."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie is Suuudokuuu’s beginner tier, the gentlest possible introduction to the grid. A Newbie board starts with {clueCount} of the 81 cells already filled. Every remaining cell can be found with the two simplest deductions in the game: a <0>full house</0>, where a unit is down to its last empty cell, and a <1>naked single</1>, where a cell’s row, column and box between them already account for eight of the nine digits. That is not a description of a typical Newbie board — it is the rule the generator enforces: a candidate board is only accepted as Newbie once a solver restricted to full houses and naked singles has finished it. No pencil marks, no elimination logic and no guessing are ever required."
+msgstr "Pemula adalah tingkat pemula Suuudokuuu, pengenalan paling lembut ke grid. Sudoku Pemula dimulai dengan {clueCount} dari 81 sel sudah terisi. Setiap sel yang tersisa bisa ditemukan dengan dua deduksi paling sederhana dalam game: <0>sel kosong terakhir</0>, ketika sebuah unit tinggal menyisakan satu sel kosong, dan <1>tunggal telanjang</1>, ketika baris, kolom, dan kotak sebuah sel sudah mencakup delapan dari sembilan angka. Ini bukan gambaran sudoku Pemula yang umum — ini aturan yang ditegakkan generator: sudoku kandidat hanya diterima sebagai Pemula setelah solver yang dibatasi pada sel kosong terakhir dan tunggal telanjang berhasil menyelesaikannya. Tidak pernah dibutuhkan catatan pensil, logika eliminasi, ataupun tebakan."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie is the easiest of Suuudokuuu’s seven tiers, followed by Easy, Medium, Hard, Nightmare, Hell and Infinity in increasing order of difficulty."
+msgstr "Pemula adalah yang termudah dari tujuh tingkat Suuudokuuu, diikuti Mudah, Sedang, Sulit, Mimpi buruk, Neraka, dan Tak Terhingga dengan kesulitan yang meningkat."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Newbie Sudoku"
+msgstr "Sudoku Pemula"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie Sudoku FAQ"
+msgstr "FAQ Sudoku Pemula"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Nightmare"
+msgstr "Mimpi buruk"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare boards carry {clueCount} clues and are guaranteed to need at least one chain or coloring technique beyond every fish and wing."
+msgstr "Sudoku Mimpi buruk memiliki {clueCount} angka awal dan dijamin membutuhkan minimal satu teknik rantai atau pewarnaan di atas semua fish dan wing."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Nightmare holds just {clueCount} clues, and it is the booklet where the printed page genuinely earns its keep. Every puzzle in it was tested against a solver that already knows every fish and wing — including the <0>swordfish</0> and the <1>XY-Wing</1> — and kept only because that solver stalled. What finishes them is chain reasoning, and a chain is far easier to build on paper, where you can pencil the links in and follow them, than on a cramped screen. Our sample of {sampleSize} boards measures the tier at SE {seRatingRange}."
+msgstr "Mimpi buruk hanya menyisakan {clueCount} angka awal, dan inilah buklet yang membuat halaman cetak benar-benar berguna. Setiap sudoku di dalamnya diuji dengan solver yang sudah menguasai setiap fish dan wing — termasuk <0>swordfish</0> dan <1>XY-Wing</1> — dan hanya disimpan karena solver itu buntu. Yang menyelesaikannya adalah penalaran rantai, dan rantai jauh lebih mudah dibangun di kertas, tempat Anda bisa menuliskan tautannya dengan pensil dan mengikutinya, daripada di layar yang sempit. Sampel kami berisi {sampleSize} sudoku dengan tingkat SE {seRatingRange}."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare is capped at AIC — a board resisting that is beyond what the generated tiers hand you."
+msgstr "Mimpi buruk dibatasi sampai AIC — sudoku yang bertahan melawannya berada di luar jangkauan tingkat yang dibuat otomatis."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare is Suuudokuuu’s expert tier — what most other apps would call very hard or expert. A Nightmare board carries just {clueCount} clues out of 81 cells, and it is the tier where bounded patterns stop being enough: every board here has been checked against a solver that already knows every fish and every wing up to the <0>W-Wing</0>, and is only labelled Nightmare because that solver stalled. Finishing one needs chain reasoning — <1>X-Chain</1>, <2>XY-Chain</2>, <3>simple coloring</3> and <4>AIC</4>, the alternating inference chain that generalises the other three."
+msgstr "Mimpi buruk adalah tingkat ahli Suuudokuuu — yang di aplikasi lain disebut very hard atau expert. Sudoku Mimpi buruk hanya memiliki {clueCount} angka awal dari 81 sel, dan inilah tingkat ketika pola terbatas tidak lagi cukup: setiap sudoku di sini sudah diperiksa dengan solver yang menguasai setiap fish dan setiap wing sampai <0>W-Wing</0>, dan hanya diberi label Mimpi buruk karena solver itu buntu. Menyelesaikannya membutuhkan penalaran rantai — <1>X-Chain</1>, <2>XY-Chain</2>, <3>pewarnaan sederhana</3>, dan <4>AIC</4>, rantai inferensi berselang-seling yang menggeneralisasi ketiga teknik lainnya."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Nightmare Sudoku"
+msgstr "Sudoku Mimpi buruk"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare Sudoku FAQ"
+msgstr "FAQ Sudoku Mimpi buruk"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "No ads, no account and no tracking inside the game, on the web or in the app"
+msgstr "Tanpa iklan, tanpa akun, dan tanpa pelacakan di dalam game, baik di web maupun di aplikasi"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "No pencil marks, no elimination logic and no guessing are ever required."
+msgstr "Tidak pernah dibutuhkan catatan pensil, logika eliminasi, ataupun tebakan."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "No pencil marks, no elimination logic and no guessing required for any puzzle in the booklet."
+msgstr "Tidak perlu catatan pensil, logika eliminasi, ataupun tebakan untuk sudoku mana pun di buklet ini."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "No puzzle, just the grid: one full-page 9×9 grid for copying out a puzzle from a book or newspaper, plus a second page of four smaller grids for quick practice sheets. Useful for teachers building their own worksheets or for anyone transcribing a puzzle they found somewhere without a printer-friendly version."
+msgstr "Tanpa sudoku, hanya grid: satu grid 9×9 satu halaman penuh untuk menyalin sudoku dari buku atau koran, ditambah halaman kedua berisi empat grid yang lebih kecil untuk lembar latihan cepat. Berguna bagi guru yang membuat lembar kerja sendiri atau siapa pun yang menyalin sudoku yang ditemukan di suatu tempat tanpa versi yang siap cetak."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "No. Both techniques a Newbie puzzle requires can be read straight off the board, which is exactly why they are the fastest deductions in the game."
+msgstr "Tidak. Kedua teknik yang dibutuhkan sudoku Pemula bisa dibaca langsung dari papan, itulah sebabnya keduanya adalah deduksi tercepat dalam game."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "No. Clue count and difficulty are separate facts — see the <0>17-clue sudoku guide</0>. These puzzles are hard because every one needs a forcing chain, not because of how many clues they start with."
+msgstr "Tidak. Jumlah angka awal dan tingkat kesulitan adalah dua fakta yang berbeda — lihat <0>panduan sudoku 17 angka awal</0>. Sudoku ini sulit karena masing-masing membutuhkan rantai paksa, bukan karena berapa banyak angka awal yang dimilikinya."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "No. Clue count is only the input that forces a solver toward a wider technique set; the technique band the generator verifies is what actually defines each tier. The <0>clues versus difficulty guide</0> measures the gap directly."
+msgstr "Tidak. Jumlah angka awal hanyalah masukan yang mendorong solver ke himpunan teknik yang lebih luas; rentang teknik yang diverifikasi generator-lah yang sebenarnya menentukan setiap tingkat. <0>Panduan angka awal versus kesulitan</0> mengukur selisihnya secara langsung."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "No. Every board in the tier is verified solvable by the technique ladder up to AIC before it ships, so a completed chain always exists — finding it is the work."
+msgstr "Tidak. Setiap sudoku di tingkat ini diverifikasi bisa diselesaikan oleh tangga teknik sampai AIC sebelum dirilis, sehingga rantai yang lengkap selalu ada — menemukannyalah pekerjaannya."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "No. Every puzzle Suuudokuuu generates is checked for a unique solution at generation time, so no cell ever requires a guess — and the bundled Hell-difficulty puzzles are additionally cross-checked by two independent solving algorithms, a Dancing Links exact-cover solver and a bitmask solver, before they ship. Any position that looks ambiguous just needs a technique that has not been tried yet."
+msgstr "Tidak. Setiap sudoku yang dibuat Suuudokuuu diperiksa memiliki solusi tunggal saat dibuat, jadi tidak ada sel yang membutuhkan tebakan — dan sudoku tingkat Neraka bawaan juga diperiksa silang oleh dua algoritma penyelesaian independen, solver exact-cover Dancing Links dan solver bitmask, sebelum dirilis. Posisi yang tampak ambigu hanya membutuhkan teknik yang belum dicoba."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "No. Hard tops out at the W-Wing; Nightmare starts where Hard stops and runs up to alternating inference chains. The two tiers are separated by a technique boundary, not by a clue count."
+msgstr "Tidak. Sulit berhenti di W-Wing; Mimpi buruk dimulai tepat di tempat Sulit berhenti dan berlanjut sampai rantai inferensi berselang-seling. Kedua tingkat dipisahkan oleh batas teknik, bukan jumlah angka awal."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "No. Notes mode in an app tracks candidates for you, updates them automatically as you place digits, and lets you undo a mistake without erasing."
+msgstr "Tidak. Mode catatan di aplikasi melacak kandidat untuk Anda, memperbaruinya otomatis saat Anda menempatkan angka, dan memungkinkan Anda membatalkan kesalahan tanpa menghapus."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "No. There are no ads anywhere and no tracking inside the game; this website uses only cookieless, anonymous page analytics."
+msgstr "Tidak. Tidak ada iklan di mana pun dan tidak ada pelacakan di dalam game; situs web ini hanya memakai analitik halaman anonim tanpa cookie."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Not necessarily. Hell puzzles carry {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues, drawn from a bundled corpus checked by two independent solving algorithms and filtered to boards that need a forcing chain, rather than generated fresh at print time."
+msgstr "Belum tentu. Sudoku Neraka memiliki {HELL_CORPUS_MINIMUM_GIVEN_COUNT} sampai {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} angka awal, diambil dari korpus bawaan yang diperiksa oleh dua algoritma penyelesaian independen dan disaring menjadi sudoku yang membutuhkan rantai paksa, bukan dibuat baru saat dicetak."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Not ready for chains on paper yet? Step back to the <0>printable Nightmare sudoku booklet</0> for the same chain reasoning with more of the grid filled in, or to <1>printable Hard sudoku</1> for fish and wings without chain-length reasoning, or play Hell on a screen at the <2>Hell sudoku lander</2>, where the same corpus powers every puzzle. Ready for the record puzzles? The <3>printable Infinity sudoku booklet</3> prints Everest, AI Escargot and other record grids."
+msgstr "Belum siap dengan rantai di kertas? Mundurlah ke <0>buklet sudoku Mimpi buruk cetak</0> untuk penalaran rantai yang sama dengan lebih banyak bagian grid yang sudah terisi, atau ke <1>sudoku sulit cetak</1> untuk fish dan wing tanpa penalaran sepanjang rantai, atau mainkan Neraka di layar pada <2>halaman sudoku neraka</2>, tempat korpus yang sama menjadi sumber setiap sudoku. Siap untuk sudoku rekor? <3>Buklet sudoku Tak Terhingga cetak</3> mencetak Everest, AI Escargot, dan grid rekor lainnya."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Notes and candidates"
+msgstr "Catatan dan kandidat"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Nothing in the booklet needs a chain — that starts at the Nightmare tier."
+msgstr "Tidak ada sudoku di buklet ini yang membutuhkan rantai — itu dimulai di tingkat Mimpi buruk."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Nothing in the booklet needs a fish, a wing or a chain."
+msgstr "Tidak ada sudoku di buklet ini yang membutuhkan fish, wing, atau rantai."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Nothing in the tier ever needs a fish, a wing or a chain — a board that does is promoted to Hard instead."
+msgstr "Tidak ada sudoku di tingkat ini yang membutuhkan fish, wing, atau rantai — sudoku yang membutuhkannya dinaikkan ke Sulit."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Once full houses and naked singles feel automatic, step up to the <0>printable Easy sudoku booklet</0>, which adds exactly one technique on top: the hidden single. To play Newbie puzzles on a screen instead, visit the <1>Newbie sudoku lander</1>. For the full technique ladder and the measured data behind these claims, see the <2>technique index</2> and the <3>sudoku difficulty rating guide</3>."
+msgstr "Setelah sel kosong terakhir dan tunggal telanjang terasa otomatis, naiklah ke <0>buklet sudoku Mudah cetak</0>, yang menambahkan tepat satu teknik: tunggal tersembunyi. Untuk memainkan sudoku Pemula di layar, kunjungi <1>halaman sudoku pemula</1>. Untuk tangga teknik lengkap dan data terukur di balik klaim ini, lihat <2>indeks teknik</2> dan <3>panduan peringkat kesulitan sudoku</3>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Once the easy placements run out, tracking candidates by hand becomes essential. A candidate, sometimes called a pencil mark, is a digit that a cell could still legally hold based on what its row, column and box already contain. Writing every candidate into a cell — on paper as small numbers in the corner, or with the notes mode in an app — turns a puzzle that looks stuck into one where patterns become visible: pairs, triples and quads of candidates that repeat across a unit are exactly what techniques like naked pairs and hidden pairs are built to spot. The full method for every pattern lives in the <0>sudoku techniques index</0>, and every term used across these guides is defined in the <1>sudoku glossary</1>."
+msgstr "Setelah penempatan mudah habis, melacak kandidat secara manual menjadi penting. Kandidat, kadang disebut tanda pensil, adalah angka yang masih sah untuk sebuah sel berdasarkan apa yang sudah ada di baris, kolom, dan kotaknya. Menuliskan setiap kandidat di sel — di kertas sebagai angka kecil di sudut, atau dengan mode catatan di aplikasi — mengubah sudoku yang tampak buntu menjadi sudoku yang polanya terlihat: pasangan, tripel, dan kuad kandidat yang berulang di sebuah unit persis yang dirancang untuk ditemukan teknik seperti pasangan telanjang dan pasangan tersembunyi. Metode lengkap untuk setiap pola ada di <0>indeks teknik sudoku</0>, dan setiap istilah yang dipakai dalam panduan ini didefinisikan di <1>glosarium sudoku</1>."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Our published sample of {sampleSize} Hard boards measures the tier at SE {seRatingRange}, with the <0/> as the most common hardest step — numbers the <1>sudoku difficulty rating guide</1> measures directly rather than assumes. The {PRINTABLE_BOOKLET_SIZE} puzzles here print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with room to mark candidates, and the solved grids on the closing pages let you confirm a fish elimination actually held."
+msgstr "Sampel terpublikasi kami berisi {sampleSize} sudoku Sulit dengan tingkat SE {seRatingRange}, dengan <0/> sebagai langkah tersulit yang paling sering muncul — angka yang diukur langsung oleh <1>panduan peringkat kesulitan sudoku</1>, bukan sekadar diasumsikan. {PRINTABLE_BOOKLET_SIZE} sudoku di sini dicetak {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} per halaman dengan ruang untuk menandai kandidat, dan grid yang sudah terselesaikan di halaman penutup memungkinkan Anda memastikan bahwa eliminasi fish benar-benar berlaku."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Easy boards measures SE {seRatingRange}."
+msgstr "Sampel kami berisi {sampleSize} sudoku Mudah dengan SE {seRatingRange}."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hard boards measures SE (Sudoku Explainer) {seRatingRange} — squarely in the range the solving community associates with fish and wing patterns, and well below the chain territory above 7. The most common hardest step is the <0/>, and the hardest anything in the sample reached is the <1/>. This is where casual solvers start reaching for a hint: fish and wings are easy to describe and genuinely hard to see on a live board, so expect a noticeably longer, more deliberate solve than Medium asks for. See the <2>sudoku difficulty rating guide</2> for the full per-tier data."
+msgstr "Sampel kami berisi {sampleSize} sudoku Sulit dengan SE (Sudoku Explainer) {seRatingRange} — tepat di rentang yang oleh komunitas penyelesai dikaitkan dengan pola fish dan wing, dan jauh di bawah wilayah rantai di atas 7. Langkah tersulit yang paling sering muncul adalah <0/>, dan yang tersulit yang pernah dicapai dalam sampel adalah <1/>. Di sinilah pemain santai mulai meminta petunjuk: fish dan wing mudah dijelaskan tetapi benar-benar sulit dilihat pada papan langsung, jadi bersiaplah untuk penyelesaian yang jelas lebih lama dan lebih cermat daripada yang diminta Sedang. Lihat <2>panduan peringkat kesulitan sudoku</2> untuk data lengkap per tingkat."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hard boards measures SE {seRatingRange}."
+msgstr "Sampel kami berisi {sampleSize} sudoku Sulit dengan SE {seRatingRange}."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE (Sudoku Explainer) {hellSeRatingRange}, with the <0/> as the most common hardest step and the <1/> as the hardest step anything in the sample reached. Be careful not to read the clue count as the cause: the same sample puts <2>Nightmare</2> at SE {nightmareSeRatingRange} with {nightmareClueCount} clues, and some Hell boards start with more givens than that. This tier used to be built from 17-clue puzzles alone, and it rated no harder than Nightmare; selecting on the required technique instead is what separates the two. Our <3>clues versus difficulty guide</3> takes that argument apart properly, and the <4>rating guide</4> publishes the per-tier tables."
+msgstr "Sampel kami berisi {sampleSize} sudoku Neraka dengan SE (Sudoku Explainer) {hellSeRatingRange}, dengan <0/> sebagai langkah tersulit yang paling sering muncul dan <1/> sebagai langkah tersulit yang pernah dicapai dalam sampel. Hati-hati jangan menganggap jumlah angka awal sebagai penyebabnya: sampel yang sama menempatkan <2>Mimpi buruk</2> pada SE {nightmareSeRatingRange} dengan {nightmareClueCount} angka awal, dan sebagian sudoku Neraka dimulai dengan angka awal yang lebih banyak dari itu. Tingkat ini dulu dibuat hanya dari sudoku 17 angka awal, dan peringkatnya tidak lebih sulit daripada Mimpi buruk; memilih berdasarkan teknik yang dibutuhkan itulah yang memisahkan keduanya. <3>Panduan angka awal versus kesulitan</3> kami membahas argumen itu dengan tuntas, dan <4>panduan peringkat</4> mempublikasikan tabel per tingkat."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE {hellSeRatingRange}."
+msgstr "Sampel kami berisi {sampleSize} sudoku Neraka dengan SE {hellSeRatingRange}."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE {seRatingRange}, with the <0/> as the most common hardest step."
+msgstr "Sampel kami berisi {sampleSize} sudoku Neraka dengan SE {seRatingRange}, dengan <0/> sebagai langkah tersulit yang paling sering muncul."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Medium boards measures SE {seRatingRange}, and {singlesOnlyPuzzleCount} of {sampleSize} finished on singles alone — this is the first tier where that number is zero by construction. The most common hardest step in the sample is the <0/>, and the hardest anything reached is the <1/>. Players who read pencil marks fluently clear a Medium board noticeably faster than players relying on mental candidate tracking, who will find this the first tier that genuinely rewards writing candidates down. The full per-tier data sits in our <2>sudoku difficulty rating guide</2>."
+msgstr "Sampel kami berisi {sampleSize} sudoku Sedang dengan SE {seRatingRange}, dan {singlesOnlyPuzzleCount} dari {sampleSize} selesai hanya dengan teknik tunggal — ini adalah tingkat pertama yang angkanya nol secara konstruksi. Langkah tersulit yang paling sering muncul dalam sampel adalah <0/>, dan yang tersulit yang pernah dicapai adalah <1/>. Pemain yang lancar membaca tanda pensil menyelesaikan sudoku Sedang jauh lebih cepat daripada pemain yang mengandalkan pelacakan kandidat di kepala, yang akan mendapati ini tingkat pertama yang benar-benar menghargai kebiasaan menuliskan kandidat. Data lengkap per tingkat ada di <2>panduan peringkat kesulitan sudoku</2> kami."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Medium boards measures SE {seRatingRange}."
+msgstr "Sampel kami berisi {sampleSize} sudoku Sedang dengan SE {seRatingRange}."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Newbie boards measures SE {seRatingRange}."
+msgstr "Sampel kami berisi {sampleSize} sudoku Pemula dengan SE {seRatingRange}."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Nightmare boards measures SE (Sudoku Explainer) {seRatingRange}, with the <0/> as the most common hardest step. AIC is the ceiling here: every Nightmare board falls to it, and the <1>Hell tier</1> begins exactly where it stops, with boards that need a forcing chain. Some of those Hell boards carry more givens than Nightmare does, which is the clearest evidence on the site that clue count and difficulty are separate facts. The measured tables live in our <2>sudoku difficulty rating guide</2>. Qualitatively, this is where difficulty stops being about speed and becomes about holding an entire line of implication in your head without losing track of it."
+msgstr "Sampel kami berisi {sampleSize} sudoku Mimpi buruk dengan SE (Sudoku Explainer) {seRatingRange}, dengan <0/> sebagai langkah tersulit yang paling sering muncul. AIC adalah batas atasnya: setiap sudoku Mimpi buruk bisa diselesaikan dengannya, dan <1>tingkat Neraka</1> dimulai tepat ketika batas itu berakhir, dengan sudoku yang membutuhkan rantai paksa. Sebagian sudoku Neraka itu memiliki angka awal lebih banyak daripada Mimpi buruk, yang merupakan bukti paling jelas di situs ini bahwa jumlah angka awal dan tingkat kesulitan adalah dua fakta yang berbeda. Tabel terukurnya ada di <2>panduan peringkat kesulitan sudoku</2> kami. Secara kualitatif, di sinilah kesulitan tidak lagi soal kecepatan, melainkan soal menjaga seluruh rangkaian implikasi di kepala tanpa kehilangan jejak."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Nightmare boards measures SE {seRatingRange}."
+msgstr "Sampel kami berisi {sampleSize} sudoku Mimpi buruk dengan SE {seRatingRange}."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Our technique engine agrees that these boards sit past its reach. It knows every pattern on the <0>technique index</0>, up to the <1/> and the <2/>, and it still cannot finish a single Infinity puzzle on its own. That does not mean they need guessing; it means they need longer forcing nets than the engine implements. Hints are off by default on Nightmare, Hell and Infinity, and a setting turns them back on if you want the engine’s help for as far as it goes."
+msgstr "Mesin teknik kami sepakat bahwa sudoku ini berada di luar jangkauannya. Mesin ini mengenal setiap pola di <0>indeks teknik</0>, sampai <1/> dan <2/>, dan tetap tidak bisa menyelesaikan satu pun sudoku Tak Terhingga sendirian. Itu tidak berarti sudoku ini butuh tebakan; artinya sudoku ini butuh jaring paksa yang lebih panjang daripada yang diimplementasikan mesin. Petunjuk dimatikan secara bawaan di Mimpi buruk, Neraka, dan Tak Terhingga, dan sebuah pengaturan menyalakannya kembali jika Anda ingin bantuan mesin sejauh kemampuannya."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Pencil in every remaining candidate for the blank cells that are left, then work through the technique index in difficulty order to keep clearing them."
+msgstr "Tuliskan setiap kandidat yang tersisa untuk sel kosong yang masih ada, lalu telusuri indeks teknik berdasarkan urutan kesulitan untuk terus menyelesaikannya."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Play"
+msgstr "Main"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Play {SITE_NAME}"
+msgstr "Mainkan {SITE_NAME}"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Play Easy Sudoku now"
+msgstr "Mainkan Sudoku Mudah sekarang"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Play Hard Sudoku now"
+msgstr "Mainkan Sudoku Sulit sekarang"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Play Hell Sudoku now"
+msgstr "Mainkan Sudoku Neraka sekarang"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Play Infinity Sudoku now"
+msgstr "Mainkan Sudoku Tak Terhingga sekarang"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Play Medium Sudoku now"
+msgstr "Mainkan Sudoku Sedang sekarang"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Play Newbie Sudoku now"
+msgstr "Mainkan Sudoku Pemula sekarang"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Play Nightmare Sudoku now"
+msgstr "Mainkan Sudoku Mimpi buruk sekarang"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+#: src/home/components/home-page/home-page.tsx
+msgid "Play now"
+msgstr "Main sekarang"
+
+#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+msgid "Play this puzzle here"
+msgstr "Mainkan sudoku ini di sini"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Prefer a screen? Play Suuudokuuu now"
+msgstr "Lebih suka layar? Mainkan Suuudokuuu sekarang"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Primary"
+msgstr "Utama"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Print"
+msgstr "Cetak"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Print space here matters more than at the easier tiers, because intersections and pairs work by marking candidates in the margins. The {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page at full cell size, leaving enough room around each digit to pencil in the small numbers an intersection or a pair reasons over. Solved grids close out the file so you can check your candidate marks against a confirmed answer. Our published sample of {sampleSize} Medium boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "Ruang cetak di sini lebih penting daripada di tingkat yang lebih mudah, karena irisan dan pasangan bekerja dengan menandai kandidat di pinggir. {PRINTABLE_BOOKLET_SIZE} sudoku dicetak {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} per halaman dengan ukuran sel penuh, menyisakan cukup ruang di sekitar setiap angka untuk menuliskan angka-angka kecil yang menjadi dasar penalaran irisan atau pasangan. Grid yang sudah terselesaikan menutup berkas sehingga Anda bisa mencocokkan tanda kandidat dengan jawaban yang terkonfirmasi. Sampel terpublikasi kami berisi {sampleSize} sudoku Sedang dengan SE {seRatingRange} — angka yang diukur langsung oleh <0>panduan peringkat kesulitan sudoku</0>, bukan sekadar diasumsikan."
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Printable"
+msgstr "Siap cetak"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Printable Easy Sudoku FAQ"
+msgstr "FAQ Sudoku Mudah Cetak"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Printable Hard Sudoku FAQ"
+msgstr "FAQ Sudoku Sulit Cetak"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Printable Hell Sudoku FAQ"
+msgstr "FAQ Sudoku Neraka Cetak"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Printable Infinity Sudoku FAQ"
+msgstr "FAQ Sudoku Tak Terhingga Cetak"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Printable Medium Sudoku FAQ"
+msgstr "FAQ Sudoku Sedang Cetak"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Printable Newbie Sudoku FAQ"
+msgstr "FAQ Sudoku Pemula Cetak"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Printable Nightmare Sudoku FAQ"
+msgstr "FAQ Sudoku Mimpi buruk Cetak"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku"
+msgstr "Sudoku cetak"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku booklets by difficulty"
+msgstr "Buklet sudoku cetak berdasarkan tingkat kesulitan"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku FAQ"
+msgstr "FAQ sudoku cetak"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Privacy policy"
+msgstr "Kebijakan privasi"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Project"
+msgstr "Proyek"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Puzzle 1 from the Easy booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 dari buklet Mudah, satu dari {PRINTABLE_BOOKLET_SIZE} sudoku dalam PDF."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Puzzle 1 from the Hard booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 dari buklet Sulit, satu dari {PRINTABLE_BOOKLET_SIZE} sudoku dalam PDF."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Puzzle 1 from the Hell booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 dari buklet Neraka, satu dari {PRINTABLE_BOOKLET_SIZE} sudoku dalam PDF."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Puzzle 1 from the Infinity booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 dari buklet Tak Terhingga, satu dari {PRINTABLE_BOOKLET_SIZE} sudoku dalam PDF."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Puzzle 1 from the Medium booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 dari buklet Sedang, satu dari {PRINTABLE_BOOKLET_SIZE} sudoku dalam PDF."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Puzzle 1 from the Newbie booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 dari buklet Pemula, satu dari {PRINTABLE_BOOKLET_SIZE} sudoku dalam PDF."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Puzzle 1 from the Nightmare booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 dari buklet Mimpi buruk, satu dari {PRINTABLE_BOOKLET_SIZE} sudoku dalam PDF."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Rarely. Most players can track the handful of candidates a hidden single needs in their head, but writing them down never hurts on a busier row."
+msgstr "Jarang. Kebanyakan pemain bisa melacak beberapa kandidat yang dibutuhkan tunggal tersembunyi di kepala, tetapi menuliskannya tidak ada ruginya pada baris yang lebih ramai."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Read the <0>how to play guide</0> for the three rules and a walkthrough of your first moves, or look up any term in the <1>sudoku glossary</1>, which defines every technique and every piece of vocabulary the guides use."
+msgstr "Baca <0>panduan cara bermain</0> untuk tiga aturan dan penjelasan langkah-langkah pertama Anda, atau cari istilah apa pun di <1>glosarium sudoku</1>, yang mendefinisikan setiap teknik dan setiap kosakata yang dipakai panduan ini."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Ready for a puzzle that needs one more idea? Move up to <0>Easy Sudoku</0>, which adds the hidden single on top of everything here. Prefer paper? Download the <1>printable Newbie sudoku booklet</1>, or see the <2>sudoku for seniors</2> guide for large-print and comfort options. Browse the full <3>technique index</3> or the <4>how to play guide</4>, or head back <5>home</5> and see all seven tiers on the <6>Sudoku difficulty levels</6> hub."
+msgstr "Siap untuk sudoku yang membutuhkan satu gagasan lagi? Naiklah ke <0>Sudoku Mudah</0>, yang menambahkan tunggal tersembunyi di atas semua yang ada di sini. Lebih suka kertas? Unduh <1>buklet sudoku Pemula cetak</1>, atau lihat panduan <2>sudoku untuk lansia</2> untuk opsi cetak besar dan kenyamanan. Telusuri <3>indeks teknik</3> lengkap atau <4>panduan cara bermain</4>, atau kembali ke <5>beranda</5> dan lihat ketujuh tingkat di hub <6>Tingkat kesulitan sudoku</6>."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Ready for intersections and subsets to start mattering? Move on to the <0>printable Medium sudoku booklet</0>, or step back to <1>printable Newbie sudoku</1> for an even gentler grid. To play Easy puzzles on a screen instead, visit the <2>Easy sudoku lander</2>."
+msgstr "Siap agar irisan dan subset mulai berperan? Lanjutlah ke <0>buklet sudoku Sedang cetak</0>, atau mundur ke <1>sudoku pemula cetak</1> untuk grid yang lebih ringan. Untuk memainkan sudoku Mudah di layar, kunjungi <2>halaman sudoku mudah</2>."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Ready to chain eliminations together instead of spotting shapes? Move up to <0>Nightmare Sudoku</0>, or step back to <1>Medium Sudoku</1> for an intersections-and-subsets puzzle. Prefer paper? Download the <2>printable Hard sudoku PDF</2>. See the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "Siap merangkai eliminasi alih-alih mengenali bentuk? Naiklah ke <0>Sudoku Mimpi buruk</0>, atau mundur ke <1>Sudoku Sedang</1> untuk sudoku irisan dan subset. Lebih suka kertas? Unduh <2>PDF sudoku Sulit cetak</2>. Lihat <3>indeks teknik</3>, <4>panduan cara bermain</4>, setiap tingkat di hub <5>Tingkat kesulitan sudoku</5>, atau kembali ke <6>beranda</6>."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Record puzzles such as Everest and AI Escargot, printed as originally published. See the <0>Infinity sudoku lander</0> to play them digitally."
+msgstr "Sudoku rekor seperti Everest dan AI Escargot, dicetak sebagaimana dipublikasikan aslinya. Lihat <0>halaman sudoku tak terhingga</0> untuk memainkannya secara digital."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Scan for missing units"
+msgstr "Periksa unit yang kekurangan angka"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Seven difficulty levels from Newbie through Hell to Infinity, the top tier serving record puzzles such as Everest and AI Escargot"
+msgstr "Tujuh tingkat kesulitan dari Pemula lewat Neraka sampai Tak Terhingga, tingkat teratas yang menyajikan sudoku rekor seperti Everest dan AI Escargot"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Seven: Newbie, Easy, Medium, Hard, Nightmare, Hell and Infinity. Hell puzzles come from a bundled, verified corpus of boards that each need a forcing chain, beyond anything Nightmare asks for, and <0>Infinity</0> serves record puzzles such as Everest and AI Escargot."
+msgstr "Tujuh: Pemula, Mudah, Sedang, Sulit, Mimpi buruk, Neraka, dan Tak Terhingga. Sudoku Neraka berasal dari korpus bawaan yang terverifikasi, yang masing-masing membutuhkan rantai paksa, melampaui semua yang diminta Mimpi buruk, dan <0>Tak Terhingga</0> menyajikan sudoku rekor seperti Everest dan AI Escargot."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique ladder, each defined by a clue count and a guaranteed technique band rather than a marketing label. Infinity sits above them, a curated set of record puzzles chosen by published rating."
+msgstr "Tujuh. Pemula, Mudah, Sedang, Sulit, Mimpi buruk, dan Neraka membentuk tangga teknik, masing-masing ditentukan oleh jumlah angka awal dan rentang teknik yang dijamin, bukan label pemasaran. Tak Terhingga berada di atasnya, kumpulan pilihan sudoku rekor yang dipilih berdasarkan peringkat terpublikasi."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Shareable puzzle links and full game replays for any solve"
+msgstr "Tautan sudoku yang bisa dibagikan dan replay game lengkap untuk setiap penyelesaian"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."
+msgstr "Ukuran dan bentuk. Wing adalah pola tetap tiga atau empat sel yang bisa dikenali sekilas; rantai dibangun tautan demi tautan dan bisa sepanjang apa pun, itulah sebabnya rantai berada satu rentang penuh di atas wing pada skala SE."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "Solutions included on the last pages"
+msgstr "Kunci jawaban ada di halaman terakhir"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Solve the cheapest placements first: full houses, then naked singles, then hidden singles."
+msgstr "Selesaikan penempatan termurah lebih dulu: sel kosong terakhir, lalu tunggal telanjang, lalu tunggal tersembunyi."
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Solver"
+msgstr "Solver"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Solving Easy boards without reaching for a hidden single? Step back to <0>Newbie Sudoku</0>, or step up to <1>Medium Sudoku</1>, where intersections and your first pairs appear. Prefer paper? Download the <2>printable Easy sudoku booklet</2>, or see the <3>sudoku for seniors</3> guide for large-print and comfort options. See the full <4>technique index</4>, the <5>how to play</5> guide, or every tier on the <6>Sudoku difficulty levels</6> hub back <7>home</7>."
+msgstr "Menyelesaikan sudoku Mudah tanpa memakai tunggal tersembunyi? Mundurlah ke <0>Sudoku Pemula</0>, atau naiklah ke <1>Sudoku Sedang</1>, tempat irisan dan pasangan pertama Anda muncul. Lebih suka kertas? Unduh <2>buklet sudoku Mudah cetak</2>, atau lihat panduan <3>sudoku untuk lansia</3> untuk opsi cetak besar dan kenyamanan. Lihat <4>indeks teknik</4> lengkap, panduan <5>cara bermain</5>, atau setiap tingkat di hub <6>Tingkat kesulitan sudoku</6>, atau kembali ke <7>beranda</7>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Solving your first cells"
+msgstr "Menyelesaikan sel pertama Anda"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Some of these grids start with as few as {HELL_CORPUS_MINIMUM_GIVEN_COUNT} givens and look almost empty at first glance — the {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with generous cell size specifically so there is room to track candidates by hand across a long chain. The final pages hold the completed grids, which is close to essential at this tier: verifying a chain of eliminations by eye is slow, and a printed key lets you confirm the end state without re-deriving the whole path."
+msgstr "Beberapa grid ini dimulai dengan hanya {HELL_CORPUS_MINIMUM_GIVEN_COUNT} angka awal dan tampak hampir kosong sekilas — {PRINTABLE_BOOKLET_SIZE} sudoku dicetak {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} per halaman dengan ukuran sel yang lega khusus agar ada ruang untuk melacak kandidat secara manual sepanjang rantai yang panjang. Halaman terakhir memuat grid yang sudah terselesaikan, yang hampir wajib di tingkat ini: memverifikasi rantai eliminasi dengan mata telanjang itu lambat, dan kunci cetak memungkinkan Anda memastikan keadaan akhir tanpa menurunkan ulang seluruh jalurnya."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Source on GitHub"
+msgstr "Kode sumber di GitHub"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Spotting fish and wings reliably? Move up to the <0>printable Nightmare sudoku booklet</0> for chains and coloring. Step back to <1>printable Medium sudoku</1> for intersections and subsets only, or play Hard on a screen at the <2>Hard sudoku lander</2>."
+msgstr "Sudah lancar mengenali fish dan wing? Naiklah ke <0>buklet sudoku Mimpi buruk cetak</0> untuk rantai dan pewarnaan. Mundurlah ke <1>sudoku sedang cetak</1> untuk irisan dan subset saja, atau mainkan Sulit di layar pada <2>halaman sudoku sulit</2>."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Stuck on a puzzle?"
+msgstr "Buntu di sebuah sudoku?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Sudoku difficulties"
+msgstr "Tingkat kesulitan sudoku"
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Sudoku difficulty chain"
+msgstr "Rantai tingkat kesulitan sudoku"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Sudoku difficulty levels"
+msgstr "Tingkat kesulitan sudoku"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Sudoku difficulty levels FAQ"
+msgstr "FAQ tingkat kesulitan sudoku"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku for seniors"
+msgstr "Sudoku untuk lansia"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku glossary"
+msgstr "Glosarium sudoku"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Sudoku is a logic puzzle played on a 9×9 grid, divided into nine 3×3 boxes. The goal is to fill every empty cell with a digit from 1 to 9 so that no digit repeats in any row, column or box. A well-formed Sudoku always starts with some cells already filled in — the givens, or clues — and always has exactly one valid solution reachable by logic alone, with no guessing."
+msgstr "Sudoku adalah teka-teki logika yang dimainkan di grid 9×9, terbagi menjadi sembilan kotak 3×3. Tujuannya mengisi setiap sel kosong dengan angka 1 sampai 9 sehingga tidak ada angka yang berulang di baris, kolom, atau kotak mana pun. Sudoku yang tersusun baik selalu dimulai dengan beberapa sel yang sudah terisi — angka awal — dan selalu memiliki tepat satu solusi valid yang bisa dicapai hanya dengan logika, tanpa menebak."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku solver"
+msgstr "Pemecah sudoku"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku techniques"
+msgstr "Teknik sudoku"
+
+#: src/techniques/components/technique-summary/technique-summary.tsx
+msgid "Summary"
+msgstr "Ringkasan"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
+msgstr "Suuudokuuu menilai sudokunya pada tangga enam tingkat, dari Pemula sampai Neraka, dan setiap tingkat ditentukan oleh dua fakta konkret, bukan label pemasaran: berapa banyak angka awal di grid, dan teknik penyelesaian bernama apa yang dijamin dibutuhkan tingkat itu. Setiap sudoku baru juga dinilai pada skala SE (Sudoku Explainer) begitu dibuat, oleh paket penilai sumber terbuka yang sama yang dipakai <0>panduan peringkat kesulitan sudoku</0> untuk mempublikasikan rentang teknik dan rentang SE terukur dari setiap tingkat tangga di bawah. Di atas tangga ada <1>Tak Terhingga</1>, kumpulan pilihan sudoku rekor yang membawa peringkat yang dipublikasikan penilai independen, karena sudoku itu melampaui puncak skala penilaian kami sendiri."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity."
+msgstr "Suuudokuuu memiliki tujuh tingkat kesulitan: enam yang masing-masing membutuhkan lebih banyak teknik daripada sebelumnya, dan Tak Terhingga."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Suuudokuuu’s hardest tier: {infinityCorpusSize} of the hardest sudoku puzzles ever published, each with a published SE rating of {minimumRatingLabel} or more, playable for free with no ads."
+msgstr "Tingkat tersulit Suuudokuuu: {infinityCorpusSize} sudoku tersulit yang pernah dipublikasikan, masing-masing dengan peringkat SE terpublikasi {minimumRatingLabel} atau lebih, bisa dimainkan gratis tanpa iklan."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Technique-aware hints that name the exact solving pattern, not just the next digit"
+msgstr "Petunjuk yang memahami teknik dan menyebutkan pola penyelesaian yang tepat, bukan sekadar angka berikutnya"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Techniques"
+msgstr "Teknik"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Text size"
+msgstr "Ukuran teks"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "The {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, sized so a chain crossing the whole grid still fits comfortably on one sheet. Full solved grids close the booklet, which matters more here than at the easier tiers — a single missed elimination partway along a chain compounds quickly, and a printed answer key catches it. The measured spread behind these claims lives in the <0>sudoku difficulty rating guide</0>."
+msgstr "{PRINTABLE_BOOKLET_SIZE} sudoku dicetak {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} per halaman, berukuran sedemikian rupa sehingga rantai yang melintasi seluruh grid tetap muat nyaman di satu lembar. Grid terselesaikan lengkap menutup buklet, yang lebih penting di sini daripada di tingkat yang lebih mudah — satu eliminasi yang terlewat di tengah rantai berdampak berantai dengan cepat, dan kunci jawaban cetak akan menangkapnya. Sebaran terukur di balik klaim ini ada di <0>panduan peringkat kesulitan sudoku</0>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The grid itself never changes: nine rows, nine columns and nine boxes, eighty-one cells in total. What changes from puzzle to puzzle is only which cells start filled and which digits they hold, and it is that starting layout of givens that determines how much logic is needed to reach the one valid solution."
+msgstr "Grid itu sendiri tidak pernah berubah: sembilan baris, sembilan kolom, dan sembilan kotak, total delapan puluh satu sel. Yang berubah dari satu sudoku ke sudoku lain hanyalah sel mana yang terisi di awal dan angka apa yang dikandungnya, dan tata letak awal angka-angka awal itulah yang menentukan seberapa banyak logika yang dibutuhkan untuk mencapai satu solusi yang valid."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "The large-print set uses the same Easy-tier logic as the booklet above, but at {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} puzzles per page instead of {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}, so every cell and digit prints noticeably bigger. It suits low-vision solvers, classroom handouts read from a distance, and anyone who finds the standard grid cramped on paper. See the <0>large print sudoku page</0> for printing tips and the on-screen alternative, or the <1>sudoku for seniors</1> guide for the full comfort-focused rundown."
+msgstr "Set cetak besar memakai logika tingkat Mudah yang sama dengan buklet di atas, tetapi dengan {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} sudoku per halaman, bukan {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}, sehingga setiap sel dan angka tercetak jauh lebih besar. Cocok untuk penyelesai dengan penglihatan lemah, handout kelas yang dibaca dari kejauhan, dan siapa pun yang merasa grid standar terlalu sempit di kertas. Lihat <0>halaman sudoku cetak besar</0> untuk tips mencetak dan alternatif di layar, atau panduan <1>sudoku untuk lansia</1> untuk uraian lengkap yang berfokus pada kenyamanan."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "The other tiers are defined by the techniques they require. Infinity is defined by reputation, measured: a puzzle qualifies only if independent raters have published an SE rating of {minimumRatingLabel} or higher for it. Most of the {infinityCorpusSize} come from a 2011 snapshot of the hardest-puzzle database the sudoku-solving community maintains; the rest are the named classics, taken from the forum threads and publications where they first appeared. Before the set is packed into the app, a Dancing Links exact-cover solver and a bitmask solver both confirm that every grid has exactly one solution."
+msgstr "Tingkat lain ditentukan oleh teknik yang dibutuhkan. Tak Terhingga ditentukan oleh reputasi yang terukur: sebuah sudoku hanya memenuhi syarat jika penilai independen telah mempublikasikan peringkat SE {minimumRatingLabel} atau lebih tinggi untuknya. Sebagian besar dari {infinityCorpusSize} sudoku berasal dari snapshot tahun 2011 dari database sudoku tersulit yang dikelola komunitas penyelesai sudoku; sisanya adalah klasik bernama, diambil dari utas forum dan publikasi tempat sudoku itu pertama kali muncul. Sebelum kumpulan ini dikemas ke dalam aplikasi, solver exact-cover Dancing Links dan solver bitmask sama-sama memastikan bahwa setiap grid memiliki tepat satu solusi."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The PDF opens with a cover page stating the puzzle and page counts, moves into {PRINTABLE_BOOKLET_SIZE} puzzles printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, and closes with every solved grid on the final pages so answers never sit next to an unsolved puzzle. Every grid is drawn with vector lines and the standard PDF Helvetica font, so it stays sharp at any print size and never depends on a scanned image. Our published sample of {sampleSize} Newbie boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "PDF dibuka dengan halaman sampul yang menyebutkan jumlah sudoku dan halaman, dilanjutkan dengan {PRINTABLE_BOOKLET_SIZE} sudoku yang dicetak {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} per halaman, dan ditutup dengan setiap grid terselesaikan di halaman terakhir agar jawaban tidak pernah berada di sebelah sudoku yang belum terselesaikan. Setiap grid digambar dengan garis vektor dan font PDF standar Helvetica, sehingga tetap tajam di ukuran cetak apa pun dan tidak pernah bergantung pada gambar hasil pindai. Sampel terpublikasi kami berisi {sampleSize} sudoku Pemula dengan SE {seRatingRange} — angka yang diukur langsung oleh <0>panduan peringkat kesulitan sudoku</0>, bukan sekadar diasumsikan."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The printable Newbie Sudoku booklet is a free PDF of {clueCount}-clue puzzles where every blank is reachable with a full house or a naked single — a property each puzzle was checked for before it went into the PDF. It is the booklet to hand a first-time solver, a classroom just learning the rules, or anyone who wants a puzzle that never demands a second guess."
+msgstr "Buklet Sudoku Pemula cetak adalah PDF gratis berisi sudoku {clueCount} angka awal yang setiap sel kosongnya bisa dijangkau dengan sel kosong terakhir atau tunggal telanjang — properti yang diperiksa untuk setiap sudoku sebelum masuk ke PDF. Inilah buklet untuk diberikan kepada pemain pertama kali, kelas yang baru belajar aturan, atau siapa pun yang menginginkan sudoku yang tidak pernah menuntut tebakan kedua."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The puzzles are printed exactly as they were published, with no reshuffling, so you can compare your grid with the originals discussed on the <0>hardest sudoku puzzles</0> page. They print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with room for a full set of pencil marks, which you will need: at this level most solvers keep every candidate written in and test chains on a separate sheet. The final pages hold the completed grids, so you can check a long line of reasoning without having to finish it first."
+msgstr "Sudoku dicetak persis seperti saat dipublikasikan, tanpa diacak ulang, sehingga Anda bisa membandingkan grid Anda dengan aslinya yang dibahas di halaman <0>sudoku tersulit</0>. Sudoku dicetak {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} per halaman dengan ruang untuk satu set lengkap tanda pensil, yang akan Anda butuhkan: di tingkat ini kebanyakan penyelesai menuliskan setiap kandidat dan menguji rantai di lembar terpisah. Halaman terakhir memuat grid yang sudah terselesaikan, sehingga Anda bisa memeriksa rangkaian penalaran yang panjang tanpa harus menyelesaikannya dulu."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The ratings are the values independent raters publish, not our own measurements."
+msgstr "Peringkat ini adalah nilai yang dipublikasikan penilai independen, bukan hasil pengukuran kami."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The SE ratings are the values independent raters and the sudoku-solving community publish. Suuudokuuu’s own rater reports {SE_RATING_CEILING} with a ceiling flag for anything harder than that, so it does not produce its own figure for these puzzles."
+msgstr "Peringkat SE adalah nilai yang dipublikasikan penilai independen dan komunitas penyelesai sudoku. Penilai Suuudokuuu sendiri melaporkan {SE_RATING_CEILING} dengan tanda batas atas untuk apa pun yang lebih sulit dari itu, jadi tidak menghasilkan angka sendiri untuk sudoku ini."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The standard PDF already uses a generous {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}-puzzles-per-page layout. For bigger cells specifically, see the <0>printable Easy sudoku booklet</0>, which is also the source tier for our large-print PDF."
+msgstr "PDF standar sudah memakai tata letak {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} sudoku per halaman yang lega. Untuk sel yang lebih besar, lihat <0>buklet sudoku Mudah cetak</0>, yang juga merupakan tingkat sumber PDF cetak besar kami."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The three rules of Sudoku"
+msgstr "Tiga aturan Sudoku"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The very first thing to check is whether a box, row or column is missing only one digit. If eight of the nine cells in a unit are already filled, the ninth cell must take the digit the unit is still missing — no candidates to compare, just subtraction."
+msgstr "Hal pertama yang perlu diperiksa adalah apakah ada kotak, baris, atau kolom yang hanya kekurangan satu angka. Jika delapan dari sembilan sel dalam sebuah unit sudah terisi, sel kesembilan harus diisi angka yang masih hilang dari unit itu — tanpa membandingkan kandidat, cukup dengan pengurangan."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "This booklet prints {PRINTABLE_BOOKLET_SIZE} of the hardest sudoku puzzles ever published, taken from Suuudokuuu’s Infinity tier: Arto Inkala’s Everest, AI Escargot, Platinum Blonde, Golden Nugget and other record grids, each with a published SE (Sudoku Explainer) rating between {lowestRatingLabel} and {highestRatingLabel}. Every one has exactly one solution, and the solved grids are at the back."
+msgstr "Buklet ini mencetak {PRINTABLE_BOOKLET_SIZE} sudoku tersulit yang pernah dipublikasikan, diambil dari tingkat Tak Terhingga Suuudokuuu: Everest karya Arto Inkala, AI Escargot, Platinum Blonde, Golden Nugget, dan grid rekor lainnya, masing-masing dengan peringkat SE (Sudoku Explainer) terpublikasi antara {lowestRatingLabel} dan {highestRatingLabel}. Setiap sudoku memiliki tepat satu solusi, dan grid terselesaikan ada di bagian belakang."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "This is the booklet to print for a short daily habit rather than a long sitting: fold it into a notebook, work one grid at a time, and there is never a candidate to write down or a pair to track across the row. It also suits a classroom introducing the rules for the first time, since a full class can finish a puzzle in the same short window without anyone stalling on an intersection they have not been taught yet. The {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}-per-page layout still leaves each grid large enough to write in comfortably, even for a child’s handwriting, and the answer key at the back means a teacher never has to solve the sheet themselves to check it."
+msgstr "Inilah buklet untuk dicetak bagi kebiasaan harian singkat, bukan sesi panjang: selipkan ke buku catatan, kerjakan satu grid sekali duduk, dan tidak ada kandidat yang perlu ditulis atau pasangan yang perlu dilacak di sepanjang baris. Cocok juga untuk kelas yang baru memperkenalkan aturan, karena satu kelas penuh bisa menyelesaikan sudoku dalam waktu singkat yang sama tanpa ada yang tersendat pada irisan yang belum diajarkan. Tata letak {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} per halaman tetap menyisakan grid yang cukup besar untuk ditulisi dengan nyaman, bahkan untuk tulisan tangan anak, dan kunci jawaban di bagian belakang berarti guru tidak perlu menyelesaikan lembarnya sendiri untuk memeriksanya."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Those extra blanks over Newbie are enough that the grid stops filling itself in from <0>full houses</0> alone. Once the obvious placements run out, an Easy puzzle always leaves at least one cell where hidden single reasoning is the only way forward — check each unit’s missing digits against where they can still legally go, rather than reading candidates straight off one cell. Suuudokuuu’s technique engine tries hidden single third, right after full house and <1>naked single</1>, and an Easy-rated puzzle never needs to go further than that: no pointing pairs, no subsets, nothing that asks you to hold more than one unit in mind at once. The gap between the tiers is small on purpose — it is exactly one technique wide."
+msgstr "Sel kosong tambahan dibanding Pemula itu cukup membuat grid berhenti terisi sendiri hanya dari <0>sel kosong terakhir</0>. Setelah penempatan yang jelas habis, sudoku Mudah selalu menyisakan setidaknya satu sel yang hanya bisa maju dengan penalaran tunggal tersembunyi — periksa angka yang hilang di setiap unit terhadap tempat angka itu masih boleh ditempatkan, bukan membaca kandidat langsung dari satu sel. Mesin teknik Suuudokuuu mencoba tunggal tersembunyi di urutan ketiga, tepat setelah sel kosong terakhir dan <1>tunggal telanjang</1>, dan sudoku berperingkat Mudah tidak pernah perlu melangkah lebih jauh dari itu: tidak ada pasangan penunjuk, tidak ada subset, tidak ada yang meminta Anda memegang lebih dari satu unit dalam pikiran sekaligus. Jarak antartingkat sengaja kecil — lebarnya persis satu teknik."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Tips for pencil-mark solving"
+msgstr "Tips menyelesaikan dengan tanda pensil"
+
+#: src/techniques/components/technique-summary/technique-summary.tsx
+msgid "TL;DR"
+msgstr "Ringkasan singkat"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Type or paste the grid into the <0>step-by-step sudoku solver</0> and it will name every move — Hidden Single, Naked Pair, X-Wing — instead of just filling the board in. It checks that your puzzle has exactly one solution first, and it runs entirely in your browser."
+msgstr "Ketik atau tempel grid ke <0>pemecah sudoku langkah demi langkah</0> dan ia akan menyebutkan setiap langkah — Tunggal Tersembunyi, Pasangan Telanjang, X-Wing — alih-alih langsung mengisi papan. Ia memeriksa dulu bahwa sudoku Anda memiliki tepat satu solusi, dan berjalan sepenuhnya di peramban Anda."
+
+#: src/seo/components/updated-date/updated-date.tsx
+msgid "Updated <0>{formattedDate}</0>"
+msgstr "Diperbarui <0>{formattedDate}</0>"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Verifying fish and wings on paper"
+msgstr "Memverifikasi fish dan wing di kertas"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Very. Every puzzle in the Infinity set has a published SE rating of at least {lowestRatingLabel}, well past anything the generated tiers or the Hell corpus produce. Our own rater stops pricing the SE ladder at {SE_RATING_CEILING}, so the figures quoted here come from independent raters, and our technique engine cannot finish any of these grids on its own. Expect to need long forcing chains and forcing nets, and expect a single puzzle to take far longer than anything else on this site."
+msgstr "Sangat. Setiap sudoku di kumpulan Tak Terhingga memiliki peringkat SE terpublikasi minimal {lowestRatingLabel}, jauh melampaui apa pun yang dihasilkan tingkat buatan atau korpus Neraka. Penilai kami sendiri berhenti menilai tangga SE di {SE_RATING_CEILING}, jadi angka yang dikutip di sini berasal dari penilai independen, dan mesin teknik kami tidak bisa menyelesaikan satu pun grid ini sendirian. Bersiaplah membutuhkan rantai paksa dan jaring paksa yang panjang, dan bersiaplah satu sudoku memakan waktu jauh lebih lama daripada apa pun di situs ini."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Want the record puzzles on paper? Download the <0>printable Infinity sudoku PDF</0>. Not ready for them yet? Step back to <1>Hell Sudoku</1>, where every board needs a forcing chain but stays within reach of our technique ladder. Read the stories behind Everest and AI Escargot on the <2>hardest sudoku puzzles</2> page, compare every tier on the <3>Sudoku difficulty levels</3> hub, or head <4>home</4>."
+msgstr "Ingin sudoku rekor di kertas? Unduh <0>PDF sudoku Tak Terhingga cetak</0>. Belum siap? Mundurlah ke <1>Sudoku Neraka</1>, tempat setiap sudoku membutuhkan rantai paksa tetapi masih dalam jangkauan tangga teknik kami. Baca kisah di balik Everest dan AI Escargot di halaman <2>sudoku tersulit</2>, bandingkan setiap tingkat di hub <3>Tingkat kesulitan sudoku</3>, atau kembali ke <4>beranda</4>."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Want to warm up first? The <0>printable Hell sudoku booklet</0> holds forcing-chain puzzles that are hard but still within reach of our technique ladder. Prefer a screen? Play the same record puzzles on the <1>Infinity sudoku lander</1>, where each game reshuffles the grid, or browse every booklet on the <2>printable sudoku hub</2>."
+msgstr "Ingin pemanasan dulu? <0>Buklet sudoku Neraka cetak</0> berisi sudoku rantai paksa yang sulit tetapi masih dalam jangkauan tangga teknik kami. Lebih suka layar? Mainkan sudoku rekor yang sama di <1>halaman sudoku tak terhingga</1>, tempat setiap permainan mengacak ulang grid, atau telusuri setiap buklet di <2>hub sudoku cetak</2>."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "What difficulty levels exist?"
+msgstr "Tingkat kesulitan apa saja yang ada?"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What is a finned fish in sudoku?"
+msgstr "Apa itu fish finned dalam sudoku?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What is a pointing pair?"
+msgstr "Apa itu pasangan penunjuk?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "What is Infinity sudoku?"
+msgstr "Apa itu sudoku Tak Terhingga?"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "What is inside the booklet"
+msgstr "Isi buklet"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "What is the difference between a clue and a candidate?"
+msgstr "Apa bedanya angka awal dan kandidat?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "What is the difference between a wing and a chain?"
+msgstr "Apa bedanya wing dan rantai?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "What is the difference between Newbie and Easy sudoku?"
+msgstr "Apa bedanya sudoku Pemula dan Mudah?"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "What is the easiest Sudoku difficulty?"
+msgstr "Apa tingkat kesulitan Sudoku yang paling mudah?"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "What is the fastest way to get better at Sudoku?"
+msgstr "Apa cara tercepat untuk menjadi lebih mahir bermain Sudoku?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "What makes a puzzle Easy"
+msgstr "Apa yang membuat sudoku Mudah"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What makes a puzzle Hard"
+msgstr "Apa yang membuat sudoku Sulit"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "What makes a puzzle Hell"
+msgstr "Apa yang membuat sudoku Neraka"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "What makes a puzzle Infinity"
+msgstr "Apa yang membuat sudoku Tak Terhingga"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What makes a puzzle Medium"
+msgstr "Apa yang membuat sudoku Sedang"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "What makes a puzzle Newbie"
+msgstr "Apa yang membuat sudoku Pemula"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "What makes a puzzle Nightmare"
+msgstr "Apa yang membuat sudoku Mimpi buruk"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "What technique does an Easy sudoku booklet require?"
+msgstr "Teknik apa yang dibutuhkan buklet sudoku Mudah?"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What techniques do I need for Hard sudoku?"
+msgstr "Teknik apa yang saya butuhkan untuk sudoku Sulit?"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "What techniques do I need for Hell level?"
+msgstr "Teknik apa yang saya butuhkan untuk tingkat Neraka?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What techniques do I need for Medium sudoku?"
+msgstr "Teknik apa yang saya butuhkan untuk sudoku Sedang?"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "What techniques does this Hard booklet require?"
+msgstr "Teknik apa yang dibutuhkan buklet Sulit ini?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "What techniques does this Medium booklet require?"
+msgstr "Teknik apa yang dibutuhkan buklet Sedang ini?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "What techniques does this Nightmare booklet require?"
+msgstr "Teknik apa yang dibutuhkan buklet Mimpi buruk ini?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "When intersections start feeling automatic, move up to the <0>printable Hard sudoku booklet</0> for fish and wing patterns. Drop back to <1>printable Easy sudoku</1> for a singles-only warm-up, or play Medium on a screen at the <2>Medium sudoku lander</2>."
+msgstr "Ketika irisan mulai terasa otomatis, naiklah ke <0>buklet sudoku Sulit cetak</0> untuk pola fish dan wing. Turunlah ke <1>sudoku mudah cetak</1> untuk pemanasan teknik tunggal, atau mainkan Sedang di layar pada <2>halaman sudoku sedang</2>."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "When you start an Infinity game, the app picks one of those puzzles and disguises it. It relabels the digits, shuffles rows within their bands, columns within their stacks and the bands and stacks themselves, and sometimes mirrors the grid across its diagonal. None of that changes the logic or the rating, so the Everest you play is still Everest, it just does not look like the picture below."
+msgstr "Saat Anda memulai permainan Tak Terhingga, aplikasi memilih salah satu sudoku itu dan menyamarkannya. Angkanya dilabeli ulang, baris diacak dalam bandnya, kolom dalam stack-nya, begitu pula band dan stack itu sendiri, dan kadang grid dicerminkan menurut diagonalnya. Tidak satu pun mengubah logika atau peringkatnya, jadi Everest yang Anda mainkan tetap Everest, hanya saja tidak tampak seperti gambar di bawah."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Where to go next"
+msgstr "Langkah selanjutnya"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Which sudoku difficulty should I start with?"
+msgstr "Tingkat kesulitan sudoku mana yang sebaiknya saya mulai?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Who rated these puzzles?"
+msgstr "Siapa yang menilai sudoku ini?"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Why {SITE_NAME}"
+msgstr "Mengapa {SITE_NAME}"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Why does Hell use a fixed puzzle corpus instead of generating puzzles?"
+msgstr "Mengapa Neraka memakai korpus sudoku tetap alih-alih membuat sudoku baru?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Why does this booklet leave more room around each digit?"
+msgstr "Mengapa buklet ini menyisakan lebih banyak ruang di sekitar setiap angka?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Why is paper recommended for chain-based puzzles?"
+msgstr "Mengapa kertas direkomendasikan untuk sudoku berbasis rantai?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Why paper helps with chains"
+msgstr "Mengapa kertas membantu untuk rantai"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Why players stay"
+msgstr "Mengapa pemain bertahan"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Works fully offline once installed, on iOS, Android and the web"
+msgstr "Berfungsi sepenuhnya offline setelah dipasang, di iOS, Android, dan web"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Write candidates into a cell only once scanning stops producing placements."
+msgstr "Tuliskan kandidat ke sel hanya setelah pemindaian tidak lagi menghasilkan penempatan."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Write in candidates once the easy cells run out"
+msgstr "Tuliskan kandidat setelah sel yang mudah habis"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Yes, along with Everest, Platinum Blonde and Golden Nugget. The booklet prints the puzzles as they were originally published."
+msgstr "Ya, bersama Everest, Platinum Blonde, dan Golden Nugget. Buklet mencetak sudoku sebagaimana dipublikasikan aslinya."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our sample measures Hell at SE {hellSeRatingRange} and Nightmare at SE {nightmareSeRatingRange}."
+msgstr "Ya, secara konstruksi. Mimpi buruk berhenti di AIC, dan tidak ada sudoku Neraka yang bisa diselesaikan dengan apa pun yang diizinkan Mimpi buruk. Sampel kami mengukur Neraka pada SE {hellSeRatingRange} dan Mimpi buruk pada SE {nightmareSeRatingRange}."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Yes, with no account and no watermark, and every puzzle’s solved grid is included at the back."
+msgstr "Ya, tanpa akun dan tanpa tanda air, dan grid terselesaikan setiap sudoku disertakan di bagian belakang."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "Ya. {SITE_NAME} gratis dan sumber terbuka, tanpa pembelian dalam aplikasi, langganan, atau tingkat kesulitan berbayar."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Both are in the Infinity set, along with Platinum Blonde and Golden Nugget. Each game reshuffles digits, rows and columns, so the grid looks different every time while the puzzle stays the same."
+msgstr "Ya. Keduanya ada di kumpulan Tak Terhingga, bersama Platinum Blonde dan Golden Nugget. Setiap permainan mengacak angka, baris, dan kolom, jadi grid terlihat berbeda setiap kali sementara sudokunya tetap sama."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Yes. Easy is the source tier for the large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles with bigger cells for readers who want more room to write."
+msgstr "Ya. Mudah adalah tingkat sumber untuk PDF cetak besar, dengan sampel {PRINTABLE_LARGE_PRINT_SIZE} sudoku dengan sel lebih besar bagi pembaca yang menginginkan ruang menulis lebih lega."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. Every difficulty booklet and the large-print set carry the full solved grids on the last pages, generated by the same solver that verifies every puzzle has exactly one solution before it ships."
+msgstr "Ya. Setiap buklet tingkat kesulitan dan set cetak besar memuat grid terselesaikan lengkap di halaman terakhir, dibuat oleh solver yang sama yang memverifikasi bahwa setiap sudoku memiliki tepat satu solusi sebelum dirilis."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Every grid is checked by a Dancing Links exact-cover solver and a bitmask solver before it ships, and each has exactly one solution."
+msgstr "Ya. Setiap grid diperiksa oleh solver exact-cover Dancing Links dan solver bitmask sebelum dirilis, dan masing-masing memiliki tepat satu solusi."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Yes. Every puzzle in the booklet is solvable with a full house or a naked single alone, so no candidate marking or elimination logic is ever required."
+msgstr "Ya. Setiap sudoku di buklet bisa diselesaikan hanya dengan sel kosong terakhir atau tunggal telanjang, jadi tidak pernah dibutuhkan penandaan kandidat atau logika eliminasi."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
+msgstr "Ya. Setelah dipasang, {SITE_NAME} membuat dan menyelesaikan sudoku sepenuhnya di perangkat Anda, jadi dimainkan sama saja tanpa koneksi."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."
+msgstr "Ya. Sampel kami mengukur Neraka pada SE {hellSeRatingRange}, dan setiap sudoku Tak Terhingga memiliki peringkat terpublikasi antara {lowestRatingLabel} dan {highestRatingLabel}. Sudoku Neraka masih tunduk pada tangga teknik kami; sudoku Tak Terhingga tidak."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. Suuudokuuu’s code, including the generator behind these puzzles, is open source under the MIT license, and this site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
+msgstr "Ya. Kode Suuudokuuu, termasuk generator di balik sudoku ini, bersumber terbuka di bawah lisensi MIT, dan situs ini tidak membatasi pencetakan atau pendistribusian ulang PDF — termasuk membagikannya di kelas, sesi les, atau paket lembar kerja."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Yes. The PDF downloads free, with no account and no watermark, and includes a full solution key for every puzzle."
+msgstr "Ya. PDF diunduh gratis, tanpa akun dan tanpa tanda air, dan menyertakan kunci jawaban lengkap untuk setiap sudoku."

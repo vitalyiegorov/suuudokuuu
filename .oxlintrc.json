@@ -940,6 +940,9 @@
                 "packages/landing/src/home/**/*.{ts,tsx}",
                 "packages/landing/src/chrome/components/**/*.{ts,tsx}",
                 "packages/landing/src/difficulty/components/difficulty-{playable,live}-board/*.tsx",
+                "packages/landing/src/difficulty/components/*-page/*.tsx",
+                "packages/landing/src/how-to-play/components/**/*.tsx",
+                "packages/landing/src/printable/components/**/*.tsx",
                 "packages/landing/src/techniques/utils/build-field-labels.util.ts"
             ],
             "rules": {

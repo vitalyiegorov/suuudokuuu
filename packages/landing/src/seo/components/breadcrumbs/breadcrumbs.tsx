@@ -1,3 +1,5 @@
+import { useLingui } from '@lingui/react/macro';
+
 import { extractNodeText } from '../../utils/extract-node-text.util';
 import { findSlots } from '../../utils/find-slots.util';
 import { BreadcrumbListItem } from '../breadcrumb-list-item/breadcrumb-list-item';
@@ -11,10 +13,11 @@ interface Props {
 }
 
 export const Breadcrumbs = ({ children }: Props) => {
+    const { t } = useLingui();
     const items = findSlots(children, BreadcrumbListItem);
 
     return (
-        <nav aria-label="Breadcrumb" className="breadcrumbs">
+        <nav aria-label={t`Breadcrumb`} className="breadcrumbs">
             <BreadcrumbListSchema>{children}</BreadcrumbListSchema>
             <ol className="breadcrumbs__list">
                 {items.map(item => (

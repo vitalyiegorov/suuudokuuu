@@ -13,6 +13,7 @@ import { sudokuDifficultiesPageMetadata } from '../../../app/(en)/sudoku/metadat
 import { techniquesPageMetadata } from '../../../app/(en)/techniques/metadata';
 import { whySuuudokuuuPageMetadata } from '../../../app/(en)/why-suuudokuuu/metadata';
 import { SITE_GITHUB_URL, SITE_LICENSE, SITE_NAME, SITE_PLAY_URL, SITE_PRIVACY_URL } from '../../../seo/constants/site.constant';
+import { buildLocalizedPagePath } from '../../../seo/utils/build-localized-page-path.util';
 import { StoreBadgeCampaignEnum } from '../../enums/store-badge-campaign.enum';
 import { StoreBadges } from '../store-badges/store-badges';
 
@@ -35,7 +36,7 @@ export const SiteFooter = () => {
                         <p className="site-footer__group-title">
                             <Trans>Learn</Trans>
                         </p>
-                        <Link href={howToPlayPageMetadata.path}>
+                        <Link href={buildLocalizedPagePath(howToPlayPageMetadata)}>
                             <Trans>How to play</Trans>
                         </Link>
                         <Link href={techniquesPageMetadata.path}>
@@ -55,7 +56,7 @@ export const SiteFooter = () => {
                         <p className="site-footer__group-title">
                             <Trans>Play</Trans>
                         </p>
-                        <Link href={sudokuDifficultiesPageMetadata.path}>
+                        <Link href={buildLocalizedPagePath(sudokuDifficultiesPageMetadata)}>
                             <Trans>Difficulty levels</Trans>
                         </Link>
                         <Link href={solverPageMetadata.path}>
@@ -69,7 +70,7 @@ export const SiteFooter = () => {
                         <p className="site-footer__group-title">
                             <Trans>Print</Trans>
                         </p>
-                        <Link href={printableSudokuPageMetadata.path}>
+                        <Link href={buildLocalizedPagePath(printableSudokuPageMetadata)}>
                             <Trans>Printable sudoku</Trans>
                         </Link>
                         <Link href={largePrintSudokuPageMetadata.path}>
