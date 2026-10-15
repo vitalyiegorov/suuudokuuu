@@ -1080,6 +1080,43 @@ strong {
     font-size: 0.8rem;
 }
 
+.solver-step-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    margin: 0 0 1rem;
+}
+
+.solver-step-controls__status {
+    margin: 0;
+    color: var(--landing-muted-text-color);
+    font-size: 0.85rem;
+}
+
+.famous-puzzle__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin: 1.25rem 0;
+}
+
+.solve-path {
+    margin: 0.75rem 0 0;
+    padding-left: 2rem;
+    font-size: 0.9rem;
+}
+
+.solve-path__step {
+    margin: 0 0 0.4rem;
+}
+
+.solve-path__technique {
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
 .solver-preview {
     --field-font-family: var(--landing-font-family);
     --field-cell-size: var(--landing-cell-size);

@@ -1,3 +1,4 @@
+import { SE_RATING_CEILING } from '@suuudokuuu/rating';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import Link from 'next/link';
 
@@ -19,6 +20,7 @@ import { TechniqueLinkList } from '../../../techniques/components/technique-link
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
 import { TECHNIQUE_PAGE_LADDER } from '../../../techniques/constants/technique-page-ladder.constant';
 import { seventeenClueSudokuPageMetadata } from '../17-clue-sudoku/metadata';
+import { sudokuDifficultyRatingPageMetadata } from '../guides/sudoku-difficulty-rating/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../hardest-sudoku-puzzles/metadata';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
 import { homePageMetadata } from '../metadata';
@@ -67,10 +69,20 @@ const SolverPage = () => (
         </p>
         <TechniqueSummary>
             <ul>
-                <li>Type the grid cell by cell or paste all 81 characters, then press Solve step by step.</li>
-                <li>A uniqueness check runs first and reports honestly when a grid has no solution or more than one.</li>
+                <li>
+                    Type the grid cell by cell, paste all 81 characters, or paste a share link from the Suuudokuuu app, then press Solve
+                    step by step.
+                </li>
+                <li>
+                    A validity check names any digit repeated in a row, column or box, and a uniqueness check reports honestly when a grid
+                    has no solution or more than one.
+                </li>
+                <li>Every solved puzzle gets its SE (Sudoku Explainer) rating and the hardest technique the rating-optimal solve needs.</li>
                 <li>Each step names the technique that proves it and links to that technique’s full guide.</li>
-                <li>Any step replays on a live board with the pattern cells highlighted and the candidates drawn in.</li>
+                <li>
+                    Any step replays on a live board with the pattern cells highlighted and the candidates drawn in, and the next-step
+                    button walks you through the whole solve to the finished grid.
+                </li>
                 <li>Everything runs in your browser: nothing is uploaded, nothing is stored, no account is needed.</li>
             </ul>
         </TechniqueSummary>
@@ -120,22 +132,29 @@ const SolverPage = () => (
             Single, a Hidden Single over a Pointing Pair, and a Naked Quad is never invoked while an easier move is still on the board.
         </p>
         <p>
-            One honest limit is worth stating up front. The engine reads candidates off the board on every step instead of carrying your
-            pencil marks forward, so a chain of eliminations that only pays off several moves later cannot be threaded together. On puzzles
-            that need that — the genuinely <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest sudoku puzzles</Link> and many{' '}
-            <Link href={seventeenClueSudokuPageMetadata.path}>17-clue grids</Link> — the narration stops early and says how many cells it
-            could not prove, rather than filling them in from an answer it already has and pretending it reasoned its way there. The
-            verified completed grid is still shown underneath.
+            Every elimination is carried forward from one step to the next, exactly as you would keep pencil marks, so a chain of
+            eliminations that only pays off several moves later is narrated in full. The order is the{' '}
+            <Link href={sudokuDifficultyRatingPageMetadata.path}>SE rating’s</Link> cheapest-first order, which is why the hardest step in
+            the walkthrough is also the technique named next to the puzzle’s SE rating.
+        </p>
+        <p>
+            One honest limit is worth stating up front. The genuinely{' '}
+            <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest sudoku puzzles</Link> and some{' '}
+            <Link href={seventeenClueSudokuPageMetadata.path}>17-clue grids</Link> reach positions where no technique Suuudokuuu implements
+            makes progress. The walkthrough does not pretend otherwise: it says so in plain words, fills the one cell with the fewest
+            candidates from the verified solution, and carries on with logic from there. The rating is then reported as {SE_RATING_CEILING}
+            +, the top of what the engine can price.
         </p>
         <h2>How to use the solver</h2>
         <HowTo name="How to solve a sudoku step by step">
             <HowToStep name="Enter your puzzle">
                 Click a cell and type a digit, or use the on-screen pad. Arrow keys move around the grid and Backspace clears a cell. If you
                 already have the puzzle as text, paste all 81 characters into the box below the grid — digits for the givens, dots or zeros
-                for the blanks.
+                for the blanks. A share link copied from the Suuudokuuu app works in the same box.
             </HowToStep>
             <HowToStep name="Solve step by step">
-                Press Solve step by step. The uniqueness check runs first and reports honestly if the grid has no solution or more than one.
+                Press Solve step by step. The validity and uniqueness checks run first and report honestly if a digit repeats or the grid
+                has no solution or more than one. A solved puzzle shows its SE rating and the hardest technique it needs.
             </HowToStep>
             <HowToStep name="Read the steps">
                 Each numbered step names the technique that proves it and links to a full guide for that technique. Work down the list until
@@ -143,7 +162,8 @@ const SolverPage = () => (
             </HowToStep>
             <HowToStep name="Replay a step on the board">
                 Open any step to see it on a live board: the pattern cells are highlighted, the candidates are drawn in, and the
-                eliminations and the placement are played back in order so you can verify the deduction yourself.
+                eliminations and the placement are played back in order so you can verify the deduction yourself. Press the next-step button
+                to move on, all the way to the finished grid.
             </HowToStep>
         </HowTo>
         <a className="hero__cta" href={SITE_PLAY_URL}>
@@ -187,9 +207,9 @@ const SolverPage = () => (
                 <FaqQuestion>Can this solver solve any sudoku?</FaqQuestion>
                 <FaqAnswer>
                     It can complete any sudoku that has exactly one solution — the bitmask and Dancing Links solvers are exhaustive, so the
-                    finished grid is always found. The narrated walkthrough is more modest: it covers every step the technique engine can
-                    prove from the board alone, and on puzzles that need long chained eliminations it stops early and tells you how many
-                    cells it could not justify rather than guessing.
+                    finished grid is always found. The narrated walkthrough proves every step it can with the technique engine, carrying
+                    eliminations forward, and on the rare puzzle that goes past every implemented technique it says so and fills that one
+                    cell from the verified solution instead of inventing a reason.
                 </FaqAnswer>
             </Faq>
             <Faq>

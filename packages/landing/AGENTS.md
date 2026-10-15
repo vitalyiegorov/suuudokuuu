@@ -52,11 +52,19 @@ src/
 │   ├── constants/           # comfort-scale steps, storage key, CSS custom property name
 │   ├── interfaces/          # comfort-scale step view model
 │   └── utils/               # buildComfortScaleInitScript, the pre-hydration scale script
+├── daily/
+│   ├── components/          # the shared daily puzzle body and the archive day and month lists
+│   ├── constants/           # archive start, build date and the derived archive dates and months
+│   └── utils/               # UTC date and month labels
 ├── difficulty/
 │   ├── components/          # prev/next difficulty chain, the playable tier board and its live-board island
 │   ├── constants/           # difficulty display names, ladder order, difficulty page paths, Infinity corpus facts
 │   ├── types/               # RatedDifficultyType, the tiers the rated sample covers
 │   └── utils/               # clue count per difficulty, derived from DIFFICULTY_BANDS, and the tier deep link into /play
+├── hardest/
+│   ├── components/          # famous-puzzle header, board with facts and app and print links, engine walkthrough
+│   ├── constants/           # the named record grids, also read by the printables script
+│   └── interfaces/          # famous puzzle view model
 ├── home/
 │   └── components/          # the home page body, rendered by the English and the localized home routes
 ├── i18n/
@@ -108,7 +116,7 @@ Funnel events go through `track()` from `@vercel/analytics`, called from client 
 
 ### 1. One static route file per SEO page
 
-Every SEO page lives at its own `src/app/(en)/<route>/page.tsx`. Never collapse content pages into a dynamic `src/app/[slug]/page.tsx`. The `[locale]` segment is the one dynamic segment: it only selects the language of a route that also exists in English, see Localization below. Adding a page means adding a route folder; deleting a page means deleting that folder. `sitemap.ts` and future listing pages are the only legitimate enumeration endpoints.
+Every SEO page lives at its own `src/app/(en)/<route>/page.tsx`. Never collapse content pages into a dynamic `src/app/[slug]/page.tsx`. The `[locale]` segment only selects the language of a route that also exists in English, see Localization below. The daily sudoku archive is the other exception, because its URL set is a function of the build date: `daily-sudoku/[date]` and `daily-sudoku/archive/[month]` enumerate `DAILY_ARCHIVE_DATES` and `DAILY_ARCHIVE_MONTHS` through `generateStaticParams` with `dynamicParams = false`, render one shared body, and build their sidecars with a function in the sibling `metadata.ts`. See The daily sudoku below. Adding a page means adding a route folder; deleting a page means deleting that folder. `sitemap.ts` and future listing pages are the only legitimate enumeration endpoints.
 
 ### 2. Copy stays in the page file
 
@@ -263,6 +271,12 @@ Every `/sudoku/<tier>` lander and the home page render `DifficultyBoard difficul
 - `DifficultyBoard` (server) calls `forgeSerializablePuzzle(difficulty, seed)` from `@suuudokuuu/puzzle-forge` during static generation, the exact call the app makes, so a tier's board comes from that tier's band or, for Hell and Infinity, from the same corpus. The fixed seed keeps every export identical. The static `PuzzleBoard` table is in the exported HTML, so the board costs no layout shift and no script.
 - `DifficultyPlayableBoard` (client) ships only the play button. Pressing it loads `DifficultyLiveBoard` through `next/dynamic(..., { ssr: false })`, which builds a `FieldEngine` from the same puzzle and solution; the static table stays in the DOM and is hidden by CSS once `.field-game` mounts. `New <tier> puzzle` dynamic-imports `@suuudokuuu/puzzle-forge` on click, so neither the engine nor the forge and its corpora ever enter a page's script list.
 - Every play link for a tier goes through `buildDifficultyPlayUrl(difficulty)`, which appends `?difficulty=<DifficultyEnum value>` to `SITE_PLAY_URL`. The app's `/play` route validates that parameter with `DifficultySchema` and stores it as the selected difficulty without starting or replacing a run.
+
+## The daily sudoku
+
+`/daily-sudoku` shows the build day's puzzle and `/daily-sudoku/<YYYY-MM-DD>` keeps every day from `DAILY_ARCHIVE_START_DATE` (`src/daily/constants/daily-archive.constant.ts`) up to the build date, paginated by `/daily-sudoku/archive/<YYYY-MM>`. Every board comes from `forgeSerializablePuzzle(getDailyDifficulty(date), getDailyPuzzleSeed(date))`, the exact call the app's daily challenge makes, so the page and the app show the same grid for a UTC date. The archive is derived, never stored: a past day renders the same board on every build.
+
+The build date is `LANDING_BUILD_DATE` when it is a `YYYY-MM-DD` string, else today in UTC. The production workflow sets it and turbo hashes it, so a cached landing build is never replayed on a later day, and a daily `schedule` trigger on `main.yml` rebuilds and deploys without a release. Each day page runs one `SolvePathBuilder` solve at build time; the month and recent-day lists read only the date and the tier.
 
 ## Guide pages and the generated solve data
 

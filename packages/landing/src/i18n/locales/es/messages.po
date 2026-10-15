@@ -27,6 +27,10 @@ msgstr "Un tablero Fácil para empezar. Juégalo aquí mismo o elige cualquiera 
 msgid "Clues versus difficulty"
 msgstr "Pistas frente a dificultad"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Daily sudoku"
+msgstr "Sudoku diario"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Default text size"
 msgstr "Tamaño de texto normal"

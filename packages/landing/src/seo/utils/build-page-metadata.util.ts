@@ -1,3 +1,5 @@
+import { isDefined } from '@rnw-community/shared';
+
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '../constants/og-image.constant';
 import { DEFAULT_LOCALE, SITE_NAME } from '../constants/site.constant';
 
@@ -11,7 +13,7 @@ import type { LocaleType } from '../types/locale.type';
 import type { Metadata } from 'next';
 
 export const buildPageMetadata = (pageMetadata: PageMetadataInterface, locale: LocaleType = DEFAULT_LOCALE): Metadata => {
-    const { isHub, metaDescription, metaTitle, path, publishedAt, title, updatedAt } = localizePageMetadata(pageMetadata, locale);
+    const { metaDescription, metaTitle, path, publishedAt, title, updatedAt } = localizePageMetadata(pageMetadata, locale);
     const imageUrl = buildOgImageUrl({ path });
     const openGraphImages = [{ url: imageUrl, width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, alt: title }];
 
@@ -26,7 +28,7 @@ export const buildPageMetadata = (pageMetadata: PageMetadataInterface, locale: L
             description: metaDescription,
             url: buildLocaleUrl(locale, path),
             images: openGraphImages,
-            ...(path === '/' || isHub === true
+            ...(path === '/' || isDefined(pageMetadata.openGraphType)
                 ? { type: 'website' }
                 : { type: 'article', publishedTime: publishedAt, modifiedTime: updatedAt })
         },

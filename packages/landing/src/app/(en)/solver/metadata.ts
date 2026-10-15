@@ -4,12 +4,12 @@ export const solverPageMetadata: PageMetadataInterface = {
     path: '/solver',
     title: 'Sudoku solver',
     headline: 'Sudoku Solver — Step by Step',
-    metaTitle: 'Sudoku Solver Online — Step by Step, Free',
+    metaTitle: 'Sudoku Solver Step by Step — With Explanations, Free',
     metaDescription:
-        'Free online sudoku solver that shows the steps. Type or paste your puzzle and get a technique-by-technique walkthrough, plus an honest uniqueness check.',
+        'Free sudoku solver with explanations. Type, paste or import a share link and step through every logical move, with its SE rating and an honest uniqueness check.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-06T00:00:00.000Z',
-    isHub: true,
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'weekly',
-    priority: 0.9
+    priority: 0.9,
+    openGraphType: 'website'
 };

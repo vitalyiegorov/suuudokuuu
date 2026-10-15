@@ -9,28 +9,27 @@ import { useState } from 'react';
 import { buildFieldLabels } from '../../../techniques/utils/build-field-labels.util';
 import { renderTechniqueNarration } from '../../../techniques/utils/render-technique-narration.util';
 
-import type { StepScriptInterface } from '@suuudokuuu/field-core';
+import type { SolverStepInterface } from '../../interfaces/solver-step.interface';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
 interface Props {
-    board: string;
+    step: SolverStepInterface;
     difficulty: DifficultyEnum;
-    script: StepScriptInterface;
 }
 
-const startEngine = (board: string, difficulty: DifficultyEnum, script: StepScriptInterface): FieldEngine => {
-    const engine = new FieldEngine({ sudokuString: board, difficulty, showAutoCandidates: true });
+const startEngine = ({ boardBefore, eliminatedCandidates, script }: SolverStepInterface, difficulty: DifficultyEnum): FieldEngine => {
+    const engine = new FieldEngine({ sudokuString: boardBefore, difficulty, eliminatedCandidates, showAutoCandidates: true });
 
     engine.startStepScript(script);
 
     return engine;
 };
 
-export const SolverStepPreview = ({ board, difficulty, script }: Props) => {
+export const SolverStepPreview = ({ difficulty, step }: Props) => {
     const { i18n } = useLingui();
     const fieldLabels = buildFieldLabels(i18n);
-    const [engine] = useState(() => startEngine(board, difficulty, script));
-    const givenCellKeys = getGivenCellKeys(board);
+    const [engine] = useState(() => startEngine(step, difficulty));
+    const givenCellKeys = getGivenCellKeys(step.boardBefore);
 
     return (
         <div className="solver-preview">

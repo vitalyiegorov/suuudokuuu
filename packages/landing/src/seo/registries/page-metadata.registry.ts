@@ -1,8 +1,18 @@
 import { seventeenClueSudokuPageMetadata } from '../../app/(en)/17-clue-sudoku/metadata';
+import { DAILY_PUZZLE_PAGES_METADATA } from '../../app/(en)/daily-sudoku/[date]/metadata';
+import { DAILY_ARCHIVE_PAGES_METADATA } from '../../app/(en)/daily-sudoku/archive/[month]/metadata';
+import { dailySudokuPageMetadata } from '../../app/(en)/daily-sudoku/metadata';
 import { glossaryPageMetadata } from '../../app/(en)/glossary/metadata';
 import { sudokuCluesVsDifficultyPageMetadata } from '../../app/(en)/guides/sudoku-clues-vs-difficulty/metadata';
 import { sudokuDifficultyRatingPageMetadata } from '../../app/(en)/guides/sudoku-difficulty-rating/metadata';
+import { aiEscargotPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/ai-escargot/metadata';
+import { easterMonsterPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/easter-monster/metadata';
+import { everestPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/everest/metadata';
+import { goldenNuggetPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/golden-nugget/metadata';
+import { kolkPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/kolk/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/metadata';
+import { platinumBlondePageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/platinum-blonde/metadata';
+import { silverPlatePageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/silver-plate/metadata';
 import { howToPlayPageMetadata } from '../../app/(en)/how-to-play/metadata';
 import { largePrintSudokuPageMetadata } from '../../app/(en)/large-print-sudoku/metadata';
 import { homePageMetadata } from '../../app/(en)/metadata';
@@ -46,10 +56,14 @@ import { nishioForcingChainPageMetadata } from '../../app/(en)/techniques/nishio
 import { pointingPairPageMetadata } from '../../app/(en)/techniques/pointing-pair/metadata';
 import { pointingTriplePageMetadata } from '../../app/(en)/techniques/pointing-triple/metadata';
 import { regionForcingChainPageMetadata } from '../../app/(en)/techniques/region-forcing-chain/metadata';
+import { remotePairPageMetadata } from '../../app/(en)/techniques/remote-pair/metadata';
 import { sashimiSwordfishPageMetadata } from '../../app/(en)/techniques/sashimi-swordfish/metadata';
 import { sashimiXWingPageMetadata } from '../../app/(en)/techniques/sashimi-x-wing/metadata';
 import { simpleColoringPageMetadata } from '../../app/(en)/techniques/simple-coloring/metadata';
+import { skyscraperPageMetadata } from '../../app/(en)/techniques/skyscraper/metadata';
 import { swordfishPageMetadata } from '../../app/(en)/techniques/swordfish/metadata';
+import { turbotFishPageMetadata } from '../../app/(en)/techniques/turbot-fish/metadata';
+import { twoStringKitePageMetadata } from '../../app/(en)/techniques/two-string-kite/metadata';
 import { uniqueRectanglePageMetadata } from '../../app/(en)/techniques/unique-rectangle/metadata';
 import { wWingPageMetadata } from '../../app/(en)/techniques/w-wing/metadata';
 import { xChainPageMetadata } from '../../app/(en)/techniques/x-chain/metadata';
@@ -67,6 +81,9 @@ export const PAGE_METADATA_REGISTRY: readonly PageMetadataInterface[] = [
     howToPlayPageMetadata,
     sudokuForSeniorsPageMetadata,
     solverPageMetadata,
+    dailySudokuPageMetadata,
+    ...DAILY_PUZZLE_PAGES_METADATA,
+    ...DAILY_ARCHIVE_PAGES_METADATA,
     glossaryPageMetadata,
     sudokuDifficultiesPageMetadata,
     newbieSudokuPageMetadata,
@@ -77,6 +94,13 @@ export const PAGE_METADATA_REGISTRY: readonly PageMetadataInterface[] = [
     hellSudokuPageMetadata,
     infinitySudokuPageMetadata,
     hardestSudokuPuzzlesPageMetadata,
+    aiEscargotPageMetadata,
+    easterMonsterPageMetadata,
+    goldenNuggetPageMetadata,
+    platinumBlondePageMetadata,
+    everestPageMetadata,
+    kolkPageMetadata,
+    silverPlatePageMetadata,
     seventeenClueSudokuPageMetadata,
     sudokuDifficultyRatingPageMetadata,
     sudokuCluesVsDifficultyPageMetadata,
@@ -121,5 +145,9 @@ export const PAGE_METADATA_REGISTRY: readonly PageMetadataInterface[] = [
     nishioForcingChainPageMetadata,
     cellForcingChainPageMetadata,
     regionForcingChainPageMetadata,
-    privacyPolicyPageMetadata
+    privacyPolicyPageMetadata,
+    turbotFishPageMetadata,
+    skyscraperPageMetadata,
+    twoStringKitePageMetadata,
+    remotePairPageMetadata
 ];

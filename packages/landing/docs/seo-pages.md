@@ -32,7 +32,7 @@ src/app/(en)/<route>/
 
 ### 2.1 One static route file per SEO page
 
-Every page lives at its own `src/app/(en)/<route>/page.tsx`; a localized page adds `src/app/[locale]/<route>/page.tsx`. Never collapse content pages into a dynamic `src/app/[slug]/page.tsx`, and never generate a family of pages from a slug-keyed content map. Adding a page means adding a folder; deleting a page means deleting that folder.
+Every page lives at its own `src/app/(en)/<route>/page.tsx`; a localized page adds `src/app/[locale]/<route>/page.tsx`. Never collapse content pages into a dynamic `src/app/[slug]/page.tsx`, and never generate a family of pages from a slug-keyed content map. Adding a page means adding a folder; deleting a page means deleting that folder. The dated daily sudoku archive is the one content family on a `generateStaticParams` route, because its URLs are a function of the build date rather than authored pages; every dated page renders the same body and no copy is keyed by date.
 
 The reason is not aesthetic. A dynamic route makes the content invisible to `grep`, hides which URLs actually exist behind a `generateStaticParams` array, and pushes per-page copy into a registry — which then has to grow a shape wide enough for every page in the family, and every page pays for every other page’s fields.
 

@@ -27,6 +27,10 @@ msgstr "An Easy board to start with. Play it right here, or pick any of seven di
 msgid "Clues versus difficulty"
 msgstr "Clues versus difficulty"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Daily sudoku"
+msgstr "Daily sudoku"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Default text size"
 msgstr "Default text size"

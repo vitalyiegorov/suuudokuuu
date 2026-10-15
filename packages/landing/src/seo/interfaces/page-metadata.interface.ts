@@ -10,9 +10,9 @@ export interface PageMetadataInterface {
     readonly metaDescription: string;
     readonly publishedAt: string;
     readonly updatedAt: string;
-    readonly isHub?: boolean;
     readonly changeFrequency: SitemapChangeFrequencyType;
     readonly priority: number;
+    readonly openGraphType?: 'website';
     readonly translations?: Readonly<
         Partial<
             Record<

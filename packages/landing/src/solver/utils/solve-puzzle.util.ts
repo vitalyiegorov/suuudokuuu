@@ -1,77 +1,78 @@
-import { findStepScript } from '@suuudokuuu/field-core';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { ratePuzzle } from '@suuudokuuu/rating';
 import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
 import { UNIQUENESS_COUNT_LIMIT, formatGridString, parseGridString } from '@suuudokuuu/solver-core';
 import { DLXSolver } from '@suuudokuuu/solver-dlx';
-import { SolutionTechniqueEnum, createTechniqueStrategies } from '@suuudokuuu/techniques';
 
 import { isDefined } from '@rnw-community/shared';
 
 import { TECHNIQUE_NAMES } from '../../techniques/constants/technique-name.constant';
 import { TECHNIQUE_PAGE_PATHS } from '../../techniques/constants/technique-page-path.constant';
-import { renderTechniqueNarration } from '../../techniques/utils/render-technique-narration.util';
-import { ENTRY_BLANK_CHARACTER, ENTRY_GRID_BLANK_CHARACTER } from '../constants/puzzle-entry.constant';
+import { SolvePathBuilder } from '../classes/solve-path-builder';
+import { ENTRY_BLANK_CHARACTER, ENTRY_GRID_BLANK_CHARACTER, ENTRY_GRID_SIZE } from '../constants/puzzle-entry.constant';
 
+import type { SolverConflictInterface } from '../interfaces/solver-conflict.interface';
 import type { SolverSolutionInterface } from '../interfaces/solver-solution.interface';
-import type { SolverStepInterface } from '../interfaces/solver-step.interface';
 import type { SolverOutcomeType } from '../types/solver-outcome.type';
-import type { StepScriptInterface } from '@suuudokuuu/field-core';
 
-const MAX_SOLVER_STEPS = 400;
 const NO_SOLUTION_COUNT = 0;
 const UNIQUE_SOLUTION_COUNT = 1;
+const BOX_SIZE = 3;
 
-const buildSolverStep = (index: number, boardBefore: string, script: StepScriptInterface): SolverStepInterface => {
-    const [lastStep] = script.steps.slice(-1);
-    const techniqueName = TECHNIQUE_NAMES[script.technique];
+const getUnitNames = (index: number): string[] => {
+    const row = Math.floor(index / ENTRY_GRID_SIZE);
+    const column = index % ENTRY_GRID_SIZE;
+    const box = Math.floor(row / BOX_SIZE) * BOX_SIZE + Math.floor(column / BOX_SIZE);
 
-    return {
-        index,
-        techniqueName,
-        techniquePath: TECHNIQUE_PAGE_PATHS[script.technique],
-        narration: isDefined(lastStep) ? renderTechniqueNarration(lastStep) : techniqueName,
-        boardBefore,
-        script
-    };
+    return [`row ${row + 1}`, `column ${column + 1}`, `box ${box + 1}`];
 };
 
-const collectSolverSteps = (sudoku: Sudoku): SolverStepInterface[] => {
-    const steps: SolverStepInterface[] = [];
-    const exhaustedTechniques = new Set<SolutionTechniqueEnum>();
+const formatEntryCell = (index: number): string => `r${Math.floor(index / ENTRY_GRID_SIZE) + 1}c${(index % ENTRY_GRID_SIZE) + 1}`;
 
-    while (steps.length < MAX_SOLVER_STEPS && sudoku.PossibleValues.length > 0) {
-        const strategies = createTechniqueStrategies().filter(strategy => !exhaustedTechniques.has(strategy.technique));
-        const script = findStepScript(sudoku, strategies);
+const findGivenConflict = (puzzle: string): SolverConflictInterface | null => {
+    const seenGivens = new Map<string, number>();
+    const givens = Array.from(puzzle)
+        .map((character, index) => ({ character, index }))
+        .filter(({ character }) => character !== ENTRY_BLANK_CHARACTER);
 
-        if (!isDefined(script) || script.technique === SolutionTechniqueEnum.Guess) {
-            break;
-        }
+    for (const { character, index } of givens) {
+        for (const unitName of getUnitNames(index)) {
+            const unitKey = `${unitName}:${character}`;
+            const firstIndex = seenGivens.get(unitKey);
 
-        steps.push(buildSolverStep(steps.length, sudoku.toString(), script));
+            if (isDefined(firstIndex)) {
+                return { value: Number(character), unitName, firstCell: formatEntryCell(firstIndex), secondCell: formatEntryCell(index) };
+            }
 
-        const { placement } = script;
-
-        if (isDefined(placement)) {
-            sudoku.setCellValue({ ...placement.cell, value: placement.value });
-            exhaustedTechniques.clear();
-        } else {
-            exhaustedTechniques.add(script.technique);
+            seenGivens.set(unitKey, index);
         }
     }
 
-    return steps;
+    return null;
 };
 
 const buildSolution = (puzzle: string, solutionBoard: string): SolverSolutionInterface => {
-    const sudoku = Sudoku.fromString(puzzle, { ...defaultSudokuConfig });
-    const difficulty = sudoku.Difficulty;
-    const steps = collectSolverSteps(sudoku);
-    const unprovenCellCount = Array.from(sudoku.toString()).filter(character => character === ENTRY_BLANK_CHARACTER).length;
+    const { rating, hardestTechnique, isCeiling } = ratePuzzle(puzzle);
 
-    return { kind: 'solved', solutionBoard, difficulty, steps, unprovenCellCount };
+    return {
+        kind: 'solved',
+        solutionBoard,
+        difficulty: Sudoku.fromString(puzzle, { ...defaultSudokuConfig }).Difficulty,
+        rating,
+        isRatingCeiling: isCeiling,
+        hardestTechniqueName: TECHNIQUE_NAMES[hardestTechnique],
+        hardestTechniquePath: TECHNIQUE_PAGE_PATHS[hardestTechnique],
+        ...new SolvePathBuilder(puzzle).build()
+    };
 };
 
 export const solvePuzzle = (puzzle: string): SolverOutcomeType => {
+    const conflict = findGivenConflict(puzzle);
+
+    if (isDefined(conflict)) {
+        return { kind: 'invalid-grid', conflict };
+    }
+
     const grid = parseGridString(puzzle.replaceAll(ENTRY_BLANK_CHARACTER, ENTRY_GRID_BLANK_CHARACTER));
     const counts = {
         bitmaskCount: new BitmaskSolver().countSolutions(grid, UNIQUENESS_COUNT_LIMIT),
