@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -103,6 +104,12 @@ const SimpleColoringPage = () => (
                 Stopping at the first strong link found. The network can spread through many cells before a trap or wrap becomes visible.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            Simple coloring is a visual way to read an <TechniqueLink technique={SolutionTechniqueEnum.XChain} />: the two colors are the
+            two parities of its strong links. If coloring stalls, the <TechniqueLink technique={SolutionTechniqueEnum.XWing} /> and the more
+            general <TechniqueLink technique={SolutionTechniqueEnum.AIC} /> reach conclusions it cannot.
+        </p>
         <FaqPage>
             <FaqHeading>Simple coloring FAQ</FaqHeading>
             <Faq>

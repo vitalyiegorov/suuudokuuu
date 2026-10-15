@@ -9,6 +9,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -100,6 +101,13 @@ const CellForcingChainPage = () => (
                 bivalue cells.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            A cell forcing chain tries every candidate of one cell, where{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.NishioForcingChain} /> tries a single candidate and{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.RegionForcingChain} /> tries every spot of a digit in a unit. A well-chosen{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.XYChain} /> often reaches the same result without branching.
+        </p>
         <FaqPage>
             <FaqHeading>Cell forcing chain FAQ</FaqHeading>
             <Faq>

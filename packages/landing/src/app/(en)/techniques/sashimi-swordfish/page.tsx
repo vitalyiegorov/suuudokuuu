@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -102,6 +103,12 @@ const SashimiSwordfishPage = () => (
                 candidate, not the other way around.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            Read <TechniqueLink technique={SolutionTechniqueEnum.FinnedSwordfish} /> first, since a sashimi is the case where the fin
+            replaces a missing corner, and compare it with the two-line <TechniqueLink technique={SolutionTechniqueEnum.SashimiXWing} />.
+            The underlying fish is the ordinary <TechniqueLink technique={SolutionTechniqueEnum.Swordfish} />.
+        </p>
         <FaqPage>
             <FaqHeading>Sashimi Swordfish FAQ</FaqHeading>
             <Faq>

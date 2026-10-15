@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -93,6 +94,12 @@ const HiddenTriplePage = () => (
                 worth the search.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            Hidden triples build on the <TechniqueLink technique={SolutionTechniqueEnum.HiddenPair} /> and extend to a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.HiddenQuad} />. Their cell-side counterpart, which reads the same unit by
+            candidates instead of by digits, is the <TechniqueLink technique={SolutionTechniqueEnum.NakedTriple} />.
+        </p>
         <FaqPage>
             <FaqHeading>Hidden triple FAQ</FaqHeading>
             <Faq>

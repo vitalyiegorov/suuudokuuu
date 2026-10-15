@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -92,6 +93,13 @@ const FullHousePage = () => (
             </li>
             <li>Treating a box with one blank as less reliable than a row with one blank. All three unit types work identically.</li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            A full house is the degenerate case of two bigger ideas: <TechniqueLink technique={SolutionTechniqueEnum.NakedSingle} /> fills a
+            cell that has one candidate left, and <TechniqueLink technique={SolutionTechniqueEnum.HiddenSingle} /> fills the only cell where
+            a digit still fits. Reach for those two the moment no unit is down to a single blank, and use{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.PointingPair} /> once they stall.
+        </p>
         <FaqPage>
             <FaqHeading>Full house FAQ</FaqHeading>
             <Faq>

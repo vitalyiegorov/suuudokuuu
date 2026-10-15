@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -96,6 +97,13 @@ const HiddenSinglePage = () => (
             </li>
             <li>Sweeping one digit and moving on. Placing it changes the picture for that same digit elsewhere on the board.</li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            A hidden single is the digit-first twin of <TechniqueLink technique={SolutionTechniqueEnum.NakedSingle} />, and a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.FullHouse} /> is what either one becomes when only one blank is left in the
+            unit. When no single is available, <TechniqueLink technique={SolutionTechniqueEnum.PointingPair} /> is usually the next
+            elimination to look for.
+        </p>
         <FaqPage>
             <FaqHeading>Hidden single FAQ</FaqHeading>
             <Faq>

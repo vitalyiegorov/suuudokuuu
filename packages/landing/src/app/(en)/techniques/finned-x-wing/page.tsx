@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -102,6 +103,12 @@ const FinnedXWingPage = () => (
                 only that either outcome clears the target cells.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            Start from a plain <TechniqueLink technique={SolutionTechniqueEnum.XWing} /> and add one fin to get this pattern. If the fin is
+            the only thing separating you from a smaller X-Wing, read <TechniqueLink technique={SolutionTechniqueEnum.SashimiXWing} />, and
+            for the three-line version see <TechniqueLink technique={SolutionTechniqueEnum.FinnedSwordfish} />.
+        </p>
         <FaqPage>
             <FaqHeading>Finned X-Wing FAQ</FaqHeading>
             <Faq>

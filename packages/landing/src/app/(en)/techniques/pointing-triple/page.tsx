@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -96,6 +97,12 @@ const PointingTriplePage = () => (
                 three, and only when those three form a straight line.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            Treat this as the three-cell extension of <TechniqueLink technique={SolutionTechniqueEnum.PointingPair} />, and keep{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.BoxLineReduction} /> in mind as the same overlap seen from the line side. The
+            cells it clears often leave a <TechniqueLink technique={SolutionTechniqueEnum.HiddenSingle} /> behind.
+        </p>
         <FaqPage>
             <FaqHeading>Pointing triple FAQ</FaqHeading>
             <Faq>

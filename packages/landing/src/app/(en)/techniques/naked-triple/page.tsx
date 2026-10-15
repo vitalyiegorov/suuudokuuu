@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -94,6 +95,12 @@ const NakedTriplePage = () => (
                 the line.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            Spot a <TechniqueLink technique={SolutionTechniqueEnum.NakedPair} /> first, since the triple is the same reasoning with one more
+            cell, and see <TechniqueLink technique={SolutionTechniqueEnum.NakedQuad} /> for the four-cell version. The hidden counterpart
+            that works on the digits rather than the cells is the <TechniqueLink technique={SolutionTechniqueEnum.HiddenTriple} />.
+        </p>
         <FaqPage>
             <FaqHeading>Naked triple FAQ</FaqHeading>
             <Faq>

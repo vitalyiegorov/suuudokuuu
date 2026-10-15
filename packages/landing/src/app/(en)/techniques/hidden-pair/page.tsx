@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -94,6 +95,12 @@ const HiddenPairPage = () => (
             </li>
             <li>Stopping after the strip. The pair becomes a naked pair, and that second step often does the real damage.</li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            A hidden pair is the digit-side mirror of a <TechniqueLink technique={SolutionTechniqueEnum.NakedPair} />, and it is the
+            two-digit step up from a <TechniqueLink technique={SolutionTechniqueEnum.HiddenSingle} />. If three digits share three cells
+            instead, that is a <TechniqueLink technique={SolutionTechniqueEnum.HiddenTriple} />.
+        </p>
         <FaqPage>
             <FaqHeading>Hidden pair FAQ</FaqHeading>
             <Faq>

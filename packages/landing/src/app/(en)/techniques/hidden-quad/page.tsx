@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -101,6 +102,12 @@ const HiddenQuadPage = () => (
                 to verify.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            A hidden quad is the four-digit end of the line that starts with <TechniqueLink technique={SolutionTechniqueEnum.HiddenPair} />{' '}
+            and <TechniqueLink technique={SolutionTechniqueEnum.HiddenTriple} />. Looking at the cells instead of the digits turns the same
+            unit into a <TechniqueLink technique={SolutionTechniqueEnum.NakedQuad} />.
+        </p>
         <FaqPage>
             <FaqHeading>Hidden quad FAQ</FaqHeading>
             <Faq>
