@@ -11,7 +11,7 @@ export const sashimiSwordfishPageMetadata: PageMetadataInterface = {
     metaDescription:
         'A Sashimi Swordfish is the three-line sashimi pattern: one base line keeps only a fin, yet the fish still proves the same eliminations.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-14T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

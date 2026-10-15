@@ -11,7 +11,7 @@ export const xyWingPageMetadata: PageMetadataInterface = {
     metaDescription:
         'An XY-Wing links three bivalue cells so that whichever value the pivot holds, a shared candidate can be erased from cells that see both pincers.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-14T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

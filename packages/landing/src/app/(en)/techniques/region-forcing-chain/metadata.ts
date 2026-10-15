@@ -11,7 +11,7 @@ export const regionForcingChainPageMetadata: PageMetadataInterface = {
     metaDescription:
         'A region forcing chain tries every cell where a digit can go in one row, column or box, and keeps whatever all of those branches agree on.',
     publishedAt: '2026-10-06T00:00:00.000Z',
-    updatedAt: '2026-10-06T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };
