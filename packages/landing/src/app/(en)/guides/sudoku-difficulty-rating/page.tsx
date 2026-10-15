@@ -16,8 +16,8 @@ import { FaqPage } from '../../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../../seo/components/faq-question/faq-question';
 import { Faq } from '../../../../seo/components/faq/faq';
 import { PageHeader } from '../../../../seo/components/page-header/page-header';
+import { AUTHOR_PERSON_SCHEMA } from '../../../../seo/constants/schema.constant';
 import { SITE_PLAY_URL } from '../../../../seo/constants/site.constant';
-import { buildAuthorPersonSchema } from '../../../../seo/utils/build-author-person-schema.util';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
 import { seventeenClueSudokuPageMetadata } from '../../17-clue-sudoku/metadata';
@@ -54,7 +54,7 @@ const SudokuDifficultyRatingPage = () => {
 
     return (
         <main>
-            <ArticleSchema author={buildAuthorPersonSchema()} metadata={sudokuDifficultyRatingPageMetadata} />
+            <ArticleSchema author={AUTHOR_PERSON_SCHEMA} metadata={sudokuDifficultyRatingPageMetadata} />
             <PageHeader metadata={sudokuDifficultyRatingPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem>Sudoku difficulty rating</BreadcrumbListItem>

@@ -3,17 +3,15 @@ import Link from 'next/link';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { JsonLd } from '../../../seo/components/json-ld/json-ld';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
-import { SCHEMA_CONTEXT } from '../../../seo/constants/schema.constant';
+import { AUTHOR_PERSON_SCHEMA, SCHEMA_CONTEXT } from '../../../seo/constants/schema.constant';
 import {
     DEFAULT_LOCALE,
     SITE_AUTHOR_NAME,
     SITE_AUTHOR_PROFILE_URL,
     SITE_GITHUB_URL,
-    SITE_ISSUES_URL,
     SITE_LICENSE,
     SITE_NAME
 } from '../../../seo/constants/site.constant';
-import { buildAuthorPersonSchema } from '../../../seo/utils/build-author-person-schema.util';
 import { buildLocaleUrl } from '../../../seo/utils/build-locale-url.util';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { sudokuDifficultyRatingPageMetadata } from '../guides/sudoku-difficulty-rating/metadata';
@@ -33,7 +31,7 @@ const ABOUT_PAGE_SCHEMA = {
     name: aboutPageMetadata.metaTitle,
     description: aboutPageMetadata.metaDescription,
     url: buildLocaleUrl(DEFAULT_LOCALE, aboutPageMetadata.path),
-    mainEntity: buildAuthorPersonSchema()
+    mainEntity: AUTHOR_PERSON_SCHEMA
 };
 
 const AboutPage = () => (
@@ -71,8 +69,8 @@ const AboutPage = () => (
         <h2>Contact</h2>
         <p>
             The same link sits in the app’s settings footer. Bug reports, feature requests, wrong technique explanations and corrections to
-            a published number all go to the public <a href={SITE_ISSUES_URL}>issue tracker</a>, where the next reader with the same
-            question can find the answer. Pull requests are welcome in the same repository.
+            a published number all go to the public <a href={`${SITE_GITHUB_URL}/issues`}>issue tracker</a>, where the next reader with the
+            same question can find the answer. Pull requests are welcome in the same repository.
         </p>
     </main>
 );

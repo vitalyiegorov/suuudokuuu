@@ -13,11 +13,7 @@ export const SITE_GITHUB_URL = 'https://github.com/vitalyiegorov/suuudokuuu';
 
 export const SITE_AUTHOR_NAME = 'Vitalii Yehorov';
 
-export const SITE_AUTHOR_URL = `${SITE_ORIGIN}/about`;
-
 export const SITE_AUTHOR_PROFILE_URL = 'https://github.com/vitalyiegorov';
-
-export const SITE_ISSUES_URL = `${SITE_GITHUB_URL}/issues`;
 
 export const SITE_LICENSE = 'MIT';
 
