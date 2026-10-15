@@ -683,8 +683,8 @@ msgid "Free offline Sudoku for iOS, Android and the web"
 msgstr "سودوكو مجانية دون اتصال لنظامي iOS وAndroid وللويب"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same streaks and stats everywhere. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
-msgstr "سودوكو أونلاين مجانًا تعني لعب لغز الأرقام الكلاسيكي 9×9 في المتصفح أو التطبيق دون شراء أو حد للتثبيت أو جدار دفع، و{SITE_NAME} تنفيذ مجاني ومفتوح المصدر له — سبعة مستويات صعوبة من مبتدئ إلى لانهاية، وأدلة تشرح التقنيات، ودون إعلانات ودون تتبع داخل اللعبة. العب على الويب أو ثبّت التطبيق، ثم احتفظ بالسلاسل اليومية والإحصاءات نفسها في كل مكان. اطلع على <0>سبب بناء {SITE_NAME} بهذه الطريقة</0> للحصول على الحجة الكاملة القابلة للتحقق."
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "سودوكو أونلاين مجانًا تعني لعب لغز الأرقام الكلاسيكي 9×9 في المتصفح أو التطبيق دون شراء أو حد للتثبيت أو جدار دفع، و{SITE_NAME} تنفيذ مجاني ومفتوح المصدر له — سبعة مستويات صعوبة من مبتدئ إلى لانهاية، وأدلة تشرح التقنيات، ودون إعلانات ودون تتبع داخل اللعبة. العب في المتصفح أو ثبّت التطبيق؛ يبقى تقدّمك وسلاسلك اليومية وإحصاءاتك على الجهاز الذي تلعب عليه. اطلع على <0>سبب بناء {SITE_NAME} بهذه الطريقة</0> للحصول على الحجة الكاملة القابلة للتحقق."
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Free, open-source, no ads"

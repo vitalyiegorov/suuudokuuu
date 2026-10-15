@@ -683,8 +683,8 @@ msgid "Free offline Sudoku for iOS, Android and the web"
 msgstr "iOS, Android ও ওয়েবের জন্য বিনামূল্যের অফলাইন সুডোকু"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same streaks and stats everywhere. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
-msgstr "ফ্রি অনলাইন সুডোকু মানে ক্লাসিক ৯×৯ সংখ্যার ধাঁধা ব্রাউজার বা অ্যাপে খেলা, কোনো কেনাকাটা, ইনস্টলের সীমা বা পেওয়াল ছাড়া, আর {SITE_NAME} তারই একটি বিনামূল্যের, ওপেন-সোর্স রূপ — নতুন থেকে অসীম পর্যন্ত সাতটি কঠিনতার স্তর, কৌশল ব্যাখ্যা করা নির্দেশিকা, গেমে কোনো বিজ্ঞাপন বা ট্র্যাকিং নেই। ওয়েবে সমাধান করুন বা অ্যাপ ইনস্টল করুন, তারপর সর্বত্র একই ধারা ও পরিসংখ্যান রাখুন। পূর্ণ, যাচাইযোগ্য কারণের জন্য দেখুন <0>{SITE_NAME} কেন এভাবে তৈরি</0>।"
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "ফ্রি অনলাইন সুডোকু মানে ক্লাসিক ৯×৯ সংখ্যার ধাঁধা ব্রাউজার বা অ্যাপে খেলা, কোনো কেনাকাটা, ইনস্টলের সীমা বা পেওয়াল ছাড়া, আর {SITE_NAME} তারই একটি বিনামূল্যের, ওপেন-সোর্স রূপ — নতুন থেকে অসীম পর্যন্ত সাতটি কঠিনতার স্তর, কৌশল ব্যাখ্যা করা নির্দেশিকা, গেমে কোনো বিজ্ঞাপন বা ট্র্যাকিং নেই। ব্রাউজারে সমাধান করুন বা অ্যাপ ইনস্টল করুন; আপনার অগ্রগতি, ধারা ও পরিসংখ্যান যে ডিভাইসে খেলেন সেখানেই থাকে। পূর্ণ, যাচাইযোগ্য কারণের জন্য দেখুন <0>{SITE_NAME} কেন এভাবে তৈরি</0>।"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Free, open-source, no ads"

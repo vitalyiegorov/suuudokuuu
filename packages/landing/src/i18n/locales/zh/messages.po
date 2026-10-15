@@ -683,8 +683,8 @@ msgid "Free offline Sudoku for iOS, Android and the web"
 msgstr "支持 iOS、Android 和网页的免费离线数独"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same streaks and stats everywhere. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
-msgstr "免费在线数独指的是在浏览器或应用中玩经典的 9×9 数字谜题，无需购买，没有安装限制，也没有付费墙，而 {SITE_NAME} 就是它的一个免费开源实现：从新手到无限共七个难度等级，附带技巧讲解指南，游戏内没有广告和跟踪。可以在网页上解题，也可以安装应用，并在各处保留同样的连续记录和统计。完整、可验证的说明，请看<0>{SITE_NAME} 为什么这样构建</0>。"
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "免费在线数独指的是在浏览器或应用中玩经典的 9×9 数字谜题，无需购买，没有安装限制，也没有付费墙，而 {SITE_NAME} 就是它的一个免费开源实现：从新手到无限共七个难度等级，附带技巧讲解指南，游戏内没有广告和跟踪。可以在浏览器中解题，也可以安装应用；你的进度、连续记录和统计都保存在你所玩的设备上。完整、可验证的说明，请看<0>{SITE_NAME} 为什么这样构建</0>。"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Free, open-source, no ads"

@@ -56,8 +56,8 @@ export const HomePage = ({ locale }: Props) => {
                 <Trans>
                     Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or
                     paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity,
-                    technique-explaining guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same
-                    streaks and stats everywhere. See{' '}
+                    technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress,
+                    streaks and stats stay on the device you play on. See{' '}
                     <Link href={buildLocalizedPagePath(whySuuudokuuuPageMetadata)}>why {SITE_NAME} is built this way</Link> for the full,
                     verifiable case.
                 </Trans>
