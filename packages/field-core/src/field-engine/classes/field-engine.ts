@@ -5,6 +5,7 @@ import { isDefined } from '@rnw-community/shared';
 import { cloneFieldCells } from '../../@generic/utils/clone-field-cells.util';
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { HintLevelEnum } from '../../step-script/enums/hint-level.enum';
+import { StepScriptStepKindEnum } from '../../step-script/enums/step-script-step-kind.enum';
 import {
     cloneCandidateState,
     getAutoCellCandidates,
@@ -43,6 +44,7 @@ export class FieldEngine extends FieldStore {
     private showAutoCandidates: boolean;
     private mistakes: number;
     private stepScript: StepScriptInterface | null = null;
+    private hintEliminationStreak = 0;
 
     constructor(options: FieldEngineOptionsInterface) {
         super();
@@ -189,6 +191,7 @@ export class FieldEngine extends FieldStore {
         if (nextState !== this.candidateState) {
             this.commitCandidateState(nextState);
         }
+        this.hintEliminationStreak += script.steps.filter(step => step.kind === StepScriptStepKindEnum.StrikeCandidates).length;
         const { placement } = script;
 
         if (isDefined(placement)) {
@@ -227,6 +230,7 @@ export class FieldEngine extends FieldStore {
             hintPageIndex: this.hintPages.PageIndex,
             hintPageCount: this.hintPages.PageCount,
             isNextPageCharged: this.hintPages.IsNextPageCharged,
+            hintEliminationStreak: this.hintEliminationStreak,
             ...(isDefined(this.selectedCell) && { selectedCell: this.selectedCell })
         };
     }
@@ -246,6 +250,7 @@ export class FieldEngine extends FieldStore {
         const scoredCells = this.sudoku.setCellValue(cell);
         this.candidateState = { ...this.candidateState, candidates: pruneCandidates(this.sudoku, this.candidateState.candidates, cell) };
         this.selectedCell = { ...cell };
+        this.hintEliminationStreak = 0;
         this.history.push({ previous: previousState, next: this.captureState() });
 
         const result: FieldMoveResultInterface = { cell, isCorrect: true, scoredCells, ...(isDefined(hintTechnique) && { hintTechnique }) };

@@ -29,7 +29,8 @@ export const useHintSearch = () => {
                     Effect.sync(() => {
                         beforeSearch();
 
-                        const stepScript = findHintStepScript(engine.Sudoku, engine.getSnapshot().eliminatedCandidates);
+                        const { eliminatedCandidates, hintEliminationStreak } = engine.getSnapshot();
+                        const stepScript = findHintStepScript(engine.Sudoku, eliminatedCandidates, hintEliminationStreak);
 
                         if (isDefined(stepScript)) {
                             gameStartHintStepScript(engine, stepScript);

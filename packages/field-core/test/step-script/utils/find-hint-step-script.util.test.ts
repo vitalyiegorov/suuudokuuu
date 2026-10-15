@@ -1,4 +1,5 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { getInfinityCorpusPuzzle } from '@suuudokuuu/hell-corpus';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
@@ -11,6 +12,7 @@ import { findHintStepScript, findRevealStepScript } from '../../../src/step-scri
 
 import type { FieldCandidatesType } from '../../../src/field-engine/types/field-candidates.type';
 import type { StepScriptInterface } from '../../../src/step-script/interfaces/step-script.interface';
+import type { CellInterface } from '@suuudokuuu/generator';
 
 const pointingPairBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
 const guessBoard = '800000000003600000070090200050007000000045700000100030001000068008500010090000400'.replaceAll('0', '.');
@@ -405,5 +407,45 @@ describe('findHintStepScript', () => {
         expect(placement.value).toBe(solutionValue);
         expect(engine.Sudoku.Field[placement.cell.y][placement.cell.x].value).toBe(solutionValue);
         expect(getBlankCount(engine)).toBe(blankCount - 1);
+    });
+});
+
+describe('hint reveals and elimination streaks', () => {
+    const streakLimit = 6;
+
+    it('reveals the most constrained cell: fewest candidates, then most blank peers', () => {
+        expect.assertions(2);
+
+        const { Sudoku: sudoku } = createEngine(guessBoard);
+        const blankCells = sudoku.Field.flat().filter(cell => sudoku.isBlankCell(cell));
+        const getBlankPeerCount = (cell: CellInterface): number =>
+            blankCells.filter(peer => peer.x === cell.x || peer.y === cell.y || peer.group === cell.group).length;
+        const fewestCandidates = Math.min(...blankCells.map(cell => sudoku.getCellCandidates(cell).length));
+        const tiedCells = blankCells.filter(cell => sudoku.getCellCandidates(cell).length === fewestCandidates);
+        const revealCell = findRevealStepScript(sudoku)?.placement?.cell ?? sudoku.Field[0][0];
+
+        expect(sudoku.getCellCandidates(revealCell)).toHaveLength(fewestCandidates);
+        expect(getBlankPeerCount(revealCell)).toBe(Math.max(...tiedCells.map(getBlankPeerCount)));
+    });
+
+    it(`reveals a digit instead of a ${streakLimit + 1}th elimination in a row`, () => {
+        expect.assertions(2);
+
+        const engine = new FieldEngine({ sudokuString: getInfinityCorpusPuzzle(2).puzzle, difficulty: DifficultyEnum.Infinity });
+        const streaks: number[] = [];
+        let cappedHintCount = 0;
+
+        while (!engine.getSnapshot().isWon) {
+            const { eliminatedCandidates, hintEliminationStreak } = engine.getSnapshot();
+            const script = findHintStepScript(engine.Sudoku, eliminatedCandidates, hintEliminationStreak);
+
+            cappedHintCount += Number(hintEliminationStreak === streakLimit && isDefined(script?.placement));
+            engine.startStepScript(script ?? requireScript(engine));
+            engine.applyStepScript();
+            streaks.push(engine.getSnapshot().hintEliminationStreak);
+        }
+
+        expect(Math.max(...streaks)).toBe(streakLimit);
+        expect(cappedHintCount).toBeGreaterThan(0);
     });
 });
