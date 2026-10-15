@@ -57,7 +57,7 @@ export const GameScreen = () => {
     const { sizeClass } = useAppLayout();
     const { fontScale } = useWindowDimensions();
     const isWideLayout = sizeClass === 'wide';
-    const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant + gameGetControlsSlackHeight(fontScale) / 2;
+    const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant + gameGetControlsSlackHeight(fontScale);
     const { cellSize: boardCellSize, cellMargin: boardCellMargin, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
     const { challengeState, isChallengeRun, maxMistakes, mistakes, score } = useCurrentRun();
     const { hasTimer, isLeftHanded, keepActiveCell } = useSettings();
