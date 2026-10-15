@@ -116,7 +116,7 @@ pnpm --filter @suuudokuuu/web-tests lint
   out `6` at `y=1, x=6` through an empty cell, whose last page states that refutation. That is the sixth
   elimination hint in a row, so the seventh hint is a reveal of `1` at `y=0, x=1` (the six-in-a-row
   elimination cap), and the twelfth chains a Nishio branch (`r5c6=9` refuted by an empty cell at `r9c3`)
-  into the Naked Single `1` at `y=4, x=5` on 10 pages; `09.hint-flow.spec.ts` walks it to prove the
+  into the Naked Single `1` at `y=4, x=5` on 10 pages, its 19-link branch revealed four links per page; `09.hint-flow.spec.ts` walks it to prove the
   witness overlay draws branch and outcome slides without changing the board until Apply.
 - `09.hint-flow.spec.ts` presses Show answer on the first walkthrough page of the Nishio elimination card
   on `eliminationHintSharedPuzzleEncodedConstant` after five eliminations are continued, because gating

@@ -395,7 +395,7 @@ test('walks a long Nishio hint link by link under the header of the technique th
         if (!sawBranch && (await branch.count())) {
             sawBranch = true;
             expect(await readCellLabels(page)).toEqual(labelsBefore);
-            await expect(linkProgress).toHaveText(/^Link 1 of \d+$/u);
+            await expect(linkProgress).toHaveText('Link 4 of 19');
             await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-chain-walkthrough.png'), fullPage: true });
         }
 
@@ -506,7 +506,7 @@ test(`continues a forcing-chain elimination hint from its first page into the re
 
     await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
     await expect(progress).toHaveAttribute('aria-label', `Step ${pageCount} of ${pageCount}`);
-    await expect(narration).toHaveText(/^Nishio Forcing Chain: .+, so r2c7 cannot be 6\.$/u);
+    await expect(narration).toHaveText(/^If r2c7=6 → r\dc\d runs out of candidates\. So r2c7 is not 6\.$/u);
 
     await page.getByTestId(HintPanelSelectors.ContinueButton).click();
     await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText('Reveal');
