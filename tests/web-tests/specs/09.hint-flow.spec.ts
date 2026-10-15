@@ -44,7 +44,7 @@ const panelBottomGap = 24;
 const mobileBottomInset = 34;
 const walkthroughFirstPage = 3;
 const structuredChainHintIndex = 11;
-const aicDetourForcingHintIndex = 6;
+const aicDetourChainHintIndex = 6;
 const maxPatternCellCount = 12;
 
 const revealPuzzle = '8..........36......7..9.2...5...7.......457.....1...3...1....68..85...1..9....4..';
@@ -409,52 +409,56 @@ test('walks a long Nishio and AIC hint link by link while the board stays untouc
     await expect(page.getByTestId(cellTestId(5, 8))).toHaveAttribute('aria-label', 'Row 6, column 9, 1');
 });
 
-test('teaches the reported Hardcore board a lone pointing pair, then a short Nishio pattern to a digit', async ({ page }) => {
+test('teaches the reported Hardcore board a lone pointing pair, then the AIC elimination alone', async ({ page }) => {
     await openSharedHintPuzzle(page, hardcoreHintSharedPuzzleEncodedConstant);
 
     const technique = page.getByTestId(HintStepNarrationSelectors.Technique);
     const narration = page.getByTestId(HintStepNarrationSelectors.Narration);
     const next = page.getByTestId(HintPanelSelectors.NextButton);
+    const continueButton = page.getByTestId(HintPanelSelectors.ContinueButton);
     const backgroundsBefore = await readCellAttributes(page, 'background');
 
     await page.getByTestId(HintButtonSelectors.Root).click();
     await next.click();
     await expect(narration).toHaveText('Pointing Pair: in box 8, 5 fits only in the highlighted cells, and they all lie in row 7.');
     await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
-    await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveText('Apply & next');
-    await page.getByTestId(HintPanelSelectors.ContinueButton).click();
+    await expect(continueButton).toHaveText('Apply & next');
+    await continueButton.click();
 
+    await expect(technique).toHaveText('AIC');
     await next.click();
-    await expect(narration).toHaveText('Nishio Forcing Chain: assume R5C5 is 8 and follow what it forces.');
+    await expect(narration).toHaveText('AIC: a chain links the highlighted ends, so (2)r3c7 or (5)r9c7 is true.');
     expect(await countTintedCells(page, backgroundsBefore)).toBeLessThanOrEqual(maxPatternCellCount);
-    await next.click();
-    await expect(technique).toHaveText('Nishio Forcing Chain');
 
     await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
-    await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toBeVisible();
+    await expect(narration).toHaveText(
+        'AIC: one end of the chain is always true and each marked candidate clashes with both ends, so r9c7 cannot be 2.'
+    );
     expect(await countTintedCells(page, backgroundsBefore)).toBeLessThanOrEqual(maxPatternCellCount);
-    await applyHintEarly(page);
-    await expect(page.getByTestId(cellTestId(4, 8))).toHaveAttribute('aria-label', 'Row 5, column 9, 8');
+    await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveCount(0);
+    await expect(continueButton).toHaveText('Apply & next');
 });
 
-test('routes the reported AIC board through lone pointing pairs to a Nishio digit and opens each page at the top', async ({ page }) => {
+test('routes the reported AIC board through lone pointing pairs to an AIC elimination and opens each page at the top', async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 640 });
     await openSharedHintPuzzle(page, aicDetourHintSharedPuzzleEncodedConstant);
 
     const technique = page.getByTestId(HintStepNarrationSelectors.Technique);
+    const narration = page.getByTestId(HintStepNarrationSelectors.Narration);
     const narrationScroll = page.getByTestId(HintStepNarrationSelectors.NARRATION_SCROLL);
     const next = page.getByTestId(HintPanelSelectors.NextButton);
+    const continueButton = page.getByTestId(HintPanelSelectors.ContinueButton);
 
     await page.getByTestId(HintButtonSelectors.Root).click();
     await revealHintWalkthrough(page);
     await expect(technique).toHaveText('Pointing Pair');
     await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
-    await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveText('Apply & next');
-    await page.getByTestId(HintPanelSelectors.ContinueButton).click();
+    await expect(continueButton).toHaveText('Apply & next');
+    await continueButton.click();
 
-    await openHintAfter(page, aicDetourForcingHintIndex - 1);
+    await openHintAfter(page, aicDetourChainHintIndex - 1);
     await revealHintWalkthrough(page);
-    await expect(technique).toHaveText('Nishio Forcing Chain');
+    await expect(technique).toHaveText('AIC');
 
     await narrationScroll.evaluate(element => {
         element.scrollTop = element.scrollHeight;
@@ -467,10 +471,12 @@ test('routes the reported AIC board through lone pointing pairs to a Nishio digi
         await next.click();
     }
 
-    await expect(page.getByTestId(HintStepNarrationSelectors.Value)).toHaveText('8');
-    await page.getByTestId(HintPanelSelectors.ApplyButton).click();
-    await expect(page.getByTestId(HintPanelSelectors.Root)).not.toBeVisible();
-    await expect(page.getByTestId(cellTestId(5, 6))).toHaveAttribute('aria-label', 'Row 6, column 7, 8');
+    await expect(narration).toHaveText(
+        'AIC: one end of the chain is always true and each marked candidate clashes with both ends, so r5c6 cannot be 2, 3, 9.'
+    );
+    await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveCount(0);
+    await continueButton.click();
+    await expect(page.getByTestId(HintPanelSelectors.Progress)).toHaveAttribute('aria-label', /^Step 1 of \d+$/u);
 });
 
 test('continues forcing-chain elimination hints and shows the answer from their first page', async ({ page }) => {
