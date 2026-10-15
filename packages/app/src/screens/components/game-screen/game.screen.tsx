@@ -3,7 +3,7 @@ import { useAppLayout } from '@suuudokuuu/ui';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { useRouter } from 'expo-router';
 import { use, useEffect, useRef, useState } from 'react';
-import { Pressable, ScrollView, View } from 'react-native';
+import { Pressable, ScrollView, View, useWindowDimensions } from 'react-native';
 
 import { isDefined, isNotEmptyString, isPositiveNumber } from '@rnw-community/shared';
 
@@ -24,6 +24,7 @@ import { useKeyboardControls } from '../../../game/hooks/use-keyboard-controls/u
 import { useShareGame } from '../../../game/hooks/use-share-game.hook';
 import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
+import { gameGetControlsSlackHeight } from '../../../game/utils/game-get-controls-slack-height.util';
 import { gameToggleCellCandidate } from '../../../game/utils/game-toggle-cell-candidate.util';
 import { runCurrentRunCommand } from '../../../game/utils/run-current-run-command.util';
 import { useSettings } from '../../../settings/query/use-settings.query';
@@ -54,8 +55,9 @@ export const GameScreen = () => {
     const [, hapticImpact] = useVibration();
 
     const { sizeClass } = useAppLayout();
+    const { fontScale } = useWindowDimensions();
     const isWideLayout = sizeClass === 'wide';
-    const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant;
+    const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant + gameGetControlsSlackHeight(fontScale) / 2;
     const { cellSize: boardCellSize, cellMargin: boardCellMargin, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
     const { challengeState, isChallengeRun, maxMistakes, mistakes, score } = useCurrentRun();
     const { hasTimer, isLeftHanded, keepActiveCell } = useSettings();
