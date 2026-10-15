@@ -70,7 +70,7 @@ const SolverPage = () => (
         <TechniqueSummary>
             <ul>
                 <li>
-                    Type the grid cell by cell, paste all 81 characters, or paste a share link from the Suuudokuuu app, then press Solve
+                    Type the grid cell by cell, paste all 81 cells as text, or paste a share link from the Suuudokuuu app, then press Solve
                     step by step.
                 </li>
                 <li>
@@ -149,8 +149,9 @@ const SolverPage = () => (
         <HowTo name="How to solve a sudoku step by step">
             <HowToStep name="Enter your puzzle">
                 Click a cell and type a digit, or use the on-screen pad. Arrow keys move around the grid and Backspace clears a cell. If you
-                already have the puzzle as text, paste all 81 characters into the box below the grid — digits for the givens, dots or zeros
-                for the blanks. A share link copied from the Suuudokuuu app works in the same box.
+                already have the puzzle as text, paste it into the box below the grid — digits for the givens; dots, zeros, dashes, x, * or
+                _ for the blanks; spaces, line breaks, | and + are ignored. If the text does not add up to exactly 81 cells, the box says
+                how many it found instead of guessing. A share link copied from the Suuudokuuu app works in the same box.
             </HowToStep>
             <HowToStep name="Solve step by step">
                 Press Solve step by step. The validity and uniqueness checks run first and report honestly if a digit repeats or the grid

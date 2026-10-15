@@ -13,6 +13,20 @@ const pastedPuzzle = '0002607016800700901900045008201000400046029000500030280093
 const sharedPuzzleLink = `https://www.suuudokuuu.com/shared/${pointingPairHintSharedPuzzleEncodedConstant}`;
 const sharedPuzzleEntry = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
 const steppedThroughCount = 3;
+const shortPuzzleEntry = pastedPuzzle.slice(1);
+const separatedPuzzleEntry = [
+    '---|26-|7-1',
+    '68-|-7-|-9-',
+    '19-|--4|5--',
+    '---+---+---',
+    '82-|1--|-4-',
+    '--4|6-2|9--',
+    '-5-|--3|-28',
+    '---+---+---',
+    '--9|3--|-74',
+    '-4-|-5-|-36',
+    '7-3|-18|---'
+].join('\n');
 
 test('serves the solver shell, the entry grid and the article prose as static markup', async ({ request }) => {
     const html = await fetchPageHtml(request, solverPagePath);
@@ -20,7 +34,7 @@ test('serves the solver shell, the entry grid and the article prose as static ma
     expect(html.match(/class="solver-entry__cell"/gu) ?? []).toHaveLength(entryCellCount);
     expect(html).toContain('<div class="solver-workbench">');
     expect(html).toContain('Solve step by step');
-    expect(html).toContain('Or paste an 81-character puzzle');
+    expect(html).toContain('Or paste an 81-cell puzzle');
     expect(html).toContain('A sudoku solver is a program that takes an unfinished 9×9 grid and returns the completed one.');
 });
 
@@ -76,6 +90,24 @@ test('steps through a pasted puzzle from the first move to the finished grid', a
     await expect(stepStatus).toContainText('the last one');
     await expect(page.getByRole('button', { name: 'Go to the next step' })).toBeDisabled();
     await expect(steps.last().locator('.solver-preview .field-board').getByRole('gridcell')).toHaveCount(liveBoardGridCellCount);
+});
+
+test('reports a pasted puzzle that does not hold exactly 81 cells instead of padding it', async ({ page }) => {
+    await page.goto(solverPagePath);
+    await page.locator('.solver-entry__input').fill(shortPuzzleEntry);
+
+    await expect(page.locator('.solver-notice[data-tone="error"]')).toContainText(
+        'That text holds 80 cells, but a sudoku needs exactly 81'
+    );
+    await expect(page.getByRole('button', { name: 'Solve step by step' })).toBeDisabled();
+});
+
+test('reads dashes as blanks and ignores box separators in a pasted grid', async ({ page }) => {
+    await page.goto(solverPagePath);
+    await page.locator('.solver-entry__input').fill(separatedPuzzleEntry);
+    await page.getByRole('button', { name: 'Solve step by step' }).click();
+
+    await expect(page.locator('.solver-notice[data-tone="success"]')).toContainText('Verified unique');
 });
 
 test('imports a puzzle from a Suuudokuuu share link', async ({ page }) => {

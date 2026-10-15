@@ -1013,7 +1013,9 @@ strong {
 }
 
 .solver-entry__input {
+    display: block;
     width: 100%;
+    resize: vertical;
     padding: 0.5rem 0.65rem;
     border: 1px solid var(--landing-border-color);
     border-radius: 0.25rem;
