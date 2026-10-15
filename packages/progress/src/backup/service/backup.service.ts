@@ -12,7 +12,6 @@ import { DifficultyStatsRepository } from '../../difficulty-stats/repository/dif
 import { DifficultyStatsSchema } from '../../difficulty-stats/schema/difficulty-stats.schema';
 import { PlayerStatsRepository } from '../../player-stats/repository/player-stats.repository';
 import { PlayerStatsSchema } from '../../player-stats/schema/player-stats.schema';
-import { InvalidBackupError } from '../error/invalid-backup.error';
 
 import type { CompletedGameType } from '../../completed-game/type/completed-game.type';
 import type { DifficultyStatsType } from '../../difficulty-stats/type/difficulty-stats.type';
@@ -113,9 +112,7 @@ export class BackupService extends Context.Service<BackupService>()('@suuudokuuu
                 Effect.orDie
             ),
             importBackup: Effect.fn('BackupService.importBackup')(function* (backupJson: string) {
-                const backup = yield* Schema.decodeUnknownEffect(BackupSchema)(backupJson).pipe(
-                    Effect.mapError(() => new InvalidBackupError())
-                );
+                const backup = yield* Schema.decodeUnknownEffect(BackupSchema)(backupJson);
 
                 yield* Effect.gen(function* () {
                     const localGameKeys = new Set((yield* completedGameRepository.findAll).map(getCompletedGameKey));

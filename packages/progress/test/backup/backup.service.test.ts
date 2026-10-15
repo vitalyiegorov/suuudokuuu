@@ -2,8 +2,8 @@ import { assert, describe, it } from '@effect/vitest';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import * as Effect from 'effect/Effect';
+import * as Schema from 'effect/Schema';
 
-import { InvalidBackupError } from '../../src/backup/error/invalid-backup.error';
 import { BackupService } from '../../src/backup/service/backup.service';
 import { CompletedGameRepository } from '../../src/completed-game/repository/completed-game.repository';
 import { ThemeEnum } from '../../src/custom-theme/enum/theme.enum';
@@ -146,15 +146,19 @@ describe('BackupService', () => {
         })
     );
 
-    it.effect('merges into a device with its own progress without losing either side', () =>
+    it.effect('merges into a device with its own progress without losing either side, idempotently', () =>
         Effect.gen(function* () {
             const exported = yield* exportDevice(deviceA);
-            const merged = yield* Effect.gen(function* () {
+            const [merged, mergedAgain] = yield* Effect.gen(function* () {
                 yield* seedDevice(deviceB);
                 yield* importBackup(exported.backup);
+                const firstSnapshot = yield* readDevice;
+                yield* importBackup(exported.backup);
 
-                return yield* readDevice;
+                return [firstSnapshot, yield* readDevice];
             }).pipe(Effect.provide(ProgressTestLayer));
+
+            assert.deepStrictEqual(mergedAgain, merged);
 
             assert.deepStrictEqual(
                 merged.completedGames.map(game => game.encodedState),
@@ -195,22 +199,6 @@ describe('BackupService', () => {
         })
     );
 
-    it.effect('changes nothing when the same backup is imported twice', () =>
-        Effect.gen(function* () {
-            const exported = yield* exportDevice(deviceA);
-            const [afterFirstImport, afterSecondImport] = yield* Effect.gen(function* () {
-                yield* seedDevice(deviceB);
-                yield* importBackup(exported.backup);
-                const firstSnapshot = yield* readDevice;
-                yield* importBackup(exported.backup);
-
-                return [firstSnapshot, yield* readDevice];
-            }).pipe(Effect.provide(ProgressTestLayer));
-
-            assert.deepStrictEqual(afterSecondImport, afterFirstImport);
-        })
-    );
-
     it.effect('rejects a file that is not a supported backup', () =>
         Effect.gen(function* () {
             const exported = yield* exportDevice(deviceA);
@@ -219,7 +207,7 @@ describe('BackupService', () => {
                 Effect.provide(ProgressTestLayer)
             );
 
-            assert.isTrue(errors.every(error => error instanceof InvalidBackupError));
+            assert.isTrue(errors.every(Schema.isSchemaError));
         })
     );
 });
