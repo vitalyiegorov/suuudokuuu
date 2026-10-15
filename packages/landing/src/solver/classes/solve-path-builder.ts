@@ -65,7 +65,7 @@ export class SolvePathBuilder {
             }
         }
 
-        return { steps: this.steps, revealedCellCount: this.revealedCellCount };
+        return { steps: this.steps, revealedCellCount: this.revealedCellCount, isStepLimitReached: this.hasBlankCells() };
     }
 
     private hasBlankCells(): boolean {

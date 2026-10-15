@@ -29,6 +29,12 @@ export const SolverSolution = ({ onSelectStep, selectedStepIndex, solution }: Pr
             the fewest candidates, and carries on with logic from there.
         </p>
     ) : null;
+    const stepLimitNotice = solution.isStepLimitReached ? (
+        <p className="solver-notice" data-tone="warning">
+            The walkthrough stops after {solution.steps.length} steps, the most this page narrates, before the grid is finished. The
+            completed grid below is still the verified solution.
+        </p>
+    ) : null;
 
     const handleStart = () => {
         onSelectStep(FIRST_STEP_INDEX);
@@ -53,6 +59,7 @@ export const SolverSolution = ({ onSelectStep, selectedStepIndex, solution }: Pr
                 to the next step to walk the whole solve to the finished grid.
             </p>
             {revealedNotice}
+            {stepLimitNotice}
             <button className="solver-entry__action" onClick={handleStart} type="button">
                 Step through from the start
             </button>

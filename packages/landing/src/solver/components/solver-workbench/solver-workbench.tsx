@@ -23,15 +23,22 @@ export const SolverWorkbench = () => {
         setIsSolving(false);
     };
 
-    const handleFailure = (error: unknown) => {
-        setErrorMessage(getErrorMessage(error));
+    const handleLoadFailure = (error: unknown) => {
+        setErrorMessage(`The solver could not load: ${getErrorMessage(error)}. Check your connection and try again.`);
+        setIsSolving(false);
+    };
+
+    const handleSolveFailure = (error: unknown) => {
+        setErrorMessage(`The solver failed on this puzzle: ${getErrorMessage(error)}. That is a bug in Suuudokuuu, not in your puzzle.`);
         setIsSolving(false);
     };
 
     const handleSolve = (entry: string) => {
         setIsSolving(true);
         setErrorMessage(null);
-        import('../../utils/solve-puzzle.util').then(module => void handleOutcome(module.solvePuzzle(entry))).catch(handleFailure);
+        import('../../utils/solve-puzzle.util')
+            .then(module => void handleOutcome(module.solvePuzzle(entry)), handleLoadFailure)
+            .catch(handleSolveFailure);
     };
 
     const handleEntryChange = () => {
@@ -42,7 +49,7 @@ export const SolverWorkbench = () => {
 
     const errorView = isDefined(errorMessage) ? (
         <p className="solver-notice" data-tone="error" role="status">
-            The solver could not start: {errorMessage}
+            {errorMessage}
         </p>
     ) : null;
     const outcomeView = isDefined(outcome) ? (

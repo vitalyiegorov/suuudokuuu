@@ -64,8 +64,8 @@ const SolverPage = () => (
         </p>
         <p>
             This solver runs entirely in your browser. Nothing is uploaded, nothing is stored, and no account is needed. It is the same
-            open-source solving engine that powers hints inside the Suuudokuuu game, so every step it names is a step the app could have
-            shown you mid-game.
+            open-source technique library that powers hints inside the Suuudokuuu game, so every technique it names is one the app’s hints
+            can show you mid-game.
         </p>
         <TechniqueSummary>
             <ul>
@@ -118,18 +118,20 @@ const SolverPage = () => (
         </ul>
         <p>
             Both are asked to count solutions, stopping at two, and the two counts have to agree. Three things can come back. If the count
-            is zero, the grid contradicts itself — a digit is repeated in a row, a column or a box — and the solver says so instead of
-            guessing at what you meant. If the count is two or more, the puzzle is not a proper sudoku: it has multiple valid completions,
-            there is no single answer to narrate, and any solver that quietly returns one of them is hiding the problem from you. Only a
-            count of exactly one gets a walkthrough. If the two solvers ever disagree, that is reported too — it would be a bug in
-            Suuudokuuu, not in your puzzle.
+            is zero, the givens cannot be completed into a valid grid. A digit repeated in a row, a column or a box is the obvious cause,
+            and the validity check names that pair of cells before any counting starts, but a grid with no visible repeat can still rule out
+            every completion; either way the solver says so instead of guessing at what you meant. If the count is two or more, the puzzle
+            is not a proper sudoku: it has multiple valid completions, there is no single answer to narrate, and any solver that quietly
+            returns one of them is hiding the problem from you. Only a count of exactly one gets a walkthrough. If the two solvers ever
+            disagree, that is reported too — it would be a bug in Suuudokuuu, not in your puzzle.
         </p>
         <h2>How the step-by-step walkthrough is produced</h2>
         <p>
             Once the puzzle is verified, the solving engine is run over it one deduction at a time. It tries the techniques in a fixed
-            order, cheapest first, and stops at the first one that fires — the same order and the same code the game uses when you ask for a
-            hint. That is why the walkthrough reads like a human solve rather than a machine dump: a Full House is preferred over a Hidden
-            Single, a Hidden Single over a Pointing Pair, and a Naked Quad is never invoked while an easier move is still on the board.
+            order, cheapest first, and stops at the first one that fires. The detectors are the same technique library the game’s hints are
+            built on, though the hints choose their next move differently. That is why the walkthrough reads like a human solve rather than
+            a machine dump: a Full House is preferred over a Hidden Single, a Hidden Single over a Pointing Pair, and a Naked Quad is never
+            invoked while an easier move is still on the board.
         </p>
         <p>
             Every elimination is carried forward from one step to the next, exactly as you would keep pencil marks, so a chain of
