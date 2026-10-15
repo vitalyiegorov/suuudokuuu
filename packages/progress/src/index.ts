@@ -41,5 +41,4 @@ export { LegacyStateImportService } from './legacy/service/legacy-state-import.s
 
 export { StoreReviewService } from './store-review/service/store-review.service';
 
-export { InvalidBackupError } from './backup/error/invalid-backup.error';
 export { BackupService } from './backup/service/backup.service';
