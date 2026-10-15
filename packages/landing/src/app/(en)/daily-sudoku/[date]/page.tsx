@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { isDefined } from '@rnw-community/shared';
 
 import { DailyPuzzle } from '../../../../daily/components/daily-puzzle/daily-puzzle';
-import { DAILY_ARCHIVE_DATES } from '../../../../daily/constants/daily-archive.constant';
+import { DAILY_ARCHIVE_DATES, DAILY_MONTH_KEY_LENGTH } from '../../../../daily/constants/daily-archive.constant';
 import { ArticleSchema } from '../../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { PageChain } from '../../../../seo/components/page-chain/page-chain';
@@ -16,8 +16,6 @@ import { dailySudokuPageMetadata } from '../metadata';
 import { buildDailyPuzzlePageMetadata } from './metadata';
 
 import type { Metadata } from 'next';
-
-const MONTH_KEY_LENGTH = 7;
 
 interface Props {
     params: Promise<{ date: string }>;
@@ -33,7 +31,7 @@ export const generateMetadata = async ({ params }: Props): Promise<Metadata> =>
 const DailyPuzzlePage = async ({ params }: Props) => {
     const { date } = await params;
     const pageMetadata = buildDailyPuzzlePageMetadata(date);
-    const monthMetadata = buildDailyArchivePageMetadata(date.slice(0, MONTH_KEY_LENGTH));
+    const monthMetadata = buildDailyArchivePageMetadata(date.slice(0, DAILY_MONTH_KEY_LENGTH));
     const dateIndex = DAILY_ARCHIVE_DATES.indexOf(date);
     const newerDate = DAILY_ARCHIVE_DATES.slice(0, dateIndex).at(-1);
     const olderDate = DAILY_ARCHIVE_DATES.at(dateIndex + 1);

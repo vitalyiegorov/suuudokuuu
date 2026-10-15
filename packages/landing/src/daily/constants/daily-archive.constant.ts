@@ -10,7 +10,7 @@ const DAILY_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/u;
 
 const MILLISECONDS_PER_DAY = 86_400_000;
 
-const DAILY_MONTH_KEY_LENGTH = 7;
+export const DAILY_MONTH_KEY_LENGTH = 7;
 
 const resolveBuildDate = (): string => {
     const configuredDate = process.env[DAILY_BUILD_DATE_ENVIRONMENT_VARIABLE];
@@ -29,5 +29,3 @@ export const DAILY_ARCHIVE_DATES: readonly string[] = Array.from({ length: lastD
 );
 
 export const DAILY_ARCHIVE_MONTHS: readonly string[] = [...new Set(DAILY_ARCHIVE_DATES.map(date => date.slice(0, DAILY_MONTH_KEY_LENGTH)))];
-
-export const DAILY_RECENT_DAY_COUNT = 30;

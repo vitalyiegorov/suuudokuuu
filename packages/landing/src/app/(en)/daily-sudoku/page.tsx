@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { DailyArchiveList } from '../../../daily/components/daily-archive-list/daily-archive-list';
 import { DailyArchiveMonth } from '../../../daily/components/daily-archive-month/daily-archive-month';
 import { DailyPuzzle } from '../../../daily/components/daily-puzzle/daily-puzzle';
-import { DAILY_ARCHIVE_DATES, DAILY_BUILD_DATE, DAILY_RECENT_DAY_COUNT } from '../../../daily/constants/daily-archive.constant';
+import { DAILY_ARCHIVE_DATES, DAILY_BUILD_DATE } from '../../../daily/constants/daily-archive.constant';
 import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
@@ -26,7 +26,9 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(dailySudokuPageMetadata);
 
-const RECENT_DATES = DAILY_ARCHIVE_DATES.slice(1, DAILY_RECENT_DAY_COUNT + 1);
+const RECENT_DAY_COUNT = 30;
+
+const RECENT_DATES = DAILY_ARCHIVE_DATES.slice(1, RECENT_DAY_COUNT + 1);
 
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const DailySudokuPage = () => (
