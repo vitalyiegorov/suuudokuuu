@@ -47,7 +47,7 @@
             }
         },
         {
-            "src": "^/(?:shared|history|settings|start)(?:/.*)?$",
+            "src": "^/(?:shared|history|settings|start|rating-explainer)(?:/.*)?$",
             "dest": "/_app/index.html"
         },
         { "handle": "filesystem" },
