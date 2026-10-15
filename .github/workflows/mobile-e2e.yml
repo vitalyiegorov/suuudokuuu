@@ -46,6 +46,13 @@ jobs:
         uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.1.0 # v3.1.0
         with:
             install-command: pnpm install --frozen-lockfile
+            # Gate pull requests on the turbo graph: Maestro runs only when the
+            # app, its workspace dependencies or the Maestro suite changed, so a
+            # landing-only PR does not wait on the Macs. Non-PR events still
+            # always run (mobile-ci forces always-affected off pull_request).
+            target-packages: |
+                @suuudokuuu/app
+                @suuudokuuu/app-tests
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
             flows-dir: tests/app-tests/flows
@@ -94,6 +101,13 @@ jobs:
         uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.1.0 # v3.1.0
         with:
             install-command: pnpm install --frozen-lockfile
+            # Gate pull requests on the turbo graph: Maestro runs only when the
+            # app, its workspace dependencies or the Maestro suite changed, so a
+            # landing-only PR does not wait on the Macs. Non-PR events still
+            # always run (mobile-ci forces always-affected off pull_request).
+            target-packages: |
+                @suuudokuuu/app
+                @suuudokuuu/app-tests
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
             flows-dir: tests/app-tests/flows
