@@ -86,8 +86,14 @@ export class FieldHintPages {
         return revealedLevelCount;
     }
 
-    findStepPageIndex(stepIndex: number): number {
-        return stepIndex < 0 ? -1 : this.pages.map(page => page.stepIndex).lastIndexOf(stepIndex);
+    findNextStepPageIndex(): number {
+        const nextStepIndex = this.pages.find(page => page.stepIndex > this.CurrentPage.stepIndex)?.stepIndex;
+
+        return isDefined(nextStepIndex) ? this.pages.findLastIndex(page => page.stepIndex === nextStepIndex) : -1;
+    }
+
+    findPreviousStepPageIndex(): number {
+        return this.pages.findLastIndex(page => page.stepIndex < this.CurrentPage.stepIndex);
     }
 
     findLevelPageIndex(): number {

@@ -114,6 +114,22 @@ describe('hint pages', () => {
         })
     );
 
+    it.effect('moves whole steps past a step whose only page repeats the pattern page', () =>
+        Effect.sync(() => {
+            const engine = createEngine(chainBoard);
+            const [revealStep, strikeStep, ...laterSteps] = requireHint(engine).steps;
+
+            engine.startStepScript({ ...requireHint(engine), steps: [strikeStep, revealStep, ...laterSteps] }, HintLevelEnum.PATTERN);
+            engine.hintNext();
+
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, stepIndex: 0 });
+            assert.strictEqual(engine.stepScriptNext(), true);
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, stepIndex: 2 });
+            assert.strictEqual(engine.stepScriptBack(), true);
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, stepIndex: 0 });
+        })
+    );
+
     it.effect('reports a new level only the first time Next reveals it', () =>
         Effect.sync(() => {
             const engine = createEngine(chainBoard);

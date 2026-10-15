@@ -164,11 +164,11 @@ export class FieldEngine extends FieldStore {
     }
 
     stepScriptNext(): boolean {
-        return this.showHintPage(this.hintPages.findStepPageIndex(this.hintPages.CurrentPage.stepIndex + 1)) >= 0;
+        return this.showHintPage(this.hintPages.findNextStepPageIndex()) >= 0;
     }
 
     stepScriptBack(): boolean {
-        return this.showHintPage(this.hintPages.findStepPageIndex(this.hintPages.CurrentPage.stepIndex - 1)) >= 0;
+        return this.showHintPage(this.hintPages.findPreviousStepPageIndex()) >= 0;
     }
 
     stepScriptReset(): boolean {
