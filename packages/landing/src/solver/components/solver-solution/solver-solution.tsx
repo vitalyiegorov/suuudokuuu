@@ -49,8 +49,8 @@ export const SolverSolution = ({ onSelectStep, selectedStepIndex, solution }: Pr
             </dl>
             <h3>Step-by-step solution</h3>
             <p>
-                Each step names the technique that proves it and links to its guide. Open a step to replay it on a live board, then use Next
-                step to walk the whole solve to the finished grid.
+                Each step names the technique that proves it and links to its guide. Open a step to replay it on a live board, then press Go
+                to the next step to walk the whole solve to the finished grid.
             </p>
             {revealedNotice}
             <button className="solver-entry__action" onClick={handleStart} type="button">

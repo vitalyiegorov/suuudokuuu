@@ -67,14 +67,14 @@ test('steps through a pasted puzzle from the first move to the finished grid', a
     await expect(stepStatus).toHaveText(/^Step 1 of \d+$/u);
 
     for (let stepNumber = 2; stepNumber <= steppedThroughCount; stepNumber += 1) {
-        await page.getByRole('button', { name: 'Next step' }).click();
+        await page.getByRole('button', { name: 'Go to the next step' }).click();
         await expect(stepStatus).toHaveText(new RegExp(`^Step ${stepNumber} of \\d+$`, 'u'));
     }
 
     await steps.last().locator('.solver-steps__toggle').click();
 
     await expect(stepStatus).toContainText('the last one');
-    await expect(page.getByRole('button', { name: 'Next step' })).toBeDisabled();
+    await expect(page.getByRole('button', { name: 'Go to the next step' })).toBeDisabled();
     await expect(steps.last().locator('.solver-preview .field-board').getByRole('gridcell')).toHaveCount(liveBoardGridCellCount);
 });
 

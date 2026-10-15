@@ -24,10 +24,10 @@ export const SolverStepControls = ({ index, onSelectStep, stepCount }: Props) =>
     return (
         <div className="solver-step-controls">
             <button className="solver-entry__action" disabled={isFirstStep} onClick={handlePrevious} type="button">
-                Previous step
+                Go to the previous step
             </button>
             <button className="solver-entry__action" disabled={isLastStep} onClick={handleNext} type="button">
-                Next step
+                Go to the next step
             </button>
             <p className="solver-step-controls__status" role="status">
                 {statusLabel}

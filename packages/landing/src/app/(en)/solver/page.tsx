@@ -80,8 +80,8 @@ const SolverPage = () => (
                 <li>Every solved puzzle gets its SE (Sudoku Explainer) rating and the hardest technique the rating-optimal solve needs.</li>
                 <li>Each step names the technique that proves it and links to that technique’s full guide.</li>
                 <li>
-                    Any step replays on a live board with the pattern cells highlighted and the candidates drawn in, and Next step walks you
-                    through the whole solve to the finished grid.
+                    Any step replays on a live board with the pattern cells highlighted and the candidates drawn in, and the next-step
+                    button walks you through the whole solve to the finished grid.
                 </li>
                 <li>Everything runs in your browser: nothing is uploaded, nothing is stored, no account is needed.</li>
             </ul>
@@ -162,8 +162,8 @@ const SolverPage = () => (
             </HowToStep>
             <HowToStep name="Replay a step on the board">
                 Open any step to see it on a live board: the pattern cells are highlighted, the candidates are drawn in, and the
-                eliminations and the placement are played back in order so you can verify the deduction yourself. Press Next step to move
-                on, all the way to the finished grid.
+                eliminations and the placement are played back in order so you can verify the deduction yourself. Press the next-step button
+                to move on, all the way to the finished grid.
             </HowToStep>
         </HowTo>
         <a className="hero__cta" href={SITE_PLAY_URL}>
