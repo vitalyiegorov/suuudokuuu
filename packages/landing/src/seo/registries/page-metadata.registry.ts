@@ -14,6 +14,7 @@ import { printableMediumSudokuPageMetadata } from '../../app/(en)/printable/medi
 import { printableSudokuPageMetadata } from '../../app/(en)/printable/metadata';
 import { printableNewbieSudokuPageMetadata } from '../../app/(en)/printable/newbie/metadata';
 import { printableNightmareSudokuPageMetadata } from '../../app/(en)/printable/nightmare/metadata';
+import { privacyPolicyPageMetadata } from '../../app/(en)/privacy-policy/metadata';
 import { solverPageMetadata } from '../../app/(en)/solver/metadata';
 import { sudokuForSeniorsPageMetadata } from '../../app/(en)/sudoku-for-seniors/metadata';
 import { easySudokuPageMetadata } from '../../app/(en)/sudoku/easy/metadata';
@@ -119,5 +120,6 @@ export const PAGE_METADATA_REGISTRY: readonly PageMetadataInterface[] = [
     bugPageMetadata,
     nishioForcingChainPageMetadata,
     cellForcingChainPageMetadata,
-    regionForcingChainPageMetadata
+    regionForcingChainPageMetadata,
+    privacyPolicyPageMetadata
 ];
