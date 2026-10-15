@@ -53,7 +53,7 @@ const SudokuCluesVsDifficultyPage = () => {
 
     return (
         <main>
-            <ArticleSchema metadata={sudokuCluesVsDifficultyPageMetadata} />
+            <ArticleSchema hasPersonAuthor metadata={sudokuCluesVsDifficultyPageMetadata} />
             <PageHeader metadata={sudokuCluesVsDifficultyPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem>Clues versus difficulty</BreadcrumbListItem>

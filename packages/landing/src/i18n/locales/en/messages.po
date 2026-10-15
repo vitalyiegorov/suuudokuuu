@@ -19,6 +19,10 @@ msgstr "<0>Hidden Single</0> — a digit that only fits in one cell of a unit."
 msgid "<0>Naked Single</0> — a cell left with exactly one candidate."
 msgstr "<0>Naked Single</0> — a cell left with exactly one candidate."
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "About"
+msgstr "About"
+
 #: src/home/components/home-page/home-page.tsx
 msgid "An Easy board to start with. Play it right here, or pick any of seven difficulty levels in the app."
 msgstr "An Easy board to start with. Play it right here, or pick any of seven difficulty levels in the app."
@@ -132,6 +136,10 @@ msgstr "Largest text size"
 msgid "Learn"
 msgstr "Learn"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Learn sudoku"
+msgstr "Learn sudoku"
+
 #: src/home/components/home-page/home-page.tsx
 msgid "Learn to solve"
 msgstr "Learn to solve"
@@ -236,6 +244,10 @@ msgstr "Sudoku solver"
 #: src/chrome/components/site-footer/site-footer.tsx
 msgid "Sudoku techniques"
 msgstr "Sudoku techniques"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku tips"
+msgstr "Sudoku tips"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Technique-aware hints that name the exact solving pattern, not just the next digit"

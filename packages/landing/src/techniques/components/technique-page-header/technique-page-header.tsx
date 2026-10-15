@@ -12,7 +12,7 @@ interface Props {
 
 export const TechniquePageHeader = ({ metadata }: Props) => (
     <>
-        <ArticleSchema metadata={metadata} />
+        <ArticleSchema hasPersonAuthor metadata={metadata} />
         <PageHeader metadata={metadata}>
             <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
             <BreadcrumbListItem path={techniquesPageMetadata.path}>Sudoku techniques</BreadcrumbListItem>

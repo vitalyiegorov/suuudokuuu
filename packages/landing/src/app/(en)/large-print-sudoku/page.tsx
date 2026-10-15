@@ -18,6 +18,7 @@ import { Faq } from '../../../seo/components/faq/faq';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_NAME, SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
+import { accessibleSudokuPageMetadata } from '../accessible-sudoku/metadata';
 import { homePageMetadata } from '../metadata';
 import { printableEasySudokuPageMetadata } from '../printable/easy/metadata';
 import { printableSudokuPageMetadata } from '../printable/metadata';
@@ -43,8 +44,8 @@ const LargePrintSudokuPage = () => (
         <p>
             Large print sudoku, here, is a free PDF booklet that prints just {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} puzzles to a US Letter
             page instead of the usual {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}, so every grid line and every digit comes out noticeably bigger.
-            It sits alongside an on-screen alternative — an adjustable text-size control and the app’s Comfort mode — for anyone who would
-            rather read a bigger board than print one.
+            It sits alongside an on-screen alternative — an adjustable text-size control and the app’s Number size setting — for anyone who
+            would rather read a bigger board than print one.
         </p>
         <PrintableDownloadCard fileName="large-print.pdf" title="Large Print Sudoku">
             <PrintableDownloadFact>{PRINTABLE_LARGE_PRINT_SIZE} puzzles</PrintableDownloadFact>
@@ -88,8 +89,8 @@ const LargePrintSudokuPage = () => (
         <p>
             Paper is not the only way to get bigger digits. The <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link>{' '}
             page covers both on-screen options in full: the site’s own header text-size control, which scales every page here including the
-            puzzle boards, and the app’s Comfort mode, a one-tap preset that switches to the largest digit size, a high-contrast theme,
-            spacious touch targets, no timer and calmer motion, with every piece still adjustable afterward.
+            puzzle boards, and the app’s own settings for the largest digit size, a high-contrast theme, spacious cells, no timer and calmer
+            motion. The <Link href={accessibleSudokuPageMetadata.path}>accessible sudoku</Link> page lists every one.
         </p>
         <h2>Classroom and care-home reuse</h2>
         <p>
@@ -119,7 +120,7 @@ const LargePrintSudokuPage = () => (
                 <FaqQuestion>Is there a way to get bigger digits without printing anything?</FaqQuestion>
                 <FaqAnswer>
                     Yes. This site’s header has an A / A+ / A++ text-size control that enlarges every page, boards included, and the app’s
-                    Comfort mode sets the on-screen board to its largest digit size in one tap.
+                    Number size setting can set the on-screen board to its Large digit size.
                 </FaqAnswer>
             </Faq>
             <Faq>

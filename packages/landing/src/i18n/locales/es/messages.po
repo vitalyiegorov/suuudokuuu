@@ -19,6 +19,10 @@ msgstr "<0>Único oculto</0>: un número que solo cabe en una celda de una unida
 msgid "<0>Naked Single</0> — a cell left with exactly one candidate."
 msgstr "<0>Único desnudo</0>: una celda a la que solo le queda un candidato."
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "About"
+msgstr "Acerca de"
+
 #: src/home/components/home-page/home-page.tsx
 msgid "An Easy board to start with. Play it right here, or pick any of seven difficulty levels in the app."
 msgstr "Un tablero Fácil para empezar. Juégalo aquí mismo o elige cualquiera de los siete niveles de dificultad en la app."
@@ -132,6 +136,10 @@ msgstr "Texto muy grande"
 msgid "Learn"
 msgstr "Aprender"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Learn sudoku"
+msgstr "Aprende sudoku"
+
 #: src/home/components/home-page/home-page.tsx
 msgid "Learn to solve"
 msgstr "Aprende a resolver"
@@ -236,6 +244,10 @@ msgstr "Solucionador de sudoku"
 #: src/chrome/components/site-footer/site-footer.tsx
 msgid "Sudoku techniques"
 msgstr "Técnicas de sudoku"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku tips"
+msgstr "Consejos de sudoku"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Technique-aware hints that name the exact solving pattern, not just the next digit"

@@ -10,11 +10,19 @@ import { easterMonsterPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles
 import { everestPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/everest/metadata';
 import { goldenNuggetPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/golden-nugget/metadata';
 import { kolkPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/kolk/metadata';
+import { aboutPageMetadata } from '../../app/(en)/about/metadata';
+import { accessibleSudokuPageMetadata } from '../../app/(en)/accessible-sudoku/metadata';
+import { blankSudokuGridPageMetadata } from '../../app/(en)/blank-sudoku-grid/metadata';
+import { challengeAFriendPageMetadata } from '../../app/(en)/challenge-a-friend/metadata';
+import { techniqueFrequencyByDifficultyPageMetadata } from '../../app/(en)/guides/technique-frequency-by-difficulty/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/metadata';
 import { platinumBlondePageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/platinum-blonde/metadata';
 import { silverPlatePageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/silver-plate/metadata';
 import { howToPlayPageMetadata } from '../../app/(en)/how-to-play/metadata';
 import { largePrintSudokuPageMetadata } from '../../app/(en)/large-print-sudoku/metadata';
+import { sudokuHintsDemoPageMetadata } from '../../app/(en)/learn-sudoku/hints/metadata';
+import { learnSudokuPageMetadata } from '../../app/(en)/learn-sudoku/metadata';
+import { sudokuReplayPageMetadata } from '../../app/(en)/learn-sudoku/replay/metadata';
 import { homePageMetadata } from '../../app/(en)/metadata';
 import { printableEasySudokuPageMetadata } from '../../app/(en)/printable/easy/metadata';
 import { printableHardSudokuPageMetadata } from '../../app/(en)/printable/hard/metadata';
@@ -25,8 +33,11 @@ import { printableSudokuPageMetadata } from '../../app/(en)/printable/metadata';
 import { printableNewbieSudokuPageMetadata } from '../../app/(en)/printable/newbie/metadata';
 import { printableNightmareSudokuPageMetadata } from '../../app/(en)/printable/nightmare/metadata';
 import { privacyPolicyPageMetadata } from '../../app/(en)/privacy-policy/metadata';
+import { relaxingSudokuPageMetadata } from '../../app/(en)/relaxing-sudoku/metadata';
 import { solverPageMetadata } from '../../app/(en)/solver/metadata';
 import { sudokuForSeniorsPageMetadata } from '../../app/(en)/sudoku-for-seniors/metadata';
+import { sudokuKeyboardShortcutsPageMetadata } from '../../app/(en)/sudoku-keyboard-shortcuts/metadata';
+import { sudokuTipsPageMetadata } from '../../app/(en)/sudoku-tips/metadata';
 import { easySudokuPageMetadata } from '../../app/(en)/sudoku/easy/metadata';
 import { hardSudokuPageMetadata } from '../../app/(en)/sudoku/hard/metadata';
 import { hellSudokuPageMetadata } from '../../app/(en)/sudoku/hell/metadata';
@@ -71,6 +82,7 @@ import { xWingPageMetadata } from '../../app/(en)/techniques/x-wing/metadata';
 import { xyChainPageMetadata } from '../../app/(en)/techniques/xy-chain/metadata';
 import { xyWingPageMetadata } from '../../app/(en)/techniques/xy-wing/metadata';
 import { xyzWingPageMetadata } from '../../app/(en)/techniques/xyz-wing/metadata';
+import { trackYourProgressPageMetadata } from '../../app/(en)/track-your-progress/metadata';
 import { whySuuudokuuuPageMetadata } from '../../app/(en)/why-suuudokuuu/metadata';
 
 import type { PageMetadataInterface } from '../interfaces/page-metadata.interface';
@@ -149,5 +161,17 @@ export const PAGE_METADATA_REGISTRY: readonly PageMetadataInterface[] = [
     turbotFishPageMetadata,
     skyscraperPageMetadata,
     twoStringKitePageMetadata,
-    remotePairPageMetadata
+    remotePairPageMetadata,
+    learnSudokuPageMetadata,
+    sudokuHintsDemoPageMetadata,
+    sudokuReplayPageMetadata,
+    sudokuTipsPageMetadata,
+    techniqueFrequencyByDifficultyPageMetadata,
+    blankSudokuGridPageMetadata,
+    relaxingSudokuPageMetadata,
+    accessibleSudokuPageMetadata,
+    sudokuKeyboardShortcutsPageMetadata,
+    challengeAFriendPageMetadata,
+    trackYourProgressPageMetadata,
+    aboutPageMetadata
 ];

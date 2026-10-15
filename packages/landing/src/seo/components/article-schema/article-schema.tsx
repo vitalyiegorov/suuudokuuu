@@ -1,5 +1,6 @@
 import { SCHEMA_CONTEXT } from '../../constants/schema.constant';
 import { DEFAULT_LOCALE, SITE_NAME } from '../../constants/site.constant';
+import { buildAuthorPersonSchema } from '../../utils/build-author-person-schema.util';
 import { buildLocaleUrl } from '../../utils/build-locale-url.util';
 import { buildOgImageUrl } from '../../utils/build-og-image-url.util';
 import { resolvePageHeadline } from '../../utils/resolve-page-headline.util';
@@ -9,9 +10,10 @@ import type { PageMetadataInterface } from '../../interfaces/page-metadata.inter
 
 interface Props {
     metadata: PageMetadataInterface;
+    hasPersonAuthor?: boolean;
 }
 
-export const ArticleSchema = ({ metadata }: Props) => {
+export const ArticleSchema = ({ hasPersonAuthor = false, metadata }: Props) => {
     const schema = {
         '@context': SCHEMA_CONTEXT,
         '@type': 'Article',
@@ -22,7 +24,7 @@ export const ArticleSchema = ({ metadata }: Props) => {
         url: buildLocaleUrl(DEFAULT_LOCALE, metadata.path),
         image: buildOgImageUrl(metadata),
         inLanguage: DEFAULT_LOCALE,
-        author: { '@type': 'Organization', name: SITE_NAME },
+        author: hasPersonAuthor ? buildAuthorPersonSchema() : { '@type': 'Organization', name: SITE_NAME },
         publisher: { '@type': 'Organization', name: SITE_NAME }
     };
 
