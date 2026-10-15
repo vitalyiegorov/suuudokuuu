@@ -691,7 +691,9 @@ test('ignores board keys while a hint is open and closes the hint with Escape', 
     await expect(notedCell).toHaveAttribute('aria-label', notedCellLabel ?? '');
 });
 
-test('moves keyboard focus into the open hint card and never into the hidden controls behind it', async ({ page }) => {
+test('moves keyboard focus into the open hint card, never into the hidden controls behind it, and back to the hint button on close', async ({
+    page
+}) => {
     await openSharedHintPuzzle(page, pointingPairHintSharedPuzzleEncodedConstant);
 
     const hintPanel = page.getByTestId(HintPanelSelectors.Root);
@@ -729,6 +731,18 @@ test('moves keyboard focus into the open hint card and never into the hidden con
         await page.keyboard.press('Shift+Tab');
         expect(await isFocusInHiddenControls()).toBe(false);
     }
+
+    const hintButton = page.getByTestId(HintButtonSelectors.Root);
+
+    await page.keyboard.press('Escape');
+    await expect(hintPanel).not.toBeVisible();
+    await expect(hintButton).toBeFocused();
+
+    await hintButton.press('Enter');
+    await expect(hintPanel).toBeVisible();
+    await page.getByTestId(HintPanelSelectors.DismissButton).press('Enter');
+    await expect(hintPanel).not.toBeVisible();
+    await expect(hintButton).toBeFocused();
 });
 
 test('shows the candidates an elimination hint strikes while candidates are hidden, then removes them on apply', async ({ page }) => {

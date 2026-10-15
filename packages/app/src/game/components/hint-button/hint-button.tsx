@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import LucideLightbulb from 'lucide-react-native/icons/lightbulb';
-import { use } from 'react';
+import { use, useEffect, useRef } from 'react';
+import { Platform } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -14,7 +15,7 @@ import { gameIsHintAvailable } from '../../utils/game-is-hint-available.util';
 
 import { HintButtonSelectors } from './hint-button.selectors';
 
-import type { StyleProp, ViewStyle } from 'react-native';
+import type { HostInstance, StyleProp, ViewStyle } from 'react-native';
 
 interface Props {
     readonly sizeStyle: StyleProp<ViewStyle>;
@@ -29,13 +30,24 @@ export const HintButton = ({ sizeStyle }: Props) => {
     const { allowHintsOnHardDifficulties } = useSettings();
     const { isSearchingHint, searchHint } = useHintSearch();
 
+    const buttonRef = useRef<HostInstance>(null);
+    const wasHintOpenRef = useRef(false);
+
     const handleHint = () => {
         searchHint();
     };
 
-    const isDisabled = isDefined(snapshot.stepScript) || snapshot.isWon;
+    const isHintOpen = isDefined(snapshot.stepScript);
+    const isDisabled = isHintOpen || snapshot.isWon;
     const accessibilityLabel = isSearchingHint ? t`Finding a hint` : t`Hint`;
     const iconColor = isDisabled ? theme.colors.text.hint : theme.colors.surface.raisedText;
+
+    useEffect(() => {
+        if (Platform.OS === 'web' && wasHintOpenRef.current && !isHintOpen) {
+            buttonRef.current?.focus();
+        }
+        wasHintOpenRef.current = isHintOpen;
+    }, [isHintOpen]);
 
     if (!gameIsHintAvailable({ difficulty, isChallengeRun, allowHintsOnHardDifficulties })) {
         return null;
@@ -48,6 +60,7 @@ export const HintButton = ({ sizeStyle }: Props) => {
             hitSlop={10}
             isLoading={isSearchingHint}
             onPress={handleHint}
+            ref={buttonRef}
             style={sizeStyle}
             testID={HintButtonSelectors.Root}
             variant="inverted"

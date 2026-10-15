@@ -2,7 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 import { StepScriptStepKindEnum } from '@suuudokuuu/field-core';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import LucideX from 'lucide-react-native/icons/x';
-import { use } from 'react';
+import { use, useEffect, useRef } from 'react';
 import { View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
@@ -23,28 +23,31 @@ export const HintPanelHeader = () => {
     const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
+    const headerRef = useRef<HostInstance>(null);
+
     const { stepScript } = snapshot;
     const technique =
         stepScript?.steps.find(step => step.kind === StepScriptStepKindEnum.PlaceValue)?.narration.technique ?? stepScript?.technique;
+
+    useEffect(() => {
+        const focusTimeout = setTimeout(() => headerRef.current?.focus(), HintPanelEnterDurationMillisecondsConstant);
+
+        return () => {
+            clearTimeout(focusTimeout);
+        };
+    }, []);
 
     if (!isDefined(technique)) {
         return null;
     }
 
     const techniqueName = technique === SolutionTechniqueEnum.Guess ? t`Reveal` : i18n._(techniqueLabelsConstant[technique]);
-    const focusHeader = (header: HostInstance | null) => {
-        const focusTimeout = setTimeout(() => header?.focus(), HintPanelEnterDurationMillisecondsConstant);
-
-        return () => {
-            clearTimeout(focusTimeout);
-        };
-    };
     const handleDismiss = () => {
         engine.stopStepScript();
     };
 
     return (
-        <View ref={focusHeader} style={styles.header} tabIndex={-1}>
+        <View ref={headerRef} style={styles.header} tabIndex={-1}>
             <BlackText numberOfLines={2} role="heading" style={styles.technique} testID={HintStepNarrationSelectors.Technique}>
                 {techniqueName}
             </BlackText>
