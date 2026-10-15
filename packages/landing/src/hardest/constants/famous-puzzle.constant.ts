@@ -9,7 +9,7 @@ export const AI_ESCARGOT: FamousPuzzleInterface = {
 export const EASTER_MONSTER: FamousPuzzleInterface = {
     name: 'Easter Monster',
     fileName: 'easter-monster',
-    givens: '100000089000009002000000450007600000030040000900002005004070000500008010060300000'
+    givens: '100000002090400050006000700050903000000070000000850040700000600030009080002000001'
 };
 
 export const GOLDEN_NUGGET: FamousPuzzleInterface = {

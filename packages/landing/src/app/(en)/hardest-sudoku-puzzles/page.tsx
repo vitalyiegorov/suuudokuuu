@@ -110,8 +110,8 @@ const HardestSudokuPuzzlesPage = () => (
             Easter Monster comes from the solving community’s lists of the hardest known puzzles, and it is famous less for a number than
             for a result: Bob Hanson and Dave Marans published a complete logical solution for it in 2008, and SudokuOne calls it perhaps
             the most difficult sudoku solved without a computer solver. Its givens form an almost symmetrical pattern, and that symmetry is
-            what lets a human-sized proof exist at all. We found no published SE figure we can attribute to a source, so we quote none.
-            Sources: <a href="https://www.stolaf.edu/people/hansonr/sudoku/easter_monster.htm">Hanson and Marans, “Easter Monster”</a> and{' '}
+            what lets a human-sized proof exist at all. Sources:{' '}
+            <a href="https://www.stolaf.edu/people/hansonr/sudoku/easter_monster.htm">Hanson and Marans, “Easter Monster”</a> and{' '}
             <a href="https://www.sudokuone.com/sweb/extra/easter/a_em.htm">SudokuOne, “A General Sudoku Logic”</a>.
         </p>
         <PuzzleBoard givens={EASTER_MONSTER.givens}>Easter Monster as published by Hanson and Marans (2008), 21 givens.</PuzzleBoard>

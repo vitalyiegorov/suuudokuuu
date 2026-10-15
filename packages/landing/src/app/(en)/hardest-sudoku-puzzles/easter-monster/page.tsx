@@ -32,9 +32,8 @@ const EasterMonsterPage = () => (
         <h2>Where Easter Monster comes from</h2>
         <p>
             Its givens form an almost symmetrical pattern, and that symmetry is what made a human-sized proof possible at all. SudokuOne
-            calls it perhaps the most difficult sudoku ever solved without a computer solver. We found no published SE figure we can
-            attribute to a source, so this page quotes none, and Easter Monster is not in the Suuudokuuu Infinity corpus, which only takes
-            puzzles with a published rating.
+            calls it perhaps the most difficult sudoku ever solved without a computer solver. It is not part of the Suuudokuuu Infinity
+            corpus.
         </p>
         <p>
             Sources: <a href="https://www.stolaf.edu/people/hansonr/sudoku/easter_monster.htm">Hanson and Marans, “Easter Monster”</a> and{' '}
@@ -60,8 +59,8 @@ const EasterMonsterPage = () => (
             <Faq>
                 <FaqQuestion>What is the SE rating of Easter Monster?</FaqQuestion>
                 <FaqAnswer>
-                    We found no published figure we can attribute to a source, so we quote none. Suuudokuuu’s own rater reports it at its
-                    ceiling, which means harder than every technique the engine implements.
+                    Suuudokuuu’s own rater reports it at its ceiling, which means harder than every technique the engine implements. This
+                    page does not quote an outside figure.
                 </FaqAnswer>
             </Faq>
         </FaqPage>
