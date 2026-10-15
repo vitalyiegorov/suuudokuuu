@@ -55,7 +55,7 @@ const continuedEliminations: Partial<Record<SolutionTechniqueEnum, FieldCandidat
         '0-3': [9],
         '1-3': [9]
     },
-    [SolutionTechniqueEnum.XChain]: { '4-1': [8], '4-5': [8], '4-6': [6, 9] },
+    [SolutionTechniqueEnum.XChain]: { '0-6': [1], '7-0': [6, 8], '4-1': [6, 8], '5-2': [8], '2-2': [4] },
     [SolutionTechniqueEnum.XYChain]: {
         '0-2': [6, 2],
         '1-2': [6, 1, 2],
@@ -405,7 +405,7 @@ describe('findHintStepScript', () => {
         [SolutionTechniqueEnum.XYWing, '724581396953762814186..4752569423178..18.926.2.81.694..12..85378.5.17.29.972.5.81'],
         [SolutionTechniqueEnum.XYZWing, '812756943569348721347.....64.6..7.3.2.1....747534.21.9.7...439.934.75.18.2.9..4.7'],
         [SolutionTechniqueEnum.WWing, '361849275294.5.816785126934.42..17.8.18...3..67329845143691258785.6..1..12..856.3'],
-        [SolutionTechniqueEnum.XChain, '2.5..4.13...3.1.521.325..4..31.2.4.55.413.....2...53.1..6572139712..3586359816..4'],
+        [SolutionTechniqueEnum.XChain, '..67.8.3939.52..7.7....3....49.37..1..3..54..51....3..2..37.91......97..9...5..6.'],
         [SolutionTechniqueEnum.XYChain, '..587.94..7..9...53....5.7..874..1..463.81........7.848..7.....7...1..28.5.268...'],
         [SolutionTechniqueEnum.AIC, '1423....5853.4....9765.1...4....389..2.91...3.....4..6......5.9.....5.1.5.7.3...8'],
         [SolutionTechniqueEnum.NishioForcingChain, '.62....4545.6...12.13245....2.153.6464...253113546....571384...3947261582865..473']

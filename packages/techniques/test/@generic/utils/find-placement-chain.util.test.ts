@@ -27,7 +27,6 @@ const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.....
 const shippedGreedyStepCap = 4;
 const budgetPrunedBoard = '000009080800300002067500000002700600030045010000010005001000090005007100490000000';
 const pointingPairDetourBoard = '..6....9...45....8.27....4..4..7..6.......8.......2...4156...8.2.9...41.3.8.4...5';
-const budgetExhaustedBoard = '..6..1...8.3..91...9......7...2...5....1..4...3..468.12.9..4.3.3..5.....65..3..1.';
 const aicDetourBoard = '..31...5..4...5...75.2....13..5..71..8..6............9.....4..6.2..5.9..9..7...8.';
 const reportedBoard = '001004800302000045540003090800040300000905410400006002030008600050370000100460000';
 const nakedQuadOverHiddenPairBoard = '53..2.9...24.3..5...9..........1.827...7...9.....981.............64....91.2.5.43.';
@@ -49,7 +48,6 @@ const nishioOverUniqueRectangleEliminations: [number, number, number][] = [
     [5, 5, 2],
     [7, 3, 2]
 ];
-const reportedBranchMaximumImplications = 24;
 const witnessHintLimit = 20;
 const maxScanCost = Math.max(PLACEMENT_CHAIN_DEFAULT_SCAN_COST, ...Object.values(PLACEMENT_CHAIN_SCAN_COSTS));
 const columnQuadChain = ['PointingPair elimination 7-0=5', 'HiddenPair elimination 2-5=1', 'HiddenSingle placement 2-4=9'];
@@ -71,6 +69,13 @@ const isChainBandTechnique = (technique: SolutionTechniqueEnum): boolean =>
 
 const createChainBandStrategies = (): TechniqueStrategyInterface[] =>
     createTechniqueStrategies().filter(strategy => isChainBandTechnique(strategy.technique));
+
+const createForcingBandStrategies = (): TechniqueStrategyInterface[] =>
+    createTechniqueStrategies().filter(
+        strategy =>
+            singlesOrder.includes(strategy.technique) ||
+            PLACEMENT_CHAIN_DIFFICULTIES[strategy.technique] >= PLACEMENT_CHAIN_DIFFICULTIES[SolutionTechniqueEnum.NishioForcingChain]
+    );
 
 const findHint = (sudoku: Sudoku, eliminations: CandidateEliminationInterface[] = []): TechniqueResultInterface[] =>
     findPlacementChain(sudoku, createTechniqueStrategies(), eliminations, true);
@@ -279,14 +284,15 @@ describe('findPlacementChain', () => {
         expect(chain.at(-1)?.kind).toBe('placement');
     });
 
-    it('should reach the forcing-chain placement in two steps when the greedy search spends its budget on chains', () => {
+    it('should admit forcing chains to the band only when the cheapest progress step is itself a forcing chain', () => {
         expect.assertions(2);
 
         const sudoku = createSudoku(pointingPairDetourBoard);
-        const greedySteps = new TechniqueManager(sudoku, createChainBandStrategies()).solveLogically().steps;
 
-        expect(greedySteps.findIndex(step => step.kind === 'placement')).toBeGreaterThan(PLACEMENT_CHAIN_MAX_STEPS / 2);
-        expect(describeChain(findPlacementChain(sudoku, createChainBandStrategies()))).toEqual([
+        expect(findPlacementChain(sudoku, createChainBandStrategies(), [], true).map(step => step.technique)).toEqual([
+            SolutionTechniqueEnum.AIC
+        ]);
+        expect(describeChain(findPlacementChain(sudoku, createForcingBandStrategies()))).toEqual([
             'NishioForcingChain elimination 0-3=4',
             'HiddenSingle placement 0-5=4'
         ]);
@@ -337,16 +343,15 @@ describe('findPlacementChain', () => {
         }
     );
 
-    it('should reach the reported digit through the shortest trimmed Nishio branch once the pointing pair is applied', () => {
-        expect.assertions(3);
+    it('should teach the AIC elimination alone once the pointing pair is applied instead of a Nishio route to a digit', () => {
+        expect.assertions(2);
 
         const sudoku = createSudoku(reportedBoard);
         const [pointingPair] = findHint(sudoku);
         const chain = findHint(sudoku, pointingPair.eliminations);
 
-        expect(describeChain(chain)).toEqual(['NishioForcingChain elimination 4-4=8', 'HiddenSingle placement 4-8=8']);
-        expect(chain[0].branches?.[0].implications.length).toBeLessThanOrEqual(reportedBranchMaximumImplications);
-        expect(chain[1].value).toBe(sudoku.getCorrectValue(chain[1].cell));
+        expect(describeChain(chain)).toEqual(['AIC elimination 8-6=2']);
+        expect(chain[0].eliminations.every(({ cell, value }) => sudoku.getCorrectValue(cell) !== value)).toBe(true);
     });
 
     it('should prefer the forcing-chain result with the shortest trimmed branches', () => {
@@ -402,7 +407,7 @@ describe('findPlacementChain', () => {
     it('should give up with an empty chain when the work budget runs out and no greedy step leads to a short placement route', () => {
         expect.assertions(4);
 
-        const sudoku = createSudoku(budgetExhaustedBoard);
+        const sudoku = createSudoku(pointingPairDetourBoard);
         const calls: SolutionTechniqueEnum[] = [];
         const placementIndex = new TechniqueManager(sudoku, createChainBandStrategies())
             .solveLogically()
