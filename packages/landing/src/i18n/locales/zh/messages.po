@@ -678,13 +678,13 @@ msgstr "对每个有多个空格的单元，检查该单元中仍缺少的某个
 msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
 msgstr "依据 {SITE_LICENSE} 许可证免费开源。游戏内没有广告，无需账号，没有跟踪，请阅读<0>原因</0>，或浏览 <1>GitHub 上的完整源代码</1>。Apple 和 Apple 标志是 Apple Inc. 在美国及其他国家和地区注册的商标。App Store 是 Apple Inc. 的服务标记。Google Play 和 Google Play 标志是 Google LLC 的商标。"
 
-#: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free offline Sudoku for iOS, Android and the web"
-msgstr "支持 iOS、Android 和网页的免费离线数独"
-
 #: src/home/components/home-page/home-page.tsx
 msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
 msgstr "免费在线数独指的是在浏览器或应用中玩经典的 9×9 数字谜题，无需购买，没有安装限制，也没有付费墙，而 {SITE_NAME} 就是它的一个免费开源实现：从新手到无限共七个难度等级，附带技巧讲解指南，游戏内没有广告和跟踪。可以在浏览器中解题，也可以安装应用；你的进度、连续记录和统计都保存在你所玩的设备上。完整、可验证的说明，请看<0>{SITE_NAME} 为什么这样构建</0>。"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
+msgstr "支持 iOS、Android 和网页的免费数独，应用内可离线使用"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Free, open-source, no ads"
@@ -1884,8 +1884,8 @@ msgid "Why players stay"
 msgstr "玩家留下来的原因"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Works fully offline once installed, on iOS, Android and the web"
-msgstr "安装后可在 iOS、Android 和网页上完全离线使用"
+msgid "Works fully offline once installed on iOS or Android"
+msgstr "在 iOS 或 Android 上安装后可完全离线使用"
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Write candidates into a cell only once scanning stops producing placements."
@@ -1902,6 +1902,10 @@ msgstr "是的，还有 Everest、Platinum Blonde 和 Golden Nugget。册子按�
 #: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
 msgid "Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our sample measures Hell at SE {hellSeRatingRange} and Nightmare at SE {nightmareSeRatingRange}."
 msgstr "是的，按构造如此。噩梦止于 AIC，而任何地狱盘面都不能用噩梦允许的技巧解出。我们的样本测得地狱为 SE {hellSeRatingRange}，噩梦为 SE {nightmareSeRatingRange}。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes, in the iOS and Android apps. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
+msgstr "是的，在 iOS 和 Android 应用中可以。安装后，{SITE_NAME} 完全在你的设备上生成和解题，所以没有网络连接时玩起来也一样。"
 
 #: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
 #: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
@@ -1935,10 +1939,6 @@ msgstr "是的。每个盘面在发布前，都由 Dancing Links 精确覆盖解
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. Every puzzle in the booklet is solvable with a full house or a naked single alone, so no candidate marking or elimination logic is ever required."
 msgstr "是的。册子里的每道题都只用最后余格或显性单数就能解出，所以始终不需要标记候选数字或使用排除逻辑。"
-
-#: src/home/components/home-page/home-page.tsx
-msgid "Yes. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
-msgstr "是的。安装后，{SITE_NAME} 完全在你的设备上生成和解题，所以没有网络连接时玩起来也一样。"
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."

@@ -678,13 +678,13 @@ msgstr "Untuk setiap unit dengan beberapa sel kosong, periksa apakah ada angka y
 msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
 msgstr "Gratis dan sumber terbuka di bawah lisensi {SITE_LICENSE}. Tanpa iklan, tanpa akun, tanpa pelacakan di dalam game — baca <0>alasannya</0> atau telusuri <1>kode sumber lengkap di GitHub</1>. Apple dan logo Apple adalah merek dagang Apple Inc., terdaftar di AS dan negara lain. App Store adalah merek layanan Apple Inc. Google Play dan logo Google Play adalah merek dagang Google LLC."
 
-#: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free offline Sudoku for iOS, Android and the web"
-msgstr "Sudoku offline gratis untuk iOS, Android, dan web"
-
 #: src/home/components/home-page/home-page.tsx
 msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
 msgstr "Sudoku online gratis berarti memainkan teka-teki angka klasik 9×9 di peramban atau aplikasi tanpa pembelian, batas pemasangan, atau paywall, dan {SITE_NAME} adalah implementasi gratis dan sumber terbuka darinya — tujuh tingkat kesulitan dari Pemula sampai Tak Terhingga, panduan yang menjelaskan teknik, tanpa iklan dan tanpa pelacakan di dalam game. Mainkan di peramban atau pasang aplikasinya; kemajuan, rentetan, dan statistik Anda tetap tersimpan di perangkat tempat Anda bermain. Lihat <0>mengapa {SITE_NAME} dibuat seperti ini</0> untuk penjelasan lengkap yang bisa diverifikasi."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
+msgstr "Sudoku gratis untuk iOS, Android, dan web, offline di aplikasi"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Free, open-source, no ads"
@@ -1884,8 +1884,8 @@ msgid "Why players stay"
 msgstr "Mengapa pemain bertahan"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Works fully offline once installed, on iOS, Android and the web"
-msgstr "Berfungsi sepenuhnya offline setelah dipasang, di iOS, Android, dan web"
+msgid "Works fully offline once installed on iOS or Android"
+msgstr "Berfungsi sepenuhnya offline setelah dipasang di iOS atau Android"
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Write candidates into a cell only once scanning stops producing placements."
@@ -1902,6 +1902,10 @@ msgstr "Ya, bersama Everest, Platinum Blonde, dan Golden Nugget. Buklet mencetak
 #: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
 msgid "Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our sample measures Hell at SE {hellSeRatingRange} and Nightmare at SE {nightmareSeRatingRange}."
 msgstr "Ya, secara konstruksi. Mimpi buruk berhenti di AIC, dan tidak ada sudoku Neraka yang bisa diselesaikan dengan apa pun yang diizinkan Mimpi buruk. Sampel kami mengukur Neraka pada SE {hellSeRatingRange} dan Mimpi buruk pada SE {nightmareSeRatingRange}."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes, in the iOS and Android apps. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
+msgstr "Ya, di aplikasi iOS dan Android. Setelah dipasang, {SITE_NAME} membuat dan menyelesaikan sudoku sepenuhnya di perangkat Anda, jadi dimainkan sama saja tanpa koneksi."
 
 #: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
 #: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
@@ -1935,10 +1939,6 @@ msgstr "Ya. Setiap grid diperiksa oleh solver exact-cover Dancing Links dan solv
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. Every puzzle in the booklet is solvable with a full house or a naked single alone, so no candidate marking or elimination logic is ever required."
 msgstr "Ya. Setiap sudoku di buklet bisa diselesaikan hanya dengan sel kosong terakhir atau tunggal telanjang, jadi tidak pernah dibutuhkan penandaan kandidat atau logika eliminasi."
-
-#: src/home/components/home-page/home-page.tsx
-msgid "Yes. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
-msgstr "Ya. Setelah dipasang, {SITE_NAME} membuat dan menyelesaikan sudoku sepenuhnya di perangkat Anda, jadi dimainkan sama saja tanpa koneksi."
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."

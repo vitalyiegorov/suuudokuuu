@@ -678,13 +678,13 @@ msgstr "কয়েকটি ফাঁকা ঘরসহ প্রতিটি
 msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
 msgstr "{SITE_LICENSE} লাইসেন্সের অধীনে বিনামূল্যে ও ওপেন সোর্স। গেমে কোনো বিজ্ঞাপন, অ্যাকাউন্ট বা ট্র্যাকিং নেই — <0>কেন</0> তা পড়ুন অথবা <1>GitHub-এ পূর্ণ সোর্স</1> দেখুন। Apple এবং Apple লোগো Apple Inc.-এর ট্রেডমার্ক, যা যুক্তরাষ্ট্র ও অন্যান্য দেশে নিবন্ধিত। App Store Apple Inc.-এর একটি সার্ভিস মার্ক। Google Play এবং Google Play লোগো Google LLC-এর ট্রেডমার্ক।"
 
-#: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free offline Sudoku for iOS, Android and the web"
-msgstr "iOS, Android ও ওয়েবের জন্য বিনামূল্যের অফলাইন সুডোকু"
-
 #: src/home/components/home-page/home-page.tsx
 msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
 msgstr "ফ্রি অনলাইন সুডোকু মানে ক্লাসিক ৯×৯ সংখ্যার ধাঁধা ব্রাউজার বা অ্যাপে খেলা, কোনো কেনাকাটা, ইনস্টলের সীমা বা পেওয়াল ছাড়া, আর {SITE_NAME} তারই একটি বিনামূল্যের, ওপেন-সোর্স রূপ — নতুন থেকে অসীম পর্যন্ত সাতটি কঠিনতার স্তর, কৌশল ব্যাখ্যা করা নির্দেশিকা, গেমে কোনো বিজ্ঞাপন বা ট্র্যাকিং নেই। ব্রাউজারে সমাধান করুন বা অ্যাপ ইনস্টল করুন; আপনার অগ্রগতি, ধারা ও পরিসংখ্যান যে ডিভাইসে খেলেন সেখানেই থাকে। পূর্ণ, যাচাইযোগ্য কারণের জন্য দেখুন <0>{SITE_NAME} কেন এভাবে তৈরি</0>।"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
+msgstr "iOS, Android ও ওয়েবের জন্য বিনামূল্যের সুডোকু, অ্যাপে অফলাইনেও চলে"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Free, open-source, no ads"
@@ -1884,8 +1884,8 @@ msgid "Why players stay"
 msgstr "খেলোয়াড়রা কেন থেকে যান"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Works fully offline once installed, on iOS, Android and the web"
-msgstr "ইনস্টলের পর iOS, Android ও ওয়েবে সম্পূর্ণ অফলাইনে চলে"
+msgid "Works fully offline once installed on iOS or Android"
+msgstr "iOS বা Android-এ ইনস্টলের পর সম্পূর্ণ অফলাইনে চলে"
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Write candidates into a cell only once scanning stops producing placements."
@@ -1902,6 +1902,10 @@ msgstr "হ্যাঁ, Everest, Platinum Blonde ও Golden Nugget-এর স�
 #: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
 msgid "Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our sample measures Hell at SE {hellSeRatingRange} and Nightmare at SE {nightmareSeRatingRange}."
 msgstr "হ্যাঁ, নির্মাণগতভাবেই। দুঃস্বপ্ন থামে AIC-তে, আর দুঃস্বপ্ন যা অনুমোদন করে তার কোনোটি দিয়ে কোনো নরক বোর্ড সমাধান করা যায় না। আমাদের নমুনায় নরক SE {hellSeRatingRange} এবং দুঃস্বপ্ন SE {nightmareSeRatingRange} মাপা হয়েছে।"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes, in the iOS and Android apps. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
+msgstr "হ্যাঁ, iOS ও Android অ্যাপে। একবার ইনস্টল করলে {SITE_NAME} সম্পূর্ণভাবে আপনার ডিভাইসেই ধাঁধা তৈরি ও সমাধান করে, তাই সংযোগ ছাড়াও একইভাবে চলে।"
 
 #: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
 #: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
@@ -1935,10 +1939,6 @@ msgstr "হ্যাঁ। প্রতিটি গ্রিড প্রকা
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. Every puzzle in the booklet is solvable with a full house or a naked single alone, so no candidate marking or elimination logic is ever required."
 msgstr "হ্যাঁ। বুকলেটের প্রতিটি ধাঁধা শুধু একটি শেষ খালি ঘর বা উন্মুক্ত একক দিয়েই সমাধানযোগ্য, তাই কখনও প্রার্থী চিহ্নিত করা বা বাদ দেওয়ার যুক্তি লাগে না।"
-
-#: src/home/components/home-page/home-page.tsx
-msgid "Yes. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
-msgstr "হ্যাঁ। একবার ইনস্টল করলে {SITE_NAME} সম্পূর্ণভাবে আপনার ডিভাইসেই ধাঁধা তৈরি ও সমাধান করে, তাই সংযোগ ছাড়াও একইভাবে চলে।"
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."

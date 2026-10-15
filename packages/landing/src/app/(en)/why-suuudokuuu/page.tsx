@@ -123,8 +123,8 @@ const WhySuuudokuuuPage = () => (
             <Faq>
                 <FaqQuestion>Does it work offline?</FaqQuestion>
                 <FaqAnswer>
-                    Yes. Once installed, {SITE_NAME} generates and verifies puzzles entirely on your device, so it plays the same with no
-                    connection.
+                    Yes, in the iOS and Android apps. Once installed, {SITE_NAME} generates and verifies puzzles entirely on your device, so
+                    it plays the same with no connection.
                 </FaqAnswer>
             </Faq>
             <Faq>

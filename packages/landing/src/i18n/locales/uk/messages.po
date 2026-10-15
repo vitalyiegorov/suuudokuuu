@@ -678,13 +678,13 @@ msgstr "Для кожної групи з кількома порожніми к
 msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
 msgstr "Безкоштовно та з відкритим кодом за ліцензією {SITE_LICENSE}. Без реклами, без облікового запису, без стеження в грі — прочитайте, <0>чому</0>, або перегляньте <1>повний вихідний код на GitHub</1>. Apple і логотип Apple є товарними знаками Apple Inc., зареєстрованими в США та інших країнах. App Store є знаком обслуговування Apple Inc. Google Play і логотип Google Play є товарними знаками Google LLC."
 
-#: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free offline Sudoku for iOS, Android and the web"
-msgstr "Безкоштовне судоку без інтернету для iOS, Android і вебу"
-
 #: src/home/components/home-page/home-page.tsx
 msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
 msgstr "Безкоштовне судоку онлайн означає класичну числову головоломку 9×9 у браузері чи застосунку без покупки, обмежень на встановлення чи платного доступу, а {SITE_NAME} — її безкоштовна реалізація з відкритим кодом: сім рівнів складності від «Новачка» до «Нескінченності», посібники з поясненням технік, без реклами та стеження в грі. Розв’язуйте в браузері або встановіть застосунок; ваш прогрес, серії та статистика зберігаються на пристрої, на якому ви граєте. Повне, перевірюване обґрунтування — у матеріалі <0>чому {SITE_NAME} побудовано саме так</0>."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
+msgstr "Безкоштовне судоку для iOS, Android і вебу, без інтернету в застосунках"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Free, open-source, no ads"
@@ -1884,8 +1884,8 @@ msgid "Why players stay"
 msgstr "Чому гравці лишаються"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Works fully offline once installed, on iOS, Android and the web"
-msgstr "Повністю працює без інтернету після встановлення: на iOS, Android і в вебі"
+msgid "Works fully offline once installed on iOS or Android"
+msgstr "Повністю працює без інтернету після встановлення на iOS або Android"
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Write candidates into a cell only once scanning stops producing placements."
@@ -1902,6 +1902,10 @@ msgstr "Так, разом з Everest, Platinum Blonde і Golden Nugget. Збі�
 #: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
 msgid "Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our sample measures Hell at SE {hellSeRatingRange} and Nightmare at SE {nightmareSeRatingRange}."
 msgstr "Так, за побудовою. «Кошмар» закінчується на AIC, і жодну дошку «Пекла» не можна розв’язати нічим із дозволеного в «Кошмарі». Наша вибірка оцінює «Пекло» як SE {hellSeRatingRange}, а «Кошмар» — як SE {nightmareSeRatingRange}."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes, in the iOS and Android apps. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
+msgstr "Так, у застосунках для iOS і Android. Після встановлення {SITE_NAME} генерує й розв’язує головоломки повністю на вашому пристрої, тож грає однаково без з’єднання."
 
 #: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
 #: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
@@ -1935,10 +1939,6 @@ msgstr "Так. Кожну сітку перевіряють розв’язув
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. Every puzzle in the booklet is solvable with a full house or a naked single alone, so no candidate marking or elimination logic is ever required."
 msgstr "Так. Кожну головоломку в збірці можна розв’язати лише «останньою клітинкою» або відкритим одинаком, тож позначати варіанти чи виключати їх ніколи не потрібно."
-
-#: src/home/components/home-page/home-page.tsx
-msgid "Yes. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
-msgstr "Так. Після встановлення {SITE_NAME} генерує й розв’язує головоломки повністю на вашому пристрої, тож грає однаково без з’єднання."
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."

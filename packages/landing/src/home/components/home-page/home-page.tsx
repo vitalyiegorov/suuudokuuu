@@ -86,7 +86,7 @@ export const HomePage = ({ locale }: Props) => {
                     <Trans>No ads, no account and no tracking inside the game, on the web or in the app</Trans>
                 </SoftwareApplicationFeature>
                 <SoftwareApplicationFeature>
-                    <Trans>Works fully offline once installed, on iOS, Android and the web</Trans>
+                    <Trans>Works fully offline once installed on iOS or Android</Trans>
                 </SoftwareApplicationFeature>
                 <SoftwareApplicationFeature>
                     <Trans>Shareable puzzle links and full game replays for any solve</Trans>
@@ -188,8 +188,8 @@ export const HomePage = ({ locale }: Props) => {
                     </FaqQuestion>
                     <FaqAnswer>
                         <Trans>
-                            Yes. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with
-                            no connection.
+                            Yes, in the iOS and Android apps. Once installed, {SITE_NAME} generates and solves puzzles entirely on your
+                            device, so it plays the same with no connection.
                         </Trans>
                     </FaqAnswer>
                 </Faq>

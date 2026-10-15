@@ -678,13 +678,13 @@ msgstr "لكل وحدة فيها عدة خانات فارغة، تحقق مما 
 msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
 msgstr "مجاني ومفتوح المصدر بترخيص {SITE_LICENSE}. دون إعلانات ودون حساب ودون تتبع داخل اللعبة — اقرأ <0>لماذا</0> أو تصفّح <1>الشيفرة المصدرية الكاملة على GitHub</1>. Apple وشعار Apple علامتان تجاريتان لشركة Apple Inc.، مسجلتان في الولايات المتحدة ودول أخرى. App Store علامة خدمة لشركة Apple Inc. وGoogle Play وشعار Google Play علامتان تجاريتان لشركة Google LLC."
 
-#: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free offline Sudoku for iOS, Android and the web"
-msgstr "سودوكو مجانية دون اتصال لنظامي iOS وAndroid وللويب"
-
 #: src/home/components/home-page/home-page.tsx
 msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
 msgstr "سودوكو أونلاين مجانًا تعني لعب لغز الأرقام الكلاسيكي 9×9 في المتصفح أو التطبيق دون شراء أو حد للتثبيت أو جدار دفع، و{SITE_NAME} تنفيذ مجاني ومفتوح المصدر له — سبعة مستويات صعوبة من مبتدئ إلى لانهاية، وأدلة تشرح التقنيات، ودون إعلانات ودون تتبع داخل اللعبة. العب في المتصفح أو ثبّت التطبيق؛ يبقى تقدّمك وسلاسلك اليومية وإحصاءاتك على الجهاز الذي تلعب عليه. اطلع على <0>سبب بناء {SITE_NAME} بهذه الطريقة</0> للحصول على الحجة الكاملة القابلة للتحقق."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
+msgstr "سودوكو مجانية لنظامي iOS وAndroid وللويب، تعمل دون اتصال في التطبيقات"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Free, open-source, no ads"
@@ -1884,8 +1884,8 @@ msgid "Why players stay"
 msgstr "لماذا يبقى اللاعبون"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Works fully offline once installed, on iOS, Android and the web"
-msgstr "يعمل دون اتصال تمامًا بعد التثبيت، على iOS وAndroid والويب"
+msgid "Works fully offline once installed on iOS or Android"
+msgstr "يعمل دون اتصال تمامًا بعد التثبيت على iOS أو Android"
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Write candidates into a cell only once scanning stops producing placements."
@@ -1902,6 +1902,10 @@ msgstr "نعم، إلى جانب Everest وPlatinum Blonde وGolden Nugget. وي
 #: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
 msgid "Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our sample measures Hell at SE {hellSeRatingRange} and Nightmare at SE {nightmareSeRatingRange}."
 msgstr "نعم، بحكم البناء. يتوقف كابوس عند AIC، ولا يمكن حل أي لوحة جحيم بأي شيء يسمح به كابوس. وتقيس عيّنتنا جحيم عند SE {hellSeRatingRange} وكابوس عند SE {nightmareSeRatingRange}."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes, in the iOS and Android apps. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
+msgstr "نعم، في تطبيقي iOS وAndroid. بعد التثبيت يولّد {SITE_NAME} الألغاز ويحلها بالكامل على جهازك، فيعمل بالطريقة نفسها دون اتصال."
 
 #: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
 #: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
@@ -1935,10 +1939,6 @@ msgstr "نعم. تُفحص كل شبكة بحلّال تغطية دقيقة Danc
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. Every puzzle in the booklet is solvable with a full house or a naked single alone, so no candidate marking or elimination logic is ever required."
 msgstr "نعم. كل لغز في الكتيّب يُحل بآخر خانة فارغة أو بالمفرد المكشوف وحدهما، فلا حاجة أبدًا إلى تعليم المرشحات ولا إلى منطق الحذف."
-
-#: src/home/components/home-page/home-page.tsx
-msgid "Yes. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
-msgstr "نعم. بعد التثبيت يولّد {SITE_NAME} الألغاز ويحلها بالكامل على جهازك، فيعمل بالطريقة نفسها دون اتصال."
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."

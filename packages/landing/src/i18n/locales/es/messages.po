@@ -678,13 +678,13 @@ msgstr "En cada unidad con varias celdas vacías, comprueba si algún dígito qu
 msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
 msgstr "Gratuito y de código abierto con licencia {SITE_LICENSE}. Sin anuncios, sin cuenta y sin rastreo en el juego: lee <0>por qué</0> o explora el <1>código fuente completo en GitHub</1>. Apple y el logotipo de Apple son marcas comerciales de Apple Inc., registradas en EE. UU. y en otros países. App Store es una marca de servicio de Apple Inc. Google Play y el logotipo de Google Play son marcas comerciales de Google LLC."
 
-#: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free offline Sudoku for iOS, Android and the web"
-msgstr "Sudoku gratis y sin conexión para iOS, Android y la web"
-
 #: src/home/components/home-page/home-page.tsx
 msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
 msgstr "Jugar al sudoku online gratis significa resolver el clásico rompecabezas numérico de 9×9 en el navegador o en una app sin pagar, sin límites de instalación y sin muros de pago, y {SITE_NAME} es una versión gratuita y de código abierto: siete niveles de dificultad de Novato a Infinito, guías que explican cada técnica, sin anuncios y sin rastreo en el juego. Resuelve en el navegador o instala la app; tu progreso, tus rachas y tus estadísticas se quedan en el dispositivo donde juegas. Descubre <0>por qué {SITE_NAME} está hecho así</0>, con todos los argumentos verificables."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
+msgstr "Sudoku gratis para iOS, Android y la web, sin conexión en las apps"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Free, open-source, no ads"
@@ -1884,8 +1884,8 @@ msgid "Why players stay"
 msgstr "Por qué los jugadores se quedan"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Works fully offline once installed, on iOS, Android and the web"
-msgstr "Funciona totalmente sin conexión una vez instalado, en iOS, Android y la web"
+msgid "Works fully offline once installed on iOS or Android"
+msgstr "Funciona totalmente sin conexión una vez instalado en iOS o Android"
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Write candidates into a cell only once scanning stops producing placements."
@@ -1902,6 +1902,10 @@ msgstr "Sí, junto con Everest, Platinum Blonde y Golden Nugget. El cuaderno imp
 #: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
 msgid "Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our sample measures Hell at SE {hellSeRatingRange} and Nightmare at SE {nightmareSeRatingRange}."
 msgstr "Sí, por construcción. Pesadilla se detiene en AIC, y ningún tablero Infierno se puede resolver con nada de lo que permite Pesadilla. Nuestra muestra mide Infierno en SE {hellSeRatingRange} y Pesadilla en SE {nightmareSeRatingRange}."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes, in the iOS and Android apps. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
+msgstr "Sí, en las apps para iOS y Android. Una vez instalado, {SITE_NAME} genera y resuelve los sudokus por completo en tu dispositivo, así que funciona igual sin conexión."
 
 #: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
 #: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
@@ -1935,10 +1939,6 @@ msgstr "Sí. Cada cuadrícula se comprueba con un solucionador de cobertura exac
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. Every puzzle in the booklet is solvable with a full house or a naked single alone, so no candidate marking or elimination logic is ever required."
 msgstr "Sí. Todos los sudokus del cuaderno se resuelven solo con una última celda libre o un único desnudo, así que nunca hace falta marcar candidatos ni aplicar lógica de eliminación."
-
-#: src/home/components/home-page/home-page.tsx
-msgid "Yes. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
-msgstr "Sí. Una vez instalado, {SITE_NAME} genera y resuelve los sudokus por completo en tu dispositivo, así que funciona igual sin conexión."
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."

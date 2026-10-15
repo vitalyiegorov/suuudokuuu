@@ -25,7 +25,7 @@ export const SITE_APP_STORE_URL = `https://apps.apple.com/app/id${SITE_APP_STORE
 
 export const SITE_GOOGLE_PLAY_URL = 'https://play.google.com/store/apps/details?id=com.vitaliiyehorov.suuudokuuu';
 
-export const SITE_TAGLINE = 'Free offline Sudoku for iOS, Android and the web';
+export const SITE_TAGLINE = 'Free Sudoku for iOS, Android and the web, offline in the apps';
 
 export const SITE_DESCRIPTION =
     'Suuudokuuu is a free, ad-free Sudoku game that works offline. Seven difficulty levels, technique-aware hints, streaks and shareable puzzles.';

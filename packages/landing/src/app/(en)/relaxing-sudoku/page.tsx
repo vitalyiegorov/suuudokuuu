@@ -42,7 +42,7 @@ const RelaxingSudokuPage = () => (
                 <li>Calm play hides the score and ends each game with a calm summary instead.</li>
                 <li>The timer has its own switch, so you can play without watching the clock.</li>
                 <li>Pick a soft theme, or switch to dark mode, and set animations to off.</li>
-                <li>Everything runs offline, with no ads and no account.</li>
+                <li>The iOS and Android apps run fully offline, with no ads and no account.</li>
             </ul>
         </TechniqueSummary>
         <h2>No mistake limit</h2>
@@ -65,8 +65,9 @@ const RelaxingSudokuPage = () => (
         </p>
         <h2>Offline, ad-free, account-free</h2>
         <p>
-            Puzzles are generated and checked on your device, so a flight or a dead zone changes nothing, and there is nothing to log in to.
-            See <Link href={whySuuudokuuuPageMetadata.path}>why {SITE_NAME}</Link> for what that means in practice.
+            Puzzles are generated and checked on your device, so once the iOS or Android app is installed a flight or a dead zone changes
+            nothing, and there is nothing to log in to. See <Link href={whySuuudokuuuPageMetadata.path}>why {SITE_NAME}</Link> for what that
+            means in practice.
         </p>
         <h2>More ways to make it comfortable</h2>
         <p>
@@ -93,7 +94,9 @@ const RelaxingSudokuPage = () => (
             </Faq>
             <Faq>
                 <FaqQuestion>Does it work offline?</FaqQuestion>
-                <FaqAnswer>Yes. Puzzles are generated on your device and your progress is stored there too.</FaqAnswer>
+                <FaqAnswer>
+                    Yes, in the iOS and Android apps. Puzzles are generated on your device and your progress is stored there too.
+                </FaqAnswer>
             </Faq>
         </FaqPage>
     </main>

@@ -31,7 +31,7 @@ export const SiteFooter = () => {
                 <div className="site-footer__brand-block">
                     <p className="site-footer__brand">{SITE_NAME}</p>
                     <p className="site-footer__tagline">
-                        <Trans>Free offline Sudoku for iOS, Android and the web</Trans>
+                        <Trans>Free Sudoku for iOS, Android and the web, offline in the apps</Trans>
                     </p>
                     <StoreBadges campaign={StoreBadgeCampaignEnum.FOOTER} />
                 </div>
