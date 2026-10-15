@@ -1,6 +1,8 @@
 import { forgeSerializablePuzzle, getDailyDifficulty, getDailyPuzzleSeed } from '@suuudokuuu/puzzle-forge';
 import Link from 'next/link';
 
+import { isPositiveNumber } from '@rnw-community/shared';
+
 import { sudokuDifficultyRatingPageMetadata } from '../../../app/(en)/guides/sudoku-difficulty-rating/metadata';
 import { solverPageMetadata } from '../../../app/(en)/solver/metadata';
 import { DIFFICULTY_NAMES } from '../../../difficulty/constants/difficulty-name.constant';
@@ -25,7 +27,7 @@ interface Props {
 export const DailyPuzzle = ({ date }: Props) => {
     const difficulty = getDailyDifficulty(date);
     const puzzle = forgeSerializablePuzzle(difficulty, getDailyPuzzleSeed(date));
-    const { steps } = new SolvePathBuilder(puzzle.sudokuString).build();
+    const { revealedCellCount, steps } = new SolvePathBuilder(puzzle.sudokuString).build();
     const formattedDate = formatDailyDate(date);
     const difficultyName = DIFFICULTY_NAMES[difficulty];
     const clueCount = countClues(puzzle.sudokuString);
@@ -40,6 +42,15 @@ export const DailyPuzzle = ({ date }: Props) => {
                 Open this puzzle in the app
             </a>
         );
+    const proofSentence = isPositiveNumber(revealedCellCount) ? (
+        <>
+            The placements and eliminations below are proved by named techniques, in the order the engine found them, except at{' '}
+            {revealedCellCount} points where no implemented technique makes progress and the step says it fills that cell from the verified
+            solution instead.
+        </>
+    ) : (
+        <>Every placement and elimination below is proved by a named technique, in the order the engine found them.</>
+    );
 
     return (
         <>
@@ -58,7 +69,7 @@ export const DailyPuzzle = ({ date }: Props) => {
                 <dd className="solver-output__description">{difficultyName}</dd>
                 <dt className="solver-output__term">SE rating</dt>
                 <dd className="solver-output__description">{ratingLabel}</dd>
-                <dt className="solver-output__term">Logical steps</dt>
+                <dt className="solver-output__term">Solution steps</dt>
                 <dd className="solver-output__description">{steps.length}</dd>
             </dl>
             <h2>Techniques this puzzle needs</h2>
@@ -69,8 +80,7 @@ export const DailyPuzzle = ({ date }: Props) => {
             </p>
             <h2>Step-by-step solution</h2>
             <p>
-                Every placement and elimination below is proved by a named technique, in the order the engine found them, with each
-                technique linked to its guide. Stuck on a different puzzle? The{' '}
+                {proofSentence} Each technique links to its guide. Stuck on a different puzzle? The{' '}
                 <Link href={solverPageMetadata.path}>step-by-step solver</Link> narrates any grid you paste.
             </p>
             <details>
