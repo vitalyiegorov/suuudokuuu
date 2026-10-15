@@ -330,6 +330,10 @@ msgstr "Accept challenge"
 msgid "Accept challenge?"
 msgstr "Accept challenge?"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Add games, statistics, and themes from a backup file"
+msgstr "Add games, statistics, and themes from a backup file"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "Adjust the digits on the Sudoku board"
@@ -420,6 +424,18 @@ msgstr "Avoid mistakes - they cost you points!"
 #: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "Back"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup"
+msgstr "Backup"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup imported"
+msgstr "Backup imported"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not imported"
+msgstr "Backup not imported"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -519,6 +535,7 @@ msgstr "Can you beat them?"
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "Cancel"
@@ -852,6 +869,10 @@ msgstr "Expert"
 msgid "Expert grid"
 msgstr "Expert grid"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Export backup"
+msgstr "Export backup"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Extra points are awarded when your placement completes:"
@@ -921,6 +942,14 @@ msgstr "Game settings"
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "Games"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are added to this device. Nothing here is removed, and your settings stay as they are."
+msgstr "Games, statistics, and themes from the file are added to this device. Nothing here is removed, and your settings stay as they are."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are now on this device."
+msgstr "Games, statistics, and themes from the file are now on this device."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "General"
@@ -1078,6 +1107,18 @@ msgstr "If {path} → {value} has no place left in the outlined cells. So {assum
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "Immortal"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import"
+msgstr "Import"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup"
+msgstr "Import backup"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup?"
+msgstr "Import backup?"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1772,6 +1813,10 @@ msgstr "Save"
 msgid "Save anyway"
 msgstr "Save anyway"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Save your games, statistics, and themes to a file"
+msgstr "Save your games, statistics, and themes to a file"
+
 #: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -2117,6 +2162,10 @@ msgstr "Theme name"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
+msgstr "This file is not a {appName} backup, or it was made by a newer version of the app."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

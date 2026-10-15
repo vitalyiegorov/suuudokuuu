@@ -328,6 +328,10 @@ msgstr "चुनौती स्वीकार करें"
 msgid "Accept challenge?"
 msgstr "चुनौती स्वीकार करें?"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Add games, statistics, and themes from a backup file"
+msgstr "बैकअप फ़ाइल से गेम, आँकड़े और थीम जोड़ें"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "सुडोकू बोर्ड पर अंकों का आकार बदलें"
@@ -418,6 +422,18 @@ msgstr "गलतियों से बचें: वे आपके अंक
 #: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "वापस"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup"
+msgstr "बैकअप"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup imported"
+msgstr "बैकअप इम्पोर्ट हो गया"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not imported"
+msgstr "बैकअप इम्पोर्ट नहीं हुआ"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -517,6 +533,7 @@ msgstr "क्या आप उनसे बेहतर कर सकते ह
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "रद्द करें"
@@ -850,6 +867,10 @@ msgstr "विशेषज्ञ"
 msgid "Expert grid"
 msgstr "विशेषज्ञ ग्रिड"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Export backup"
+msgstr "बैकअप एक्सपोर्ट करें"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Extra points are awarded when your placement completes:"
 msgstr "जब आपकी चाल पूरा करती है, तो अतिरिक्त अंक मिलते हैं:"
@@ -919,6 +940,14 @@ msgstr "गेम सेटिंग्स"
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "गेम"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are added to this device. Nothing here is removed, and your settings stay as they are."
+msgstr "फ़ाइल के गेम, आँकड़े और थीम इस डिवाइस में जोड़े जाते हैं। यहाँ से कुछ भी नहीं हटाया जाता और आपकी सेटिंग्स वैसी ही रहती हैं।"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are now on this device."
+msgstr "फ़ाइल के गेम, आँकड़े और थीम अब इस डिवाइस पर हैं।"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "General"
@@ -1076,6 +1105,18 @@ msgstr "यदि {path} → घेरे गए सेल में {value} क
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "अमर"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import"
+msgstr "इम्पोर्ट करें"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup"
+msgstr "बैकअप इम्पोर्ट करें"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup?"
+msgstr "बैकअप इम्पोर्ट करें?"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1770,6 +1811,10 @@ msgstr "सहेजें"
 msgid "Save anyway"
 msgstr "फिर भी सहेजें"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Save your games, statistics, and themes to a file"
+msgstr "अपने गेम, आँकड़े और थीम एक फ़ाइल में सहेजें"
+
 #: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -2115,6 +2160,10 @@ msgstr "थीम का नाम"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "इस बार यह बोर्ड पूरा नहीं हुआ। यूक्रेन में आज़ादी की लड़ाई जारी है। हर $1 दान मायने रखता है।"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
+msgstr "यह फ़ाइल {appName} बैकअप नहीं है, या इसे ऐप के नए संस्करण से बनाया गया है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

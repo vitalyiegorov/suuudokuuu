@@ -328,6 +328,10 @@ msgstr "接受挑战"
 msgid "Accept challenge?"
 msgstr "接受挑战？"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Add games, statistics, and themes from a backup file"
+msgstr "从备份文件添加游戏、统计和主题"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "调整数独棋盘上的数字大小"
@@ -418,6 +422,18 @@ msgstr "避免错误：它们会扣分。"
 #: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "返回"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup"
+msgstr "备份"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup imported"
+msgstr "备份已导入"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not imported"
+msgstr "备份未导入"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -517,6 +533,7 @@ msgstr "你能超过他们吗？"
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "取消"
@@ -850,6 +867,10 @@ msgstr "专家"
 msgid "Expert grid"
 msgstr "专家棋盘"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Export backup"
+msgstr "导出备份"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Extra points are awarded when your placement completes:"
 msgstr "当你的落子完成以下内容时可获得额外分数："
@@ -919,6 +940,14 @@ msgstr "游戏设置"
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "对局"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are added to this device. Nothing here is removed, and your settings stay as they are."
+msgstr "文件中的游戏、统计和主题将添加到此设备。不会删除任何内容，你的设置保持不变。"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are now on this device."
+msgstr "文件中的游戏、统计和主题现已在此设备上。"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "General"
@@ -1076,6 +1105,18 @@ msgstr "如果 {path} → {value} 在加框的单元格中已无位置。所以 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "不朽"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import"
+msgstr "导入"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup"
+msgstr "导入备份"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup?"
+msgstr "导入备份？"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1770,6 +1811,10 @@ msgstr "保存"
 msgid "Save anyway"
 msgstr "仍要保存"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Save your games, statistics, and themes to a file"
+msgstr "将你的游戏、统计和主题保存到文件"
+
 #: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -2115,6 +2160,10 @@ msgstr "主题名称"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "这次未能完成棋盘。乌克兰争取自由的战斗仍在继续。每 1 美元捐款都有意义。"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
+msgstr "此文件不是 {appName} 备份，或由更新版本的应用创建。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

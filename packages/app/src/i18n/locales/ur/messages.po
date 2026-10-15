@@ -328,6 +328,10 @@ msgstr "چیلنج قبول کریں"
 msgid "Accept challenge?"
 msgstr "چیلنج قبول کریں؟"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Add games, statistics, and themes from a backup file"
+msgstr "بیک اپ فائل سے گیمز، اعداد و شمار اور تھیمز شامل کریں"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "سوڈوکو بورڈ پر ہندسوں کا سائز بدلیں"
@@ -418,6 +422,18 @@ msgstr "غلطیوں سے بچیں: یہ آپ کے پوائنٹس کم کرتی 
 #: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "واپس"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup"
+msgstr "بیک اپ"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup imported"
+msgstr "بیک اپ امپورٹ ہو گیا"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not imported"
+msgstr "بیک اپ امپورٹ نہیں ہوا"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -517,6 +533,7 @@ msgstr "کیا آپ انہیں ہرا سکتے ہیں؟"
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "منسوخ کریں"
@@ -850,6 +867,10 @@ msgstr "ماہر"
 msgid "Expert grid"
 msgstr "ماہر گرڈ"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Export backup"
+msgstr "بیک اپ ایکسپورٹ کریں"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Extra points are awarded when your placement completes:"
 msgstr "آپ کی چال مکمل کرے تو اضافی پوائنٹس ملتے ہیں:"
@@ -919,6 +940,14 @@ msgstr "گیم سیٹنگز"
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "گیمز"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are added to this device. Nothing here is removed, and your settings stay as they are."
+msgstr "فائل کے گیمز، اعداد و شمار اور تھیمز اس ڈیوائس میں شامل کیے جاتے ہیں۔ یہاں سے کچھ نہیں ہٹایا جاتا، اور آپ کی سیٹنگز جیسی ہیں ویسی ہی رہتی ہیں۔"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are now on this device."
+msgstr "فائل کے گیمز، اعداد و شمار اور تھیمز اب اس ڈیوائس پر ہیں۔"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "General"
@@ -1076,6 +1105,18 @@ msgstr "اگر {path} → فریم شدہ خانوں میں {value} کے لیے 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "لافانی"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import"
+msgstr "امپورٹ کریں"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup"
+msgstr "بیک اپ امپورٹ کریں"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup?"
+msgstr "بیک اپ امپورٹ کریں؟"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1770,6 +1811,10 @@ msgstr "محفوظ کریں"
 msgid "Save anyway"
 msgstr "پھر بھی محفوظ کریں"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Save your games, statistics, and themes to a file"
+msgstr "اپنے گیمز، اعداد و شمار اور تھیمز ایک فائل میں محفوظ کریں"
+
 #: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -2115,6 +2160,10 @@ msgstr "تھیم کا نام"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "اس بار یہ بورڈ مکمل نہیں ہوا۔ یوکرین میں آزادی کی جنگ جاری ہے۔ ہر $1 عطیہ معنی رکھتا ہے۔"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
+msgstr "یہ فائل {appName} کا بیک اپ نہیں ہے، یا اسے ایپ کے نئے ورژن سے بنایا گیا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
