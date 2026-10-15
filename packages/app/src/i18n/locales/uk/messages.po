@@ -868,6 +868,10 @@ msgstr "Заповнена клітинка"
 msgid "Final score"
 msgstr "Підсумкові бали"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Finding a hint"
+msgstr "Пошук підказки"
+
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "Завершіть судоку, і воно з’явиться тут."

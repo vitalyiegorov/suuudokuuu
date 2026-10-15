@@ -866,6 +866,10 @@ msgstr "已填单元格"
 msgid "Final score"
 msgstr "最终分数"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Finding a hint"
+msgstr "正在查找提示"
+
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "完成一局数独后会显示在这里。"

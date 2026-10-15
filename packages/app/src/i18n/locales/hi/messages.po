@@ -866,6 +866,10 @@ msgstr "भरी हुई सेल"
 msgid "Final score"
 msgstr "अंतिम स्कोर"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Finding a hint"
+msgstr "संकेत खोजा जा रहा है"
+
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "एक सुडोकू पूरा करें और यह यहाँ दिखेगा।"

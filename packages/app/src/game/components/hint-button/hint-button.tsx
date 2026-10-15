@@ -1,5 +1,4 @@
 import { useLingui } from '@lingui/react/macro';
-import { findHintStepScript } from '@suuudokuuu/field-core';
 import LucideLightbulb from 'lucide-react-native/icons/lightbulb';
 import { use } from 'react';
 
@@ -9,9 +8,9 @@ import { AppIconButton } from '../../../@generic/components/app-icon-button/app-
 import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
+import { useHintSearch } from '../../hooks/use-hint-search.hook';
 import { useCurrentRun } from '../../query/use-current-run.query';
 import { gameIsHintAvailable } from '../../utils/game-is-hint-available.util';
-import { gameStartHintStepScript } from '../../utils/game-start-hint-step-script.util';
 
 import { HintButtonSelectors } from './hint-button.selectors';
 
@@ -24,20 +23,18 @@ interface Props {
 export const HintButton = ({ sizeStyle }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
-    const { engine, snapshot } = use(GameContext);
+    const { snapshot } = use(GameContext);
 
     const { difficulty, isChallengeRun } = useCurrentRun();
     const { allowHintsOnHardDifficulties } = useSettings();
+    const { isSearchingHint, searchHint } = useHintSearch();
 
     const handleHint = () => {
-        const stepScript = findHintStepScript(engine.Sudoku, snapshot.eliminatedCandidates);
-
-        if (isDefined(stepScript)) {
-            gameStartHintStepScript(engine, stepScript);
-        }
+        searchHint();
     };
 
     const isDisabled = isDefined(snapshot.stepScript) || snapshot.isWon;
+    const accessibilityLabel = isSearchingHint ? t`Finding a hint` : t`Hint`;
     const iconColor = isDisabled ? theme.colors.text.hint : theme.colors.surface.raisedText;
 
     if (!gameIsHintAvailable({ difficulty, isChallengeRun, allowHintsOnHardDifficulties })) {
@@ -46,9 +43,10 @@ export const HintButton = ({ sizeStyle }: Props) => {
 
     return (
         <AppIconButton
-            accessibilityLabel={t`Hint`}
+            accessibilityLabel={accessibilityLabel}
             disabled={isDisabled}
             hitSlop={10}
+            isLoading={isSearchingHint}
             onPress={handleHint}
             style={sizeStyle}
             testID={HintButtonSelectors.Root}

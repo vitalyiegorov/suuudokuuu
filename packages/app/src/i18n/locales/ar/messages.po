@@ -866,6 +866,10 @@ msgstr "الخلية المملوءة"
 msgid "Final score"
 msgstr "النتيجة النهائية"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Finding a hint"
+msgstr "جارٍ البحث عن تلميح"
+
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "أكمل لغز سودوكو وسيظهر هنا."
