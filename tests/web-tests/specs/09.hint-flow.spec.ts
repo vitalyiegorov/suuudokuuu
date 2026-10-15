@@ -687,3 +687,38 @@ test('ignores board keys while a hint is open and closes the hint with Escape', 
     await page.keyboard.press('Control+z');
     await expect(notedCell).toHaveAttribute('aria-label', notedCellLabel ?? '');
 });
+
+test('moves keyboard focus into the open hint card and never into the hidden controls behind it', async ({ page }) => {
+    await openSharedHintPuzzle(page, pointingPairHintSharedPuzzleEncodedConstant);
+
+    const hintPanel = page.getByTestId(HintPanelSelectors.Root);
+    const readFocusedTestId = async (): Promise<string | null> =>
+        page.evaluate(() => document.activeElement?.closest('[data-testid]')?.getAttribute('data-testid') ?? null);
+    const isFocusInHiddenControls = async (): Promise<boolean> =>
+        page.evaluate(() => document.activeElement?.closest('[aria-hidden="true"], [inert]') !== null);
+
+    await page.getByTestId(HintButtonSelectors.Root).press('Enter');
+
+    await expect(hintPanel).toBeFocused();
+    await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveRole('heading');
+    await expect(page.getByTestId(HintPanelSelectors.BackButton)).toHaveAccessibleName('Back');
+    await expect(page.getByTestId(HintPanelSelectors.NextButton)).toHaveAccessibleName('Next');
+
+    const focusedTestIds: (string | null)[] = [];
+
+    for (let tabIndex = 0; tabIndex < 3; tabIndex += 1) {
+        await page.keyboard.press('Tab');
+        focusedTestIds.push(await readFocusedTestId());
+    }
+
+    expect(focusedTestIds).toEqual([
+        HintPanelSelectors.DismissButton,
+        HintPanelSelectors.SHOW_ANSWER_BUTTON,
+        HintPanelSelectors.NextButton
+    ]);
+
+    for (let tabIndex = 0; tabIndex < 6; tabIndex += 1) {
+        await page.keyboard.press('Shift+Tab');
+        expect(await isFocusInHiddenControls()).toBe(false);
+    }
+});

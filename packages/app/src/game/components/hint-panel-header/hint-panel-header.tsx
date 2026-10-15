@@ -35,7 +35,7 @@ export const HintPanelHeader = () => {
 
     return (
         <View style={styles.header}>
-            <BlackText numberOfLines={2} style={styles.technique} testID={HintStepNarrationSelectors.Technique}>
+            <BlackText numberOfLines={2} role="heading" style={styles.technique} testID={HintStepNarrationSelectors.Technique}>
                 {techniqueName}
             </BlackText>
             <AppIconButton

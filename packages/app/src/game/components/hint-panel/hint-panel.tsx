@@ -19,6 +19,8 @@ import { HintStepper } from '../hint-stepper/hint-stepper';
 import { HintPanelSelectors } from './hint-panel.selectors';
 import { HintPanelStyles as styles } from './hint-panel.styles';
 
+import type { HostInstance } from 'react-native';
+
 const easeOutFirstControlX = 0.23;
 const easeOutSecondControlX = 0.32;
 const panelEaseOut = Easing.bezier(easeOutFirstControlX, 1, easeOutSecondControlX, 1);
@@ -61,6 +63,9 @@ export const HintPanel = ({ controlsTop }: Props) => {
     const isSinglePage = hintPageCount <= 1;
     const placementValue = isLastPage ? stepScript.placement?.value : null;
     const panelEnteringAnimation = isMotionReduced ? panelReducedEntering : panelEntering;
+    const focusPanel = (panel: HostInstance | null) => {
+        panel?.focus();
+    };
 
     return (
         <Animated.View
@@ -69,7 +74,14 @@ export const HintPanel = ({ controlsTop }: Props) => {
             pointerEvents="box-none"
             style={styles.region(controlsTop, insets)}
         >
-            <Animated.View style={containerStyles} testID={HintPanelSelectors.Root} {...(!isMotionReduced && { layout: panelLayout })}>
+            <Animated.View
+                ref={focusPanel}
+                role="group"
+                style={containerStyles}
+                tabIndex={-1}
+                testID={HintPanelSelectors.Root}
+                {...(!isMotionReduced && { layout: panelLayout })}
+            >
                 <HintPanelHeader />
                 <Animated.View entering={pageEntering} key={hintPageIndex} style={styles.page}>
                     {hintLevel === HintLevelEnum.WALKTHROUGH ? (

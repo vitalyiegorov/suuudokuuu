@@ -25,7 +25,7 @@ export const HintStepperBack = () => {
             size="compact"
             style={buttonStyles}
             testID={HintPanelSelectors.BackButton}
-            text={t`‹ Back`}
+            text={t`Back`}
             variant="ghost"
         />
     );

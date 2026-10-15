@@ -11,10 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
-msgid "‹ Back"
-msgstr "‹ Tillbaka"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -447,6 +443,7 @@ msgid "Avoid mistakes - they cost you points!"
 msgstr "Undvik misstag: de kostar poäng."
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
+#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "Tillbaka"
@@ -1404,8 +1401,8 @@ msgid "Newspaper"
 msgstr "Tidning"
 
 #: src/game/components/hint-stepper-next/hint-stepper-next.tsx
-msgid "Next ›"
-msgstr "Nästa ›"
+msgid "Next"
+msgstr "Nästa"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx

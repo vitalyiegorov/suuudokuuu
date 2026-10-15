@@ -11,10 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
-msgid "‹ Back"
-msgstr "‹ वापस"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -447,6 +443,7 @@ msgid "Avoid mistakes - they cost you points!"
 msgstr "गलतियों से बचें: वे आपके अंक घटाती हैं।"
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
+#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "वापस"
@@ -1404,8 +1401,8 @@ msgid "Newspaper"
 msgstr "न्यूज़पेपर"
 
 #: src/game/components/hint-stepper-next/hint-stepper-next.tsx
-msgid "Next ›"
-msgstr "आगे ›"
+msgid "Next"
+msgstr "आगे"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
