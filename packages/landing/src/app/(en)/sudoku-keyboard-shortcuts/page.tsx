@@ -33,7 +33,7 @@ const SudokuKeyboardShortcutsPage = () => (
         </PageHeader>
         <p>
             {SITE_NAME} can be played entirely from the keyboard. The tables below list every shortcut as shipped: the full set in the web
-            version, and the smaller set the iOS and Android apps recognise from a hardware keyboard.
+            version, and the smaller set the iPhone and iPad app recognises from a hardware keyboard.
         </p>
         <TechniqueSummary>
             <ul>
@@ -117,11 +117,11 @@ const SudokuKeyboardShortcutsPage = () => (
                 </tbody>
             </table>
         </div>
-        <h2>iOS and Android with a hardware keyboard</h2>
-        <p>On iPad, or any iPhone or Android device with a keyboard attached, the game screen listens for a shorter set of keys.</p>
+        <h2>iPhone and iPad with a hardware keyboard</h2>
+        <p>On an iPad, or an iPhone with a keyboard attached, the game screen listens for a shorter set of keys.</p>
         <div className="data-table__scroll">
             <table className="data-table">
-                <caption className="data-table__caption">Shortcuts in the iOS and Android apps.</caption>
+                <caption className="data-table__caption">Shortcuts in the iPhone and iPad app.</caption>
                 <thead>
                     <tr>
                         <th scope="col">Key</th>
@@ -159,7 +159,10 @@ const SudokuKeyboardShortcutsPage = () => (
                 </tbody>
             </table>
         </div>
-        <p>Undo, redo, hints and the candidates toggle remain on-screen buttons in the apps.</p>
+        <p>
+            Undo, redo, hints and the candidates toggle remain on-screen buttons in the app. This page does not cover hardware keyboards on
+            Android.
+        </p>
         <h2>On the practice boards on this site</h2>
         <p>
             The live boards on the <Link href={techniquesPageMetadata.path}>technique pages</Link> and the difficulty pages use a smaller
