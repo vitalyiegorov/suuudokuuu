@@ -134,7 +134,8 @@ export {
     findStepScript,
     getBoxNumber,
     getHintRegion,
-    getCellKey
+    getCellKey,
+    techniqueResultToStepScript
 };
 export type {
     FieldSnapshotInterface,
