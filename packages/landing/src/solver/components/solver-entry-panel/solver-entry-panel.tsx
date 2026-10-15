@@ -5,6 +5,7 @@ import { readPuzzleEntryCells } from '../../utils/read-puzzle-entry-cells.util';
 import { replaceEntryValue } from '../../utils/replace-entry-value.util';
 import { SolverEntryBoard } from '../solver-entry-board/solver-entry-board';
 import { SolverEntryCountNotice } from '../solver-entry-count-notice/solver-entry-count-notice';
+import { SolverEntryLinkNotice } from '../solver-entry-link-notice/solver-entry-link-notice';
 import { SolverEntryPad } from '../solver-entry-pad/solver-entry-pad';
 
 import type { ChangeEvent } from 'react';
@@ -18,7 +19,6 @@ interface Props {
     onEntryChange: () => void;
 }
 
-// oxlint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) => {
     const [entry, setEntry] = useState(EMPTY_PUZZLE_ENTRY);
     const [entryText, setEntryText] = useState(EMPTY_PUZZLE_ENTRY);
@@ -40,12 +40,6 @@ export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) =
         setIsLinkUnreadable(true);
     };
 
-    const importSharedLink = (link: string) => {
-        import('../../utils/decode-shared-puzzle.util')
-            .then(module => void applyEntry(module.decodeSharedPuzzle(link)))
-            .catch(handleUnreadableLink);
-    };
-
     const handleEnterValue = (character: string) => {
         const index = selectedIndex ?? ENTRY_FIRST_CELL_INDEX;
 
@@ -62,7 +56,9 @@ export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) =
         onEntryChange();
 
         if (value.includes(SHARED_LINK_MARKER)) {
-            importSharedLink(value);
+            import('../../utils/decode-shared-puzzle.util')
+                .then(module => void applyEntry(module.decodeSharedPuzzle(value)))
+                .catch(handleUnreadableLink);
         } else if (cells.length === ENTRY_CELL_COUNT) {
             setEntry(cells.join(''));
         }
@@ -82,11 +78,7 @@ export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) =
         onSolve(entry);
     };
 
-    const linkNotice = isLinkUnreadable ? (
-        <p className="solver-notice" data-tone="error" role="status">
-            That share link could not be read. Copy the whole link from the app’s Share button and paste it again.
-        </p>
-    ) : null;
+    const linkNotice = isLinkUnreadable ? <SolverEntryLinkNotice /> : null;
     const cellCountNotice = isEntryTextIncomplete ? <SolverEntryCountNotice cellCount={entryTextCellCount} /> : null;
 
     return (
