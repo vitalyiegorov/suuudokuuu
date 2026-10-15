@@ -145,8 +145,16 @@ msgid "{techniqueName}: column {regionNumber} has one empty cell left."
 msgstr "{techniqueName}: بقي في العمود {regionNumber} خلية فارغة واحدة."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
+msgstr "{techniqueName}: لكل مجموعة محددة احتمال واحد زائد عن عدد خلاياها، وتشترك المجموعتان في رقم لا يمكن أن تحمله إلا إحداهما."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
 msgstr "{techniqueName}: كل خلية معلمة ترى جميع الخلايا المحددة، لذا لا يمكن أن تكون {cellList} {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: في الحالتين يقع {valueList} في خلية ترى الخلايا المعلمة، لذا لا يمكن أن تكون {cellList} {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
@@ -209,8 +217,16 @@ msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in 
 msgstr "{techniqueName}: في خطوط الأساس المحددة، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، لذا فهو محصور في خطوط التغطية."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
+msgstr "{techniqueName}: في المربع المحدد، لا يناسب {valueList} إلا صفاً واحداً وعموداً واحداً، ويحمل الزوج المحدد خارج المربع {valueList} في أحد طرفيه."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
 msgstr "{techniqueName}: أحد طرفي السلسلة صحيح دائماً، وكل مرشح معلَّم يتعارض مع الطرفين معاً، لذا لا يمكن أن تكون {cellList} هي {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: يجب أن تحمل إحدى المجموعتين {valueList}، وكل خلية معلمة ترى كل {valueList} في المجموعتين، لذا لا يمكن أن تكون {cellList} {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -231,6 +247,10 @@ msgstr "{techniqueName}: الخلايا المحددة لا تترك لـ {value
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: الخلايا المحددة تترك {value} فقط للخلية المعلمة."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: تتقاسم الخلايا المحددة أرقامها بين الخط والمربع دون تكرار أي رقم، لذا لا يمكن أن تكون {cellList} {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
@@ -359,6 +379,10 @@ msgstr "كل خانات رقم معين (1-9)"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "سيضيع كل التقدم"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "ALS-XZ"
+msgstr "ALS-XZ"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Always off"
@@ -842,6 +866,10 @@ msgstr "تعديل"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Empty cell text"
 msgstr "نص الخلية الفارغة"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Empty Rectangle"
+msgstr "المستطيل الفارغ"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
@@ -2059,6 +2087,10 @@ msgstr "نص السطح الخفيف"
 #: src/game/components/field/field.tsx
 msgid "Sudoku board, 9 by 9 cells"
 msgstr "لوحة سودوكو، 9 في 9 خلايا"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sue de Coq"
+msgstr "سو دي كوك"
 
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"

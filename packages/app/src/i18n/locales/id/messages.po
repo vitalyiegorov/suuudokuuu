@@ -145,8 +145,16 @@ msgid "{techniqueName}: column {regionNumber} has one empty cell left."
 msgstr "{techniqueName}: kolom {regionNumber} hanya menyisakan satu sel kosong."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
+msgstr "{techniqueName}: setiap grup yang disorot punya satu kandidat lebih banyak daripada jumlah selnya, dan kedua grup berbagi satu angka yang hanya bisa dimiliki salah satunya."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
 msgstr "{techniqueName}: setiap sel yang ditandai melihat semua sel yang disorot, sehingga {cellList} tidak bisa {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: bagaimanapun, {valueList} jatuh di sel yang terlihat oleh sel yang ditandai, sehingga {cellList} tidak mungkin {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
@@ -209,8 +217,16 @@ msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in 
 msgstr "{techniqueName}: di garis dasar yang disorot, {valueList} hanya muat di sel yang disorot, sehingga terkunci di garis penutup."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
+msgstr "{techniqueName}: di kotak yang disorot, {valueList} hanya muat di satu baris dan satu kolom, dan pasangan yang disorot di luar kotak memuat {valueList} di salah satu ujungnya."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
 msgstr "{techniqueName}: salah satu ujung rantai selalu benar dan setiap kandidat yang ditandai bertentangan dengan kedua ujung, sehingga {cellList} tidak bisa {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: salah satu grup harus memuat {valueList}, dan setiap sel yang ditandai melihat setiap {valueList} di kedua grup, sehingga {cellList} tidak mungkin {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -231,6 +247,10 @@ msgstr "{techniqueName}: sel yang disorot hanya menyisakan satu tempat untuk {va
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: sel yang disorot hanya menyisakan {value} untuk sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: sel yang disorot berbagi angkanya antara baris atau kolom dan kotak tanpa mengulang satu pun, sehingga {cellList} tidak mungkin {valueList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
@@ -359,6 +379,10 @@ msgstr "Semua kotak dengan satu angka (1-9)"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "Semua progres akan hilang"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "ALS-XZ"
+msgstr "ALS-XZ"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Always off"
@@ -842,6 +866,10 @@ msgstr "Edit"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Empty cell text"
 msgstr "Teks sel kosong"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Empty Rectangle"
+msgstr "Persegi Panjang Kosong"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
@@ -2059,6 +2087,10 @@ msgstr "Teks permukaan halus"
 #: src/game/components/field/field.tsx
 msgid "Sudoku board, 9 by 9 cells"
 msgstr "Papan sudoku, 9 kali 9 sel"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sue de Coq"
+msgstr "Sue de Coq"
 
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"

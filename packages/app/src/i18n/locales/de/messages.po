@@ -147,8 +147,16 @@ msgid "{techniqueName}: column {regionNumber} has one empty cell left."
 msgstr "{techniqueName}: in Spalte {regionNumber} bleibt nur eine leere Zelle."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
+msgstr "{techniqueName}: Jede hervorgehobene Gruppe hat einen Kandidaten mehr als Zellen, und die beiden Gruppen teilen eine Ziffer, die nur eine von ihnen aufnehmen kann."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
 msgstr "{techniqueName}: Jede markierte Zelle sieht alle hervorgehobenen Zellen, daher können {cellList} nicht {valueList} sein."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: So oder so landet {valueList} in einer Zelle, die die markierten Zellen sehen, daher können {cellList} nicht {valueList} sein."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
@@ -211,8 +219,16 @@ msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in 
 msgstr "{techniqueName}: In den markierten Basislinien passt {valueList} nur in die markierten Zellen, also ist es in den Abdeckungslinien gebunden."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
+msgstr "{techniqueName}: Im hervorgehobenen Block passt {valueList} nur in eine Zeile und eine Spalte, und das hervorgehobene Paar außerhalb des Blocks enthält {valueList} an einem der beiden Enden."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
 msgstr "{techniqueName}: Ein Ende der Kette ist immer wahr, und jeder markierte Kandidat widerspricht beiden Enden, daher kann {cellList} nicht {valueList} sein."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: Eine der Gruppen muss {valueList} enthalten, und jede markierte Zelle sieht jedes {valueList} in beiden Gruppen, daher können {cellList} nicht {valueList} sein."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -233,6 +249,10 @@ msgstr "{techniqueName}: die markierten Zellen lassen {value} nur einen Platz."
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: die markierten Zellen lassen für die markierte Zelle nur {value} übrig."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: Die hervorgehobenen Zellen teilen ihre Ziffern zwischen Zeile oder Spalte und Block auf, ohne eine zu wiederholen, daher können {cellList} nicht {valueList} sein."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
@@ -361,6 +381,10 @@ msgstr "Alle Felder einer Zahl (1-9)"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "Alle Fortschritte gehen verloren"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "ALS-XZ"
+msgstr "ALS-XZ"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Always off"
@@ -844,6 +868,10 @@ msgstr "Bearbeiten"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Empty cell text"
 msgstr "Text der leeren Zelle"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Empty Rectangle"
+msgstr "Leeres Rechteck"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
@@ -2061,6 +2089,10 @@ msgstr "Text der dezenten Oberfläche"
 #: src/game/components/field/field.tsx
 msgid "Sudoku board, 9 by 9 cells"
 msgstr "Sudoku-Brett, 9 mal 9 Zellen"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sue de Coq"
+msgstr "Sue de Coq"
 
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"

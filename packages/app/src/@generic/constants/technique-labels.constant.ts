@@ -35,5 +35,8 @@ export const techniqueLabelsConstant: Record<SolutionTechniqueEnum, MessageDescr
     [SolutionTechniqueEnum.BivalueUniversalGrave]: msg`BUG+1`,
     [SolutionTechniqueEnum.NishioForcingChain]: msg`Nishio Forcing Chain`,
     [SolutionTechniqueEnum.CellForcingChain]: msg`Cell Forcing Chain`,
-    [SolutionTechniqueEnum.RegionForcingChain]: msg`Region Forcing Chain`
+    [SolutionTechniqueEnum.RegionForcingChain]: msg`Region Forcing Chain`,
+    [SolutionTechniqueEnum.EmptyRectangle]: msg`Empty Rectangle`,
+    [SolutionTechniqueEnum.ALSXZ]: msg`ALS-XZ`,
+    [SolutionTechniqueEnum.SueDeCoq]: msg`Sue de Coq`
 };

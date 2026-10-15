@@ -145,8 +145,16 @@ msgid "{techniqueName}: column {regionNumber} has one empty cell left."
 msgstr "{techniqueName}: कॉलम {regionNumber} में केवल एक खाली सेल बची है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
+msgstr "{techniqueName}: हाइलाइट किए गए हर समूह में सेल से एक उम्मीदवार अधिक है, और दोनों समूह एक ऐसा अंक साझा करते हैं जिसे उनमें से केवल एक ही रख सकता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
 msgstr "{techniqueName}: हर चिह्नित सेल सभी हाइलाइट की गई सेल को देखती है, इसलिए {cellList} {valueList} नहीं हो सकतीं।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: किसी भी स्थिति में {valueList} ऐसी सेल में आता है जिसे चिह्नित सेल देखती हैं, इसलिए {cellList} {valueList} नहीं हो सकते।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
@@ -209,8 +217,16 @@ msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in 
 msgstr "{techniqueName}: हाइलाइट की गई बेस लाइनों में {valueList} केवल हाइलाइट की गई सेल में ही आ सकता है, इसलिए वह कवर लाइनों में बंध जाता है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
+msgstr "{techniqueName}: हाइलाइट किए गए ब्लॉक में {valueList} केवल एक पंक्ति और एक स्तंभ में आ सकता है, और ब्लॉक के बाहर हाइलाइट किया गया जोड़ा एक सिरे पर या दूसरे सिरे पर {valueList} रखता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
 msgstr "{techniqueName}: शृंखला का एक सिरा हमेशा सही होता है और हर चिह्नित उम्मीदवार दोनों सिरों से टकराता है, इसलिए {cellList} {valueList} नहीं हो सकता।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: एक समूह में {valueList} होना ही चाहिए, और हर चिह्नित सेल दोनों समूहों के हर {valueList} को देखती है, इसलिए {cellList} {valueList} नहीं हो सकते।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -231,6 +247,10 @@ msgstr "{techniqueName}: हाइलाइट किए गए सेल {value
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
 msgstr "{techniqueName}: हाइलाइट किए गए सेल चिह्नित सेल के लिए केवल {value} छोड़ते हैं।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {cellList} cannot be {valueList}."
+msgstr "{techniqueName}: हाइलाइट की गई सेल किसी अंक को दोहराए बिना अपने अंक पंक्ति या स्तंभ और ब्लॉक के बीच बाँटती हैं, इसलिए {cellList} {valueList} नहीं हो सकते।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
@@ -359,6 +379,10 @@ msgstr "किसी अंक की सभी कोशिकाएँ (1-9)"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "सारी प्रगति खो जाएगी"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "ALS-XZ"
+msgstr "ALS-XZ"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Always off"
@@ -842,6 +866,10 @@ msgstr "संपादित करें"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Empty cell text"
 msgstr "खाली सेल का टेक्स्ट"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Empty Rectangle"
+msgstr "खाली आयत"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
@@ -2059,6 +2087,10 @@ msgstr "सूक्ष्म सतह का टेक्स्ट"
 #: src/game/components/field/field.tsx
 msgid "Sudoku board, 9 by 9 cells"
 msgstr "सुडोकू बोर्ड, 9 गुणा 9 सेल"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sue de Coq"
+msgstr "सू दे कॉक"
 
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"

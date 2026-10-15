@@ -5,6 +5,7 @@ import { ChainLinkEnum, ForcingOutcomeKindEnum, SolutionTechniqueEnum } from '@s
 
 import { isDefined } from '@rnw-community/shared';
 
+import { techniqueNarrationFamilyConstant } from '../constant/technique-narration-family.constant';
 import { NarrationFamilyEnum } from '../enums/narration-family.enum';
 
 import type { MessageDescriptor } from '@lingui/core';
@@ -17,36 +18,8 @@ import type {
 import type { CellInterface } from '@suuudokuuu/generator';
 import type { ChainCandidateInterface, ForcingBranchInterface, ForcingContradictionType, ForcingOutcomeType } from '@suuudokuuu/techniques';
 
-const narrationFamilies: Partial<Record<SolutionTechniqueEnum, NarrationFamilyEnum>> = {
-    [SolutionTechniqueEnum.PointingPair]: NarrationFamilyEnum.POINTING,
-    [SolutionTechniqueEnum.PointingTriple]: NarrationFamilyEnum.POINTING,
-    [SolutionTechniqueEnum.BoxLineReduction]: NarrationFamilyEnum.BOX_LINE,
-    [SolutionTechniqueEnum.HiddenPair]: NarrationFamilyEnum.HIDDEN_SUBSET,
-    [SolutionTechniqueEnum.HiddenTriple]: NarrationFamilyEnum.HIDDEN_SUBSET,
-    [SolutionTechniqueEnum.HiddenQuad]: NarrationFamilyEnum.HIDDEN_SUBSET,
-    [SolutionTechniqueEnum.XWing]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.Swordfish]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.Jellyfish]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.FinnedXWing]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.FinnedSwordfish]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.SashimiXWing]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.SashimiSwordfish]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.XYWing]: NarrationFamilyEnum.WING,
-    [SolutionTechniqueEnum.XYZWing]: NarrationFamilyEnum.WING,
-    [SolutionTechniqueEnum.WWing]: NarrationFamilyEnum.CHAIN,
-    [SolutionTechniqueEnum.XChain]: NarrationFamilyEnum.CHAIN,
-    [SolutionTechniqueEnum.XYChain]: NarrationFamilyEnum.CHAIN,
-    [SolutionTechniqueEnum.SimpleColoring]: NarrationFamilyEnum.COLORING,
-    [SolutionTechniqueEnum.AIC]: NarrationFamilyEnum.CHAIN,
-    [SolutionTechniqueEnum.UniqueRectangle]: NarrationFamilyEnum.UNIQUE_RECTANGLE,
-    [SolutionTechniqueEnum.BivalueUniversalGrave]: NarrationFamilyEnum.BUG,
-    [SolutionTechniqueEnum.NishioForcingChain]: NarrationFamilyEnum.FORCING_CHAIN,
-    [SolutionTechniqueEnum.CellForcingChain]: NarrationFamilyEnum.FORCING_CHAIN,
-    [SolutionTechniqueEnum.RegionForcingChain]: NarrationFamilyEnum.FORCING_CHAIN
-};
-
 const getNarrationFamily = (technique: SolutionTechniqueEnum): NarrationFamilyEnum =>
-    narrationFamilies[technique] ?? NarrationFamilyEnum.LOCKED_SET;
+    techniqueNarrationFamilyConstant[technique] ?? NarrationFamilyEnum.LOCKED_SET;
 
 const joinValues = (values: number[]): string => values.join(', ');
 
@@ -205,6 +178,9 @@ const getLockedCandidatesNarration =
 const getSeesAllStrikeNarration: EliminationStrikeNarrationType = (techniqueName, valueList, cellList) =>
     msg`${techniqueName}: each marked cell sees all the highlighted cells, so ${cellList} cannot be ${valueList}.`;
 
+const getLockedSetRevealNarration: EliminationRevealNarrationType = (techniqueName, valueList) =>
+    msg`${techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so ${valueList} can only go in these cells.`;
+
 const getDeadlyPatternStrikeNarration: EliminationStrikeNarrationType = (techniqueName, valueList) =>
     msg`${techniqueName}: to avoid the deadly pattern, ${valueList} is ruled out of the marked cells.`;
 
@@ -213,8 +189,7 @@ const eliminationRevealNarrations: Record<NarrationFamilyEnum, EliminationReveal
     [NarrationFamilyEnum.BOX_LINE]: getLockedCandidatesNarration(false),
     [NarrationFamilyEnum.HIDDEN_SUBSET]: (techniqueName, valueList) =>
         msg`${techniqueName}: within one row, column or box, ${valueList} fit only in the highlighted cells, so those cells can hold nothing else.`,
-    [NarrationFamilyEnum.LOCKED_SET]: (techniqueName, valueList) =>
-        msg`${techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so ${valueList} can only go in these cells.`,
+    [NarrationFamilyEnum.LOCKED_SET]: getLockedSetRevealNarration,
     [NarrationFamilyEnum.FISH]: (techniqueName, valueList) =>
         msg`${techniqueName}: in the highlighted base lines, ${valueList} fits only in the highlighted cells, so it is locked into the cover lines.`,
     [NarrationFamilyEnum.WING]: (techniqueName, valueList) =>
@@ -232,7 +207,12 @@ const eliminationRevealNarrations: Record<NarrationFamilyEnum, EliminationReveal
     [NarrationFamilyEnum.BUG]: (techniqueName, valueList) =>
         msg`${techniqueName}: the highlighted cells would leave a deadly pattern of ${valueList}.`,
     [NarrationFamilyEnum.FORCING_CHAIN]: techniqueName =>
-        msg`${techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result.`
+        msg`${techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result.`,
+    [NarrationFamilyEnum.EMPTY_RECTANGLE]: (techniqueName, valueList) =>
+        msg`${techniqueName}: in the highlighted box, ${valueList} fits only on one row and one column, and the highlighted pair outside the box holds ${valueList} at one end or the other.`,
+    [NarrationFamilyEnum.ALMOST_LOCKED_SET]: techniqueName =>
+        msg`${techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold.`,
+    [NarrationFamilyEnum.SUE_DE_COQ]: getLockedSetRevealNarration
 };
 
 const eliminationStrikeNarrations: Record<NarrationFamilyEnum, EliminationStrikeNarrationType> = {
@@ -252,7 +232,13 @@ const eliminationStrikeNarrations: Record<NarrationFamilyEnum, EliminationStrike
     [NarrationFamilyEnum.UNIQUE_RECTANGLE]: getDeadlyPatternStrikeNarration,
     [NarrationFamilyEnum.BUG]: getDeadlyPatternStrikeNarration,
     [NarrationFamilyEnum.FORCING_CHAIN]: (techniqueName, valueList) =>
-        msg`${techniqueName}: every possibility ends in a contradiction or the same result, so ${valueList} is ruled out of the marked cells.`
+        msg`${techniqueName}: every possibility ends in a contradiction or the same result, so ${valueList} is ruled out of the marked cells.`,
+    [NarrationFamilyEnum.EMPTY_RECTANGLE]: (techniqueName, valueList, cellList) =>
+        msg`${techniqueName}: either way, ${valueList} lands in a cell the marked cells see, so ${cellList} cannot be ${valueList}.`,
+    [NarrationFamilyEnum.ALMOST_LOCKED_SET]: (techniqueName, valueList, cellList) =>
+        msg`${techniqueName}: one of the groups must hold ${valueList}, and each marked cell sees every ${valueList} in both groups, so ${cellList} cannot be ${valueList}.`,
+    [NarrationFamilyEnum.SUE_DE_COQ]: (techniqueName, valueList, cellList) =>
+        msg`${techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so ${cellList} cannot be ${valueList}.`
 };
 
 export const gameGetStepNarration = (
