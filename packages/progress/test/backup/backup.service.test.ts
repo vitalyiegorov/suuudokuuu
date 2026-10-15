@@ -199,6 +199,18 @@ describe('BackupService', () => {
         })
     );
 
+    it.effect('imports a game listed twice in the file only once', () =>
+        Effect.gen(function* () {
+            const exported = yield* exportDevice({ ...deviceA, completedGames: [deviceA.completedGames[0], ...deviceA.completedGames] });
+            const restored = yield* importBackup(exported.backup).pipe(Effect.andThen(readDevice), Effect.provide(ProgressTestLayer));
+
+            assert.deepStrictEqual(
+                restored.completedGames.map(game => game.encodedState),
+                [...deviceA.completedGames].reverse().map(game => game.encodedState)
+            );
+        })
+    );
+
     it.effect('rejects a file that is not a supported backup', () =>
         Effect.gen(function* () {
             const exported = yield* exportDevice(deviceA);
