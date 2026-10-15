@@ -121,6 +121,11 @@ const createBudgetedStrategies = (unbudgetedStrategies: TechniqueStrategyInterfa
 };
 
 const singleTechniques = new Set([SolutionTechniqueEnum.FullHouse, SolutionTechniqueEnum.NakedSingle, SolutionTechniqueEnum.HiddenSingle]);
+const forcingTechniques = new Set([
+    SolutionTechniqueEnum.NishioForcingChain,
+    SolutionTechniqueEnum.CellForcingChain,
+    SolutionTechniqueEnum.RegionForcingChain
+]);
 
 const findShortPlacementRoute = (
     strategies: TechniqueStrategyInterface[],
@@ -224,8 +229,10 @@ export const findPlacementChain = (
     }
 
     const difficultyLimit = PLACEMENT_CHAIN_DIFFICULTIES[firstStep.technique] + PLACEMENT_CHAIN_DIFFICULTY_TOLERANCE;
+    const isForcingAllowed = forcingTechniques.has(firstStep.technique);
     const isWithinDifficulty = (strategy: TechniqueStrategyInterface): boolean =>
-        PLACEMENT_CHAIN_DIFFICULTIES[strategy.technique] <= difficultyLimit;
+        PLACEMENT_CHAIN_DIFFICULTIES[strategy.technique] <= difficultyLimit &&
+        (isForcingAllowed || !forcingTechniques.has(strategy.technique));
     const route = findPlacementRoute(
         unbudgetedStrategies.filter(isWithinDifficulty),
         strategies.filter(isWithinDifficulty),
