@@ -99,14 +99,6 @@ pnpm --filter @suuudokuuu/web-tests lint
   No logical chain reaches a placement, so the first hint is the "Reveal" of `9` at
   `y=7, x=6`, the blank cell with the fewest candidates. `09.hint-flow.spec.ts` depends on it.
 
-- `structuredChainHintSharedPuzzleEncodedConstant`: a `Puzzle`-kind share (rating `7.9`) of the Hell
-  corpus board `900401000030000000060300701200000006000007100008000450009004800000900012300200600`, encoded
-  with `GameStateSerializer.encodeState` from the fields of the earlier column-quad share. The column-quad
-  board from issue #455 no longer reaches a forcing chain once ALS-XZ is on the ladder. Hints teach the
-  simplest step first, so after nine applied hints the tenth chains a Nishio forcing chain (`r6c1=1`
-  refuted by an empty cell at `r9c3`), an AIC and a Hidden Pair into the placement `8` at `y=3, x=3`.
-  `09.hint-flow.spec.ts` walks it to prove the witness overlay draws branch and outcome slides without
-  changing the board until Apply.
 - `hardcoreHintSharedPuzzleEncodedConstant`: a Hardcore (`maxMistakes: 0`) `Puzzle`-kind share
   (`difficulty: 2`, rating `0`) of the player-reported board
   `001004800302000045540003090800040300000905410400006002030008600050370000100460000`. Its first hint is
@@ -114,15 +106,18 @@ pnpm --filter @suuudokuuu/web-tests lint
   `y=8, x=6`. Generated with `GameStateSerializer.encodeState` with these fields and empty candidates and
   timeline. `09.hint-flow.spec.ts` applies the first and walks the second.
 - `aicDetourHintSharedPuzzleEncodedConstant`: a Hardcore (`maxMistakes: 0`) `Puzzle`-kind share (rating
-  `8.0`) of the 24-clue board from the AIC hint report. The first nine hints are lone eliminations
-  (starting with a Pointing Pair and including a Sue de Coq and an ALS-XZ); the tenth is a lone AIC
-  ruling out `1` at `y=6, x=4`. `09.hint-flow.spec.ts` opens it and checks that a slide opens with its
-  narration scrolled to the top. Regenerate with `GameStateSerializer.encodeState` with this field string,
-  `maxMistakes: 0`, `difficulty: 2`, `rating: 80` and `isRatingCeiling: false`.
+  `8.0`) of the 24-clue board from the AIC hint report. The first six hints are lone eliminations
+  (starting with a Pointing Pair), so the seventh hits the six-in-a-row elimination cap and reveals `1` at
+  `y=5, x=1`; the hint after it is a Hidden Single. `09.hint-flow.spec.ts` applies them. Regenerate with
+  `GameStateSerializer.encodeState` with this field string, `maxMistakes: 0`, `difficulty: 2`,
+  `rating: 80` and `isRatingCeiling: false`.
 - `eliminationHintSharedPuzzleEncodedConstant`: a Medium `Puzzle`-kind share of the budget-exhausted
   `longChainBoard` in field-core. After five continued deductions (the last two are ALS-XZ), Nishio rules
-  out `6` at `y=1, x=6` through an empty cell, and the next hint rules out `2` at `y=5, x=8` the same
-  way; the last page of each states its refutation.
+  out `6` at `y=1, x=6` through an empty cell, whose last page states that refutation. That is the sixth
+  elimination hint in a row, so the seventh hint is a reveal of `1` at `y=0, x=1` (the six-in-a-row
+  elimination cap), and the twelfth chains a Nishio branch (`r5c6=9` refuted by an empty cell at `r9c3`)
+  into the Naked Single `1` at `y=4, x=5` on 10 pages; `09.hint-flow.spec.ts` walks it to prove the
+  witness overlay draws branch and outcome slides without changing the board until Apply.
 - `09.hint-flow.spec.ts` presses Show answer on the first walkthrough page of the Nishio elimination card
   on `eliminationHintSharedPuzzleEncodedConstant` after five eliminations are continued, because gating
   it to the last slide left the player stuck with a hidden numpad.
