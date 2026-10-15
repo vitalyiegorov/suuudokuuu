@@ -1,15 +1,10 @@
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { CurrentRunService } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
-import * as Fiber from 'effect/Fiber';
 import { router } from 'expo-router';
 import { use, useEffect } from 'react';
 import { View } from 'react-native';
 
-import { emptyFn } from '@rnw-community/shared';
-
-import { appRuntime } from '../../../@generic/runtime/app.runtime';
-import { logErrorCause } from '../../../@generic/utils/log-error-cause.util';
 import { GameContext } from '../../../game/context/game.context';
 import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
@@ -51,27 +46,13 @@ export const ChallengeRaceHud = () => {
     const playerProgress = challengeSteps.length === 0 ? 0 : playerSteps.length / challengeSteps.length;
 
     useEffect(() => {
-        if (!hasRivalFinished) {
-            return emptyFn;
-        }
-
-        const fiber = appRuntime.runFork(
+        if (hasRivalFinished) {
             finishGameOnce(
                 engine,
-                Effect.flatMap(CurrentRunService, currentRunService => currentRunService.finish(false, true))
-            ).pipe(
-                Effect.tap(didFinish =>
-                    didFinish
-                        ? Effect.sync(
-                              () => void router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } })
-                          )
-                        : Effect.void
-                ),
-                Effect.tapCause(logErrorCause)
-            )
-        );
-
-        return () => void appRuntime.runFork(Fiber.interrupt(fiber));
+                Effect.flatMap(CurrentRunService, currentRunService => currentRunService.finish(false, true)),
+                () => void router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } })
+            );
+        }
     }, [engine, hasRivalFinished]);
 
     return (

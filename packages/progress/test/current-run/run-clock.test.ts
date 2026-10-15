@@ -1,6 +1,8 @@
 import { assert, describe, it } from '@effect/vitest';
 import { DifficultyEnum, emptyScoredCells } from '@suuudokuuu/generator';
+import * as Deferred from 'effect/Deferred';
 import * as Effect from 'effect/Effect';
+import * as Fiber from 'effect/Fiber';
 import * as Option from 'effect/Option';
 import * as TestClock from 'effect/testing/TestClock';
 
@@ -121,6 +123,28 @@ describe('run clock', () => {
             yield* currentRunService.focus();
 
             assert.strictEqual(yield* getElapsedTime, challengeAwayMs / millisecondsPerSecond);
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
+    it.effect('finishes in the background after pending writes and hands the finished run to the reset', () =>
+        Effect.gen(function* () {
+            const currentRunService = yield* startRun(false);
+            const pendingWrites = yield* Deferred.make<boolean>();
+            const finishFiber = yield* Effect.forkChild(currentRunService.finish(true, false, Deferred.await(pendingWrites)));
+
+            yield* Effect.yieldNow;
+            yield* Fiber.interrupt(finishFiber);
+
+            const resetFiber = yield* Effect.forkChild(currentRunService.reset);
+
+            yield* Effect.yieldNow;
+
+            assert.isUndefined(resetFiber.pollUnsafe());
+
+            yield* Deferred.succeed(pendingWrites, true);
+
+            assert.deepInclude(Option.getOrThrow(yield* Fiber.join(resetFiber)), { isPaused: true, hasNewPersonalBestScore: false });
+            assert.lengthOf(yield* Effect.flatMap(CompletedGameRepository, repository => repository.findAll), 1);
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 });
