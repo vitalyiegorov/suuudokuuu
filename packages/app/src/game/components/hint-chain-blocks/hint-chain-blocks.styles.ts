@@ -27,7 +27,7 @@ export const HintChainBlocksStyles = StyleSheet.create(theme => ({
         paddingVertical: theme.spacing.xs
     },
     blockText: {
-        color: theme.colors.accent,
+        color: theme.colors.surface.subtleText,
         fontSize: theme.typography.size.sm,
         fontVariant: ['tabular-nums'],
         fontWeight: '700'
@@ -36,8 +36,8 @@ export const HintChainBlocksStyles = StyleSheet.create(theme => ({
         color: theme.colors.text.hint,
         fontSize: theme.typography.size.sm
     },
-    faded: {
-        opacity: 0.6
+    earlierBlock: {
+        borderColor: theme.colors.surface.border
     },
     contradiction: {
         maxWidth: '100%',

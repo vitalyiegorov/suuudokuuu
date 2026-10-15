@@ -15,13 +15,13 @@ interface Props {
 }
 
 export const HintChainBlock = ({ candidate, operator = '=', style, children }: Props) => {
-    const linkStyles = [styles.link, style];
+    const blockStyles = [styles.block, style];
     const label = `${gameGetCellName(candidate.cell)} ${operator} ${candidate.value}`;
 
     return (
-        <View style={linkStyles}>
+        <View style={styles.link}>
             {children ? <BlackText style={styles.arrow}>{children}</BlackText> : null}
-            <View style={styles.block}>
+            <View style={blockStyles}>
                 <BlackText style={styles.blockText}>{label}</BlackText>
             </View>
         </View>
