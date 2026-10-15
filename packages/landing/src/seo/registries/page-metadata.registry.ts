@@ -55,10 +55,14 @@ import { nishioForcingChainPageMetadata } from '../../app/(en)/techniques/nishio
 import { pointingPairPageMetadata } from '../../app/(en)/techniques/pointing-pair/metadata';
 import { pointingTriplePageMetadata } from '../../app/(en)/techniques/pointing-triple/metadata';
 import { regionForcingChainPageMetadata } from '../../app/(en)/techniques/region-forcing-chain/metadata';
+import { remotePairPageMetadata } from '../../app/(en)/techniques/remote-pair/metadata';
 import { sashimiSwordfishPageMetadata } from '../../app/(en)/techniques/sashimi-swordfish/metadata';
 import { sashimiXWingPageMetadata } from '../../app/(en)/techniques/sashimi-x-wing/metadata';
 import { simpleColoringPageMetadata } from '../../app/(en)/techniques/simple-coloring/metadata';
+import { skyscraperPageMetadata } from '../../app/(en)/techniques/skyscraper/metadata';
 import { swordfishPageMetadata } from '../../app/(en)/techniques/swordfish/metadata';
+import { turbotFishPageMetadata } from '../../app/(en)/techniques/turbot-fish/metadata';
+import { twoStringKitePageMetadata } from '../../app/(en)/techniques/two-string-kite/metadata';
 import { uniqueRectanglePageMetadata } from '../../app/(en)/techniques/unique-rectangle/metadata';
 import { wWingPageMetadata } from '../../app/(en)/techniques/w-wing/metadata';
 import { xChainPageMetadata } from '../../app/(en)/techniques/x-chain/metadata';
@@ -139,5 +143,9 @@ export const PAGE_METADATA_REGISTRY: readonly PageMetadataInterface[] = [
     bugPageMetadata,
     nishioForcingChainPageMetadata,
     cellForcingChainPageMetadata,
-    regionForcingChainPageMetadata
+    regionForcingChainPageMetadata,
+    turbotFishPageMetadata,
+    skyscraperPageMetadata,
+    twoStringKitePageMetadata,
+    remotePairPageMetadata
 ];
