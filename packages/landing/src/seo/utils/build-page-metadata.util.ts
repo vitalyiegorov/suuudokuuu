@@ -28,7 +28,7 @@ export const buildPageMetadata = (pageMetadata: PageMetadataInterface, locale: L
             description: metaDescription,
             url: buildLocaleUrl(locale, path),
             images: openGraphImages,
-            ...(path === '/' || isDefined(pageMetadata.openGraphType)
+            ...(isDefined(pageMetadata.openGraphType)
                 ? { type: 'website' }
                 : { type: 'article', publishedTime: publishedAt, modifiedTime: updatedAt })
         },

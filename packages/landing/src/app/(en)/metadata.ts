@@ -10,6 +10,7 @@ export const homePageMetadata: PageMetadataInterface = {
     metaDescription: SITE_DESCRIPTION,
     publishedAt: '2026-08-11T00:00:00.000Z',
     updatedAt: '2026-10-06T00:00:00.000Z',
+    openGraphType: 'website',
     changeFrequency: 'weekly',
     priority: 1,
     translations: {
