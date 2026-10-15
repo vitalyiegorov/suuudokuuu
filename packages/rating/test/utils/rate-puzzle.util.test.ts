@@ -13,9 +13,12 @@ const nakedSingleBoard = '4..357......4165..3.728964173.92.854.48765.121....376.
 const pointingBoard = '..5.1.96.41.....7..79.....3.....86.1.83....95...3....77..5...26.52.87......46.75.';
 const nakedPairBoard = '.6.....3..8..9...2..4..6....2..6....4...5.91.......4.7..2.....5.4.........5..17.9';
 const xWingBoard = '..3...7......4.2...826.......9..1........5..84...2..9.5....4...16....8.9......6.7';
-const aicBoard = '.4...8....1...9..37..6...21...7.........4.65...3.....9.8..9.3.......54....5....7.';
+const aicBoard = '000000000000000012003045000000006300010000000700000008000200006004010000306000500';
+const almostLockedSetBoard = '.4...8....1...9..37..6...21...7.........4.65...3.....9.8..9.3.......54....5....7.';
+const emptyRectangleBoard = '000000000000000012003045000000000300010000000607004500000210080000800000905000000';
+const sueDeCoqBoard = '000000000000000012003004000000000003020560000700000408000020050000190000008000300';
 const uniquenessBoard = '000000000000001002003040050000000006007350000080000001000702030010600000400000000';
-const xyChainBoard = '................12..3..4..............5.1.3...6.27.........358..2......47...9....';
+const xyChainBoard = '000000000000000012000034000000000300005000406070200000000060503080000000120700000';
 const forcingChainBoard = '000000000000001023004056000000000600020470000700800000000200007006000500030000000';
 const stuckInfinityBoard = '800000000003600000070090200050007000000045700000100030001000068008500010090000400';
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
@@ -85,6 +88,24 @@ describe('ratePuzzle', () => {
         });
         expect(result.rating).toBeLessThan(SE_RATING_CEILING);
     });
+
+    it.each([
+        [SolutionTechniqueEnum.EmptyRectangle, emptyRectangleBoard],
+        [SolutionTechniqueEnum.SueDeCoq, sueDeCoqBoard],
+        [SolutionTechniqueEnum.ALSXZ, almostLockedSetBoard]
+    ])(
+        'should price a board whose hardest step is technique %i at that technique value instead of a harder chain',
+        (technique, board) => {
+            expect.assertions(2);
+
+            const previousOrder = seTechniqueOrder.filter(orderedTechnique => orderedTechnique !== technique);
+            const previousSteps = new TechniqueManager(Sudoku.fromString(board)).solveLogically(previousOrder).steps;
+
+            expect(ratePuzzle(board)).toEqual({ rating: seTechniqueRatings[technique], hardestTechnique: technique, isCeiling: false });
+            expect(Math.max(...previousSteps.map(step => getStepRating(step)))).toBeGreaterThan(seTechniqueRatings[technique]);
+        },
+        ratingTimeoutMilliseconds
+    );
 
     it(
         'should rate a board the ladder could not finish before the uniqueness techniques',

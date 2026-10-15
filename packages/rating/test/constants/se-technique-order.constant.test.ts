@@ -39,11 +39,14 @@ describe('seTechniqueOrder', () => {
             SolutionTechniqueEnum.XYZWing,
             SolutionTechniqueEnum.WWing,
             SolutionTechniqueEnum.UniqueRectangle,
+            SolutionTechniqueEnum.EmptyRectangle,
             SolutionTechniqueEnum.SimpleColoring,
             SolutionTechniqueEnum.NakedQuad,
             SolutionTechniqueEnum.Jellyfish,
             SolutionTechniqueEnum.HiddenQuad,
             SolutionTechniqueEnum.BivalueUniversalGrave,
+            SolutionTechniqueEnum.SueDeCoq,
+            SolutionTechniqueEnum.ALSXZ,
             SolutionTechniqueEnum.XChain,
             SolutionTechniqueEnum.XYChain,
             SolutionTechniqueEnum.AIC,
@@ -90,6 +93,14 @@ describe('seTechniqueRatings', () => {
 
         expect(seTechniqueRatings[SolutionTechniqueEnum.UniqueRectangle].toFixed(1)).toBe('4.5');
         expect(seTechniqueRatings[SolutionTechniqueEnum.BivalueUniversalGrave].toFixed(1)).toBe('5.6');
+    });
+
+    it('should price Empty Rectangle, Sue de Coq and ALS-XZ at their approximate values', () => {
+        expect.assertions(3);
+
+        expect(seTechniqueRatings[SolutionTechniqueEnum.EmptyRectangle].toFixed(1)).toBe('4.5');
+        expect(seTechniqueRatings[SolutionTechniqueEnum.SueDeCoq].toFixed(1)).toBe('5.8');
+        expect(seTechniqueRatings[SolutionTechniqueEnum.ALSXZ].toFixed(1)).toBe('6.2');
     });
 
     it('should price the chain techniques at the base of the shortest-chain band', () => {
