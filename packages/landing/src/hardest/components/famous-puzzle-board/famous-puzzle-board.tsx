@@ -6,11 +6,10 @@ import { isDefined } from '@rnw-community/shared';
 import { INFINITY_CORPUS_PUZZLES } from '../../../difficulty/constants/infinity-corpus.constant';
 import { PlayablePuzzleBoard } from '../../../puzzle/components/playable-puzzle-board/playable-puzzle-board';
 import { buildSharedPuzzleUrl } from '../../../puzzle/utils/build-shared-puzzle-url.util';
+import { countClues } from '../../../puzzle/utils/count-clues.util';
 
 import type { FamousPuzzleInterface } from '../../interfaces/famous-puzzle.interface';
 import type { ReactNode } from 'react';
-
-const BLANK_CELL_PATTERN = /\./gu;
 
 interface Props {
     puzzle: FamousPuzzleInterface;
@@ -22,7 +21,6 @@ export const FamousPuzzleBoard = ({ children, puzzle }: Props) => {
     const sudokuString = sudoku.toString();
     const solutionString = sudoku.FullField.flatMap(row => row.map(cell => cell.value)).join('');
     const boardPuzzle = { sudokuString, solutionString };
-    const clueCount = sudokuString.replaceAll(BLANK_CELL_PATTERN, '').length;
     const corpusRecord = INFINITY_CORPUS_PUZZLES.find(entry => entry.puzzle === puzzle.givens);
     const engineRating = ratePuzzle(sudokuString);
     const sharedRating = corpusRecord ?? engineRating;
@@ -42,7 +40,7 @@ export const FamousPuzzleBoard = ({ children, puzzle }: Props) => {
             </PlayablePuzzleBoard>
             <dl className="solver-output">
                 <dt className="solver-output__term">Clues</dt>
-                <dd className="solver-output__description">{clueCount}</dd>
+                <dd className="solver-output__description">{countClues(sudokuString)}</dd>
                 <dt className="solver-output__term">Published SE rating</dt>
                 <dd className="solver-output__description">{publishedRatingLabel}</dd>
                 <dt className="solver-output__term">Suuudokuuu rater</dt>

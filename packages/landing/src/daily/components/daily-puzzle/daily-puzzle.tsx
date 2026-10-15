@@ -8,6 +8,7 @@ import { DIFFICULTY_PAGE_PATHS } from '../../../difficulty/constants/difficulty-
 import { PlayablePuzzleBoard } from '../../../puzzle/components/playable-puzzle-board/playable-puzzle-board';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
 import { buildSharedPuzzleUrl } from '../../../puzzle/utils/build-shared-puzzle-url.util';
+import { countClues } from '../../../puzzle/utils/count-clues.util';
 import { SITE_ORIGIN } from '../../../seo/constants/site.constant';
 import { SolvePathBuilder } from '../../../solver/classes/solve-path-builder';
 import { SolvePathList } from '../../../solver/components/solve-path-list/solve-path-list';
@@ -15,8 +16,6 @@ import { getSolvePathTechniques } from '../../../solver/utils/get-solve-path-tec
 import { TechniqueLinkList } from '../../../techniques/components/technique-link-list/technique-link-list';
 import { DAILY_BUILD_DATE } from '../../constants/daily-archive.constant';
 import { formatDailyDate } from '../../utils/format-daily-date.util';
-
-const BLANK_CELL_PATTERN = /\./gu;
 
 interface Props {
     date: string;
@@ -29,7 +28,7 @@ export const DailyPuzzle = ({ date }: Props) => {
     const { steps } = new SolvePathBuilder(puzzle.sudokuString).build();
     const formattedDate = formatDailyDate(date);
     const difficultyName = DIFFICULTY_NAMES[difficulty];
-    const clueCount = puzzle.sudokuString.replaceAll(BLANK_CELL_PATTERN, '').length;
+    const clueCount = countClues(puzzle.sudokuString);
     const ratingLabel = puzzle.isRatingCeiling ? `${puzzle.rating}+` : String(puzzle.rating);
     const appLink =
         date === DAILY_BUILD_DATE ? (
@@ -74,11 +73,11 @@ export const DailyPuzzle = ({ date }: Props) => {
                 technique linked to its guide. Stuck on a different puzzle? The{' '}
                 <Link href={solverPageMetadata.path}>step-by-step solver</Link> narrates any grid you paste.
             </p>
-            <details className="solve-path__details">
+            <details>
                 <summary>Show all {steps.length} steps</summary>
                 <SolvePathList steps={steps} />
             </details>
-            <details className="solve-path__details">
+            <details>
                 <summary>Show the completed grid</summary>
                 <PuzzleBoard givens={puzzle.solutionString}>The completed grid for {formattedDate}.</PuzzleBoard>
             </details>

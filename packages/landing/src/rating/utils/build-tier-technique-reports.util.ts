@@ -3,6 +3,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { RATED_DIFFICULTY_LADDER } from '../../difficulty/constants/difficulty-name.constant';
 import { getDifficultyClueCount } from '../../difficulty/utils/get-difficulty-clue-count.util';
+import { countClues } from '../../puzzle/utils/count-clues.util';
 import { TECHNIQUE_LADDER } from '../constants/technique-ladder.constant';
 
 import { solvePuzzleLogically } from './solve-puzzle-logically.util';
@@ -16,8 +17,6 @@ const SINGLES_CEILING = SolutionTechniqueEnum.HiddenSingle;
 
 const isSinglesOnly = (result: LogicalSolveResultInterface): boolean =>
     !result.isBeyondTechniqueLadder && result.hardestTechnique <= SINGLES_CEILING;
-
-const countGivens = (puzzle: string): number => puzzle.length - puzzle.replaceAll(/[^.]/gu, '').length;
 
 const findTypicalHardestTechnique = (results: LogicalSolveResultInterface[]): SolutionTechniqueEnum => {
     const ranked = TECHNIQUE_LADDER.map(technique => ({
@@ -38,7 +37,7 @@ const buildTierTechniqueReport = (difficulty: RatedDifficultyType, sample: Rated
     return {
         difficulty,
         clueCount: getDifficultyClueCount(difficulty),
-        highestClueCount: Math.max(...sample.map(entry => countGivens(entry.puzzle))),
+        highestClueCount: Math.max(...sample.map(entry => countClues(entry.puzzle))),
         simplerLadderMaxTechnique: band.simplerLadderMaxTechnique,
         bandLadderMaxTechnique: band.bandLadderMaxTechnique,
         lowestRating: Math.min(...ratings),
