@@ -4,7 +4,6 @@ import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 
-import { getBoxNumber } from './get-box-number.util';
 import { techniqueResultToStepScript } from './technique-result-to-step-script.util';
 
 import type { FieldCandidatesType } from '../../field-engine/types/field-candidates.type';
@@ -23,7 +22,7 @@ export const findRevealStepScript = (
     const getCandidateCount = (cell: CellInterface): number =>
         sudoku.getCellCandidates(cell).filter(value => !(eliminatedCandidates[getCellKey(cell)] ?? []).includes(value)).length;
     const getBlankPeerCount = (cell: CellInterface): number =>
-        blankCells.filter(peer => peer.x === cell.x || peer.y === cell.y || getBoxNumber(peer) === getBoxNumber(cell)).length;
+        blankCells.filter(peer => peer.x === cell.x || peer.y === cell.y || peer.group === cell.group).length;
     const fewestCandidates = Math.min(...blankCells.map(getCandidateCount));
     const [mostConstrainedCell] = blankCells
         .filter(cell => getCandidateCount(cell) === fewestCandidates)
