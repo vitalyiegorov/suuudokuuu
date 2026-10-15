@@ -1,14 +1,17 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import Link from 'next/link';
 
+import { aboutPageMetadata } from '../../../app/(en)/about/metadata';
 import { glossaryPageMetadata } from '../../../app/(en)/glossary/metadata';
 import { sudokuCluesVsDifficultyPageMetadata } from '../../../app/(en)/guides/sudoku-clues-vs-difficulty/metadata';
 import { sudokuDifficultyRatingPageMetadata } from '../../../app/(en)/guides/sudoku-difficulty-rating/metadata';
 import { howToPlayPageMetadata } from '../../../app/(en)/how-to-play/metadata';
 import { largePrintSudokuPageMetadata } from '../../../app/(en)/large-print-sudoku/metadata';
+import { learnSudokuPageMetadata } from '../../../app/(en)/learn-sudoku/metadata';
 import { printableSudokuPageMetadata } from '../../../app/(en)/printable/metadata';
 import { solverPageMetadata } from '../../../app/(en)/solver/metadata';
 import { sudokuForSeniorsPageMetadata } from '../../../app/(en)/sudoku-for-seniors/metadata';
+import { sudokuTipsPageMetadata } from '../../../app/(en)/sudoku-tips/metadata';
 import { sudokuDifficultiesPageMetadata } from '../../../app/(en)/sudoku/metadata';
 import { techniquesPageMetadata } from '../../../app/(en)/techniques/metadata';
 import { whySuuudokuuuPageMetadata } from '../../../app/(en)/why-suuudokuuu/metadata';
@@ -35,8 +38,14 @@ export const SiteFooter = () => {
                         <p className="site-footer__group-title">
                             <Trans>Learn</Trans>
                         </p>
+                        <Link href={learnSudokuPageMetadata.path}>
+                            <Trans>Learn sudoku</Trans>
+                        </Link>
                         <Link href={howToPlayPageMetadata.path}>
                             <Trans>How to play</Trans>
+                        </Link>
+                        <Link href={sudokuTipsPageMetadata.path}>
+                            <Trans>Sudoku tips</Trans>
                         </Link>
                         <Link href={techniquesPageMetadata.path}>
                             <Trans>Sudoku techniques</Trans>
@@ -85,6 +94,9 @@ export const SiteFooter = () => {
                         </p>
                         <Link href={whySuuudokuuuPageMetadata.path}>
                             <Trans>Why {SITE_NAME}</Trans>
+                        </Link>
+                        <Link href={aboutPageMetadata.path}>
+                            <Trans>About</Trans>
                         </Link>
                         <a href={SITE_GITHUB_URL}>
                             <Trans>Source on GitHub</Trans>
