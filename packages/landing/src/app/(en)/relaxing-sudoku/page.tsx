@@ -38,7 +38,7 @@ const RelaxingSudokuPage = () => (
         </p>
         <TechniqueSummary>
             <ul>
-                <li>Choose Relaxed on the Home screen for no practical mistake limit; your history shows it as infinity.</li>
+                <li>Choose Relaxed on the Home screen for no practical mistake limit; a replay of the game shows the limit as infinity.</li>
                 <li>Calm play hides the score and ends each game with a calm summary instead.</li>
                 <li>The timer has its own switch, so you can play without watching the clock.</li>
                 <li>Pick a soft theme, or switch to dark mode, and set animations to off.</li>

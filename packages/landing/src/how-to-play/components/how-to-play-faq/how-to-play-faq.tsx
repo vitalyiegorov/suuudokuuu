@@ -55,8 +55,8 @@ export const HowToPlayFaq = () => (
             </FaqQuestion>
             <FaqAnswer>
                 <Trans>
-                    No. Notes mode in an app tracks candidates for you, updates them automatically as you place digits, and lets you undo a
-                    mistake without erasing.
+                    No. Notes mode in an app tracks candidates for you and updates them automatically as you place digits, and undo takes
+                    back a mistake without erasing.
                 </Trans>
             </FaqAnswer>
         </Faq>

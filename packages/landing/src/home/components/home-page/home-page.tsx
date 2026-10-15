@@ -80,7 +80,9 @@ export const HomePage = ({ locale }: Props) => {
                     <Trans>Technique-aware hints that name the exact solving pattern, not just the next digit</Trans>
                 </SoftwareApplicationFeature>
                 <SoftwareApplicationFeature>
-                    <Trans>Every puzzle guaranteed to have exactly one solution, no guessing required</Trans>
+                    <Trans>
+                        Every puzzle guaranteed to have exactly one solution, and every tier below Infinity solvable without guessing
+                    </Trans>
                 </SoftwareApplicationFeature>
                 <SoftwareApplicationFeature>
                     <Trans>No ads, no account and no tracking inside the game, on the web or in the app</Trans>

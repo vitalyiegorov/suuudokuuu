@@ -611,8 +611,8 @@ msgid "Every PDF is set to US Letter and drawn with vector lines and text, so it
 msgstr "每份 PDF 都设为 US Letter 尺寸，用矢量线条和文字绘制，因此任何尺寸都能清晰打印。打开文件，按 100% 比例打印（不要选“适应页面”，在某些打印机上可能使盘面变形）；如果想让答案与题目分开在不同纸张上，就选择单面打印。"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Every puzzle guaranteed to have exactly one solution, no guessing required"
-msgstr "每道题都保证恰好只有一个解，无需猜测"
+msgid "Every puzzle guaranteed to have exactly one solution, and every tier below Infinity solvable without guessing"
+msgstr "每道题都保证恰好只有一个解，无限以下的每个难度都无需猜测即可解出"
 
 #: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
 msgid "Every puzzle in this booklet comes from a bundled corpus that Suuudokuuu checks with two independent solving algorithms — a Dancing Links exact-cover solver and a typed-array bitmask solver — before it ships, so each grid is confirmed to have exactly one solution. The corpus draws from the tdoku project’s 17-clue catalog and the magictour top1465 hard-puzzle list, and each puzzle is also solved logically and rated on the SE scale as the corpus is packed. Only boards whose hardest step is a forcing chain survive; anything that falls to a chain, coloring or AIC is dropped, because neither the clue count nor the source list alone would be enough to promise a Hell puzzle. Every survivor still solves on our technique ladder without guessing, so every puzzle here is guaranteed solvable by logic before you ever pick up a pencil."
@@ -1211,8 +1211,8 @@ msgid "No. Hard tops out at the W-Wing; Nightmare starts where Hard stops and ru
 msgstr "不是。困难以 W-Wing 为上限；噩梦从困难停下的地方开始，一直到交替推理链。这两档由技巧边界分开，而不是由已知数字的多少分开。"
 
 #: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
-msgid "No. Notes mode in an app tracks candidates for you, updates them automatically as you place digits, and lets you undo a mistake without erasing."
-msgstr "不需要。应用里的笔记模式会替你记录候选数字，在你填数时自动更新，写错了也可以撤销，而不必擦除。"
+msgid "No. Notes mode in an app tracks candidates for you and updates them automatically as you place digits, and undo takes back a mistake without erasing."
+msgstr "不需要。应用里的笔记模式会替你记录候选数字，并在你填数时自动更新；写错了可以用撤销退回，而不必擦除。"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "No. There are no ads anywhere and no tracking inside the game; this website uses only cookieless, anonymous page analytics."

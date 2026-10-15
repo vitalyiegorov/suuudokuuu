@@ -611,8 +611,8 @@ msgid "Every PDF is set to US Letter and drawn with vector lines and text, so it
 msgstr "Jedes PDF ist auf US Letter eingestellt und mit Vektorlinien und Text gezeichnet, es druckt also in jeder Größe scharf. Öffne die Datei, drucke in 100 % Größe (nicht „An Seite anpassen“, was das Gitter bei manchen Druckern verzerren kann) und drucke einseitig, wenn du die Lösungen getrennt von den Rätseln auf eigenen Blättern behalten möchtest."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Every puzzle guaranteed to have exactly one solution, no guessing required"
-msgstr "Jedes Rätsel hat garantiert genau eine Lösung, ganz ohne Raten"
+msgid "Every puzzle guaranteed to have exactly one solution, and every tier below Infinity solvable without guessing"
+msgstr "Jedes Rätsel hat garantiert genau eine Lösung, und jede Stufe unterhalb von Unendlich lässt sich ohne Raten lösen"
 
 #: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
 msgid "Every puzzle in this booklet comes from a bundled corpus that Suuudokuuu checks with two independent solving algorithms — a Dancing Links exact-cover solver and a typed-array bitmask solver — before it ships, so each grid is confirmed to have exactly one solution. The corpus draws from the tdoku project’s 17-clue catalog and the magictour top1465 hard-puzzle list, and each puzzle is also solved logically and rated on the SE scale as the corpus is packed. Only boards whose hardest step is a forcing chain survive; anything that falls to a chain, coloring or AIC is dropped, because neither the clue count nor the source list alone would be enough to promise a Hell puzzle. Every survivor still solves on our technique ladder without guessing, so every puzzle here is guaranteed solvable by logic before you ever pick up a pencil."
@@ -1211,8 +1211,8 @@ msgid "No. Hard tops out at the W-Wing; Nightmare starts where Hard stops and ru
 msgstr "Nein. Schwer endet beim W-Wing; Albtraum beginnt dort, wo Schwer aufhört, und reicht bis zu alternierenden Schlussketten. Die beiden Stufen trennt eine Technikgrenze, nicht die Zahl der Vorgaben."
 
 #: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
-msgid "No. Notes mode in an app tracks candidates for you, updates them automatically as you place digits, and lets you undo a mistake without erasing."
-msgstr "Nein. Der Notizmodus einer App verfolgt Kandidaten für dich, aktualisiert sie beim Eintragen von Ziffern automatisch und lässt dich einen Fehler rückgängig machen, ohne radieren zu müssen."
+msgid "No. Notes mode in an app tracks candidates for you and updates them automatically as you place digits, and undo takes back a mistake without erasing."
+msgstr "Nein. Der Notizmodus einer App verfolgt Kandidaten für dich und aktualisiert sie beim Eintragen von Ziffern automatisch, und mit Rückgängig nimmst du einen Fehler zurück, ohne radieren zu müssen."
 
 #: src/home/components/home-page/home-page.tsx
 msgid "No. There are no ads anywhere and no tracking inside the game; this website uses only cookieless, anonymous page analytics."
