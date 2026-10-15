@@ -50,6 +50,7 @@ jobs:
             # app, its workspace dependencies or the Maestro suite changed, so a
             # landing-only PR does not wait on the Macs. Non-PR events still
             # always run (mobile-ci forces always-affected off pull_request).
+            turbo-version: '2.11.8'
             target-packages: |
                 @suuudokuuu/app
                 @suuudokuuu/app-tests
@@ -105,6 +106,7 @@ jobs:
             # app, its workspace dependencies or the Maestro suite changed, so a
             # landing-only PR does not wait on the Macs. Non-PR events still
             # always run (mobile-ci forces always-affected off pull_request).
+            turbo-version: '2.11.8'
             target-packages: |
                 @suuudokuuu/app
                 @suuudokuuu/app-tests
