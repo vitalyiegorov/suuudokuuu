@@ -72,8 +72,34 @@ const isChainBandTechnique = (technique: SolutionTechniqueEnum): boolean =>
 const createChainBandStrategies = (): TechniqueStrategyInterface[] =>
     createTechniqueStrategies().filter(strategy => isChainBandTechnique(strategy.technique));
 
-const findHint = (sudoku: Sudoku, eliminations: CandidateEliminationInterface[] = []): TechniqueResultInterface[] =>
-    findPlacementChain(sudoku, createTechniqueStrategies(), eliminations, true);
+const findHint = (
+    sudoku: Sudoku,
+    eliminations: CandidateEliminationInterface[] = [],
+    strategies: TechniqueStrategyInterface[] = createTechniqueStrategies()
+): TechniqueResultInterface[] => findPlacementChain(sudoku, strategies, eliminations, true);
+
+const playColumnQuadHintsUntil = (
+    strategies: TechniqueStrategyInterface[],
+    isTargetStep: (step: TechniqueResultInterface) => boolean
+): TechniqueResultInterface[] => {
+    const sudoku = createSudoku(columnQuadBoard);
+    const eliminations: CandidateEliminationInterface[] = [];
+    let chain = findHint(sudoku, eliminations, strategies);
+
+    for (let hintNumber = 1; hintNumber < witnessHintLimit && !chain.some(isTargetStep); hintNumber += 1) {
+        const lastStep = chain.at(-1);
+
+        if (lastStep?.kind === 'placement') {
+            sudoku.setCellValue({ ...lastStep.cell, value: lastStep.value });
+        } else {
+            eliminations.push(...chain[0].eliminations);
+        }
+
+        chain = findHint(sudoku, eliminations, strategies);
+    }
+
+    return chain;
+};
 
 const createForcingPlacement = (sudoku: Sudoku, cellIndex: number, implicationCount: number): TechniqueResultInterface => {
     const cell = sudoku.Field.flat().filter(fieldCell => sudoku.isBlankCell(fieldCell))[cellIndex];
@@ -132,27 +158,11 @@ const createCountingStrategies = (calls: SolutionTechniqueEnum[], strategies = c
     }));
 
 describe('findPlacementChain', () => {
-    it('preserves Nishio and AIC witnesses in the first forcing-chain hint from the original column quad board', () => {
-        const sudoku = createSudoku(columnQuadBoard);
-        const eliminations: CandidateEliminationInterface[] = [];
-        let chain = findHint(sudoku);
-
-        for (
-            let hintNumber = 1;
-            hintNumber < witnessHintLimit && chain.every(step => step.technique !== SolutionTechniqueEnum.NishioForcingChain);
-            hintNumber += 1
-        ) {
-            const lastStep = chain.at(-1);
-
-            if (lastStep?.kind === 'placement') {
-                sudoku.setCellValue({ ...lastStep.cell, value: lastStep.value });
-            } else {
-                eliminations.push(...chain[0].eliminations);
-            }
-
-            chain = findHint(sudoku, eliminations);
-        }
-
+    it('preserves Nishio and AIC witnesses in the first forcing-chain hint from the original column quad board without ALS-XZ', () => {
+        const chain = playColumnQuadHintsUntil(
+            createTechniqueStrategies().filter(strategy => strategy.technique !== SolutionTechniqueEnum.ALSXZ),
+            step => step.technique === SolutionTechniqueEnum.NishioForcingChain
+        );
         const nishio = chain.find(step => step.technique === SolutionTechniqueEnum.NishioForcingChain);
         const aic = chain.find(step => step.technique === SolutionTechniqueEnum.AIC);
         const placement = chain.find(step => step.kind === 'placement');
@@ -160,6 +170,13 @@ describe('findPlacementChain', () => {
         expect(nishio?.branches?.[0].outcome).toMatchObject({ kind: 'ASSIGNMENT_CONFLICT', cell: { y: 4, x: 4 } });
         expect(aic?.chain?.length).toBeGreaterThan(3);
         expect(placement && [placement.cell.y, placement.cell.x, placement.value]).toEqual([5, 8, 1]);
+    });
+
+    it('reaches the same column quad digit through an ALS-XZ instead of the Nishio forcing chain', () => {
+        const chain = playColumnQuadHintsUntil(createTechniqueStrategies(), step => step.technique === SolutionTechniqueEnum.ALSXZ);
+
+        expect(describeChain(chain)).toEqual(['ALSXZ elimination 7-4=6', 'AIC elimination 1-6=1', 'HiddenSingle placement 5-8=1']);
+        expect(chain[1].chain?.length).toBeGreaterThan(3);
     });
 
     it('should chain the pointing pair the hidden single depends on and stop at the placement', () => {
@@ -338,15 +355,18 @@ describe('findPlacementChain', () => {
         }
     );
 
-    it('should teach the AIC elimination alone once the pointing pair is applied instead of a Nishio route to a digit', () => {
-        expect.assertions(2);
+    it('should teach the ALS-XZ elimination alone once the pointing pair is applied and only then a Nishio route to a digit', () => {
+        expect.assertions(4);
 
         const sudoku = createSudoku(reportedBoard);
         const [pointingPair] = findHint(sudoku);
-        const chain = findHint(sudoku, pointingPair.eliminations);
+        const [almostLockedSets] = findHint(sudoku, pointingPair.eliminations);
+        const chain = findHint(sudoku, [...pointingPair.eliminations, ...almostLockedSets.eliminations]);
 
-        expect(describeChain(chain)).toEqual(['AIC elimination 8-6=2']);
-        expect(chain[0].eliminations.every(({ cell, value }) => sudoku.getCorrectValue(cell) !== value)).toBe(true);
+        expect(describeChain([almostLockedSets])).toEqual(['ALSXZ elimination 8-6=2']);
+        expect(almostLockedSets.eliminations.every(({ cell, value }) => sudoku.getCorrectValue(cell) !== value)).toBe(true);
+        expect(describeChain(chain)).toEqual(['NishioForcingChain elimination 4-4=8', 'HiddenSingle placement 4-8=8']);
+        expect(chain[1].value).toBe(sudoku.getCorrectValue(chain[1].cell));
     });
 
     it('should prefer the forcing-chain result with the shortest trimmed branches', () => {

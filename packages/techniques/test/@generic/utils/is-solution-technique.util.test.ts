@@ -18,7 +18,7 @@ describe('isSolutionTechnique', () => {
         expect.assertions(4);
 
         expect(isSolutionTechnique(-1)).toBe(false);
-        expect(isSolutionTechnique(SolutionTechniqueEnum.RegionForcingChain + 1)).toBe(false);
+        expect(isSolutionTechnique(SolutionTechniqueEnum.SueDeCoq + 1)).toBe(false);
         expect(isSolutionTechnique(null)).toBe(false);
         expect(isSolutionTechnique(undefined)).toBe(false);
     });

@@ -42,5 +42,8 @@ export const PLACEMENT_CHAIN_DIFFICULTIES: Record<SolutionTechniqueEnum, number>
     [SolutionTechniqueEnum.BivalueUniversalGrave]: 5.6,
     [SolutionTechniqueEnum.NishioForcingChain]: 7.5,
     [SolutionTechniqueEnum.CellForcingChain]: 8,
-    [SolutionTechniqueEnum.RegionForcingChain]: 8
+    [SolutionTechniqueEnum.RegionForcingChain]: 8,
+    [SolutionTechniqueEnum.EmptyRectangle]: 4.5,
+    [SolutionTechniqueEnum.ALSXZ]: 6.2,
+    [SolutionTechniqueEnum.SueDeCoq]: 5.8
 };

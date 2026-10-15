@@ -1,8 +1,10 @@
 import { AICTechnique } from '../../aic-technique/classes/aic.technique';
+import { ALSXZTechnique } from '../../als-xz-technique/classes/als-xz.technique';
 import { BasicFishTechnique } from '../../basic-fish-technique/classes/basic-fish.technique';
 import { BivalueUniversalGraveTechnique } from '../../bivalue-universal-grave-technique/classes/bivalue-universal-grave.technique';
 import { BoxLineReductionTechnique } from '../../box-line-reduction-technique/classes/box-line-reduction.technique';
 import { CellForcingChainTechnique } from '../../cell-forcing-chain-technique/classes/cell-forcing-chain.technique';
+import { EmptyRectangleTechnique } from '../../empty-rectangle-technique/classes/empty-rectangle.technique';
 import { FinnedFishTechnique } from '../../finned-fish-technique/classes/finned-fish.technique';
 import { FullHouseTechnique } from '../../full-house-technique/classes/full-house.technique';
 import { HiddenSingleTechnique } from '../../hidden-single-technique/classes/hidden-single.technique';
@@ -13,6 +15,7 @@ import { NishioForcingChainTechnique } from '../../nishio-forcing-chain-techniqu
 import { PointingTechnique } from '../../pointing-technique/classes/pointing.technique';
 import { RegionForcingChainTechnique } from '../../region-forcing-chain-technique/classes/region-forcing-chain.technique';
 import { SimpleColoringTechnique } from '../../simple-coloring-technique/classes/simple-coloring.technique';
+import { SueDeCoqTechnique } from '../../sue-de-coq-technique/classes/sue-de-coq.technique';
 import { UniqueRectangleTechnique } from '../../unique-rectangle-technique/classes/unique-rectangle.technique';
 import { WWingTechnique } from '../../w-wing-technique/classes/w-wing.technique';
 import { XChainTechnique } from '../../x-chain-technique/classes/x-chain.technique';
@@ -54,5 +57,8 @@ export const createTechniqueStrategies = (): TechniqueStrategyInterface[] => [
     new BivalueUniversalGraveTechnique(),
     new NishioForcingChainTechnique(),
     new CellForcingChainTechnique(),
-    new RegionForcingChainTechnique()
+    new RegionForcingChainTechnique(),
+    new EmptyRectangleTechnique(),
+    new ALSXZTechnique(),
+    new SueDeCoqTechnique()
 ];
