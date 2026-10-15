@@ -60,7 +60,8 @@ describe('database migrations', () => {
                 [4, 'current_run_eliminated_candidates'],
                 [5, 'technique_campaign'],
                 [6, 'hints_on_hard_difficulties_default'],
-                [7, 'drop_technique_campaign']
+                [7, 'drop_technique_campaign'],
+                [8, 'current_run_wall_clock']
             ]);
             assert.deepStrictEqual(yield* sql`SELECT daily_day_number, score FROM completed_games`, [{ dailyDayNumber: null, score: 900 }]);
         }).pipe(Effect.provide(makeTestSqlClientLayer()))
@@ -77,7 +78,8 @@ describe('database migrations', () => {
                 })
             });
 
-            const { eliminatedCandidates, ...runBeforeUpgrade } = yield* Schema.encodeEffect(CurrentRunSchema)(initialCurrentRun);
+            const { eliminatedCandidates, elapsedRemainderMs, clockCheckpointMs, ...runBeforeUpgrade } =
+                yield* Schema.encodeEffect(CurrentRunSchema)(initialCurrentRun);
 
             yield* sql`INSERT INTO current_run ${sql.insert({ id: 1, ...runBeforeUpgrade })}`;
 
@@ -85,11 +87,13 @@ describe('database migrations', () => {
                 [4, 'current_run_eliminated_candidates'],
                 [5, 'technique_campaign'],
                 [6, 'hints_on_hard_difficulties_default'],
-                [7, 'drop_technique_campaign']
+                [7, 'drop_technique_campaign'],
+                [8, 'current_run_wall_clock']
             ]);
-            assert.deepStrictEqual(yield* sql`SELECT eliminated_candidates, score FROM current_run`, [
-                { eliminatedCandidates, score: initialCurrentRun.score }
-            ]);
+            assert.deepStrictEqual(
+                yield* sql`SELECT eliminated_candidates, elapsed_remainder_ms, clock_checkpoint_ms, score FROM current_run`,
+                [{ eliminatedCandidates, elapsedRemainderMs, clockCheckpointMs, score: initialCurrentRun.score }]
+            );
         }).pipe(Effect.provide(makeTestSqlClientLayer()))
     );
 
@@ -110,7 +114,8 @@ describe('database migrations', () => {
 
             assert.deepStrictEqual(yield* runDatabaseMigrations, [
                 [6, 'hints_on_hard_difficulties_default'],
-                [7, 'drop_technique_campaign']
+                [7, 'drop_technique_campaign'],
+                [8, 'current_run_wall_clock']
             ]);
             assert.deepStrictEqual(yield* sql`SELECT allow_hints_on_hard_difficulties, has_timer FROM settings`, [
                 { allowHintsOnHardDifficulties: 1, hasTimer: 1 }
@@ -135,7 +140,10 @@ describe('database migrations', () => {
             yield* sql`INSERT INTO technique_mastery ${sql.insert({ technique: 1, seenCount: 2, unassistedCount: 1 })}`;
             yield* sql`INSERT INTO campaign_progress ${sql.insert({ technique: 1, teachingSeen: 1 })}`;
 
-            assert.deepStrictEqual(yield* runDatabaseMigrations, [[7, 'drop_technique_campaign']]);
+            assert.deepStrictEqual(yield* runDatabaseMigrations, [
+                [7, 'drop_technique_campaign'],
+                [8, 'current_run_wall_clock']
+            ]);
             assert.deepStrictEqual(yield* sql`SELECT name FROM sqlite_master WHERE name IN ('campaign_progress', 'technique_mastery')`, []);
         }).pipe(Effect.provide(makeTestSqlClientLayer()))
     );

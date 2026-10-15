@@ -1,7 +1,8 @@
-import { CurrentRunRepository, CurrentRunService } from '@suuudokuuu/progress';
+import { CurrentRunService } from '@suuudokuuu/progress';
 import * as Duration from 'effect/Duration';
 import * as Effect from 'effect/Effect';
 import * as Queue from 'effect/Queue';
+import * as Schedule from 'effect/Schedule';
 import { AppState } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
@@ -9,7 +10,6 @@ import { isDefined } from '@rnw-community/shared';
 export const gameTimerFocusEffect = (openPauseScreen: () => void) =>
     Effect.gen(function* () {
         const currentRunService = yield* CurrentRunService;
-        const currentRunRepository = yield* CurrentRunRepository;
         const appStates = yield* Queue.unbounded<string>();
 
         yield* Effect.acquireRelease(
@@ -32,7 +32,9 @@ export const gameTimerFocusEffect = (openPauseScreen: () => void) =>
             return;
         }
 
-        const tickForever = Effect.forever(Effect.andThen(Effect.sleep(Duration.seconds(1)), currentRunRepository.tick));
+        yield* Effect.addFinalizer(() => currentRunService.stopClock);
+
+        const tickForever = Effect.repeat(currentRunService.tick, Schedule.spaced(Duration.seconds(1)));
         const nextAppState = Queue.take(appStates);
 
         const runChallengeTimer = (isTicking: boolean): Effect.Effect<void> =>

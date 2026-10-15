@@ -7,6 +7,7 @@ import { currentRunEliminatedCandidatesMigration } from './0004-current-run-elim
 import { techniqueCampaignMigration } from './0005-technique-campaign.migration';
 import { hintsOnHardDifficultiesDefaultMigration } from './0006-hints-on-hard-difficulties-default.migration';
 import { dropTechniqueCampaignMigration } from './0007-drop-technique-campaign.migration';
+import { currentRunWallClockMigration } from './0008-current-run-wall-clock.migration';
 
 export const runDatabaseMigrations = Migrator.make({})({
     loader: Migrator.fromRecord({
@@ -16,6 +17,7 @@ export const runDatabaseMigrations = Migrator.make({})({
         '0004_current_run_eliminated_candidates': currentRunEliminatedCandidatesMigration,
         '0005_technique_campaign': techniqueCampaignMigration,
         '0006_hints_on_hard_difficulties_default': hintsOnHardDifficultiesDefaultMigration,
-        '0007_drop_technique_campaign': dropTechniqueCampaignMigration
+        '0007_drop_technique_campaign': dropTechniqueCampaignMigration,
+        '0008_current_run_wall_clock': currentRunWallClockMigration
     })
 });
