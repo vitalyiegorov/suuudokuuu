@@ -18,7 +18,7 @@ import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const hellCorpusStride = 20;
 const maxHintsPerBoard = 200;
-const maxTintedCellsPerPage = 12;
+const maxTintedCellsPerPage = 14;
 const maxMedianBranchLinks = 8;
 const difficultyTolerance = 1;
 const corpusTimeoutMilliseconds = 120_000;

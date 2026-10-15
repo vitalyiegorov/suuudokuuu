@@ -32,7 +32,7 @@ const hiddenSingleBoard = [
     '100400000'
 ].join('');
 
-const forcingHintIndex = 11;
+const forcingHintIndex = 12;
 
 const fieldCells = new FieldEngine({ sudokuString: nakedPairBoard, difficulty: DifficultyEnum.Newbie }).Sudoku.Field;
 
