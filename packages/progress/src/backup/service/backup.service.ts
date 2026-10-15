@@ -119,7 +119,9 @@ export class BackupService extends Context.Service<BackupService>()('@suuudokuuu
                     const localThemes = new Map((yield* customThemeRepository.findAll).map(theme => [theme.id, theme]));
 
                     yield* completedGameRepository.insertMany(
-                        [...backup.completedGames].reverse().filter(game => !localGameKeys.has(getCompletedGameKey(game)))
+                        [...new Map(backup.completedGames.map(game => [getCompletedGameKey(game), game])).values()]
+                            .reverse()
+                            .filter(game => !localGameKeys.has(getCompletedGameKey(game)))
                     );
                     yield* Effect.forEach(
                         backup.difficultyStats,
