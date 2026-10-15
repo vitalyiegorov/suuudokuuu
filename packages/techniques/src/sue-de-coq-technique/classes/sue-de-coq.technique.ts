@@ -29,20 +29,6 @@ const minimumCoreExtraValues = 2;
 const addValues = (valueMask: number, values: readonly number[]): number =>
     values.reduce((mask, value) => (hasMaskValue(mask, value) ? mask : mask + getValueBit(value)), valueMask);
 
-const countValues = (valueMask: number, excludedMask = 0): number => {
-    let count = 0;
-
-    for (let value = 1; getValueBit(value) <= valueMask; value += 1) {
-        if (hasMaskValue(valueMask, value) && !hasMaskValue(excludedMask, value)) {
-            count += 1;
-        }
-    }
-
-    return count;
-};
-
-const sharesValue = (firstMask: number, secondMask: number): boolean => countValues(firstMask) > countValues(firstMask, secondMask);
-
 const getValues = (valueMask: number, excludedMask = 0): number[] => {
     const values: number[] = [];
 
@@ -54,6 +40,8 @@ const getValues = (valueMask: number, excludedMask = 0): number[] => {
 
     return values;
 };
+
+const sharesValue = (firstMask: number, secondMask: number): boolean => getValues(firstMask).some(value => hasMaskValue(secondMask, value));
 
 const getCellSubsets = (context: CandidateContext, cells: readonly CellInterface[], minimumSize: number): CellSubsetInterface[] => {
     const subsets: CellSubsetInterface[] = [];
@@ -125,7 +113,7 @@ export class SueDeCoqTechnique implements TechniqueStrategyInterface {
             context,
             line.cells.filter(cell => box.cells.includes(cell)),
             minimumCoreSize
-        ).filter(core => countValues(core.valueMask) >= core.cells.length + minimumCoreExtraValues);
+        ).filter(core => getValues(core.valueMask).length >= core.cells.length + minimumCoreExtraValues);
 
         if (cores.length === 0) {
             return [];
@@ -154,7 +142,7 @@ export class SueDeCoqTechnique implements TechniqueStrategyInterface {
         boxArms: readonly CellSubsetInterface[]
     ): TechniqueResultInterface[] {
         const { core } = intersection;
-        const getSlack = (arm: CellSubsetInterface): number => arm.cells.length - countValues(arm.valueMask, core.valueMask);
+        const getSlack = (arm: CellSubsetInterface): number => arm.cells.length - getValues(arm.valueMask, core.valueMask).length;
         const isConnectedArm = (arm: CellSubsetInterface): boolean => sharesValue(arm.valueMask, core.valueMask);
         const boxArmsBySlack = new Map<number, CellSubsetInterface[]>();
 
@@ -167,7 +155,7 @@ export class SueDeCoqTechnique implements TechniqueStrategyInterface {
         const results: TechniqueResultInterface[] = [];
 
         for (const lineArm of lineArms.filter(isConnectedArm)) {
-            const requiredBoxSlack = countValues(core.valueMask) - core.cells.length - getSlack(lineArm);
+            const requiredBoxSlack = getValues(core.valueMask).length - core.cells.length - getSlack(lineArm);
 
             for (const boxArm of boxArmsBySlack.get(requiredBoxSlack) ?? []) {
                 if (!sharesValue(lineArm.valueMask, boxArm.valueMask)) {

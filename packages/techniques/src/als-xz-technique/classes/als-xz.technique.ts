@@ -1,10 +1,10 @@
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
+import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { canSee } from '../../@generic/utils/can-see.util';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 
-import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
 import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
@@ -15,7 +15,7 @@ interface AlmostLockedSetInterface {
     readonly cellsByValue: readonly (readonly CellInterface[])[];
 }
 
-const getCellsKey = (cells: readonly CellInterface[]): string => cells.map(cell => `${cell.y}:${cell.x}`).join(',');
+const getCellsKey = (cells: readonly CellInterface[]): string => cells.map(cell => CandidateContext.getCellKey(cell)).join(',');
 
 const createAlmostLockedSet = (context: CandidateContext, cells: readonly CellInterface[]): AlmostLockedSetInterface => {
     const cellsByValue: CellInterface[][] = Array.from({ length: context.getValues().length + 1 }, () => []);

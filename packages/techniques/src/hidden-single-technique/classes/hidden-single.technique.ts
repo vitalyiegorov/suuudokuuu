@@ -1,6 +1,7 @@
 import { isDefined } from '@rnw-community/shared';
 
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
+import { canSee } from '../../@generic/utils/can-see.util';
 import { createPlacementResult } from '../../@generic/utils/create-placement-result.util';
 import { isSameCell } from '../../@generic/utils/is-same-cell.util';
 
@@ -9,11 +10,8 @@ import type { TechniqueResultInterface } from '../../@generic/interfaces/techniq
 import type { TechniqueStrategyInterface } from '../../@generic/interfaces/technique-strategy.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
-const seesCell = (cell: CellInterface, otherCell: CellInterface): boolean =>
-    cell.x === otherCell.x || cell.y === otherCell.y || cell.group === otherCell.group;
-
 const countSeenCells = (cell: CellInterface, cells: readonly CellInterface[]): number =>
-    cells.filter(otherCell => seesCell(cell, otherCell)).length;
+    cells.filter(otherCell => canSee(cell, otherCell)).length;
 
 const findBlockingCells = (filledCells: readonly CellInterface[], blockedCells: readonly CellInterface[]): CellInterface[] => {
     const [blockingCell] = [...filledCells].sort(
@@ -28,7 +26,7 @@ const findBlockingCells = (filledCells: readonly CellInterface[], blockedCells: 
         blockingCell,
         ...findBlockingCells(
             filledCells,
-            blockedCells.filter(cell => !seesCell(blockingCell, cell))
+            blockedCells.filter(cell => !canSee(blockingCell, cell))
         )
     ];
 };

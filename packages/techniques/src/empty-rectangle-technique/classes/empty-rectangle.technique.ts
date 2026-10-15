@@ -19,15 +19,12 @@ interface EmptyRectangleInterface {
     readonly boxCells: readonly CellInterface[];
 }
 
-const isOnHingeLines = (cell: CellInterface, row: number, column: number): boolean => cell.y === row || cell.x === column;
-
 export class EmptyRectangleTechnique implements TechniqueStrategyInterface {
     readonly technique = SolutionTechniqueEnum.EmptyRectangle;
 
     find(context: CandidateContext): TechniqueResultInterface[] {
         const index = getContextUnitValueIndex(context);
         const results: TechniqueResultInterface[] = [];
-
         const boxPositions = index.units.flatMap((unit, unitPosition) => (unit.type === 'group' ? [unitPosition] : []));
 
         for (const boxPosition of boxPositions) {
@@ -52,7 +49,7 @@ export class EmptyRectangleTechnique implements TechniqueStrategyInterface {
                 const hasRowArm = boxCells.some(cell => cell.y === row && cell.x !== column);
                 const hasColumnArm = boxCells.some(cell => cell.x === column && cell.y !== row);
 
-                if (hasRowArm && hasColumnArm && boxCells.every(cell => isOnHingeLines(cell, row, column))) {
+                if (hasRowArm && hasColumnArm && boxCells.every(cell => cell.y === row || cell.x === column)) {
                     rectangles.push({ value, row, column, boxCells });
                 }
             }
