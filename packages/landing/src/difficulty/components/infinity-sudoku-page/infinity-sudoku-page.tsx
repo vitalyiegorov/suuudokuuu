@@ -137,7 +137,7 @@ export const InfinitySudokuPage = ({ locale }: Props) => {
                 </Trans>
             </p>
             <PuzzleBoard givens={EVEREST_GIVENS}>
-                <Trans>Arto Inkala’s Everest (2010), 21 givens, published at SE 11.9.</Trans>
+                <Trans>Arto Inkala’s Everest (2012), 21 givens, published at SE 11.9.</Trans>
             </PuzzleBoard>
             <h2>
                 <Trans>How hard is it, honestly</Trans>

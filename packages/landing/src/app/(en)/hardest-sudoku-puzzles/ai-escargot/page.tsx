@@ -41,7 +41,7 @@ const AiEscargotPage = () => (
         </p>
         <p>
             It has since been overtaken. Rating tools in the Sudoku Explainer tradition put AI Escargot around SE 10.6, while later puzzles,
-            including Inkala’s own 2010 <Link href={everestPageMetadata.path}>Everest</Link>, sit at the top of the scale near 11.9. It
+            including Inkala’s own 2012 <Link href={everestPageMetadata.path}>Everest</Link>, sit at the top of the scale near 11.9. It
             remains the classic first attempt for anyone who wants to feel what a record puzzle is like.
         </p>
         <p>

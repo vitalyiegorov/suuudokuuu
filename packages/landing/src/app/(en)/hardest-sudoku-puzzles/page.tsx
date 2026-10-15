@@ -73,7 +73,7 @@ const HardestSudokuPuzzlesPage = () => (
                     requires.
                 </li>
                 <li>
-                    AI Escargot (2006, 23 givens) is commonly cited near SE 10.6, Platinum Blonde near SE 10.9, and Arto Inkala’s 2010
+                    AI Escargot (2006, 23 givens) is commonly cited near SE 10.6, Platinum Blonde near SE 10.9, and Arto Inkala’s 2012
                     “Everest” and Golden Nugget near SE 11.9.
                 </li>
                 <li>
@@ -141,14 +141,14 @@ const HardestSudokuPuzzlesPage = () => (
         <p>
             <Link href={platinumBlondePageMetadata.path}>Play Platinum Blonde online, print it and read its step-by-step solution</Link>.
         </p>
-        <h3>Inkala’s Everest (2010)</h3>
+        <h3>Inkala’s Everest (2012)</h3>
         <p>
-            Arto Inkala followed AI Escargot with a second puzzle in 2010, again promoted as the world’s hardest sudoku. The solving
+            Arto Inkala followed AI Escargot with a second puzzle in 2012, again promoted as the world’s hardest sudoku. The solving
             community nicknamed it “Everest,” and independent raters place it at roughly SE 11.9 — noticeably higher than AI Escargot, and
             high enough that different SE implementations disagree by several tenths depending on which chain types they model. Source:{' '}
             <a href="https://www.sudokuwiki.org/Arto_Inkala_Sudoku">SudokuWiki, “Arto Inkala Sudoku”</a>.
         </p>
-        <PuzzleBoard givens={EVEREST.givens}>Arto Inkala’s “Everest” (2010), 21 givens, commonly rated around SE 11.9.</PuzzleBoard>
+        <PuzzleBoard givens={EVEREST.givens}>Arto Inkala’s “Everest” (2012), 21 givens, commonly rated around SE 11.9.</PuzzleBoard>
         <p>
             <Link href={everestPageMetadata.path}>Play Everest online, print it and read its step-by-step solution</Link>.
         </p>
@@ -193,7 +193,7 @@ const HardestSudokuPuzzlesPage = () => (
                 <FaqQuestion>What is the hardest sudoku puzzle ever?</FaqQuestion>
                 <FaqAnswer>
                     There is no single agreed answer, because different SE raters score forcing chains differently. AI Escargot (2006) was
-                    the first puzzle widely publicized as the hardest; independent raters now place Arto Inkala’s 2010 puzzle, nicknamed
+                    the first puzzle widely publicized as the hardest; independent raters now place Arto Inkala’s 2012 puzzle, nicknamed
                     “Everest,” and computer-generated puzzles like Platinum Blonde and Golden Nugget higher on the SE scale.
                 </FaqAnswer>
             </Faq>

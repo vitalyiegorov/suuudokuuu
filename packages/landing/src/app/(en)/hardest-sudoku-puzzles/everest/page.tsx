@@ -26,12 +26,12 @@ const EverestPage = () => (
     <main>
         <FamousPuzzlePageHeader metadata={everestPageMetadata} />
         <p>
-            “Everest” is the 21-clue sudoku Arto Inkala published in 2010 as the world’s hardest, the follow-up to his 2006{' '}
+            “Everest” is the 21-clue sudoku Arto Inkala published in 2012 as the world’s hardest, the follow-up to his 2006{' '}
             <Link href={aiEscargotPageMetadata.path}>AI Escargot</Link>. The nickname comes from the solving community, and it stuck because
             the puzzle sits at the very top of the difficulty scale. Play the original grid below, print it, or read the engine’s
             step-by-step solution further down.
         </p>
-        <FamousPuzzleBoard puzzle={EVEREST}>Arto Inkala’s “Everest” (2010), 21 givens, as published.</FamousPuzzleBoard>
+        <FamousPuzzleBoard puzzle={EVEREST}>Arto Inkala’s “Everest” (2012), 21 givens, as published.</FamousPuzzleBoard>
         <h2>Where Everest comes from</h2>
         <p>
             Inkala presented the puzzle as harder than AI Escargot, and it was widely reprinted as the hardest sudoku ever made. Independent

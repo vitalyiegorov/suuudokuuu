@@ -356,8 +356,8 @@ msgid "Are these 17-clue puzzles?"
 msgstr "Är de här sudokuna med 17 givna siffror?"
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
-msgid "Arto Inkala’s Everest (2010), 21 givens, published at SE 11.9."
-msgstr "Arto Inkalas Everest (2010), 21 givna siffror, publicerat med SE 11.9."
+msgid "Arto Inkala’s Everest (2012), 21 givens, published at SE 11.9."
+msgstr "Arto Inkalas Everest (2012), 21 givna siffror, publicerat med SE 11.9."
 
 #: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
 msgid "At {clueCount} clues out of 81 cells, this booklet is the first one worth solving with a pencil. Singles carry a Medium grid part of the way, but every puzzle in it provably stalls on them — that is the test each board had to fail to be printed here — until you spot a <0>pointing pair</0> or a <1>box-line reduction</1>, an intersection between a box and a line that only eliminates candidates, never places a digit outright. Nothing in the booklet needs a fish, a wing or a chain."
