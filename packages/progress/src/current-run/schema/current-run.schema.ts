@@ -48,6 +48,8 @@ export const CurrentRunSchema = Schema.Struct({
     mistakes: Schema.Number,
     maxMistakes: Schema.Number,
     elapsedTime: Schema.Number,
+    elapsedRemainderMs: Schema.Number,
+    clockCheckpointMs: Schema.Number,
     isPaused: Schema.BooleanFromBit,
     shouldShowPauseScreen: Schema.BooleanFromBit,
     shouldResumeOnFocus: Schema.BooleanFromBit,

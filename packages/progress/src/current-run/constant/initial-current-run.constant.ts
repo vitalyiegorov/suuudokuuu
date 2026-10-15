@@ -11,6 +11,8 @@ export const initialCurrentRun: CurrentRunType = {
     mistakes: 0,
     maxMistakes: 3,
     elapsedTime: 0,
+    elapsedRemainderMs: 0,
+    clockCheckpointMs: 0,
     isPaused: false,
     shouldShowPauseScreen: false,
     shouldResumeOnFocus: false,
