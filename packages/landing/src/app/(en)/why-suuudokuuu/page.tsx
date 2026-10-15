@@ -91,8 +91,8 @@ const WhySuuudokuuuPage = () => (
             it to describe — the code that generates your puzzle, checks it has one solution and decides what a hint tells you is public,
             readable and forkable on GitHub. That is the whole pitch: not a longer feature list, just fewer things you have to take on
             trust. It is also built to be comfortable, not just honest — see the{' '}
-            <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link> guide for the large-print and comfort-mode options that
-            come with the same free, ad-free package.
+            <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link> guide for the large-print and comfort options that come
+            with the same free, ad-free package.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play {SITE_NAME} now

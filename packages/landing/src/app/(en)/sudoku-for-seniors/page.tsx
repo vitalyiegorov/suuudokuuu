@@ -14,6 +14,7 @@ import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_NAME, SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
+import { accessibleSudokuPageMetadata } from '../accessible-sudoku/metadata';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
 import { largePrintSudokuPageMetadata } from '../large-print-sudoku/metadata';
 import { homePageMetadata } from '../metadata';
@@ -38,15 +39,16 @@ const SudokuForSeniorsPage = () => (
         </PageHeader>
         <p>
             Sudoku for seniors on {SITE_NAME} is the same puzzle everyone else plays, with the visual and motor friction removed: bigger
-            digits, calmer colors, no forced timer, and a one-tap preset called Comfort mode that turns all of it on at once. Nothing here
+            digits, calmer colors, a timer you can switch off, and settings for cell spacing and motion that you can combine. Nothing here
             is a separate, simplified game — every puzzle, hint and technique guide on the site is the one everyone uses. What changes is
             how comfortable it is to read the board and tap the right cell.
         </p>
         <TechniqueSummary>
             <ul>
                 <li>
-                    Comfort mode is one tap in Settings: extra-large digits, roomy cells with guaranteed touch targets, a high-contrast
-                    board, no timer, calmer motion and score-free play — every piece stays adjustable on its own.
+                    Settings let you combine a Large digit size, Spacious cell spacing, a High contrast or Colorblind safe theme, a timer
+                    you can turn off, reduced motion and score-free Calm play. See{' '}
+                    <Link href={accessibleSudokuPageMetadata.path}>accessible sudoku</Link>.
                 </li>
                 <li>
                     Newbie ({getDifficultyClueCount(DifficultyEnum.Newbie)} clues) and Easy ({getDifficultyClueCount(DifficultyEnum.Easy)}{' '}
@@ -77,13 +79,13 @@ const SudokuForSeniorsPage = () => (
             {getDifficultyClueCount(DifficultyEnum.Easy)} clues and adds exactly one more idea on top. Neither tier ever requires writing
             candidates in the margin, and both are exactly as free as every other level.
         </p>
-        <h2>What Comfort mode does</h2>
+        <h2>The settings that help</h2>
         <p>
-            Comfort mode, found in the app’s Settings, is a single switch that bundles the settings people with less-sharp eyesight or a
-            less steady hand tend to want: the largest available digit size, spacious cells with a guaranteed 44-point touch target so a
-            near-miss tap still lands, a high-contrast theme, the timer turned off, calm play that hides the score so nothing feels timed or
-            graded, and reduced motion for a calmer board. Turning the preset on does not lock anything in — every one of those pieces can
-            still be adjusted individually afterward, and the app keeps honoring your own choices instead of fighting them.
+            The app’s Settings hold the options people with less-sharp eyesight or a less steady hand tend to want: Number size up to Large,
+            Cell spacing set to Spacious for wider gaps and easier tapping, a High contrast theme, the Timer switched off, Calm play that
+            hides the score so nothing feels timed or graded, and Animations set to off for a calmer board. Each one is independent, so you
+            can pick only the ones you want. The <Link href={accessibleSudokuPageMetadata.path}>accessible sudoku</Link> page lists them
+            all.
         </p>
         <h2>Large print on paper</h2>
         <p>
@@ -112,7 +114,7 @@ const SudokuForSeniorsPage = () => (
                 <FaqQuestion>Is there a large print version?</FaqQuestion>
                 <FaqAnswer>
                     Yes. The <Link href={largePrintSudokuPageMetadata.path}>large-print sudoku page</Link> has a free PDF with bigger grids
-                    and digits, and Comfort mode gives the on-screen board its own extra-large digit size.
+                    and digits, and the Number size setting gives the on-screen board its own Large digit size.
                 </FaqAnswer>
             </Faq>
             <Faq>
@@ -125,8 +127,8 @@ const SudokuForSeniorsPage = () => (
             <Faq>
                 <FaqQuestion>Can I turn off the timer?</FaqQuestion>
                 <FaqAnswer>
-                    Yes. The timer has its own on/off setting, and Comfort mode turns it off automatically along with the score display, so
-                    a puzzle is never framed as something to beat the clock on.
+                    Yes. The timer has its own on/off setting, and Calm play hides the score, so a puzzle is never framed as something to
+                    beat the clock on.
                 </FaqAnswer>
             </Faq>
             <Faq>
