@@ -1,3 +1,4 @@
 public/printable/*.pdf
+public/*/printable/*.pdf
 public/*.txt
 public/og/*.png
