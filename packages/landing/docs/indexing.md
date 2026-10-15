@@ -100,6 +100,8 @@ Both scripts no-op with an explanatory message when `INDEXNOW_KEY` is absent, an
 
 `--dry-run` needs no key at all, which makes it usable as a CI assertion that the submitted list is the sitemap list.
 
+`--daily` narrows the list to the pages a day rollover changes: `/daily-sudoku`, the build date's `/daily-sudoku/<YYYY-MM-DD>` page and its `/daily-sudoku/archive/<YYYY-MM>` month, all filtered out of `buildIndexablePages()`. The scheduled daily run of `main.yml` passes it, so a rebuild with no release does not resubmit the whole sitemap; release and manual deploys submit everything.
+
 ### 5.3 Deploy order
 
 The key file must already be live when the submission runs, otherwise IndexNow answers `403`.
