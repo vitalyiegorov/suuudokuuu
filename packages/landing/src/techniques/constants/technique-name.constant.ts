@@ -32,5 +32,8 @@ export const TECHNIQUE_NAMES: Record<SolutionTechniqueEnum, string> = {
     [SolutionTechniqueEnum.BivalueUniversalGrave]: 'Bivalue Universal Grave',
     [SolutionTechniqueEnum.NishioForcingChain]: 'Nishio Forcing Chain',
     [SolutionTechniqueEnum.CellForcingChain]: 'Cell Forcing Chain',
-    [SolutionTechniqueEnum.RegionForcingChain]: 'Region Forcing Chain'
+    [SolutionTechniqueEnum.RegionForcingChain]: 'Region Forcing Chain',
+    [SolutionTechniqueEnum.EmptyRectangle]: 'Empty Rectangle',
+    [SolutionTechniqueEnum.ALSXZ]: 'ALS-XZ',
+    [SolutionTechniqueEnum.SueDeCoq]: 'Sue de Coq'
 };

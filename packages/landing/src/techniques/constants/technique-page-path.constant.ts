@@ -65,5 +65,8 @@ export const TECHNIQUE_PAGE_PATHS: Record<SolutionTechniqueEnum, string> = {
     [SolutionTechniqueEnum.BivalueUniversalGrave]: bugPageMetadata.path,
     [SolutionTechniqueEnum.NishioForcingChain]: nishioForcingChainPageMetadata.path,
     [SolutionTechniqueEnum.CellForcingChain]: cellForcingChainPageMetadata.path,
-    [SolutionTechniqueEnum.RegionForcingChain]: regionForcingChainPageMetadata.path
+    [SolutionTechniqueEnum.RegionForcingChain]: regionForcingChainPageMetadata.path,
+    [SolutionTechniqueEnum.EmptyRectangle]: techniquesPageMetadata.path,
+    [SolutionTechniqueEnum.ALSXZ]: techniquesPageMetadata.path,
+    [SolutionTechniqueEnum.SueDeCoq]: techniquesPageMetadata.path
 };

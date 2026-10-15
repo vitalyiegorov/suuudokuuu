@@ -51,7 +51,7 @@ const buildTierTechniqueReport = (difficulty: RatedDifficultyType, sample: Rated
         techniqueUsages: TECHNIQUE_LADDER.map(technique => ({
             technique,
             puzzleCount: results.filter(result => result.requiredTechniques.includes(technique)).length
-        }))
+        })).filter(usage => usage.puzzleCount > 0)
     };
 };
 
