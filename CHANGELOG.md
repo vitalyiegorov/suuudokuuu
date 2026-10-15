@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.34.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.33.0...v2.34.0) (2026-10-15)
+
+### Features
+
+* **landing:** localized money pages, daily sudoku, engine pages and feature pages ([#619](https://github.com/vitalyiegorov/suuudokuuu/issues/619)) ([6abdb06](https://github.com/vitalyiegorov/suuudokuuu/commit/6abdb06435d5c538d331b6950476154027c124d9))
+
+
 # [2.33.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.32.2...v2.33.0) (2026-10-14)
 
 ### Features
