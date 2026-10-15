@@ -43,7 +43,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.1.0 # v3.1.0
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.2.0 # v3.2.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -98,7 +98,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.1.0 # v3.1.0
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.2.0 # v3.2.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -125,8 +125,8 @@ jobs:
             maestro-version: '2.6.1'
             # Both legs on node-b: the APK builds on Linux now (Google does ship an
             # x86_64-linux NDK), and 8 GiB is what keeps D8 from being OOM-killed.
-            # The plan/repack job lands on the same pool by default, so
-            # repack-runner-labels is deliberately left unset.
+            # The plan/repack job defaults to trf-linux-amd64-2x4 (no KVM, mobile-ci
+            # v3.2.0), so it never queues behind emulator shards on this pool.
             build-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             # `trf-linux-amd64-4x8` is the ONLY node-b profile granted /dev/kvm, so
             # this label is a hard requirement of the avd driver, not a preference.
@@ -136,15 +136,12 @@ jobs:
             # image baked into the runner container, so they stay unset here rather
             # than being restated in two places that could drift apart.
             android-driver: avd
-            # The container is 4 CPU / 8 GiB and nothing inside it discovers that
-            # on its own: /proc/meminfo shows the host's 27 GiB, so a JVM left
-            # to its own ergonomics sizes a 6.76 GiB max heap and the emulator
-            # measures ~4.2 GiB beside it. Whoever crosses the cgroup ceiling
-            # first is killed by the kernel with no out-of-memory message, and
-            # the shard fails as a lost adb connection several flows in. Both
-            # halves are therefore stated rather than inferred: 3 GiB of guest
-            # for the AVD, a bounded heap for Maestro, and the rest left for
-            # adb, node, and page cache.
+            # The container is 4 CPU / 8 GiB. Since mobile-ci v3.2.0 the emulator's
+            # RAM and cores are derived from the container's cgroup (memory.max
+            # 8 GiB -> 2048 MB, cpu.max 4 -> 2 cores), and the fleet injects
+            # JAVA_TOOL_OPTIONS=-XX:MaxRAM=8192m so Maestro's JVM sizes its heap
+            # from the container rather than the host's 27 GiB. Neither bound is
+            # restated here (fleet-validated in run 38692037603).
             # Nexus 4 is 768x1280 @ 320dpi - within a whisker of the 720x1280 @
             # 320dpi Redroid presented, which is the geometry every flow here was
             # calibrated against. pixel_6 (1080x2400 @ 420dpi) is both a
@@ -152,8 +149,6 @@ jobs:
             # framebuffer: measured on this runner, the swap costs 450 MB of
             # unreclaimable memory for a device the flows were never written for.
             emulator-profile: Nexus 4
-            emulator-ram-size: '2048'
-            pre-test-command: export JAVA_TOOL_OPTIONS="-Xmx1536m"
             gradle-task: ':app:assembleRelease'
             # x86_64 only: the AVD boots an x86_64 system image, so every other ABI
             # is CMake time spent on a library nothing installs. The lint skips stay

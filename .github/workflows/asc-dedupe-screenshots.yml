@@ -24,12 +24,14 @@ jobs:
                   echo "ASC_KEY_PATH=$key_path" >> "$GITHUB_ENV"
 
             - name: Dedupe screenshots
-              uses: rnw-community/mobile-ci/actions/asc-dedupe-screenshots@v3.1.0 # v3.1.0
+              uses: rnw-community/mobile-ci/actions/asc-dedupe-screenshots@v3.2.0 # v3.2.0
               with:
                   app-id: com.vitalyiegorov.suuudokuuu
                   asc-key-path: ${{ env.ASC_KEY_PATH }}
                   asc-key-id: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
                   asc-issuer-id: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
+                  # A maintenance dispatch with no version in flight is a no-op, not a failure.
+                  missing-version: skip
 
             - name: Remove ASC key
               if: always()
