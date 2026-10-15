@@ -88,13 +88,11 @@ const resumeRun = (run: CurrentRunType): CurrentRunType => ({
     shouldResumeOnFocus: false
 });
 
-const stopRunClock = (run: CurrentRunType): CurrentRunType => (run.isChallengeRun ? run : { ...run, clockCheckpointMs: 0 });
-
 const restartRunClock = (run: CurrentRunType, nowMs: number): CurrentRunType =>
     run.isChallengeRun && run.clockCheckpointMs > 0 ? run : { ...run, clockCheckpointMs: nowMs };
 
 const pauseRun = (run: CurrentRunType, shouldShowPauseScreen: boolean): CurrentRunType =>
-    run.isChallengeRun ? run : { ...stopRunClock(run), isPaused: true, shouldShowPauseScreen, shouldResumeOnFocus: !shouldShowPauseScreen };
+    run.isChallengeRun ? run : { ...run, isPaused: true, shouldShowPauseScreen, shouldResumeOnFocus: !shouldShowPauseScreen };
 
 const anchorChallengeClock = (run: CurrentRunType, nowMs: number): CurrentRunType =>
     run.wallClockStartMs === 0 ? { ...run, wallClockStartMs: nowMs - run.elapsedTime * MillisecondsPerSecond } : run;
@@ -351,9 +349,10 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
         const returnToCurrentRun = Effect.flatMap(Clock.currentTimeMillis, nowMs => updateRun(run => returnToRun(run, nowMs)));
         const finishRun = Effect.fn('CurrentRunService.finish')(
             function* (isWon: boolean, isChallenge: boolean) {
-                yield* tickClock;
-
                 const nowMs = yield* Clock.currentTimeMillis;
+
+                yield* currentRunRepository.tick(nowMs);
+
                 const currentRun = yield* currentRunRepository.get;
 
                 if (Option.isNone(currentRun)) {
@@ -370,8 +369,7 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
                     hasNewPersonalBestScore,
                     isPaused: true,
                     shouldShowPauseScreen: false,
-                    shouldResumeOnFocus: false,
-                    clockCheckpointMs: 0
+                    shouldResumeOnFocus: false
                 });
                 yield* playerStatsRepository.save(getFinishedPlayerStats(playerStats, run, isWon, nowMs));
                 yield* difficultyStatsRepository.save(getFinishedStats(stats, run, isWon, isChallenge));
@@ -411,7 +409,7 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
             pause: (shouldShowPauseScreen = true) => updateRun(run => pauseRun(run, shouldShowPauseScreen)),
             resume: restartRun,
             tick: tickClock,
-            stopClock: updateRun(stopRunClock),
+            stopClock: updateRun(run => (run.isChallengeRun ? run : { ...run, clockCheckpointMs: 0 })),
             focus: Effect.fn('CurrentRunService.focus')(function* () {
                 const currentRun = yield* currentRunRepository.get;
 
