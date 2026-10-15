@@ -1,7 +1,7 @@
 import { findRevealStepScript, getCellKey, techniqueResultToStepScript } from '@suuudokuuu/field-core';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { seTechniqueOrder } from '@suuudokuuu/rating';
-import { TechniqueManager } from '@suuudokuuu/techniques';
+import { CandidateContext, TechniqueManager } from '@suuudokuuu/techniques';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -34,9 +34,6 @@ const addEliminations = (eliminated: EliminatedCandidatesType, result: Technique
     return nextEliminated;
 };
 
-const isAlreadyShown = (eliminated: EliminatedCandidatesType, result: TechniqueResultInterface): boolean =>
-    result.kind === 'elimination' && result.eliminations.every(({ cell, value }) => (eliminated[getCellKey(cell)] ?? []).includes(value));
-
 const narrateScript = (script: StepScriptInterface): string => {
     const lastStep = script.steps.at(-1);
 
@@ -47,6 +44,7 @@ export class SolvePathBuilder {
     private readonly sudoku: Sudoku;
     private readonly steps: SolverStepInterface[] = [];
     private eliminated: EliminatedCandidatesType = {};
+    private eliminations: TechniqueResultInterface['eliminations'] = [];
     private revealedCellCount = 0;
 
     constructor(puzzle: string) {
@@ -55,7 +53,8 @@ export class SolvePathBuilder {
 
     build(): SolvePathInterface {
         while (this.steps.length < MAX_SOLVE_PATH_STEPS && this.hasBlankCells()) {
-            const { outcome, steps } = new TechniqueManager(this.sudoku).solveLogically(seTechniqueOrder);
+            const carriedContext = CandidateContext.fromSudoku(this.sudoku).withEliminations(this.eliminations);
+            const { outcome, steps } = new TechniqueManager(this.sudoku).solveLogically(seTechniqueOrder, carriedContext);
 
             for (const result of steps) {
                 this.addTechniqueStep(result);
@@ -74,14 +73,11 @@ export class SolvePathBuilder {
     }
 
     private addTechniqueStep(result: TechniqueResultInterface): void {
-        if (isAlreadyShown(this.eliminated, result)) {
-            return;
-        }
-
         const script = techniqueResultToStepScript(result);
 
         this.pushStep(script, narrateScript(script), TECHNIQUE_NAMES[script.technique]);
         this.eliminated = addEliminations(this.eliminated, result);
+        this.eliminations = [...this.eliminations, ...result.eliminations];
 
         if (result.kind !== 'elimination') {
             this.sudoku.setCellValue({ ...result.cell, value: result.value });
