@@ -58,12 +58,12 @@ const HardestSudokuPuzzlesPage = () => (
             Researchers rate that reasoning depth with SE (Sudoku Explainer), a community-standard 1.0–12.0 scale that scores a puzzle by
             the hardest technique its optimal solve path requires — our{' '}
             <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> explains how the technique ladder
-            becomes a number. Suuudokuuu does rate every puzzle it generates, but our open-source rater prices the ladder only as far as
-            forcing chains and reports {SE_RATING_CEILING} with a ceiling flag above that — so it returns that same figure for every puzzle
-            below. The values quoted here are attributed to their publishers and to the sudoku-solving community that maintains SE-based
-            difficulty trackers, not to our own rater — no single figure below is a Suuudokuuu measurement, and different SE implementations
-            are known to disagree by several tenths at this end of the scale, which is why we attribute rather than link to one disputed
-            number.
+            becomes a number. Suuudokuuu does rate every puzzle it generates, but our source-available rater prices the ladder only as far
+            as forcing chains and reports {SE_RATING_CEILING} with a ceiling flag above that — so it returns that same figure for every
+            puzzle below. The values quoted here are attributed to their publishers and to the sudoku-solving community that maintains
+            SE-based difficulty trackers, not to our own rater — no single figure below is a Suuudokuuu measurement, and different SE
+            implementations are known to disagree by several tenths at this end of the scale, which is why we attribute rather than link to
+            one disputed number.
         </p>
         <TechniqueSummary>
             <ul>

@@ -46,7 +46,7 @@ export const HomePage = ({ locale }: Props) => {
         <main>
             <WebSiteSchema locale={locale} metadata={pageMetadata} />
             <p className="hero__eyebrow">
-                <Trans>Free, open-source, no ads</Trans>
+                <Trans>Free, source-available, no ads</Trans>
             </p>
             <h1>{resolvePageHeadline(pageMetadata)}</h1>
             <DifficultyBoard difficulty={DifficultyEnum.Easy}>
@@ -55,9 +55,9 @@ export const HomePage = ({ locale }: Props) => {
             <p>
                 <Trans>
                     Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or
-                    paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity,
-                    technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress,
-                    streaks and stats stay on the device you play on. See{' '}
+                    paywall, and {SITE_NAME} is a free, source-available implementation of it — seven difficulty levels from Newbie to
+                    Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your
+                    progress, streaks and stats stay on the device you play on. See{' '}
                     <Link href={buildLocalizedPagePath(whySuuudokuuuPageMetadata)}>why {SITE_NAME} is built this way</Link> for the full,
                     verifiable case.
                 </Trans>
@@ -168,7 +168,7 @@ export const HomePage = ({ locale }: Props) => {
                     </FaqQuestion>
                     <FaqAnswer>
                         <Trans>
-                            Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty
+                            Yes. {SITE_NAME} is free and source-available, with no in-app purchases, subscriptions or paywalled difficulty
                             levels.
                         </Trans>
                     </FaqAnswer>

@@ -24,9 +24,9 @@ export const FamousPuzzleWalkthrough = ({ puzzle }: Props) => {
     return (
         <>
             <p>
-                Suuudokuuu’s open-source engine solves {puzzle.name} in {steps.length} steps, reaching for the cheapest technique that still
-                makes progress, exactly as it does when it rates a puzzle. {forcingChainStepCount} of those steps are forcing chains: the
-                engine assumes a candidate, follows its consequences until something breaks, and removes the assumption. At{' '}
+                Suuudokuuu’s source-available engine solves {puzzle.name} in {steps.length} steps, reaching for the cheapest technique that
+                still makes progress, exactly as it does when it rates a puzzle. {forcingChainStepCount} of those steps are forcing chains:
+                the engine assumes a candidate, follows its consequences until something breaks, and removes the assumption. At{' '}
                 {revealedCellCount} points even that runs dry — no technique the engine implements moves the grid — and the walkthrough says
                 so, fills the cell with the fewest candidates from the verified solution, and carries on with logic from there. Every other
                 step is a named deduction you can check by hand.

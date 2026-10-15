@@ -675,20 +675,20 @@ msgid "For each unit with several blank cells, check whether a digit that is sti
 msgstr "Kontrollera för varje enhet med flera tomma rutor om en siffra som fortfarande saknas i enheten bara passar i en av dem, även om den rutan har andra kandidater också."
 
 #: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
-msgstr "Gratis och öppen källkod under licensen {SITE_LICENSE}. Ingen reklam, inget konto, ingen spårning i spelet – läs <0>varför</0> eller bläddra i <1>hela källkoden på GitHub</1>. Apple och Apples logotyp är varumärken som tillhör Apple Inc., registrerade i USA och andra länder. App Store är ett servicemärke som tillhör Apple Inc. Google Play och Google Plays logotyp är varumärken som tillhör Google LLC."
+msgid "Free and source-available under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "Gratis, med tillgänglig källkod under licensen {SITE_LICENSE}. Ingen reklam, inget konto, ingen spårning i spelet – läs <0>varför</0> eller bläddra i <1>hela källkoden på GitHub</1>. Apple och Apples logotyp är varumärken som tillhör Apple Inc., registrerade i USA och andra länder. App Store är ett servicemärke som tillhör Apple Inc. Google Play och Google Plays logotyp är varumärken som tillhör Google LLC."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
-msgstr "Gratis sudoku online innebär att spela det klassiska 9×9-sifferpusslet i webbläsare eller app utan köp, installationsgräns eller betalvägg, och {SITE_NAME} är en gratis implementation med öppen källkod av det – sju svårighetsnivåer från Nybörjare till Oändlighet, guider som förklarar teknikerna, ingen reklam och ingen spårning i spelet. Lös i webbläsaren eller installera appen; dina framsteg, sviter och din statistik stannar på enheten du spelar på. Se <0>varför {SITE_NAME} är byggt på det här sättet</0> för hela, kontrollerbara resonemanget."
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, source-available implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "Gratis sudoku online innebär att spela det klassiska 9×9-sifferpusslet i webbläsare eller app utan köp, installationsgräns eller betalvägg, och {SITE_NAME} är en gratis implementation med tillgänglig källkod av det – sju svårighetsnivåer från Nybörjare till Oändlighet, guider som förklarar teknikerna, ingen reklam och ingen spårning i spelet. Lös i webbläsaren eller installera appen; dina framsteg, sviter och din statistik stannar på enheten du spelar på. Se <0>varför {SITE_NAME} är byggt på det här sättet</0> för hela, kontrollerbara resonemanget."
 
 #: src/chrome/components/site-footer/site-footer.tsx
 msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
 msgstr "Gratis sudoku för iOS, Android och webben, offline i apparna"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free, open-source, no ads"
-msgstr "Gratis, öppen källkod, ingen reklam"
+msgid "Free, source-available, no ads"
+msgstr "Gratis, tillgänglig källkod, ingen reklam"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Frequently asked questions"
@@ -1605,8 +1605,8 @@ msgid "Summary"
 msgstr "Sammanfattning"
 
 #: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
-msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
-msgstr "Suuudokuuu graderar sina sudokun på en stege med sex nivåer, från Nybörjare till Helvete, och varje nivå definieras av två konkreta fakta snarare än en marknadsföringsetikett: hur många givna siffror rutnätet börjar med, och vilka namngivna lösningstekniker nivån garanterat kräver. Varje nytt sudoku bedöms dessutom på SE-skalan (Sudoku Explainer) i samma stund som det skapas, av samma bedömningspaket med öppen källkod som <0>guiden om sudokuns svårighetsbedömning</0> använder för att publicera det uppmätta bandet och SE-spannet för varje nivå på stegen nedan. Ovanför stegen ligger <1>Oändlighet</1>, ett kurerat urval av rekordsudokun som bär de bedömningar som oberoende bedömare publicerar, eftersom de når förbi toppen av vår egen bedömningsskala."
+msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
+msgstr "Suuudokuuu graderar sina sudokun på en stege med sex nivåer, från Nybörjare till Helvete, och varje nivå definieras av två konkreta fakta snarare än en marknadsföringsetikett: hur många givna siffror rutnätet börjar med, och vilka namngivna lösningstekniker nivån garanterat kräver. Varje nytt sudoku bedöms dessutom på SE-skalan (Sudoku Explainer) i samma stund som det skapas, av samma bedömningspaket som <0>guiden om sudokuns svårighetsbedömning</0> använder för att publicera det uppmätta bandet och SE-spannet för varje nivå på stegen nedan. Ovanför stegen ligger <1>Oändlighet</1>, ett kurerat urval av rekordsudokun som bär de bedömningar som oberoende bedömare publicerar, eftersom de når förbi toppen av vår egen bedömningsskala."
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity."
@@ -1917,8 +1917,8 @@ msgid "Yes, with no account and no watermark, and every puzzle’s solved grid i
 msgstr "Ja, utan konto och utan vattenstämpel, och varje sudokus lösta rutnät ingår längst bak."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty levels."
-msgstr "Ja. {SITE_NAME} är gratis och har öppen källkod, utan köp i appen, prenumerationer eller svårighetsnivåer bakom betalvägg."
+msgid "Yes. {SITE_NAME} is free and source-available, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "Ja. {SITE_NAME} är gratis och har tillgänglig källkod, utan köp i appen, prenumerationer eller svårighetsnivåer bakom betalvägg."
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Both are in the Infinity set, along with Platinum Blonde and Golden Nugget. Each game reshuffles digits, rows and columns, so the grid looks different every time while the puzzle stays the same."
@@ -1944,10 +1944,10 @@ msgstr "Ja. Varje sudoku i häftet går att lösa enbart med en sista ledig ruta
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."
 msgstr "Ja. Vårt urval mäter Helvete till SE {hellSeRatingRange}, och varje sudoku på Oändlighet har en publicerad bedömning mellan {lowestRatingLabel} och {highestRatingLabel}. Sudokun på Helvete ger ändå vika för vårt tekniksteg; sudokun på Oändlighet gör det inte."
 
-#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
-msgid "Yes. Suuudokuuu’s code, including the generator behind these puzzles, is open source under the MIT license, and this site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
-msgstr "Ja. Suuudokuuus kod, inklusive generatorn bakom de här sudokuna, har öppen källkod under MIT-licensen, och den här webbplatsen sätter ingen begränsning för att skriva ut eller dela vidare PDF:erna – även att dela ut dem i ett klassrum, en lektion eller ett paket med arbetsblad."
-
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. The PDF downloads free, with no account and no watermark, and includes a full solution key for every puzzle."
 msgstr "Ja. PDF:en laddas ner gratis, utan konto och utan vattenstämpel, och innehåller ett fullständigt facit för varje sudoku."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. This site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
+msgstr "Ja. Den här webbplatsen sätter ingen begränsning för att skriva ut eller dela vidare PDF:erna – även att dela ut dem i ett klassrum, en lektion eller ett paket med arbetsblad."

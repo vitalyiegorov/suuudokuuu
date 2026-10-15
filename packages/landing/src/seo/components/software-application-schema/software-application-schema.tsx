@@ -3,7 +3,7 @@ import {
     SITE_APP_STORE_URL,
     SITE_GITHUB_URL,
     SITE_GOOGLE_PLAY_URL,
-    SITE_LICENSE,
+    SITE_LICENSE_URL,
     SITE_NAME,
     SITE_ORIGIN
 } from '../../constants/site.constant';
@@ -44,7 +44,7 @@ export const SoftwareApplicationSchema = ({ children, description, locale, name,
         operatingSystem: OPERATING_SYSTEMS,
         offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         isAccessibleForFree: true,
-        license: SITE_LICENSE,
+        license: SITE_LICENSE_URL,
         codeRepository: SITE_GITHUB_URL,
         downloadUrl: STORE_URLS,
         installUrl: STORE_URLS,

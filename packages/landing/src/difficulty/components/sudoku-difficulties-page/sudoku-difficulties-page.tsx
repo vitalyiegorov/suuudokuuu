@@ -73,7 +73,7 @@ export const SudokuDifficultiesPage = ({ locale }: Props) => {
                     Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete
                     facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is
                     guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the
-                    same open-source rating package the{' '}
+                    same rating package the{' '}
                     <Link href={buildLocalizedPagePath(sudokuDifficultyRatingPageMetadata)}>sudoku difficulty rating guide</Link> uses to
                     publish the measured band and SE range of every ladder tier below. Above the ladder sits{' '}
                     <Link href={buildLocalizedPagePath(infinitySudokuPageMetadata)}>Infinity</Link>, a curated set of record puzzles that

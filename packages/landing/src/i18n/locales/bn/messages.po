@@ -675,20 +675,20 @@ msgid "For each unit with several blank cells, check whether a digit that is sti
 msgstr "কয়েকটি ফাঁকা ঘরসহ প্রতিটি ইউনিটে দেখুন, ইউনিটে এখনও বাদ থাকা কোনো অঙ্ক তাদের মধ্যে কেবল একটিতেই বসতে পারে কি না, সেই ঘরে অন্য প্রার্থী থাকলেও।"
 
 #: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
-msgstr "{SITE_LICENSE} লাইসেন্সের অধীনে বিনামূল্যে ও ওপেন সোর্স। গেমে কোনো বিজ্ঞাপন, অ্যাকাউন্ট বা ট্র্যাকিং নেই — <0>কেন</0> তা পড়ুন অথবা <1>GitHub-এ পূর্ণ সোর্স</1> দেখুন। Apple এবং Apple লোগো Apple Inc.-এর ট্রেডমার্ক, যা যুক্তরাষ্ট্র ও অন্যান্য দেশে নিবন্ধিত। App Store Apple Inc.-এর একটি সার্ভিস মার্ক। Google Play এবং Google Play লোগো Google LLC-এর ট্রেডমার্ক।"
+msgid "Free and source-available under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "বিনামূল্যে, আর সোর্স কোড {SITE_LICENSE} লাইসেন্সের অধীনে প্রকাশ্য। গেমে কোনো বিজ্ঞাপন, অ্যাকাউন্ট বা ট্র্যাকিং নেই — <0>কেন</0> তা পড়ুন অথবা <1>GitHub-এ পূর্ণ সোর্স</1> দেখুন। Apple এবং Apple লোগো Apple Inc.-এর ট্রেডমার্ক, যা যুক্তরাষ্ট্র ও অন্যান্য দেশে নিবন্ধিত। App Store Apple Inc.-এর একটি সার্ভিস মার্ক। Google Play এবং Google Play লোগো Google LLC-এর ট্রেডমার্ক।"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
-msgstr "ফ্রি অনলাইন সুডোকু মানে ক্লাসিক ৯×৯ সংখ্যার ধাঁধা ব্রাউজার বা অ্যাপে খেলা, কোনো কেনাকাটা, ইনস্টলের সীমা বা পেওয়াল ছাড়া, আর {SITE_NAME} তারই একটি বিনামূল্যের, ওপেন-সোর্স রূপ — নতুন থেকে অসীম পর্যন্ত সাতটি কঠিনতার স্তর, কৌশল ব্যাখ্যা করা নির্দেশিকা, গেমে কোনো বিজ্ঞাপন বা ট্র্যাকিং নেই। ব্রাউজারে সমাধান করুন বা অ্যাপ ইনস্টল করুন; আপনার অগ্রগতি, ধারা ও পরিসংখ্যান যে ডিভাইসে খেলেন সেখানেই থাকে। পূর্ণ, যাচাইযোগ্য কারণের জন্য দেখুন <0>{SITE_NAME} কেন এভাবে তৈরি</0>।"
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, source-available implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "ফ্রি অনলাইন সুডোকু মানে ক্লাসিক ৯×৯ সংখ্যার ধাঁধা ব্রাউজার বা অ্যাপে খেলা, কোনো কেনাকাটা, ইনস্টলের সীমা বা পেওয়াল ছাড়া, আর {SITE_NAME} তারই একটি বিনামূল্যের, প্রকাশ্য সোর্স কোডের রূপ — নতুন থেকে অসীম পর্যন্ত সাতটি কঠিনতার স্তর, কৌশল ব্যাখ্যা করা নির্দেশিকা, গেমে কোনো বিজ্ঞাপন বা ট্র্যাকিং নেই। ব্রাউজারে সমাধান করুন বা অ্যাপ ইনস্টল করুন; আপনার অগ্রগতি, ধারা ও পরিসংখ্যান যে ডিভাইসে খেলেন সেখানেই থাকে। পূর্ণ, যাচাইযোগ্য কারণের জন্য দেখুন <0>{SITE_NAME} কেন এভাবে তৈরি</0>।"
 
 #: src/chrome/components/site-footer/site-footer.tsx
 msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
 msgstr "iOS, Android ও ওয়েবের জন্য বিনামূল্যের সুডোকু, অ্যাপে অফলাইনেও চলে"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free, open-source, no ads"
-msgstr "বিনামূল্যে, ওপেন সোর্স, বিজ্ঞাপনহীন"
+msgid "Free, source-available, no ads"
+msgstr "বিনামূল্যে, প্রকাশ্য সোর্স কোড, বিজ্ঞাপনহীন"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Frequently asked questions"
@@ -1605,8 +1605,8 @@ msgid "Summary"
 msgstr "সারসংক্ষেপ"
 
 #: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
-msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
-msgstr "Suuudokuuu তার ধাঁধাগুলোকে ছয় স্তরের একটি সিঁড়িতে ভাগ করে, নতুন থেকে নরক পর্যন্ত, এবং প্রতিটি স্তর বিপণন-লেবেল দিয়ে নয়, দুটি স্পষ্ট তথ্য দিয়ে সংজ্ঞায়িত: গ্রিড কতগুলো সূত্র নিয়ে শুরু হয়, আর কোন কোন নামধারী সমাধান কৌশল স্তরটিতে লাগবেই বলে নিশ্চিত। প্রতিটি নতুন বোর্ড তৈরি হওয়ার মুহূর্তেই SE (Sudoku Explainer) স্কেলে রেটিং পায়, সেই একই ওপেন-সোর্স রেটিং প্যাকেজ দিয়ে, যা <0>সুডোকু কঠিনতা রেটিং নির্দেশিকা</0> নিচের সিঁড়ির প্রতিটি স্তরের মাপা পরিসর ও SE সীমা প্রকাশ করতে ব্যবহার করে। সিঁড়ির ওপরে আছে <1>অসীম</1>, রেকর্ড ধাঁধার একটি বাছাই করা সংগ্রহ, যেগুলো স্বতন্ত্র রেটারদের প্রকাশিত রেটিং বহন করে, কারণ সেগুলো আমাদের নিজস্ব রেটিং স্কেলের শীর্ষও ছাড়িয়ে যায়।"
+msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
+msgstr "Suuudokuuu তার ধাঁধাগুলোকে ছয় স্তরের একটি সিঁড়িতে ভাগ করে, নতুন থেকে নরক পর্যন্ত, এবং প্রতিটি স্তর বিপণন-লেবেল দিয়ে নয়, দুটি স্পষ্ট তথ্য দিয়ে সংজ্ঞায়িত: গ্রিড কতগুলো সূত্র নিয়ে শুরু হয়, আর কোন কোন নামধারী সমাধান কৌশল স্তরটিতে লাগবেই বলে নিশ্চিত। প্রতিটি নতুন বোর্ড তৈরি হওয়ার মুহূর্তেই SE (Sudoku Explainer) স্কেলে রেটিং পায়, সেই একই রেটিং প্যাকেজ দিয়ে, যা <0>সুডোকু কঠিনতা রেটিং নির্দেশিকা</0> নিচের সিঁড়ির প্রতিটি স্তরের মাপা পরিসর ও SE সীমা প্রকাশ করতে ব্যবহার করে। সিঁড়ির ওপরে আছে <1>অসীম</1>, রেকর্ড ধাঁধার একটি বাছাই করা সংগ্রহ, যেগুলো স্বতন্ত্র রেটারদের প্রকাশিত রেটিং বহন করে, কারণ সেগুলো আমাদের নিজস্ব রেটিং স্কেলের শীর্ষও ছাড়িয়ে যায়।"
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity."
@@ -1917,8 +1917,8 @@ msgid "Yes, with no account and no watermark, and every puzzle’s solved grid i
 msgstr "হ্যাঁ, কোনো অ্যাকাউন্ট ও ওয়াটারমার্ক ছাড়াই, এবং প্রতিটি ধাঁধার সমাধান করা গ্রিড পেছনে দেওয়া আছে।"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty levels."
-msgstr "হ্যাঁ। {SITE_NAME} বিনামূল্যে ও ওপেন সোর্স, কোনো ইন-অ্যাপ কেনাকাটা, সাবস্ক্রিপশন বা পেওয়াল-আটকানো কঠিনতার স্তর ছাড়াই।"
+msgid "Yes. {SITE_NAME} is free and source-available, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "হ্যাঁ। {SITE_NAME} বিনামূল্যে এবং এর সোর্স কোড প্রকাশ্য, কোনো ইন-অ্যাপ কেনাকাটা, সাবস্ক্রিপশন বা পেওয়াল-আটকানো কঠিনতার স্তর ছাড়াই।"
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Both are in the Infinity set, along with Platinum Blonde and Golden Nugget. Each game reshuffles digits, rows and columns, so the grid looks different every time while the puzzle stays the same."
@@ -1944,10 +1944,10 @@ msgstr "হ্যাঁ। বুকলেটের প্রতিটি ধা
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."
 msgstr "হ্যাঁ। আমাদের নমুনায় নরক SE {hellSeRatingRange} মাপা হয়েছে, আর প্রতিটি অসীম ধাঁধার প্রকাশিত রেটিং {lowestRatingLabel} থেকে {highestRatingLabel}-এর মধ্যে। নরক বোর্ড এখনও আমাদের কৌশল-সিঁড়ির কাছে হার মানে; অসীম বোর্ড মানে না।"
 
-#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
-msgid "Yes. Suuudokuuu’s code, including the generator behind these puzzles, is open source under the MIT license, and this site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
-msgstr "হ্যাঁ। Suuudokuuu-র কোড, এই ধাঁধাগুলোর পেছনের জেনারেটরসহ, MIT লাইসেন্সের অধীনে ওপেন সোর্স, আর এই সাইট PDF ছাপা বা পুনর্বিতরণে কোনো বিধিনিষেধ রাখে না — শ্রেণিকক্ষে, টিউটরিং সেশনে বা ওয়ার্কশিট প্যাকেটে বিলি করাও এর মধ্যে পড়ে।"
-
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. The PDF downloads free, with no account and no watermark, and includes a full solution key for every puzzle."
 msgstr "হ্যাঁ। PDF বিনামূল্যে ডাউনলোড হয়, কোনো অ্যাকাউন্ট ও ওয়াটারমার্ক ছাড়াই, এবং প্রতিটি ধাঁধার পূর্ণ সমাধান-তালিকা এতে আছে।"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. This site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
+msgstr "হ্যাঁ। এই সাইট PDF ছাপা বা পুনর্বিতরণে কোনো বিধিনিষেধ রাখে না — শ্রেণিকক্ষে, টিউটরিং সেশনে বা ওয়ার্কশিট প্যাকেটে বিলি করাও এর মধ্যে পড়ে।"

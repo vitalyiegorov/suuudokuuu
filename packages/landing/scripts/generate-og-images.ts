@@ -27,7 +27,7 @@ import type { ReactElement } from 'react';
 
 const OG_IMAGE_TOP_LEVEL_KICKER: Readonly<Record<string, string>> = {
     '': SITE_NAME,
-    'why-suuudokuuu': 'Open Source',
+    'why-suuudokuuu': 'Source Available',
     techniques: 'Techniques',
     sudoku: 'Difficulty Levels',
     printable: 'Printable Sudoku',

@@ -259,8 +259,7 @@ export const PrintableSudokuPage = ({ locale }: Props) => {
                     </FaqQuestion>
                     <FaqAnswer>
                         <Trans>
-                            Yes. Suuudokuuu’s code, including the generator behind these puzzles, is open source under the MIT license, and
-                            this site places no restriction on printing or redistributing the PDFs — including handing them out in a
+                            Yes. This site places no restriction on printing or redistributing the PDFs — including handing them out in a
                             classroom, a tutoring session or a worksheet packet.
                         </Trans>
                     </FaqAnswer>

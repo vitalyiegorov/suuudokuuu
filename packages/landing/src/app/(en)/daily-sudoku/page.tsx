@@ -55,9 +55,9 @@ const DailySudokuPage = () => (
         </ul>
         <h2>How the daily puzzle is chosen</h2>
         <p>
-            Nothing is stored and no server picks the puzzle. The UTC date is hashed into a seed, and the same open-source puzzle forge the
-            app uses turns that seed into a board, checking it against its difficulty tier before accepting it. Any device that knows the
-            date can therefore rebuild the same grid on its own, which is why this page, the archive and the app always agree.
+            Nothing is stored and no server picks the puzzle. The UTC date is hashed into a seed, and the same source-available puzzle forge
+            the app uses turns that seed into a board, checking it against its difficulty tier before accepting it. Any device that knows
+            the date can therefore rebuild the same grid on its own, which is why this page, the archive and the app always agree.
         </p>
         <p>
             The tier rotates by day: Newbie, Easy, Medium, Hard, then back to Newbie, so a week of dailies covers the whole range from a

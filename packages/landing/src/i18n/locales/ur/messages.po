@@ -675,20 +675,20 @@ msgid "For each unit with several blank cells, check whether a digit that is sti
 msgstr "کئی خالی خانوں والی ہر اکائی کے لیے دیکھیں کہ کیا اکائی میں ابھی تک غائب کوئی ہندسہ ان میں سے صرف ایک خانے میں آ سکتا ہے، چاہے اس خانے میں دوسرے امکانات بھی ہوں۔"
 
 #: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
-msgstr "{SITE_LICENSE} لائسنس کے تحت مفت اور اوپن سورس۔ کھیل میں کوئی اشتہار، کوئی اکاؤنٹ اور کوئی ٹریکنگ نہیں — <0>وجہ</0> پڑھیں یا <1>GitHub پر مکمل سورس</1> دیکھیں۔ Apple اور Apple کا لوگو Apple Inc. کے ٹریڈ مارک ہیں، جو امریکہ اور دوسرے ممالک میں رجسٹرڈ ہیں۔ App Store Apple Inc. کا سروس مارک ہے۔ Google Play اور Google Play کا لوگو Google LLC کے ٹریڈ مارک ہیں۔"
+msgid "Free and source-available under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "مفت، اور سورس کوڈ {SITE_LICENSE} لائسنس کے تحت دستیاب۔ کھیل میں کوئی اشتہار، کوئی اکاؤنٹ اور کوئی ٹریکنگ نہیں — <0>وجہ</0> پڑھیں یا <1>GitHub پر مکمل سورس</1> دیکھیں۔ Apple اور Apple کا لوگو Apple Inc. کے ٹریڈ مارک ہیں، جو امریکہ اور دوسرے ممالک میں رجسٹرڈ ہیں۔ App Store Apple Inc. کا سروس مارک ہے۔ Google Play اور Google Play کا لوگو Google LLC کے ٹریڈ مارک ہیں۔"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
-msgstr "مفت آن لائن سوڈوکو کا مطلب ہے کلاسک 9×9 نمبر پزل کو براؤزر یا ایپ میں بغیر خریداری، انسٹال کی حد یا پے وال کے کھیلنا، اور {SITE_NAME} اس کا ایک مفت، اوپن سورس نفاذ ہے — نیا کھلاڑی سے لامحدود تک سات مشکل درجے، تکنیکیں سمجھانے والی گائیڈز، کھیل میں نہ اشتہارات اور نہ ٹریکنگ۔ براؤزر میں حل کریں یا ایپ انسٹال کریں؛ آپ کی پیش رفت، اسٹریکس اور اعداد و شمار اسی آلے پر رہتے ہیں جس پر آپ کھیلتے ہیں۔ مکمل اور قابلِ تصدیق وضاحت کے لیے <0>{SITE_NAME} ایسے کیوں بنایا گیا</0> دیکھیں۔"
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, source-available implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "مفت آن لائن سوڈوکو کا مطلب ہے کلاسک 9×9 نمبر پزل کو براؤزر یا ایپ میں بغیر خریداری، انسٹال کی حد یا پے وال کے کھیلنا، اور {SITE_NAME} اس کا ایک مفت نفاذ ہے جس کا سورس کوڈ دستیاب ہے — نیا کھلاڑی سے لامحدود تک سات مشکل درجے، تکنیکیں سمجھانے والی گائیڈز، کھیل میں نہ اشتہارات اور نہ ٹریکنگ۔ براؤزر میں حل کریں یا ایپ انسٹال کریں؛ آپ کی پیش رفت، اسٹریکس اور اعداد و شمار اسی آلے پر رہتے ہیں جس پر آپ کھیلتے ہیں۔ مکمل اور قابلِ تصدیق وضاحت کے لیے <0>{SITE_NAME} ایسے کیوں بنایا گیا</0> دیکھیں۔"
 
 #: src/chrome/components/site-footer/site-footer.tsx
 msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
 msgstr "iOS، Android اور ویب کے لیے مفت سوڈوکو، ایپس میں آف لائن بھی"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free, open-source, no ads"
-msgstr "مفت، اوپن سورس، بغیر اشتہارات"
+msgid "Free, source-available, no ads"
+msgstr "مفت، سورس کوڈ دستیاب، بغیر اشتہارات"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Frequently asked questions"
@@ -1605,8 +1605,8 @@ msgid "Summary"
 msgstr "خلاصہ"
 
 #: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
-msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
-msgstr "Suuudokuuu اپنے پزلز کو نیا کھلاڑی سے جہنم تک چھ درجوں کی سیڑھی پر درجہ بند کرتا ہے، اور ہر درجہ کسی مارکیٹنگ لیبل سے نہیں بلکہ دو ٹھوس حقائق سے متعین ہوتا ہے: گرڈ کتنے کلیوز سے شروع ہوتا ہے، اور درجے میں کون سی نامزد حل کی تکنیکیں ضروری ہونے کی ضمانت ہے۔ ہر نیا بورڈ بننے کے لمحے ہی SE (Sudoku Explainer) پیمانے پر بھی ریٹ ہوتا ہے، اسی اوپن سورس ریٹنگ پیکیج سے جسے <0>سوڈوکو مشکل ریٹنگ گائیڈ</0> سیڑھی کے ہر نچلے درجے کا ناپا ہوا بینڈ اور SE حد شائع کرنے کے لیے استعمال کرتی ہے۔ سیڑھی کے اوپر <1>لامحدود</1> ہے، ریکارڈ پزلز کا ایک منتخب مجموعہ جو وہ ریٹنگز رکھتے ہیں جو آزاد ریٹرز شائع کرتے ہیں، کیونکہ وہ ہمارے اپنے ریٹنگ پیمانے کے اوپری سرے سے آگے نکل جاتے ہیں۔"
+msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
+msgstr "Suuudokuuu اپنے پزلز کو نیا کھلاڑی سے جہنم تک چھ درجوں کی سیڑھی پر درجہ بند کرتا ہے، اور ہر درجہ کسی مارکیٹنگ لیبل سے نہیں بلکہ دو ٹھوس حقائق سے متعین ہوتا ہے: گرڈ کتنے کلیوز سے شروع ہوتا ہے، اور درجے میں کون سی نامزد حل کی تکنیکیں ضروری ہونے کی ضمانت ہے۔ ہر نیا بورڈ بننے کے لمحے ہی SE (Sudoku Explainer) پیمانے پر بھی ریٹ ہوتا ہے، اسی ریٹنگ پیکیج سے جسے <0>سوڈوکو مشکل ریٹنگ گائیڈ</0> سیڑھی کے ہر نچلے درجے کا ناپا ہوا بینڈ اور SE حد شائع کرنے کے لیے استعمال کرتی ہے۔ سیڑھی کے اوپر <1>لامحدود</1> ہے، ریکارڈ پزلز کا ایک منتخب مجموعہ جو وہ ریٹنگز رکھتے ہیں جو آزاد ریٹرز شائع کرتے ہیں، کیونکہ وہ ہمارے اپنے ریٹنگ پیمانے کے اوپری سرے سے آگے نکل جاتے ہیں۔"
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity."
@@ -1917,8 +1917,8 @@ msgid "Yes, with no account and no watermark, and every puzzle’s solved grid i
 msgstr "جی ہاں، بغیر اکاؤنٹ اور بغیر واٹرمارک کے، اور ہر پزل کا حل شدہ گرڈ آخر میں شامل ہے۔"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty levels."
-msgstr "جی ہاں۔ {SITE_NAME} مفت اور اوپن سورس ہے، جس میں نہ ایپ کے اندر خریداری ہے، نہ سبسکرپشنز اور نہ پے وال والے مشکل درجے۔"
+msgid "Yes. {SITE_NAME} is free and source-available, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "جی ہاں۔ {SITE_NAME} مفت ہے اور اس کا سورس کوڈ دستیاب ہے، جس میں نہ ایپ کے اندر خریداری ہے، نہ سبسکرپشنز اور نہ پے وال والے مشکل درجے۔"
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Both are in the Infinity set, along with Platinum Blonde and Golden Nugget. Each game reshuffles digits, rows and columns, so the grid looks different every time while the puzzle stays the same."
@@ -1944,10 +1944,10 @@ msgstr "جی ہاں۔ کتابچے کا ہر پزل اکیلے آخری خالی
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."
 msgstr "جی ہاں۔ ہمارا نمونہ جہنم کو SE {hellSeRatingRange} پر ناپتا ہے، اور لامحدود کے ہر پزل کی شائع شدہ ریٹنگ {lowestRatingLabel} اور {highestRatingLabel} کے درمیان ہے۔ جہنم کے بورڈز پھر بھی ہماری تکنیکی سیڑھی کے آگے ہار مان لیتے ہیں؛ لامحدود کے بورڈز نہیں مانتے۔"
 
-#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
-msgid "Yes. Suuudokuuu’s code, including the generator behind these puzzles, is open source under the MIT license, and this site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
-msgstr "جی ہاں۔ Suuudokuuu کا کوڈ، بشمول ان پزلز کے پیچھے جنریٹر، MIT لائسنس کے تحت اوپن سورس ہے، اور یہ سائٹ PDFs کو پرنٹ کرنے یا دوبارہ تقسیم کرنے پر کوئی پابندی نہیں لگاتی — بشمول انہیں کلاس روم، ٹیوشن سیشن یا ورک شیٹ پیکٹ میں بانٹنا۔"
-
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. The PDF downloads free, with no account and no watermark, and includes a full solution key for every puzzle."
 msgstr "جی ہاں۔ PDF بغیر اکاؤنٹ اور بغیر واٹرمارک کے مفت ڈاؤن لوڈ ہوتی ہے، اور ہر پزل کی مکمل حل کی کلید شامل ہے۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. This site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
+msgstr "جی ہاں۔ یہ سائٹ PDFs کو پرنٹ کرنے یا دوبارہ تقسیم کرنے پر کوئی پابندی نہیں لگاتی — بشمول انہیں کلاس روم، ٹیوشن سیشن یا ورک شیٹ پیکٹ میں بانٹنا۔"

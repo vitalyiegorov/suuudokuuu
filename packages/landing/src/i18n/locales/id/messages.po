@@ -675,20 +675,20 @@ msgid "For each unit with several blank cells, check whether a digit that is sti
 msgstr "Untuk setiap unit dengan beberapa sel kosong, periksa apakah ada angka yang masih hilang dari unit itu yang hanya muat di salah satunya, meskipun sel itu juga punya kandidat lain."
 
 #: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
-msgstr "Gratis dan sumber terbuka di bawah lisensi {SITE_LICENSE}. Tanpa iklan, tanpa akun, tanpa pelacakan di dalam game — baca <0>alasannya</0> atau telusuri <1>kode sumber lengkap di GitHub</1>. Apple dan logo Apple adalah merek dagang Apple Inc., terdaftar di AS dan negara lain. App Store adalah merek layanan Apple Inc. Google Play dan logo Google Play adalah merek dagang Google LLC."
+msgid "Free and source-available under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "Gratis, dengan kode sumber tersedia di bawah lisensi {SITE_LICENSE}. Tanpa iklan, tanpa akun, tanpa pelacakan di dalam game — baca <0>alasannya</0> atau telusuri <1>kode sumber lengkap di GitHub</1>. Apple dan logo Apple adalah merek dagang Apple Inc., terdaftar di AS dan negara lain. App Store adalah merek layanan Apple Inc. Google Play dan logo Google Play adalah merek dagang Google LLC."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
-msgstr "Sudoku online gratis berarti memainkan teka-teki angka klasik 9×9 di peramban atau aplikasi tanpa pembelian, batas pemasangan, atau paywall, dan {SITE_NAME} adalah implementasi gratis dan sumber terbuka darinya — tujuh tingkat kesulitan dari Pemula sampai Tak Terhingga, panduan yang menjelaskan teknik, tanpa iklan dan tanpa pelacakan di dalam game. Mainkan di peramban atau pasang aplikasinya; kemajuan, rentetan, dan statistik Anda tetap tersimpan di perangkat tempat Anda bermain. Lihat <0>mengapa {SITE_NAME} dibuat seperti ini</0> untuk penjelasan lengkap yang bisa diverifikasi."
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, source-available implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "Sudoku online gratis berarti memainkan teka-teki angka klasik 9×9 di peramban atau aplikasi tanpa pembelian, batas pemasangan, atau paywall, dan {SITE_NAME} adalah implementasi gratis dengan kode sumber tersedia darinya — tujuh tingkat kesulitan dari Pemula sampai Tak Terhingga, panduan yang menjelaskan teknik, tanpa iklan dan tanpa pelacakan di dalam game. Mainkan di peramban atau pasang aplikasinya; kemajuan, rentetan, dan statistik Anda tetap tersimpan di perangkat tempat Anda bermain. Lihat <0>mengapa {SITE_NAME} dibuat seperti ini</0> untuk penjelasan lengkap yang bisa diverifikasi."
 
 #: src/chrome/components/site-footer/site-footer.tsx
 msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
 msgstr "Sudoku gratis untuk iOS, Android, dan web, offline di aplikasi"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free, open-source, no ads"
-msgstr "Gratis, sumber terbuka, tanpa iklan"
+msgid "Free, source-available, no ads"
+msgstr "Gratis, kode sumber tersedia, tanpa iklan"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Frequently asked questions"
@@ -1605,8 +1605,8 @@ msgid "Summary"
 msgstr "Ringkasan"
 
 #: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
-msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
-msgstr "Suuudokuuu menilai sudokunya pada tangga enam tingkat, dari Pemula sampai Neraka, dan setiap tingkat ditentukan oleh dua fakta konkret, bukan label pemasaran: berapa banyak angka awal di grid, dan teknik penyelesaian bernama apa yang dijamin dibutuhkan tingkat itu. Setiap sudoku baru juga dinilai pada skala SE (Sudoku Explainer) begitu dibuat, oleh paket penilai sumber terbuka yang sama yang dipakai <0>panduan peringkat kesulitan sudoku</0> untuk mempublikasikan rentang teknik dan rentang SE terukur dari setiap tingkat tangga di bawah. Di atas tangga ada <1>Tak Terhingga</1>, kumpulan pilihan sudoku rekor yang membawa peringkat yang dipublikasikan penilai independen, karena sudoku itu melampaui puncak skala penilaian kami sendiri."
+msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
+msgstr "Suuudokuuu menilai sudokunya pada tangga enam tingkat, dari Pemula sampai Neraka, dan setiap tingkat ditentukan oleh dua fakta konkret, bukan label pemasaran: berapa banyak angka awal di grid, dan teknik penyelesaian bernama apa yang dijamin dibutuhkan tingkat itu. Setiap sudoku baru juga dinilai pada skala SE (Sudoku Explainer) begitu dibuat, oleh paket penilai yang sama yang dipakai <0>panduan peringkat kesulitan sudoku</0> untuk mempublikasikan rentang teknik dan rentang SE terukur dari setiap tingkat tangga di bawah. Di atas tangga ada <1>Tak Terhingga</1>, kumpulan pilihan sudoku rekor yang membawa peringkat yang dipublikasikan penilai independen, karena sudoku itu melampaui puncak skala penilaian kami sendiri."
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity."
@@ -1917,8 +1917,8 @@ msgid "Yes, with no account and no watermark, and every puzzle’s solved grid i
 msgstr "Ya, tanpa akun dan tanpa tanda air, dan grid terselesaikan setiap sudoku disertakan di bagian belakang."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty levels."
-msgstr "Ya. {SITE_NAME} gratis dan sumber terbuka, tanpa pembelian dalam aplikasi, langganan, atau tingkat kesulitan berbayar."
+msgid "Yes. {SITE_NAME} is free and source-available, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "Ya. {SITE_NAME} gratis dan kode sumbernya tersedia, tanpa pembelian dalam aplikasi, langganan, atau tingkat kesulitan berbayar."
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Both are in the Infinity set, along with Platinum Blonde and Golden Nugget. Each game reshuffles digits, rows and columns, so the grid looks different every time while the puzzle stays the same."
@@ -1944,10 +1944,10 @@ msgstr "Ya. Setiap sudoku di buklet bisa diselesaikan hanya dengan sel kosong te
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."
 msgstr "Ya. Sampel kami mengukur Neraka pada SE {hellSeRatingRange}, dan setiap sudoku Tak Terhingga memiliki peringkat terpublikasi antara {lowestRatingLabel} dan {highestRatingLabel}. Sudoku Neraka masih tunduk pada tangga teknik kami; sudoku Tak Terhingga tidak."
 
-#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
-msgid "Yes. Suuudokuuu’s code, including the generator behind these puzzles, is open source under the MIT license, and this site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
-msgstr "Ya. Kode Suuudokuuu, termasuk generator di balik sudoku ini, bersumber terbuka di bawah lisensi MIT, dan situs ini tidak membatasi pencetakan atau pendistribusian ulang PDF — termasuk membagikannya di kelas, sesi les, atau paket lembar kerja."
-
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. The PDF downloads free, with no account and no watermark, and includes a full solution key for every puzzle."
 msgstr "Ya. PDF diunduh gratis, tanpa akun dan tanpa tanda air, dan menyertakan kunci jawaban lengkap untuk setiap sudoku."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. This site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
+msgstr "Ya. Situs ini tidak membatasi pencetakan atau pendistribusian ulang PDF — termasuk membagikannya di kelas, sesi les, atau paket lembar kerja."

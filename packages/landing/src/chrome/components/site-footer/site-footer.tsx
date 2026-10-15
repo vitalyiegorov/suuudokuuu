@@ -114,7 +114,7 @@ export const SiteFooter = () => {
             </div>
             <p className="site-footer__note">
                 <Trans>
-                    Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read{' '}
+                    Free and source-available under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read{' '}
                     <Link href={whySuuudokuuuPageMetadata.path}>why</Link> or browse the <a href={SITE_GITHUB_URL}>full source on GitHub</a>
                     . Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a
                     service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC.

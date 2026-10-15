@@ -158,7 +158,7 @@ const SudokuCluesVsDifficultyPage = () => {
             <p>
                 Ask which techniques a puzzle requires. That is what the Sudoku Explainer scale formalises, and our{' '}
                 <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> explains how the technique ladder
-                turns into a number — and it is the number every Suuudokuuu board now carries, computed by our open-source rater at the
+                turns into a number — and it is the number every Suuudokuuu board now carries, computed by our source-available rater at the
                 moment the board is created. Practically, the useful question is not “how many blanks” but “does this grid ever stop
                 yielding to singles” — and if it does, which pattern breaks the deadlock. The{' '}
                 <Link href={techniquesPageMetadata.path}>technique index</Link> has a worked example for each one, and the{' '}

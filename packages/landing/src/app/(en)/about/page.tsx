@@ -51,7 +51,7 @@ const AboutPage = () => (
             <a href={SITE_AUTHOR_PROFILE_URL}>GitHub</a>. The guides and technique pages on this site are published under his name, and the
             numbers in them come from the same code the game runs, not from hand-written estimates.
         </p>
-        <h2>Why it is open source</h2>
+        <h2>Why the source is public</h2>
         <p>
             The whole project, including the puzzle generator, the solvers, the technique detector, the app and this website, lives in one
             public repository under the {SITE_LICENSE} license: <a href={SITE_GITHUB_URL}>{SITE_GITHUB_URL}</a>. The reasoning is on the{' '}

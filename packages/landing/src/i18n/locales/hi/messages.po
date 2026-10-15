@@ -675,20 +675,20 @@ msgid "For each unit with several blank cells, check whether a digit that is sti
 msgstr "कई खाली सेलों वाली हर इकाई के लिए देखें कि क्या इकाई में अब भी गायब कोई अंक उनमें से सिर्फ़ एक ही सेल में आ सकता है, भले उस सेल में और उम्मीदवार भी हों।"
 
 #: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
-msgstr "{SITE_LICENSE} लाइसेंस के तहत मुफ़्त और ओपन सोर्स। गेम में कोई विज्ञापन नहीं, कोई अकाउंट नहीं, कोई ट्रैकिंग नहीं — <0>कारण</0> पढ़ें या <1>GitHub पर पूरा सोर्स</1> देखें। Apple और Apple का लोगो Apple Inc. के ट्रेडमार्क हैं, जो अमेरिका और अन्य देशों में पंजीकृत हैं। App Store, Apple Inc. का सर्विस मार्क है। Google Play और Google Play लोगो Google LLC के ट्रेडमार्क हैं।"
+msgid "Free and source-available under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "मुफ़्त, और सोर्स कोड {SITE_LICENSE} लाइसेंस के तहत उपलब्ध। गेम में कोई विज्ञापन नहीं, कोई अकाउंट नहीं, कोई ट्रैकिंग नहीं — <0>कारण</0> पढ़ें या <1>GitHub पर पूरा सोर्स</1> देखें। Apple और Apple का लोगो Apple Inc. के ट्रेडमार्क हैं, जो अमेरिका और अन्य देशों में पंजीकृत हैं। App Store, Apple Inc. का सर्विस मार्क है। Google Play और Google Play लोगो Google LLC के ट्रेडमार्क हैं।"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
-msgstr "मुफ़्त ऑनलाइन सुडोकू का मतलब है क्लासिक 9×9 नंबर पहेली को ब्राउज़र या ऐप में बिना किसी खरीद, इंस्टॉल सीमा या पेवॉल के खेलना, और {SITE_NAME} उसका एक मुफ़्त, ओपन-सोर्स रूप है — नया खिलाड़ी से अनंत तक सात कठिनाई स्तर, तकनीक समझाने वाले गाइड, गेम में कोई विज्ञापन नहीं और कोई ट्रैकिंग नहीं। ब्राउज़र में हल करें या ऐप इंस्टॉल करें; आपकी प्रगति, सिलसिले और आँकड़े उसी डिवाइस पर रहते हैं जिस पर आप खेलते हैं। पूरी, जाँची जा सकने वाली वजह के लिए <0>{SITE_NAME} ऐसा क्यों बना है</0> देखें।"
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, source-available implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "मुफ़्त ऑनलाइन सुडोकू का मतलब है क्लासिक 9×9 नंबर पहेली को ब्राउज़र या ऐप में बिना किसी खरीद, इंस्टॉल सीमा या पेवॉल के खेलना, और {SITE_NAME} उसका एक मुफ़्त, सोर्स-उपलब्ध रूप है — नया खिलाड़ी से अनंत तक सात कठिनाई स्तर, तकनीक समझाने वाले गाइड, गेम में कोई विज्ञापन नहीं और कोई ट्रैकिंग नहीं। ब्राउज़र में हल करें या ऐप इंस्टॉल करें; आपकी प्रगति, सिलसिले और आँकड़े उसी डिवाइस पर रहते हैं जिस पर आप खेलते हैं। पूरी, जाँची जा सकने वाली वजह के लिए <0>{SITE_NAME} ऐसा क्यों बना है</0> देखें।"
 
 #: src/chrome/components/site-footer/site-footer.tsx
 msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
 msgstr "iOS, Android और वेब के लिए मुफ़्त सुडोकू, ऐप में ऑफ़लाइन भी"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free, open-source, no ads"
-msgstr "मुफ़्त, ओपन सोर्स, बिना विज्ञापन"
+msgid "Free, source-available, no ads"
+msgstr "मुफ़्त, सोर्स कोड उपलब्ध, बिना विज्ञापन"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Frequently asked questions"
@@ -1605,8 +1605,8 @@ msgid "Summary"
 msgstr "सारांश"
 
 #: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
-msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
-msgstr "Suuudokuuu अपनी पहेलियों को छह स्तरों की सीढ़ी पर आँकता है, नया खिलाड़ी से नरक तक, और हर स्तर मार्केटिंग लेबल से नहीं, दो ठोस तथ्यों से परिभाषित है: ग्रिड कितने क्लू से शुरू होता है, और स्तर को किन नामी हल करने की तकनीकों की गारंटीशुदा ज़रूरत पड़ती है। हर नया बोर्ड बनते ही SE (Sudoku Explainer) पैमाने पर भी रेट होता है, उसी ओपन-सोर्स रेटिंग पैकेज से जिसे <0>सुडोकू कठिनाई रेटिंग गाइड</0> नीचे सीढ़ी के हर स्तर का मापा गया दायरा और SE सीमा प्रकाशित करने के लिए इस्तेमाल करती है। सीढ़ी के ऊपर <1>अनंत</1> है, रिकॉर्ड पहेलियों का चुना हुआ संग्रह जो स्वतंत्र रेटरों की प्रकाशित रेटिंग रखता है, क्योंकि वे हमारे अपने रेटिंग पैमाने के शीर्ष से आगे जाती हैं।"
+msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
+msgstr "Suuudokuuu अपनी पहेलियों को छह स्तरों की सीढ़ी पर आँकता है, नया खिलाड़ी से नरक तक, और हर स्तर मार्केटिंग लेबल से नहीं, दो ठोस तथ्यों से परिभाषित है: ग्रिड कितने क्लू से शुरू होता है, और स्तर को किन नामी हल करने की तकनीकों की गारंटीशुदा ज़रूरत पड़ती है। हर नया बोर्ड बनते ही SE (Sudoku Explainer) पैमाने पर भी रेट होता है, उसी रेटिंग पैकेज से जिसे <0>सुडोकू कठिनाई रेटिंग गाइड</0> नीचे सीढ़ी के हर स्तर का मापा गया दायरा और SE सीमा प्रकाशित करने के लिए इस्तेमाल करती है। सीढ़ी के ऊपर <1>अनंत</1> है, रिकॉर्ड पहेलियों का चुना हुआ संग्रह जो स्वतंत्र रेटरों की प्रकाशित रेटिंग रखता है, क्योंकि वे हमारे अपने रेटिंग पैमाने के शीर्ष से आगे जाती हैं।"
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity."
@@ -1917,8 +1917,8 @@ msgid "Yes, with no account and no watermark, and every puzzle’s solved grid i
 msgstr "हाँ, बिना अकाउंट और बिना वॉटरमार्क के, और हर पहेली का हल किया ग्रिड सबसे पीछे शामिल है।"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty levels."
-msgstr "हाँ। {SITE_NAME} मुफ़्त और ओपन सोर्स है, बिना इन-ऐप खरीद, सब्सक्रिप्शन या पेवॉल वाले कठिनाई स्तरों के।"
+msgid "Yes. {SITE_NAME} is free and source-available, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "हाँ। {SITE_NAME} मुफ़्त है और इसका सोर्स कोड उपलब्ध है, बिना इन-ऐप खरीद, सब्सक्रिप्शन या पेवॉल वाले कठिनाई स्तरों के।"
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Both are in the Infinity set, along with Platinum Blonde and Golden Nugget. Each game reshuffles digits, rows and columns, so the grid looks different every time while the puzzle stays the same."
@@ -1944,10 +1944,10 @@ msgstr "हाँ। बुकलेट की हर पहेली अके�
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."
 msgstr "हाँ। हमारे नमूने में नरक की माप SE {hellSeRatingRange} है, और हर अनंत पहेली की प्रकाशित रेटिंग {lowestRatingLabel} और {highestRatingLabel} के बीच है। नरक बोर्ड अब भी हमारी तकनीक-सीढ़ी के आगे झुकते हैं; अनंत बोर्ड नहीं।"
 
-#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
-msgid "Yes. Suuudokuuu’s code, including the generator behind these puzzles, is open source under the MIT license, and this site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
-msgstr "हाँ। Suuudokuuu का कोड, इन पहेलियों के पीछे के जनरेटर समेत, MIT लाइसेंस के तहत ओपन सोर्स है, और यह साइट PDF को प्रिंट करने या बाँटने पर कोई रोक नहीं लगाती — कक्षा, ट्यूशन सत्र या वर्कशीट पैकेट में बाँटना भी शामिल है।"
-
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. The PDF downloads free, with no account and no watermark, and includes a full solution key for every puzzle."
 msgstr "हाँ। PDF मुफ़्त डाउनलोड होती है, बिना अकाउंट और बिना वॉटरमार्क के, और हर पहेली की पूरी हल-कुंजी शामिल है।"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. This site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
+msgstr "हाँ। यह साइट PDF को प्रिंट करने या बाँटने पर कोई रोक नहीं लगाती — कक्षा, ट्यूशन सत्र या वर्कशीट पैकेट में बाँटना भी शामिल है।"

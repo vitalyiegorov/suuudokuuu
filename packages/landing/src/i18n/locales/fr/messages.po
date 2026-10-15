@@ -675,20 +675,20 @@ msgid "For each unit with several blank cells, check whether a digit that is sti
 msgstr "Pour chaque unité comportant plusieurs cases vides, vérifiez si un chiffre encore absent de l’unité ne peut aller que dans l’une d’elles, même si cette case a d’autres candidats."
 
 #: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
-msgstr "Libre et open source sous licence {SITE_LICENSE}. Sans publicité, sans compte, sans suivi dans le jeu : lisez <0>pourquoi</0> ou parcourez le <1>code source complet sur GitHub</1>. Apple et le logo Apple sont des marques d’Apple Inc., déposées aux États-Unis et dans d’autres pays. App Store est une marque de service d’Apple Inc. Google Play et le logo Google Play sont des marques de Google LLC."
+msgid "Free and source-available under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "Gratuit, code source disponible sous licence {SITE_LICENSE}. Sans publicité, sans compte, sans suivi dans le jeu : lisez <0>pourquoi</0> ou parcourez le <1>code source complet sur GitHub</1>. Apple et le logo Apple sont des marques d’Apple Inc., déposées aux États-Unis et dans d’autres pays. App Store est une marque de service d’Apple Inc. Google Play et le logo Google Play sont des marques de Google LLC."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
-msgstr "Le sudoku gratuit en ligne, c’est jouer au classique casse-tête numérique de 9×9 dans un navigateur ou une application, sans achat, sans limite d’installation ni abonnement, et {SITE_NAME} en est une implémentation libre et gratuite : sept niveaux de difficulté de Novice à Infini, des guides qui expliquent les techniques, sans publicité ni suivi dans le jeu. Jouez dans le navigateur ou installez l’application ; votre progression, vos séries et vos statistiques restent sur l’appareil où vous jouez. Découvrez <0>pourquoi {SITE_NAME} est conçu ainsi</0> pour un argumentaire complet et vérifiable."
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, source-available implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "Le sudoku gratuit en ligne, c’est jouer au classique casse-tête numérique de 9×9 dans un navigateur ou une application, sans achat, sans limite d’installation ni abonnement, et {SITE_NAME} en est une implémentation gratuite au code source disponible : sept niveaux de difficulté de Novice à Infini, des guides qui expliquent les techniques, sans publicité ni suivi dans le jeu. Jouez dans le navigateur ou installez l’application ; votre progression, vos séries et vos statistiques restent sur l’appareil où vous jouez. Découvrez <0>pourquoi {SITE_NAME} est conçu ainsi</0> pour un argumentaire complet et vérifiable."
 
 #: src/chrome/components/site-footer/site-footer.tsx
 msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
 msgstr "Sudoku gratuit pour iOS, Android et le web, hors ligne dans les applications"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free, open-source, no ads"
-msgstr "Libre, open source, sans publicité"
+msgid "Free, source-available, no ads"
+msgstr "Gratuit, code source disponible, sans publicité"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Frequently asked questions"
@@ -1605,8 +1605,8 @@ msgid "Summary"
 msgstr "Résumé"
 
 #: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
-msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
-msgstr "Suuudokuuu classe ses grilles sur une échelle de six niveaux, de Novice à Enfer, et chaque niveau se définit par deux faits concrets plutôt que par une étiquette marketing : le nombre de chiffres donnés au départ, et les techniques de résolution nommées que le niveau a la garantie d’exiger. Chaque nouvelle grille est aussi cotée sur l’échelle SE (Sudoku Explainer) dès sa création, par le même paquet de cotation open source que le <0>guide de la cote de difficulté du sudoku</0> utilise pour publier la plage de techniques et la plage SE mesurées de chaque niveau de l’échelle ci-dessous. Au-dessus de l’échelle se trouve <1>Infini</1>, un ensemble sélectionné de grilles record qui portent les cotes publiées par des évaluateurs indépendants, car elles dépassent le haut de notre propre échelle de cotation."
+msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
+msgstr "Suuudokuuu classe ses grilles sur une échelle de six niveaux, de Novice à Enfer, et chaque niveau se définit par deux faits concrets plutôt que par une étiquette marketing : le nombre de chiffres donnés au départ, et les techniques de résolution nommées que le niveau a la garantie d’exiger. Chaque nouvelle grille est aussi cotée sur l’échelle SE (Sudoku Explainer) dès sa création, par le même paquet de cotation que le <0>guide de la cote de difficulté du sudoku</0> utilise pour publier la plage de techniques et la plage SE mesurées de chaque niveau de l’échelle ci-dessous. Au-dessus de l’échelle se trouve <1>Infini</1>, un ensemble sélectionné de grilles record qui portent les cotes publiées par des évaluateurs indépendants, car elles dépassent le haut de notre propre échelle de cotation."
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity."
@@ -1917,8 +1917,8 @@ msgid "Yes, with no account and no watermark, and every puzzle’s solved grid i
 msgstr "Oui, sans compte et sans filigrane, et la grille résolue de chaque puzzle est incluse à la fin."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty levels."
-msgstr "Oui. {SITE_NAME} est gratuit et open source, sans achats intégrés, sans abonnement et sans niveau de difficulté payant."
+msgid "Yes. {SITE_NAME} is free and source-available, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "Oui. {SITE_NAME} est gratuit et son code source est disponible, sans achats intégrés, sans abonnement et sans niveau de difficulté payant."
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Both are in the Infinity set, along with Platinum Blonde and Golden Nugget. Each game reshuffles digits, rows and columns, so the grid looks different every time while the puzzle stays the same."
@@ -1944,10 +1944,10 @@ msgstr "Oui. Chaque grille du recueil se résout avec une simple dernière case 
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."
 msgstr "Oui. Notre échantillon situe Enfer à SE {hellSeRatingRange}, et chaque grille Infini porte une cote publiée comprise entre {lowestRatingLabel} et {highestRatingLabel}. Les grilles Enfer cèdent encore à notre échelle de techniques ; les grilles Infini, non."
 
-#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
-msgid "Yes. Suuudokuuu’s code, including the generator behind these puzzles, is open source under the MIT license, and this site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
-msgstr "Oui. Le code de Suuudokuuu, y compris le générateur derrière ces grilles, est open source sous licence MIT, et ce site n’impose aucune restriction à l’impression ni à la redistribution des PDF, y compris pour les distribuer en classe, lors d’un cours particulier ou dans un lot de fiches."
-
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. The PDF downloads free, with no account and no watermark, and includes a full solution key for every puzzle."
 msgstr "Oui. Le PDF se télécharge gratuitement, sans compte et sans filigrane, et comprend un corrigé complet pour chaque grille."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. This site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
+msgstr "Oui. Ce site n’impose aucune restriction à l’impression ni à la redistribution des PDF, y compris pour les distribuer en classe, lors d’un cours particulier ou dans un lot de fiches."

@@ -94,9 +94,8 @@ const LargePrintSudokuPage = () => (
         </p>
         <h2>Classroom and care-home reuse</h2>
         <p>
-            {SITE_NAME}’s code, including the generator behind every puzzle here, is open source under the MIT license, and this site places
-            no restriction on printing or redistributing the PDFs — including handing large-print copies out in a classroom, a care home
-            activity session or a worksheet packet.
+            This site places no restriction on printing or redistributing the PDFs — including handing large-print copies out in a
+            classroom, a care home activity session or a worksheet packet.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Prefer a screen? Play {SITE_NAME} now
@@ -125,10 +124,7 @@ const LargePrintSudokuPage = () => (
             </Faq>
             <Faq>
                 <FaqQuestion>Can I use these PDFs in a classroom or care home?</FaqQuestion>
-                <FaqAnswer>
-                    Yes. The code behind {SITE_NAME}, including the puzzle generator, is MIT-licensed and open source, and there is no
-                    restriction here on printing or handing out the PDFs to a group.
-                </FaqAnswer>
+                <FaqAnswer>Yes. There is no restriction here on printing or handing out the PDFs to a group.</FaqAnswer>
             </Faq>
         </FaqPage>
     </main>

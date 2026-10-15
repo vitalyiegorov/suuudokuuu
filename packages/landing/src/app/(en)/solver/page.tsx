@@ -64,8 +64,8 @@ const SolverPage = () => (
         </p>
         <p>
             This solver runs entirely in your browser. Nothing is uploaded, nothing is stored, and no account is needed. It is the same
-            open-source technique library that powers hints inside the Suuudokuuu game, so every technique it names is one the app’s hints
-            can show you mid-game.
+            source-available technique library that powers hints inside the Suuudokuuu game, so every technique it names is one the app’s
+            hints can show you mid-game.
         </p>
         <TechniqueSummary>
             <ul>
@@ -234,8 +234,8 @@ const SolverPage = () => (
             <Faq>
                 <FaqQuestion>Is the sudoku solver free?</FaqQuestion>
                 <FaqAnswer>
-                    Yes. It is free, open source, ad-free and requires no account. It runs entirely in your browser, so the puzzle you enter
-                    never leaves your device.
+                    Yes. It is free, source-available, ad-free and requires no account. It runs entirely in your browser, so the puzzle you
+                    enter never leaves your device.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

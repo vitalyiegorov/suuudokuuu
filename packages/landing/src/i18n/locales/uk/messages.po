@@ -675,20 +675,20 @@ msgid "For each unit with several blank cells, check whether a digit that is sti
 msgstr "Для кожної групи з кількома порожніми клітинками перевірте, чи цифра, якої в групі ще немає, підходить лише в одну з них, навіть якщо в цій клітинці є й інші варіанти."
 
 #: src/chrome/components/site-footer/site-footer.tsx
-msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
-msgstr "Безкоштовно та з відкритим кодом за ліцензією {SITE_LICENSE}. Без реклами, без облікового запису, без стеження в грі — прочитайте, <0>чому</0>, або перегляньте <1>повний вихідний код на GitHub</1>. Apple і логотип Apple є товарними знаками Apple Inc., зареєстрованими в США та інших країнах. App Store є знаком обслуговування Apple Inc. Google Play і логотип Google Play є товарними знаками Google LLC."
+msgid "Free and source-available under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "Безкоштовно, з доступним вихідним кодом за ліцензією {SITE_LICENSE}. Без реклами, без облікового запису, без стеження в грі — прочитайте, <0>чому</0>, або перегляньте <1>повний вихідний код на GitHub</1>. Apple і логотип Apple є товарними знаками Apple Inc., зареєстрованими в США та інших країнах. App Store є знаком обслуговування Apple Inc. Google Play і логотип Google Play є товарними знаками Google LLC."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
-msgstr "Безкоштовне судоку онлайн означає класичну числову головоломку 9×9 у браузері чи застосунку без покупки, обмежень на встановлення чи платного доступу, а {SITE_NAME} — її безкоштовна реалізація з відкритим кодом: сім рівнів складності від «Новачка» до «Нескінченності», посібники з поясненням технік, без реклами та стеження в грі. Розв’язуйте в браузері або встановіть застосунок; ваш прогрес, серії та статистика зберігаються на пристрої, на якому ви граєте. Повне, перевірюване обґрунтування — у матеріалі <0>чому {SITE_NAME} побудовано саме так</0>."
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, source-available implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "Безкоштовне судоку онлайн означає класичну числову головоломку 9×9 у браузері чи застосунку без покупки, обмежень на встановлення чи платного доступу, а {SITE_NAME} — її безкоштовна реалізація з доступним вихідним кодом: сім рівнів складності від «Новачка» до «Нескінченності», посібники з поясненням технік, без реклами та стеження в грі. Розв’язуйте в браузері або встановіть застосунок; ваш прогрес, серії та статистика зберігаються на пристрої, на якому ви граєте. Повне, перевірюване обґрунтування — у матеріалі <0>чому {SITE_NAME} побудовано саме так</0>."
 
 #: src/chrome/components/site-footer/site-footer.tsx
 msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
 msgstr "Безкоштовне судоку для iOS, Android і вебу, без інтернету в застосунках"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Free, open-source, no ads"
-msgstr "Безкоштовно, з відкритим кодом, без реклами"
+msgid "Free, source-available, no ads"
+msgstr "Безкоштовно, з доступним вихідним кодом, без реклами"
 
 #: src/home/components/home-page/home-page.tsx
 msgid "Frequently asked questions"
@@ -1605,8 +1605,8 @@ msgid "Summary"
 msgstr "Коротко"
 
 #: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
-msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
-msgstr "Suuudokuuu оцінює свої головоломки за шестирівневими сходами від «Новачка» до «Пекла», і кожен рівень визначають два конкретні факти, а не маркетингова назва: з якою кількістю підказок починається сітка та які названі техніки розв’язування гарантовано потрібні на цьому рівні. Кожна нова дошка також оцінюється за шкалою SE (Sudoku Explainer) у момент створення тим самим відкритим пакетом оцінювання, який використовує <0>посібник із рейтингу складності судоку</0>, щоб опублікувати виміряний діапазон технік і SE кожного рівня сходів нижче. Над сходами стоїть <1>«Нескінченність»</1> — добірний набір рекордних головоломок із рейтингами, які публікують незалежні оцінювачі, бо вони сягають за верх нашої власної шкали."
+msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
+msgstr "Suuudokuuu оцінює свої головоломки за шестирівневими сходами від «Новачка» до «Пекла», і кожен рівень визначають два конкретні факти, а не маркетингова назва: з якою кількістю підказок починається сітка та які названі техніки розв’язування гарантовано потрібні на цьому рівні. Кожна нова дошка також оцінюється за шкалою SE (Sudoku Explainer) у момент створення тим самим пакетом оцінювання, який використовує <0>посібник із рейтингу складності судоку</0>, щоб опублікувати виміряний діапазон технік і SE кожного рівня сходів нижче. Над сходами стоїть <1>«Нескінченність»</1> — добірний набір рекордних головоломок із рейтингами, які публікують незалежні оцінювачі, бо вони сягають за верх нашої власної шкали."
 
 #: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
 msgid "Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity."
@@ -1917,8 +1917,8 @@ msgid "Yes, with no account and no watermark, and every puzzle’s solved grid i
 msgstr "Так, без облікового запису й водяних знаків, а розв’язана сітка кожної головоломки — наприкінці."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty levels."
-msgstr "Так. {SITE_NAME} безкоштовний і з відкритим кодом, без покупок у застосунку, підписок чи платних рівнів складності."
+msgid "Yes. {SITE_NAME} is free and source-available, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "Так. {SITE_NAME} безкоштовний і з доступним вихідним кодом, без покупок у застосунку, підписок чи платних рівнів складності."
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
 msgid "Yes. Both are in the Infinity set, along with Platinum Blonde and Golden Nugget. Each game reshuffles digits, rows and columns, so the grid looks different every time while the puzzle stays the same."
@@ -1944,10 +1944,10 @@ msgstr "Так. Кожну головоломку в збірці можна р�
 msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."
 msgstr "Так. Наша вибірка оцінює «Пекло» як SE {hellSeRatingRange}, а кожна головоломка «Нескінченності» має опублікований рейтинг від {lowestRatingLabel} до {highestRatingLabel}. Дошки «Пекла» все ще піддаються нашим сходам технік; дошки «Нескінченності» — ні."
 
-#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
-msgid "Yes. Suuudokuuu’s code, including the generator behind these puzzles, is open source under the MIT license, and this site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
-msgstr "Так. Код Suuudokuuu, зокрема генератор цих головоломок, має відкритий код за ліцензією MIT, і цей сайт не обмежує друк чи поширення PDF — зокрема роздавання на уроці, репетиторському занятті чи в пачці робочих аркушів."
-
 #: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
 msgid "Yes. The PDF downloads free, with no account and no watermark, and includes a full solution key for every puzzle."
 msgstr "Так. PDF завантажується безкоштовно, без облікового запису й водяних знаків, і містить повний ключ відповідей до кожної головоломки."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. This site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
+msgstr "Так. Цей сайт не обмежує друк чи поширення PDF — зокрема роздавання на уроці, репетиторському занятті чи в пачці робочих аркушів."

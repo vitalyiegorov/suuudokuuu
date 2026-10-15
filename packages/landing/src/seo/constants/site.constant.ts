@@ -15,7 +15,9 @@ export const SITE_AUTHOR_NAME = 'Vitalii Yehorov';
 
 export const SITE_AUTHOR_PROFILE_URL = 'https://github.com/vitalyiegorov';
 
-export const SITE_LICENSE = 'MIT';
+export const SITE_LICENSE = "O'Saasy";
+
+export const SITE_LICENSE_URL = `${SITE_GITHUB_URL}/blob/main/LICENSE`;
 
 export const SITE_APP_STORE_ID = '6449440933';
 
