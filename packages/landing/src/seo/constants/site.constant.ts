@@ -45,11 +45,22 @@ export const SITE_VIEWPORT: Viewport = {
 
 export const DEFAULT_LOCALE = 'en';
 
-export const SUPPORTED_LOCALES = [DEFAULT_LOCALE, 'es'] as const;
+export const SUPPORTED_LOCALES = [DEFAULT_LOCALE, 'ar', 'bn', 'de', 'es', 'fr', 'hi', 'id', 'pt-BR', 'sv', 'uk', 'ur', 'zh'] as const;
 
 export const LOCALE_NAMES: Readonly<Record<LocaleType, string>> = {
     en: 'English',
-    es: 'Español'
+    ar: 'العربية',
+    bn: 'বাংলা',
+    de: 'Deutsch',
+    es: 'Español',
+    fr: 'Français',
+    hi: 'हिन्दी',
+    id: 'Bahasa Indonesia',
+    'pt-BR': 'Português (Brasil)',
+    sv: 'Svenska',
+    uk: 'Українська',
+    ur: 'اردو',
+    zh: '简体中文'
 };
 
 export const RIGHT_TO_LEFT_LOCALES: readonly string[] = ['ar', 'ur'];

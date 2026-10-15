@@ -12,8 +12,10 @@ export const LanguageSwitcherLink = ({ href, isCurrent, locale }: Props) => {
     const currentPageProps = isCurrent ? { 'aria-current': 'page' as const } : {};
 
     return (
-        <a {...currentPageProps} href={href} hrefLang={locale} lang={locale}>
-            {LOCALE_NAMES[locale]}
-        </a>
+        <li>
+            <a {...currentPageProps} href={href} hrefLang={locale} lang={locale}>
+                {LOCALE_NAMES[locale]}
+            </a>
+        </li>
     );
 };

@@ -1,0 +1,1953 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-10-15 06:50+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: uk\n"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells — only one fewer than Medium, which is exactly why the tier is defined by the techniques it requires rather than by its clue count."
+msgstr "{clueCount} підказок із 81 клітинки — лише на одну менше, ніж у рівні «Середній», тож цей рівень визначається не кількістю підказок, а технікою, яку він вимагає."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, a third of the grid filled in before you start."
+msgstr "{clueCount} підказок із 81 клітинки — третина сітки заповнена ще до початку гри."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, and every blank is reachable with a full house or a naked single."
+msgstr "{clueCount} підказок із 81 клітинки, і кожну порожню клітинку можна заповнити за допомогою «останньої клітинки» або відкритого одинака."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need a hidden single and nothing harder."
+msgstr "{clueCount} підказок із 81 клітинки; гарантовано потрібен прихований одинак і нічого складнішого."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need at least one chain or coloring technique beyond every fish and wing."
+msgstr "{clueCount} підказок із 81 клітинки; гарантовано потрібна принаймні одна техніка ланцюгів або розфарбування, складніша за будь-яку рибу чи крило."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need at least one fish or wing pattern beyond every subset."
+msgstr "{clueCount} підказок із 81 клітинки; гарантовано потрібна принаймні одна фігура типу «риба» або «крило», складніша за будь-яку підмножину."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to stall on singles and yield to an intersection or a subset."
+msgstr "{clueCount} підказок із 81 клітинки; гарантовано зайдете в глухий кут на одинаках і подолаєте його перетином або підмножиною."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, solvable with full houses and naked singles alone."
+msgstr "{clueCount} підказок із 81 клітинки; розв’язується лише «останньою клітинкою» та відкритими одинаками."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, solved start to finish with full houses, naked singles and hidden singles."
+msgstr "{clueCount} підказок із 81 клітинки; розв’язується від початку до кінця «останньою клітинкою», відкритими й прихованими одинаками."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, well under a third of the grid."
+msgstr "{clueCount} підказок із 81 клітинки — це значно менше третини сітки."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{easyClueCount} clues, and every puzzle needs at least one hidden single, never more. See the <0>Easy sudoku lander</0> to play it digitally."
+msgstr "{easyClueCount} підказок, і кожна головоломка вимагає принаймні одного прихованого одинака, але не більше. Щоб зіграти онлайн, перейдіть на <0>сторінку легкого судоку</0>."
+
+#: src/printable/components/printable-download-card/printable-download-card.tsx
+msgid "{fileSizeKilobytes} KB PDF, US Letter"
+msgstr "{fileSizeKilobytes} КБ, PDF, US Letter"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{hardClueCount} clues, guaranteed to stall on subsets and to yield to fish and wing patterns. See the <0>Hard sudoku lander</0> to play it digitally."
+msgstr "{hardClueCount} підказок; гарантовано зайдете в глухий кут на підмножинах і подолаєте його фігурами «риба» та «крило». Щоб зіграти онлайн, перейдіть на <0>сторінку важкого судоку</0>."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "{hellCorpusSize} verified puzzles with {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues, drawn from the tdoku 17-clue catalog and the magictour top1465 list rather than generated fresh."
+msgstr "{hellCorpusSize} перевірених головоломок із {HELL_CORPUS_MINIMUM_GIVEN_COUNT}–{HELL_CORPUS_MAXIMUM_GIVEN_COUNT} підказками з каталогу 17-підказкових tdoku та списку top1465 magictour, а не згенерованих наново."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "{infinityCorpusSize} record puzzles with {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues, published at SE {lowestRatingLabel} to {highestRatingLabel}."
+msgstr "{infinityCorpusSize} рекордних головоломок із {INFINITY_MINIMUM_GIVEN_COUNT}–{INFINITY_MAXIMUM_GIVEN_COUNT} підказками, опублікованих із рейтингом SE від {lowestRatingLabel} до {highestRatingLabel}."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets. See the <0>Medium sudoku lander</0> to play it digitally."
+msgstr "{mediumClueCount} підказок; гарантовано зайдете в глухий кут на одинаках і подолаєте його перетинами та підмножинами. Щоб зіграти онлайн, перейдіть на <0>сторінку середнього судоку</0>."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{newbieClueCount} clues, solved with full houses and naked singles alone. See the <0>Newbie sudoku lander</0> to play it digitally."
+msgstr "{newbieClueCount} підказок; розв’язується лише «останньою клітинкою» та відкритими одинаками. Щоб зіграти онлайн, перейдіть на <0>сторінку судоку для новачків</0>."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{nightmareClueCount} clues, guaranteed to stall on wings and to yield to chains and coloring. See the <0>Nightmare sudoku lander</0> to play it digitally."
+msgstr "{nightmareClueCount} підказок; гарантовано зайдете в глухий кут на крилах і подолаєте його ланцюгами та розфарбуванням. Щоб зіграти онлайн, перейдіть на <0>сторінку судоку «Кошмар»</0>."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_BLANK_GRID_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_BLANK_GRID_PAGE_COUNT} стор."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "{PRINTABLE_BOOKLET_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_BOOKLET_PAGE_COUNT} стор."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles"
+msgstr "{PRINTABLE_BOOKLET_SIZE} головоломок"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with the solved grids at the back."
+msgstr "{PRINTABLE_BOOKLET_SIZE} головоломок на {PRINTABLE_BOOKLET_PAGE_COUNT} сторінках, по {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} на сторінці; розв’язані сітки — наприкінці."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with the solved grids at the back."
+msgstr "{PRINTABLE_BOOKLET_SIZE} головоломок на {PRINTABLE_BOOKLET_PAGE_COUNT} сторінках, по {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} на сторінці; розв’язані сітки — наприкінці."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key."
+msgstr "{PRINTABLE_BOOKLET_SIZE} головоломок, по {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} на сторінці, із повним ключем відповідей."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} record puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key."
+msgstr "{PRINTABLE_BOOKLET_SIZE} рекордних головоломок, по {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} на сторінці, із повним ключем відповідей."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_LARGE_PRINT_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_LARGE_PRINT_PAGE_COUNT} стор."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_LARGE_PRINT_SIZE} puzzles"
+msgstr "{PRINTABLE_LARGE_PRINT_SIZE} головоломок"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Box rule.</0> Each of the nine 3×3 boxes must contain the digits 1 to 9 exactly once each."
+msgstr "<0>Правило блока.</0> У кожному з дев’яти блоків 3×3 цифри від 1 до 9 мають зустрічатися рівно по одному разу."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Column rule.</0> Each of the nine columns must contain the digits 1 to 9 exactly once each."
+msgstr "<0>Правило стовпця.</0> У кожному з дев’яти стовпців цифри від 1 до 9 мають зустрічатися рівно по одному разу."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Easy.</0> Adds hidden singles, still no candidate tracking required."
+msgstr "<0>Легкий.</0> Додаються приховані одинаки, але відстежувати варіанти все ще не потрібно."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Easy</0> — {easyClueCount} clues, guaranteed to need at least one hidden single and never more than that."
+msgstr "<0>Легкий</0> — {easyClueCount} підказок; гарантовано потрібен принаймні один прихований одинак і не більше."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Full House</0> — the simplest possible move, filling the last empty cell in a unit."
+msgstr "<0>Остання клітинка</0> — найпростіший хід: заповнити останню порожню клітинку в рядку, стовпці чи блоці."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Hard.</0> Always stalls on subsets and always yields to a fish or a wing pattern."
+msgstr "<0>Важкий.</0> Завжди заходить у глухий кут на підмножинах і завжди піддається фігурі «риба» або «крило»."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Hard</0> — {hardClueCount} clues, guaranteed to stall on subsets and to yield to fish and wing patterns."
+msgstr "<0>Важкий</0> — {hardClueCount} підказок; гарантовано зайдете в глухий кут на підмножинах і подолаєте його фігурами «риба» та «крило»."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Hell.</0> Always stalls on chains and AIC and always needs a forcing chain, drawn from a bundled, verified corpus."
+msgstr "<0>Пекло.</0> Завжди заходить у глухий кут на ланцюгах і AIC та завжди вимагає примусового ланцюга; головоломки беруться з вбудованого перевіреного корпусу."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Hell</0> — guaranteed to stall on AIC and to need a forcing chain, drawn from a bundled, verified corpus rather than generated to a band."
+msgstr "<0>Пекло</0> — гарантовано зайдете в глухий кут на AIC і потребуватимете примусового ланцюга; головоломки беруться з вбудованого перевіреного корпусу, а не генеруються під рівень."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Hidden Single</0> — a digit that only fits in one cell of a unit."
+msgstr "<0>Прихований одинак</0> — цифра, яка підходить лише в одну клітинку рядка, стовпця чи блока."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Infinity.</0> The hardest sudoku puzzles ever published, such as Everest and AI Escargot, chosen by their published rating rather than a technique band — see the <1>Infinity lander</1>."
+msgstr "<0>Нескінченність.</0> Найскладніші судоку з будь-коли опублікованих, такі як Everest і AI Escargot; їх добирають за опублікованим рейтингом, а не за набором технік — див. <1>сторінку «Нескінченність»</1>."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Infinity</0> — {infinityCorpusSize} of the hardest puzzles ever published, chosen by their published SE rating of {infinityLowestRating} to {infinityHighestRating} rather than by a technique band, and past the reach of every technique on the ladder."
+msgstr "<0>Нескінченність</0> — {infinityCorpusSize} найскладніших з будь-коли опублікованих головоломок, дібраних за опублікованим рейтингом SE від {infinityLowestRating} до {infinityHighestRating}, а не за набором технік; вони недосяжні для жодної техніки зі сходів."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Medium.</0> Always stalls on singles and always yields to intersections and subsets — pointing pairs, box line reduction, naked and hidden pairs through quads."
+msgstr "<0>Середній.</0> Завжди заходить у глухий кут на одинаках і завжди піддається перетинам та підмножинам — вказівним парам, взаємодії блока і лінії, відкритим і прихованим парам аж до четвірок."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Medium</0> — {mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets."
+msgstr "<0>Середній</0> — {mediumClueCount} підказок; гарантовано зайдете в глухий кут на одинаках і подолаєте його перетинами та підмножинами."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Naked Single</0> — a cell left with exactly one candidate."
+msgstr "<0>Відкритий одинак</0> — клітинка, в якій залишився рівно один варіант."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Newbie.</0> Solvable with full houses and naked singles alone."
+msgstr "<0>Новачок.</0> Розв’язується лише «останньою клітинкою» та відкритими одинаками."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Newbie</0> — {newbieClueCount} clues, solved with full houses and naked singles alone."
+msgstr "<0>Новачок</0> — {newbieClueCount} підказок; розв’язується лише «останньою клітинкою» та відкритими одинаками."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Nightmare.</0> Always stalls on fish and wings and always yields to chain or coloring logic."
+msgstr "<0>Кошмар.</0> Завжди заходить у глухий кут на рибах і крилах та завжди піддається логіці ланцюгів або розфарбування."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Nightmare</0> — {nightmareClueCount} clues, guaranteed to stall on wings and to yield to chains and coloring."
+msgstr "<0>Кошмар</0> — {nightmareClueCount} підказок; гарантовано зайдете в глухий кут на крилах і подолаєте його ланцюгами та розфарбуванням."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Row rule.</0> Each of the nine rows must contain the digits 1 to 9 exactly once each."
+msgstr "<0>Правило рядка.</0> У кожному з дев’яти рядків цифри від 1 до 9 мають зустрічатися рівно по одному разу."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "A board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier."
+msgstr "Якщо дошку можна розв’язати лише «останньою клітинкою» та відкритими одинаками, її відхиляють як надто легку для цього рівня."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "A board that needs a hidden single or anything harder is rejected and regenerated, never labelled Newbie."
+msgstr "Дошку, яка потребує прихованого одинака чи чогось складнішого, відхиляють і генерують заново — вона ніколи не отримає мітку «Новачок»."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "A chain follows an alternating sequence of strong and weak links between candidates, starting from one end and reasoning outward until the two ends prove an elimination no matter which of them turns out to be true. X-Chain does this with a single digit; XY-Chain walks a path of bivalue cells instead, changing digit at every step. Simple coloring assigns two alternating colours to a network of strong links on one digit and clears any candidate that can see both colours. AIC folds all of them into one technique, mixing digits and link types along a single continuous chain. The difference from a fish or a wing is not subtlety but shape: a wing is a fixed arrangement of three or four cells you learn to recognise, while a chain has no fixed size and has to be built move by move. Nightmare is capped at AIC — anything that still resists is beyond what the generated tiers will hand you."
+msgstr "Ланцюг іде за чергуванням сильних і слабких зв’язків між варіантами: він починається з одного кінця й міркує далі, доки два кінці не доведуть виключення незалежно від того, який із них істинний. X-Chain робить це з однією цифрою; XY-Chain натомість іде шляхом двозначних клітинок, змінюючи цифру на кожному кроці. Просте розфарбування призначає мережі сильних зв’язків однієї цифри два чергових кольори й прибирає кожен варіант, який бачить обидва кольори. AIC об’єднує все це в одну техніку, змішуючи цифри й типи зв’язків в одному суцільному ланцюгу. Відмінність від риби чи крила полягає не в тонкощах, а у формі: крило — це фіксоване розташування трьох або чотирьох клітинок, яке вчаться розпізнавати з першого погляду, а ланцюг не має сталого розміру й будується крок за кроком. Рівень «Кошмар» обмежений AIC — усе, що й далі не піддається, виходить за межі того, що дають згенеровані рівні."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A chain follows an alternating sequence of strong and weak links, starting from a candidate and working outward until it proves an elimination or a placement no matter which branch turns out to be true. X-Chain works on a single digit; XY-Chain follows a path of bivalue cells instead. Simple coloring assigns two alternating colours to a network of strong links on one digit and clears any candidate that sees both colours, and AIC generalises the whole family, mixing digits and cell types along one continuous chain. Hell starts where all of that runs out. A forcing chain assumes a candidate, a cell’s possibilities or a house’s placements, follows every consequence, and keeps only what holds in every branch — the <0>Nishio</0>, <1>cell</1> and <2>region forcing chain</2> pages walk through one of each. A board makes the Hell corpus only if its hardest step on the rating-optimal path is a forcing chain, and only if our ladder can still finish it, so no Hell board ever asks you to guess."
+msgstr "Ланцюг іде за чергуванням сильних і слабких зв’язків: він починається з варіанта й міркує далі, доки не доведе виключення чи розміщення незалежно від того, яка гілка виявиться істинною. X-Chain працює з однією цифрою; XY-Chain натомість іде шляхом двозначних клітинок. Просте розфарбування призначає мережі сильних зв’язків однієї цифри два чергових кольори й прибирає кожен варіант, який бачить обидва кольори, а AIC узагальнює всю цю родину, змішуючи цифри й типи клітинок в одному суцільному ланцюгу. «Пекло» починається там, де все це вичерпується. Примусовий ланцюг припускає певний варіант, можливі цифри клітинки або місця цифри в області, простежує всі наслідки й залишає лише те, що справджується в кожній гілці — на сторінках <0>Нішіо</0>, <1>клітинки</1> та <2>примусового ланцюга області</2> розібрано по одному прикладу кожного. Дошка потрапляє до корпусу «Пекла» лише тоді, коли її найважчий крок на оптимальному за рейтингом шляху — примусовий ланцюг, і лише якщо наші сходи все ще здатні її завершити, тож жодна дошка «Пекла» не вимагає вгадувати."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape and is built link by link, which is far easier to track by writing each strong and weak link down than by scrolling a small screen."
+msgstr "Ланцюг не має сталої форми й будується ланка за ланкою; відстежувати його легше, записуючи кожну сильну й слабку ланку, ніж прокручуючи маленький екран."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape, which is why marking it in pencil helps more here than at the easier tiers."
+msgstr "Ланцюг не має сталої форми, тому розмітка олівцем допомагає тут більше, ніж на легших рівнях."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape: it is built link by link, and the only way to keep track of it is to write it down. On paper you can mark each strong and weak link as you go, follow the alternation to the far end, and see immediately which cells both ends can see. That is genuinely awkward on a phone screen you have to scroll. It is also the booklet where a wrong elimination compounds worst: mark a candidate as gone that should have stayed, and every link after it is unsound, so treat the solution pages as a real checkpoint rather than a formality."
+msgstr "Ланцюг не має сталої форми: він будується ланка за ланкою, і єдиний спосіб не загубитися — записувати його. На папері можна позначати кожну сильну й слабку ланку, простежувати чергування до іншого кінця й одразу бачити, які клітинки видно з обох кінців. На екрані телефона, який доводиться прокручувати, це справді незручно. Це також збірка, де хибне виключення накопичується найгірше: якщо позначити варіант як вилучений, а він мав залишитися, кожна наступна ланка стає хибною, тож сторінки з відповідями варто сприймати як справжню контрольну точку, а не формальність."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "A clue, or given, is a digit printed on the board before you start. A candidate is a digit you are still considering for a blank cell, based on what its row, column and box currently rule out."
+msgstr "Підказка (або задана цифра) — це цифра, надрукована на дошці до початку гри. Варіант (кандидат) — це цифра, яку ви ще розглядаєте для порожньої клітинки з огляду на те, що наразі виключають її рядок, стовпець і блок."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "A cover page states the puzzle and page counts up front, then {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page so a single sheet holds {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} complete grids. The last pages hold every solved grid at the same layout, so checking an answer never means hunting through a different page format. The whole file is vector graphics and a standard PDF font, so it prints cleanly at any size a printer supports. Our published sample of {sampleSize} Easy boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "Обкладинка одразу вказує кількість головоломок і сторінок, далі йдуть {PRINTABLE_BOOKLET_SIZE} головоломок по {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} на сторінці, тож на одному аркуші вміщується {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} повних сіток. На останніх сторінках у тому самому розташуванні — усі розв’язані сітки, тож щоб перевірити відповідь, не доведеться шукати її в іншому форматі. Увесь файл складається з векторної графіки та стандартного шрифту PDF, тому чітко друкується в будь-якому розмірі, який підтримує принтер. Наша опублікована вибірка з {sampleSize} дощок рівня «Легкий» вимірюється як SE {seRatingRange} — ці числа безпосередньо вимірює <0>посібник із рейтингу складності судоку</0>, а не припускає."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "A digit confined to two cells of one box that also share a row or column. It can then be erased from the rest of that row or column, since one of those two cells must hold it."
+msgstr "Цифра, обмежена двома клітинками одного блока, які також лежать в одному рядку чи стовпці. Її можна вилучити з решти цього рядка чи стовпця, бо одна з цих двох клітинок обов’язково містить її."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "A finished grid satisfies all three at the same time. That overlap is what makes Sudoku solvable by logic: a digit that is already ruled out by its row, its column and its box has nowhere left to go, which is the basis of almost every solving technique. Every named technique on this site, from the simplest single to the longest chain, is ultimately just a more efficient way of tracking that overlap across many cells at once instead of one cell at a time."
+msgstr "Заповнена сітка відповідає всім трьом правилам одночасно. Саме це перетинання робить судоку розв’язним за допомогою логіки: цифра, яку вже виключили її рядок, стовпець і блок, не має куди подітися — на цьому ґрунтується майже кожна техніка розв’язування. Кожна названа на цьому сайті техніка, від найпростішого одинака до найдовшого ланцюга, — це зрештою лише ефективніший спосіб відстежувати це перетинання одразу в багатьох клітинках, а не в одній."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "A fish is easy to miss on a screen where only a handful of cells are visible at once, because the pattern lives in where one digit can go across two, three or four whole lines at the same time. On a full printed grid you can mark that digit’s remaining positions down a column and read the shape off the page. Wings need the opposite view — a few bivalue cells that see each other across the grid — and circling them in pencil makes the overlap obvious. Because both families are easy to apply incorrectly the first few times, checking your work against the solution pages at the back is worth doing every time until the shape becomes automatic."
+msgstr "Рибу легко пропустити на екрані, де одночасно видно лише жменьку клітинок, адже візерунок складається з місць однієї цифри одразу в двох, трьох або чотирьох цілих лініях. На повній друкованій сітці можна позначити решту позицій цієї цифри вздовж стовпця й побачити форму просто на аркуші. Крила потребують протилежного погляду — кількох двозначних клітинок, які бачать одна одну в різних частинах сітки, — а обведення їх олівцем робить перетин очевидним. Оскільки обидві родини легко застосувати неправильно в перші кілька разів, варто щоразу звіряти результат зі сторінками відповідей наприкінці, доки форма не стане автоматичною."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "A fish looks at one digit across several lines at once. The X-Wing is the smallest: a digit confined to the same two columns across two rows can be erased from the rest of those columns, because whichever row ends up holding it, the columns are already fixed. A <0>swordfish</0> stretches the same idea over three lines and a jellyfish over four. Finned and sashimi variants relax the base pattern by allowing one extra candidate that still supports a smaller, safe elimination once you account for it — and in our sample they fire far more often than the textbook shapes do. Wings work differently: an XY-Wing links three bivalue cells so a candidate shared between two of them can be erased wherever both can see, XYZ-Wing gives the pivot that candidate too, and W-Wing joins two matching bivalue cells through a strong link on one shared digit. Hard is capped at the W-Wing: a board that still will not move after every fish and wing has been tried is a Nightmare board, not a Hard one."
+msgstr "Риба розглядає одну цифру одразу в кількох лініях. X-Wing — найменша з них: цифру, обмежену тими самими двома стовпцями у двох рядках, можна вилучити з решти цих стовпців, бо в який би з рядків вона не потрапила, стовпці вже визначені. <0>Swordfish</0> поширює ту саму ідею на три лінії, а Jellyfish — на чотири. Варіанти Finned і Sashimi послаблюють базовий візерунок, допускаючи один зайвий варіант, який усе одно дає менше, але безпечне виключення, якщо його врахувати, — і в нашій вибірці вони спрацьовують набагато частіше за підручникові форми. Крила працюють інакше: XY-Wing поєднує три двозначні клітинки, тож варіант, спільний для двох із них, можна вилучити всюди, де його бачать обидві; XYZ-Wing додає цей варіант і опорній клітинці, а W-Wing з’єднує дві однакові двозначні клітинки сильним зв’язком за однією спільною цифрою. Рівень «Важкий» обмежений W-Wing: дошка, яка й далі не рухається після всіх риб і крил, — це вже «Кошмар», а не «Важкий»."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "A fish spans whole rows or columns at once, which is easier to trace by marking a digit’s remaining positions down a printed column than by scrolling a screen. Wings need the opposite view — a few bivalue cells seen at a glance."
+msgstr "Риба охоплює цілі рядки чи стовпці одразу, а це легше простежити, позначивши решту позицій цифри вздовж надрукованого стовпця, ніж прокручуючи екран. Крила потребують протилежного погляду — кількох двозначних клітинок, які видно з першого погляду."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A forcing chain, on every board, layered on top of the chains, coloring, fish, wings and subsets the earlier tiers already require. X-Chain, XY-Chain, Simple Coloring and AIC will carry you far, but never all the way through; a <0>Nishio forcing chain</0> is the usual way to break the deadlock."
+msgstr "Примусовий ланцюг на кожній дошці, поверх ланцюгів, розфарбування, риб, крил і підмножин, яких вимагають попередні рівні. X-Chain, XY-Chain, просте розфарбування й AIC заведуть далеко, але не до кінця; зазвичай глухий кут розв’язує <0>примусовий ланцюг Нішіо</0>."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "A Hard board from the same generator the app uses. Play it right here."
+msgstr "Дошка рівня «Важкий» з того самого генератора, що й у застосунку. Грайте просто тут."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A Hell board from the same verified corpus the app uses. Play it right here."
+msgstr "Дошка рівня «Пекло» з того самого перевіреного корпусу, що й у застосунку. Грайте просто тут."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "A Medium board from the same generator the app uses. Play it right here."
+msgstr "Дошка рівня «Середній» з того самого генератора, що й у застосунку. Грайте просто тут."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "A Newbie board from the same generator the app uses. Play it right here."
+msgstr "Дошка рівня «Новачок» з того самого генератора, що й у застосунку. Грайте просто тут."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "A Nightmare board from the same generator the app uses. Play it right here."
+msgstr "Дошка рівня «Кошмар» з того самого генератора, що й у застосунку. Грайте просто тут."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "A well-formed puzzle always has exactly one solution and never requires a guess."
+msgstr "Правильно складена головоломка завжди має рівно один розв’язок і ніколи не вимагає вгадувати."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "A well-formed Sudoku never does. If a puzzle has more than one valid completion it is considered broken, because logic alone can no longer point to a single answer."
+msgstr "Правильно складене судоку — ніколи. Якщо в головоломки більше одного коректного розв’язку, її вважають несправною, бо логіка вже не може вказати єдину відповідь."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "About"
+msgstr "Про проєкт"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "After that, look at a single blank cell and cross off every digit that already appears in its row, its column and its box. If only one digit survives, that is a <0>naked single</0>, and it can be placed immediately. If a cell still has several candidates left, check whether one of those candidates cannot go anywhere else in the same unit — that is a <1>hidden single</1>, and it is just as safe to place. Together these two patterns solve most of an easy puzzle without any deeper reasoning."
+msgstr "Після цього подивіться на одну порожню клітинку й викресліть усі цифри, що вже є в її рядку, стовпці й блоці. Якщо лишилася лише одна цифра, це <0>відкритий одинак</0>, і її можна ставити одразу. Якщо в клітинці лишилося кілька варіантів, перевірте, чи один із них не підходить більше нікуди в тій самій групі — це <1>прихований одинак</1>, і ставити його так само безпечно. Разом ці два візерунки розв’язують більшість легкої головоломки без глибших міркувань."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Also the source tier for the large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles."
+msgstr "Це також вихідний рівень для PDF великим друком, у вибірці — {PRINTABLE_LARGE_PRINT_SIZE} головоломок."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "An almost-fish: the rows or columns line up as an X-Wing or <0>swordfish</0> except for one or two extra candidates, the fin. The elimination still holds, but only in the cells that both the fish and the fin can see."
+msgstr "Майже риба: рядки чи стовпці вишиковуються як X-Wing або <0>Swordfish</0>, крім одного-двох зайвих варіантів — плавця (fin). Виключення все одно діє, але лише в клітинках, які бачать і рибу, і плавець."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "An Easy board from the same generator the app uses. Play it right here."
+msgstr "Дошка рівня «Легкий» з того самого генератора, що й у застосунку. Грайте просто тут."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "An Easy board to start with. Play it right here, or pick any of seven difficulty levels in the app."
+msgstr "Для початку — дошка рівня «Легкий». Грайте просто тут або оберіть у застосунку будь-який із семи рівнів складності."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "An Infinity record puzzle from the same curated set the app uses, reshuffled. Play it right here."
+msgstr "Рекордна головоломка рівня «Нескінченність» з того самого добірного набору, що й у застосунку, але перетасована. Грайте просто тут."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "An intersection or a pair only becomes visible once you can see every remaining candidate in a row, column or box at a glance, which is why paper genuinely helps here more than a screen does: write small digits in the corner of each blank cell, then scan a line for a digit trapped inside one box, or two cells sharing exactly two candidates between them. Neither pattern places a digit by itself — each one only removes candidates — so expect to mark a few eliminations before a fresh naked single actually appears. Working in pencil rather than pen means a wrong mark costs nothing to erase."
+msgstr "Перетин або пара стають помітними лише тоді, коли бачиш усі решту варіантів у рядку, стовпці чи блоці одразу, тому папір тут справді допомагає більше за екран: пишіть маленькі цифри в кутку кожної порожньої клітинки, а потім шукайте в лінії цифру, замкнену в одному блоці, або дві клітинки, що ділять рівно два варіанти. Жоден із цих візерунків сам не ставить цифру — кожен лише вилучає варіанти, тож будьте готові зробити кілька виключень, перш ніж з’явиться новий відкритий одинак. Робота олівцем, а не ручкою, означає, що помилкову помітку можна стерти без наслідків."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "An intersection technique works on the overlap between one box and one row or column. A pointing pair or pointing triple finds a digit confined to two or three cells of a box that all share a line, and erases it from the rest of that line; box line reduction is the mirror image, working from a line back into a box. Naked and hidden pairs are the entry point to subset reasoning: two cells that share exactly two candidates, or two digits that fit in exactly two cells of a unit, either way locking those two cells away from everything else in it. None of these place a digit outright — they only eliminate candidates — but at {clueCount} clues a Medium puzzle always has at least one waiting, and it is usually enough to unlock a fresh naked single a move or two later. The tier is capped at the other end too: nothing in it ever needs a fish, a wing or a chain, because a board that does is promoted to Hard instead."
+msgstr "Техніка перетину працює на накладанні одного блока й одного рядка чи стовпця. Вказівна пара або вказівна трійка знаходить цифру, обмежену двома чи трьома клітинками блока, що лежать в одній лінії, й вилучає її з решти цієї лінії; взаємодія блока і лінії — дзеркальне відображення, що працює від лінії до блока. Відкриті й приховані пари — це вхід до міркувань із підмножинами: дві клітинки, що ділять рівно два варіанти, або дві цифри, що вміщуються рівно у двох клітинках групи, у будь-якому разі замикають ці дві клітинки від решти. Жодна з них не ставить цифру напряму — вони лише вилучають варіанти, — але за {clueCount} підказок середня головоломка завжди має принаймні одну таку можливість, і зазвичай її досить, щоб за хід-два розблокувати новий відкритий одинак. Рівень обмежений і з іншого боку: нічого з риб, крил чи ланцюгів тут не потрібне, бо дошка, якій це потрібне, переходить до «Важкого»."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Anywhere from {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT}. Hell does not use clue count to choose its puzzles; a board qualifies by needing a forcing chain, whatever its number of givens."
+msgstr "Від {HELL_CORPUS_MINIMUM_GIVEN_COUNT} до {HELL_CORPUS_MAXIMUM_GIVEN_COUNT}. «Пекло» добирає головоломки не за кількістю підказок; дошка підходить, якщо їй потрібен примусовий ланцюг, скільки б заданих цифр у ній не було."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Are the solutions included?"
+msgstr "Чи включені відповіді?"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Are these 17-clue puzzles?"
+msgstr "Чи це головоломки із 17 підказками?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Arto Inkala’s Everest (2010), 21 givens, published at SE 11.9."
+msgstr "Everest Арто Інкали (2010), 21 задана цифра, опубліковано з рейтингом SE 11.9."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "At {clueCount} clues out of 81 cells, this booklet is the first one worth solving with a pencil. Singles carry a Medium grid part of the way, but every puzzle in it provably stalls on them — that is the test each board had to fail to be printed here — until you spot a <0>pointing pair</0> or a <1>box-line reduction</1>, an intersection between a box and a line that only eliminates candidates, never places a digit outright. Nothing in the booklet needs a fish, a wing or a chain."
+msgstr "За {clueCount} підказок із 81 клітинки ця збірка — перша, яку варто розв’язувати олівцем. Одинаки проводять сітку «Середній» лише частину шляху, але кожна головоломка в ній доведено застрягає на них — саме цей тест кожна дошка мусила провалити, щоб потрапити сюди, — доки ви не помітите <0>вказівну пару</0> чи <1>взаємодію блока і лінії</1>: перетин блока й лінії, який лише вилучає варіанти й ніколи не ставить цифру напряму. Жодна головоломка в збірці не потребує риби, крила чи ланцюга."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "At least one <0>hidden single</0> per puzzle, on top of the full houses and naked singles Newbie already uses, and nothing harder."
+msgstr "Принаймні один <0>прихований одинак</0> у кожній головоломці — поверх «останніх клітинок» і відкритих одинаків, які вже використовує рівень «Новачок», і нічого складнішого."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "At least one <0>pointing pair</0>, <1>box-line reduction</1>, or a naked or hidden pair, on top of the singles the easier booklets already use. Nothing needs a fish, a wing or a chain."
+msgstr "Принаймні одна <0>вказівна пара</0>, <1>взаємодія блока і лінії</1> або відкрита чи прихована пара — поверх одинаків, які вже використовують легші збірки. Ніщо не потребує риби, крила чи ланцюга."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "At least one chain or coloring technique — <0>swordfish</0>-level fish and <1>XY-Wing</1>-level wings are not enough on their own — on top of every fish and wing the Hard tier already needs."
+msgstr "Принаймні одна техніка ланцюгів або розфарбування — риби рівня <0>Swordfish</0> і крила рівня <1>XY-Wing</1> самі по собі недостатні — поверх усіх риб і крил, яких уже вимагає рівень «Важкий»."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "At least one fish (<0>X-Wing</0> and its larger and finned relatives) or one bivalue wing pattern, on top of every intersection and subset the easier booklets already need."
+msgstr "Принаймні одна риба (<0>X-Wing</0> та її більші й finned-родичі) або одне двозначне крило — поверх усіх перетинів і підмножин, яких уже вимагають легші збірки."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Blank sudoku grid"
+msgstr "Порожня сітка судоку"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Blank Sudoku Grid"
+msgstr "Порожня сітка судоку"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Boards that need a forcing chain are rare and expensive to search for on demand, so Suuudokuuu ships a bundled corpus that has already been checked by a Dancing Links exact-cover solver and a bitmask solver, rated, and filtered to forcing-chain boards before it is packed."
+msgstr "Дошки, які потребують примусового ланцюга, рідкісні й дорогі для пошуку на вимогу, тому Suuudokuuu постачає вбудований корпус, який уже перевірили розв’язувач Dancing Links (точне покриття) і бітмасковий розв’язувач, оцінили за рейтингом і відфільтрували до дощок із примусовими ланцюгами ще до упаковки."
+
+#: src/seo/components/breadcrumbs/breadcrumbs.tsx
+msgid "Breadcrumb"
+msgstr "Навігаційний ланцюжок"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Can a Sudoku have two solutions?"
+msgstr "Чи може судоку мати два розв’язки?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Can I play AI Escargot and Everest here?"
+msgstr "Чи можна тут зіграти AI Escargot та Everest?"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Can I print this Newbie booklet in large print?"
+msgstr "Чи можна надрукувати цю збірку «Новачок» великим шрифтом?"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Can I use them in a classroom?"
+msgstr "Чи можна користуватися ними на уроках?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Chain and coloring techniques: X-Chain, XY-Chain, simple coloring and AIC."
+msgstr "Техніки ланцюгів і розфарбування: X-Chain, XY-Chain, просте розфарбування та AIC."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Chains falling into place? The <0>printable Hell sudoku booklet</0> is the last tier, where every puzzle needs a forcing chain. Step back to <1>printable Hard sudoku</1> for fish and wings only, or play Nightmare on a screen at the <2>Nightmare sudoku lander</2>."
+msgstr "Ланцюги складаються? <0>Збірка судоку «Пекло» для друку</0> — останній рівень, де кожна головоломка потребує примусового ланцюга. Поверніться до <1>судоку «Важкий» для друку</1>, де лише риби та крила, або грайте в «Кошмар» на екрані на <2>сторінці судоку «Кошмар»</2>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Check every row, column and box for one that already has eight of its nine cells filled, and place the missing digit in the empty one."
+msgstr "Перевірте, чи в якомусь блоці, рядку або стовпці вже заповнено вісім із дев’яти клітинок, і поставте в порожню клітинку цифру, якої бракує."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Cleared a few Nightmare boards? <0>Hell Sudoku</0> is the last tier, where every board needs a forcing chain. Step back to <1>Hard Sudoku</1> if fish and wings still feel unreliable. Prefer paper? Download the <2>printable Nightmare sudoku booklet</2>. Browse the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "Пройшли кілька дощок «Кошмару»? <0>Судоку «Пекло»</0> — останній рівень, де кожна дошка потребує примусового ланцюга. Поверніться до <1>судоку «Важкий»</1>, якщо риби й крила ще даються ненадійно. Віддаєте перевагу паперу? Завантажте <2>збірку судоку «Кошмар» для друку</2>. Перегляньте <3>індекс технік</3>, <4>посібник «Як грати»</4>, усі рівні на сторінці <5>«Рівні складності судоку»</5> або поверніться <6>на головну</6>."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Clue count is not the difficulty. It is only the input: fewer starting digits mean fewer immediate placements, which forces the solver — human or machine — to reach for a wider set of named techniques before the grid moves again. Suuudokuuu strips digits from a solved grid down to a per-tier target, verifies the result still has exactly one solution, and then does the part that actually defines the tier: it solves the candidate twice, once with the technique ladder of the tier below and once with its own, and keeps the board only if the first solve fails and the second succeeds. Boards that miss are discarded and a fresh one is generated. That is why each tier above is stated as a guarantee rather than a hope. The <0>full technique index</0> lists every pattern that ladder contains, in the order a solver tries them. Within a band two boards can still differ a lot — <1>clues versus difficulty</1> measures exactly how much."
+msgstr "Кількість підказок — це не складність. Це лише вхідні дані: що менше початкових цифр, то менше негайних розміщень, і розв’язувач — людина чи машина — мусить застосувати ширший набір названих технік, перш ніж сітка знову зрушить. Suuudokuuu вилучає цифри з розв’язаної сітки до цільового значення для рівня, перевіряє, що результат усе ще має рівно один розв’язок, а потім робить те, що справді визначає рівень: розв’язує кандидата двічі — спершу сходами технік нижчого рівня, потім власними — і залишає дошку лише тоді, коли перша спроба провалюється, а друга вдається. Дошки, що не пройшли, відкидаються, і генерується нова. Саме тому кожен рівень вище описано як гарантію, а не сподівання. <0>Повний індекс технік</0> перелічує кожен візерунок цих сходів у тому порядку, в якому їх пробує розв’язувач. Навіть в одному діапазоні дві дошки можуть сильно різнитися — наскільки саме, вимірює матеріал <1>підказки та складність</1>."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Clues versus difficulty"
+msgstr "Підказки та складність"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Comfortable spotting intersections and subsets? Move up to <0>Hard Sudoku</0>, where a fish or a wing is always required, or drop back to <1>Easy Sudoku</1> to revisit singles. Prefer paper? Download the <2>printable Medium sudoku booklet</2>. Browse the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "Впевнено помічаєте перетини й підмножини? Перейдіть до <0>судоку «Важкий»</0>, де завжди потрібна риба чи крило, або поверніться до <1>судоку «Легкий»</1>, щоб повторити одинаки. Віддаєте перевагу паперу? Завантажте <2>збірку судоку «Середній» для друку</2>. Перегляньте <3>індекс технік</3>, <4>посібник «Як грати»</4>, усі рівні на сторінці <5>«Рівні складності судоку»</5> або поверніться <6>на головну</6>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Cross off candidates cell by cell"
+msgstr "Викреслюйте варіанти клітинка за клітинкою"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Daily sudoku"
+msgstr "Щоденне судоку"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Default text size"
+msgstr "Типовий розмір тексту"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Difficulty"
+msgstr "Складність"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Difficulty guides"
+msgstr "Посібники зі складності"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Difficulty levels"
+msgstr "Рівні складності"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Difficulty rating"
+msgstr "Рейтинг складності"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Do Easy puzzles ever need pencil marks?"
+msgstr "Чи потрібні в легких головоломках олівцеві помітки?"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Do I need pen and paper to solve Sudoku?"
+msgstr "Чи потрібні ручка й папір, щоб розв’язувати судоку?"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Do I need pencil marks for Newbie puzzles?"
+msgstr "Чи потрібні олівцеві помітки в головоломках «Новачок»?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Do Infinity puzzles have a unique solution?"
+msgstr "Чи мають головоломки «Нескінченність» єдиний розв’язок?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Do Nightmare puzzles ever need guessing?"
+msgstr "Чи доводиться вгадувати в головоломках «Кошмар»?"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Do not scan for the hardest cell first. Start by looking for the easiest possible placements, because clearing those first makes every later cell easier too."
+msgstr "Не шукайте спершу найважчу клітинку. Почніть із найпростіших розміщень: коли їх прибрано, усі наступні клітинки стають легшими."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Do you ever have to guess?"
+msgstr "Чи доводиться колись вгадувати?"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Does {SITE_NAME} have ads?"
+msgstr "Чи є в {SITE_NAME} реклама?"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Does a low clue count make these puzzles hard?"
+msgstr "Чи робить мала кількість підказок ці головоломки складними?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Does a lower clue count always mean a harder puzzle?"
+msgstr "Чи завжди менша кількість підказок означає складнішу головоломку?"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Does it work offline?"
+msgstr "Чи працює без інтернету?"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Does Suuudokuuu offer a large-print version of this booklet?"
+msgstr "Чи пропонує Suuudokuuu версію цієї збірки великим друком?"
+
+#: src/printable/components/printable-download-card/printable-download-card.tsx
+msgid "Download {title} (PDF)"
+msgstr "Завантажити «{title}» (PDF)"
+
+#: src/chrome/components/store-badges/store-badges.tsx
+msgid "Download on the App Store"
+msgstr "Завантажити в App Store"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Download the PDF and open it in any PDF reader, then print at 100% scale on US Letter paper. Every grid is drawn with vector lines and standard PDF fonts, so there is nothing to rasterize and no quality loss at any print size."
+msgstr "Завантажте PDF і відкрийте його в будь-якій програмі для перегляду PDF, а потім друкуйте в масштабі 100% на папері US Letter. Кожну сітку намальовано векторними лініями та стандартними шрифтами PDF, тож нічого не потрібно растеризувати, і якість не втрачається за жодного розміру друку."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Each game reshuffles the grid, so a familiar record puzzle never looks the same twice."
+msgstr "Кожна гра перетасовує сітку, тому знайома рекордна головоломка щоразу виглядає по-новому."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Each tier links to a full page with a live puzzle preview and the honest difficulty facts from our <0>sudoku difficulty rating guide</0>. The PDF itself only ever needs a printer."
+msgstr "Кожен рівень веде на повну сторінку з живим переглядом головоломки та чесними фактами про складність із нашого <0>посібника з рейтингу складності судоку</0>. Для самого PDF потрібен лише принтер."
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Easier difficulty"
+msgstr "Легший рівень"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Easy"
+msgstr "Легкий"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy boards carry {clueCount} clues and are guaranteed to need at least one hidden single and nothing harder."
+msgstr "Дошки «Легкий» містять {clueCount} підказок, і гарантовано потрібен принаймні один прихований одинак та нічого складнішого."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Easy is the booklet people reach for when they want to finish a puzzle without stopping to think hard about it — on a train, over a coffee break, or as a wind-down before bed. Every deduction still reads off the board rather than off a candidate grid, so there is rarely a reason to write a candidate in the margin; the hidden single asks you to scan a whole unit rather than one cell, which is a change of habit and not of difficulty. That makes it a natural size for printing several at once and working through a small stack over a week, since no single puzzle demands the concentration a Medium or Hard grid does."
+msgstr "«Легкий» — це збірка, до якої беруться, коли хочуть розв’язати головоломку, не напружуючись: у потязі, за кавою чи перед сном. Кожен висновок досі читається з самої дошки, а не з сітки варіантів, тож писати варіанти на берегах майже не доводиться; прихований одинак вимагає оглянути всю групу, а не одну клітинку, — це зміна звички, а не складності. Тому її зручно друкувати кількома примірниками й розв’язувати невеликий стос протягом тижня, адже жодна головоломка не вимагає такої концентрації, як «Середній» чи «Важкий»."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy is the first tier where Suuudokuuu expects a genuine, if gentle, solve. An Easy board carries {clueCount} clues out of 81 cells, a handful fewer than Newbie. Full houses and naked singles still clear most of the grid, but never all of it: at least one cell always needs a <0>hidden single</0>, where a digit fits only one cell of a row, column or box even though that cell still shows other candidates. That one extra pattern is the entire step up from Newbie to Easy, and it is a guarantee rather than a tendency: a board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier, and a board that needs anything past the hidden single is rejected as too hard."
+msgstr "«Легкий» — перший рівень, де Suuudokuuu очікує справжнього, хоч і м’якого розв’язування. Дошка «Легкий» має {clueCount} підказок із 81 клітинки, на кілька менше, ніж «Новачок». «Остання клітинка» й відкриті одинаки досі заповнюють більшу частину сітки, але не всю: принаймні одна клітинка завжди потребує <0>прихованого одинака</0> — коли цифра підходить лише в одну клітинку рядка, стовпця чи блока, хоча в цій клітинці лишаються й інші варіанти. Цей один додатковий візерунок — і є весь крок від «Новачка» до «Легкого», і це гарантія, а не тенденція: дошку, яку може закінчити розв’язувач із «останніх клітинок» і відкритих одинаків, відхиляють як надто легку для рівня, а дошку, якій потрібне щось понад прихований одинак, — як надто важку."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy sits at the bottom of the SE (Sudoku Explainer) scale alongside Newbie: our sample of {sampleSize} boards measures SE {seRatingRange}. The two tiers share a range because SE prices a hidden single at 1.5, below a naked single at 2.3 — so the technique that defines Easy is, by that scale, cheaper than the one that defines Newbie. What genuinely changes is where you have to look: a naked single is read off one cell, a hidden single off a whole unit. It suits players who have cleared a few Newbie boards and want a puzzle that takes noticeably longer to finish."
+msgstr "«Легкий» розташований внизу шкали SE (Sudoku Explainer) поруч із «Новачком»: наша вибірка з {sampleSize} дощок вимірюється як SE {seRatingRange}. Обидва рівні мають спільний діапазон, бо SE оцінює прихований одинак у 1.5, нижче за відкритий одинак — 2.3, тож техніка, що визначає «Легкий», за цією шкалою дешевша за ту, що визначає «Новачок». Справді змінюється те, куди треба дивитися: відкритий одинак читається з однієї клітинки, прихований — з усієї групи. Рівень підійде гравцям, які пройшли кілька дошок «Новачок» і хочуть головоломку, на яку йде помітно більше часу."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Easy starts at {clueCount} clues, six below Newbie, and adds exactly one technique: every puzzle in this booklet needs at least one <0>hidden single</0>, and none of them needs anything harder. That single extra pattern is what makes this the booklet people print for a relaxed coffee-break solve rather than a teaching aid. It is also the source tier for our large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles for readers who want bigger cells."
+msgstr "«Легкий» починається з {clueCount} підказок, на шість менше, ніж «Новачок», і додає рівно одну техніку: кожна головоломка в цій збірці потребує принаймні одного <0>прихованого одинака</0> і жодна — нічого складнішого. Саме цей додатковий візерунок робить її збіркою для спокійного розв’язування за кавою, а не навчальним посібником. Це також вихідний рівень для нашого PDF великим друком, у вибірці — {PRINTABLE_LARGE_PRINT_SIZE} головоломок для тих, кому потрібні більші клітинки."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy stays within singles-only logic, so it is still beginner-friendly. The only added skill over Newbie is spotting a digit that fits nowhere else in a unit."
+msgstr "«Легкий» залишається в межах логіки лише з одинаками, тож він досі дружній до початківців. Єдина додаткова навичка порівняно з «Новачком» — помітити цифру, яка більше нікуди не підходить у групі."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Easy Sudoku"
+msgstr "Легке судоку"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy Sudoku FAQ"
+msgstr "Легке судоку: поширені запитання"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Every board is checked for exactly one solution by two independent solving algorithms."
+msgstr "Кожна дошка перевірена двома незалежними алгоритмами розв’язування на те, що має рівно один розв’язок."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every booklet below is a free printable sudoku PDF built from the same puzzle sources the app plays — its generator and technique detectors, and for Hell and Infinity its bundled, verified corpora. Pick a difficulty for a {PRINTABLE_BOOKLET_SIZE}-puzzle booklet with solutions on the last pages, or grab the large-print set or a blank sudoku grid below. No sign-up, no ads, no watermark."
+msgstr "Кожна збірка нижче — безкоштовний PDF із судоку для друку, створений із тих самих джерел головоломок, що й у застосунку: його генератор і детектори технік, а для «Пекла» та «Нескінченності» — вбудовані перевірені корпуси. Оберіть складність, щоб отримати збірку з {PRINTABLE_BOOKLET_SIZE} головоломок і відповідями на останніх сторінках, або візьміть набір великим друком чи порожню сітку судоку. Без реєстрації, без реклами, без водяних знаків."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Every candidate board is solved twice: once with the tier below’s technique ladder, which must fail, and once with its own ladder, which must succeed. Boards that miss either test are discarded and regenerated."
+msgstr "Кожну дошку-кандидата розв’язують двічі: спершу сходами технік нижчого рівня, що мають провалитися, а потім власними сходами, що мають вдатися. Дошки, які не пройшли жоден із тестів, відкидаються й генеруються заново."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Every Hell board needs a forcing chain: none can be solved with the techniques Nightmare allows, up to AIC."
+msgstr "Кожна дошка «Пекла» потребує примусового ланцюга: жодну не можна розв’язати техніками, які дозволяє «Кошмар», аж до AIC."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every level is free to play, with no ads and no sign-up. <0>Play a puzzle now</0> at any of the seven levels, or read the full breakdown of clue counts and required techniques on the <1>Sudoku difficulty levels</1> hub. Learning on paper? Start with the <2>printable Newbie sudoku PDF</2>."
+msgstr "Кожен рівень безкоштовний, без реклами та реєстрації. <0>Зіграйте головоломку зараз</0> на будь-якому з семи рівнів або перегляньте повний опис кількості підказок і потрібних технік на сторінці <1>«Рівні складності судоку»</1>. Вчитеся на папері? Почніть із <2>PDF судоку «Новачок» для друку</2>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every named technique is a faster way of tracking the same row, column and box overlap across many cells at once."
+msgstr "Кожна названа техніка — це швидший спосіб відстежувати те саме перетинання рядка, стовпця й блока одразу в багатьох клітинках."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Every Newbie board is rated on the SE (Sudoku Explainer) scale the moment it is created. Our published sample of {sampleSize} Newbie boards measures SE {seRatingRange} — the very bottom of a scale that runs to 12, and below what most SE-based charts even bother to name. Newbie exists to teach the row-column-box overlap that every later technique builds on, not to test it. The measured range for this tier and every other is published in our <0>sudoku difficulty rating guide</0>. Treat a fast, mistake-free Newbie solve as confirmation you’re ready for Easy, not as a benchmark worth chasing for its own sake."
+msgstr "Кожна дошка «Новачок» оцінюється за шкалою SE (Sudoku Explainer) у момент створення. Наша опублікована вибірка з {sampleSize} дощок «Новачок» вимірюється як SE {seRatingRange} — самий низ шкали, що сягає 12, і нижче за те, що більшість діаграм на основі SE взагалі зважується називати. «Новачок» існує, щоб навчити перетину рядка, стовпця й блока, на якому будується кожна наступна техніка, а не щоб його перевіряти. Виміряний діапазон для цього й кожного іншого рівня опубліковано в нашому <0>посібнику з рейтингу складності судоку</0>. Швидке розв’язання «Новачка» без помилок — це підтвердження, що ви готові до «Легкого», а не позначка, за якою варто ганятися заради неї самої."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every PDF is set to US Letter and drawn with vector lines and text, so it prints crisply at any size. Open the file, print at 100% scale (not “fit to page”, which can distort the grid on some printers), and print single-sided if you want to keep the solutions on separate sheets from the puzzles."
+msgstr "Кожен PDF має формат US Letter і намальований векторними лініями та текстом, тож чітко друкується в будь-якому розмірі. Відкрийте файл і друкуйте в масштабі 100% (не «вмістити на сторінці», бо на деяких принтерах це може спотворити сітку); друкуйте односторонньо, якщо хочете тримати відповіді окремо від головоломок."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every puzzle guaranteed to have exactly one solution, no guessing required"
+msgstr "Кожна головоломка гарантовано має рівно один розв’язок, вгадувати не потрібно"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle in this booklet comes from a bundled corpus that Suuudokuuu checks with two independent solving algorithms — a Dancing Links exact-cover solver and a typed-array bitmask solver — before it ships, so each grid is confirmed to have exactly one solution. The corpus draws from the tdoku project’s 17-clue catalog and the magictour top1465 hard-puzzle list, and each puzzle is also solved logically and rated on the SE scale as the corpus is packed. Only boards whose hardest step is a forcing chain survive; anything that falls to a chain, coloring or AIC is dropped, because neither the clue count nor the source list alone would be enough to promise a Hell puzzle. Every survivor still solves on our technique ladder without guessing, so every puzzle here is guaranteed solvable by logic before you ever pick up a pencil."
+msgstr "Кожна головоломка в цій збірці походить із вбудованого корпусу, який Suuudokuuu перевіряє двома незалежними алгоритмами розв’язування — розв’язувачем Dancing Links (точне покриття) і бітмасковим розв’язувачем на типізованих масивах, — перш ніж його випустити, тож для кожної сітки підтверджено рівно один розв’язок. Корпус бере головоломки з каталогу 17-підказкових проєкту tdoku і зі списку складних головоломок top1465 від magictour, а кожну головоломку під час упаковки корпусу ще й розв’язують логічно та оцінюють за шкалою SE. Лишаються лише дошки, чий найважчий крок — примусовий ланцюг; усе, що піддається ланцюгу, розфарбуванню чи AIC, відкидається, бо ні кількість підказок, ні сам список джерел не гарантують головоломку «Пекла». Кожна з тих, що лишилися, усе одно розв’язується на наших сходах технік без вгадування, тож кожна головоломка тут гарантовано розв’язна логікою, ще до того як ви візьмете олівець."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle in this booklet needs a forcing chain: none can be finished with the techniques Nightmare allows, and each is drawn from our bundled and independently verified Hell corpus rather than generated fresh. Our published sample of {sampleSize} boards measures the tier at SE {seRatingRange}, with the <0/> as the most common hardest step. See the <1>17-clue guide</1> for why the clue count is not what makes them hard."
+msgstr "Кожна головоломка в цій збірці потребує примусового ланцюга: жодну не можна завершити техніками, які дозволяє «Кошмар», і кожну взято з нашого вбудованого та незалежно перевіреного корпусу «Пекла», а не згенеровано наново. Наша опублікована вибірка з {sampleSize} дощок оцінює рівень як SE {seRatingRange}, а найпоширенішим найважчим кроком є <0/>. Щоб зрозуміти, чому складними їх робить не кількість підказок, прочитайте <1>посібник про судоку з 17 підказками</1>."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle needs a forcing chain, drawn from a bundled and independently verified corpus of boards with {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues."
+msgstr "Кожна головоломка потребує примусового ланцюга й узята з вбудованого та незалежно перевіреного корпусу дошок із {HELL_CORPUS_MINIMUM_GIVEN_COUNT}–{HELL_CORPUS_MAXIMUM_GIVEN_COUNT} підказками."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every puzzle needs a forcing chain, drawn from our bundled, verified Hell corpus. See the <0>Hell sudoku lander</0> to play it digitally."
+msgstr "Кожна головоломка потребує примусового ланцюга й узята з нашого вбудованого перевіреного корпусу «Пекла». Щоб зіграти онлайн, перейдіть на <0>сторінку судоку «Пекло»</0>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every Sudoku rule is really the same constraint applied to three different kinds of unit. Learn the constraint once and you already know all three rules."
+msgstr "Кожне правило судоку — це по суті одне й те саме обмеження, застосоване до трьох різних видів груп. Вивчіть його раз — і ви вже знаєте всі три правила."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every technique {SITE_NAME} uses to generate hints is documented with a worked example board pulled straight from the solving engine. Start with the <0>full technique index</0>, or jump into one of the first patterns most players learn."
+msgstr "Кожну техніку, яку {SITE_NAME} використовує для підказок, задокументовано на прикладі дошки, взятої просто з рушія розв’язування. Почніть із <0>повного індексу технік</0> або перейдіть до одного з перших візерунків, які вивчає більшість гравців."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every tier from Newbie to Infinity now has its own guide, breaking down exactly what separates one level from the next — clue counts, required techniques and an honest read on how hard each one really is. Start on the <0>Sudoku difficulty levels</0> hub, or see how it compares to the <1>hardest puzzles</1> ever published."
+msgstr "Тепер кожен рівень від «Новачка» до «Нескінченності» має власний посібник, що докладно показує, чим один рівень відрізняється від наступного: кількість підказок, потрібні техніки та чесна оцінка того, наскільки складний кожен із них. Почніть зі сторінки <0>«Рівні складності судоку»</0> або дивіться, як вони співвідносяться з <1>найскладнішими головоломками</1> з будь-коли опублікованих."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Everything Medium needs, plus at least one fish or wing pattern: X-Wing, swordfish, jellyfish, their finned and sashimi variants, XY-Wing, XYZ-Wing or W-Wing. One of those is always required, because a board that does not need one is graded Medium instead."
+msgstr "Усе, що потрібне для «Середнього», плюс принаймні одна фігура «риба» чи «крило»: X-Wing, Swordfish, Jellyfish, їхні finned- і sashimi-варіанти, XY-Wing, XYZ-Wing або W-Wing. Одна з них потрібна завжди, бо дошка, якій вони не потрібні, оцінюється як «Середній»."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Exactly one technique. Every Newbie board can be finished with full houses and naked singles; every Easy board provably cannot, and needs at least one hidden single to break the deadlock."
+msgstr "Рівно одна техніка. Кожну дошку «Новачок» можна завершити «останніми клітинками» та відкритими одинаками; кожну дошку «Легкий» доведено не можна, і їй потрібен принаймні один прихований одинак, щоб вийти з глухого кута."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Fill every empty cell with a digit from 1 to 9 so that no digit repeats in a row, a column or a 3×3 box."
+msgstr "Заповніть кожну порожню клітинку цифрою від 1 до 9 так, щоб жодна цифра не повторювалася в рядку, стовпці чи блоці 3×3."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Finished a Hell board and want more? <0>Infinity Sudoku</0> serves the record puzzles — Everest, Platinum Blonde, AI Escargot — that sit past even our forcing chains. Not ready for chains yet? Step back to <1>Nightmare Sudoku</1>, which asks for the same reasoning with more of the grid already filled in. Prefer paper? Download the <2>printable Hell sudoku PDF</2>. Browse the <3>technique index</3>, especially X-Chain, XY-Chain, Simple Coloring and AIC, the <4>how to play guide</4>, the <5>17-clue sudoku guide</5>, every tier on the <6>Sudoku difficulty levels</6> hub, or head <7>home</7>."
+msgstr "Пройшли дошку «Пекла» й хочете ще? <0>Судоку «Нескінченність»</0> пропонує рекордні головоломки — Everest, Platinum Blonde, AI Escargot, — які лежать навіть за межами наших примусових ланцюгів. Ще не готові до ланцюгів? Поверніться до <1>судоку «Кошмар»</1>, яке вимагає тих самих міркувань, але з більшою частиною заповненої сітки. Віддаєте перевагу паперу? Завантажте <2>PDF судоку «Пекло» для друку</2>. Перегляньте <3>індекс технік</3>, особливо X-Chain, XY-Chain, просте розфарбування та AIC, <4>посібник «Як грати»</4>, <5>посібник про судоку з 17 підказками</5>, усі рівні на сторінці <6>«Рівні складності судоку»</6> або поверніться <7>на головну</7>."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Fish patterns: X-Wing, swordfish, jellyfish and their finned and sashimi variants. Wing patterns: XY-Wing, XYZ-Wing and W-Wing."
+msgstr "Фігури «риба»: X-Wing, Swordfish, Jellyfish та їхні finned- і sashimi-варіанти. Фігури «крило»: XY-Wing, XYZ-Wing і W-Wing."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Footer"
+msgstr "Підвал сайту"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "For each remaining blank cell, rule out every digit already used in its row, column and box. If exactly one digit is left, place it."
+msgstr "Для кожної порожньої клітинки, що лишилася, виключіть усі цифри, які вже є в її рядку, стовпці й блоці. Якщо лишилася рівно одна цифра, поставте її."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "For each unit with several blank cells, check whether a digit that is still missing from the unit only fits in one of them, even if that cell has other candidates too."
+msgstr "Для кожної групи з кількома порожніми клітинками перевірте, чи цифра, якої в групі ще немає, підходить лише в одну з них, навіть якщо в цій клітинці є й інші варіанти."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "Безкоштовно та з відкритим кодом за ліцензією {SITE_LICENSE}. Без реклами, без облікового запису, без стеження в грі — прочитайте, <0>чому</0>, або перегляньте <1>повний вихідний код на GitHub</1>. Apple і логотип Apple є товарними знаками Apple Inc., зареєстрованими в США та інших країнах. App Store є знаком обслуговування Apple Inc. Google Play і логотип Google Play є товарними знаками Google LLC."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free offline Sudoku for iOS, Android and the web"
+msgstr "Безкоштовне судоку без інтернету для iOS, Android і вебу"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same streaks and stats everywhere. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "Безкоштовне судоку онлайн означає класичну числову головоломку 9×9 у браузері чи застосунку без покупки, обмежень на встановлення чи платного доступу, а {SITE_NAME} — її безкоштовна реалізація з відкритим кодом: сім рівнів складності від «Новачка» до «Нескінченності», посібники з поясненням технік, без реклами та стеження в грі. Розв’язуйте в інтернеті або встановіть застосунок, а серії та статистика збережуться всюди однакові. Повне, перевірюване обґрунтування — у матеріалі <0>чому {SITE_NAME} побудовано саме так</0>."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Free, open-source, no ads"
+msgstr "Безкоштовно, з відкритим кодом, без реклами"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Frequently asked questions"
+msgstr "Поширені запитання"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Full House and Naked Single are the first two strategies Suuudokuuu’s solving engine tries on every board at every difficulty, because they are the cheapest deductions to verify. What sets Newbie apart is that the tier is defined as the boards that never need anything else. Strip more digits and a solver eventually stalls without hidden singles, intersections or subsets, and the generator throws those boards back rather than labelling them Newbie. If you can read a row and name the one digit missing from it, you already have every skill a Newbie puzzle asks for."
+msgstr "«Остання клітинка» і відкритий одинак — перші дві стратегії, які рушій розв’язування Suuudokuuu пробує на кожній дошці будь-якої складності, бо їх найдешевше перевірити. Особливість «Новачка» в тому, що рівень визначено як дошки, яким ніколи не потрібне щось інше. Якщо прибрати більше цифр, розв’язувач зрештою застрягне без прихованих одинаків, перетинів чи підмножин, і генератор відкидає такі дошки замість того, щоб називати їх «Новачок». Якщо ви можете подивитися на рядок і назвати єдину цифру, якої в ньому бракує, ви вже маєте всі навички, яких вимагає головоломка «Новачок»."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Full houses and naked singles still clear most of the grid; the hidden single is the one addition over Newbie."
+msgstr "«Остання клітинка» й відкриті одинаки досі заповнюють більшу частину сітки; прихований одинак — єдине доповнення порівняно з «Новачком»."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Full houses and singles as a baseline, plus pointing pairs, pointing triples, box line reduction and the naked or hidden subsets up to quads whenever singles run dry. At least one of those is always required, and nothing harder ever is."
+msgstr "«Остання клітинка» й одинаки як основа, плюс вказівні пари, вказівні трійки, взаємодія блока і лінії та відкриті чи приховані підмножини аж до четвірок, коли одинаки закінчуються. Принаймні одна з них потрібна завжди, і ніколи не потрібне нічого складнішого."
+
+#: src/chrome/components/store-badges/store-badges.tsx
+msgid "Get it on Google Play"
+msgstr "Завантажити в Google Play"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Getting started"
+msgstr "Перші кроки"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Good for a first sudoku habit"
+msgstr "Добре для першої звички до судоку"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Good for a relaxed solve"
+msgstr "Добре для спокійного розв’язування"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hard"
+msgstr "Важкий"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard boards carry {clueCount} clues and are guaranteed to need at least one fish or wing pattern beyond every subset."
+msgstr "Дошки «Важкий» містять {clueCount} підказок, і гарантовано потрібна принаймні одна фігура «риба» чи «крило», складніша за будь-яку підмножину."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Hard drops to {clueCount} clues, and this is the first printable booklet on the site where subsets alone will not carry you to the end. Every puzzle in it was tested against a solver that already knows every intersection and every subset, and kept only because that solver stalled. What finishes them is a fish or a wing: the <0>X-Wing</0> and its larger and finned relatives, or one of the bivalue wing patterns."
+msgstr "«Важкий» знижується до {clueCount} підказок, і це перша збірка для друку на сайті, де самих підмножин не вистачить до кінця. Кожну головоломку в ній перевірили розв’язувачем, який уже знає кожен перетин і кожну підмножину, і залишили лише тому, що він застряг. Завершує їх риба чи крило: <0>X-Wing</0> та її більші й finned-родичі або одне з двозначних крил."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard is capped at the W-Wing — a board that resists every fish and wing is graded Nightmare instead."
+msgstr "«Важкий» обмежений W-Wing — дошка, що опирається кожній рибі й крилу, оцінюється як «Кошмар»."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hard Sudoku"
+msgstr "Важке судоку"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard Sudoku FAQ"
+msgstr "Важке судоку: поширені запитання"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard Sudoku is a difficulty tier that starts at {clueCount} clues out of 81 cells and is defined by what a subset-only solver cannot finish: every board in the tier has been run through a solver equipped with every intersection and every subset up to the <0>hidden quad</0>, and kept only because that solver got stuck. What breaks the deadlock is a fish — <1>X-Wing</1>, <2>swordfish</2>, <3>jellyfish</3> and their <4>finned</4> and <5>sashimi</5> variants — or a wing: <6>XY-Wing</6>, <7>XYZ-Wing</7> and <8>W-Wing</8>."
+msgstr "«Важке судоку» — це рівень складності, що починається від {clueCount} підказок із 81 клітинки й визначається тим, чого не здатен завершити розв’язувач лише з підмножинами: кожну дошку рівня пропустили через розв’язувач, обладнаний усіма перетинами та підмножинами аж до <0>прихованої четвірки</0>, і залишили лише тому, що він застряг. Глухий кут розв’язує риба — <1>X-Wing</1>, <2>Swordfish</2>, <3>Jellyfish</3> та їхні <4>finned</4>- і <5>sashimi</5>-варіанти — або крило: <6>XY-Wing</6>, <7>XYZ-Wing</7> і <8>W-Wing</8>."
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Harder difficulty"
+msgstr "Складніший рівень"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Harder than anything else in the app, by a wide margin. Our sample of {sampleSize} <0>Hell</0> boards measures SE {hellSeRatingRange}; Infinity starts at {lowestRatingLabel}. The Infinity ratings are not our own measurements. Suuudokuuu’s rater prices the SE ladder only as far as forcing chains and nets and reports {SE_RATING_CEILING} with a ceiling flag above that, so for these puzzles we quote the figures independent raters publish, as the <1>difficulty rating guide</1> explains."
+msgstr "Складніше за будь-що інше в застосунку, і з великим відривом. Наша вибірка з {sampleSize} дощок <0>«Пекла»</0> вимірюється як SE {hellSeRatingRange}; «Нескінченність» починається з {lowestRatingLabel}. Рейтинги «Нескінченності» — не наші власні вимірювання. Оцінювач Suuudokuuu оцінює сходи SE лише до примусових ланцюгів і сіток і повідомляє {SE_RATING_CEILING} із прапорцем стелі вище цього, тож для цих головоломок ми наводимо цифри, які публікують незалежні оцінювачі, як пояснює <1>посібник із рейтингу складності</1>."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Hardness here comes from the technique each board requires, not from the clue count."
+msgstr "Складність тут зумовлена технікою, яку потребує кожна дошка, а не кількістю підказок."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hell"
+msgstr "Пекло"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Hell is Suuudokuuu’s hardest technique-graded tier — what most competitors call evil or extreme. A Hell board is defined by the reasoning it demands, not by how few clues it starts with: no Hell board can be finished with any technique Nightmare allows, so every one needs a forcing chain. Unlike the generated tiers, Hell is drawn from a bundled corpus of published hard puzzles, verified by two independent solvers before it ships, and every board still solves on our technique ladder without guessing. Expect to use every chain and coloring pattern first — <0>X-Chain</0>, <1>XY-Chain</1>, <2>simple coloring</2> and <3>AIC</3> — before a forcing chain breaks the deadlock."
+msgstr "«Пекло» — найскладніший технічно оцінений рівень Suuudokuuu, те, що більшість конкурентів називає «зловмисним» або «екстремальним». Дошку «Пекла» визначає не те, з якою малою кількістю підказок вона починається, а міркування, яких вона вимагає: жодну дошку «Пекла» не можна завершити жодною технікою, яку дозволяє «Кошмар», тож кожна потребує примусового ланцюга. На відміну від згенерованих рівнів, «Пекло» береться з вбудованого корпусу опублікованих складних головоломок, перевіреного двома незалежними розв’язувачами перед випуском, і кожна дошка все одно розв’язується на наших сходах технік без вгадування. Спершу доведеться застосувати кожен візерунок ланцюгів і розфарбування — <0>X-Chain</0>, <1>XY-Chain</1>, <2>просте розфарбування</2> й <3>AIC</3> — а вже потім примусовий ланцюг розв’яже глухий кут."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hell Sudoku"
+msgstr "Судоку «Пекло»"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Hell Sudoku FAQ"
+msgstr "Судоку «Пекло»: поширені запитання"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Home"
+msgstr "Головна"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "How do I print these puzzles?"
+msgstr "Як надрукувати ці головоломки?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How does Suuudokuuu guarantee a tier’s technique requirement?"
+msgstr "Як Suuudokuuu гарантує вимогу рівня до техніки?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "How hard is Easy sudoku?"
+msgstr "Наскільки складне легке судоку?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How hard is it, honestly"
+msgstr "Наскільки це складно, чесно"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "How hard is Newbie sudoku?"
+msgstr "Наскільки складне судоку «Новачок»?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How hard is Nightmare sudoku?"
+msgstr "Наскільки складне судоку «Кошмар»?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "How hard these puzzles are"
+msgstr "Наскільки складні ці головоломки"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "How is a fish or wing easier to verify on paper?"
+msgstr "Чому рибу чи крило легше перевірити на папері?"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "How many clues does a Hard sudoku have?"
+msgstr "Скільки підказок у важкому судоку?"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "How many clues does a Hell sudoku have?"
+msgstr "Скільки підказок у судоку «Пекло»?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "How many clues does a Medium sudoku have?"
+msgstr "Скільки підказок у середньому судоку?"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "How many clues does a Newbie puzzle have?"
+msgstr "Скільки підказок у головоломці «Новачок»?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How many clues does a Nightmare sudoku have?"
+msgstr "Скільки підказок у судоку «Кошмар»?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "How many clues does an easy sudoku have?"
+msgstr "Скільки підказок у легкому судоку?"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "How many puzzles are in the printable Easy sudoku PDF?"
+msgstr "Скільки головоломок у PDF легкого судоку для друку?"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "How many puzzles are in the printable Hard sudoku PDF?"
+msgstr "Скільки головоломок у PDF важкого судоку для друку?"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "How many puzzles are in the printable Hell sudoku PDF?"
+msgstr "Скільки головоломок у PDF судоку «Пекло» для друку?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "How many puzzles are in the printable Infinity sudoku PDF?"
+msgstr "Скільки головоломок у PDF судоку «Нескінченність» для друку?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "How many puzzles are in the printable Medium sudoku PDF?"
+msgstr "Скільки головоломок у PDF середнього судоку для друку?"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "How many puzzles are in the printable Newbie sudoku PDF?"
+msgstr "Скільки головоломок у PDF судоку «Новачок» для друку?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "How many puzzles are in the printable Nightmare sudoku PDF?"
+msgstr "Скільки головоломок у PDF судоку «Кошмар» для друку?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How many sudoku difficulty levels does Suuudokuuu have?"
+msgstr "Скільки рівнів складності судоку має Suuudokuuu?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How the ladder is built"
+msgstr "Як побудовано сходи"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "How the puzzles are verified"
+msgstr "Як перевіряють головоломки"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/chrome/components/site-header/site-header.tsx
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "How to play"
+msgstr "Як грати"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "How to play Sudoku FAQ"
+msgstr "Як грати в судоку: поширені запитання"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "How to print these puzzles"
+msgstr "Як надрукувати ці головоломки"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "How to start solving a Sudoku puzzle"
+msgstr "З чого почати розв’язування судоку"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Includes Everest (SE 11.9), Platinum Blonde (SE 10.9) and AI Escargot (SE 10.6)."
+msgstr "Містить Everest (SE 11.9), Platinum Blonde (SE 10.9) і AI Escargot (SE 10.6)."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Infinity"
+msgstr "Нескінченність"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Infinity is Suuudokuuu’s tier beyond Hell: a curated set of the hardest sudoku puzzles ever published, the record grids the solving community still argues about, ready to play for free. Every Infinity board is a known puzzle with a published Sudoku Explainer (SE) rating of at least {minimumRatingLabel} — Arto Inkala’s Everest, Platinum Blonde, AI Escargot, Golden Nugget and {additionalPuzzleCount} more — checked for a single solution before it ships. These are the puzzles our <0>hardest sudoku puzzles</0> guide describes; Infinity is where you play them."
+msgstr "«Нескінченність» — рівень Suuudokuuu за межами «Пекла»: добірний набір найскладніших судоку з будь-коли опублікованих, рекордних сіток, про які спільнота досі сперечається, — грайте безкоштовно. Кожна дошка «Нескінченності» — відома головоломка з опублікованим рейтингом Sudoku Explainer (SE) щонайменше {minimumRatingLabel}: Everest Арто Інкали, Platinum Blonde, AI Escargot, Golden Nugget і ще {additionalPuzzleCount}; перед випуском перевірено, що розв’язок єдиний. Це ті головоломки, які описує наш посібник про <0>найскладніші судоку</0>; у «Нескінченності» ви їх граєте."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Infinity puzzles carry {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues and are checked for a single solution by two independent solving algorithms."
+msgstr "Головоломки «Нескінченності» мають {INFINITY_MINIMUM_GIVEN_COUNT}–{INFINITY_MAXIMUM_GIVEN_COUNT} підказок і перевірені двома незалежними алгоритмами розв’язування на єдиний розв’язок."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Infinity Sudoku"
+msgstr "Судоку «Нескінченність»"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Infinity Sudoku FAQ"
+msgstr "Судоку «Нескінченність»: поширені запитання"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Intersections and pairs are found by marking every remaining candidate in a unit, so the layout leaves space in each cell specifically for those pencil marks."
+msgstr "Перетини й пари знаходять, позначаючи всі варіанти в групі, тому в макеті в кожній клітинці залишено місце саме для цих олівцевих позначок."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Intersections: pointing pair, pointing triple, box line reduction. Subsets: naked pair, hidden pair."
+msgstr "Перетини: вказівна пара, вказівна трійка, взаємодія блока і лінії. Підмножини: відкрита пара, прихована пара."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Is {SITE_NAME} free?"
+msgstr "Чи безкоштовний {SITE_NAME}?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Is AI Escargot in the printable booklet?"
+msgstr "Чи є AI Escargot у збірці для друку?"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Is Hard sudoku harder than Nightmare?"
+msgstr "Чи складніше судоку «Важкий» за «Кошмар»?"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Is Hell harder than Nightmare?"
+msgstr "Чи «Пекло» складніше за «Кошмар»?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Is Infinity harder than Hell?"
+msgstr "Чи «Нескінченність» складніша за «Пекло»?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Is Medium sudoku hard?"
+msgstr "Чи складне середнє судоку?"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Is Newbie the right level for a child or a first-time solver?"
+msgstr "Чи підходить рівень «Новачок» для дитини або для того, хто розв’язує вперше?"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Is the printable Easy sudoku PDF free?"
+msgstr "Чи безкоштовний PDF легкого судоку для друку?"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Is the printable Hard sudoku PDF free?"
+msgstr "Чи безкоштовний PDF важкого судоку для друку?"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Is the printable Hell sudoku PDF free?"
+msgstr "Чи безкоштовний PDF судоку «Пекло» для друку?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Is the printable Infinity sudoku PDF free?"
+msgstr "Чи безкоштовний PDF судоку «Нескінченність» для друку?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Is the printable Medium sudoku PDF free?"
+msgstr "Чи безкоштовний PDF середнього судоку для друку?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Is the printable Nightmare sudoku PDF free?"
+msgstr "Чи безкоштовний PDF судоку «Кошмар» для друку?"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Is this printable Newbie sudoku booklet free?"
+msgstr "Чи безкоштовна ця збірка судоку «Новачок» для друку?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "It is a real step up from Easy, but every technique it needs still works inside a single box or line at a time — the longer fish and chain patterns only start at Hard and beyond."
+msgstr "Це справжній крок угору від «Легкого», але кожна потрібна техніка все ще працює в межах одного блока чи лінії за раз — довші риби й ланцюги починаються лише з «Важкого» і далі."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "It is Suuudokuuu’s hardest generated tier, measured at SE {seRatingRange} across a sample of {sampleSize} boards. Every one of them needs chain or coloring logic on top of the fish and wing patterns Hard already requires."
+msgstr "Це найскладніший згенерований рівень Suuudokuuu: SE {seRatingRange} за вибіркою з {sampleSize} дощок. Кожна з них потребує логіки ланцюгів або розфарбування поверх фігур «риба» й «крило», яких уже вимагає «Важкий»."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "It is the easiest tier Suuudokuuu offers, and the generator guarantees it: a board only ships as Newbie once a solver limited to full houses and naked singles has finished it. Our sample measures SE {seRatingRange}, with no candidate tracking and no risk of a forced guess."
+msgstr "Це найлегший рівень Suuudokuuu, і генератор це гарантує: дошка потрапляє до «Новачка» лише після того, як її завершив розв’язувач, обмежений «останніми клітинками» та відкритими одинаками. Наша вибірка вимірюється як SE {seRatingRange}, без відстеження варіантів і без ризику вимушеного вгадування."
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Language"
+msgstr "Мова"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Large print sudoku"
+msgstr "Судоку великим шрифтом"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Large Print Sudoku"
+msgstr "Судоку великим друком"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Large print sudoku, printable"
+msgstr "Судоку великим друком для друку"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Large text size"
+msgstr "Великий розмір тексту"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Largest text size"
+msgstr "Найбільший розмір тексту"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Learn"
+msgstr "Навчання"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Learn sudoku"
+msgstr "Вивчайте судоку"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Learn techniques in difficulty order rather than memorising every pattern at once. The <0>sudoku techniques index</0> lists them from full house up to the subset patterns, each with a worked example."
+msgstr "Вивчайте техніки в порядку складності, а не намагайтеся запам’ятати всі візерунки одразу. <0>Індекс технік судоку</0> перелічує їх від «останньої клітинки» до підмножин, кожну з прикладом розв’язування."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Learn to solve"
+msgstr "Навчитися розв’язувати"
+
+#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+msgid "Loading the board…"
+msgstr "Завантаження дошки…"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Look for hidden singles"
+msgstr "Шукайте приховані одинаки"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Medium"
+msgstr "Середній"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium boards carry {clueCount} clues and are guaranteed to stall on singles and yield to an intersection or a subset."
+msgstr "Дошки «Середній» містять {clueCount} підказок, і гарантовано зайдете в глухий кут на одинаках та подолаєте його перетином чи підмножиною."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium is where Suuudokuuu starts asking for pencil marks. A Medium board carries {clueCount} clues out of 81 cells, and singles alone provably never finish it: every board in the tier has been checked against a singles-only solver and rejected if that solver got through. Once full houses and singles run out, the puzzle stalls until you spot an intersection — a digit confined to where a box and a line overlap — or a pair locked together. <0>Pointing pairs</0>, <1>pointing triples</1> and <2>box line reduction</2> cover the intersections; <3>naked pairs</3> and <4>hidden pairs</4> cover the smallest subset pattern."
+msgstr "На рівні «Середній» Suuudokuuu починає вимагати олівцевих позначок. Дошка «Середній» має {clueCount} підказок із 81 клітинки, і самі лише одинаки доведено ніколи її не завершують: кожну дошку рівня перевірили розв’язувачем лише з одинаками й відхилили, якщо він упорався. Коли «останні клітинки» й одинаки закінчуються, головоломка стоїть, доки ви не помітите перетин — цифру, обмежену місцем накладання блока й лінії, — або пару, що тримається разом. Перетини охоплюють <0>вказівні пари</0>, <1>вказівні трійки</1> та <2>взаємодію блока і лінії</2>; найменший візерунок підмножин — це <3>відкриті пари</3> та <4>приховані пари</4>."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Medium Sudoku"
+msgstr "Середнє судоку"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium Sudoku FAQ"
+msgstr "Середнє судоку: поширені запитання"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "New solvers should start at Newbie and move up one tier at a time; each step adds exactly one new technique over the tier before it, all the way up to Hard. See the <0>how to play guide</0> first if the three core rules are still unfamiliar."
+msgstr "Новачкам варто починати з рівня «Новачок» і підніматися на один рівень за раз; кожен крок додає рівно одну нову техніку порівняно з попереднім аж до «Важкого». Якщо три основні правила ще незнайомі, спершу прочитайте <0>посібник «Як грати»</0>."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "New to Sudoku?"
+msgstr "Новачок у судоку?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "New to the grid itself? Start with the <0>how to play guide</0> for the three rules and your first placements before picking a tier above."
+msgstr "Нова для вас сама сітка? Почніть із <0>посібника «Як грати»</0> — там три правила й перші розміщення, перш ніж обирати рівень вище."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Newbie"
+msgstr "Новачок"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie boards carry {clueCount} clues and are guaranteed to finish with full houses and naked singles alone."
+msgstr "Дошки «Новачок» містять {clueCount} підказок і гарантовано завершуються лише «останніми клітинками» та відкритими одинаками."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie is Suuudokuuu’s beginner tier, the gentlest possible introduction to the grid. A Newbie board starts with {clueCount} of the 81 cells already filled. Every remaining cell can be found with the two simplest deductions in the game: a <0>full house</0>, where a unit is down to its last empty cell, and a <1>naked single</1>, where a cell’s row, column and box between them already account for eight of the nine digits. That is not a description of a typical Newbie board — it is the rule the generator enforces: a candidate board is only accepted as Newbie once a solver restricted to full houses and naked singles has finished it. No pencil marks, no elimination logic and no guessing are ever required."
+msgstr "«Новачок» — початковий рівень Suuudokuuu, найм’якше знайомство із сіткою. Дошка «Новачок» починається з {clueCount} заповнених клітинок із 81. Кожну решту клітинок можна знайти двома найпростішими висновками в грі: <0>останньою клітинкою</0>, коли в групі лишилася остання порожня клітинка, і <1>відкритим одинаком</1>, коли рядок, стовпець і блок клітинки разом уже охоплюють вісім із дев’яти цифр. Це не опис типової дошки «Новачок» — це правило, яке забезпечує генератор: дошка-кандидат приймається як «Новачок» лише після того, як її завершив розв’язувач, обмежений «останніми клітинками» та відкритими одинаками. Олівцеві позначки, логіка виключень і вгадування ніколи не потрібні."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie is the easiest of Suuudokuuu’s seven tiers, followed by Easy, Medium, Hard, Nightmare, Hell and Infinity in increasing order of difficulty."
+msgstr "«Новачок» — найлегший із семи рівнів Suuudokuuu; далі за зростанням складності йдуть «Легкий», «Середній», «Важкий», «Кошмар», «Пекло» та «Нескінченність»."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Newbie Sudoku"
+msgstr "Судоку «Новачок»"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie Sudoku FAQ"
+msgstr "Судоку «Новачок»: поширені запитання"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Nightmare"
+msgstr "Кошмар"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare boards carry {clueCount} clues and are guaranteed to need at least one chain or coloring technique beyond every fish and wing."
+msgstr "Дошки «Кошмар» містять {clueCount} підказок, і гарантовано потрібна принаймні одна техніка ланцюгів чи розфарбування, складніша за будь-яку рибу й крило."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Nightmare holds just {clueCount} clues, and it is the booklet where the printed page genuinely earns its keep. Every puzzle in it was tested against a solver that already knows every fish and wing — including the <0>swordfish</0> and the <1>XY-Wing</1> — and kept only because that solver stalled. What finishes them is chain reasoning, and a chain is far easier to build on paper, where you can pencil the links in and follow them, than on a cramped screen. Our sample of {sampleSize} boards measures the tier at SE {seRatingRange}."
+msgstr "У «Кошмарі» лише {clueCount} підказок, і саме ця збірка по-справжньому виправдовує друк на папері. Кожну головоломку в ній перевірили розв’язувачем, який уже знає кожну рибу й крило — зокрема <0>Swordfish</0> і <1>XY-Wing</1>, — і залишили лише тому, що він застряг. Завершують їх міркування ланцюгами, а ланцюг набагато легше будувати на папері, де можна позначати ланки олівцем і йти за ними, ніж на тісному екрані. Наша вибірка з {sampleSize} дощок оцінює рівень як SE {seRatingRange}."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare is capped at AIC — a board resisting that is beyond what the generated tiers hand you."
+msgstr "«Кошмар» обмежений AIC — дошка, що опирається й цьому, виходить за межі того, що дають згенеровані рівні."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare is Suuudokuuu’s expert tier — what most other apps would call very hard or expert. A Nightmare board carries just {clueCount} clues out of 81 cells, and it is the tier where bounded patterns stop being enough: every board here has been checked against a solver that already knows every fish and every wing up to the <0>W-Wing</0>, and is only labelled Nightmare because that solver stalled. Finishing one needs chain reasoning — <1>X-Chain</1>, <2>XY-Chain</2>, <3>simple coloring</3> and <4>AIC</4>, the alternating inference chain that generalises the other three."
+msgstr "«Кошмар» — експертний рівень Suuudokuuu, те, що більшість інших застосунків назвали б «дуже складним» або «експертним». Дошка «Кошмар» має лише {clueCount} підказок із 81 клітинки, і саме на цьому рівні обмежених візерунків уже недостатньо: кожну дошку тут перевірили розв’язувачем, який знає кожну рибу й кожне крило аж до <0>W-Wing</0>, і вона має мітку «Кошмар» лише тому, що він застряг. Щоб її завершити, потрібні міркування ланцюгами — <1>X-Chain</1>, <2>XY-Chain</2>, <3>просте розфарбування</3> та <4>AIC</4>, ланцюг чергових висновків, який узагальнює три попередні."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Nightmare Sudoku"
+msgstr "Судоку «Кошмар»"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare Sudoku FAQ"
+msgstr "Судоку «Кошмар»: поширені запитання"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "No ads, no account and no tracking inside the game, on the web or in the app"
+msgstr "Без реклами, облікового запису чи стеження в грі, ні в інтернеті, ні в застосунку"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "No pencil marks, no elimination logic and no guessing are ever required."
+msgstr "Олівцеві позначки, логіка виключень і вгадування ніколи не потрібні."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "No pencil marks, no elimination logic and no guessing required for any puzzle in the booklet."
+msgstr "Олівцеві позначки, логіка виключень і вгадування не потрібні для жодної головоломки в збірці."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "No puzzle, just the grid: one full-page 9×9 grid for copying out a puzzle from a book or newspaper, plus a second page of four smaller grids for quick practice sheets. Useful for teachers building their own worksheets or for anyone transcribing a puzzle they found somewhere without a printer-friendly version."
+msgstr "Без головоломки, лише сітка: одна повносторінкова сітка 9×9, щоб переписати головоломку з книжки чи газети, і друга сторінка з чотирма меншими сітками для швидких практичних аркушів. Зручно вчителям, які готують власні аркуші із завданнями, і всім, хто переписує головоломку, знайдену десь без зручної для друку версії."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "No. Both techniques a Newbie puzzle requires can be read straight off the board, which is exactly why they are the fastest deductions in the game."
+msgstr "Ні. Обидві техніки, яких потребує головоломка «Новачок», читаються просто з дошки, і саме тому це найшвидші висновки в грі."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "No. Clue count and difficulty are separate facts — see the <0>17-clue sudoku guide</0>. These puzzles are hard because every one needs a forcing chain, not because of how many clues they start with."
+msgstr "Ні. Кількість підказок і складність — окремі факти; див. <0>посібник про судоку з 17 підказками</0>. Ці головоломки складні тому, що кожній потрібен примусовий ланцюг, а не через кількість підказок на початку."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "No. Clue count is only the input that forces a solver toward a wider technique set; the technique band the generator verifies is what actually defines each tier. The <0>clues versus difficulty guide</0> measures the gap directly."
+msgstr "Ні. Кількість підказок — лише вхідні дані, що підштовхують розв’язувача до ширшого набору технік; справді визначає кожен рівень діапазон технік, який перевіряє генератор. Розрив безпосередньо вимірює <0>посібник «Підказки та складність»</0>."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "No. Every board in the tier is verified solvable by the technique ladder up to AIC before it ships, so a completed chain always exists — finding it is the work."
+msgstr "Ні. Кожну дошку рівня перед випуском перевіряють на розв’язність технічними сходами до AIC, тож завершений ланцюг завжди існує — робота в тому, щоб його знайти."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "No. Every puzzle Suuudokuuu generates is checked for a unique solution at generation time, so no cell ever requires a guess — and the bundled Hell-difficulty puzzles are additionally cross-checked by two independent solving algorithms, a Dancing Links exact-cover solver and a bitmask solver, before they ship. Any position that looks ambiguous just needs a technique that has not been tried yet."
+msgstr "Ні. Кожну головоломку, яку генерує Suuudokuuu, перевіряють на єдиний розв’язок під час генерації, тож жодна клітинка ніколи не вимагає вгадування, а вбудовані головоломки рівня «Пекло» додатково перехресно перевіряють два незалежні алгоритми — розв’язувач Dancing Links (точне покриття) і бітмасковий розв’язувач — перед випуском. Будь-яка позиція, що здається неоднозначною, просто потребує техніки, яку ви ще не пробували."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "No. Hard tops out at the W-Wing; Nightmare starts where Hard stops and runs up to alternating inference chains. The two tiers are separated by a technique boundary, not by a clue count."
+msgstr "Ні. «Важкий» закінчується на W-Wing; «Кошмар» починається там, де зупиняється «Важкий», і сягає ланцюгів чергових висновків. Ці два рівні розділяє межа технік, а не кількість підказок."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "No. Notes mode in an app tracks candidates for you, updates them automatically as you place digits, and lets you undo a mistake without erasing."
+msgstr "Ні. Режим нотаток у застосунку відстежує варіанти за вас, автоматично оновлює їх, коли ви ставите цифри, і дає скасувати помилку, нічого не стираючи."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "No. There are no ads anywhere and no tracking inside the game; this website uses only cookieless, anonymous page analytics."
+msgstr "Ні. Ніде немає реклами й немає стеження в грі; цей вебсайт використовує лише анонімну аналітику сторінок без файлів cookie."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Not necessarily. Hell puzzles carry {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues, drawn from a bundled corpus checked by two independent solving algorithms and filtered to boards that need a forcing chain, rather than generated fresh at print time."
+msgstr "Не обов’язково. Головоломки «Пекла» мають {HELL_CORPUS_MINIMUM_GIVEN_COUNT}–{HELL_CORPUS_MAXIMUM_GIVEN_COUNT} підказок і беруться з вбудованого корпусу, перевіреного двома незалежними алгоритмами розв’язування та відфільтрованого до дощок, що потребують примусового ланцюга, а не генеруються наново під час друку."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Not ready for chains on paper yet? Step back to the <0>printable Nightmare sudoku booklet</0> for the same chain reasoning with more of the grid filled in, or to <1>printable Hard sudoku</1> for fish and wings without chain-length reasoning, or play Hell on a screen at the <2>Hell sudoku lander</2>, where the same corpus powers every puzzle. Ready for the record puzzles? The <3>printable Infinity sudoku booklet</3> prints Everest, AI Escargot and other record grids."
+msgstr "Ще не готові до ланцюгів на папері? Поверніться до <0>збірки судоку «Кошмар» для друку</0> — ті самі міркування ланцюгами, але з більшою частиною заповненої сітки, або до <1>судоку «Важкий» для друку</1> — риби й крила без ланцюгів, або грайте в «Пекло» на екрані на <2>сторінці судоку «Пекло»</2>, де той самий корпус живить кожну головоломку. Готові до рекордних головоломок? <3>Збірка судоку «Нескінченність» для друку</3> містить Everest, AI Escargot та інші рекордні сітки."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Notes and candidates"
+msgstr "Нотатки та варіанти"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Nothing in the booklet needs a chain — that starts at the Nightmare tier."
+msgstr "Жодна головоломка в збірці не потребує ланцюга — вони починаються з рівня «Кошмар»."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Nothing in the booklet needs a fish, a wing or a chain."
+msgstr "Жодна головоломка в збірці не потребує риби, крила чи ланцюга."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Nothing in the tier ever needs a fish, a wing or a chain — a board that does is promoted to Hard instead."
+msgstr "Нічого в рівні не потребує риби, крила чи ланцюга — дошка, якій це потрібне, переходить до «Важкого»."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Once full houses and naked singles feel automatic, step up to the <0>printable Easy sudoku booklet</0>, which adds exactly one technique on top: the hidden single. To play Newbie puzzles on a screen instead, visit the <1>Newbie sudoku lander</1>. For the full technique ladder and the measured data behind these claims, see the <2>technique index</2> and the <3>sudoku difficulty rating guide</3>."
+msgstr "Коли «останні клітинки» й відкриті одинаки стануть автоматичними, перейдіть до <0>збірки легкого судоку для друку</0>, яка додає рівно одну техніку: прихований одинак. Щоб натомість грати в «Новачок» на екрані, відвідайте <1>сторінку судоку для новачків</1>. Повні сходи технік і виміряні дані, що стоять за цими твердженнями, дивіться в <2>індексі технік</2> та <3>посібнику з рейтингу складності судоку</3>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Once the easy placements run out, tracking candidates by hand becomes essential. A candidate, sometimes called a pencil mark, is a digit that a cell could still legally hold based on what its row, column and box already contain. Writing every candidate into a cell — on paper as small numbers in the corner, or with the notes mode in an app — turns a puzzle that looks stuck into one where patterns become visible: pairs, triples and quads of candidates that repeat across a unit are exactly what techniques like naked pairs and hidden pairs are built to spot. The full method for every pattern lives in the <0>sudoku techniques index</0>, and every term used across these guides is defined in the <1>sudoku glossary</1>."
+msgstr "Коли прості розміщення закінчуються, відстежувати варіанти вручну стає необхідно. Варіант (олівцева позначка) — це цифра, яку клітинка ще може законно містити з огляду на те, що вже є в її рядку, стовпці й блоці. Якщо вписати кожен варіант у клітинку — на папері дрібними цифрами в куточку або в режимі нотаток у застосунку, — головоломка, що здавалася застряглою, перетворюється на ту, де видно візерунки: пари, трійки й четвірки варіантів, що повторюються в групі, — саме те, що покликані помічати техніки на кшталт відкритих і прихованих пар. Повний метод для кожного візерунка — в <0>індексі технік судоку</0>, а кожен термін із цих посібників визначено в <1>глосарії судоку</1>."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Our published sample of {sampleSize} Hard boards measures the tier at SE {seRatingRange}, with the <0/> as the most common hardest step — numbers the <1>sudoku difficulty rating guide</1> measures directly rather than assumes. The {PRINTABLE_BOOKLET_SIZE} puzzles here print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with room to mark candidates, and the solved grids on the closing pages let you confirm a fish elimination actually held."
+msgstr "Наша опублікована вибірка з {sampleSize} дощок рівня «Важкий» вимірюється як SE {seRatingRange}, а найпоширенішим найважчим кроком є <0/> — ці числа безпосередньо вимірює <1>посібник із рейтингу складності судоку</1>, а не припускає. {PRINTABLE_BOOKLET_SIZE} головоломок друкуються по {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} на сторінці з місцем для позначення варіантів, а розв’язані сітки на завершальних сторінках дають змогу підтвердити, що виключення рибою справді спрацювало."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Easy boards measures SE {seRatingRange}."
+msgstr "Наша вибірка з {sampleSize} дощок рівня «Легкий» вимірюється як SE {seRatingRange}."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hard boards measures SE (Sudoku Explainer) {seRatingRange} — squarely in the range the solving community associates with fish and wing patterns, and well below the chain territory above 7. The most common hardest step is the <0/>, and the hardest anything in the sample reached is the <1/>. This is where casual solvers start reaching for a hint: fish and wings are easy to describe and genuinely hard to see on a live board, so expect a noticeably longer, more deliberate solve than Medium asks for. See the <2>sudoku difficulty rating guide</2> for the full per-tier data."
+msgstr "Наша вибірка з {sampleSize} дощок рівня «Важкий» вимірюється як SE (Sudoku Explainer) {seRatingRange} — чітко в діапазоні, який спільнота пов’язує з фігурами «риба» й «крило», і значно нижче території ланцюгів вище 7. Найпоширеніший найважчий крок — <0/>, а найважче, чого досягла будь-яка дошка вибірки, — <1/>. Саме тут звичайні гравці починають тягнутися до підказки: рибу й крила легко описати, але справді важко побачити на живій дошці, тож очікуйте помітно довшого й ретельнішого розв’язування, ніж вимагає «Середній». Повні дані за рівнями дивіться в <2>посібнику з рейтингу складності судоку</2>."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hard boards measures SE {seRatingRange}."
+msgstr "Наша вибірка з {sampleSize} дощок рівня «Важкий» вимірюється як SE {seRatingRange}."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE (Sudoku Explainer) {hellSeRatingRange}, with the <0/> as the most common hardest step and the <1/> as the hardest step anything in the sample reached. Be careful not to read the clue count as the cause: the same sample puts <2>Nightmare</2> at SE {nightmareSeRatingRange} with {nightmareClueCount} clues, and some Hell boards start with more givens than that. This tier used to be built from 17-clue puzzles alone, and it rated no harder than Nightmare; selecting on the required technique instead is what separates the two. Our <3>clues versus difficulty guide</3> takes that argument apart properly, and the <4>rating guide</4> publishes the per-tier tables."
+msgstr "Наша вибірка з {sampleSize} дощок «Пекла» вимірюється як SE (Sudoku Explainer) {hellSeRatingRange}; найпоширеніший найважчий крок — <0/>, а найважчий крок, якого досягла будь-яка дошка вибірки, — <1/>. Остерігайтеся вважати причиною кількість підказок: та сама вибірка оцінює <2>«Кошмар»</2> як SE {nightmareSeRatingRange} із {nightmareClueCount} підказками, а деякі дошки «Пекла» починаються з більшої кількості заданих цифр. Раніше цей рівень складався лише з головоломок із 17 підказками, і оцінювався не складніше за «Кошмар»; саме добір за потрібною технікою розділяє ці рівні. Наш <3>посібник «Підказки та складність»</3> докладно розбирає цей аргумент, а <4>посібник із рейтингу</4> публікує таблиці за рівнями."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE {hellSeRatingRange}."
+msgstr "Наша вибірка з {sampleSize} дощок «Пекла» вимірюється як SE {hellSeRatingRange}."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE {seRatingRange}, with the <0/> as the most common hardest step."
+msgstr "Наша вибірка з {sampleSize} дощок «Пекла» вимірюється як SE {seRatingRange}, а найпоширенішим найважчим кроком є <0/>."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Medium boards measures SE {seRatingRange}, and {singlesOnlyPuzzleCount} of {sampleSize} finished on singles alone — this is the first tier where that number is zero by construction. The most common hardest step in the sample is the <0/>, and the hardest anything reached is the <1/>. Players who read pencil marks fluently clear a Medium board noticeably faster than players relying on mental candidate tracking, who will find this the first tier that genuinely rewards writing candidates down. The full per-tier data sits in our <2>sudoku difficulty rating guide</2>."
+msgstr "Наша вибірка з {sampleSize} дощок рівня «Середній» вимірюється як SE {seRatingRange}, і {singlesOnlyPuzzleCount} із {sampleSize} завершилися лише на одинаках — це перший рівень, де це число нульове за побудовою. Найпоширеніший найважчий крок у вибірці — <0/>, а найважче, чого досягли дошки, — <1/>. Гравці, які вільно читають олівцеві позначки, проходять дошку «Середній» помітно швидше за тих, хто покладається на запам’ятовування варіантів, і саме для них це перший рівень, що справді винагороджує записування варіантів. Повні дані за рівнями — в нашому <2>посібнику з рейтингу складності судоку</2>."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Medium boards measures SE {seRatingRange}."
+msgstr "Наша вибірка з {sampleSize} дощок рівня «Середній» вимірюється як SE {seRatingRange}."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Newbie boards measures SE {seRatingRange}."
+msgstr "Наша вибірка з {sampleSize} дощок рівня «Новачок» вимірюється як SE {seRatingRange}."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Nightmare boards measures SE (Sudoku Explainer) {seRatingRange}, with the <0/> as the most common hardest step. AIC is the ceiling here: every Nightmare board falls to it, and the <1>Hell tier</1> begins exactly where it stops, with boards that need a forcing chain. Some of those Hell boards carry more givens than Nightmare does, which is the clearest evidence on the site that clue count and difficulty are separate facts. The measured tables live in our <2>sudoku difficulty rating guide</2>. Qualitatively, this is where difficulty stops being about speed and becomes about holding an entire line of implication in your head without losing track of it."
+msgstr "Наша вибірка з {sampleSize} дощок «Кошмару» вимірюється як SE (Sudoku Explainer) {seRatingRange}; найпоширеніший найважчий крок — <0/>. AIC тут — стеля: кожна дошка «Кошмару» піддається йому, а <1>рівень «Пекло»</1> починається саме там, де він закінчується, з дощок, які потребують примусового ланцюга. Деякі з цих дощок «Пекла» мають більше заданих цифр, ніж «Кошмар», — найочевидніше свідчення на сайті, що кількість підказок і складність — різні речі. Виміряні таблиці — в нашому <2>посібнику з рейтингу складності судоку</2>. Якісно тут складність перестає бути питанням швидкості й стає питанням утримання в голові цілого ряду умовиводів без втрати нитки."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Nightmare boards measures SE {seRatingRange}."
+msgstr "Наша вибірка з {sampleSize} дощок «Кошмару» вимірюється як SE {seRatingRange}."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Our technique engine agrees that these boards sit past its reach. It knows every pattern on the <0>technique index</0>, up to the <1/> and the <2/>, and it still cannot finish a single Infinity puzzle on its own. That does not mean they need guessing; it means they need longer forcing nets than the engine implements. Hints are off by default on Nightmare, Hell and Infinity, and a setting turns them back on if you want the engine’s help for as far as it goes."
+msgstr "Наш рушій технік погоджується, що ці дошки лежать за межами його можливостей. Він знає кожен візерунок із <0>індексу технік</0>, аж до <1/> і <2/>, і все одно не здатен самотужки завершити жодну головоломку «Нескінченності». Це не означає, що потрібне вгадування; це означає, що потрібні довші примусові сітки, ніж реалізує рушій. Підказки типово вимкнені в «Кошмарі», «Пеклі» та «Нескінченності», а налаштування вмикає їх назад, якщо хочете допомоги рушія настільки, наскільки він сягає."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Pencil in every remaining candidate for the blank cells that are left, then work through the technique index in difficulty order to keep clearing them."
+msgstr "Позначте олівцем усі варіанти для порожніх клітинок, що лишилися, а потім проходьте індекс технік у порядку складності, щоб і далі їх очищати."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Play"
+msgstr "Грати"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Play {SITE_NAME}"
+msgstr "Грати в {SITE_NAME}"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Play Easy Sudoku now"
+msgstr "Грати в легке судоку зараз"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Play Hard Sudoku now"
+msgstr "Грати в важке судоку зараз"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Play Hell Sudoku now"
+msgstr "Грати в судоку «Пекло» зараз"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Play Infinity Sudoku now"
+msgstr "Грати в судоку «Нескінченність» зараз"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Play Medium Sudoku now"
+msgstr "Грати в середнє судоку зараз"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Play Newbie Sudoku now"
+msgstr "Грати в судоку «Новачок» зараз"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Play Nightmare Sudoku now"
+msgstr "Грати в судоку «Кошмар» зараз"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+#: src/home/components/home-page/home-page.tsx
+msgid "Play now"
+msgstr "Грати зараз"
+
+#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+msgid "Play this puzzle here"
+msgstr "Грати в цю головоломку тут"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Prefer a screen? Play Suuudokuuu now"
+msgstr "Віддаєте перевагу екрану? Грайте в Suuudokuuu зараз"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Primary"
+msgstr "Основна"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Print"
+msgstr "Друк"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Print space here matters more than at the easier tiers, because intersections and pairs work by marking candidates in the margins. The {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page at full cell size, leaving enough room around each digit to pencil in the small numbers an intersection or a pair reasons over. Solved grids close out the file so you can check your candidate marks against a confirmed answer. Our published sample of {sampleSize} Medium boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "Місце на аркуші тут важливіше, ніж на легших рівнях, бо перетини й пари працюють завдяки позначкам варіантів на полях. {PRINTABLE_BOOKLET_SIZE} головоломок друкуються по {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} на сторінці в повному розмірі клітинок, і навколо кожної цифри лишається достатньо місця, щоб олівцем вписати дрібні цифри, на яких ґрунтуються міркування про перетин чи пару. Розв’язані сітки закривають файл, тож можна звірити свої позначки варіантів із підтвердженою відповіддю. Наша опублікована вибірка з {sampleSize} дощок рівня «Середній» вимірюється як SE {seRatingRange} — ці числа безпосередньо вимірює <0>посібник із рейтингу складності судоку</0>, а не припускає."
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Printable"
+msgstr "Для друку"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Printable Easy Sudoku FAQ"
+msgstr "Судоку «Легкий» для друку: поширені запитання"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Printable Hard Sudoku FAQ"
+msgstr "Судоку «Важкий» для друку: поширені запитання"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Printable Hell Sudoku FAQ"
+msgstr "Судоку «Пекло» для друку: поширені запитання"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Printable Infinity Sudoku FAQ"
+msgstr "Судоку «Нескінченність» для друку: поширені запитання"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Printable Medium Sudoku FAQ"
+msgstr "Судоку «Середній» для друку: поширені запитання"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Printable Newbie Sudoku FAQ"
+msgstr "Судоку «Новачок» для друку: поширені запитання"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Printable Nightmare Sudoku FAQ"
+msgstr "Судоку «Кошмар» для друку: поширені запитання"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku"
+msgstr "Судоку для друку"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku booklets by difficulty"
+msgstr "Збірки судоку для друку за складністю"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku FAQ"
+msgstr "Судоку для друку: поширені запитання"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Privacy policy"
+msgstr "Політика конфіденційності"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Project"
+msgstr "Проєкт"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Puzzle 1 from the Easy booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Головоломка 1 зі збірки «Легкий», одна з {PRINTABLE_BOOKLET_SIZE} у PDF."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Puzzle 1 from the Hard booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Головоломка 1 зі збірки «Важкий», одна з {PRINTABLE_BOOKLET_SIZE} у PDF."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Puzzle 1 from the Hell booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Головоломка 1 зі збірки «Пекло», одна з {PRINTABLE_BOOKLET_SIZE} у PDF."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Puzzle 1 from the Infinity booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Головоломка 1 зі збірки «Нескінченність», одна з {PRINTABLE_BOOKLET_SIZE} у PDF."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Puzzle 1 from the Medium booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Головоломка 1 зі збірки «Середній», одна з {PRINTABLE_BOOKLET_SIZE} у PDF."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Puzzle 1 from the Newbie booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Головоломка 1 зі збірки «Новачок», одна з {PRINTABLE_BOOKLET_SIZE} у PDF."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Puzzle 1 from the Nightmare booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Головоломка 1 зі збірки «Кошмар», одна з {PRINTABLE_BOOKLET_SIZE} у PDF."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Rarely. Most players can track the handful of candidates a hidden single needs in their head, but writing them down never hurts on a busier row."
+msgstr "Рідко. Більшість гравців можуть утримати в голові жменьку варіантів, потрібних прихованому одинаку, але записати їх у завантаженішому рядку ніколи не завадить."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Read the <0>how to play guide</0> for the three rules and a walkthrough of your first moves, or look up any term in the <1>sudoku glossary</1>, which defines every technique and every piece of vocabulary the guides use."
+msgstr "Прочитайте <0>посібник «Як грати»</0> — три правила й покроковий розбір перших ходів — або знайдіть будь-який термін у <1>глосарії судоку</1>, який визначає кожну техніку й кожне слово, що вживають посібники."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Ready for a puzzle that needs one more idea? Move up to <0>Easy Sudoku</0>, which adds the hidden single on top of everything here. Prefer paper? Download the <1>printable Newbie sudoku booklet</1>, or see the <2>sudoku for seniors</2> guide for large-print and comfort options. Browse the full <3>technique index</3> or the <4>how to play guide</4>, or head back <5>home</5> and see all seven tiers on the <6>Sudoku difficulty levels</6> hub."
+msgstr "Готові до головоломки, що потребує ще однієї ідеї? Перейдіть до <0>легкого судоку</0>, яке додає прихований одинак до всього наявного тут. Віддаєте перевагу паперу? Завантажте <1>збірку судоку «Новачок» для друку</1> або перегляньте посібник <2>судоку для людей похилого віку</2> про великий друк і комфорт. Перегляньте повний <3>індекс технік</3> чи <4>посібник «Як грати»</4>, або поверніться <5>на головну</5> й подивіться всі сім рівнів на сторінці <6>«Рівні складності судоку»</6>."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Ready for intersections and subsets to start mattering? Move on to the <0>printable Medium sudoku booklet</0>, or step back to <1>printable Newbie sudoku</1> for an even gentler grid. To play Easy puzzles on a screen instead, visit the <2>Easy sudoku lander</2>."
+msgstr "Готові до того, щоб перетини й підмножини почали щось важити? Перейдіть до <0>збірки середнього судоку для друку</0> або поверніться до <1>судоку «Новачок» для друку</1> для ще м’якшої сітки. Щоб натомість грати в «Легкий» на екрані, відвідайте <2>сторінку легкого судоку</2>."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Ready to chain eliminations together instead of spotting shapes? Move up to <0>Nightmare Sudoku</0>, or step back to <1>Medium Sudoku</1> for an intersections-and-subsets puzzle. Prefer paper? Download the <2>printable Hard sudoku PDF</2>. See the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "Готові поєднувати виключення в ланцюги, а не шукати форми? Перейдіть до <0>судоку «Кошмар»</0> або поверніться до <1>середнього судоку</1> із перетинами та підмножинами. Віддаєте перевагу паперу? Завантажте <2>PDF важкого судоку для друку</2>. Перегляньте <3>індекс технік</3>, <4>посібник «Як грати»</4>, усі рівні на сторінці <5>«Рівні складності судоку»</5> або поверніться <6>на головну</6>."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Record puzzles such as Everest and AI Escargot, printed as originally published. See the <0>Infinity sudoku lander</0> to play them digitally."
+msgstr "Рекордні головоломки, як-от Everest і AI Escargot, надруковані так, як їх було опубліковано. Щоб зіграти онлайн, перейдіть на <0>сторінку судоку «Нескінченність»</0>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Scan for missing units"
+msgstr "Шукайте групи, де не вистачає однієї цифри"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Seven difficulty levels from Newbie through Hell to Infinity, the top tier serving record puzzles such as Everest and AI Escargot"
+msgstr "Сім рівнів складності від «Новачка» через «Пекло» до «Нескінченності», найвищий рівень пропонує рекордні головоломки, як-от Everest і AI Escargot"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Seven: Newbie, Easy, Medium, Hard, Nightmare, Hell and Infinity. Hell puzzles come from a bundled, verified corpus of boards that each need a forcing chain, beyond anything Nightmare asks for, and <0>Infinity</0> serves record puzzles such as Everest and AI Escargot."
+msgstr "Сім: «Новачок», «Легкий», «Середній», «Важкий», «Кошмар», «Пекло» і «Нескінченність». Головоломки «Пекла» беруться з вбудованого перевіреного корпусу дощок, кожна з яких потребує примусового ланцюга, що виходить за межі будь-чого з «Кошмару», а <0>«Нескінченність»</0> пропонує рекордні головоломки, як-от Everest і AI Escargot."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique ladder, each defined by a clue count and a guaranteed technique band rather than a marketing label. Infinity sits above them, a curated set of record puzzles chosen by published rating."
+msgstr "Сім. «Новачок», «Легкий», «Середній», «Важкий», «Кошмар» і «Пекло» утворюють сходи технік, кожен рівень визначений кількістю підказок і гарантованим діапазоном технік, а не маркетинговою назвою. Над ними — «Нескінченність», добірний набір рекордних головоломок, дібраних за опублікованим рейтингом."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Shareable puzzle links and full game replays for any solve"
+msgstr "Посилання на головоломки для обміну та повні відтворення гри для будь-якого розв’язування"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."
+msgstr "За розміром і формою. Крило — це фіксований візерунок із трьох або чотирьох клітинок, який вчаться розпізнавати з першого погляду; ланцюг будують ланка за ланкою, і він може бути будь-якої довжини, тому на шкалі SE ланцюги стоять на ціле покоління вище за крила."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "Solutions included on the last pages"
+msgstr "Відповіді — на останніх сторінках"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Solve the cheapest placements first: full houses, then naked singles, then hidden singles."
+msgstr "Спершу розв’язуйте найдешевші розміщення: «останні клітинки», потім відкриті одинаки, потім приховані одинаки."
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Solver"
+msgstr "Розв’язувач"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Solving Easy boards without reaching for a hidden single? Step back to <0>Newbie Sudoku</0>, or step up to <1>Medium Sudoku</1>, where intersections and your first pairs appear. Prefer paper? Download the <2>printable Easy sudoku booklet</2>, or see the <3>sudoku for seniors</3> guide for large-print and comfort options. See the full <4>technique index</4>, the <5>how to play</5> guide, or every tier on the <6>Sudoku difficulty levels</6> hub back <7>home</7>."
+msgstr "Розв’язуєте дошки «Легкий», не вдаючись до прихованого одинака? Поверніться до <0>судоку «Новачок»</0> або перейдіть до <1>середнього судоку</1>, де з’являються перетини й перші пари. Віддаєте перевагу паперу? Завантажте <2>збірку легкого судоку для друку</2> або перегляньте посібник <3>судоку для людей похилого віку</3> про великий друк і комфорт. Дивіться повний <4>індекс технік</4>, посібник <5>«Як грати»</5> або всі рівні на сторінці <6>«Рівні складності судоку»</6>, а також <7>головну</7>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Solving your first cells"
+msgstr "Розв’язуємо перші клітинки"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Some of these grids start with as few as {HELL_CORPUS_MINIMUM_GIVEN_COUNT} givens and look almost empty at first glance — the {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with generous cell size specifically so there is room to track candidates by hand across a long chain. The final pages hold the completed grids, which is close to essential at this tier: verifying a chain of eliminations by eye is slow, and a printed key lets you confirm the end state without re-deriving the whole path."
+msgstr "У деяких із цих сіток лише {HELL_CORPUS_MINIMUM_GIVEN_COUNT} заданих цифр, і спершу вони здаються майже порожніми — {PRINTABLE_BOOKLET_SIZE} головоломок друкуються по {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} на сторінці з великими клітинками, щоб було де вручну відстежувати варіанти вздовж довгого ланцюга. Завершальні сторінки містять розв’язані сітки, що на цьому рівні майже необхідно: перевіряти ланцюг виключень на око повільно, а друкований ключ дає змогу підтвердити кінцевий стан без повторного виведення всього шляху."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Source on GitHub"
+msgstr "Вихідний код на GitHub"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Spotting fish and wings reliably? Move up to the <0>printable Nightmare sudoku booklet</0> for chains and coloring. Step back to <1>printable Medium sudoku</1> for intersections and subsets only, or play Hard on a screen at the <2>Hard sudoku lander</2>."
+msgstr "Впевнено бачите риби й крила? Перейдіть до <0>збірки судоку «Кошмар» для друку</0> — ланцюги й розфарбування. Поверніться до <1>середнього судоку для друку</1> — лише перетини й підмножини, або грайте в «Важкий» на екрані на <2>сторінці важкого судоку</2>."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Stuck on a puzzle?"
+msgstr "Застрягли на головоломці?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Sudoku difficulties"
+msgstr "Складність судоку"
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Sudoku difficulty chain"
+msgstr "Ланцюжок рівнів складності судоку"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Sudoku difficulty levels"
+msgstr "Рівні складності судоку"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Sudoku difficulty levels FAQ"
+msgstr "Рівні складності судоку: поширені запитання"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku for seniors"
+msgstr "Судоку для людей похилого віку"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku glossary"
+msgstr "Глосарій судоку"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Sudoku is a logic puzzle played on a 9×9 grid, divided into nine 3×3 boxes. The goal is to fill every empty cell with a digit from 1 to 9 so that no digit repeats in any row, column or box. A well-formed Sudoku always starts with some cells already filled in — the givens, or clues — and always has exactly one valid solution reachable by logic alone, with no guessing."
+msgstr "Судоку — це логічна головоломка на сітці 9×9, поділеній на дев’ять блоків 3×3. Мета — заповнити кожну порожню клітинку цифрою від 1 до 9 так, щоб жодна цифра не повторювалася в жодному рядку, стовпці чи блоці. Правильно складене судоку завжди починається з кількох заповнених клітинок — заданих цифр, або підказок — і завжди має рівно один коректний розв’язок, до якого можна дійти самою логікою, без вгадування."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku solver"
+msgstr "Розв’язувач судоку"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku techniques"
+msgstr "Техніки судоку"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku tips"
+msgstr "Поради для судоку"
+
+#: src/techniques/components/technique-summary/technique-summary.tsx
+msgid "Summary"
+msgstr "Коротко"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
+msgstr "Suuudokuuu оцінює свої головоломки за шестирівневими сходами від «Новачка» до «Пекла», і кожен рівень визначають два конкретні факти, а не маркетингова назва: з якою кількістю підказок починається сітка та які названі техніки розв’язування гарантовано потрібні на цьому рівні. Кожна нова дошка також оцінюється за шкалою SE (Sudoku Explainer) у момент створення тим самим відкритим пакетом оцінювання, який використовує <0>посібник із рейтингу складності судоку</0>, щоб опублікувати виміряний діапазон технік і SE кожного рівня сходів нижче. Над сходами стоїть <1>«Нескінченність»</1> — добірний набір рекордних головоломок із рейтингами, які публікують незалежні оцінювачі, бо вони сягають за верх нашої власної шкали."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity."
+msgstr "У Suuudokuuu сім рівнів складності: шість, кожен з яких вимагає ширшого набору технік за попередній, і «Нескінченність»."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Suuudokuuu’s hardest tier: {infinityCorpusSize} of the hardest sudoku puzzles ever published, each with a published SE rating of {minimumRatingLabel} or more, playable for free with no ads."
+msgstr "Найскладніший рівень Suuudokuuu: {infinityCorpusSize} найскладніших судоку з будь-коли опублікованих, кожне з опублікованим рейтингом SE від {minimumRatingLabel}, — грайте безкоштовно й без реклами."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Technique-aware hints that name the exact solving pattern, not just the next digit"
+msgstr "Підказки з урахуванням техніки: називають точний візерунок розв’язування, а не просто наступну цифру"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Techniques"
+msgstr "Техніки"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Text size"
+msgstr "Розмір тексту"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "The {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, sized so a chain crossing the whole grid still fits comfortably on one sheet. Full solved grids close the booklet, which matters more here than at the easier tiers — a single missed elimination partway along a chain compounds quickly, and a printed answer key catches it. The measured spread behind these claims lives in the <0>sudoku difficulty rating guide</0>."
+msgstr "{PRINTABLE_BOOKLET_SIZE} головоломок друкуються по {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} на сторінці так, щоб ланцюг, який перетинає всю сітку, зручно вміщувався на одному аркуші. Повні розв’язані сітки закривають збірку, що важливіше тут, ніж на легших рівнях: одне пропущене виключення посеред ланцюга швидко накопичується, а друкований ключ відповідей його виявляє. Виміряний розкид, що стоїть за цими твердженнями, — у <0>посібнику з рейтингу складності судоку</0>."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "The best-known Infinity grids have pages of their own, each playable, printable and solved step by step by the engine: <0>AI Escargot</0>, <1>Golden Nugget</1>, <2>Platinum Blonde</2>, <3>Everest</3>, <4>Kolk</4> and <5>Silver Plate</5>."
+msgstr "Найвідоміші сітки Infinity мають власні сторінки: кожну можна зіграти, роздрукувати й переглянути покроковий розв’язок рушія: <0>AI Escargot</0>, <1>Golden Nugget</1>, <2>Platinum Blonde</2>, <3>Everest</3>, <4>Kolk</4> і <5>Silver Plate</5>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The grid itself never changes: nine rows, nine columns and nine boxes, eighty-one cells in total. What changes from puzzle to puzzle is only which cells start filled and which digits they hold, and it is that starting layout of givens that determines how much logic is needed to reach the one valid solution."
+msgstr "Сама сітка ніколи не змінюється: дев’ять рядків, дев’ять стовпців і дев’ять блоків, усього вісімдесят одна клітинка. Від головоломки до головоломки змінюється лише те, які клітинки заповнені спочатку й які цифри в них, і саме цей початковий розклад заданих цифр визначає, скільки логіки потрібно, щоб дійти єдиного коректного розв’язку."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "The large-print set uses the same Easy-tier logic as the booklet above, but at {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} puzzles per page instead of {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}, so every cell and digit prints noticeably bigger. It suits low-vision solvers, classroom handouts read from a distance, and anyone who finds the standard grid cramped on paper. See the <0>large print sudoku page</0> for printing tips and the on-screen alternative, or the <1>sudoku for seniors</1> guide for the full comfort-focused rundown."
+msgstr "Набір великим друком використовує ту саму логіку рівня «Легкий», що й збірка вище, але по {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} головоломок на сторінці замість {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}, тож кожна клітинка й цифра друкуються помітно більшими. Він підходить людям зі слабким зором, роздатковим матеріалам для класу, які читають здалеку, і всім, кому стандартна сітка на папері здається тісною. Поради з друку й альтернативу на екрані дивіться на <0>сторінці судоку великим друком</0>, а повний огляд із акцентом на комфорті — у посібнику <1>судоку для людей похилого віку</1>."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "The other tiers are defined by the techniques they require. Infinity is defined by reputation, measured: a puzzle qualifies only if independent raters have published an SE rating of {minimumRatingLabel} or higher for it. Most of the {infinityCorpusSize} come from a 2011 snapshot of the hardest-puzzle database the sudoku-solving community maintains; the rest are the named classics, taken from the forum threads and publications where they first appeared. Before the set is packed into the app, a Dancing Links exact-cover solver and a bitmask solver both confirm that every grid has exactly one solution."
+msgstr "Інші рівні визначаються техніками, які вони вимагають. «Нескінченність» визначається репутацією, виміряною: головоломка потрапляє сюди, лише якщо незалежні оцінювачі опублікували для неї рейтинг SE щонайменше {minimumRatingLabel}. Більшість із {infinityCorpusSize} походить зі знімка 2011 року бази найскладніших головоломок, яку веде спільнота розв’язувачів судоку; решта — названі класичні головоломки, взяті з гілок форумів і публікацій, де вони вперше з’явилися. Перш ніж набір упаковують у застосунок, розв’язувач Dancing Links (точне покриття) і бітмасковий розв’язувач обидва підтверджують, що кожна сітка має рівно один розв’язок."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The PDF opens with a cover page stating the puzzle and page counts, moves into {PRINTABLE_BOOKLET_SIZE} puzzles printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, and closes with every solved grid on the final pages so answers never sit next to an unsolved puzzle. Every grid is drawn with vector lines and the standard PDF Helvetica font, so it stays sharp at any print size and never depends on a scanned image. Our published sample of {sampleSize} Newbie boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "PDF відкривається обкладинкою з кількістю головоломок і сторінок, далі йдуть {PRINTABLE_BOOKLET_SIZE} головоломок по {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} на сторінці, а завершують усі розв’язані сітки на останніх сторінках, тож відповіді ніколи не стоять поруч із нерозв’язаною головоломкою. Кожну сітку намальовано векторними лініями та стандартним шрифтом PDF Helvetica, тому вона лишається чіткою за будь-якого розміру друку й ніколи не залежить від скану. Наша опублікована вибірка з {sampleSize} дощок рівня «Новачок» вимірюється як SE {seRatingRange} — ці числа безпосередньо вимірює <0>посібник із рейтингу складності судоку</0>, а не припускає."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The printable Newbie Sudoku booklet is a free PDF of {clueCount}-clue puzzles where every blank is reachable with a full house or a naked single — a property each puzzle was checked for before it went into the PDF. It is the booklet to hand a first-time solver, a classroom just learning the rules, or anyone who wants a puzzle that never demands a second guess."
+msgstr "Збірка судоку «Новачок» для друку — це безкоштовний PDF з головоломками з {clueCount} підказками, де кожну порожню клітинку можна заповнити «останньою клітинкою» або відкритим одинаком — цю властивість перевірили для кожної головоломки перед тим, як вона потрапила до PDF. Це збірка для того, хто розв’язує вперше, для класу, що лише вивчає правила, і для всіх, хто хоче головоломку, яка ніколи не вимагає здогадки."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The puzzles are printed exactly as they were published, with no reshuffling, so you can compare your grid with the originals discussed on the <0>hardest sudoku puzzles</0> page. They print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with room for a full set of pencil marks, which you will need: at this level most solvers keep every candidate written in and test chains on a separate sheet. The final pages hold the completed grids, so you can check a long line of reasoning without having to finish it first."
+msgstr "Головоломки надруковано точно так, як їх було опубліковано, без перетасування, тож можна порівняти свою сітку з оригіналами, які обговорює сторінка про <0>найскладніші судоку</0>. Вони друкуються по {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} на сторінці з місцем для повного набору олівцевих позначок, які вам знадобляться: на цьому рівні більшість розв’язувачів тримає вписаними всі варіанти й перевіряє ланцюги на окремому аркуші. Завершальні сторінки містять розв’язані сітки, тож можна перевірити довгий ряд міркувань, не доводячи його до кінця."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The ratings are the values independent raters publish, not our own measurements."
+msgstr "Рейтинги — це значення, які публікують незалежні оцінювачі, а не наші власні вимірювання."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The SE ratings are the values independent raters and the sudoku-solving community publish. Suuudokuuu’s own rater reports {SE_RATING_CEILING} with a ceiling flag for anything harder than that, so it does not produce its own figure for these puzzles."
+msgstr "Рейтинги SE — це значення, які публікують незалежні оцінювачі та спільнота розв’язувачів судоку. Власний оцінювач Suuudokuuu повідомляє {SE_RATING_CEILING} із прапорцем стелі для всього, що складніше, тож власної цифри для цих головоломок він не видає."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The standard PDF already uses a generous {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}-puzzles-per-page layout. For bigger cells specifically, see the <0>printable Easy sudoku booklet</0>, which is also the source tier for our large-print PDF."
+msgstr "Стандартний PDF уже використовує просторий макет із {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} головоломками на сторінці. Для більших клітинок дивіться <0>збірку легкого судоку для друку</0>, яка також є вихідним рівнем для нашого PDF великим друком."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The three rules of Sudoku"
+msgstr "Три правила судоку"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The very first thing to check is whether a box, row or column is missing only one digit. If eight of the nine cells in a unit are already filled, the ninth cell must take the digit the unit is still missing — no candidates to compare, just subtraction."
+msgstr "Спершу перевірте, чи не бракує в якомусь блоці, рядку чи стовпці лише однієї цифри. Якщо вісім із дев’яти клітинок групи вже заповнені, дев’ята клітинка мусить отримати цифру, якої групі ще бракує, — без порівняння варіантів, просто віднімання."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "This booklet prints {PRINTABLE_BOOKLET_SIZE} of the hardest sudoku puzzles ever published, taken from Suuudokuuu’s Infinity tier: Arto Inkala’s Everest, AI Escargot, Platinum Blonde, Golden Nugget and other record grids, each with a published SE (Sudoku Explainer) rating between {lowestRatingLabel} and {highestRatingLabel}. Every one has exactly one solution, and the solved grids are at the back."
+msgstr "Ця збірка друкує {PRINTABLE_BOOKLET_SIZE} найскладніших судоку з будь-коли опублікованих, узятих із рівня «Нескінченність» Suuudokuuu: Everest Арто Інкали, AI Escargot, Platinum Blonde, Golden Nugget та інші рекордні сітки, кожна з опублікованим рейтингом SE (Sudoku Explainer) від {lowestRatingLabel} до {highestRatingLabel}. Кожна має рівно один розв’язок, а розв’язані сітки — наприкінці."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "This is the booklet to print for a short daily habit rather than a long sitting: fold it into a notebook, work one grid at a time, and there is never a candidate to write down or a pair to track across the row. It also suits a classroom introducing the rules for the first time, since a full class can finish a puzzle in the same short window without anyone stalling on an intersection they have not been taught yet. The {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}-per-page layout still leaves each grid large enough to write in comfortably, even for a child’s handwriting, and the answer key at the back means a teacher never has to solve the sheet themselves to check it."
+msgstr "Це збірка, яку варто друкувати для короткої щоденної звички, а не для довгого сидіння: вкладіть її в зошит, розв’язуйте по одній сітці, і ніколи не доведеться ні записувати варіант, ні відстежувати пару в рядку. Вона також підходить класу, що вперше знайомиться з правилами: увесь клас може закінчити головоломку за той самий короткий час, і ніхто не застрягне на перетині, якого ще не навчився. Макет із {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} на сторінці все одно лишає кожну сітку достатньо великою, щоб зручно писати, навіть дитячим почерком, а ключ відповідей наприкінці означає, що вчителю не доведеться самому розв’язувати аркуш, щоб його перевірити."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Those extra blanks over Newbie are enough that the grid stops filling itself in from <0>full houses</0> alone. Once the obvious placements run out, an Easy puzzle always leaves at least one cell where hidden single reasoning is the only way forward — check each unit’s missing digits against where they can still legally go, rather than reading candidates straight off one cell. Suuudokuuu’s technique engine tries hidden single third, right after full house and <1>naked single</1>, and an Easy-rated puzzle never needs to go further than that: no pointing pairs, no subsets, nothing that asks you to hold more than one unit in mind at once. The gap between the tiers is small on purpose — it is exactly one technique wide."
+msgstr "Цих додаткових порожніх клітинок порівняно з «Новачком» достатньо, щоб сітка перестала заповнюватися сама лише <0>«останніми клітинками»</0>. Коли очевидні розміщення закінчуються, у головоломці «Легкий» завжди лишається принаймні одна клітинка, де єдиний шлях уперед — міркування прихованого одинака: зіставте цифри, яких бракує в кожній групі, з тим, куди вони ще можуть законно потрапити, замість того щоб читати варіанти просто з однієї клітинки. Рушій технік Suuudokuuu пробує прихований одинак третім, одразу після «останньої клітинки» й <1>відкритого одинака</1>, а головоломка рівня «Легкий» ніколи не потребує більшого: ні вказівних пар, ні підмножин, нічого, що вимагає тримати в голові більше однієї групи одночасно. Розрив між рівнями навмисно малий — завширшки рівно одна техніка."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Tips for pencil-mark solving"
+msgstr "Поради щодо розв’язування з олівцевими позначками"
+
+#: src/techniques/components/technique-summary/technique-summary.tsx
+msgid "TL;DR"
+msgstr "Коротко"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Type or paste the grid into the <0>step-by-step sudoku solver</0> and it will name every move — Hidden Single, Naked Pair, X-Wing — instead of just filling the board in. It checks that your puzzle has exactly one solution first, and it runs entirely in your browser."
+msgstr "Введіть або вставте сітку в <0>покроковий розв’язувач судоку</0>, і він назве кожен хід — Hidden Single, Naked Pair, X-Wing — замість того, щоб просто заповнити дошку. Спершу він перевіряє, що в головоломки рівно один розв’язок, і працює повністю у вашому браузері."
+
+#: src/seo/components/updated-date/updated-date.tsx
+msgid "Updated <0>{formattedDate}</0>"
+msgstr "Оновлено <0>{formattedDate}</0>"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Verifying fish and wings on paper"
+msgstr "Перевірка риб і крил на папері"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Very. Every puzzle in the Infinity set has a published SE rating of at least {lowestRatingLabel}, well past anything the generated tiers or the Hell corpus produce. Our own rater stops pricing the SE ladder at {SE_RATING_CEILING}, so the figures quoted here come from independent raters, and our technique engine cannot finish any of these grids on its own. Expect to need long forcing chains and forcing nets, and expect a single puzzle to take far longer than anything else on this site."
+msgstr "Дуже. Кожна головоломка набору «Нескінченність» має опублікований рейтинг SE щонайменше {lowestRatingLabel}, значно вище за все, що дають згенеровані рівні чи корпус «Пекла». Наш оцінювач припиняє оцінювати сходи SE на {SE_RATING_CEILING}, тож наведені тут цифри походять від незалежних оцінювачів, а наш рушій технік не здатен самотужки завершити жодну з цих сіток. Будьте готові до довгих примусових ланцюгів і сіток, і до того, що одна головоломка займе набагато більше часу, ніж будь-що інше на цьому сайті."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Want the record puzzles on paper? Download the <0>printable Infinity sudoku PDF</0>. Not ready for them yet? Step back to <1>Hell Sudoku</1>, where every board needs a forcing chain but stays within reach of our technique ladder. Read the stories behind Everest and AI Escargot on the <2>hardest sudoku puzzles</2> page, compare every tier on the <3>Sudoku difficulty levels</3> hub, or head <4>home</4>."
+msgstr "Хочете рекордні головоломки на папері? Завантажте <0>PDF судоку «Нескінченність» для друку</0>. Ще не готові до них? Поверніться до <1>судоку «Пекло»</1>, де кожна дошка потребує примусового ланцюга, але лишається в межах досяжності наших сходів технік. Прочитайте історії Everest і AI Escargot на сторінці <2>найскладніші судоку</2>, порівняйте всі рівні на сторінці <3>«Рівні складності судоку»</3> або поверніться <4>на головну</4>."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Want to warm up first? The <0>printable Hell sudoku booklet</0> holds forcing-chain puzzles that are hard but still within reach of our technique ladder. Prefer a screen? Play the same record puzzles on the <1>Infinity sudoku lander</1>, where each game reshuffles the grid, or browse every booklet on the <2>printable sudoku hub</2>."
+msgstr "Хочете спершу розім’ятися? <0>Збірка судоку «Пекло» для друку</0> містить головоломки з примусовими ланцюгами: складні, але ще в межах досяжності наших сходів технік. Віддаєте перевагу екрану? Грайте в ті самі рекордні головоломки на <1>сторінці судоку «Нескінченність»</1>, де кожна гра перетасовує сітку, або перегляньте всі збірки на <2>сторінці судоку для друку</2>."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "What difficulty levels exist?"
+msgstr "Які бувають рівні складності?"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What is a finned fish in sudoku?"
+msgstr "Що таке finned-риба в судоку?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What is a pointing pair?"
+msgstr "Що таке вказівна пара?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "What is Infinity sudoku?"
+msgstr "Що таке судоку «Нескінченність»?"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "What is inside the booklet"
+msgstr "Що в збірці"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "What is the difference between a clue and a candidate?"
+msgstr "Чим підказка відрізняється від варіанта?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "What is the difference between a wing and a chain?"
+msgstr "Чим крило відрізняється від ланцюга?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "What is the difference between Newbie and Easy sudoku?"
+msgstr "Чим судоку «Новачок» відрізняється від «Легкого»?"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "What is the easiest Sudoku difficulty?"
+msgstr "Який найлегший рівень складності судоку?"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "What is the fastest way to get better at Sudoku?"
+msgstr "Як найшвидше вдосконалитися в судоку?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "What makes a puzzle Easy"
+msgstr "Що робить головоломку легкою"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What makes a puzzle Hard"
+msgstr "Що робить головоломку важкою"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "What makes a puzzle Hell"
+msgstr "Що робить головоломку «Пеклом»"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "What makes a puzzle Infinity"
+msgstr "Що робить головоломку «Нескінченністю»"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What makes a puzzle Medium"
+msgstr "Що робить головоломку середньою"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "What makes a puzzle Newbie"
+msgstr "Що робить головоломку «Новачком»"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "What makes a puzzle Nightmare"
+msgstr "Що робить головоломку «Кошмаром»"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "What technique does an Easy sudoku booklet require?"
+msgstr "Яка техніка потрібна для збірки легкого судоку?"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What techniques do I need for Hard sudoku?"
+msgstr "Які техніки потрібні для важкого судоку?"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "What techniques do I need for Hell level?"
+msgstr "Які техніки потрібні для рівня «Пекло»?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What techniques do I need for Medium sudoku?"
+msgstr "Які техніки потрібні для середнього судоку?"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "What techniques does this Hard booklet require?"
+msgstr "Які техніки потрібні для цієї збірки «Важкий»?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "What techniques does this Medium booklet require?"
+msgstr "Які техніки потрібні для цієї збірки «Середній»?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "What techniques does this Nightmare booklet require?"
+msgstr "Які техніки потрібні для цієї збірки «Кошмар»?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "When intersections start feeling automatic, move up to the <0>printable Hard sudoku booklet</0> for fish and wing patterns. Drop back to <1>printable Easy sudoku</1> for a singles-only warm-up, or play Medium on a screen at the <2>Medium sudoku lander</2>."
+msgstr "Коли перетини стануть автоматичними, перейдіть до <0>збірки важкого судоку для друку</0> — фігури «риба» й «крило». Поверніться до <1>легкого судоку для друку</1> для розминки лише з одинаками або грайте в «Середній» на екрані на <2>сторінці середнього судоку</2>."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "When you start an Infinity game, the app picks one of those puzzles and disguises it. It relabels the digits, shuffles rows within their bands, columns within their stacks and the bands and stacks themselves, and sometimes mirrors the grid across its diagonal. None of that changes the logic or the rating, so the Everest you play is still Everest, it just does not look like the picture below."
+msgstr "Коли ви починаєте гру «Нескінченність», застосунок вибирає одну з цих головоломок і маскує її. Він перепозначає цифри, перетасовує рядки в межах їхніх смуг, стовпці в межах їхніх стеків, а також самі смуги й стеки, а іноді віддзеркалює сітку відносно діагоналі. Нічого з цього не змінює логіку чи рейтинг, тож Everest, у який ви граєте, і далі Everest, просто він не схожий на картинку нижче."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Where to go next"
+msgstr "Куди далі"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Which sudoku difficulty should I start with?"
+msgstr "З якого рівня складності судоку почати?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Who rated these puzzles?"
+msgstr "Хто оцінював ці головоломки?"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Why {SITE_NAME}"
+msgstr "Чому {SITE_NAME}"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Why does Hell use a fixed puzzle corpus instead of generating puzzles?"
+msgstr "Чому «Пекло» використовує фіксований корпус головоломок замість генерування?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Why does this booklet leave more room around each digit?"
+msgstr "Чому в цій збірці довкола кожної цифри більше місця?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Why is paper recommended for chain-based puzzles?"
+msgstr "Чому для головоломок на основі ланцюгів рекомендовано папір?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Why paper helps with chains"
+msgstr "Чому папір допомагає з ланцюгами"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Why players stay"
+msgstr "Чому гравці лишаються"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Works fully offline once installed, on iOS, Android and the web"
+msgstr "Повністю працює без інтернету після встановлення: на iOS, Android і в вебі"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Write candidates into a cell only once scanning stops producing placements."
+msgstr "Вписуйте варіанти в клітинку лише тоді, коли перегляд більше не дає розміщень."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Write in candidates once the easy cells run out"
+msgstr "Вписуйте варіанти, коли прості клітинки закінчилися"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Yes, along with Everest, Platinum Blonde and Golden Nugget. The booklet prints the puzzles as they were originally published."
+msgstr "Так, разом з Everest, Platinum Blonde і Golden Nugget. Збірка друкує головоломки так, як їх було опубліковано спочатку."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our sample measures Hell at SE {hellSeRatingRange} and Nightmare at SE {nightmareSeRatingRange}."
+msgstr "Так, за побудовою. «Кошмар» закінчується на AIC, і жодну дошку «Пекла» не можна розв’язати нічим із дозволеного в «Кошмарі». Наша вибірка оцінює «Пекло» як SE {hellSeRatingRange}, а «Кошмар» — як SE {nightmareSeRatingRange}."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Yes, with no account and no watermark, and every puzzle’s solved grid is included at the back."
+msgstr "Так, без облікового запису й водяних знаків, а розв’язана сітка кожної головоломки — наприкінці."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "Так. {SITE_NAME} безкоштовний і з відкритим кодом, без покупок у застосунку, підписок чи платних рівнів складності."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Both are in the Infinity set, along with Platinum Blonde and Golden Nugget. Each game reshuffles digits, rows and columns, so the grid looks different every time while the puzzle stays the same."
+msgstr "Так. Обидві є в наборі «Нескінченність», разом із Platinum Blonde і Golden Nugget. Кожна гра перетасовує цифри, рядки й стовпці, тож сітка щоразу виглядає інакше, а головоломка лишається тією самою."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Yes. Easy is the source tier for the large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles with bigger cells for readers who want more room to write."
+msgstr "Так. «Легкий» — вихідний рівень для PDF великим друком, у вибірці — {PRINTABLE_LARGE_PRINT_SIZE} головоломок із більшими клітинками для тих, кому потрібно більше місця для запису."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. Every difficulty booklet and the large-print set carry the full solved grids on the last pages, generated by the same solver that verifies every puzzle has exactly one solution before it ships."
+msgstr "Так. Кожна збірка за складністю та набір великим друком містять повні розв’язані сітки на останніх сторінках, згенеровані тим самим розв’язувачем, який перед випуском перевіряє, що в кожної головоломки рівно один розв’язок."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Every grid is checked by a Dancing Links exact-cover solver and a bitmask solver before it ships, and each has exactly one solution."
+msgstr "Так. Кожну сітку перевіряють розв’язувач Dancing Links (точне покриття) і бітмасковий розв’язувач перед випуском, і кожна має рівно один розв’язок."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Yes. Every puzzle in the booklet is solvable with a full house or a naked single alone, so no candidate marking or elimination logic is ever required."
+msgstr "Так. Кожну головоломку в збірці можна розв’язати лише «останньою клітинкою» або відкритим одинаком, тож позначати варіанти чи виключати їх ніколи не потрібно."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
+msgstr "Так. Після встановлення {SITE_NAME} генерує й розв’язує головоломки повністю на вашому пристрої, тож грає однаково без з’єднання."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."
+msgstr "Так. Наша вибірка оцінює «Пекло» як SE {hellSeRatingRange}, а кожна головоломка «Нескінченності» має опублікований рейтинг від {lowestRatingLabel} до {highestRatingLabel}. Дошки «Пекла» все ще піддаються нашим сходам технік; дошки «Нескінченності» — ні."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. Suuudokuuu’s code, including the generator behind these puzzles, is open source under the MIT license, and this site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
+msgstr "Так. Код Suuudokuuu, зокрема генератор цих головоломок, має відкритий код за ліцензією MIT, і цей сайт не обмежує друк чи поширення PDF — зокрема роздавання на уроці, репетиторському занятті чи в пачці робочих аркушів."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Yes. The PDF downloads free, with no account and no watermark, and includes a full solution key for every puzzle."
+msgstr "Так. PDF завантажується безкоштовно, без облікового запису й водяних знаків, і містить повний ключ відповідей до кожної головоломки."

@@ -16,8 +16,10 @@ import {
     PRINTABLE_BOOKLET_PAGE_COUNT,
     PRINTABLE_LARGE_PRINT_PAGE_COUNT
 } from '../src/printable/constants/printable-page-count.constant';
+import { PRINTABLE_PDF_LABELS } from '../src/printable/constants/printable-pdf-labels.constant';
 import { PRINTABLE_BOOKLET_PUZZLES, PRINTABLE_LARGE_PRINT_PUZZLES } from '../src/printable/constants/printable-sample.constant';
 import { SITE_NAME, SITE_ORIGIN } from '../src/seo/constants/site.constant';
+import { buildLocalePath } from '../src/seo/utils/build-locale-path.util';
 import { EMPTY_PUZZLE_ENTRY } from '../src/solver/constants/puzzle-entry.constant';
 
 import { createPublicDirectory } from './utils/create-public-directory.util';
@@ -25,6 +27,7 @@ import { handleGeneratorError } from './utils/handle-generator-error.util';
 import { writePublicArtifact } from './utils/write-public-artifact.util';
 
 import type { FamousPuzzleInterface } from '../src/hardest/interfaces/famous-puzzle.interface';
+import type { PrintablePdfLabelsInterface } from '../src/printable/interfaces/printable-pdf-labels.interface';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { PDFFont, PDFPage } from 'pdf-lib';
 
@@ -60,7 +63,7 @@ const CONTENT_TOP = PAGE_HEIGHT - PAGE_MARGIN - HEADER_HEIGHT;
 const CONTENT_BOTTOM = PAGE_MARGIN + FOOTER_HEIGHT;
 const CONTENT_HEIGHT = CONTENT_TOP - CONTENT_BOTTOM;
 
-const OUTPUT_DIRECTORY = createPublicDirectory('printable');
+const PRINTABLE_PATH = '/printable';
 
 interface FontsInterface {
     regular: PDFFont;
@@ -231,31 +234,31 @@ const embedFonts = async (doc: PDFDocument): Promise<FontsInterface> => ({
     bold: await doc.embedFont(StandardFonts.HelveticaBold)
 });
 
-const buildBookletDocument = async (booklet: BookletInterface): Promise<PDFDocument> => {
+const buildBookletDocument = async (booklet: BookletInterface, labels: PrintablePdfLabelsInterface): Promise<PDFDocument> => {
     const solutions = booklet.puzzles.map(toSolutionDigits);
     const doc = await PDFDocument.create();
     const fonts = await embedFonts(doc);
 
-    doc.setTitle(`${booklet.name} — Printable Puzzle Booklet`);
+    doc.setTitle(labels.documentTitle(booklet.name));
     doc.setAuthor(SITE_NAME);
 
     addCoverPage(doc, fonts, booklet.name, [
         booklet.puzzleCountLine,
-        `${booklet.pageCount}-page PDF, US Letter, ${booklet.puzzlesPerPage} puzzles per page`,
-        `Play more at ${SITE_ORIGIN}`
+        labels.pageCountLine(booklet.pageCount, booklet.puzzlesPerPage),
+        labels.playMoreLine(SITE_ORIGIN)
     ]);
-    addGridPages(doc, fonts, `${booklet.name} — Puzzles`, 'Puzzle', booklet.puzzles, booklet.puzzlesPerPage);
-    addGridPages(doc, fonts, `${booklet.name} — Solutions`, 'Solution', solutions, booklet.solutionsPerPage);
+    addGridPages(doc, fonts, `${booklet.name} — ${labels.puzzlesHeading}`, labels.puzzleLabel, booklet.puzzles, booklet.puzzlesPerPage);
+    addGridPages(doc, fonts, `${booklet.name} — ${labels.solutionsHeading}`, labels.solutionLabel, solutions, booklet.solutionsPerPage);
 
     return doc;
 };
 
-const buildTierBooklet = (difficulty: DifficultyEnum): BookletInterface => {
+const buildTierBooklet = (difficulty: DifficultyEnum, labels: PrintablePdfLabelsInterface): BookletInterface => {
     const puzzles = PRINTABLE_BOOKLET_PUZZLES[difficulty];
 
     return {
-        name: `${DIFFICULTY_NAMES[difficulty]} Sudoku`,
-        puzzleCountLine: `${puzzles.length} free printable puzzles with solutions`,
+        name: labels.bookletNames[difficulty],
+        puzzleCountLine: labels.puzzleCountLine(puzzles.length),
         puzzles,
         pageCount: PRINTABLE_BOOKLET_PAGE_COUNT,
         puzzlesPerPage: PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
@@ -311,25 +314,38 @@ const buildFamousPuzzleDocument = async ({ givens, name }: FamousPuzzleInterface
     return doc;
 };
 
-const writePdf = async (fileName: string, doc: PDFDocument): Promise<void> => {
+const writePdf = async (outputDirectory: string, fileName: string, doc: PDFDocument): Promise<void> => {
     const bytes = await doc.save();
 
-    writePublicArtifact(OUTPUT_DIRECTORY, fileName, bytes);
+    writePublicArtifact(outputDirectory, fileName, bytes);
 };
 
 const generate = async (): Promise<void> => {
-    for (const difficulty of DIFFICULTY_LADDER) {
-        await writePdf(`${DIFFICULTY_NAMES[difficulty].toLowerCase()}.pdf`, await buildBookletDocument(buildTierBooklet(difficulty)));
+    const localizedLabels = Object.entries(PRINTABLE_PDF_LABELS).flatMap(([locale, labels]) =>
+        isDefined(labels) ? [{ locale, labels }] : []
+    );
+    const englishDirectory = createPublicDirectory(PRINTABLE_PATH);
+
+    for (const { labels, locale } of localizedLabels) {
+        const outputDirectory = createPublicDirectory(buildLocalePath(locale, PRINTABLE_PATH));
+
+        for (const difficulty of DIFFICULTY_LADDER) {
+            await writePdf(
+                outputDirectory,
+                `${DIFFICULTY_NAMES[difficulty].toLowerCase()}.pdf`,
+                await buildBookletDocument(buildTierBooklet(difficulty, labels), labels)
+            );
+        }
     }
 
-    await writePdf('large-print.pdf', await buildBookletDocument(LARGE_PRINT_BOOKLET));
-    await writePdf('blank-grid.pdf', await buildBlankGridDocument());
+    await writePdf(englishDirectory, 'large-print.pdf', await buildBookletDocument(LARGE_PRINT_BOOKLET, PRINTABLE_PDF_LABELS.en));
+    await writePdf(englishDirectory, 'blank-grid.pdf', await buildBlankGridDocument());
 
     for (const famousPuzzle of FAMOUS_PUZZLES) {
-        await writePdf(`${famousPuzzle.fileName}.pdf`, await buildFamousPuzzleDocument(famousPuzzle));
+        await writePdf(englishDirectory, `${famousPuzzle.fileName}.pdf`, await buildFamousPuzzleDocument(famousPuzzle));
     }
 
-    console.log(`Generated ${DIFFICULTY_LADDER.length + 2 + FAMOUS_PUZZLES.length} printable PDFs in ${OUTPUT_DIRECTORY}`);
+    console.log(`Generated ${localizedLabels.length * DIFFICULTY_LADDER.length + 2 + FAMOUS_PUZZLES.length} printable PDFs`);
 };
 
 generate().catch(handleGeneratorError);

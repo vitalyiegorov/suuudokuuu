@@ -27,6 +27,7 @@ import { SoftwareApplicationFeature } from '../../../seo/components/software-app
 import { SoftwareApplicationSchema } from '../../../seo/components/software-application-schema/software-application-schema';
 import { WebSiteSchema } from '../../../seo/components/web-site-schema/web-site-schema';
 import { SITE_NAME, SITE_PLAY_URL } from '../../../seo/constants/site.constant';
+import { buildLocalizedPagePath } from '../../../seo/utils/build-localized-page-path.util';
 import { localizePageMetadata } from '../../../seo/utils/localize-page-metadata.util';
 import { resolvePageHeadline } from '../../../seo/utils/resolve-page-headline.util';
 
@@ -56,8 +57,9 @@ export const HomePage = ({ locale }: Props) => {
                     Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or
                     paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity,
                     technique-explaining guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same
-                    streaks and stats everywhere. See <Link href={whySuuudokuuuPageMetadata.path}>why {SITE_NAME} is built this way</Link>{' '}
-                    for the full, verifiable case.
+                    streaks and stats everywhere. See{' '}
+                    <Link href={buildLocalizedPagePath(whySuuudokuuuPageMetadata)}>why {SITE_NAME} is built this way</Link> for the full,
+                    verifiable case.
                 </Trans>
             </p>
             <a className="hero__cta" href={SITE_PLAY_URL}>
@@ -96,25 +98,27 @@ export const HomePage = ({ locale }: Props) => {
             <p>
                 <Trans>
                     Every technique {SITE_NAME} uses to generate hints is documented with a worked example board pulled straight from the
-                    solving engine. Start with the <Link href={techniquesPageMetadata.path}>full technique index</Link>, or jump into one of
-                    the first patterns most players learn.
+                    solving engine. Start with the <Link href={buildLocalizedPagePath(techniquesPageMetadata)}>full technique index</Link>,
+                    or jump into one of the first patterns most players learn.
                 </Trans>
             </p>
             <ul className="link-list">
                 <li>
                     <Trans>
-                        <Link href={fullHousePageMetadata.path}>Full House</Link> — the simplest possible move, filling the last empty cell
-                        in a unit.
+                        <Link href={buildLocalizedPagePath(fullHousePageMetadata)}>Full House</Link> — the simplest possible move, filling
+                        the last empty cell in a unit.
                     </Trans>
                 </li>
                 <li>
                     <Trans>
-                        <Link href={nakedSinglePageMetadata.path}>Naked Single</Link> — a cell left with exactly one candidate.
+                        <Link href={buildLocalizedPagePath(nakedSinglePageMetadata)}>Naked Single</Link> — a cell left with exactly one
+                        candidate.
                     </Trans>
                 </li>
                 <li>
                     <Trans>
-                        <Link href={hiddenSinglePageMetadata.path}>Hidden Single</Link> — a digit that only fits in one cell of a unit.
+                        <Link href={buildLocalizedPagePath(hiddenSinglePageMetadata)}>Hidden Single</Link> — a digit that only fits in one
+                        cell of a unit.
                     </Trans>
                 </li>
             </ul>
@@ -123,9 +127,10 @@ export const HomePage = ({ locale }: Props) => {
             </h2>
             <p>
                 <Trans>
-                    Type or paste the grid into the <Link href={solverPageMetadata.path}>step-by-step sudoku solver</Link> and it will name
-                    every move — Hidden Single, Naked Pair, X-Wing — instead of just filling the board in. It checks that your puzzle has
-                    exactly one solution first, and it runs entirely in your browser.
+                    Type or paste the grid into the{' '}
+                    <Link href={buildLocalizedPagePath(solverPageMetadata)}>step-by-step sudoku solver</Link> and it will name every move —
+                    Hidden Single, Naked Pair, X-Wing — instead of just filling the board in. It checks that your puzzle has exactly one
+                    solution first, and it runs entirely in your browser.
                 </Trans>
             </p>
             <h2>
@@ -133,9 +138,10 @@ export const HomePage = ({ locale }: Props) => {
             </h2>
             <p>
                 <Trans>
-                    Read the <Link href={howToPlayPageMetadata.path}>how to play guide</Link> for the three rules and a walkthrough of your
-                    first moves, or look up any term in the <Link href={glossaryPageMetadata.path}>sudoku glossary</Link>, which defines
-                    every technique and every piece of vocabulary the guides use.
+                    Read the <Link href={buildLocalizedPagePath(howToPlayPageMetadata)}>how to play guide</Link> for the three rules and a
+                    walkthrough of your first moves, or look up any term in the{' '}
+                    <Link href={buildLocalizedPagePath(glossaryPageMetadata)}>sudoku glossary</Link>, which defines every technique and
+                    every piece of vocabulary the guides use.
                 </Trans>
             </p>
             <h2>
@@ -145,8 +151,9 @@ export const HomePage = ({ locale }: Props) => {
                 <Trans>
                     Every tier from Newbie to Infinity now has its own guide, breaking down exactly what separates one level from the next —
                     clue counts, required techniques and an honest read on how hard each one really is. Start on the{' '}
-                    <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or see how it compares to the{' '}
-                    <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest puzzles</Link> ever published.
+                    <Link href={buildLocalizedPagePath(sudokuDifficultiesPageMetadata)}>Sudoku difficulty levels</Link> hub, or see how it
+                    compares to the <Link href={buildLocalizedPagePath(hardestSudokuPuzzlesPageMetadata)}>hardest puzzles</Link> ever
+                    published.
                 </Trans>
             </p>
             <FaqPage>
@@ -194,8 +201,8 @@ export const HomePage = ({ locale }: Props) => {
                         <Trans>
                             Seven: Newbie, Easy, Medium, Hard, Nightmare, Hell and Infinity. Hell puzzles come from a bundled, verified
                             corpus of boards that each need a forcing chain, beyond anything Nightmare asks for, and{' '}
-                            <Link href={infinitySudokuPageMetadata.path}>Infinity</Link> serves record puzzles such as Everest and AI
-                            Escargot.
+                            <Link href={buildLocalizedPagePath(infinitySudokuPageMetadata)}>Infinity</Link> serves record puzzles such as
+                            Everest and AI Escargot.
                         </Trans>
                     </FaqAnswer>
                 </Faq>

@@ -1,0 +1,1953 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-10-15 06:50+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ur\n"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells — only one fewer than Medium, which is exactly why the tier is defined by the techniques it requires rather than by its clue count."
+msgstr "81 خانوں میں سے {clueCount} کلیوز — درمیانہ سے صرف ایک کم، اور یہی وجہ ہے کہ اس درجے کی تعریف کلیوز کی تعداد سے نہیں بلکہ مطلوبہ تکنیکوں سے ہوتی ہے۔"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, a third of the grid filled in before you start."
+msgstr "81 خانوں میں سے {clueCount} کلیوز، یعنی شروع سے ہی گرڈ کا ایک تہائی حصہ بھرا ہوا۔"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, and every blank is reachable with a full house or a naked single."
+msgstr "81 خانوں میں سے {clueCount} کلیوز، اور ہر خالی خانہ آخری خالی خانے یا کھلے اکہرے سے حل ہو جاتا ہے۔"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need a hidden single and nothing harder."
+msgstr "81 خانوں میں سے {clueCount} کلیوز، جن میں کم از کم ایک پوشیدہ اکہرا ضروری ہے اور اس سے مشکل کچھ نہیں۔"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need at least one chain or coloring technique beyond every fish and wing."
+msgstr "81 خانوں میں سے {clueCount} کلیوز، جن میں تمام فش اور ونگ پیٹرنز کے بعد کم از کم ایک زنجیر یا رنگ کاری کی تکنیک ضروری ہے۔"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need at least one fish or wing pattern beyond every subset."
+msgstr "81 خانوں میں سے {clueCount} کلیوز، جن میں تمام سبسیٹس کے بعد کم از کم ایک فش یا ونگ پیٹرن ضروری ہے۔"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to stall on singles and yield to an intersection or a subset."
+msgstr "81 خانوں میں سے {clueCount} کلیوز، جو اکہروں پر رک جاتے ہیں اور کسی تقاطع یا سبسیٹ سے حل ہوتے ہیں۔"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, solvable with full houses and naked singles alone."
+msgstr "81 خانوں میں سے {clueCount} کلیوز، جو صرف آخری خالی خانوں اور کھلے اکہروں سے حل ہو جاتے ہیں۔"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, solved start to finish with full houses, naked singles and hidden singles."
+msgstr "81 خانوں میں سے {clueCount} کلیوز، جو شروع سے آخر تک آخری خالی خانوں، کھلے اکہروں اور پوشیدہ اکہروں سے حل ہوتے ہیں۔"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, well under a third of the grid."
+msgstr "81 خانوں میں سے {clueCount} کلیوز، یعنی گرڈ کے ایک تہائی سے کافی کم۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{easyClueCount} clues, and every puzzle needs at least one hidden single, never more. See the <0>Easy sudoku lander</0> to play it digitally."
+msgstr "{easyClueCount} کلیوز، اور ہر پزل میں کم از کم ایک پوشیدہ اکہرا لازمی ہے، اس سے زیادہ کبھی نہیں۔ اسے ڈیجیٹل طور پر کھیلنے کے لیے <0>آسان سوڈوکو کا صفحہ</0> دیکھیں۔"
+
+#: src/printable/components/printable-download-card/printable-download-card.tsx
+msgid "{fileSizeKilobytes} KB PDF, US Letter"
+msgstr "{fileSizeKilobytes} KB PDF، US Letter"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{hardClueCount} clues, guaranteed to stall on subsets and to yield to fish and wing patterns. See the <0>Hard sudoku lander</0> to play it digitally."
+msgstr "{hardClueCount} کلیوز، جو سبسیٹس پر رک جاتے ہیں اور فش اور ونگ پیٹرنز سے حل ہوتے ہیں۔ اسے ڈیجیٹل طور پر کھیلنے کے لیے <0>مشکل سوڈوکو کا صفحہ</0> دیکھیں۔"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "{hellCorpusSize} verified puzzles with {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues, drawn from the tdoku 17-clue catalog and the magictour top1465 list rather than generated fresh."
+msgstr "{hellCorpusSize} تصدیق شدہ پزلز جن میں {HELL_CORPUS_MINIMUM_GIVEN_COUNT} سے {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} کلیوز ہیں، جو نئے سرے سے بنانے کے بجائے tdoku کے 17 کلیوز والے کیٹلاگ اور magictour کی top1465 فہرست سے لیے گئے ہیں۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "{infinityCorpusSize} record puzzles with {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues, published at SE {lowestRatingLabel} to {highestRatingLabel}."
+msgstr "{infinityCorpusSize} ریکارڈ پزلز جن میں {INFINITY_MINIMUM_GIVEN_COUNT} سے {INFINITY_MAXIMUM_GIVEN_COUNT} کلیوز ہیں، جو SE {lowestRatingLabel} سے {highestRatingLabel} کی شائع شدہ ریٹنگ رکھتے ہیں۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets. See the <0>Medium sudoku lander</0> to play it digitally."
+msgstr "{mediumClueCount} کلیوز، جو اکہروں پر رک جاتے ہیں اور تقاطع اور سبسیٹس سے حل ہوتے ہیں۔ اسے ڈیجیٹل طور پر کھیلنے کے لیے <0>درمیانہ سوڈوکو کا صفحہ</0> دیکھیں۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{newbieClueCount} clues, solved with full houses and naked singles alone. See the <0>Newbie sudoku lander</0> to play it digitally."
+msgstr "{newbieClueCount} کلیوز، جو صرف آخری خالی خانوں اور کھلے اکہروں سے حل ہوتے ہیں۔ اسے ڈیجیٹل طور پر کھیلنے کے لیے <0>نیا کھلاڑی سوڈوکو کا صفحہ</0> دیکھیں۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{nightmareClueCount} clues, guaranteed to stall on wings and to yield to chains and coloring. See the <0>Nightmare sudoku lander</0> to play it digitally."
+msgstr "{nightmareClueCount} کلیوز، جو ونگز پر رک جاتے ہیں اور زنجیروں اور رنگ کاری سے حل ہوتے ہیں۔ اسے ڈیجیٹل طور پر کھیلنے کے لیے <0>ڈراؤنا خواب سوڈوکو کا صفحہ</0> دیکھیں۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_BLANK_GRID_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_BLANK_GRID_PAGE_COUNT} صفحات"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "{PRINTABLE_BOOKLET_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_BOOKLET_PAGE_COUNT} صفحات"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles"
+msgstr "{PRINTABLE_BOOKLET_SIZE} پزلز"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with the solved grids at the back."
+msgstr "{PRINTABLE_BOOKLET_PAGE_COUNT} صفحات میں {PRINTABLE_BOOKLET_SIZE} پزلز، ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}، اور حل شدہ گرڈز آخر میں۔"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with the solved grids at the back."
+msgstr "{PRINTABLE_BOOKLET_PAGE_COUNT} صفحات میں {PRINTABLE_BOOKLET_SIZE} پزلز، ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} کی ترتیب سے چھپے ہوئے، اور حل شدہ گرڈز آخر میں۔"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key."
+msgstr "{PRINTABLE_BOOKLET_SIZE} پزلز، ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} کی ترتیب سے چھپے ہوئے، مکمل حل کی کلید کے ساتھ۔"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} record puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key."
+msgstr "{PRINTABLE_BOOKLET_SIZE} ریکارڈ پزلز، ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} کی ترتیب سے چھپے ہوئے، مکمل حل کی کلید کے ساتھ۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_LARGE_PRINT_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_LARGE_PRINT_PAGE_COUNT} صفحات"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_LARGE_PRINT_SIZE} puzzles"
+msgstr "{PRINTABLE_LARGE_PRINT_SIZE} پزلز"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Box rule.</0> Each of the nine 3×3 boxes must contain the digits 1 to 9 exactly once each."
+msgstr "<0>باکس کا اصول۔</0> نو کے نو 3×3 باکسز میں سے ہر ایک میں 1 سے 9 تک کا ہر ہندسہ ٹھیک ایک بار آنا چاہیے۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Column rule.</0> Each of the nine columns must contain the digits 1 to 9 exactly once each."
+msgstr "<0>کالم کا اصول۔</0> نو کے نو کالموں میں سے ہر ایک میں 1 سے 9 تک کا ہر ہندسہ ٹھیک ایک بار آنا چاہیے۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Easy.</0> Adds hidden singles, still no candidate tracking required."
+msgstr "<0>آسان۔</0> پوشیدہ اکہروں کا اضافہ، پھر بھی امکانات کا حساب رکھنے کی ضرورت نہیں۔"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Easy</0> — {easyClueCount} clues, guaranteed to need at least one hidden single and never more than that."
+msgstr "<0>آسان</0> — {easyClueCount} کلیوز، جن میں کم از کم ایک پوشیدہ اکہرا لازمی ہے اور اس سے زیادہ کبھی نہیں۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Full House</0> — the simplest possible move, filling the last empty cell in a unit."
+msgstr "<0>آخری خالی خانہ</0> — سب سے سادہ چال، یعنی کسی اکائی کا آخری خالی خانہ بھرنا۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Hard.</0> Always stalls on subsets and always yields to a fish or a wing pattern."
+msgstr "<0>مشکل۔</0> ہمیشہ سبسیٹس پر رک جاتا ہے اور ہمیشہ کسی فش یا ونگ پیٹرن سے حل ہوتا ہے۔"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Hard</0> — {hardClueCount} clues, guaranteed to stall on subsets and to yield to fish and wing patterns."
+msgstr "<0>مشکل</0> — {hardClueCount} کلیوز، جو سبسیٹس پر رک جاتے ہیں اور فش اور ونگ پیٹرنز سے حل ہوتے ہیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Hell.</0> Always stalls on chains and AIC and always needs a forcing chain, drawn from a bundled, verified corpus."
+msgstr "<0>جہنم۔</0> ہمیشہ زنجیروں اور AIC پر رک جاتا ہے اور ہمیشہ جبری زنجیر کا تقاضا کرتا ہے، اور پزلز ایک شامل شدہ، تصدیق شدہ مجموعے سے لیے گئے ہیں۔"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Hell</0> — guaranteed to stall on AIC and to need a forcing chain, drawn from a bundled, verified corpus rather than generated to a band."
+msgstr "<0>جہنم</0> — AIC پر رک جانے والے اور جبری زنجیر کے متقاضی پزلز، جو کسی درجے کے مطابق بنائے جانے کے بجائے ایک شامل شدہ، تصدیق شدہ مجموعے سے لیے گئے ہیں۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Hidden Single</0> — a digit that only fits in one cell of a unit."
+msgstr "<0>پوشیدہ اکہرا</0> — ایسا ہندسہ جو کسی اکائی کے صرف ایک خانے میں آ سکتا ہے۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Infinity.</0> The hardest sudoku puzzles ever published, such as Everest and AI Escargot, chosen by their published rating rather than a technique band — see the <1>Infinity lander</1>."
+msgstr "<0>لامحدود۔</0> اب تک شائع ہونے والے سب سے مشکل سوڈوکو پزلز، جیسے Everest اور AI Escargot، جو کسی تکنیکی بینڈ کے بجائے اپنی شائع شدہ ریٹنگ کی بنیاد پر چنے گئے ہیں — <1>لامحدود کا صفحہ</1> دیکھیں۔"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Infinity</0> — {infinityCorpusSize} of the hardest puzzles ever published, chosen by their published SE rating of {infinityLowestRating} to {infinityHighestRating} rather than by a technique band, and past the reach of every technique on the ladder."
+msgstr "<0>لامحدود</0> — اب تک شائع ہونے والے {infinityCorpusSize} سب سے مشکل پزلز، جو کسی تکنیکی بینڈ کے بجائے {infinityLowestRating} سے {infinityHighestRating} کی شائع شدہ SE ریٹنگ کی بنیاد پر چنے گئے ہیں، اور جو سیڑھی کی ہر تکنیک کی پہنچ سے باہر ہیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Medium.</0> Always stalls on singles and always yields to intersections and subsets — pointing pairs, box line reduction, naked and hidden pairs through quads."
+msgstr "<0>درمیانہ۔</0> ہمیشہ اکہروں پر رک جاتا ہے اور ہمیشہ تقاطع اور سبسیٹس سے حل ہوتا ہے — اشارہ کرتے جوڑے، باکس لائن ریڈکشن، اور جوڑوں سے لے کر چوہروں تک کھلے اور پوشیدہ سبسیٹس۔"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Medium</0> — {mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets."
+msgstr "<0>درمیانہ</0> — {mediumClueCount} کلیوز، جو اکہروں پر رک جاتے ہیں اور تقاطع اور سبسیٹس سے حل ہوتے ہیں۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Naked Single</0> — a cell left with exactly one candidate."
+msgstr "<0>کھلا اکہرا</0> — ایسا خانہ جس میں ٹھیک ایک ہی امکان باقی رہ گیا ہو۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Newbie.</0> Solvable with full houses and naked singles alone."
+msgstr "<0>نیا کھلاڑی۔</0> صرف آخری خالی خانوں اور کھلے اکہروں سے حل ہو جاتا ہے۔"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Newbie</0> — {newbieClueCount} clues, solved with full houses and naked singles alone."
+msgstr "<0>نیا کھلاڑی</0> — {newbieClueCount} کلیوز، جو صرف آخری خالی خانوں اور کھلے اکہروں سے حل ہوتے ہیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Nightmare.</0> Always stalls on fish and wings and always yields to chain or coloring logic."
+msgstr "<0>ڈراؤنا خواب۔</0> ہمیشہ فش اور ونگز پر رک جاتا ہے اور ہمیشہ زنجیر یا رنگ کاری کی منطق سے حل ہوتا ہے۔"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Nightmare</0> — {nightmareClueCount} clues, guaranteed to stall on wings and to yield to chains and coloring."
+msgstr "<0>ڈراؤنا خواب</0> — {nightmareClueCount} کلیوز، جو ونگز پر رک جاتے ہیں اور زنجیروں اور رنگ کاری سے حل ہوتے ہیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Row rule.</0> Each of the nine rows must contain the digits 1 to 9 exactly once each."
+msgstr "<0>قطار کا اصول۔</0> نو کی نو قطاروں میں سے ہر ایک میں 1 سے 9 تک کا ہر ہندسہ ٹھیک ایک بار آنا چاہیے۔"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "A board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier."
+msgstr "جو بورڈ آخری خالی خانے اور کھلے اکہرے والا سولور مکمل کر لے، اسے اس درجے کے لیے حد سے آسان سمجھ کر مسترد کر دیا جاتا ہے۔"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "A board that needs a hidden single or anything harder is rejected and regenerated, never labelled Newbie."
+msgstr "جس بورڈ کو پوشیدہ اکہرے یا اس سے مشکل کسی چیز کی ضرورت ہو، اسے مسترد کر کے دوبارہ بنایا جاتا ہے، اور اسے کبھی نیا کھلاڑی کا نام نہیں دیا جاتا۔"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "A chain follows an alternating sequence of strong and weak links between candidates, starting from one end and reasoning outward until the two ends prove an elimination no matter which of them turns out to be true. X-Chain does this with a single digit; XY-Chain walks a path of bivalue cells instead, changing digit at every step. Simple coloring assigns two alternating colours to a network of strong links on one digit and clears any candidate that can see both colours. AIC folds all of them into one technique, mixing digits and link types along a single continuous chain. The difference from a fish or a wing is not subtlety but shape: a wing is a fixed arrangement of three or four cells you learn to recognise, while a chain has no fixed size and has to be built move by move. Nightmare is capped at AIC — anything that still resists is beyond what the generated tiers will hand you."
+msgstr "زنجیر امکانات کے درمیان مضبوط اور کمزور روابط کے باری باری آنے والے سلسلے پر چلتی ہے۔ وہ ایک سرے سے شروع کر کے آگے بڑھتی ہے، یہاں تک کہ دونوں سرے ثابت کر دیں کہ ان میں سے جو بھی سچ نکلے، ایک امکان لازماً ہٹانا پڑے گا۔ X-Chain یہ کام ایک ہی ہندسے کے ساتھ کرتی ہے؛ XY-Chain اس کے بجائے دو امکانات والے خانوں کے راستے پر چلتی ہے اور ہر قدم پر ہندسہ بدل دیتی ہے۔ سادہ رنگ کاری ایک ہندسے کے مضبوط روابط کے جال کو باری باری دو رنگ دیتی ہے اور ہر اس امکان کو ہٹا دیتی ہے جو دونوں رنگ دیکھ سکے۔ AIC ان سب کو ایک ہی تکنیک میں سمو دیتی ہے، جس میں ایک مسلسل زنجیر میں ہندسے اور روابط کی اقسام آپس میں ملتی ہیں۔ فش یا ونگ سے فرق باریکی کا نہیں بلکہ شکل کا ہے: ونگ تین یا چار خانوں کی ایک مقررہ ترتیب ہے جسے آپ پہچاننا سیکھتے ہیں، جبکہ زنجیر کا کوئی مقررہ سائز نہیں ہوتا اور اسے قدم بہ قدم بنانا پڑتا ہے۔ ڈراؤنا خواب AIC تک محدود ہے — جو بورڈ پھر بھی نہ کھلے، وہ بنائے گئے درجوں کی پہنچ سے باہر ہے۔"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A chain follows an alternating sequence of strong and weak links, starting from a candidate and working outward until it proves an elimination or a placement no matter which branch turns out to be true. X-Chain works on a single digit; XY-Chain follows a path of bivalue cells instead. Simple coloring assigns two alternating colours to a network of strong links on one digit and clears any candidate that sees both colours, and AIC generalises the whole family, mixing digits and cell types along one continuous chain. Hell starts where all of that runs out. A forcing chain assumes a candidate, a cell’s possibilities or a house’s placements, follows every consequence, and keeps only what holds in every branch — the <0>Nishio</0>, <1>cell</1> and <2>region forcing chain</2> pages walk through one of each. A board makes the Hell corpus only if its hardest step on the rating-optimal path is a forcing chain, and only if our ladder can still finish it, so no Hell board ever asks you to guess."
+msgstr "زنجیر مضبوط اور کمزور روابط کے باری باری آنے والے سلسلے پر چلتی ہے، ایک امکان سے شروع ہو کر باہر کی طرف بڑھتی ہے، یہاں تک کہ یہ ثابت کر دے کہ جو بھی شاخ سچ نکلے، کوئی امکان ہٹانا یا کوئی ہندسہ رکھنا لازم ہے۔ X-Chain ایک ہی ہندسے پر کام کرتی ہے؛ XY-Chain اس کے بجائے دو امکانات والے خانوں کے راستے پر چلتی ہے۔ سادہ رنگ کاری ایک ہندسے کے مضبوط روابط کے جال کو باری باری دو رنگ دیتی ہے اور ہر اس امکان کو ہٹا دیتی ہے جو دونوں رنگ دیکھے، اور AIC پورے خاندان کو عام کر دیتی ہے، جس میں ایک مسلسل زنجیر میں ہندسے اور خانوں کی اقسام آپس میں ملتی ہیں۔ جہنم وہاں سے شروع ہوتا ہے جہاں یہ سب ختم ہو جاتا ہے۔ جبری زنجیر کسی امکان کو فرض کرتی ہے — خانے کے امکانات یا کسی ہاؤس کی جگہوں کو — اس کے ہر نتیجے کا پیچھا کرتی ہے، اور صرف وہی رکھتی ہے جو ہر شاخ میں درست رہے — <0>نیشیو</0>، <1>خانے</1> اور <2>علاقے کی جبری زنجیر</2> کے صفحات ہر ایک کی ایک مثال دکھاتے ہیں۔ کوئی بورڈ جہنم کے مجموعے میں اسی صورت آتا ہے جب ریٹنگ کے لحاظ سے بہترین راستے پر اس کا سب سے مشکل قدم جبری زنجیر ہو، اور ہماری سیڑھی اسے پھر بھی مکمل کر سکتی ہو، اس لیے جہنم کا کوئی بورڈ آپ سے کبھی اندازہ لگانے کو نہیں کہتا۔"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape and is built link by link, which is far easier to track by writing each strong and weak link down than by scrolling a small screen."
+msgstr "زنجیر کی کوئی مقررہ شکل نہیں ہوتی اور وہ کڑی در کڑی بنتی ہے، جسے چھوٹی اسکرین پر اسکرول کرنے کے مقابلے میں ہر مضبوط اور کمزور رابطہ لکھ کر یاد رکھنا کہیں آسان ہے۔"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape, which is why marking it in pencil helps more here than at the easier tiers."
+msgstr "زنجیر کی کوئی مقررہ شکل نہیں ہوتی، اسی لیے آسان درجوں کے مقابلے میں یہاں پنسل سے نشان لگانا زیادہ مددگار ہوتا ہے۔"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape: it is built link by link, and the only way to keep track of it is to write it down. On paper you can mark each strong and weak link as you go, follow the alternation to the far end, and see immediately which cells both ends can see. That is genuinely awkward on a phone screen you have to scroll. It is also the booklet where a wrong elimination compounds worst: mark a candidate as gone that should have stayed, and every link after it is unsound, so treat the solution pages as a real checkpoint rather than a formality."
+msgstr "زنجیر کی کوئی مقررہ شکل نہیں ہوتی: وہ کڑی در کڑی بنتی ہے، اور اسے یاد رکھنے کا واحد طریقہ اسے لکھ لینا ہے۔ کاغذ پر آپ ہر مضبوط اور کمزور رابطہ ساتھ ساتھ نشان زد کر سکتے ہیں، باری باری آنے والے سلسلے کو دوسرے سرے تک دیکھ سکتے ہیں، اور فوراً پہچان سکتے ہیں کہ کون سے خانے دونوں سرے دیکھ سکتے ہیں۔ فون کی اسکرین پر، جسے اسکرول کرنا پڑتا ہے، یہ واقعی مشکل ہے۔ یہ وہ کتابچہ بھی ہے جہاں غلط امکان ہٹانے کی غلطی سب سے زیادہ بڑھتی ہے: جو امکان رہنا چاہیے تھا اسے ہٹا دیں تو اس کے بعد کی ہر کڑی غلط ہو جاتی ہے، اس لیے حل کے صفحات کو رسمی کارروائی کے بجائے ایک حقیقی جانچ سمجھیں۔"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "A clue, or given, is a digit printed on the board before you start. A candidate is a digit you are still considering for a blank cell, based on what its row, column and box currently rule out."
+msgstr "کلیو، یا دیا گیا عدد، وہ ہندسہ ہے جو آپ کے شروع کرنے سے پہلے بورڈ پر چھپا ہوتا ہے۔ امکان وہ ہندسہ ہے جس پر آپ خالی خانے کے لیے ابھی غور کر رہے ہیں، اس بنیاد پر کہ اس کی قطار، کالم اور باکس فی الحال کیا کچھ رد کر چکے ہیں۔"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "A cover page states the puzzle and page counts up front, then {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page so a single sheet holds {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} complete grids. The last pages hold every solved grid at the same layout, so checking an answer never means hunting through a different page format. The whole file is vector graphics and a standard PDF font, so it prints cleanly at any size a printer supports. Our published sample of {sampleSize} Easy boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "ایک سرورق صفحہ شروع ہی میں پزلز اور صفحات کی تعداد بتاتا ہے، پھر {PRINTABLE_BOOKLET_SIZE} پزلز ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} کی ترتیب سے چھپتے ہیں، یعنی ایک ورق پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} مکمل گرڈز۔ آخری صفحات میں ہر حل شدہ گرڈ اسی ترتیب میں ہے، اس لیے جواب جانچنے کے لیے کسی مختلف صفحے کی ساخت میں ڈھونڈنا نہیں پڑتا۔ پوری فائل ویکٹر گرافکس اور معیاری PDF فونٹ پر مشتمل ہے، اس لیے پرنٹر جس بھی سائز کو سپورٹ کرے، صاف چھپتی ہے۔ آسان کے {sampleSize} بورڈز کا ہمارا شائع شدہ نمونہ SE {seRatingRange} ناپتا ہے — ایسے اعداد جنہیں <0>سوڈوکو مشکل ریٹنگ گائیڈ</0> مفروضوں کے بجائے براہِ راست ناپتی ہے۔"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "A digit confined to two cells of one box that also share a row or column. It can then be erased from the rest of that row or column, since one of those two cells must hold it."
+msgstr "ایک ہندسہ جو کسی ایک باکس کے دو خانوں تک محدود ہو اور وہ دونوں خانے ایک ہی قطار یا کالم میں بھی ہوں۔ تب اسے اس قطار یا کالم کے باقی خانوں سے ہٹایا جا سکتا ہے، کیونکہ ان دو خانوں میں سے ایک میں وہ لازماً ہوگا۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "A finished grid satisfies all three at the same time. That overlap is what makes Sudoku solvable by logic: a digit that is already ruled out by its row, its column and its box has nowhere left to go, which is the basis of almost every solving technique. Every named technique on this site, from the simplest single to the longest chain, is ultimately just a more efficient way of tracking that overlap across many cells at once instead of one cell at a time."
+msgstr "مکمل گرڈ تینوں شرائط پر بیک وقت پورا اترتا ہے۔ یہی باہمی تعلق سوڈوکو کو منطق سے حل کے قابل بناتا ہے: جو ہندسہ اپنی قطار، کالم اور باکس سے پہلے ہی رد ہو چکا ہو، اس کے پاس جانے کی کوئی جگہ نہیں رہتی، اور یہی تقریباً ہر حل کی تکنیک کی بنیاد ہے۔ اس سائٹ پر ہر نامزد تکنیک، سب سے سادہ اکہرے سے لے کر سب سے لمبی زنجیر تک، دراصل اسی باہمی تعلق کو ایک ایک خانے کے بجائے بہت سے خانوں میں بیک وقت جانچنے کا ایک زیادہ مؤثر طریقہ ہے۔"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "A fish is easy to miss on a screen where only a handful of cells are visible at once, because the pattern lives in where one digit can go across two, three or four whole lines at the same time. On a full printed grid you can mark that digit’s remaining positions down a column and read the shape off the page. Wings need the opposite view — a few bivalue cells that see each other across the grid — and circling them in pencil makes the overlap obvious. Because both families are easy to apply incorrectly the first few times, checking your work against the solution pages at the back is worth doing every time until the shape becomes automatic."
+msgstr "فش اسکرین پر آسانی سے نظر سے رہ جاتی ہے جہاں ایک وقت میں صرف چند خانے دکھائی دیتے ہیں، کیونکہ یہ پیٹرن اس بات میں چھپا ہوتا ہے کہ ایک ہندسہ بیک وقت دو، تین یا چار پوری لائنوں میں کہاں جا سکتا ہے۔ پورے چھپے ہوئے گرڈ پر آپ کسی کالم میں اس ہندسے کی باقی جگہوں کو نشان زد کر کے شکل کو صفحے سے پڑھ سکتے ہیں۔ ونگز کو الٹا زاویہ چاہیے — چند دو امکانات والے خانے جو پورے گرڈ میں ایک دوسرے کو دیکھتے ہیں — اور انہیں پنسل سے دائرے میں لینے سے باہمی تعلق واضح ہو جاتا ہے۔ چونکہ دونوں خاندانوں کو شروع میں غلط لگا دینا آسان ہے، اس لیے جب تک شکل خودبخود نہ پہچانی جانے لگے، ہر بار آخر کے حل کے صفحات سے اپنا کام ملا لینا فائدہ مند ہے۔"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "A fish looks at one digit across several lines at once. The X-Wing is the smallest: a digit confined to the same two columns across two rows can be erased from the rest of those columns, because whichever row ends up holding it, the columns are already fixed. A <0>swordfish</0> stretches the same idea over three lines and a jellyfish over four. Finned and sashimi variants relax the base pattern by allowing one extra candidate that still supports a smaller, safe elimination once you account for it — and in our sample they fire far more often than the textbook shapes do. Wings work differently: an XY-Wing links three bivalue cells so a candidate shared between two of them can be erased wherever both can see, XYZ-Wing gives the pivot that candidate too, and W-Wing joins two matching bivalue cells through a strong link on one shared digit. Hard is capped at the W-Wing: a board that still will not move after every fish and wing has been tried is a Nightmare board, not a Hard one."
+msgstr "فش ایک ہندسے کو بیک وقت کئی لائنوں میں دیکھتی ہے۔ X-Wing سب سے چھوٹی ہے: جو ہندسہ دو قطاروں میں ایک ہی دو کالموں تک محدود ہو، اسے ان کالموں کے باقی خانوں سے ہٹایا جا سکتا ہے، کیونکہ جو بھی قطار اسے رکھے، کالم پہلے ہی طے ہو چکے ہوتے ہیں۔ <0>Swordfish</0> یہی خیال تین لائنوں تک اور Jellyfish چار تک پھیلاتی ہے۔ فن اور ساشیمی اقسام بنیادی پیٹرن میں ایک اضافی امکان کی گنجائش دیتی ہیں جو اس کا حساب رکھنے کے بعد بھی ایک چھوٹے مگر محفوظ خاتمے کو سہارا دیتا ہے — اور ہمارے نمونے میں یہ نصابی شکلوں سے کہیں زیادہ بار کام آتی ہیں۔ ونگز مختلف طریقے سے کام کرتی ہیں: XY-Wing تین دو امکانات والے خانوں کو یوں جوڑتی ہے کہ ان میں سے دو کا مشترک امکان ہر اس جگہ سے ہٹایا جا سکتا ہے جہاں دونوں نظر ڈال سکیں، XYZ-Wing محور کو بھی وہی امکان دیتی ہے، اور W-Wing دو ایک جیسے دو امکانات والے خانوں کو ایک مشترک ہندسے کے مضبوط رابطے سے ملاتی ہے۔ مشکل W-Wing تک محدود ہے: جو بورڈ ہر فش اور ونگ آزمانے کے بعد بھی نہ ہلے، وہ ڈراؤنا خواب کا بورڈ ہے، مشکل کا نہیں۔"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "A fish spans whole rows or columns at once, which is easier to trace by marking a digit’s remaining positions down a printed column than by scrolling a screen. Wings need the opposite view — a few bivalue cells seen at a glance."
+msgstr "فش پوری قطاروں یا کالموں پر بیک وقت پھیلی ہوتی ہے، جسے اسکرول کرتی اسکرین کے بجائے چھپے ہوئے کالم میں ہندسے کی باقی جگہیں نشان زد کر کے دیکھنا آسان ہے۔ ونگز کو الٹا زاویہ چاہیے — چند دو امکانات والے خانے جو ایک نظر میں نظر آ جائیں۔"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A forcing chain, on every board, layered on top of the chains, coloring, fish, wings and subsets the earlier tiers already require. X-Chain, XY-Chain, Simple Coloring and AIC will carry you far, but never all the way through; a <0>Nishio forcing chain</0> is the usual way to break the deadlock."
+msgstr "ہر بورڈ پر ایک جبری زنجیر، جو پچھلے درجوں میں پہلے سے درکار زنجیروں، رنگ کاری، فش، ونگز اور سبسیٹس کے اوپر آتی ہے۔ X-Chain، XY-Chain، سادہ رنگ کاری اور AIC آپ کو بہت دور لے جائیں گے، مگر کبھی پوری طرح نہیں؛ اس تعطل کو توڑنے کا عام طریقہ <0>نیشیو جبری زنجیر</0> ہے۔"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "A Hard board from the same generator the app uses. Play it right here."
+msgstr "اسی جنریٹر سے ایک مشکل بورڈ جو ایپ استعمال کرتی ہے۔ اسے یہیں کھیلیں۔"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A Hell board from the same verified corpus the app uses. Play it right here."
+msgstr "اسی تصدیق شدہ مجموعے سے ایک جہنم کا بورڈ جو ایپ استعمال کرتی ہے۔ اسے یہیں کھیلیں۔"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "A Medium board from the same generator the app uses. Play it right here."
+msgstr "اسی جنریٹر سے ایک درمیانہ بورڈ جو ایپ استعمال کرتی ہے۔ اسے یہیں کھیلیں۔"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "A Newbie board from the same generator the app uses. Play it right here."
+msgstr "اسی جنریٹر سے ایک نیا کھلاڑی بورڈ جو ایپ استعمال کرتی ہے۔ اسے یہیں کھیلیں۔"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "A Nightmare board from the same generator the app uses. Play it right here."
+msgstr "اسی جنریٹر سے ایک ڈراؤنا خواب بورڈ جو ایپ استعمال کرتی ہے۔ اسے یہیں کھیلیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "A well-formed puzzle always has exactly one solution and never requires a guess."
+msgstr "ٹھیک بنایا گیا پزل ہمیشہ ٹھیک ایک حل رکھتا ہے اور اس میں کبھی اندازہ لگانے کی ضرورت نہیں پڑتی۔"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "A well-formed Sudoku never does. If a puzzle has more than one valid completion it is considered broken, because logic alone can no longer point to a single answer."
+msgstr "ٹھیک بنایا گیا سوڈوکو ایسا کبھی نہیں کرتا۔ اگر کسی پزل کی ایک سے زیادہ درست تکمیلیں ہوں تو اسے خراب سمجھا جاتا ہے، کیونکہ اس صورت میں منطق اکیلے ایک جواب کی طرف اشارہ نہیں کر سکتی۔"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "About"
+msgstr "تعارف"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "After that, look at a single blank cell and cross off every digit that already appears in its row, its column and its box. If only one digit survives, that is a <0>naked single</0>, and it can be placed immediately. If a cell still has several candidates left, check whether one of those candidates cannot go anywhere else in the same unit — that is a <1>hidden single</1>, and it is just as safe to place. Together these two patterns solve most of an easy puzzle without any deeper reasoning."
+msgstr "اس کے بعد کسی ایک خالی خانے کو دیکھیں اور ہر وہ ہندسہ کاٹ دیں جو اس کی قطار، کالم اور باکس میں پہلے سے موجود ہے۔ اگر صرف ایک ہندسہ بچے تو یہی <0>کھلا اکہرا</0> ہے، اور اسے فوراً رکھا جا سکتا ہے۔ اگر خانے میں ابھی کئی امکانات باقی ہوں تو دیکھیں کہ کیا ان میں سے کوئی امکان اسی اکائی میں کہیں اور نہیں جا سکتا — یہی <1>پوشیدہ اکہرا</1> ہے، اور اسے رکھنا بھی اتنا ہی محفوظ ہے۔ یہ دونوں پیٹرن مل کر کسی آسان پزل کا بیشتر حصہ بغیر کسی گہری منطق کے حل کر دیتے ہیں۔"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Also the source tier for the large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles."
+msgstr "اس کے علاوہ بڑے حروف والے PDF کا بنیادی درجہ، جس کا نمونہ {PRINTABLE_LARGE_PRINT_SIZE} پزلز پر مشتمل ہے۔"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "An almost-fish: the rows or columns line up as an X-Wing or <0>swordfish</0> except for one or two extra candidates, the fin. The elimination still holds, but only in the cells that both the fish and the fin can see."
+msgstr "تقریباً فش: قطاریں یا کالم X-Wing یا <0>Swordfish</0> کی طرح ترتیب پاتے ہیں، سوائے ایک یا دو اضافی امکانات کے، جنہیں فن کہتے ہیں۔ خاتمہ پھر بھی درست رہتا ہے، مگر صرف ان خانوں میں جنہیں فش اور فن دونوں دیکھ سکیں۔"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "An Easy board from the same generator the app uses. Play it right here."
+msgstr "اسی جنریٹر سے ایک آسان بورڈ جو ایپ استعمال کرتی ہے۔ اسے یہیں کھیلیں۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "An Easy board to start with. Play it right here, or pick any of seven difficulty levels in the app."
+msgstr "شروع کرنے کے لیے ایک آسان بورڈ۔ اسے یہیں کھیلیں، یا ایپ میں سات مشکل درجوں میں سے کوئی بھی چنیں۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "An Infinity record puzzle from the same curated set the app uses, reshuffled. Play it right here."
+msgstr "اسی منتخب مجموعے سے ایک لامحدود ریکارڈ پزل جو ایپ استعمال کرتی ہے، ازسرِنو ملایا ہوا۔ اسے یہیں کھیلیں۔"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "An intersection or a pair only becomes visible once you can see every remaining candidate in a row, column or box at a glance, which is why paper genuinely helps here more than a screen does: write small digits in the corner of each blank cell, then scan a line for a digit trapped inside one box, or two cells sharing exactly two candidates between them. Neither pattern places a digit by itself — each one only removes candidates — so expect to mark a few eliminations before a fresh naked single actually appears. Working in pencil rather than pen means a wrong mark costs nothing to erase."
+msgstr "تقاطع یا جوڑا تبھی نظر آتا ہے جب آپ کسی قطار، کالم یا باکس کے ہر باقی امکان کو ایک نظر میں دیکھ سکیں، اور اسی لیے یہاں کاغذ اسکرین سے واقعی زیادہ مدد دیتا ہے: ہر خالی خانے کے کونے میں چھوٹے ہندسے لکھیں، پھر کسی لائن میں ایسا ہندسہ تلاش کریں جو ایک ہی باکس میں پھنسا ہو، یا دو ایسے خانے جو آپس میں ٹھیک دو امکانات بانٹتے ہوں۔ ان میں سے کوئی بھی پیٹرن خود کوئی ہندسہ نہیں رکھتا — ہر ایک صرف امکانات ہٹاتا ہے — اس لیے نیا کھلا اکہرا حقیقتاً سامنے آنے سے پہلے کئی خاتمے نشان زد کرنے کی توقع رکھیں۔ قلم کے بجائے پنسل سے کام کرنے کا مطلب ہے کہ غلط نشان مٹانا مفت ہے۔"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "An intersection technique works on the overlap between one box and one row or column. A pointing pair or pointing triple finds a digit confined to two or three cells of a box that all share a line, and erases it from the rest of that line; box line reduction is the mirror image, working from a line back into a box. Naked and hidden pairs are the entry point to subset reasoning: two cells that share exactly two candidates, or two digits that fit in exactly two cells of a unit, either way locking those two cells away from everything else in it. None of these place a digit outright — they only eliminate candidates — but at {clueCount} clues a Medium puzzle always has at least one waiting, and it is usually enough to unlock a fresh naked single a move or two later. The tier is capped at the other end too: nothing in it ever needs a fish, a wing or a chain, because a board that does is promoted to Hard instead."
+msgstr "تقاطع کی تکنیک ایک باکس اور ایک قطار یا کالم کے مشترک حصے پر کام کرتی ہے۔ اشارہ کرتا جوڑا یا اشارہ کرتا تہرا ایسا ہندسہ تلاش کرتا ہے جو باکس کے دو یا تین خانوں تک محدود ہو اور وہ سب ایک ہی لائن میں ہوں، اور اسے اس لائن کے باقی خانوں سے ہٹا دیتا ہے؛ باکس لائن ریڈکشن اس کا عکس ہے، جو لائن سے واپس باکس کی طرف کام کرتی ہے۔ کھلے اور پوشیدہ جوڑے سبسیٹ کی منطق کا آغاز ہیں: دو خانے جو ٹھیک دو امکانات بانٹتے ہوں، یا دو ہندسے جو کسی اکائی کے ٹھیک دو خانوں میں آتے ہوں، دونوں صورتوں میں ان دو خانوں کو اس اکائی کی باقی ہر چیز سے الگ کر دیتے ہیں۔ ان میں سے کوئی بھی ہندسہ براہِ راست نہیں رکھتی — صرف امکانات ہٹاتی ہیں — لیکن {clueCount} کلیوز پر کسی درمیانہ پزل میں کم از کم ایک ہمیشہ موجود ہوتی ہے، اور عموماً یہی ایک یا دو چالوں بعد نئے کھلے اکہرے کو کھولنے کے لیے کافی ہوتی ہے۔ اس درجے کی دوسری طرف بھی حد ہے: اس میں کبھی کسی فش، ونگ یا زنجیر کی ضرورت نہیں پڑتی، کیونکہ جس بورڈ کو پڑے وہ مشکل میں شامل کر دیا جاتا ہے۔"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Anywhere from {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT}. Hell does not use clue count to choose its puzzles; a board qualifies by needing a forcing chain, whatever its number of givens."
+msgstr "{HELL_CORPUS_MINIMUM_GIVEN_COUNT} سے {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} تک کہیں بھی۔ جہنم اپنے پزلز چننے کے لیے کلیوز کی تعداد استعمال نہیں کرتا؛ کوئی بورڈ اس میں اس لیے آتا ہے کہ اسے جبری زنجیر کی ضرورت ہو، چاہے اس میں کتنے ہی دیے گئے اعداد ہوں۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Are the solutions included?"
+msgstr "کیا حل شامل ہیں؟"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Are these 17-clue puzzles?"
+msgstr "کیا یہ 17 کلیوز والے پزلز ہیں؟"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Arto Inkala’s Everest (2010), 21 givens, published at SE 11.9."
+msgstr "Arto Inkala کا Everest (2010)، 21 دیے گئے اعداد، SE 11.9 پر شائع شدہ۔"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "At {clueCount} clues out of 81 cells, this booklet is the first one worth solving with a pencil. Singles carry a Medium grid part of the way, but every puzzle in it provably stalls on them — that is the test each board had to fail to be printed here — until you spot a <0>pointing pair</0> or a <1>box-line reduction</1>, an intersection between a box and a line that only eliminates candidates, never places a digit outright. Nothing in the booklet needs a fish, a wing or a chain."
+msgstr "{clueCount} کلیوز اور 81 خانوں کے ساتھ، یہ کتابچہ پنسل سے حل کرنے کے قابل پہلا کتابچہ ہے۔ اکہرے درمیانہ گرڈ کو کچھ دور تک لے جاتے ہیں، لیکن اس کا ہر پزل ثابت شدہ طور پر ان پر رک جاتا ہے — یہی وہ امتحان ہے جس میں ہر بورڈ کو ناکام ہونا پڑا تاکہ وہ یہاں چھپ سکے — جب تک آپ <0>اشارہ کرتا جوڑا</0> یا <1>باکس لائن ریڈکشن</1> نہ دیکھ لیں، یعنی باکس اور لائن کے درمیان ایسا تقاطع جو صرف امکانات ہٹاتا ہے، کبھی کوئی ہندسہ براہِ راست نہیں رکھتا۔ کتابچے میں کسی چیز کو فش، ونگ یا زنجیر کی ضرورت نہیں۔"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "At least one <0>hidden single</0> per puzzle, on top of the full houses and naked singles Newbie already uses, and nothing harder."
+msgstr "ہر پزل میں کم از کم ایک <0>پوشیدہ اکہرا</0>، ان آخری خالی خانوں اور کھلے اکہروں کے علاوہ جو نیا کھلاڑی پہلے ہی استعمال کرتا ہے، اور اس سے مشکل کچھ نہیں۔"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "At least one <0>pointing pair</0>, <1>box-line reduction</1>, or a naked or hidden pair, on top of the singles the easier booklets already use. Nothing needs a fish, a wing or a chain."
+msgstr "کم از کم ایک <0>اشارہ کرتا جوڑا</0>، <1>باکس لائن ریڈکشن</1>، یا کھلا یا پوشیدہ جوڑا، ان اکہروں کے علاوہ جو آسان کتابچے پہلے ہی استعمال کرتے ہیں۔ کسی چیز کو فش، ونگ یا زنجیر کی ضرورت نہیں۔"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "At least one chain or coloring technique — <0>swordfish</0>-level fish and <1>XY-Wing</1>-level wings are not enough on their own — on top of every fish and wing the Hard tier already needs."
+msgstr "کم از کم ایک زنجیر یا رنگ کاری کی تکنیک — اکیلے <0>Swordfish</0> درجے کی فش اور <1>XY-Wing</1> درجے کے ونگز کافی نہیں — ان تمام فش اور ونگز کے علاوہ جو مشکل کا درجہ پہلے ہی مانگتا ہے۔"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "At least one fish (<0>X-Wing</0> and its larger and finned relatives) or one bivalue wing pattern, on top of every intersection and subset the easier booklets already need."
+msgstr "کم از کم ایک فش (<0>X-Wing</0> اور اس کی بڑی اور فن والی قسمیں) یا دو امکانات والے خانوں کا کوئی ونگ پیٹرن، ان تمام تقاطع اور سبسیٹس کے علاوہ جو آسان کتابچے پہلے ہی مانگتے ہیں۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Blank sudoku grid"
+msgstr "خالی سوڈوکو گرڈ"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Blank Sudoku Grid"
+msgstr "خالی سوڈوکو گرڈ"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Boards that need a forcing chain are rare and expensive to search for on demand, so Suuudokuuu ships a bundled corpus that has already been checked by a Dancing Links exact-cover solver and a bitmask solver, rated, and filtered to forcing-chain boards before it is packed."
+msgstr "جن بورڈز کو جبری زنجیر کی ضرورت ہوتی ہے وہ نایاب ہیں اور طلب پر انہیں ڈھونڈنا مہنگا پڑتا ہے، اس لیے Suuudokuuu ایک شامل شدہ مجموعہ فراہم کرتا ہے جسے پیک کرنے سے پہلے Dancing Links exact-cover سولور اور bitmask سولور سے جانچا جا چکا ہے، اس کی ریٹنگ نکالی جا چکی ہے، اور اسے جبری زنجیر والے بورڈز تک چھانٹا جا چکا ہے۔"
+
+#: src/seo/components/breadcrumbs/breadcrumbs.tsx
+msgid "Breadcrumb"
+msgstr "نیویگیشن کا راستہ"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Can a Sudoku have two solutions?"
+msgstr "کیا سوڈوکو کے دو حل ہو سکتے ہیں؟"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Can I play AI Escargot and Everest here?"
+msgstr "کیا میں یہاں AI Escargot اور Everest کھیل سکتا ہوں؟"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Can I print this Newbie booklet in large print?"
+msgstr "کیا میں اس نیا کھلاڑی کتابچے کو بڑے حروف میں پرنٹ کر سکتا ہوں؟"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Can I use them in a classroom?"
+msgstr "کیا میں انہیں کلاس روم میں استعمال کر سکتا ہوں؟"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Chain and coloring techniques: X-Chain, XY-Chain, simple coloring and AIC."
+msgstr "زنجیر اور رنگ کاری کی تکنیکیں: X-Chain، XY-Chain، سادہ رنگ کاری اور AIC۔"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Chains falling into place? The <0>printable Hell sudoku booklet</0> is the last tier, where every puzzle needs a forcing chain. Step back to <1>printable Hard sudoku</1> for fish and wings only, or play Nightmare on a screen at the <2>Nightmare sudoku lander</2>."
+msgstr "زنجیریں سمجھ آنے لگیں؟ <0>پرنٹ کے قابل جہنم سوڈوکو کتابچہ</0> آخری درجہ ہے، جہاں ہر پزل کو جبری زنجیر کی ضرورت ہوتی ہے۔ صرف فش اور ونگز کے لیے <1>پرنٹ کے قابل مشکل سوڈوکو</1> کی طرف واپس جائیں، یا ڈراؤنا خواب کو اسکرین پر <2>ڈراؤنا خواب سوڈوکو کے صفحے</2> پر کھیلیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Check every row, column and box for one that already has eight of its nine cells filled, and place the missing digit in the empty one."
+msgstr "ہر قطار، کالم اور باکس دیکھیں کہ کیا کوئی ایسا ہے جس کے نو میں سے آٹھ خانے پہلے ہی بھرے ہوں، اور خالی خانے میں چھوٹا ہوا ہندسہ رکھ دیں۔"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Cleared a few Nightmare boards? <0>Hell Sudoku</0> is the last tier, where every board needs a forcing chain. Step back to <1>Hard Sudoku</1> if fish and wings still feel unreliable. Prefer paper? Download the <2>printable Nightmare sudoku booklet</2>. Browse the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "کچھ ڈراؤنا خواب بورڈز حل کر لیے؟ <0>جہنم سوڈوکو</0> آخری درجہ ہے، جہاں ہر بورڈ کو جبری زنجیر کی ضرورت ہوتی ہے۔ اگر فش اور ونگز پر ابھی اعتماد نہ ہو تو <1>مشکل سوڈوکو</1> کی طرف واپس جائیں۔ کاغذ پسند ہے؟ <2>پرنٹ کے قابل ڈراؤنا خواب سوڈوکو کتابچہ</2> ڈاؤن لوڈ کریں۔ <3>تکنیکوں کا اشاریہ</3>، <4>کھیلنے کا طریقہ گائیڈ</4>، <5>سوڈوکو کے مشکل درجے</5> کے مرکزی صفحے پر ہر درجہ دیکھیں، یا <6>ہوم</6> پر جائیں۔"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Clue count is not the difficulty. It is only the input: fewer starting digits mean fewer immediate placements, which forces the solver — human or machine — to reach for a wider set of named techniques before the grid moves again. Suuudokuuu strips digits from a solved grid down to a per-tier target, verifies the result still has exactly one solution, and then does the part that actually defines the tier: it solves the candidate twice, once with the technique ladder of the tier below and once with its own, and keeps the board only if the first solve fails and the second succeeds. Boards that miss are discarded and a fresh one is generated. That is why each tier above is stated as a guarantee rather than a hope. The <0>full technique index</0> lists every pattern that ladder contains, in the order a solver tries them. Within a band two boards can still differ a lot — <1>clues versus difficulty</1> measures exactly how much."
+msgstr "کلیوز کی تعداد مشکل نہیں ہے۔ یہ صرف ابتدائی ان پٹ ہے: شروع میں کم ہندسے ہوں تو فوری طور پر رکھے جانے والے ہندسے کم ہوتے ہیں، جس کے باعث حل کرنے والے — انسان ہو یا مشین — کو گرڈ کے دوبارہ حرکت کرنے سے پہلے ناموں والی تکنیکوں کے وسیع تر مجموعے تک پہنچنا پڑتا ہے۔ Suuudokuuu ایک حل شدہ گرڈ سے ہندسے ہٹا کر ہر درجے کے ہدف تک لاتا ہے، تصدیق کرتا ہے کہ نتیجے کا ٹھیک ایک ہی حل ہے، اور پھر وہ کام کرتا ہے جو درجے کی اصل تعریف ہے: امیدوار بورڈ کو دو بار حل کرتا ہے، ایک بار نچلے درجے کی تکنیکی سیڑھی سے اور ایک بار اپنی سیڑھی سے، اور بورڈ تبھی رکھتا ہے جب پہلا حل ناکام ہو اور دوسرا کامیاب۔ جو بورڈز چوک جائیں رد کر دیے جاتے ہیں اور نیا بورڈ بنایا جاتا ہے۔ اسی لیے اوپر ہر درجہ امید کے بجائے ضمانت کے طور پر بیان کیا گیا ہے۔ <0>تکنیکوں کا مکمل اشاریہ</0> اس سیڑھی میں شامل ہر پیٹرن اسی ترتیب میں بتاتا ہے جس میں حل کرنے والا انہیں آزماتا ہے۔ ایک بینڈ کے اندر بھی دو بورڈز بہت مختلف ہو سکتے ہیں — <1>کلیوز بمقابلہ مشکل</1> ٹھیک یہی ناپتا ہے کہ کتنے۔"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Clues versus difficulty"
+msgstr "کلیوز بمقابلہ مشکل"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Comfortable spotting intersections and subsets? Move up to <0>Hard Sudoku</0>, where a fish or a wing is always required, or drop back to <1>Easy Sudoku</1> to revisit singles. Prefer paper? Download the <2>printable Medium sudoku booklet</2>. Browse the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "تقاطع اور سبسیٹس پہچاننے میں آسانی ہونے لگی؟ <0>مشکل سوڈوکو</0> کی طرف بڑھیں، جہاں فش یا ونگ ہمیشہ ضروری ہوتا ہے، یا اکہروں کو دہرانے کے لیے <1>آسان سوڈوکو</1> پر واپس جائیں۔ کاغذ پسند ہے؟ <2>پرنٹ کے قابل درمیانہ سوڈوکو کتابچہ</2> ڈاؤن لوڈ کریں۔ <3>تکنیکوں کا اشاریہ</3>، <4>کھیلنے کا طریقہ گائیڈ</4>، <5>سوڈوکو کے مشکل درجے</5> کے مرکزی صفحے پر ہر درجہ دیکھیں، یا <6>ہوم</6> پر جائیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Cross off candidates cell by cell"
+msgstr "خانہ بہ خانہ امکانات کاٹیں"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Daily sudoku"
+msgstr "روزانہ سوڈوکو"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Default text size"
+msgstr "متن کا ڈیفالٹ سائز"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Difficulty"
+msgstr "مشکل کا درجہ"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Difficulty guides"
+msgstr "مشکل کے درجوں کی گائیڈز"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Difficulty levels"
+msgstr "مشکل کے درجے"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Difficulty rating"
+msgstr "مشکل کی ریٹنگ"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Do Easy puzzles ever need pencil marks?"
+msgstr "کیا آسان پزلز میں کبھی پنسل نشانوں کی ضرورت پڑتی ہے؟"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Do I need pen and paper to solve Sudoku?"
+msgstr "کیا سوڈوکو حل کرنے کے لیے قلم اور کاغذ چاہیے؟"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Do I need pencil marks for Newbie puzzles?"
+msgstr "کیا نیا کھلاڑی پزلز کے لیے پنسل نشان ضروری ہیں؟"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Do Infinity puzzles have a unique solution?"
+msgstr "کیا لامحدود پزلز کا حل منفرد ہوتا ہے؟"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Do Nightmare puzzles ever need guessing?"
+msgstr "کیا ڈراؤنا خواب پزلز میں کبھی اندازہ لگانا پڑتا ہے؟"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Do not scan for the hardest cell first. Start by looking for the easiest possible placements, because clearing those first makes every later cell easier too."
+msgstr "سب سے مشکل خانہ پہلے ڈھونڈنے کی کوشش نہ کریں۔ پہلے سب سے آسان ممکنہ جگہیں ڈھونڈیں، کیونکہ انہیں پہلے بھر لینے سے بعد کا ہر خانہ بھی آسان ہو جاتا ہے۔"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Do you ever have to guess?"
+msgstr "کیا کبھی اندازہ لگانا پڑتا ہے؟"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Does {SITE_NAME} have ads?"
+msgstr "کیا {SITE_NAME} میں اشتہارات ہیں؟"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Does a low clue count make these puzzles hard?"
+msgstr "کیا کلیوز کی کم تعداد ان پزلز کو مشکل بنا دیتی ہے؟"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Does a lower clue count always mean a harder puzzle?"
+msgstr "کیا کلیوز کی تعداد کم ہونے کا مطلب ہمیشہ مشکل پزل ہوتا ہے؟"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Does it work offline?"
+msgstr "کیا یہ آف لائن کام کرتا ہے؟"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Does Suuudokuuu offer a large-print version of this booklet?"
+msgstr "کیا Suuudokuuu اس کتابچے کا بڑے حروف والا ورژن پیش کرتا ہے؟"
+
+#: src/printable/components/printable-download-card/printable-download-card.tsx
+msgid "Download {title} (PDF)"
+msgstr "{title} ڈاؤن لوڈ کریں (PDF)"
+
+#: src/chrome/components/store-badges/store-badges.tsx
+msgid "Download on the App Store"
+msgstr "App Store سے ڈاؤن لوڈ کریں"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Download the PDF and open it in any PDF reader, then print at 100% scale on US Letter paper. Every grid is drawn with vector lines and standard PDF fonts, so there is nothing to rasterize and no quality loss at any print size."
+msgstr "PDF ڈاؤن لوڈ کریں اور کسی بھی PDF ریڈر میں کھول کر US Letter کاغذ پر 100% اسکیل پر پرنٹ کریں۔ ہر گرڈ ویکٹر لائنوں اور معیاری PDF فونٹس سے بنا ہے، اس لیے کچھ ریسٹرائز کرنے کی ضرورت نہیں اور کسی بھی پرنٹ سائز پر معیار میں کوئی کمی نہیں آتی۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Each game reshuffles the grid, so a familiar record puzzle never looks the same twice."
+msgstr "ہر کھیل گرڈ کو ازسرِنو ملا دیتا ہے، اس لیے جانا پہچانا ریکارڈ پزل کبھی دو بار ایک جیسا نظر نہیں آتا۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Each tier links to a full page with a live puzzle preview and the honest difficulty facts from our <0>sudoku difficulty rating guide</0>. The PDF itself only ever needs a printer."
+msgstr "ہر درجہ ایک مکمل صفحے سے جڑا ہے جس میں براہِ راست پزل کا پیش منظر اور ہماری <0>سوڈوکو مشکل ریٹنگ گائیڈ</0> سے مشکل کے ایماندار حقائق ہیں۔ خود PDF کو صرف پرنٹر چاہیے۔"
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Easier difficulty"
+msgstr "آسان درجہ"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Easy"
+msgstr "آسان"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy boards carry {clueCount} clues and are guaranteed to need at least one hidden single and nothing harder."
+msgstr "آسان بورڈز میں {clueCount} کلیوز ہوتے ہیں اور ان میں کم از کم ایک پوشیدہ اکہرا ضروری ہوتا ہے، اس سے مشکل کچھ نہیں۔"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Easy is the booklet people reach for when they want to finish a puzzle without stopping to think hard about it — on a train, over a coffee break, or as a wind-down before bed. Every deduction still reads off the board rather than off a candidate grid, so there is rarely a reason to write a candidate in the margin; the hidden single asks you to scan a whole unit rather than one cell, which is a change of habit and not of difficulty. That makes it a natural size for printing several at once and working through a small stack over a week, since no single puzzle demands the concentration a Medium or Hard grid does."
+msgstr "آسان وہ کتابچہ ہے جسے لوگ تب اٹھاتے ہیں جب وہ بہت زیادہ سوچے بغیر کوئی پزل ختم کرنا چاہتے ہوں — ٹرین میں، چائے کے وقفے میں، یا سونے سے پہلے دل بہلانے کے لیے۔ ہر استدلال اب بھی امکانات کے گرڈ کے بجائے بورڈ سے ہی پڑھا جاتا ہے، اس لیے حاشیے میں امکان لکھنے کی شاذ ہی ضرورت پڑتی ہے؛ پوشیدہ اکہرا ایک خانے کے بجائے پوری اکائی دیکھنے کو کہتا ہے، جو عادت کی تبدیلی ہے، مشکل کی نہیں۔ اس لیے یہ ایک ساتھ کئی پرنٹ کر کے ایک ہفتے میں پزلز کا چھوٹا ڈھیر نمٹانے کے لیے موزوں ہے، کیونکہ کوئی اکیلا پزل اس ارتکاز کا تقاضا نہیں کرتا جو درمیانہ یا مشکل گرڈ کرتا ہے۔"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy is the first tier where Suuudokuuu expects a genuine, if gentle, solve. An Easy board carries {clueCount} clues out of 81 cells, a handful fewer than Newbie. Full houses and naked singles still clear most of the grid, but never all of it: at least one cell always needs a <0>hidden single</0>, where a digit fits only one cell of a row, column or box even though that cell still shows other candidates. That one extra pattern is the entire step up from Newbie to Easy, and it is a guarantee rather than a tendency: a board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier, and a board that needs anything past the hidden single is rejected as too hard."
+msgstr "آسان وہ پہلا درجہ ہے جہاں Suuudokuuu واقعی، چاہے ہلکا ہی سہی، حل کی توقع رکھتا ہے۔ آسان بورڈ میں 81 خانوں میں سے {clueCount} کلیوز ہوتے ہیں، یعنی نیا کھلاڑی سے چند کم۔ آخری خالی خانے اور کھلے اکہرے اب بھی گرڈ کا بیشتر حصہ بھر دیتے ہیں، مگر سارا نہیں: کم از کم ایک خانے کو ہمیشہ <0>پوشیدہ اکہرے</0> کی ضرورت ہوتی ہے، جہاں ایک ہندسہ قطار، کالم یا باکس کے صرف ایک خانے میں آتا ہے، حالانکہ اس خانے میں اب بھی دوسرے امکانات دکھائی دیتے ہیں۔ نیا کھلاڑی سے آسان تک کا پورا فرق یہی ایک اضافی پیٹرن ہے، اور یہ رجحان نہیں بلکہ ضمانت ہے: جو بورڈ آخری خالی خانے اور کھلے اکہرے والا سولور مکمل کر لے اسے اس درجے کے لیے حد سے آسان سمجھ کر رد کر دیا جاتا ہے، اور جس بورڈ کو پوشیدہ اکہرے سے آگے کچھ چاہیے اسے حد سے مشکل سمجھ کر رد کر دیا جاتا ہے۔"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy sits at the bottom of the SE (Sudoku Explainer) scale alongside Newbie: our sample of {sampleSize} boards measures SE {seRatingRange}. The two tiers share a range because SE prices a hidden single at 1.5, below a naked single at 2.3 — so the technique that defines Easy is, by that scale, cheaper than the one that defines Newbie. What genuinely changes is where you have to look: a naked single is read off one cell, a hidden single off a whole unit. It suits players who have cleared a few Newbie boards and want a puzzle that takes noticeably longer to finish."
+msgstr "آسان SE (Sudoku Explainer) پیمانے کی سب سے نچلی سطح پر نیا کھلاڑی کے ساتھ ہے: {sampleSize} بورڈز کا ہمارا نمونہ SE {seRatingRange} ناپتا ہے۔ دونوں درجے ایک ہی حد بانٹتے ہیں کیونکہ SE پوشیدہ اکہرے کی قیمت 1.5 رکھتا ہے، جو کھلے اکہرے کی 2.3 سے کم ہے — یعنی اس پیمانے کے لحاظ سے آسان کی تعریف کرنے والی تکنیک نیا کھلاڑی کی تعریف کرنے والی تکنیک سے سستی ہے۔ جو چیز واقعی بدلتی ہے وہ یہ ہے کہ آپ کو دیکھنا کہاں ہے: کھلا اکہرا ایک خانے سے پڑھا جاتا ہے، پوشیدہ اکہرا پوری اکائی سے۔ یہ ان کھلاڑیوں کے لیے موزوں ہے جو چند نیا کھلاڑی بورڈز حل کر چکے ہیں اور ایسا پزل چاہتے ہیں جس کے ختم ہونے میں نمایاں طور پر زیادہ وقت لگے۔"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Easy starts at {clueCount} clues, six below Newbie, and adds exactly one technique: every puzzle in this booklet needs at least one <0>hidden single</0>, and none of them needs anything harder. That single extra pattern is what makes this the booklet people print for a relaxed coffee-break solve rather than a teaching aid. It is also the source tier for our large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles for readers who want bigger cells."
+msgstr "آسان {clueCount} کلیوز سے شروع ہوتا ہے، نیا کھلاڑی سے چھ کم، اور ٹھیک ایک تکنیک کا اضافہ کرتا ہے: اس کتابچے کے ہر پزل میں کم از کم ایک <0>پوشیدہ اکہرا</0> ضروری ہے، اور کسی کو اس سے مشکل کچھ نہیں چاہیے۔ یہی ایک اضافی پیٹرن اسے وہ کتابچہ بناتا ہے جو لوگ سکون سے چائے کے وقفے میں حل کرنے کے لیے پرنٹ کرتے ہیں، نہ کہ سکھانے کا ذریعہ۔ یہ ہمارے بڑے حروف والے PDF کا بنیادی درجہ بھی ہے، جس کا نمونہ {PRINTABLE_LARGE_PRINT_SIZE} پزلز پر مشتمل ہے، ان قارئین کے لیے جو بڑے خانے چاہتے ہیں۔"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy stays within singles-only logic, so it is still beginner-friendly. The only added skill over Newbie is spotting a digit that fits nowhere else in a unit."
+msgstr "آسان صرف اکہروں کی منطق کے اندر رہتا ہے، اس لیے یہ اب بھی ابتدائی کھلاڑیوں کے لیے موزوں ہے۔ نیا کھلاڑی کے مقابلے میں واحد اضافی مہارت وہ ہندسہ پہچاننا ہے جو کسی اکائی میں کہیں اور نہیں آ سکتا۔"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Easy Sudoku"
+msgstr "آسان سوڈوکو"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy Sudoku FAQ"
+msgstr "آسان سوڈوکو کے عمومی سوالات"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Every board is checked for exactly one solution by two independent solving algorithms."
+msgstr "ہر بورڈ کو دو آزاد حل کرنے والے الگورتھمز سے جانچا جاتا ہے کہ اس کا ٹھیک ایک حل ہے۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every booklet below is a free printable sudoku PDF built from the same puzzle sources the app plays — its generator and technique detectors, and for Hell and Infinity its bundled, verified corpora. Pick a difficulty for a {PRINTABLE_BOOKLET_SIZE}-puzzle booklet with solutions on the last pages, or grab the large-print set or a blank sudoku grid below. No sign-up, no ads, no watermark."
+msgstr "نیچے ہر کتابچہ ایک مفت پرنٹ کے قابل سوڈوکو PDF ہے جو انہی پزل ذرائع سے بنا ہے جو ایپ کھیلتی ہے — اس کا جنریٹر اور تکنیک کی شناخت کے ٹولز، اور جہنم اور لامحدود کے لیے اس کے شامل شدہ، تصدیق شدہ مجموعے۔ {PRINTABLE_BOOKLET_SIZE} پزلز کے کتابچے کے لیے، جس کے آخری صفحات پر حل ہیں، کوئی مشکل درجہ چنیں، یا نیچے سے بڑے حروف والا سیٹ یا خالی سوڈوکو گرڈ لیں۔ نہ سائن اپ، نہ اشتہارات، نہ واٹرمارک۔"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Every candidate board is solved twice: once with the tier below’s technique ladder, which must fail, and once with its own ladder, which must succeed. Boards that miss either test are discarded and regenerated."
+msgstr "ہر امیدوار بورڈ دو بار حل کیا جاتا ہے: ایک بار نچلے درجے کی تکنیکی سیڑھی سے، جو ناکام ہونی چاہیے، اور ایک بار اپنی سیڑھی سے، جو کامیاب ہونی چاہیے۔ جو بورڈز کسی بھی امتحان میں چوک جائیں رد کر دیے جاتے ہیں اور دوبارہ بنائے جاتے ہیں۔"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Every Hell board needs a forcing chain: none can be solved with the techniques Nightmare allows, up to AIC."
+msgstr "جہنم کے ہر بورڈ کو جبری زنجیر کی ضرورت ہوتی ہے: ڈراؤنا خواب جن تکنیکوں کی اجازت دیتا ہے، AIC تک، ان میں سے کسی سے بھی کوئی حل نہیں ہو سکتا۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every level is free to play, with no ads and no sign-up. <0>Play a puzzle now</0> at any of the seven levels, or read the full breakdown of clue counts and required techniques on the <1>Sudoku difficulty levels</1> hub. Learning on paper? Start with the <2>printable Newbie sudoku PDF</2>."
+msgstr "ہر درجہ کھیلنے کے لیے مفت ہے، بغیر اشتہارات اور بغیر سائن اپ کے۔ ساتوں درجوں میں سے کسی پر بھی <0>ابھی پزل کھیلیں</0>، یا کلیوز کی تعداد اور مطلوبہ تکنیکوں کی پوری تفصیل <1>سوڈوکو کے مشکل درجے</1> کے مرکزی صفحے پر پڑھیں۔ کاغذ پر سیکھ رہے ہیں؟ <2>پرنٹ کے قابل نیا کھلاڑی سوڈوکو PDF</2> سے آغاز کریں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every named technique is a faster way of tracking the same row, column and box overlap across many cells at once."
+msgstr "ہر نامزد تکنیک ایک ہی قطار، کالم اور باکس کے باہمی تعلق کو بہت سے خانوں میں بیک وقت جانچنے کا تیز تر طریقہ ہے۔"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Every Newbie board is rated on the SE (Sudoku Explainer) scale the moment it is created. Our published sample of {sampleSize} Newbie boards measures SE {seRatingRange} — the very bottom of a scale that runs to 12, and below what most SE-based charts even bother to name. Newbie exists to teach the row-column-box overlap that every later technique builds on, not to test it. The measured range for this tier and every other is published in our <0>sudoku difficulty rating guide</0>. Treat a fast, mistake-free Newbie solve as confirmation you’re ready for Easy, not as a benchmark worth chasing for its own sake."
+msgstr "نیا کھلاڑی کا ہر بورڈ بننے کے لمحے ہی SE (Sudoku Explainer) پیمانے پر ریٹ کیا جاتا ہے۔ نیا کھلاڑی کے {sampleSize} بورڈز کا ہمارا شائع شدہ نمونہ SE {seRatingRange} ناپتا ہے — اس پیمانے کی بالکل نچلی سطح جو 12 تک جاتا ہے، اور اس سے بھی نیچے جسے زیادہ تر SE پر مبنی چارٹ نام دینے کی زحمت بھی نہیں کرتے۔ نیا کھلاڑی قطار، کالم اور باکس کے اس باہمی تعلق کو سکھانے کے لیے ہے جس پر ہر بعد کی تکنیک قائم ہے، اسے آزمانے کے لیے نہیں۔ اس درجے اور باقی ہر درجے کی ناپی گئی حد ہماری <0>سوڈوکو مشکل ریٹنگ گائیڈ</0> میں شائع ہے۔ نیا کھلاڑی کا تیز اور بغیر غلطی حل اس بات کی تصدیق سمجھیں کہ آپ آسان کے لیے تیار ہیں، نہ کہ ایسا معیار جس کے پیچھے اپنی خاطر دوڑا جائے۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every PDF is set to US Letter and drawn with vector lines and text, so it prints crisply at any size. Open the file, print at 100% scale (not “fit to page”, which can distort the grid on some printers), and print single-sided if you want to keep the solutions on separate sheets from the puzzles."
+msgstr "ہر PDF US Letter پر سیٹ ہے اور ویکٹر لائنوں اور متن سے بنا ہے، اس لیے کسی بھی سائز پر صاف چھپتا ہے۔ فائل کھولیں، 100% اسکیل پر پرنٹ کریں (“فٹ ٹو پیج” پر نہیں، جو بعض پرنٹرز پر گرڈ کو بگاڑ سکتا ہے)، اور اگر حل کو پزلز سے الگ ورقوں پر رکھنا چاہتے ہیں تو ایک طرفہ پرنٹ کریں۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every puzzle guaranteed to have exactly one solution, no guessing required"
+msgstr "ہر پزل کا ٹھیک ایک حل یقینی، اندازے کی ضرورت نہیں"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle in this booklet comes from a bundled corpus that Suuudokuuu checks with two independent solving algorithms — a Dancing Links exact-cover solver and a typed-array bitmask solver — before it ships, so each grid is confirmed to have exactly one solution. The corpus draws from the tdoku project’s 17-clue catalog and the magictour top1465 hard-puzzle list, and each puzzle is also solved logically and rated on the SE scale as the corpus is packed. Only boards whose hardest step is a forcing chain survive; anything that falls to a chain, coloring or AIC is dropped, because neither the clue count nor the source list alone would be enough to promise a Hell puzzle. Every survivor still solves on our technique ladder without guessing, so every puzzle here is guaranteed solvable by logic before you ever pick up a pencil."
+msgstr "اس کتابچے کا ہر پزل ایک شامل شدہ مجموعے سے آتا ہے جسے Suuudokuuu بھیجنے سے پہلے دو آزاد حل کرنے والے الگورتھمز سے جانچتا ہے — Dancing Links exact-cover سولور اور typed-array bitmask سولور — اس لیے ہر گرڈ کا ٹھیک ایک حل ہونے کی تصدیق ہو چکی ہوتی ہے۔ مجموعہ tdoku پروجیکٹ کے 17 کلیوز والے کیٹلاگ اور magictour کی top1465 مشکل پزلز کی فہرست سے لیا گیا ہے، اور مجموعہ پیک کرتے وقت ہر پزل کو منطقی طور پر حل بھی کیا جاتا ہے اور SE پیمانے پر ریٹ بھی۔ صرف وہی بورڈز بچتے ہیں جن کا سب سے مشکل قدم جبری زنجیر ہو؛ جو زنجیر، رنگ کاری یا AIC سے حل ہو جائے اسے نکال دیا جاتا ہے، کیونکہ جہنم پزل کا وعدہ کرنے کے لیے اکیلی کلیوز کی تعداد یا ماخذ کی فہرست کافی نہیں۔ ہر بچنے والا پزل پھر بھی ہماری تکنیکی سیڑھی پر بغیر اندازے کے حل ہو جاتا ہے، اس لیے یہاں ہر پزل کا آپ کے پنسل اٹھانے سے پہلے ہی منطق سے قابلِ حل ہونا یقینی ہے۔"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle in this booklet needs a forcing chain: none can be finished with the techniques Nightmare allows, and each is drawn from our bundled and independently verified Hell corpus rather than generated fresh. Our published sample of {sampleSize} boards measures the tier at SE {seRatingRange}, with the <0/> as the most common hardest step. See the <1>17-clue guide</1> for why the clue count is not what makes them hard."
+msgstr "اس کتابچے کے ہر پزل کو جبری زنجیر کی ضرورت ہے: ڈراؤنا خواب جن تکنیکوں کی اجازت دیتا ہے ان سے کوئی بھی مکمل نہیں ہو سکتا، اور ہر پزل نئے سرے سے بنانے کے بجائے ہمارے شامل شدہ اور آزادانہ طور پر تصدیق شدہ جہنم مجموعے سے لیا گیا ہے۔ {sampleSize} بورڈز کا ہمارا شائع شدہ نمونہ اس درجے کو SE {seRatingRange} پر ناپتا ہے، جس میں سب سے عام مشکل ترین قدم <0/> ہے۔ یہ جاننے کے لیے کہ کلیوز کی تعداد انہیں مشکل کیوں نہیں بناتی، <1>17 کلیوز کی گائیڈ</1> دیکھیں۔"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle needs a forcing chain, drawn from a bundled and independently verified corpus of boards with {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues."
+msgstr "ہر پزل کو جبری زنجیر کی ضرورت ہے، اور وہ {HELL_CORPUS_MINIMUM_GIVEN_COUNT} سے {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} کلیوز والے بورڈز کے ایک شامل شدہ اور آزادانہ طور پر تصدیق شدہ مجموعے سے لیے گئے ہیں۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every puzzle needs a forcing chain, drawn from our bundled, verified Hell corpus. See the <0>Hell sudoku lander</0> to play it digitally."
+msgstr "ہر پزل کو جبری زنجیر کی ضرورت ہے، اور وہ ہمارے شامل شدہ، تصدیق شدہ جہنم مجموعے سے لیا گیا ہے۔ اسے ڈیجیٹل طور پر کھیلنے کے لیے <0>جہنم سوڈوکو کا صفحہ</0> دیکھیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every Sudoku rule is really the same constraint applied to three different kinds of unit. Learn the constraint once and you already know all three rules."
+msgstr "سوڈوکو کا ہر اصول دراصل تین مختلف قسم کی اکائیوں پر لاگو ایک ہی پابندی ہے۔ پابندی ایک بار سیکھ لیں تو آپ تینوں اصول پہلے ہی جانتے ہیں۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every technique {SITE_NAME} uses to generate hints is documented with a worked example board pulled straight from the solving engine. Start with the <0>full technique index</0>, or jump into one of the first patterns most players learn."
+msgstr "{SITE_NAME} ہنٹس بنانے کے لیے جو بھی تکنیک استعمال کرتا ہے وہ سولونگ انجن سے براہِ راست لی گئی مثالی بورڈ کے ساتھ دستاویز شدہ ہے۔ <0>تکنیکوں کے مکمل اشاریے</0> سے شروع کریں، یا ان ابتدائی پیٹرنز میں سے کسی میں کود جائیں جو زیادہ تر کھلاڑی سب سے پہلے سیکھتے ہیں۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every tier from Newbie to Infinity now has its own guide, breaking down exactly what separates one level from the next — clue counts, required techniques and an honest read on how hard each one really is. Start on the <0>Sudoku difficulty levels</0> hub, or see how it compares to the <1>hardest puzzles</1> ever published."
+msgstr "نیا کھلاڑی سے لامحدود تک ہر درجے کی اب اپنی گائیڈ ہے، جو بتاتی ہے کہ ایک درجے کو دوسرے سے ٹھیک کیا چیز الگ کرتی ہے — کلیوز کی تعداد، مطلوبہ تکنیکیں، اور اس بارے میں ایماندارانہ جائزہ کہ ہر ایک واقعی کتنا مشکل ہے۔ <0>سوڈوکو کے مشکل درجے</0> کے مرکزی صفحے سے شروع کریں، یا دیکھیں کہ یہ اب تک شائع ہونے والے <1>سب سے مشکل پزلز</1> سے کیسے موازنہ کرتا ہے۔"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Everything Medium needs, plus at least one fish or wing pattern: X-Wing, swordfish, jellyfish, their finned and sashimi variants, XY-Wing, XYZ-Wing or W-Wing. One of those is always required, because a board that does not need one is graded Medium instead."
+msgstr "وہ سب کچھ جو درمیانہ مانگتا ہے، اور اس کے ساتھ کم از کم ایک فش یا ونگ پیٹرن: X-Wing، Swordfish، Jellyfish، ان کی فن والی اور ساشیمی اقسام، XY-Wing، XYZ-Wing یا W-Wing۔ ان میں سے ایک ہمیشہ ضروری ہے، کیونکہ جس بورڈ کو ان کی ضرورت نہ ہو اسے درمیانہ درجہ دیا جاتا ہے۔"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Exactly one technique. Every Newbie board can be finished with full houses and naked singles; every Easy board provably cannot, and needs at least one hidden single to break the deadlock."
+msgstr "ٹھیک ایک تکنیک۔ نیا کھلاڑی کا ہر بورڈ آخری خالی خانوں اور کھلے اکہروں سے مکمل ہو سکتا ہے؛ آسان کا ہر بورڈ ثابت شدہ طور پر نہیں ہو سکتا، اور تعطل توڑنے کے لیے اسے کم از کم ایک پوشیدہ اکہرے کی ضرورت ہوتی ہے۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Fill every empty cell with a digit from 1 to 9 so that no digit repeats in a row, a column or a 3×3 box."
+msgstr "ہر خالی خانے کو 1 سے 9 کے ہندسے سے یوں بھریں کہ کوئی ہندسہ کسی قطار، کالم یا 3×3 باکس میں دہرایا نہ جائے۔"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Finished a Hell board and want more? <0>Infinity Sudoku</0> serves the record puzzles — Everest, Platinum Blonde, AI Escargot — that sit past even our forcing chains. Not ready for chains yet? Step back to <1>Nightmare Sudoku</1>, which asks for the same reasoning with more of the grid already filled in. Prefer paper? Download the <2>printable Hell sudoku PDF</2>. Browse the <3>technique index</3>, especially X-Chain, XY-Chain, Simple Coloring and AIC, the <4>how to play guide</4>, the <5>17-clue sudoku guide</5>, every tier on the <6>Sudoku difficulty levels</6> hub, or head <7>home</7>."
+msgstr "جہنم کا بورڈ مکمل کر لیا اور مزید چاہیے؟ <0>لامحدود سوڈوکو</0> وہ ریکارڈ پزلز پیش کرتا ہے — Everest، Platinum Blonde، AI Escargot — جو ہماری جبری زنجیروں سے بھی آگے ہیں۔ ابھی زنجیروں کے لیے تیار نہیں؟ <1>ڈراؤنا خواب سوڈوکو</1> کی طرف واپس جائیں، جو وہی استدلال مانگتا ہے مگر گرڈ کا زیادہ حصہ پہلے سے بھرا ہوتا ہے۔ کاغذ پسند ہے؟ <2>پرنٹ کے قابل جہنم سوڈوکو PDF</2> ڈاؤن لوڈ کریں۔ <3>تکنیکوں کا اشاریہ</3> دیکھیں، خصوصاً X-Chain، XY-Chain، سادہ رنگ کاری اور AIC، نیز <4>کھیلنے کا طریقہ گائیڈ</4>، <5>17 کلیوز سوڈوکو گائیڈ</5>، <6>سوڈوکو کے مشکل درجے</6> کے مرکزی صفحے پر ہر درجہ، یا <7>ہوم</7> پر جائیں۔"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Fish patterns: X-Wing, swordfish, jellyfish and their finned and sashimi variants. Wing patterns: XY-Wing, XYZ-Wing and W-Wing."
+msgstr "فش پیٹرنز: X-Wing، Swordfish، Jellyfish اور ان کی فن والی اور ساشیمی اقسام۔ ونگ پیٹرنز: XY-Wing، XYZ-Wing اور W-Wing۔"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Footer"
+msgstr "فوٹر"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "For each remaining blank cell, rule out every digit already used in its row, column and box. If exactly one digit is left, place it."
+msgstr "ہر باقی خالی خانے کے لیے ہر وہ ہندسہ رد کر دیں جو اس کی قطار، کالم اور باکس میں پہلے سے استعمال ہو چکا ہے۔ اگر ٹھیک ایک ہندسہ بچے تو اسے رکھ دیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "For each unit with several blank cells, check whether a digit that is still missing from the unit only fits in one of them, even if that cell has other candidates too."
+msgstr "کئی خالی خانوں والی ہر اکائی کے لیے دیکھیں کہ کیا اکائی میں ابھی تک غائب کوئی ہندسہ ان میں سے صرف ایک خانے میں آ سکتا ہے، چاہے اس خانے میں دوسرے امکانات بھی ہوں۔"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "{SITE_LICENSE} لائسنس کے تحت مفت اور اوپن سورس۔ کھیل میں کوئی اشتہار، کوئی اکاؤنٹ اور کوئی ٹریکنگ نہیں — <0>وجہ</0> پڑھیں یا <1>GitHub پر مکمل سورس</1> دیکھیں۔ Apple اور Apple کا لوگو Apple Inc. کے ٹریڈ مارک ہیں، جو امریکہ اور دوسرے ممالک میں رجسٹرڈ ہیں۔ App Store Apple Inc. کا سروس مارک ہے۔ Google Play اور Google Play کا لوگو Google LLC کے ٹریڈ مارک ہیں۔"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free offline Sudoku for iOS, Android and the web"
+msgstr "iOS، Android اور ویب کے لیے مفت آف لائن سوڈوکو"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same streaks and stats everywhere. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "مفت آن لائن سوڈوکو کا مطلب ہے کلاسک 9×9 نمبر پزل کو براؤزر یا ایپ میں بغیر خریداری، انسٹال کی حد یا پے وال کے کھیلنا، اور {SITE_NAME} اس کا ایک مفت، اوپن سورس نفاذ ہے — نیا کھلاڑی سے لامحدود تک سات مشکل درجے، تکنیکیں سمجھانے والی گائیڈز، کھیل میں نہ اشتہارات اور نہ ٹریکنگ۔ ویب پر حل کریں یا ایپ انسٹال کریں، پھر ہر جگہ وہی اسٹریکس اور اعداد و شمار رکھیں۔ مکمل اور قابلِ تصدیق وضاحت کے لیے <0>{SITE_NAME} ایسے کیوں بنایا گیا</0> دیکھیں۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Free, open-source, no ads"
+msgstr "مفت، اوپن سورس، بغیر اشتہارات"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Frequently asked questions"
+msgstr "اکثر پوچھے جانے والے سوالات"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Full House and Naked Single are the first two strategies Suuudokuuu’s solving engine tries on every board at every difficulty, because they are the cheapest deductions to verify. What sets Newbie apart is that the tier is defined as the boards that never need anything else. Strip more digits and a solver eventually stalls without hidden singles, intersections or subsets, and the generator throws those boards back rather than labelling them Newbie. If you can read a row and name the one digit missing from it, you already have every skill a Newbie puzzle asks for."
+msgstr "آخری خالی خانہ اور کھلا اکہرا وہ پہلی دو حکمتِ عملیاں ہیں جو Suuudokuuu کا سولونگ انجن ہر درجے کے ہر بورڈ پر سب سے پہلے آزماتا ہے، کیونکہ یہی سب سے سستے استدلال ہیں جن کی تصدیق آسان ہے۔ نیا کھلاڑی کو الگ کرنے والی بات یہ ہے کہ یہ درجہ ان بورڈز کے طور پر متعین ہے جنہیں کبھی کسی اور چیز کی ضرورت نہیں پڑتی۔ مزید ہندسے ہٹائیں تو سولور آخرکار پوشیدہ اکہروں، تقاطع یا سبسیٹس کے بغیر رک جاتا ہے، اور جنریٹر ایسے بورڈز کو نیا کھلاڑی کا نام دینے کے بجائے واپس پھینک دیتا ہے۔ اگر آپ کسی قطار کو پڑھ کر اس میں غائب ایک ہندسے کا نام لے سکتے ہیں تو آپ کے پاس وہ ہر مہارت پہلے سے ہے جو نیا کھلاڑی پزل مانگتا ہے۔"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Full houses and naked singles still clear most of the grid; the hidden single is the one addition over Newbie."
+msgstr "آخری خالی خانے اور کھلے اکہرے اب بھی گرڈ کا بیشتر حصہ بھر دیتے ہیں؛ نیا کھلاڑی کے مقابلے میں واحد اضافہ پوشیدہ اکہرا ہے۔"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Full houses and singles as a baseline, plus pointing pairs, pointing triples, box line reduction and the naked or hidden subsets up to quads whenever singles run dry. At least one of those is always required, and nothing harder ever is."
+msgstr "بنیاد کے طور پر آخری خالی خانے اور اکہرے، اور جب بھی اکہرے ختم ہو جائیں تو اشارہ کرتے جوڑے، اشارہ کرتے تہرے، باکس لائن ریڈکشن اور چوہروں تک کھلے یا پوشیدہ سبسیٹس۔ ان میں سے کم از کم ایک ہمیشہ ضروری ہے، اور اس سے مشکل کچھ کبھی نہیں۔"
+
+#: src/chrome/components/store-badges/store-badges.tsx
+msgid "Get it on Google Play"
+msgstr "Google Play سے حاصل کریں"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Getting started"
+msgstr "آغاز کیسے کریں"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Good for a first sudoku habit"
+msgstr "سوڈوکو کی پہلی عادت کے لیے اچھا"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Good for a relaxed solve"
+msgstr "سکون سے حل کرنے کے لیے اچھا"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hard"
+msgstr "مشکل"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard boards carry {clueCount} clues and are guaranteed to need at least one fish or wing pattern beyond every subset."
+msgstr "مشکل بورڈز میں {clueCount} کلیوز ہوتے ہیں اور ان میں تمام سبسیٹس کے بعد کم از کم ایک فش یا ونگ پیٹرن ضروری ہوتا ہے۔"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Hard drops to {clueCount} clues, and this is the first printable booklet on the site where subsets alone will not carry you to the end. Every puzzle in it was tested against a solver that already knows every intersection and every subset, and kept only because that solver stalled. What finishes them is a fish or a wing: the <0>X-Wing</0> and its larger and finned relatives, or one of the bivalue wing patterns."
+msgstr "مشکل میں کلیوز {clueCount} تک گر جاتے ہیں، اور یہ سائٹ کا پہلا پرنٹ کے قابل کتابچہ ہے جہاں اکیلے سبسیٹس آپ کو آخر تک نہیں پہنچائیں گے۔ اس کا ہر پزل ایک ایسے سولور کے خلاف جانچا گیا جو ہر تقاطع اور ہر سبسیٹ پہلے سے جانتا ہے، اور صرف اس لیے رکھا گیا کہ وہ سولور رک گیا۔ انہیں مکمل کرنے والی چیز فش یا ونگ ہے: <0>X-Wing</0> اور اس کی بڑی اور فن والی قسمیں، یا دو امکانات والے خانوں کے ونگ پیٹرنز میں سے کوئی ایک۔"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard is capped at the W-Wing — a board that resists every fish and wing is graded Nightmare instead."
+msgstr "مشکل W-Wing تک محدود ہے — جو بورڈ ہر فش اور ونگ کے آگے ٹھہر جائے اسے اس کے بجائے ڈراؤنا خواب درجہ دیا جاتا ہے۔"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hard Sudoku"
+msgstr "مشکل سوڈوکو"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard Sudoku FAQ"
+msgstr "مشکل سوڈوکو کے عمومی سوالات"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard Sudoku is a difficulty tier that starts at {clueCount} clues out of 81 cells and is defined by what a subset-only solver cannot finish: every board in the tier has been run through a solver equipped with every intersection and every subset up to the <0>hidden quad</0>, and kept only because that solver got stuck. What breaks the deadlock is a fish — <1>X-Wing</1>, <2>swordfish</2>, <3>jellyfish</3> and their <4>finned</4> and <5>sashimi</5> variants — or a wing: <6>XY-Wing</6>, <7>XYZ-Wing</7> and <8>W-Wing</8>."
+msgstr "مشکل سوڈوکو ایک ایسا درجہ ہے جو 81 خانوں میں سے {clueCount} کلیوز سے شروع ہوتا ہے اور اس سے متعین ہوتا ہے کہ صرف سبسیٹس والا سولور کیا مکمل نہیں کر سکتا: اس درجے کا ہر بورڈ ایک ایسے سولور سے گزارا گیا ہے جس کے پاس <0>پوشیدہ چوہرے</0> تک ہر تقاطع اور ہر سبسیٹ ہے، اور صرف اس لیے رکھا گیا کہ وہ سولور اٹک گیا۔ تعطل کو توڑنے والی چیز فش ہے — <1>X-Wing</1>، <2>Swordfish</2>، <3>Jellyfish</3> اور ان کی <4>فن</4> اور <5>ساشیمی</5> اقسام — یا ونگ: <6>XY-Wing</6>، <7>XYZ-Wing</7> اور <8>W-Wing</8>۔"
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Harder difficulty"
+msgstr "مزید مشکل درجہ"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Harder than anything else in the app, by a wide margin. Our sample of {sampleSize} <0>Hell</0> boards measures SE {hellSeRatingRange}; Infinity starts at {lowestRatingLabel}. The Infinity ratings are not our own measurements. Suuudokuuu’s rater prices the SE ladder only as far as forcing chains and nets and reports {SE_RATING_CEILING} with a ceiling flag above that, so for these puzzles we quote the figures independent raters publish, as the <1>difficulty rating guide</1> explains."
+msgstr "ایپ میں باقی ہر چیز سے کہیں زیادہ مشکل۔ <0>جہنم</0> کے {sampleSize} بورڈز کا ہمارا نمونہ SE {hellSeRatingRange} ناپتا ہے؛ لامحدود {lowestRatingLabel} سے شروع ہوتا ہے۔ لامحدود کی ریٹنگز ہماری اپنی پیمائش نہیں ہیں۔ Suuudokuuu کا ریٹر SE سیڑھی کی قیمت صرف جبری زنجیروں اور نیٹس تک لگاتا ہے اور اس سے اوپر {SE_RATING_CEILING} کے ساتھ حد کا نشان لگا کر رپورٹ کرتا ہے، اس لیے ان پزلز کے لیے ہم وہ اعداد درج کرتے ہیں جو آزاد ریٹرز شائع کرتے ہیں، جیسا کہ <1>مشکل ریٹنگ گائیڈ</1> بتاتی ہے۔"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Hardness here comes from the technique each board requires, not from the clue count."
+msgstr "یہاں مشکل کلیوز کی تعداد سے نہیں بلکہ ہر بورڈ کی مطلوبہ تکنیک سے آتی ہے۔"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hell"
+msgstr "جہنم"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Hell is Suuudokuuu’s hardest technique-graded tier — what most competitors call evil or extreme. A Hell board is defined by the reasoning it demands, not by how few clues it starts with: no Hell board can be finished with any technique Nightmare allows, so every one needs a forcing chain. Unlike the generated tiers, Hell is drawn from a bundled corpus of published hard puzzles, verified by two independent solvers before it ships, and every board still solves on our technique ladder without guessing. Expect to use every chain and coloring pattern first — <0>X-Chain</0>, <1>XY-Chain</1>, <2>simple coloring</2> and <3>AIC</3> — before a forcing chain breaks the deadlock."
+msgstr "جہنم Suuudokuuu کا سب سے مشکل تکنیک کی بنیاد پر درجہ بند درجہ ہے — جسے زیادہ تر مقابلے والے evil یا extreme کہتے ہیں۔ جہنم کا بورڈ اس استدلال سے متعین ہوتا ہے جو وہ مانگتا ہے، اس سے نہیں کہ وہ کتنے کم کلیوز سے شروع ہوتا ہے: جہنم کا کوئی بورڈ ڈراؤنا خواب کی اجازت یافتہ کسی تکنیک سے مکمل نہیں ہو سکتا، اس لیے ہر ایک کو جبری زنجیر کی ضرورت ہوتی ہے۔ بنائے گئے درجوں کے برعکس، جہنم شائع شدہ مشکل پزلز کے ایک شامل شدہ مجموعے سے لیا جاتا ہے، جو بھیجنے سے پہلے دو آزاد سولورز سے تصدیق شدہ ہوتا ہے، اور ہر بورڈ پھر بھی ہماری تکنیکی سیڑھی پر بغیر اندازے کے حل ہو جاتا ہے۔ جبری زنجیر کے تعطل توڑنے سے پہلے ہر زنجیر اور رنگ کاری کا پیٹرن استعمال کرنے کی توقع رکھیں — <0>X-Chain</0>، <1>XY-Chain</1>، <2>سادہ رنگ کاری</2> اور <3>AIC</3>۔"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hell Sudoku"
+msgstr "جہنم سوڈوکو"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Hell Sudoku FAQ"
+msgstr "جہنم سوڈوکو کے عمومی سوالات"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Home"
+msgstr "ہوم"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "How do I print these puzzles?"
+msgstr "میں یہ پزلز کیسے پرنٹ کروں؟"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How does Suuudokuuu guarantee a tier’s technique requirement?"
+msgstr "Suuudokuuu کسی درجے کی تکنیکی ضرورت کی ضمانت کیسے دیتا ہے؟"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "How hard is Easy sudoku?"
+msgstr "آسان سوڈوکو کتنا مشکل ہے؟"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How hard is it, honestly"
+msgstr "یہ واقعی کتنا مشکل ہے"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "How hard is Newbie sudoku?"
+msgstr "نیا کھلاڑی سوڈوکو کتنا مشکل ہے؟"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How hard is Nightmare sudoku?"
+msgstr "ڈراؤنا خواب سوڈوکو کتنا مشکل ہے؟"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "How hard these puzzles are"
+msgstr "یہ پزلز کتنے مشکل ہیں"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "How is a fish or wing easier to verify on paper?"
+msgstr "کاغذ پر فش یا ونگ کی تصدیق آسان کیوں ہے؟"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "How many clues does a Hard sudoku have?"
+msgstr "مشکل سوڈوکو میں کتنے کلیوز ہوتے ہیں؟"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "How many clues does a Hell sudoku have?"
+msgstr "جہنم سوڈوکو میں کتنے کلیوز ہوتے ہیں؟"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "How many clues does a Medium sudoku have?"
+msgstr "درمیانہ سوڈوکو میں کتنے کلیوز ہوتے ہیں؟"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "How many clues does a Newbie puzzle have?"
+msgstr "نیا کھلاڑی پزل میں کتنے کلیوز ہوتے ہیں؟"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How many clues does a Nightmare sudoku have?"
+msgstr "ڈراؤنا خواب سوڈوکو میں کتنے کلیوز ہوتے ہیں؟"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "How many clues does an easy sudoku have?"
+msgstr "آسان سوڈوکو میں کتنے کلیوز ہوتے ہیں؟"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "How many puzzles are in the printable Easy sudoku PDF?"
+msgstr "پرنٹ کے قابل آسان سوڈوکو PDF میں کتنے پزلز ہیں؟"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "How many puzzles are in the printable Hard sudoku PDF?"
+msgstr "پرنٹ کے قابل مشکل سوڈوکو PDF میں کتنے پزلز ہیں؟"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "How many puzzles are in the printable Hell sudoku PDF?"
+msgstr "پرنٹ کے قابل جہنم سوڈوکو PDF میں کتنے پزلز ہیں؟"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "How many puzzles are in the printable Infinity sudoku PDF?"
+msgstr "پرنٹ کے قابل لامحدود سوڈوکو PDF میں کتنے پزلز ہیں؟"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "How many puzzles are in the printable Medium sudoku PDF?"
+msgstr "پرنٹ کے قابل درمیانہ سوڈوکو PDF میں کتنے پزلز ہیں؟"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "How many puzzles are in the printable Newbie sudoku PDF?"
+msgstr "پرنٹ کے قابل نیا کھلاڑی سوڈوکو PDF میں کتنے پزلز ہیں؟"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "How many puzzles are in the printable Nightmare sudoku PDF?"
+msgstr "پرنٹ کے قابل ڈراؤنا خواب سوڈوکو PDF میں کتنے پزلز ہیں؟"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How many sudoku difficulty levels does Suuudokuuu have?"
+msgstr "Suuudokuuu میں سوڈوکو کے کتنے مشکل درجے ہیں؟"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How the ladder is built"
+msgstr "سیڑھی کیسے بنائی گئی ہے"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "How the puzzles are verified"
+msgstr "پزلز کی تصدیق کیسے ہوتی ہے"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/chrome/components/site-header/site-header.tsx
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "How to play"
+msgstr "کھیلنے کا طریقہ"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "How to play Sudoku FAQ"
+msgstr "سوڈوکو کھیلنے کے طریقے کے عمومی سوالات"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "How to print these puzzles"
+msgstr "ان پزلز کو کیسے پرنٹ کریں"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "How to start solving a Sudoku puzzle"
+msgstr "سوڈوکو پزل حل کرنا کیسے شروع کریں"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Includes Everest (SE 11.9), Platinum Blonde (SE 10.9) and AI Escargot (SE 10.6)."
+msgstr "اس میں Everest (SE 11.9)، Platinum Blonde (SE 10.9) اور AI Escargot (SE 10.6) شامل ہیں۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Infinity"
+msgstr "لامحدود"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Infinity is Suuudokuuu’s tier beyond Hell: a curated set of the hardest sudoku puzzles ever published, the record grids the solving community still argues about, ready to play for free. Every Infinity board is a known puzzle with a published Sudoku Explainer (SE) rating of at least {minimumRatingLabel} — Arto Inkala’s Everest, Platinum Blonde, AI Escargot, Golden Nugget and {additionalPuzzleCount} more — checked for a single solution before it ships. These are the puzzles our <0>hardest sudoku puzzles</0> guide describes; Infinity is where you play them."
+msgstr "لامحدود Suuudokuuu کا جہنم سے آگے کا درجہ ہے: اب تک شائع ہونے والے سب سے مشکل سوڈوکو پزلز کا ایک منتخب مجموعہ، وہ ریکارڈ گرڈز جن پر حل کرنے والی برادری آج بھی بحث کرتی ہے، اور جنہیں مفت کھیلا جا سکتا ہے۔ لامحدود کا ہر بورڈ ایک معروف پزل ہے جس کی Sudoku Explainer (SE) ریٹنگ کم از کم {minimumRatingLabel} شائع ہو چکی ہے — Arto Inkala کا Everest، Platinum Blonde، AI Escargot، Golden Nugget اور {additionalPuzzleCount} مزید — اور بھیجنے سے پہلے اس کے ایک ہی حل کی تصدیق کی جاتی ہے۔ یہ وہی پزلز ہیں جن کا ذکر ہماری <0>سب سے مشکل سوڈوکو پزلز</0> کی گائیڈ میں ہے؛ لامحدود وہ جگہ ہے جہاں آپ انہیں کھیلتے ہیں۔"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Infinity puzzles carry {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues and are checked for a single solution by two independent solving algorithms."
+msgstr "لامحدود پزلز میں {INFINITY_MINIMUM_GIVEN_COUNT} سے {INFINITY_MAXIMUM_GIVEN_COUNT} کلیوز ہوتے ہیں اور دو آزاد حل کرنے والے الگورتھمز سے ان کے ایک ہی حل کی تصدیق کی جاتی ہے۔"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Infinity Sudoku"
+msgstr "لامحدود سوڈوکو"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Infinity Sudoku FAQ"
+msgstr "لامحدود سوڈوکو کے عمومی سوالات"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Intersections and pairs are found by marking every remaining candidate in a unit, so the layout leaves space in each cell specifically for those pencil marks."
+msgstr "تقاطع اور جوڑے کسی اکائی کے ہر باقی امکان کو نشان زد کر کے ملتے ہیں، اسی لیے ترتیب میں ہر خانے کے اندر خاص طور پر انہی پنسل نشانوں کے لیے جگہ چھوڑی گئی ہے۔"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Intersections: pointing pair, pointing triple, box line reduction. Subsets: naked pair, hidden pair."
+msgstr "تقاطع: اشارہ کرتا جوڑا، اشارہ کرتا تہرا، باکس لائن ریڈکشن۔ سبسیٹس: کھلا جوڑا، پوشیدہ جوڑا۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Is {SITE_NAME} free?"
+msgstr "کیا {SITE_NAME} مفت ہے؟"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Is AI Escargot in the printable booklet?"
+msgstr "کیا پرنٹ کے قابل کتابچے میں AI Escargot شامل ہے؟"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Is Hard sudoku harder than Nightmare?"
+msgstr "کیا مشکل سوڈوکو ڈراؤنا خواب سے زیادہ مشکل ہے؟"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Is Hell harder than Nightmare?"
+msgstr "کیا جہنم ڈراؤنا خواب سے زیادہ مشکل ہے؟"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Is Infinity harder than Hell?"
+msgstr "کیا لامحدود جہنم سے زیادہ مشکل ہے؟"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Is Medium sudoku hard?"
+msgstr "کیا درمیانہ سوڈوکو مشکل ہے؟"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Is Newbie the right level for a child or a first-time solver?"
+msgstr "کیا نیا کھلاڑی بچے یا پہلی بار حل کرنے والے کے لیے صحیح درجہ ہے؟"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Is the printable Easy sudoku PDF free?"
+msgstr "کیا پرنٹ کے قابل آسان سوڈوکو PDF مفت ہے؟"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Is the printable Hard sudoku PDF free?"
+msgstr "کیا پرنٹ کے قابل مشکل سوڈوکو PDF مفت ہے؟"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Is the printable Hell sudoku PDF free?"
+msgstr "کیا پرنٹ کے قابل جہنم سوڈوکو PDF مفت ہے؟"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Is the printable Infinity sudoku PDF free?"
+msgstr "کیا پرنٹ کے قابل لامحدود سوڈوکو PDF مفت ہے؟"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Is the printable Medium sudoku PDF free?"
+msgstr "کیا پرنٹ کے قابل درمیانہ سوڈوکو PDF مفت ہے؟"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Is the printable Nightmare sudoku PDF free?"
+msgstr "کیا پرنٹ کے قابل ڈراؤنا خواب سوڈوکو PDF مفت ہے؟"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Is this printable Newbie sudoku booklet free?"
+msgstr "کیا پرنٹ کے قابل نیا کھلاڑی سوڈوکو کتابچہ مفت ہے؟"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "It is a real step up from Easy, but every technique it needs still works inside a single box or line at a time — the longer fish and chain patterns only start at Hard and beyond."
+msgstr "یہ آسان سے واقعی ایک قدم آگے ہے، لیکن اس کی ہر مطلوبہ تکنیک اب بھی ایک وقت میں ایک ہی باکس یا لائن کے اندر کام کرتی ہے — لمبی فش اور زنجیر کے پیٹرنز مشکل اور اس سے آگے ہی شروع ہوتے ہیں۔"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "It is Suuudokuuu’s hardest generated tier, measured at SE {seRatingRange} across a sample of {sampleSize} boards. Every one of them needs chain or coloring logic on top of the fish and wing patterns Hard already requires."
+msgstr "یہ Suuudokuuu کا سب سے مشکل بنایا ہوا درجہ ہے، جو {sampleSize} بورڈز کے نمونے میں SE {seRatingRange} ناپا گیا ہے۔ ان میں سے ہر ایک کو مشکل درجے کی پہلے سے مطلوبہ فش اور ونگ پیٹرنز کے اوپر زنجیر یا رنگ کاری کی منطق کی ضرورت ہوتی ہے۔"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "It is the easiest tier Suuudokuuu offers, and the generator guarantees it: a board only ships as Newbie once a solver limited to full houses and naked singles has finished it. Our sample measures SE {seRatingRange}, with no candidate tracking and no risk of a forced guess."
+msgstr "یہ Suuudokuuu کا سب سے آسان درجہ ہے، اور جنریٹر اس کی ضمانت دیتا ہے: بورڈ نیا کھلاڑی کے طور پر تبھی بھیجا جاتا ہے جب صرف آخری خالی خانوں اور کھلے اکہروں تک محدود سولور اسے مکمل کر لے۔ ہمارا نمونہ SE {seRatingRange} ناپتا ہے، جس میں نہ امکانات کا حساب رکھنا ہے اور نہ اندازہ لگانے پر مجبور ہونے کا خطرہ۔"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Language"
+msgstr "زبان"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Large print sudoku"
+msgstr "بڑے حروف والا سوڈوکو"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Large Print Sudoku"
+msgstr "بڑے حروف والا سوڈوکو"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Large print sudoku, printable"
+msgstr "بڑے حروف والا سوڈوکو، پرنٹ کے قابل"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Large text size"
+msgstr "بڑا متن"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Largest text size"
+msgstr "سب سے بڑا متن"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Learn"
+msgstr "سیکھیں"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Learn sudoku"
+msgstr "سوڈوکو سیکھیں"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Learn techniques in difficulty order rather than memorising every pattern at once. The <0>sudoku techniques index</0> lists them from full house up to the subset patterns, each with a worked example."
+msgstr "تکنیکیں مشکل کی ترتیب سے سیکھیں، ہر پیٹرن ایک ساتھ رٹنے کے بجائے۔ <0>سوڈوکو تکنیکوں کا اشاریہ</0> انہیں آخری خالی خانے سے سبسیٹ پیٹرنز تک ترتیب سے دکھاتا ہے، ہر ایک کی مثال کے ساتھ۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Learn to solve"
+msgstr "حل کرنا سیکھیں"
+
+#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+msgid "Loading the board…"
+msgstr "بورڈ لوڈ ہو رہا ہے…"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Look for hidden singles"
+msgstr "پوشیدہ اکہرے تلاش کریں"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Medium"
+msgstr "درمیانہ"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium boards carry {clueCount} clues and are guaranteed to stall on singles and yield to an intersection or a subset."
+msgstr "درمیانہ بورڈز میں {clueCount} کلیوز ہوتے ہیں اور وہ اکہروں پر رک جاتے ہیں اور کسی تقاطع یا سبسیٹ سے حل ہوتے ہیں۔"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium is where Suuudokuuu starts asking for pencil marks. A Medium board carries {clueCount} clues out of 81 cells, and singles alone provably never finish it: every board in the tier has been checked against a singles-only solver and rejected if that solver got through. Once full houses and singles run out, the puzzle stalls until you spot an intersection — a digit confined to where a box and a line overlap — or a pair locked together. <0>Pointing pairs</0>, <1>pointing triples</1> and <2>box line reduction</2> cover the intersections; <3>naked pairs</3> and <4>hidden pairs</4> cover the smallest subset pattern."
+msgstr "درمیانہ وہ جگہ ہے جہاں Suuudokuuu پنسل نشان مانگنا شروع کرتا ہے۔ درمیانہ بورڈ میں 81 خانوں میں سے {clueCount} کلیوز ہوتے ہیں، اور اکیلے اکہرے ثابت شدہ طور پر اسے مکمل نہیں کرتے: اس درجے کا ہر بورڈ صرف اکہروں والے سولور کے خلاف جانچا گیا اور اگر وہ سولور گزر گیا تو رد کر دیا گیا۔ آخری خالی خانے اور اکہرے ختم ہونے پر پزل اس وقت تک رکا رہتا ہے جب تک آپ کوئی تقاطع — ایسا ہندسہ جو باکس اور لائن کے مشترک حصے میں محدود ہو — یا آپس میں بندھا ہوا جوڑا نہ دیکھ لیں۔ <0>اشارہ کرتے جوڑے</0>، <1>اشارہ کرتے تہرے</1> اور <2>باکس لائن ریڈکشن</2> تقاطع کو سنبھالتے ہیں؛ <3>کھلے جوڑے</3> اور <4>پوشیدہ جوڑے</4> سبسیٹ کے سب سے چھوٹے پیٹرن کو۔"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Medium Sudoku"
+msgstr "درمیانہ سوڈوکو"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium Sudoku FAQ"
+msgstr "درمیانہ سوڈوکو کے عمومی سوالات"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "New solvers should start at Newbie and move up one tier at a time; each step adds exactly one new technique over the tier before it, all the way up to Hard. See the <0>how to play guide</0> first if the three core rules are still unfamiliar."
+msgstr "نئے حل کرنے والوں کو نیا کھلاڑی سے شروع کر کے ایک وقت میں ایک درجہ اوپر جانا چاہیے؛ ہر قدم اپنے سے پچھلے درجے کے مقابلے میں ٹھیک ایک نئی تکنیک کا اضافہ کرتا ہے، مشکل تک۔ اگر تین بنیادی اصول ابھی اجنبی ہیں تو پہلے <0>کھیلنے کا طریقہ گائیڈ</0> دیکھیں۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "New to Sudoku?"
+msgstr "سوڈوکو میں نئے ہیں؟"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "New to the grid itself? Start with the <0>how to play guide</0> for the three rules and your first placements before picking a tier above."
+msgstr "گرڈ ہی آپ کے لیے نیا ہے؟ اوپر کوئی درجہ چننے سے پہلے تین اصولوں اور اپنی پہلی چالوں کے لیے <0>کھیلنے کا طریقہ گائیڈ</0> سے شروع کریں۔"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Newbie"
+msgstr "نیا کھلاڑی"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie boards carry {clueCount} clues and are guaranteed to finish with full houses and naked singles alone."
+msgstr "نیا کھلاڑی بورڈز میں {clueCount} کلیوز ہوتے ہیں اور وہ صرف آخری خالی خانوں اور کھلے اکہروں سے مکمل ہونے کی ضمانت رکھتے ہیں۔"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie is Suuudokuuu’s beginner tier, the gentlest possible introduction to the grid. A Newbie board starts with {clueCount} of the 81 cells already filled. Every remaining cell can be found with the two simplest deductions in the game: a <0>full house</0>, where a unit is down to its last empty cell, and a <1>naked single</1>, where a cell’s row, column and box between them already account for eight of the nine digits. That is not a description of a typical Newbie board — it is the rule the generator enforces: a candidate board is only accepted as Newbie once a solver restricted to full houses and naked singles has finished it. No pencil marks, no elimination logic and no guessing are ever required."
+msgstr "نیا کھلاڑی Suuudokuuu کا ابتدائی درجہ ہے، گرڈ سے ممکنہ حد تک نرم تعارف۔ نیا کھلاڑی بورڈ 81 خانوں میں سے {clueCount} پہلے سے بھرے ہوئے ہونے کے ساتھ شروع ہوتا ہے۔ ہر باقی خانہ کھیل کے دو سادہ ترین استدلال سے ملتا ہے: <0>آخری خالی خانہ</0>، جب کوئی اکائی اپنے آخری خالی خانے تک رہ جائے، اور <1>کھلا اکہرا</1>، جب خانے کی قطار، کالم اور باکس مل کر نو میں سے آٹھ ہندسوں کا حساب پہلے ہی دے چکے ہوں۔ یہ کسی عام نیا کھلاڑی بورڈ کا بیان نہیں — یہ وہ اصول ہے جو جنریٹر نافذ کرتا ہے: امیدوار بورڈ نیا کھلاڑی کے طور پر تبھی قبول ہوتا ہے جب آخری خالی خانوں اور کھلے اکہروں تک محدود سولور اسے مکمل کر لے۔ نہ پنسل نشان، نہ خاتمے کی منطق، اور نہ کبھی اندازہ لگانا ضروری ہے۔"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie is the easiest of Suuudokuuu’s seven tiers, followed by Easy, Medium, Hard, Nightmare, Hell and Infinity in increasing order of difficulty."
+msgstr "نیا کھلاڑی Suuudokuuu کے سات درجوں میں سب سے آسان ہے، اس کے بعد بڑھتی ہوئی مشکل کی ترتیب میں آسان، درمیانہ، مشکل، ڈراؤنا خواب، جہنم اور لامحدود آتے ہیں۔"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Newbie Sudoku"
+msgstr "نیا کھلاڑی سوڈوکو"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie Sudoku FAQ"
+msgstr "نیا کھلاڑی سوڈوکو کے عمومی سوالات"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Nightmare"
+msgstr "ڈراؤنا خواب"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare boards carry {clueCount} clues and are guaranteed to need at least one chain or coloring technique beyond every fish and wing."
+msgstr "ڈراؤنا خواب بورڈز میں {clueCount} کلیوز ہوتے ہیں اور ان میں تمام فش اور ونگز کے بعد کم از کم ایک زنجیر یا رنگ کاری کی تکنیک ضروری ہوتی ہے۔"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Nightmare holds just {clueCount} clues, and it is the booklet where the printed page genuinely earns its keep. Every puzzle in it was tested against a solver that already knows every fish and wing — including the <0>swordfish</0> and the <1>XY-Wing</1> — and kept only because that solver stalled. What finishes them is chain reasoning, and a chain is far easier to build on paper, where you can pencil the links in and follow them, than on a cramped screen. Our sample of {sampleSize} boards measures the tier at SE {seRatingRange}."
+msgstr "ڈراؤنا خواب میں صرف {clueCount} کلیوز ہوتے ہیں، اور یہ وہ کتابچہ ہے جہاں چھپا ہوا صفحہ واقعی اپنی جگہ بناتا ہے۔ اس کا ہر پزل ایک ایسے سولور کے خلاف جانچا گیا جو ہر فش اور ونگ پہلے سے جانتا ہے — بشمول <0>Swordfish</0> اور <1>XY-Wing</1> — اور صرف اس لیے رکھا گیا کہ وہ سولور رک گیا۔ انہیں مکمل کرنے والی چیز زنجیر کا استدلال ہے، اور زنجیر کاغذ پر، جہاں آپ روابط پنسل سے لکھ کر ان کا پیچھا کر سکتے ہیں، تنگ اسکرین کے مقابلے میں بنانا کہیں آسان ہے۔ {sampleSize} بورڈز کا ہمارا نمونہ اس درجے کو SE {seRatingRange} پر ناپتا ہے۔"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare is capped at AIC — a board resisting that is beyond what the generated tiers hand you."
+msgstr "ڈراؤنا خواب AIC تک محدود ہے — جو بورڈ اس کے آگے بھی نہ کھلے وہ بنائے گئے درجوں کی پہنچ سے باہر ہے۔"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare is Suuudokuuu’s expert tier — what most other apps would call very hard or expert. A Nightmare board carries just {clueCount} clues out of 81 cells, and it is the tier where bounded patterns stop being enough: every board here has been checked against a solver that already knows every fish and every wing up to the <0>W-Wing</0>, and is only labelled Nightmare because that solver stalled. Finishing one needs chain reasoning — <1>X-Chain</1>, <2>XY-Chain</2>, <3>simple coloring</3> and <4>AIC</4>, the alternating inference chain that generalises the other three."
+msgstr "ڈراؤنا خواب Suuudokuuu کا ماہرانہ درجہ ہے — جسے زیادہ تر دوسری ایپس بہت مشکل یا expert کہیں گی۔ ڈراؤنا خواب بورڈ میں 81 خانوں میں سے صرف {clueCount} کلیوز ہوتے ہیں، اور یہ وہ درجہ ہے جہاں محدود پیٹرنز کافی نہیں رہتے: یہاں کا ہر بورڈ ایک ایسے سولور کے خلاف جانچا گیا ہے جو <0>W-Wing</0> تک ہر فش اور ہر ونگ پہلے سے جانتا ہے، اور اسے ڈراؤنا خواب اسی لیے کہا گیا کہ وہ سولور رک گیا۔ اسے مکمل کرنے کے لیے زنجیر کا استدلال چاہیے — <1>X-Chain</1>، <2>XY-Chain</2>، <3>سادہ رنگ کاری</3> اور <4>AIC</4>، باری باری آنے والی استنباطی زنجیر جو باقی تینوں کو عام کرتی ہے۔"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Nightmare Sudoku"
+msgstr "ڈراؤنا خواب سوڈوکو"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare Sudoku FAQ"
+msgstr "ڈراؤنا خواب سوڈوکو کے عمومی سوالات"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "No ads, no account and no tracking inside the game, on the web or in the app"
+msgstr "کھیل کے اندر کوئی اشتہار، کوئی اکاؤنٹ اور کوئی ٹریکنگ نہیں، ویب پر ہو یا ایپ میں"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "No pencil marks, no elimination logic and no guessing are ever required."
+msgstr "نہ پنسل نشان، نہ خاتمے کی منطق اور نہ کبھی اندازہ لگانا ضروری ہے۔"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "No pencil marks, no elimination logic and no guessing required for any puzzle in the booklet."
+msgstr "کتابچے کے کسی بھی پزل کے لیے نہ پنسل نشان، نہ خاتمے کی منطق اور نہ اندازہ لگانا ضروری ہے۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "No puzzle, just the grid: one full-page 9×9 grid for copying out a puzzle from a book or newspaper, plus a second page of four smaller grids for quick practice sheets. Useful for teachers building their own worksheets or for anyone transcribing a puzzle they found somewhere without a printer-friendly version."
+msgstr "کوئی پزل نہیں، صرف گرڈ: کسی کتاب یا اخبار سے پزل نقل کرنے کے لیے ایک پورے صفحے کا 9×9 گرڈ، اور فوری مشق کے ورقوں کے لیے چار چھوٹے گرڈز کا دوسرا صفحہ۔ ان اساتذہ کے لیے مفید جو اپنی ورک شیٹس بناتے ہیں، یا ہر اس شخص کے لیے جو کوئی ایسا پزل نقل کر رہا ہو جس کا پرنٹ کے موافق ورژن دستیاب نہ ہو۔"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "No. Both techniques a Newbie puzzle requires can be read straight off the board, which is exactly why they are the fastest deductions in the game."
+msgstr "نہیں۔ نیا کھلاڑی پزل کی دونوں مطلوبہ تکنیکیں سیدھی بورڈ سے پڑھی جا سکتی ہیں، اور یہی وجہ ہے کہ وہ کھیل کے تیز ترین استدلال ہیں۔"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "No. Clue count and difficulty are separate facts — see the <0>17-clue sudoku guide</0>. These puzzles are hard because every one needs a forcing chain, not because of how many clues they start with."
+msgstr "نہیں۔ کلیوز کی تعداد اور مشکل الگ الگ حقیقتیں ہیں — <0>17 کلیوز سوڈوکو گائیڈ</0> دیکھیں۔ یہ پزلز اس لیے مشکل ہیں کہ ہر ایک کو جبری زنجیر کی ضرورت ہے، اس لیے نہیں کہ وہ کتنے کلیوز سے شروع ہوتے ہیں۔"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "No. Clue count is only the input that forces a solver toward a wider technique set; the technique band the generator verifies is what actually defines each tier. The <0>clues versus difficulty guide</0> measures the gap directly."
+msgstr "نہیں۔ کلیوز کی تعداد صرف وہ ان پٹ ہے جو سولور کو وسیع تر تکنیکی مجموعے کی طرف دھکیلتا ہے؛ جنریٹر جس تکنیکی بینڈ کی تصدیق کرتا ہے وہی ہر درجے کی اصل تعریف ہے۔ <0>کلیوز بمقابلہ مشکل گائیڈ</0> اس فرق کو براہِ راست ناپتی ہے۔"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "No. Every board in the tier is verified solvable by the technique ladder up to AIC before it ships, so a completed chain always exists — finding it is the work."
+msgstr "نہیں۔ اس درجے کا ہر بورڈ بھیجنے سے پہلے AIC تک کی تکنیکی سیڑھی سے حل ہونے کی تصدیق شدہ ہوتا ہے، اس لیے مکمل زنجیر ہمیشہ موجود ہوتی ہے — اسے ڈھونڈنا ہی اصل کام ہے۔"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "No. Every puzzle Suuudokuuu generates is checked for a unique solution at generation time, so no cell ever requires a guess — and the bundled Hell-difficulty puzzles are additionally cross-checked by two independent solving algorithms, a Dancing Links exact-cover solver and a bitmask solver, before they ship. Any position that looks ambiguous just needs a technique that has not been tried yet."
+msgstr "نہیں۔ Suuudokuuu جو بھی پزل بناتا ہے اس کے بنتے وقت منفرد حل کی جانچ ہوتی ہے، اس لیے کسی خانے کو کبھی اندازے کی ضرورت نہیں پڑتی — اور شامل شدہ جہنم پزلز کو بھیجنے سے پہلے دو آزاد حل کرنے والے الگورتھمز، Dancing Links exact-cover سولور اور bitmask سولور، سے اضافی طور پر ملایا جاتا ہے۔ جو پوزیشن مبہم لگے اسے بس کسی ایسی تکنیک کی ضرورت ہے جو ابھی آزمائی نہیں گئی۔"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "No. Hard tops out at the W-Wing; Nightmare starts where Hard stops and runs up to alternating inference chains. The two tiers are separated by a technique boundary, not by a clue count."
+msgstr "نہیں۔ مشکل W-Wing پر ختم ہو جاتا ہے؛ ڈراؤنا خواب وہاں سے شروع ہوتا ہے جہاں مشکل رکتا ہے اور باری باری آنے والی استنباطی زنجیروں تک جاتا ہے۔ دونوں درجوں کو الگ کرنے والی چیز تکنیکی سرحد ہے، کلیوز کی تعداد نہیں۔"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "No. Notes mode in an app tracks candidates for you, updates them automatically as you place digits, and lets you undo a mistake without erasing."
+msgstr "نہیں۔ ایپ میں نوٹس موڈ آپ کے لیے امکانات کا حساب رکھتا ہے، ہندسے رکھتے ہی انہیں خودکار طور پر اپڈیٹ کرتا ہے، اور مٹائے بغیر غلطی کو واپس لینے دیتا ہے۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "No. There are no ads anywhere and no tracking inside the game; this website uses only cookieless, anonymous page analytics."
+msgstr "نہیں۔ کہیں کوئی اشتہار نہیں اور کھیل کے اندر کوئی ٹریکنگ نہیں؛ یہ ویب سائٹ صرف بغیر کوکیز کے گمنام صفحاتی تجزیات استعمال کرتی ہے۔"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Not necessarily. Hell puzzles carry {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues, drawn from a bundled corpus checked by two independent solving algorithms and filtered to boards that need a forcing chain, rather than generated fresh at print time."
+msgstr "ضروری نہیں۔ جہنم پزلز میں {HELL_CORPUS_MINIMUM_GIVEN_COUNT} سے {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} کلیوز ہوتے ہیں، جو ایک شامل شدہ مجموعے سے لیے گئے ہیں جسے دو آزاد حل کرنے والے الگورتھمز نے جانچا ہے اور جسے جبری زنجیر کے متقاضی بورڈز تک چھانٹا گیا ہے، پرنٹ کے وقت نئے سرے سے بنائے ہوئے نہیں۔"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Not ready for chains on paper yet? Step back to the <0>printable Nightmare sudoku booklet</0> for the same chain reasoning with more of the grid filled in, or to <1>printable Hard sudoku</1> for fish and wings without chain-length reasoning, or play Hell on a screen at the <2>Hell sudoku lander</2>, where the same corpus powers every puzzle. Ready for the record puzzles? The <3>printable Infinity sudoku booklet</3> prints Everest, AI Escargot and other record grids."
+msgstr "ابھی کاغذ پر زنجیروں کے لیے تیار نہیں؟ وہی زنجیر کا استدلال لیکن گرڈ کا زیادہ حصہ بھرا ہوا چاہیے تو <0>پرنٹ کے قابل ڈراؤنا خواب سوڈوکو کتابچے</0> کی طرف واپس جائیں، یا زنجیر کی لمبائی کے استدلال کے بغیر فش اور ونگز کے لیے <1>پرنٹ کے قابل مشکل سوڈوکو</1> پر جائیں، یا جہنم کو اسکرین پر <2>جہنم سوڈوکو کے صفحے</2> پر کھیلیں، جہاں وہی مجموعہ ہر پزل کو چلاتا ہے۔ ریکارڈ پزلز کے لیے تیار ہیں؟ <3>پرنٹ کے قابل لامحدود سوڈوکو کتابچہ</3> Everest، AI Escargot اور دوسرے ریکارڈ گرڈز چھاپتا ہے۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Notes and candidates"
+msgstr "نوٹس اور امکانات"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Nothing in the booklet needs a chain — that starts at the Nightmare tier."
+msgstr "کتابچے میں کسی چیز کو زنجیر کی ضرورت نہیں — وہ ڈراؤنا خواب درجے سے شروع ہوتی ہے۔"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Nothing in the booklet needs a fish, a wing or a chain."
+msgstr "کتابچے میں کسی چیز کو فش، ونگ یا زنجیر کی ضرورت نہیں۔"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Nothing in the tier ever needs a fish, a wing or a chain — a board that does is promoted to Hard instead."
+msgstr "اس درجے میں کسی چیز کو کبھی فش، ونگ یا زنجیر کی ضرورت نہیں پڑتی — جس بورڈ کو پڑے اسے اس کے بجائے مشکل میں شامل کر دیا جاتا ہے۔"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Once full houses and naked singles feel automatic, step up to the <0>printable Easy sudoku booklet</0>, which adds exactly one technique on top: the hidden single. To play Newbie puzzles on a screen instead, visit the <1>Newbie sudoku lander</1>. For the full technique ladder and the measured data behind these claims, see the <2>technique index</2> and the <3>sudoku difficulty rating guide</3>."
+msgstr "جب آخری خالی خانے اور کھلے اکہرے خودکار محسوس ہونے لگیں تو <0>پرنٹ کے قابل آسان سوڈوکو کتابچے</0> کی طرف بڑھیں، جو اوپر سے ٹھیک ایک تکنیک کا اضافہ کرتا ہے: پوشیدہ اکہرا۔ نیا کھلاڑی پزلز اسکرین پر کھیلنے کے لیے <1>نیا کھلاڑی سوڈوکو کا صفحہ</1> دیکھیں۔ مکمل تکنیکی سیڑھی اور ان دعووں کے پیچھے ناپے گئے اعداد و شمار کے لیے <2>تکنیکوں کا اشاریہ</2> اور <3>سوڈوکو مشکل ریٹنگ گائیڈ</3> دیکھیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Once the easy placements run out, tracking candidates by hand becomes essential. A candidate, sometimes called a pencil mark, is a digit that a cell could still legally hold based on what its row, column and box already contain. Writing every candidate into a cell — on paper as small numbers in the corner, or with the notes mode in an app — turns a puzzle that looks stuck into one where patterns become visible: pairs, triples and quads of candidates that repeat across a unit are exactly what techniques like naked pairs and hidden pairs are built to spot. The full method for every pattern lives in the <0>sudoku techniques index</0>, and every term used across these guides is defined in the <1>sudoku glossary</1>."
+msgstr "جب آسان جگہیں ختم ہو جائیں تو امکانات کو ہاتھ سے لکھنا لازمی ہو جاتا ہے۔ امکان، جسے پنسل نشان بھی کہتے ہیں، وہ ہندسہ ہے جو خانہ ابھی قانونی طور پر رکھ سکتا ہے، اس بنیاد پر کہ اس کی قطار، کالم اور باکس میں پہلے سے کیا ہے۔ ہر امکان کو خانے میں لکھنا — کاغذ پر کونے میں چھوٹے ہندسوں کی شکل میں، یا ایپ میں نوٹس موڈ سے — ایک رکا ہوا لگنے والا پزل ایسا بنا دیتا ہے جس میں پیٹرنز نظر آنے لگتے ہیں: کسی اکائی میں دہرائے جانے والے امکانات کے جوڑے، تہرے اور چوہرے ہی وہ چیز ہیں جنہیں پہچاننے کے لیے کھلے جوڑے اور پوشیدہ جوڑے جیسی تکنیکیں بنی ہیں۔ ہر پیٹرن کا مکمل طریقہ <0>سوڈوکو تکنیکوں کے اشاریے</0> میں ہے، اور ان گائیڈز میں استعمال ہونے والی ہر اصطلاح <1>سوڈوکو لغت</1> میں بیان کی گئی ہے۔"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Our published sample of {sampleSize} Hard boards measures the tier at SE {seRatingRange}, with the <0/> as the most common hardest step — numbers the <1>sudoku difficulty rating guide</1> measures directly rather than assumes. The {PRINTABLE_BOOKLET_SIZE} puzzles here print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with room to mark candidates, and the solved grids on the closing pages let you confirm a fish elimination actually held."
+msgstr "مشکل کے {sampleSize} بورڈز کا ہمارا شائع شدہ نمونہ اس درجے کو SE {seRatingRange} پر ناپتا ہے، جس میں سب سے عام مشکل ترین قدم <0/> ہے — ایسے اعداد جنہیں <1>سوڈوکو مشکل ریٹنگ گائیڈ</1> مفروضوں کے بجائے براہِ راست ناپتی ہے۔ یہاں کے {PRINTABLE_BOOKLET_SIZE} پزلز ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} کی ترتیب سے چھپتے ہیں اور امکانات نشان زد کرنے کی جگہ رکھتے ہیں، اور آخری صفحات پر حل شدہ گرڈز آپ کو تصدیق کرنے دیتے ہیں کہ فش کا خاتمہ واقعی درست رہا۔"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Easy boards measures SE {seRatingRange}."
+msgstr "آسان کے {sampleSize} بورڈز کا ہمارا نمونہ SE {seRatingRange} ناپتا ہے۔"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hard boards measures SE (Sudoku Explainer) {seRatingRange} — squarely in the range the solving community associates with fish and wing patterns, and well below the chain territory above 7. The most common hardest step is the <0/>, and the hardest anything in the sample reached is the <1/>. This is where casual solvers start reaching for a hint: fish and wings are easy to describe and genuinely hard to see on a live board, so expect a noticeably longer, more deliberate solve than Medium asks for. See the <2>sudoku difficulty rating guide</2> for the full per-tier data."
+msgstr "مشکل کے {sampleSize} بورڈز کا ہمارا نمونہ SE (Sudoku Explainer) {seRatingRange} ناپتا ہے — بالکل اس حد میں جسے حل کرنے والی برادری فش اور ونگ پیٹرنز سے جوڑتی ہے، اور 7 سے اوپر کی زنجیر والی حد سے کافی نیچے۔ سب سے عام مشکل ترین قدم <0/> ہے، اور نمونے میں جو سب سے مشکل چیز سامنے آئی وہ <1/> ہے۔ یہیں سے عام کھلاڑی ہنٹ کی طرف ہاتھ بڑھانا شروع کرتے ہیں: فش اور ونگز کو بیان کرنا آسان مگر چلتے بورڈ پر دیکھنا واقعی مشکل ہے، اس لیے درمیانہ کے مقابلے میں نمایاں طور پر لمبے اور محتاط حل کی توقع رکھیں۔ ہر درجے کے مکمل اعداد و شمار کے لیے <2>سوڈوکو مشکل ریٹنگ گائیڈ</2> دیکھیں۔"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hard boards measures SE {seRatingRange}."
+msgstr "مشکل کے {sampleSize} بورڈز کا ہمارا نمونہ SE {seRatingRange} ناپتا ہے۔"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE (Sudoku Explainer) {hellSeRatingRange}, with the <0/> as the most common hardest step and the <1/> as the hardest step anything in the sample reached. Be careful not to read the clue count as the cause: the same sample puts <2>Nightmare</2> at SE {nightmareSeRatingRange} with {nightmareClueCount} clues, and some Hell boards start with more givens than that. This tier used to be built from 17-clue puzzles alone, and it rated no harder than Nightmare; selecting on the required technique instead is what separates the two. Our <3>clues versus difficulty guide</3> takes that argument apart properly, and the <4>rating guide</4> publishes the per-tier tables."
+msgstr "جہنم کے {sampleSize} بورڈز کا ہمارا نمونہ SE (Sudoku Explainer) {hellSeRatingRange} ناپتا ہے، جس میں سب سے عام مشکل ترین قدم <0/> ہے اور نمونے میں سب سے مشکل قدم <1/> ہے۔ کلیوز کی تعداد کو وجہ سمجھنے سے محتاط رہیں: اسی نمونے میں <2>ڈراؤنا خواب</2> {nightmareClueCount} کلیوز کے ساتھ SE {nightmareSeRatingRange} پر ہے، اور کچھ جہنم بورڈز اس سے زیادہ دیے گئے اعداد کے ساتھ شروع ہوتے ہیں۔ یہ درجہ پہلے صرف 17 کلیوز والے پزلز سے بنتا تھا، اور اس کی ریٹنگ ڈراؤنا خواب سے زیادہ مشکل نہیں نکلتی تھی؛ مطلوبہ تکنیک کی بنیاد پر چننا ہی دونوں کو الگ کرتا ہے۔ ہماری <3>کلیوز بمقابلہ مشکل گائیڈ</3> اس دلیل کو مناسب طور پر کھول کر بیان کرتی ہے، اور <4>ریٹنگ گائیڈ</4> ہر درجے کی جدولیں شائع کرتی ہے۔"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE {hellSeRatingRange}."
+msgstr "جہنم کے {sampleSize} بورڈز کا ہمارا نمونہ SE {hellSeRatingRange} ناپتا ہے۔"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE {seRatingRange}, with the <0/> as the most common hardest step."
+msgstr "جہنم کے {sampleSize} بورڈز کا ہمارا نمونہ SE {seRatingRange} ناپتا ہے، جس میں سب سے عام مشکل ترین قدم <0/> ہے۔"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Medium boards measures SE {seRatingRange}, and {singlesOnlyPuzzleCount} of {sampleSize} finished on singles alone — this is the first tier where that number is zero by construction. The most common hardest step in the sample is the <0/>, and the hardest anything reached is the <1/>. Players who read pencil marks fluently clear a Medium board noticeably faster than players relying on mental candidate tracking, who will find this the first tier that genuinely rewards writing candidates down. The full per-tier data sits in our <2>sudoku difficulty rating guide</2>."
+msgstr "درمیانہ کے {sampleSize} بورڈز کا ہمارا نمونہ SE {seRatingRange} ناپتا ہے، اور {sampleSize} میں سے {singlesOnlyPuzzleCount} صرف اکہروں پر ختم ہوئے — یہ پہلا درجہ ہے جہاں یہ تعداد تعمیر کے لحاظ سے صفر ہے۔ نمونے میں سب سے عام مشکل ترین قدم <0/> ہے، اور جو سب سے مشکل چیز سامنے آئی وہ <1/> ہے۔ جو کھلاڑی پنسل نشان روانی سے پڑھتے ہیں وہ درمیانہ بورڈ ذہنی طور پر امکانات یاد رکھنے والوں سے نمایاں طور پر تیز مکمل کرتے ہیں، جنہیں یہ پہلا درجہ ملے گا جو امکانات لکھنے کا واقعی صلہ دیتا ہے۔ ہر درجے کا مکمل ڈیٹا ہماری <2>سوڈوکو مشکل ریٹنگ گائیڈ</2> میں ہے۔"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Medium boards measures SE {seRatingRange}."
+msgstr "درمیانہ کے {sampleSize} بورڈز کا ہمارا نمونہ SE {seRatingRange} ناپتا ہے۔"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Newbie boards measures SE {seRatingRange}."
+msgstr "نیا کھلاڑی کے {sampleSize} بورڈز کا ہمارا نمونہ SE {seRatingRange} ناپتا ہے۔"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Nightmare boards measures SE (Sudoku Explainer) {seRatingRange}, with the <0/> as the most common hardest step. AIC is the ceiling here: every Nightmare board falls to it, and the <1>Hell tier</1> begins exactly where it stops, with boards that need a forcing chain. Some of those Hell boards carry more givens than Nightmare does, which is the clearest evidence on the site that clue count and difficulty are separate facts. The measured tables live in our <2>sudoku difficulty rating guide</2>. Qualitatively, this is where difficulty stops being about speed and becomes about holding an entire line of implication in your head without losing track of it."
+msgstr "ڈراؤنا خواب کے {sampleSize} بورڈز کا ہمارا نمونہ SE (Sudoku Explainer) {seRatingRange} ناپتا ہے، جس میں سب سے عام مشکل ترین قدم <0/> ہے۔ یہاں AIC حد ہے: ڈراؤنا خواب کا ہر بورڈ اس کے آگے ہار جاتا ہے، اور <1>جہنم درجہ</1> ٹھیک وہاں سے شروع ہوتا ہے جہاں یہ رکتا ہے، ان بورڈز کے ساتھ جنہیں جبری زنجیر کی ضرورت ہوتی ہے۔ ان میں سے کچھ جہنم بورڈز میں ڈراؤنا خواب سے زیادہ دیے گئے اعداد ہوتے ہیں، جو سائٹ پر اس بات کا سب سے واضح ثبوت ہے کہ کلیوز کی تعداد اور مشکل الگ الگ حقیقتیں ہیں۔ ناپی گئی جدولیں ہماری <2>سوڈوکو مشکل ریٹنگ گائیڈ</2> میں ہیں۔ معیاری طور پر، یہ وہ جگہ ہے جہاں مشکل رفتار کا معاملہ نہیں رہتی بلکہ استنباط کی پوری لکیر کو بغیر کھوئے ذہن میں رکھنے کا معاملہ بن جاتی ہے۔"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Nightmare boards measures SE {seRatingRange}."
+msgstr "ڈراؤنا خواب کے {sampleSize} بورڈز کا ہمارا نمونہ SE {seRatingRange} ناپتا ہے۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Our technique engine agrees that these boards sit past its reach. It knows every pattern on the <0>technique index</0>, up to the <1/> and the <2/>, and it still cannot finish a single Infinity puzzle on its own. That does not mean they need guessing; it means they need longer forcing nets than the engine implements. Hints are off by default on Nightmare, Hell and Infinity, and a setting turns them back on if you want the engine’s help for as far as it goes."
+msgstr "ہمارا تکنیکی انجن بھی اتفاق کرتا ہے کہ یہ بورڈز اس کی پہنچ سے باہر ہیں۔ وہ <0>تکنیکوں کے اشاریے</0> کا ہر پیٹرن، <1/> اور <2/> تک، جانتا ہے، اور پھر بھی لامحدود کا ایک بھی پزل اکیلے مکمل نہیں کر سکتا۔ اس کا مطلب یہ نہیں کہ انہیں اندازے کی ضرورت ہے؛ مطلب یہ ہے کہ انہیں انجن کے نفاذ سے لمبے جبری نیٹس کی ضرورت ہے۔ ڈراؤنا خواب، جہنم اور لامحدود میں ہنٹس ڈیفالٹ طور پر بند ہیں، اور اگر آپ انجن کی مدد جہاں تک وہ جاتی ہے چاہتے ہیں تو ایک سیٹنگ انہیں دوبارہ آن کر دیتی ہے۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Pencil in every remaining candidate for the blank cells that are left, then work through the technique index in difficulty order to keep clearing them."
+msgstr "باقی خالی خانوں کے ہر باقی امکان کو پنسل سے لکھ دیں، پھر انہیں مسلسل صاف کرنے کے لیے تکنیکوں کے اشاریے میں مشکل کی ترتیب سے آگے بڑھتے جائیں۔"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Play"
+msgstr "کھیلیں"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Play {SITE_NAME}"
+msgstr "{SITE_NAME} کھیلیں"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Play Easy Sudoku now"
+msgstr "آسان سوڈوکو ابھی کھیلیں"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Play Hard Sudoku now"
+msgstr "مشکل سوڈوکو ابھی کھیلیں"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Play Hell Sudoku now"
+msgstr "جہنم سوڈوکو ابھی کھیلیں"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Play Infinity Sudoku now"
+msgstr "لامحدود سوڈوکو ابھی کھیلیں"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Play Medium Sudoku now"
+msgstr "درمیانہ سوڈوکو ابھی کھیلیں"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Play Newbie Sudoku now"
+msgstr "نیا کھلاڑی سوڈوکو ابھی کھیلیں"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Play Nightmare Sudoku now"
+msgstr "ڈراؤنا خواب سوڈوکو ابھی کھیلیں"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+#: src/home/components/home-page/home-page.tsx
+msgid "Play now"
+msgstr "ابھی کھیلیں"
+
+#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+msgid "Play this puzzle here"
+msgstr "یہ پزل یہیں کھیلیں"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Prefer a screen? Play Suuudokuuu now"
+msgstr "اسکرین پر کھیلنا پسند ہے؟ Suuudokuuu ابھی کھیلیں"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Primary"
+msgstr "بنیادی"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Print"
+msgstr "پرنٹ"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Print space here matters more than at the easier tiers, because intersections and pairs work by marking candidates in the margins. The {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page at full cell size, leaving enough room around each digit to pencil in the small numbers an intersection or a pair reasons over. Solved grids close out the file so you can check your candidate marks against a confirmed answer. Our published sample of {sampleSize} Medium boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "یہاں پرنٹ کی جگہ آسان درجوں کے مقابلے میں زیادہ اہم ہے، کیونکہ تقاطع اور جوڑے حاشیوں میں امکانات نشان زد کر کے کام کرتے ہیں۔ {PRINTABLE_BOOKLET_SIZE} پزلز ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} کی ترتیب سے مکمل خانوں کے سائز میں چھپتے ہیں، اور ہر ہندسے کے گرد اتنی جگہ چھوڑتے ہیں کہ تقاطع یا جوڑا جن چھوٹے ہندسوں پر استدلال کرتا ہے انہیں پنسل سے لکھا جا سکے۔ فائل کے آخر میں حل شدہ گرڈز ہیں تاکہ آپ اپنے امکانات کے نشانوں کو تصدیق شدہ جواب سے ملا سکیں۔ درمیانہ کے {sampleSize} بورڈز کا ہمارا شائع شدہ نمونہ SE {seRatingRange} ناپتا ہے — ایسے اعداد جنہیں <0>سوڈوکو مشکل ریٹنگ گائیڈ</0> مفروضوں کے بجائے براہِ راست ناپتی ہے۔"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Printable"
+msgstr "پرنٹ کے قابل"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Printable Easy Sudoku FAQ"
+msgstr "پرنٹ کے قابل آسان سوڈوکو کے عمومی سوالات"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Printable Hard Sudoku FAQ"
+msgstr "پرنٹ کے قابل مشکل سوڈوکو کے عمومی سوالات"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Printable Hell Sudoku FAQ"
+msgstr "پرنٹ کے قابل جہنم سوڈوکو کے عمومی سوالات"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Printable Infinity Sudoku FAQ"
+msgstr "پرنٹ کے قابل لامحدود سوڈوکو کے عمومی سوالات"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Printable Medium Sudoku FAQ"
+msgstr "پرنٹ کے قابل درمیانہ سوڈوکو کے عمومی سوالات"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Printable Newbie Sudoku FAQ"
+msgstr "پرنٹ کے قابل نیا کھلاڑی سوڈوکو کے عمومی سوالات"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Printable Nightmare Sudoku FAQ"
+msgstr "پرنٹ کے قابل ڈراؤنا خواب سوڈوکو کے عمومی سوالات"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku"
+msgstr "پرنٹ کے قابل سوڈوکو"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku booklets by difficulty"
+msgstr "مشکل کے لحاظ سے پرنٹ کے قابل سوڈوکو کتابچے"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku FAQ"
+msgstr "پرنٹ کے قابل سوڈوکو کے عمومی سوالات"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Privacy policy"
+msgstr "پرائیویسی پالیسی"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Project"
+msgstr "پروجیکٹ"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Puzzle 1 from the Easy booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "آسان کتابچے کا پزل 1، جو PDF میں شامل {PRINTABLE_BOOKLET_SIZE} میں سے ایک ہے۔"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Puzzle 1 from the Hard booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "مشکل کتابچے کا پزل 1، جو PDF میں شامل {PRINTABLE_BOOKLET_SIZE} میں سے ایک ہے۔"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Puzzle 1 from the Hell booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "جہنم کتابچے کا پزل 1، جو PDF میں شامل {PRINTABLE_BOOKLET_SIZE} میں سے ایک ہے۔"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Puzzle 1 from the Infinity booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "لامحدود کتابچے کا پزل 1، جو PDF میں شامل {PRINTABLE_BOOKLET_SIZE} میں سے ایک ہے۔"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Puzzle 1 from the Medium booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "درمیانہ کتابچے کا پزل 1، جو PDF میں شامل {PRINTABLE_BOOKLET_SIZE} میں سے ایک ہے۔"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Puzzle 1 from the Newbie booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "نیا کھلاڑی کتابچے کا پزل 1، جو PDF میں شامل {PRINTABLE_BOOKLET_SIZE} میں سے ایک ہے۔"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Puzzle 1 from the Nightmare booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "ڈراؤنا خواب کتابچے کا پزل 1، جو PDF میں شامل {PRINTABLE_BOOKLET_SIZE} میں سے ایک ہے۔"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Rarely. Most players can track the handful of candidates a hidden single needs in their head, but writing them down never hurts on a busier row."
+msgstr "شاذ و نادر۔ زیادہ تر کھلاڑی پوشیدہ اکہرے کے لیے درکار چند امکانات ذہن میں رکھ سکتے ہیں، لیکن زیادہ بھری ہوئی قطار میں انہیں لکھ لینے میں کوئی حرج نہیں۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Read the <0>how to play guide</0> for the three rules and a walkthrough of your first moves, or look up any term in the <1>sudoku glossary</1>, which defines every technique and every piece of vocabulary the guides use."
+msgstr "تین اصولوں اور اپنی پہلی چالوں کی مثال کے لیے <0>کھیلنے کا طریقہ گائیڈ</0> پڑھیں، یا <1>سوڈوکو لغت</1> میں کوئی بھی اصطلاح دیکھیں، جو ہر تکنیک اور گائیڈز میں استعمال ہونے والی ہر اصطلاح بیان کرتی ہے۔"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Ready for a puzzle that needs one more idea? Move up to <0>Easy Sudoku</0>, which adds the hidden single on top of everything here. Prefer paper? Download the <1>printable Newbie sudoku booklet</1>, or see the <2>sudoku for seniors</2> guide for large-print and comfort options. Browse the full <3>technique index</3> or the <4>how to play guide</4>, or head back <5>home</5> and see all seven tiers on the <6>Sudoku difficulty levels</6> hub."
+msgstr "ایک اور خیال کی ضرورت والے پزل کے لیے تیار ہیں؟ <0>آسان سوڈوکو</0> کی طرف بڑھیں، جو یہاں کی ہر چیز کے اوپر پوشیدہ اکہرے کا اضافہ کرتا ہے۔ کاغذ پسند ہے؟ <1>پرنٹ کے قابل نیا کھلاڑی سوڈوکو کتابچہ</1> ڈاؤن لوڈ کریں، یا بڑے حروف اور آرام دہ آپشنز کے لیے <2>بزرگوں کے لیے سوڈوکو</2> گائیڈ دیکھیں۔ مکمل <3>تکنیکوں کا اشاریہ</3> یا <4>کھیلنے کا طریقہ گائیڈ</4> دیکھیں، یا <5>ہوم</5> واپس جا کر <6>سوڈوکو کے مشکل درجے</6> کے مرکزی صفحے پر ساتوں درجے دیکھیں۔"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Ready for intersections and subsets to start mattering? Move on to the <0>printable Medium sudoku booklet</0>, or step back to <1>printable Newbie sudoku</1> for an even gentler grid. To play Easy puzzles on a screen instead, visit the <2>Easy sudoku lander</2>."
+msgstr "تقاطع اور سبسیٹس کے اہم ہونے کے لیے تیار ہیں؟ <0>پرنٹ کے قابل درمیانہ سوڈوکو کتابچے</0> کی طرف بڑھیں، یا اور بھی نرم گرڈ کے لیے <1>پرنٹ کے قابل نیا کھلاڑی سوڈوکو</1> پر واپس جائیں۔ آسان پزلز اسکرین پر کھیلنے کے لیے <2>آسان سوڈوکو کا صفحہ</2> دیکھیں۔"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Ready to chain eliminations together instead of spotting shapes? Move up to <0>Nightmare Sudoku</0>, or step back to <1>Medium Sudoku</1> for an intersections-and-subsets puzzle. Prefer paper? Download the <2>printable Hard sudoku PDF</2>. See the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "شکلیں پہچاننے کے بجائے خاتمے زنجیر کی صورت جوڑنے کے لیے تیار ہیں؟ <0>ڈراؤنا خواب سوڈوکو</0> کی طرف بڑھیں، یا تقاطع اور سبسیٹس والے پزل کے لیے <1>درمیانہ سوڈوکو</1> پر واپس جائیں۔ کاغذ پسند ہے؟ <2>پرنٹ کے قابل مشکل سوڈوکو PDF</2> ڈاؤن لوڈ کریں۔ <3>تکنیکوں کا اشاریہ</3>، <4>کھیلنے کا طریقہ گائیڈ</4>، <5>سوڈوکو کے مشکل درجے</5> کے مرکزی صفحے پر ہر درجہ دیکھیں، یا <6>ہوم</6> پر جائیں۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Record puzzles such as Everest and AI Escargot, printed as originally published. See the <0>Infinity sudoku lander</0> to play them digitally."
+msgstr "Everest اور AI Escargot جیسے ریکارڈ پزلز، جیسے اصل میں شائع ہوئے تھے ویسے ہی چھپے ہوئے۔ انہیں ڈیجیٹل طور پر کھیلنے کے لیے <0>لامحدود سوڈوکو کا صفحہ</0> دیکھیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Scan for missing units"
+msgstr "غائب اکائیاں تلاش کریں"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Seven difficulty levels from Newbie through Hell to Infinity, the top tier serving record puzzles such as Everest and AI Escargot"
+msgstr "نیا کھلاڑی سے جہنم تک سات مشکل درجے اور لامحدود، جس کا اعلیٰ ترین درجہ Everest اور AI Escargot جیسے ریکارڈ پزلز پیش کرتا ہے"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Seven: Newbie, Easy, Medium, Hard, Nightmare, Hell and Infinity. Hell puzzles come from a bundled, verified corpus of boards that each need a forcing chain, beyond anything Nightmare asks for, and <0>Infinity</0> serves record puzzles such as Everest and AI Escargot."
+msgstr "سات: نیا کھلاڑی، آسان، درمیانہ، مشکل، ڈراؤنا خواب، جہنم اور لامحدود۔ جہنم کے پزلز ایسے بورڈز کے ایک شامل شدہ، تصدیق شدہ مجموعے سے آتے ہیں جن میں سے ہر ایک کو جبری زنجیر درکار ہے، جو ڈراؤنا خواب کی ہر مانگ سے آگے ہے، اور <0>لامحدود</0> Everest اور AI Escargot جیسے ریکارڈ پزلز پیش کرتا ہے۔"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique ladder, each defined by a clue count and a guaranteed technique band rather than a marketing label. Infinity sits above them, a curated set of record puzzles chosen by published rating."
+msgstr "سات۔ نیا کھلاڑی، آسان، درمیانہ، مشکل، ڈراؤنا خواب اور جہنم تکنیکی سیڑھی بناتے ہیں، جن میں سے ہر ایک کی تعریف کلیوز کی تعداد اور ضمانت شدہ تکنیکی بینڈ سے ہوتی ہے، کسی مارکیٹنگ لیبل سے نہیں۔ لامحدود ان سب کے اوپر ہے، شائع شدہ ریٹنگ کی بنیاد پر چنے گئے ریکارڈ پزلز کا ایک منتخب مجموعہ۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Shareable puzzle links and full game replays for any solve"
+msgstr "ہر حل کے لیے شیئر کیے جانے والے پزل لنکس اور مکمل گیم ری پلے"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."
+msgstr "سائز اور شکل۔ ونگ تین یا چار خانوں کا ایک مقررہ پیٹرن ہے جسے آپ ایک نظر میں پہچاننا سیکھتے ہیں؛ زنجیر کڑی در کڑی بنتی ہے اور کسی بھی لمبائی تک جا سکتی ہے، اسی لیے SE پیمانے پر زنجیریں ونگز سے پورا ایک بینڈ اوپر ہیں۔"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "Solutions included on the last pages"
+msgstr "آخری صفحات پر حل شامل ہیں"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Solve the cheapest placements first: full houses, then naked singles, then hidden singles."
+msgstr "سب سے سستی جگہیں پہلے حل کریں: آخری خالی خانے، پھر کھلے اکہرے، پھر پوشیدہ اکہرے۔"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Solver"
+msgstr "سولور"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Solving Easy boards without reaching for a hidden single? Step back to <0>Newbie Sudoku</0>, or step up to <1>Medium Sudoku</1>, where intersections and your first pairs appear. Prefer paper? Download the <2>printable Easy sudoku booklet</2>, or see the <3>sudoku for seniors</3> guide for large-print and comfort options. See the full <4>technique index</4>, the <5>how to play</5> guide, or every tier on the <6>Sudoku difficulty levels</6> hub back <7>home</7>."
+msgstr "پوشیدہ اکہرے کا سہارا لیے بغیر آسان بورڈز حل ہو رہے ہیں؟ <0>نیا کھلاڑی سوڈوکو</0> کی طرف واپس جائیں، یا <1>درمیانہ سوڈوکو</1> کی طرف بڑھیں، جہاں تقاطع اور آپ کے پہلے جوڑے آتے ہیں۔ کاغذ پسند ہے؟ <2>پرنٹ کے قابل آسان سوڈوکو کتابچہ</2> ڈاؤن لوڈ کریں، یا بڑے حروف اور آرام دہ آپشنز کے لیے <3>بزرگوں کے لیے سوڈوکو</3> گائیڈ دیکھیں۔ مکمل <4>تکنیکوں کا اشاریہ</4>، <5>کھیلنے کا طریقہ</5> گائیڈ، یا <6>سوڈوکو کے مشکل درجے</6> کے مرکزی صفحے پر ہر درجہ دیکھیں، یا واپس <7>ہوم</7> جائیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Solving your first cells"
+msgstr "اپنے پہلے خانے حل کرنا"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Some of these grids start with as few as {HELL_CORPUS_MINIMUM_GIVEN_COUNT} givens and look almost empty at first glance — the {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with generous cell size specifically so there is room to track candidates by hand across a long chain. The final pages hold the completed grids, which is close to essential at this tier: verifying a chain of eliminations by eye is slow, and a printed key lets you confirm the end state without re-deriving the whole path."
+msgstr "ان میں سے کچھ گرڈز صرف {HELL_CORPUS_MINIMUM_GIVEN_COUNT} دیے گئے اعداد سے شروع ہوتے ہیں اور پہلی نظر میں تقریباً خالی لگتے ہیں — {PRINTABLE_BOOKLET_SIZE} پزلز ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} کی ترتیب سے خانوں کے فراخ سائز کے ساتھ چھپتے ہیں، خاص طور پر اس لیے کہ لمبی زنجیر کے دوران امکانات ہاتھ سے لکھنے کی جگہ ہو۔ آخری صفحات پر مکمل گرڈز ہیں، جو اس درجے میں تقریباً ناگزیر ہیں: خاتموں کی زنجیر کو آنکھ سے جانچنا سست ہے، اور چھپی ہوئی کلید پورا راستہ دوبارہ نکالے بغیر آخری حالت کی تصدیق کرنے دیتی ہے۔"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Source on GitHub"
+msgstr "GitHub پر سورس"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Spotting fish and wings reliably? Move up to the <0>printable Nightmare sudoku booklet</0> for chains and coloring. Step back to <1>printable Medium sudoku</1> for intersections and subsets only, or play Hard on a screen at the <2>Hard sudoku lander</2>."
+msgstr "فش اور ونگز قابلِ بھروسہ طور پر پہچان لیتے ہیں؟ زنجیروں اور رنگ کاری کے لیے <0>پرنٹ کے قابل ڈراؤنا خواب سوڈوکو کتابچے</0> کی طرف بڑھیں۔ صرف تقاطع اور سبسیٹس کے لیے <1>پرنٹ کے قابل درمیانہ سوڈوکو</1> پر واپس جائیں، یا مشکل کو اسکرین پر <2>مشکل سوڈوکو کے صفحے</2> پر کھیلیں۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Stuck on a puzzle?"
+msgstr "پزل میں پھنس گئے؟"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Sudoku difficulties"
+msgstr "سوڈوکو کے مشکل درجے"
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Sudoku difficulty chain"
+msgstr "سوڈوکو مشکل کی زنجیر"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Sudoku difficulty levels"
+msgstr "سوڈوکو کے مشکل درجے"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Sudoku difficulty levels FAQ"
+msgstr "سوڈوکو کے مشکل درجوں کے عمومی سوالات"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku for seniors"
+msgstr "بزرگوں کے لیے سوڈوکو"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku glossary"
+msgstr "سوڈوکو لغت"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Sudoku is a logic puzzle played on a 9×9 grid, divided into nine 3×3 boxes. The goal is to fill every empty cell with a digit from 1 to 9 so that no digit repeats in any row, column or box. A well-formed Sudoku always starts with some cells already filled in — the givens, or clues — and always has exactly one valid solution reachable by logic alone, with no guessing."
+msgstr "سوڈوکو ایک منطقی پزل ہے جو 9×9 گرڈ پر کھیلا جاتا ہے، جسے نو 3×3 باکسز میں تقسیم کیا گیا ہے۔ مقصد ہر خالی خانے کو 1 سے 9 کے ہندسے سے یوں بھرنا ہے کہ کوئی ہندسہ کسی قطار، کالم یا باکس میں دہرایا نہ جائے۔ ٹھیک بنایا گیا سوڈوکو ہمیشہ کچھ پہلے سے بھرے خانوں کے ساتھ شروع ہوتا ہے — جنہیں دیے گئے اعداد یا کلیوز کہتے ہیں — اور اس کا ٹھیک ایک درست حل ہمیشہ صرف منطق سے ملتا ہے، بغیر کسی اندازے کے۔"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku solver"
+msgstr "سوڈوکو سولور"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku techniques"
+msgstr "سوڈوکو تکنیکیں"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku tips"
+msgstr "سوڈوکو کے مشورے"
+
+#: src/techniques/components/technique-summary/technique-summary.tsx
+msgid "Summary"
+msgstr "خلاصہ"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
+msgstr "Suuudokuuu اپنے پزلز کو نیا کھلاڑی سے جہنم تک چھ درجوں کی سیڑھی پر درجہ بند کرتا ہے، اور ہر درجہ کسی مارکیٹنگ لیبل سے نہیں بلکہ دو ٹھوس حقائق سے متعین ہوتا ہے: گرڈ کتنے کلیوز سے شروع ہوتا ہے، اور درجے میں کون سی نامزد حل کی تکنیکیں ضروری ہونے کی ضمانت ہے۔ ہر نیا بورڈ بننے کے لمحے ہی SE (Sudoku Explainer) پیمانے پر بھی ریٹ ہوتا ہے، اسی اوپن سورس ریٹنگ پیکیج سے جسے <0>سوڈوکو مشکل ریٹنگ گائیڈ</0> سیڑھی کے ہر نچلے درجے کا ناپا ہوا بینڈ اور SE حد شائع کرنے کے لیے استعمال کرتی ہے۔ سیڑھی کے اوپر <1>لامحدود</1> ہے، ریکارڈ پزلز کا ایک منتخب مجموعہ جو وہ ریٹنگز رکھتے ہیں جو آزاد ریٹرز شائع کرتے ہیں، کیونکہ وہ ہمارے اپنے ریٹنگ پیمانے کے اوپری سرے سے آگے نکل جاتے ہیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity."
+msgstr "Suuudokuuu کے سات مشکل درجے ہیں: چھ جن میں سے ہر ایک پچھلے سے وسیع تر تکنیکیں مانگتا ہے، اور لامحدود۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Suuudokuuu’s hardest tier: {infinityCorpusSize} of the hardest sudoku puzzles ever published, each with a published SE rating of {minimumRatingLabel} or more, playable for free with no ads."
+msgstr "Suuudokuuu کا سب سے مشکل درجہ: اب تک شائع ہونے والے {infinityCorpusSize} سب سے مشکل سوڈوکو پزلز، ہر ایک کی شائع شدہ SE ریٹنگ {minimumRatingLabel} یا اس سے زیادہ، بغیر اشتہارات کے مفت کھیلنے کے لیے۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Technique-aware hints that name the exact solving pattern, not just the next digit"
+msgstr "تکنیک سے باخبر ہنٹس جو صرف اگلا ہندسہ نہیں بلکہ حل کے ٹھیک پیٹرن کا نام بتاتے ہیں"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Techniques"
+msgstr "تکنیکیں"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Text size"
+msgstr "متن کا سائز"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "The {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, sized so a chain crossing the whole grid still fits comfortably on one sheet. Full solved grids close the booklet, which matters more here than at the easier tiers — a single missed elimination partway along a chain compounds quickly, and a printed answer key catches it. The measured spread behind these claims lives in the <0>sudoku difficulty rating guide</0>."
+msgstr "{PRINTABLE_BOOKLET_SIZE} پزلز ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} کی ترتیب سے چھپتے ہیں، اس سائز میں کہ پورے گرڈ کو پار کرتی زنجیر بھی ایک ورق پر آرام سے سما جائے۔ حل شدہ مکمل گرڈز کتابچے کا اختتام کرتے ہیں، جو آسان درجوں کے مقابلے میں یہاں زیادہ اہم ہے — زنجیر کے درمیان کوئی ایک چھوٹا ہوا خاتمہ تیزی سے بڑھتا چلا جاتا ہے، اور چھپی ہوئی جوابی کلید اسے پکڑ لیتی ہے۔ ان دعووں کے پیچھے ناپا گیا پھیلاؤ <0>سوڈوکو مشکل ریٹنگ گائیڈ</0> میں ہے۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "The best-known Infinity grids have pages of their own, each playable, printable and solved step by step by the engine: <0>AI Escargot</0>, <1>Golden Nugget</1>, <2>Platinum Blonde</2>, <3>Everest</3>, <4>Kolk</4> and <5>Silver Plate</5>."
+msgstr "سب سے مشہور Infinity گرڈز کے اپنے صفحات ہیں، ہر ایک کھیلنے کے قابل، پرنٹ کے قابل اور انجن کے ذریعے مرحلہ وار حل شدہ: <0>AI Escargot</0>، <1>Golden Nugget</1>، <2>Platinum Blonde</2>، <3>Everest</3>، <4>Kolk</4> اور <5>Silver Plate</5>۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The grid itself never changes: nine rows, nine columns and nine boxes, eighty-one cells in total. What changes from puzzle to puzzle is only which cells start filled and which digits they hold, and it is that starting layout of givens that determines how much logic is needed to reach the one valid solution."
+msgstr "گرڈ خود کبھی نہیں بدلتا: نو قطاریں، نو کالم اور نو باکسز، کل اکیاسی خانے۔ ایک پزل سے دوسرے پزل میں صرف یہ بدلتا ہے کہ کون سے خانے شروع میں بھرے ہیں اور ان میں کون سے ہندسے ہیں، اور یہی دیے گئے اعداد کی ابتدائی ترتیب طے کرتی ہے کہ ایک ہی درست حل تک پہنچنے کے لیے کتنی منطق درکار ہے۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "The large-print set uses the same Easy-tier logic as the booklet above, but at {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} puzzles per page instead of {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}, so every cell and digit prints noticeably bigger. It suits low-vision solvers, classroom handouts read from a distance, and anyone who finds the standard grid cramped on paper. See the <0>large print sudoku page</0> for printing tips and the on-screen alternative, or the <1>sudoku for seniors</1> guide for the full comfort-focused rundown."
+msgstr "بڑے حروف والا سیٹ اوپر والے کتابچے جیسی ہی آسان درجے کی منطق استعمال کرتا ہے، لیکن {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} کے بجائے ہر صفحے پر {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} پزلز کے ساتھ، اس لیے ہر خانہ اور ہندسہ نمایاں طور پر بڑا چھپتا ہے۔ یہ کمزور نظر والے حل کرنے والوں، دور سے پڑھے جانے والے کلاس روم ہینڈ آؤٹس، اور ہر اس شخص کے لیے موزوں ہے جسے کاغذ پر معیاری گرڈ تنگ لگتا ہے۔ پرنٹنگ کے مشوروں اور اسکرین پر متبادل کے لیے <0>بڑے حروف والے سوڈوکو کا صفحہ</0> دیکھیں، یا آرام پر مرکوز مکمل جائزے کے لیے <1>بزرگوں کے لیے سوڈوکو</1> گائیڈ۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "The other tiers are defined by the techniques they require. Infinity is defined by reputation, measured: a puzzle qualifies only if independent raters have published an SE rating of {minimumRatingLabel} or higher for it. Most of the {infinityCorpusSize} come from a 2011 snapshot of the hardest-puzzle database the sudoku-solving community maintains; the rest are the named classics, taken from the forum threads and publications where they first appeared. Before the set is packed into the app, a Dancing Links exact-cover solver and a bitmask solver both confirm that every grid has exactly one solution."
+msgstr "باقی درجے ان تکنیکوں سے متعین ہوتے ہیں جو وہ مانگتے ہیں۔ لامحدود کی تعریف شہرت سے ہے، ناپی ہوئی: پزل تبھی اہل ہوتا ہے جب آزاد ریٹرز نے اس کے لیے {minimumRatingLabel} یا اس سے زیادہ کی SE ریٹنگ شائع کی ہو۔ {infinityCorpusSize} میں سے زیادہ تر سوڈوکو حل کرنے والی برادری کے برقرار رکھے ہوئے سب سے مشکل پزلز کے ڈیٹابیس کے 2011 کے اسنیپ شاٹ سے آتے ہیں؛ باقی نامور کلاسکس ہیں، جو ان فورم تھریڈز اور اشاعتوں سے لیے گئے ہیں جہاں وہ پہلی بار سامنے آئے تھے۔ سیٹ کو ایپ میں پیک کرنے سے پہلے Dancing Links exact-cover سولور اور bitmask سولور دونوں تصدیق کرتے ہیں کہ ہر گرڈ کا ٹھیک ایک حل ہے۔"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The PDF opens with a cover page stating the puzzle and page counts, moves into {PRINTABLE_BOOKLET_SIZE} puzzles printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, and closes with every solved grid on the final pages so answers never sit next to an unsolved puzzle. Every grid is drawn with vector lines and the standard PDF Helvetica font, so it stays sharp at any print size and never depends on a scanned image. Our published sample of {sampleSize} Newbie boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "PDF ایک سرورق صفحے سے کھلتی ہے جس پر پزلز اور صفحات کی تعداد درج ہے، پھر ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} کی ترتیب سے چھپے {PRINTABLE_BOOKLET_SIZE} پزلز آتے ہیں، اور آخری صفحات پر ہر حل شدہ گرڈ کے ساتھ ختم ہوتی ہے تاکہ جواب کبھی حل نہ ہوئے پزل کے برابر میں نہ ہو۔ ہر گرڈ ویکٹر لائنوں اور معیاری PDF Helvetica فونٹ سے بنا ہے، اس لیے کسی بھی پرنٹ سائز پر تیز رہتا ہے اور کبھی اسکین شدہ تصویر پر منحصر نہیں ہوتا۔ نیا کھلاڑی کے {sampleSize} بورڈز کا ہمارا شائع شدہ نمونہ SE {seRatingRange} ناپتا ہے — ایسے اعداد جنہیں <0>سوڈوکو مشکل ریٹنگ گائیڈ</0> مفروضوں کے بجائے براہِ راست ناپتی ہے۔"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The printable Newbie Sudoku booklet is a free PDF of {clueCount}-clue puzzles where every blank is reachable with a full house or a naked single — a property each puzzle was checked for before it went into the PDF. It is the booklet to hand a first-time solver, a classroom just learning the rules, or anyone who wants a puzzle that never demands a second guess."
+msgstr "پرنٹ کے قابل نیا کھلاڑی سوڈوکو کتابچہ {clueCount} کلیوز والے پزلز کی ایک مفت PDF ہے جن میں ہر خالی خانہ آخری خالی خانے یا کھلے اکہرے سے حل ہو جاتا ہے — یہ خصوصیت ہر پزل کے PDF میں شامل ہونے سے پہلے جانچی گئی۔ یہ پہلی بار حل کرنے والے، ابھی اصول سیکھنے والی کلاس، یا ہر اس شخص کو دینے کا کتابچہ ہے جو ایسا پزل چاہتا ہو جس میں کبھی دوسرا اندازہ نہ لگانا پڑے۔"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The puzzles are printed exactly as they were published, with no reshuffling, so you can compare your grid with the originals discussed on the <0>hardest sudoku puzzles</0> page. They print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with room for a full set of pencil marks, which you will need: at this level most solvers keep every candidate written in and test chains on a separate sheet. The final pages hold the completed grids, so you can check a long line of reasoning without having to finish it first."
+msgstr "پزلز بالکل ویسے ہی چھپے ہیں جیسے شائع ہوئے تھے، بغیر کسی ازسرِنو ملاوٹ کے، تاکہ آپ اپنے گرڈ کا <0>سب سے مشکل سوڈوکو پزلز</0> کے صفحے پر زیرِ بحث اصل پزلز سے موازنہ کر سکیں۔ وہ ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} کی ترتیب سے پنسل نشانوں کے پورے سیٹ کی جگہ کے ساتھ چھپتے ہیں، جس کی آپ کو ضرورت پڑے گی: اس سطح پر زیادہ تر حل کرنے والے ہر امکان لکھ کر رکھتے ہیں اور زنجیروں کو الگ ورق پر آزماتے ہیں۔ آخری صفحات پر مکمل گرڈز ہیں، تاکہ آپ استدلال کی لمبی لکیر کو مکمل کیے بغیر جانچ سکیں۔"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The ratings are the values independent raters publish, not our own measurements."
+msgstr "یہ ریٹنگز وہ اقدار ہیں جو آزاد ریٹرز شائع کرتے ہیں، ہماری اپنی پیمائش نہیں۔"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The SE ratings are the values independent raters and the sudoku-solving community publish. Suuudokuuu’s own rater reports {SE_RATING_CEILING} with a ceiling flag for anything harder than that, so it does not produce its own figure for these puzzles."
+msgstr "SE ریٹنگز وہ اقدار ہیں جو آزاد ریٹرز اور سوڈوکو حل کرنے والی برادری شائع کرتی ہے۔ Suuudokuuu کا اپنا ریٹر اس سے مشکل ہر چیز کے لیے حد کے نشان کے ساتھ {SE_RATING_CEILING} رپورٹ کرتا ہے، اس لیے وہ ان پزلز کے لیے اپنی کوئی قدر نہیں بناتا۔"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The standard PDF already uses a generous {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}-puzzles-per-page layout. For bigger cells specifically, see the <0>printable Easy sudoku booklet</0>, which is also the source tier for our large-print PDF."
+msgstr "معیاری PDF پہلے ہی ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} پزلز کی فراخ ترتیب استعمال کرتی ہے۔ خاص طور پر بڑے خانوں کے لیے <0>پرنٹ کے قابل آسان سوڈوکو کتابچہ</0> دیکھیں، جو ہمارے بڑے حروف والے PDF کا بنیادی درجہ بھی ہے۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The three rules of Sudoku"
+msgstr "سوڈوکو کے تین اصول"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The very first thing to check is whether a box, row or column is missing only one digit. If eight of the nine cells in a unit are already filled, the ninth cell must take the digit the unit is still missing — no candidates to compare, just subtraction."
+msgstr "سب سے پہلے یہ دیکھیں کہ کیا کسی باکس، قطار یا کالم میں صرف ایک ہندسہ غائب ہے۔ اگر کسی اکائی کے نو میں سے آٹھ خانے پہلے ہی بھرے ہوں تو نواں خانہ وہی ہندسہ لے گا جو اس اکائی میں ابھی غائب ہے — موازنے کے لیے کوئی امکان نہیں، بس تفریق۔"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "This booklet prints {PRINTABLE_BOOKLET_SIZE} of the hardest sudoku puzzles ever published, taken from Suuudokuuu’s Infinity tier: Arto Inkala’s Everest, AI Escargot, Platinum Blonde, Golden Nugget and other record grids, each with a published SE (Sudoku Explainer) rating between {lowestRatingLabel} and {highestRatingLabel}. Every one has exactly one solution, and the solved grids are at the back."
+msgstr "یہ کتابچہ اب تک شائع ہونے والے {PRINTABLE_BOOKLET_SIZE} سب سے مشکل سوڈوکو پزلز چھاپتا ہے، جو Suuudokuuu کے لامحدود درجے سے لیے گئے ہیں: Arto Inkala کا Everest، AI Escargot، Platinum Blonde، Golden Nugget اور دوسرے ریکارڈ گرڈز، جن میں سے ہر ایک کی شائع شدہ SE (Sudoku Explainer) ریٹنگ {lowestRatingLabel} اور {highestRatingLabel} کے درمیان ہے۔ ہر ایک کا ٹھیک ایک حل ہے، اور حل شدہ گرڈز آخر میں ہیں۔"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "This is the booklet to print for a short daily habit rather than a long sitting: fold it into a notebook, work one grid at a time, and there is never a candidate to write down or a pair to track across the row. It also suits a classroom introducing the rules for the first time, since a full class can finish a puzzle in the same short window without anyone stalling on an intersection they have not been taught yet. The {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}-per-page layout still leaves each grid large enough to write in comfortably, even for a child’s handwriting, and the answer key at the back means a teacher never has to solve the sheet themselves to check it."
+msgstr "یہ وہ کتابچہ ہے جو لمبی نشست کے بجائے مختصر روزانہ عادت کے لیے پرنٹ کیا جائے: اسے نوٹ بک میں رکھیں، ایک وقت میں ایک گرڈ حل کریں، اور نہ کوئی امکان لکھنا ہوتا ہے اور نہ قطار میں کوئی جوڑا یاد رکھنا۔ یہ کلاس روم میں اصول پہلی بار متعارف کرانے کے لیے بھی موزوں ہے، کیونکہ پوری کلاس ایک ہی مختصر وقفے میں پزل مکمل کر سکتی ہے بغیر اس کے کہ کوئی ایسے تقاطع پر اٹکے جو اسے ابھی سکھایا نہیں گیا۔ ہر صفحے پر {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} کی ترتیب پھر بھی ہر گرڈ کو اتنا بڑا رکھتی ہے کہ بچے کی لکھائی کے لیے بھی آرام سے لکھا جا سکے، اور آخر میں جوابی کلید کا مطلب ہے کہ استاد کو جانچنے کے لیے ورق خود حل نہیں کرنا پڑتا۔"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Those extra blanks over Newbie are enough that the grid stops filling itself in from <0>full houses</0> alone. Once the obvious placements run out, an Easy puzzle always leaves at least one cell where hidden single reasoning is the only way forward — check each unit’s missing digits against where they can still legally go, rather than reading candidates straight off one cell. Suuudokuuu’s technique engine tries hidden single third, right after full house and <1>naked single</1>, and an Easy-rated puzzle never needs to go further than that: no pointing pairs, no subsets, nothing that asks you to hold more than one unit in mind at once. The gap between the tiers is small on purpose — it is exactly one technique wide."
+msgstr "نیا کھلاڑی کے مقابلے میں یہ اضافی خالی خانے اتنے ہیں کہ گرڈ صرف <0>آخری خالی خانوں</0> سے خود کو بھرنا بند کر دیتا ہے۔ واضح جگہیں ختم ہونے پر آسان پزل میں ہمیشہ کم از کم ایک خانہ ایسا رہتا ہے جہاں آگے بڑھنے کا واحد راستہ پوشیدہ اکہرے کا استدلال ہے — ہر اکائی کے غائب ہندسوں کو دیکھیں کہ وہ قانونی طور پر کہاں جا سکتے ہیں، امکانات کو ایک خانے سے سیدھا پڑھنے کے بجائے۔ Suuudokuuu کا تکنیکی انجن پوشیدہ اکہرے کو تیسرے نمبر پر آزماتا ہے، آخری خالی خانے اور <1>کھلے اکہرے</1> کے فوراً بعد، اور آسان ریٹنگ والے پزل کو اس سے آگے جانے کی کبھی ضرورت نہیں پڑتی: نہ اشارہ کرتے جوڑے، نہ سبسیٹس، کچھ بھی ایسا نہیں جو آپ سے ایک وقت میں ایک سے زیادہ اکائیاں ذہن میں رکھنے کو کہے۔ درجوں کے درمیان فرق جان بوجھ کر چھوٹا ہے — ٹھیک ایک تکنیک کے برابر۔"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Tips for pencil-mark solving"
+msgstr "پنسل نشانوں سے حل کرنے کے مشورے"
+
+#: src/techniques/components/technique-summary/technique-summary.tsx
+msgid "TL;DR"
+msgstr "خلاصہ"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Type or paste the grid into the <0>step-by-step sudoku solver</0> and it will name every move — Hidden Single, Naked Pair, X-Wing — instead of just filling the board in. It checks that your puzzle has exactly one solution first, and it runs entirely in your browser."
+msgstr "گرڈ <0>مرحلہ وار سوڈوکو سولور</0> میں ٹائپ کریں یا پیسٹ کریں اور وہ ہر چال کا نام بتائے گا — پوشیدہ اکہرا، کھلا جوڑا، X-Wing — صرف بورڈ بھر دینے کے بجائے۔ وہ پہلے جانچتا ہے کہ آپ کے پزل کا ٹھیک ایک حل ہے، اور مکمل طور پر آپ کے براؤزر میں چلتا ہے۔"
+
+#: src/seo/components/updated-date/updated-date.tsx
+msgid "Updated <0>{formattedDate}</0>"
+msgstr "اپڈیٹ شدہ <0>{formattedDate}</0>"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Verifying fish and wings on paper"
+msgstr "کاغذ پر فش اور ونگز کی تصدیق"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Very. Every puzzle in the Infinity set has a published SE rating of at least {lowestRatingLabel}, well past anything the generated tiers or the Hell corpus produce. Our own rater stops pricing the SE ladder at {SE_RATING_CEILING}, so the figures quoted here come from independent raters, and our technique engine cannot finish any of these grids on its own. Expect to need long forcing chains and forcing nets, and expect a single puzzle to take far longer than anything else on this site."
+msgstr "بہت زیادہ۔ لامحدود سیٹ کے ہر پزل کی شائع شدہ SE ریٹنگ کم از کم {lowestRatingLabel} ہے، جو بنائے گئے درجوں یا جہنم مجموعے کی پیداوار سے کہیں آگے ہے۔ ہمارا اپنا ریٹر SE سیڑھی کی قیمت {SE_RATING_CEILING} پر لگانا بند کر دیتا ہے، اس لیے یہاں درج اعداد آزاد ریٹرز سے آتے ہیں، اور ہمارا تکنیکی انجن ان میں سے کوئی گرڈ اکیلے مکمل نہیں کر سکتا۔ لمبی جبری زنجیروں اور جبری نیٹس کی ضرورت کی توقع رکھیں، اور توقع رکھیں کہ ایک پزل اس سائٹ پر کسی بھی اور چیز سے کہیں زیادہ وقت لے گا۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Want the record puzzles on paper? Download the <0>printable Infinity sudoku PDF</0>. Not ready for them yet? Step back to <1>Hell Sudoku</1>, where every board needs a forcing chain but stays within reach of our technique ladder. Read the stories behind Everest and AI Escargot on the <2>hardest sudoku puzzles</2> page, compare every tier on the <3>Sudoku difficulty levels</3> hub, or head <4>home</4>."
+msgstr "ریکارڈ پزلز کاغذ پر چاہیے؟ <0>پرنٹ کے قابل لامحدود سوڈوکو PDF</0> ڈاؤن لوڈ کریں۔ ابھی ان کے لیے تیار نہیں؟ <1>جہنم سوڈوکو</1> پر واپس جائیں، جہاں ہر بورڈ کو جبری زنجیر کی ضرورت ہوتی ہے مگر ہماری تکنیکی سیڑھی کی پہنچ میں رہتا ہے۔ Everest اور AI Escargot کے پیچھے کہانیاں <2>سب سے مشکل سوڈوکو پزلز</2> کے صفحے پر پڑھیں، <3>سوڈوکو کے مشکل درجے</3> کے مرکزی صفحے پر ہر درجے کا موازنہ کریں، یا <4>ہوم</4> پر جائیں۔"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Want to warm up first? The <0>printable Hell sudoku booklet</0> holds forcing-chain puzzles that are hard but still within reach of our technique ladder. Prefer a screen? Play the same record puzzles on the <1>Infinity sudoku lander</1>, where each game reshuffles the grid, or browse every booklet on the <2>printable sudoku hub</2>."
+msgstr "پہلے وارم اپ کرنا چاہتے ہیں؟ <0>پرنٹ کے قابل جہنم سوڈوکو کتابچے</0> میں جبری زنجیر والے پزلز ہیں جو مشکل ہیں مگر ہماری تکنیکی سیڑھی کی پہنچ میں ہیں۔ اسکرین پسند ہے؟ وہی ریکارڈ پزلز <1>لامحدود سوڈوکو کے صفحے</1> پر کھیلیں، جہاں ہر کھیل گرڈ کو ازسرِنو ملا دیتا ہے، یا <2>پرنٹ کے قابل سوڈوکو کے مرکزی صفحے</2> پر ہر کتابچہ دیکھیں۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "What difficulty levels exist?"
+msgstr "کون سے مشکل درجے موجود ہیں؟"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What is a finned fish in sudoku?"
+msgstr "سوڈوکو میں فن والی فش کیا ہے؟"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What is a pointing pair?"
+msgstr "اشارہ کرتا جوڑا کیا ہے؟"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "What is Infinity sudoku?"
+msgstr "لامحدود سوڈوکو کیا ہے؟"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "What is inside the booklet"
+msgstr "کتابچے کے اندر کیا ہے"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "What is the difference between a clue and a candidate?"
+msgstr "کلیو اور امکان میں کیا فرق ہے؟"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "What is the difference between a wing and a chain?"
+msgstr "ونگ اور زنجیر میں کیا فرق ہے؟"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "What is the difference between Newbie and Easy sudoku?"
+msgstr "نیا کھلاڑی اور آسان سوڈوکو میں کیا فرق ہے؟"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "What is the easiest Sudoku difficulty?"
+msgstr "سوڈوکو کا سب سے آسان درجہ کون سا ہے؟"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "What is the fastest way to get better at Sudoku?"
+msgstr "سوڈوکو میں بہتر ہونے کا تیز ترین طریقہ کیا ہے؟"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "What makes a puzzle Easy"
+msgstr "آسان پزل کو کیا چیز آسان بناتی ہے"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What makes a puzzle Hard"
+msgstr "مشکل پزل کو کیا چیز مشکل بناتی ہے"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "What makes a puzzle Hell"
+msgstr "جہنم پزل کو کیا چیز جہنم بناتی ہے"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "What makes a puzzle Infinity"
+msgstr "لامحدود پزل کو کیا چیز لامحدود بناتی ہے"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What makes a puzzle Medium"
+msgstr "درمیانہ پزل کو کیا چیز درمیانہ بناتی ہے"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "What makes a puzzle Newbie"
+msgstr "نیا کھلاڑی پزل کو کیا چیز نیا کھلاڑی بناتی ہے"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "What makes a puzzle Nightmare"
+msgstr "ڈراؤنا خواب پزل کو کیا چیز ڈراؤنا خواب بناتی ہے"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "What technique does an Easy sudoku booklet require?"
+msgstr "آسان سوڈوکو کتابچے کے لیے کون سی تکنیک ضروری ہے؟"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What techniques do I need for Hard sudoku?"
+msgstr "مشکل سوڈوکو کے لیے مجھے کون سی تکنیکیں چاہییں؟"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "What techniques do I need for Hell level?"
+msgstr "جہنم درجے کے لیے مجھے کون سی تکنیکیں چاہییں؟"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What techniques do I need for Medium sudoku?"
+msgstr "درمیانہ سوڈوکو کے لیے مجھے کون سی تکنیکیں چاہییں؟"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "What techniques does this Hard booklet require?"
+msgstr "اس مشکل کتابچے کے لیے کون سی تکنیکیں ضروری ہیں؟"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "What techniques does this Medium booklet require?"
+msgstr "اس درمیانہ کتابچے کے لیے کون سی تکنیکیں ضروری ہیں؟"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "What techniques does this Nightmare booklet require?"
+msgstr "اس ڈراؤنا خواب کتابچے کے لیے کون سی تکنیکیں ضروری ہیں؟"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "When intersections start feeling automatic, move up to the <0>printable Hard sudoku booklet</0> for fish and wing patterns. Drop back to <1>printable Easy sudoku</1> for a singles-only warm-up, or play Medium on a screen at the <2>Medium sudoku lander</2>."
+msgstr "جب تقاطع خودکار محسوس ہونے لگیں تو فش اور ونگ پیٹرنز کے لیے <0>پرنٹ کے قابل مشکل سوڈوکو کتابچے</0> کی طرف بڑھیں۔ صرف اکہروں کی مشق کے لیے <1>پرنٹ کے قابل آسان سوڈوکو</1> پر واپس جائیں، یا درمیانہ کو اسکرین پر <2>درمیانہ سوڈوکو کے صفحے</2> پر کھیلیں۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "When you start an Infinity game, the app picks one of those puzzles and disguises it. It relabels the digits, shuffles rows within their bands, columns within their stacks and the bands and stacks themselves, and sometimes mirrors the grid across its diagonal. None of that changes the logic or the rating, so the Everest you play is still Everest, it just does not look like the picture below."
+msgstr "جب آپ لامحدود کا کھیل شروع کرتے ہیں تو ایپ ان پزلز میں سے ایک چنتی ہے اور اس کا بھیس بدل دیتی ہے۔ وہ ہندسوں کے نام بدل دیتی ہے، بینڈز کے اندر قطاروں کو، اسٹیکس کے اندر کالموں کو اور خود بینڈز اور اسٹیکس کو آپس میں ملا دیتی ہے، اور کبھی کبھی گرڈ کو اس کے وتر کے پار الٹ دیتی ہے۔ ان میں سے کوئی چیز منطق یا ریٹنگ نہیں بدلتی، اس لیے جو Everest آپ کھیلتے ہیں وہ پھر بھی Everest ہی ہے، بس وہ نیچے دی گئی تصویر جیسا نظر نہیں آتا۔"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Where to go next"
+msgstr "آگے کہاں جائیں"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Which sudoku difficulty should I start with?"
+msgstr "مجھے کون سے سوڈوکو درجے سے شروع کرنا چاہیے؟"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Who rated these puzzles?"
+msgstr "ان پزلز کی ریٹنگ کس نے کی؟"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Why {SITE_NAME}"
+msgstr "{SITE_NAME} ہی کیوں"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Why does Hell use a fixed puzzle corpus instead of generating puzzles?"
+msgstr "جہنم نئے پزلز بنانے کے بجائے ایک مقررہ پزل مجموعہ کیوں استعمال کرتا ہے؟"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Why does this booklet leave more room around each digit?"
+msgstr "اس کتابچے میں ہر ہندسے کے گرد زیادہ جگہ کیوں چھوڑی گئی ہے؟"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Why is paper recommended for chain-based puzzles?"
+msgstr "زنجیر پر مبنی پزلز کے لیے کاغذ کی سفارش کیوں کی جاتی ہے؟"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Why paper helps with chains"
+msgstr "زنجیروں میں کاغذ کیوں مدد کرتا ہے"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Why players stay"
+msgstr "کھلاڑی کیوں ٹکے رہتے ہیں"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Works fully offline once installed, on iOS, Android and the web"
+msgstr "انسٹال ہونے کے بعد iOS، Android اور ویب پر مکمل طور پر آف لائن کام کرتا ہے"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Write candidates into a cell only once scanning stops producing placements."
+msgstr "امکانات کو خانے میں تبھی لکھیں جب اسکین کرنے سے جگہیں ملنا بند ہو جائیں۔"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Write in candidates once the easy cells run out"
+msgstr "جب آسان خانے ختم ہو جائیں تو امکانات لکھ لیں"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Yes, along with Everest, Platinum Blonde and Golden Nugget. The booklet prints the puzzles as they were originally published."
+msgstr "جی ہاں، Everest، Platinum Blonde اور Golden Nugget کے ساتھ۔ کتابچہ پزلز کو ویسے ہی چھاپتا ہے جیسے وہ اصل میں شائع ہوئے تھے۔"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our sample measures Hell at SE {hellSeRatingRange} and Nightmare at SE {nightmareSeRatingRange}."
+msgstr "جی ہاں، تعمیر کے لحاظ سے۔ ڈراؤنا خواب AIC پر رک جاتا ہے، اور جہنم کا کوئی بورڈ ڈراؤنا خواب کی کسی بھی اجازت یافتہ چیز سے حل نہیں ہو سکتا۔ ہمارا نمونہ جہنم کو SE {hellSeRatingRange} اور ڈراؤنا خواب کو SE {nightmareSeRatingRange} پر ناپتا ہے۔"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Yes, with no account and no watermark, and every puzzle’s solved grid is included at the back."
+msgstr "جی ہاں، بغیر اکاؤنٹ اور بغیر واٹرمارک کے، اور ہر پزل کا حل شدہ گرڈ آخر میں شامل ہے۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "جی ہاں۔ {SITE_NAME} مفت اور اوپن سورس ہے، جس میں نہ ایپ کے اندر خریداری ہے، نہ سبسکرپشنز اور نہ پے وال والے مشکل درجے۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Both are in the Infinity set, along with Platinum Blonde and Golden Nugget. Each game reshuffles digits, rows and columns, so the grid looks different every time while the puzzle stays the same."
+msgstr "جی ہاں۔ دونوں لامحدود سیٹ میں ہیں، Platinum Blonde اور Golden Nugget کے ساتھ۔ ہر کھیل ہندسوں، قطاروں اور کالموں کو ازسرِنو ملا دیتا ہے، اس لیے گرڈ ہر بار مختلف نظر آتا ہے جبکہ پزل وہی رہتا ہے۔"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Yes. Easy is the source tier for the large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles with bigger cells for readers who want more room to write."
+msgstr "جی ہاں۔ آسان بڑے حروف والے PDF کا بنیادی درجہ ہے، جس کا نمونہ {PRINTABLE_LARGE_PRINT_SIZE} پزلز پر مشتمل ہے اور جن میں خانے بڑے ہیں، ان قارئین کے لیے جو لکھنے کے لیے زیادہ جگہ چاہتے ہیں۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. Every difficulty booklet and the large-print set carry the full solved grids on the last pages, generated by the same solver that verifies every puzzle has exactly one solution before it ships."
+msgstr "جی ہاں۔ ہر مشکل کا کتابچہ اور بڑے حروف والا سیٹ آخری صفحات پر مکمل حل شدہ گرڈز رکھتا ہے، جو اسی سولور سے بنائے گئے ہیں جو بھیجنے سے پہلے تصدیق کرتا ہے کہ ہر پزل کا ٹھیک ایک حل ہے۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Every grid is checked by a Dancing Links exact-cover solver and a bitmask solver before it ships, and each has exactly one solution."
+msgstr "جی ہاں۔ ہر گرڈ بھیجنے سے پہلے Dancing Links exact-cover سولور اور bitmask سولور سے جانچا جاتا ہے، اور ہر ایک کا ٹھیک ایک حل ہے۔"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Yes. Every puzzle in the booklet is solvable with a full house or a naked single alone, so no candidate marking or elimination logic is ever required."
+msgstr "جی ہاں۔ کتابچے کا ہر پزل اکیلے آخری خالی خانے یا کھلے اکہرے سے حل ہو سکتا ہے، اس لیے امکانات لکھنے یا خاتمے کی منطق کی کبھی ضرورت نہیں پڑتی۔"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
+msgstr "جی ہاں۔ انسٹال ہونے کے بعد {SITE_NAME} پزلز بھی آپ کے آلے پر ہی بناتا اور حل کرتا ہے، اس لیے بغیر کنکشن کے بھی ویسے ہی کھیلتا ہے۔"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."
+msgstr "جی ہاں۔ ہمارا نمونہ جہنم کو SE {hellSeRatingRange} پر ناپتا ہے، اور لامحدود کے ہر پزل کی شائع شدہ ریٹنگ {lowestRatingLabel} اور {highestRatingLabel} کے درمیان ہے۔ جہنم کے بورڈز پھر بھی ہماری تکنیکی سیڑھی کے آگے ہار مان لیتے ہیں؛ لامحدود کے بورڈز نہیں مانتے۔"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. Suuudokuuu’s code, including the generator behind these puzzles, is open source under the MIT license, and this site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
+msgstr "جی ہاں۔ Suuudokuuu کا کوڈ، بشمول ان پزلز کے پیچھے جنریٹر، MIT لائسنس کے تحت اوپن سورس ہے، اور یہ سائٹ PDFs کو پرنٹ کرنے یا دوبارہ تقسیم کرنے پر کوئی پابندی نہیں لگاتی — بشمول انہیں کلاس روم، ٹیوشن سیشن یا ورک شیٹ پیکٹ میں بانٹنا۔"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Yes. The PDF downloads free, with no account and no watermark, and includes a full solution key for every puzzle."
+msgstr "جی ہاں۔ PDF بغیر اکاؤنٹ اور بغیر واٹرمارک کے مفت ڈاؤن لوڈ ہوتی ہے، اور ہر پزل کی مکمل حل کی کلید شامل ہے۔"

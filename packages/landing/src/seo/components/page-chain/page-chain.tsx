@@ -8,8 +8,8 @@ interface Props {
     ariaLabel: string;
     previousLabel: string;
     nextLabel: string;
-    previous?: Pick<PageMetadataInterface, 'path' | 'title'>;
-    next?: Pick<PageMetadataInterface, 'path' | 'title'>;
+    previous?: Pick<PageMetadataInterface, 'path' | 'title' | 'translations'>;
+    next?: Pick<PageMetadataInterface, 'path' | 'title' | 'translations'>;
 }
 
 export const PageChain = ({ ariaLabel, next, nextLabel, previous, previousLabel }: Props) => {

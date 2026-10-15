@@ -1,0 +1,1953 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-10-15 06:50+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: zh\n"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells — only one fewer than Medium, which is exactly why the tier is defined by the techniques it requires rather than by its clue count."
+msgstr "81 格中有 {clueCount} 个已知数字，只比中等难度少一个，所以这一档靠所需技巧而不是已知数字的多少来划分。"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, a third of the grid filled in before you start."
+msgstr "81 格中有 {clueCount} 个已知数字，开局就填好了三分之一的格子。"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, and every blank is reachable with a full house or a naked single."
+msgstr "81 格中有 {clueCount} 个已知数字，每个空格都能用最后余格或显性单数解出。"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need a hidden single and nothing harder."
+msgstr "81 格中有 {clueCount} 个已知数字，保证至少需要一次隐性单数，且不需要更难的技巧。"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need at least one chain or coloring technique beyond every fish and wing."
+msgstr "81 格中有 {clueCount} 个已知数字，保证至少需要一种超出所有鱼形和翼形的链或染色技巧。"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need at least one fish or wing pattern beyond every subset."
+msgstr "81 格中有 {clueCount} 个已知数字，保证至少需要一种超出所有数组的鱼形或翼形。"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to stall on singles and yield to an intersection or a subset."
+msgstr "81 格中有 {clueCount} 个已知数字，保证单数用尽后卡住，需要用区块摒除或数组才能继续。"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, solvable with full houses and naked singles alone."
+msgstr "81 格中有 {clueCount} 个已知数字，只用最后余格和显性单数就能解开。"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, solved start to finish with full houses, naked singles and hidden singles."
+msgstr "81 格中有 {clueCount} 个已知数字，从头到尾只用最后余格、显性单数和隐性单数即可解出。"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, well under a third of the grid."
+msgstr "81 格中有 {clueCount} 个已知数字，不到整个盘面的三分之一。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{easyClueCount} clues, and every puzzle needs at least one hidden single, never more. See the <0>Easy sudoku lander</0> to play it digitally."
+msgstr "{easyClueCount} 个已知数字，每道题至少需要一次隐性单数，但不会更多。想在线玩，请看<0>简单数独专页</0>。"
+
+#: src/printable/components/printable-download-card/printable-download-card.tsx
+msgid "{fileSizeKilobytes} KB PDF, US Letter"
+msgstr "{fileSizeKilobytes} KB PDF，US Letter 纸张"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{hardClueCount} clues, guaranteed to stall on subsets and to yield to fish and wing patterns. See the <0>Hard sudoku lander</0> to play it digitally."
+msgstr "{hardClueCount} 个已知数字，保证数组用尽后卡住，需要用鱼形和翼形才能继续。想在线玩，请看<0>困难数独专页</0>。"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "{hellCorpusSize} verified puzzles with {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues, drawn from the tdoku 17-clue catalog and the magictour top1465 list rather than generated fresh."
+msgstr "{hellCorpusSize} 道经过验证的题目，已知数字为 {HELL_CORPUS_MINIMUM_GIVEN_COUNT} 到 {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} 个，选自 tdoku 17 个已知数字题库和 magictour top1465 榜单，而不是现场生成。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "{infinityCorpusSize} record puzzles with {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues, published at SE {lowestRatingLabel} to {highestRatingLabel}."
+msgstr "{infinityCorpusSize} 道纪录级题目，已知数字为 {INFINITY_MINIMUM_GIVEN_COUNT} 到 {INFINITY_MAXIMUM_GIVEN_COUNT} 个，公布的 SE 评级为 {lowestRatingLabel} 到 {highestRatingLabel}。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets. See the <0>Medium sudoku lander</0> to play it digitally."
+msgstr "{mediumClueCount} 个已知数字，保证单数用尽后卡住，需要用区块摒除和数组才能继续。想在线玩，请看<0>中等数独专页</0>。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{newbieClueCount} clues, solved with full houses and naked singles alone. See the <0>Newbie sudoku lander</0> to play it digitally."
+msgstr "{newbieClueCount} 个已知数字，只用最后余格和显性单数就能解开。想在线玩，请看<0>新手数独专页</0>。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{nightmareClueCount} clues, guaranteed to stall on wings and to yield to chains and coloring. See the <0>Nightmare sudoku lander</0> to play it digitally."
+msgstr "{nightmareClueCount} 个已知数字，保证翼形用尽后卡住，需要用链和染色才能继续。想在线玩，请看<0>噩梦数独专页</0>。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_BLANK_GRID_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_BLANK_GRID_PAGE_COUNT} 页"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "{PRINTABLE_BOOKLET_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_BOOKLET_PAGE_COUNT} 页"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles"
+msgstr "{PRINTABLE_BOOKLET_SIZE} 道题"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with the solved grids at the back."
+msgstr "共 {PRINTABLE_BOOKLET_SIZE} 道题，分 {PRINTABLE_BOOKLET_PAGE_COUNT} 页，每页 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道，答案附在最后。"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with the solved grids at the back."
+msgstr "共 {PRINTABLE_BOOKLET_SIZE} 道题，分 {PRINTABLE_BOOKLET_PAGE_COUNT} 页，每页 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道，已解答的盘面附在最后。"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key."
+msgstr "共 {PRINTABLE_BOOKLET_SIZE} 道题，每页 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道，附完整答案。"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} record puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key."
+msgstr "共 {PRINTABLE_BOOKLET_SIZE} 道纪录级题目，每页 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道，附完整答案。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_LARGE_PRINT_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_LARGE_PRINT_PAGE_COUNT} 页"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_LARGE_PRINT_SIZE} puzzles"
+msgstr "{PRINTABLE_LARGE_PRINT_SIZE} 道题"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Box rule.</0> Each of the nine 3×3 boxes must contain the digits 1 to 9 exactly once each."
+msgstr "<0>宫规则。</0>九个 3×3 的宫里，每一个都必须恰好包含数字 1 到 9 各一次。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Column rule.</0> Each of the nine columns must contain the digits 1 to 9 exactly once each."
+msgstr "<0>列规则。</0>九列中的每一列都必须恰好包含数字 1 到 9 各一次。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Easy.</0> Adds hidden singles, still no candidate tracking required."
+msgstr "<0>简单。</0>加入隐性单数，仍然不需要记录候选数字。"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Easy</0> — {easyClueCount} clues, guaranteed to need at least one hidden single and never more than that."
+msgstr "<0>简单</0>：{easyClueCount} 个已知数字，保证至少需要一次隐性单数，且不会更多。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Full House</0> — the simplest possible move, filling the last empty cell in a unit."
+msgstr "<0>最后余格</0>：最简单的一步，填入某个单元中最后一个空格。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Hard.</0> Always stalls on subsets and always yields to a fish or a wing pattern."
+msgstr "<0>困难。</0>总会在数组上卡住，总能用鱼形或翼形继续。"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Hard</0> — {hardClueCount} clues, guaranteed to stall on subsets and to yield to fish and wing patterns."
+msgstr "<0>困难</0>：{hardClueCount} 个已知数字，保证数组用尽后卡住，需要用鱼形和翼形才能继续。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Hell.</0> Always stalls on chains and AIC and always needs a forcing chain, drawn from a bundled, verified corpus."
+msgstr "<0>地狱。</0>总会在链和 AIC 上卡住，一定需要强制链，题目来自内置的已验证题库。"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Hell</0> — guaranteed to stall on AIC and to need a forcing chain, drawn from a bundled, verified corpus rather than generated to a band."
+msgstr "<0>地狱</0>：保证 AIC 用尽后卡住，一定需要强制链，题目来自内置的已验证题库，而不是按难度区间现场生成。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Hidden Single</0> — a digit that only fits in one cell of a unit."
+msgstr "<0>隐性单数</0>：某个数字在一个单元中只能填入一个格子。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Infinity.</0> The hardest sudoku puzzles ever published, such as Everest and AI Escargot, chosen by their published rating rather than a technique band — see the <1>Infinity lander</1>."
+msgstr "<0>无限。</0>史上公开发表的最难数独，例如 Everest 和 AI Escargot，按公布的评级挑选，而不是按技巧区间划分，详见<1>无限数独专页</1>。"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Infinity</0> — {infinityCorpusSize} of the hardest puzzles ever published, chosen by their published SE rating of {infinityLowestRating} to {infinityHighestRating} rather than by a technique band, and past the reach of every technique on the ladder."
+msgstr "<0>无限</0>：{infinityCorpusSize} 道史上公开发表的最难题目，按公布的 SE 评级 {infinityLowestRating} 到 {infinityHighestRating} 挑选，而不是按技巧区间划分，超出了技巧阶梯上所有技巧的范围。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Medium.</0> Always stalls on singles and always yields to intersections and subsets — pointing pairs, box line reduction, naked and hidden pairs through quads."
+msgstr "<0>中等。</0>总会在单数上卡住，总能用区块摒除和数组继续，包括指向数对、宫线消解、显性和隐性数对直至四数组。"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Medium</0> — {mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets."
+msgstr "<0>中等</0>：{mediumClueCount} 个已知数字，保证单数用尽后卡住，需要用区块摒除和数组才能继续。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Naked Single</0> — a cell left with exactly one candidate."
+msgstr "<0>显性单数</0>：某个格子只剩下唯一的候选数字。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Newbie.</0> Solvable with full houses and naked singles alone."
+msgstr "<0>新手。</0>只用最后余格和显性单数就能解开。"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Newbie</0> — {newbieClueCount} clues, solved with full houses and naked singles alone."
+msgstr "<0>新手</0>：{newbieClueCount} 个已知数字，只用最后余格和显性单数就能解开。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Nightmare.</0> Always stalls on fish and wings and always yields to chain or coloring logic."
+msgstr "<0>噩梦。</0>总会在鱼形和翼形上卡住，总能用链或染色逻辑继续。"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Nightmare</0> — {nightmareClueCount} clues, guaranteed to stall on wings and to yield to chains and coloring."
+msgstr "<0>噩梦</0>：{nightmareClueCount} 个已知数字，保证翼形用尽后卡住，需要用链和染色才能继续。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Row rule.</0> Each of the nine rows must contain the digits 1 to 9 exactly once each."
+msgstr "<0>行规则。</0>九行中的每一行都必须恰好包含数字 1 到 9 各一次。"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "A board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier."
+msgstr "只用最后余格和显性单数的解题器就能做完的盘面，会因为对这一档来说太简单而被淘汰。"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "A board that needs a hidden single or anything harder is rejected and regenerated, never labelled Newbie."
+msgstr "需要隐性单数或更难技巧的盘面会被淘汰并重新生成，绝不会标成新手。"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "A chain follows an alternating sequence of strong and weak links between candidates, starting from one end and reasoning outward until the two ends prove an elimination no matter which of them turns out to be true. X-Chain does this with a single digit; XY-Chain walks a path of bivalue cells instead, changing digit at every step. Simple coloring assigns two alternating colours to a network of strong links on one digit and clears any candidate that can see both colours. AIC folds all of them into one technique, mixing digits and link types along a single continuous chain. The difference from a fish or a wing is not subtlety but shape: a wing is a fixed arrangement of three or four cells you learn to recognise, while a chain has no fixed size and has to be built move by move. Nightmare is capped at AIC — anything that still resists is beyond what the generated tiers will hand you."
+msgstr "链沿着候选数字之间强链和弱链交替的序列展开，从一端出发向外推理，直到无论哪一端成立，两端都能证明某个排除。X-Chain 只用一个数字；XY-Chain 则沿着一串双候选格前进，每一步都换一个数字。简单染色给同一数字上的强链网络交替涂上两种颜色，并清除能同时看到两种颜色的候选数字。AIC 把这一切合为一种技巧，在同一条连续的链上混用不同的数字和链接类型。它与鱼形或翼形的区别不在于巧妙，而在于形状：翼形是由三四个格子组成的固定图案，学会辨认即可；链没有固定大小，必须一步步搭建。噩梦以 AIC 为上限，任何仍然无法突破的题目，都超出了生成档位所提供的范围。"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A chain follows an alternating sequence of strong and weak links, starting from a candidate and working outward until it proves an elimination or a placement no matter which branch turns out to be true. X-Chain works on a single digit; XY-Chain follows a path of bivalue cells instead. Simple coloring assigns two alternating colours to a network of strong links on one digit and clears any candidate that sees both colours, and AIC generalises the whole family, mixing digits and cell types along one continuous chain. Hell starts where all of that runs out. A forcing chain assumes a candidate, a cell’s possibilities or a house’s placements, follows every consequence, and keeps only what holds in every branch — the <0>Nishio</0>, <1>cell</1> and <2>region forcing chain</2> pages walk through one of each. A board makes the Hell corpus only if its hardest step on the rating-optimal path is a forcing chain, and only if our ladder can still finish it, so no Hell board ever asks you to guess."
+msgstr "链沿着强链和弱链交替的序列展开，从某个候选数字出发向外推理，直到无论哪个分支成立，都能证明一个排除或一个填数。X-Chain 只用一个数字；XY-Chain 则沿着一串双候选格前进。简单染色给同一数字上的强链网络交替涂上两种颜色，并清除能同时看到两种颜色的候选数字，而 AIC 把整个家族统一起来，在同一条连续的链上混用不同的数字和格子类型。地狱从这一切都用尽的地方开始。强制链先假设某个候选数字、某个格子的可能值或某个区域的填数位置，追踪每一个后果，只保留在所有分支中都成立的结论，<0>Nishio</0>、<1>单元格</1>和<2>区域强制链</2>页面各演示了一个例子。只有当评级最优路径上最难的一步是强制链，并且我们的技巧阶梯仍能完成它时，一道题才会进入地狱题库，所以地狱盘面绝不会要求你猜。"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape and is built link by link, which is far easier to track by writing each strong and weak link down than by scrolling a small screen."
+msgstr "链没有固定形状，需要一环一环地搭建，把每条强链和弱链写下来，比在小屏幕上来回滚动容易追踪得多。"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape, which is why marking it in pencil helps more here than at the easier tiers."
+msgstr "链没有固定形状，所以在这里用铅笔做标记，比在较简单的档位更有帮助。"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape: it is built link by link, and the only way to keep track of it is to write it down. On paper you can mark each strong and weak link as you go, follow the alternation to the far end, and see immediately which cells both ends can see. That is genuinely awkward on a phone screen you have to scroll. It is also the booklet where a wrong elimination compounds worst: mark a candidate as gone that should have stayed, and every link after it is unsound, so treat the solution pages as a real checkpoint rather than a formality."
+msgstr "链没有固定形状：它是一环一环搭建起来的，想不丢线索，只能把它写下来。在纸上，你可以边推边标出每条强链和弱链，沿着交替顺序追到另一端，立刻看出两端都能看到哪些格子。这在需要来回滚动的手机屏幕上确实很别扭。这也是错误排除后果最严重的一本：把本该保留的候选数字划掉，之后的每一环都不再可靠，所以请把答案页当作真正的检查点，而不是走个形式。"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "A clue, or given, is a digit printed on the board before you start. A candidate is a digit you are still considering for a blank cell, based on what its row, column and box currently rule out."
+msgstr "已知数字（也叫给定数）是开局前就印在盘面上的数字。候选数字是你仍在考虑填入某个空格的数字，依据是它所在的行、列和宫目前已经排除了哪些数字。"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "A cover page states the puzzle and page counts up front, then {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page so a single sheet holds {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} complete grids. The last pages hold every solved grid at the same layout, so checking an answer never means hunting through a different page format. The whole file is vector graphics and a standard PDF font, so it prints cleanly at any size a printer supports. Our published sample of {sampleSize} Easy boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "封面会先列出题目数量和页数，随后是 {PRINTABLE_BOOKLET_SIZE} 道题，每页 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道，一张纸上就有 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 个完整盘面。最后几页以相同的版式列出所有答案，核对时不必翻找不同格式的页面。整个文件只含矢量图形和标准 PDF 字体，无论打印机支持多大的尺寸，都能清晰打印。我们公布的 {sampleSize} 道简单盘面样本，SE 评级为 {seRatingRange}，这些数字由<0>数独难度评级指南</0>直接测得，而不是凭空假设。"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "A digit confined to two cells of one box that also share a row or column. It can then be erased from the rest of that row or column, since one of those two cells must hold it."
+msgstr "某个数字被限定在一个宫内的两个格子里，而这两个格子又在同一行或同一列。这样就可以把它从该行或该列的其余格子里删掉，因为这两个格子之一必定填它。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "A finished grid satisfies all three at the same time. That overlap is what makes Sudoku solvable by logic: a digit that is already ruled out by its row, its column and its box has nowhere left to go, which is the basis of almost every solving technique. Every named technique on this site, from the simplest single to the longest chain, is ultimately just a more efficient way of tracking that overlap across many cells at once instead of one cell at a time."
+msgstr "填满的盘面要同时满足这三条规则。这种重叠让数独可以用逻辑解出：一个数字如果已被所在行、列和宫排除，就无处可去，这是几乎所有解题技巧的基础。本站的每一种命名技巧，从最简单的单数到最长的链，归根结底都只是一种更高效的方法，用来一次追踪许多格子之间的这种重叠，而不是一格一格地看。"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "A fish is easy to miss on a screen where only a handful of cells are visible at once, because the pattern lives in where one digit can go across two, three or four whole lines at the same time. On a full printed grid you can mark that digit’s remaining positions down a column and read the shape off the page. Wings need the opposite view — a few bivalue cells that see each other across the grid — and circling them in pencil makes the overlap obvious. Because both families are easy to apply incorrectly the first few times, checking your work against the solution pages at the back is worth doing every time until the shape becomes automatic."
+msgstr "在只能同时看到少数几个格子的屏幕上，鱼形很容易漏掉，因为这个图案体现在同一个数字在两条、三条或四条整行整列中可以填在哪里。在完整的打印盘面上，你可以沿着一列标出该数字剩余的位置，直接从纸上读出形状。翼形则需要相反的视角：几个在盘面上互相看到的双候选格，用铅笔圈出来，重叠就一目了然。这两类技巧最初几次都容易用错，所以每次都对照最后的答案页检查，直到形状变成本能。"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "A fish looks at one digit across several lines at once. The X-Wing is the smallest: a digit confined to the same two columns across two rows can be erased from the rest of those columns, because whichever row ends up holding it, the columns are already fixed. A <0>swordfish</0> stretches the same idea over three lines and a jellyfish over four. Finned and sashimi variants relax the base pattern by allowing one extra candidate that still supports a smaller, safe elimination once you account for it — and in our sample they fire far more often than the textbook shapes do. Wings work differently: an XY-Wing links three bivalue cells so a candidate shared between two of them can be erased wherever both can see, XYZ-Wing gives the pivot that candidate too, and W-Wing joins two matching bivalue cells through a strong link on one shared digit. Hard is capped at the W-Wing: a board that still will not move after every fish and wing has been tried is a Nightmare board, not a Hard one."
+msgstr "鱼形看的是一个数字在多条线上的分布。X-Wing 是最小的一种：某个数字在两行中都被限定在同样的两列里，就可以把它从这两列的其余格子里删掉，因为不管哪一行最终填了它，这两列都已确定。<0>Swordfish</0> 把同样的思路扩展到三条线，Jellyfish 则扩展到四条。Finned 和 Sashimi 变体放宽了基本图案，允许多出一个候选数字，只要把它考虑进去，仍能得到较小而安全的排除，而且在我们的样本中，它们出现的频率远高于教科书上的标准形状。翼形的原理不同：XY-Wing 连接三个双候选格，使两个格子共有的候选数字可以从两者都能看到的位置删除；XYZ-Wing 让枢纽格也含有该候选数字；W-Wing 则通过某个共有数字上的一条强链，连接两个相同的双候选格。困难以 W-Wing 为上限：试遍所有鱼形和翼形后仍然动不了的盘面，属于噩梦，而不是困难。"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "A fish spans whole rows or columns at once, which is easier to trace by marking a digit’s remaining positions down a printed column than by scrolling a screen. Wings need the opposite view — a few bivalue cells seen at a glance."
+msgstr "鱼形横跨整行或整列，沿着打印出来的一列标出某个数字的剩余位置，比在屏幕上滚动更容易追踪。翼形则需要相反的视角：一眼就能看到的几个双候选格。"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A forcing chain, on every board, layered on top of the chains, coloring, fish, wings and subsets the earlier tiers already require. X-Chain, XY-Chain, Simple Coloring and AIC will carry you far, but never all the way through; a <0>Nishio forcing chain</0> is the usual way to break the deadlock."
+msgstr "每个盘面都叠加了强制链，再加上前几档已经要求的链、染色、鱼形、翼形和数组。X-Chain、XY-Chain、简单染色和 AIC 能带你走很远，但永远走不到终点；<0>Nishio 强制链</0>通常是打破僵局的办法。"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "A Hard board from the same generator the app uses. Play it right here."
+msgstr "来自应用所用同一生成器的困难盘面，就在这里直接玩。"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A Hell board from the same verified corpus the app uses. Play it right here."
+msgstr "来自应用所用同一已验证题库的地狱盘面，就在这里直接玩。"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "A Medium board from the same generator the app uses. Play it right here."
+msgstr "来自应用所用同一生成器的中等盘面，就在这里直接玩。"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "A Newbie board from the same generator the app uses. Play it right here."
+msgstr "来自应用所用同一生成器的新手盘面，就在这里直接玩。"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "A Nightmare board from the same generator the app uses. Play it right here."
+msgstr "来自应用所用同一生成器的噩梦盘面，就在这里直接玩。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "A well-formed puzzle always has exactly one solution and never requires a guess."
+msgstr "一道规范的数独有且仅有一个解，也不需要猜测。"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "A well-formed Sudoku never does. If a puzzle has more than one valid completion it is considered broken, because logic alone can no longer point to a single answer."
+msgstr "规范的数独不会出现这种情况。如果一道题有多于一种有效的填法，就被视为有缺陷的题目，因为仅靠逻辑已无法指出唯一的答案。"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "About"
+msgstr "关于"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "After that, look at a single blank cell and cross off every digit that already appears in its row, its column and its box. If only one digit survives, that is a <0>naked single</0>, and it can be placed immediately. If a cell still has several candidates left, check whether one of those candidates cannot go anywhere else in the same unit — that is a <1>hidden single</1>, and it is just as safe to place. Together these two patterns solve most of an easy puzzle without any deeper reasoning."
+msgstr "接下来，看某一个空格，划掉它所在行、列和宫中已经出现的每个数字。如果只剩下一个数字，那就是<0>显性单数</0>，可以立刻填入。如果一个格子仍有多个候选数字，就检查其中某个候选数字在同一单元的其他位置是否都不能填，那就是<1>隐性单数</1>，同样可以放心填入。这两种模式合起来，不需要更深的推理就能解出大部分简单数独。"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Also the source tier for the large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles."
+msgstr "同时也是大字号 PDF 的来源档位，抽样 {PRINTABLE_LARGE_PRINT_SIZE} 道题。"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "An almost-fish: the rows or columns line up as an X-Wing or <0>swordfish</0> except for one or two extra candidates, the fin. The elimination still holds, but only in the cells that both the fish and the fin can see."
+msgstr "近似的鱼形：行或列排成 X-Wing 或 <0>Swordfish</0> 的样子，只是多出一两个候选数字，也就是鳍。排除仍然成立，但只限于鱼形和鳍都能看到的格子。"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "An Easy board from the same generator the app uses. Play it right here."
+msgstr "来自应用所用同一生成器的简单盘面，就在这里直接玩。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "An Easy board to start with. Play it right here, or pick any of seven difficulty levels in the app."
+msgstr "先从一道简单盘面开始，就在这里直接玩，或者在应用中选择七个难度等级中的任意一个。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "An Infinity record puzzle from the same curated set the app uses, reshuffled. Play it right here."
+msgstr "来自应用所用同一精选题集的无限纪录题目，已重新洗牌，就在这里直接玩。"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "An intersection or a pair only becomes visible once you can see every remaining candidate in a row, column or box at a glance, which is why paper genuinely helps here more than a screen does: write small digits in the corner of each blank cell, then scan a line for a digit trapped inside one box, or two cells sharing exactly two candidates between them. Neither pattern places a digit by itself — each one only removes candidates — so expect to mark a few eliminations before a fresh naked single actually appears. Working in pencil rather than pen means a wrong mark costs nothing to erase."
+msgstr "交叉区块或数对，只有当你能一眼看清某一行、某一列或某个宫内所有剩余的候选数字时才会显现，所以在这里纸张确实比屏幕更有帮助：在每个空格的角落写上小数字，然后扫视一行，找出被困在一个宫内的数字，或是两个格子之间恰好共有两个候选数字的情形。这两种模式本身都不会直接填数，每一种只会删除候选数字，所以在出现新的显性单数之前，要准备好先标出几个排除。用铅笔而不是钢笔，写错了也能轻松擦掉。"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "An intersection technique works on the overlap between one box and one row or column. A pointing pair or pointing triple finds a digit confined to two or three cells of a box that all share a line, and erases it from the rest of that line; box line reduction is the mirror image, working from a line back into a box. Naked and hidden pairs are the entry point to subset reasoning: two cells that share exactly two candidates, or two digits that fit in exactly two cells of a unit, either way locking those two cells away from everything else in it. None of these place a digit outright — they only eliminate candidates — but at {clueCount} clues a Medium puzzle always has at least one waiting, and it is usually enough to unlock a fresh naked single a move or two later. The tier is capped at the other end too: nothing in it ever needs a fish, a wing or a chain, because a board that does is promoted to Hard instead."
+msgstr "交叉区块技巧作用于一个宫与一行或一列的重叠部分。指向数对或指向三数组找出被限定在宫内两个或三个格子里、且这些格子在同一条线上的数字，并把它从那条线的其余位置删掉；宫线消解则是镜像操作，从一条线反过来作用于宫。显性和隐性数对是数组推理的入口：要么两个格子恰好共有两个候选数字，要么两个数字恰好只能填在一个单元的两个格子里，无论哪种，都把这两个格子与单元中的其他位置隔离开。这些技巧都不会直接填数，只会删除候选数字，但在 {clueCount} 个已知数字的情况下，中等盘面总会有至少一个等着你，通常一两步之后就能解锁新的显性单数。这一档在另一端也有上限：这里的题目从不需要鱼形、翼形或链，因为需要它们的盘面会被升级到困难。"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Anywhere from {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT}. Hell does not use clue count to choose its puzzles; a board qualifies by needing a forcing chain, whatever its number of givens."
+msgstr "从 {HELL_CORPUS_MINIMUM_GIVEN_COUNT} 到 {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} 个都有。地狱不用已知数字的多少来挑题；只要盘面需要强制链，不管已知数字有几个，都符合条件。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Are the solutions included?"
+msgstr "答案包含在内吗？"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Are these 17-clue puzzles?"
+msgstr "这些是 17 个已知数字的题目吗？"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Arto Inkala’s Everest (2010), 21 givens, published at SE 11.9."
+msgstr "Arto Inkala 的 Everest（2010），21 个已知数字，公布的 SE 评级为 11.9。"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "At {clueCount} clues out of 81 cells, this booklet is the first one worth solving with a pencil. Singles carry a Medium grid part of the way, but every puzzle in it provably stalls on them — that is the test each board had to fail to be printed here — until you spot a <0>pointing pair</0> or a <1>box-line reduction</1>, an intersection between a box and a line that only eliminates candidates, never places a digit outright. Nothing in the booklet needs a fish, a wing or a chain."
+msgstr "{clueCount} 个已知数字（共 81 格），这本册子是第一本值得拿起铅笔来解的。单数能带着中等盘面走一段路，但本册中的每一道题都可以证明会在单数上卡住，这正是每个盘面必须通过才能收录的检验，直到你发现一个<0>指向数对</0>或<1>宫线消解</1>，也就是宫与线之间的交叉区块，它只会删除候选数字，绝不会直接填数。册子里没有任何一道题需要鱼形、翼形或链。"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "At least one <0>hidden single</0> per puzzle, on top of the full houses and naked singles Newbie already uses, and nothing harder."
+msgstr "每道题至少需要一次<0>隐性单数</0>，同时用到新手已经用到的最后余格和显性单数，不需要更难的技巧。"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "At least one <0>pointing pair</0>, <1>box-line reduction</1>, or a naked or hidden pair, on top of the singles the easier booklets already use. Nothing needs a fish, a wing or a chain."
+msgstr "每道题至少需要一次<0>指向数对</0>、<1>宫线消解</1>，或显性、隐性数对，同时用到较简单的册子已经用到的单数。没有任何一道题需要鱼形、翼形或链。"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "At least one chain or coloring technique — <0>swordfish</0>-level fish and <1>XY-Wing</1>-level wings are not enough on their own — on top of every fish and wing the Hard tier already needs."
+msgstr "至少需要一种链或染色技巧，仅靠 <0>Swordfish</0> 级别的鱼形和 <1>XY-Wing</1> 级别的翼形还不够，同时还要用到困难档位已经需要的所有鱼形和翼形。"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "At least one fish (<0>X-Wing</0> and its larger and finned relatives) or one bivalue wing pattern, on top of every intersection and subset the easier booklets already need."
+msgstr "至少需要一种鱼形（<0>X-Wing</0> 及其更大的和带鳍的变体）或一种双候选翼形，同时用到较简单的册子已经需要的所有交叉区块和数组。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Blank sudoku grid"
+msgstr "空白数独格"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Blank Sudoku Grid"
+msgstr "空白数独格"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Boards that need a forcing chain are rare and expensive to search for on demand, so Suuudokuuu ships a bundled corpus that has already been checked by a Dancing Links exact-cover solver and a bitmask solver, rated, and filtered to forcing-chain boards before it is packed."
+msgstr "需要强制链的盘面很罕见，现场搜索的代价也很高，所以 Suuudokuuu 内置了一个题库：题目都已由 Dancing Links 精确覆盖解题器和位掩码解题器检查过、评过级，并在打包之前筛选出强制链盘面。"
+
+#: src/seo/components/breadcrumbs/breadcrumbs.tsx
+msgid "Breadcrumb"
+msgstr "面包屑导航"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Can a Sudoku have two solutions?"
+msgstr "数独可以有两个解吗？"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Can I play AI Escargot and Everest here?"
+msgstr "我能在这里玩 AI Escargot 和 Everest 吗？"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Can I print this Newbie booklet in large print?"
+msgstr "这本新手册子可以用大字号打印吗？"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Can I use them in a classroom?"
+msgstr "可以在课堂上使用吗？"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Chain and coloring techniques: X-Chain, XY-Chain, simple coloring and AIC."
+msgstr "链和染色技巧：X-Chain、XY-Chain、简单染色和 AIC。"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Chains falling into place? The <0>printable Hell sudoku booklet</0> is the last tier, where every puzzle needs a forcing chain. Step back to <1>printable Hard sudoku</1> for fish and wings only, or play Nightmare on a screen at the <2>Nightmare sudoku lander</2>."
+msgstr "链开始顺了吗？<0>可打印地狱数独册子</0>是最后一档，每道题都需要强制链。想退回只用鱼形和翼形的难度，请看<1>可打印困难数独</1>，也可以在屏幕上到<2>噩梦数独专页</2>继续玩噩梦。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Check every row, column and box for one that already has eight of its nine cells filled, and place the missing digit in the empty one."
+msgstr "检查每一行、每一列和每一宫，找出九个格子中已经填了八个的，把缺的数字填进那个空格。"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Cleared a few Nightmare boards? <0>Hell Sudoku</0> is the last tier, where every board needs a forcing chain. Step back to <1>Hard Sudoku</1> if fish and wings still feel unreliable. Prefer paper? Download the <2>printable Nightmare sudoku booklet</2>. Browse the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "通关了几道噩梦盘面？<0>地狱数独</0>是最后一档，每个盘面都需要强制链。如果鱼形和翼形还不够稳，可以退回<1>困难数独</1>。更喜欢纸质？下载<2>可打印噩梦数独册子</2>。还可以浏览<3>技巧索引</3>、<4>数独怎么玩指南</4>，在<5>数独难度等级</5>总览页查看所有难度，或者回到<6>首页</6>。"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Clue count is not the difficulty. It is only the input: fewer starting digits mean fewer immediate placements, which forces the solver — human or machine — to reach for a wider set of named techniques before the grid moves again. Suuudokuuu strips digits from a solved grid down to a per-tier target, verifies the result still has exactly one solution, and then does the part that actually defines the tier: it solves the candidate twice, once with the technique ladder of the tier below and once with its own, and keeps the board only if the first solve fails and the second succeeds. Boards that miss are discarded and a fresh one is generated. That is why each tier above is stated as a guarantee rather than a hope. The <0>full technique index</0> lists every pattern that ladder contains, in the order a solver tries them. Within a band two boards can still differ a lot — <1>clues versus difficulty</1> measures exactly how much."
+msgstr "已知数字不等于难度。它只是输入条件：开局的数字越少，能直接填的地方就越少，不管是人还是机器，都得动用更多命名技巧才能让盘面继续推进。Suuudokuuu 从一个解完的盘面中按每档的目标数量去掉数字，确认结果仍然恰好只有一个解，然后做真正决定档位的一步：用下一档以下的技巧阶梯和本档的技巧阶梯各解一次，只有第一次解不出来、第二次解得出来，才保留这个盘面。不符合的盘面会被丢弃，重新生成一个。这就是为什么上面每一档都是保证，而不是期望。<0>完整技巧索引</0>按解题器尝试的顺序列出了这条阶梯上的每一种模式。即便在同一个区间内，两个盘面的差别也可能很大，<1>已知数字与难度</1>精确地测量了差多少。"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Clues versus difficulty"
+msgstr "已知数字与难度"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Comfortable spotting intersections and subsets? Move up to <0>Hard Sudoku</0>, where a fish or a wing is always required, or drop back to <1>Easy Sudoku</1> to revisit singles. Prefer paper? Download the <2>printable Medium sudoku booklet</2>. Browse the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "熟练掌握交叉区块和数组了吗？可以升级到<0>困难数独</0>，那里一定需要鱼形或翼形；也可以退回<1>简单数独</1>复习单数。更喜欢纸质？下载<2>可打印中等数独册子</2>。还可以浏览<3>技巧索引</3>、<4>数独怎么玩指南</4>，在<5>数独难度等级</5>总览页查看所有难度，或者回到<6>首页</6>。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Cross off candidates cell by cell"
+msgstr "逐格划掉候选数字"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Daily sudoku"
+msgstr "每日数独"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Default text size"
+msgstr "默认字号"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Difficulty"
+msgstr "难度"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Difficulty guides"
+msgstr "难度指南"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Difficulty levels"
+msgstr "难度等级"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Difficulty rating"
+msgstr "难度评级"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Do Easy puzzles ever need pencil marks?"
+msgstr "简单盘面需要笔记标记吗？"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Do I need pen and paper to solve Sudoku?"
+msgstr "解数独需要纸和笔吗？"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Do I need pencil marks for Newbie puzzles?"
+msgstr "新手盘面需要笔记标记吗？"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Do Infinity puzzles have a unique solution?"
+msgstr "无限盘面有唯一解吗？"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Do Nightmare puzzles ever need guessing?"
+msgstr "噩梦盘面需要猜吗？"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Do not scan for the hardest cell first. Start by looking for the easiest possible placements, because clearing those first makes every later cell easier too."
+msgstr "不要先去找最难的格子。先找最容易填的位置，因为先把这些填掉，后面的每一格也会更容易。"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Do you ever have to guess?"
+msgstr "解数独需要猜吗？"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Does {SITE_NAME} have ads?"
+msgstr "{SITE_NAME} 有广告吗？"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Does a low clue count make these puzzles hard?"
+msgstr "已知数字少，这些题就难吗？"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Does a lower clue count always mean a harder puzzle?"
+msgstr "已知数字越少，盘面一定越难吗？"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Does it work offline?"
+msgstr "可以离线使用吗？"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Does Suuudokuuu offer a large-print version of this booklet?"
+msgstr "Suuudokuuu 提供这本册子的大字号版本吗？"
+
+#: src/printable/components/printable-download-card/printable-download-card.tsx
+msgid "Download {title} (PDF)"
+msgstr "下载{title}（PDF）"
+
+#: src/chrome/components/store-badges/store-badges.tsx
+msgid "Download on the App Store"
+msgstr "在 App Store 下载"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Download the PDF and open it in any PDF reader, then print at 100% scale on US Letter paper. Every grid is drawn with vector lines and standard PDF fonts, so there is nothing to rasterize and no quality loss at any print size."
+msgstr "下载 PDF 后用任意 PDF 阅读器打开，在 US Letter 纸张上按 100% 比例打印。每个盘面都由矢量线条和标准 PDF 字体绘制，无需栅格化，任何打印尺寸都不会损失画质。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Each game reshuffles the grid, so a familiar record puzzle never looks the same twice."
+msgstr "每局都会重新洗牌，所以即使是熟悉的纪录级题目，看起来也不会两次一样。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Each tier links to a full page with a live puzzle preview and the honest difficulty facts from our <0>sudoku difficulty rating guide</0>. The PDF itself only ever needs a printer."
+msgstr "每个难度档位都链接到完整的页面，其中有可在线玩的题目预览，以及来自我们<0>数独难度评级指南</0>的真实难度数据。PDF 本身只需要一台打印机。"
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Easier difficulty"
+msgstr "较简单的难度"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Easy"
+msgstr "简单"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy boards carry {clueCount} clues and are guaranteed to need at least one hidden single and nothing harder."
+msgstr "简单盘面有 {clueCount} 个已知数字，保证至少需要一次隐性单数，且不需要更难的技巧。"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Easy is the booklet people reach for when they want to finish a puzzle without stopping to think hard about it — on a train, over a coffee break, or as a wind-down before bed. Every deduction still reads off the board rather than off a candidate grid, so there is rarely a reason to write a candidate in the margin; the hidden single asks you to scan a whole unit rather than one cell, which is a change of habit and not of difficulty. That makes it a natural size for printing several at once and working through a small stack over a week, since no single puzzle demands the concentration a Medium or Hard grid does."
+msgstr "简单册子适合想轻松做完一道题、不用费力思考的人，比如在火车上、喝咖啡的休息时间，或是睡前放松。每一步推理依然直接从盘面上读出，而不必借助候选数字表，所以很少需要在页边写候选数字；隐性单数要求你扫视整个单元而不是单个格子，这改变的是习惯，而不是难度。因此它很适合一次打印几份，一周内慢慢做完一小叠，因为没有哪道题需要中等或困难盘面那样的专注。"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy is the first tier where Suuudokuuu expects a genuine, if gentle, solve. An Easy board carries {clueCount} clues out of 81 cells, a handful fewer than Newbie. Full houses and naked singles still clear most of the grid, but never all of it: at least one cell always needs a <0>hidden single</0>, where a digit fits only one cell of a row, column or box even though that cell still shows other candidates. That one extra pattern is the entire step up from Newbie to Easy, and it is a guarantee rather than a tendency: a board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier, and a board that needs anything past the hidden single is rejected as too hard."
+msgstr "简单是 Suuudokuuu 期望你真正动脑解题的第一档，虽然难度温和。简单盘面在 81 个格子中有 {clueCount} 个已知数字，比新手少几个。最后余格和显性单数仍能解开大部分盘面，但不是全部：总有至少一个格子需要<0>隐性单数</0>，即某个数字在一行、一列或一宫中只能填入一个格子，尽管那个格子仍显示其他候选数字。从新手到简单，只多了这一种模式，而且这是保证，不是倾向：只用最后余格和显性单数的解题器就能做完的盘面，会因为对这一档来说太简单而被淘汰；需要比隐性单数更难技巧的盘面，则会因太难而被淘汰。"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy sits at the bottom of the SE (Sudoku Explainer) scale alongside Newbie: our sample of {sampleSize} boards measures SE {seRatingRange}. The two tiers share a range because SE prices a hidden single at 1.5, below a naked single at 2.3 — so the technique that defines Easy is, by that scale, cheaper than the one that defines Newbie. What genuinely changes is where you have to look: a naked single is read off one cell, a hidden single off a whole unit. It suits players who have cleared a few Newbie boards and want a puzzle that takes noticeably longer to finish."
+msgstr "简单与新手一起位于 SE（Sudoku Explainer）量表的底部：我们的 {sampleSize} 道盘面样本测得 SE {seRatingRange}。这两档共用一个区间，是因为 SE 给隐性单数定价 1.5，低于显性单数的 2.3，所以按这个量表，定义简单的技巧比定义新手的技巧还要便宜。真正改变的是你要看的地方：显性单数只看一个格子，隐性单数则要看整个单元。它适合已经做完几道新手盘面、想要一道明显更耗时的题的玩家。"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Easy starts at {clueCount} clues, six below Newbie, and adds exactly one technique: every puzzle in this booklet needs at least one <0>hidden single</0>, and none of them needs anything harder. That single extra pattern is what makes this the booklet people print for a relaxed coffee-break solve rather than a teaching aid. It is also the source tier for our large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles for readers who want bigger cells."
+msgstr "简单从 {clueCount} 个已知数字开始，比新手少六个，并且恰好多了一种技巧：本册中的每道题都至少需要一次<0>隐性单数</0>，且都不需要更难的技巧。正是这一种额外的模式，让这本册子成为人们打印出来在咖啡时间轻松解题的选择，而不是教学材料。它也是我们大字号 PDF 的来源档位，为需要更大格子的读者抽样 {PRINTABLE_LARGE_PRINT_SIZE} 道题。"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy stays within singles-only logic, so it is still beginner-friendly. The only added skill over Newbie is spotting a digit that fits nowhere else in a unit."
+msgstr "简单只用到单数逻辑，因此对初学者仍然友好。相比新手，唯一多出来的技能，就是发现某个数字在一个单元里再没有别处可填。"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Easy Sudoku"
+msgstr "简单数独"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy Sudoku FAQ"
+msgstr "简单数独常见问题"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Every board is checked for exactly one solution by two independent solving algorithms."
+msgstr "每个盘面都由两种相互独立的解题算法检验，确认恰好只有一个解。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every booklet below is a free printable sudoku PDF built from the same puzzle sources the app plays — its generator and technique detectors, and for Hell and Infinity its bundled, verified corpora. Pick a difficulty for a {PRINTABLE_BOOKLET_SIZE}-puzzle booklet with solutions on the last pages, or grab the large-print set or a blank sudoku grid below. No sign-up, no ads, no watermark."
+msgstr "下面每本册子都是免费的可打印数独 PDF，使用与应用相同的题目来源，也就是它的生成器和技巧检测器，地狱与无限则来自内置的已验证题库。选择一个难度，即可得到一本 {PRINTABLE_BOOKLET_SIZE} 道题的册子，最后几页附有答案；也可以在下面获取大字号套装或空白数独格。无需注册，没有广告，没有水印。"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Every candidate board is solved twice: once with the tier below’s technique ladder, which must fail, and once with its own ladder, which must succeed. Boards that miss either test are discarded and regenerated."
+msgstr "每个候选盘面都要解两次：一次用下一档以下的技巧阶梯，必须解不出来；一次用本档自己的阶梯，必须解得出来。任何一项不符的盘面都会被丢弃并重新生成。"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Every Hell board needs a forcing chain: none can be solved with the techniques Nightmare allows, up to AIC."
+msgstr "每个地狱盘面都需要强制链：用噩梦允许的技巧（最高到 AIC）都解不出来。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every level is free to play, with no ads and no sign-up. <0>Play a puzzle now</0> at any of the seven levels, or read the full breakdown of clue counts and required techniques on the <1>Sudoku difficulty levels</1> hub. Learning on paper? Start with the <2>printable Newbie sudoku PDF</2>."
+msgstr "每个等级都可以免费玩，没有广告，无需注册。在七个等级中任选一个，<0>立即玩一道题</0>，或到<1>数独难度等级</1>总览页查看每一档已知数字和所需技巧的完整说明。想在纸上学？从<2>可打印新手数独 PDF</2>开始。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every named technique is a faster way of tracking the same row, column and box overlap across many cells at once."
+msgstr "每一种命名技巧，都是同时追踪许多格子之间相同的行、列和宫重叠关系的更快方法。"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Every Newbie board is rated on the SE (Sudoku Explainer) scale the moment it is created. Our published sample of {sampleSize} Newbie boards measures SE {seRatingRange} — the very bottom of a scale that runs to 12, and below what most SE-based charts even bother to name. Newbie exists to teach the row-column-box overlap that every later technique builds on, not to test it. The measured range for this tier and every other is published in our <0>sudoku difficulty rating guide</0>. Treat a fast, mistake-free Newbie solve as confirmation you’re ready for Easy, not as a benchmark worth chasing for its own sake."
+msgstr "每个新手盘面一生成就会按 SE（Sudoku Explainer）量表评级。我们公布的 {sampleSize} 道新手盘面样本测得 SE {seRatingRange}，处在最高到 12 的量表最底端，低到大多数基于 SE 的图表甚至懒得命名。新手的作用是教会后面所有技巧都要依赖的行、列、宫重叠关系，而不是考查它。每个档位的实测范围，都公布在我们的<0>数独难度评级指南</0>中。把又快又无错地做完一道新手盘面，当作你已准备好挑战简单的证明，而不是值得为此追求的基准。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every PDF is set to US Letter and drawn with vector lines and text, so it prints crisply at any size. Open the file, print at 100% scale (not “fit to page”, which can distort the grid on some printers), and print single-sided if you want to keep the solutions on separate sheets from the puzzles."
+msgstr "每份 PDF 都设为 US Letter 尺寸，用矢量线条和文字绘制，因此任何尺寸都能清晰打印。打开文件，按 100% 比例打印（不要选“适应页面”，在某些打印机上可能使盘面变形）；如果想让答案与题目分开在不同纸张上，就选择单面打印。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every puzzle guaranteed to have exactly one solution, no guessing required"
+msgstr "每道题都保证恰好只有一个解，无需猜测"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle in this booklet comes from a bundled corpus that Suuudokuuu checks with two independent solving algorithms — a Dancing Links exact-cover solver and a typed-array bitmask solver — before it ships, so each grid is confirmed to have exactly one solution. The corpus draws from the tdoku project’s 17-clue catalog and the magictour top1465 hard-puzzle list, and each puzzle is also solved logically and rated on the SE scale as the corpus is packed. Only boards whose hardest step is a forcing chain survive; anything that falls to a chain, coloring or AIC is dropped, because neither the clue count nor the source list alone would be enough to promise a Hell puzzle. Every survivor still solves on our technique ladder without guessing, so every puzzle here is guaranteed solvable by logic before you ever pick up a pencil."
+msgstr "本册中的每道题都来自内置题库，Suuudokuuu 在发布前用两种相互独立的解题算法检验过：Dancing Links 精确覆盖解题器和类型化数组位掩码解题器，因此每个盘面都确认恰好只有一个解。题库取材于 tdoku 项目的 17 个已知数字题库和 magictour top1465 难题榜单，打包时每道题还会经过逻辑求解并按 SE 量表评级。只有最难一步是强制链的盘面才能保留；凡是用链、染色或 AIC 就能解开的都被剔除，因为仅凭已知数字的多少或来源榜单，都不足以保证是一道地狱题。保留下来的每一道仍能在我们的技巧阶梯上不靠猜测解出，所以这里的每道题，在你拿起铅笔之前，就保证可以靠逻辑解出。"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle in this booklet needs a forcing chain: none can be finished with the techniques Nightmare allows, and each is drawn from our bundled and independently verified Hell corpus rather than generated fresh. Our published sample of {sampleSize} boards measures the tier at SE {seRatingRange}, with the <0/> as the most common hardest step. See the <1>17-clue guide</1> for why the clue count is not what makes them hard."
+msgstr "本册中的每道题都需要强制链：用噩梦允许的技巧都做不完，且每道题都取自我们内置、经独立验证的地狱题库，而不是现场生成。我们公布的 {sampleSize} 道盘面样本测得本档为 SE {seRatingRange}，最常见的最难一步是 <0/>。已知数字的多少并不是它们难的原因，详见<1>17 个已知数字指南</1>。"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle needs a forcing chain, drawn from a bundled and independently verified corpus of boards with {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues."
+msgstr "每道题都需要强制链，取自内置、经独立验证的题库，已知数字为 {HELL_CORPUS_MINIMUM_GIVEN_COUNT} 到 {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} 个。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every puzzle needs a forcing chain, drawn from our bundled, verified Hell corpus. See the <0>Hell sudoku lander</0> to play it digitally."
+msgstr "每道题都需要强制链，取自我们内置的已验证地狱题库。想在线玩，请看<0>地狱数独专页</0>。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every Sudoku rule is really the same constraint applied to three different kinds of unit. Learn the constraint once and you already know all three rules."
+msgstr "每一条数独规则其实都是同一个约束，作用在三种不同的单元上。学会这个约束，就等于懂了全部三条规则。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every technique {SITE_NAME} uses to generate hints is documented with a worked example board pulled straight from the solving engine. Start with the <0>full technique index</0>, or jump into one of the first patterns most players learn."
+msgstr "{SITE_NAME} 用来生成提示的每一种技巧，都有一个直接取自解题引擎的实例盘面作详细说明。从<0>完整技巧索引</0>开始，或者直接看大多数玩家最先学会的几种模式。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every tier from Newbie to Infinity now has its own guide, breaking down exactly what separates one level from the next — clue counts, required techniques and an honest read on how hard each one really is. Start on the <0>Sudoku difficulty levels</0> hub, or see how it compares to the <1>hardest puzzles</1> ever published."
+msgstr "从新手到无限，每一档现在都有自己的指南，清楚说明各个等级之间的区别：已知数字的多少、所需技巧，以及对每一档到底有多难的坦率评价。从<0>数独难度等级</0>总览页开始，或者看看它与史上公开发表的<1>最难数独</1>相比如何。"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Everything Medium needs, plus at least one fish or wing pattern: X-Wing, swordfish, jellyfish, their finned and sashimi variants, XY-Wing, XYZ-Wing or W-Wing. One of those is always required, because a board that does not need one is graded Medium instead."
+msgstr "包含中等所需的一切，另外至少需要一种鱼形或翼形：X-Wing、Swordfish、Jellyfish、它们的 Finned 和 Sashimi 变体、XY-Wing、XYZ-Wing 或 W-Wing。这些总有一种是必需的，因为不需要它们的盘面会被评为中等。"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Exactly one technique. Every Newbie board can be finished with full houses and naked singles; every Easy board provably cannot, and needs at least one hidden single to break the deadlock."
+msgstr "恰好一种技巧。每个新手盘面都能只用最后余格和显性单数做完；每个简单盘面可以证明做不完，至少需要一次隐性单数来打破僵局。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Fill every empty cell with a digit from 1 to 9 so that no digit repeats in a row, a column or a 3×3 box."
+msgstr "在每个空格里填入 1 到 9 的数字，使每一行、每一列和每个 3×3 的宫里都没有重复的数字。"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Finished a Hell board and want more? <0>Infinity Sudoku</0> serves the record puzzles — Everest, Platinum Blonde, AI Escargot — that sit past even our forcing chains. Not ready for chains yet? Step back to <1>Nightmare Sudoku</1>, which asks for the same reasoning with more of the grid already filled in. Prefer paper? Download the <2>printable Hell sudoku PDF</2>. Browse the <3>technique index</3>, especially X-Chain, XY-Chain, Simple Coloring and AIC, the <4>how to play guide</4>, the <5>17-clue sudoku guide</5>, every tier on the <6>Sudoku difficulty levels</6> hub, or head <7>home</7>."
+msgstr "做完了一道地狱盘面还想要更多？<0>无限数独</0>提供纪录级题目，Everest、Platinum Blonde、AI Escargot，它们甚至超出了我们的强制链。还没准备好挑战链？退回<1>噩梦数独</1>，它要求同样的推理，但盘面上已经填了更多数字。更喜欢纸质？下载<2>可打印地狱数独 PDF</2>。还可以浏览<3>技巧索引</3>，尤其是 X-Chain、XY-Chain、简单染色和 AIC，以及<4>数独怎么玩指南</4>、<5>17 个已知数字数独指南</5>，在<6>数独难度等级</6>总览页查看所有难度，或者回到<7>首页</7>。"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Fish patterns: X-Wing, swordfish, jellyfish and their finned and sashimi variants. Wing patterns: XY-Wing, XYZ-Wing and W-Wing."
+msgstr "鱼形：X-Wing、Swordfish、Jellyfish 及其 Finned 和 Sashimi 变体。翼形：XY-Wing、XYZ-Wing 和 W-Wing。"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Footer"
+msgstr "页脚"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "For each remaining blank cell, rule out every digit already used in its row, column and box. If exactly one digit is left, place it."
+msgstr "对每个剩下的空格，排除其所在行、列和宫中已经用过的数字。如果恰好剩下一个数字，就把它填进去。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "For each unit with several blank cells, check whether a digit that is still missing from the unit only fits in one of them, even if that cell has other candidates too."
+msgstr "对每个有多个空格的单元，检查该单元中仍缺少的某个数字是否只能填入其中一个格子，即使那个格子还有其他候选数字。"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "依据 {SITE_LICENSE} 许可证免费开源。游戏内没有广告，无需账号，没有跟踪，请阅读<0>原因</0>，或浏览 <1>GitHub 上的完整源代码</1>。Apple 和 Apple 标志是 Apple Inc. 在美国及其他国家和地区注册的商标。App Store 是 Apple Inc. 的服务标记。Google Play 和 Google Play 标志是 Google LLC 的商标。"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free offline Sudoku for iOS, Android and the web"
+msgstr "支持 iOS、Android 和网页的免费离线数独"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, open-source implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve on the web or install the app, then keep the same streaks and stats everywhere. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "免费在线数独指的是在浏览器或应用中玩经典的 9×9 数字谜题，无需购买，没有安装限制，也没有付费墙，而 {SITE_NAME} 就是它的一个免费开源实现：从新手到无限共七个难度等级，附带技巧讲解指南，游戏内没有广告和跟踪。可以在网页上解题，也可以安装应用，并在各处保留同样的连续记录和统计。完整、可验证的说明，请看<0>{SITE_NAME} 为什么这样构建</0>。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Free, open-source, no ads"
+msgstr "免费、开源、无广告"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Frequently asked questions"
+msgstr "常见问题"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Full House and Naked Single are the first two strategies Suuudokuuu’s solving engine tries on every board at every difficulty, because they are the cheapest deductions to verify. What sets Newbie apart is that the tier is defined as the boards that never need anything else. Strip more digits and a solver eventually stalls without hidden singles, intersections or subsets, and the generator throws those boards back rather than labelling them Newbie. If you can read a row and name the one digit missing from it, you already have every skill a Newbie puzzle asks for."
+msgstr "最后余格和显性单数，是 Suuudokuuu 的解题引擎在任何难度的每个盘面上最先尝试的两种策略，因为它们是验证成本最低的推理。新手的特别之处在于，这一档被定义为永远不需要其他技巧的盘面。再去掉更多数字，没有隐性单数、交叉区块或数组，解题器最终就会卡住，生成器会把这样的盘面退回，而不是标为新手。只要你能读一行，并说出缺少的那个数字，你就已经具备了新手盘面要求的全部技能。"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Full houses and naked singles still clear most of the grid; the hidden single is the one addition over Newbie."
+msgstr "最后余格和显性单数仍能解开大部分盘面；相比新手，唯一增加的就是隐性单数。"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Full houses and singles as a baseline, plus pointing pairs, pointing triples, box line reduction and the naked or hidden subsets up to quads whenever singles run dry. At least one of those is always required, and nothing harder ever is."
+msgstr "以最后余格和单数为基础，每当单数用尽时，再加上指向数对、指向三数组、宫线消解，以及直到四数组的显性或隐性数组。这些总有至少一种是必需的，并且永远不会需要更难的技巧。"
+
+#: src/chrome/components/store-badges/store-badges.tsx
+msgid "Get it on Google Play"
+msgstr "在 Google Play 上获取"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Getting started"
+msgstr "入门"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Good for a first sudoku habit"
+msgstr "适合养成数独习惯"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Good for a relaxed solve"
+msgstr "适合轻松解题"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hard"
+msgstr "困难"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard boards carry {clueCount} clues and are guaranteed to need at least one fish or wing pattern beyond every subset."
+msgstr "困难盘面有 {clueCount} 个已知数字，保证至少需要一种超出所有数组的鱼形或翼形。"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Hard drops to {clueCount} clues, and this is the first printable booklet on the site where subsets alone will not carry you to the end. Every puzzle in it was tested against a solver that already knows every intersection and every subset, and kept only because that solver stalled. What finishes them is a fish or a wing: the <0>X-Wing</0> and its larger and finned relatives, or one of the bivalue wing patterns."
+msgstr "困难降到 {clueCount} 个已知数字，这是本站第一本仅靠数组走不到终点的可打印册子。其中每道题都用一个已掌握所有交叉区块和所有数组的解题器测试过，只因为该解题器卡住才被保留。能解开它们的是鱼形或翼形：<0>X-Wing</0> 及其更大的和带鳍的变体，或者某种双候选翼形。"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard is capped at the W-Wing — a board that resists every fish and wing is graded Nightmare instead."
+msgstr "困难以 W-Wing 为上限：用尽所有鱼形和翼形仍然无法突破的盘面，会被评为噩梦。"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hard Sudoku"
+msgstr "困难数独"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard Sudoku FAQ"
+msgstr "困难数独常见问题"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard Sudoku is a difficulty tier that starts at {clueCount} clues out of 81 cells and is defined by what a subset-only solver cannot finish: every board in the tier has been run through a solver equipped with every intersection and every subset up to the <0>hidden quad</0>, and kept only because that solver got stuck. What breaks the deadlock is a fish — <1>X-Wing</1>, <2>swordfish</2>, <3>jellyfish</3> and their <4>finned</4> and <5>sashimi</5> variants — or a wing: <6>XY-Wing</6>, <7>XYZ-Wing</7> and <8>W-Wing</8>."
+msgstr "困难数独是一个从 81 格中 {clueCount} 个已知数字起步的难度档位，其定义是只用数组的解题器解不出来：这一档的每个盘面都用掌握所有交叉区块和直到<0>隐性四数组</0>的所有数组的解题器试过，只因该解题器卡住才被保留。打破僵局的是鱼形：<1>X-Wing</1>、<2>Swordfish</2>、<3>Jellyfish</3> 及其 <4>Finned</4> 和 <5>Sashimi</5> 变体；或者翼形：<6>XY-Wing</6>、<7>XYZ-Wing</7> 和 <8>W-Wing</8>。"
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Harder difficulty"
+msgstr "较困难的难度"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Harder than anything else in the app, by a wide margin. Our sample of {sampleSize} <0>Hell</0> boards measures SE {hellSeRatingRange}; Infinity starts at {lowestRatingLabel}. The Infinity ratings are not our own measurements. Suuudokuuu’s rater prices the SE ladder only as far as forcing chains and nets and reports {SE_RATING_CEILING} with a ceiling flag above that, so for these puzzles we quote the figures independent raters publish, as the <1>difficulty rating guide</1> explains."
+msgstr "比应用里的其他任何档位都难得多。我们的 {sampleSize} 道<0>地狱</0>盘面样本测得 SE {hellSeRatingRange}；无限从 {lowestRatingLabel} 开始。无限的评级不是我们自己测得的。Suuudokuuu 的评级器只对 SE 阶梯计价到强制链和强制网为止，超过之后就报告 {SE_RATING_CEILING} 并附带上限标记，所以对这些题目，我们引用其他独立评级者公布的数字，详见<1>难度评级指南</1>。"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Hardness here comes from the technique each board requires, not from the clue count."
+msgstr "这里的难度来自每个盘面所需要的技巧，而不是已知数字的多少。"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hell"
+msgstr "地狱"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Hell is Suuudokuuu’s hardest technique-graded tier — what most competitors call evil or extreme. A Hell board is defined by the reasoning it demands, not by how few clues it starts with: no Hell board can be finished with any technique Nightmare allows, so every one needs a forcing chain. Unlike the generated tiers, Hell is drawn from a bundled corpus of published hard puzzles, verified by two independent solvers before it ships, and every board still solves on our technique ladder without guessing. Expect to use every chain and coloring pattern first — <0>X-Chain</0>, <1>XY-Chain</1>, <2>simple coloring</2> and <3>AIC</3> — before a forcing chain breaks the deadlock."
+msgstr "地狱是 Suuudokuuu 按技巧划分的最难一档，也就是许多同类产品所说的“魔鬼”或“极限”。地狱盘面由它要求的推理来定义，而不是由开局已知数字有多少来定义：任何地狱盘面都不能用噩梦允许的技巧做完，所以每一道都需要强制链。与生成的档位不同，地狱取自一个内置的已发表难题库，发布前经过两种相互独立的解题器验证，每个盘面仍能在我们的技巧阶梯上不靠猜测解出。在强制链打破僵局之前，要先用遍每一种链和染色模式：<0>X-Chain</0>、<1>XY-Chain</1>、<2>简单染色</2>和 <3>AIC</3>。"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hell Sudoku"
+msgstr "地狱数独"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Hell Sudoku FAQ"
+msgstr "地狱数独常见问题"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Home"
+msgstr "首页"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "How do I print these puzzles?"
+msgstr "怎么打印这些题目？"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How does Suuudokuuu guarantee a tier’s technique requirement?"
+msgstr "Suuudokuuu 如何保证每一档的技巧要求？"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "How hard is Easy sudoku?"
+msgstr "简单数独有多难？"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How hard is it, honestly"
+msgstr "说实话，有多难"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "How hard is Newbie sudoku?"
+msgstr "新手数独有多难？"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How hard is Nightmare sudoku?"
+msgstr "噩梦数独有多难？"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "How hard these puzzles are"
+msgstr "这些题有多难"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "How is a fish or wing easier to verify on paper?"
+msgstr "在纸上验证鱼形或翼形为什么更容易？"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "How many clues does a Hard sudoku have?"
+msgstr "困难数独有多少个已知数字？"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "How many clues does a Hell sudoku have?"
+msgstr "地狱数独有多少个已知数字？"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "How many clues does a Medium sudoku have?"
+msgstr "中等数独有多少个已知数字？"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "How many clues does a Newbie puzzle have?"
+msgstr "新手数独有多少个已知数字？"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How many clues does a Nightmare sudoku have?"
+msgstr "噩梦数独有多少个已知数字？"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "How many clues does an easy sudoku have?"
+msgstr "简单数独有多少个已知数字？"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "How many puzzles are in the printable Easy sudoku PDF?"
+msgstr "可打印简单数独 PDF 里有多少道题？"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "How many puzzles are in the printable Hard sudoku PDF?"
+msgstr "可打印困难数独 PDF 里有多少道题？"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "How many puzzles are in the printable Hell sudoku PDF?"
+msgstr "可打印地狱数独 PDF 里有多少道题？"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "How many puzzles are in the printable Infinity sudoku PDF?"
+msgstr "可打印无限数独 PDF 里有多少道题？"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "How many puzzles are in the printable Medium sudoku PDF?"
+msgstr "可打印中等数独 PDF 里有多少道题？"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "How many puzzles are in the printable Newbie sudoku PDF?"
+msgstr "可打印新手数独 PDF 里有多少道题？"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "How many puzzles are in the printable Nightmare sudoku PDF?"
+msgstr "可打印噩梦数独 PDF 里有多少道题？"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How many sudoku difficulty levels does Suuudokuuu have?"
+msgstr "Suuudokuuu 有多少个数独难度等级？"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How the ladder is built"
+msgstr "技巧阶梯是怎么搭建的"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "How the puzzles are verified"
+msgstr "题目是如何验证的"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/chrome/components/site-header/site-header.tsx
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "How to play"
+msgstr "数独怎么玩"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "How to play Sudoku FAQ"
+msgstr "数独怎么玩常见问题"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "How to print these puzzles"
+msgstr "如何打印这些题目"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "How to start solving a Sudoku puzzle"
+msgstr "如何开始解一道数独题"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Includes Everest (SE 11.9), Platinum Blonde (SE 10.9) and AI Escargot (SE 10.6)."
+msgstr "包含 Everest（SE 11.9）、Platinum Blonde（SE 10.9）和 AI Escargot（SE 10.6）。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Infinity"
+msgstr "无限"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Infinity is Suuudokuuu’s tier beyond Hell: a curated set of the hardest sudoku puzzles ever published, the record grids the solving community still argues about, ready to play for free. Every Infinity board is a known puzzle with a published Sudoku Explainer (SE) rating of at least {minimumRatingLabel} — Arto Inkala’s Everest, Platinum Blonde, AI Escargot, Golden Nugget and {additionalPuzzleCount} more — checked for a single solution before it ships. These are the puzzles our <0>hardest sudoku puzzles</0> guide describes; Infinity is where you play them."
+msgstr "无限是 Suuudokuuu 在地狱之上的一档：精选的史上公开发表的最难数独，是解题社区至今仍在争论的纪录级盘面，可免费游玩。每个无限盘面都是已知的题目，公布的 Sudoku Explainer（SE）评级至少为 {minimumRatingLabel}，包括 Arto Inkala 的 Everest、Platinum Blonde、AI Escargot、Golden Nugget，以及另外 {additionalPuzzleCount} 道，发布前都检验过只有一个解。我们的<0>最难数独</0>指南介绍的就是这些题目，无限就是你玩它们的地方。"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Infinity puzzles carry {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues and are checked for a single solution by two independent solving algorithms."
+msgstr "无限题目有 {INFINITY_MINIMUM_GIVEN_COUNT} 到 {INFINITY_MAXIMUM_GIVEN_COUNT} 个已知数字，并由两种相互独立的解题算法检验过只有一个解。"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Infinity Sudoku"
+msgstr "无限数独"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Infinity Sudoku FAQ"
+msgstr "无限数独常见问题"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Intersections and pairs are found by marking every remaining candidate in a unit, so the layout leaves space in each cell specifically for those pencil marks."
+msgstr "交叉区块和数对要靠标出一个单元内所有剩余的候选数字才能找到，所以版面在每个格子里专门留出了写这些笔记标记的空间。"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Intersections: pointing pair, pointing triple, box line reduction. Subsets: naked pair, hidden pair."
+msgstr "交叉区块：指向数对、指向三数组、宫线消解。数组：显性数对、隐性数对。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Is {SITE_NAME} free?"
+msgstr "{SITE_NAME} 免费吗？"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Is AI Escargot in the printable booklet?"
+msgstr "可打印册子里有 AI Escargot 吗？"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Is Hard sudoku harder than Nightmare?"
+msgstr "困难数独比噩梦更难吗？"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Is Hell harder than Nightmare?"
+msgstr "地狱比噩梦更难吗？"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Is Infinity harder than Hell?"
+msgstr "无限比地狱更难吗？"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Is Medium sudoku hard?"
+msgstr "中等数独难吗？"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Is Newbie the right level for a child or a first-time solver?"
+msgstr "新手适合孩子或第一次解题的人吗？"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Is the printable Easy sudoku PDF free?"
+msgstr "可打印简单数独 PDF 免费吗？"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Is the printable Hard sudoku PDF free?"
+msgstr "可打印困难数独 PDF 免费吗？"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Is the printable Hell sudoku PDF free?"
+msgstr "可打印地狱数独 PDF 免费吗？"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Is the printable Infinity sudoku PDF free?"
+msgstr "可打印无限数独 PDF 免费吗？"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Is the printable Medium sudoku PDF free?"
+msgstr "可打印中等数独 PDF 免费吗？"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Is the printable Nightmare sudoku PDF free?"
+msgstr "可打印噩梦数独 PDF 免费吗？"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Is this printable Newbie sudoku booklet free?"
+msgstr "这本可打印新手数独册子免费吗？"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "It is a real step up from Easy, but every technique it needs still works inside a single box or line at a time — the longer fish and chain patterns only start at Hard and beyond."
+msgstr "这确实比简单高了一个台阶，但它需要的每种技巧仍然一次只在一个宫或一条线内起作用，更长的鱼形和链形模式要到困难及更高才出现。"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "It is Suuudokuuu’s hardest generated tier, measured at SE {seRatingRange} across a sample of {sampleSize} boards. Every one of them needs chain or coloring logic on top of the fish and wing patterns Hard already requires."
+msgstr "这是 Suuudokuuu 生成的最难一档，在 {sampleSize} 道盘面样本中测得 SE {seRatingRange}。每一道在困难已经要求的鱼形和翼形之上，还需要链或染色逻辑。"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "It is the easiest tier Suuudokuuu offers, and the generator guarantees it: a board only ships as Newbie once a solver limited to full houses and naked singles has finished it. Our sample measures SE {seRatingRange}, with no candidate tracking and no risk of a forced guess."
+msgstr "这是 Suuudokuuu 提供的最简单的一档，并有生成器作保证：只有当仅限最后余格和显性单数的解题器做完了一个盘面，它才会作为新手发布。我们的样本测得 SE {seRatingRange}，不需要记录候选数字，也不会被迫猜测。"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Language"
+msgstr "语言"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Large print sudoku"
+msgstr "大字号数独"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Large Print Sudoku"
+msgstr "大字号数独"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Large print sudoku, printable"
+msgstr "大字号数独，可打印"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Large text size"
+msgstr "大号字体"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Largest text size"
+msgstr "最大号字体"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Learn"
+msgstr "学习"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Learn sudoku"
+msgstr "学习数独"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Learn techniques in difficulty order rather than memorising every pattern at once. The <0>sudoku techniques index</0> lists them from full house up to the subset patterns, each with a worked example."
+msgstr "按难度顺序学习技巧，而不是一次记住所有模式。<0>数独技巧索引</0>从最后余格一直列到数组模式，每种都有实例说明。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Learn to solve"
+msgstr "学习解题"
+
+#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+msgid "Loading the board…"
+msgstr "正在加载盘面……"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Look for hidden singles"
+msgstr "寻找隐性单数"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Medium"
+msgstr "中等"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium boards carry {clueCount} clues and are guaranteed to stall on singles and yield to an intersection or a subset."
+msgstr "中等盘面有 {clueCount} 个已知数字，保证单数用尽后卡住，需要用交叉区块或数组才能继续。"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium is where Suuudokuuu starts asking for pencil marks. A Medium board carries {clueCount} clues out of 81 cells, and singles alone provably never finish it: every board in the tier has been checked against a singles-only solver and rejected if that solver got through. Once full houses and singles run out, the puzzle stalls until you spot an intersection — a digit confined to where a box and a line overlap — or a pair locked together. <0>Pointing pairs</0>, <1>pointing triples</1> and <2>box line reduction</2> cover the intersections; <3>naked pairs</3> and <4>hidden pairs</4> cover the smallest subset pattern."
+msgstr "从中等开始，Suuudokuuu 才要求用到笔记标记。中等盘面在 81 个格子中有 {clueCount} 个已知数字，可以证明仅靠单数永远做不完：这一档的每个盘面都用只用单数的解题器检查过，若该解题器能做完就会被淘汰。最后余格和单数用尽之后，盘面会一直卡住，直到你发现一个交叉区块（被限定在宫与线重叠处的数字）或一对相互锁定的数字。<0>指向数对</0>、<1>指向三数组</1>和<2>宫线消解</2>属于交叉区块；<3>显性数对</3>和<4>隐性数对</4>则是最小的数组模式。"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Medium Sudoku"
+msgstr "中等数独"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium Sudoku FAQ"
+msgstr "中等数独常见问题"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "New solvers should start at Newbie and move up one tier at a time; each step adds exactly one new technique over the tier before it, all the way up to Hard. See the <0>how to play guide</0> first if the three core rules are still unfamiliar."
+msgstr "新手解题者应从新手开始，一次升一档；每一步相对于前一档恰好增加一种新技巧，一直到困难。如果对三条核心规则还不熟悉，请先看<0>数独怎么玩指南</0>。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "New to Sudoku?"
+msgstr "刚接触数独？"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "New to the grid itself? Start with the <0>how to play guide</0> for the three rules and your first placements before picking a tier above."
+msgstr "连数独盘面本身都还不熟？在选择上面的难度之前，先看<0>数独怎么玩指南</0>，了解三条规则和最初的填数方法。"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Newbie"
+msgstr "新手"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie boards carry {clueCount} clues and are guaranteed to finish with full houses and naked singles alone."
+msgstr "新手盘面有 {clueCount} 个已知数字，保证只用最后余格和显性单数就能做完。"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie is Suuudokuuu’s beginner tier, the gentlest possible introduction to the grid. A Newbie board starts with {clueCount} of the 81 cells already filled. Every remaining cell can be found with the two simplest deductions in the game: a <0>full house</0>, where a unit is down to its last empty cell, and a <1>naked single</1>, where a cell’s row, column and box between them already account for eight of the nine digits. That is not a description of a typical Newbie board — it is the rule the generator enforces: a candidate board is only accepted as Newbie once a solver restricted to full houses and naked singles has finished it. No pencil marks, no elimination logic and no guessing are ever required."
+msgstr "新手是 Suuudokuuu 的入门档，是对数独盘面最温和的介绍。新手盘面开局时 81 个格子中已填好 {clueCount} 个。每个剩下的格子，都能用游戏中最简单的两种推理找出：<0>最后余格</0>，即一个单元只剩最后一个空格；以及<1>显性单数</1>，即某个格子的行、列和宫合起来已经占去了九个数字中的八个。这并不是对典型新手盘面的描述，而是生成器强制执行的规则：只有当仅限最后余格和显性单数的解题器做完了一个候选盘面，它才会被接受为新手。始终不需要笔记标记、排除逻辑，也不需要猜测。"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie is the easiest of Suuudokuuu’s seven tiers, followed by Easy, Medium, Hard, Nightmare, Hell and Infinity in increasing order of difficulty."
+msgstr "新手是 Suuudokuuu 七档中最简单的一档，之后依次是简单、中等、困难、噩梦、地狱和无限，难度逐级递增。"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Newbie Sudoku"
+msgstr "新手数独"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie Sudoku FAQ"
+msgstr "新手数独常见问题"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Nightmare"
+msgstr "噩梦"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare boards carry {clueCount} clues and are guaranteed to need at least one chain or coloring technique beyond every fish and wing."
+msgstr "噩梦盘面有 {clueCount} 个已知数字，保证至少需要一种超出所有鱼形和翼形的链或染色技巧。"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Nightmare holds just {clueCount} clues, and it is the booklet where the printed page genuinely earns its keep. Every puzzle in it was tested against a solver that already knows every fish and wing — including the <0>swordfish</0> and the <1>XY-Wing</1> — and kept only because that solver stalled. What finishes them is chain reasoning, and a chain is far easier to build on paper, where you can pencil the links in and follow them, than on a cramped screen. Our sample of {sampleSize} boards measures the tier at SE {seRatingRange}."
+msgstr "噩梦只有 {clueCount} 个已知数字，这是纸质页面真正派上用场的一本册子。其中每道题都用一个已掌握所有鱼形和翼形（包括 <0>Swordfish</0> 和 <1>XY-Wing</1>）的解题器测试过，只因该解题器卡住才被保留。能解开它们的是链式推理，而链在纸上搭建要容易得多，你可以用铅笔标出各个链接并追踪它们，而在狭小的屏幕上就难了。我们的 {sampleSize} 道盘面样本测得本档为 SE {seRatingRange}。"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare is capped at AIC — a board resisting that is beyond what the generated tiers hand you."
+msgstr "噩梦以 AIC 为上限：能顶住 AIC 的盘面，超出了生成档位所能提供的范围。"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare is Suuudokuuu’s expert tier — what most other apps would call very hard or expert. A Nightmare board carries just {clueCount} clues out of 81 cells, and it is the tier where bounded patterns stop being enough: every board here has been checked against a solver that already knows every fish and every wing up to the <0>W-Wing</0>, and is only labelled Nightmare because that solver stalled. Finishing one needs chain reasoning — <1>X-Chain</1>, <2>XY-Chain</2>, <3>simple coloring</3> and <4>AIC</4>, the alternating inference chain that generalises the other three."
+msgstr "噩梦是 Suuudokuuu 的专家档，也就是大多数其他应用所说的“很难”或“专家”。噩梦盘面在 81 个格子中只有 {clueCount} 个已知数字，是有界模式不再够用的一档：这里的每个盘面都用一个已掌握所有鱼形和直到 <0>W-Wing</0> 的所有翼形的解题器检查过，只因该解题器卡住才被标为噩梦。要做完一道题需要链式推理：<1>X-Chain</1>、<2>XY-Chain</2>、<3>简单染色</3>和 <4>AIC</4>，也就是把其余三种统一起来的交替推理链。"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Nightmare Sudoku"
+msgstr "噩梦数独"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare Sudoku FAQ"
+msgstr "噩梦数独常见问题"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "No ads, no account and no tracking inside the game, on the web or in the app"
+msgstr "游戏内没有广告，无需账号，没有跟踪，无论在网页上还是在应用中都一样"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "No pencil marks, no elimination logic and no guessing are ever required."
+msgstr "始终不需要笔记标记、排除逻辑，也不需要猜测。"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "No pencil marks, no elimination logic and no guessing required for any puzzle in the booklet."
+msgstr "册子里的每道题都不需要笔记标记、排除逻辑，也不需要猜测。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "No puzzle, just the grid: one full-page 9×9 grid for copying out a puzzle from a book or newspaper, plus a second page of four smaller grids for quick practice sheets. Useful for teachers building their own worksheets or for anyone transcribing a puzzle they found somewhere without a printer-friendly version."
+msgstr "没有题目，只有盘面：一张整页的 9×9 空白盘面，用来抄写书本或报纸上的题目，另有一页包含四个较小盘面，用作快速练习纸。适合老师自制练习题，也适合抄录在没有适合打印版本的地方看到的题目。"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "No. Both techniques a Newbie puzzle requires can be read straight off the board, which is exactly why they are the fastest deductions in the game."
+msgstr "不需要。新手题所需的两种技巧都能直接从盘面上读出来，这正是它们成为游戏中最快的推理的原因。"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "No. Clue count and difficulty are separate facts — see the <0>17-clue sudoku guide</0>. These puzzles are hard because every one needs a forcing chain, not because of how many clues they start with."
+msgstr "不会。已知数字的多少和难度是两回事，请看<0>17 个已知数字数独指南</0>。这些题难，是因为每一道都需要强制链，而不是因为开局的已知数字有多少。"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "No. Clue count is only the input that forces a solver toward a wider technique set; the technique band the generator verifies is what actually defines each tier. The <0>clues versus difficulty guide</0> measures the gap directly."
+msgstr "不会。已知数字的多少只是迫使解题器使用更多技巧的输入条件；真正定义每一档的，是生成器验证的技巧区间。<0>已知数字与难度指南</0>直接测量了两者之间的差距。"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "No. Every board in the tier is verified solvable by the technique ladder up to AIC before it ships, so a completed chain always exists — finding it is the work."
+msgstr "不会。这一档的每个盘面在发布前，都经过验证可以用直到 AIC 的技巧阶梯解出，所以完整的链一定存在，找到它才是真正的功夫。"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "No. Every puzzle Suuudokuuu generates is checked for a unique solution at generation time, so no cell ever requires a guess — and the bundled Hell-difficulty puzzles are additionally cross-checked by two independent solving algorithms, a Dancing Links exact-cover solver and a bitmask solver, before they ship. Any position that looks ambiguous just needs a technique that has not been tried yet."
+msgstr "不会。Suuudokuuu 生成的每道题在生成时都检验过只有唯一解，所以任何格子都不需要猜测；内置的地狱难度题目在发布前，还要由两种相互独立的解题算法交叉检验：Dancing Links 精确覆盖解题器和位掩码解题器。任何看起来含糊的局面，只是需要你还没试过的某种技巧。"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "No. Hard tops out at the W-Wing; Nightmare starts where Hard stops and runs up to alternating inference chains. The two tiers are separated by a technique boundary, not by a clue count."
+msgstr "不是。困难以 W-Wing 为上限；噩梦从困难停下的地方开始，一直到交替推理链。这两档由技巧边界分开，而不是由已知数字的多少分开。"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "No. Notes mode in an app tracks candidates for you, updates them automatically as you place digits, and lets you undo a mistake without erasing."
+msgstr "不需要。应用里的笔记模式会替你记录候选数字，在你填数时自动更新，写错了也可以撤销，而不必擦除。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "No. There are no ads anywhere and no tracking inside the game; this website uses only cookieless, anonymous page analytics."
+msgstr "没有。游戏内任何地方都没有广告和跟踪；本网站只使用不含 Cookie 的匿名页面统计。"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Not necessarily. Hell puzzles carry {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues, drawn from a bundled corpus checked by two independent solving algorithms and filtered to boards that need a forcing chain, rather than generated fresh at print time."
+msgstr "不一定。地狱题的已知数字为 {HELL_CORPUS_MINIMUM_GIVEN_COUNT} 到 {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} 个，取自内置题库，由两种相互独立的解题算法检验，并筛选出需要强制链的盘面，而不是在打印时现场生成。"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Not ready for chains on paper yet? Step back to the <0>printable Nightmare sudoku booklet</0> for the same chain reasoning with more of the grid filled in, or to <1>printable Hard sudoku</1> for fish and wings without chain-length reasoning, or play Hell on a screen at the <2>Hell sudoku lander</2>, where the same corpus powers every puzzle. Ready for the record puzzles? The <3>printable Infinity sudoku booklet</3> prints Everest, AI Escargot and other record grids."
+msgstr "还没准备好在纸上挑战链？可以退回<0>可打印噩梦数独册子</0>，那里是同样的链式推理，但盘面上已经填了更多数字；也可以退回<1>可打印困难数独</1>，只练习鱼形和翼形，不用链式长推理；或者在屏幕上到<2>地狱数独专页</2>玩地狱，同一个题库为每道题提供支持。准备好挑战纪录级题目了吗？<3>可打印无限数独册子</3>收录了 Everest、AI Escargot 和其他纪录级盘面。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Notes and candidates"
+msgstr "笔记与候选数字"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Nothing in the booklet needs a chain — that starts at the Nightmare tier."
+msgstr "册子里没有任何一道题需要链，链从噩梦这一档才开始。"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Nothing in the booklet needs a fish, a wing or a chain."
+msgstr "册子里没有任何一道题需要鱼形、翼形或链。"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Nothing in the tier ever needs a fish, a wing or a chain — a board that does is promoted to Hard instead."
+msgstr "这一档的题目从不需要鱼形、翼形或链，需要它们的盘面会被升级到困难。"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Once full houses and naked singles feel automatic, step up to the <0>printable Easy sudoku booklet</0>, which adds exactly one technique on top: the hidden single. To play Newbie puzzles on a screen instead, visit the <1>Newbie sudoku lander</1>. For the full technique ladder and the measured data behind these claims, see the <2>technique index</2> and the <3>sudoku difficulty rating guide</3>."
+msgstr "当最后余格和显性单数已经成为本能，就可以升级到<0>可打印简单数独册子</0>，它恰好多了一种技巧：隐性单数。想在屏幕上玩新手题，请访问<1>新手数独专页</1>。完整的技巧阶梯和这些说法背后的实测数据，请看<2>技巧索引</2>和<3>数独难度评级指南</3>。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Once the easy placements run out, tracking candidates by hand becomes essential. A candidate, sometimes called a pencil mark, is a digit that a cell could still legally hold based on what its row, column and box already contain. Writing every candidate into a cell — on paper as small numbers in the corner, or with the notes mode in an app — turns a puzzle that looks stuck into one where patterns become visible: pairs, triples and quads of candidates that repeat across a unit are exactly what techniques like naked pairs and hidden pairs are built to spot. The full method for every pattern lives in the <0>sudoku techniques index</0>, and every term used across these guides is defined in the <1>sudoku glossary</1>."
+msgstr "当容易填的位置用尽后，手动记录候选数字就变得必不可少。候选数字，有时也叫笔记标记，指的是根据所在行、列和宫已有的数字，一个格子仍然可以合法填入的数字。把每个候选数字写进格子里，无论是在纸上用角落的小数字，还是用应用里的笔记模式，都会让看起来卡住的题目显现出规律：在一个单元中重复出现的候选数字二元组、三元组和四元组，正是显性数对和隐性数对这类技巧所要找的。每种模式的完整方法都在<0>数独技巧索引</0>中，这些指南里用到的每个术语，都在<1>数独术语表</1>中有定义。"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Our published sample of {sampleSize} Hard boards measures the tier at SE {seRatingRange}, with the <0/> as the most common hardest step — numbers the <1>sudoku difficulty rating guide</1> measures directly rather than assumes. The {PRINTABLE_BOOKLET_SIZE} puzzles here print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with room to mark candidates, and the solved grids on the closing pages let you confirm a fish elimination actually held."
+msgstr "我们公布的 {sampleSize} 道困难盘面样本测得本档为 SE {seRatingRange}，最常见的最难一步是 <0/>，这些数字由<1>数独难度评级指南</1>直接测得，而不是凭空假设。这里的 {PRINTABLE_BOOKLET_SIZE} 道题每页打印 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道，留有标记候选数字的空间，最后几页的答案盘面可以让你确认某次鱼形排除确实成立。"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Easy boards measures SE {seRatingRange}."
+msgstr "我们的 {sampleSize} 道简单盘面样本测得 SE {seRatingRange}。"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hard boards measures SE (Sudoku Explainer) {seRatingRange} — squarely in the range the solving community associates with fish and wing patterns, and well below the chain territory above 7. The most common hardest step is the <0/>, and the hardest anything in the sample reached is the <1/>. This is where casual solvers start reaching for a hint: fish and wings are easy to describe and genuinely hard to see on a live board, so expect a noticeably longer, more deliberate solve than Medium asks for. See the <2>sudoku difficulty rating guide</2> for the full per-tier data."
+msgstr "我们的 {sampleSize} 道困难盘面样本测得 SE（Sudoku Explainer）{seRatingRange}，恰好落在解题社区认为属于鱼形和翼形的范围内，远低于 7 以上的链区域。最常见的最难一步是 <0/>，样本中达到的最难一步是 <1/>。休闲玩家从这里开始需要提示：鱼形和翼形说起来容易，但在实际盘面上真的很难看出来，所以预计解题时间会明显比中等更长、更需要深思熟虑。每一档的完整数据，请看<2>数独难度评级指南</2>。"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hard boards measures SE {seRatingRange}."
+msgstr "我们的 {sampleSize} 道困难盘面样本测得 SE {seRatingRange}。"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE (Sudoku Explainer) {hellSeRatingRange}, with the <0/> as the most common hardest step and the <1/> as the hardest step anything in the sample reached. Be careful not to read the clue count as the cause: the same sample puts <2>Nightmare</2> at SE {nightmareSeRatingRange} with {nightmareClueCount} clues, and some Hell boards start with more givens than that. This tier used to be built from 17-clue puzzles alone, and it rated no harder than Nightmare; selecting on the required technique instead is what separates the two. Our <3>clues versus difficulty guide</3> takes that argument apart properly, and the <4>rating guide</4> publishes the per-tier tables."
+msgstr "我们的 {sampleSize} 道地狱盘面样本测得 SE（Sudoku Explainer）{hellSeRatingRange}，最常见的最难一步是 <0/>，样本中达到的最难一步是 <1/>。请不要把已知数字的多少当成原因：同一份样本中，<2>噩梦</2>为 SE {nightmareSeRatingRange}，有 {nightmareClueCount} 个已知数字，而一些地狱盘面开局的已知数字比这还多。这一档过去只用 17 个已知数字的题目构建，评级并不比噩梦更难；改为按所需技巧来选择，才把两者区分开。我们的<3>已知数字与难度指南</3>对这一论点做了充分剖析，<4>评级指南</4>则公布了各档的数据表。"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE {hellSeRatingRange}."
+msgstr "我们的 {sampleSize} 道地狱盘面样本测得 SE {hellSeRatingRange}。"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE {seRatingRange}, with the <0/> as the most common hardest step."
+msgstr "我们的 {sampleSize} 道地狱盘面样本测得 SE {seRatingRange}，最常见的最难一步是 <0/>。"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Medium boards measures SE {seRatingRange}, and {singlesOnlyPuzzleCount} of {sampleSize} finished on singles alone — this is the first tier where that number is zero by construction. The most common hardest step in the sample is the <0/>, and the hardest anything reached is the <1/>. Players who read pencil marks fluently clear a Medium board noticeably faster than players relying on mental candidate tracking, who will find this the first tier that genuinely rewards writing candidates down. The full per-tier data sits in our <2>sudoku difficulty rating guide</2>."
+msgstr "我们的 {sampleSize} 道中等盘面样本测得 SE {seRatingRange}，其中 {singlesOnlyPuzzleCount}/{sampleSize} 只靠单数就做完了，而这是第一个按构造这个数字为零的档位。样本中最常见的最难一步是 <0/>，达到的最难一步是 <1/>。熟练使用笔记标记的玩家，做完中等盘面明显更快；靠心里记候选数字的玩家会发现，这是第一个真正奖励把候选数字写下来的档位。每一档的完整数据，都在我们的<2>数独难度评级指南</2>中。"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Medium boards measures SE {seRatingRange}."
+msgstr "我们的 {sampleSize} 道中等盘面样本测得 SE {seRatingRange}。"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Newbie boards measures SE {seRatingRange}."
+msgstr "我们的 {sampleSize} 道新手盘面样本测得 SE {seRatingRange}。"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Nightmare boards measures SE (Sudoku Explainer) {seRatingRange}, with the <0/> as the most common hardest step. AIC is the ceiling here: every Nightmare board falls to it, and the <1>Hell tier</1> begins exactly where it stops, with boards that need a forcing chain. Some of those Hell boards carry more givens than Nightmare does, which is the clearest evidence on the site that clue count and difficulty are separate facts. The measured tables live in our <2>sudoku difficulty rating guide</2>. Qualitatively, this is where difficulty stops being about speed and becomes about holding an entire line of implication in your head without losing track of it."
+msgstr "我们的 {sampleSize} 道噩梦盘面样本测得 SE（Sudoku Explainer）{seRatingRange}，最常见的最难一步是 <0/>。AIC 就是这里的上限：每个噩梦盘面都能用它解开，而<1>地狱档</1>恰好从它停下的地方开始，其盘面需要强制链。其中一些地狱盘面的已知数字比噩梦还多，这是本站最清楚的证据，说明已知数字的多少和难度是两回事。实测数据表在我们的<2>数独难度评级指南</2>中。从定性上看，这里的难度不再关乎速度，而是关乎能否在脑中把一整条蕴含链装下而不弄丢。"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Nightmare boards measures SE {seRatingRange}."
+msgstr "我们的 {sampleSize} 道噩梦盘面样本测得 SE {seRatingRange}。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Our technique engine agrees that these boards sit past its reach. It knows every pattern on the <0>technique index</0>, up to the <1/> and the <2/>, and it still cannot finish a single Infinity puzzle on its own. That does not mean they need guessing; it means they need longer forcing nets than the engine implements. Hints are off by default on Nightmare, Hell and Infinity, and a setting turns them back on if you want the engine’s help for as far as it goes."
+msgstr "我们的技巧引擎也承认这些盘面超出了它的能力范围。它认识<0>技巧索引</0>上的每种模式，直到 <1/> 和 <2/>，但仍然无法独自做完任何一道无限题。这并不意味着需要猜测，而是意味着它们需要比引擎所实现的更长的强制网。噩梦、地狱和无限默认关闭提示，如果想让引擎在它能做到的范围内帮忙，可以在设置中重新打开。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Pencil in every remaining candidate for the blank cells that are left, then work through the technique index in difficulty order to keep clearing them."
+msgstr "给剩下的每个空格都用铅笔写上所有剩余的候选数字，然后按难度顺序逐个应用技巧索引中的技巧，继续把它们清掉。"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Play"
+msgstr "开始游戏"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Play {SITE_NAME}"
+msgstr "玩 {SITE_NAME}"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Play Easy Sudoku now"
+msgstr "立即玩简单数独"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Play Hard Sudoku now"
+msgstr "立即玩困难数独"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Play Hell Sudoku now"
+msgstr "立即玩地狱数独"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Play Infinity Sudoku now"
+msgstr "立即玩无限数独"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Play Medium Sudoku now"
+msgstr "立即玩中等数独"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Play Newbie Sudoku now"
+msgstr "立即玩新手数独"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Play Nightmare Sudoku now"
+msgstr "立即玩噩梦数独"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+#: src/home/components/home-page/home-page.tsx
+msgid "Play now"
+msgstr "立即开始"
+
+#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+msgid "Play this puzzle here"
+msgstr "在这里玩这道题"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Prefer a screen? Play Suuudokuuu now"
+msgstr "想在屏幕上玩？立即玩 Suuudokuuu"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Primary"
+msgstr "主导航"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Print"
+msgstr "打印"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Print space here matters more than at the easier tiers, because intersections and pairs work by marking candidates in the margins. The {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page at full cell size, leaving enough room around each digit to pencil in the small numbers an intersection or a pair reasons over. Solved grids close out the file so you can check your candidate marks against a confirmed answer. Our published sample of {sampleSize} Medium boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "这里的打印空间比较简单的档位更重要，因为交叉区块和数对要靠在页边标记候选数字。{PRINTABLE_BOOKLET_SIZE} 道题以完整格子尺寸每页打印 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道，每个数字周围留有足够空间，可以用铅笔写下交叉区块或数对所依据的小数字。答案盘面附在文件末尾，让你能对照已确认的答案检查自己的候选数字标记。我们公布的 {sampleSize} 道中等盘面样本测得 SE {seRatingRange}，这些数字由<0>数独难度评级指南</0>直接测得，而不是凭空假设。"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Printable"
+msgstr "可打印"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Printable Easy Sudoku FAQ"
+msgstr "可打印简单数独常见问题"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Printable Hard Sudoku FAQ"
+msgstr "可打印困难数独常见问题"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Printable Hell Sudoku FAQ"
+msgstr "可打印地狱数独常见问题"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Printable Infinity Sudoku FAQ"
+msgstr "可打印无限数独常见问题"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Printable Medium Sudoku FAQ"
+msgstr "可打印中等数独常见问题"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Printable Newbie Sudoku FAQ"
+msgstr "可打印新手数独常见问题"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Printable Nightmare Sudoku FAQ"
+msgstr "可打印噩梦数独常见问题"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku"
+msgstr "可打印数独"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku booklets by difficulty"
+msgstr "按难度分类的可打印数独册子"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku FAQ"
+msgstr "可打印数独常见问题"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Privacy policy"
+msgstr "隐私政策"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Project"
+msgstr "项目"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Puzzle 1 from the Easy booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "简单册子中的第 1 题，PDF 共 {PRINTABLE_BOOKLET_SIZE} 道题之一。"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Puzzle 1 from the Hard booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "困难册子中的第 1 题，PDF 共 {PRINTABLE_BOOKLET_SIZE} 道题之一。"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Puzzle 1 from the Hell booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "地狱册子中的第 1 题，PDF 共 {PRINTABLE_BOOKLET_SIZE} 道题之一。"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Puzzle 1 from the Infinity booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "无限册子中的第 1 题，PDF 共 {PRINTABLE_BOOKLET_SIZE} 道题之一。"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Puzzle 1 from the Medium booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "中等册子中的第 1 题，PDF 共 {PRINTABLE_BOOKLET_SIZE} 道题之一。"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Puzzle 1 from the Newbie booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "新手册子中的第 1 题，PDF 共 {PRINTABLE_BOOKLET_SIZE} 道题之一。"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Puzzle 1 from the Nightmare booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "噩梦册子中的第 1 题，PDF 共 {PRINTABLE_BOOKLET_SIZE} 道题之一。"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Rarely. Most players can track the handful of candidates a hidden single needs in their head, but writing them down never hurts on a busier row."
+msgstr "很少。多数玩家在心里就能记住隐性单数需要的那几个候选数字，但在比较拥挤的行里写下来也无妨。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Read the <0>how to play guide</0> for the three rules and a walkthrough of your first moves, or look up any term in the <1>sudoku glossary</1>, which defines every technique and every piece of vocabulary the guides use."
+msgstr "阅读<0>数独怎么玩指南</0>，了解三条规则和最初几步的演示；也可以在<1>数独术语表</1>中查找任何术语，里面定义了这些指南使用的每种技巧和每个词汇。"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Ready for a puzzle that needs one more idea? Move up to <0>Easy Sudoku</0>, which adds the hidden single on top of everything here. Prefer paper? Download the <1>printable Newbie sudoku booklet</1>, or see the <2>sudoku for seniors</2> guide for large-print and comfort options. Browse the full <3>technique index</3> or the <4>how to play guide</4>, or head back <5>home</5> and see all seven tiers on the <6>Sudoku difficulty levels</6> hub."
+msgstr "准备好挑战再多一个想法的题目了吗？升级到<0>简单数独</0>，它在这里的一切基础上增加了隐性单数。更喜欢纸质？下载<1>可打印新手数独册子</1>，或者参阅<2>老年人数独</2>指南，了解大字号和舒适选项。可以浏览完整的<3>技巧索引</3>或<4>数独怎么玩指南</4>，或者回到<5>首页</5>，在<6>数独难度等级</6>总览页查看全部七档。"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Ready for intersections and subsets to start mattering? Move on to the <0>printable Medium sudoku booklet</0>, or step back to <1>printable Newbie sudoku</1> for an even gentler grid. To play Easy puzzles on a screen instead, visit the <2>Easy sudoku lander</2>."
+msgstr "准备好让交叉区块和数组发挥作用了吗？继续看<0>可打印中等数独册子</0>，或者退回<1>可打印新手数独</1>，选择更温和的盘面。想在屏幕上玩简单题，请访问<2>简单数独专页</2>。"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Ready to chain eliminations together instead of spotting shapes? Move up to <0>Nightmare Sudoku</0>, or step back to <1>Medium Sudoku</1> for an intersections-and-subsets puzzle. Prefer paper? Download the <2>printable Hard sudoku PDF</2>. See the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "准备好把一连串排除串起来，而不是辨认图形了吗？升级到<0>噩梦数独</0>，或者退回<1>中等数独</1>，练习交叉区块和数组。更喜欢纸质？下载<2>可打印困难数独 PDF</2>。可以看<3>技巧索引</3>、<4>数独怎么玩指南</4>，在<5>数独难度等级</5>总览页查看所有难度，或者回到<6>首页</6>。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Record puzzles such as Everest and AI Escargot, printed as originally published. See the <0>Infinity sudoku lander</0> to play them digitally."
+msgstr "Everest 和 AI Escargot 等纪录级题目，按最初发表时的样子打印。想在线玩，请看<0>无限数独专页</0>。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Scan for missing units"
+msgstr "查找缺失的单元"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Seven difficulty levels from Newbie through Hell to Infinity, the top tier serving record puzzles such as Everest and AI Escargot"
+msgstr "从新手经过地狱到无限共七个难度等级，最高一档提供 Everest 和 AI Escargot 等纪录级题目"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Seven: Newbie, Easy, Medium, Hard, Nightmare, Hell and Infinity. Hell puzzles come from a bundled, verified corpus of boards that each need a forcing chain, beyond anything Nightmare asks for, and <0>Infinity</0> serves record puzzles such as Everest and AI Escargot."
+msgstr "七个：新手、简单、中等、困难、噩梦、地狱和无限。地狱题取自内置的已验证题库，每道题都需要强制链，超出噩梦的要求；<0>无限</0>提供 Everest 和 AI Escargot 等纪录级题目。"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique ladder, each defined by a clue count and a guaranteed technique band rather than a marketing label. Infinity sits above them, a curated set of record puzzles chosen by published rating."
+msgstr "七个。新手、简单、中等、困难、噩梦和地狱组成技巧阶梯，每一档都由已知数字的多少和有保证的技巧区间定义，而不是营销标签。无限位于它们之上，是按公布的评级挑选的一组纪录级题目。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Shareable puzzle links and full game replays for any solve"
+msgstr "任何一局都可以生成可分享的题目链接和完整的对局回放"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."
+msgstr "大小和形状。翼形是由三四个格子组成的固定图案，学会之后一眼就能认出；链则是一环一环搭建的，可以任意长，所以在 SE 量表上，链比翼形整整高出一个档位。"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "Solutions included on the last pages"
+msgstr "答案附在最后几页"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Solve the cheapest placements first: full houses, then naked singles, then hidden singles."
+msgstr "先解最容易的位置：先是最后余格，然后是显性单数，再是隐性单数。"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Solver"
+msgstr "解题器"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Solving Easy boards without reaching for a hidden single? Step back to <0>Newbie Sudoku</0>, or step up to <1>Medium Sudoku</1>, where intersections and your first pairs appear. Prefer paper? Download the <2>printable Easy sudoku booklet</2>, or see the <3>sudoku for seniors</3> guide for large-print and comfort options. See the full <4>technique index</4>, the <5>how to play</5> guide, or every tier on the <6>Sudoku difficulty levels</6> hub back <7>home</7>."
+msgstr "解简单盘面时还没用到隐性单数？退回<0>新手数独</0>，或者升级到<1>中等数独</1>，那里会出现交叉区块和你的第一批数对。更喜欢纸质？下载<2>可打印简单数独册子</2>，或者参阅<3>老年人数独</3>指南，了解大字号和舒适选项。还可以看完整的<4>技巧索引</4>、<5>数独怎么玩</5>指南，或者<6>数独难度等级</6>总览页上的所有难度，回到<7>首页</7>。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Solving your first cells"
+msgstr "解出最初几个格子"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Some of these grids start with as few as {HELL_CORPUS_MINIMUM_GIVEN_COUNT} givens and look almost empty at first glance — the {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with generous cell size specifically so there is room to track candidates by hand across a long chain. The final pages hold the completed grids, which is close to essential at this tier: verifying a chain of eliminations by eye is slow, and a printed key lets you confirm the end state without re-deriving the whole path."
+msgstr "其中一些盘面只有 {HELL_CORPUS_MINIMUM_GIVEN_COUNT} 个已知数字，乍一看几乎是空的，{PRINTABLE_BOOKLET_SIZE} 道题每页打印 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道，格子尺寸宽裕，正是为了留出空间，方便你在一条长链上手动记录候选数字。最后几页是完整的答案盘面，在这一档几乎必不可少：靠肉眼验证一连串排除很慢，而有了打印的答案，就能确认最终状态，不必重新推导整条路径。"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Source on GitHub"
+msgstr "GitHub 源代码"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Spotting fish and wings reliably? Move up to the <0>printable Nightmare sudoku booklet</0> for chains and coloring. Step back to <1>printable Medium sudoku</1> for intersections and subsets only, or play Hard on a screen at the <2>Hard sudoku lander</2>."
+msgstr "能稳定识别鱼形和翼形了吗？升级到<0>可打印噩梦数独册子</0>，练习链和染色。也可以退回<1>可打印中等数独</1>，只练习交叉区块和数组；或者在屏幕上到<2>困难数独专页</2>玩困难。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Stuck on a puzzle?"
+msgstr "卡住了？"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Sudoku difficulties"
+msgstr "数独难度"
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Sudoku difficulty chain"
+msgstr "数独难度阶梯"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Sudoku difficulty levels"
+msgstr "数独难度等级"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Sudoku difficulty levels FAQ"
+msgstr "数独难度等级常见问题"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku for seniors"
+msgstr "老年人数独"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku glossary"
+msgstr "数独术语表"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Sudoku is a logic puzzle played on a 9×9 grid, divided into nine 3×3 boxes. The goal is to fill every empty cell with a digit from 1 to 9 so that no digit repeats in any row, column or box. A well-formed Sudoku always starts with some cells already filled in — the givens, or clues — and always has exactly one valid solution reachable by logic alone, with no guessing."
+msgstr "数独是在 9×9 盘面上进行的逻辑谜题，盘面分为九个 3×3 的宫。目标是在每个空格里填入 1 到 9 的数字，使任何一行、一列或一宫里都没有重复的数字。规范的数独开局时总有一些格子已经填好，也就是已知数字，也叫提示数，并且有且仅有一个仅靠逻辑就能得出的有效解，不需要猜测。"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku solver"
+msgstr "数独解题器"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku techniques"
+msgstr "数独技巧"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku tips"
+msgstr "数独技巧"
+
+#: src/techniques/components/technique-summary/technique-summary.tsx
+msgid "Summary"
+msgstr "概要"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same open-source rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
+msgstr "Suuudokuuu 把题目分成六个档位的阶梯，从新手到地狱，每一档都由两个具体事实定义，而不是营销标签：盘面开局有多少个已知数字，以及这一档保证需要哪些命名的解题技巧。每个新盘面在生成的那一刻，也会按 SE（Sudoku Explainer）量表评级，所用的开源评级包与<0>数独难度评级指南</0>相同，指南用它公布下面每个阶梯档位的实测区间和 SE 范围。阶梯之上是<1>无限</1>，一组精选的纪录级题目，带有独立评级者公布的评级，因为它们超出了我们自己评级量表的顶端。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity."
+msgstr "Suuudokuuu 有七个难度等级：六个依次需要更广泛的技巧，再加上无限。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Suuudokuuu’s hardest tier: {infinityCorpusSize} of the hardest sudoku puzzles ever published, each with a published SE rating of {minimumRatingLabel} or more, playable for free with no ads."
+msgstr "Suuudokuuu 最难的一档：{infinityCorpusSize} 道史上公开发表的最难数独，公布的 SE 评级都在 {minimumRatingLabel} 以上，可免费游玩，没有广告。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Technique-aware hints that name the exact solving pattern, not just the next digit"
+msgstr "能说出具体解题模式的技巧感知提示，而不只是告诉你下一个数字"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Techniques"
+msgstr "技巧"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Text size"
+msgstr "文字大小"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "The {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, sized so a chain crossing the whole grid still fits comfortably on one sheet. Full solved grids close the booklet, which matters more here than at the easier tiers — a single missed elimination partway along a chain compounds quickly, and a printed answer key catches it. The measured spread behind these claims lives in the <0>sudoku difficulty rating guide</0>."
+msgstr "{PRINTABLE_BOOKLET_SIZE} 道题每页打印 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道，尺寸经过设计，让横跨整个盘面的链也能舒适地放在一张纸上。完整的答案盘面附在册子末尾，这在这里比在较简单的档位更重要：链中途漏掉一个排除，后果会迅速累积，而打印的答案能帮你发现。这些说法背后的实测分布，在<0>数独难度评级指南</0>中。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "The best-known Infinity grids have pages of their own, each playable, printable and solved step by step by the engine: <0>AI Escargot</0>, <1>Golden Nugget</1>, <2>Platinum Blonde</2>, <3>Everest</3>, <4>Kolk</4> and <5>Silver Plate</5>."
+msgstr "最著名的 Infinity 题目都有自己的页面，每一道都可以在线游玩、打印，并由引擎逐步求解：<0>AI Escargot</0>、<1>Golden Nugget</1>、<2>Platinum Blonde</2>、<3>Everest</3>、<4>Kolk</4> 和 <5>Silver Plate</5>。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The grid itself never changes: nine rows, nine columns and nine boxes, eighty-one cells in total. What changes from puzzle to puzzle is only which cells start filled and which digits they hold, and it is that starting layout of givens that determines how much logic is needed to reach the one valid solution."
+msgstr "盘面本身从不改变：九行、九列和九个宫，共 81 个格子。每道题之间变化的，只是哪些格子开局已填、填的是哪些数字，而正是这个已知数字的初始布局，决定了需要多少逻辑才能得出唯一的有效解。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "The large-print set uses the same Easy-tier logic as the booklet above, but at {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} puzzles per page instead of {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}, so every cell and digit prints noticeably bigger. It suits low-vision solvers, classroom handouts read from a distance, and anyone who finds the standard grid cramped on paper. See the <0>large print sudoku page</0> for printing tips and the on-screen alternative, or the <1>sudoku for seniors</1> guide for the full comfort-focused rundown."
+msgstr "大字号套装使用与上面册子相同的简单档逻辑，但每页 {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} 道题，而不是 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道，所以每个格子和数字都印得明显更大。它适合视力不佳的解题者、需要远距离阅读的课堂讲义，以及觉得标准盘面在纸上太拥挤的任何人。打印技巧和屏幕上的替代方案，请看<0>大字号数独页面</0>，完整的舒适性指南请看<1>老年人数独</1>。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "The other tiers are defined by the techniques they require. Infinity is defined by reputation, measured: a puzzle qualifies only if independent raters have published an SE rating of {minimumRatingLabel} or higher for it. Most of the {infinityCorpusSize} come from a 2011 snapshot of the hardest-puzzle database the sudoku-solving community maintains; the rest are the named classics, taken from the forum threads and publications where they first appeared. Before the set is packed into the app, a Dancing Links exact-cover solver and a bitmask solver both confirm that every grid has exactly one solution."
+msgstr "其他档位由它们所需的技巧定义。无限由声誉定义，而且有实测依据：只有当独立评级者公布了 {minimumRatingLabel} 或更高的 SE 评级，一道题才有资格入选。{infinityCorpusSize} 道题中的大多数来自解题社区维护的最难题数据库的 2011 年快照；其余是知名的经典题，取自它们最初出现的论坛帖子和出版物。在这套题目打包进应用之前，Dancing Links 精确覆盖解题器和位掩码解题器都会确认每个盘面恰好只有一个解。"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The PDF opens with a cover page stating the puzzle and page counts, moves into {PRINTABLE_BOOKLET_SIZE} puzzles printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, and closes with every solved grid on the final pages so answers never sit next to an unsolved puzzle. Every grid is drawn with vector lines and the standard PDF Helvetica font, so it stays sharp at any print size and never depends on a scanned image. Our published sample of {sampleSize} Newbie boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "PDF 以一张封面开头，说明题目数量和页数，接着是 {PRINTABLE_BOOKLET_SIZE} 道题，每页打印 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道，最后几页是所有题目的答案盘面，因此答案永远不会和未解的题目放在一起。每个盘面都用矢量线条和标准 PDF Helvetica 字体绘制，所以在任何打印尺寸下都清晰锐利，也从不依赖扫描图像。我们公布的 {sampleSize} 道新手盘面样本测得 SE {seRatingRange}，这些数字由<0>数独难度评级指南</0>直接测得，而不是凭空假设。"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The printable Newbie Sudoku booklet is a free PDF of {clueCount}-clue puzzles where every blank is reachable with a full house or a naked single — a property each puzzle was checked for before it went into the PDF. It is the booklet to hand a first-time solver, a classroom just learning the rules, or anyone who wants a puzzle that never demands a second guess."
+msgstr "可打印新手数独册子是一份免费的 PDF，收录 {clueCount} 个已知数字的题目，每个空格都能用最后余格或显性单数得出，每道题在放入 PDF 之前都检查过这一点。把它交给第一次解题的人、刚学规则的课堂，或是任何想要一道从不需要二次猜测的题目的人，都很合适。"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The puzzles are printed exactly as they were published, with no reshuffling, so you can compare your grid with the originals discussed on the <0>hardest sudoku puzzles</0> page. They print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with room for a full set of pencil marks, which you will need: at this level most solvers keep every candidate written in and test chains on a separate sheet. The final pages hold the completed grids, so you can check a long line of reasoning without having to finish it first."
+msgstr "题目按最初发表的样子打印，没有重新洗牌，所以你可以把自己的盘面与<0>最难数独</0>页面上讨论的原题对照。每页打印 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道，留有写下一整套笔记标记的空间，这是你会需要的：在这个难度，大多数解题者会把每个候选数字都写出来，并在另一张纸上测试链。最后几页是完整的答案盘面，所以你无需先做完，就能检查一长串推理。"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The ratings are the values independent raters publish, not our own measurements."
+msgstr "这些评级是独立评级者公布的数值，而不是我们自己的测量。"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The SE ratings are the values independent raters and the sudoku-solving community publish. Suuudokuuu’s own rater reports {SE_RATING_CEILING} with a ceiling flag for anything harder than that, so it does not produce its own figure for these puzzles."
+msgstr "SE 评级是独立评级者和解题社区公布的数值。Suuudokuuu 自己的评级器对更难的题目报告 {SE_RATING_CEILING} 并附带上限标记，所以不会为这些题目给出自己的数字。"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The standard PDF already uses a generous {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}-puzzles-per-page layout. For bigger cells specifically, see the <0>printable Easy sudoku booklet</0>, which is also the source tier for our large-print PDF."
+msgstr "标准 PDF 已经采用宽松的每页 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道题的版式。如果想要更大的格子，请看<0>可打印简单数独册子</0>，它也是我们大字号 PDF 的来源档位。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The three rules of Sudoku"
+msgstr "数独的三条规则"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The very first thing to check is whether a box, row or column is missing only one digit. If eight of the nine cells in a unit are already filled, the ninth cell must take the digit the unit is still missing — no candidates to compare, just subtraction."
+msgstr "首先要检查的是，某一宫、某一行或某一列是否只缺一个数字。如果一个单元的九个格子里已经填了八个，第九个格子必定填这个单元还缺的数字，不用比较候选数字，只要做减法。"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "This booklet prints {PRINTABLE_BOOKLET_SIZE} of the hardest sudoku puzzles ever published, taken from Suuudokuuu’s Infinity tier: Arto Inkala’s Everest, AI Escargot, Platinum Blonde, Golden Nugget and other record grids, each with a published SE (Sudoku Explainer) rating between {lowestRatingLabel} and {highestRatingLabel}. Every one has exactly one solution, and the solved grids are at the back."
+msgstr "这本册子打印了 Suuudokuuu 无限档中 {PRINTABLE_BOOKLET_SIZE} 道史上公开发表的最难数独：Arto Inkala 的 Everest、AI Escargot、Platinum Blonde、Golden Nugget 和其他纪录级盘面，公布的 SE（Sudoku Explainer）评级在 {lowestRatingLabel} 到 {highestRatingLabel} 之间。每一道都恰好只有一个解，答案盘面附在最后。"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "This is the booklet to print for a short daily habit rather than a long sitting: fold it into a notebook, work one grid at a time, and there is never a candidate to write down or a pair to track across the row. It also suits a classroom introducing the rules for the first time, since a full class can finish a puzzle in the same short window without anyone stalling on an intersection they have not been taught yet. The {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}-per-page layout still leaves each grid large enough to write in comfortably, even for a child’s handwriting, and the answer key at the back means a teacher never has to solve the sheet themselves to check it."
+msgstr "这本册子适合养成每天做一点的习惯，而不是一坐就是很久：折进笔记本里，一次做一个盘面，永远不需要写候选数字，也不用在整行里追踪数对。它也适合第一次介绍规则的课堂，因为全班可以在同样短的时间里做完一道题，没有人会卡在还没学过的交叉区块上。每页 {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} 道的版式仍然让每个盘面足够大，即使是孩子的字迹也能舒适地书写，最后的答案页也意味着老师不必自己把这张纸做一遍来核对。"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Those extra blanks over Newbie are enough that the grid stops filling itself in from <0>full houses</0> alone. Once the obvious placements run out, an Easy puzzle always leaves at least one cell where hidden single reasoning is the only way forward — check each unit’s missing digits against where they can still legally go, rather than reading candidates straight off one cell. Suuudokuuu’s technique engine tries hidden single third, right after full house and <1>naked single</1>, and an Easy-rated puzzle never needs to go further than that: no pointing pairs, no subsets, nothing that asks you to hold more than one unit in mind at once. The gap between the tiers is small on purpose — it is exactly one technique wide."
+msgstr "比新手多出来的这些空格，足以让盘面不再单靠<0>最后余格</0>自行填满。当明显的填数用尽后，简单盘面总会留下至少一个格子，只有隐性单数推理才能继续前进：把每个单元缺少的数字与它们仍然可以合法填入的位置对照，而不是直接从一个格子读出候选数字。Suuudokuuu 的技巧引擎把隐性单数排在第三个尝试，紧跟在最后余格和<1>显性单数</1>之后，被评为简单的盘面永远不需要走得更远：没有指向数对，没有数组，没有任何需要你同时在脑中记住多个单元的技巧。各档之间的差距是有意做小的，恰好只有一种技巧的宽度。"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Tips for pencil-mark solving"
+msgstr "用铅笔做笔记标记解题的小技巧"
+
+#: src/techniques/components/technique-summary/technique-summary.tsx
+msgid "TL;DR"
+msgstr "太长不看"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Type or paste the grid into the <0>step-by-step sudoku solver</0> and it will name every move — Hidden Single, Naked Pair, X-Wing — instead of just filling the board in. It checks that your puzzle has exactly one solution first, and it runs entirely in your browser."
+msgstr "把盘面输入或粘贴到<0>分步数独解题器</0>，它会说出每一步的名称，如隐性单数、显性数对、X-Wing，而不只是把盘面填满。它会先检查你的题目是否恰好只有一个解，而且完全在你的浏览器中运行。"
+
+#: src/seo/components/updated-date/updated-date.tsx
+msgid "Updated <0>{formattedDate}</0>"
+msgstr "更新于 <0>{formattedDate}</0>"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Verifying fish and wings on paper"
+msgstr "在纸上验证鱼形和翼形"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Very. Every puzzle in the Infinity set has a published SE rating of at least {lowestRatingLabel}, well past anything the generated tiers or the Hell corpus produce. Our own rater stops pricing the SE ladder at {SE_RATING_CEILING}, so the figures quoted here come from independent raters, and our technique engine cannot finish any of these grids on its own. Expect to need long forcing chains and forcing nets, and expect a single puzzle to take far longer than anything else on this site."
+msgstr "非常难。无限集合中的每道题公布的 SE 评级都至少为 {lowestRatingLabel}，远远超过生成的档位或地狱题库所能产生的难度。我们自己的评级器对 SE 阶梯的计价止于 {SE_RATING_CEILING}，所以这里引用的数字来自独立评级者，而我们的技巧引擎无法独自做完其中任何一个盘面。要做好需要长强制链和强制网的准备，也要预计一道题花的时间会比本站其他任何题目都长得多。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Want the record puzzles on paper? Download the <0>printable Infinity sudoku PDF</0>. Not ready for them yet? Step back to <1>Hell Sudoku</1>, where every board needs a forcing chain but stays within reach of our technique ladder. Read the stories behind Everest and AI Escargot on the <2>hardest sudoku puzzles</2> page, compare every tier on the <3>Sudoku difficulty levels</3> hub, or head <4>home</4>."
+msgstr "想在纸上玩纪录级题目？下载<0>可打印无限数独 PDF</0>。还没准备好？退回<1>地狱数独</1>，那里每个盘面都需要强制链，但仍在我们技巧阶梯的能力范围内。可以在<2>最难数独</2>页面阅读 Everest 和 AI Escargot 背后的故事，在<3>数独难度等级</3>总览页比较所有档位，或者回到<4>首页</4>。"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Want to warm up first? The <0>printable Hell sudoku booklet</0> holds forcing-chain puzzles that are hard but still within reach of our technique ladder. Prefer a screen? Play the same record puzzles on the <1>Infinity sudoku lander</1>, where each game reshuffles the grid, or browse every booklet on the <2>printable sudoku hub</2>."
+msgstr "想先热身？<0>可打印地狱数独册子</0>收录强制链题目，难度很高，但仍在我们技巧阶梯的能力范围内。更喜欢屏幕？到<1>无限数独专页</1>玩同样的纪录级题目，每局都会重新洗牌，也可以在<2>可打印数独总览</2>浏览所有册子。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "What difficulty levels exist?"
+msgstr "有哪些难度等级？"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What is a finned fish in sudoku?"
+msgstr "数独里的 Finned 鱼形是什么？"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What is a pointing pair?"
+msgstr "什么是指向数对？"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "What is Infinity sudoku?"
+msgstr "什么是无限数独？"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "What is inside the booklet"
+msgstr "册子里有什么"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "What is the difference between a clue and a candidate?"
+msgstr "已知数字和候选数字有什么区别？"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "What is the difference between a wing and a chain?"
+msgstr "翼形和链有什么区别？"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "What is the difference between Newbie and Easy sudoku?"
+msgstr "新手和简单数独有什么区别？"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "What is the easiest Sudoku difficulty?"
+msgstr "最简单的数独难度是什么？"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "What is the fastest way to get better at Sudoku?"
+msgstr "提高数独水平最快的方法是什么？"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "What makes a puzzle Easy"
+msgstr "什么样的题目算简单"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What makes a puzzle Hard"
+msgstr "什么样的题目算困难"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "What makes a puzzle Hell"
+msgstr "什么样的题目算地狱"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "What makes a puzzle Infinity"
+msgstr "什么样的题目算无限"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What makes a puzzle Medium"
+msgstr "什么样的题目算中等"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "What makes a puzzle Newbie"
+msgstr "什么样的题目算新手"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "What makes a puzzle Nightmare"
+msgstr "什么样的题目算噩梦"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "What technique does an Easy sudoku booklet require?"
+msgstr "简单数独册子需要什么技巧？"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What techniques do I need for Hard sudoku?"
+msgstr "困难数独需要掌握哪些技巧？"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "What techniques do I need for Hell level?"
+msgstr "地狱级别需要掌握哪些技巧？"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What techniques do I need for Medium sudoku?"
+msgstr "中等数独需要掌握哪些技巧？"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "What techniques does this Hard booklet require?"
+msgstr "这本困难册子需要什么技巧？"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "What techniques does this Medium booklet require?"
+msgstr "这本中等册子需要什么技巧？"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "What techniques does this Nightmare booklet require?"
+msgstr "这本噩梦册子需要什么技巧？"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "When intersections start feeling automatic, move up to the <0>printable Hard sudoku booklet</0> for fish and wing patterns. Drop back to <1>printable Easy sudoku</1> for a singles-only warm-up, or play Medium on a screen at the <2>Medium sudoku lander</2>."
+msgstr "当交叉区块逐渐成为本能，就可以升级到<0>可打印困难数独册子</0>，练习鱼形和翼形。也可以退回<1>可打印简单数独</1>，只用单数热身，或者在屏幕上到<2>中等数独专页</2>玩中等。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "When you start an Infinity game, the app picks one of those puzzles and disguises it. It relabels the digits, shuffles rows within their bands, columns within their stacks and the bands and stacks themselves, and sometimes mirrors the grid across its diagonal. None of that changes the logic or the rating, so the Everest you play is still Everest, it just does not look like the picture below."
+msgstr "当你开始一局无限游戏时，应用会选出其中一道题并加以伪装。它会重新标记数字，在各自的横带内打乱行，在各自的竖带内打乱列，也会打乱横带和竖带本身，有时还会沿对角线镜像盘面。这些都不会改变逻辑或评级，所以你玩的 Everest 仍然是 Everest，只是看起来不像下面图片里的样子。"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Where to go next"
+msgstr "接下来去哪里"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Which sudoku difficulty should I start with?"
+msgstr "我应该从哪个数独难度开始？"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Who rated these puzzles?"
+msgstr "这些题目是谁评级的？"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Why {SITE_NAME}"
+msgstr "为什么选择 {SITE_NAME}"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Why does Hell use a fixed puzzle corpus instead of generating puzzles?"
+msgstr "为什么地狱使用固定题库，而不是现场生成？"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Why does this booklet leave more room around each digit?"
+msgstr "为什么这本册子在每个数字周围留出更多空间？"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Why is paper recommended for chain-based puzzles?"
+msgstr "为什么推荐用纸来做基于链的题目？"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Why paper helps with chains"
+msgstr "为什么纸有助于解链"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Why players stay"
+msgstr "玩家留下来的原因"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Works fully offline once installed, on iOS, Android and the web"
+msgstr "安装后可在 iOS、Android 和网页上完全离线使用"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Write candidates into a cell only once scanning stops producing placements."
+msgstr "只有当扫视不再产生新的填数时，才把候选数字写进格子里。"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Write in candidates once the easy cells run out"
+msgstr "容易的格子用尽后，再写入候选数字"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Yes, along with Everest, Platinum Blonde and Golden Nugget. The booklet prints the puzzles as they were originally published."
+msgstr "是的，还有 Everest、Platinum Blonde 和 Golden Nugget。册子按最初发表的样子打印这些题目。"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our sample measures Hell at SE {hellSeRatingRange} and Nightmare at SE {nightmareSeRatingRange}."
+msgstr "是的，按构造如此。噩梦止于 AIC，而任何地狱盘面都不能用噩梦允许的技巧解出。我们的样本测得地狱为 SE {hellSeRatingRange}，噩梦为 SE {nightmareSeRatingRange}。"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Yes, with no account and no watermark, and every puzzle’s solved grid is included at the back."
+msgstr "是的，无需账号，没有水印，每道题的答案盘面都附在最后。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes. {SITE_NAME} is free and open source, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "是的。{SITE_NAME} 免费开源，没有应用内购买，没有订阅，也没有付费才能玩的难度等级。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Both are in the Infinity set, along with Platinum Blonde and Golden Nugget. Each game reshuffles digits, rows and columns, so the grid looks different every time while the puzzle stays the same."
+msgstr "有。两者都在无限集合中，还有 Platinum Blonde 和 Golden Nugget。每局都会重新洗牌数字、行和列，所以盘面每次看起来都不同，而题目本身保持不变。"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Yes. Easy is the source tier for the large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles with bigger cells for readers who want more room to write."
+msgstr "可以。简单是大字号 PDF 的来源档位，抽样 {PRINTABLE_LARGE_PRINT_SIZE} 道题，格子更大，适合想要更多书写空间的读者。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. Every difficulty booklet and the large-print set carry the full solved grids on the last pages, generated by the same solver that verifies every puzzle has exactly one solution before it ships."
+msgstr "是的。每本难度册子和大字号套装的最后几页都附有完整的答案盘面，由与发布前验证每道题恰好只有一个解的同一个解题器生成。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Every grid is checked by a Dancing Links exact-cover solver and a bitmask solver before it ships, and each has exactly one solution."
+msgstr "是的。每个盘面在发布前，都由 Dancing Links 精确覆盖解题器和位掩码解题器检验，且都恰好只有一个解。"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Yes. Every puzzle in the booklet is solvable with a full house or a naked single alone, so no candidate marking or elimination logic is ever required."
+msgstr "是的。册子里的每道题都只用最后余格或显性单数就能解出，所以始终不需要标记候选数字或使用排除逻辑。"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
+msgstr "是的。安装后，{SITE_NAME} 完全在你的设备上生成和解题，所以没有网络连接时玩起来也一样。"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."
+msgstr "是的。我们的样本测得地狱为 SE {hellSeRatingRange}，而每道无限题公布的评级都在 {lowestRatingLabel} 到 {highestRatingLabel} 之间。地狱盘面仍能用我们的技巧阶梯解开，无限盘面则不行。"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. Suuudokuuu’s code, including the generator behind these puzzles, is open source under the MIT license, and this site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
+msgstr "可以。Suuudokuuu 的代码，包括这些题目背后的生成器，都以 MIT 许可证开源，本站对打印或再分发这些 PDF 没有任何限制，包括在课堂、辅导课或练习册中发放。"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Yes. The PDF downloads free, with no account and no watermark, and includes a full solution key for every puzzle."
+msgstr "是的。PDF 免费下载，无需账号，没有水印，并附有每道题的完整答案。"

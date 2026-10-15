@@ -24,7 +24,7 @@ src/app/(en)/<route>/
 4. **Page header** — `PageHeader metadata=` with `BreadcrumbListItem` children, which emits the visible trail and the `BreadcrumbList` JSON-LD from those children, plus the `<h1>` and the visible updated date from the sidecar. Article routes render `ArticleSchema` explicitly; home and collection hubs omit it.
 5. **Schema and cross-links** — the compound schema primitives the page needs, plus in-prose `<Link>`s to sibling pages, always resolved through the neighbour’s sidecar (`href={xWingPageMetadata.path}`), never through a hardcoded string.
 
-`src/app/(en)/techniques/x-wing/page.tsx` is the reference technique page, `src/app/(en)/sudoku/hard/page.tsx` the reference difficulty lander, `src/app/(en)/printable/hard/page.tsx` the reference article-schema page, `src/app/(en)/solver/page.tsx` the reference tool page, and `src/app/[locale]/page.tsx` with `src/home/components/home-page/home-page.tsx` the reference localized page.
+`src/app/(en)/techniques/x-wing/page.tsx` is the reference technique page, `src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx` the reference difficulty lander, `src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx` the reference article-schema page, `src/app/(en)/solver/page.tsx` the reference tool page, and `src/app/[locale]/page.tsx` with `src/home/components/home-page/home-page.tsx` the reference localized page.
 
 ---
 

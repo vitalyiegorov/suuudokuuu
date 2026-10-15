@@ -1,13 +1,14 @@
 'use client';
 
 import '@suuudokuuu/field-dom/styles.css';
+import { setupI18n } from '@lingui/core';
 import { msg } from '@lingui/core/macro';
-import { Trans, useLingui } from '@lingui/react/macro';
 import { FieldEngine } from '@suuudokuuu/field-core';
 import { FieldGame, getGivenCellKeys } from '@suuudokuuu/field-dom';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { useState } from 'react';
 
+import { CLIENT_MESSAGES } from '../../../i18n/constants/client-messages.constant';
 import { buildFieldLabels } from '../../../techniques/utils/build-field-labels.util';
 import { renderTechniqueNarration } from '../../../techniques/utils/render-technique-narration.util';
 import { buildDifficultyPlayUrl } from '../../utils/build-difficulty-play-url.util';
@@ -32,7 +33,7 @@ interface Props {
 }
 
 export const DifficultyLiveBoard = ({ difficulty, puzzle, solution }: Props) => {
-    const { i18n } = useLingui();
+    const [i18n] = useState(() => setupI18n({ locale: document.documentElement.lang, messages: CLIENT_MESSAGES }));
     const fieldLabels = buildFieldLabels(i18n);
     const [engine, setEngine] = useState(() => new FieldEngine({ sudokuString: puzzle, solutionString: solution, difficulty }));
     const [givenCellKeys, setGivenCellKeys] = useState(() => getGivenCellKeys(puzzle));
@@ -57,11 +58,9 @@ export const DifficultyLiveBoard = ({ difficulty, puzzle, solution }: Props) => 
             <FieldGame engine={engine} givenCellKeys={givenCellKeys} labels={fieldLabels} narrationRenderer={renderTechniqueNarration} />
             <div className="difficulty-board__actions">
                 <button className="technique-embed__action" disabled={isForging} onClick={handleNewPuzzle} type="button">
-                    <Trans>New {difficultyName} puzzle</Trans>
+                    {i18n._(msg`New ${difficultyName} puzzle`)}
                 </button>
-                <a href={buildDifficultyPlayUrl(difficulty)}>
-                    <Trans>Play {difficultyName} in the full app</Trans>
-                </a>
+                <a href={buildDifficultyPlayUrl(difficulty)}>{i18n._(msg`Play ${difficultyName} in the full app`)}</a>
             </div>
         </div>
     );

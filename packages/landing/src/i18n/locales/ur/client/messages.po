@@ -1,0 +1,96 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-10-15 06:50+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: ur\n"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "{cellLabel}, empty"
+msgstr "{cellLabel}، خالی"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Apply to the board"
+msgstr "بورڈ پر لاگو کریں"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Easy"
+msgstr "آسان"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Enter {value}, {remaining} still missing"
+msgstr "{value} درج کریں، {remaining} ابھی باقی ہیں"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Hard"
+msgstr "مشکل"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Hell"
+msgstr "جہنم"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Infinity"
+msgstr "لامحدود"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Interactive Sudoku board"
+msgstr "انٹرایکٹو سوڈوکو بورڈ"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Medium"
+msgstr "درمیانہ"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "New {difficultyName} puzzle"
+msgstr "نیا {difficultyName} پزل"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Newbie"
+msgstr "نیا کھلاڑی"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Next step"
+msgstr "اگلا قدم"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Nightmare"
+msgstr "ڈراؤنا خواب"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Notes"
+msgstr "نوٹس"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Number pad"
+msgstr "نمبر پیڈ"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Play {difficultyName} in the full app"
+msgstr "مکمل ایپ میں {difficultyName} کھیلیں"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Previous step"
+msgstr "پچھلا قدم"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Redo"
+msgstr "دوبارہ کریں"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Restart walkthrough"
+msgstr "واک تھرو دوبارہ شروع کریں"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Step {step} of {stepCount}"
+msgstr "قدم {step} از {stepCount}"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Technique walkthrough"
+msgstr "تکنیک کا واک تھرو"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Undo"
+msgstr "واپس لیں"

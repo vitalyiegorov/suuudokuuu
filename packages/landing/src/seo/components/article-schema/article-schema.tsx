@@ -1,8 +1,9 @@
+import { getActiveLocale } from '../../../i18n/utils/get-active-locale.util';
 import { SCHEMA_CONTEXT } from '../../constants/schema.constant';
-import { DEFAULT_LOCALE, SITE_NAME } from '../../constants/site.constant';
-import { buildAuthorPersonSchema } from '../../utils/build-author-person-schema.util';
+import { SITE_NAME } from '../../constants/site.constant';
 import { buildLocaleUrl } from '../../utils/build-locale-url.util';
 import { buildOgImageUrl } from '../../utils/build-og-image-url.util';
+import { localizePageMetadata } from '../../utils/localize-page-metadata.util';
 import { resolvePageHeadline } from '../../utils/resolve-page-headline.util';
 import { JsonLd } from '../json-ld/json-ld';
 
@@ -10,21 +11,25 @@ import type { PageMetadataInterface } from '../../interfaces/page-metadata.inter
 
 interface Props {
     metadata: PageMetadataInterface;
-    hasPersonAuthor?: boolean;
+    author?: { readonly '@type': string; readonly name: string };
 }
 
-export const ArticleSchema = ({ hasPersonAuthor = false, metadata }: Props) => {
+const ORGANIZATION_AUTHOR = { '@type': 'Organization', name: SITE_NAME };
+
+export const ArticleSchema = ({ author = ORGANIZATION_AUTHOR, metadata }: Props) => {
+    const locale = getActiveLocale();
+    const localizedMetadata = localizePageMetadata(metadata, locale);
     const schema = {
         '@context': SCHEMA_CONTEXT,
         '@type': 'Article',
-        headline: resolvePageHeadline(metadata),
-        description: metadata.metaDescription,
+        headline: resolvePageHeadline(localizedMetadata),
+        description: localizedMetadata.metaDescription,
         datePublished: metadata.publishedAt,
         dateModified: metadata.updatedAt,
-        url: buildLocaleUrl(DEFAULT_LOCALE, metadata.path),
+        url: buildLocaleUrl(locale, metadata.path),
         image: buildOgImageUrl(metadata),
-        inLanguage: DEFAULT_LOCALE,
-        author: hasPersonAuthor ? buildAuthorPersonSchema() : { '@type': 'Organization', name: SITE_NAME },
+        inLanguage: locale,
+        author,
         publisher: { '@type': 'Organization', name: SITE_NAME }
     };
 

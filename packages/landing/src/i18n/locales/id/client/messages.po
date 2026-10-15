@@ -1,0 +1,96 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-10-15 06:50+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: id\n"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "{cellLabel}, empty"
+msgstr "{cellLabel}, kosong"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Apply to the board"
+msgstr "Terapkan ke papan"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Easy"
+msgstr "Mudah"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Enter {value}, {remaining} still missing"
+msgstr "Masukkan {value}, {remaining} masih kurang"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Hard"
+msgstr "Sulit"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Hell"
+msgstr "Neraka"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Infinity"
+msgstr "Tak Terhingga"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Interactive Sudoku board"
+msgstr "Papan Sudoku interaktif"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Medium"
+msgstr "Sedang"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "New {difficultyName} puzzle"
+msgstr "Sudoku {difficultyName} baru"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Newbie"
+msgstr "Pemula"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Next step"
+msgstr "Langkah berikutnya"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Nightmare"
+msgstr "Mimpi buruk"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Notes"
+msgstr "Catatan"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Number pad"
+msgstr "Numpad"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Play {difficultyName} in the full app"
+msgstr "Mainkan {difficultyName} di aplikasi lengkap"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Previous step"
+msgstr "Langkah sebelumnya"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Redo"
+msgstr "Ulangi"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Restart walkthrough"
+msgstr "Mulai ulang penjelasan"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Step {step} of {stepCount}"
+msgstr "Langkah {step} dari {stepCount}"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Technique walkthrough"
+msgstr "Penjelasan teknik"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Undo"
+msgstr "Urungkan"
