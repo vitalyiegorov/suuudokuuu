@@ -40,3 +40,6 @@ export { defaultScoringConfig } from './scoring/constant/default-scoring-config.
 export { LegacyStateImportService } from './legacy/service/legacy-state-import.service';
 
 export { StoreReviewService } from './store-review/service/store-review.service';
+
+export { InvalidBackupError } from './backup/error/invalid-backup.error';
+export { BackupService } from './backup/service/backup.service';

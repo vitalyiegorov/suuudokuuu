@@ -1,5 +1,6 @@
 import * as Layer from 'effect/Layer';
 
+import { BackupService } from '../../backup/service/backup.service';
 import { CompletedGameRepository } from '../../completed-game/repository/completed-game.repository';
 import { CurrentRunRepository } from '../../current-run/repository/current-run.repository';
 import { CurrentRunService } from '../../current-run/service/current-run.service';
@@ -19,5 +20,6 @@ export const ProgressLayer = Layer.mergeAll(
     PlayerStatsRepository.layer,
     CurrentRunService.layer,
     LegacyStateImportService.layer,
-    StoreReviewService.layer
+    StoreReviewService.layer,
+    BackupService.layer
 );
