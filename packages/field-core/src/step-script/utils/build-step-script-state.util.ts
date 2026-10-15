@@ -168,6 +168,7 @@ export const buildStepScriptState = (
     const emptyState: StepScriptStateInterface = {
         hintRegion,
         regionCellKeys: new Set(),
+        candidateCellKeys: new Set(),
         revealedImplicationCount: 0,
         patternCellKeys: new Set(),
         targetCellKey: null,
@@ -181,19 +182,23 @@ export const buildStepScriptState = (
     }
 
     if (hintLevel === HintLevelEnum.PATTERN) {
-        return {
-            ...emptyState,
-            patternCellKeys: new Set(getDeductionPatternCells(scriptSteps, scriptSteps.findIndex(isRevealStep)).map(getCellKey))
-        };
+        const patternCellKeys = new Set(getDeductionPatternCells(scriptSteps, scriptSteps.findIndex(isRevealStep)).map(getCellKey));
+
+        return { ...emptyState, patternCellKeys, candidateCellKeys: patternCellKeys };
     }
 
     const currentStep = scriptSteps.at(stepIndex);
 
     if (currentStep?.kind === StepScriptStepKindEnum.SHOW_CHAIN || currentStep?.kind === StepScriptStepKindEnum.SHOW_BRANCH) {
+        const linkCount = getStepLinkCount(currentStep);
+        const revealedLinkCount = Math.min(revealedImplicationCount, linkCount);
+        const outcomeCells = revealedLinkCount === linkCount ? getWitnessCells(currentStep) : [];
+
         return {
             ...emptyState,
             explanation: currentStep,
-            revealedImplicationCount: Math.min(revealedImplicationCount, getStepLinkCount(currentStep))
+            candidateCellKeys: new Set([...currentStep.narration.cells.slice(0, revealedLinkCount + 1), ...outcomeCells].map(getCellKey)),
+            revealedImplicationCount: revealedLinkCount
         };
     }
 
@@ -201,13 +206,22 @@ export const buildStepScriptState = (
     const placement = steps.find(step => isDefined(step.narration.placement))?.narration.placement;
     const revealIndex = steps.reduce((lastRevealIndex, step, index) => (isRevealStep(step) ? index : lastRevealIndex), -1);
     const patternCellKeys = new Set(getDeductionPatternCells(steps, revealIndex).map(getCellKey));
+    const targetCellKey = isDefined(placement) ? getCellKey(placement.cell) : null;
+    const revealedCandidates = collectRevealedCandidates(steps.at(revealIndex), patternCellKeys);
+    const eliminatedCandidates = collectEliminatedCandidates(steps);
 
     return {
         ...emptyState,
         patternCellKeys,
-        targetCellKey: isDefined(placement) ? getCellKey(placement.cell) : null,
-        revealedCandidates: collectRevealedCandidates(steps.at(revealIndex), patternCellKeys),
-        eliminatedCandidates: collectEliminatedCandidates(steps),
+        candidateCellKeys: new Set([
+            ...patternCellKeys,
+            ...revealedCandidates.keys(),
+            ...eliminatedCandidates.keys(),
+            ...(isDefined(targetCellKey) ? [targetCellKey] : [])
+        ]),
+        targetCellKey,
+        revealedCandidates,
+        eliminatedCandidates,
         placedValues: collectPlacedValues(steps)
     };
 };

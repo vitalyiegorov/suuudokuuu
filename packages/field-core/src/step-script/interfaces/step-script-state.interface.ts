@@ -6,6 +6,7 @@ export interface StepScriptStateInterface {
     readonly explanation?: StepScriptChainStepInterface | StepScriptBranchStepInterface;
     readonly hintRegion: HintRegionInterface | null;
     readonly regionCellKeys: ReadonlySet<string>;
+    readonly candidateCellKeys: ReadonlySet<string>;
     readonly revealedImplicationCount: number;
     readonly patternCellKeys: ReadonlySet<string>;
     readonly targetCellKey: string | null;

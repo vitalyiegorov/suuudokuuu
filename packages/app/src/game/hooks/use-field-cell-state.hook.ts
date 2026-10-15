@@ -20,7 +20,11 @@ export const useFieldCellState = (cell: CellInterface) => {
     const hintValue = stepState.placedValues.get(cellKey);
     const eliminatedCandidates = stepState.eliminatedCandidates.get(cellKey) ?? [];
     const hintedCandidates = gameMergeCandidateValues(stepState.revealedCandidates.get(cellKey) ?? [], eliminatedCandidates);
-    const candidates = gameMergeCandidateValues(engine.getCellCandidates(cell), hintedCandidates);
+    const committedEliminations = snapshot.eliminatedCandidates[cellKey] ?? [];
+    const cellCandidates = stepState.candidateCellKeys.has(cellKey)
+        ? sudoku.getCellCandidates(cell).filter(value => !committedEliminations.includes(value))
+        : engine.getCellCandidates(cell);
+    const candidates = gameMergeCandidateValues(cellCandidates, hintedCandidates);
 
     return {
         activeValue: selectedCell?.value,

@@ -75,11 +75,24 @@ describe('structured witness playback', () => {
     it('shows only the current witness slide and restores the deduction overlay after it', () => {
         const script = techniqueResultToStepScript(findResult(SolutionTechniqueEnum.CellForcingChain));
         const revealIndex = script.steps.findIndex(step => !isWitnessStep(step));
+        const [, branchStep] = script.steps;
 
         expect(buildStepScriptState(script, 1)).toEqual({
             explanation: script.steps[1],
             hintRegion: buildStepScriptState(script, revealIndex).hintRegion,
             regionCellKeys: new Set(),
+            candidateCellKeys: new Set(
+                branchStep.kind === StepScriptStepKindEnum.SHOW_BRANCH
+                    ? [
+                          ...branchStep.narration.cells,
+                          ...branchStep.outcomeCells,
+                          ...branchStep.outcomeCandidates.map(({ cell }) => cell),
+                          ...(branchStep.branch.outcome.kind === ForcingOutcomeKindEnum.COMMON_PLACEMENT
+                              ? [branchStep.branch.outcome.cell]
+                              : [])
+                      ].map(getCellKey)
+                    : []
+            ),
             revealedImplicationCount:
                 script.steps[1].kind === StepScriptStepKindEnum.SHOW_BRANCH ? script.steps[1].branch.implications.length : 0,
             patternCellKeys: new Set(),
