@@ -1,6 +1,8 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { describe, expect, it } from 'vitest';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { CandidateContext } from '../../../src/@generic/classes/candidate-context/candidate-context';
 import { TechniqueManager } from '../../../src/@generic/classes/technique-manager/technique-manager';
 import {
@@ -377,6 +379,26 @@ describe('findPlacementChain', () => {
 
         expect(chain.length).toBeLessThanOrEqual(PLACEMENT_CHAIN_MAX_STEPS);
         expect(calls.length).toBeLessThanOrEqual(PLACEMENT_CHAIN_WORK_BUDGET);
+    });
+
+    it('should scan each technique at most once per candidate context', () => {
+        expect.assertions(1);
+
+        const scannedContexts = new Map<SolutionTechniqueEnum, CandidateContext[]>();
+        const strategies = createChainBandStrategies().map((strategy): TechniqueStrategyInterface => ({
+            technique: strategy.technique,
+            find: (context, target) => {
+                if (!isDefined(target)) {
+                    scannedContexts.set(strategy.technique, [...(scannedContexts.get(strategy.technique) ?? []), context]);
+                }
+
+                return strategy.find(context, target);
+            }
+        }));
+
+        findPlacementChain(createSudoku(pointingPairDetourBoard), strategies);
+
+        expect([...scannedContexts.values()].every(contexts => new Set(contexts).size === contexts.length)).toBe(true);
     });
 
     it('should search past irrelevant eliminations to the placement and keep only the steps it needs', () => {

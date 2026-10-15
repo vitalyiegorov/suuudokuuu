@@ -101,6 +101,25 @@ const pruneChain = (
 const getBranchPathLength = (result: TechniqueResultInterface): number =>
     (result.branches ?? []).reduce((pathLength, branch) => pathLength + 1 + branch.implications.length, 0);
 
+const memoizeStrategy = (strategy: TechniqueStrategyInterface): TechniqueStrategyInterface => {
+    const resultsByContext = new WeakMap<CandidateContext, TechniqueResultInterface[]>();
+
+    return {
+        technique: strategy.technique,
+        find: (context, target) => {
+            if (isDefined(target)) {
+                return strategy.find(context, target);
+            }
+
+            const results = resultsByContext.get(context) ?? strategy.find(context);
+
+            resultsByContext.set(context, results);
+
+            return results;
+        }
+    };
+};
+
 const createBudgetedStrategies = (unbudgetedStrategies: TechniqueStrategyInterface[]): TechniqueStrategyInterface[] => {
     let spentWork = 0;
 
@@ -215,10 +234,12 @@ export const findPlacementChain = (
     previousEliminations: CandidateEliminationInterface[] = [],
     includeFirstStepOnExhaustion = false
 ): TechniqueResultInterface[] => {
-    const unbudgetedStrategies = [...registryStrategies].sort(
-        (firstStrategy, secondStrategy) =>
-            PLACEMENT_CHAIN_DIFFICULTIES[firstStrategy.technique] - PLACEMENT_CHAIN_DIFFICULTIES[secondStrategy.technique]
-    );
+    const unbudgetedStrategies = [...registryStrategies]
+        .sort(
+            (firstStrategy, secondStrategy) =>
+                PLACEMENT_CHAIN_DIFFICULTIES[firstStrategy.technique] - PLACEMENT_CHAIN_DIFFICULTIES[secondStrategy.technique]
+        )
+        .map(memoizeStrategy);
     const strategies = createBudgetedStrategies(unbudgetedStrategies);
     const sudokuContext = CandidateContext.fromSudoku(sudoku);
     const context = previousEliminations.length > 0 ? sudokuContext.withEliminations(previousEliminations) : sudokuContext;
