@@ -1,9 +1,9 @@
 import { TimelineEventKindEnum } from '@suuudokuuu/encoder';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { TechniqueManager } from '@suuudokuuu/techniques';
 
-import { isNotEmptyArray, isNotEmptyString } from '@rnw-community/shared';
+import { isNotEmptyString } from '@rnw-community/shared';
 
+import { classifyTimelineMove } from './classify-timeline-move.util';
 import { getTapeTechniqueEvents } from './get-tape-technique-events.util';
 import { getTechniqueTier } from './get-technique-tier.util';
 
@@ -11,14 +11,8 @@ import type { ChallengeTechniqueEventInterface } from '../interfaces/challenge-t
 import type { TimelineEventType } from '@suuudokuuu/progress';
 
 export const getRunTechniqueEvents = (events: readonly TimelineEventType[], givens: string): ChallengeTechniqueEventInterface[] => {
-    const storedTechniqueEvents = getTapeTechniqueEvents(events);
-
-    if (isNotEmptyArray(storedTechniqueEvents)) {
-        return storedTechniqueEvents;
-    }
-
     if (!isNotEmptyString(givens)) {
-        return [];
+        return getTapeTechniqueEvents(events);
     }
 
     const sudoku = Sudoku.fromString(givens, defaultSudokuConfig);
@@ -34,7 +28,7 @@ export const getRunTechniqueEvents = (events: readonly TimelineEventType[], give
             const cell = { ...sudoku.Field[row][column], value: event.value };
 
             if (event.hinted !== true) {
-                const { technique } = new TechniqueManager(sudoku).identifyMove(cell);
+                const technique = event.technique ?? classifyTimelineMove(sudoku, cell);
 
                 techniqueEvents.push({ cumulativeTime, technique, tier: getTechniqueTier(technique) });
             }

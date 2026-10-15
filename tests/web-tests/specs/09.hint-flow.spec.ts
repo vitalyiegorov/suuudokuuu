@@ -324,6 +324,8 @@ test('replays a reveal hint as a badged Guess and counts it on the history card'
     }
 
     await expect(page.getByTestId(WinnerScreenSelectors.Root)).toBeVisible({ timeout: winnerScreenTimeoutMilliseconds });
+    await expect(page.getByTestId(CompletedGameTechniqueSummarySelectors.Root)).toBeVisible();
+    await expect(page.getByTestId(CompletedGameTechniqueSummarySelectors.HintSummary)).toHaveText('1 reveal');
     await page.getByTestId(WinnerScreenSelectors.HomeButton).click();
     await expect(page.getByTestId(HomeScreenSelectors.Root)).toBeVisible();
     await page.getByText('Stats').click();

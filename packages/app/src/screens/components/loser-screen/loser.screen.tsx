@@ -1,4 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
+import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
+import { gameStateToString } from '@suuudokuuu/progress';
 import { Redirect } from 'expo-router';
 
 import { CompletedGameResultDetails } from '../../../@generic/components/completed-game-result-details/completed-game-result-details';
@@ -6,6 +8,7 @@ import { GameResultPage } from '../../../@generic/components/game-result-page/ga
 import { useCompletedGameResult } from '../../../@generic/hooks/use-completed-game-result.hook';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getSudokuProgress } from '../../../@generic/utils/get-sudoku-progress.util';
+import { CompletedGameTechniqueSummary } from '../../../history/components/completed-game-technique-summary/completed-game-technique-summary';
 
 import { LoserScreenActions } from './loser-screen-actions/loser-screen-actions';
 import { LoserScreenResultHero } from './loser-screen-result-hero/loser-screen-result-hero';
@@ -34,6 +37,8 @@ export const LoserScreen = () => {
     return (
         <GameResultPage footer={footer} testID={LoserScreenSelectors.Root}>
             <LoserScreenResultHero detailsText={detailsText} progressPercent={progress.percent} />
+
+            <CompletedGameTechniqueSummary encodedState={gameStateToString(gameState, SharedPayloadKindEnum.Handoff)} />
 
             <CompletedGameResultDetails
                 resultContext="loser"
