@@ -4,6 +4,8 @@ import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import * as Clock from 'effect/Clock';
 import * as Context from 'effect/Context';
 import * as Effect from 'effect/Effect';
+import * as Fiber from 'effect/Fiber';
+import * as FiberSet from 'effect/FiberSet';
 import * as Layer from 'effect/Layer';
 import * as Option from 'effect/Option';
 import { isNotUndefined, isUndefined } from 'effect/Predicate';
@@ -319,6 +321,8 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
         const difficultyStatsRepository = yield* DifficultyStatsRepository;
         const completedGameRepository = yield* CompletedGameRepository;
 
+        const finishingRuns = yield* FiberSet.make();
+
         const applyStatsMove = Effect.fnUntraced(function* (statsMove: StatsMoveType) {
             const currentRun = yield* currentRunRepository.get;
 
@@ -400,7 +404,10 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
                     restartRunClock(resumeRun({ ...run, ...(needsWallClock && { wallClockStartMs: nowMs }) }), nowMs)
                 );
             }),
-            reset: sql.withTransaction(Effect.tap(currentRunRepository.get, () => currentRunRepository.remove)).pipe(Effect.orDie),
+            reset: Effect.andThen(
+                FiberSet.awaitEmpty(finishingRuns),
+                sql.withTransaction(Effect.tap(currentRunRepository.get, () => currentRunRepository.remove))
+            ).pipe(Effect.orDie),
             pause: (shouldShowPauseScreen = true) => updateRun(run => pauseRun(run, shouldShowPauseScreen)),
             resume: restartRun,
             tick: tickClock,
@@ -439,7 +446,8 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
             toggleInputMode: (inputState: InputStateType) => updateRun(run => ({ ...run, ...inputState })),
             toggleCellCandidate: (payload: Parameters<typeof toggleCellCandidate>[1]) =>
                 updateRun(run => toggleCellCandidate(run, payload)),
-            finish: finishRun
+            finish: (isWon: boolean, isChallenge: boolean, pendingWrites: Effect.Effect<unknown> = Effect.void) =>
+                FiberSet.run(finishingRuns, Effect.andThen(pendingWrites, finishRun(isWon, isChallenge))).pipe(Effect.flatMap(Fiber.join))
         };
     })
 }) {

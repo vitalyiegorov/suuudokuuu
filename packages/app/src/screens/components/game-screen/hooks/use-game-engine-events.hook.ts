@@ -14,7 +14,6 @@ import { AccessibilityInfo } from 'react-native';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
-import { animationDurationConstant } from '../../../../@generic/constants/animation.constant';
 import { useVibration } from '../../../../@generic/hooks/use-vibration.hook';
 import { appRuntime } from '../../../../@generic/runtime/app.runtime';
 import { logErrorCause } from '../../../../@generic/utils/log-error-cause.util';
@@ -30,7 +29,6 @@ import { gameGetFieldStatePayload } from '../../../../game/utils/game-get-field-
 import type { FieldRef } from '../../../../game/components/field/field';
 import type { FieldEngine } from '@suuudokuuu/field-core';
 import type { CellInterface } from '@suuudokuuu/generator';
-import type * as Fiber from 'effect/Fiber';
 import type { RefObject } from 'react';
 
 interface GameEventStateInterface {
@@ -104,7 +102,6 @@ const subscribeResults = (
     eventStateRef: RefObject<GameEventStateInterface>,
     pendingClassifications: FiberSet.FiberSet<unknown, never>
 ) => {
-    const resultFibers = new Set<Fiber.Fiber<void>>();
     const unsubscribeMistake = engine.on('mistake', mistake => {
         const { hasRival, haptics, maxMistakes, router, t } = eventStateRef.current;
         appRuntime.runFork(
@@ -121,23 +118,13 @@ const subscribeResults = (
         }
         AccessibilityInfo.announceForAccessibility(t(msg`Wrong value. Too many mistakes, the run is over.`));
         haptics[1](ImpactFeedbackStyle.Heavy);
-        resultFibers.add(
-            appRuntime.runFork(
-                Effect.gen(function* () {
-                    const didFinish = yield* finishGameOnce(
-                        engine,
-                        Effect.gen(function* () {
-                            yield* FiberSet.awaitEmpty(pendingClassifications);
-                            const currentRunService = yield* CurrentRunService;
-                            yield* currentRunService.finish(false, hasRival);
-                        })
-                    );
-                    if (!didFinish) {
-                        return;
-                    }
-                    router.replace(hasRival ? { pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Mistakes } } : '/loser');
-                }).pipe(Effect.tapCause(logErrorCause))
-            )
+        finishGameOnce(
+            engine,
+            Effect.flatMap(CurrentRunService, currentRunService =>
+                currentRunService.finish(false, hasRival, FiberSet.awaitEmpty(pendingClassifications))
+            ),
+            () =>
+                void router.replace(hasRival ? { pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Mistakes } } : '/loser')
         );
     });
     const unsubscribeCompleted = engine.on('completed', () => {
@@ -149,38 +136,24 @@ const subscribeResults = (
         if (isCelebrationWin) {
             startWinConfetti();
         }
-        resultFibers.add(
-            appRuntime.runFork(
-                Effect.gen(function* () {
-                    const didFinish = yield* finishGameOnce(
-                        engine,
-                        Effect.gen(function* () {
-                            yield* FiberSet.awaitEmpty(pendingClassifications);
-                            const currentRunService = yield* CurrentRunService;
-                            yield* currentRunService.finish(true, wonChallenge);
-                        })
-                    );
-                    if (!didFinish) {
-                        return;
-                    }
-                    yield* Effect.sleep(10 * animationDurationConstant);
-                    if (!hasRival) {
-                        router.replace('/winner');
-                    } else if (wonChallenge) {
-                        router.replace('/challenge-won');
-                    } else {
-                        router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } });
-                    }
-                    if (isCelebrationWin) {
-                        appRuntime.runFork(requestStoreReview);
-                    }
-                }).pipe(Effect.tapCause(logErrorCause))
-            )
+        finishGameOnce(
+            engine,
+            Effect.flatMap(CurrentRunService, currentRunService =>
+                currentRunService.finish(true, wonChallenge, FiberSet.awaitEmpty(pendingClassifications))
+            ).pipe(Effect.andThen(isCelebrationWin ? requestStoreReview : Effect.void)),
+            () => {
+                if (!hasRival) {
+                    router.replace('/winner');
+                } else if (wonChallenge) {
+                    router.replace('/challenge-won');
+                } else {
+                    router.replace({ pathname: '/challenge-lost', params: { reason: ChallengeLossReason.Time } });
+                }
+            }
         );
     });
 
     return () => {
-        resultFibers.forEach(fiber => void fiber.interruptUnsafe());
         unsubscribeMistake();
         unsubscribeCompleted();
     };

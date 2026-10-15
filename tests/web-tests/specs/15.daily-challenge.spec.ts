@@ -16,6 +16,8 @@ import {
 } from '@suuudokuuu/app/src/selectors';
 import { forgeDailyPuzzle, getDailyDayNumber } from '@suuudokuuu/puzzle-forge';
 
+import { isDefined } from '@rnw-community/shared';
+
 import { launchHome } from '../src/utils/launch-home.util';
 import { cellTestId } from '../src/utils/test-id.util';
 
@@ -26,6 +28,31 @@ const todayDayNumber = getDailyDayNumber(todayDateString);
 const gameScreenTimeoutMilliseconds = 15000;
 const winnerScreenTimeoutMilliseconds = 15000;
 const solveTestTimeoutMilliseconds = 120000;
+const winnerScreenLatencyBudgetMilliseconds = 1500;
+
+const measureWinnerScreenLatency = (page: Page): Promise<number> =>
+    page.evaluate(
+        winnerScreenSelector =>
+            new Promise<number>(resolve => {
+                window.addEventListener(
+                    'keydown',
+                    () => {
+                        const pressedAt = performance.now();
+                        const pollWinnerScreen = (): void => {
+                            if (document.querySelector(winnerScreenSelector) === null) {
+                                requestAnimationFrame(pollWinnerScreen);
+
+                                return;
+                            }
+                            resolve(performance.now() - pressedAt);
+                        };
+                        pollWinnerScreen();
+                    },
+                    { capture: true, once: true }
+                );
+            }),
+        `[data-testid="${WinnerScreenSelectors.Root}"]`
+    );
 
 const openDailyTab = async (page: Page): Promise<void> => {
     await page.getByText('Daily', { exact: true }).click();
@@ -35,6 +62,7 @@ const openDailyTab = async (page: Page): Promise<void> => {
 const solveTodaysDaily = async (page: Page): Promise<void> => {
     const { sudoku } = forgeDailyPuzzle(todayDateString);
     const blankCells = sudoku.Field.flat().filter(cell => sudoku.isBlankCell(cell));
+    const lastBlankCell = blankCells.pop();
 
     await page.getByTestId(DailyScreenSelectors.ActionButton).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
@@ -44,6 +72,15 @@ const solveTodaysDaily = async (page: Page): Promise<void> => {
         await page.keyboard.press(String(sudoku.getCorrectValue(cell)));
     }
 
+    if (!isDefined(lastBlankCell)) {
+        throw new Error('Today’s daily puzzle has no blank cells');
+    }
+
+    const winnerScreenLatency = measureWinnerScreenLatency(page);
+    await page.getByTestId(cellTestId(lastBlankCell.y, lastBlankCell.x)).click();
+    await page.keyboard.press(String(sudoku.getCorrectValue(lastBlankCell)));
+
+    expect(await winnerScreenLatency).toBeLessThan(winnerScreenLatencyBudgetMilliseconds);
     await expect(page.getByTestId(WinnerScreenSelectors.Root)).toBeVisible({ timeout: winnerScreenTimeoutMilliseconds });
 };
 
