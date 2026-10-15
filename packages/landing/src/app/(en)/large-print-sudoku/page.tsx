@@ -19,8 +19,12 @@ import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_NAME, SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { homePageMetadata } from '../metadata';
+import { printableEasySudokuPageMetadata } from '../printable/easy/metadata';
 import { printableSudokuPageMetadata } from '../printable/metadata';
+import { printableNewbieSudokuPageMetadata } from '../printable/newbie/metadata';
 import { sudokuForSeniorsPageMetadata } from '../sudoku-for-seniors/metadata';
+import { easySudokuPageMetadata } from '../sudoku/easy/metadata';
+import { newbieSudokuPageMetadata } from '../sudoku/newbie/metadata';
 
 import { largePrintSudokuPageMetadata } from './metadata';
 
@@ -51,8 +55,10 @@ const LargePrintSudokuPage = () => (
         <p>
             A bigger grid helps whenever the standard print looks cramped: low-vision solvers, anyone reading without their glasses close
             by, a caregiver setting up an activity for someone else, or a teacher printing a worksheet meant to be read from across a table
-            rather than held a few inches from the eyes. The puzzles themselves are not simplified — they are the same gentle Easy-tier
-            logic as the standard booklet, so the only thing that changes is how much space each digit gets on the page.
+            rather than held a few inches from the eyes. The puzzles themselves are not simplified — they are the same gentle{' '}
+            <Link href={easySudokuPageMetadata.path}>Easy-tier</Link>
+            logic as the <Link href={printableEasySudokuPageMetadata.path}>standard Easy booklet</Link>, so the only thing that changes is
+            how much space each digit gets on the page.
         </p>
         <h2>What is inside the booklet</h2>
         <p>
@@ -64,10 +70,11 @@ const LargePrintSudokuPage = () => (
         </p>
         <h2>Progress with the per-tier booklets</h2>
         <p>
-            Once a large-print puzzle feels comfortable, the <Link href={printableSudokuPageMetadata.path}>printable sudoku hub</Link> has a
-            full booklet for every difficulty from Newbie through Infinity, each printing {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} puzzles per
-            page with solutions included. Working through the tiers in order is the same progression the site’s digital difficulty ladder
-            uses, just on paper.
+            Once a large-print puzzle feels comfortable, try the <Link href={printableNewbieSudokuPageMetadata.path}>Newbie booklet</Link>{' '}
+            or the <Link href={newbieSudokuPageMetadata.path}>Newbie tier</Link> on screen. The{' '}
+            <Link href={printableSudokuPageMetadata.path}>printable sudoku hub</Link> has a full booklet for every difficulty from Newbie
+            through Infinity, each printing {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} puzzles per page with solutions included. Working through
+            the tiers in order is the same progression the site’s digital difficulty ladder uses, just on paper.
         </p>
         <h2>Printing tips</h2>
         <p>

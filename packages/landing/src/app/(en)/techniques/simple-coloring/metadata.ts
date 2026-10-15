@@ -11,7 +11,7 @@ export const simpleColoringPageMetadata: PageMetadataInterface = {
     metaDescription:
         'Simple coloring assigns two alternating colors to a chain of strong links on one digit, then erases any candidate that sees cells of both colors.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-14T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -98,6 +99,13 @@ const NakedSinglePage = () => (
             </li>
             <li>Hunting for exotic patterns while naked singles are still on the board. They are always the cheaper move.</li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            The easiest naked single is the last blank of a unit, which has its own page as a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.FullHouse} />. Its mirror image is{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.HiddenSingle} />, which watches where one digit can go instead of what one cell
+            can hold, and the first pattern worth learning after both is <TechniqueLink technique={SolutionTechniqueEnum.PointingPair} />.
+        </p>
         <FaqPage>
             <FaqHeading>Naked single FAQ</FaqHeading>
             <Faq>

@@ -11,7 +11,7 @@ export const nakedTriplePageMetadata: PageMetadataInterface = {
     metaDescription:
         'A naked triple is three cells in one unit whose candidates use only three digits, so those digits belong to the triple and leave every other cell in the unit.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-11T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

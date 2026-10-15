@@ -17,7 +17,9 @@ import { TechniqueSummary } from '../../../techniques/components/technique-summa
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
 import { largePrintSudokuPageMetadata } from '../large-print-sudoku/metadata';
 import { homePageMetadata } from '../metadata';
+import { printableEasySudokuPageMetadata } from '../printable/easy/metadata';
 import { printableSudokuPageMetadata } from '../printable/metadata';
+import { printableNewbieSudokuPageMetadata } from '../printable/newbie/metadata';
 import { easySudokuPageMetadata } from '../sudoku/easy/metadata';
 import { newbieSudokuPageMetadata } from '../sudoku/newbie/metadata';
 import { whySuuudokuuuPageMetadata } from '../why-suuudokuuu/metadata';
@@ -88,7 +90,9 @@ const SudokuForSeniorsPage = () => (
         <h2>Large print on paper</h2>
         <p>
             Prefer paper? The <Link href={largePrintSudokuPageMetadata.path}>large-print sudoku page</Link> has a free PDF booklet with
-            noticeably bigger grids and digits than the standard printable set, plus every difficulty tier’s own booklet on the{' '}
+            noticeably bigger grids and digits than the standard printable set, plus the{' '}
+            <Link href={printableNewbieSudokuPageMetadata.path}>Newbie</Link> and{' '}
+            <Link href={printableEasySudokuPageMetadata.path}>Easy</Link> booklets and every other tier’s own booklet on the{' '}
             <Link href={printableSudokuPageMetadata.path}>printable sudoku hub</Link> for working up through the levels. Every PDF ships
             with solutions and needs nothing but a printer.
         </p>

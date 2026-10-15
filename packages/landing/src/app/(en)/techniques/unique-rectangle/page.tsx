@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -105,6 +106,13 @@ const UniqueRectanglePage = () => (
                 Erasing the extra candidates instead of the pair. The roof keeps its extras; it is the shared pair that cannot go there.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            Unique rectangles lean on the same uniqueness assumption as a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.BivalueUniversalGrave} />, and the leftover cells are then resolved like a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.NakedPair} /> or a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.HiddenPair} />. Use it only on puzzles with a single solution.
+        </p>
         <FaqPage>
             <FaqHeading>Unique Rectangle FAQ</FaqHeading>
             <Faq>

@@ -9,6 +9,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -107,6 +108,12 @@ const BugPage = () => (
                 Using it on a puzzle that might have more than one solution. Like every uniqueness technique, it assumes a single answer.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            BUG+1 shares its uniqueness argument with the <TechniqueLink technique={SolutionTechniqueEnum.UniqueRectangle} />. Before you
+            count candidates across the grid, check whether a simpler <TechniqueLink technique={SolutionTechniqueEnum.NakedPair} /> or an{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.XYWing} /> has already produced the same placement.
+        </p>
         <FaqPage>
             <FaqHeading>BUG+1 FAQ</FaqHeading>
             <Faq>

@@ -11,7 +11,7 @@ export const xyzWingPageMetadata: PageMetadataInterface = {
     metaDescription:
         'An XYZ-Wing tightens the XY-Wing by giving the pivot cell all three candidates, so the elimination only reaches cells all three cells see.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-14T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

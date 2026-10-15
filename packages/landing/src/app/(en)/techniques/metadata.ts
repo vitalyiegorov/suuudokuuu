@@ -9,6 +9,7 @@ export const techniquesPageMetadata: PageMetadataInterface = {
         'Every Sudoku solving technique in difficulty order, from full house and naked single to forcing chains, each with a worked example from our solver.',
     publishedAt: '2026-08-11T00:00:00.000Z',
     updatedAt: '2026-10-06T00:00:00.000Z',
+    isHub: true,
     changeFrequency: 'weekly',
     priority: 0.9
 };

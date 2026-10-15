@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -91,6 +92,13 @@ const NakedQuadPage = () => (
             </li>
             <li>Erasing candidates from the quad cells. As with every naked subset, the quad keeps everything it had.</li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            A naked quad is rare because a smaller subset usually shows up first: check for a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.NakedPair} /> or a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.NakedTriple} /> before searching for four cells. The hidden mirror of this
+            pattern is the <TechniqueLink technique={SolutionTechniqueEnum.HiddenQuad} />.
+        </p>
         <FaqPage>
             <FaqHeading>Naked quad FAQ</FaqHeading>
             <Faq>

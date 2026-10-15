@@ -11,7 +11,7 @@ export const cellForcingChainPageMetadata: PageMetadataInterface = {
     metaDescription:
         'A cell forcing chain tries every candidate of one cell and keeps any placement or elimination that all of the branches agree on.',
     publishedAt: '2026-10-06T00:00:00.000Z',
-    updatedAt: '2026-10-06T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

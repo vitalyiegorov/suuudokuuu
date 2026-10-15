@@ -12,7 +12,7 @@ export const infinitySudokuPageMetadata: PageMetadataInterface = {
     metaDescription:
         'Play the hardest sudoku puzzles ever published, from Everest and Platinum Blonde to AI Escargot, free and ad-free in the Infinity tier.',
     publishedAt: '2026-10-06T00:00:00.000Z',
-    updatedAt: '2026-10-06T00:00:00.000Z',
+    updatedAt: '2026-10-14T00:00:00.000Z',
     changeFrequency: 'weekly',
     priority: 0.8
 };

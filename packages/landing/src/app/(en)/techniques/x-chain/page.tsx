@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -105,6 +106,14 @@ const XChainPage = () => (
                 alternation rule.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            An X-Chain follows one digit through alternating strong and weak links;{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.SimpleColoring} /> is the same idea with colors instead of arrows, and a
+            four-link loop collapses into an <TechniqueLink technique={SolutionTechniqueEnum.XWing} />. When the chain needs several digits,
+            move on to the <TechniqueLink technique={SolutionTechniqueEnum.XYChain} /> or the general{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.AIC} />.
+        </p>
         <FaqPage>
             <FaqHeading>X-Chain FAQ</FaqHeading>
             <Faq>

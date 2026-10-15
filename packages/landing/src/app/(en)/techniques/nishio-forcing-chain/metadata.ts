@@ -11,7 +11,7 @@ export const nishioForcingChainPageMetadata: PageMetadataInterface = {
     metaDescription:
         'A Nishio forcing chain assumes one candidate, follows the singles it forces, and erases that candidate when the chain runs into a contradiction.',
     publishedAt: '2026-10-06T00:00:00.000Z',
-    updatedAt: '2026-10-06T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

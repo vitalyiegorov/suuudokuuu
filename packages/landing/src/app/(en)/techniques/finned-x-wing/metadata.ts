@@ -11,7 +11,7 @@ export const finnedXWingPageMetadata: PageMetadataInterface = {
     metaDescription:
         'A Finned X-Wing is an X-Wing with an extra candidate, or fin, that still supports a smaller, safe set of eliminations near the fin.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-14T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

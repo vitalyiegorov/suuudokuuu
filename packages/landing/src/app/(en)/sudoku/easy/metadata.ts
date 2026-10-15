@@ -12,7 +12,7 @@ export const easySudokuPageMetadata: PageMetadataInterface = {
     metaDescription:
         'Free easy Sudoku puzzles with 31 clues, every one guaranteed to need a hidden single and nothing harder. Play easy-level Sudoku online for free, no ads.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-08-23T00:00:00.000Z',
+    updatedAt: '2026-10-14T00:00:00.000Z',
     changeFrequency: 'weekly',
     priority: 0.8
 };

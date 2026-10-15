@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -102,6 +103,12 @@ const WWingPage = () => (
                 not the other.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            A W-Wing pairs two bivalue cells with a strong link, so it is close kin to the{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.XYWing} /> and the <TechniqueLink technique={SolutionTechniqueEnum.XYChain} />.
+            The strong link is the same kind of link a <TechniqueLink technique={SolutionTechniqueEnum.SimpleColoring} /> chain is built on.
+        </p>
         <FaqPage>
             <FaqHeading>W-Wing FAQ</FaqHeading>
             <Faq>

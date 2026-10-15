@@ -11,7 +11,7 @@ import type { LocaleType } from '../types/locale.type';
 import type { Metadata } from 'next';
 
 export const buildPageMetadata = (pageMetadata: PageMetadataInterface, locale: LocaleType = DEFAULT_LOCALE): Metadata => {
-    const { metaDescription, metaTitle, path, publishedAt, title, updatedAt } = localizePageMetadata(pageMetadata, locale);
+    const { isHub, metaDescription, metaTitle, path, publishedAt, title, updatedAt } = localizePageMetadata(pageMetadata, locale);
     const imageUrl = buildOgImageUrl({ path });
     const openGraphImages = [{ url: imageUrl, width: OG_IMAGE_WIDTH, height: OG_IMAGE_HEIGHT, alt: title }];
 
@@ -26,7 +26,9 @@ export const buildPageMetadata = (pageMetadata: PageMetadataInterface, locale: L
             description: metaDescription,
             url: buildLocaleUrl(locale, path),
             images: openGraphImages,
-            ...(path === '/' ? { type: 'website' } : { type: 'article', publishedTime: publishedAt, modifiedTime: updatedAt })
+            ...(path === '/' || isHub === true
+                ? { type: 'website' }
+                : { type: 'article', publishedTime: publishedAt, modifiedTime: updatedAt })
         },
         twitter: {
             card: 'summary_large_image'

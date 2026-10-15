@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -103,6 +104,13 @@ const XWingPage = () => (
                 matters is the digit’s own count per row or column, not how full the cells look.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            An X-Wing is the two-line fish; adding a third line gives a <TechniqueLink technique={SolutionTechniqueEnum.Swordfish} /> and a
+            fourth a <TechniqueLink technique={SolutionTechniqueEnum.Jellyfish} />. When one base row has an extra candidate, the pattern
+            turns into a <TechniqueLink technique={SolutionTechniqueEnum.FinnedXWing} />, or a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.SashimiXWing} /> when the fin stands in for a missing corner.
+        </p>
         <FaqPage>
             <FaqHeading>X-Wing FAQ</FaqHeading>
             <Faq>
