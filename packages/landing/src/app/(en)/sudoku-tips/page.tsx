@@ -11,8 +11,9 @@ import { Faq } from '../../../seo/components/faq/faq';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_NAME, SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
-import { TechniqueStaticExample } from '../../../techniques/components/technique-static-example/technique-static-example';
+import { TechniqueExampleBoard } from '../../../techniques/components/technique-example-board/technique-example-board';
 import { TechniqueSummary } from '../../../techniques/components/technique-summary/technique-summary';
+import { buildTechniqueExample } from '../../../techniques/utils/build-technique-example.util';
 import { blankSudokuGridPageMetadata } from '../blank-sudoku-grid/metadata';
 import { techniqueFrequencyByDifficultyPageMetadata } from '../guides/technique-frequency-by-difficulty/metadata';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
@@ -74,27 +75,27 @@ const SudokuTipsPage = () => (
             <Link href={fullHousePageMetadata.path}>full house</Link>, the cheapest deduction in sudoku, so check every house for a single
             missing digit before anything else.
         </p>
-        <TechniqueStaticExample board={FULL_HOUSE_BOARD} technique={SolutionTechniqueEnum.FullHouse}>
+        <TechniqueExampleBoard example={buildTechniqueExample(FULL_HOUSE_BOARD, SolutionTechniqueEnum.FullHouse)}>
             {BOARD_CAPTION}
-        </TechniqueStaticExample>
+        </TechniqueExampleBoard>
         <h2>2. Scan by digit</h2>
         <p>
             Pick one digit and ask where it can still go in each box, row and column. When only one cell in a house can hold it, that is a{' '}
             <Link href={hiddenSinglePageMetadata.path}>hidden single</Link>. Working one digit at a time, starting with the digit that
             appears most often on the board, finds most early moves.
         </p>
-        <TechniqueStaticExample board={HIDDEN_SINGLE_BOARD} technique={SolutionTechniqueEnum.HiddenSingle}>
+        <TechniqueExampleBoard example={buildTechniqueExample(HIDDEN_SINGLE_BOARD, SolutionTechniqueEnum.HiddenSingle)}>
             {BOARD_CAPTION}
-        </TechniqueStaticExample>
+        </TechniqueExampleBoard>
         <h2>3. Scan by cell</h2>
         <p>
             Look at one empty cell and cross out every digit already in its row, column and box. If one digit survives, it is a{' '}
             <Link href={nakedSinglePageMetadata.path}>naked single</Link>. Cells in crowded areas, where a row, a column and a box are all
             nearly full, are the best places to look.
         </p>
-        <TechniqueStaticExample board={NAKED_SINGLE_BOARD} technique={SolutionTechniqueEnum.NakedSingle}>
+        <TechniqueExampleBoard example={buildTechniqueExample(NAKED_SINGLE_BOARD, SolutionTechniqueEnum.NakedSingle)}>
             {BOARD_CAPTION}
-        </TechniqueStaticExample>
+        </TechniqueExampleBoard>
         <h2>4. Re-scan after every placement</h2>
         <p>
             Each new digit changes what its row, column and box can hold. Before hunting for anything clever, run the same two scans again
@@ -111,33 +112,33 @@ const SudokuTipsPage = () => (
             If a digit can only go in one row or column inside a box, it cannot appear elsewhere in that row or column. That is a{' '}
             <Link href={pointingPairPageMetadata.path}>pointing pair</Link>, and it clears candidates from cells outside the box.
         </p>
-        <TechniqueStaticExample board={POINTING_PAIR_BOARD} technique={SolutionTechniqueEnum.PointingPair}>
+        <TechniqueExampleBoard example={buildTechniqueExample(POINTING_PAIR_BOARD, SolutionTechniqueEnum.PointingPair)}>
             {BOARD_CAPTION}
-        </TechniqueStaticExample>
+        </TechniqueExampleBoard>
         <h2>7. Use box/line reduction</h2>
         <p>
             The mirror image: if a digit in a row or column can only sit inside one box, it is removed from the rest of that box. See{' '}
             <Link href={boxLineReductionPageMetadata.path}>box/line reduction</Link>.
         </p>
-        <TechniqueStaticExample board={BOX_LINE_REDUCTION_BOARD} technique={SolutionTechniqueEnum.BoxLineReduction}>
+        <TechniqueExampleBoard example={buildTechniqueExample(BOX_LINE_REDUCTION_BOARD, SolutionTechniqueEnum.BoxLineReduction)}>
             {BOARD_CAPTION}
-        </TechniqueStaticExample>
+        </TechniqueExampleBoard>
         <h2>8. Spot naked pairs</h2>
         <p>
             Two cells in one house that share the same two candidates must hold those two digits between them, so both digits leave every
             other cell in the house. See <Link href={nakedPairPageMetadata.path}>naked pair</Link>.
         </p>
-        <TechniqueStaticExample board={NAKED_PAIR_BOARD} technique={SolutionTechniqueEnum.NakedPair}>
+        <TechniqueExampleBoard example={buildTechniqueExample(NAKED_PAIR_BOARD, SolutionTechniqueEnum.NakedPair)}>
             {BOARD_CAPTION}
-        </TechniqueStaticExample>
+        </TechniqueExampleBoard>
         <h2>9. Spot hidden pairs</h2>
         <p>
             Two digits that appear in only two cells of a house own those cells, so every other candidate in them can go. See{' '}
             <Link href={hiddenPairPageMetadata.path}>hidden pair</Link>.
         </p>
-        <TechniqueStaticExample board={HIDDEN_PAIR_BOARD} technique={SolutionTechniqueEnum.HiddenPair}>
+        <TechniqueExampleBoard example={buildTechniqueExample(HIDDEN_PAIR_BOARD, SolutionTechniqueEnum.HiddenPair)}>
             {BOARD_CAPTION}
-        </TechniqueStaticExample>
+        </TechniqueExampleBoard>
         <h2>10. Learn the X-Wing, and never guess</h2>
         <p>
             When a digit is confined to the same two columns in two different rows, the four corners form an{' '}
@@ -146,9 +147,9 @@ const SudokuTipsPage = () => (
             a guess is never the answer. If a board stalls, paste it into the{' '}
             <Link href={solverPageMetadata.path}>step-by-step solver</Link> to see which technique is next.
         </p>
-        <TechniqueStaticExample board={X_WING_BOARD} technique={SolutionTechniqueEnum.XWing}>
+        <TechniqueExampleBoard example={buildTechniqueExample(X_WING_BOARD, SolutionTechniqueEnum.XWing)}>
             {BOARD_CAPTION}
-        </TechniqueStaticExample>
+        </TechniqueExampleBoard>
         <h2>Where to go next</h2>
         <p>
             Practice the first habits on <Link href={newbieSudokuPageMetadata.path}>Newbie</Link> puzzles. New to the rules? Read{' '}

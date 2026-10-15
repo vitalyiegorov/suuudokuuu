@@ -34,7 +34,7 @@ export const FamousPuzzleWalkthrough = ({ puzzle }: Props) => {
             <p>
                 Along the way the walkthrough uses <TechniqueLinkList techniques={getSolvePathTechniques(steps)} />.
             </p>
-            <details className="solve-path__details">
+            <details>
                 <summary>Show all {steps.length} steps</summary>
                 <SolvePathList steps={steps} />
             </details>
