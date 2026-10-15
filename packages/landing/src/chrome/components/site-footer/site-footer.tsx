@@ -1,8 +1,8 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import Link from 'next/link';
 
-import { dailySudokuPageMetadata } from '../../../app/(en)/daily-sudoku/metadata';
 import { aboutPageMetadata } from '../../../app/(en)/about/metadata';
+import { dailySudokuPageMetadata } from '../../../app/(en)/daily-sudoku/metadata';
 import { glossaryPageMetadata } from '../../../app/(en)/glossary/metadata';
 import { sudokuCluesVsDifficultyPageMetadata } from '../../../app/(en)/guides/sudoku-clues-vs-difficulty/metadata';
 import { sudokuDifficultyRatingPageMetadata } from '../../../app/(en)/guides/sudoku-difficulty-rating/metadata';
