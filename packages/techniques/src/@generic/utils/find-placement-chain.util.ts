@@ -250,10 +250,9 @@ export const findPlacementChain = (
     }
 
     const difficultyLimit = PLACEMENT_CHAIN_DIFFICULTIES[firstStep.technique] + PLACEMENT_CHAIN_DIFFICULTY_TOLERANCE;
-    const isForcingAllowed = forcingTechniques.has(firstStep.technique);
     const isWithinDifficulty = (strategy: TechniqueStrategyInterface): boolean =>
         PLACEMENT_CHAIN_DIFFICULTIES[strategy.technique] <= difficultyLimit &&
-        (isForcingAllowed || !forcingTechniques.has(strategy.technique));
+        (forcingTechniques.has(firstStep.technique) || !forcingTechniques.has(strategy.technique));
     const route = findPlacementRoute(
         unbudgetedStrategies.filter(isWithinDifficulty),
         strategies.filter(isWithinDifficulty),
