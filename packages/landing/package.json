@@ -24,6 +24,7 @@
         "@lingui/core": "6.9.0",
         "@lingui/react": "6.9.0",
         "@rnw-community/shared": "^2.15.0",
+        "@suuudokuuu/encoder": "workspace:*",
         "@suuudokuuu/field-core": "workspace:*",
         "@suuudokuuu/field-dom": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",

@@ -1,10 +1,13 @@
 import type { StepScriptInterface } from '@suuudokuuu/field-core';
+import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export interface SolverStepInterface {
-    index: number;
-    techniqueName: string;
-    techniquePath: string;
-    narration: string;
-    boardBefore: string;
-    script: StepScriptInterface;
+    readonly index: number;
+    readonly technique: SolutionTechniqueEnum;
+    readonly techniqueName: string;
+    readonly techniquePath: string;
+    readonly narration: string;
+    readonly boardBefore: string;
+    readonly eliminatedCandidates: Readonly<Record<string, number[]>>;
+    readonly script: StepScriptInterface;
 }

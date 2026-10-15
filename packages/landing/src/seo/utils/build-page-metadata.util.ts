@@ -1,3 +1,5 @@
+import { isDefined } from '@rnw-community/shared';
+
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '../constants/og-image.constant';
 import { DEFAULT_LOCALE, SITE_NAME } from '../constants/site.constant';
 
@@ -26,7 +28,9 @@ export const buildPageMetadata = (pageMetadata: PageMetadataInterface, locale: L
             description: metaDescription,
             url: buildLocaleUrl(locale, path),
             images: openGraphImages,
-            ...(path === '/' ? { type: 'website' } : { type: 'article', publishedTime: publishedAt, modifiedTime: updatedAt })
+            ...(path === '/' || isDefined(pageMetadata.openGraphType)
+                ? { type: 'website' }
+                : { type: 'article', publishedTime: publishedAt, modifiedTime: updatedAt })
         },
         twitter: {
             card: 'summary_large_image'

@@ -40,17 +40,13 @@ export const SolverWorkbench = () => {
         setErrorMessage(null);
     };
 
-    const handleSelectStep = (index: number) => {
-        setSelectedStepIndex(current => (current === index ? null : index));
-    };
-
     const errorView = isDefined(errorMessage) ? (
         <p className="solver-notice" data-tone="error" role="status">
             The solver could not start: {errorMessage}
         </p>
     ) : null;
     const outcomeView = isDefined(outcome) ? (
-        <SolverOutcome onSelectStep={handleSelectStep} outcome={outcome} selectedStepIndex={selectedStepIndex} />
+        <SolverOutcome onSelectStep={setSelectedStepIndex} outcome={outcome} selectedStepIndex={selectedStepIndex} />
     ) : null;
 
     return (

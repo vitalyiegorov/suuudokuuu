@@ -1080,6 +1080,20 @@ strong {
     font-size: 0.8rem;
 }
 
+.solver-step-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    margin: 0 0 1rem;
+}
+
+.solver-step-controls__status {
+    margin: 0;
+    color: var(--landing-muted-text-color);
+    font-size: 0.85rem;
+}
+
 .solver-preview {
     --field-font-family: var(--landing-font-family);
     --field-cell-size: var(--landing-cell-size);

@@ -9,6 +9,7 @@ import { SolverEntryPad } from '../solver-entry-pad/solver-entry-pad';
 import type { ChangeEvent } from 'react';
 
 const ENTRY_INPUT_ID = 'solver-entry-string';
+const SHARED_LINK_MARKER = '/shared/';
 
 interface Props {
     isSolving: boolean;
@@ -19,11 +20,23 @@ interface Props {
 export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) => {
     const [entry, setEntry] = useState(EMPTY_PUZZLE_ENTRY);
     const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    const [isLinkUnreadable, setIsLinkUnreadable] = useState(false);
     const solveLabel = isSolving ? 'Solving…' : 'Solve step by step';
 
     const applyEntry = (nextEntry: string) => {
         setEntry(nextEntry);
+        setIsLinkUnreadable(false);
         onEntryChange();
+    };
+
+    const handleUnreadableLink = () => {
+        setIsLinkUnreadable(true);
+    };
+
+    const importSharedLink = (link: string) => {
+        import('../../utils/decode-shared-puzzle.util')
+            .then(module => void applyEntry(module.decodeSharedPuzzle(link)))
+            .catch(handleUnreadableLink);
     };
 
     const handleEnterValue = (character: string) => {
@@ -34,7 +47,15 @@ export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) =
     };
 
     const handlePasteChange = (event: ChangeEvent<HTMLInputElement>) => {
-        applyEntry(normalizePuzzleEntry(event.target.value));
+        const { value } = event.target;
+
+        if (value.includes(SHARED_LINK_MARKER)) {
+            importSharedLink(value);
+
+            return;
+        }
+
+        applyEntry(normalizePuzzleEntry(value));
     };
 
     const handleLoadSample = () => {
@@ -51,12 +72,18 @@ export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) =
         onSolve(entry);
     };
 
+    const linkNotice = isLinkUnreadable ? (
+        <p className="solver-notice" data-tone="error" role="status">
+            That share link could not be read. Copy the whole link from the app’s Share button and paste it again.
+        </p>
+    ) : null;
+
     return (
         <div className="solver-entry">
             <SolverEntryBoard entry={entry} onEnterValue={handleEnterValue} onSelect={setSelectedIndex} selectedIndex={selectedIndex} />
             <SolverEntryPad onEnterValue={handleEnterValue} />
             <label className="solver-entry__label" htmlFor={ENTRY_INPUT_ID}>
-                Or paste an 81-character puzzle — digits for givens, dots or zeros for blanks.
+                Or paste an 81-character puzzle — digits for givens, dots or zeros for blanks — or a Suuudokuuu share link.
             </label>
             <input
                 autoComplete="off"
@@ -66,6 +93,7 @@ export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) =
                 spellCheck={false}
                 value={entry}
             />
+            {linkNotice}
             <div className="solver-entry__actions">
                 <button className="solver-entry__solve" disabled={isSolving} onClick={handleSolve} type="button">
                     {solveLabel}
