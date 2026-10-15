@@ -432,6 +432,10 @@ msgid "Backup imported"
 msgstr "تم استيراد النسخة الاحتياطية"
 
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not exported"
+msgstr "لم يتم تصدير النسخة الاحتياطية"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Backup not imported"
 msgstr "لم يتم استيراد النسخة الاحتياطية"
 
@@ -2125,6 +2129,14 @@ msgstr "النص على شريط لوحة الأرقام الممتلئ"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text on ink"
 msgstr "النص على الحبر"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup could not be added to this device. Please try again."
+msgstr "تعذّرت إضافة النسخة الاحتياطية إلى هذا الجهاز. يُرجى المحاولة مرة أخرى."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup file could not be saved. Please try again."
+msgstr "تعذّر حفظ ملف النسخة الاحتياطية. يُرجى المحاولة مرة أخرى."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."

@@ -432,6 +432,10 @@ msgid "Backup imported"
 msgstr "Cadangan diimpor"
 
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not exported"
+msgstr "Cadangan tidak diekspor"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Backup not imported"
 msgstr "Cadangan tidak diimpor"
 
@@ -2125,6 +2129,14 @@ msgstr "Teks pada bilah numpad terisi"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text on ink"
 msgstr "Teks pada tinta"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup could not be added to this device. Please try again."
+msgstr "Cadangan tidak dapat ditambahkan ke perangkat ini. Silakan coba lagi."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup file could not be saved. Please try again."
+msgstr "File cadangan tidak dapat disimpan. Silakan coba lagi."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."

@@ -432,6 +432,10 @@ msgid "Backup imported"
 msgstr "备份已导入"
 
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not exported"
+msgstr "备份未导出"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Backup not imported"
 msgstr "备份未导入"
 
@@ -2125,6 +2129,14 @@ msgstr "已填充数字键盘进度条上的文字"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text on ink"
 msgstr "墨色上的文字"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup could not be added to this device. Please try again."
+msgstr "无法将备份添加到此设备。请重试。"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup file could not be saved. Please try again."
+msgstr "无法保存备份文件。请重试。"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."

@@ -434,6 +434,10 @@ msgid "Backup imported"
 msgstr "Backup imported"
 
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not exported"
+msgstr "Backup not exported"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Backup not imported"
 msgstr "Backup not imported"
 
@@ -2127,6 +2131,14 @@ msgstr "Text on filled numpad track"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text on ink"
 msgstr "Text on ink"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup could not be added to this device. Please try again."
+msgstr "The backup could not be added to this device. Please try again."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup file could not be saved. Please try again."
+msgstr "The backup file could not be saved. Please try again."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
