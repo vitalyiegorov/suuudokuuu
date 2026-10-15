@@ -13,7 +13,7 @@ const countGivens = (puzzle: string): number => puzzle.split('').filter(characte
 
 const RATING_INVARIANCE_TRANSFORM_SEED_COUNT = 5;
 const RATING_INVARIANCE_TIMEOUT_MILLISECONDS = 20000;
-const CHAIN_BAND_SAMPLE_INDEX = 59;
+const CHAIN_BAND_SAMPLE_INDEX = 84;
 const ratingInvarianceSamples = [
     { index: CHAIN_BAND_SAMPLE_INDEX, rating: 7.5 },
     { index: 0, rating: 7.7 }
