@@ -45,7 +45,8 @@ const OG_IMAGE_TOP_LEVEL_KICKER: Readonly<Record<string, string>> = {
 const OG_IMAGE_CHILD_KICKER: Readonly<Record<string, string>> = {
     techniques: 'Technique',
     sudoku: 'Sudoku',
-    printable: 'Printable Sudoku'
+    printable: 'Printable Sudoku',
+    'hardest-sudoku-puzzles': 'Hardest Puzzles'
 };
 
 const getOgImageKicker = (path: string): string => {

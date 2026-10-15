@@ -30,7 +30,13 @@ import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.uti
 import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
 import { sudokuDifficultyRatingPageMetadata } from '../../guides/sudoku-difficulty-rating/metadata';
+import { aiEscargotPageMetadata } from '../../hardest-sudoku-puzzles/ai-escargot/metadata';
+import { everestPageMetadata } from '../../hardest-sudoku-puzzles/everest/metadata';
+import { goldenNuggetPageMetadata } from '../../hardest-sudoku-puzzles/golden-nugget/metadata';
+import { kolkPageMetadata } from '../../hardest-sudoku-puzzles/kolk/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../../hardest-sudoku-puzzles/metadata';
+import { platinumBlondePageMetadata } from '../../hardest-sudoku-puzzles/platinum-blonde/metadata';
+import { silverPlatePageMetadata } from '../../hardest-sudoku-puzzles/silver-plate/metadata';
 import { homePageMetadata } from '../../metadata';
 import { printableInfinitySudokuPageMetadata } from '../../printable/infinity/metadata';
 import { techniquesPageMetadata } from '../../techniques/metadata';
@@ -129,6 +135,12 @@ const InfinitySudokuPage = () => {
                 <Link href={hardestSudokuPuzzlesPageMetadata.path}>hardest sudoku puzzles</Link> page, compare every tier on the{' '}
                 <Link href={sudokuDifficultiesPageMetadata.path}>Sudoku difficulty levels</Link> hub, or head{' '}
                 <Link href={homePageMetadata.path}>home</Link>.
+            </p>
+            <p>
+                The best-known Infinity grids have pages of their own, each playable, printable and solved step by step by the engine:{' '}
+                <Link href={aiEscargotPageMetadata.path}>AI Escargot</Link>, <Link href={goldenNuggetPageMetadata.path}>Golden Nugget</Link>
+                , <Link href={platinumBlondePageMetadata.path}>Platinum Blonde</Link>, <Link href={everestPageMetadata.path}>Everest</Link>,{' '}
+                <Link href={kolkPageMetadata.path}>Kolk</Link> and <Link href={silverPlatePageMetadata.path}>Silver Plate</Link>.
             </p>
             <StoreBadges campaign={StoreBadgeCampaignEnum.DIFFICULTY} />
             <FaqPage>

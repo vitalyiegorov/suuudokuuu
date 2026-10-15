@@ -12,10 +12,11 @@ import { renderTechniqueNarration } from '../../techniques/utils/render-techniqu
 
 import type { SolvePathInterface } from '../interfaces/solve-path.interface';
 import type { SolverStepInterface } from '../interfaces/solver-step.interface';
-import type { StepScriptInterface } from '@suuudokuuu/field-core';
+import type { StepScriptCandidateInterface, StepScriptInterface } from '@suuudokuuu/field-core';
 import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const MAX_SOLVE_PATH_STEPS = 600;
+const REVEAL_STEP_LABEL = 'Filled from the solution';
 
 type EliminatedCandidatesType = Record<string, number[]>;
 
@@ -43,13 +44,8 @@ const narrateScript = (script: StepScriptInterface): string => {
     return isDefined(lastStep) ? renderTechniqueNarration(lastStep) : TECHNIQUE_NAMES[script.technique];
 };
 
-const narrateReveal = (script: StepScriptInterface): string => {
-    const { placement } = script;
-
-    return isDefined(placement)
-        ? `No implemented technique proves the next digit here, so ${formatCellLabel(placement.cell)} = ${placement.value} is filled in from the verified solution.`
-        : TECHNIQUE_NAMES[script.technique];
-};
+const narrateReveal = ({ cell, value }: StepScriptCandidateInterface): string =>
+    `No implemented technique proves the next digit here, so ${formatCellLabel(cell)} = ${value} is filled in from the verified solution.`;
 
 export class SolvePathBuilder {
     private readonly sudoku: Sudoku;
@@ -88,7 +84,7 @@ export class SolvePathBuilder {
 
         const script = techniqueResultToStepScript(result);
 
-        this.pushStep(script, narrateScript(script));
+        this.pushStep(script, narrateScript(script), TECHNIQUE_NAMES[script.technique]);
         this.eliminated = addEliminations(this.eliminated, result);
 
         if (result.kind !== 'elimination') {
@@ -104,16 +100,16 @@ export class SolvePathBuilder {
             return;
         }
 
-        this.pushStep(script, narrateReveal(script));
+        this.pushStep(script, narrateReveal(placement), REVEAL_STEP_LABEL);
         this.sudoku.setCellValue({ ...placement.cell, value: placement.value });
         this.revealedCellCount += 1;
     }
 
-    private pushStep(script: StepScriptInterface, narration: string): void {
+    private pushStep(script: StepScriptInterface, narration: string, techniqueName: string): void {
         this.steps.push({
             index: this.steps.length,
             technique: script.technique,
-            techniqueName: TECHNIQUE_NAMES[script.technique],
+            techniqueName,
             techniquePath: TECHNIQUE_PAGE_PATHS[script.technique],
             narration,
             boardBefore: this.sudoku.toString(),

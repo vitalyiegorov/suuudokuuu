@@ -5,7 +5,14 @@ import { dailySudokuPageMetadata } from '../../app/(en)/daily-sudoku/metadata';
 import { glossaryPageMetadata } from '../../app/(en)/glossary/metadata';
 import { sudokuCluesVsDifficultyPageMetadata } from '../../app/(en)/guides/sudoku-clues-vs-difficulty/metadata';
 import { sudokuDifficultyRatingPageMetadata } from '../../app/(en)/guides/sudoku-difficulty-rating/metadata';
+import { aiEscargotPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/ai-escargot/metadata';
+import { easterMonsterPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/easter-monster/metadata';
+import { everestPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/everest/metadata';
+import { goldenNuggetPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/golden-nugget/metadata';
+import { kolkPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/kolk/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/metadata';
+import { platinumBlondePageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/platinum-blonde/metadata';
+import { silverPlatePageMetadata } from '../../app/(en)/hardest-sudoku-puzzles/silver-plate/metadata';
 import { howToPlayPageMetadata } from '../../app/(en)/how-to-play/metadata';
 import { largePrintSudokuPageMetadata } from '../../app/(en)/large-print-sudoku/metadata';
 import { homePageMetadata } from '../../app/(en)/metadata';
@@ -82,6 +89,13 @@ export const PAGE_METADATA_REGISTRY: readonly PageMetadataInterface[] = [
     hellSudokuPageMetadata,
     infinitySudokuPageMetadata,
     hardestSudokuPuzzlesPageMetadata,
+    aiEscargotPageMetadata,
+    easterMonsterPageMetadata,
+    goldenNuggetPageMetadata,
+    platinumBlondePageMetadata,
+    everestPageMetadata,
+    kolkPageMetadata,
+    silverPlatePageMetadata,
     seventeenClueSudokuPageMetadata,
     sudokuDifficultyRatingPageMetadata,
     sudokuCluesVsDifficultyPageMetadata,

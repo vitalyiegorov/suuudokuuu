@@ -2,6 +2,7 @@ import { infinityCorpusSize } from '@suuudokuuu/hell-corpus';
 import { SE_RATING_CEILING } from '@suuudokuuu/rating';
 import Link from 'next/link';
 
+import { AI_ESCARGOT, EASTER_MONSTER, EVEREST, GOLDEN_NUGGET, PLATINUM_BLONDE } from '../../../hardest/constants/famous-puzzle.constant';
 import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
 import { ArticleSchema } from '../../../seo/components/article-schema/article-schema';
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
@@ -26,21 +27,18 @@ import { techniquesPageMetadata } from '../techniques/metadata';
 import { nishioForcingChainPageMetadata } from '../techniques/nishio-forcing-chain/metadata';
 import { xChainPageMetadata } from '../techniques/x-chain/metadata';
 
+import { aiEscargotPageMetadata } from './ai-escargot/metadata';
+import { easterMonsterPageMetadata } from './easter-monster/metadata';
+import { everestPageMetadata } from './everest/metadata';
+import { goldenNuggetPageMetadata } from './golden-nugget/metadata';
+import { kolkPageMetadata } from './kolk/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from './metadata';
+import { platinumBlondePageMetadata } from './platinum-blonde/metadata';
+import { silverPlatePageMetadata } from './silver-plate/metadata';
 
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(hardestSudokuPuzzlesPageMetadata);
-
-const AI_ESCARGOT_GIVENS = '100007090030020008009600500005300900010080002600004000300000010040000007007000300';
-
-const EASTER_MONSTER_GIVENS = '100000089000009002000000450007600000030040000900002005004070000500008010060300000';
-
-const GOLDEN_NUGGET_GIVENS = '000000039000001005003050800008090006070002000100400000009080050020000600400700000';
-
-const PLATINUM_BLONDE_GIVENS = '000000012000000003002300400001800005060070800000009000008500000900040500470006000';
-
-const EVEREST_GIVENS = '800000000003600000070090200050007000000045700000100030001000068008500010090000400';
 
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HardestSudokuPuzzlesPage = () => (
@@ -103,7 +101,10 @@ const HardestSudokuPuzzlesPage = () => (
             puzzle most people mean when they first ask about the hardest sudoku ever made. Source:{' '}
             <a href="https://www.sudokuwiki.org/Escargot">SudokuWiki, “AI Escargot”</a>.
         </p>
-        <PuzzleBoard givens={AI_ESCARGOT_GIVENS}>Arto Inkala’s AI Escargot (2006), 23 givens, commonly rated around SE 10.6.</PuzzleBoard>
+        <PuzzleBoard givens={AI_ESCARGOT.givens}>Arto Inkala’s AI Escargot (2006), 23 givens, commonly rated around SE 10.6.</PuzzleBoard>
+        <p>
+            <Link href={aiEscargotPageMetadata.path}>Play AI Escargot online, print it and read its step-by-step solution</Link>.
+        </p>
         <h3>Easter Monster</h3>
         <p>
             Easter Monster comes from the solving community’s lists of the hardest known puzzles, and it is famous less for a number than
@@ -113,7 +114,10 @@ const HardestSudokuPuzzlesPage = () => (
             Sources: <a href="https://www.stolaf.edu/people/hansonr/sudoku/easter_monster.htm">Hanson and Marans, “Easter Monster”</a> and{' '}
             <a href="https://www.sudokuone.com/sweb/extra/easter/a_em.htm">SudokuOne, “A General Sudoku Logic”</a>.
         </p>
-        <PuzzleBoard givens={EASTER_MONSTER_GIVENS}>Easter Monster as published by Hanson and Marans (2008), 21 givens.</PuzzleBoard>
+        <PuzzleBoard givens={EASTER_MONSTER.givens}>Easter Monster as published by Hanson and Marans (2008), 21 givens.</PuzzleBoard>
+        <p>
+            <Link href={easterMonsterPageMetadata.path}>Play Easter Monster online, print it and read its step-by-step solution</Link>.
+        </p>
         <h3>Golden Nugget</h3>
         <p>
             Golden Nugget is a hand-crafted extreme puzzle posted to the Sudoku Players’ Forum as an open challenge, built for maximum
@@ -121,7 +125,10 @@ const HardestSudokuPuzzlesPage = () => (
             every puzzle at this end — the exact figure moves depending on which rater produced it. Source:{' '}
             <a href="http://forum.enjoysudoku.com/golden-nugget-challenge-t35955.html">Sudoku Players’ Forum, “Golden Nugget challenge”</a>.
         </p>
-        <PuzzleBoard givens={GOLDEN_NUGGET_GIVENS}>Golden Nugget, 21 givens, commonly rated around SE 11.9.</PuzzleBoard>
+        <PuzzleBoard givens={GOLDEN_NUGGET.givens}>Golden Nugget, 21 givens, commonly rated around SE 11.9.</PuzzleBoard>
+        <p>
+            <Link href={goldenNuggetPageMetadata.path}>Play Golden Nugget online, print it and read its step-by-step solution</Link>.
+        </p>
         <h3>Platinum Blonde</h3>
         <p>
             Platinum Blonde is a computer-generated puzzle built specifically to push the SE scale, commonly cited at roughly SE 10.9. Its
@@ -130,7 +137,10 @@ const HardestSudokuPuzzlesPage = () => (
             span the whole board at once. Source:{' '}
             <a href="https://groups.google.com/g/sci.math/c/HXZfuNub7Cs">sci.math, “Platinum Blonde”</a>.
         </p>
-        <PuzzleBoard givens={PLATINUM_BLONDE_GIVENS}>Platinum Blonde, 21 givens, commonly rated around SE 10.9.</PuzzleBoard>
+        <PuzzleBoard givens={PLATINUM_BLONDE.givens}>Platinum Blonde, 21 givens, commonly rated around SE 10.9.</PuzzleBoard>
+        <p>
+            <Link href={platinumBlondePageMetadata.path}>Play Platinum Blonde online, print it and read its step-by-step solution</Link>.
+        </p>
         <h3>Inkala’s Everest (2010)</h3>
         <p>
             Arto Inkala followed AI Escargot with a second puzzle in 2010, again promoted as the world’s hardest sudoku. The solving
@@ -138,7 +148,16 @@ const HardestSudokuPuzzlesPage = () => (
             high enough that different SE implementations disagree by several tenths depending on which chain types they model. Source:{' '}
             <a href="https://www.sudokuwiki.org/Arto_Inkala_Sudoku">SudokuWiki, “Arto Inkala Sudoku”</a>.
         </p>
-        <PuzzleBoard givens={EVEREST_GIVENS}>Arto Inkala’s “Everest” (2010), 21 givens, commonly rated around SE 11.9.</PuzzleBoard>
+        <PuzzleBoard givens={EVEREST.givens}>Arto Inkala’s “Everest” (2010), 21 givens, commonly rated around SE 11.9.</PuzzleBoard>
+        <p>
+            <Link href={everestPageMetadata.path}>Play Everest online, print it and read its step-by-step solution</Link>.
+        </p>
+        <h3>More record puzzles: Kolk and Silver Plate</h3>
+        <p>
+            Two more named grids from the Sudoku Players’ Forum list of the hardest known puzzles have their own pages, each playable,
+            printable and solved step by step by the same engine as the five above: <Link href={kolkPageMetadata.path}>Kolk</Link>, rated SE
+            11.9 on that list, and <Link href={silverPlatePageMetadata.path}>Silver Plate</Link>, rated SE 11.5.
+        </p>
         <h2>Why the hardest sudoku in the world defeats human solvers</h2>
         <p>
             Every pattern technique on Suuudokuuu’s <Link href={techniquesPageMetadata.path}>technique index</Link>, up through{' '}

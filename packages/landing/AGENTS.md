@@ -52,11 +52,19 @@ src/
 │   ├── constants/           # comfort-scale steps, storage key, CSS custom property name
 │   ├── interfaces/          # comfort-scale step view model
 │   └── utils/               # buildComfortScaleInitScript, the pre-hydration scale script
+├── daily/
+│   ├── components/          # the shared daily puzzle body and the archive day and month lists
+│   ├── constants/           # archive start, build date and the derived archive dates and months
+│   └── utils/               # UTC date and month labels
 ├── difficulty/
 │   ├── components/          # prev/next difficulty chain, the playable tier board and its live-board island
 │   ├── constants/           # difficulty display names, ladder order, difficulty page paths, Infinity corpus facts
 │   ├── types/               # RatedDifficultyType, the tiers the rated sample covers
 │   └── utils/               # clue count per difficulty, derived from DIFFICULTY_BANDS, and the tier deep link into /play
+├── hardest/
+│   ├── components/          # famous-puzzle header, board with facts and app and print links, engine walkthrough
+│   ├── constants/           # the named record grids, also read by the printables script
+│   └── interfaces/          # famous puzzle view model
 ├── home/
 │   └── components/          # the home page body, rendered by the English and the localized home routes
 ├── i18n/

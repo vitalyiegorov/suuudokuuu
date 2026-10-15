@@ -4,6 +4,7 @@ import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 import { isDefined } from '@rnw-community/shared';
 
 import { DIFFICULTY_LADDER, DIFFICULTY_NAMES } from '../src/difficulty/constants/difficulty-name.constant';
+import { FAMOUS_PUZZLES } from '../src/hardest/constants/famous-puzzle.constant';
 import {
     PRINTABLE_BOOKLET_PUZZLES_PER_PAGE,
     PRINTABLE_BOOKLET_SOLUTIONS_PER_PAGE,
@@ -23,6 +24,7 @@ import { createPublicDirectory } from './utils/create-public-directory.util';
 import { handleGeneratorError } from './utils/handle-generator-error.util';
 import { writePublicArtifact } from './utils/write-public-artifact.util';
 
+import type { FamousPuzzleInterface } from '../src/hardest/interfaces/famous-puzzle.interface';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { PDFFont, PDFPage } from 'pdf-lib';
 
@@ -295,6 +297,20 @@ const buildBlankGridDocument = async (): Promise<PDFDocument> => {
     return doc;
 };
 
+const buildFamousPuzzleDocument = async ({ givens, name }: FamousPuzzleInterface): Promise<PDFDocument> => {
+    const puzzle = givens.replaceAll('0', BLANK_CHARACTER);
+    const doc = await PDFDocument.create();
+    const fonts = await embedFonts(doc);
+
+    doc.setTitle(`${name} Sudoku — Printable Puzzle and Solution`);
+    doc.setAuthor(SITE_NAME);
+
+    addGridPages(doc, fonts, `${name} — Puzzle`, 'Puzzle', [puzzle], 1);
+    addGridPages(doc, fonts, `${name} — Solution`, 'Solution', [toSolutionDigits(puzzle)], 1);
+
+    return doc;
+};
+
 const writePdf = async (fileName: string, doc: PDFDocument): Promise<void> => {
     const bytes = await doc.save();
 
@@ -309,7 +325,11 @@ const generate = async (): Promise<void> => {
     await writePdf('large-print.pdf', await buildBookletDocument(LARGE_PRINT_BOOKLET));
     await writePdf('blank-grid.pdf', await buildBlankGridDocument());
 
-    console.log(`Generated ${DIFFICULTY_LADDER.length + 2} printable PDFs in ${OUTPUT_DIRECTORY}`);
+    for (const famousPuzzle of FAMOUS_PUZZLES) {
+        await writePdf(`${famousPuzzle.fileName}.pdf`, await buildFamousPuzzleDocument(famousPuzzle));
+    }
+
+    console.log(`Generated ${DIFFICULTY_LADDER.length + 2 + FAMOUS_PUZZLES.length} printable PDFs in ${OUTPUT_DIRECTORY}`);
 };
 
 generate().catch(handleGeneratorError);
