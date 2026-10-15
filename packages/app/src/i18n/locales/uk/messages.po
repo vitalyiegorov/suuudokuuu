@@ -330,6 +330,10 @@ msgstr "Прийняти виклик"
 msgid "Accept challenge?"
 msgstr "Прийняти виклик?"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Add games, statistics, and themes from a backup file"
+msgstr "Додати ігри, статистику й теми з файлу резервної копії"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "Налаштуйте цифри на дошці судоку"
@@ -420,6 +424,18 @@ msgstr "Уникай помилок: вони знімають бали."
 #: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "Назад"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup"
+msgstr "Резервна копія"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup imported"
+msgstr "Резервну копію імпортовано"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not imported"
+msgstr "Резервну копію не імпортовано"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -519,6 +535,7 @@ msgstr "Зможеш їх обіграти?"
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "Скасувати"
@@ -852,6 +869,10 @@ msgstr "Експерт"
 msgid "Expert grid"
 msgstr "Сітка для експертів"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Export backup"
+msgstr "Експортувати резервну копію"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Додаткові бали нараховуються, коли твій хід завершує:"
@@ -925,6 +946,14 @@ msgstr "Налаштування гри"
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "Партії"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are added to this device. Nothing here is removed, and your settings stay as they are."
+msgstr "Ігри, статистику й теми з файлу буде додано на цей пристрій. Нічого не буде видалено, а ваші налаштування залишаться без змін."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are now on this device."
+msgstr "Ігри, статистика й теми з файлу тепер на цьому пристрої."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "General"
@@ -1082,6 +1111,18 @@ msgstr "Якщо {path} → для {value} не залишається місц�
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "Безсмертний"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import"
+msgstr "Імпортувати"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup"
+msgstr "Імпортувати резервну копію"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup?"
+msgstr "Імпортувати резервну копію?"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1776,6 +1817,10 @@ msgstr "Зберегти"
 msgid "Save anyway"
 msgstr "Зберегти попри все"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Save your games, statistics, and themes to a file"
+msgstr "Зберегти ігри, статистику й теми у файл"
+
 #: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
 #: src/history/components/replay-header/replay-header.tsx
@@ -2121,6 +2166,10 @@ msgstr "Назва теми"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Цю дошку цього разу не завершено. Боротьба за свободу в Україні триває. Кожен донат у 1 $ має значення."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
+msgstr "Цей файл не є резервною копією {appName} або створений новішою версією застосунку."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
