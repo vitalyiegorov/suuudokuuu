@@ -39,6 +39,10 @@ msgstr "{awaySeconds}s di luar aplikasi"
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Rentetan terbaik: # hari} other {Rentetan terbaik: # hari}}"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{cell} cannot be {values}"
+msgstr "{cell} tidak bisa {values}"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
@@ -113,16 +117,16 @@ msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
 msgstr "{techniqueName}: {cellName} melihat semua angka yang disorot kecuali satu."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
-msgstr "{techniqueName}: {valueList} harus berada di garis dasar, sehingga garis penutup kehilangannya di sel yang ditandai."
+msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{techniqueName}: {valueList} harus berada di garis dasar, sehingga {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
 msgstr "{techniqueName}: sebuah rantai menghubungkan kedua ujung yang disorot, sehingga {firstEnd} atau {lastEnd} benar."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
-msgstr "{techniqueName}: salah satu sel penjepit selalu {valueList}, sehingga sel yang ditandai yang melihat kedua penjepit tidak bisa {valueList}."
+msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "{techniqueName}: salah satu sel penjepit selalu {valueList} dan setiap sel yang ditandai melihat kedua penjepit, sehingga {eliminationList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
@@ -149,20 +153,20 @@ msgid "{techniqueName}: each highlighted group has one more candidate than cells
 msgstr "{techniqueName}: setiap grup yang disorot punya satu kandidat lebih banyak daripada jumlah selnya, dan kedua grup berbagi satu angka yang hanya bisa dimiliki salah satunya."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: setiap sel yang ditandai melihat semua sel yang disorot, sehingga {cellList} tidak bisa {valueList}."
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "{techniqueName}: setiap sel yang ditandai melihat semua sel yang disorot, sehingga {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: bagaimanapun, {valueList} jatuh di sel yang terlihat oleh sel yang ditandai, sehingga {cellList} tidak mungkin {valueList}."
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "{techniqueName}: bagaimanapun, {valueList} jatuh di sel yang terlihat oleh sel yang ditandai, sehingga {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: setiap sel kosong lainnya punya dua kandidat, sehingga {value} harus masuk ke sel yang ditandai untuk menghindari pola mematikan."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: setiap kemungkinan berakhir pada kontradiksi atau hasil yang sama, sehingga {valueList} dicoret dari sel yang ditandai."
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "{techniqueName}: setiap kemungkinan berakhir pada kontradiksi atau hasil yang sama, sehingga {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
@@ -221,12 +225,12 @@ msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row
 msgstr "{techniqueName}: di kotak yang disorot, {valueList} hanya muat di satu baris dan satu kolom, dan pasangan yang disorot di luar kotak memuat {valueList} di salah satu ujungnya."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: salah satu ujung rantai selalu benar dan setiap kandidat yang ditandai bertentangan dengan kedua ujung, sehingga {cellList} tidak bisa {valueList}."
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "{techniqueName}: salah satu ujung rantai selalu benar dan setiap kandidat yang ditandai bertentangan dengan kedua ujung, sehingga {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: salah satu grup harus memuat {valueList}, dan setiap sel yang ditandai melihat setiap {valueList} di kedua grup, sehingga {cellList} tidak mungkin {valueList}."
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "{techniqueName}: salah satu grup harus memuat {valueList}, dan setiap sel yang ditandai melihat setiap {valueList} di kedua grup, sehingga {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -249,8 +253,8 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}: sel yang disorot hanya menyisakan {value} untuk sel yang ditandai."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: sel yang disorot berbagi angkanya antara baris atau kolom dan kotak tanpa mengulang satu pun, sehingga {cellList} tidak mungkin {valueList}."
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "{techniqueName}: sel yang disorot berbagi angkanya antara baris atau kolom dan kotak tanpa mengulang satu pun, sehingga {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
@@ -269,16 +273,16 @@ msgid "{techniqueName}: the marked cell sees every highlighted digit except {val
 msgstr "{techniqueName}: sel yang ditandai melihat semua angka yang disorot kecuali {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
-msgstr "{techniqueName}: sel yang ditandai melihat kedua warna atau membawa warna yang bertentangan dengan dirinya sendiri, jadi tidak bisa berisi {valueList}."
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "{techniqueName}: sel yang ditandai melihat kedua warna atau membawa warna yang bertentangan dengan dirinya sendiri, sehingga {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: sel-sel itu dicadangkan untuk himpunan angka tersebut, sehingga {cellList} tidak bisa {valueList}."
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
+msgstr "{techniqueName}: sel-sel itu dicadangkan untuk kumpulan angka tersebut, sehingga {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: untuk menghindari pola mematikan, {valueList} dicoret dari sel yang ditandai."
+msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
+msgstr "{techniqueName}: untuk menghindari pola mematikan, {eliminationList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
@@ -1687,10 +1691,6 @@ msgstr "Sudoku terpecahkan."
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Keluar"
-
-#: src/game/components/hint-chain-block/hint-chain-block.tsx
-msgid "R{row}C{column} {operator} {value}"
-msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"

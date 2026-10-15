@@ -5,6 +5,7 @@ import { use } from 'react';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { gameGetCellName } from '../../utils/game-get-cell-name.util';
 import { HintStepNarrationSelectors } from '../hint-step-narration/hint-step-narration.selectors';
 import { HintStepNarrationStyles as styles } from '../hint-step-narration/hint-step-narration.styles';
 
@@ -21,7 +22,7 @@ export const HintChainSentence = ({ step, narrationText, revealedImplicationCoun
     const { theme } = use(ThemeContext);
     const narrationStyles = [styles.narration, { color: theme.colors.surface.raisedText }];
     const assumption = step.kind === StepScriptStepKindEnum.SHOW_BRANCH ? step.branch.assumption : step.chain[0];
-    const cell = `R${assumption.cell.y + 1}C${assumption.cell.x + 1}`;
+    const cell = gameGetCellName(assumption.cell);
     const { value } = assumption;
     const isContradiction =
         step.kind === StepScriptStepKindEnum.SHOW_BRANCH &&

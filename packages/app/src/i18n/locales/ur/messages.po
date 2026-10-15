@@ -39,6 +39,10 @@ msgstr "{awaySeconds}s غیر حاضر"
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {بہترین تسلسل: # دن} other {بہترین تسلسل: # دن}}"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{cell} cannot be {values}"
+msgstr "{cell} {values} نہیں ہو سکتا"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}، {stateText}"
@@ -113,16 +117,16 @@ msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
 msgstr "{techniqueName}: {cellName} ایک کے سوا تمام نمایاں ہندسے دیکھتا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
-msgstr "{techniqueName}: {valueList} کو بنیادی لائنوں میں ہی ہونا ہے، اس لیے کور لائنیں معلم خانوں میں اسے کھو دیتی ہیں۔"
+msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{techniqueName}: {valueList} کو بنیادی لائنوں میں ہی ہونا ہے، اس لیے {eliminationList}۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
 msgstr "{techniqueName}: ایک زنجیر نمایاں کردہ دونوں سروں کو جوڑتی ہے، اس لیے {firstEnd} یا {lastEnd} درست ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
-msgstr "{techniqueName}: ایک پنسر خانہ ہمیشہ {valueList} ہوتا ہے، اس لیے دونوں پنسر کو دیکھنے والے معلم خانے {valueList} نہیں ہو سکتے۔"
+msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "{techniqueName}: ایک پنسر خانہ ہمیشہ {valueList} ہوتا ہے اور ہر معلم خانہ دونوں پنسر کو دیکھتا ہے، اس لیے {eliminationList}۔"
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
@@ -149,20 +153,20 @@ msgid "{techniqueName}: each highlighted group has one more candidate than cells
 msgstr "{techniqueName}: ہر نمایاں گروپ میں خانوں سے ایک امیدوار زیادہ ہے، اور دونوں گروپ ایک ایسا ہندسہ بانٹتے ہیں جو ان میں سے صرف ایک ہی رکھ سکتا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: ہر معلم خانہ تمام نمایاں خانوں کو دیکھتا ہے، اس لیے {cellList} {valueList} نہیں ہو سکتے۔"
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "{techniqueName}: ہر معلم خانہ تمام نمایاں خانوں کو دیکھتا ہے، اس لیے {eliminationList}۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: دونوں صورتوں میں {valueList} ایسے خانے میں آتا ہے جسے معلم خانے دیکھتے ہیں، اس لیے {cellList} {valueList} نہیں ہو سکتے۔"
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "{techniqueName}: دونوں صورتوں میں {valueList} ایسے خانے میں آتا ہے جسے معلم خانے دیکھتے ہیں، اس لیے {eliminationList}۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: باقی ہر خالی خانے میں دو امیدوار ہیں، اس لیے مہلک نمونے سے بچنے کے لیے {value} معلم خانے میں جانا چاہیے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: ہر امکان تضاد یا اسی نتیجے پر ختم ہوتا ہے، اس لیے معلم خانوں سے {valueList} خارج کر دیا جاتا ہے۔"
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "{techniqueName}: ہر امکان کسی تضاد یا ایک ہی نتیجے پر ختم ہوتا ہے، اس لیے {eliminationList}۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
@@ -221,12 +225,12 @@ msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row
 msgstr "{techniqueName}: نمایاں بلاک میں {valueList} صرف ایک قطار اور ایک کالم میں آ سکتا ہے، اور بلاک سے باہر نمایاں جوڑا ایک سرے پر یا دوسرے سرے پر {valueList} رکھتا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: زنجیر کا ایک سرا ہمیشہ درست ہوتا ہے اور ہر نشان زدہ امیدوار دونوں سروں سے ٹکراتا ہے، اس لیے {cellList} {valueList} نہیں ہو سکتا۔"
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "{techniqueName}: زنجیر کا ایک سرا ہمیشہ درست ہوتا ہے اور ہر معلم امیدوار دونوں سروں سے ٹکراتا ہے، اس لیے {eliminationList}۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: ایک گروپ میں {valueList} ہونا لازم ہے، اور ہر معلم خانہ دونوں گروپوں کے ہر {valueList} کو دیکھتا ہے، اس لیے {cellList} {valueList} نہیں ہو سکتے۔"
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "{techniqueName}: ایک گروپ میں {valueList} ہونا لازم ہے، اور ہر معلم خانہ دونوں گروپوں کے ہر {valueList} کو دیکھتا ہے، اس لیے {eliminationList}۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -249,8 +253,8 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}: نمایاں کردہ خانے معلم خانے کے لیے صرف {value} چھوڑتے ہیں۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: نمایاں خانے کسی ہندسے کو دہرائے بغیر اپنے ہندسے قطار یا کالم اور بلاک کے درمیان بانٹتے ہیں، اس لیے {cellList} {valueList} نہیں ہو سکتے۔"
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "{techniqueName}: نمایاں خانے کسی ہندسے کو دہرائے بغیر اپنے ہندسے قطار یا کالم اور بلاک کے درمیان بانٹتے ہیں، اس لیے {eliminationList}۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
@@ -269,16 +273,16 @@ msgid "{techniqueName}: the marked cell sees every highlighted digit except {val
 msgstr "{techniqueName}: معلم خانہ {value} کے سوا تمام نمایاں ہندسے دیکھتا ہے۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
-msgstr "{techniqueName}: نشان زدہ خانے یا تو دونوں رنگ دیکھتے ہیں یا ایسا رنگ رکھتے ہیں جو خود سے متضاد ہے، اس لیے وہ {valueList} نہیں ہو سکتے۔"
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "{techniqueName}: معلم خانے یا تو دونوں رنگ دیکھتے ہیں یا ایسا رنگ رکھتے ہیں جو خود اپنی تردید کرتا ہے، اس لیے {eliminationList}۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: یہ خانے ہندسوں کے اسی مجموعے کے لیے مخصوص ہیں، اس لیے {cellList} {valueList} نہیں ہو سکتے۔"
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
+msgstr "{techniqueName}: وہ خانے ہندسوں کے اس مجموعے کے لیے مخصوص ہیں، اس لیے {eliminationList}۔"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: مہلک نمونے سے بچنے کے لیے معلم خانوں سے {valueList} خارج کر دیا جاتا ہے۔"
+msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
+msgstr "{techniqueName}: مہلک نمونے سے بچنے کے لیے، {eliminationList}۔"
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
@@ -1687,10 +1691,6 @@ msgstr "سوڈوکو حل ہو گیا۔"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "چھوڑیں"
-
-#: src/game/components/hint-chain-block/hint-chain-block.tsx
-msgid "R{row}C{column} {operator} {value}"
-msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"

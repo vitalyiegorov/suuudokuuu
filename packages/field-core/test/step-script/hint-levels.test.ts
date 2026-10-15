@@ -32,6 +32,8 @@ const hiddenSingleBoard = [
     '100400000'
 ].join('');
 
+const pointingPairBoard = '534678912672195348.9834.56785.76142342685379...392485.9615372842.74196353.5286179';
+
 const forcingHintIndex = 12;
 
 const fieldCells = new FieldEngine({ sudokuString: nakedPairBoard, difficulty: DifficultyEnum.Newbie }).Sudoku.Field;
@@ -235,6 +237,35 @@ describe('technique level region highlight', () => {
             assert.deepEqual(buildStepScriptState(boxScript, 0).hintRegion, boxState.hintRegion);
             assert.isNull(buildStepScriptState(null, 0, HintLevelEnum.TECHNIQUE).hintRegion);
             assert.strictEqual(buildStepScriptState(null, 0, HintLevelEnum.TECHNIQUE).regionCellKeys.size, 0);
+        })
+    );
+
+    it.effect('marks the cells that block a hidden single at the pattern level instead of its unit again', () =>
+        Effect.sync(() => {
+            const boxScript = findHiddenSingleScript(hiddenSingleBoard, cells => cells.every(cell => cell.group === cells[0].group));
+            const [revealStep] = boxScript.steps;
+            const { regionCellKeys } = buildStepScriptState(boxScript, 0, HintLevelEnum.TECHNIQUE);
+            const { patternCellKeys } = buildStepScriptState(boxScript, 0, HintLevelEnum.PATTERN);
+
+            assert(revealStep.kind === StepScriptStepKindEnum.RevealCandidates, 'Expected a reveal step');
+            assert.isAbove(patternCellKeys.size, 0);
+            assert.deepEqual(patternCellKeys, new Set(revealStep.patternCells.map(getCellKey)));
+            assert.isTrue(
+                revealStep.patternCells.every(cell => cell.value === boxScript.placement?.value && !regionCellKeys.has(getCellKey(cell)))
+            );
+        })
+    );
+
+    it.effect('names the box of a pointing pair at the technique level', () =>
+        Effect.sync(() => {
+            const engine = new FieldEngine({ sudokuString: pointingPairBoard, difficulty: DifficultyEnum.Medium });
+            const script = findStepScript(
+                engine.Sudoku,
+                createTechniqueStrategies().filter(strategy => strategy.technique === SolutionTechniqueEnum.PointingPair)
+            );
+
+            assert(script !== null, 'Expected a pointing pair');
+            assert.strictEqual(buildStepScriptState(script, 0, HintLevelEnum.TECHNIQUE).hintRegion?.kind, HintRegionKindEnum.BOX);
         })
     );
 });

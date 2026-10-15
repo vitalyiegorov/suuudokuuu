@@ -39,6 +39,10 @@ msgstr "{awaySeconds}s অনুপস্থিত"
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {সেরা ধারা: # দিন} other {সেরা ধারা: # দিন}}"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{cell} cannot be {values}"
+msgstr "{cell} {values} হতে পারে না"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
@@ -113,16 +117,16 @@ msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
 msgstr "{techniqueName}: {cellName} ঘরটি একটি ছাড়া বাকি সব হাইলাইট করা সংখ্যা দেখে।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
-msgstr "{techniqueName}: {valueList} অবশ্যই বেস লাইনে থাকবে, তাই কভার লাইনগুলো চিহ্নিত ঘরে এটি হারায়।"
+msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{techniqueName}: {valueList} অবশ্যই বেস লাইনে থাকবে, তাই {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
 msgstr "{techniqueName}: একটি শৃঙ্খল হাইলাইট করা দুই প্রান্তকে যুক্ত করে, তাই {firstEnd} অথবা {lastEnd} সত্য।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
-msgstr "{techniqueName}: একটি পিনসার ঘর সবসময় {valueList}, তাই দুই পিনসারকেই দেখতে পাওয়া চিহ্নিত ঘরগুলো {valueList} হতে পারে না।"
+msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "{techniqueName}: একটি পিনসার ঘর সবসময় {valueList} এবং প্রতিটি চিহ্নিত ঘর দুই পিনসারকেই দেখতে পায়, তাই {eliminationList}।"
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
@@ -149,20 +153,20 @@ msgid "{techniqueName}: each highlighted group has one more candidate than cells
 msgstr "{techniqueName}: হাইলাইট করা প্রতিটি গোষ্ঠীতে ঘরের চেয়ে একটি বেশি প্রার্থী আছে, আর দুটি গোষ্ঠী এমন একটি সংখ্যা ভাগ করে যা শুধু একটি গোষ্ঠীই ধারণ করতে পারে।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: প্রতিটি চিহ্নিত ঘর হাইলাইট করা সব ঘর দেখতে পায়, তাই {cellList} {valueList} হতে পারে না।"
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "{techniqueName}: প্রতিটি চিহ্নিত ঘর হাইলাইট করা সব ঘর দেখতে পায়, তাই {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: যেভাবেই হোক, {valueList} এমন একটি ঘরে বসে যা চিহ্নিত ঘরগুলো দেখে, তাই {cellList} {valueList} হতে পারে না।"
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "{techniqueName}: যেভাবেই হোক, {valueList} এমন একটি ঘরে বসে যা চিহ্নিত ঘরগুলো দেখে, তাই {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: বাকি প্রতিটি ফাঁকা ঘরে দুটি করে প্রার্থী আছে, তাই মারাত্মক প্যাটার্ন এড়াতে {value} চিহ্নিত ঘরে বসবে।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: প্রতিটি সম্ভাবনা বিরোধ বা একই ফলাফলে শেষ হয়, তাই চিহ্নিত ঘরগুলো থেকে {valueList} বাদ দেওয়া হয়।"
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "{techniqueName}: প্রতিটি সম্ভাবনা একটি বৈপরীত্যে বা একই ফলাফলে শেষ হয়, তাই {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
@@ -221,12 +225,12 @@ msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row
 msgstr "{techniqueName}: হাইলাইট করা ব্লকে {valueList} শুধু একটি সারি ও একটি কলামে বসতে পারে, আর ব্লকের বাইরের হাইলাইট করা জোড়া এক প্রান্তে বা অন্য প্রান্তে {valueList} ধারণ করে।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: শৃঙ্খলের একটি প্রান্ত সবসময় সত্য, আর প্রতিটি চিহ্নিত সম্ভাব্য অঙ্ক দুই প্রান্তের সঙ্গেই সংঘাত করে, তাই {cellList} {valueList} হতে পারে না।"
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "{techniqueName}: চেইনের এক প্রান্ত সবসময় সত্য এবং প্রতিটি চিহ্নিত সম্ভাব্য অঙ্ক দুই প্রান্তের সাথেই সংঘাত করে, তাই {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: গোষ্ঠী দুটির একটিতে অবশ্যই {valueList} থাকবে, এবং প্রতিটি চিহ্নিত ঘর দুই গোষ্ঠীর প্রতিটি {valueList} দেখে, তাই {cellList} {valueList} হতে পারে না।"
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "{techniqueName}: গোষ্ঠী দুটির একটিতে অবশ্যই {valueList} থাকবে, এবং প্রতিটি চিহ্নিত ঘর দুই গোষ্ঠীর প্রতিটি {valueList} দেখে, তাই {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -249,8 +253,8 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}: হাইলাইট করা ঘরগুলি চিহ্নিত ঘরের জন্য শুধু {value} রাখে।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো কোনো সংখ্যা পুনরাবৃত্তি না করে সারি বা কলাম এবং ব্লকের মধ্যে তাদের সংখ্যা ভাগ করে নেয়, তাই {cellList} {valueList} হতে পারে না।"
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "{techniqueName}: হাইলাইট করা ঘরগুলো কোনো সংখ্যা পুনরাবৃত্তি না করে সারি বা কলাম এবং ব্লকের মধ্যে তাদের সংখ্যা ভাগ করে নেয়, তাই {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
@@ -269,16 +273,16 @@ msgid "{techniqueName}: the marked cell sees every highlighted digit except {val
 msgstr "{techniqueName}: চিহ্নিত ঘরটি {value} ছাড়া বাকি সব হাইলাইট করা সংখ্যা দেখে।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
-msgstr "{techniqueName}: চিহ্নিত ঘরগুলো হয় দুটি রঙই দেখে, নয়তো এমন একটি রঙ বহন করে যা নিজেকেই খণ্ডন করে, তাই সেগুলো {valueList} হতে পারে না।"
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "{techniqueName}: চিহ্নিত ঘরগুলো হয় দুই রংই দেখে, নয়তো এমন একটি রং বহন করে যা নিজের সাথেই বিরোধী, তাই {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: ওই ঘরগুলো সেই অঙ্কগুলোর জন্য সংরক্ষিত, তাই {cellList} {valueList} হতে পারে না।"
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
+msgstr "{techniqueName}: ওই ঘরগুলো সেই অঙ্কগুচ্ছের জন্য সংরক্ষিত, তাই {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: মারাত্মক প্যাটার্ন এড়াতে চিহ্নিত ঘরগুলো থেকে {valueList} বাদ দেওয়া হয়।"
+msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
+msgstr "{techniqueName}: মারাত্মক প্যাটার্ন এড়াতে, {eliminationList}।"
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
@@ -1687,10 +1691,6 @@ msgstr "সুডোকু সমাধান হয়েছে।"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "ছাড়ুন"
-
-#: src/game/components/hint-chain-block/hint-chain-block.tsx
-msgid "R{row}C{column} {operator} {value}"
-msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"

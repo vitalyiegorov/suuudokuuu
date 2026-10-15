@@ -12,6 +12,7 @@ export interface TechniqueResultInterface {
     readonly kind: TechniqueResultKindType;
     readonly eliminations: CandidateEliminationInterface[];
     readonly reasonCells: CellInterface[];
+    readonly blockingCells?: readonly CellInterface[];
     readonly chainLength?: number;
     readonly patternCandidates?: readonly CandidateEliminationInterface[];
     readonly chain?: readonly ChainCandidateInterface[];

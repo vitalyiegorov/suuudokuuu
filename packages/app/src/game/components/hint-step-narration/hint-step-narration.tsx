@@ -32,7 +32,7 @@ export const HintStepNarration = ({ step, revealedImplicationCount, value }: Pro
     const narrationScrollRef = useRef<ScrollViewInstance>(null);
     const techniqueName =
         step.narration.technique === SolutionTechniqueEnum.Guess ? t`Reveal` : i18n._(techniqueLabelsConstant[step.narration.technique]);
-    const narrationText = i18n._(gameGetStepNarration(step, techniqueName, snapshot.stepScript?.steps));
+    const narrationText = i18n._(gameGetStepNarration(step, techniqueName, i18n, snapshot.stepScript?.steps));
     const narrationStyles = [styles.narration, { color: theme.colors.surface.raisedText }];
     const chipStyles = [styles.chip, { backgroundColor: theme.colors.ink }];
     const chipTextStyles = [styles.chipText, { color: theme.colors.inkText }];

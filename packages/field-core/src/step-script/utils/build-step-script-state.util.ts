@@ -1,5 +1,5 @@
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
-import { ForcingOutcomeKindEnum } from '@suuudokuuu/techniques';
+import { ForcingOutcomeKindEnum, SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
@@ -8,6 +8,7 @@ import { HintLevelEnum } from '../enums/hint-level.enum';
 import { HintRegionKindEnum } from '../enums/hint-region-kind.enum';
 import { StepScriptStepKindEnum } from '../enums/step-script-step-kind.enum';
 
+import { getBoxNumber } from './get-box-number.util';
 import { getHintRegion } from './get-hint-region.util';
 import { getStepLinkCount } from './get-step-link-count.util';
 
@@ -67,6 +68,10 @@ const collectPlacedValues = (steps: readonly StepScriptStepType[]): ReadonlyMap<
 };
 
 const { fieldGroupHeight, fieldGroupWidth, fieldSize } = defaultSudokuConfig;
+const pointingTechniques: ReadonlySet<SolutionTechniqueEnum> = new Set([
+    SolutionTechniqueEnum.PointingPair,
+    SolutionTechniqueEnum.PointingTriple
+]);
 
 const isRevealStep = (step: StepScriptStepType): step is StepScriptRevealCandidatesStepInterface =>
     step.kind === StepScriptStepKindEnum.RevealCandidates;
@@ -141,9 +146,15 @@ const getFirstDeductionRegion = (steps: readonly StepScriptStepType[]): HintRegi
         return null;
     }
 
+    const { cells, placement, technique } = revealStep.narration;
+    const [firstCell] = cells;
     const eliminationCell = steps.slice(revealIndex).find(isStrikeStep)?.eliminations.at(0)?.cell;
 
-    return getHintRegion(revealStep.patternCells, revealStep.narration.placement?.cell ?? eliminationCell);
+    if (pointingTechniques.has(technique) && isDefined(firstCell)) {
+        return { kind: HintRegionKindEnum.BOX, number: getBoxNumber(firstCell) };
+    }
+
+    return getHintRegion(cells, placement?.cell ?? eliminationCell);
 };
 
 export const buildStepScriptState = (

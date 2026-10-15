@@ -82,23 +82,35 @@ describe('hint pages', () => {
         })
     );
 
-    it.effect('counts the level pages and one page per step of a merged chain', () =>
+    it.effect('counts the level pages and one page per step, without the walkthrough page that repeats the pattern page', () =>
         Effect.sync(() => {
             const engine = createEngine(chainBoard);
             const script = requireHint(engine);
 
             engine.startStepScript(script, HintLevelEnum.TECHNIQUE);
 
+            assert.deepEqual(
+                script.steps.slice(0, 2).map(step => step.kind),
+                [StepScriptStepKindEnum.RevealCandidates, StepScriptStepKindEnum.StrikeCandidates]
+            );
             assert.isAbove(script.steps.length, 3);
-            assert.deepInclude(engine.getSnapshot(), { hintPageIndex: 0, hintPageCount: script.steps.length + 2 });
+            assert.deepInclude(engine.getSnapshot(), { hintPageIndex: 0, hintPageCount: script.steps.length + 1 });
 
             engine.startStepScript(script, HintLevelEnum.PATTERN);
 
-            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.PATTERN, hintPageCount: script.steps.length + 1 });
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.PATTERN, hintPageCount: script.steps.length });
+
+            engine.hintNext();
+
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, stepIndex: 1 });
 
             engine.startStepScript(script);
 
-            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, hintPageCount: script.steps.length });
+            assert.deepInclude(engine.getSnapshot(), {
+                hintLevel: HintLevelEnum.WALKTHROUGH,
+                hintPageCount: script.steps.length,
+                stepIndex: 0
+            });
         })
     );
 
@@ -116,11 +128,11 @@ describe('hint pages', () => {
             assert.deepInclude(engine.getSnapshot(), {
                 hintLevel: HintLevelEnum.WALKTHROUGH,
                 hintPageIndex: 2,
-                stepIndex: 0,
+                stepIndex: 1,
                 isNextPageCharged: false
             });
             assert.strictEqual(engine.hintNext(), false);
-            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, hintPageIndex: 3, stepIndex: 1 });
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, hintPageIndex: 3, stepIndex: 2 });
 
             engine.hintBack();
             engine.hintBack();
@@ -135,11 +147,11 @@ describe('hint pages', () => {
             assert.strictEqual(engine.hintNext(), false);
             assert.strictEqual(engine.hintSkipToEnd(), 0);
             assert.deepInclude(engine.getSnapshot(), {
-                hintPageIndex: script.steps.length + 1,
+                hintPageIndex: script.steps.length,
                 stepIndex: script.steps.length - 1
             });
             assert.strictEqual(engine.hintNext(), false);
-            assert.strictEqual(engine.getSnapshot().hintPageIndex, script.steps.length + 1);
+            assert.strictEqual(engine.getSnapshot().hintPageIndex, script.steps.length);
         })
     );
 

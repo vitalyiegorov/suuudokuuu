@@ -1,12 +1,14 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { HintLevelEnum } from '../../step-script/enums/hint-level.enum';
+import { StepScriptStepKindEnum } from '../../step-script/enums/step-script-step-kind.enum';
 import { getStepLinkCount } from '../../step-script/utils/get-step-link-count.util';
 
 import type { HintPageInterface } from '../../step-script/interfaces/hint-page.interface';
 import type { StepScriptInterface } from '../../step-script/interfaces/step-script.interface';
+import type { StepScriptStepType } from '../../step-script/types/step-script-step.type';
 
 const singleLinkPageLimit = 6;
 const linkGroupSize = 4;
@@ -48,8 +50,11 @@ export class FieldHintPages {
         const levelPages = hintLevelOrder
             .slice(hintLevelOrder.indexOf(hintLevel), -1)
             .map(level => ({ hintLevel: level, stepIndex: 0, revealedImplicationCount: 0 }));
+        const firstRevealIndex = script.steps.findIndex(step => step.kind === StepScriptStepKindEnum.RevealCandidates);
+        const isPatternRepeat = (step: StepScriptStepType, stepIndex: number): boolean =>
+            isNotEmptyArray(levelPages) && stepIndex === firstRevealIndex && !isDefined(step.narration.placement);
         const walkthroughPages = script.steps.flatMap((step, stepIndex) =>
-            getRevealedLinkCounts(getStepLinkCount(step)).map(revealedImplicationCount => ({
+            (isPatternRepeat(step, stepIndex) ? [] : getRevealedLinkCounts(getStepLinkCount(step))).map(revealedImplicationCount => ({
                 hintLevel: HintLevelEnum.WALKTHROUGH,
                 stepIndex,
                 revealedImplicationCount

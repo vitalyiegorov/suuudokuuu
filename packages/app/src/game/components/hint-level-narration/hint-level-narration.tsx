@@ -8,6 +8,7 @@ import { isDefined } from '@rnw-community/shared';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { gameGetCellName } from '../../utils/game-get-cell-name.util';
 import { gameGetPatternNarration } from '../../utils/game-get-pattern-narration.util';
 import { HintStepNarrationSelectors } from '../hint-step-narration/hint-step-narration.selectors';
 import { HintStepNarrationStyles as styles } from '../hint-step-narration/hint-step-narration.styles';
@@ -30,7 +31,7 @@ export const HintLevelNarration = ({ hintLevel, hintRegion, stepScript }: Props)
 
     const getNarrationText = () => {
         if (hintLevel === HintLevelEnum.PATTERN) {
-            return i18n._(gameGetPatternNarration(stepScript, hintRegion, techniqueName));
+            return i18n._(gameGetPatternNarration(stepScript, hintRegion, techniqueName, i18n));
         }
 
         if (hintRegion?.kind === HintRegionKindEnum.ROW) {
@@ -46,7 +47,7 @@ export const HintLevelNarration = ({ hintLevel, hintRegion, stepScript }: Props)
         }
 
         if (hintRegion?.kind === HintRegionKindEnum.CELL && isDefined(regionCell)) {
-            const cellName = `R${regionCell.y + 1}C${regionCell.x + 1}`;
+            const cellName = gameGetCellName(regionCell);
 
             return t`Look for ${techniqueName} around cell ${cellName}.`;
         }

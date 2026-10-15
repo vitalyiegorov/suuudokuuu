@@ -39,6 +39,10 @@ msgstr "离开 {awaySeconds} 秒"
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, other {最长连续：# 天}}"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{cell} cannot be {values}"
+msgstr "{cell} 不可能是 {values}"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}，{stateText}"
@@ -113,16 +117,16 @@ msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
 msgstr "{techniqueName}:{cellName} 已看到除一个之外的所有突出显示的数字。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
-msgstr "{techniqueName}:{valueList} 必须位于基线中，因此覆盖线在标记的单元格中不再包含它。"
+msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{techniqueName}:{valueList} 必须位于基线中，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
 msgstr "{techniqueName}:一条链连接突出显示的两端，因此 {firstEnd} 或 {lastEnd} 必定成立。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
-msgstr "{techniqueName}:某个钳形单元格必定是 {valueList}，因此同时看到两个钳形单元格的标记单元格不可能是 {valueList}。"
+msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "{techniqueName}:某个钳形单元格必定是 {valueList}，而每个标记的单元格都能同时看到两个钳形单元格，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
@@ -149,20 +153,20 @@ msgid "{techniqueName}: each highlighted group has one more candidate than cells
 msgstr "{techniqueName}:每个突出显示的组的候选数都比单元格多一个，且两个组共享一个只有其中一组能容纳的数字。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}:每个标记的单元格都能看到所有突出显示的单元格，因此 {cellList} 不可能是 {valueList}。"
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "{techniqueName}:每个标记的单元格都能看到所有突出显示的单元格，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}:无论哪种情况，{valueList} 都会落在标记单元格能看到的单元格中，因此 {cellList} 不能是 {valueList}。"
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "{techniqueName}:无论哪种情况，{valueList} 都会落在标记单元格能看到的单元格中，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}:其余每个空单元格都只有两个候选数，因此为避免致命模式，{value} 必须填入标记的单元格。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}:每种可能性都以矛盾或相同的结果告终，因此标记的单元格中排除了 {valueList}。"
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "{techniqueName}:每种可能都会导致矛盾或相同的结果，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
@@ -221,12 +225,12 @@ msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row
 msgstr "{techniqueName}:在突出显示的宫中，{valueList} 只能填入一行和一列，而宫外突出显示的数对在其中一端含有 {valueList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}:链的某一端必定成立，而每个标记的候选数都与两端冲突，因此 {cellList} 不可能是 {valueList}。"
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "{techniqueName}:链的一端必定为真，且每个标记的候选数与两端都冲突，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}:其中一组必须包含 {valueList}，且每个标记的单元格都能看到两组中所有的 {valueList}，因此 {cellList} 不能是 {valueList}。"
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "{techniqueName}:其中一组必须包含 {valueList}，且每个标记的单元格都能看到两组中所有的 {valueList}，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -249,8 +253,8 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}:突出显示的单元格让标记单元格只剩下 {value} 可填。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}:突出显示的单元格在行或列与宫之间分配各自的数字且不重复，因此 {cellList} 不能是 {valueList}。"
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "{techniqueName}:突出显示的单元格在行或列与宫之间分配各自的数字且不重复，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
@@ -269,16 +273,16 @@ msgid "{techniqueName}: the marked cell sees every highlighted digit except {val
 msgstr "{techniqueName}:标记的单元格已看到除 {value} 之外的所有突出显示的数字。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
-msgstr "{techniqueName}：标记的单元格要么同时看到两种颜色，要么带有自相矛盾的颜色，因此不能是 {valueList}。"
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "{techniqueName}:标记的单元格要么同时看到两种颜色，要么带有自相矛盾的颜色，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}:这些单元格被这组数字占用，因此 {cellList} 不可能是 {valueList}。"
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
+msgstr "{techniqueName}:这些单元格被这组数字占用，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}:为避免致命模式，标记的单元格中排除了 {valueList}。"
+msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
+msgstr "{techniqueName}:为避免致命模式，{eliminationList}。"
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
@@ -1687,10 +1691,6 @@ msgstr "数独已解开。"
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "退出"
-
-#: src/game/components/hint-chain-block/hint-chain-block.tsx
-msgid "R{row}C{column} {operator} {value}"
-msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"

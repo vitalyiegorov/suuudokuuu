@@ -1,7 +1,7 @@
-import { useLingui } from '@lingui/react/macro';
 import { View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { gameGetCellName } from '../../utils/game-get-cell-name.util';
 import { HintChainBlocksStyles as styles } from '../hint-chain-blocks/hint-chain-blocks.styles';
 
 import type { ChainCandidateInterface } from '@suuudokuuu/techniques';
@@ -15,12 +15,8 @@ interface Props {
 }
 
 export const HintChainBlock = ({ candidate, operator = '=', style, children }: Props) => {
-    const { t } = useLingui();
-    const row = candidate.cell.y + 1;
-    const column = candidate.cell.x + 1;
-    const { value } = candidate;
     const linkStyles = [styles.link, style];
-    const label = t`R${row}C${column} ${operator} ${value}`;
+    const label = `${gameGetCellName(candidate.cell)} ${operator} ${candidate.value}`;
 
     return (
         <View style={linkStyles}>

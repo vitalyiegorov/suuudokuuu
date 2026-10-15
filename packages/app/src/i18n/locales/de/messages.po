@@ -41,6 +41,10 @@ msgstr "{awaySeconds}s abwesend"
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Beste Serie: # Tag} other {Beste Serie: # Tage}}"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{cell} cannot be {values}"
+msgstr "{cell} kann nicht {values} sein"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
@@ -115,16 +119,16 @@ msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
 msgstr "{techniqueName}: {cellName} sieht alle markierten Ziffern außer einer."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
-msgstr "{techniqueName}: {valueList} muss in den Basislinien stehen, daher verlieren die Abdeckungslinien es in den markierten Zellen."
+msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{techniqueName}: {valueList} muss in den Basislinien stehen, daher gilt: {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
 msgstr "{techniqueName}: Eine Kette verbindet die markierten Enden, daher ist {firstEnd} oder {lastEnd} wahr."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
-msgstr "{techniqueName}: Eine Zangenzelle ist immer {valueList}, daher können die markierten Zellen, die beide Zangen sehen, nicht {valueList} sein."
+msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "{techniqueName}: Eine Zangenzelle ist immer {valueList}, und jede markierte Zelle sieht beide Zangen, daher gilt: {eliminationList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
@@ -151,20 +155,20 @@ msgid "{techniqueName}: each highlighted group has one more candidate than cells
 msgstr "{techniqueName}: Jede hervorgehobene Gruppe hat einen Kandidaten mehr als Zellen, und die beiden Gruppen teilen eine Ziffer, die nur eine von ihnen aufnehmen kann."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: Jede markierte Zelle sieht alle hervorgehobenen Zellen, daher können {cellList} nicht {valueList} sein."
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "{techniqueName}: Jede markierte Zelle sieht alle hervorgehobenen Zellen, daher gilt: {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: So oder so landet {valueList} in einer Zelle, die die markierten Zellen sehen, daher können {cellList} nicht {valueList} sein."
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "{techniqueName}: So oder so landet {valueList} in einer Zelle, die die markierten Zellen sehen, daher gilt: {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: Jede andere leere Zelle hat zwei Kandidaten, daher muss {value} in die markierte Zelle, um ein tödliches Muster zu vermeiden."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: Jede Möglichkeit endet in einem Widerspruch oder demselben Ergebnis, daher wird {valueList} aus den markierten Zellen ausgeschlossen."
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "{techniqueName}: Jede Möglichkeit endet in einem Widerspruch oder demselben Ergebnis, daher gilt: {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
@@ -223,12 +227,12 @@ msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row
 msgstr "{techniqueName}: Im hervorgehobenen Block passt {valueList} nur in eine Zeile und eine Spalte, und das hervorgehobene Paar außerhalb des Blocks enthält {valueList} an einem der beiden Enden."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: Ein Ende der Kette ist immer wahr, und jeder markierte Kandidat widerspricht beiden Enden, daher kann {cellList} nicht {valueList} sein."
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "{techniqueName}: Ein Ende der Kette ist immer wahr, und jeder markierte Kandidat widerspricht beiden Enden, daher gilt: {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: Eine der Gruppen muss {valueList} enthalten, und jede markierte Zelle sieht jedes {valueList} in beiden Gruppen, daher können {cellList} nicht {valueList} sein."
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "{techniqueName}: Eine der Gruppen muss {valueList} enthalten, und jede markierte Zelle sieht jedes {valueList} in beiden Gruppen, daher gilt: {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -251,8 +255,8 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}: die markierten Zellen lassen für die markierte Zelle nur {value} übrig."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: Die hervorgehobenen Zellen teilen ihre Ziffern zwischen Zeile oder Spalte und Block auf, ohne eine zu wiederholen, daher können {cellList} nicht {valueList} sein."
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "{techniqueName}: Die hervorgehobenen Zellen teilen ihre Ziffern zwischen Zeile oder Spalte und Block auf, ohne eine zu wiederholen, daher gilt: {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
@@ -271,16 +275,16 @@ msgid "{techniqueName}: the marked cell sees every highlighted digit except {val
 msgstr "{techniqueName}: die markierte Zelle sieht alle markierten Ziffern außer {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
-msgstr "{techniqueName}: Die markierten Zellen sehen entweder beide Farben oder tragen eine Farbe, die sich selbst widerspricht, daher können sie nicht {valueList} sein."
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "{techniqueName}: Die markierten Zellen sehen entweder beide Farben oder tragen eine Farbe, die sich selbst widerspricht, daher gilt: {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: Diese Zellen sind für diese Ziffern reserviert, daher können {cellList} nicht {valueList} sein."
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
+msgstr "{techniqueName}: Diese Zellen sind für diese Ziffern reserviert, daher gilt: {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: Um das tödliche Muster zu vermeiden, wird {valueList} aus den markierten Zellen ausgeschlossen."
+msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
+msgstr "{techniqueName}: Um das tödliche Muster zu vermeiden, gilt: {eliminationList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
@@ -1689,10 +1693,6 @@ msgstr "Rätsel gelöst."
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
 msgstr "Beenden"
-
-#: src/game/components/hint-chain-block/hint-chain-block.tsx
-msgid "R{row}C{column} {operator} {value}"
-msgstr "R{row}C{column} {operator} {value}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"

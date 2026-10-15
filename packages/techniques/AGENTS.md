@@ -119,6 +119,8 @@ The chain is then pruned greedily, which removes steps the placement does not ne
 
 Hidden subset results carry `patternCandidates`: the subset digits each pattern cell still holds, so a reveal never paints a subset digit into a cell that has already lost it.
 
+Hidden single results carry `blockingCells`: the fewest filled cells holding the placed digit that see every other blank cell of the unit, picked greedily by how many still-unblocked cells each one sees, ties in reading order. A blank cell that lost the digit to an elimination rather than to a filled peer stays unblocked. `reasonCells` stays the unit, so ratings and canonical ordering are unchanged; hints draw the blockers on their pattern page.
+
 ### TechniqueSearchTargetInterface
 
 `find(context, target)` narrows a scan to one move. `target.intent` says which pass is asking:

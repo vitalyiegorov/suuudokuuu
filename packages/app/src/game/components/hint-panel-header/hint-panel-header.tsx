@@ -1,5 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
-import { HintLevelEnum } from '@suuudokuuu/field-core';
+import { StepScriptStepKindEnum } from '@suuudokuuu/field-core';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import LucideX from 'lucide-react-native/icons/x';
 import { use } from 'react';
@@ -20,8 +20,9 @@ export const HintPanelHeader = () => {
     const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
-    const { stepScript, stepIndex, hintLevel } = snapshot;
-    const technique = hintLevel === HintLevelEnum.WALKTHROUGH ? stepScript?.steps[stepIndex]?.narration.technique : stepScript?.technique;
+    const { stepScript } = snapshot;
+    const technique =
+        stepScript?.steps.find(step => step.kind === StepScriptStepKindEnum.PlaceValue)?.narration.technique ?? stepScript?.technique;
 
     if (!isDefined(technique)) {
         return null;
