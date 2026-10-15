@@ -866,6 +866,10 @@ msgstr "بھرا ہوا خانہ"
 msgid "Final score"
 msgstr "حتمی اسکور"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Finding a hint"
+msgstr "اشارہ تلاش کیا جا رہا ہے"
+
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "ایک سوڈوکو مکمل کریں، یہ یہاں دکھائی دے گا۔"

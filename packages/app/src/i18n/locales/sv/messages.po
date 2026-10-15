@@ -866,6 +866,10 @@ msgstr "Ifylld ruta"
 msgid "Final score"
 msgstr "Slutpoäng"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Finding a hint"
+msgstr "Letar efter en ledtråd"
+
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "Slutför ett sudoku så visas det här."

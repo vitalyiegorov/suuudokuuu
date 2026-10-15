@@ -9,13 +9,12 @@ import { getErrorMessage, isDefined } from '@rnw-community/shared';
 
 import { Alert } from '../../@generic/components/alert/alert';
 import { appRuntime } from '../../@generic/runtime/app.runtime';
+import { LoaderPaintDelayMillisecondsConstant } from '../constant/loader-paint-delay.constant';
 import { PuzzleGenerationService } from '../service/puzzle-generation.service';
 import { runCurrentRunCommand } from '../utils/run-current-run-command.util';
 
 import type { AppServices } from '../../@generic/runtime/app.runtime';
 import type * as Fiber from 'effect/Fiber';
-
-const loaderPaintDelayMilliseconds = 32;
 
 export const useGameCreationRunner = () => {
     const router = useRouter();
@@ -45,7 +44,7 @@ export const useGameCreationRunner = () => {
         creationPathnameRef.current = pathname;
         setIsCreatingGame(true);
         creationFiberRef.current = appRuntime.runFork(
-            Effect.sleep(loaderPaintDelayMilliseconds).pipe(
+            Effect.sleep(LoaderPaintDelayMillisecondsConstant).pipe(
                 Effect.andThen(operation),
                 Effect.catchCause(cause => {
                     if (Cause.hasInterruptsOnly(cause)) {

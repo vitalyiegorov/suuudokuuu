@@ -868,6 +868,10 @@ msgstr "Ausgefüllte Zelle"
 msgid "Final score"
 msgstr "Endpunktzahl"
 
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Finding a hint"
+msgstr "Hinweis wird gesucht"
+
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
 msgstr "Beende ein Sudoku, dann erscheint es hier."
