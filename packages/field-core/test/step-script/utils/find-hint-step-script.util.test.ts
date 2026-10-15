@@ -203,6 +203,19 @@ describe('findHintStepScript', () => {
         expect(engine.getCellCandidates(eliminatedCell)).not.toContain(4);
     });
 
+    it('ignores a removed solution candidate and hints the solution digit', () => {
+        expect.assertions(2);
+
+        const engine = createEngine(pointingPairBoard, true);
+
+        engine.removeCandidate(engine.Sudoku.Field[2][1], 4);
+
+        const { placement } = requireScript(engine);
+
+        expect(engine.getSnapshot().eliminatedCandidates['2-1']).toEqual([4]);
+        expect(placement && { y: placement.cell.y, x: placement.cell.x, value: placement.value }).toEqual({ y: 2, x: 1, value: 4 });
+    });
+
     it('undoes an applied chain hint in two steps: the placement, then every elimination at once', () => {
         expect.assertions(4);
 

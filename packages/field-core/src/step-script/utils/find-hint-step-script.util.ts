@@ -39,7 +39,11 @@ export const findRevealStepScript = (
 export const findHintStepScript = (sudoku: Sudoku, eliminatedCandidates: FieldCandidatesType = {}): StepScriptInterface | null => {
     const previousEliminations: StepScriptCandidateInterface[] = sudoku.Field.flat()
         .filter(cell => sudoku.isBlankCell(cell))
-        .flatMap(cell => (eliminatedCandidates[getCellKey(cell)] ?? []).map(value => ({ cell, value })));
+        .flatMap(cell =>
+            (eliminatedCandidates[getCellKey(cell)] ?? [])
+                .filter(value => value !== sudoku.getCorrectValue(cell))
+                .map(value => ({ cell, value }))
+        );
     const chain = findPlacementChain(sudoku, createTechniqueStrategies(), previousEliminations, true);
 
     if (!isNotEmptyArray(chain)) {
