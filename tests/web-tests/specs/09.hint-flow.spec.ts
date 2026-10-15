@@ -43,8 +43,9 @@ const panelHorizontalGap = 12;
 const panelBottomGap = 24;
 const mobileBottomInset = 34;
 const walkthroughFirstPage = 3;
-const structuredChainHintIndex = 11;
-const aicDetourChainHintIndex = 6;
+const structuredChainHintIndex = 9;
+const aicDetourChainHintIndex = 9;
+const eliminationForcingHintIndex = 5;
 const maxPatternCellCount = 12;
 
 const revealPuzzle = '8..........36......7..9.2...5...7.......457.....1...3...1....68..85...1..9....4..';
@@ -406,10 +407,10 @@ test('walks a long Nishio and AIC hint link by link while the board stays untouc
     expect(techniqueNames.has('AIC')).toBe(true);
 
     await apply.click();
-    await expect(page.getByTestId(cellTestId(5, 8))).toHaveAttribute('aria-label', 'Row 6, column 9, 1');
+    await expect(page.getByTestId(cellTestId(3, 3))).toHaveAttribute('aria-label', 'Row 4, column 4, 8');
 });
 
-test('teaches the reported Hardcore board a lone pointing pair, then the AIC elimination alone', async ({ page }) => {
+test('teaches the reported Hardcore board a lone pointing pair, then the ALS-XZ elimination alone', async ({ page }) => {
     await openSharedHintPuzzle(page, hardcoreHintSharedPuzzleEncodedConstant);
 
     const technique = page.getByTestId(HintStepNarrationSelectors.Technique);
@@ -425,21 +426,21 @@ test('teaches the reported Hardcore board a lone pointing pair, then the AIC eli
     await expect(continueButton).toHaveText('Apply & next');
     await continueButton.click();
 
-    await expect(technique).toHaveText('AIC');
+    await expect(technique).toHaveText('ALS-XZ');
     await next.click();
-    await expect(narration).toHaveText('AIC: a chain links the highlighted ends, so (2)r3c7 or (5)r9c7 is true.');
+    await expect(narration).toHaveText(
+        'ALS-XZ: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold.'
+    );
     expect(await countTintedCells(page, backgroundsBefore)).toBeLessThanOrEqual(maxPatternCellCount);
 
     await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
-    await expect(narration).toHaveText(
-        'AIC: one end of the chain is always true and each marked candidate clashes with both ends, so r9c7 cannot be 2.'
-    );
+    await expect(narration).toHaveText(/^ALS-XZ: .+ r9c7 cannot be 2\.$/u);
     expect(await countTintedCells(page, backgroundsBefore)).toBeLessThanOrEqual(maxPatternCellCount);
     await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveCount(0);
     await expect(continueButton).toHaveText('Apply & next');
 });
 
-test('routes the reported AIC board through lone pointing pairs to an AIC elimination and opens each page at the top', async ({ page }) => {
+test('routes the reported AIC board through lone eliminations to an AIC elimination and opens each page at the top', async ({ page }) => {
     await page.setViewportSize({ width: 360, height: 640 });
     await openSharedHintPuzzle(page, aicDetourHintSharedPuzzleEncodedConstant);
 
@@ -472,7 +473,7 @@ test('routes the reported AIC board through lone pointing pairs to an AIC elimin
     }
 
     await expect(narration).toHaveText(
-        'AIC: one end of the chain is always true and each marked candidate clashes with both ends, so r5c6 cannot be 2, 3, 9.'
+        'AIC: one end of the chain is always true and each marked candidate clashes with both ends, so r7c5 cannot be 1.'
     );
     await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveCount(0);
     await continueButton.click();
@@ -487,7 +488,7 @@ test('continues forcing-chain elimination hints and shows the answer from their 
 
     await page.getByTestId(HintButtonSelectors.Root).click();
 
-    for (let hintIndex = 0; hintIndex < 3; hintIndex += 1) {
+    for (let hintIndex = 0; hintIndex < eliminationForcingHintIndex; hintIndex += 1) {
         await revealHintWalkthrough(page);
         await applyHintEarly(page);
     }
@@ -500,14 +501,14 @@ test('continues forcing-chain elimination hints and shows the answer from their 
 
     await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
     await expect(progress).toHaveAttribute('aria-label', `Step ${pageCount} of ${pageCount}`);
-    await expect(narration).toHaveText(/^Nishio Forcing Chain: .+ so 9 is ruled out of the marked cells\.$/u);
+    await expect(narration).toHaveText(/^If r2c7=6 → r\dc\d runs out of candidates\. So r2c7 is not 6\.$/u);
 
     await page.getByTestId(HintPanelSelectors.ContinueButton).click();
     await expect(progress).toHaveAttribute('aria-label', /^Step 1 of \d+$/u);
     expect(await readCellLabels(page)).toEqual(labelsBefore);
 
     await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
-    await expect(narration).toHaveText(/^If r2c7=6 → r\dc\d runs out of candidates\. So r2c7 is not 6\.$/u);
+    await expect(narration).toHaveText(/^If r6c9=2 → r\dc\d runs out of candidates\. So r6c9 is not 2\.$/u);
     await expect(page.getByTestId(HintPanelSelectors.ContinueButton)).toHaveText('Apply & next');
 });
 
@@ -534,10 +535,10 @@ for (const viewport of [
         }
 
         await expect(page.getByTestId(FieldWitnessOverlaySelectors.Branch)).not.toHaveCount(0);
-        await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText('Contradiction, so R8C5 is not 6.');
+        await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText('Contradiction, so R6C1 is not 1.');
         await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveAttribute(
             'aria-label',
-            /If r8c5=6 → r9c4=7 → .+So r8c5 is not 6\./u
+            /If r6c1=1 → r7c1=5 → .+So r6c1 is not 1\./u
         );
 
         const chainBlocks = page.getByTestId(HintStepNarrationSelectors.CHAIN_BLOCKS);
