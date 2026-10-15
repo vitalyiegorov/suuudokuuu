@@ -45,6 +45,7 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         flexShrink: 1,
         height: appLayoutScreenIsWide(rt.screen) ? '100%' : 'auto',
         justifyContent: 'center',
+        marginHorizontal: appLayoutScreenIsWide(rt.screen) ? 0 : GamePanelHorizontalPaddingConstant,
         minHeight: 0,
         minWidth: 0
     },
