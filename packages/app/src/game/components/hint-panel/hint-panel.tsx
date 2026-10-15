@@ -8,6 +8,7 @@ import { isDefined } from '@rnw-community/shared';
 
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { HintPanelEnterDurationMillisecondsConstant } from '../../constant/hint-panel-enter-duration.constant';
 import { GameContext } from '../../context/game.context';
 import { HintLevelNarration } from '../hint-level-narration/hint-level-narration';
 import { HintPanelApplyButton } from '../hint-panel-apply-button/hint-panel-apply-button';
@@ -19,19 +20,16 @@ import { HintStepper } from '../hint-stepper/hint-stepper';
 import { HintPanelSelectors } from './hint-panel.selectors';
 import { HintPanelStyles as styles } from './hint-panel.styles';
 
-import type { HostInstance } from 'react-native';
-
 const easeOutFirstControlX = 0.23;
 const easeOutSecondControlX = 0.32;
 const panelEaseOut = Easing.bezier(easeOutFirstControlX, 1, easeOutSecondControlX, 1);
 const panelEnterOffset = 8;
-const panelEnterDurationMs = 200;
 const panelExitDurationMs = 150;
 const panelResizeDurationMs = 200;
 const pageFadeDurationMs = 150;
 
 const panelEntering = FadeInUp.withInitialValues({ opacity: 0, transform: [{ translateY: panelEnterOffset }] })
-    .duration(panelEnterDurationMs)
+    .duration(HintPanelEnterDurationMillisecondsConstant)
     .easing(panelEaseOut);
 const panelReducedEntering = FadeIn.duration(pageFadeDurationMs);
 const panelExiting = FadeOut.duration(panelExitDurationMs);
@@ -63,9 +61,6 @@ export const HintPanel = ({ controlsTop }: Props) => {
     const isSinglePage = hintPageCount <= 1;
     const placementValue = isLastPage ? stepScript.placement?.value : null;
     const panelEnteringAnimation = isMotionReduced ? panelReducedEntering : panelEntering;
-    const focusPanel = (panel: HostInstance | null) => {
-        panel?.focus();
-    };
 
     return (
         <Animated.View
@@ -74,14 +69,7 @@ export const HintPanel = ({ controlsTop }: Props) => {
             pointerEvents="box-none"
             style={styles.region(controlsTop, insets)}
         >
-            <Animated.View
-                ref={focusPanel}
-                role="group"
-                style={containerStyles}
-                tabIndex={-1}
-                testID={HintPanelSelectors.Root}
-                {...(!isMotionReduced && { layout: panelLayout })}
-            >
+            <Animated.View style={containerStyles} testID={HintPanelSelectors.Root} {...(!isMotionReduced && { layout: panelLayout })}>
                 <HintPanelHeader />
                 <Animated.View entering={pageEntering} key={hintPageIndex} style={styles.page}>
                     {hintLevel === HintLevelEnum.WALKTHROUGH ? (

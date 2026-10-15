@@ -11,10 +11,13 @@ import { AppIconButton } from '../../../@generic/components/app-icon-button/app-
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { HintPanelEnterDurationMillisecondsConstant } from '../../constant/hint-panel-enter-duration.constant';
 import { GameContext } from '../../context/game.context';
 import { HintPanelSelectors } from '../hint-panel/hint-panel.selectors';
 import { HintPanelStyles as styles } from '../hint-panel/hint-panel.styles';
 import { HintStepNarrationSelectors } from '../hint-step-narration/hint-step-narration.selectors';
+
+import type { HostInstance } from 'react-native';
 
 export const HintPanelHeader = () => {
     const { i18n, t } = useLingui();
@@ -29,12 +32,19 @@ export const HintPanelHeader = () => {
     }
 
     const techniqueName = technique === SolutionTechniqueEnum.Guess ? t`Reveal` : i18n._(techniqueLabelsConstant[technique]);
+    const focusHeader = (header: HostInstance | null) => {
+        const focusTimeout = setTimeout(() => header?.focus(), HintPanelEnterDurationMillisecondsConstant);
+
+        return () => {
+            clearTimeout(focusTimeout);
+        };
+    };
     const handleDismiss = () => {
         engine.stopStepScript();
     };
 
     return (
-        <View style={styles.header}>
+        <View ref={focusHeader} style={styles.header} tabIndex={-1}>
             <BlackText numberOfLines={2} role="heading" style={styles.technique} testID={HintStepNarrationSelectors.Technique}>
                 {techniqueName}
             </BlackText>
