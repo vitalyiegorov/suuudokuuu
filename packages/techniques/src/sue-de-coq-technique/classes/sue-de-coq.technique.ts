@@ -2,8 +2,8 @@ import { isNotEmptyArray } from '@rnw-community/shared';
 
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
-import { forEachCombination } from '../../@generic/utils/get-combinations.util';
-import { getUniqueValues } from '../../@generic/utils/get-unique-values.util';
+import { getValueBit } from '../../@generic/utils/get-value-bit.util';
+import { hasMaskValue } from '../../@generic/utils/has-mask-value.util';
 
 import type { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import type { CandidateEliminationInterface } from '../../@generic/interfaces/candidate-elimination.interface';
@@ -14,7 +14,7 @@ import type { CellInterface } from '@suuudokuuu/generator';
 
 interface CellSubsetInterface {
     readonly cells: readonly CellInterface[];
-    readonly values: readonly number[];
+    readonly valueMask: number;
 }
 
 interface IntersectionInterface {
@@ -26,20 +26,56 @@ interface IntersectionInterface {
 const minimumCoreSize = 2;
 const minimumCoreExtraValues = 2;
 
-const getCellSubsets = (context: CandidateContext, cells: readonly CellInterface[], minimumSize: number): CellSubsetInterface[] => {
-    const subsets: CellSubsetInterface[] = [];
+const addValues = (valueMask: number, values: readonly number[]): number =>
+    values.reduce((mask, value) => (hasMaskValue(mask, value) ? mask : mask + getValueBit(value)), valueMask);
 
-    for (let size = minimumSize; size <= cells.length; size += 1) {
-        forEachCombination(cells, size, subsetCells => {
-            subsets.push({ cells: [...subsetCells], values: getUniqueValues(subsetCells.flatMap(cell => context.getCandidates(cell))) });
-        });
+const countValues = (valueMask: number, excludedMask = 0): number => {
+    let count = 0;
+
+    for (let value = 1; getValueBit(value) <= valueMask; value += 1) {
+        if (hasMaskValue(valueMask, value) && !hasMaskValue(excludedMask, value)) {
+            count += 1;
+        }
     }
 
-    return subsets;
+    return count;
 };
 
-const getValuesOutside = (values: readonly number[], excludedValues: readonly number[]): number[] =>
-    values.filter(value => !excludedValues.includes(value));
+const sharesValue = (firstMask: number, secondMask: number): boolean => countValues(firstMask) > countValues(firstMask, secondMask);
+
+const getValues = (valueMask: number, excludedMask = 0): number[] => {
+    const values: number[] = [];
+
+    for (let value = 1; getValueBit(value) <= valueMask; value += 1) {
+        if (hasMaskValue(valueMask, value) && !hasMaskValue(excludedMask, value)) {
+            values.push(value);
+        }
+    }
+
+    return values;
+};
+
+const getCellSubsets = (context: CandidateContext, cells: readonly CellInterface[], minimumSize: number): CellSubsetInterface[] => {
+    const subsets: CellSubsetInterface[] = [];
+    const visit = (startPosition: number, subsetCells: readonly CellInterface[], valueMask: number): void => {
+        for (let position = startPosition; position < cells.length; position += 1) {
+            const subset = {
+                cells: [...subsetCells, cells[position]],
+                valueMask: addValues(valueMask, context.getCandidates(cells[position]))
+            };
+
+            if (subset.cells.length >= minimumSize) {
+                subsets.push(subset);
+            }
+
+            visit(position + 1, subset.cells, subset.valueMask);
+        }
+    };
+
+    visit(0, [], 0);
+
+    return subsets.sort((first, second) => first.cells.length - second.cells.length);
+};
 
 const getRemainingEliminations = (
     context: CandidateContext,
@@ -89,7 +125,7 @@ export class SueDeCoqTechnique implements TechniqueStrategyInterface {
             context,
             line.cells.filter(cell => box.cells.includes(cell)),
             minimumCoreSize
-        ).filter(core => core.values.length >= core.cells.length + minimumCoreExtraValues);
+        ).filter(core => countValues(core.valueMask) >= core.cells.length + minimumCoreExtraValues);
 
         if (cores.length === 0) {
             return [];
@@ -118,21 +154,23 @@ export class SueDeCoqTechnique implements TechniqueStrategyInterface {
         boxArms: readonly CellSubsetInterface[]
     ): TechniqueResultInterface[] {
         const { core } = intersection;
-        const getSlack = (arm: CellSubsetInterface): number => arm.cells.length - getValuesOutside(arm.values, core.values).length;
-        const isConnectedArm = (arm: CellSubsetInterface): boolean => arm.values.some(value => core.values.includes(value));
+        const getSlack = (arm: CellSubsetInterface): number => arm.cells.length - countValues(arm.valueMask, core.valueMask);
+        const isConnectedArm = (arm: CellSubsetInterface): boolean => sharesValue(arm.valueMask, core.valueMask);
         const boxArmsBySlack = new Map<number, CellSubsetInterface[]>();
 
         for (const boxArm of boxArms.filter(isConnectedArm)) {
-            boxArmsBySlack.set(getSlack(boxArm), [...(boxArmsBySlack.get(getSlack(boxArm)) ?? []), boxArm]);
+            const slack = getSlack(boxArm);
+
+            boxArmsBySlack.set(slack, [...(boxArmsBySlack.get(slack) ?? []), boxArm]);
         }
 
         const results: TechniqueResultInterface[] = [];
 
         for (const lineArm of lineArms.filter(isConnectedArm)) {
-            const requiredBoxSlack = core.values.length - core.cells.length - getSlack(lineArm);
+            const requiredBoxSlack = countValues(core.valueMask) - core.cells.length - getSlack(lineArm);
 
             for (const boxArm of boxArmsBySlack.get(requiredBoxSlack) ?? []) {
-                if (!lineArm.values.some(value => boxArm.values.includes(value))) {
+                if (!sharesValue(lineArm.valueMask, boxArm.valueMask)) {
                     results.push(...this.createResults(context, intersection, lineArm, boxArm));
                 }
             }
@@ -153,13 +191,13 @@ export class SueDeCoqTechnique implements TechniqueStrategyInterface {
                 context,
                 lineCells,
                 [...core.cells, ...lineArm.cells],
-                [...lineArm.values, ...getValuesOutside(core.values, boxArm.values)]
+                [...getValues(lineArm.valueMask), ...getValues(core.valueMask, boxArm.valueMask)]
             ),
             ...getRemainingEliminations(
                 context,
                 boxCells,
                 [...core.cells, ...boxArm.cells],
-                [...boxArm.values, ...getValuesOutside(core.values, lineArm.values)]
+                [...getValues(boxArm.valueMask), ...getValues(core.valueMask, lineArm.valueMask)]
             )
         ]);
 

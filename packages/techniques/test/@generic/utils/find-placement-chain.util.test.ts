@@ -172,11 +172,10 @@ describe('findPlacementChain', () => {
         expect(placement && [placement.cell.y, placement.cell.x, placement.value]).toEqual([5, 8, 1]);
     });
 
-    it('reaches the same column quad digit through an ALS-XZ instead of the Nishio forcing chain', () => {
+    it('teaches the column quad ALS-XZ alone instead of routing it through an AIC to a digit', () => {
         const chain = playColumnQuadHintsUntil(createTechniqueStrategies(), step => step.technique === SolutionTechniqueEnum.ALSXZ);
 
-        expect(describeChain(chain)).toEqual(['ALSXZ elimination 7-4=6', 'AIC elimination 1-6=1', 'HiddenSingle placement 5-8=1']);
-        expect(chain[1].chain?.length).toBeGreaterThan(3);
+        expect(describeChain(chain)).toEqual(['ALSXZ elimination 7-4=6']);
     });
 
     it('should chain the pointing pair the hidden single depends on and stop at the placement', () => {

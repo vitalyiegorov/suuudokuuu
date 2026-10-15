@@ -140,11 +140,16 @@ const createBudgetedStrategies = (unbudgetedStrategies: TechniqueStrategyInterfa
 };
 
 const singleTechniques = new Set([SolutionTechniqueEnum.FullHouse, SolutionTechniqueEnum.NakedSingle, SolutionTechniqueEnum.HiddenSingle]);
-const forcingTechniques = new Set([
-    SolutionTechniqueEnum.NishioForcingChain,
-    SolutionTechniqueEnum.CellForcingChain,
-    SolutionTechniqueEnum.RegionForcingChain
-]);
+const chainFamilyRanks: Partial<Record<SolutionTechniqueEnum, number>> = {
+    [SolutionTechniqueEnum.XChain]: 1,
+    [SolutionTechniqueEnum.XYChain]: 1,
+    [SolutionTechniqueEnum.AIC]: 1,
+    [SolutionTechniqueEnum.NishioForcingChain]: 2,
+    [SolutionTechniqueEnum.CellForcingChain]: 2,
+    [SolutionTechniqueEnum.RegionForcingChain]: 2
+};
+
+const getChainFamilyRank = (technique: SolutionTechniqueEnum): number => chainFamilyRanks[technique] ?? 0;
 
 const findShortPlacementRoute = (
     strategies: TechniqueStrategyInterface[],
@@ -252,7 +257,7 @@ export const findPlacementChain = (
     const difficultyLimit = PLACEMENT_CHAIN_DIFFICULTIES[firstStep.technique] + PLACEMENT_CHAIN_DIFFICULTY_TOLERANCE;
     const isWithinDifficulty = (strategy: TechniqueStrategyInterface): boolean =>
         PLACEMENT_CHAIN_DIFFICULTIES[strategy.technique] <= difficultyLimit &&
-        (forcingTechniques.has(firstStep.technique) || !forcingTechniques.has(strategy.technique));
+        getChainFamilyRank(strategy.technique) <= getChainFamilyRank(firstStep.technique);
     const route = findPlacementRoute(
         unbudgetedStrategies.filter(isWithinDifficulty),
         strategies.filter(isWithinDifficulty),

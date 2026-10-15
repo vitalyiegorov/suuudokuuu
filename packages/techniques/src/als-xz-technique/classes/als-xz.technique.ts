@@ -1,4 +1,4 @@
-import { isNotEmptyArray } from '@rnw-community/shared';
+import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
 import { canSee } from '../../@generic/utils/can-see.util';
@@ -47,8 +47,13 @@ const indexByCandidate = (almostLockedSets: readonly AlmostLockedSetInterface[])
         for (const value of almostLockedSet.values) {
             for (const cell of almostLockedSet.cellsByValue[value]) {
                 const key = getCandidateKey(cell, value);
+                const setPositions = setPositionsByCandidate.get(key);
 
-                setPositionsByCandidate.set(key, [...(setPositionsByCandidate.get(key) ?? []), setPosition]);
+                if (isDefined(setPositions)) {
+                    setPositions.push(setPosition);
+                } else {
+                    setPositionsByCandidate.set(key, [setPosition]);
+                }
             }
         }
     });
@@ -103,19 +108,28 @@ export class ALSXZTechnique implements TechniqueStrategyInterface {
             const unitCells = unit.cells.filter(cell => context.getCandidates(cell).length > 1);
             const visit = (startPosition: number, distinctValueCount: number): void => {
                 for (let position = startPosition; position < unitCells.length; position += 1) {
-                    const cellCandidates = context.getCandidates(unitCells[position]);
-                    const addedValueCount = cellCandidates.filter(value => valueCounts[value] === 0).length;
+                    let nextDistinctValueCount = distinctValueCount;
 
-                    cellCandidates.forEach(value => void (valueCounts[value] += 1));
+                    for (const value of context.getCandidates(unitCells[position])) {
+                        nextDistinctValueCount += valueCounts[value] === 0 ? 1 : 0;
+                        valueCounts[value] += 1;
+                    }
+
                     chosenCells.push(unitCells[position]);
 
-                    if (distinctValueCount + addedValueCount === chosenCells.length + 1 && chosenCells.length < unitCells.length) {
+                    if (nextDistinctValueCount === chosenCells.length + 1 && chosenCells.length < unitCells.length) {
                         almostLockedSets.set(getCellsKey(chosenCells), createAlmostLockedSet(context, chosenCells));
                     }
 
-                    visit(position + 1, distinctValueCount + addedValueCount);
+                    if (nextDistinctValueCount - chosenCells.length <= unitCells.length - position) {
+                        visit(position + 1, nextDistinctValueCount);
+                    }
+
                     chosenCells.pop();
-                    cellCandidates.forEach(value => void (valueCounts[value] -= 1));
+
+                    for (const value of context.getCandidates(unitCells[position])) {
+                        valueCounts[value] -= 1;
+                    }
                 }
             };
 
