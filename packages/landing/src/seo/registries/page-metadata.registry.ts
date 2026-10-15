@@ -1,4 +1,7 @@
 import { seventeenClueSudokuPageMetadata } from '../../app/(en)/17-clue-sudoku/metadata';
+import { DAILY_PUZZLE_PAGES_METADATA } from '../../app/(en)/daily-sudoku/[date]/metadata';
+import { DAILY_ARCHIVE_PAGES_METADATA } from '../../app/(en)/daily-sudoku/archive/[month]/metadata';
+import { dailySudokuPageMetadata } from '../../app/(en)/daily-sudoku/metadata';
 import { glossaryPageMetadata } from '../../app/(en)/glossary/metadata';
 import { sudokuCluesVsDifficultyPageMetadata } from '../../app/(en)/guides/sudoku-clues-vs-difficulty/metadata';
 import { sudokuDifficultyRatingPageMetadata } from '../../app/(en)/guides/sudoku-difficulty-rating/metadata';
@@ -66,6 +69,9 @@ export const PAGE_METADATA_REGISTRY: readonly PageMetadataInterface[] = [
     howToPlayPageMetadata,
     sudokuForSeniorsPageMetadata,
     solverPageMetadata,
+    dailySudokuPageMetadata,
+    ...DAILY_PUZZLE_PAGES_METADATA,
+    ...DAILY_ARCHIVE_PAGES_METADATA,
     glossaryPageMetadata,
     sudokuDifficultiesPageMetadata,
     newbieSudokuPageMetadata,

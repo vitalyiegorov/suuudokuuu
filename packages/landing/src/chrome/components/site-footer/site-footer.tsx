@@ -1,6 +1,7 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import Link from 'next/link';
 
+import { dailySudokuPageMetadata } from '../../../app/(en)/daily-sudoku/metadata';
 import { glossaryPageMetadata } from '../../../app/(en)/glossary/metadata';
 import { sudokuCluesVsDifficultyPageMetadata } from '../../../app/(en)/guides/sudoku-clues-vs-difficulty/metadata';
 import { sudokuDifficultyRatingPageMetadata } from '../../../app/(en)/guides/sudoku-difficulty-rating/metadata';
@@ -55,6 +56,9 @@ export const SiteFooter = () => {
                         <p className="site-footer__group-title">
                             <Trans>Play</Trans>
                         </p>
+                        <Link href={dailySudokuPageMetadata.path}>
+                            <Trans>Daily sudoku</Trans>
+                        </Link>
                         <Link href={sudokuDifficultiesPageMetadata.path}>
                             <Trans>Difficulty levels</Trans>
                         </Link>
