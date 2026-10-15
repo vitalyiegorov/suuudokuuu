@@ -640,6 +640,52 @@ describe('FieldEngine', () => {
             expect(engine.getCellCandidates(cell)).not.toContain(8);
         });
 
+        it('counts the strikes of an elimination script and does not count a script whose placement fails', () => {
+            expect.assertions(2);
+
+            const engine = createEngine({ sudokuString: nakedPairBoard.join('') });
+            const strategies = createTechniqueStrategies().filter(strategy => strategy.technique === SolutionTechniqueEnum.NakedPair);
+            const script = techniqueResultToStepScript(
+                requireTechniqueResult(new TechniqueManager(engine.Sudoku, strategies).findNextStep())
+            );
+
+            engine.startStepScript(script);
+            engine.applyStepScript();
+
+            const { hintEliminationStreak } = engine.getSnapshot();
+
+            expect(hintEliminationStreak).toBeGreaterThan(0);
+
+            engine.startStepScript({ ...script, placement: { cell: getCell(engine, 1, 0), value: 3 } });
+            engine.applyStepScript();
+
+            expect(engine.getSnapshot().hintEliminationStreak).toBe(hintEliminationStreak);
+        });
+
+        it('restores the elimination streak captured with each undo and redo state', () => {
+            expect.assertions(4);
+
+            const engine = createEngine({ sudokuString: nakedPairBoard.join(''), showAutoCandidates: true });
+            const strategies = createTechniqueStrategies().filter(strategy => strategy.technique === SolutionTechniqueEnum.NakedPair);
+
+            engine.startStepScript(
+                techniqueResultToStepScript(requireTechniqueResult(new TechniqueManager(engine.Sudoku, strategies).findNextStep()))
+            );
+            engine.applyStepScript();
+
+            const { hintEliminationStreak } = engine.getSnapshot();
+            const blankCell = getCell(engine, 0, 0);
+
+            engine.placeValue(blankCell, engine.Sudoku.getCorrectValue(blankCell));
+            expect(engine.getSnapshot().hintEliminationStreak).toBe(0);
+            engine.undo();
+            expect(engine.getSnapshot().hintEliminationStreak).toBe(hintEliminationStreak);
+            engine.undo();
+            expect(engine.getSnapshot().hintEliminationStreak).toBe(0);
+            engine.redo();
+            expect(engine.getSnapshot().hintEliminationStreak).toBe(hintEliminationStreak);
+        });
+
         it('does nothing when applying or stopping without a running script', () => {
             expect.assertions(1);
 

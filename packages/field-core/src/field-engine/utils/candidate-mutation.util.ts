@@ -1,5 +1,6 @@
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 
+import type { StepScriptCandidateInterface } from '../../step-script/interfaces/step-script-candidate.interface';
 import type { FieldCandidateStateInterface } from '../interfaces/field-candidate-state.interface';
 import type { FieldCandidatesType } from '../types/field-candidates.type';
 import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
@@ -30,7 +31,7 @@ const getCandidatesWithoutValue = (candidates: FieldCandidatesType, cell: CellIn
     return { ...candidates, [cellKey]: cellCandidates.filter(candidate => candidate !== value) };
 };
 
-export const getCandidatesWithElimination = (
+const getCandidatesWithElimination = (
     eliminatedCandidates: FieldCandidatesType,
     cell: CellInterface,
     value: number
@@ -61,6 +62,18 @@ export const getCandidateStateWithoutValue = (
 
     return candidates === null ? null : { ...state, candidates };
 };
+
+export const getCandidateStateWithEliminations = (
+    state: FieldCandidateStateInterface,
+    eliminations: readonly StepScriptCandidateInterface[],
+    showAutoCandidates: boolean
+): FieldCandidateStateInterface =>
+    eliminations.reduce((currentState, { cell, value }) => {
+        const candidateState = getCandidateStateWithoutValue(currentState, cell, value, showAutoCandidates) ?? currentState;
+        const eliminatedCandidates = getCandidatesWithElimination(candidateState.eliminatedCandidates, cell, value);
+
+        return eliminatedCandidates === null ? candidateState : { ...candidateState, eliminatedCandidates };
+    }, state);
 
 export const getAutoCellCandidates = (sudoku: Sudoku, eliminatedCandidates: FieldCandidatesType, cell: CellInterface): number[] => {
     const cellEliminations = eliminatedCandidates[getCellKey(cell)] ?? [];

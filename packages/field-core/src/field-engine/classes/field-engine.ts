@@ -9,7 +9,7 @@ import { StepScriptStepKindEnum } from '../../step-script/enums/step-script-step
 import {
     cloneCandidateState,
     getAutoCellCandidates,
-    getCandidatesWithElimination,
+    getCandidateStateWithEliminations,
     getCandidateStateWithoutValue,
     getToggledCandidates
 } from '../utils/candidate-mutation.util';
@@ -181,18 +181,14 @@ export class FieldEngine extends FieldStore {
             return;
         }
 
-        const nextState = script.eliminations.reduce((state, { cell, value }) => {
-            const candidateState = getCandidateStateWithoutValue(state, cell, value, this.showAutoCandidates) ?? state;
-            const eliminatedCandidates = getCandidatesWithElimination(candidateState.eliminatedCandidates, cell, value);
+        const nextState = getCandidateStateWithEliminations(this.candidateState, script.eliminations, this.showAutoCandidates);
 
-            return isDefined(eliminatedCandidates) ? { ...candidateState, eliminatedCandidates } : candidateState;
-        }, this.candidateState);
+        const { placement } = script;
+        const strikeSteps = isDefined(placement) ? [] : script.steps.filter(step => step.kind === StepScriptStepKindEnum.StrikeCandidates);
 
         if (nextState !== this.candidateState) {
-            this.commitCandidateState(nextState);
+            this.commitCandidateState(nextState, this.hintEliminationStreak + strikeSteps.length);
         }
-        this.hintEliminationStreak += script.steps.filter(step => step.kind === StepScriptStepKindEnum.StrikeCandidates).length;
-        const { placement } = script;
 
         if (isDefined(placement)) {
             this.placeValue(
@@ -273,15 +269,18 @@ export class FieldEngine extends FieldStore {
         return result;
     }
 
-    private commitCandidateState(nextState: FieldCandidateStateInterface): void {
+    private commitCandidateState(nextState: FieldCandidateStateInterface, hintEliminationStreak = this.hintEliminationStreak): void {
         const previousState = this.captureState();
         this.candidateState = nextState;
+        this.hintEliminationStreak = hintEliminationStreak;
         this.history.push({ previous: previousState, next: this.captureState() });
         this.publish();
     }
 
     private captureState(): FieldHistoryStateInterface {
-        return { sudokuString: this.sudoku.toString(), ...cloneCandidateState(this.candidateState) };
+        const { hintEliminationStreak } = this;
+
+        return { sudokuString: this.sudoku.toString(), ...cloneCandidateState(this.candidateState), hintEliminationStreak };
     }
 
     private restoreState(state: FieldHistoryStateInterface | null): boolean {
@@ -293,6 +292,7 @@ export class FieldEngine extends FieldStore {
         }
 
         this.candidateState = cloneCandidateState(state);
+        this.hintEliminationStreak = state.hintEliminationStreak;
         this.publish();
 
         return true;
