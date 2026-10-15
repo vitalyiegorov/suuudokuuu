@@ -11,6 +11,7 @@ const emptyStepState = {
     regionCellKeys: new Set<string>(),
     revealedImplicationCount: 0,
     patternCellKeys: new Set<string>(),
+    candidateCellKeys: new Set<string>(),
     targetCellKey: null,
     revealedCandidates: new Map<string, number[]>(),
     eliminatedCandidates: new Map<string, number[]>(),
