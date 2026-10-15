@@ -7,12 +7,11 @@ import { isDefined } from '@rnw-community/shared';
 
 import { TECHNIQUE_NAMES } from '../../techniques/constants/technique-name.constant';
 import { TECHNIQUE_PAGE_PATHS } from '../../techniques/constants/technique-page-path.constant';
-import { formatCellLabel } from '../../techniques/utils/format-cell-label.util';
 import { renderTechniqueNarration } from '../../techniques/utils/render-technique-narration.util';
 
 import type { SolvePathInterface } from '../interfaces/solve-path.interface';
 import type { SolverStepInterface } from '../interfaces/solver-step.interface';
-import type { StepScriptCandidateInterface, StepScriptInterface } from '@suuudokuuu/field-core';
+import type { StepScriptInterface } from '@suuudokuuu/field-core';
 import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const MAX_SOLVE_PATH_STEPS = 600;
@@ -43,9 +42,6 @@ const narrateScript = (script: StepScriptInterface): string => {
 
     return isDefined(lastStep) ? renderTechniqueNarration(lastStep) : TECHNIQUE_NAMES[script.technique];
 };
-
-const narrateReveal = ({ cell, value }: StepScriptCandidateInterface): string =>
-    `No implemented technique proves the next digit here, so ${formatCellLabel(cell)} = ${value} is filled in from the verified solution.`;
 
 export class SolvePathBuilder {
     private readonly sudoku: Sudoku;
@@ -100,7 +96,7 @@ export class SolvePathBuilder {
             return;
         }
 
-        this.pushStep(script, narrateReveal(placement), REVEAL_STEP_LABEL);
+        this.pushStep(script, narrateScript(script), REVEAL_STEP_LABEL);
         this.sudoku.setCellValue({ ...placement.cell, value: placement.value });
         this.revealedCellCount += 1;
     }

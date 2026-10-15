@@ -1,5 +1,5 @@
 import { StepScriptStepKindEnum } from '@suuudokuuu/field-core';
-import { ChainLinkEnum, ForcingOutcomeKindEnum } from '@suuudokuuu/techniques';
+import { ChainLinkEnum, ForcingOutcomeKindEnum, SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -42,6 +42,10 @@ export const renderTechniqueNarration = (step: StepScriptStepType): string => {
     const techniqueName = TECHNIQUE_NAMES[step.narration.technique];
     const cellLabels = step.narration.cells.map(formatCellLabel).join(', ');
     const valueLabels = step.narration.values.join(', ');
+
+    if (step.narration.technique === SolutionTechniqueEnum.Guess) {
+        return `No implemented technique proves the next digit here, so ${cellLabels} = ${valueLabels} is filled in from the verified solution.`;
+    }
 
     if (step.kind === StepScriptStepKindEnum.SHOW_CHAIN) {
         return `Follow the chain ${step.chain.map(formatChainCandidate).join('')}. "=" is a strong link (at least one end is true) and "−" is a weak link (both ends cannot be true), so one end of the chain is always true.`;
