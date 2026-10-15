@@ -117,6 +117,7 @@ export default ({ config }) =>
                 backgroundColor: brandConfig.splashBackgroundColor
             },
             package: getUniqueIdentifier(true),
+            allowBackup: true,
             blockedPermissions: ['android.permission.READ_MEDIA_IMAGES', 'android.permission.READ_MEDIA_VIDEO'],
             intentFilters: [
                 {
