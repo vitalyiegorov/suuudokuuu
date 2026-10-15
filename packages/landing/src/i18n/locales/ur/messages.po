@@ -1502,8 +1502,8 @@ msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique 
 msgstr "سات۔ نیا کھلاڑی، آسان، درمیانہ، مشکل، ڈراؤنا خواب اور جہنم تکنیکی سیڑھی بناتے ہیں، جن میں سے ہر ایک کی تعریف کلیوز کی تعداد اور ضمانت شدہ تکنیکی بینڈ سے ہوتی ہے، کسی مارکیٹنگ لیبل سے نہیں۔ لامحدود ان سب کے اوپر ہے، شائع شدہ ریٹنگ کی بنیاد پر چنے گئے ریکارڈ پزلز کا ایک منتخب مجموعہ۔"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Shareable puzzle links and full game replays for any solve"
-msgstr "ہر حل کے لیے شیئر کیے جانے والے پزل لنکس اور مکمل گیم ری پلے"
+msgid "Shareable puzzle links and move-by-move replays of your recent games, the last 20 per difficulty"
+msgstr "شیئر کیے جانے والے پزل لنکس اور آپ کے حالیہ کھیلوں کے چال بہ چال ری پلے، ہر مشکل درجے کے آخری 20"
 
 #: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
 msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."

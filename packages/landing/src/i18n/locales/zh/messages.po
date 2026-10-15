@@ -1502,8 +1502,8 @@ msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique 
 msgstr "七个。新手、简单、中等、困难、噩梦和地狱组成技巧阶梯，每一档都由已知数字的多少和有保证的技巧区间定义，而不是营销标签。无限位于它们之上，是按公布的评级挑选的一组纪录级题目。"
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Shareable puzzle links and full game replays for any solve"
-msgstr "任何一局都可以生成可分享的题目链接和完整的对局回放"
+msgid "Shareable puzzle links and move-by-move replays of your recent games, the last 20 per difficulty"
+msgstr "可分享的题目链接，以及最近对局的逐步回放，每个难度保留最近 20 局"
 
 #: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
 msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."

@@ -1502,8 +1502,8 @@ msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique 
 msgstr "Sieben. Anfänger, Einfach, Mittelschwer, Schwer, Albtraum und Hölle bilden die Technikleiter, jede definiert durch eine Zahl der Vorgaben und ein garantiertes Technikband statt durch ein Marketing-Etikett. Darüber steht Unendlich, eine kuratierte Sammlung von Rekordrätseln, ausgewählt nach veröffentlichter Bewertung."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Shareable puzzle links and full game replays for any solve"
-msgstr "Teilbare Rätsel-Links und vollständige Wiederholungen jeder Lösung"
+msgid "Shareable puzzle links and move-by-move replays of your recent games, the last 20 per difficulty"
+msgstr "Teilbare Rätsel-Links und Zug-für-Zug-Wiederholungen deiner letzten Partien, der letzten 20 pro Schwierigkeitsstufe"
 
 #: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
 msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."

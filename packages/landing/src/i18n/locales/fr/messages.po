@@ -1502,8 +1502,8 @@ msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique 
 msgstr "Sept. Novice, Facile, Moyen, Difficile, Cauchemar et Enfer forment l’échelle de techniques, chaque niveau étant défini par un nombre de chiffres donnés et une plage de techniques garantie, et non par une étiquette marketing. Infini se place au-dessus : un ensemble sélectionné de grilles record choisies d’après leur cote publiée."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Shareable puzzle links and full game replays for any solve"
-msgstr "Liens de grilles à partager et rediffusion complète de chaque partie"
+msgid "Shareable puzzle links and move-by-move replays of your recent games, the last 20 per difficulty"
+msgstr "Liens de grilles à partager et rediffusion coup par coup de vos parties récentes, les 20 dernières par niveau"
 
 #: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
 msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."

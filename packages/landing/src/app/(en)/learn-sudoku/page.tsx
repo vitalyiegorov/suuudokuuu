@@ -67,9 +67,9 @@ const LearnSudokuPage = () => (
         </p>
         <h2>Step 5: Review your solve</h2>
         <p>
-            The app keeps every finished game and replays it move by move, labelling each placement with the technique behind it. Read how
-            on the <Link href={sudokuReplayPageMetadata.path}>review your solve</Link> page, and see the rest of your stats on{' '}
-            <Link href={trackYourProgressPageMetadata.path}>track your progress</Link>.
+            The app keeps your last 20 finished games per difficulty and replays them move by move, labelling each placement with the
+            technique behind it. Read how on the <Link href={sudokuReplayPageMetadata.path}>review your solve</Link> page, and see the rest
+            of your stats on <Link href={trackYourProgressPageMetadata.path}>track your progress</Link>.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play {SITE_NAME} now

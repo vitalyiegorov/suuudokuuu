@@ -89,7 +89,7 @@ export const HomePage = ({ locale }: Props) => {
                     <Trans>Works fully offline once installed on iOS or Android</Trans>
                 </SoftwareApplicationFeature>
                 <SoftwareApplicationFeature>
-                    <Trans>Shareable puzzle links and full game replays for any solve</Trans>
+                    <Trans>Shareable puzzle links and move-by-move replays of your recent games, the last 20 per difficulty</Trans>
                 </SoftwareApplicationFeature>
             </SoftwareApplicationSchema>
             <h2>

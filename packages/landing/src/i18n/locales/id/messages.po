@@ -1502,8 +1502,8 @@ msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique 
 msgstr "Tujuh. Pemula, Mudah, Sedang, Sulit, Mimpi buruk, dan Neraka membentuk tangga teknik, masing-masing ditentukan oleh jumlah angka awal dan rentang teknik yang dijamin, bukan label pemasaran. Tak Terhingga berada di atasnya, kumpulan pilihan sudoku rekor yang dipilih berdasarkan peringkat terpublikasi."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Shareable puzzle links and full game replays for any solve"
-msgstr "Tautan sudoku yang bisa dibagikan dan replay game lengkap untuk setiap penyelesaian"
+msgid "Shareable puzzle links and move-by-move replays of your recent games, the last 20 per difficulty"
+msgstr "Tautan sudoku yang bisa dibagikan dan replay langkah demi langkah untuk game terbaru Anda, 20 terakhir per tingkat kesulitan"
 
 #: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
 msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."

@@ -41,7 +41,7 @@ const TrackYourProgressPage = () => (
                 <li>Your arsenal counts every technique you have actually used, and names your best one.</li>
                 <li>Every finished puzzle is rated on the SE scale, so you can see your hardest solve and your recent average.</li>
                 <li>Played, win rate, play streak, best score, best time and average time sit in one grid.</li>
-                <li>The daily challenge keeps its own streak, and every finished game can be replayed.</li>
+                <li>The daily challenge keeps its own streak, and your last 20 finished games per difficulty can be replayed.</li>
             </ul>
         </TechniqueSummary>
         <figure className="page-figure">
@@ -74,8 +74,8 @@ const TrackYourProgressPage = () => (
         </p>
         <h2>History for every difficulty</h2>
         <p>
-            Tap a difficulty to see its finished games with their scores, times and mistakes. Each card summarises the techniques that
-            solved the game, including hints and reveals, and games with a stored record open in the{' '}
+            Tap a difficulty to see its 20 most recent finished games with their scores, times and mistakes. Each card summarises the
+            techniques that solved the game, including hints and reveals, and games with a stored record open in the{' '}
             <Link href={sudokuReplayPageMetadata.path}>move-by-move replay</Link>. Challenge runs show up too; see{' '}
             <Link href={challengeAFriendPageMetadata.path}>challenge a friend</Link>.
         </p>

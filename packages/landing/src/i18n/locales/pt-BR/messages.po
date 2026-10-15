@@ -1502,8 +1502,8 @@ msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique 
 msgstr "Sete. Iniciante, Fácil, Médio, Difícil, Pesadelo e Inferno formam a escada de técnicas, cada um definido por uma quantidade de pistas e uma faixa garantida de técnicas, e não por um rótulo de marketing. O Infinito fica acima deles, um conjunto selecionado de sudokus recordistas escolhidos pela classificação publicada."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Shareable puzzle links and full game replays for any solve"
-msgstr "Links de sudokus para compartilhar e replays completos de qualquer partida"
+msgid "Shareable puzzle links and move-by-move replays of your recent games, the last 20 per difficulty"
+msgstr "Links de sudokus para compartilhar e replays jogada a jogada das suas partidas recentes, as últimas 20 por dificuldade"
 
 #: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
 msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."

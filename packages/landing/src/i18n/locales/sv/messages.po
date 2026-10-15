@@ -1502,8 +1502,8 @@ msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique 
 msgstr "Sju. Nybörjare, Lätt, Medel, Svår, Mardröm och Helvete utgör tekniksteget, var och en definierad av ett antal givna siffror och ett garanterat teknikband snarare än en marknadsföringsetikett. Oändlighet ligger ovanför dem, ett kurerat urval av rekordsudokun valda efter publicerad bedömning."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Shareable puzzle links and full game replays for any solve"
-msgstr "Delbara sudokulänkar och fullständiga repriser av varje lösning"
+msgid "Shareable puzzle links and move-by-move replays of your recent games, the last 20 per difficulty"
+msgstr "Delbara sudokulänkar och drag-för-drag-repriser av dina senaste partier, de 20 senaste per svårighetsnivå"
 
 #: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
 msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."

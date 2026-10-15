@@ -1502,8 +1502,8 @@ msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique 
 msgstr "Сім. «Новачок», «Легкий», «Середній», «Важкий», «Кошмар» і «Пекло» утворюють сходи технік, кожен рівень визначений кількістю підказок і гарантованим діапазоном технік, а не маркетинговою назвою. Над ними — «Нескінченність», добірний набір рекордних головоломок, дібраних за опублікованим рейтингом."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Shareable puzzle links and full game replays for any solve"
-msgstr "Посилання на головоломки для обміну та повні відтворення гри для будь-якого розв’язування"
+msgid "Shareable puzzle links and move-by-move replays of your recent games, the last 20 per difficulty"
+msgstr "Посилання на головоломки для обміну та покрокові відтворення ваших останніх ігор, до 20 на кожен рівень складності"
 
 #: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
 msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."

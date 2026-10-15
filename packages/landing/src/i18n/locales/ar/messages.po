@@ -1502,8 +1502,8 @@ msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique 
 msgstr "سبعة. مبتدئ وسهل ومتوسط وصعب وكابوس وجحيم تشكّل سلّم التقنيات، ويُعرَّف كل منها بعدد معطيات ونطاق تقنيات مضمون لا بتسمية تسويقية. ويقع لانهاية فوقها، وهو مجموعة منتقاة من الألغاز القياسية اختيرت بحسب التقييم المنشور."
 
 #: src/home/components/home-page/home-page.tsx
-msgid "Shareable puzzle links and full game replays for any solve"
-msgstr "روابط ألغاز قابلة للمشاركة وإعادة تشغيل كاملة لأي حل"
+msgid "Shareable puzzle links and move-by-move replays of your recent games, the last 20 per difficulty"
+msgstr "روابط ألغاز قابلة للمشاركة وإعادة تشغيل خطوة بخطوة لألعابك الأخيرة، آخر 20 لعبة لكل مستوى صعوبة"
 
 #: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
 msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."

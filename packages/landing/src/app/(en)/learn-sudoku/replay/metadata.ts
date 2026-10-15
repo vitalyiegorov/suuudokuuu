@@ -6,7 +6,7 @@ export const sudokuReplayPageMetadata: PageMetadataInterface = {
     headline: 'Review Your Sudoku Solve Move by Move',
     metaTitle: 'Review Your Sudoku Solve — Move-by-Move Replay',
     metaDescription:
-        'Replay any finished Suuudokuuu puzzle move by move, see the technique behind each placement, spot hint-assisted moves and learn from your own solve.',
+        'Replay your recent Suuudokuuu games move by move, the last 20 per difficulty: see the technique behind each placement, spot hint-assisted moves and learn.',
     publishedAt: '2026-10-15T00:00:00.000Z',
     updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',

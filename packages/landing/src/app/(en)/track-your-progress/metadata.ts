@@ -6,7 +6,7 @@ export const trackYourProgressPageMetadata: PageMetadataInterface = {
     headline: 'Track Your Sudoku Progress',
     metaTitle: 'Track Your Sudoku Progress — Arsenal, SE Spectrum and Streaks',
     metaDescription:
-        'See your real Sudoku level: techniques you have used, the SE ratings of every solve, win rate, best times, daily streak and a replayable history, all on device.',
+        'See your real Sudoku level: techniques you have used, the SE ratings of every solve, win rate, best times, daily streak and a replayable history of recent games, all on device.',
     publishedAt: '2026-10-15T00:00:00.000Z',
     updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',

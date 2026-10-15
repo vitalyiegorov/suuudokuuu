@@ -35,8 +35,9 @@ const SudokuReplayPage = () => (
             <BreadcrumbListItem>Review your solve</BreadcrumbListItem>
         </PageHeader>
         <p>
-            Every game you finish in {SITE_NAME} is kept in your history and can be replayed move by move. Reviewing a solve is one of the
-            quickest ways to learn: you see where you were fast, where you stalled, and which technique each placement was really using.
+            {SITE_NAME} keeps your 20 most recent finished games for each difficulty in your history, and any of them with a stored move
+            record can be replayed move by move. Reviewing a solve is one of the quickest ways to learn: you see where you were fast, where
+            you stalled, and which technique each placement was really using.
         </p>
         <TechniqueSummary>
             <ul>
