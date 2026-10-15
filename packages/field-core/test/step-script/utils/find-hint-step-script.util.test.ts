@@ -87,7 +87,9 @@ const continuedEliminations: Partial<Record<SolutionTechniqueEnum, FieldCandidat
         '5-2': [5],
         '2-1': [1, 2],
         '8-8': [4]
-    }
+    },
+    [SolutionTechniqueEnum.EmptyRectangle]: { '1-1': [9], '3-7': [5], '4-8': [9], '7-8': [3] },
+    [SolutionTechniqueEnum.ALSXZ]: { '2-7': [1], '7-3': [3], '7-5': [1], '7-8': [1], '8-7': [3] }
 };
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 
@@ -408,7 +410,10 @@ describe('findHintStepScript', () => {
         [SolutionTechniqueEnum.XChain, '..67.8.3939.52..7.7....3....49.37..1..3..54..51....3..2..37.91......97..9...5..6.'],
         [SolutionTechniqueEnum.XYChain, '..587.94..7..9...53....5.7..874..1..463.81........7.848..7.....7...1..28.5.268...'],
         [SolutionTechniqueEnum.AIC, '1423....5853.4....9765.1...4....389..2.91...3.....4..6......5.9.....5.1.5.7.3...8'],
-        [SolutionTechniqueEnum.NishioForcingChain, '.62....4545.6...12.13245....2.153.6464...253113546....571384...3947261582865..473']
+        [SolutionTechniqueEnum.NishioForcingChain, '.62....4545.6...12.13245....2.153.6464...253113546....571384...3947261582865..473'],
+        [SolutionTechniqueEnum.EmptyRectangle, '....27..1..7..1.2.123.45......7163.231628....7.2.5316823.16.875875..261..615782..'],
+        [SolutionTechniqueEnum.ALSXZ, '.325.468.864.3..2...5826...3281497566.925.1.8.51..8.922.3..58.9.86....7.597.8...4'],
+        [SolutionTechniqueEnum.SueDeCoq, '9...51348....986758.5.6329121.985.36..8327.19..9146.82783612954..2839167.9.574823']
     ])('includes technique %i in a hint that places the solution digit', (technique, board) => {
         expect.assertions(5);
 

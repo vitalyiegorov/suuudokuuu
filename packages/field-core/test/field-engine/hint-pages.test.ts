@@ -13,10 +13,10 @@ import type { StepScriptBranchStepInterface } from '../../src/step-script/interf
 import type { StepScriptInterface } from '../../src/step-script/interfaces/step-script.interface';
 
 const chainBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
-const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
+const forcingBoard = '..3..2.6.9..3.1...1.2.5..8.........2..5..3.98...4..1....7.....5.2..6....4.19.....';
 const longBranchImplicationCount = 10;
 const firstGroupedLinkCount = 7;
-const forcingHintIndex = 11;
+const forcingHintIndex = 4;
 
 const createEngine = (sudokuString: string): FieldEngine => new FieldEngine({ sudokuString, difficulty: DifficultyEnum.Medium });
 
@@ -29,7 +29,7 @@ const requireHint = (engine: FieldEngine): StepScriptInterface => {
 };
 
 const findBranchHint = (): { engine: FieldEngine; script: StepScriptInterface; branch: StepScriptBranchStepInterface } => {
-    const engine = new FieldEngine({ sudokuString: columnQuadBoard, difficulty: DifficultyEnum.Medium, showAutoCandidates: true });
+    const engine = new FieldEngine({ sudokuString: forcingBoard, difficulty: DifficultyEnum.Medium, showAutoCandidates: true });
 
     let script = requireHint(engine);
 

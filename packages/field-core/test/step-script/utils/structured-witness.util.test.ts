@@ -16,10 +16,10 @@ import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const board = '000000051000000023004005000000000600000130000007680000429006500370400000810000000';
 const maxPatternLevelCells = 12;
-const forcingHintIndex = 11;
+const forcingHintIndex = 23;
 const hardcoreBoard = '001004800302000045540003090800040300000905410400006002030008600050370000100460000';
 const hardcoreHintCount = 10;
-const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
+const forcingBoard = '..3..2.6.9..3.1...1.2.5..8.........2..5..3.98...4..1....7.....5.2..6....4.19.....';
 
 const findResult = (technique: SolutionTechniqueEnum): TechniqueResultInterface => {
     const strategies = createTechniqueStrategies().filter(strategy => strategy.technique === technique);
@@ -130,8 +130,8 @@ describe('structured witness playback', () => {
         expect(forcingPatternSizes.every(size => size > 0 && size <= maxPatternLevelCells)).toBe(true);
     });
 
-    it('walks the Nishio and AIC twelfth hint of the #455 board without writing a hypothesis', () => {
-        const engine = new FieldEngine({ sudokuString: columnQuadBoard, difficulty: DifficultyEnum.Medium, showAutoCandidates: true });
+    it('walks a hint that chains AIC, ALS-XZ and a Nishio forcing chain without writing a hypothesis', () => {
+        const engine = new FieldEngine({ sudokuString: forcingBoard, difficulty: DifficultyEnum.Medium, showAutoCandidates: true });
 
         for (let hintIndex = 0; hintIndex < forcingHintIndex; hintIndex += 1) {
             engine.startStepScript(findHint(engine));
@@ -146,19 +146,20 @@ describe('structured witness playback', () => {
 
         expect(nishio?.narration.technique).toBe(SolutionTechniqueEnum.NishioForcingChain);
         expect(nishio && getNarratedCandidates(nishio)).toEqual([
-            [7, 4, 6],
-            [8, 3, 7],
-            [1, 3, 1],
-            [0, 3, 8],
-            [4, 4, 8]
+            [3, 6, 3],
+            [2, 6, 7],
+            [2, 1, 4],
+            [7, 6, 4],
+            [4, 1, 6]
         ]);
-        expect(nishio).toMatchObject({ branch: { outcome: { kind: ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT, cell: { y: 4, x: 4 } } } });
+        expect(nishio).toMatchObject({ branch: { outcome: { kind: ForcingOutcomeKindEnum.EMPTY_CELL, cell: { y: 4, x: 6 } } } });
+        expect(script.steps.map(step => step.narration.technique)).toContain(SolutionTechniqueEnum.ALSXZ);
 
         const nishioScript = { ...script, steps: script.steps.slice(script.steps.findIndex(step => step === nishio)) };
 
         expect(buildStepScriptState(nishioScript, 0, HintLevelEnum.PATTERN).patternCellKeys.size).toBeLessThanOrEqual(maxPatternLevelCells);
         expect(aic?.narration.technique).toBe(SolutionTechniqueEnum.AIC);
-        expect(script.placement).toMatchObject({ cell: { y: 5, x: 8 }, value: 1 });
+        expect(script.placement).toMatchObject({ cell: { y: 6, x: 4 }, value: 3 });
 
         engine.startStepScript(script);
 
