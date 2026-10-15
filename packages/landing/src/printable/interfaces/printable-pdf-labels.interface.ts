@@ -9,5 +9,5 @@ export interface PrintablePdfLabelsInterface {
     readonly documentTitle: (bookletName: string) => string;
     readonly puzzleCountLine: (puzzleCount: number) => string;
     readonly pageCountLine: (pageCount: number, puzzlesPerPage: number) => string;
-    readonly playMoreLine: (siteOrigin: string) => string;
+    readonly playMoreLine: string;
 }

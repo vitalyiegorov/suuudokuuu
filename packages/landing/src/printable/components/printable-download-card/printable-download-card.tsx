@@ -3,6 +3,7 @@ import { join } from 'node:path';
 
 import { Trans } from '@lingui/react/macro';
 
+import { printableSudokuPageMetadata } from '../../../app/(en)/printable/metadata';
 import { getActiveLocale } from '../../../i18n/utils/get-active-locale.util';
 import { buildLocalePath } from '../../../seo/utils/build-locale-path.util';
 import { extractNodeText } from '../../../seo/utils/extract-node-text.util';
@@ -12,8 +13,6 @@ import { PrintableDownloadFact } from '../printable-download-fact/printable-down
 import type { ReactNode } from 'react';
 
 const BYTES_PER_KILOBYTE = 1024;
-
-const PRINTABLE_PATH = '/printable';
 
 const resolvePublicFile = (filePath: string): string => join(process.cwd(), 'public', filePath);
 
@@ -25,8 +24,10 @@ interface Props {
 
 export const PrintableDownloadCard = ({ children, fileName, title }: Props) => {
     const factElements = findSlots(children, PrintableDownloadFact);
-    const localizedFilePath = `${buildLocalePath(getActiveLocale(), PRINTABLE_PATH)}/${fileName}`;
-    const filePath = existsSync(resolvePublicFile(localizedFilePath)) ? localizedFilePath : `${PRINTABLE_PATH}/${fileName}`;
+    const localizedFilePath = `${buildLocalePath(getActiveLocale(), printableSudokuPageMetadata.path)}/${fileName}`;
+    const filePath = existsSync(resolvePublicFile(localizedFilePath))
+        ? localizedFilePath
+        : `${printableSudokuPageMetadata.path}/${fileName}`;
     const fileSizeKilobytes = Math.ceil(statSync(resolvePublicFile(filePath)).size / BYTES_PER_KILOBYTE);
 
     return (

@@ -3,6 +3,7 @@ import { PDFDocument, StandardFonts, rgb } from 'pdf-lib';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { printableSudokuPageMetadata } from '../src/app/(en)/printable/metadata';
 import { DIFFICULTY_LADDER, DIFFICULTY_NAMES } from '../src/difficulty/constants/difficulty-name.constant';
 import { FAMOUS_PUZZLES } from '../src/hardest/constants/famous-puzzle.constant';
 import {
@@ -62,8 +63,6 @@ const CONTENT_WIDTH = PAGE_WIDTH - PAGE_MARGIN * 2;
 const CONTENT_TOP = PAGE_HEIGHT - PAGE_MARGIN - HEADER_HEIGHT;
 const CONTENT_BOTTOM = PAGE_MARGIN + FOOTER_HEIGHT;
 const CONTENT_HEIGHT = CONTENT_TOP - CONTENT_BOTTOM;
-
-const PRINTABLE_PATH = '/printable';
 
 interface FontsInterface {
     regular: PDFFont;
@@ -245,7 +244,7 @@ const buildBookletDocument = async (booklet: BookletInterface, labels: Printable
     addCoverPage(doc, fonts, booklet.name, [
         booklet.puzzleCountLine,
         labels.pageCountLine(booklet.pageCount, booklet.puzzlesPerPage),
-        labels.playMoreLine(SITE_ORIGIN)
+        labels.playMoreLine
     ]);
     addGridPages(doc, fonts, `${booklet.name} — ${labels.puzzlesHeading}`, labels.puzzleLabel, booklet.puzzles, booklet.puzzlesPerPage);
     addGridPages(doc, fonts, `${booklet.name} — ${labels.solutionsHeading}`, labels.solutionLabel, solutions, booklet.solutionsPerPage);
@@ -324,10 +323,10 @@ const generate = async (): Promise<void> => {
     const localizedLabels = Object.entries(PRINTABLE_PDF_LABELS).flatMap(([locale, labels]) =>
         isDefined(labels) ? [{ locale, labels }] : []
     );
-    const englishDirectory = createPublicDirectory(PRINTABLE_PATH);
+    const englishDirectory = createPublicDirectory(printableSudokuPageMetadata.path);
 
     for (const { labels, locale } of localizedLabels) {
-        const outputDirectory = createPublicDirectory(buildLocalePath(locale, PRINTABLE_PATH));
+        const outputDirectory = createPublicDirectory(buildLocalePath(locale, printableSudokuPageMetadata.path));
 
         for (const difficulty of DIFFICULTY_LADDER) {
             await writePdf(
