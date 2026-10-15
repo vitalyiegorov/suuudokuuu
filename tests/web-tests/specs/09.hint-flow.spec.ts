@@ -497,8 +497,8 @@ test('continues forcing-chain elimination hints and shows the answer from their 
     await expect(narration).toHaveText(/^Nishio Forcing Chain: .+ so 9 is ruled out of the marked cells\.$/u);
 
     await page.getByTestId(HintPanelSelectors.ContinueButton).click();
-    expect(await readCellLabels(page)).toEqual(labelsBefore);
     await expect(progress).toHaveAttribute('aria-label', /^Step 1 of \d+$/u);
+    expect(await readCellLabels(page)).toEqual(labelsBefore);
 
     await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
     await expect(narration).toHaveText(/^If r2c7=6 → r\dc\d runs out of candidates\. So r2c7 is not 6\.$/u);
