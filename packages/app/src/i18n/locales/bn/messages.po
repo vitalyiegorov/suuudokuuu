@@ -432,6 +432,10 @@ msgid "Backup imported"
 msgstr "ব্যাকআপ ইমপোর্ট হয়েছে"
 
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not exported"
+msgstr "ব্যাকআপ এক্সপোর্ট হয়নি"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Backup not imported"
 msgstr "ব্যাকআপ ইমপোর্ট হয়নি"
 
@@ -2129,6 +2133,14 @@ msgstr "পূর্ণ নম্বর প্যাড ট্র্যাকে
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text on ink"
 msgstr "কালির উপরের লেখা"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup could not be added to this device. Please try again."
+msgstr "ব্যাকআপটি এই ডিভাইসে যোগ করা যায়নি। আবার চেষ্টা করুন।"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup file could not be saved. Please try again."
+msgstr "ব্যাকআপ ফাইলটি সেভ করা যায়নি। আবার চেষ্টা করুন।"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."

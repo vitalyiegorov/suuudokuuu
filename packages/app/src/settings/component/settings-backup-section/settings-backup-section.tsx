@@ -32,7 +32,12 @@ export const SettingsBackupSection = () => {
                         Alert(t`Backup imported`, t`Games, statistics, and themes from the file are now on this device.`);
                     }
                 }),
-                Effect.tapCause(logErrorCause)
+                Effect.tapCause(logErrorCause),
+                Effect.catchDefect(() =>
+                    Effect.sync(
+                        () => void Alert(t`Backup not imported`, t`The backup could not be added to this device. Please try again.`)
+                    )
+                )
             )
         );
     };
@@ -43,7 +48,10 @@ export const SettingsBackupSection = () => {
                 Effect.flatMap(([backup, now]) =>
                     settingsShareBackupFile(backup, `suuudokuuu-backup-${new Date(now).toISOString().slice(0, 10)}.json`)
                 ),
-                Effect.tapCause(logErrorCause)
+                Effect.tapCause(logErrorCause),
+                Effect.catchCause(() =>
+                    Effect.sync(() => void Alert(t`Backup not exported`, t`The backup file could not be saved. Please try again.`))
+                )
             )
         );
     };
