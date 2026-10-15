@@ -1,8 +1,6 @@
-import { useLingui } from '@lingui/react/macro';
 import { forgeSerializablePuzzle } from '@suuudokuuu/puzzle-forge';
 
-import { PuzzleBoard } from '../../../puzzle/components/puzzle-board/puzzle-board';
-import { DifficultyPlayableBoard } from '../difficulty-playable-board/difficulty-playable-board';
+import { PlayablePuzzleBoard } from '../../../puzzle/components/playable-puzzle-board/playable-puzzle-board';
 
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
@@ -14,19 +12,8 @@ interface Props {
     children: ReactNode;
 }
 
-export const DifficultyBoard = ({ children, difficulty }: Props) => {
-    const { t } = useLingui();
-    const { solutionString, sudokuString } = forgeSerializablePuzzle(difficulty, DIFFICULTY_BOARD_SEED);
-
-    return (
-        <DifficultyPlayableBoard
-            difficulty={difficulty}
-            loadingLabel={t`Loading the board…`}
-            playLabel={t`Play this puzzle here`}
-            puzzle={sudokuString}
-            solution={solutionString}
-        >
-            <PuzzleBoard givens={sudokuString}>{children}</PuzzleBoard>
-        </DifficultyPlayableBoard>
-    );
-};
+export const DifficultyBoard = ({ children, difficulty }: Props) => (
+    <PlayablePuzzleBoard difficulty={difficulty} puzzle={forgeSerializablePuzzle(difficulty, DIFFICULTY_BOARD_SEED)}>
+        {children}
+    </PlayablePuzzleBoard>
+);

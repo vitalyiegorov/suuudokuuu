@@ -1069,7 +1069,7 @@ msgstr "सारे पैटर्न एक साथ रटने की ज
 msgid "Learn to solve"
 msgstr "हल करना सीखें"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Loading the board…"
 msgstr "बोर्ड लोड हो रहा है…"
 
@@ -1353,7 +1353,7 @@ msgstr "दुःस्वप्न सुडोकू अभी खेलें
 msgid "Play now"
 msgstr "अभी खेलें"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Play this puzzle here"
 msgstr "यह पहेली यहीं खेलें"
 

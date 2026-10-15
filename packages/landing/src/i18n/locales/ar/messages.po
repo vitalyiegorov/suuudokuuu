@@ -1069,7 +1069,7 @@ msgstr "تعلّم التقنيات بترتيب الصعوبة بدل حفظ ك
 msgid "Learn to solve"
 msgstr "تعلّم الحل"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Loading the board…"
 msgstr "جارٍ تحميل اللوحة…"
 
@@ -1353,7 +1353,7 @@ msgstr "العب سودوكو كابوس الآن"
 msgid "Play now"
 msgstr "العب الآن"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Play this puzzle here"
 msgstr "العب هذا اللغز هنا"
 

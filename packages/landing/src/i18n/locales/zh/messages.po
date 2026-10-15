@@ -1069,7 +1069,7 @@ msgstr "按难度顺序学习技巧，而不是一次记住所有模式。<0>数
 msgid "Learn to solve"
 msgstr "学习解题"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Loading the board…"
 msgstr "正在加载盘面……"
 
@@ -1353,7 +1353,7 @@ msgstr "立即玩噩梦数独"
 msgid "Play now"
 msgstr "立即开始"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Play this puzzle here"
 msgstr "在这里玩这道题"
 

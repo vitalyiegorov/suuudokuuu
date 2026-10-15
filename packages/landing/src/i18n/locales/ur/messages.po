@@ -1069,7 +1069,7 @@ msgstr "تکنیکیں مشکل کی ترتیب سے سیکھیں، ہر پیٹ�
 msgid "Learn to solve"
 msgstr "حل کرنا سیکھیں"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Loading the board…"
 msgstr "بورڈ لوڈ ہو رہا ہے…"
 
@@ -1353,7 +1353,7 @@ msgstr "ڈراؤنا خواب سوڈوکو ابھی کھیلیں"
 msgid "Play now"
 msgstr "ابھی کھیلیں"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Play this puzzle here"
 msgstr "یہ پزل یہیں کھیلیں"
 

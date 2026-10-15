@@ -1,7 +1,7 @@
 'use client';
 
 import '@suuudokuuu/field-dom/styles.css';
-import { useLingui } from '@lingui/react/macro';
+import { setupI18n } from '@lingui/core';
 import { FieldEngine, HintLevelEnum, HintRegionKindEnum, buildStepScriptState, findHintStepScript } from '@suuudokuuu/field-core';
 import { useFieldSnapshot } from '@suuudokuuu/field-core/react';
 import { FieldBoard, getGivenCellKeys } from '@suuudokuuu/field-dom';
@@ -10,6 +10,7 @@ import { useState } from 'react';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { CLIENT_MESSAGES } from '../../../i18n/constants/client-messages.constant';
 import { SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { TECHNIQUE_NAMES } from '../../../techniques/constants/technique-name.constant';
 import { buildFieldLabels } from '../../../techniques/utils/build-field-labels.util';
@@ -49,7 +50,7 @@ interface Props {
 }
 
 export const HintDemoLiveBoard = ({ puzzle }: Props) => {
-    const { i18n } = useLingui();
+    const [i18n] = useState(() => setupI18n({ locale: document.documentElement.lang, messages: CLIENT_MESSAGES }));
     const fieldLabels = buildFieldLabels(i18n);
     const [engine] = useState(() => new FieldEngine({ sudokuString: puzzle, difficulty: DifficultyEnum.Medium, showAutoCandidates: true }));
     const snapshot = useFieldSnapshot(engine);

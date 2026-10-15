@@ -1069,7 +1069,7 @@ msgstr "Learn techniques in difficulty order rather than memorising every patter
 msgid "Learn to solve"
 msgstr "Learn to solve"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Loading the board…"
 msgstr "Loading the board…"
 
@@ -1353,7 +1353,7 @@ msgstr "Play Nightmare Sudoku now"
 msgid "Play now"
 msgstr "Play now"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Play this puzzle here"
 msgstr "Play this puzzle here"
 

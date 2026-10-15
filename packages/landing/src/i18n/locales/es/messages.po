@@ -1069,7 +1069,7 @@ msgstr "Aprende las técnicas por orden de dificultad en lugar de memorizar todo
 msgid "Learn to solve"
 msgstr "Aprende a resolver"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Loading the board…"
 msgstr "Cargando el tablero…"
 
@@ -1353,7 +1353,7 @@ msgstr "Jugar ahora al sudoku Pesadilla"
 msgid "Play now"
 msgstr "Jugar ahora"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Play this puzzle here"
 msgstr "Juega este sudoku aquí"
 

@@ -1069,7 +1069,7 @@ msgstr "Pelajari teknik berdasarkan urutan kesulitan, bukan dengan menghafal sem
 msgid "Learn to solve"
 msgstr "Belajar menyelesaikan"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Loading the board…"
 msgstr "Memuat papan…"
 
@@ -1353,7 +1353,7 @@ msgstr "Mainkan Sudoku Mimpi buruk sekarang"
 msgid "Play now"
 msgstr "Main sekarang"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Play this puzzle here"
 msgstr "Mainkan sudoku ini di sini"
 

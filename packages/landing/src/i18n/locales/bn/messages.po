@@ -1069,7 +1069,7 @@ msgstr "কৌশলগুলো একসঙ্গে সব প্যাটা
 msgid "Learn to solve"
 msgstr "সমাধান শিখুন"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Loading the board…"
 msgstr "বোর্ড লোড হচ্ছে…"
 
@@ -1353,7 +1353,7 @@ msgstr "এখনই দুঃস্বপ্ন সুডোকু খেলু
 msgid "Play now"
 msgstr "এখনই খেলুন"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Play this puzzle here"
 msgstr "এই ধাঁধাটি এখানেই খেলুন"
 

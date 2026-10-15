@@ -1069,7 +1069,7 @@ msgstr "Lär dig teknikerna i svårighetsordning i stället för att lära dig a
 msgid "Learn to solve"
 msgstr "Lär dig lösa"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Loading the board…"
 msgstr "Laddar brädet …"
 
@@ -1353,7 +1353,7 @@ msgstr "Spela sudoku på nivån Mardröm nu"
 msgid "Play now"
 msgstr "Spela nu"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Play this puzzle here"
 msgstr "Spela det här sudokut här"
 

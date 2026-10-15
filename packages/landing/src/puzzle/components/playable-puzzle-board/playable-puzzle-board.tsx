@@ -1,5 +1,6 @@
+import { useLingui } from '@lingui/react/macro';
+
 import { DifficultyPlayableBoard } from '../../../difficulty/components/difficulty-playable-board/difficulty-playable-board';
-import { IslandLocaleProvider } from '../../../i18n/components/island-locale-provider/island-locale-provider';
 import { PuzzleBoard } from '../puzzle-board/puzzle-board';
 
 import type { DifficultyEnum } from '@suuudokuuu/generator';
@@ -12,16 +13,18 @@ interface Props {
     children: ReactNode;
 }
 
-export const PlayablePuzzleBoard = ({ children, difficulty, puzzle }: Props) => (
-    <IslandLocaleProvider>
+export const PlayablePuzzleBoard = ({ children, difficulty, puzzle }: Props) => {
+    const { t } = useLingui();
+
+    return (
         <DifficultyPlayableBoard
             difficulty={difficulty}
-            loadingLabel="Loading the board…"
-            playLabel="Play this puzzle here"
+            loadingLabel={t`Loading the board…`}
+            playLabel={t`Play this puzzle here`}
             puzzle={puzzle.sudokuString}
             solution={puzzle.solutionString}
         >
             <PuzzleBoard givens={puzzle.sudokuString}>{children}</PuzzleBoard>
         </DifficultyPlayableBoard>
-    </IslandLocaleProvider>
-);
+    );
+};

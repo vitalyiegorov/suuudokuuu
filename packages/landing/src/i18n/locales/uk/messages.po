@@ -1069,7 +1069,7 @@ msgstr "Вивчайте техніки в порядку складності, 
 msgid "Learn to solve"
 msgstr "Навчитися розв’язувати"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Loading the board…"
 msgstr "Завантаження дошки…"
 
@@ -1353,7 +1353,7 @@ msgstr "Грати в судоку «Кошмар» зараз"
 msgid "Play now"
 msgstr "Грати зараз"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Play this puzzle here"
 msgstr "Грати в цю головоломку тут"
 

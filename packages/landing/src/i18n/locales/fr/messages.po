@@ -1069,7 +1069,7 @@ msgstr "Apprenez les techniques par ordre de difficulté plutôt que de mémoris
 msgid "Learn to solve"
 msgstr "Apprendre à résoudre"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Loading the board…"
 msgstr "Chargement de la grille…"
 
@@ -1353,7 +1353,7 @@ msgstr "Jouer au sudoku Cauchemar maintenant"
 msgid "Play now"
 msgstr "Jouer maintenant"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Play this puzzle here"
 msgstr "Jouer à cette grille ici"
 

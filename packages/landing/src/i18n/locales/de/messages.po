@@ -1069,7 +1069,7 @@ msgstr "Lerne die Techniken in der Reihenfolge ihrer Schwierigkeit, statt alle M
 msgid "Learn to solve"
 msgstr "Lösen lernen"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Loading the board…"
 msgstr "Brett wird geladen …"
 
@@ -1353,7 +1353,7 @@ msgstr "Sudoku Albtraum jetzt spielen"
 msgid "Play now"
 msgstr "Jetzt spielen"
 
-#: src/difficulty/components/difficulty-board/difficulty-board.tsx
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
 msgid "Play this puzzle here"
 msgstr "Dieses Rätsel hier spielen"
 
