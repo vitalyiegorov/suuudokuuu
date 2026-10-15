@@ -72,13 +72,6 @@ const isChainBandTechnique = (technique: SolutionTechniqueEnum): boolean =>
 const createChainBandStrategies = (): TechniqueStrategyInterface[] =>
     createTechniqueStrategies().filter(strategy => isChainBandTechnique(strategy.technique));
 
-const createForcingBandStrategies = (): TechniqueStrategyInterface[] =>
-    createTechniqueStrategies().filter(
-        strategy =>
-            singlesOrder.includes(strategy.technique) ||
-            PLACEMENT_CHAIN_DIFFICULTIES[strategy.technique] >= PLACEMENT_CHAIN_DIFFICULTIES[SolutionTechniqueEnum.NishioForcingChain]
-    );
-
 const findHint = (sudoku: Sudoku, eliminations: CandidateEliminationInterface[] = []): TechniqueResultInterface[] =>
     findPlacementChain(sudoku, createTechniqueStrategies(), eliminations, true);
 
@@ -294,7 +287,7 @@ describe('findPlacementChain', () => {
         expect(findPlacementChain(sudoku, createChainBandStrategies(), [], true).map(step => step.technique)).toEqual([
             SolutionTechniqueEnum.AIC
         ]);
-        expect(describeChain(findPlacementChain(sudoku, createForcingBandStrategies()))).toEqual([
+        expect(describeChain(findPlacementChain(sudoku, createNarrowedStrategies(SolutionTechniqueEnum.NishioForcingChain)))).toEqual([
             'NishioForcingChain elimination 0-3=4',
             'HiddenSingle placement 0-5=4'
         ]);
