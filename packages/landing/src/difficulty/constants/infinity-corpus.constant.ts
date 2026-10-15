@@ -1,5 +1,7 @@
 import { getInfinityCorpusPuzzle, infinityCorpusSize } from '@suuudokuuu/hell-corpus';
 
+import { countClues } from '../../puzzle/utils/count-clues.util';
+
 import type { InfinityPuzzleInterface } from '@suuudokuuu/hell-corpus';
 
 export const INFINITY_CORPUS_PUZZLES: InfinityPuzzleInterface[] = Array.from({ length: infinityCorpusSize }, (_, index) =>
@@ -8,7 +10,7 @@ export const INFINITY_CORPUS_PUZZLES: InfinityPuzzleInterface[] = Array.from({ l
 
 const INFINITY_RATINGS = INFINITY_CORPUS_PUZZLES.map(entry => entry.rating);
 
-const INFINITY_GIVEN_COUNTS = INFINITY_CORPUS_PUZZLES.map(entry => entry.puzzle.replaceAll(/[^1-9]/gu, '').length);
+const INFINITY_GIVEN_COUNTS = INFINITY_CORPUS_PUZZLES.map(entry => countClues(entry.puzzle));
 
 export const INFINITY_LOWEST_RATING = Math.min(...INFINITY_RATINGS);
 

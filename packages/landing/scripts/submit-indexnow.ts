@@ -1,5 +1,9 @@
 import { getErrorMessage, isNotEmptyArray, isNotEmptyString } from '@rnw-community/shared';
 
+import { buildDailyPuzzlePageMetadata } from '../src/app/(en)/daily-sudoku/[date]/metadata';
+import { buildDailyArchivePageMetadata } from '../src/app/(en)/daily-sudoku/archive/[month]/metadata';
+import { dailySudokuPageMetadata } from '../src/app/(en)/daily-sudoku/metadata';
+import { DAILY_BUILD_DATE, DAILY_MONTH_KEY_LENGTH } from '../src/daily/constants/daily-archive.constant';
 import { INDEXNOW_ENDPOINT, INDEXNOW_KEY_ENVIRONMENT_VARIABLE } from '../src/indexing/constants/indexnow.constant';
 import { buildIndexablePages } from '../src/indexing/utils/build-indexable-pages.util';
 import { buildIndexNowKeyFileName } from '../src/indexing/utils/build-indexnow-key-file-name.util';
@@ -10,8 +14,20 @@ const HTTP_OK = 200;
 const HTTP_ACCEPTED = 202;
 const ACCEPTED_STATUS_CODES = [HTTP_OK, HTTP_ACCEPTED];
 
+const DAILY_CHANGED_PATHS = new Set([
+    dailySudokuPageMetadata.path,
+    buildDailyPuzzlePageMetadata(DAILY_BUILD_DATE).path,
+    buildDailyArchivePageMetadata(DAILY_BUILD_DATE.slice(0, DAILY_MONTH_KEY_LENGTH)).path
+]);
+
+const isDryRun = process.argv.includes('--dry-run');
+const isDailyRun = process.argv.includes('--daily');
 const { host } = new URL(SITE_ORIGIN);
-const urlList = buildIndexablePages().map(({ url }) => url);
+const indexablePages = buildIndexablePages();
+const submittedPages = isDailyRun
+    ? indexablePages.filter(({ pageMetadata }) => DAILY_CHANGED_PATHS.has(pageMetadata.path))
+    : indexablePages;
+const urlList = submittedPages.map(({ url }) => url);
 const foreignUrls = urlList.filter(url => new URL(url).host !== host);
 
 if (isNotEmptyArray(foreignUrls)) {
@@ -64,8 +80,6 @@ const submitToIndexNow = (key: string): void => {
         })
         .catch(handleSubmitError);
 };
-
-const isDryRun = process.argv.includes('--dry-run');
 
 if (isDryRun) {
     console.log(urlList.join('\n'));

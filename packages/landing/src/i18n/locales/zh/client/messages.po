@@ -1,0 +1,96 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-10-15 06:50+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: zh\n"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "{cellLabel}, empty"
+msgstr "{cellLabel}，空"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Apply to the board"
+msgstr "应用到盘面"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Easy"
+msgstr "简单"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Enter {value}, {remaining} still missing"
+msgstr "填入 {value}，还缺 {remaining} 个"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Hard"
+msgstr "困难"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Hell"
+msgstr "地狱"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Infinity"
+msgstr "无限"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Interactive Sudoku board"
+msgstr "交互式数独盘面"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Medium"
+msgstr "中等"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "New {difficultyName} puzzle"
+msgstr "新的{difficultyName}题目"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Newbie"
+msgstr "新手"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Next step"
+msgstr "下一步"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Nightmare"
+msgstr "噩梦"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Notes"
+msgstr "笔记"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Number pad"
+msgstr "数字键盘"
+
+#: src/difficulty/components/difficulty-live-board/difficulty-live-board.tsx
+msgid "Play {difficultyName} in the full app"
+msgstr "在完整应用中玩{difficultyName}"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Previous step"
+msgstr "上一步"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Redo"
+msgstr "重做"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Restart walkthrough"
+msgstr "重新开始演示"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Step {step} of {stepCount}"
+msgstr "第 {step} 步，共 {stepCount} 步"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Technique walkthrough"
+msgstr "技巧演示"
+
+#: src/techniques/utils/build-field-labels.util.ts
+msgid "Undo"
+msgstr "撤销"

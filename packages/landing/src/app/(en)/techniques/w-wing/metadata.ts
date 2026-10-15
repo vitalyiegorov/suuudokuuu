@@ -11,7 +11,7 @@ export const wWingPageMetadata: PageMetadataInterface = {
     metaDescription:
         'A W-Wing pairs two identical bivalue cells through a strong link on one candidate, letting the other candidate be erased from cells both cells see.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-14T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

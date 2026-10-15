@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -107,6 +108,14 @@ const JellyfishPage = () => (
                 Jellyfish is a sign of a genuinely hard grid.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            The four-line Jellyfish is the largest member of the fish family that begins with{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.XWing} /> and continues with{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.Swordfish} />. Because it is so rare, a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.FinnedSwordfish} /> or a chain such as{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.XChain} /> usually solves the same board sooner.
+        </p>
         <FaqPage>
             <FaqHeading>Jellyfish FAQ</FaqHeading>
             <Faq>

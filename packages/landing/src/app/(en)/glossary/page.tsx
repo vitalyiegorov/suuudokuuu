@@ -45,7 +45,8 @@ const GlossaryPage = () => (
                 <li>The names used here are the names the Suuudokuuu solver prints in its step output.</li>
             </ul>
         </TechniqueSummary>
-        <h2>Core vocabulary</h2>
+        <h2>Grid basics</h2>
+        <p>The parts of the board that every technique talks about.</p>
         <dl className="glossary-list">
             <div className="glossary-entry">
                 <dt id="cell">Cell</dt>
@@ -71,6 +72,10 @@ const GlossaryPage = () => (
                 <dt id="given">Given (clue)</dt>
                 <dd>A digit printed on the board before solving starts, part of what makes one puzzle different from another.</dd>
             </div>
+        </dl>
+        <h2>Solving concepts</h2>
+        <p>The ideas that explain why a technique works, rather than what it looks like.</p>
+        <dl className="glossary-list">
             <div className="glossary-entry">
                 <dt id="naked-hidden">Naked / hidden</dt>
                 <dd>Naked patterns are visible in a cell’s own candidates; hidden patterns need checking, unit by unit, for a digit.</dd>
@@ -88,10 +93,10 @@ const GlossaryPage = () => (
                 <dd>A puzzle with the fewest clues that still has a unique solution — 17 for standard Sudoku.</dd>
             </div>
         </dl>
-        <h2>Solving techniques</h2>
+        <h2>Singles and the last cell</h2>
         <p>
-            Techniques are listed in the difficulty order Suuudokuuu applies them. Every one of them has its own guide with a worked example
-            board built from the real solving engine; the definitions below are the quick-reference version of the same list.
+            The simplest placements: each one fills a cell outright instead of removing candidates. Techniques are listed in the difficulty
+            order Suuudokuuu applies them, and every one has its own guide with a worked example board built from the real solving engine.
         </p>
         <dl className="glossary-list">
             <TechniqueGlossaryEntry technique={SolutionTechniqueEnum.FullHouse}>
@@ -103,6 +108,10 @@ const GlossaryPage = () => (
             <TechniqueGlossaryEntry technique={SolutionTechniqueEnum.HiddenSingle}>
                 A digit that fits in only one cell of a unit, even though that cell still carries other candidates.
             </TechniqueGlossaryEntry>
+        </dl>
+        <h2>Intersections</h2>
+        <p>Box and line overlaps that confine a digit to a single line or box and erase it elsewhere.</p>
+        <dl className="glossary-list">
             <TechniqueGlossaryEntry technique={SolutionTechniqueEnum.PointingPair}>
                 A digit confined to two cells of a box sharing a row or column, erased from the rest of that line.
             </TechniqueGlossaryEntry>
@@ -112,6 +121,10 @@ const GlossaryPage = () => (
             <TechniqueGlossaryEntry technique={SolutionTechniqueEnum.BoxLineReduction}>
                 The mirror of a pointing pair: a digit confined to one box along a line is erased from the rest of that box.
             </TechniqueGlossaryEntry>
+        </dl>
+        <h2>Subsets</h2>
+        <p>Groups of cells or digits that lock each other inside one unit, in naked and hidden forms.</p>
+        <dl className="glossary-list">
             <TechniqueGlossaryEntry technique={SolutionTechniqueEnum.NakedPair}>
                 Two cells sharing the same two candidates and nothing else, so both digits are erased elsewhere in the unit.
             </TechniqueGlossaryEntry>
@@ -130,6 +143,10 @@ const GlossaryPage = () => (
             <TechniqueGlossaryEntry technique={SolutionTechniqueEnum.HiddenQuad}>
                 Four digits confined between them to the same four cells of a unit.
             </TechniqueGlossaryEntry>
+        </dl>
+        <h2>Fish</h2>
+        <p>Patterns where one digit is confined to the same few lines across the same number of rows and columns.</p>
+        <dl className="glossary-list">
             <TechniqueGlossaryEntry technique={SolutionTechniqueEnum.XWing}>
                 A fish pattern: a digit confined to the same two columns across two rows is erased from the rest of those columns.
             </TechniqueGlossaryEntry>
@@ -151,6 +168,10 @@ const GlossaryPage = () => (
             <TechniqueGlossaryEntry technique={SolutionTechniqueEnum.SashimiSwordfish}>
                 The same sashimi pattern applied to a Swordfish instead of an X-Wing.
             </TechniqueGlossaryEntry>
+        </dl>
+        <h2>Wings</h2>
+        <p>Short chains of bivalue cells that force an elimination whichever way the pivot resolves.</p>
+        <dl className="glossary-list">
             <TechniqueGlossaryEntry technique={SolutionTechniqueEnum.XYWing}>
                 Three bivalue cells where, whichever value the pivot holds, a shared candidate is erased from cells seeing both others.
             </TechniqueGlossaryEntry>
@@ -160,6 +181,10 @@ const GlossaryPage = () => (
             <TechniqueGlossaryEntry technique={SolutionTechniqueEnum.WWing}>
                 Two cells sharing a candidate pair, linked by a strong link on one digit, that erases the other from shared peers.
             </TechniqueGlossaryEntry>
+        </dl>
+        <h2>Chains and coloring</h2>
+        <p>Longer links of strong and weak inferences, from a single digit to a mixed alternating chain.</p>
+        <dl className="glossary-list">
             <TechniqueGlossaryEntry technique={SolutionTechniqueEnum.XChain}>
                 A chain of strong and weak links on one digit connecting two cells, proving an endpoint of the chain must hold it.
             </TechniqueGlossaryEntry>
@@ -175,6 +200,10 @@ const GlossaryPage = () => (
                 </dt>
                 <dd>A chain of alternating strong and weak links across candidates, generalising X-Chains, XY-Chains and coloring.</dd>
             </div>
+        </dl>
+        <h2>Uniqueness and forcing chains</h2>
+        <p>Patterns that lean on the single-solution rule, and trial branches that keep only what every branch agrees on.</p>
+        <dl className="glossary-list">
             <TechniqueGlossaryEntry technique={SolutionTechniqueEnum.UniqueRectangle}>
                 Three corners of a rectangle in two boxes hold the same pair, so the fourth corner cannot take either digit of it.
             </TechniqueGlossaryEntry>

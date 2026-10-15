@@ -1,3 +1,5 @@
+import { isDefined } from '@rnw-community/shared';
+
 import { OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH } from '../constants/og-image.constant';
 import { DEFAULT_LOCALE, SITE_NAME } from '../constants/site.constant';
 
@@ -10,6 +12,22 @@ import type { PageMetadataInterface } from '../interfaces/page-metadata.interfac
 import type { LocaleType } from '../types/locale.type';
 import type { Metadata } from 'next';
 
+const OPEN_GRAPH_LOCALES: Readonly<Record<LocaleType, string>> = {
+    en: 'en_US',
+    ar: 'ar_AR',
+    bn: 'bn_IN',
+    de: 'de_DE',
+    es: 'es_ES',
+    fr: 'fr_FR',
+    hi: 'hi_IN',
+    id: 'id_ID',
+    'pt-BR': 'pt_BR',
+    sv: 'sv_SE',
+    uk: 'uk_UA',
+    ur: 'ur_PK',
+    zh: 'zh_CN'
+};
+
 export const buildPageMetadata = (pageMetadata: PageMetadataInterface, locale: LocaleType = DEFAULT_LOCALE): Metadata => {
     const { metaDescription, metaTitle, path, publishedAt, title, updatedAt } = localizePageMetadata(pageMetadata, locale);
     const imageUrl = buildOgImageUrl({ path });
@@ -21,12 +39,14 @@ export const buildPageMetadata = (pageMetadata: PageMetadataInterface, locale: L
         alternates: buildAlternates(pageMetadata, locale),
         openGraph: {
             siteName: SITE_NAME,
-            locale,
+            locale: OPEN_GRAPH_LOCALES[locale],
             title: metaTitle,
             description: metaDescription,
             url: buildLocaleUrl(locale, path),
             images: openGraphImages,
-            ...(path === '/' ? { type: 'website' } : { type: 'article', publishedTime: publishedAt, modifiedTime: updatedAt })
+            ...(isDefined(pageMetadata.openGraphType)
+                ? { type: 'website' }
+                : { type: 'article', publishedTime: publishedAt, modifiedTime: updatedAt })
         },
         twitter: {
             card: 'summary_large_image'

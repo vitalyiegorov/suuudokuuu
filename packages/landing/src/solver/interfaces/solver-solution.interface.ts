@@ -1,10 +1,12 @@
-import type { SolverStepInterface } from './solver-step.interface';
+import type { SolvePathInterface } from './solve-path.interface';
 import type { DifficultyEnum } from '@suuudokuuu/generator';
 
-export interface SolverSolutionInterface {
-    kind: 'solved';
-    solutionBoard: string;
-    difficulty: DifficultyEnum;
-    steps: SolverStepInterface[];
-    unprovenCellCount: number;
+export interface SolverSolutionInterface extends SolvePathInterface {
+    readonly kind: 'solved';
+    readonly solutionBoard: string;
+    readonly difficulty: DifficultyEnum;
+    readonly rating: number;
+    readonly isRatingCeiling: boolean;
+    readonly hardestTechniqueName: string;
+    readonly hardestTechniquePath: string;
 }

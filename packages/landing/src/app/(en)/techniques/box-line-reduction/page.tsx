@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -95,6 +96,13 @@ const BoxLineReductionPage = () => (
                 Only checking rows. Columns produce box line reductions just as often, and a stuck puzzle frequently hides one in a column.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            Box and line reduction is the converse of <TechniqueLink technique={SolutionTechniqueEnum.PointingPair} /> and{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.PointingTriple} />: those confine a digit to a line inside a box, while this
+            confines it to a box along a line. When the grid stalls after all three, the next family to try is{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.NakedPair} />.
+        </p>
         <FaqPage>
             <FaqHeading>Box line reduction FAQ</FaqHeading>
             <Faq>

@@ -11,7 +11,7 @@ export const uniqueRectanglePageMetadata: PageMetadataInterface = {
     metaDescription:
         'A Unique Rectangle uses the one-solution rule: when three corners of a rectangle hold the same two digits, the fourth corner cannot take either.',
     publishedAt: '2026-10-06T00:00:00.000Z',
-    updatedAt: '2026-10-14T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -106,6 +107,12 @@ const SwordfishPage = () => (
                 and later passes may need a fresh scan.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            A Swordfish stretches the <TechniqueLink technique={SolutionTechniqueEnum.XWing} /> to three rows and three columns, and the{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.Jellyfish} /> stretches it to four. When the pattern is almost complete but has
+            an extra candidate, see <TechniqueLink technique={SolutionTechniqueEnum.FinnedSwordfish} />.
+        </p>
         <FaqPage>
             <FaqHeading>Swordfish FAQ</FaqHeading>
             <Faq>

@@ -1,4 +1,5 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import Link from 'next/link';
 
 import { BreadcrumbListItem } from '../../../seo/components/breadcrumb-list-item/breadcrumb-list-item';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
@@ -17,15 +18,22 @@ import { TECHNIQUE_PAGE_PATHS } from '../../../techniques/constants/technique-pa
 import { homePageMetadata } from '../metadata';
 
 import { techniquesPageMetadata } from './metadata';
+import { remotePairPageMetadata } from './remote-pair/metadata';
+import { skyscraperPageMetadata } from './skyscraper/metadata';
+import { turbotFishPageMetadata } from './turbot-fish/metadata';
+import { twoStringKitePageMetadata } from './two-string-kite/metadata';
 
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(techniquesPageMetadata);
 
-const TECHNIQUE_INDEX_ITEMS = TECHNIQUE_PAGE_LADDER.map(technique => ({
-    path: TECHNIQUE_PAGE_PATHS[technique],
-    title: TECHNIQUE_NAMES[technique]
-}));
+const TECHNIQUE_INDEX_ITEMS = [
+    ...TECHNIQUE_PAGE_LADDER.map(technique => ({ path: TECHNIQUE_PAGE_PATHS[technique], title: TECHNIQUE_NAMES[technique] })),
+    turbotFishPageMetadata,
+    skyscraperPageMetadata,
+    twoStringKitePageMetadata,
+    remotePairPageMetadata
+];
 
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const TechniquesPage = () => (
@@ -37,8 +45,14 @@ const TechniquesPage = () => (
         <ItemListSchema items={TECHNIQUE_INDEX_ITEMS} metadata={techniquesPageMetadata} />
         <p>
             A Sudoku technique is a named pattern of candidates that justifies placing a digit or erasing a candidate without guessing. This
-            page lists the techniques in the order a solver should try them, from the single cheapest deduction in the game, through the
-            subset patterns that unlock most mid-difficulty puzzles, to the forcing chains that carry the hardest ones.
+            page lists the techniques Suuudokuuu’s solving engine implements, in the order a solver should try them, from the single
+            cheapest deduction in the game, through the subset patterns that unlock most mid-difficulty puzzles, to the forcing chains that
+            carry the hardest ones, followed by the named chain patterns the engine finds as part of its chain techniques.
+        </p>
+        <p>
+            It is not every technique ever named. Empty Rectangle, ALS-XZ and Sue de Coq, among others, have no detector in the engine yet,
+            so they have no page here; when the engine cannot finish a puzzle with what it implements, the hint and the solver say so rather
+            than guess.
         </p>
         <p>
             Every technique page here carries a worked example board that was produced by running the solving engine bundled with the
@@ -211,6 +225,29 @@ const TechniquesPage = () => (
             <li>
                 <TechniqueLink technique={SolutionTechniqueEnum.RegionForcingChain} /> — every possible cell for a digit in one unit leads
                 to the same placement or elimination.
+            </li>
+        </ul>
+        <h2>Named chain patterns</h2>
+        <p>
+            Some well-known patterns are short chains with names of their own. The engine finds each one with its X-Chain or XY-Chain
+            detector and reports it under that name; these pages show the shape on a real example.
+        </p>
+        <ul className="technique-index">
+            <li>
+                <Link href={turbotFishPageMetadata.path}>{turbotFishPageMetadata.title}</Link> — the four-cell X-Chain: two strong links on
+                one digit joined by a weak link.
+            </li>
+            <li>
+                <Link href={skyscraperPageMetadata.path}>{skyscraperPageMetadata.title}</Link> — a Turbot Fish whose strong links run along
+                two parallel rows or columns.
+            </li>
+            <li>
+                <Link href={twoStringKitePageMetadata.path}>{twoStringKitePageMetadata.title}</Link> — a Turbot Fish that joins a row link
+                and a column link inside one box.
+            </li>
+            <li>
+                <Link href={remotePairPageMetadata.path}>{remotePairPageMetadata.title}</Link> — an XY-Chain whose cells all hold the same
+                two digits.
             </li>
         </ul>
         <h2>How to use this list</h2>

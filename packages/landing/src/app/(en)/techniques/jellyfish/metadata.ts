@@ -11,7 +11,7 @@ export const jellyfishPageMetadata: PageMetadataInterface = {
     metaDescription:
         'A Jellyfish extends X-Wing and Swordfish to four lines: a digit confined to the same four columns across four rows is erased everywhere else in those columns.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-14T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

@@ -1,6 +1,7 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { describe, expect, it } from 'vitest';
 
+import { CandidateContext } from '../../../../src/@generic/classes/candidate-context/candidate-context';
 import { TechniqueManager } from '../../../../src/@generic/classes/technique-manager/technique-manager';
 import { SolutionTechniqueEnum } from '../../../../src/@generic/enums/solution-technique.enum';
 
@@ -38,6 +39,18 @@ describe('TechniqueManager.solveLogically', () => {
         expect(result.steps).toHaveLength(3);
         expect(uniqueEliminations.size).toBe(3);
         expect(result.steps.every(step => step.kind === 'elimination')).toBe(true);
+    });
+
+    it('should continue from a given candidate context without repeating its eliminations', () => {
+        expect.assertions(2);
+
+        const sudoku = createSudoku(xWingBoard);
+        const firstResult = new TechniqueManager(sudoku).solveLogically([SolutionTechniqueEnum.XWing]);
+        const carriedContext = CandidateContext.fromSudoku(sudoku).withEliminations(firstResult.steps.flatMap(step => step.eliminations));
+        const resumedResult = new TechniqueManager(sudoku).solveLogically([SolutionTechniqueEnum.XWing], carriedContext);
+
+        expect(resumedResult.outcome).toBe('stuck');
+        expect(resumedResult.steps).toHaveLength(0);
     });
 
     it('should solve a board that singles alone cannot finish', () => {

@@ -8,7 +8,7 @@ import { FaqPage } from '../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../seo/components/faq-question/faq-question';
 import { Faq } from '../../../seo/components/faq/faq';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
-import { SITE_GITHUB_URL, SITE_NAME, SITE_PLAY_URL } from '../../../seo/constants/site.constant';
+import { SITE_GITHUB_URL, SITE_LICENSE, SITE_LICENSE_URL, SITE_NAME, SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { homePageMetadata } from '../metadata';
 import { solverPageMetadata } from '../solver/metadata';
@@ -33,18 +33,20 @@ const WhySuuudokuuuPage = () => (
         <p>
             {SITE_NAME} is a free sudoku app and website with no ads and no account, and the game itself carries no tracking of any kind.
             The full source — the puzzle generator, the solvers, the technique detector and the app itself — is published on{' '}
-            <a href={SITE_GITHUB_URL}>GitHub under the MIT license</a>. That combination is unusual: most sudoku apps run ads, most closed
-            source apps ask you to trust their claims about privacy, and few publish the code that generates and checks the puzzles you are
-            actually solving. This page lays out exactly what {SITE_NAME} does, with links to the parts of the codebase that back each
-            claim, so none of it has to be taken on faith.
+            <a href={SITE_GITHUB_URL}>GitHub under the {SITE_LICENSE} license</a>. That combination is unusual: most sudoku apps run ads,
+            most closed source apps ask you to trust their claims about privacy, and few publish the code that generates and checks the
+            puzzles you are actually solving. This page lays out exactly what {SITE_NAME} does, with links to the parts of the codebase that
+            back each claim, so none of it has to be taken on faith.
         </p>
-        <h2>What free and open source actually means here</h2>
+        <h2>What free and source-available actually means here</h2>
         <p>
             Free means every difficulty level, every hint and every technique guide is available with no paywall, no subscription and no
-            in-app purchase. Open source means the repository is public, the license is MIT — one of the most permissive licenses that
-            exists, letting anyone read, fork, modify or redeploy the code — and every commit that ever shipped a feature is visible in the
-            same public history. Nothing about generation, solving or scoring happens on a server you cannot inspect; the logic lives in
-            plain TypeScript packages anyone can read end to end.
+            in-app purchase. Source-available means the repository is public under the <a href={SITE_LICENSE_URL}>{SITE_LICENSE} license</a>
+            : MIT-style terms that let anyone read, fork, modify and self-host the code, with one restriction — nobody may offer it to
+            others as a hosted or SaaS service that competes with {SITE_NAME}. That restriction is why it is not an OSI-approved open-source
+            license, and why this site does not call it one. Every commit that ever shipped a feature is visible in the same public history.
+            Nothing about generation, solving or scoring happens on a server you cannot inspect; the logic lives in plain TypeScript
+            packages anyone can read end to end.
         </p>
         <h2>No ads, no account, no tracking in the game</h2>
         <p>
@@ -73,7 +75,7 @@ const WhySuuudokuuuPage = () => (
             record puzzles with published ratings. Both corpora are additionally cross-checked by two independent solving algorithms — a
             Dancing Links exact-cover solver and a typed-array bitmask solver — so one algorithm’s bug cannot silently ship a broken puzzle.
             All three solvers, <code>solver-dlx</code>, <code>solver-bitmask</code> and the shared <code>solver-core</code> contract they
-            both implement, are separate open packages in the repository, not a black box.
+            both implement, are separate public packages in the repository, not a black box.
         </p>
         <h2>Hints that teach, not just answer</h2>
         <p>
@@ -91,8 +93,8 @@ const WhySuuudokuuuPage = () => (
             it to describe — the code that generates your puzzle, checks it has one solution and decides what a hint tells you is public,
             readable and forkable on GitHub. That is the whole pitch: not a longer feature list, just fewer things you have to take on
             trust. It is also built to be comfortable, not just honest — see the{' '}
-            <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link> guide for the large-print and comfort-mode options that
-            come with the same free, ad-free package.
+            <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link> guide for the large-print and comfort options that come
+            with the same free, ad-free package.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Play {SITE_NAME} now
@@ -109,8 +111,8 @@ const WhySuuudokuuuPage = () => (
             <Faq>
                 <FaqQuestion>Is the source code actually public?</FaqQuestion>
                 <FaqAnswer>
-                    Yes, the full monorepo is public on <a href={SITE_GITHUB_URL}>GitHub</a> under the MIT license, including the puzzle
-                    generator, both solvers, the technique detector, the app and this website.
+                    Yes, the full monorepo is public on <a href={SITE_GITHUB_URL}>GitHub</a> under the {SITE_LICENSE} license, including the
+                    puzzle generator, both solvers, the technique detector, the app and this website.
                 </FaqAnswer>
             </Faq>
             <Faq>
@@ -123,16 +125,16 @@ const WhySuuudokuuuPage = () => (
             <Faq>
                 <FaqQuestion>Does it work offline?</FaqQuestion>
                 <FaqAnswer>
-                    Yes. Once installed, {SITE_NAME} generates and verifies puzzles entirely on your device, so it plays the same with no
-                    connection.
+                    Yes, in the iOS and Android apps. Once installed, {SITE_NAME} generates and verifies puzzles entirely on your device, so
+                    it plays the same with no connection.
                 </FaqAnswer>
             </Faq>
             <Faq>
                 <FaqQuestion>Is {SITE_NAME} a good sudoku.com alternative?</FaqQuestion>
                 <FaqAnswer>
-                    If what you want is ad-free, trackable-free, open-source sudoku with technique-explaining hints instead of a plain
+                    If what you want is ad-free, tracker-free, source-available sudoku with technique-explaining hints instead of a plain
                     answer button, {SITE_NAME} is built specifically for that. It is not a clone of any other site — it is a from-scratch,
-                    open-source engine with its own generator, solvers and technique library.
+                    source-available engine with its own generator, solvers and technique library.
                 </FaqAnswer>
             </Faq>
         </FaqPage>

@@ -53,7 +53,7 @@ const resolveLlmsSection = (path: string): string => {
 const LLMS_INTRO = [
     `${SITE_NAME} is a free, ad-free Sudoku game and an open reference for how Sudoku is actually solved.`,
     'Every page listed below provides its main content as static HTML readable without JavaScript, with schema.org structured data, a definition-first opening sentence, and visible publication and modification dates. Optional interactive controls use JavaScript.',
-    'Numbers quoted on the site — clue counts, technique frequencies, difficulty tiers, printable page counts — are produced at build time by the open-source solver that ships with the game, not written by hand.',
+    'Numbers quoted on the site — clue counts, technique frequencies, difficulty tiers, printable page counts — are produced at build time by the source-available solver that ships with the game, not written by hand.',
     `The machine-readable URL set is ${SITE_ORIGIN}/sitemap.xml and it lists exactly the pages below.`
 ].join(' ');
 

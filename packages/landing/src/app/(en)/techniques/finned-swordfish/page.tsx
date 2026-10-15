@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -105,6 +106,13 @@ const FinnedSwordfishPage = () => (
             </li>
             <li>Forgetting box visibility. Fin-based eliminations most often depend on a shared box, not just a shared row or column.</li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            This pattern is a <TechniqueLink technique={SolutionTechniqueEnum.Swordfish} /> with a fin, in the same way a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.FinnedXWing} /> is an <TechniqueLink technique={SolutionTechniqueEnum.XWing} />{' '}
+            with one. The variant where a corner of the fish is missing and the fin takes its place is the{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.SashimiSwordfish} />.
+        </p>
         <FaqPage>
             <FaqHeading>Finned Swordfish FAQ</FaqHeading>
             <Faq>

@@ -24,13 +24,15 @@ test('offers the language switcher only on pages published in more than one lang
 
     const languages = page.getByRole('navigation', { name: 'Language' });
 
+    await languages.locator('summary').click();
     await expect(languages.getByRole('link', { name: 'English' })).toHaveAttribute('aria-current', 'page');
     await languages.getByRole('link', { name: 'Español' }).click();
     await expect(page).toHaveURL(spanishHomePath);
-    await expect(page.getByRole('navigation', { name: 'Idioma' }).getByRole('link', { name: 'Español' })).toHaveAttribute(
-        'aria-current',
-        'page'
-    );
+
+    const spanishLanguages = page.getByRole('navigation', { name: 'Idioma' });
+
+    await spanishLanguages.locator('summary').click();
+    await expect(spanishLanguages.getByRole('link', { name: 'Español' })).toHaveAttribute('aria-current', 'page');
 
     await page.goto(englishOnlyPagePath);
 

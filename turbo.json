@@ -19,7 +19,7 @@
         },
         "@suuudokuuu/landing#build": {
             "dependsOn": ["^build"],
-            "env": ["INDEXNOW_KEY"],
+            "env": ["INDEXNOW_KEY", "LANDING_BUILD_DATE"],
             "outputs": ["out/**", ".next/**", "!.next/cache/**"]
         },
         "test": {},

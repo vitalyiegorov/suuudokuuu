@@ -24,7 +24,7 @@ src/app/(en)/<route>/
 4. **Page header** — `PageHeader metadata=` with `BreadcrumbListItem` children, which emits the visible trail and the `BreadcrumbList` JSON-LD from those children, plus the `<h1>` and the visible updated date from the sidecar. Article routes render `ArticleSchema` explicitly; home and collection hubs omit it.
 5. **Schema and cross-links** — the compound schema primitives the page needs, plus in-prose `<Link>`s to sibling pages, always resolved through the neighbour’s sidecar (`href={xWingPageMetadata.path}`), never through a hardcoded string.
 
-`src/app/(en)/techniques/x-wing/page.tsx` is the reference technique page, `src/app/(en)/sudoku/hard/page.tsx` the reference difficulty lander, `src/app/(en)/printable/hard/page.tsx` the reference article-schema page, `src/app/(en)/solver/page.tsx` the reference tool page, and `src/app/[locale]/page.tsx` with `src/home/components/home-page/home-page.tsx` the reference localized page.
+`src/app/(en)/techniques/x-wing/page.tsx` is the reference technique page, `src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx` the reference difficulty lander, `src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx` the reference article-schema page, `src/app/(en)/solver/page.tsx` the reference tool page, and `src/app/[locale]/page.tsx` with `src/home/components/home-page/home-page.tsx` the reference localized page.
 
 ---
 
@@ -32,7 +32,7 @@ src/app/(en)/<route>/
 
 ### 2.1 One static route file per SEO page
 
-Every page lives at its own `src/app/(en)/<route>/page.tsx`; a localized page adds `src/app/[locale]/<route>/page.tsx`. Never collapse content pages into a dynamic `src/app/[slug]/page.tsx`, and never generate a family of pages from a slug-keyed content map. Adding a page means adding a folder; deleting a page means deleting that folder.
+Every page lives at its own `src/app/(en)/<route>/page.tsx`; a localized page adds `src/app/[locale]/<route>/page.tsx`. Never collapse content pages into a dynamic `src/app/[slug]/page.tsx`, and never generate a family of pages from a slug-keyed content map. Adding a page means adding a folder; deleting a page means deleting that folder. The dated daily sudoku archive is the one content family on a `generateStaticParams` route, because its URLs are a function of the build date rather than authored pages; every dated page renders the same body and no copy is keyed by date.
 
 The reason is not aesthetic. A dynamic route makes the content invisible to `grep`, hides which URLs actually exist behind a `generateStaticParams` array, and pushes per-page copy into a registry — which then has to grow a shape wide enough for every page in the family, and every page pays for every other page’s fields.
 

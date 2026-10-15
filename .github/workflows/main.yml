@@ -14,6 +14,8 @@ on:
     push:
         branches:
             - main
+    schedule:
+        - cron: '10 0 * * *'
 
 permissions:
     contents: write
@@ -26,6 +28,7 @@ concurrency:
 jobs:
     release:
         name: Publish a release
+        if: github.event_name != 'schedule'
         runs-on: [self-hosted, linux-portable-2x4]
         timeout-minutes: 20
         steps:
@@ -93,6 +96,7 @@ jobs:
     web-deploy:
         name: Vercel deploy Web
         needs: release
+        if: ${{ !cancelled() && (needs.release.result == 'success' || needs.release.result == 'skipped') }}
         runs-on: [self-hosted, linux-portable-2x4]
         timeout-minutes: 20
         steps:
@@ -114,6 +118,9 @@ jobs:
 
             - name: Build expo web
               run: pnpm turbo run export:web --filter=@suuudokuuu/app
+
+            - name: Resolve the landing build date
+              run: echo "LANDING_BUILD_DATE=$(date -u +%F)" >> "$GITHUB_ENV"
 
             - name: Build landing export
               env:
@@ -138,4 +145,4 @@ jobs:
             - name: Submit changed pages to IndexNow
               env:
                   INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
-              run: pnpm --filter @suuudokuuu/landing submit:indexnow
+              run: pnpm --filter @suuudokuuu/landing submit:indexnow ${{ github.event_name == 'schedule' && '--daily' || '' }}

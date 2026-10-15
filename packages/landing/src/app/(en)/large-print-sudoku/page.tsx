@@ -18,9 +18,14 @@ import { Faq } from '../../../seo/components/faq/faq';
 import { PageHeader } from '../../../seo/components/page-header/page-header';
 import { SITE_NAME, SITE_PLAY_URL } from '../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
+import { accessibleSudokuPageMetadata } from '../accessible-sudoku/metadata';
 import { homePageMetadata } from '../metadata';
+import { printableEasySudokuPageMetadata } from '../printable/easy/metadata';
 import { printableSudokuPageMetadata } from '../printable/metadata';
+import { printableNewbieSudokuPageMetadata } from '../printable/newbie/metadata';
 import { sudokuForSeniorsPageMetadata } from '../sudoku-for-seniors/metadata';
+import { easySudokuPageMetadata } from '../sudoku/easy/metadata';
+import { newbieSudokuPageMetadata } from '../sudoku/newbie/metadata';
 
 import { largePrintSudokuPageMetadata } from './metadata';
 
@@ -39,8 +44,8 @@ const LargePrintSudokuPage = () => (
         <p>
             Large print sudoku, here, is a free PDF booklet that prints just {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} puzzles to a US Letter
             page instead of the usual {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}, so every grid line and every digit comes out noticeably bigger.
-            It sits alongside an on-screen alternative — an adjustable text-size control and the app’s Comfort mode — for anyone who would
-            rather read a bigger board than print one.
+            It sits alongside an on-screen alternative — an adjustable text-size control and the app’s Number size setting — for anyone who
+            would rather read a bigger board than print one.
         </p>
         <PrintableDownloadCard fileName="large-print.pdf" title="Large Print Sudoku">
             <PrintableDownloadFact>{PRINTABLE_LARGE_PRINT_SIZE} puzzles</PrintableDownloadFact>
@@ -51,8 +56,10 @@ const LargePrintSudokuPage = () => (
         <p>
             A bigger grid helps whenever the standard print looks cramped: low-vision solvers, anyone reading without their glasses close
             by, a caregiver setting up an activity for someone else, or a teacher printing a worksheet meant to be read from across a table
-            rather than held a few inches from the eyes. The puzzles themselves are not simplified — they are the same gentle Easy-tier
-            logic as the standard booklet, so the only thing that changes is how much space each digit gets on the page.
+            rather than held a few inches from the eyes. The puzzles themselves are not simplified — they are the same gentle{' '}
+            <Link href={easySudokuPageMetadata.path}>Easy-tier</Link>
+            logic as the <Link href={printableEasySudokuPageMetadata.path}>standard Easy booklet</Link>, so the only thing that changes is
+            how much space each digit gets on the page.
         </p>
         <h2>What is inside the booklet</h2>
         <p>
@@ -64,10 +71,11 @@ const LargePrintSudokuPage = () => (
         </p>
         <h2>Progress with the per-tier booklets</h2>
         <p>
-            Once a large-print puzzle feels comfortable, the <Link href={printableSudokuPageMetadata.path}>printable sudoku hub</Link> has a
-            full booklet for every difficulty from Newbie through Infinity, each printing {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} puzzles per
-            page with solutions included. Working through the tiers in order is the same progression the site’s digital difficulty ladder
-            uses, just on paper.
+            Once a large-print puzzle feels comfortable, try the <Link href={printableNewbieSudokuPageMetadata.path}>Newbie booklet</Link>{' '}
+            or the <Link href={newbieSudokuPageMetadata.path}>Newbie tier</Link> on screen. The{' '}
+            <Link href={printableSudokuPageMetadata.path}>printable sudoku hub</Link> has a full booklet for every difficulty from Newbie
+            through Infinity, each printing {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} puzzles per page with solutions included. Working through
+            the tiers in order is the same progression the site’s digital difficulty ladder uses, just on paper.
         </p>
         <h2>Printing tips</h2>
         <p>
@@ -81,14 +89,13 @@ const LargePrintSudokuPage = () => (
         <p>
             Paper is not the only way to get bigger digits. The <Link href={sudokuForSeniorsPageMetadata.path}>sudoku for seniors</Link>{' '}
             page covers both on-screen options in full: the site’s own header text-size control, which scales every page here including the
-            puzzle boards, and the app’s Comfort mode, a one-tap preset that switches to the largest digit size, a high-contrast theme,
-            spacious touch targets, no timer and calmer motion, with every piece still adjustable afterward.
+            puzzle boards, and the app’s own settings for the largest digit size, a high-contrast theme, spacious cells, no timer and calmer
+            motion. The <Link href={accessibleSudokuPageMetadata.path}>accessible sudoku</Link> page lists every one.
         </p>
         <h2>Classroom and care-home reuse</h2>
         <p>
-            {SITE_NAME}’s code, including the generator behind every puzzle here, is open source under the MIT license, and this site places
-            no restriction on printing or redistributing the PDFs — including handing large-print copies out in a classroom, a care home
-            activity session or a worksheet packet.
+            This site places no restriction on printing or redistributing the PDFs — including handing large-print copies out in a
+            classroom, a care home activity session or a worksheet packet.
         </p>
         <a className="hero__cta" href={SITE_PLAY_URL}>
             Prefer a screen? Play {SITE_NAME} now
@@ -112,15 +119,12 @@ const LargePrintSudokuPage = () => (
                 <FaqQuestion>Is there a way to get bigger digits without printing anything?</FaqQuestion>
                 <FaqAnswer>
                     Yes. This site’s header has an A / A+ / A++ text-size control that enlarges every page, boards included, and the app’s
-                    Comfort mode sets the on-screen board to its largest digit size in one tap.
+                    Number size setting can set the on-screen board to its Large digit size.
                 </FaqAnswer>
             </Faq>
             <Faq>
                 <FaqQuestion>Can I use these PDFs in a classroom or care home?</FaqQuestion>
-                <FaqAnswer>
-                    Yes. The code behind {SITE_NAME}, including the puzzle generator, is MIT-licensed and open source, and there is no
-                    restriction here on printing or handing out the PDFs to a group.
-                </FaqAnswer>
+                <FaqAnswer>Yes. There is no restriction here on printing or handing out the PDFs to a group.</FaqAnswer>
             </Faq>
         </FaqPage>
     </main>

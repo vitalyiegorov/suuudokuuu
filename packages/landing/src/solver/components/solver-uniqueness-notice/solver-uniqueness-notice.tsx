@@ -8,7 +8,8 @@ export const SolverUniquenessNotice = ({ failure }: Props) => {
     if (failure.kind === 'no-solution') {
         return (
             <p className="solver-notice" data-tone="error" role="status">
-                No solution — this grid contradicts itself. Check your entries: a digit is probably repeated in a row, a column or a box.
+                No solution — no digit repeats, but the givens still cannot all be completed into one valid grid. Check your entries against
+                the original puzzle.
             </p>
         );
     }

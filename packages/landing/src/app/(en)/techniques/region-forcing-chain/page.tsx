@@ -9,6 +9,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -102,6 +103,13 @@ const RegionForcingChainPage = () => (
                 Splitting on a digit with five or six places. The branches multiply quickly; two or three places keep the work manageable.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            A region forcing chain branches on where a digit can go in a unit, a close cousin of{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.CellForcingChain} /> and{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.NishioForcingChain} />. If one branch ends in a plain{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.HiddenSingle} />, you have probably found the cheapest branch to follow.
+        </p>
         <FaqPage>
             <FaqHeading>Region forcing chain FAQ</FaqHeading>
             <Faq>

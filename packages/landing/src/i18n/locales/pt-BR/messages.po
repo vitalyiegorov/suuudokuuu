@@ -1,0 +1,1953 @@
+msgid ""
+msgstr ""
+"POT-Creation-Date: 2026-10-15 06:50+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: pt-BR\n"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells — only one fewer than Medium, which is exactly why the tier is defined by the techniques it requires rather than by its clue count."
+msgstr "{clueCount} pistas em 81 células, apenas uma a menos que o Médio, e é justamente por isso que o nível é definido pelas técnicas exigidas e não pela quantidade de pistas."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, a third of the grid filled in before you start."
+msgstr "{clueCount} pistas em 81 células: um terço da grade já vem preenchido antes de você começar."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, and every blank is reachable with a full house or a naked single."
+msgstr "{clueCount} pistas em 81 células, e todo espaço em branco se resolve com uma última célula livre ou um único nu."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need a hidden single and nothing harder."
+msgstr "{clueCount} pistas em 81 células, com garantia de exigir um único oculto e nada mais difícil que isso."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need at least one chain or coloring technique beyond every fish and wing."
+msgstr "{clueCount} pistas em 81 células, com garantia de exigir pelo menos uma técnica de cadeia ou de coloração além de todos os fish e wings."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to need at least one fish or wing pattern beyond every subset."
+msgstr "{clueCount} pistas em 81 células, com garantia de exigir pelo menos um padrão de fish ou de wing além de todos os subconjuntos."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, guaranteed to stall on singles and yield to an intersection or a subset."
+msgstr "{clueCount} pistas em 81 células, com garantia de travar nos únicos e ceder a uma interseção ou a um subconjunto."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, solvable with full houses and naked singles alone."
+msgstr "{clueCount} pistas em 81 células, resolvido apenas com últimas células livres e únicos nus."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, solved start to finish with full houses, naked singles and hidden singles."
+msgstr "{clueCount} pistas em 81 células, resolvido do início ao fim com últimas células livres, únicos nus e únicos ocultos."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "{clueCount} clues out of 81 cells, well under a third of the grid."
+msgstr "{clueCount} pistas em 81 células, bem menos de um terço da grade."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{easyClueCount} clues, and every puzzle needs at least one hidden single, never more. See the <0>Easy sudoku lander</0> to play it digitally."
+msgstr "{easyClueCount} pistas, e todo sudoku exige pelo menos um único oculto, nunca mais que isso. Veja a <0>página do Sudoku Fácil</0> para jogar no formato digital."
+
+#: src/printable/components/printable-download-card/printable-download-card.tsx
+msgid "{fileSizeKilobytes} KB PDF, US Letter"
+msgstr "PDF de {fileSizeKilobytes} KB, US Letter"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{hardClueCount} clues, guaranteed to stall on subsets and to yield to fish and wing patterns. See the <0>Hard sudoku lander</0> to play it digitally."
+msgstr "{hardClueCount} pistas, com garantia de travar nos subconjuntos e ceder a padrões de fish e de wing. Veja a <0>página do Sudoku Difícil</0> para jogar no formato digital."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "{hellCorpusSize} verified puzzles with {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues, drawn from the tdoku 17-clue catalog and the magictour top1465 list rather than generated fresh."
+msgstr "{hellCorpusSize} sudokus verificados com {HELL_CORPUS_MINIMUM_GIVEN_COUNT} a {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} pistas, extraídos do catálogo de 17 pistas do tdoku e da lista top1465 do magictour, e não gerados na hora."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "{infinityCorpusSize} record puzzles with {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues, published at SE {lowestRatingLabel} to {highestRatingLabel}."
+msgstr "{infinityCorpusSize} sudokus recordistas com {INFINITY_MINIMUM_GIVEN_COUNT} a {INFINITY_MAXIMUM_GIVEN_COUNT} pistas, publicados com SE {lowestRatingLabel} a {highestRatingLabel}."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets. See the <0>Medium sudoku lander</0> to play it digitally."
+msgstr "{mediumClueCount} pistas, com garantia de travar nos únicos e ceder a interseções e subconjuntos. Veja a <0>página do Sudoku Médio</0> para jogar no formato digital."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{newbieClueCount} clues, solved with full houses and naked singles alone. See the <0>Newbie sudoku lander</0> to play it digitally."
+msgstr "{newbieClueCount} pistas, resolvido apenas com últimas células livres e únicos nus. Veja a <0>página do Sudoku Iniciante</0> para jogar no formato digital."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{nightmareClueCount} clues, guaranteed to stall on wings and to yield to chains and coloring. See the <0>Nightmare sudoku lander</0> to play it digitally."
+msgstr "{nightmareClueCount} pistas, com garantia de travar nos wings e ceder a cadeias e coloração. Veja a <0>página do Sudoku Pesadelo</0> para jogar no formato digital."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_BLANK_GRID_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_BLANK_GRID_PAGE_COUNT} páginas"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "{PRINTABLE_BOOKLET_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_BOOKLET_PAGE_COUNT} páginas"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles"
+msgstr "{PRINTABLE_BOOKLET_SIZE} sudokus"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with the solved grids at the back."
+msgstr "{PRINTABLE_BOOKLET_SIZE} sudokus em {PRINTABLE_BOOKLET_PAGE_COUNT} páginas, {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} por página, com as grades resolvidas no final."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles across {PRINTABLE_BOOKLET_PAGE_COUNT} pages, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with the solved grids at the back."
+msgstr "{PRINTABLE_BOOKLET_SIZE} sudokus em {PRINTABLE_BOOKLET_PAGE_COUNT} páginas, impressos {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} por página, com as grades resolvidas no final."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key."
+msgstr "{PRINTABLE_BOOKLET_SIZE} sudokus, impressos {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} por página, com gabarito completo."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "{PRINTABLE_BOOKLET_SIZE} record puzzles, printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, with a full solution key."
+msgstr "{PRINTABLE_BOOKLET_SIZE} sudokus recordistas, impressos {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} por página, com gabarito completo."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_LARGE_PRINT_PAGE_COUNT} pages"
+msgstr "{PRINTABLE_LARGE_PRINT_PAGE_COUNT} páginas"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "{PRINTABLE_LARGE_PRINT_SIZE} puzzles"
+msgstr "{PRINTABLE_LARGE_PRINT_SIZE} sudokus"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Box rule.</0> Each of the nine 3×3 boxes must contain the digits 1 to 9 exactly once each."
+msgstr "<0>Regra do bloco.</0> Cada um dos nove blocos 3×3 deve conter os dígitos de 1 a 9, uma vez cada."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Column rule.</0> Each of the nine columns must contain the digits 1 to 9 exactly once each."
+msgstr "<0>Regra da coluna.</0> Cada uma das nove colunas deve conter os dígitos de 1 a 9, uma vez cada."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Easy.</0> Adds hidden singles, still no candidate tracking required."
+msgstr "<0>Fácil.</0> Acrescenta únicos ocultos, ainda sem precisar anotar candidatos."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Easy</0> — {easyClueCount} clues, guaranteed to need at least one hidden single and never more than that."
+msgstr "<0>Fácil</0>: {easyClueCount} pistas, com garantia de exigir pelo menos um único oculto e nunca mais que isso."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Full House</0> — the simplest possible move, filling the last empty cell in a unit."
+msgstr "<0>Última célula livre</0>: a jogada mais simples possível, que preenche a última célula vazia de uma unidade."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Hard.</0> Always stalls on subsets and always yields to a fish or a wing pattern."
+msgstr "<0>Difícil.</0> Sempre trava nos subconjuntos e sempre cede a um fish ou a um padrão de wing."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Hard</0> — {hardClueCount} clues, guaranteed to stall on subsets and to yield to fish and wing patterns."
+msgstr "<0>Difícil</0>: {hardClueCount} pistas, com garantia de travar nos subconjuntos e ceder a padrões de fish e de wing."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Hell.</0> Always stalls on chains and AIC and always needs a forcing chain, drawn from a bundled, verified corpus."
+msgstr "<0>Inferno.</0> Sempre trava nas cadeias e no AIC e sempre exige uma cadeia forçada, extraída de um acervo embutido e verificado."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Hell</0> — guaranteed to stall on AIC and to need a forcing chain, drawn from a bundled, verified corpus rather than generated to a band."
+msgstr "<0>Inferno</0>: com garantia de travar no AIC e exigir uma cadeia forçada, extraído de um acervo embutido e verificado, e não gerado para uma faixa."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Hidden Single</0> — a digit that only fits in one cell of a unit."
+msgstr "<0>Único oculto</0>: um dígito que só cabe em uma célula de uma unidade."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Infinity.</0> The hardest sudoku puzzles ever published, such as Everest and AI Escargot, chosen by their published rating rather than a technique band — see the <1>Infinity lander</1>."
+msgstr "<0>Infinito.</0> Os sudokus mais difíceis já publicados, como o Everest e o AI Escargot, escolhidos pela classificação publicada e não por uma faixa de técnicas. Veja a <1>página do Sudoku Infinito</1>."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Infinity</0> — {infinityCorpusSize} of the hardest puzzles ever published, chosen by their published SE rating of {infinityLowestRating} to {infinityHighestRating} rather than by a technique band, and past the reach of every technique on the ladder."
+msgstr "<0>Infinito</0>: {infinityCorpusSize} dos sudokus mais difíceis já publicados, escolhidos pela classificação SE publicada, de {infinityLowestRating} a {infinityHighestRating}, e não por uma faixa de técnicas, e fora do alcance de todas as técnicas da escada."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Medium.</0> Always stalls on singles and always yields to intersections and subsets — pointing pairs, box line reduction, naked and hidden pairs through quads."
+msgstr "<0>Médio.</0> Sempre trava nos únicos e sempre cede a interseções e subconjuntos: pares apontadores, redução caixa-linha, pares, trios e quartetos nus e ocultos."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Medium</0> — {mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets."
+msgstr "<0>Médio</0>: {mediumClueCount} pistas, com garantia de travar nos únicos e ceder a interseções e subconjuntos."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "<0>Naked Single</0> — a cell left with exactly one candidate."
+msgstr "<0>Único nu</0>: uma célula que ficou com exatamente um candidato."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Newbie.</0> Solvable with full houses and naked singles alone."
+msgstr "<0>Iniciante.</0> Resolvível apenas com últimas células livres e únicos nus."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Newbie</0> — {newbieClueCount} clues, solved with full houses and naked singles alone."
+msgstr "<0>Iniciante</0>: {newbieClueCount} pistas, resolvido apenas com últimas células livres e únicos nus."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Nightmare.</0> Always stalls on fish and wings and always yields to chain or coloring logic."
+msgstr "<0>Pesadelo.</0> Sempre trava nos fish e wings e sempre cede à lógica de cadeias ou de coloração."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "<0>Nightmare</0> — {nightmareClueCount} clues, guaranteed to stall on wings and to yield to chains and coloring."
+msgstr "<0>Pesadelo</0>: {nightmareClueCount} pistas, com garantia de travar nos wings e ceder a cadeias e coloração."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "<0>Row rule.</0> Each of the nine rows must contain the digits 1 to 9 exactly once each."
+msgstr "<0>Regra da linha.</0> Cada uma das nove linhas deve conter os dígitos de 1 a 9, uma vez cada."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "A board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier."
+msgstr "Um sudoku que um solucionador de última célula livre e único nu consegue terminar é rejeitado por ser fácil demais para o nível."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "A board that needs a hidden single or anything harder is rejected and regenerated, never labelled Newbie."
+msgstr "Um sudoku que exige um único oculto ou algo mais difícil é rejeitado e gerado de novo, nunca rotulado como Iniciante."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "A chain follows an alternating sequence of strong and weak links between candidates, starting from one end and reasoning outward until the two ends prove an elimination no matter which of them turns out to be true. X-Chain does this with a single digit; XY-Chain walks a path of bivalue cells instead, changing digit at every step. Simple coloring assigns two alternating colours to a network of strong links on one digit and clears any candidate that can see both colours. AIC folds all of them into one technique, mixing digits and link types along a single continuous chain. The difference from a fish or a wing is not subtlety but shape: a wing is a fixed arrangement of three or four cells you learn to recognise, while a chain has no fixed size and has to be built move by move. Nightmare is capped at AIC — anything that still resists is beyond what the generated tiers will hand you."
+msgstr "Uma cadeia segue uma sequência alternada de ligações fortes e fracas entre candidatos, partindo de uma ponta e raciocinando para fora até que as duas pontas provem uma eliminação, não importa qual delas seja verdadeira. O X-Chain faz isso com um único dígito; o XY-Chain percorre um caminho de células bivalentes, trocando de dígito a cada passo. A coloração simples atribui duas cores alternadas a uma rede de ligações fortes de um dígito e elimina todo candidato que enxerga as duas cores. O AIC reúne tudo isso em uma única técnica, misturando dígitos e tipos de ligação ao longo de uma cadeia contínua. A diferença para um fish ou um wing não é de sutileza, e sim de forma: um wing é um arranjo fixo de três ou quatro células que você aprende a reconhecer, enquanto uma cadeia não tem tamanho fixo e precisa ser construída passo a passo. O Pesadelo vai até o AIC: o que ainda resistir está além do que os níveis gerados vão lhe entregar."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A chain follows an alternating sequence of strong and weak links, starting from a candidate and working outward until it proves an elimination or a placement no matter which branch turns out to be true. X-Chain works on a single digit; XY-Chain follows a path of bivalue cells instead. Simple coloring assigns two alternating colours to a network of strong links on one digit and clears any candidate that sees both colours, and AIC generalises the whole family, mixing digits and cell types along one continuous chain. Hell starts where all of that runs out. A forcing chain assumes a candidate, a cell’s possibilities or a house’s placements, follows every consequence, and keeps only what holds in every branch — the <0>Nishio</0>, <1>cell</1> and <2>region forcing chain</2> pages walk through one of each. A board makes the Hell corpus only if its hardest step on the rating-optimal path is a forcing chain, and only if our ladder can still finish it, so no Hell board ever asks you to guess."
+msgstr "Uma cadeia segue uma sequência alternada de ligações fortes e fracas, partindo de um candidato e avançando para fora até provar uma eliminação ou uma colocação, não importa qual ramo seja verdadeiro. O X-Chain trabalha com um único dígito; o XY-Chain segue um caminho de células bivalentes. A coloração simples atribui duas cores alternadas a uma rede de ligações fortes de um dígito e elimina todo candidato que enxerga as duas cores, e o AIC generaliza toda a família, misturando dígitos e tipos de célula em uma cadeia contínua. O Inferno começa onde tudo isso se esgota. Uma cadeia forçada assume um candidato, as possibilidades de uma célula ou as colocações de uma casa, segue todas as consequências e mantém apenas o que vale em todos os ramos; as páginas sobre <0>Nishio</0>, <1>célula</1> e <2>cadeia forçada de região</2> mostram um exemplo de cada. Um sudoku só entra no acervo do Inferno se o passo mais difícil do caminho de menor classificação for uma cadeia forçada e se a nossa escada ainda conseguir terminá-lo, então nenhum sudoku Inferno pede que você chute."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape and is built link by link, which is far easier to track by writing each strong and weak link down than by scrolling a small screen."
+msgstr "Uma cadeia não tem forma fixa e é construída ligação por ligação, o que é muito mais fácil de acompanhar anotando cada ligação forte e fraca do que rolando uma tela pequena."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape, which is why marking it in pencil helps more here than at the easier tiers."
+msgstr "Uma cadeia não tem forma fixa, por isso marcá-la a lápis ajuda mais aqui do que nos níveis mais fáceis."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "A chain has no fixed shape: it is built link by link, and the only way to keep track of it is to write it down. On paper you can mark each strong and weak link as you go, follow the alternation to the far end, and see immediately which cells both ends can see. That is genuinely awkward on a phone screen you have to scroll. It is also the booklet where a wrong elimination compounds worst: mark a candidate as gone that should have stayed, and every link after it is unsound, so treat the solution pages as a real checkpoint rather than a formality."
+msgstr "Uma cadeia não tem forma fixa: ela é construída ligação por ligação, e o único jeito de acompanhá-la é anotando. No papel, você pode marcar cada ligação forte e fraca conforme avança, seguir a alternância até a outra ponta e ver de imediato quais células as duas pontas enxergam. Isso é realmente desconfortável na tela de um celular que você precisa rolar. Este também é o caderno em que uma eliminação errada mais se acumula: se você apagar um candidato que deveria ter ficado, todas as ligações seguintes ficam inválidas, então trate as páginas de soluções como um ponto de verificação de verdade e não como formalidade."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "A clue, or given, is a digit printed on the board before you start. A candidate is a digit you are still considering for a blank cell, based on what its row, column and box currently rule out."
+msgstr "Uma pista, ou número dado, é um dígito impresso no tabuleiro antes de você começar. Um candidato é um dígito que você ainda considera para uma célula em branco, com base no que a linha, a coluna e o bloco dela já descartam."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "A cover page states the puzzle and page counts up front, then {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page so a single sheet holds {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} complete grids. The last pages hold every solved grid at the same layout, so checking an answer never means hunting through a different page format. The whole file is vector graphics and a standard PDF font, so it prints cleanly at any size a printer supports. Our published sample of {sampleSize} Easy boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "Uma página de rosto informa de antemão o número de sudokus e de páginas, e então {PRINTABLE_BOOKLET_SIZE} sudokus são impressos {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} por página, de modo que uma única folha traz {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} grades completas. As últimas páginas trazem todas as grades resolvidas no mesmo layout, então conferir uma resposta nunca exige procurar em outro formato de página. O arquivo inteiro é feito de gráficos vetoriais e uma fonte PDF padrão, por isso imprime com nitidez em qualquer tamanho que a impressora aceite. Nossa amostra publicada de {sampleSize} sudokus Fáceis tem SE {seRatingRange}, números que o <0>guia de classificação de dificuldade do sudoku</0> mede diretamente, em vez de supor."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "A digit confined to two cells of one box that also share a row or column. It can then be erased from the rest of that row or column, since one of those two cells must hold it."
+msgstr "Um dígito restrito a duas células de um bloco que também estão na mesma linha ou coluna. Ele pode então ser apagado do resto dessa linha ou coluna, já que uma dessas duas células precisa contê-lo."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "A finished grid satisfies all three at the same time. That overlap is what makes Sudoku solvable by logic: a digit that is already ruled out by its row, its column and its box has nowhere left to go, which is the basis of almost every solving technique. Every named technique on this site, from the simplest single to the longest chain, is ultimately just a more efficient way of tracking that overlap across many cells at once instead of one cell at a time."
+msgstr "Uma grade completa satisfaz as três regras ao mesmo tempo. Essa sobreposição é o que torna o sudoku resolvível por lógica: um dígito já descartado pela linha, pela coluna e pelo bloco não tem mais para onde ir, e essa é a base de quase todas as técnicas de resolução. Toda técnica citada neste site, do único mais simples à cadeia mais longa, é no fundo apenas uma forma mais eficiente de acompanhar essa sobreposição em várias células ao mesmo tempo, em vez de uma célula por vez."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "A fish is easy to miss on a screen where only a handful of cells are visible at once, because the pattern lives in where one digit can go across two, three or four whole lines at the same time. On a full printed grid you can mark that digit’s remaining positions down a column and read the shape off the page. Wings need the opposite view — a few bivalue cells that see each other across the grid — and circling them in pencil makes the overlap obvious. Because both families are easy to apply incorrectly the first few times, checking your work against the solution pages at the back is worth doing every time until the shape becomes automatic."
+msgstr "Um fish é fácil de deixar passar em uma tela que mostra poucas células de cada vez, porque o padrão está em onde um dígito pode ir em duas, três ou quatro linhas inteiras ao mesmo tempo. Em uma grade impressa completa, você pode marcar as posições restantes desse dígito ao longo de uma coluna e enxergar a forma na página. Os wings pedem a visão oposta: algumas células bivalentes que se enxergam pela grade, e circulá-las a lápis deixa a sobreposição óbvia. Como as duas famílias são fáceis de aplicar errado nas primeiras vezes, vale conferir seu trabalho nas páginas de soluções no final toda vez, até que a forma se torne automática."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "A fish looks at one digit across several lines at once. The X-Wing is the smallest: a digit confined to the same two columns across two rows can be erased from the rest of those columns, because whichever row ends up holding it, the columns are already fixed. A <0>swordfish</0> stretches the same idea over three lines and a jellyfish over four. Finned and sashimi variants relax the base pattern by allowing one extra candidate that still supports a smaller, safe elimination once you account for it — and in our sample they fire far more often than the textbook shapes do. Wings work differently: an XY-Wing links three bivalue cells so a candidate shared between two of them can be erased wherever both can see, XYZ-Wing gives the pivot that candidate too, and W-Wing joins two matching bivalue cells through a strong link on one shared digit. Hard is capped at the W-Wing: a board that still will not move after every fish and wing has been tried is a Nightmare board, not a Hard one."
+msgstr "Um fish olha para um dígito em várias linhas ao mesmo tempo. O X-Wing é o menor: um dígito restrito às mesmas duas colunas em duas linhas pode ser apagado do resto dessas colunas, porque, qualquer que seja a linha que o contenha, as colunas já estão definidas. Um <0>swordfish</0> estende a mesma ideia a três linhas e um jellyfish a quatro. As variantes finned e sashimi flexibilizam o padrão base ao permitir um candidato extra que ainda sustenta uma eliminação menor e segura quando você o leva em conta, e na nossa amostra elas aparecem com muito mais frequência do que as formas clássicas. Os wings funcionam de outro jeito: um XY-Wing liga três células bivalentes para que um candidato compartilhado entre duas delas possa ser apagado onde as duas enxergam, o XYZ-Wing dá esse candidato também ao pivô, e o W-Wing une duas células bivalentes iguais por uma ligação forte em um dígito compartilhado. O Difícil vai até o W-Wing: um sudoku que continua parado depois de todos os fish e wings é Pesadelo, não Difícil."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "A fish spans whole rows or columns at once, which is easier to trace by marking a digit’s remaining positions down a printed column than by scrolling a screen. Wings need the opposite view — a few bivalue cells seen at a glance."
+msgstr "Um fish abrange linhas ou colunas inteiras ao mesmo tempo, o que é mais fácil de acompanhar marcando as posições restantes de um dígito ao longo de uma coluna impressa do que rolando uma tela. Os wings pedem a visão oposta: algumas células bivalentes vistas de relance."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A forcing chain, on every board, layered on top of the chains, coloring, fish, wings and subsets the earlier tiers already require. X-Chain, XY-Chain, Simple Coloring and AIC will carry you far, but never all the way through; a <0>Nishio forcing chain</0> is the usual way to break the deadlock."
+msgstr "Uma cadeia forçada em todos os sudokus, somada às cadeias, à coloração, aos fish, aos wings e aos subconjuntos que os níveis anteriores já exigem. X-Chain, XY-Chain, coloração simples e AIC levam você longe, mas nunca até o fim; uma <0>cadeia forçada Nishio</0> costuma ser a forma de desfazer o impasse."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "A Hard board from the same generator the app uses. Play it right here."
+msgstr "Um sudoku Difícil do mesmo gerador que o app usa. Jogue aqui mesmo."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "A Hell board from the same verified corpus the app uses. Play it right here."
+msgstr "Um sudoku Inferno do mesmo acervo verificado que o app usa. Jogue aqui mesmo."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "A Medium board from the same generator the app uses. Play it right here."
+msgstr "Um sudoku Médio do mesmo gerador que o app usa. Jogue aqui mesmo."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "A Newbie board from the same generator the app uses. Play it right here."
+msgstr "Um sudoku Iniciante do mesmo gerador que o app usa. Jogue aqui mesmo."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "A Nightmare board from the same generator the app uses. Play it right here."
+msgstr "Um sudoku Pesadelo do mesmo gerador que o app usa. Jogue aqui mesmo."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "A well-formed puzzle always has exactly one solution and never requires a guess."
+msgstr "Um sudoku bem formado sempre tem exatamente uma solução e nunca exige um palpite."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "A well-formed Sudoku never does. If a puzzle has more than one valid completion it is considered broken, because logic alone can no longer point to a single answer."
+msgstr "Um sudoku bem formado nunca tem. Se um sudoku tem mais de uma solução válida, ele é considerado defeituoso, pois a lógica sozinha não consegue mais apontar uma única resposta."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "About"
+msgstr "Sobre"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "After that, look at a single blank cell and cross off every digit that already appears in its row, its column and its box. If only one digit survives, that is a <0>naked single</0>, and it can be placed immediately. If a cell still has several candidates left, check whether one of those candidates cannot go anywhere else in the same unit — that is a <1>hidden single</1>, and it is just as safe to place. Together these two patterns solve most of an easy puzzle without any deeper reasoning."
+msgstr "Depois disso, olhe para uma única célula em branco e risque todo dígito que já aparece na linha, na coluna e no bloco dela. Se sobrar só um dígito, é um <0>único nu</0> e ele pode ser colocado na hora. Se a célula ainda tiver vários candidatos, verifique se algum deles não cabe em nenhum outro lugar da mesma unidade: é um <1>único oculto</1>, igualmente seguro de colocar. Juntos, esses dois padrões resolvem a maior parte de um sudoku fácil sem nenhum raciocínio mais profundo."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Also the source tier for the large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles."
+msgstr "Também é o nível de origem do PDF em letras grandes, com amostra de {PRINTABLE_LARGE_PRINT_SIZE} sudokus."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "An almost-fish: the rows or columns line up as an X-Wing or <0>swordfish</0> except for one or two extra candidates, the fin. The elimination still holds, but only in the cells that both the fish and the fin can see."
+msgstr "Um quase-fish: as linhas ou colunas se alinham como um X-Wing ou <0>swordfish</0>, exceto por um ou dois candidatos extras, a barbatana (fin). A eliminação continua valendo, mas apenas nas células que o fish e a barbatana enxergam ao mesmo tempo."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "An Easy board from the same generator the app uses. Play it right here."
+msgstr "Um sudoku Fácil do mesmo gerador que o app usa. Jogue aqui mesmo."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "An Easy board to start with. Play it right here, or pick any of seven difficulty levels in the app."
+msgstr "Um sudoku Fácil para começar. Jogue aqui mesmo ou escolha qualquer um dos sete níveis de dificuldade no app."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "An Infinity record puzzle from the same curated set the app uses, reshuffled. Play it right here."
+msgstr "Um sudoku recordista do Infinito, do mesmo conjunto selecionado que o app usa, com a ordem embaralhada. Jogue aqui mesmo."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "An intersection or a pair only becomes visible once you can see every remaining candidate in a row, column or box at a glance, which is why paper genuinely helps here more than a screen does: write small digits in the corner of each blank cell, then scan a line for a digit trapped inside one box, or two cells sharing exactly two candidates between them. Neither pattern places a digit by itself — each one only removes candidates — so expect to mark a few eliminations before a fresh naked single actually appears. Working in pencil rather than pen means a wrong mark costs nothing to erase."
+msgstr "Uma interseção ou um par só fica visível quando você enxerga de relance todos os candidatos restantes de uma linha, coluna ou bloco, e é por isso que o papel ajuda mais aqui do que uma tela: escreva dígitos pequenos no canto de cada célula em branco e então varra uma linha em busca de um dígito preso dentro de um bloco ou de duas células que dividem exatamente dois candidatos. Nenhum dos dois padrões coloca um dígito sozinho, pois cada um apenas remove candidatos, então espere marcar algumas eliminações antes de surgir um novo único nu. Trabalhar a lápis e não a caneta significa que uma marca errada não custa nada para apagar."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "An intersection technique works on the overlap between one box and one row or column. A pointing pair or pointing triple finds a digit confined to two or three cells of a box that all share a line, and erases it from the rest of that line; box line reduction is the mirror image, working from a line back into a box. Naked and hidden pairs are the entry point to subset reasoning: two cells that share exactly two candidates, or two digits that fit in exactly two cells of a unit, either way locking those two cells away from everything else in it. None of these place a digit outright — they only eliminate candidates — but at {clueCount} clues a Medium puzzle always has at least one waiting, and it is usually enough to unlock a fresh naked single a move or two later. The tier is capped at the other end too: nothing in it ever needs a fish, a wing or a chain, because a board that does is promoted to Hard instead."
+msgstr "Uma técnica de interseção atua na sobreposição entre um bloco e uma linha ou coluna. Um par apontador ou trio apontador encontra um dígito restrito a duas ou três células de um bloco que estão todas na mesma linha, e o apaga do resto dessa linha; a redução caixa-linha é a imagem espelhada, indo de uma linha de volta a um bloco. Pares nus e ocultos são a porta de entrada para o raciocínio com subconjuntos: duas células que dividem exatamente dois candidatos, ou dois dígitos que cabem em exatamente duas células de uma unidade, travam essas duas células e as isolam de todo o resto. Nenhuma delas coloca um dígito diretamente, apenas eliminam candidatos, mas com {clueCount} pistas um sudoku Médio sempre tem pelo menos uma à espera, e isso costuma bastar para abrir um novo único nu uma ou duas jogadas depois. O nível também tem um teto: nada nele exige um fish, um wing ou uma cadeia, porque um sudoku que exige é promovido para o Difícil."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Anywhere from {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT}. Hell does not use clue count to choose its puzzles; a board qualifies by needing a forcing chain, whatever its number of givens."
+msgstr "De {HELL_CORPUS_MINIMUM_GIVEN_COUNT} a {HELL_CORPUS_MAXIMUM_GIVEN_COUNT}. O Inferno não usa a quantidade de pistas para escolher os sudokus; um sudoku se qualifica por exigir uma cadeia forçada, seja qual for o número de pistas."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Are the solutions included?"
+msgstr "As soluções estão incluídas?"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Are these 17-clue puzzles?"
+msgstr "Esses sudokus têm 17 pistas?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Arto Inkala’s Everest (2012), 21 givens, published at SE 11.9."
+msgstr "O Everest de Arto Inkala (2012), com 21 pistas, publicado com SE 11,9."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "At {clueCount} clues out of 81 cells, this booklet is the first one worth solving with a pencil. Singles carry a Medium grid part of the way, but every puzzle in it provably stalls on them — that is the test each board had to fail to be printed here — until you spot a <0>pointing pair</0> or a <1>box-line reduction</1>, an intersection between a box and a line that only eliminates candidates, never places a digit outright. Nothing in the booklet needs a fish, a wing or a chain."
+msgstr "Com {clueCount} pistas em 81 células, este caderno é o primeiro que vale a pena resolver a lápis. Os únicos levam uma grade Média até certo ponto, mas todo sudoku dele comprovadamente trava neles (esse é o teste em que cada sudoku precisou falhar para ser impresso aqui) até você encontrar um <0>par apontador</0> ou uma <1>redução caixa-linha</1>, uma interseção entre um bloco e uma linha que só elimina candidatos e nunca coloca um dígito diretamente. Nada no caderno exige um fish, um wing ou uma cadeia."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "At least one <0>hidden single</0> per puzzle, on top of the full houses and naked singles Newbie already uses, and nothing harder."
+msgstr "Pelo menos um <0>único oculto</0> por sudoku, além das últimas células livres e dos únicos nus que o Iniciante já usa, e nada mais difícil."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "At least one <0>pointing pair</0>, <1>box-line reduction</1>, or a naked or hidden pair, on top of the singles the easier booklets already use. Nothing needs a fish, a wing or a chain."
+msgstr "Pelo menos um <0>par apontador</0>, uma <1>redução caixa-linha</1> ou um par nu ou oculto, além dos únicos que os cadernos mais fáceis já usam. Nada exige um fish, um wing ou uma cadeia."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "At least one chain or coloring technique — <0>swordfish</0>-level fish and <1>XY-Wing</1>-level wings are not enough on their own — on top of every fish and wing the Hard tier already needs."
+msgstr "Pelo menos uma técnica de cadeia ou de coloração (fish do nível <0>swordfish</0> e wings do nível <1>XY-Wing</1> não bastam sozinhos), além de todos os fish e wings que o nível Difícil já exige."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "At least one fish (<0>X-Wing</0> and its larger and finned relatives) or one bivalue wing pattern, on top of every intersection and subset the easier booklets already need."
+msgstr "Pelo menos um fish (o <0>X-Wing</0> e seus parentes maiores e finned) ou um padrão de wing bivalente, além de todas as interseções e subconjuntos que os cadernos mais fáceis já exigem."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Blank sudoku grid"
+msgstr "Grade de sudoku em branco"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Blank Sudoku Grid"
+msgstr "Grade de Sudoku em Branco"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Boards that need a forcing chain are rare and expensive to search for on demand, so Suuudokuuu ships a bundled corpus that has already been checked by a Dancing Links exact-cover solver and a bitmask solver, rated, and filtered to forcing-chain boards before it is packed."
+msgstr "Sudokus que exigem uma cadeia forçada são raros e caros de procurar sob demanda, por isso o Suuudokuuu traz um acervo embutido que já foi verificado por um solucionador de cobertura exata com Dancing Links e por um solucionador de bitmask, classificado e filtrado para sudokus de cadeia forçada antes de ser empacotado."
+
+#: src/seo/components/breadcrumbs/breadcrumbs.tsx
+msgid "Breadcrumb"
+msgstr "Trilha de navegação"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Can a Sudoku have two solutions?"
+msgstr "Um sudoku pode ter duas soluções?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Can I play AI Escargot and Everest here?"
+msgstr "Posso jogar o AI Escargot e o Everest aqui?"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Can I print this Newbie booklet in large print?"
+msgstr "Posso imprimir este caderno Iniciante em letras grandes?"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Can I use them in a classroom?"
+msgstr "Posso usar em sala de aula?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Chain and coloring techniques: X-Chain, XY-Chain, simple coloring and AIC."
+msgstr "Técnicas de cadeia e coloração: X-Chain, XY-Chain, coloração simples e AIC."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Chains falling into place? The <0>printable Hell sudoku booklet</0> is the last tier, where every puzzle needs a forcing chain. Step back to <1>printable Hard sudoku</1> for fish and wings only, or play Nightmare on a screen at the <2>Nightmare sudoku lander</2>."
+msgstr "As cadeias estão se encaixando? O <0>caderno de sudoku Inferno para imprimir</0> é o último nível, em que todo sudoku exige uma cadeia forçada. Volte ao <1>sudoku Difícil para imprimir</1> para ver só fish e wings, ou jogue o Pesadelo na tela, na <2>página do Sudoku Pesadelo</2>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Check every row, column and box for one that already has eight of its nine cells filled, and place the missing digit in the empty one."
+msgstr "Verifique cada linha, coluna e bloco em busca de um que já tenha oito das nove células preenchidas e coloque o dígito que falta na célula vazia."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Cleared a few Nightmare boards? <0>Hell Sudoku</0> is the last tier, where every board needs a forcing chain. Step back to <1>Hard Sudoku</1> if fish and wings still feel unreliable. Prefer paper? Download the <2>printable Nightmare sudoku booklet</2>. Browse the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "Já resolveu alguns sudokus Pesadelo? O <0>Sudoku Inferno</0> é o último nível, em que todo sudoku exige uma cadeia forçada. Volte ao <1>Sudoku Difícil</1> se fish e wings ainda não parecerem confiáveis. Prefere papel? Baixe o <2>caderno de sudoku Pesadelo para imprimir</2>. Explore o <3>índice de técnicas</3>, o <4>guia de como jogar</4>, todos os níveis no <5>guia de níveis de dificuldade do Sudoku</5> ou volte para o <6>início</6>."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Clue count is not the difficulty. It is only the input: fewer starting digits mean fewer immediate placements, which forces the solver — human or machine — to reach for a wider set of named techniques before the grid moves again. Suuudokuuu strips digits from a solved grid down to a per-tier target, verifies the result still has exactly one solution, and then does the part that actually defines the tier: it solves the candidate twice, once with the technique ladder of the tier below and once with its own, and keeps the board only if the first solve fails and the second succeeds. Boards that miss are discarded and a fresh one is generated. That is why each tier above is stated as a guarantee rather than a hope. The <0>full technique index</0> lists every pattern that ladder contains, in the order a solver tries them. Within a band two boards can still differ a lot — <1>clues versus difficulty</1> measures exactly how much."
+msgstr "A quantidade de pistas não é a dificuldade. Ela é só o ponto de partida: menos dígitos iniciais significam menos colocações imediatas, o que obriga o solucionador, humano ou máquina, a recorrer a um conjunto mais amplo de técnicas nomeadas antes que a grade volte a avançar. O Suuudokuuu retira dígitos de uma grade resolvida até uma meta por nível, verifica que o resultado ainda tem exatamente uma solução e então faz a parte que realmente define o nível: resolve o sudoku duas vezes, uma com a escada de técnicas do nível abaixo e outra com a do próprio nível, e só mantém o sudoku se a primeira resolução falhar e a segunda der certo. Os que não passam são descartados e um novo é gerado. É por isso que cada nível acima é apresentado como uma garantia, e não como uma esperança. O <0>índice completo de técnicas</0> lista todos os padrões dessa escada, na ordem em que um solucionador os tenta. Dentro de uma faixa, dois sudokus ainda podem diferir muito; <1>pistas versus dificuldade</1> mede exatamente o quanto."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Clues versus difficulty"
+msgstr "Pistas versus dificuldade"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Comfortable spotting intersections and subsets? Move up to <0>Hard Sudoku</0>, where a fish or a wing is always required, or drop back to <1>Easy Sudoku</1> to revisit singles. Prefer paper? Download the <2>printable Medium sudoku booklet</2>. Browse the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "Já identifica interseções e subconjuntos com facilidade? Suba para o <0>Sudoku Difícil</0>, em que um fish ou um wing é sempre necessário, ou volte ao <1>Sudoku Fácil</1> para rever os únicos. Prefere papel? Baixe o <2>caderno de sudoku Médio para imprimir</2>. Explore o <3>índice de técnicas</3>, o <4>guia de como jogar</4>, todos os níveis no <5>guia de níveis de dificuldade do Sudoku</5> ou volte para o <6>início</6>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Cross off candidates cell by cell"
+msgstr "Elimine candidatos célula por célula"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Daily sudoku"
+msgstr "Sudoku diário"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Default text size"
+msgstr "Tamanho de texto padrão"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Difficulty"
+msgstr "Dificuldade"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Difficulty guides"
+msgstr "Guias de dificuldade"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Difficulty levels"
+msgstr "Níveis de dificuldade"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Difficulty rating"
+msgstr "Classificação de dificuldade"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Do Easy puzzles ever need pencil marks?"
+msgstr "Os sudokus Fáceis exigem anotações a lápis?"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Do I need pen and paper to solve Sudoku?"
+msgstr "Preciso de papel e caneta para resolver sudoku?"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Do I need pencil marks for Newbie puzzles?"
+msgstr "Preciso de anotações para os sudokus Iniciante?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Do Infinity puzzles have a unique solution?"
+msgstr "Os sudokus Infinito têm solução única?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Do Nightmare puzzles ever need guessing?"
+msgstr "Os sudokus Pesadelo exigem chute?"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Do not scan for the hardest cell first. Start by looking for the easiest possible placements, because clearing those first makes every later cell easier too."
+msgstr "Não comece procurando a célula mais difícil. Comece procurando as colocações mais fáceis possíveis, porque resolvê-las primeiro deixa todas as células seguintes mais fáceis também."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Do you ever have to guess?"
+msgstr "Você precisa chutar alguma vez?"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Does {SITE_NAME} have ads?"
+msgstr "O {SITE_NAME} tem anúncios?"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Does a low clue count make these puzzles hard?"
+msgstr "Poucas pistas deixam esses sudokus difíceis?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Does a lower clue count always mean a harder puzzle?"
+msgstr "Menos pistas sempre significam um sudoku mais difícil?"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Does it work offline?"
+msgstr "Funciona offline?"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Does Suuudokuuu offer a large-print version of this booklet?"
+msgstr "O Suuudokuuu oferece uma versão em letras grandes deste caderno?"
+
+#: src/printable/components/printable-download-card/printable-download-card.tsx
+msgid "Download {title} (PDF)"
+msgstr "Baixar {title} (PDF)"
+
+#: src/chrome/components/store-badges/store-badges.tsx
+msgid "Download on the App Store"
+msgstr "Baixar na App Store"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Download the PDF and open it in any PDF reader, then print at 100% scale on US Letter paper. Every grid is drawn with vector lines and standard PDF fonts, so there is nothing to rasterize and no quality loss at any print size."
+msgstr "Baixe o PDF e abra em qualquer leitor de PDF; depois, imprima em escala de 100% em papel US Letter. Todas as grades são desenhadas com linhas vetoriais e fontes PDF padrão, então não há nada a rasterizar e não há perda de qualidade em nenhum tamanho de impressão."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Each game reshuffles the grid, so a familiar record puzzle never looks the same twice."
+msgstr "A cada partida a grade é embaralhada, então um sudoku recordista conhecido nunca parece o mesmo duas vezes."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Each tier links to a full page with a live puzzle preview and the honest difficulty facts from our <0>sudoku difficulty rating guide</0>. The PDF itself only ever needs a printer."
+msgstr "Cada nível leva a uma página completa com uma prévia jogável e os fatos honestos sobre dificuldade do nosso <0>guia de classificação de dificuldade do sudoku</0>. O PDF em si só precisa de uma impressora."
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Easier difficulty"
+msgstr "Dificuldade menor"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Easy"
+msgstr "Fácil"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy boards carry {clueCount} clues and are guaranteed to need at least one hidden single and nothing harder."
+msgstr "Os sudokus Fáceis têm {clueCount} pistas e exigem, com garantia, pelo menos um único oculto e nada mais difícil."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Easy is the booklet people reach for when they want to finish a puzzle without stopping to think hard about it — on a train, over a coffee break, or as a wind-down before bed. Every deduction still reads off the board rather than off a candidate grid, so there is rarely a reason to write a candidate in the margin; the hidden single asks you to scan a whole unit rather than one cell, which is a change of habit and not of difficulty. That makes it a natural size for printing several at once and working through a small stack over a week, since no single puzzle demands the concentration a Medium or Hard grid does."
+msgstr "O Fácil é o caderno que as pessoas procuram quando querem terminar um sudoku sem parar para pensar muito: no trem, no intervalo do café ou para relaxar antes de dormir. Toda dedução ainda sai direto do tabuleiro, e não de uma grade de candidatos, então raramente há motivo para anotar um candidato na margem; o único oculto pede que você varra uma unidade inteira e não uma só célula, o que muda o hábito, mas não a dificuldade. Por isso é um tamanho natural para imprimir vários de uma vez e resolver uma pequena pilha ao longo da semana, já que nenhum sudoku exige a concentração de uma grade Média ou Difícil."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy is the first tier where Suuudokuuu expects a genuine, if gentle, solve. An Easy board carries {clueCount} clues out of 81 cells, a handful fewer than Newbie. Full houses and naked singles still clear most of the grid, but never all of it: at least one cell always needs a <0>hidden single</0>, where a digit fits only one cell of a row, column or box even though that cell still shows other candidates. That one extra pattern is the entire step up from Newbie to Easy, and it is a guarantee rather than a tendency: a board that a full-house-and-naked-single solver can finish is rejected as too easy for the tier, and a board that needs anything past the hidden single is rejected as too hard."
+msgstr "O Fácil é o primeiro nível em que o Suuudokuuu espera uma resolução de verdade, ainda que tranquila. Um sudoku Fácil tem {clueCount} pistas em 81 células, algumas a menos que o Iniciante. Últimas células livres e únicos nus ainda resolvem a maior parte da grade, mas nunca toda ela: pelo menos uma célula sempre pede um <0>único oculto</0>, em que um dígito só cabe em uma célula de uma linha, coluna ou bloco, mesmo que essa célula ainda mostre outros candidatos. Esse único padrão a mais é todo o degrau entre o Iniciante e o Fácil, e é uma garantia, não uma tendência: um sudoku que um solucionador de última célula livre e único nu consegue terminar é rejeitado por ser fácil demais para o nível, e um que exige algo além do único oculto é rejeitado por ser difícil demais."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy sits at the bottom of the SE (Sudoku Explainer) scale alongside Newbie: our sample of {sampleSize} boards measures SE {seRatingRange}. The two tiers share a range because SE prices a hidden single at 1.5, below a naked single at 2.3 — so the technique that defines Easy is, by that scale, cheaper than the one that defines Newbie. What genuinely changes is where you have to look: a naked single is read off one cell, a hidden single off a whole unit. It suits players who have cleared a few Newbie boards and want a puzzle that takes noticeably longer to finish."
+msgstr "O Fácil fica na base da escala SE (Sudoku Explainer), junto com o Iniciante: nossa amostra de {sampleSize} sudokus mede SE {seRatingRange}. Os dois níveis dividem a mesma faixa porque o SE dá ao único oculto o valor 1,5, abaixo do único nu, que vale 2,3; assim, a técnica que define o Fácil é, por essa escala, mais barata que a que define o Iniciante. O que realmente muda é onde você precisa olhar: um único nu se lê em uma célula, um único oculto em uma unidade inteira. Serve para quem já resolveu alguns sudokus Iniciante e quer um que leve visivelmente mais tempo para terminar."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Easy starts at {clueCount} clues, six below Newbie, and adds exactly one technique: every puzzle in this booklet needs at least one <0>hidden single</0>, and none of them needs anything harder. That single extra pattern is what makes this the booklet people print for a relaxed coffee-break solve rather than a teaching aid. It is also the source tier for our large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles for readers who want bigger cells."
+msgstr "O Fácil começa com {clueCount} pistas, seis a menos que o Iniciante, e acrescenta exatamente uma técnica: todo sudoku deste caderno exige pelo menos um <0>único oculto</0> e nenhum exige algo mais difícil. Esse único padrão extra é o que faz dele o caderno que as pessoas imprimem para uma resolução tranquila no intervalo do café, e não um material didático. Também é o nível de origem do nosso PDF em letras grandes, com amostra de {PRINTABLE_LARGE_PRINT_SIZE} sudokus, para quem quer células maiores."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy stays within singles-only logic, so it is still beginner-friendly. The only added skill over Newbie is spotting a digit that fits nowhere else in a unit."
+msgstr "O Fácil se mantém na lógica de apenas únicos, então continua sendo amigável para iniciantes. A única habilidade a mais em relação ao Iniciante é perceber um dígito que não cabe em nenhum outro lugar de uma unidade."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Easy Sudoku"
+msgstr "Sudoku Fácil"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Easy Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Fácil"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Every board is checked for exactly one solution by two independent solving algorithms."
+msgstr "Todo sudoku é verificado por dois algoritmos independentes para garantir que tenha exatamente uma solução."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every booklet below is a free printable sudoku PDF built from the same puzzle sources the app plays — its generator and technique detectors, and for Hell and Infinity its bundled, verified corpora. Pick a difficulty for a {PRINTABLE_BOOKLET_SIZE}-puzzle booklet with solutions on the last pages, or grab the large-print set or a blank sudoku grid below. No sign-up, no ads, no watermark."
+msgstr "Todos os cadernos abaixo são PDFs de sudoku gratuitos para imprimir, feitos a partir das mesmas fontes de sudokus que o app joga: o gerador e os detectores de técnicas e, no Inferno e no Infinito, os acervos embutidos e verificados. Escolha uma dificuldade para um caderno de {PRINTABLE_BOOKLET_SIZE} sudokus com soluções nas últimas páginas, ou pegue o conjunto em letras grandes ou uma grade de sudoku em branco logo abaixo. Sem cadastro, sem anúncios, sem marca d’água."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Every candidate board is solved twice: once with the tier below’s technique ladder, which must fail, and once with its own ladder, which must succeed. Boards that miss either test are discarded and regenerated."
+msgstr "Cada sudoku candidato é resolvido duas vezes: uma com a escada de técnicas do nível abaixo, que precisa falhar, e outra com a escada do próprio nível, que precisa dar certo. Os que não passam em um dos testes são descartados e gerados de novo."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Every Hell board needs a forcing chain: none can be solved with the techniques Nightmare allows, up to AIC."
+msgstr "Todo sudoku Inferno exige uma cadeia forçada: nenhum pode ser resolvido com as técnicas que o Pesadelo permite, até o AIC."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every level is free to play, with no ads and no sign-up. <0>Play a puzzle now</0> at any of the seven levels, or read the full breakdown of clue counts and required techniques on the <1>Sudoku difficulty levels</1> hub. Learning on paper? Start with the <2>printable Newbie sudoku PDF</2>."
+msgstr "Todos os níveis são gratuitos, sem anúncios e sem cadastro. <0>Jogue um sudoku agora</0> em qualquer um dos sete níveis ou veja o detalhamento completo de pistas e técnicas exigidas no guia de <1>níveis de dificuldade do Sudoku</1>. Aprendendo no papel? Comece pelo <2>PDF de sudoku Iniciante para imprimir</2>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every named technique is a faster way of tracking the same row, column and box overlap across many cells at once."
+msgstr "Toda técnica nomeada é uma forma mais rápida de acompanhar a mesma sobreposição de linha, coluna e bloco em várias células ao mesmo tempo."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Every Newbie board is rated on the SE (Sudoku Explainer) scale the moment it is created. Our published sample of {sampleSize} Newbie boards measures SE {seRatingRange} — the very bottom of a scale that runs to 12, and below what most SE-based charts even bother to name. Newbie exists to teach the row-column-box overlap that every later technique builds on, not to test it. The measured range for this tier and every other is published in our <0>sudoku difficulty rating guide</0>. Treat a fast, mistake-free Newbie solve as confirmation you’re ready for Easy, not as a benchmark worth chasing for its own sake."
+msgstr "Todo sudoku Iniciante é classificado na escala SE (Sudoku Explainer) no momento em que é criado. Nossa amostra publicada de {sampleSize} sudokus Iniciante mede SE {seRatingRange}, o ponto mais baixo de uma escala que vai até 12 e abaixo do que a maioria dos gráficos baseados no SE se dá ao trabalho de nomear. O Iniciante existe para ensinar a sobreposição de linha, coluna e bloco em que toda técnica posterior se apoia, e não para testá-la. A faixa medida para este nível e para todos os outros está publicada no nosso <0>guia de classificação de dificuldade do sudoku</0>. Encare uma resolução rápida e sem erros no Iniciante como confirmação de que você está pronto para o Fácil, e não como uma marca a perseguir por si só."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every PDF is set to US Letter and drawn with vector lines and text, so it prints crisply at any size. Open the file, print at 100% scale (not “fit to page”, which can distort the grid on some printers), and print single-sided if you want to keep the solutions on separate sheets from the puzzles."
+msgstr "Todo PDF está em formato US Letter e é desenhado com linhas e texto vetoriais, então imprime com nitidez em qualquer tamanho. Abra o arquivo e imprima em escala de 100% (não em “ajustar à página”, que pode distorcer a grade em algumas impressoras); imprima em um só lado se quiser manter as soluções em folhas separadas dos sudokus."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every puzzle guaranteed to have exactly one solution, and every tier below Infinity solvable without guessing"
+msgstr "Todo sudoku tem exatamente uma solução garantida, e todos os níveis abaixo do Infinito se resolvem sem palpites"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle in this booklet comes from a bundled corpus that Suuudokuuu checks with two independent solving algorithms — a Dancing Links exact-cover solver and a typed-array bitmask solver — before it ships, so each grid is confirmed to have exactly one solution. The corpus draws from the tdoku project’s 17-clue catalog and the magictour top1465 hard-puzzle list, and each puzzle is also solved logically and rated on the SE scale as the corpus is packed. Only boards whose hardest step is a forcing chain survive; anything that falls to a chain, coloring or AIC is dropped, because neither the clue count nor the source list alone would be enough to promise a Hell puzzle. Every survivor still solves on our technique ladder without guessing, so every puzzle here is guaranteed solvable by logic before you ever pick up a pencil."
+msgstr "Todo sudoku deste caderno vem de um acervo embutido que o Suuudokuuu verifica com dois algoritmos de resolução independentes, um solucionador de cobertura exata com Dancing Links e um solucionador de bitmask com arrays tipados, antes de ser distribuído, de modo que cada grade tem comprovadamente exatamente uma solução. O acervo se baseia no catálogo de 17 pistas do projeto tdoku e na lista de sudokus difíceis top1465 do magictour, e cada sudoku também é resolvido logicamente e classificado na escala SE enquanto o acervo é empacotado. Só sobrevivem os sudokus cujo passo mais difícil é uma cadeia forçada; tudo o que cede a uma cadeia, coloração ou AIC é descartado, porque nem a quantidade de pistas nem a lista de origem bastariam sozinhas para prometer um sudoku Inferno. Todo sobrevivente ainda é resolvido na nossa escada de técnicas sem palpites, então cada sudoku daqui tem garantia de ser resolvível por lógica antes mesmo de você pegar o lápis."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle in this booklet needs a forcing chain: none can be finished with the techniques Nightmare allows, and each is drawn from our bundled and independently verified Hell corpus rather than generated fresh. Our published sample of {sampleSize} boards measures the tier at SE {seRatingRange}, with the <0/> as the most common hardest step. See the <1>17-clue guide</1> for why the clue count is not what makes them hard."
+msgstr "Todo sudoku deste caderno exige uma cadeia forçada: nenhum pode ser terminado com as técnicas que o Pesadelo permite, e cada um vem do nosso acervo Inferno embutido e verificado de forma independente, e não de geração na hora. Nossa amostra publicada de {sampleSize} sudokus mede o nível em SE {seRatingRange}, com <0/> como passo mais difícil mais comum. Veja o <1>guia dos sudokus de 17 pistas</1> para entender por que a quantidade de pistas não é o que os torna difíceis."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Every puzzle needs a forcing chain, drawn from a bundled and independently verified corpus of boards with {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues."
+msgstr "Todo sudoku exige uma cadeia forçada, extraído de um acervo embutido e verificado de forma independente, com sudokus de {HELL_CORPUS_MINIMUM_GIVEN_COUNT} a {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} pistas."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Every puzzle needs a forcing chain, drawn from our bundled, verified Hell corpus. See the <0>Hell sudoku lander</0> to play it digitally."
+msgstr "Todo sudoku exige uma cadeia forçada, extraído do nosso acervo Inferno embutido e verificado. Veja a <0>página do Sudoku Inferno</0> para jogar no formato digital."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Every Sudoku rule is really the same constraint applied to three different kinds of unit. Learn the constraint once and you already know all three rules."
+msgstr "Toda regra do sudoku é, na verdade, a mesma restrição aplicada a três tipos diferentes de unidade. Aprenda a restrição uma vez e você já conhece as três regras."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every technique {SITE_NAME} uses to generate hints is documented with a worked example board pulled straight from the solving engine. Start with the <0>full technique index</0>, or jump into one of the first patterns most players learn."
+msgstr "Toda técnica que o {SITE_NAME} usa para gerar dicas está documentada com um exemplo resolvido, tirado direto do mecanismo de resolução. Comece pelo <0>índice completo de técnicas</0> ou vá direto a um dos primeiros padrões que a maioria dos jogadores aprende."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Every tier from Newbie to Infinity now has its own guide, breaking down exactly what separates one level from the next — clue counts, required techniques and an honest read on how hard each one really is. Start on the <0>Sudoku difficulty levels</0> hub, or see how it compares to the <1>hardest puzzles</1> ever published."
+msgstr "Todos os níveis, do Iniciante ao Infinito, agora têm seu próprio guia, detalhando exatamente o que separa um nível do outro: quantidade de pistas, técnicas exigidas e uma avaliação honesta de quão difícil cada um realmente é. Comece pelo guia de <0>níveis de dificuldade do Sudoku</0> ou veja como ele se compara aos <1>sudokus mais difíceis</1> já publicados."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Everything Medium needs, plus at least one fish or wing pattern: X-Wing, swordfish, jellyfish, their finned and sashimi variants, XY-Wing, XYZ-Wing or W-Wing. One of those is always required, because a board that does not need one is graded Medium instead."
+msgstr "Tudo o que o Médio exige, mais pelo menos um padrão de fish ou de wing: X-Wing, swordfish, jellyfish, suas variantes finned e sashimi, XY-Wing, XYZ-Wing ou W-Wing. Um deles é sempre necessário, porque um sudoku que não precisa de nenhum é classificado como Médio."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Exactly one technique. Every Newbie board can be finished with full houses and naked singles; every Easy board provably cannot, and needs at least one hidden single to break the deadlock."
+msgstr "Exatamente uma técnica. Todo sudoku Iniciante pode ser terminado com últimas células livres e únicos nus; todo sudoku Fácil comprovadamente não pode e precisa de pelo menos um único oculto para desfazer o impasse."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Fill every empty cell with a digit from 1 to 9 so that no digit repeats in a row, a column or a 3×3 box."
+msgstr "Preencha cada célula vazia com um dígito de 1 a 9, de modo que nenhum dígito se repita em uma linha, em uma coluna ou em um bloco 3×3."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Finished a Hell board and want more? <0>Infinity Sudoku</0> serves the record puzzles — Everest, Platinum Blonde, AI Escargot — that sit past even our forcing chains. Not ready for chains yet? Step back to <1>Nightmare Sudoku</1>, which asks for the same reasoning with more of the grid already filled in. Prefer paper? Download the <2>printable Hell sudoku PDF</2>. Browse the <3>technique index</3>, especially X-Chain, XY-Chain, Simple Coloring and AIC, the <4>how to play guide</4>, the <5>17-clue sudoku guide</5>, every tier on the <6>Sudoku difficulty levels</6> hub, or head <7>home</7>."
+msgstr "Terminou um sudoku Inferno e quer mais? O <0>Sudoku Infinito</0> traz os sudokus recordistas (Everest, Platinum Blonde, AI Escargot) que ficam além até das nossas cadeias forçadas. Ainda não está pronto para cadeias? Volte ao <1>Sudoku Pesadelo</1>, que pede o mesmo raciocínio com mais da grade já preenchida. Prefere papel? Baixe o <2>PDF de sudoku Inferno para imprimir</2>. Explore o <3>índice de técnicas</3>, especialmente X-Chain, XY-Chain, coloração simples e AIC, o <4>guia de como jogar</4>, o <5>guia do sudoku de 17 pistas</5>, todos os níveis no guia de <6>níveis de dificuldade do Sudoku</6> ou volte para o <7>início</7>."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Fish patterns: X-Wing, swordfish, jellyfish and their finned and sashimi variants. Wing patterns: XY-Wing, XYZ-Wing and W-Wing."
+msgstr "Padrões de fish: X-Wing, swordfish, jellyfish e suas variantes finned e sashimi. Padrões de wing: XY-Wing, XYZ-Wing e W-Wing."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Footer"
+msgstr "Rodapé"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "For each remaining blank cell, rule out every digit already used in its row, column and box. If exactly one digit is left, place it."
+msgstr "Em cada célula em branco restante, descarte todo dígito já usado na linha, na coluna e no bloco dela. Se sobrar exatamente um dígito, coloque-o."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "For each unit with several blank cells, check whether a digit that is still missing from the unit only fits in one of them, even if that cell has other candidates too."
+msgstr "Em cada unidade com várias células em branco, verifique se um dígito que ainda falta na unidade só cabe em uma delas, mesmo que essa célula tenha outros candidatos também."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free and source-available under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read <0>why</0> or browse the <1>full source on GitHub</1>. Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC."
+msgstr "Gratuito e com código-fonte disponível sob a licença {SITE_LICENSE}. Sem anúncios, sem conta e sem rastreamento no jogo: leia <0>por quê</0> ou veja o <1>código-fonte completo no GitHub</1>. Apple e o logotipo da Apple são marcas comerciais da Apple Inc., registradas nos EUA e em outros países. App Store é uma marca de serviço da Apple Inc. Google Play e o logotipo do Google Play são marcas comerciais da Google LLC."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Free online sudoku means playing the classic 9×9 number puzzle in a browser or app with no purchase, install limit or paywall, and {SITE_NAME} is a free, source-available implementation of it — seven difficulty levels from Newbie to Infinity, technique-explaining guides, no ads and no tracking in the game. Solve in the browser or install the app; your progress, streaks and stats stay on the device you play on. See <0>why {SITE_NAME} is built this way</0> for the full, verifiable case."
+msgstr "Sudoku online grátis significa jogar o clássico quebra-cabeça numérico 9×9 no navegador ou em um app, sem compra, limite de instalação ou paywall, e o {SITE_NAME} é uma implementação gratuita e com código-fonte disponível dele: sete níveis de dificuldade, do Iniciante ao Infinito, guias que explicam as técnicas, sem anúncios e sem rastreamento no jogo. Jogue no navegador ou instale o app; seu progresso, suas sequências e suas estatísticas ficam no dispositivo em que você joga. Veja <0>por que o {SITE_NAME} é feito assim</0> para conhecer os argumentos completos e verificáveis."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Free Sudoku for iOS, Android and the web, offline in the apps"
+msgstr "Sudoku grátis para iOS, Android e web, offline nos apps"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Free, source-available, no ads"
+msgstr "Gratuito, com código-fonte disponível e sem anúncios"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Frequently asked questions"
+msgstr "Perguntas frequentes"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Full House and Naked Single are the first two strategies Suuudokuuu’s solving engine tries on every board at every difficulty, because they are the cheapest deductions to verify. What sets Newbie apart is that the tier is defined as the boards that never need anything else. Strip more digits and a solver eventually stalls without hidden singles, intersections or subsets, and the generator throws those boards back rather than labelling them Newbie. If you can read a row and name the one digit missing from it, you already have every skill a Newbie puzzle asks for."
+msgstr "Última célula livre e Único nu são as duas primeiras estratégias que o mecanismo de resolução do Suuudokuuu tenta em todo sudoku, em qualquer dificuldade, porque são as deduções mais baratas de verificar. O que distingue o Iniciante é que o nível é definido pelos sudokus que nunca precisam de mais nada. Se você retirar mais dígitos, um solucionador acaba travando sem únicos ocultos, interseções ou subconjuntos, e o gerador descarta esses sudokus em vez de rotulá-los como Iniciante. Se você consegue ler uma linha e dizer o único dígito que falta nela, já tem todas as habilidades que um sudoku Iniciante pede."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Full houses and naked singles still clear most of the grid; the hidden single is the one addition over Newbie."
+msgstr "Últimas células livres e únicos nus ainda resolvem a maior parte da grade; o único oculto é o único acréscimo em relação ao Iniciante."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Full houses and singles as a baseline, plus pointing pairs, pointing triples, box line reduction and the naked or hidden subsets up to quads whenever singles run dry. At least one of those is always required, and nothing harder ever is."
+msgstr "Últimas células livres e únicos como base, mais pares apontadores, trios apontadores, redução caixa-linha e os subconjuntos nus ou ocultos até quartetos sempre que os únicos se esgotam. Pelo menos um deles é sempre necessário, e nunca nada mais difícil."
+
+#: src/chrome/components/store-badges/store-badges.tsx
+msgid "Get it on Google Play"
+msgstr "Disponível no Google Play"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Getting started"
+msgstr "Primeiros passos"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Good for a first sudoku habit"
+msgstr "Bom para criar o hábito de jogar sudoku"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Good for a relaxed solve"
+msgstr "Bom para uma resolução tranquila"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hard"
+msgstr "Difícil"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard boards carry {clueCount} clues and are guaranteed to need at least one fish or wing pattern beyond every subset."
+msgstr "Os sudokus Difíceis têm {clueCount} pistas e exigem, com garantia, pelo menos um padrão de fish ou de wing além de todos os subconjuntos."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Hard drops to {clueCount} clues, and this is the first printable booklet on the site where subsets alone will not carry you to the end. Every puzzle in it was tested against a solver that already knows every intersection and every subset, and kept only because that solver stalled. What finishes them is a fish or a wing: the <0>X-Wing</0> and its larger and finned relatives, or one of the bivalue wing patterns."
+msgstr "O Difícil cai para {clueCount} pistas, e este é o primeiro caderno para imprimir do site em que só os subconjuntos não levam você até o fim. Todo sudoku dele foi testado contra um solucionador que já conhece todas as interseções e todos os subconjuntos, e só foi mantido porque esse solucionador travou. O que os termina é um fish ou um wing: o <0>X-Wing</0> e seus parentes maiores e finned, ou um dos padrões de wing bivalente."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard is capped at the W-Wing — a board that resists every fish and wing is graded Nightmare instead."
+msgstr "O Difícil vai até o W-Wing: um sudoku que resiste a todos os fish e wings é classificado como Pesadelo."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hard Sudoku"
+msgstr "Sudoku Difícil"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Difícil"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Hard Sudoku is a difficulty tier that starts at {clueCount} clues out of 81 cells and is defined by what a subset-only solver cannot finish: every board in the tier has been run through a solver equipped with every intersection and every subset up to the <0>hidden quad</0>, and kept only because that solver got stuck. What breaks the deadlock is a fish — <1>X-Wing</1>, <2>swordfish</2>, <3>jellyfish</3> and their <4>finned</4> and <5>sashimi</5> variants — or a wing: <6>XY-Wing</6>, <7>XYZ-Wing</7> and <8>W-Wing</8>."
+msgstr "O Sudoku Difícil é um nível que começa com {clueCount} pistas em 81 células e é definido pelo que um solucionador só de subconjuntos não consegue terminar: todo sudoku do nível passou por um solucionador equipado com todas as interseções e todos os subconjuntos até o <0>quarteto oculto</0> e só foi mantido porque esse solucionador travou. O que desfaz o impasse é um fish (<1>X-Wing</1>, <2>swordfish</2>, <3>jellyfish</3> e suas variantes <4>finned</4> e <5>sashimi</5>) ou um wing: <6>XY-Wing</6>, <7>XYZ-Wing</7> e <8>W-Wing</8>."
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Harder difficulty"
+msgstr "Dificuldade maior"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Harder than anything else in the app, by a wide margin. Our sample of {sampleSize} <0>Hell</0> boards measures SE {hellSeRatingRange}; Infinity starts at {lowestRatingLabel}. The Infinity ratings are not our own measurements. Suuudokuuu’s rater prices the SE ladder only as far as forcing chains and nets and reports {SE_RATING_CEILING} with a ceiling flag above that, so for these puzzles we quote the figures independent raters publish, as the <1>difficulty rating guide</1> explains."
+msgstr "Mais difícil que qualquer outra coisa no app, por uma grande margem. Nossa amostra de {sampleSize} sudokus <0>Inferno</0> mede SE {hellSeRatingRange}; o Infinito começa em {lowestRatingLabel}. As classificações do Infinito não são medições nossas. O avaliador do Suuudokuuu mede a escada SE apenas até as cadeias e redes forçadas e informa {SE_RATING_CEILING} com um indicador de teto acima disso, então, para esses sudokus, citamos os números publicados por avaliadores independentes, como o <1>guia de classificação de dificuldade</1> explica."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Hardness here comes from the technique each board requires, not from the clue count."
+msgstr "Aqui a dificuldade vem da técnica que cada sudoku exige, não da quantidade de pistas."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hell"
+msgstr "Inferno"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Hell is Suuudokuuu’s hardest technique-graded tier — what most competitors call evil or extreme. A Hell board is defined by the reasoning it demands, not by how few clues it starts with: no Hell board can be finished with any technique Nightmare allows, so every one needs a forcing chain. Unlike the generated tiers, Hell is drawn from a bundled corpus of published hard puzzles, verified by two independent solvers before it ships, and every board still solves on our technique ladder without guessing. Expect to use every chain and coloring pattern first — <0>X-Chain</0>, <1>XY-Chain</1>, <2>simple coloring</2> and <3>AIC</3> — before a forcing chain breaks the deadlock."
+msgstr "O Inferno é o nível mais difícil do Suuudokuuu graduado por técnicas, o que muitos concorrentes chamam de diabólico ou extremo. Um sudoku Inferno é definido pelo raciocínio que exige, e não por quão poucas pistas tem: nenhum sudoku Inferno pode ser terminado com qualquer técnica que o Pesadelo permite, então todos exigem uma cadeia forçada. Ao contrário dos níveis gerados, o Inferno é extraído de um acervo embutido de sudokus difíceis publicados, verificados por dois solucionadores independentes antes de serem distribuídos, e todo sudoku ainda é resolvido na nossa escada de técnicas sem palpites. Espere usar antes todos os padrões de cadeia e de coloração (<0>X-Chain</0>, <1>XY-Chain</1>, <2>coloração simples</2> e <3>AIC</3>) até que uma cadeia forçada desfaça o impasse."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Hell Sudoku"
+msgstr "Sudoku Inferno"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Hell Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Inferno"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Home"
+msgstr "Início"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "How do I print these puzzles?"
+msgstr "Como imprimir esses sudokus?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How does Suuudokuuu guarantee a tier’s technique requirement?"
+msgstr "Como o Suuudokuuu garante a técnica exigida por um nível?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "How hard is Easy sudoku?"
+msgstr "Qual é a dificuldade do sudoku Fácil?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How hard is it, honestly"
+msgstr "Qual é a dificuldade, sinceramente"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "How hard is Newbie sudoku?"
+msgstr "Qual é a dificuldade do sudoku Iniciante?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How hard is Nightmare sudoku?"
+msgstr "Qual é a dificuldade do sudoku Pesadelo?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "How hard these puzzles are"
+msgstr "Qual é a dificuldade desses sudokus"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "How is a fish or wing easier to verify on paper?"
+msgstr "Por que um fish ou um wing é mais fácil de verificar no papel?"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "How many clues does a Hard sudoku have?"
+msgstr "Quantas pistas tem um sudoku Difícil?"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "How many clues does a Hell sudoku have?"
+msgstr "Quantas pistas tem um sudoku Inferno?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "How many clues does a Medium sudoku have?"
+msgstr "Quantas pistas tem um sudoku Médio?"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "How many clues does a Newbie puzzle have?"
+msgstr "Quantas pistas tem um sudoku Iniciante?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "How many clues does a Nightmare sudoku have?"
+msgstr "Quantas pistas tem um sudoku Pesadelo?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "How many clues does an easy sudoku have?"
+msgstr "Quantas pistas tem um sudoku fácil?"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "How many puzzles are in the printable Easy sudoku PDF?"
+msgstr "Quantos sudokus tem o PDF de sudoku Fácil para imprimir?"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "How many puzzles are in the printable Hard sudoku PDF?"
+msgstr "Quantos sudokus tem o PDF de sudoku Difícil para imprimir?"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "How many puzzles are in the printable Hell sudoku PDF?"
+msgstr "Quantos sudokus tem o PDF de sudoku Inferno para imprimir?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "How many puzzles are in the printable Infinity sudoku PDF?"
+msgstr "Quantos sudokus tem o PDF de sudoku Infinito para imprimir?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "How many puzzles are in the printable Medium sudoku PDF?"
+msgstr "Quantos sudokus tem o PDF de sudoku Médio para imprimir?"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "How many puzzles are in the printable Newbie sudoku PDF?"
+msgstr "Quantos sudokus tem o PDF de sudoku Iniciante para imprimir?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "How many puzzles are in the printable Nightmare sudoku PDF?"
+msgstr "Quantos sudokus tem o PDF de sudoku Pesadelo para imprimir?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How many sudoku difficulty levels does Suuudokuuu have?"
+msgstr "Quantos níveis de dificuldade o Suuudokuuu tem?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "How the ladder is built"
+msgstr "Como a escada é construída"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "How the puzzles are verified"
+msgstr "Como os sudokus são verificados"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/chrome/components/site-header/site-header.tsx
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "How to play"
+msgstr "Como jogar"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "How to play Sudoku FAQ"
+msgstr "Perguntas frequentes sobre como jogar Sudoku"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "How to print these puzzles"
+msgstr "Como imprimir esses sudokus"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "How to start solving a Sudoku puzzle"
+msgstr "Como começar a resolver um sudoku"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Includes Everest (SE 11.9), Platinum Blonde (SE 10.9) and AI Escargot (SE 10.6)."
+msgstr "Inclui o Everest (SE 11,9), o Platinum Blonde (SE 10,9) e o AI Escargot (SE 10,6)."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Infinity"
+msgstr "Infinito"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Infinity is Suuudokuuu’s tier beyond Hell: a curated set of the hardest sudoku puzzles ever published, the record grids the solving community still argues about, ready to play for free. Every Infinity board is a known puzzle with a published Sudoku Explainer (SE) rating of at least {minimumRatingLabel} — Arto Inkala’s Everest, Platinum Blonde, AI Escargot, Golden Nugget and {additionalPuzzleCount} more — checked for a single solution before it ships. These are the puzzles our <0>hardest sudoku puzzles</0> guide describes; Infinity is where you play them."
+msgstr "O Infinito é o nível do Suuudokuuu além do Inferno: um conjunto selecionado dos sudokus mais difíceis já publicados, as grades recordistas sobre as quais a comunidade ainda discute, prontas para jogar de graça. Todo sudoku Infinito é um sudoku conhecido, com classificação Sudoku Explainer (SE) publicada de pelo menos {minimumRatingLabel} (o Everest de Arto Inkala, o Platinum Blonde, o AI Escargot, o Golden Nugget e mais {additionalPuzzleCount}), com solução única verificada antes de ser distribuído. São os sudokus que o nosso guia dos <0>sudokus mais difíceis</0> descreve; o Infinito é onde você os joga."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Infinity puzzles carry {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues and are checked for a single solution by two independent solving algorithms."
+msgstr "Os sudokus Infinito têm de {INFINITY_MINIMUM_GIVEN_COUNT} a {INFINITY_MAXIMUM_GIVEN_COUNT} pistas e têm solução única verificada por dois algoritmos de resolução independentes."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Infinity Sudoku"
+msgstr "Sudoku Infinito"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Infinity Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Infinito"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Intersections and pairs are found by marking every remaining candidate in a unit, so the layout leaves space in each cell specifically for those pencil marks."
+msgstr "Interseções e pares são encontrados marcando todos os candidatos restantes de uma unidade, por isso o layout deixa espaço em cada célula especificamente para essas anotações a lápis."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Intersections: pointing pair, pointing triple, box line reduction. Subsets: naked pair, hidden pair."
+msgstr "Interseções: par apontador, trio apontador, redução caixa-linha. Subconjuntos: par nu, par oculto."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Is {SITE_NAME} free?"
+msgstr "O {SITE_NAME} é gratuito?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Is AI Escargot in the printable booklet?"
+msgstr "O AI Escargot está no caderno para imprimir?"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Is Hard sudoku harder than Nightmare?"
+msgstr "O sudoku Difícil é mais difícil que o Pesadelo?"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Is Hell harder than Nightmare?"
+msgstr "O Inferno é mais difícil que o Pesadelo?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Is Infinity harder than Hell?"
+msgstr "O Infinito é mais difícil que o Inferno?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Is Medium sudoku hard?"
+msgstr "O sudoku Médio é difícil?"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Is Newbie the right level for a child or a first-time solver?"
+msgstr "O Iniciante é o nível certo para uma criança ou para quem resolve pela primeira vez?"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Is the printable Easy sudoku PDF free?"
+msgstr "O PDF de sudoku Fácil para imprimir é gratuito?"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Is the printable Hard sudoku PDF free?"
+msgstr "O PDF de sudoku Difícil para imprimir é gratuito?"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Is the printable Hell sudoku PDF free?"
+msgstr "O PDF de sudoku Inferno para imprimir é gratuito?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Is the printable Infinity sudoku PDF free?"
+msgstr "O PDF de sudoku Infinito para imprimir é gratuito?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Is the printable Medium sudoku PDF free?"
+msgstr "O PDF de sudoku Médio para imprimir é gratuito?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Is the printable Nightmare sudoku PDF free?"
+msgstr "O PDF de sudoku Pesadelo para imprimir é gratuito?"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Is this printable Newbie sudoku booklet free?"
+msgstr "Este caderno de sudoku Iniciante para imprimir é gratuito?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "It is a real step up from Easy, but every technique it needs still works inside a single box or line at a time — the longer fish and chain patterns only start at Hard and beyond."
+msgstr "É um degrau real acima do Fácil, mas toda técnica que ele exige ainda funciona dentro de um único bloco ou linha por vez; os padrões mais longos de fish e de cadeia só começam no Difícil e além."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "It is Suuudokuuu’s hardest generated tier, measured at SE {seRatingRange} across a sample of {sampleSize} boards. Every one of them needs chain or coloring logic on top of the fish and wing patterns Hard already requires."
+msgstr "É o nível gerado mais difícil do Suuudokuuu, medido em SE {seRatingRange} em uma amostra de {sampleSize} sudokus. Todos exigem lógica de cadeia ou de coloração além dos padrões de fish e de wing que o Difícil já exige."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "It is the easiest tier Suuudokuuu offers, and the generator guarantees it: a board only ships as Newbie once a solver limited to full houses and naked singles has finished it. Our sample measures SE {seRatingRange}, with no candidate tracking and no risk of a forced guess."
+msgstr "É o nível mais fácil que o Suuudokuuu oferece, e o gerador garante isso: um sudoku só é distribuído como Iniciante depois que um solucionador limitado a últimas células livres e únicos nus o termina. Nossa amostra mede SE {seRatingRange}, sem acompanhar candidatos e sem risco de precisar chutar."
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Language"
+msgstr "Idioma"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Large print sudoku"
+msgstr "Sudoku em letras grandes"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Large Print Sudoku"
+msgstr "Sudoku em Letras Grandes"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Large print sudoku, printable"
+msgstr "Sudoku em letras grandes para imprimir"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Large text size"
+msgstr "Texto grande"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Largest text size"
+msgstr "Texto maior"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Learn"
+msgstr "Aprender"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Learn sudoku"
+msgstr "Aprenda sudoku"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "Learn techniques in difficulty order rather than memorising every pattern at once. The <0>sudoku techniques index</0> lists them from full house up to the subset patterns, each with a worked example."
+msgstr "Aprenda as técnicas em ordem de dificuldade, em vez de decorar todos os padrões de uma vez. O <0>índice de técnicas de sudoku</0> as lista da última célula livre até os padrões de subconjunto, cada uma com um exemplo resolvido."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Learn to solve"
+msgstr "Aprender a resolver"
+
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
+msgid "Loading the board…"
+msgstr "Carregando o tabuleiro…"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Look for hidden singles"
+msgstr "Procure únicos ocultos"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Medium"
+msgstr "Médio"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium boards carry {clueCount} clues and are guaranteed to stall on singles and yield to an intersection or a subset."
+msgstr "Os sudokus Médios têm {clueCount} pistas e travam, com garantia, nos únicos e cedem a uma interseção ou a um subconjunto."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium is where Suuudokuuu starts asking for pencil marks. A Medium board carries {clueCount} clues out of 81 cells, and singles alone provably never finish it: every board in the tier has been checked against a singles-only solver and rejected if that solver got through. Once full houses and singles run out, the puzzle stalls until you spot an intersection — a digit confined to where a box and a line overlap — or a pair locked together. <0>Pointing pairs</0>, <1>pointing triples</1> and <2>box line reduction</2> cover the intersections; <3>naked pairs</3> and <4>hidden pairs</4> cover the smallest subset pattern."
+msgstr "É no Médio que o Suuudokuuu começa a pedir anotações a lápis. Um sudoku Médio tem {clueCount} pistas em 81 células, e os únicos sozinhos comprovadamente nunca o terminam: todo sudoku do nível foi testado contra um solucionador só de únicos e rejeitado se esse solucionador chegasse ao fim. Quando as últimas células livres e os únicos se esgotam, o sudoku fica parado até você encontrar uma interseção (um dígito confinado à sobreposição de um bloco e uma linha) ou um par travado. <0>Pares apontadores</0>, <1>trios apontadores</1> e <2>redução caixa-linha</2> cobrem as interseções; <3>pares nus</3> e <4>pares ocultos</4> cobrem o menor padrão de subconjunto."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Medium Sudoku"
+msgstr "Sudoku Médio"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Medium Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Médio"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "New solvers should start at Newbie and move up one tier at a time; each step adds exactly one new technique over the tier before it, all the way up to Hard. See the <0>how to play guide</0> first if the three core rules are still unfamiliar."
+msgstr "Quem está começando deve partir do Iniciante e subir um nível por vez; cada degrau acrescenta exatamente uma técnica nova em relação ao nível anterior, até o Difícil. Veja primeiro o <0>guia de como jogar</0> se as três regras básicas ainda não forem familiares."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "New to Sudoku?"
+msgstr "Novo no Sudoku?"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "New to the grid itself? Start with the <0>how to play guide</0> for the three rules and your first placements before picking a tier above."
+msgstr "Ainda não conhece a grade? Comece pelo <0>guia de como jogar</0>, com as três regras e suas primeiras colocações, antes de escolher um dos níveis acima."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Newbie"
+msgstr "Iniciante"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie boards carry {clueCount} clues and are guaranteed to finish with full houses and naked singles alone."
+msgstr "Os sudokus Iniciante têm {clueCount} pistas e terminam, com garantia, só com últimas células livres e únicos nus."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie is Suuudokuuu’s beginner tier, the gentlest possible introduction to the grid. A Newbie board starts with {clueCount} of the 81 cells already filled. Every remaining cell can be found with the two simplest deductions in the game: a <0>full house</0>, where a unit is down to its last empty cell, and a <1>naked single</1>, where a cell’s row, column and box between them already account for eight of the nine digits. That is not a description of a typical Newbie board — it is the rule the generator enforces: a candidate board is only accepted as Newbie once a solver restricted to full houses and naked singles has finished it. No pencil marks, no elimination logic and no guessing are ever required."
+msgstr "O Iniciante é o nível para principiantes do Suuudokuuu, a introdução mais suave possível à grade. Um sudoku Iniciante começa com {clueCount} das 81 células já preenchidas. Cada célula restante pode ser encontrada com as duas deduções mais simples do jogo: uma <0>última célula livre</0>, em que uma unidade está reduzida à última célula vazia, e um <1>único nu</1>, em que a linha, a coluna e o bloco de uma célula já respondem por oito dos nove dígitos. Isso não é a descrição de um sudoku Iniciante típico, e sim a regra que o gerador impõe: um sudoku candidato só é aceito como Iniciante depois que um solucionador restrito a últimas células livres e únicos nus o termina. Nunca é preciso anotar candidatos, usar lógica de eliminação nem chutar."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie is the easiest of Suuudokuuu’s seven tiers, followed by Easy, Medium, Hard, Nightmare, Hell and Infinity in increasing order of difficulty."
+msgstr "O Iniciante é o mais fácil dos sete níveis do Suuudokuuu, seguido por Fácil, Médio, Difícil, Pesadelo, Inferno e Infinito, em ordem crescente de dificuldade."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Newbie Sudoku"
+msgstr "Sudoku Iniciante"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Newbie Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Iniciante"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Nightmare"
+msgstr "Pesadelo"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare boards carry {clueCount} clues and are guaranteed to need at least one chain or coloring technique beyond every fish and wing."
+msgstr "Os sudokus Pesadelo têm {clueCount} pistas e exigem, com garantia, pelo menos uma técnica de cadeia ou de coloração além de todos os fish e wings."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Nightmare holds just {clueCount} clues, and it is the booklet where the printed page genuinely earns its keep. Every puzzle in it was tested against a solver that already knows every fish and wing — including the <0>swordfish</0> and the <1>XY-Wing</1> — and kept only because that solver stalled. What finishes them is chain reasoning, and a chain is far easier to build on paper, where you can pencil the links in and follow them, than on a cramped screen. Our sample of {sampleSize} boards measures the tier at SE {seRatingRange}."
+msgstr "O Pesadelo tem apenas {clueCount} pistas, e é o caderno em que a página impressa realmente se justifica. Todo sudoku dele foi testado contra um solucionador que já conhece todos os fish e wings, incluindo o <0>swordfish</0> e o <1>XY-Wing</1>, e só foi mantido porque esse solucionador travou. O que os termina é o raciocínio de cadeias, e uma cadeia é muito mais fácil de montar no papel, onde dá para anotar as ligações a lápis e segui-las, do que em uma tela apertada. Nossa amostra de {sampleSize} sudokus mede o nível em SE {seRatingRange}."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare is capped at AIC — a board resisting that is beyond what the generated tiers hand you."
+msgstr "O Pesadelo vai até o AIC: um sudoku que resiste a isso está além do que os níveis gerados entregam."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare is Suuudokuuu’s expert tier — what most other apps would call very hard or expert. A Nightmare board carries just {clueCount} clues out of 81 cells, and it is the tier where bounded patterns stop being enough: every board here has been checked against a solver that already knows every fish and every wing up to the <0>W-Wing</0>, and is only labelled Nightmare because that solver stalled. Finishing one needs chain reasoning — <1>X-Chain</1>, <2>XY-Chain</2>, <3>simple coloring</3> and <4>AIC</4>, the alternating inference chain that generalises the other three."
+msgstr "O Pesadelo é o nível expert do Suuudokuuu, o que a maioria dos outros apps chamaria de muito difícil ou expert. Um sudoku Pesadelo tem apenas {clueCount} pistas em 81 células, e é o nível em que os padrões limitados deixam de bastar: todo sudoku daqui foi testado contra um solucionador que já conhece todos os fish e todos os wings até o <0>W-Wing</0>, e só recebe o rótulo Pesadelo porque esse solucionador travou. Terminá-lo exige raciocínio de cadeias: <1>X-Chain</1>, <2>XY-Chain</2>, <3>coloração simples</3> e <4>AIC</4>, a cadeia de inferência alternada que generaliza as outras três."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Nightmare Sudoku"
+msgstr "Sudoku Pesadelo"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Nightmare Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Pesadelo"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "No ads, no account and no tracking inside the game, on the web or in the app"
+msgstr "Sem anúncios, sem conta e sem rastreamento dentro do jogo, na web ou no app"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "No pencil marks, no elimination logic and no guessing are ever required."
+msgstr "Nunca é preciso anotar candidatos, usar lógica de eliminação nem chutar."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "No pencil marks, no elimination logic and no guessing required for any puzzle in the booklet."
+msgstr "Nenhum sudoku do caderno exige anotações, lógica de eliminação nem palpites."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "No puzzle, just the grid: one full-page 9×9 grid for copying out a puzzle from a book or newspaper, plus a second page of four smaller grids for quick practice sheets. Useful for teachers building their own worksheets or for anyone transcribing a puzzle they found somewhere without a printer-friendly version."
+msgstr "Sem sudoku, só a grade: uma grade 9×9 de página inteira para copiar um sudoku de um livro ou jornal, mais uma segunda página com quatro grades menores para folhas de treino rápidas. Útil para professores que montam suas próprias atividades ou para quem quer transcrever um sudoku encontrado em algum lugar sem versão própria para impressão."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "No. Both techniques a Newbie puzzle requires can be read straight off the board, which is exactly why they are the fastest deductions in the game."
+msgstr "Não. As duas técnicas que um sudoku Iniciante exige podem ser lidas direto no tabuleiro, e é exatamente por isso que são as deduções mais rápidas do jogo."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "No. Clue count and difficulty are separate facts — see the <0>17-clue sudoku guide</0>. These puzzles are hard because every one needs a forcing chain, not because of how many clues they start with."
+msgstr "Não. Quantidade de pistas e dificuldade são coisas diferentes; veja o <0>guia do sudoku de 17 pistas</0>. Esses sudokus são difíceis porque todos exigem uma cadeia forçada, e não por causa da quantidade de pistas com que começam."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "No. Clue count is only the input that forces a solver toward a wider technique set; the technique band the generator verifies is what actually defines each tier. The <0>clues versus difficulty guide</0> measures the gap directly."
+msgstr "Não. A quantidade de pistas é só o ponto de partida que empurra o solucionador para um conjunto mais amplo de técnicas; o que realmente define cada nível é a faixa de técnicas que o gerador verifica. O <0>guia de pistas versus dificuldade</0> mede essa diferença diretamente."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "No. Every board in the tier is verified solvable by the technique ladder up to AIC before it ships, so a completed chain always exists — finding it is the work."
+msgstr "Não. Todo sudoku do nível é verificado como resolvível pela escada de técnicas até o AIC antes de ser distribuído, então sempre existe uma cadeia completa; o trabalho é encontrá-la."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "No. Every puzzle Suuudokuuu generates is checked for a unique solution at generation time, so no cell ever requires a guess — and the bundled Hell-difficulty puzzles are additionally cross-checked by two independent solving algorithms, a Dancing Links exact-cover solver and a bitmask solver, before they ship. Any position that looks ambiguous just needs a technique that has not been tried yet."
+msgstr "Não. Todo sudoku que o Suuudokuuu gera é verificado quanto à solução única no momento da geração, então nenhuma célula exige palpite, e os sudokus de dificuldade Inferno embutidos ainda são conferidos por dois algoritmos de resolução independentes, um solucionador de cobertura exata com Dancing Links e um solucionador de bitmask, antes de serem distribuídos. Qualquer posição que pareça ambígua só precisa de uma técnica que ainda não foi tentada."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "No. Hard tops out at the W-Wing; Nightmare starts where Hard stops and runs up to alternating inference chains. The two tiers are separated by a technique boundary, not by a clue count."
+msgstr "Não. O Difícil termina no W-Wing; o Pesadelo começa onde o Difícil acaba e vai até as cadeias de inferência alternada. Os dois níveis são separados por uma fronteira de técnicas, e não por uma quantidade de pistas."
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "No. Notes mode in an app tracks candidates for you and updates them automatically as you place digits, and undo takes back a mistake without erasing."
+msgstr "Não. O modo de anotações de um app acompanha os candidatos por você e os atualiza automaticamente conforme você coloca dígitos, e o desfazer reverte um erro sem apagar."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "No. There are no ads anywhere and no tracking inside the game; this website uses only cookieless, anonymous page analytics."
+msgstr "Não. Não há anúncios em lugar nenhum nem rastreamento dentro do jogo; este site usa apenas análises de página anônimas e sem cookies."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Not necessarily. Hell puzzles carry {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues, drawn from a bundled corpus checked by two independent solving algorithms and filtered to boards that need a forcing chain, rather than generated fresh at print time."
+msgstr "Não necessariamente. Os sudokus Inferno têm de {HELL_CORPUS_MINIMUM_GIVEN_COUNT} a {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} pistas, extraídos de um acervo embutido verificado por dois algoritmos de resolução independentes e filtrado para sudokus que exigem uma cadeia forçada, e não gerados na hora da impressão."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Not ready for chains on paper yet? Step back to the <0>printable Nightmare sudoku booklet</0> for the same chain reasoning with more of the grid filled in, or to <1>printable Hard sudoku</1> for fish and wings without chain-length reasoning, or play Hell on a screen at the <2>Hell sudoku lander</2>, where the same corpus powers every puzzle. Ready for the record puzzles? The <3>printable Infinity sudoku booklet</3> prints Everest, AI Escargot and other record grids."
+msgstr "Ainda não está pronto para cadeias no papel? Volte ao <0>caderno de sudoku Pesadelo para imprimir</0> para o mesmo raciocínio de cadeias com mais da grade preenchida, ou ao <1>sudoku Difícil para imprimir</1> para fish e wings sem raciocínio de cadeias longas, ou jogue o Inferno na tela, na <2>página do Sudoku Inferno</2>, onde o mesmo acervo alimenta todos os sudokus. Pronto para os sudokus recordistas? O <3>caderno de sudoku Infinito para imprimir</3> traz o Everest, o AI Escargot e outras grades recordistas."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Notes and candidates"
+msgstr "Anotações e candidatos"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Nothing in the booklet needs a chain — that starts at the Nightmare tier."
+msgstr "Nenhum sudoku do caderno exige uma cadeia: isso só começa no nível Pesadelo."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Nothing in the booklet needs a fish, a wing or a chain."
+msgstr "Nenhum sudoku do caderno exige um fish, um wing ou uma cadeia."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Nothing in the tier ever needs a fish, a wing or a chain — a board that does is promoted to Hard instead."
+msgstr "Nada no nível exige um fish, um wing ou uma cadeia; um sudoku que exige é promovido para o Difícil."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Once full houses and naked singles feel automatic, step up to the <0>printable Easy sudoku booklet</0>, which adds exactly one technique on top: the hidden single. To play Newbie puzzles on a screen instead, visit the <1>Newbie sudoku lander</1>. For the full technique ladder and the measured data behind these claims, see the <2>technique index</2> and the <3>sudoku difficulty rating guide</3>."
+msgstr "Quando as últimas células livres e os únicos nus já parecerem automáticos, suba para o <0>caderno de sudoku Fácil para imprimir</0>, que acrescenta exatamente uma técnica: o único oculto. Para jogar sudokus Iniciante na tela, visite a <1>página do Sudoku Iniciante</1>. Para ver a escada completa de técnicas e os dados medidos por trás dessas afirmações, consulte o <2>índice de técnicas</2> e o <3>guia de classificação de dificuldade do sudoku</3>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Once the easy placements run out, tracking candidates by hand becomes essential. A candidate, sometimes called a pencil mark, is a digit that a cell could still legally hold based on what its row, column and box already contain. Writing every candidate into a cell — on paper as small numbers in the corner, or with the notes mode in an app — turns a puzzle that looks stuck into one where patterns become visible: pairs, triples and quads of candidates that repeat across a unit are exactly what techniques like naked pairs and hidden pairs are built to spot. The full method for every pattern lives in the <0>sudoku techniques index</0>, and every term used across these guides is defined in the <1>sudoku glossary</1>."
+msgstr "Quando as colocações fáceis se esgotam, acompanhar os candidatos à mão passa a ser essencial. Um candidato, às vezes chamado de anotação a lápis, é um dígito que uma célula ainda pode conter legalmente, com base no que a linha, a coluna e o bloco dela já têm. Escrever todos os candidatos em uma célula (no papel, como números pequenos no canto, ou no modo de anotações de um app) transforma um sudoku que parece travado em um em que os padrões ficam visíveis: pares, trios e quartetos de candidatos que se repetem em uma unidade são exatamente o que técnicas como pares nus e pares ocultos foram feitas para identificar. O método completo de cada padrão está no <0>índice de técnicas de sudoku</0>, e todos os termos usados nestes guias estão definidos no <1>glossário do sudoku</1>."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Our published sample of {sampleSize} Hard boards measures the tier at SE {seRatingRange}, with the <0/> as the most common hardest step — numbers the <1>sudoku difficulty rating guide</1> measures directly rather than assumes. The {PRINTABLE_BOOKLET_SIZE} puzzles here print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with room to mark candidates, and the solved grids on the closing pages let you confirm a fish elimination actually held."
+msgstr "Nossa amostra publicada de {sampleSize} sudokus Difíceis mede o nível em SE {seRatingRange}, com <0/> como passo mais difícil mais comum, números que o <1>guia de classificação de dificuldade do sudoku</1> mede diretamente, em vez de supor. Os {PRINTABLE_BOOKLET_SIZE} sudokus daqui são impressos {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} por página com espaço para marcar candidatos, e as grades resolvidas nas páginas finais permitem confirmar se uma eliminação de fish realmente se sustentou."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Easy boards measures SE {seRatingRange}."
+msgstr "Nossa amostra de {sampleSize} sudokus Fáceis mede SE {seRatingRange}."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hard boards measures SE (Sudoku Explainer) {seRatingRange} — squarely in the range the solving community associates with fish and wing patterns, and well below the chain territory above 7. The most common hardest step is the <0/>, and the hardest anything in the sample reached is the <1/>. This is where casual solvers start reaching for a hint: fish and wings are easy to describe and genuinely hard to see on a live board, so expect a noticeably longer, more deliberate solve than Medium asks for. See the <2>sudoku difficulty rating guide</2> for the full per-tier data."
+msgstr "Nossa amostra de {sampleSize} sudokus Difíceis mede SE (Sudoku Explainer) {seRatingRange}, bem na faixa que a comunidade de resolvedores associa a padrões de fish e de wing, e bem abaixo do território das cadeias, acima de 7. O passo mais difícil mais comum é o <0/>, e o mais difícil que algo na amostra alcançou é o <1/>. É aqui que os jogadores casuais começam a recorrer a uma dica: fish e wings são fáceis de descrever e realmente difíceis de enxergar em um tabuleiro ao vivo, então espere uma resolução visivelmente mais longa e deliberada do que o Médio pede. Veja o <2>guia de classificação de dificuldade do sudoku</2> para os dados completos de cada nível."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hard boards measures SE {seRatingRange}."
+msgstr "Nossa amostra de {sampleSize} sudokus Difíceis mede SE {seRatingRange}."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE (Sudoku Explainer) {hellSeRatingRange}, with the <0/> as the most common hardest step and the <1/> as the hardest step anything in the sample reached. Be careful not to read the clue count as the cause: the same sample puts <2>Nightmare</2> at SE {nightmareSeRatingRange} with {nightmareClueCount} clues, and some Hell boards start with more givens than that. This tier used to be built from 17-clue puzzles alone, and it rated no harder than Nightmare; selecting on the required technique instead is what separates the two. Our <3>clues versus difficulty guide</3> takes that argument apart properly, and the <4>rating guide</4> publishes the per-tier tables."
+msgstr "Nossa amostra de {sampleSize} sudokus Inferno mede SE (Sudoku Explainer) {hellSeRatingRange}, com <0/> como passo mais difícil mais comum e <1/> como o passo mais difícil que algo na amostra alcançou. Cuidado para não ler a quantidade de pistas como a causa: a mesma amostra coloca o <2>Pesadelo</2> em SE {nightmareSeRatingRange} com {nightmareClueCount} pistas, e alguns sudokus Inferno começam com mais pistas que isso. Este nível já foi construído apenas com sudokus de 17 pistas, e eles não eram classificados como mais difíceis que o Pesadelo; selecionar pela técnica exigida é o que separa os dois. Nosso <3>guia de pistas versus dificuldade</3> desmonta esse argumento por completo, e o <4>guia de classificação</4> publica as tabelas por nível."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE {hellSeRatingRange}."
+msgstr "Nossa amostra de {sampleSize} sudokus Inferno mede SE {hellSeRatingRange}."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Hell boards measures SE {seRatingRange}, with the <0/> as the most common hardest step."
+msgstr "Nossa amostra de {sampleSize} sudokus Inferno mede SE {seRatingRange}, com <0/> como passo mais difícil mais comum."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Medium boards measures SE {seRatingRange}, and {singlesOnlyPuzzleCount} of {sampleSize} finished on singles alone — this is the first tier where that number is zero by construction. The most common hardest step in the sample is the <0/>, and the hardest anything reached is the <1/>. Players who read pencil marks fluently clear a Medium board noticeably faster than players relying on mental candidate tracking, who will find this the first tier that genuinely rewards writing candidates down. The full per-tier data sits in our <2>sudoku difficulty rating guide</2>."
+msgstr "Nossa amostra de {sampleSize} sudokus Médios mede SE {seRatingRange}, e {singlesOnlyPuzzleCount} de {sampleSize} terminaram só com únicos; este é o primeiro nível em que esse número é zero por construção. O passo mais difícil mais comum na amostra é o <0/>, e o mais difícil que algo alcançou é o <1/>. Quem lê anotações a lápis com fluência termina um sudoku Médio visivelmente mais rápido do que quem depende de acompanhar candidatos de cabeça, e esses jogadores vão achar este o primeiro nível que realmente recompensa anotar os candidatos. Os dados completos de cada nível estão no nosso <2>guia de classificação de dificuldade do sudoku</2>."
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Medium boards measures SE {seRatingRange}."
+msgstr "Nossa amostra de {sampleSize} sudokus Médios mede SE {seRatingRange}."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Newbie boards measures SE {seRatingRange}."
+msgstr "Nossa amostra de {sampleSize} sudokus Iniciante mede SE {seRatingRange}."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Nightmare boards measures SE (Sudoku Explainer) {seRatingRange}, with the <0/> as the most common hardest step. AIC is the ceiling here: every Nightmare board falls to it, and the <1>Hell tier</1> begins exactly where it stops, with boards that need a forcing chain. Some of those Hell boards carry more givens than Nightmare does, which is the clearest evidence on the site that clue count and difficulty are separate facts. The measured tables live in our <2>sudoku difficulty rating guide</2>. Qualitatively, this is where difficulty stops being about speed and becomes about holding an entire line of implication in your head without losing track of it."
+msgstr "Nossa amostra de {sampleSize} sudokus Pesadelo mede SE (Sudoku Explainer) {seRatingRange}, com <0/> como passo mais difícil mais comum. O AIC é o teto aqui: todo sudoku Pesadelo cede a ele, e o <1>nível Inferno</1> começa exatamente onde ele termina, com sudokus que exigem uma cadeia forçada. Alguns desses sudokus Inferno têm mais pistas que o Pesadelo, a evidência mais clara do site de que quantidade de pistas e dificuldade são coisas diferentes. As tabelas medidas estão no nosso <2>guia de classificação de dificuldade do sudoku</2>. Qualitativamente, é aqui que a dificuldade deixa de ser questão de velocidade e passa a ser questão de manter uma linha inteira de implicações na cabeça sem se perder."
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Our sample of {sampleSize} Nightmare boards measures SE {seRatingRange}."
+msgstr "Nossa amostra de {sampleSize} sudokus Pesadelo mede SE {seRatingRange}."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Our technique engine agrees that these boards sit past its reach. It knows every pattern on the <0>technique index</0>, up to the <1/> and the <2/>, and it still cannot finish a single Infinity puzzle on its own. That does not mean they need guessing; it means they need longer forcing nets than the engine implements. Hints are off by default on Nightmare, Hell and Infinity, and a setting turns them back on if you want the engine’s help for as far as it goes."
+msgstr "Nosso mecanismo de técnicas concorda que esses sudokus estão além do seu alcance. Ele conhece todos os padrões do <0>índice de técnicas</0>, até o <1/> e o <2/>, e mesmo assim não consegue terminar sozinho um único sudoku Infinito. Isso não significa que exijam palpites; significa que exigem redes forçadas mais longas do que as que o mecanismo implementa. As dicas vêm desativadas por padrão no Pesadelo, no Inferno e no Infinito, e uma configuração as reativa se você quiser a ajuda do mecanismo até onde ele chega."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Pencil in every remaining candidate for the blank cells that are left, then work through the technique index in difficulty order to keep clearing them."
+msgstr "Anote a lápis todos os candidatos restantes das células em branco que sobraram e depois percorra o índice de técnicas em ordem de dificuldade para continuar resolvendo."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Play"
+msgstr "Jogar"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Play {SITE_NAME}"
+msgstr "Jogar {SITE_NAME}"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Play Easy Sudoku now"
+msgstr "Jogar sudoku fácil agora"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Play Hard Sudoku now"
+msgstr "Jogar sudoku difícil agora"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Play Hell Sudoku now"
+msgstr "Jogar sudoku Inferno agora"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Play Infinity Sudoku now"
+msgstr "Jogar sudoku Infinito agora"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "Play Medium Sudoku now"
+msgstr "Jogar sudoku médio agora"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Play Newbie Sudoku now"
+msgstr "Jogar sudoku para iniciantes agora"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Play Nightmare Sudoku now"
+msgstr "Jogar sudoku Pesadelo agora"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+#: src/home/components/home-page/home-page.tsx
+msgid "Play now"
+msgstr "Jogar agora"
+
+#: src/puzzle/components/playable-puzzle-board/playable-puzzle-board.tsx
+msgid "Play this puzzle here"
+msgstr "Jogue este sudoku aqui"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Prefer a screen? Play Suuudokuuu now"
+msgstr "Prefere uma tela? Jogue Suuudokuuu agora"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Primary"
+msgstr "Principal"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Print"
+msgstr "Imprimir"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Print space here matters more than at the easier tiers, because intersections and pairs work by marking candidates in the margins. The {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page at full cell size, leaving enough room around each digit to pencil in the small numbers an intersection or a pair reasons over. Solved grids close out the file so you can check your candidate marks against a confirmed answer. Our published sample of {sampleSize} Medium boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "O espaço de impressão importa mais aqui do que nos níveis mais fáceis, porque interseções e pares funcionam marcando candidatos nas margens. Os {PRINTABLE_BOOKLET_SIZE} sudokus são impressos {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} por página em tamanho de célula completo, deixando espaço suficiente em torno de cada dígito para anotar a lápis os números pequenos sobre os quais uma interseção ou um par raciocina. As grades resolvidas fecham o arquivo para que você confira suas anotações com uma resposta confirmada. Nossa amostra publicada de {sampleSize} sudokus Médios mede SE {seRatingRange}, números que o <0>guia de classificação de dificuldade do sudoku</0> mede diretamente, em vez de supor."
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Printable"
+msgstr "Para imprimir"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Printable Easy Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Fácil para imprimir"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Printable Hard Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Difícil para imprimir"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Printable Hell Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Inferno para imprimir"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Printable Infinity Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Infinito para imprimir"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Printable Medium Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Médio para imprimir"
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Printable Newbie Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Iniciante para imprimir"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Printable Nightmare Sudoku FAQ"
+msgstr "Perguntas frequentes sobre o Sudoku Pesadelo para imprimir"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku"
+msgstr "Sudoku para imprimir"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku booklets by difficulty"
+msgstr "Cadernos de sudoku para imprimir por dificuldade"
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Printable sudoku FAQ"
+msgstr "Perguntas frequentes sobre sudoku para imprimir"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Privacy policy"
+msgstr "Política de privacidade"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Project"
+msgstr "Projeto"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Puzzle 1 from the Easy booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 do caderno Fácil, um dos {PRINTABLE_BOOKLET_SIZE} do PDF."
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Puzzle 1 from the Hard booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 do caderno Difícil, um dos {PRINTABLE_BOOKLET_SIZE} do PDF."
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Puzzle 1 from the Hell booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 do caderno Inferno, um dos {PRINTABLE_BOOKLET_SIZE} do PDF."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Puzzle 1 from the Infinity booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 do caderno Infinito, um dos {PRINTABLE_BOOKLET_SIZE} do PDF."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Puzzle 1 from the Medium booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 do caderno Médio, um dos {PRINTABLE_BOOKLET_SIZE} do PDF."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Puzzle 1 from the Newbie booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 do caderno Iniciante, um dos {PRINTABLE_BOOKLET_SIZE} do PDF."
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Puzzle 1 from the Nightmare booklet, one of {PRINTABLE_BOOKLET_SIZE} in the PDF."
+msgstr "Sudoku 1 do caderno Pesadelo, um dos {PRINTABLE_BOOKLET_SIZE} do PDF."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Rarely. Most players can track the handful of candidates a hidden single needs in their head, but writing them down never hurts on a busier row."
+msgstr "Raramente. A maioria dos jogadores consegue guardar de cabeça os poucos candidatos de que um único oculto precisa, mas anotá-los nunca atrapalha em uma linha mais cheia."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Read the <0>how to play guide</0> for the three rules and a walkthrough of your first moves, or look up any term in the <1>sudoku glossary</1>, which defines every technique and every piece of vocabulary the guides use."
+msgstr "Leia o <0>guia de como jogar</0> para conhecer as três regras e um passo a passo das suas primeiras jogadas, ou consulte qualquer termo no <1>glossário do sudoku</1>, que define todas as técnicas e todo o vocabulário usado nos guias."
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "Ready for a puzzle that needs one more idea? Move up to <0>Easy Sudoku</0>, which adds the hidden single on top of everything here. Prefer paper? Download the <1>printable Newbie sudoku booklet</1>, or see the <2>sudoku for seniors</2> guide for large-print and comfort options. Browse the full <3>technique index</3> or the <4>how to play guide</4>, or head back <5>home</5> and see all seven tiers on the <6>Sudoku difficulty levels</6> hub."
+msgstr "Pronto para um sudoku que exige mais uma ideia? Suba para o <0>Sudoku Fácil</0>, que acrescenta o único oculto a tudo o que há aqui. Prefere papel? Baixe o <1>caderno de sudoku Iniciante para imprimir</1> ou veja o guia de <2>sudoku para idosos</2> com opções de letras grandes e conforto. Explore o <3>índice de técnicas</3> completo ou o <4>guia de como jogar</4>, ou volte ao <5>início</5> e veja os sete níveis no guia de <6>níveis de dificuldade do Sudoku</6>."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Ready for intersections and subsets to start mattering? Move on to the <0>printable Medium sudoku booklet</0>, or step back to <1>printable Newbie sudoku</1> for an even gentler grid. To play Easy puzzles on a screen instead, visit the <2>Easy sudoku lander</2>."
+msgstr "Pronto para as interseções e os subconjuntos começarem a importar? Passe para o <0>caderno de sudoku Médio para imprimir</0> ou volte ao <1>sudoku Iniciante para imprimir</1> para uma grade ainda mais suave. Para jogar sudokus Fáceis na tela, visite a <2>página do Sudoku Fácil</2>."
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "Ready to chain eliminations together instead of spotting shapes? Move up to <0>Nightmare Sudoku</0>, or step back to <1>Medium Sudoku</1> for an intersections-and-subsets puzzle. Prefer paper? Download the <2>printable Hard sudoku PDF</2>. See the <3>technique index</3>, the <4>how to play guide</4>, every tier on the <5>Sudoku difficulty levels</5> hub, or head <6>home</6>."
+msgstr "Pronto para encadear eliminações em vez de identificar formas? Suba para o <0>Sudoku Pesadelo</0> ou volte ao <1>Sudoku Médio</1> para um sudoku de interseções e subconjuntos. Prefere papel? Baixe o <2>PDF de sudoku Difícil para imprimir</2>. Veja o <3>índice de técnicas</3>, o <4>guia de como jogar</4>, todos os níveis no guia de <5>níveis de dificuldade do Sudoku</5> ou volte para o <6>início</6>."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Record puzzles such as Everest and AI Escargot, printed as originally published. See the <0>Infinity sudoku lander</0> to play them digitally."
+msgstr "Sudokus recordistas como o Everest e o AI Escargot, impressos como foram publicados originalmente. Veja a <0>página do Sudoku Infinito</0> para jogá-los no formato digital."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Scan for missing units"
+msgstr "Procure unidades incompletas"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Seven difficulty levels from Newbie through Hell to Infinity, the top tier serving record puzzles such as Everest and AI Escargot"
+msgstr "Sete níveis de dificuldade, do Iniciante ao Infinito passando pelo Inferno, com o nível máximo trazendo sudokus recordistas como o Everest e o AI Escargot"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Seven: Newbie, Easy, Medium, Hard, Nightmare, Hell and Infinity. Hell puzzles come from a bundled, verified corpus of boards that each need a forcing chain, beyond anything Nightmare asks for, and <0>Infinity</0> serves record puzzles such as Everest and AI Escargot."
+msgstr "Sete: Iniciante, Fácil, Médio, Difícil, Pesadelo, Inferno e Infinito. Os sudokus Inferno vêm de um acervo embutido e verificado de sudokus que exigem uma cadeia forçada, além de tudo o que o Pesadelo pede, e o <0>Infinito</0> traz sudokus recordistas como o Everest e o AI Escargot."
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Seven. Newbie, Easy, Medium, Hard, Nightmare and Hell form the technique ladder, each defined by a clue count and a guaranteed technique band rather than a marketing label. Infinity sits above them, a curated set of record puzzles chosen by published rating."
+msgstr "Sete. Iniciante, Fácil, Médio, Difícil, Pesadelo e Inferno formam a escada de técnicas, cada um definido por uma quantidade de pistas e uma faixa garantida de técnicas, e não por um rótulo de marketing. O Infinito fica acima deles, um conjunto selecionado de sudokus recordistas escolhidos pela classificação publicada."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Shareable puzzle links and move-by-move replays of your recent games, the last 20 per difficulty"
+msgstr "Links de sudokus para compartilhar e replays jogada a jogada das suas partidas recentes, as últimas 20 por dificuldade"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "Size and shape. A wing is a fixed pattern of three or four cells you learn to recognise at a glance; a chain is built link by link and can run to any length, which is why chains sit a full band above wings on the SE scale."
+msgstr "Tamanho e forma. Um wing é um padrão fixo de três ou quatro células que você aprende a reconhecer de relance; uma cadeia é construída ligação por ligação e pode ter qualquer comprimento, e é por isso que as cadeias ficam uma faixa inteira acima dos wings na escala SE."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+#: src/printable/components/printable-tier-card/printable-tier-card.tsx
+msgid "Solutions included on the last pages"
+msgstr "Soluções incluídas nas últimas páginas"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Solve the cheapest placements first: full houses, then naked singles, then hidden singles."
+msgstr "Resolva primeiro as colocações mais baratas: últimas células livres, depois únicos nus, depois únicos ocultos."
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Solver"
+msgstr "Solucionador"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Solving Easy boards without reaching for a hidden single? Step back to <0>Newbie Sudoku</0>, or step up to <1>Medium Sudoku</1>, where intersections and your first pairs appear. Prefer paper? Download the <2>printable Easy sudoku booklet</2>, or see the <3>sudoku for seniors</3> guide for large-print and comfort options. See the full <4>technique index</4>, the <5>how to play</5> guide, or every tier on the <6>Sudoku difficulty levels</6> hub back <7>home</7>."
+msgstr "Está resolvendo sudokus Fáceis sem precisar de um único oculto? Volte ao <0>Sudoku Iniciante</0> ou suba para o <1>Sudoku Médio</1>, em que surgem as interseções e seus primeiros pares. Prefere papel? Baixe o <2>caderno de sudoku Fácil para imprimir</2> ou veja o guia de <3>sudoku para idosos</3> com opções de letras grandes e conforto. Veja o <4>índice de técnicas</4> completo, o guia de <5>como jogar</5> ou todos os níveis no guia de <6>níveis de dificuldade do Sudoku</6> de volta ao <7>início</7>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Solving your first cells"
+msgstr "Resolvendo suas primeiras células"
+
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+msgid "Some of these grids start with as few as {HELL_CORPUS_MINIMUM_GIVEN_COUNT} givens and look almost empty at first glance — the {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with generous cell size specifically so there is room to track candidates by hand across a long chain. The final pages hold the completed grids, which is close to essential at this tier: verifying a chain of eliminations by eye is slow, and a printed key lets you confirm the end state without re-deriving the whole path."
+msgstr "Algumas dessas grades começam com apenas {HELL_CORPUS_MINIMUM_GIVEN_COUNT} pistas e parecem quase vazias à primeira vista; os {PRINTABLE_BOOKLET_SIZE} sudokus são impressos {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} por página, com células generosas justamente para haver espaço de acompanhar candidatos à mão ao longo de uma cadeia longa. As páginas finais trazem as grades completas, o que é quase essencial neste nível: verificar uma cadeia de eliminações a olho é lento, e um gabarito impresso permite confirmar o resultado final sem refazer todo o caminho."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Source on GitHub"
+msgstr "Código-fonte no GitHub"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Spotting fish and wings reliably? Move up to the <0>printable Nightmare sudoku booklet</0> for chains and coloring. Step back to <1>printable Medium sudoku</1> for intersections and subsets only, or play Hard on a screen at the <2>Hard sudoku lander</2>."
+msgstr "Identifica fish e wings com segurança? Suba para o <0>caderno de sudoku Pesadelo para imprimir</0>, com cadeias e coloração. Volte ao <1>sudoku Médio para imprimir</1> só para interseções e subconjuntos, ou jogue o Difícil na tela, na <2>página do Sudoku Difícil</2>."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Stuck on a puzzle?"
+msgstr "Travou em um sudoku?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Sudoku difficulties"
+msgstr "Dificuldades do sudoku"
+
+#: src/difficulty/components/difficulty-navigation/difficulty-navigation.tsx
+msgid "Sudoku difficulty chain"
+msgstr "Cadeia de dificuldades do sudoku"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Sudoku difficulty levels"
+msgstr "Níveis de dificuldade do Sudoku"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Sudoku difficulty levels FAQ"
+msgstr "Perguntas frequentes sobre os níveis de dificuldade do Sudoku"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku for seniors"
+msgstr "Sudoku para idosos"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku glossary"
+msgstr "Glossário do sudoku"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Sudoku is a logic puzzle played on a 9×9 grid, divided into nine 3×3 boxes. The goal is to fill every empty cell with a digit from 1 to 9 so that no digit repeats in any row, column or box. A well-formed Sudoku always starts with some cells already filled in — the givens, or clues — and always has exactly one valid solution reachable by logic alone, with no guessing."
+msgstr "O sudoku é um quebra-cabeça de lógica jogado em uma grade 9×9, dividida em nove blocos 3×3. O objetivo é preencher cada célula vazia com um dígito de 1 a 9, de modo que nenhum dígito se repita em nenhuma linha, coluna ou bloco. Um sudoku bem formado sempre começa com algumas células já preenchidas (as pistas, ou números dados) e sempre tem exatamente uma solução válida alcançável apenas por lógica, sem palpites."
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku solver"
+msgstr "Solucionador de sudoku"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku techniques"
+msgstr "Técnicas de sudoku"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Sudoku tips"
+msgstr "Dicas de sudoku"
+
+#: src/techniques/components/technique-summary/technique-summary.tsx
+msgid "Summary"
+msgstr "Resumo"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Suuudokuuu grades its puzzles on a six-tier ladder, from Newbie through Hell, and each tier is defined by two concrete facts rather than a marketing label: how many clues the grid starts with, and which named solving techniques the tier is guaranteed to require. Every new board is also rated on the SE (Sudoku Explainer) scale the moment it is created, by the same rating package the <0>sudoku difficulty rating guide</0> uses to publish the measured band and SE range of every ladder tier below. Above the ladder sits <1>Infinity</1>, a curated set of record puzzles that carry the ratings independent raters publish, because they reach past the top of our own rating scale."
+msgstr "O Suuudokuuu classifica seus sudokus em uma escada de seis níveis, do Iniciante ao Inferno, e cada nível é definido por dois fatos concretos, e não por um rótulo de marketing: com quantas pistas a grade começa e quais técnicas de resolução nomeadas o nível exige, com garantia. Todo novo sudoku também é classificado na escala SE (Sudoku Explainer) no momento em que é criado, pelo mesmo pacote de classificação que o <0>guia de classificação de dificuldade do sudoku</0> usa para publicar a faixa medida e o intervalo SE de cada nível da escada abaixo. Acima da escada fica o <1>Infinito</1>, um conjunto selecionado de sudokus recordistas que levam as classificações publicadas por avaliadores independentes, porque ultrapassam o topo da nossa própria escala de classificação."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Suuudokuuu has seven difficulty levels: six that each require a wider set of techniques than the last, and Infinity."
+msgstr "O Suuudokuuu tem sete níveis de dificuldade: seis que exigem, cada um, um conjunto de técnicas mais amplo que o anterior, e o Infinito."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Suuudokuuu’s hardest tier: {infinityCorpusSize} of the hardest sudoku puzzles ever published, each with a published SE rating of {minimumRatingLabel} or more, playable for free with no ads."
+msgstr "O nível mais difícil do Suuudokuuu: {infinityCorpusSize} dos sudokus mais difíceis já publicados, cada um com classificação SE publicada de {minimumRatingLabel} ou mais, para jogar de graça e sem anúncios."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Technique-aware hints that name the exact solving pattern, not just the next digit"
+msgstr "Dicas que conhecem as técnicas e nomeiam o padrão exato de resolução, não só o próximo dígito"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Techniques"
+msgstr "Técnicas"
+
+#: src/chrome/components/site-header/site-header.tsx
+msgid "Text size"
+msgstr "Tamanho do texto"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "The {PRINTABLE_BOOKLET_SIZE} puzzles print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, sized so a chain crossing the whole grid still fits comfortably on one sheet. Full solved grids close the booklet, which matters more here than at the easier tiers — a single missed elimination partway along a chain compounds quickly, and a printed answer key catches it. The measured spread behind these claims lives in the <0>sudoku difficulty rating guide</0>."
+msgstr "Os {PRINTABLE_BOOKLET_SIZE} sudokus são impressos {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} por página, em um tamanho que permite que uma cadeia que atravessa a grade inteira ainda caiba confortavelmente em uma folha. As grades resolvidas completas fecham o caderno, o que importa mais aqui do que nos níveis mais fáceis: uma única eliminação perdida no meio de uma cadeia se acumula rápido, e um gabarito impresso a detecta. A dispersão medida por trás dessas afirmações está no <0>guia de classificação de dificuldade do sudoku</0>."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "The best-known Infinity grids have pages of their own, each playable, printable and solved step by step by the engine: <0>AI Escargot</0>, <1>Golden Nugget</1>, <2>Platinum Blonde</2>, <3>Everest</3>, <4>Kolk</4> and <5>Silver Plate</5>."
+msgstr "As grades Infinity mais conhecidas têm páginas próprias, cada uma jogável, imprimível e resolvida passo a passo pelo motor: <0>AI Escargot</0>, <1>Golden Nugget</1>, <2>Platinum Blonde</2>, <3>Everest</3>, <4>Kolk</4> e <5>Silver Plate</5>."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The grid itself never changes: nine rows, nine columns and nine boxes, eighty-one cells in total. What changes from puzzle to puzzle is only which cells start filled and which digits they hold, and it is that starting layout of givens that determines how much logic is needed to reach the one valid solution."
+msgstr "A grade em si nunca muda: nove linhas, nove colunas e nove blocos, oitenta e uma células no total. O que muda de um sudoku para outro é apenas quais células começam preenchidas e quais dígitos elas contêm, e é esse arranjo inicial de pistas que determina quanta lógica é necessária para chegar à única solução válida."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "The large-print set uses the same Easy-tier logic as the booklet above, but at {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} puzzles per page instead of {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}, so every cell and digit prints noticeably bigger. It suits low-vision solvers, classroom handouts read from a distance, and anyone who finds the standard grid cramped on paper. See the <0>large print sudoku page</0> for printing tips and the on-screen alternative, or the <1>sudoku for seniors</1> guide for the full comfort-focused rundown."
+msgstr "O conjunto em letras grandes usa a mesma lógica do nível Fácil do caderno acima, mas com {PRINTABLE_LARGE_PRINT_PUZZLES_PER_PAGE} sudokus por página em vez de {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}, então cada célula e cada dígito saem visivelmente maiores. Serve para quem tem baixa visão, para atividades de sala de aula lidas à distância e para quem acha a grade padrão apertada no papel. Veja a <0>página de sudoku em letras grandes</0> para dicas de impressão e a alternativa na tela, ou o guia de <1>sudoku para idosos</1> para um resumo completo voltado ao conforto."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "The other tiers are defined by the techniques they require. Infinity is defined by reputation, measured: a puzzle qualifies only if independent raters have published an SE rating of {minimumRatingLabel} or higher for it. Most of the {infinityCorpusSize} come from a 2011 snapshot of the hardest-puzzle database the sudoku-solving community maintains; the rest are the named classics, taken from the forum threads and publications where they first appeared. Before the set is packed into the app, a Dancing Links exact-cover solver and a bitmask solver both confirm that every grid has exactly one solution."
+msgstr "Os outros níveis são definidos pelas técnicas que exigem. O Infinito é definido pela reputação, medida: um sudoku só se qualifica se avaliadores independentes tiverem publicado para ele uma classificação SE de {minimumRatingLabel} ou mais. A maioria dos {infinityCorpusSize} vem de um instantâneo de 2011 do banco de dados de sudokus mais difíceis mantido pela comunidade de resolução de sudoku; o restante são os clássicos nomeados, tirados dos tópicos de fóruns e das publicações em que apareceram pela primeira vez. Antes de o conjunto ser empacotado no app, um solucionador de cobertura exata com Dancing Links e um solucionador de bitmask confirmam que toda grade tem exatamente uma solução."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The PDF opens with a cover page stating the puzzle and page counts, moves into {PRINTABLE_BOOKLET_SIZE} puzzles printed {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page, and closes with every solved grid on the final pages so answers never sit next to an unsolved puzzle. Every grid is drawn with vector lines and the standard PDF Helvetica font, so it stays sharp at any print size and never depends on a scanned image. Our published sample of {sampleSize} Newbie boards measures SE {seRatingRange} — numbers the <0>sudoku difficulty rating guide</0> measures directly rather than assumes."
+msgstr "O PDF abre com uma página de rosto que informa o número de sudokus e de páginas, segue com {PRINTABLE_BOOKLET_SIZE} sudokus impressos {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} por página e termina com todas as grades resolvidas nas páginas finais, para que as respostas nunca fiquem ao lado de um sudoku não resolvido. Toda grade é desenhada com linhas vetoriais e a fonte PDF padrão Helvetica, então permanece nítida em qualquer tamanho de impressão e nunca depende de uma imagem digitalizada. Nossa amostra publicada de {sampleSize} sudokus Iniciante mede SE {seRatingRange}, números que o <0>guia de classificação de dificuldade do sudoku</0> mede diretamente, em vez de supor."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The printable Newbie Sudoku booklet is a free PDF of {clueCount}-clue puzzles where every blank is reachable with a full house or a naked single — a property each puzzle was checked for before it went into the PDF. It is the booklet to hand a first-time solver, a classroom just learning the rules, or anyone who wants a puzzle that never demands a second guess."
+msgstr "O caderno de Sudoku Iniciante para imprimir é um PDF gratuito de sudokus de {clueCount} pistas em que todo espaço em branco se resolve com uma última célula livre ou um único nu, propriedade que cada sudoku teve verificada antes de entrar no PDF. É o caderno para entregar a quem resolve pela primeira vez, a uma sala de aula que está aprendendo as regras ou a quem quer um sudoku que nunca exija um segundo palpite."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The puzzles are printed exactly as they were published, with no reshuffling, so you can compare your grid with the originals discussed on the <0>hardest sudoku puzzles</0> page. They print {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} to a page with room for a full set of pencil marks, which you will need: at this level most solvers keep every candidate written in and test chains on a separate sheet. The final pages hold the completed grids, so you can check a long line of reasoning without having to finish it first."
+msgstr "Os sudokus são impressos exatamente como foram publicados, sem embaralhar, para que você possa comparar sua grade com os originais discutidos na página dos <0>sudokus mais difíceis</0>. Eles são impressos {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} por página, com espaço para um conjunto completo de anotações a lápis, de que você vai precisar: neste nível, a maioria dos jogadores mantém todos os candidatos anotados e testa cadeias em uma folha separada. As páginas finais trazem as grades completas, para você conferir uma longa linha de raciocínio sem precisar terminá-la antes."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The ratings are the values independent raters publish, not our own measurements."
+msgstr "As classificações são os valores que avaliadores independentes publicam, não medições nossas."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "The SE ratings are the values independent raters and the sudoku-solving community publish. Suuudokuuu’s own rater reports {SE_RATING_CEILING} with a ceiling flag for anything harder than that, so it does not produce its own figure for these puzzles."
+msgstr "As classificações SE são os valores publicados por avaliadores independentes e pela comunidade de resolução de sudoku. O avaliador do próprio Suuudokuuu informa {SE_RATING_CEILING} com um indicador de teto para qualquer coisa mais difícil que isso, então ele não produz um número próprio para esses sudokus."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "The standard PDF already uses a generous {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}-puzzles-per-page layout. For bigger cells specifically, see the <0>printable Easy sudoku booklet</0>, which is also the source tier for our large-print PDF."
+msgstr "O PDF padrão já usa um layout generoso de {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} sudokus por página. Para células maiores, veja o <0>caderno de sudoku Fácil para imprimir</0>, que também é o nível de origem do nosso PDF em letras grandes."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The three rules of Sudoku"
+msgstr "As três regras do Sudoku"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "The very first thing to check is whether a box, row or column is missing only one digit. If eight of the nine cells in a unit are already filled, the ninth cell must take the digit the unit is still missing — no candidates to compare, just subtraction."
+msgstr "A primeira coisa a verificar é se um bloco, uma linha ou uma coluna está faltando apenas um dígito. Se oito das nove células de uma unidade já estão preenchidas, a nona célula precisa receber o dígito que ainda falta na unidade: sem candidatos para comparar, só subtração."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "This booklet prints {PRINTABLE_BOOKLET_SIZE} of the hardest sudoku puzzles ever published, taken from Suuudokuuu’s Infinity tier: Arto Inkala’s Everest, AI Escargot, Platinum Blonde, Golden Nugget and other record grids, each with a published SE (Sudoku Explainer) rating between {lowestRatingLabel} and {highestRatingLabel}. Every one has exactly one solution, and the solved grids are at the back."
+msgstr "Este caderno imprime {PRINTABLE_BOOKLET_SIZE} dos sudokus mais difíceis já publicados, tirados do nível Infinito do Suuudokuuu: o Everest de Arto Inkala, o AI Escargot, o Platinum Blonde, o Golden Nugget e outras grades recordistas, cada uma com classificação SE (Sudoku Explainer) publicada entre {lowestRatingLabel} e {highestRatingLabel}. Todos têm exatamente uma solução, e as grades resolvidas estão no final."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "This is the booklet to print for a short daily habit rather than a long sitting: fold it into a notebook, work one grid at a time, and there is never a candidate to write down or a pair to track across the row. It also suits a classroom introducing the rules for the first time, since a full class can finish a puzzle in the same short window without anyone stalling on an intersection they have not been taught yet. The {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE}-per-page layout still leaves each grid large enough to write in comfortably, even for a child’s handwriting, and the answer key at the back means a teacher never has to solve the sheet themselves to check it."
+msgstr "Este é o caderno para imprimir para um hábito diário curto, e não para uma sessão longa: coloque-o em um caderno, resolva uma grade por vez, e nunca haverá um candidato a anotar nem um par a acompanhar na linha. Também serve para uma sala de aula que apresenta as regras pela primeira vez, já que uma turma inteira consegue terminar um sudoku na mesma janela curta sem ninguém travar em uma interseção que ainda não aprendeu. O layout de {PRINTABLE_BOOKLET_PUZZLES_PER_PAGE} por página ainda deixa cada grade grande o bastante para escrever com conforto, até com a letra de uma criança, e o gabarito no final significa que o professor nunca precisa resolver a folha para conferi-la."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "Those extra blanks over Newbie are enough that the grid stops filling itself in from <0>full houses</0> alone. Once the obvious placements run out, an Easy puzzle always leaves at least one cell where hidden single reasoning is the only way forward — check each unit’s missing digits against where they can still legally go, rather than reading candidates straight off one cell. Suuudokuuu’s technique engine tries hidden single third, right after full house and <1>naked single</1>, and an Easy-rated puzzle never needs to go further than that: no pointing pairs, no subsets, nothing that asks you to hold more than one unit in mind at once. The gap between the tiers is small on purpose — it is exactly one technique wide."
+msgstr "Esses espaços em branco a mais em relação ao Iniciante bastam para que a grade deixe de se preencher sozinha só com <0>últimas células livres</0>. Quando as colocações óbvias se esgotam, um sudoku Fácil sempre deixa pelo menos uma célula em que o raciocínio do único oculto é o único caminho: confira os dígitos que faltam em cada unidade contra os lugares onde ainda podem ir legalmente, em vez de ler os candidatos direto de uma célula. O mecanismo de técnicas do Suuudokuuu tenta o único oculto em terceiro lugar, logo depois da última célula livre e do <1>único nu</1>, e um sudoku classificado como Fácil nunca precisa ir além disso: sem pares apontadores, sem subconjuntos, nada que peça para manter mais de uma unidade em mente ao mesmo tempo. A distância entre os níveis é pequena de propósito: tem exatamente uma técnica de largura."
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Tips for pencil-mark solving"
+msgstr "Dicas para resolver com anotações a lápis"
+
+#: src/techniques/components/technique-summary/technique-summary.tsx
+msgid "TL;DR"
+msgstr "Resumo"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Type or paste the grid into the <0>step-by-step sudoku solver</0> and it will name every move — Hidden Single, Naked Pair, X-Wing — instead of just filling the board in. It checks that your puzzle has exactly one solution first, and it runs entirely in your browser."
+msgstr "Digite ou cole a grade no <0>solucionador de sudoku passo a passo</0> e ele nomeará cada jogada (Único Oculto, Par Nu, X-Wing) em vez de apenas preencher o tabuleiro. Ele verifica primeiro se o seu sudoku tem exatamente uma solução, e roda inteiramente no seu navegador."
+
+#: src/seo/components/updated-date/updated-date.tsx
+msgid "Updated <0>{formattedDate}</0>"
+msgstr "Atualizado em <0>{formattedDate}</0>"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "Verifying fish and wings on paper"
+msgstr "Verificando fish e wings no papel"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Very. Every puzzle in the Infinity set has a published SE rating of at least {lowestRatingLabel}, well past anything the generated tiers or the Hell corpus produce. Our own rater stops pricing the SE ladder at {SE_RATING_CEILING}, so the figures quoted here come from independent raters, and our technique engine cannot finish any of these grids on its own. Expect to need long forcing chains and forcing nets, and expect a single puzzle to take far longer than anything else on this site."
+msgstr "Muito. Todo sudoku do conjunto Infinito tem classificação SE publicada de pelo menos {lowestRatingLabel}, muito além de qualquer coisa que os níveis gerados ou o acervo Inferno produzem. Nosso próprio avaliador para de medir a escada SE em {SE_RATING_CEILING}, então os números citados aqui vêm de avaliadores independentes, e o nosso mecanismo de técnicas não consegue terminar nenhuma dessas grades sozinho. Espere precisar de longas cadeias forçadas e redes forçadas, e espere que um único sudoku leve muito mais tempo que qualquer outro deste site."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Want the record puzzles on paper? Download the <0>printable Infinity sudoku PDF</0>. Not ready for them yet? Step back to <1>Hell Sudoku</1>, where every board needs a forcing chain but stays within reach of our technique ladder. Read the stories behind Everest and AI Escargot on the <2>hardest sudoku puzzles</2> page, compare every tier on the <3>Sudoku difficulty levels</3> hub, or head <4>home</4>."
+msgstr "Quer os sudokus recordistas no papel? Baixe o <0>PDF de sudoku Infinito para imprimir</0>. Ainda não está pronto para eles? Volte ao <1>Sudoku Inferno</1>, em que todo sudoku exige uma cadeia forçada, mas continua ao alcance da nossa escada de técnicas. Leia as histórias por trás do Everest e do AI Escargot na página dos <2>sudokus mais difíceis</2>, compare todos os níveis no guia de <3>níveis de dificuldade do Sudoku</3> ou volte para o <4>início</4>."
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Want to warm up first? The <0>printable Hell sudoku booklet</0> holds forcing-chain puzzles that are hard but still within reach of our technique ladder. Prefer a screen? Play the same record puzzles on the <1>Infinity sudoku lander</1>, where each game reshuffles the grid, or browse every booklet on the <2>printable sudoku hub</2>."
+msgstr "Quer se aquecer antes? O <0>caderno de sudoku Inferno para imprimir</0> traz sudokus de cadeia forçada que são difíceis, mas ainda ao alcance da nossa escada de técnicas. Prefere uma tela? Jogue os mesmos sudokus recordistas na <1>página do Sudoku Infinito</1>, em que cada partida embaralha a grade, ou explore todos os cadernos no <2>guia de sudoku para imprimir</2>."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "What difficulty levels exist?"
+msgstr "Quais níveis de dificuldade existem?"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What is a finned fish in sudoku?"
+msgstr "O que é um fish com barbatana (finned) no sudoku?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What is a pointing pair?"
+msgstr "O que é um par apontador?"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "What is Infinity sudoku?"
+msgstr "O que é o sudoku Infinito?"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "What is inside the booklet"
+msgstr "O que há dentro do caderno"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "What is the difference between a clue and a candidate?"
+msgstr "Qual é a diferença entre uma pista e um candidato?"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "What is the difference between a wing and a chain?"
+msgstr "Qual é a diferença entre um wing e uma cadeia?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "What is the difference between Newbie and Easy sudoku?"
+msgstr "Qual é a diferença entre o sudoku Iniciante e o Fácil?"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "What is the easiest Sudoku difficulty?"
+msgstr "Qual é o nível de dificuldade mais fácil do Sudoku?"
+
+#: src/how-to-play/components/how-to-play-faq/how-to-play-faq.tsx
+msgid "What is the fastest way to get better at Sudoku?"
+msgstr "Qual é a forma mais rápida de melhorar no Sudoku?"
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+msgid "What makes a puzzle Easy"
+msgstr "O que torna um sudoku Fácil"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What makes a puzzle Hard"
+msgstr "O que torna um sudoku Difícil"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "What makes a puzzle Hell"
+msgstr "O que torna um sudoku Inferno"
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "What makes a puzzle Infinity"
+msgstr "O que torna um sudoku Infinito"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What makes a puzzle Medium"
+msgstr "O que torna um sudoku Médio"
+
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+msgid "What makes a puzzle Newbie"
+msgstr "O que torna um sudoku Iniciante"
+
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+msgid "What makes a puzzle Nightmare"
+msgstr "O que torna um sudoku Pesadelo"
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "What technique does an Easy sudoku booklet require?"
+msgstr "Que técnica o caderno de sudoku Fácil exige?"
+
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+msgid "What techniques do I need for Hard sudoku?"
+msgstr "Quais técnicas preciso para o sudoku Difícil?"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "What techniques do I need for Hell level?"
+msgstr "Quais técnicas preciso para o nível Inferno?"
+
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+msgid "What techniques do I need for Medium sudoku?"
+msgstr "Quais técnicas preciso para o sudoku Médio?"
+
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+msgid "What techniques does this Hard booklet require?"
+msgstr "Quais técnicas este caderno Difícil exige?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "What techniques does this Medium booklet require?"
+msgstr "Quais técnicas este caderno Médio exige?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "What techniques does this Nightmare booklet require?"
+msgstr "Quais técnicas este caderno Pesadelo exige?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "When intersections start feeling automatic, move up to the <0>printable Hard sudoku booklet</0> for fish and wing patterns. Drop back to <1>printable Easy sudoku</1> for a singles-only warm-up, or play Medium on a screen at the <2>Medium sudoku lander</2>."
+msgstr "Quando as interseções começarem a parecer automáticas, suba para o <0>caderno de sudoku Difícil para imprimir</0>, com padrões de fish e de wing. Volte ao <1>sudoku Fácil para imprimir</1> para um aquecimento só com únicos, ou jogue o Médio na tela, na <2>página do Sudoku Médio</2>."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "When you start an Infinity game, the app picks one of those puzzles and disguises it. It relabels the digits, shuffles rows within their bands, columns within their stacks and the bands and stacks themselves, and sometimes mirrors the grid across its diagonal. None of that changes the logic or the rating, so the Everest you play is still Everest, it just does not look like the picture below."
+msgstr "Quando você inicia uma partida do Infinito, o app escolhe um desses sudokus e o disfarça. Ele renomeia os dígitos, embaralha as linhas dentro de suas faixas, as colunas dentro de suas pilhas e as próprias faixas e pilhas, e às vezes espelha a grade pela diagonal. Nada disso muda a lógica nem a classificação, então o Everest que você joga continua sendo o Everest; ele só não se parece com a imagem abaixo."
+
+#: src/difficulty/components/easy-sudoku-page/easy-sudoku-page.tsx
+#: src/difficulty/components/hard-sudoku-page/hard-sudoku-page.tsx
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+#: src/difficulty/components/medium-sudoku-page/medium-sudoku-page.tsx
+#: src/difficulty/components/newbie-sudoku-page/newbie-sudoku-page.tsx
+#: src/difficulty/components/nightmare-sudoku-page/nightmare-sudoku-page.tsx
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Where to go next"
+msgstr "Para onde ir em seguida"
+
+#: src/difficulty/components/sudoku-difficulties-page/sudoku-difficulties-page.tsx
+msgid "Which sudoku difficulty should I start with?"
+msgstr "Em qual dificuldade de sudoku devo começar?"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Who rated these puzzles?"
+msgstr "Quem classificou esses sudokus?"
+
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Why {SITE_NAME}"
+msgstr "Por que o {SITE_NAME}"
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Why does Hell use a fixed puzzle corpus instead of generating puzzles?"
+msgstr "Por que o Inferno usa um acervo fixo de sudokus em vez de gerá-los?"
+
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+msgid "Why does this booklet leave more room around each digit?"
+msgstr "Por que este caderno deixa mais espaço em volta de cada dígito?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Why is paper recommended for chain-based puzzles?"
+msgstr "Por que se recomenda papel para sudokus de cadeias?"
+
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Why paper helps with chains"
+msgstr "Por que o papel ajuda com cadeias"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Why players stay"
+msgstr "Por que os jogadores ficam"
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Works fully offline once installed on iOS or Android"
+msgstr "Funciona totalmente offline depois de instalado no iOS ou no Android"
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Write candidates into a cell only once scanning stops producing placements."
+msgstr "Anote candidatos em uma célula só quando a busca parar de produzir colocações."
+
+#: src/how-to-play/components/how-to-play-page/how-to-play-page.tsx
+msgid "Write in candidates once the easy cells run out"
+msgstr "Anote os candidatos quando as células fáceis acabarem"
+
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+msgid "Yes, along with Everest, Platinum Blonde and Golden Nugget. The booklet prints the puzzles as they were originally published."
+msgstr "Sim, junto com o Everest, o Platinum Blonde e o Golden Nugget. O caderno imprime os sudokus como foram publicados originalmente."
+
+#: src/difficulty/components/hell-sudoku-page/hell-sudoku-page.tsx
+msgid "Yes, by construction. Nightmare stops at AIC, and no Hell board can be solved with anything Nightmare allows. Our sample measures Hell at SE {hellSeRatingRange} and Nightmare at SE {nightmareSeRatingRange}."
+msgstr "Sim, por construção. O Pesadelo para no AIC, e nenhum sudoku Inferno pode ser resolvido com nada que o Pesadelo permita. Nossa amostra mede o Inferno em SE {hellSeRatingRange} e o Pesadelo em SE {nightmareSeRatingRange}."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes, in the iOS and Android apps. Once installed, {SITE_NAME} generates and solves puzzles entirely on your device, so it plays the same with no connection."
+msgstr "Sim, nos apps para iOS e Android. Depois de instalado, o {SITE_NAME} gera e resolve sudokus inteiramente no seu dispositivo, então funciona do mesmo jeito sem conexão."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+#: src/printable/components/printable-hard-sudoku-page/printable-hard-sudoku-page.tsx
+#: src/printable/components/printable-hell-sudoku-page/printable-hell-sudoku-page.tsx
+#: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
+#: src/printable/components/printable-medium-sudoku-page/printable-medium-sudoku-page.tsx
+#: src/printable/components/printable-nightmare-sudoku-page/printable-nightmare-sudoku-page.tsx
+msgid "Yes, with no account and no watermark, and every puzzle’s solved grid is included at the back."
+msgstr "Sim, sem conta e sem marca d’água, e a grade resolvida de cada sudoku está incluída no final."
+
+#: src/home/components/home-page/home-page.tsx
+msgid "Yes. {SITE_NAME} is free and source-available, with no in-app purchases, subscriptions or paywalled difficulty levels."
+msgstr "Sim. O {SITE_NAME} é gratuito e com código-fonte disponível, sem compras no app, assinaturas ou níveis de dificuldade atrás de paywall."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Both are in the Infinity set, along with Platinum Blonde and Golden Nugget. Each game reshuffles digits, rows and columns, so the grid looks different every time while the puzzle stays the same."
+msgstr "Sim. Os dois estão no conjunto Infinito, junto com o Platinum Blonde e o Golden Nugget. A cada partida os dígitos, linhas e colunas são embaralhados, então a grade parece diferente toda vez, mas o sudoku continua o mesmo."
+
+#: src/printable/components/printable-easy-sudoku-page/printable-easy-sudoku-page.tsx
+msgid "Yes. Easy is the source tier for the large-print PDF, sampled at {PRINTABLE_LARGE_PRINT_SIZE} puzzles with bigger cells for readers who want more room to write."
+msgstr "Sim. O Fácil é o nível de origem do PDF em letras grandes, com amostra de {PRINTABLE_LARGE_PRINT_SIZE} sudokus e células maiores para quem quer mais espaço para escrever."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. Every difficulty booklet and the large-print set carry the full solved grids on the last pages, generated by the same solver that verifies every puzzle has exactly one solution before it ships."
+msgstr "Sim. Todo caderno de dificuldade e o conjunto em letras grandes trazem as grades resolvidas completas nas últimas páginas, geradas pelo mesmo solucionador que verifica, antes da distribuição, que cada sudoku tem exatamente uma solução."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Every grid is checked by a Dancing Links exact-cover solver and a bitmask solver before it ships, and each has exactly one solution."
+msgstr "Sim. Toda grade é verificada por um solucionador de cobertura exata com Dancing Links e por um solucionador de bitmask antes de ser distribuída, e cada uma tem exatamente uma solução."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Yes. Every puzzle in the booklet is solvable with a full house or a naked single alone, so no candidate marking or elimination logic is ever required."
+msgstr "Sim. Todo sudoku do caderno é resolvível apenas com uma última célula livre ou um único nu, então nunca é preciso anotar candidatos nem usar lógica de eliminação."
+
+#: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Yes. Our sample measures Hell at SE {hellSeRatingRange}, and every Infinity puzzle carries a published rating between {lowestRatingLabel} and {highestRatingLabel}. Hell boards still yield to our technique ladder; Infinity boards do not."
+msgstr "Sim. Nossa amostra mede o Inferno em SE {hellSeRatingRange}, e todo sudoku Infinito tem uma classificação publicada entre {lowestRatingLabel} e {highestRatingLabel}. Os sudokus Inferno ainda cedem à nossa escada de técnicas; os Infinito, não."
+
+#: src/printable/components/printable-newbie-sudoku-page/printable-newbie-sudoku-page.tsx
+msgid "Yes. The PDF downloads free, with no account and no watermark, and includes a full solution key for every puzzle."
+msgstr "Sim. O PDF é baixado de graça, sem conta e sem marca d’água, e inclui um gabarito completo de cada sudoku."
+
+#: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
+msgid "Yes. This site places no restriction on printing or redistributing the PDFs — including handing them out in a classroom, a tutoring session or a worksheet packet."
+msgstr "Sim. Este site não impõe nenhuma restrição à impressão ou à redistribuição dos PDFs, inclusive para distribuí-los em sala de aula, em uma aula particular ou em um pacote de atividades."

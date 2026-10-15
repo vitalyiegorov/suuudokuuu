@@ -1,5 +1,6 @@
 export enum StoreBadgeCampaignEnum {
     HOME = 'HOME',
     FOOTER = 'FOOTER',
-    DIFFICULTY = 'DIFFICULTY'
+    DIFFICULTY = 'DIFFICULTY',
+    CONTENT = 'CONTENT'
 }

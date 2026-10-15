@@ -11,7 +11,7 @@ export const fullHousePageMetadata: PageMetadataInterface = {
     metaDescription:
         'A full house is the last empty cell in a row, column or box, and its value is the one digit that unit is still missing. Worked example, spotting steps and FAQs.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-11T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.7
 };

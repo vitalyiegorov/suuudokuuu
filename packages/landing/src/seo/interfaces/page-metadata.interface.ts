@@ -12,6 +12,7 @@ export interface PageMetadataInterface {
     readonly updatedAt: string;
     readonly changeFrequency: SitemapChangeFrequencyType;
     readonly priority: number;
+    readonly openGraphType?: 'website';
     readonly translations?: Readonly<
         Partial<
             Record<

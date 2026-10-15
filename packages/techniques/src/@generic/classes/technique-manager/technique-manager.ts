@@ -44,12 +44,15 @@ export class TechniqueManager {
         return isDefined(blankCell) ? this.createGuessResult(blankCell) : null;
     }
 
-    solveLogically(techniqueOrder?: readonly SolutionTechniqueEnum[]): LogicalSolveResultInterface {
+    solveLogically(
+        techniqueOrder?: readonly SolutionTechniqueEnum[],
+        initialContext: CandidateContext = CandidateContext.fromSudoku(this.sudoku)
+    ): LogicalSolveResultInterface {
         const orderedStrategies = this.getOrderedStrategies(techniqueOrder);
         const steps: TechniqueResultInterface[] = [];
         const stepLimit = this.getStepLimit();
 
-        let context = CandidateContext.fromSudoku(this.sudoku);
+        let context = initialContext;
         let step = findProgressingStep(context, orderedStrategies);
         let wasSearchCapped = wasContextSearchCapped(context);
 

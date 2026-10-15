@@ -8,7 +8,7 @@ const faqPagePath = '/how-to-play';
 test('renders every FAQ entry as a disclosure whose questions are the published FAQPage schema', async ({ page }) => {
     await page.goto(faqPagePath);
 
-    const entries = page.locator('details');
+    const entries = page.locator('main details');
 
     await expect(entries.first()).toBeVisible();
 

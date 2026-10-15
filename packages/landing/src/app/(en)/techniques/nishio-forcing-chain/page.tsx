@@ -9,6 +9,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -100,6 +101,13 @@ const NishioForcingChainPage = () => (
             </li>
             <li>Starting from a random candidate. Short chains come from crowded areas where each placement quickly forces the next.</li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            Nishio is the one-candidate branch of the forcing-chain family, alongside{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.CellForcingChain} /> and{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.RegionForcingChain} />. It is worth trying only after cheaper chains such as the{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.AIC} /> have come up empty.
+        </p>
         <FaqPage>
             <FaqHeading>Nishio forcing chain FAQ</FaqHeading>
             <Faq>

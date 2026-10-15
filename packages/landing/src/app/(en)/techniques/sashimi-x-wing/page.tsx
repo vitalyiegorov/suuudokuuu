@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -104,6 +105,12 @@ const SashimiXWingPage = () => (
                 among the cover columns; the line may still carry the digit in other, unrelated columns.
             </li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            A sashimi fish is a special case of the <TechniqueLink technique={SolutionTechniqueEnum.FinnedXWing} />, which in turn extends
+            the plain <TechniqueLink technique={SolutionTechniqueEnum.XWing} />. For the three-line version of the same trick, see{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.SashimiSwordfish} />.
+        </p>
         <FaqPage>
             <FaqHeading>Sashimi X-Wing FAQ</FaqHeading>
             <Faq>

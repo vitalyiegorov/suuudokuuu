@@ -27,7 +27,7 @@ import type { ReactElement } from 'react';
 
 const OG_IMAGE_TOP_LEVEL_KICKER: Readonly<Record<string, string>> = {
     '': SITE_NAME,
-    'why-suuudokuuu': 'Open Source',
+    'why-suuudokuuu': 'Source Available',
     techniques: 'Techniques',
     sudoku: 'Difficulty Levels',
     printable: 'Printable Sudoku',
@@ -38,13 +38,15 @@ const OG_IMAGE_TOP_LEVEL_KICKER: Readonly<Record<string, string>> = {
     'hardest-sudoku-puzzles': 'Hardest Puzzles',
     '17-clue-sudoku': 'Minimal Clues',
     'large-print-sudoku': 'Large Print Sudoku',
-    'sudoku-for-seniors': 'Sudoku for Seniors'
+    'sudoku-for-seniors': 'Sudoku for Seniors',
+    'daily-sudoku': 'Daily Sudoku'
 };
 
 const OG_IMAGE_CHILD_KICKER: Readonly<Record<string, string>> = {
     techniques: 'Technique',
     sudoku: 'Sudoku',
-    printable: 'Printable Sudoku'
+    printable: 'Printable Sudoku',
+    'hardest-sudoku-puzzles': 'Hardest Puzzles'
 };
 
 const getOgImageKicker = (path: string): string => {

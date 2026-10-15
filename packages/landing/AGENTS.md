@@ -52,17 +52,28 @@ src/
 │   ├── constants/           # comfort-scale steps, storage key, CSS custom property name
 │   ├── interfaces/          # comfort-scale step view model
 │   └── utils/               # buildComfortScaleInitScript, the pre-hydration scale script
+├── daily/
+│   ├── components/          # the shared daily puzzle body and the archive day and month lists
+│   ├── constants/           # archive start, build date and the derived archive dates and months
+│   └── utils/               # UTC date and month labels
 ├── difficulty/
 │   ├── components/          # prev/next difficulty chain, the playable tier board and its live-board island
 │   ├── constants/           # difficulty display names, ladder order, difficulty page paths, Infinity corpus facts
 │   ├── types/               # RatedDifficultyType, the tiers the rated sample covers
 │   └── utils/               # clue count per difficulty, derived from DIFFICULTY_BANDS, and the tier deep link into /play
+├── hardest/
+│   ├── components/          # famous-puzzle header, board with facts and app and print links, engine walkthrough
+│   ├── constants/           # the named record grids, also read by the printables script
+│   └── interfaces/          # famous puzzle view model
 ├── home/
 │   └── components/          # the home page body, rendered by the English and the localized home routes
+├── how-to-play/
+│   └── components/          # the how-to-play page body, rendered by the English and the localized routes
 ├── i18n/
-│   ├── components/          # IslandLocaleProvider and LocaleProvider, the Lingui context for live-board islands
+│   ├── components/          # IslandLocaleProvider and LocaleProvider, the Lingui context for the solver island
+│   ├── constants/           # CLIENT_MESSAGES, the compiled live-board catalog per locale
 │   ├── locales/             # Lingui catalogs: messages.po plus the compiled messages.ts per locale
-│   └── utils/               # activateLocale, the server-side Lingui activation
+│   └── utils/               # activateLocale, the server-side Lingui activation, and getActiveLocale
 ├── indexing/
 │   ├── constants/           # IndexNow env-var name, endpoint and key pattern, llms.txt section names
 │   ├── interfaces/          # the indexable page view model
@@ -108,7 +119,7 @@ Funnel events go through `track()` from `@vercel/analytics`, called from client 
 
 ### 1. One static route file per SEO page
 
-Every SEO page lives at its own `src/app/(en)/<route>/page.tsx`. Never collapse content pages into a dynamic `src/app/[slug]/page.tsx`. The `[locale]` segment is the one dynamic segment: it only selects the language of a route that also exists in English, see Localization below. Adding a page means adding a route folder; deleting a page means deleting that folder. `sitemap.ts` and future listing pages are the only legitimate enumeration endpoints.
+Every SEO page lives at its own `src/app/(en)/<route>/page.tsx`. Never collapse content pages into a dynamic `src/app/[slug]/page.tsx`. The `[locale]` segment only selects the language of a route that also exists in English, see Localization below. The daily sudoku archive is the other exception, because its URL set is a function of the build date: `daily-sudoku/[date]` and `daily-sudoku/archive/[month]` enumerate `DAILY_ARCHIVE_DATES` and `DAILY_ARCHIVE_MONTHS` through `generateStaticParams` with `dynamicParams = false`, render one shared body, and build their sidecars with a function in the sibling `metadata.ts`. See The daily sudoku below. Adding a page means adding a route folder; deleting a page means deleting that folder. `sitemap.ts` and future listing pages are the only legitimate enumeration endpoints.
 
 ### 2. Copy stays in the page file
 
@@ -206,9 +217,13 @@ English is served from the site root. Every other locale is served under `/<loca
 - A page is published in a locale when its sidecar has a `translations.<locale>` entry carrying the translated `title`, `headline`, `metaTitle` and `metaDescription`. `getPageLocales` turns that into the page's locale list, which drives `generateStaticParams` in the `[locale]` route, the hreflang alternates, the sitemap, `llms.txt`, IndexNow and the header's `LanguageSwitcher`. Sidecars stay plain strings, because scripts and Playwright specs import them without the Lingui macro transform.
 - Body copy goes through Lingui macros. `lingui compile --strict` (run by `i18n:sync`, so by `pnpm i18n:check` in CI) fails on any untranslated message, and `lingui/no-unlocalized-strings` lints the localized modules listed in the root `.oxlintrc.json`; add a page's component folder there when localizing it. One catalog per locale means every catalog locale translates every macro message; split the catalog per page once two localized pages need different locale sets.
 - `SiteDocument` renders `<html lang dir>`, with `dir="rtl"` for `RIGHT_TO_LEFT_LOCALES` (`ar`, `ur`), and activates the locale for server components through `activateLocale`. A localized page component calls `activateLocale` too, because Next renders layouts and pages independently. `extractNodeText` resolves `<Trans>` children through the active locale, so FAQ and feature JSON-LD stay in the page's language.
-- Strings are resolved on the server wherever a client component can take them as props (header controls, the board's play button). Only the live boards translate on the client: their strings live in the files listed as `CLIENT_MESSAGE_SOURCES` in `lingui.config.ts`, which compile into a separate `client/messages` catalog, and `IslandLocaleProvider` wraps each live-board island with just that catalog. Pages without a live board ship no Lingui runtime and no messages.
+- Strings are resolved on the server wherever a client component can take them as props (header controls, the board's play button). Only the live boards translate on the client: their strings live in the files listed as `CLIENT_MESSAGE_SOURCES` in `lingui.config.ts`, which compile into a separate `client/messages` catalog. The difficulty and technique live boards import `CLIENT_MESSAGES` themselves and build their own `setupI18n` instance for the document's `lang`, so the Lingui runtime and every client catalog load with the on-demand live-board chunk and never with the page. The solver workbench, which renders eagerly, is wrapped in `IslandLocaleProvider` instead. Pages without a live board ship no Lingui runtime and no messages.
 - `pnpm --filter @suuudokuuu/landing check:hreflang` reads `out/` after a build and fails unless every page lists itself and an `x-default` that points to its English URL, every alternate exists in the export and declares the same cluster, and `sitemap.xml` carries exactly the same clusters. The web E2E workflow and the production deploy run it after the landing build.
-- Not localized yet: Open Graph images (a localized page reuses the English image), the technique and solver step narration, and the store badge artwork.
+- Localized today, in every app locale: the home page, the `/sudoku` hub and its seven tier landers, `/how-to-play`, and the `/printable` hub and its seven tier pages. Their bodies live in `src/home`, `src/difficulty/components/*-page`, `src/how-to-play` and `src/printable/components/printable-*-page`.
+- Shared primitives localize themselves from the active locale (`getActiveLocale`): `PageHeader`, `ArticleSchema`, `ItemListSchema` and `PageChainLink` take the English sidecar and read its translation, and every internal link goes through `buildLocalizedPagePath(pageMetadata)`, which points at the reader's locale when that page is published in it and at the English page otherwise.
+- `scripts/generate-printables.ts` writes a tier booklet set per entry in `PRINTABLE_PDF_LABELS` (`src/printable/constants/printable-pdf-labels.constant.ts`): English under `/printable`, the others under `/<locale>/printable`. Only Latin-script locales have an entry, because the booklets use the standard PDF fonts, which cannot encode Arabic, Bengali, Chinese, Cyrillic or Devanagari text; `PrintableDownloadCard` links the localized file when it exists and the English one otherwise.
+- `LanguageSwitcher` is a `<details>` disclosure inside the `Language` navigation, so thirteen languages fit the header and the menu works without JavaScript.
+- Not localized yet: the technique pages, guides, solver and the other English-only pages; Open Graph images (a localized page reuses the English image); the technique and solver step narration; technique names in links; the large-print and blank-grid PDFs and the booklets for non-Latin scripts; and the store badge artwork.
 
 ## Adding a page
 
@@ -263,6 +278,12 @@ Every `/sudoku/<tier>` lander and the home page render `DifficultyBoard difficul
 - `DifficultyBoard` (server) calls `forgeSerializablePuzzle(difficulty, seed)` from `@suuudokuuu/puzzle-forge` during static generation, the exact call the app makes, so a tier's board comes from that tier's band or, for Hell and Infinity, from the same corpus. The fixed seed keeps every export identical. The static `PuzzleBoard` table is in the exported HTML, so the board costs no layout shift and no script.
 - `DifficultyPlayableBoard` (client) ships only the play button. Pressing it loads `DifficultyLiveBoard` through `next/dynamic(..., { ssr: false })`, which builds a `FieldEngine` from the same puzzle and solution; the static table stays in the DOM and is hidden by CSS once `.field-game` mounts. `New <tier> puzzle` dynamic-imports `@suuudokuuu/puzzle-forge` on click, so neither the engine nor the forge and its corpora ever enter a page's script list.
 - Every play link for a tier goes through `buildDifficultyPlayUrl(difficulty)`, which appends `?difficulty=<DifficultyEnum value>` to `SITE_PLAY_URL`. The app's `/play` route validates that parameter with `DifficultySchema` and stores it as the selected difficulty without starting or replacing a run.
+
+## The daily sudoku
+
+`/daily-sudoku` shows the build day's puzzle and `/daily-sudoku/<YYYY-MM-DD>` keeps every day from `DAILY_ARCHIVE_START_DATE` (`src/daily/constants/daily-archive.constant.ts`) up to the build date, paginated by `/daily-sudoku/archive/<YYYY-MM>`. Every board comes from `forgeSerializablePuzzle(getDailyDifficulty(date), getDailyPuzzleSeed(date))`, the exact call the app's daily challenge makes, so the page and the app show the same grid for a UTC date. The archive is derived, never stored: a past day renders the same board on every build.
+
+The build date is `LANDING_BUILD_DATE` when it is a `YYYY-MM-DD` string, else today in UTC. The production workflow sets it and turbo hashes it, so a cached landing build is never replayed on a later day, and a daily `schedule` trigger on `main.yml` rebuilds and deploys without a release. Each day page runs one `SolvePathBuilder` solve at build time; the month and recent-day lists read only the date and the tier.
 
 ## Guide pages and the generated solve data
 

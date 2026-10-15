@@ -8,7 +8,7 @@ export const hardestSudokuPuzzlesPageMetadata: PageMetadataInterface = {
     metaDescription:
         'The hardest sudoku puzzles in the world: AI Escargot, Easter Monster, Golden Nugget, Platinum Blonde and Everest, with their grids and sourced SE ratings.',
     publishedAt: '2026-08-11T00:00:00.000Z',
-    updatedAt: '2026-10-14T00:00:00.000Z',
+    updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.8
 };

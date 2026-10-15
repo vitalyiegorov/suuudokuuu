@@ -16,6 +16,7 @@ import { FaqPage } from '../../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../../seo/components/faq-question/faq-question';
 import { Faq } from '../../../../seo/components/faq/faq';
 import { PageHeader } from '../../../../seo/components/page-header/page-header';
+import { AUTHOR_PERSON_SCHEMA } from '../../../../seo/constants/schema.constant';
 import { SITE_PLAY_URL } from '../../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -53,7 +54,7 @@ const SudokuDifficultyRatingPage = () => {
 
     return (
         <main>
-            <ArticleSchema metadata={sudokuDifficultyRatingPageMetadata} />
+            <ArticleSchema author={AUTHOR_PERSON_SCHEMA} metadata={sudokuDifficultyRatingPageMetadata} />
             <PageHeader metadata={sudokuDifficultyRatingPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem>Sudoku difficulty rating</BreadcrumbListItem>
@@ -72,16 +73,17 @@ const SudokuDifficultyRatingPage = () => {
                         measurement: AI Escargot near SE 10.6, Platinum Blonde near SE 10.9, Arto Inkala’s Everest near SE 11.9.
                     </li>
                     <li>
-                        Suuudokuuu rates every puzzle it creates. Our open-source rating package scores a board the moment it is generated,
-                        and reports {SE_RATING_CEILING} with a ceiling flag rather than guessing when a board runs past what it can price.
+                        Suuudokuuu rates every puzzle it creates. Our source-available rating package scores a board the moment it is
+                        generated, and reports {SE_RATING_CEILING} with a ceiling flag rather than guessing when a board runs past what it
+                        can price.
                     </li>
                     <li>
                         Each of our five generated tiers guarantees a required-technique band: the board must resist the tier below and must
                         fall to its own ladder, or it is discarded and regenerated.
                     </li>
                     <li>
-                        Every number in the tables below is produced at build time by running our open-source technique detectors over a
-                        fixed sample of {RATING_SAMPLE_TOTAL} puzzles, {RATING_SAMPLE_SIZE} per tier.
+                        Every number in the tables below is produced at build time by running our source-available technique detectors over
+                        a fixed sample of {RATING_SAMPLE_TOTAL} puzzles, {RATING_SAMPLE_SIZE} per tier.
                     </li>
                 </ul>
             </TechniqueSummary>
@@ -189,8 +191,8 @@ const SudokuDifficultyRatingPage = () => {
                 <Faq>
                     <FaqQuestion>Does Suuudokuuu give every puzzle an SE rating?</FaqQuestion>
                     <FaqAnswer>
-                        Yes. Every board is rated by our open-source rating package as it is created. The package prices the published SE
-                        technique table and caps out at {SE_RATING_CEILING}: anything harder is reported as {SE_RATING_CEILING} with a
+                        Yes. Every board is rated by our source-available rating package as it is created. The package prices the published
+                        SE technique table and caps out at {SE_RATING_CEILING}: anything harder is reported as {SE_RATING_CEILING} with a
                         ceiling flag rather than an invented figure.
                     </FaqAnswer>
                 </Faq>

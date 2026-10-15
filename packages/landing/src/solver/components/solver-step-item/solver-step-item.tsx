@@ -6,13 +6,13 @@ import type { ReactNode } from 'react';
 interface Props {
     step: SolverStepInterface;
     isSelected: boolean;
-    onSelect: (index: number) => void;
+    onSelect: (index: number | null) => void;
     children: ReactNode;
 }
 
 export const SolverStepItem = ({ children, isSelected, onSelect, step }: Props) => {
     const handleToggle = () => {
-        onSelect(step.index);
+        onSelect(isSelected ? null : step.index);
     };
 
     return (

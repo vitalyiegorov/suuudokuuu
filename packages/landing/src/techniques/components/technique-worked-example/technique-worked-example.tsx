@@ -1,4 +1,3 @@
-import { IslandLocaleProvider } from '../../../i18n/components/island-locale-provider/island-locale-provider';
 import { TECHNIQUE_NAMES } from '../../constants/technique-name.constant';
 import { buildTechniqueExample } from '../../utils/build-technique-example.util';
 import { TechniqueExampleBoard } from '../technique-example-board/technique-example-board';
@@ -17,10 +16,8 @@ export const TechniqueWorkedExample = ({ board, children, technique }: Props) =>
     const example = buildTechniqueExample(board, technique);
 
     return (
-        <IslandLocaleProvider>
-            <TechniquePlayableBoard board={board} technique={technique} techniqueName={TECHNIQUE_NAMES[technique]}>
-                <TechniqueExampleBoard example={example}>{children}</TechniqueExampleBoard>
-            </TechniquePlayableBoard>
-        </IslandLocaleProvider>
+        <TechniquePlayableBoard board={board} technique={technique} techniqueName={TECHNIQUE_NAMES[technique]}>
+            <TechniqueExampleBoard example={example}>{children}</TechniqueExampleBoard>
+        </TechniquePlayableBoard>
     );
 };

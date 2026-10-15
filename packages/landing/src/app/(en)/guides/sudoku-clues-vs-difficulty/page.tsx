@@ -14,6 +14,7 @@ import { FaqPage } from '../../../../seo/components/faq-page/faq-page';
 import { FaqQuestion } from '../../../../seo/components/faq-question/faq-question';
 import { Faq } from '../../../../seo/components/faq/faq';
 import { PageHeader } from '../../../../seo/components/page-header/page-header';
+import { AUTHOR_PERSON_SCHEMA } from '../../../../seo/constants/schema.constant';
 import { SITE_PLAY_URL } from '../../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -28,7 +29,11 @@ import { mediumSudokuPageMetadata } from '../../sudoku/medium/metadata';
 import { sudokuDifficultiesPageMetadata } from '../../sudoku/metadata';
 import { newbieSudokuPageMetadata } from '../../sudoku/newbie/metadata';
 import { nightmareSudokuPageMetadata } from '../../sudoku/nightmare/metadata';
+import { cellForcingChainPageMetadata } from '../../techniques/cell-forcing-chain/metadata';
 import { techniquesPageMetadata } from '../../techniques/metadata';
+import { nakedSinglePageMetadata } from '../../techniques/naked-single/metadata';
+import { xWingPageMetadata } from '../../techniques/x-wing/metadata';
+import { xyWingPageMetadata } from '../../techniques/xy-wing/metadata';
 import { sudokuDifficultyRatingPageMetadata } from '../sudoku-difficulty-rating/metadata';
 
 import { sudokuCluesVsDifficultyPageMetadata } from './metadata';
@@ -49,7 +54,7 @@ const SudokuCluesVsDifficultyPage = () => {
 
     return (
         <main>
-            <ArticleSchema metadata={sudokuCluesVsDifficultyPageMetadata} />
+            <ArticleSchema author={AUTHOR_PERSON_SCHEMA} metadata={sudokuCluesVsDifficultyPageMetadata} />
             <PageHeader metadata={sudokuCluesVsDifficultyPageMetadata}>
                 <BreadcrumbListItem path={homePageMetadata.path}>Home</BreadcrumbListItem>
                 <BreadcrumbListItem>Clues versus difficulty</BreadcrumbListItem>
@@ -123,15 +128,17 @@ const SudokuCluesVsDifficultyPage = () => {
                 {nightmareReport.clueCount}. That is {newbieToNightmareClueDrop} givens across the entire generated ladder — a range narrow
                 enough that a reader shown only the clue counts would call these puzzles interchangeable. The SE column says otherwise: SE{' '}
                 {formatSeRatingRange(newbieReport)} at the gentle end and SE {formatSeRatingRange(nightmareReport)} at the hard end, from a
-                deduction a beginner reads off one cell to a chain that has to be built link by link.
+                deduction a beginner reads off one cell, such as a <Link href={nakedSinglePageMetadata.path}>naked single</Link>, to a chain
+                that has to be built link by link.
             </p>
             <h2>One clue, one whole band</h2>
             <p>
                 The sharpest result on this page is the pair in the middle. <Link href={mediumSudokuPageMetadata.path}>Medium</Link> carries{' '}
                 {mediumReport.clueCount} clues and <Link href={hardSudokuPageMetadata.path}>Hard</Link> carries {hardReport.clueCount} — a
-                single given between them. Yet no Medium board in the sample ever needs a fish or a wing, and every Hard board does, by
-                construction. Measured, that one clue is worth SE {formatSeRatingRange(mediumReport)} against SE{' '}
-                {formatSeRatingRange(hardReport)}. Compare that with the other end of the ladder, where removing {newbieToMediumClueDrop}{' '}
+                single given between them. Yet no Medium board in the sample ever needs a fish such as an{' '}
+                <Link href={xWingPageMetadata.path}>X-Wing</Link> or a wing such as an <Link href={xyWingPageMetadata.path}>XY-Wing</Link>,
+                and every Hard board does, by construction. Measured, that one clue is worth SE {formatSeRatingRange(mediumReport)} against
+                SE {formatSeRatingRange(hardReport)}. Compare that with the other end of the ladder, where removing {newbieToMediumClueDrop}{' '}
                 givens between Newbie and Medium moves the same distance. There is no exchange rate between clues and difficulty: one given
                 is worth a band here and a tenth of one there. The number printed on the grid and the reasoning the grid demands are simply
                 different quantities.
@@ -141,17 +148,17 @@ const SudokuCluesVsDifficultyPage = () => {
                 <Link href={hellSudokuPageMetadata.path}>Hell</Link> is the one tier drawn from a fixed corpus rather than generated to a
                 band, and it is where we tested the clue-count argument on ourselves. It used to be built from 17-clue puzzles alone, and
                 rated, those minimum-clue boards measured no harder than Nightmare. So Hell now selects on technique instead: it keeps only
-                boards that need a forcing chain, which no Nightmare board ever does, whatever their clue count. The survivors carry{' '}
-                {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues — some of them more than{' '}
-                {nightmareReport.clueCount}-clue Nightmare — and measure SE {formatSeRatingRange(hellReport)} against Nightmare at SE{' '}
-                {formatSeRatingRange(nightmareReport)}. Rarity and difficulty are different properties, and only one of them is visible in
-                the clue count.
+                boards that need a <Link href={cellForcingChainPageMetadata.path}>forcing chain</Link>, which no Nightmare board ever does,
+                whatever their clue count. The survivors carry {HELL_CORPUS_MINIMUM_GIVEN_COUNT} to {HELL_CORPUS_MAXIMUM_GIVEN_COUNT} clues
+                — some of them more than {nightmareReport.clueCount}-clue Nightmare — and measure SE {formatSeRatingRange(hellReport)}{' '}
+                against Nightmare at SE {formatSeRatingRange(nightmareReport)}. Rarity and difficulty are different properties, and only one
+                of them is visible in the clue count.
             </p>
             <h2>How to judge difficulty instead</h2>
             <p>
                 Ask which techniques a puzzle requires. That is what the Sudoku Explainer scale formalises, and our{' '}
                 <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> explains how the technique ladder
-                turns into a number — and it is the number every Suuudokuuu board now carries, computed by our open-source rater at the
+                turns into a number — and it is the number every Suuudokuuu board now carries, computed by our source-available rater at the
                 moment the board is created. Practically, the useful question is not “how many blanks” but “does this grid ever stop
                 yielding to singles” — and if it does, which pattern breaks the deadlock. The{' '}
                 <Link href={techniquesPageMetadata.path}>technique index</Link> has a worked example for each one, and the{' '}

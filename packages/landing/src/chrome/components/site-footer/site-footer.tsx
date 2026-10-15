@@ -1,18 +1,23 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import Link from 'next/link';
 
+import { aboutPageMetadata } from '../../../app/(en)/about/metadata';
+import { dailySudokuPageMetadata } from '../../../app/(en)/daily-sudoku/metadata';
 import { glossaryPageMetadata } from '../../../app/(en)/glossary/metadata';
 import { sudokuCluesVsDifficultyPageMetadata } from '../../../app/(en)/guides/sudoku-clues-vs-difficulty/metadata';
 import { sudokuDifficultyRatingPageMetadata } from '../../../app/(en)/guides/sudoku-difficulty-rating/metadata';
 import { howToPlayPageMetadata } from '../../../app/(en)/how-to-play/metadata';
 import { largePrintSudokuPageMetadata } from '../../../app/(en)/large-print-sudoku/metadata';
+import { learnSudokuPageMetadata } from '../../../app/(en)/learn-sudoku/metadata';
 import { printableSudokuPageMetadata } from '../../../app/(en)/printable/metadata';
 import { solverPageMetadata } from '../../../app/(en)/solver/metadata';
 import { sudokuForSeniorsPageMetadata } from '../../../app/(en)/sudoku-for-seniors/metadata';
+import { sudokuTipsPageMetadata } from '../../../app/(en)/sudoku-tips/metadata';
 import { sudokuDifficultiesPageMetadata } from '../../../app/(en)/sudoku/metadata';
 import { techniquesPageMetadata } from '../../../app/(en)/techniques/metadata';
 import { whySuuudokuuuPageMetadata } from '../../../app/(en)/why-suuudokuuu/metadata';
 import { SITE_GITHUB_URL, SITE_LICENSE, SITE_NAME, SITE_PLAY_URL, SITE_PRIVACY_URL } from '../../../seo/constants/site.constant';
+import { buildLocalizedPagePath } from '../../../seo/utils/build-localized-page-path.util';
 import { StoreBadgeCampaignEnum } from '../../enums/store-badge-campaign.enum';
 import { StoreBadges } from '../store-badges/store-badges';
 
@@ -26,7 +31,7 @@ export const SiteFooter = () => {
                 <div className="site-footer__brand-block">
                     <p className="site-footer__brand">{SITE_NAME}</p>
                     <p className="site-footer__tagline">
-                        <Trans>Free offline Sudoku for iOS, Android and the web</Trans>
+                        <Trans>Free Sudoku for iOS, Android and the web, offline in the apps</Trans>
                     </p>
                     <StoreBadges campaign={StoreBadgeCampaignEnum.FOOTER} />
                 </div>
@@ -35,8 +40,14 @@ export const SiteFooter = () => {
                         <p className="site-footer__group-title">
                             <Trans>Learn</Trans>
                         </p>
-                        <Link href={howToPlayPageMetadata.path}>
+                        <Link href={learnSudokuPageMetadata.path}>
+                            <Trans>Learn sudoku</Trans>
+                        </Link>
+                        <Link href={buildLocalizedPagePath(howToPlayPageMetadata)}>
                             <Trans>How to play</Trans>
+                        </Link>
+                        <Link href={sudokuTipsPageMetadata.path}>
+                            <Trans>Sudoku tips</Trans>
                         </Link>
                         <Link href={techniquesPageMetadata.path}>
                             <Trans>Sudoku techniques</Trans>
@@ -55,7 +66,10 @@ export const SiteFooter = () => {
                         <p className="site-footer__group-title">
                             <Trans>Play</Trans>
                         </p>
-                        <Link href={sudokuDifficultiesPageMetadata.path}>
+                        <Link href={dailySudokuPageMetadata.path}>
+                            <Trans>Daily sudoku</Trans>
+                        </Link>
+                        <Link href={buildLocalizedPagePath(sudokuDifficultiesPageMetadata)}>
                             <Trans>Difficulty levels</Trans>
                         </Link>
                         <Link href={solverPageMetadata.path}>
@@ -69,7 +83,7 @@ export const SiteFooter = () => {
                         <p className="site-footer__group-title">
                             <Trans>Print</Trans>
                         </p>
-                        <Link href={printableSudokuPageMetadata.path}>
+                        <Link href={buildLocalizedPagePath(printableSudokuPageMetadata)}>
                             <Trans>Printable sudoku</Trans>
                         </Link>
                         <Link href={largePrintSudokuPageMetadata.path}>
@@ -86,6 +100,9 @@ export const SiteFooter = () => {
                         <Link href={whySuuudokuuuPageMetadata.path}>
                             <Trans>Why {SITE_NAME}</Trans>
                         </Link>
+                        <Link href={aboutPageMetadata.path}>
+                            <Trans>About</Trans>
+                        </Link>
                         <a href={SITE_GITHUB_URL}>
                             <Trans>Source on GitHub</Trans>
                         </a>
@@ -97,7 +114,7 @@ export const SiteFooter = () => {
             </div>
             <p className="site-footer__note">
                 <Trans>
-                    Free and open source under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read{' '}
+                    Free and source-available under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read{' '}
                     <Link href={whySuuudokuuuPageMetadata.path}>why</Link> or browse the <a href={SITE_GITHUB_URL}>full source on GitHub</a>
                     . Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a
                     service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC.

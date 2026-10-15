@@ -342,9 +342,33 @@ strong {
 }
 
 .language-switcher {
-    display: flex;
-    gap: 0.6rem;
+    position: relative;
     font-size: 0.85rem;
+}
+
+.language-switcher__current {
+    color: var(--landing-muted-text-color);
+    cursor: pointer;
+}
+
+.language-switcher__current:hover,
+.language-switcher__menu[open] .language-switcher__current {
+    color: var(--landing-text-color);
+}
+
+.language-switcher__list {
+    position: absolute;
+    inset-inline-end: 0;
+    z-index: 10;
+    display: grid;
+    gap: 0.45rem;
+    margin: 0.5rem 0 0;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--landing-border-color);
+    border-radius: 0.75rem;
+    background-color: var(--landing-surface-color);
+    list-style: none;
+    white-space: nowrap;
 }
 
 .language-switcher a {
@@ -989,7 +1013,9 @@ strong {
 }
 
 .solver-entry__input {
+    display: block;
     width: 100%;
+    resize: vertical;
     padding: 0.5rem 0.65rem;
     border: 1px solid var(--landing-border-color);
     border-radius: 0.25rem;
@@ -1080,6 +1106,43 @@ strong {
     font-size: 0.8rem;
 }
 
+.solver-step-controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+    margin: 0 0 1rem;
+}
+
+.solver-step-controls__status {
+    margin: 0;
+    color: var(--landing-muted-text-color);
+    font-size: 0.85rem;
+}
+
+.famous-puzzle__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.25rem;
+    margin: 1.25rem 0;
+}
+
+.solve-path {
+    margin: 0.75rem 0 0;
+    padding-left: 2rem;
+    font-size: 0.9rem;
+}
+
+.solve-path__step {
+    margin: 0 0 0.4rem;
+}
+
+.solve-path__technique {
+    font-size: 0.8rem;
+    white-space: nowrap;
+}
+
 .solver-preview {
     --field-font-family: var(--landing-font-family);
     --field-cell-size: var(--landing-cell-size);
@@ -1136,6 +1199,70 @@ summary:focus-visible {
 
 details p {
     margin: 0.5rem 0 0;
+}
+
+.page-figure {
+    max-width: 15rem;
+    margin: 0 0 2rem;
+}
+
+.page-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--landing-border-color);
+    border-radius: var(--landing-radius-large);
+}
+
+.page-figure figcaption {
+    margin-top: 0.5rem;
+    color: var(--landing-muted-text-color);
+    font-size: 0.85rem;
+}
+
+.key-cap {
+    display: inline-block;
+    padding: 0.1rem 0.45rem;
+    border: 1px solid var(--landing-border-strong-color);
+    border-radius: var(--landing-radius-small);
+    background-color: var(--landing-raised-color);
+    color: var(--landing-text-color);
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+}
+
+.hint-demo__panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    max-width: 32rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--landing-border-color);
+    border-radius: var(--landing-radius-large);
+    background-color: var(--landing-raised-color);
+}
+
+.hint-demo__level {
+    margin: 0;
+    color: var(--landing-muted-text-color);
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.hint-demo__narration {
+    margin: 0;
+}
+
+.hint-demo__controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.hint-demo__controls .technique-embed__action:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
 }
 
 .printable-tier {

@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -91,6 +92,13 @@ const NakedPairPage = () => (
             </li>
             <li>Working from pencil marks that were never updated after the last placement, which invents pairs that do not exist.</li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            A naked pair grows into a <TechniqueLink technique={SolutionTechniqueEnum.NakedTriple} /> and a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.NakedQuad} />, and its complement inside the same unit is the{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.HiddenPair} />. If you only need a single placement rather than an elimination,
+            a <TechniqueLink technique={SolutionTechniqueEnum.HiddenSingle} /> is cheaper to check.
+        </p>
         <FaqPage>
             <FaqHeading>Naked pair FAQ</FaqHeading>
             <Faq>

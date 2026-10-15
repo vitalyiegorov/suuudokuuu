@@ -29,7 +29,14 @@
             "continue": true
         },
         {
-            "src": "^/(?:play|game|game-settings|pause|winner|loser|challenge-won|challenge-lost|scoring|privacy-policy|beta|daily)/?$",
+            "src": "^/play/?$",
+            "headers": {
+                "X-Robots-Tag": "noindex, follow"
+            },
+            "continue": true
+        },
+        {
+            "src": "^/(?:play|game|game-settings|pause|winner|loser|challenge-won|challenge-lost|scoring|beta|daily)/?$",
             "dest": "/_app/index.html"
         },
         {
@@ -40,7 +47,7 @@
             }
         },
         {
-            "src": "^/(?:shared|history|settings|start)(?:/.*)?$",
+            "src": "^/(?:shared|history|settings|start|rating-explainer)(?:/.*)?$",
             "dest": "/_app/index.html"
         },
         { "handle": "filesystem" },

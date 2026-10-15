@@ -8,6 +8,7 @@ import { Faq } from '../../../../seo/components/faq/faq';
 import { HowToStep } from '../../../../seo/components/how-to-step/how-to-step';
 import { HowTo } from '../../../../seo/components/how-to/how-to';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
+import { TechniqueLink } from '../../../../techniques/components/technique-link/technique-link';
 import { TechniqueNavigation } from '../../../../techniques/components/technique-navigation/technique-navigation';
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
@@ -94,6 +95,13 @@ const PointingPairPage = () => (
             </li>
             <li>Skipping the follow-up scan. The elimination is only useful if you then look for the single it exposed.</li>
         </ul>
+        <h2>Related techniques</h2>
+        <p>
+            The eliminations from a pointing pair routinely expose a fresh <TechniqueLink technique={SolutionTechniqueEnum.HiddenSingle} />{' '}
+            or <TechniqueLink technique={SolutionTechniqueEnum.NakedSingle} />. The same idea with three cells is a{' '}
+            <TechniqueLink technique={SolutionTechniqueEnum.PointingTriple} />, and the same box and line overlap read in the opposite
+            direction is <TechniqueLink technique={SolutionTechniqueEnum.BoxLineReduction} />.
+        </p>
         <FaqPage>
             <FaqHeading>Pointing pair FAQ</FaqHeading>
             <Faq>
