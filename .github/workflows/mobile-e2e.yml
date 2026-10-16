@@ -62,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@38fa7bb8d59c62fbf7190feb373f4c1605b110a5 # integration/v3.3.0-fleet
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.3.0 # v3.3.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -114,7 +114,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@38fa7bb8d59c62fbf7190feb373f4c1605b110a5 # integration/v3.3.0-fleet
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.3.0 # v3.3.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
