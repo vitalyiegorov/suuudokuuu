@@ -62,9 +62,10 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.2.0 # v3.2.0
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@0c2cae63b92e45f7cc30e2b27f87a31994d646b0 # fix/turbo-affected-trigger-paths
         with:
             install-command: pnpm install --frozen-lockfile
+            trigger-paths: .github/workflows/mobile-e2e.yml
             # Gate pull requests on the turbo graph: Maestro runs only when the
             # app, its workspace dependencies or the Maestro suite changed, so a
             # landing-only PR does not wait on the Macs. Non-PR events still
@@ -122,7 +123,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.2.0 # v3.2.0
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@0c2cae63b92e45f7cc30e2b27f87a31994d646b0 # fix/turbo-affected-trigger-paths
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
