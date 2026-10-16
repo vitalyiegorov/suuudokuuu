@@ -1,0 +1,75 @@
+version: 2
+
+updates:
+    - package-ecosystem: github-actions
+      directory: /
+      schedule:
+          interval: weekly
+      open-pull-requests-limit: 3
+      # A week for a bad release to be caught upstream; this repo's own
+      # mobile-ci releases are adopted without waiting.
+      cooldown:
+          default-days: 7
+          exclude: ['rnw-community/*']
+      commit-message:
+          prefix: ci
+      groups:
+          # rnw-community/mobile-ci stays out of the group: its bumps change the
+          # fleet pipelines and are validated on their own.
+          github-actions:
+              patterns: ['*']
+              exclude-patterns: ['rnw-community/*']
+
+    - package-ecosystem: npm
+      directory: /
+      schedule:
+          interval: weekly
+      open-pull-requests-limit: 3
+      # Stricter than pnpm-workspace.yaml's 24h minimumReleaseAge, which it
+      # therefore always satisfies.
+      cooldown:
+          default-days: 7
+      commit-message:
+          prefix: chore
+          include: scope
+      ignore:
+          # Versions of the Expo SDK and the native modules it pins (expo's
+          # bundledNativeModules.json) move with an SDK upgrade
+          # (`expo install --fix`), not one package at a time.
+          - dependency-name: 'expo'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'expo-*'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: '@expo/*'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-dom'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-gesture-handler'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-reanimated'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-safe-area-context'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-screens'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-svg'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-web'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-worklets'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          # Pinned to 3.3.0 because patches/react-native-unistyles@3.3.0.patch
+          # applies to exactly that version; bump it together with the patch.
+          - dependency-name: 'react-native-unistyles'
+          - dependency-name: '@react-native/*'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          # Everything else: majors are deliberate upgrades, not weekly churn.
+          - dependency-name: '*'
+            update-types: ['version-update:semver-major']
+      groups:
+          npm-minor-and-patch:
+              update-types: [minor, patch]

@@ -18,8 +18,7 @@ on:
         - cron: '10 0 * * *'
 
 permissions:
-    contents: write
-    pull-requests: write
+    contents: read
 
 concurrency:
     group: deploy-production
@@ -31,21 +30,25 @@ jobs:
         if: github.event_name != 'schedule'
         runs-on: [self-hosted, linux-portable-2x4]
         timeout-minutes: 20
+        permissions:
+            contents: write
+            pull-requests: write
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v7
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
               with:
                   ref: main
                   persist-credentials: false
                   fetch-depth: 0
 
             - name: Setup pnpm
-              uses: pnpm/action-setup@v6
+              uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
 
             - name: Setup Node
-              uses: actions/setup-node@v7
+              uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
               with:
                   node-version: 22.x
+                  cache: pnpm
 
             - name: Setup Git user
               run: |
@@ -99,19 +102,25 @@ jobs:
         if: ${{ !cancelled() && (needs.release.result == 'success' || needs.release.result == 'skipped') }}
         runs-on: [self-hosted, linux-portable-2x4]
         timeout-minutes: 20
+        permissions:
+            contents: read
+        env:
+            VERCEL_CLI_VERSION: '64.2.0'
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v7
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
               with:
+                  persist-credentials: false
                   ref: main
 
             - name: Setup pnpm
-              uses: pnpm/action-setup@v6
+              uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
 
             - name: Setup Node
-              uses: actions/setup-node@v7
+              uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
               with:
                   node-version: 22.x
+                  cache: pnpm
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
@@ -132,7 +141,9 @@ jobs:
 
             - name: Pull Vercel project settings
               working-directory: packages/app
-              run: pnpm dlx vercel@latest pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+              env:
+                  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+              run: pnpm dlx "vercel@${VERCEL_CLI_VERSION}" pull --yes --environment=production --token="$VERCEL_TOKEN"
 
             - name: Build Vercel output
               working-directory: packages/app
@@ -140,9 +151,12 @@ jobs:
 
             - name: Deploy to Vercel
               working-directory: packages/app
-              run: pnpm dlx vercel@latest deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+              env:
+                  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+              run: pnpm dlx "vercel@${VERCEL_CLI_VERSION}" deploy --prebuilt --prod --token="$VERCEL_TOKEN"
 
             - name: Submit changed pages to IndexNow
               env:
                   INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
-              run: pnpm --filter @suuudokuuu/landing submit:indexnow ${{ github.event_name == 'schedule' && '--daily' || '' }}
+                  INDEXNOW_MODE: ${{ github.event_name == 'schedule' && '--daily' || '' }}
+              run: pnpm --filter @suuudokuuu/landing submit:indexnow ${INDEXNOW_MODE:+"$INDEXNOW_MODE"}

@@ -11,8 +11,8 @@ env:
     RCT_USE_RN_DEP: 1
 
 concurrency:
-    group: pr-${{ github.event.pull_request.number }}
-    cancel-in-progress: true
+    group: pr-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 on:
     pull_request:
@@ -21,14 +21,19 @@ on:
 jobs:
     changes:
         name: Detect mobile changes
-        runs-on: [self-hosted, linux-portable-2x4]
+        # A git diff and nothing else: GitHub-hosted, so every other job's start
+        # does not first wait for a fleet slot.
+        runs-on: ubuntu-latest
+        timeout-minutes: 10
         permissions:
             contents: read
         outputs:
             mobile: ${{ steps.mobile.outputs.mobile }}
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v7
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
 
             - name: Classify changed paths
               id: mobile
@@ -88,15 +93,18 @@ jobs:
             pull-requests: write
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v7
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
 
             - name: Setup pnpm
-              uses: pnpm/action-setup@v6
+              uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
 
             - name: Setup Node
-              uses: actions/setup-node@v7
+              uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
               with:
                   node-version: 22.x
+                  cache: pnpm
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
@@ -145,11 +153,13 @@ jobs:
               run: pnpm test:coverage
 
             - name: Upload coverage reports to Codecov
-              uses: codecov/codecov-action@v7
+              uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
 
     mobile-e2e:
-        if: ${{ needs.changes.outputs.mobile == 'true' && needs.code-quality.result == 'success' }}
-        needs: [changes, code-quality]
+        # Starts alongside code-quality instead of after it: the e2e plan/build
+        # is the long pole, and Required CI still fails the PR on either.
+        if: ${{ needs.changes.outputs.mobile == 'true' }}
+        needs: [changes]
         # Each nesting level can only narrow the token, so the scopes mobile-ci's
         # plan job needs to read a published base binary have to be granted here
         # as well as on the jobs inside mobile-e2e.yml. Granting them only there
@@ -167,7 +177,8 @@ jobs:
         permissions:
             contents: read
         uses: ./.github/workflows/web-e2e.yml
-        secrets: inherit
+        secrets:
+            VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
     web-preview:
         name: Vercel preview Web
@@ -185,17 +196,21 @@ jobs:
         env:
             VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
             VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+            VERCEL_CLI_VERSION: '64.2.0'
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v7
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
 
             - name: Setup pnpm
-              uses: pnpm/action-setup@v6
+              uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
 
             - name: Setup Node
-              uses: actions/setup-node@v7
+              uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
               with:
                   node-version: 22.x
+                  cache: pnpm
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
@@ -208,7 +223,9 @@ jobs:
 
             - name: Pull Vercel project settings
               working-directory: packages/app
-              run: pnpm dlx vercel@latest pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
+              env:
+                  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+              run: pnpm dlx "vercel@${VERCEL_CLI_VERSION}" pull --yes --environment=preview --token="$VERCEL_TOKEN"
 
             - name: Build Vercel output
               working-directory: packages/app
@@ -222,7 +239,7 @@ jobs:
                   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
               run: |
                   set -euo pipefail
-                  preview_url=$(pnpm dlx vercel@latest deploy --prebuilt --token="$VERCEL_TOKEN" 2>vercel-deploy.log | tail -n1)
+                  preview_url=$(pnpm dlx "vercel@${VERCEL_CLI_VERSION}" deploy --prebuilt --token="$VERCEL_TOKEN" 2>vercel-deploy.log | tail -n1)
                   if [[ "$preview_url" != https://* ]]; then
                     echo "::error::Vercel deploy did not return a preview URL. Got: $preview_url"
                     cat vercel-deploy.log
@@ -232,7 +249,7 @@ jobs:
                   echo "preview_url=$preview_url" >> "$GITHUB_OUTPUT"
 
             - name: Comment preview URL
-              uses: actions/github-script@v9
+              uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
               env:
                   PREVIEW_URL: ${{ steps.deploy.outputs.preview_url }}
               with:
@@ -272,18 +289,21 @@ jobs:
             EAS_CLI_VERSION: '20.5.1'
         steps:
             - name: Checkout repository
-              uses: actions/checkout@v7
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
 
             - name: Setup pnpm
-              uses: pnpm/action-setup@v6
+              uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
 
             - name: Setup Node
-              uses: actions/setup-node@v7
+              uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
               with:
                   node-version: 22.x
+                  cache: pnpm
 
             - name: Setup Expo and EAS
-              uses: expo/expo-github-action@v9
+              uses: expo/expo-github-action@eab7a230208c952974db8c3245cfd78402c7b385 # 9.0.0
               with:
                   packager: npm
                   eas-version: ${{ env.EAS_CLI_VERSION }}
@@ -294,7 +314,7 @@ jobs:
 
             - name: Publish EAS Update preview
               id: publish
-              uses: expo/expo-github-action/preview@v9
+              uses: expo/expo-github-action/preview@eab7a230208c952974db8c3245cfd78402c7b385 # 9.0.0
               env:
                   APP_VARIANT: preview
               with:
@@ -307,7 +327,9 @@ jobs:
         name: Required CI
         permissions:
             contents: read
-        runs-on: [self-hosted, linux-portable-2x4]
+        # Reads needs.* only; GitHub-hosted so the verdict never queues behind
+        # the fleet.
+        runs-on: ubuntu-latest
         timeout-minutes: 5
         steps:
             - name: Verify required jobs

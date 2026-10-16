@@ -15,14 +15,13 @@ jobs:
         name: Development build and release
         permissions:
             contents: write
-        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@v3.1.0 # v3.1.0
+        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@v3.2.0 # v3.2.0
         with:
             install-command: pnpm install --frozen-lockfile
             app-dir: packages/app
             enable-ios: true
             enable-android: true
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
-            android-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             node-version: 22.x
             build-profile: development
             eas-cli-version: '20.5.1'
@@ -32,6 +31,10 @@ jobs:
             # dev build must be flipped to local or EAS ignores the run-derived
             # ios.buildNumber that app.config.js sets from DEVELOPMENT_BUILD_NUMBER.
             ios-pre-build-command: node scripts/preflight-development-build.ts
+            # app.config.js sets ios.buildNumber from DEVELOPMENT_BUILD_NUMBER (made
+            # effective by the preflight above); fail before publishing if the .ipa
+            # carries anything else.
+            ios-verify-embedded-build-number: true
             publish-env: |
                 EXPO_NO_TELEMETRY=1
                 LANG=en_US.UTF-8

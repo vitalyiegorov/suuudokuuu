@@ -18,7 +18,7 @@ concurrency:
 jobs:
     publish:
         name: Build and submit
-        uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@v3.1.0 # v3.1.0
+        uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@v3.2.0 # v3.2.0
         with:
             install-command: pnpm install --frozen-lockfile
             app-dir: packages/app
@@ -61,7 +61,6 @@ jobs:
                 fastlane store_preflight
             ios-post-submit-command: |
                 export PATH="$HOME/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
-                export EXPO_ASC_API_KEY_PATH="$PWD/asc_api_key.p8"
                 node scripts/generate-store-release-notes.ts --check
                 fastlane ios ios_metadata
                 if [ "$PUSH_SCREENSHOTS" = 'true' ]; then
@@ -80,7 +79,6 @@ jobs:
                 bundle exec fastlane store_preflight
             android-post-submit-command: |
                 export BUNDLE_PATH="$RUNNER_TEMP/bundle"
-                export GOOGLE_SERVICE_ACCOUNT_KEY_PATH="$PWD/google-service-account.json"
                 node scripts/generate-store-release-notes.ts --check
                 bundle exec fastlane android android_metadata
                 if [ "$PUSH_SCREENSHOTS" = 'true' ]; then

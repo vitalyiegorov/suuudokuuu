@@ -23,13 +23,32 @@ on:
     workflow_dispatch:
     push:
         branches: [main]
+        # The app's dependency closure: every workspace package except the two
+        # only the website uses (landing, field-dom), the Maestro suite and its
+        # test-kit, and the root inputs every build reads. Negations keep a new
+        # package in by default - an over-wide filter costs one run, a missed
+        # path ships an untested app. Docs, reports and agent files never run it.
+        paths:
+            - 'packages/**'
+            - '!packages/landing/**'
+            - '!packages/field-dom/**'
+            - 'tests/app-tests/**'
+            - 'tests/test-kit/**'
+            - 'patches/**'
+            - 'types/**'
+            - 'package.json'
+            - 'pnpm-lock.yaml'
+            - 'pnpm-workspace.yaml'
+            - 'tsconfig*.json'
+            - 'turbo.json'
+            - '.github/workflows/mobile-e2e.yml'
 
 permissions:
     contents: read
 
 concurrency:
     group: mobile-e2e-${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: ${{ github.event_name == 'push' }}
+    cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
     ios:
@@ -43,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.1.0 # v3.1.0
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.2.0 # v3.2.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -54,6 +73,10 @@ jobs:
             target-packages: |
                 @suuudokuuu/app
                 @suuudokuuu/app-tests
+            # The turbo locked in pnpm-lock.yaml: turbo.json uses `agentGuidance`
+            # (turbo >= 2.11), which mobile-ci's 2.10.8 default rejects. Drop once
+            # mobile-ci resolves the locked version (rnw-community/mobile-ci#189).
+            turbo-version: '2.11.8'
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
             flows-dir: tests/app-tests/flows
@@ -99,7 +122,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.1.0 # v3.1.0
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.2.0 # v3.2.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -110,6 +133,10 @@ jobs:
             target-packages: |
                 @suuudokuuu/app
                 @suuudokuuu/app-tests
+            # The turbo locked in pnpm-lock.yaml: turbo.json uses `agentGuidance`
+            # (turbo >= 2.11), which mobile-ci's 2.10.8 default rejects. Drop once
+            # mobile-ci resolves the locked version (rnw-community/mobile-ci#189).
+            turbo-version: '2.11.8'
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
             flows-dir: tests/app-tests/flows
@@ -127,8 +154,8 @@ jobs:
             maestro-version: '2.6.1'
             # Both legs on node-b: the APK builds on Linux now (Google does ship an
             # x86_64-linux NDK), and 8 GiB is what keeps D8 from being OOM-killed.
-            # The plan/repack job lands on the same pool by default, so
-            # repack-runner-labels is deliberately left unset.
+            # The plan/repack job defaults to trf-linux-amd64-2x4 (no KVM, mobile-ci
+            # v3.2.0), so it never queues behind emulator shards on this pool.
             build-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             # `trf-linux-amd64-4x8` is the ONLY node-b profile granted /dev/kvm, so
             # this label is a hard requirement of the avd driver, not a preference.
@@ -138,15 +165,12 @@ jobs:
             # image baked into the runner container, so they stay unset here rather
             # than being restated in two places that could drift apart.
             android-driver: avd
-            # The container is 4 CPU / 8 GiB and nothing inside it discovers that
-            # on its own: /proc/meminfo shows the host's 27 GiB, so a JVM left
-            # to its own ergonomics sizes a 6.76 GiB max heap and the emulator
-            # measures ~4.2 GiB beside it. Whoever crosses the cgroup ceiling
-            # first is killed by the kernel with no out-of-memory message, and
-            # the shard fails as a lost adb connection several flows in. Both
-            # halves are therefore stated rather than inferred: 3 GiB of guest
-            # for the AVD, a bounded heap for Maestro, and the rest left for
-            # adb, node, and page cache.
+            # The container is 4 CPU / 8 GiB. Since mobile-ci v3.2.0 the emulator's
+            # RAM and cores are derived from the container's cgroup (memory.max
+            # 8 GiB -> 2048 MB, cpu.max 4 -> 2 cores), and the fleet injects
+            # JAVA_TOOL_OPTIONS=-XX:MaxRAM=8192m so Maestro's JVM sizes its heap
+            # from the container rather than the host's 27 GiB. Neither bound is
+            # restated here (fleet-validated in run 38692037603).
             # Nexus 4 is 768x1280 @ 320dpi - within a whisker of the 720x1280 @
             # 320dpi Redroid presented, which is the geometry every flow here was
             # calibrated against. pixel_6 (1080x2400 @ 420dpi) is both a
@@ -154,8 +178,6 @@ jobs:
             # framebuffer: measured on this runner, the swap costs 450 MB of
             # unreclaimable memory for a device the flows were never written for.
             emulator-profile: Nexus 4
-            emulator-ram-size: '2048'
-            pre-test-command: export JAVA_TOOL_OPTIONS="-Xmx1536m"
             gradle-task: ':app:assembleRelease'
             # x86_64 only: the AVD boots an x86_64 system image, so every other ABI
             # is CMake time spent on a library nothing installs. The lint skips stay
@@ -186,21 +208,25 @@ jobs:
         needs: android
         if: github.event_name == 'workflow_dispatch'
         runs-on: [self-hosted, trf-linux-amd64-4x8]
+        timeout-minutes: 45
         permissions:
             contents: read
             actions: read
         steps:
-            - uses: actions/checkout@v7
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
 
-            - uses: pnpm/action-setup@v6
+            - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
 
-            - uses: actions/setup-node@v7
+            - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
               with:
                   node-version: 24.x
+                  cache: pnpm
 
             - run: pnpm install --frozen-lockfile
 
-            - uses: actions/download-artifact@v7
+            - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
               with:
                   name: android-e2e-app-e2e
                   path: .ci-artifacts/android-e2e-app-e2e
@@ -208,7 +234,7 @@ jobs:
             - run: sudo apt-get update && sudo apt-get -o DPkg::Lock::Timeout=300 install -y imagemagick
 
             - name: Capture seeded Android scenes
-              uses: reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed
+              uses: reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed # v2.34.0
               with:
                   api-level: 34
                   target: google_apis
@@ -226,7 +252,7 @@ jobs:
 
             - name: Upload capture diagnostics
               if: always()
-              uses: actions/upload-artifact@v6
+              uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
               with:
                   name: android-store-capture-smoke
                   path: artifacts/store-capture-smoke
