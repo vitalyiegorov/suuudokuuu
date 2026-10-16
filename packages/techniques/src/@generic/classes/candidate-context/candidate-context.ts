@@ -134,7 +134,7 @@ export class CandidateContext {
         return cellIndex < 0 ? [] : [...this.getCachedCellPeers(cellIndex)];
     }
 
-    getCommonPeers(cells: CellInterface[]): CellInterface[] {
+    getCommonPeers(cells: readonly CellInterface[]): CellInterface[] {
         const [firstCell] = cells;
 
         if (!isDefined(firstCell)) {
