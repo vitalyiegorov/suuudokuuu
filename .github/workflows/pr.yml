@@ -323,8 +323,6 @@ jobs:
 
     lint-workflows:
         name: Lint workflows
-        # Catches workflow files GitHub would reject at startup (e.g. a key
-        # duplicated by two merged PRs) before they reach main.
         runs-on: ubuntu-latest
         timeout-minutes: 5
         permissions:
