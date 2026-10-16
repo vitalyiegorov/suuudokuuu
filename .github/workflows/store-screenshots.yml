@@ -43,6 +43,9 @@ jobs:
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             upload-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            android-build-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
+            android-capture-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
+            android-driver: avd
             # app.config.js branches on APP_VARIANT and STORE_CAPTURE, so the
             # fingerprint has to be taken under exactly what this workflow's build
             # exports - here the production variant with the capture flag, matching
@@ -58,7 +61,7 @@ jobs:
                 STORE_CAPTURE=1
             expect-config: |
                 name=suuudokuuu
-                ios.bundleIdentifier=com.vitalyiegorov.suuudokuuu
+                android.package=com.vitaliiyehorov.suuudokuuu
         secrets:
             ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
             ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
