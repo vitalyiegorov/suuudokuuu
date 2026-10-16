@@ -5,6 +5,8 @@ export const PLACEMENT_CHAIN_WORK_BUDGET = 500;
 export const PLACEMENT_CHAIN_DEFAULT_SCAN_COST = 1;
 export const PLACEMENT_CHAIN_SCAN_COSTS: Readonly<Partial<Record<SolutionTechniqueEnum, number>>> = {
     [SolutionTechniqueEnum.AIC]: 100,
+    [SolutionTechniqueEnum.ALSXZ]: 8,
+    [SolutionTechniqueEnum.SueDeCoq]: 2,
     [SolutionTechniqueEnum.NishioForcingChain]: 4,
     [SolutionTechniqueEnum.CellForcingChain]: 4,
     [SolutionTechniqueEnum.RegionForcingChain]: 4
@@ -42,5 +44,8 @@ export const PLACEMENT_CHAIN_DIFFICULTIES: Record<SolutionTechniqueEnum, number>
     [SolutionTechniqueEnum.BivalueUniversalGrave]: 5.6,
     [SolutionTechniqueEnum.NishioForcingChain]: 7.5,
     [SolutionTechniqueEnum.CellForcingChain]: 8,
-    [SolutionTechniqueEnum.RegionForcingChain]: 8
+    [SolutionTechniqueEnum.RegionForcingChain]: 8,
+    [SolutionTechniqueEnum.EmptyRectangle]: 4.5,
+    [SolutionTechniqueEnum.ALSXZ]: 6.2,
+    [SolutionTechniqueEnum.SueDeCoq]: 5.8
 };

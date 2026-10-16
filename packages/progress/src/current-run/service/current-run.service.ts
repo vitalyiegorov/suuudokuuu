@@ -4,6 +4,8 @@ import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import * as Clock from 'effect/Clock';
 import * as Context from 'effect/Context';
 import * as Effect from 'effect/Effect';
+import * as Fiber from 'effect/Fiber';
+import * as FiberSet from 'effect/FiberSet';
 import * as Layer from 'effect/Layer';
 import * as Option from 'effect/Option';
 import { isNotUndefined, isUndefined } from 'effect/Predicate';
@@ -86,25 +88,17 @@ const resumeRun = (run: CurrentRunType): CurrentRunType => ({
     shouldResumeOnFocus: false
 });
 
+const restartRunClock = (run: CurrentRunType, nowMs: number): CurrentRunType =>
+    run.isChallengeRun && run.clockCheckpointMs > 0 ? run : { ...run, clockCheckpointMs: nowMs };
+
 const pauseRun = (run: CurrentRunType, shouldShowPauseScreen: boolean): CurrentRunType =>
     run.isChallengeRun ? run : { ...run, isPaused: true, shouldShowPauseScreen, shouldResumeOnFocus: !shouldShowPauseScreen };
 
-const syncChallengeClock = (run: CurrentRunType, nowMs: number): CurrentRunType => {
-    if (!run.isChallengeRun) {
-        return run;
-    }
-
-    if (run.wallClockStartMs === 0) {
-        return { ...run, wallClockStartMs: nowMs - run.elapsedTime * MillisecondsPerSecond };
-    }
-
-    const wallElapsedSeconds = Math.floor((nowMs - run.wallClockStartMs) / MillisecondsPerSecond);
-
-    return wallElapsedSeconds > run.elapsedTime ? { ...run, elapsedTime: wallElapsedSeconds } : run;
-};
+const anchorChallengeClock = (run: CurrentRunType, nowMs: number): CurrentRunType =>
+    run.wallClockStartMs === 0 ? { ...run, wallClockStartMs: nowMs - run.elapsedTime * MillisecondsPerSecond } : run;
 
 const returnToRun = (run: CurrentRunType, nowMs: number): CurrentRunType => {
-    const syncedRun = syncChallengeClock(run, nowMs);
+    const syncedRun = restartRunClock(anchorChallengeClock(run, nowMs), nowMs);
 
     if (!isLastEventAway(syncedRun)) {
         return syncedRun;
@@ -325,29 +319,73 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
         const difficultyStatsRepository = yield* DifficultyStatsRepository;
         const completedGameRepository = yield* CompletedGameRepository;
 
-        const updateRunWithStats = Effect.fnUntraced(
-            function* (statsMove: StatsMoveType) {
+        const finishingRuns = yield* FiberSet.make();
+
+        const applyStatsMove = Effect.fnUntraced(function* (statsMove: StatsMoveType) {
+            const currentRun = yield* currentRunRepository.get;
+
+            if (Option.isNone(currentRun)) {
+                return;
+            }
+
+            const playerStats = yield* playerStatsRepository.get;
+            const [nextRun, techniqueUsageCounts] = statsMove(currentRun.value, playerStats.techniqueUsageCounts);
+
+            if (nextRun !== currentRun.value) {
+                yield* currentRunRepository.save(nextRun);
+            }
+
+            if (techniqueUsageCounts !== playerStats.techniqueUsageCounts) {
+                yield* playerStatsRepository.save({ ...playerStats, techniqueUsageCounts });
+            }
+        });
+        const tickClock = Effect.flatMap(Clock.currentTimeMillis, currentRunRepository.tick);
+        const updateRunWithStats = (statsMove: StatsMoveType) =>
+            sql.withTransaction(Effect.andThen(tickClock, applyStatsMove(statsMove))).pipe(Effect.orDie);
+        const updateRun = (update: (run: CurrentRunType) => CurrentRunType) => updateRunWithStats((run, counts) => [update(run), counts]);
+        const restartRun = Effect.flatMap(Clock.currentTimeMillis, nowMs =>
+            sql.withTransaction(applyStatsMove((run, counts) => [restartRunClock(resumeRun(run), nowMs), counts]))
+        ).pipe(Effect.orDie);
+        const returnToCurrentRun = Effect.flatMap(Clock.currentTimeMillis, nowMs => updateRun(run => returnToRun(run, nowMs)));
+        const finishRun = Effect.fn('CurrentRunService.finish')(
+            function* (isWon: boolean, isChallenge: boolean) {
+                const nowMs = yield* Clock.currentTimeMillis;
+
+                yield* currentRunRepository.tick(nowMs);
+
                 const currentRun = yield* currentRunRepository.get;
 
                 if (Option.isNone(currentRun)) {
                     return;
                 }
 
+                const run = currentRun.value;
+                const stats = yield* difficultyStatsRepository.findByDifficulty(run.difficulty);
                 const playerStats = yield* playerStatsRepository.get;
-                const [nextRun, techniqueUsageCounts] = statsMove(currentRun.value, playerStats.techniqueUsageCounts);
+                const hasNewPersonalBestScore = isWon && !isChallenge && run.challengeState === '' && run.score > stats.bestScore;
 
-                if (nextRun !== currentRun.value) {
-                    yield* currentRunRepository.save(nextRun);
-                }
+                yield* currentRunRepository.save({
+                    ...run,
+                    hasNewPersonalBestScore,
+                    isPaused: true,
+                    shouldShowPauseScreen: false,
+                    shouldResumeOnFocus: false
+                });
+                yield* playerStatsRepository.save(getFinishedPlayerStats(playerStats, run, isWon, nowMs));
+                yield* difficultyStatsRepository.save(getFinishedStats(stats, run, isWon, isChallenge));
 
-                if (techniqueUsageCounts !== playerStats.techniqueUsageCounts) {
-                    yield* playerStatsRepository.save({ ...playerStats, techniqueUsageCounts });
+                if (isWon) {
+                    yield* completedGameRepository.insert({
+                        ...Struct.pick(run, ['difficulty', 'rating', 'isRatingCeiling', 'elapsedTime', 'score', 'mistakes', 'maxMistakes']),
+                        encodedState: gameStateToString(run, SharedPayloadKindEnum.Handoff),
+                        completedAt: nowMs,
+                        dailyDayNumber: run.dailyDayNumber > 0 ? run.dailyDayNumber : null
+                    });
                 }
             },
             effect => sql.withTransaction(effect),
             Effect.orDie
         );
-        const updateRun = (update: (run: CurrentRunType) => CurrentRunType) => updateRunWithStats((run, counts) => [update(run), counts]);
 
         return {
             start: (
@@ -360,13 +398,19 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
                 const nowMs = yield* Clock.currentTimeMillis;
                 const needsWallClock = run.challengeState !== '' || run.isChallengeRun;
 
-                yield* currentRunRepository.save(resumeRun({ ...run, ...(needsWallClock && { wallClockStartMs: nowMs }) }));
+                yield* currentRunRepository.save(
+                    restartRunClock(resumeRun({ ...run, ...(needsWallClock && { wallClockStartMs: nowMs }) }), nowMs)
+                );
             }),
-            reset: sql.withTransaction(Effect.tap(currentRunRepository.get, () => currentRunRepository.remove)).pipe(Effect.orDie),
+            reset: Effect.andThen(
+                FiberSet.awaitEmpty(finishingRuns),
+                sql.withTransaction(Effect.tap(currentRunRepository.get, () => currentRunRepository.remove))
+            ).pipe(Effect.orDie),
             pause: (shouldShowPauseScreen = true) => updateRun(run => pauseRun(run, shouldShowPauseScreen)),
-            resume: updateRun(resumeRun),
+            resume: restartRun,
+            tick: tickClock,
+            stopClock: updateRun(run => (run.isChallengeRun ? run : { ...run, clockCheckpointMs: 0 })),
             focus: Effect.fn('CurrentRunService.focus')(function* () {
-                const nowMs = yield* Clock.currentTimeMillis;
                 const currentRun = yield* currentRunRepository.get;
 
                 if (Option.isNone(currentRun)) {
@@ -374,16 +418,17 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
                 }
 
                 const { isChallengeRun, isPaused, shouldResumeOnFocus } = currentRun.value;
+                const shouldRunTimer = !isPaused || shouldResumeOnFocus;
 
-                yield* updateRun(run => {
-                    const resumedRun = isPaused && shouldResumeOnFocus ? resumeRun(run) : run;
+                if (isChallengeRun) {
+                    yield* returnToCurrentRun;
+                } else if (shouldRunTimer) {
+                    yield* restartRun;
+                }
 
-                    return isChallengeRun ? returnToRun(resumedRun, nowMs) : resumedRun;
-                });
-
-                return { isChallengeRun, shouldRunTimer: !isPaused || shouldResumeOnFocus };
+                return { isChallengeRun, shouldRunTimer };
             }),
-            returnToRun: Effect.flatMap(Clock.currentTimeMillis, nowMs => updateRun(run => returnToRun(run, nowMs))),
+            returnToRun: returnToCurrentRun,
             leaveRun: updateRun(run =>
                 !run.isChallengeRun || isLastEventAway(run) ? run : withTimelineMarker(run, TimelineEventKindEnum.Away)
             ),
@@ -399,50 +444,8 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
             toggleInputMode: (inputState: InputStateType) => updateRun(run => ({ ...run, ...inputState })),
             toggleCellCandidate: (payload: Parameters<typeof toggleCellCandidate>[1]) =>
                 updateRun(run => toggleCellCandidate(run, payload)),
-            finish: Effect.fn('CurrentRunService.finish')(
-                function* (isWon: boolean, isChallenge: boolean) {
-                    const nowMs = yield* Clock.currentTimeMillis;
-                    const currentRun = yield* currentRunRepository.get;
-
-                    if (Option.isNone(currentRun)) {
-                        return;
-                    }
-
-                    const run = currentRun.value;
-                    const stats = yield* difficultyStatsRepository.findByDifficulty(run.difficulty);
-                    const playerStats = yield* playerStatsRepository.get;
-                    const hasNewPersonalBestScore = isWon && !isChallenge && run.challengeState === '' && run.score > stats.bestScore;
-
-                    yield* currentRunRepository.save({
-                        ...run,
-                        hasNewPersonalBestScore,
-                        isPaused: true,
-                        shouldShowPauseScreen: false,
-                        shouldResumeOnFocus: false
-                    });
-                    yield* playerStatsRepository.save(getFinishedPlayerStats(playerStats, run, isWon, nowMs));
-                    yield* difficultyStatsRepository.save(getFinishedStats(stats, run, isWon, isChallenge));
-
-                    if (isWon) {
-                        yield* completedGameRepository.insert({
-                            ...Struct.pick(run, [
-                                'difficulty',
-                                'rating',
-                                'isRatingCeiling',
-                                'elapsedTime',
-                                'score',
-                                'mistakes',
-                                'maxMistakes'
-                            ]),
-                            encodedState: gameStateToString(run, SharedPayloadKindEnum.Handoff),
-                            completedAt: nowMs,
-                            dailyDayNumber: run.dailyDayNumber > 0 ? run.dailyDayNumber : null
-                        });
-                    }
-                },
-                effect => sql.withTransaction(effect),
-                Effect.orDie
-            )
+            finish: (isWon: boolean, isChallenge: boolean, pendingWrites: Effect.Effect<unknown> = Effect.void) =>
+                FiberSet.run(finishingRuns, Effect.andThen(pendingWrites, finishRun(isWon, isChallenge))).pipe(Effect.flatMap(Fiber.join))
         };
     })
 }) {

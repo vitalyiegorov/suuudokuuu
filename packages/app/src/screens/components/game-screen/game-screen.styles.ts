@@ -2,7 +2,7 @@ import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { GamePanelHorizontalPaddingConstant, GameSidePanelWidthConstant } from '../../../game/constant/board-cell-size.constant';
-import { gameGetHintFooterHeight } from '../../../game/utils/game-get-hint-footer-height.util';
+import { gameGetControlsSlackHeight } from '../../../game/utils/game-get-controls-slack-height.util';
 import { gameGetNumpadHeight } from '../../../game/utils/game-get-numpad-height.util';
 
 export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
@@ -45,6 +45,7 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         flexShrink: 1,
         height: appLayoutScreenIsWide(rt.screen) ? '100%' : 'auto',
         justifyContent: 'center',
+        marginHorizontal: appLayoutScreenIsWide(rt.screen) ? 0 : GamePanelHorizontalPaddingConstant,
         minHeight: 0,
         minWidth: 0
     },
@@ -59,7 +60,8 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         flexShrink: 1,
         justifyContent: 'center',
         minHeight: 0,
-        paddingTop: theme.spacing.sm
+        paddingBottom: gameGetControlsSlackHeight(rt.fontScale) / 2,
+        paddingTop: theme.spacing.sm + gameGetControlsSlackHeight(rt.fontScale) / 2
     },
     panelArea: (boardSize: number) => {
         const isWideLayout = appLayoutScreenIsWide(rt.screen);
@@ -69,13 +71,8 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
             alignSelf: 'center',
             flexShrink: 0,
             gap: theme.spacing.sm,
-            height: isWideLayout
-                ? widePanelAreaHeight
-                : gameGetNumpadHeight(rt.screen.width) +
-                  theme.spacing.xl * 3 +
-                  gameGetHintFooterHeight(rt.fontScale) -
-                  gameGetHintFooterHeight(1),
-            justifyContent: isWideLayout ? 'space-between' : 'center',
+            height: isWideLayout ? widePanelAreaHeight : gameGetNumpadHeight(rt.screen.width),
+            justifyContent: isWideLayout ? 'space-between' : 'flex-start',
             paddingHorizontal: GamePanelHorizontalPaddingConstant,
             width: isWideLayout ? GameSidePanelWidthConstant : '100%'
         };

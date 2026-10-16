@@ -6,6 +6,7 @@ import { View } from 'react-native';
 import { isDefined } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
+import { HintVisibleLinkCountConstant } from '../../constant/hint-visible-link-count.constant';
 import { HintChainBlock } from '../hint-chain-block/hint-chain-block';
 import { HintChainOutcome } from '../hint-chain-outcome/hint-chain-outcome';
 import { HintStepNarrationSelectors } from '../hint-step-narration/hint-step-narration.selectors';
@@ -16,7 +17,6 @@ import { HintChainBlocksStyles as styles } from './hint-chain-blocks.styles';
 import type { StepScriptBranchStepInterface, StepScriptChainStepInterface } from '@suuudokuuu/field-core';
 import type { ChainCandidateInterface } from '@suuudokuuu/techniques';
 
-const visibleLinkCount = 4;
 const branchArrow = '→';
 const truncatedChainMarker = '…';
 const chainLinkSymbols: Record<ChainLinkEnum, string> = { [ChainLinkEnum.STRONG]: '=', [ChainLinkEnum.WEAK]: '−' };
@@ -31,7 +31,7 @@ export const HintChainBlocks = ({ step, revealedImplicationCount }: Props) => {
         step.kind === StepScriptStepKindEnum.SHOW_CHAIN ? step.chain : [step.branch.assumption, ...step.branch.implications];
     const linkCount = candidates.length - 1;
     const revealedLinkCount = Math.min(revealedImplicationCount, linkCount);
-    const firstVisibleIndex = Math.max(revealedLinkCount - visibleLinkCount, 0);
+    const firstVisibleIndex = Math.max(revealedLinkCount - HintVisibleLinkCountConstant, 0);
     const visibleCandidates = candidates.slice(firstVisibleIndex, revealedLinkCount + 1);
     const isLinkProgressVisible = linkCount > 0;
     const isOutcomeVisible = step.kind === StepScriptStepKindEnum.SHOW_BRANCH && revealedLinkCount === linkCount;
@@ -50,7 +50,7 @@ export const HintChainBlocks = ({ step, revealedImplicationCount }: Props) => {
                     const candidateIndex = firstVisibleIndex + index;
                     const linkSymbol = isDefined(candidate.link) ? chainLinkSymbols[candidate.link] : branchArrow;
                     const firstLinkSymbol = candidateIndex === 0 ? null : truncatedChainMarker;
-                    const blockStyle = candidateIndex === revealedLinkCount ? null : styles.faded;
+                    const blockStyle = candidateIndex === revealedLinkCount ? null : styles.earlierBlock;
 
                     return (
                         <HintChainBlock

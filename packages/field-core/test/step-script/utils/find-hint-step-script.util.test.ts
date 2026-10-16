@@ -1,4 +1,5 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { getInfinityCorpusPuzzle } from '@suuudokuuu/hell-corpus';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
@@ -11,6 +12,7 @@ import { findHintStepScript, findRevealStepScript } from '../../../src/step-scri
 
 import type { FieldCandidatesType } from '../../../src/field-engine/types/field-candidates.type';
 import type { StepScriptInterface } from '../../../src/step-script/interfaces/step-script.interface';
+import type { CellInterface } from '@suuudokuuu/generator';
 
 const pointingPairBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
 const guessBoard = '800000000003600000070090200050007000000045700000100030001000068008500010090000400'.replaceAll('0', '.');
@@ -55,39 +57,11 @@ const continuedEliminations: Partial<Record<SolutionTechniqueEnum, FieldCandidat
         '0-3': [9],
         '1-3': [9]
     },
-    [SolutionTechniqueEnum.XChain]: { '4-1': [8], '4-5': [8], '4-6': [6, 9] },
-    [SolutionTechniqueEnum.XYChain]: {
-        '0-2': [6, 2],
-        '1-2': [6, 1, 2],
-        '2-2': [6, 2, 1],
-        '5-3': [1, 3],
-        '5-4': [1],
-        '6-6': [3, 4],
-        '6-7': [3, 5],
-        '6-8': [3, 4],
-        '7-6': [3],
-        '6-2': [9, 4],
-        '1-6': [6, 3],
-        '7-2': [9],
-        '5-8': [2, 9],
-        '5-6': [2, 5],
-        '6-5': [1],
-        '7-1': [1],
-        '4-6': [5],
-        '7-5': [1],
-        '7-4': [3],
-        '4-8': [9],
-        '4-5': [2],
-        '3-8': [2],
-        '4-3': [1],
-        '3-5': [3],
-        '6-4': [3, 1],
-        '3-4': [5],
-        '2-4': [1],
-        '5-2': [5],
-        '2-1': [1, 2],
-        '8-8': [4]
-    }
+    [SolutionTechniqueEnum.XChain]: { '0-6': [1], '7-0': [6, 8], '4-1': [6, 8], '5-2': [8], '2-2': [4] },
+    [SolutionTechniqueEnum.XYChain]: { '1-7': [9], '4-4': [4], '7-4': [3], '7-7': [9], '8-1': [4], '8-4': [5] },
+    [SolutionTechniqueEnum.AIC]: { '1-1': [4], '8-8': [9], '3-1': [9], '4-0': [9], '5-0': [9], '5-1': [9], '2-4': [1], '2-3': [3] },
+    [SolutionTechniqueEnum.EmptyRectangle]: { '1-1': [9], '3-7': [5], '4-8': [9], '7-8': [3] },
+    [SolutionTechniqueEnum.ALSXZ]: { '2-7': [1], '7-3': [3], '7-5': [1], '7-8': [1], '8-7': [3] }
 };
 const solvedBoard = '123456789456789123789123456214365897365897214897214365531642978642978531978531642';
 
@@ -201,6 +175,19 @@ describe('findHintStepScript', () => {
         engine.applyStepScript();
 
         expect(engine.getCellCandidates(eliminatedCell)).not.toContain(4);
+    });
+
+    it('ignores a removed solution candidate and hints the solution digit', () => {
+        expect.assertions(2);
+
+        const engine = createEngine(pointingPairBoard, true);
+
+        engine.removeCandidate(engine.Sudoku.Field[2][1], 4);
+
+        const { placement } = requireScript(engine);
+
+        expect(engine.getSnapshot().eliminatedCandidates['2-1']).toEqual([4]);
+        expect(placement && { y: placement.cell.y, x: placement.cell.x, value: placement.value }).toEqual({ y: 2, x: 1, value: 4 });
     });
 
     it('undoes an applied chain hint in two steps: the placement, then every elimination at once', () => {
@@ -392,10 +379,13 @@ describe('findHintStepScript', () => {
         [SolutionTechniqueEnum.XYWing, '724581396953762814186..4752569423178..18.926.2.81.694..12..85378.5.17.29.972.5.81'],
         [SolutionTechniqueEnum.XYZWing, '812756943569348721347.....64.6..7.3.2.1....747534.21.9.7...439.934.75.18.2.9..4.7'],
         [SolutionTechniqueEnum.WWing, '361849275294.5.816785126934.42..17.8.18...3..67329845143691258785.6..1..12..856.3'],
-        [SolutionTechniqueEnum.XChain, '2.5..4.13...3.1.521.325..4..31.2.4.55.413.....2...53.1..6572139712..3586359816..4'],
-        [SolutionTechniqueEnum.XYChain, '..587.94..7..9...53....5.7..874..1..463.81........7.848..7.....7...1..28.5.268...'],
-        [SolutionTechniqueEnum.AIC, '1423....5853.4....9765.1...4....389..2.91...3.....4..6......5.9.....5.1.5.7.3...8'],
-        [SolutionTechniqueEnum.NishioForcingChain, '.62....4545.6...12.13245....2.153.6464...253113546....571384...3947261582865..473']
+        [SolutionTechniqueEnum.XChain, '..67.8.3939.52..7.7....3....49.37..1..3..54..51....3..2..37.91......97..9...5..6.'],
+        [SolutionTechniqueEnum.XYChain, '782.1....35...4..24.92.758.6..1.82.7..87.....175.238.65..6793.8.....1..48.7..2.6.'],
+        [SolutionTechniqueEnum.AIC, '...5..9.6..5.9..7...8..4...7.16...4..5..7.213......76.4..9.53.75.3.8...1..7......'],
+        [SolutionTechniqueEnum.NishioForcingChain, '.62....4545.6...12.13245....2.153.6464...253113546....571384...3947261582865..473'],
+        [SolutionTechniqueEnum.EmptyRectangle, '....27..1..7..1.2.123.45......7163.231628....7.2.5316823.16.875875..261..615782..'],
+        [SolutionTechniqueEnum.ALSXZ, '.325.468.864.3..2...5826...3281497566.925.1.8.51..8.922.3..58.9.86....7.597.8...4'],
+        [SolutionTechniqueEnum.SueDeCoq, '9...51348....986758.5.6329121.985.36..8327.19..9146.82783612954..2839167.9.574823']
     ])('includes technique %i in a hint that places the solution digit', (technique, board) => {
         expect.assertions(5);
 
@@ -417,5 +407,45 @@ describe('findHintStepScript', () => {
         expect(placement.value).toBe(solutionValue);
         expect(engine.Sudoku.Field[placement.cell.y][placement.cell.x].value).toBe(solutionValue);
         expect(getBlankCount(engine)).toBe(blankCount - 1);
+    });
+});
+
+describe('hint reveals and elimination streaks', () => {
+    const streakLimit = 6;
+
+    it('reveals the most constrained cell: fewest candidates, then most blank peers', () => {
+        expect.assertions(2);
+
+        const { Sudoku: sudoku } = createEngine(guessBoard);
+        const blankCells = sudoku.Field.flat().filter(cell => sudoku.isBlankCell(cell));
+        const getBlankPeerCount = (cell: CellInterface): number =>
+            blankCells.filter(peer => peer.x === cell.x || peer.y === cell.y || peer.group === cell.group).length;
+        const fewestCandidates = Math.min(...blankCells.map(cell => sudoku.getCellCandidates(cell).length));
+        const tiedCells = blankCells.filter(cell => sudoku.getCellCandidates(cell).length === fewestCandidates);
+        const revealCell = findRevealStepScript(sudoku)?.placement?.cell ?? sudoku.Field[0][0];
+
+        expect(sudoku.getCellCandidates(revealCell)).toHaveLength(fewestCandidates);
+        expect(getBlankPeerCount(revealCell)).toBe(Math.max(...tiedCells.map(getBlankPeerCount)));
+    });
+
+    it(`reveals a digit instead of a ${streakLimit + 1}th elimination in a row`, () => {
+        expect.assertions(2);
+
+        const engine = new FieldEngine({ sudokuString: getInfinityCorpusPuzzle(2).puzzle, difficulty: DifficultyEnum.Infinity });
+        const streaks: number[] = [];
+        let cappedHintCount = 0;
+
+        while (!engine.getSnapshot().isWon) {
+            const { eliminatedCandidates, hintEliminationStreak } = engine.getSnapshot();
+            const script = findHintStepScript(engine.Sudoku, eliminatedCandidates, hintEliminationStreak);
+
+            cappedHintCount += Number(hintEliminationStreak === streakLimit && isDefined(script?.placement));
+            engine.startStepScript(script ?? requireScript(engine));
+            engine.applyStepScript();
+            streaks.push(engine.getSnapshot().hintEliminationStreak);
+        }
+
+        expect(Math.max(...streaks)).toBe(streakLimit);
+        expect(cappedHintCount).toBeGreaterThan(0);
     });
 });

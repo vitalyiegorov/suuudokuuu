@@ -1,8 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
-import { HintLevelEnum } from '@suuudokuuu/field-core';
+import { StepScriptStepKindEnum } from '@suuudokuuu/field-core';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import LucideX from 'lucide-react-native/icons/x';
-import { use } from 'react';
+import { use, useEffect, useRef } from 'react';
 import { View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
@@ -11,17 +11,31 @@ import { AppIconButton } from '../../../@generic/components/app-icon-button/app-
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { HintPanelEnterDurationMillisecondsConstant } from '../../constant/hint-panel-enter-duration.constant';
 import { GameContext } from '../../context/game.context';
 import { HintPanelSelectors } from '../hint-panel/hint-panel.selectors';
 import { HintPanelStyles as styles } from '../hint-panel/hint-panel.styles';
 import { HintStepNarrationSelectors } from '../hint-step-narration/hint-step-narration.selectors';
 
+import type { HostInstance } from 'react-native';
+
 export const HintPanelHeader = () => {
     const { i18n, t } = useLingui();
     const { theme } = use(ThemeContext);
     const { engine, snapshot } = use(GameContext);
-    const { stepScript, stepIndex, hintLevel } = snapshot;
-    const technique = hintLevel === HintLevelEnum.WALKTHROUGH ? stepScript?.steps[stepIndex]?.narration.technique : stepScript?.technique;
+    const headerRef = useRef<HostInstance>(null);
+
+    const { stepScript } = snapshot;
+    const technique =
+        stepScript?.steps.find(step => step.kind === StepScriptStepKindEnum.PlaceValue)?.narration.technique ?? stepScript?.technique;
+
+    useEffect(() => {
+        const focusTimeout = setTimeout(() => headerRef.current?.focus(), HintPanelEnterDurationMillisecondsConstant);
+
+        return () => {
+            clearTimeout(focusTimeout);
+        };
+    }, []);
 
     if (!isDefined(technique)) {
         return null;
@@ -33,8 +47,8 @@ export const HintPanelHeader = () => {
     };
 
     return (
-        <View style={styles.header}>
-            <BlackText numberOfLines={2} style={styles.technique} testID={HintStepNarrationSelectors.Technique}>
+        <View ref={headerRef} style={styles.header} tabIndex={-1}>
+            <BlackText numberOfLines={2} role="heading" style={styles.technique} testID={HintStepNarrationSelectors.Technique}>
                 {techniqueName}
             </BlackText>
             <AppIconButton

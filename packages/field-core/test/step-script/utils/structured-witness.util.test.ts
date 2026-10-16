@@ -16,10 +16,10 @@ import type { TechniqueResultInterface } from '@suuudokuuu/techniques';
 
 const board = '000000051000000023004005000000000600000130000007680000429006500370400000810000000';
 const maxPatternLevelCells = 12;
-const forcingHintIndex = 11;
+const forcingHintIndex = 33;
 const hardcoreBoard = '001004800302000045540003090800040300000905410400006002030008600050370000100460000';
 const hardcoreHintCount = 10;
-const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
+const forcingBoard = '.................1..2.34........2....4..5....6..1....7.....8.3...3...54.1..6.....';
 
 const findResult = (technique: SolutionTechniqueEnum): TechniqueResultInterface => {
     const strategies = createTechniqueStrategies().filter(strategy => strategy.technique === technique);
@@ -75,11 +75,24 @@ describe('structured witness playback', () => {
     it('shows only the current witness slide and restores the deduction overlay after it', () => {
         const script = techniqueResultToStepScript(findResult(SolutionTechniqueEnum.CellForcingChain));
         const revealIndex = script.steps.findIndex(step => !isWitnessStep(step));
+        const [, branchStep] = script.steps;
 
         expect(buildStepScriptState(script, 1)).toEqual({
             explanation: script.steps[1],
             hintRegion: buildStepScriptState(script, revealIndex).hintRegion,
             regionCellKeys: new Set(),
+            candidateCellKeys: new Set(
+                branchStep.kind === StepScriptStepKindEnum.SHOW_BRANCH
+                    ? [
+                          ...branchStep.narration.cells,
+                          ...branchStep.outcomeCells,
+                          ...branchStep.outcomeCandidates.map(({ cell }) => cell),
+                          ...(branchStep.branch.outcome.kind === ForcingOutcomeKindEnum.COMMON_PLACEMENT
+                              ? [branchStep.branch.outcome.cell]
+                              : [])
+                      ].map(getCellKey)
+                    : []
+            ),
             revealedImplicationCount:
                 script.steps[1].kind === StepScriptStepKindEnum.SHOW_BRANCH ? script.steps[1].branch.implications.length : 0,
             patternCellKeys: new Set(),
@@ -130,8 +143,8 @@ describe('structured witness playback', () => {
         expect(forcingPatternSizes.every(size => size > 0 && size <= maxPatternLevelCells)).toBe(true);
     });
 
-    it('walks the Nishio and AIC twelfth hint of the #455 board without writing a hypothesis', () => {
-        const engine = new FieldEngine({ sudokuString: columnQuadBoard, difficulty: DifficultyEnum.Medium, showAutoCandidates: true });
+    it('walks a hint that chains a Nishio forcing chain and an AIC without writing a hypothesis', () => {
+        const engine = new FieldEngine({ sudokuString: forcingBoard, difficulty: DifficultyEnum.Medium, showAutoCandidates: true });
 
         for (let hintIndex = 0; hintIndex < forcingHintIndex; hintIndex += 1) {
             engine.startStepScript(findHint(engine));
@@ -146,19 +159,18 @@ describe('structured witness playback', () => {
 
         expect(nishio?.narration.technique).toBe(SolutionTechniqueEnum.NishioForcingChain);
         expect(nishio && getNarratedCandidates(nishio)).toEqual([
-            [7, 4, 6],
-            [8, 3, 7],
-            [1, 3, 1],
-            [0, 3, 8],
-            [4, 4, 8]
+            [7, 8, 9],
+            [6, 8, 6],
+            [8, 2, 9],
+            [4, 2, 7]
         ]);
-        expect(nishio).toMatchObject({ branch: { outcome: { kind: ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT, cell: { y: 4, x: 4 } } } });
+        expect(nishio).toMatchObject({ branch: { outcome: { kind: ForcingOutcomeKindEnum.EMPTY_CELL, cell: { y: 6, x: 2 } } } });
 
         const nishioScript = { ...script, steps: script.steps.slice(script.steps.findIndex(step => step === nishio)) };
 
         expect(buildStepScriptState(nishioScript, 0, HintLevelEnum.PATTERN).patternCellKeys.size).toBeLessThanOrEqual(maxPatternLevelCells);
         expect(aic?.narration.technique).toBe(SolutionTechniqueEnum.AIC);
-        expect(script.placement).toMatchObject({ cell: { y: 5, x: 8 }, value: 1 });
+        expect(script.placement).toMatchObject({ cell: { y: 4, x: 2 }, value: 7 });
 
         engine.startStepScript(script);
 

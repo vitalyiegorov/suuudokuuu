@@ -1,6 +1,7 @@
 import {
     Pressable,
     type PressableProps,
+    type HostInstance,
     type PressableStateCallbackType,
     type StyleProp,
     Text,
@@ -20,7 +21,7 @@ import { appButtonGetTextColor } from './utils/app-button-get-text-color.util';
 
 import type { UnistylesThemeInterface } from '../../theme/interface/unistyles-theme.interface';
 import type { LucideIcon } from 'lucide-react-native';
-import type { ReactNode } from 'react';
+import type { ReactNode, Ref } from 'react';
 
 export type AppButtonSize = 'compact' | 'regular' | 'large';
 export type AppButtonVariant = 'primary' | 'secondary' | 'ghost' | 'inverted' | 'glass' | 'dangerFilled' | 'boardSelected';
@@ -34,6 +35,7 @@ export interface AppButtonProps extends Omit<PressableProps, 'style'> {
     readonly children?: ReactNode;
     readonly size?: AppButtonSize;
     readonly variant?: AppButtonVariant;
+    readonly ref?: Ref<HostInstance>;
 }
 
 export const AppButton = ({

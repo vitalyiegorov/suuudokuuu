@@ -99,30 +99,27 @@ pnpm --filter @suuudokuuu/web-tests lint
   No logical chain reaches a placement, so the first hint is the "Reveal" of `9` at
   `y=7, x=6`, the blank cell with the fewest candidates. `09.hint-flow.spec.ts` depends on it.
 
-- `structuredChainHintSharedPuzzleEncodedConstant`: a `Puzzle`-kind share of the column-quad board from
-  issue #455. Hints teach the simplest step first, so after eleven applied hints (two placement chains,
-  then nine lone eliminations continued with Apply & next) the twelfth hint chains a Nishio forcing
-  chain (`r8c5=6` refuted by a conflict at `r5c5`) and an AIC into the placement `1` at `y=5, x=8` on 15
-  pages. `09.hint-flow.spec.ts` walks it to prove the witness overlay draws branch and outcome slides
-  without changing the board until Apply.
 - `hardcoreHintSharedPuzzleEncodedConstant`: a Hardcore (`maxMistakes: 0`) `Puzzle`-kind share
   (`difficulty: 2`, rating `0`) of the player-reported board
   `001004800302000045540003090800040300000905410400006002030008600050370000100460000`. Its first hint is
-  a lone Pointing Pair ruling out `5` at `y=6, x=7`; the second is a Nishio pattern (assume `R5C5` is
-  `8`) that places `8` at `y=4, x=8`. Generated with `GameStateSerializer.encodeState` with these fields
-  and empty candidates and timeline. `09.hint-flow.spec.ts` applies both.
+  a lone Pointing Pair ruling out `5` at `y=6, x=7`; the second is a lone ALS-XZ ruling out `2` at
+  `y=8, x=6`. Generated with `GameStateSerializer.encodeState` with these fields and empty candidates and
+  timeline. `09.hint-flow.spec.ts` applies the first and walks the second.
 - `aicDetourHintSharedPuzzleEncodedConstant`: a Hardcore (`maxMistakes: 0`) `Puzzle`-kind share (rating
   `8.0`) of the 24-clue board from the AIC hint report. The first six hints are lone eliminations
-  (starting with a Pointing Pair); the seventh is the Nishio route `r4c9≠8` to the Hidden Single `8` at
-  `y=5, x=6`. `09.hint-flow.spec.ts` applies it and checks that a slide opens with its narration
-  scrolled to the top. Regenerate with `GameStateSerializer.encodeState` with this field string,
-  `maxMistakes: 0`, `difficulty: 2`, `rating: 80` and `isRatingCeiling: false`.
+  (starting with a Pointing Pair), so the seventh hits the six-in-a-row elimination cap and reveals `1` at
+  `y=5, x=1`; the hint after it is a Hidden Single. `09.hint-flow.spec.ts` applies them. Regenerate with
+  `GameStateSerializer.encodeState` with this field string, `maxMistakes: 0`, `difficulty: 2`,
+  `rating: 80` and `isRatingCeiling: false`.
 - `eliminationHintSharedPuzzleEncodedConstant`: a Medium `Puzzle`-kind share of the budget-exhausted
-  `longChainBoard` in field-core. After three continued deductions, Nishio rules out `9` at `y=6, x=2`
-  through a no-position contradiction, and the next hint rules out `6` at `y=1, x=6` through an empty
-  cell, whose last page states that refutation.
+  `longChainBoard` in field-core. After five continued deductions (the last two are ALS-XZ), Nishio rules
+  out `6` at `y=1, x=6` through an empty cell, whose last page states that refutation. That is the sixth
+  elimination hint in a row, so the seventh hint is a reveal of `1` at `y=0, x=1` (the six-in-a-row
+  elimination cap), and the twelfth chains a Nishio branch (`r5c6=9` refuted by an empty cell at `r9c3`)
+  into the Naked Single `1` at `y=4, x=5` on 10 pages, its 19-link branch revealed four links per page; `09.hint-flow.spec.ts` walks it to prove the
+  witness overlay draws branch and outcome slides without changing the board until Apply.
 - `09.hint-flow.spec.ts` presses Show answer on the first walkthrough page of the Nishio elimination card
-  on `eliminationHintSharedPuzzleEncodedConstant` after three eliminations are continued, because gating
+  on `eliminationHintSharedPuzzleEncodedConstant` after five eliminations are continued, because gating
   it to the last slide left the player stuck with a hidden numpad.
 
 - Every hint opens at level one (technique and region). `09.hint-flow.spec.ts` taps `HintPanelSelectors.SHOW_MORE_BUTTON` twice to reach the walkthrough before using Next, Back, or Apply; the Reveal hint has no levels and opens on the walkthrough.

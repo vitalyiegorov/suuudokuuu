@@ -61,4 +61,25 @@ describe('HiddenSingleTechnique', () => {
             }
         ]);
     });
+
+    it('marks the fewest filled cells that block the value from the other blank cells of the unit', () => {
+        expect.assertions(1);
+
+        const sudoku = Sudoku.fromStrings(
+            defaultSudokuConfig,
+            '.3.678912',
+            '672.95348',
+            '1983425.7',
+            '8597.142.',
+            '.268537.1',
+            '7.3924856',
+            '961537284',
+            '287419635',
+            '34.286179'
+        );
+        const context = CandidateContext.fromSudoku(sudoku);
+        const [columnResult] = new HiddenSingleTechnique().find(context).filter(result => result.cell.x === 0 && result.cell.y === 0);
+
+        expect(columnResult.blockingCells?.map(cell => [cell.y, cell.x])).toStrictEqual([[3, 1]]);
+    });
 });

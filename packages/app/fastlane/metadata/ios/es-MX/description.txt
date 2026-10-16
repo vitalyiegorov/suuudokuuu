@@ -4,7 +4,7 @@ DIFICULTAD QUE PUEDES COMPARAR
 Cada tablero muestra una calificación Sudoku Explainer (SE). Esta cifra refleja el razonamiento necesario para resolverlo, no solo la cantidad de números iniciales. Puedes verla mientras juegas y en tu historial.
 
 DE NOVATO A INFINITO
-Avanza por siete niveles. Infierno reúne 958 tableros verificados que requieren cadenas forzadas. Infinito ofrece 100 sudokus de dificultad extrema, entre ellos Everest y Golden Nugget. Si buscas un reto nuevo cada día, abre el reto diario y sigue tu racha.
+Avanza por siete niveles. Infierno reúne 789 tableros verificados que requieren cadenas forzadas. Infinito ofrece 100 sudokus de dificultad extrema, entre ellos Everest y Golden Nugget. Si buscas un reto nuevo cada día, abre el reto diario y sigue tu racha.
 
 PISTAS QUE ENSEÑAN
 Cuando te atoras, las pistas muestran pasos y explicaciones. Haz anotaciones, prueba candidatos y decide cómo resolver cada casilla. Al terminar, repasa tu partida movimiento por movimiento.

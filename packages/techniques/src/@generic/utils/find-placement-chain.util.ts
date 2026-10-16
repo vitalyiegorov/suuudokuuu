@@ -101,6 +101,25 @@ const pruneChain = (
 const getBranchPathLength = (result: TechniqueResultInterface): number =>
     (result.branches ?? []).reduce((pathLength, branch) => pathLength + 1 + branch.implications.length, 0);
 
+const memoizeStrategy = (strategy: TechniqueStrategyInterface): TechniqueStrategyInterface => {
+    const resultsByContext = new WeakMap<CandidateContext, TechniqueResultInterface[]>();
+
+    return {
+        technique: strategy.technique,
+        find: (context, target) => {
+            if (isDefined(target)) {
+                return strategy.find(context, target);
+            }
+
+            const results = resultsByContext.get(context) ?? strategy.find(context);
+
+            resultsByContext.set(context, results);
+
+            return results;
+        }
+    };
+};
+
 const createBudgetedStrategies = (unbudgetedStrategies: TechniqueStrategyInterface[]): TechniqueStrategyInterface[] => {
     let spentWork = 0;
 
@@ -121,6 +140,16 @@ const createBudgetedStrategies = (unbudgetedStrategies: TechniqueStrategyInterfa
 };
 
 const singleTechniques = new Set([SolutionTechniqueEnum.FullHouse, SolutionTechniqueEnum.NakedSingle, SolutionTechniqueEnum.HiddenSingle]);
+const chainFamilyRanks: Partial<Record<SolutionTechniqueEnum, number>> = {
+    [SolutionTechniqueEnum.XChain]: 1,
+    [SolutionTechniqueEnum.XYChain]: 1,
+    [SolutionTechniqueEnum.AIC]: 1,
+    [SolutionTechniqueEnum.NishioForcingChain]: 2,
+    [SolutionTechniqueEnum.CellForcingChain]: 2,
+    [SolutionTechniqueEnum.RegionForcingChain]: 2
+};
+
+const getChainFamilyRank = (technique: SolutionTechniqueEnum): number => chainFamilyRanks[technique] ?? 0;
 
 const findShortPlacementRoute = (
     strategies: TechniqueStrategyInterface[],
@@ -210,10 +239,12 @@ export const findPlacementChain = (
     previousEliminations: CandidateEliminationInterface[] = [],
     includeFirstStepOnExhaustion = false
 ): TechniqueResultInterface[] => {
-    const unbudgetedStrategies = [...registryStrategies].sort(
-        (firstStrategy, secondStrategy) =>
-            PLACEMENT_CHAIN_DIFFICULTIES[firstStrategy.technique] - PLACEMENT_CHAIN_DIFFICULTIES[secondStrategy.technique]
-    );
+    const unbudgetedStrategies = [...registryStrategies]
+        .sort(
+            (firstStrategy, secondStrategy) =>
+                PLACEMENT_CHAIN_DIFFICULTIES[firstStrategy.technique] - PLACEMENT_CHAIN_DIFFICULTIES[secondStrategy.technique]
+        )
+        .map(memoizeStrategy);
     const strategies = createBudgetedStrategies(unbudgetedStrategies);
     const sudokuContext = CandidateContext.fromSudoku(sudoku);
     const context = previousEliminations.length > 0 ? sudokuContext.withEliminations(previousEliminations) : sudokuContext;
@@ -225,7 +256,8 @@ export const findPlacementChain = (
 
     const difficultyLimit = PLACEMENT_CHAIN_DIFFICULTIES[firstStep.technique] + PLACEMENT_CHAIN_DIFFICULTY_TOLERANCE;
     const isWithinDifficulty = (strategy: TechniqueStrategyInterface): boolean =>
-        PLACEMENT_CHAIN_DIFFICULTIES[strategy.technique] <= difficultyLimit;
+        PLACEMENT_CHAIN_DIFFICULTIES[strategy.technique] <= difficultyLimit &&
+        getChainFamilyRank(strategy.technique) <= getChainFamilyRank(firstStep.technique);
     const route = findPlacementRoute(
         unbudgetedStrategies.filter(isWithinDifficulty),
         strategies.filter(isWithinDifficulty),

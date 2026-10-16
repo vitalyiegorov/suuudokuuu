@@ -1,6 +1,6 @@
 import { ForcingOutcomeKindEnum, SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
+import { isNotEmptyArray } from '@rnw-community/shared';
 
 import { StepScriptStepKindEnum } from '../enums/step-script-step-kind.enum';
 
@@ -16,19 +16,18 @@ const getPatternCandidates = (result: TechniqueResultInterface, patternCells: Ce
     patternCells.flatMap(cell => [...new Set(result.eliminations.map(elimination => elimination.value))].map(value => ({ cell, value })));
 
 const createRevealStep = (
-    technique: SolutionTechniqueEnum,
-    patternCells: CellInterface[],
-    candidates: StepScriptCandidateInterface[],
-    placement?: StepScriptCandidateInterface
+    result: TechniqueResultInterface,
+    narrationCells: CellInterface[],
+    candidates: StepScriptCandidateInterface[]
 ): StepScriptStepType => ({
     kind: StepScriptStepKindEnum.RevealCandidates,
-    patternCells,
+    patternCells: isNotEmptyArray(result.blockingCells) ? [...result.blockingCells] : narrationCells,
     candidates,
     narration: {
-        technique,
-        cells: patternCells,
+        technique: result.technique,
+        cells: narrationCells,
         values: [...new Set(candidates.map(candidate => candidate.value))].sort((left, right) => left - right),
-        ...(isDefined(placement) && { placement })
+        ...(result.kind !== 'elimination' && { placement: { cell: result.cell, value: result.value } })
     }
 });
 
@@ -103,9 +102,7 @@ export const techniqueResultToStepScript = (result: TechniqueResultInterface): S
     const placement = { cell: result.cell, value: result.value };
     const hasPlacement = result.kind !== 'elimination';
     const revealCandidates = hasPlacement ? [placement] : getPatternCandidates(result, patternCells);
-    const revealStep = hasPlacement
-        ? createRevealStep(result.technique, patternCells, revealCandidates, placement)
-        : createRevealStep(result.technique, patternCells, revealCandidates);
+    const revealStep = createRevealStep(result, patternCells, revealCandidates);
     const steps: StepScriptStepType[] = [
         ...createWitnessSteps(result),
         revealStep,

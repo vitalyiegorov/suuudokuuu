@@ -4,5 +4,7 @@ export enum SettingsScreenSelectors {
     DarkModeSwitch = 'SettingsScreenSelectors.DarkModeSwitch',
     MotionOption = 'SettingsScreenSelectors.MotionOption',
     CalmModeSwitch = 'SettingsScreenSelectors.CalmModeSwitch',
-    ThemeOption = 'SettingsScreenSelectors.ThemeOption'
+    ThemeOption = 'SettingsScreenSelectors.ThemeOption',
+    ExportBackupButton = 'SettingsScreenSelectors.ExportBackupButton',
+    ImportBackupButton = 'SettingsScreenSelectors.ImportBackupButton'
 }

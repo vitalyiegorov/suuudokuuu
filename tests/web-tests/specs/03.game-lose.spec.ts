@@ -3,16 +3,21 @@ import {
     ChallengeRaceHudSelectors,
     ChallengeResultScreenSelectors,
     ChallengeTryAgainButtonSelectors,
-    GameScreenSelectors
+    CompletedGameTechniqueSummarySelectors,
+    GameScreenSelectors,
+    LoserScreenSelectors,
+    SharedScreenSelectors
 } from '@suuudokuuu/app/src/selectors';
 
 import {
     losingSharedChallengeEncodedConstant,
-    ratedLosingSharedChallengeEncodedConstant
+    ratedLosingSharedChallengeEncodedConstant,
+    revealHintSharedPuzzleEncodedConstant
 } from '../src/constants/shared-challenge-links.constant';
 import { acceptSharedChallenge } from '../src/utils/accept-shared-challenge.util';
 import { launchHome } from '../src/utils/launch-home.util';
 import { openSharedChallenge } from '../src/utils/open-shared-challenge.util';
+import { openSharedPuzzle } from '../src/utils/open-shared-puzzle.util';
 import { quitCurrentGame } from '../src/utils/quit-current-game.util';
 import { cellTestId, valueButtonTestId } from '../src/utils/test-id.util';
 
@@ -20,6 +25,7 @@ const wrongCellY = 0;
 const wrongCellX = 4;
 const wrongValue = 4;
 const challengeResultTimeoutMilliseconds = 5000;
+const gameScreenTimeoutMilliseconds = 15000;
 
 test('loses a shared challenge after three mistakes and tries again', async ({ page }) => {
     await launchHome(page);
@@ -74,4 +80,24 @@ test('shows the rival rating inline on a rated challenge loss', async ({ page })
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
 
     await quitCurrentGame(page);
+});
+
+test('shows the techniques used on the loser screen of a lost puzzle', async ({ page }) => {
+    await launchHome(page);
+    await openSharedPuzzle(page, revealHintSharedPuzzleEncodedConstant);
+    await page.getByTestId(SharedScreenSelectors.ConfirmButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+
+    await page.getByTestId(cellTestId(0, 1)).click();
+    await page.getByTestId(valueButtonTestId(1)).click();
+
+    const wrongValueButton = page.getByTestId(valueButtonTestId(wrongValue));
+
+    await page.getByTestId(cellTestId(0, 2)).click();
+    await wrongValueButton.click();
+    await wrongValueButton.click();
+    await wrongValueButton.click();
+
+    await expect(page.getByTestId(LoserScreenSelectors.Root)).toBeVisible({ timeout: challengeResultTimeoutMilliseconds });
+    await expect(page.getByTestId(CompletedGameTechniqueSummarySelectors.Root)).toBeVisible();
 });

@@ -11,10 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
-msgid "‹ Back"
-msgstr "‹ 返回"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -38,6 +34,10 @@ msgstr "离开 {awaySeconds} 秒"
 #: src/daily/components/daily-week-card/daily-week-card.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, other {最长连续：# 天}}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{cell} cannot be {values}"
+msgstr "{cell} 不可能是 {values}"
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
@@ -113,16 +113,16 @@ msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
 msgstr "{techniqueName}:{cellName} 已看到除一个之外的所有突出显示的数字。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
-msgstr "{techniqueName}:{valueList} 必须位于基线中，因此覆盖线在标记的单元格中不再包含它。"
+msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{techniqueName}:{valueList} 必须位于基线中，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
 msgstr "{techniqueName}:一条链连接突出显示的两端，因此 {firstEnd} 或 {lastEnd} 必定成立。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
-msgstr "{techniqueName}:某个钳形单元格必定是 {valueList}，因此同时看到两个钳形单元格的标记单元格不可能是 {valueList}。"
+msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "{techniqueName}:某个钳形单元格必定是 {valueList}，而每个标记的单元格都能同时看到两个钳形单元格，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
@@ -145,16 +145,24 @@ msgid "{techniqueName}: column {regionNumber} has one empty cell left."
 msgstr "{techniqueName}:第 {regionNumber} 列只剩一个空格。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}:每个标记的单元格都能看到所有突出显示的单元格，因此 {cellList} 不可能是 {valueList}。"
+msgid "{techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
+msgstr "{techniqueName}:每个突出显示的组的候选数都比单元格多一个，且两个组共享一个只有其中一组能容纳的数字。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "{techniqueName}:每个标记的单元格都能看到所有突出显示的单元格，因此 {eliminationList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "{techniqueName}:无论哪种情况，{valueList} 都会落在标记单元格能看到的单元格中，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}:其余每个空单元格都只有两个候选数，因此为避免致命模式，{value} 必须填入标记的单元格。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}:每种可能性都以矛盾或相同的结果告终，因此标记的单元格中排除了 {valueList}。"
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "{techniqueName}:每种可能都会导致矛盾或相同的结果，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
@@ -209,8 +217,16 @@ msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in 
 msgstr "{techniqueName}:在突出显示的基线中，{valueList} 只能填入突出显示的单元格，因此它被锁定在覆盖线中。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}:链的某一端必定成立，而每个标记的候选数都与两端冲突，因此 {cellList} 不可能是 {valueList}。"
+msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
+msgstr "{techniqueName}:在突出显示的宫中，{valueList} 只能填入一行和一列，而宫外突出显示的数对在其中一端含有 {valueList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "{techniqueName}:链的一端必定为真，且每个标记的候选数与两端都冲突，因此 {eliminationList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "{techniqueName}:其中一组必须包含 {valueList}，且每个标记的单元格都能看到两组中所有的 {valueList}，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -233,6 +249,10 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}:突出显示的单元格让标记单元格只剩下 {value} 可填。"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "{techniqueName}:突出显示的单元格在行或列与宫之间分配各自的数字且不重复，因此 {eliminationList}。"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
 msgstr "{techniqueName}：高亮单元格按 {valueList} 分成两种颜色，且恰好有一种颜色包含所有 {valueList}。"
 
@@ -249,16 +269,16 @@ msgid "{techniqueName}: the marked cell sees every highlighted digit except {val
 msgstr "{techniqueName}:标记的单元格已看到除 {value} 之外的所有突出显示的数字。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
-msgstr "{techniqueName}：标记的单元格要么同时看到两种颜色，要么带有自相矛盾的颜色，因此不能是 {valueList}。"
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "{techniqueName}:标记的单元格要么同时看到两种颜色，要么带有自相矛盾的颜色，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}:这些单元格被这组数字占用，因此 {cellList} 不可能是 {valueList}。"
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
+msgstr "{techniqueName}:这些单元格被这组数字占用，因此 {eliminationList}。"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}:为避免致命模式，标记的单元格中排除了 {valueList}。"
+msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
+msgstr "{techniqueName}:为避免致命模式，{eliminationList}。"
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
@@ -328,6 +348,10 @@ msgstr "接受挑战"
 msgid "Accept challenge?"
 msgstr "接受挑战？"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Add games, statistics, and themes from a backup file"
+msgstr "从备份文件添加游戏、统计和主题"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "调整数独棋盘上的数字大小"
@@ -355,6 +379,10 @@ msgstr "某个数字的所有格（1-9）"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "所有进度都会丢失"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "ALS-XZ"
+msgstr "ALS-XZ"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Always off"
@@ -415,9 +443,26 @@ msgid "Avoid mistakes - they cost you points!"
 msgstr "避免错误：它们会扣分。"
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
+#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "返回"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup"
+msgstr "备份"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup imported"
+msgstr "备份已导入"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not exported"
+msgstr "备份未导出"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not imported"
+msgstr "备份未导入"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -517,6 +562,7 @@ msgstr "你能超过他们吗？"
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "取消"
@@ -822,6 +868,10 @@ msgstr "编辑"
 msgid "Empty cell text"
 msgstr "空单元格文字"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Empty Rectangle"
+msgstr "空矩形"
+
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
 msgstr "English"
@@ -850,6 +900,10 @@ msgstr "专家"
 msgid "Expert grid"
 msgstr "专家棋盘"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Export backup"
+msgstr "导出备份"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Extra points are awarded when your placement completes:"
 msgstr "当你的落子完成以下内容时可获得额外分数："
@@ -865,6 +919,10 @@ msgstr "已填单元格"
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
 msgstr "最终分数"
+
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Finding a hint"
+msgstr "正在查找提示"
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
@@ -919,6 +977,14 @@ msgstr "游戏设置"
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "对局"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are added to this device. Nothing here is removed, and your settings stay as they are."
+msgstr "文件中的游戏、统计和主题将添加到此设备。不会删除任何内容，你的设置保持不变。"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are now on this device."
+msgstr "文件中的游戏、统计和主题现已在此设备上。"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "General"
@@ -1076,6 +1142,18 @@ msgstr "如果 {path} → {value} 在加框的单元格中已无位置。所以 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "不朽"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import"
+msgstr "导入"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup"
+msgstr "导入备份"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup?"
+msgstr "导入备份？"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1323,8 +1401,8 @@ msgid "Newspaper"
 msgstr "报纸"
 
 #: src/game/components/hint-stepper-next/hint-stepper-next.tsx
-msgid "Next ›"
-msgstr "下一步 ›"
+msgid "Next"
+msgstr "下一步"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1611,10 +1689,6 @@ msgstr "数独已解开。"
 msgid "Quit"
 msgstr "退出"
 
-#: src/game/components/hint-chain-block/hint-chain-block.tsx
-msgid "R{row}C{column} {operator} {value}"
-msgstr "R{row}C{column} {operator} {value}"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
 msgstr "凸起表面"
@@ -1769,6 +1843,10 @@ msgstr "保存"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Save anyway"
 msgstr "仍要保存"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Save your games, statistics, and themes to a file"
+msgstr "将你的游戏、统计和主题保存到文件"
 
 #: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
@@ -2007,6 +2085,10 @@ msgstr "淡色表面文字"
 msgid "Sudoku board, 9 by 9 cells"
 msgstr "数独棋盘，9 乘 9 单元格"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sue de Coq"
+msgstr "Sue de Coq"
+
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
 msgstr "支持"
@@ -2081,6 +2163,14 @@ msgstr "已填充数字键盘进度条上的文字"
 msgid "Text on ink"
 msgstr "墨色上的文字"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup could not be added to this device. Please try again."
+msgstr "无法将备份添加到此设备。请重试。"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup file could not be saved. Please try again."
+msgstr "无法保存备份文件。请重试。"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "无法在此设备上打开提交链接。"
@@ -2115,6 +2205,10 @@ msgstr "主题名称"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "这次未能完成棋盘。乌克兰争取自由的战斗仍在继续。每 1 美元捐款都有意义。"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
+msgstr "此文件不是 {appName} 备份，或由更新版本的应用创建。"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

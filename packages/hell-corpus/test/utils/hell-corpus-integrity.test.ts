@@ -12,7 +12,7 @@ const CROSS_CHECK_SAMPLE_COUNT = 25;
 const SINGLES_SAMPLE_COUNT = 150;
 const NEGATIVE_INDEX = -1;
 const NON_INTEGER_INDEX = 1.5;
-const EXPECTED_CORPUS_SIZE = 958;
+const EXPECTED_CORPUS_SIZE = 789;
 const GRID_SIZE = 9;
 const BOX_SIZE = 3;
 const DIGITS = [1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -120,7 +120,7 @@ const createSpreadIndices = (count: number): number[] => {
 const countGivens = (puzzle: string): number => puzzle.split('').filter(character => character !== '0').length;
 
 describe('Hell corpus integrity', () => {
-    it('reports a corpus of exactly 958 puzzles', () => {
+    it('reports a corpus of exactly 789 puzzles', () => {
         expect(HELL_CORPUS_SIZE).toBe(EXPECTED_CORPUS_SIZE);
     });
 

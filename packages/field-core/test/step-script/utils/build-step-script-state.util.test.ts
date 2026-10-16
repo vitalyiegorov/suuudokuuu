@@ -1,6 +1,7 @@
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { describe, expect, it } from 'vitest';
 
+import { HintLevelEnum } from '../../../src/step-script/enums/hint-level.enum';
 import { StepScriptStepKindEnum } from '../../../src/step-script/enums/step-script-step-kind.enum';
 import { buildStepScriptState } from '../../../src/step-script/utils/build-step-script-state.util';
 
@@ -85,6 +86,15 @@ describe('buildStepScriptState', () => {
         expect(stepState.eliminatedCandidates.size).toBe(0);
         expect(stepState.placedValues.size).toBe(0);
         expect(stepState.revealedCandidates.get('0-0')).toEqual([3, 7]);
+    });
+
+    it('lists the cells whose candidates the current page refers to', () => {
+        expect.assertions(4);
+
+        expect(buildStepScriptState(nakedPairScript, 0, HintLevelEnum.TECHNIQUE).candidateCellKeys.size).toBe(0);
+        expect(buildStepScriptState(nakedPairScript, 0, HintLevelEnum.PATTERN).candidateCellKeys).toEqual(new Set(['0-0', '0-1']));
+        expect(buildStepScriptState(nakedPairScript, 1).candidateCellKeys).toEqual(new Set(['0-0', '0-1', '0-4']));
+        expect(buildStepScriptState(nakedPairScript, 2).candidateCellKeys.has('2-2')).toBe(true);
     });
 
     it('reports no target cell for an elimination-only script', () => {

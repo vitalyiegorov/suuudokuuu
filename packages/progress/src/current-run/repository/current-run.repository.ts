@@ -31,9 +31,18 @@ export class CurrentRunRepository extends Context.Service<CurrentRunRepository>(
             get: findCurrentRun().pipe(Effect.orDie),
             save: (currentRun: CurrentRunType) => reactivity.mutation(currentRunKeys, replaceCurrentRun(currentRun)).pipe(Effect.orDie),
             remove: reactivity.mutation(currentRunKeys, sql`DELETE FROM current_run`).pipe(Effect.orDie),
-            tick: reactivity
-                .mutation([ReactivityKeyEnum.RunClock], sql`UPDATE current_run SET elapsed_time = elapsed_time + 1 WHERE is_paused = 0`)
-                .pipe(Effect.orDie)
+            tick: (nowMs: number) =>
+                reactivity
+                    .mutation(
+                        [ReactivityKeyEnum.RunClock],
+                        sql`WITH clock AS (SELECT elapsed_remainder_ms + MAX(CAST(${nowMs} AS INTEGER) - clock_checkpoint_ms, 0) AS total_ms FROM current_run)
+                            UPDATE current_run
+                            SET elapsed_time = elapsed_time + (SELECT total_ms FROM clock) / 1000,
+                                elapsed_remainder_ms = (SELECT total_ms FROM clock) % 1000,
+                                clock_checkpoint_ms = CAST(${nowMs} AS INTEGER)
+                            WHERE is_paused = 0 AND clock_checkpoint_ms > 0`
+                    )
+                    .pipe(Effect.orDie)
         };
     })
 }) {

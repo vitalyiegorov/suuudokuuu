@@ -11,10 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
-msgid "‹ Back"
-msgstr "‹ Tillbaka"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -38,6 +34,10 @@ msgstr "{awaySeconds}s borta"
 #: src/daily/components/daily-week-card/daily-week-card.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Bästa svit: # dag} other {Bästa svit: # dagar}}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{cell} cannot be {values}"
+msgstr "{cell} kan inte vara {values}"
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
@@ -113,16 +113,16 @@ msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
 msgstr "{techniqueName}: {cellName} ser alla markerade siffror utom en."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
-msgstr "{techniqueName}: {valueList} måste ligga i baslinjerna, så täckningslinjerna förlorar det i de markerade cellerna."
+msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{techniqueName}: {valueList} måste ligga i baslinjerna, så {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
 msgstr "{techniqueName}: en kedja förbinder de markerade ändarna, så {firstEnd} eller {lastEnd} är sann."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
-msgstr "{techniqueName}: en tångcell är alltid {valueList}, så de markerade cellerna som ser båda tängerna kan inte vara {valueList}."
+msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "{techniqueName}: en tångcell är alltid {valueList} och varje markerad cell ser båda tängerna, så {eliminationList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
@@ -145,16 +145,24 @@ msgid "{techniqueName}: column {regionNumber} has one empty cell left."
 msgstr "{techniqueName}: kolumn {regionNumber} har bara en tom cell kvar."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: varje markerad cell ser alla framhävda celler, så {cellList} kan inte vara {valueList}."
+msgid "{techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
+msgstr "{techniqueName}: varje framhävd grupp har en kandidat mer än antalet celler, och de två grupperna delar en siffra som bara en av dem kan innehålla."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "{techniqueName}: varje markerad cell ser alla framhävda celler, så {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "{techniqueName}: hur det än går hamnar {valueList} i en cell som de markerade cellerna ser, så {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: varje annan tom cell har två kandidater, så {value} måste in i den markerade cellen för att undvika ett dödligt mönster."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: varje möjlighet slutar i en motsägelse eller samma resultat, så {valueList} utesluts ur de markerade cellerna."
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "{techniqueName}: varje möjlighet slutar i en motsägelse eller samma resultat, så {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
@@ -209,8 +217,16 @@ msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in 
 msgstr "{techniqueName}: i de markerade baslinjerna passar {valueList} bara i de markerade cellerna, så det är låst i täckningslinjerna."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: ena änden av kedjan är alltid sann och varje markerad kandidat krockar med båda ändarna, så {cellList} kan inte vara {valueList}."
+msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
+msgstr "{techniqueName}: i det framhävda blocket passar {valueList} bara på en rad och i en kolumn, och det framhävda paret utanför blocket innehåller {valueList} i den ena eller andra änden."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "{techniqueName}: ena änden av kedjan är alltid sann och varje markerad kandidat krockar med båda ändarna, så {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "{techniqueName}: en av grupperna måste innehålla {valueList}, och varje markerad cell ser alla {valueList} i båda grupperna, så {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -233,6 +249,10 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}: de markerade cellerna lämnar bara {value} för den markerade cellen."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "{techniqueName}: de framhävda cellerna delar sina siffror mellan raden eller kolumnen och blocket utan att upprepa någon, så {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
 msgstr "{techniqueName}: de markerade cellerna delas i två färger för {valueList}, och exakt en färg innehåller varje {valueList}."
 
@@ -249,16 +269,16 @@ msgid "{techniqueName}: the marked cell sees every highlighted digit except {val
 msgstr "{techniqueName}: den markerade cellen ser alla markerade siffror utom {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
-msgstr "{techniqueName}: de markerade cellerna ser antingen båda färgerna eller har en färg som motsäger sig själv, så de kan inte vara {valueList}."
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "{techniqueName}: de markerade cellerna ser antingen båda färgerna eller bär en färg som motsäger sig själv, så {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: de cellerna är reserverade för den uppsättningen siffror, så {cellList} kan inte vara {valueList}."
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
+msgstr "{techniqueName}: de cellerna är reserverade för den uppsättningen siffror, så {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: för att undvika det dödliga mönstret utesluts {valueList} ur de markerade cellerna."
+msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
+msgstr "{techniqueName}: för att undvika det dödliga mönstret gäller {eliminationList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
@@ -328,6 +348,10 @@ msgstr "Anta utmaningen"
 msgid "Accept challenge?"
 msgstr "Anta utmaningen?"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Add games, statistics, and themes from a backup file"
+msgstr "Lägg till spel, statistik och teman från en säkerhetskopia"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "Justera siffrorna på sudokubrädet"
@@ -355,6 +379,10 @@ msgstr "Alla rutor med en siffra (1-9)"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "Alla framsteg går förlorade"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "ALS-XZ"
+msgstr "ALS-XZ"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Always off"
@@ -415,9 +443,26 @@ msgid "Avoid mistakes - they cost you points!"
 msgstr "Undvik misstag: de kostar poäng."
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
+#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "Tillbaka"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup"
+msgstr "Säkerhetskopia"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup imported"
+msgstr "Säkerhetskopian importerades"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not exported"
+msgstr "Säkerhetskopian exporterades inte"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not imported"
+msgstr "Säkerhetskopian importerades inte"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -517,6 +562,7 @@ msgstr "Kan du slå dem?"
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "Avbryt"
@@ -822,6 +868,10 @@ msgstr "Redigera"
 msgid "Empty cell text"
 msgstr "Text för tom ruta"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Empty Rectangle"
+msgstr "Tom rektangel"
+
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
 msgstr "English"
@@ -850,6 +900,10 @@ msgstr "Expert"
 msgid "Expert grid"
 msgstr "Expertrutnät"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Export backup"
+msgstr "Exportera säkerhetskopia"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Extra points are awarded when your placement completes:"
 msgstr "Du får extrapoäng när ditt drag slutför:"
@@ -865,6 +919,10 @@ msgstr "Ifylld ruta"
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
 msgstr "Slutpoäng"
+
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Finding a hint"
+msgstr "Letar efter en ledtråd"
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
@@ -919,6 +977,14 @@ msgstr "Spelinställningar"
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "Partier"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are added to this device. Nothing here is removed, and your settings stay as they are."
+msgstr "Spel, statistik och teman från filen läggs till på den här enheten. Inget tas bort och dina inställningar förblir oförändrade."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are now on this device."
+msgstr "Spel, statistik och teman från filen finns nu på den här enheten."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "General"
@@ -1076,6 +1142,18 @@ msgstr "Om {path} → {value} har ingen plats kvar i de inramade cellerna. Allts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "Odödlig"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import"
+msgstr "Importera"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup"
+msgstr "Importera säkerhetskopia"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup?"
+msgstr "Importera säkerhetskopia?"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1323,8 +1401,8 @@ msgid "Newspaper"
 msgstr "Tidning"
 
 #: src/game/components/hint-stepper-next/hint-stepper-next.tsx
-msgid "Next ›"
-msgstr "Nästa ›"
+msgid "Next"
+msgstr "Nästa"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1611,10 +1689,6 @@ msgstr "Sudokut är löst."
 msgid "Quit"
 msgstr "Avsluta"
 
-#: src/game/components/hint-chain-block/hint-chain-block.tsx
-msgid "R{row}C{column} {operator} {value}"
-msgstr "R{row}C{column} {operator} {value}"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
 msgstr "Upphöjd yta"
@@ -1769,6 +1843,10 @@ msgstr "Spara"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Save anyway"
 msgstr "Spara ändå"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Save your games, statistics, and themes to a file"
+msgstr "Spara dina spel, din statistik och dina teman i en fil"
 
 #: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
@@ -2007,6 +2085,10 @@ msgstr "Text för subtil yta"
 msgid "Sudoku board, 9 by 9 cells"
 msgstr "Sudokubräde, 9 gånger 9 rutor"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sue de Coq"
+msgstr "Sue de Coq"
+
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
 msgstr "Stöd"
@@ -2081,6 +2163,14 @@ msgstr "Text på ifylld list i sifferpanelen"
 msgid "Text on ink"
 msgstr "Text på bläck"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup could not be added to this device. Please try again."
+msgstr "Säkerhetskopian kunde inte läggas till på den här enheten. Försök igen."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup file could not be saved. Please try again."
+msgstr "Säkerhetskopian kunde inte sparas som fil. Försök igen."
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "Commit-länken kunde inte öppnas på den här enheten."
@@ -2115,6 +2205,10 @@ msgstr "Temanamn"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Det här brädet blev inte klart den här gången. Kampen för frihet i Ukraina fortsätter. Varje donation på 1 $ gör skillnad."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
+msgstr "Den här filen är ingen säkerhetskopia från {appName}, eller så skapades den av en nyare version av appen."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

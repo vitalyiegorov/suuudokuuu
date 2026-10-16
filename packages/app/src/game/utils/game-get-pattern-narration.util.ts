@@ -4,9 +4,10 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { gameGetCellName } from './game-get-cell-name.util';
 import { gameGetStepNarration } from './game-get-step-narration.util';
 
-import type { MessageDescriptor } from '@lingui/core';
+import type { I18n, MessageDescriptor } from '@lingui/core';
 import type { HintRegionInterface, StepScriptCandidateInterface, StepScriptInterface } from '@suuudokuuu/field-core';
 
 type UnitPatternNarrationType = (techniqueName: string, value: number, regionNumber: number) => MessageDescriptor;
@@ -40,7 +41,7 @@ const getPlacementPatternNarration = (
     const regionNumber = hintRegion?.number ?? 0;
 
     if (technique === SolutionTechniqueEnum.NakedSingle) {
-        const cellName = `R${cell.y + 1}C${cell.x + 1}`;
+        const cellName = gameGetCellName(cell);
 
         return msg`${techniqueName}: ${cellName} sees every highlighted digit except one.`;
     }
@@ -59,7 +60,8 @@ const getPlacementPatternNarration = (
 export const gameGetPatternNarration = (
     { steps }: Pick<StepScriptInterface, 'steps'>,
     hintRegion: HintRegionInterface | null,
-    techniqueName: string
+    techniqueName: string,
+    i18n: I18n
 ): MessageDescriptor => {
     const firstStep = steps.at(0);
     const revealStep = steps.find(step => step.kind === StepScriptStepKindEnum.RevealCandidates);
@@ -67,7 +69,7 @@ export const gameGetPatternNarration = (
 
     if (firstStep?.kind === StepScriptStepKindEnum.SHOW_BRANCH) {
         const { cell, value } = firstStep.branch.assumption;
-        const cellName = `R${cell.y + 1}C${cell.x + 1}`;
+        const cellName = gameGetCellName(cell);
 
         return firstStep.branchCount > 1
             ? msg`${techniqueName}: try each highlighted possibility in turn and follow what it forces.`
@@ -80,5 +82,5 @@ export const gameGetPatternNarration = (
 
     return isDefined(placement)
         ? getPlacementPatternNarration(placement, revealStep.narration.technique, hintRegion, techniqueName)
-        : gameGetStepNarration(revealStep, techniqueName);
+        : gameGetStepNarration(revealStep, techniqueName, i18n);
 };

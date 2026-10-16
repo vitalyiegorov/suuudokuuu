@@ -21,6 +21,8 @@ const currentRun: CurrentRunType = {
     mistakes: 1,
     maxMistakes: 3,
     elapsedTime: 10,
+    elapsedRemainderMs: 0,
+    clockCheckpointMs: 1_760_000_100_000,
     isPaused: false,
     shouldShowPauseScreen: false,
     shouldResumeOnFocus: true,
@@ -43,6 +45,10 @@ const currentRun: CurrentRunType = {
     hasNewPersonalBestScore: false
 };
 
+const firstTickMs = 2600;
+const secondTickMs = 3100;
+const pausedTickMs = 9000;
+
 describe('CurrentRunRepository', () => {
     it.effect('round-trips the run and its timeline events', () =>
         Effect.gen(function* () {
@@ -56,7 +62,7 @@ describe('CurrentRunRepository', () => {
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 
-    it.effect('ticks the elapsed time of an unpaused run under the run clock key only', () =>
+    it.effect('ticks the wall-clock time since the checkpoint of an unpaused run under the run clock key only', () =>
         Effect.gen(function* () {
             const currentRunRepository = yield* CurrentRunRepository;
 
@@ -64,12 +70,21 @@ describe('CurrentRunRepository', () => {
 
             const invalidatedKeys = yield* trackInvalidations;
 
-            yield* currentRunRepository.tick;
+            yield* currentRunRepository.tick(currentRun.clockCheckpointMs + firstTickMs);
+            yield* currentRunRepository.tick(currentRun.clockCheckpointMs + secondTickMs);
+
+            assert.deepInclude(Option.getOrThrow(yield* currentRunRepository.get), {
+                elapsedTime: currentRun.elapsedTime + 3,
+                elapsedRemainderMs: 100,
+                clockCheckpointMs: currentRun.clockCheckpointMs + secondTickMs
+            });
+
             yield* currentRunRepository.save({ ...currentRun, isPaused: true });
-            yield* currentRunRepository.tick;
+            yield* currentRunRepository.tick(currentRun.clockCheckpointMs + pausedTickMs);
 
             assert.deepStrictEqual(yield* currentRunRepository.get, Option.some({ ...currentRun, isPaused: true }));
             assert.deepStrictEqual(invalidatedKeys, [
+                ReactivityKeyEnum.RunClock,
                 ReactivityKeyEnum.RunClock,
                 ReactivityKeyEnum.CurrentRun,
                 ReactivityKeyEnum.RunClock,

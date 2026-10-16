@@ -43,13 +43,13 @@ const composedMoveFixtures = [
         fullTechniqueName: SolutionTechniqueEnum[SolutionTechniqueEnum.AIC]
     },
     {
-        name: 'a hidden single on a sparse board reached through composed eliminations',
+        name: 'a sparse-board placement an ALS-XZ justifies before the composed pass',
         board: '..1..2..........12.23.14..5.....36..31..7....28.......872195...634827...159..67.8',
         x: 8,
         y: 7,
         value: 9,
-        fullTechnique: SolutionTechniqueEnum.HiddenSingle,
-        fullTechniqueName: SolutionTechniqueEnum[SolutionTechniqueEnum.HiddenSingle]
+        fullTechnique: SolutionTechniqueEnum.ALSXZ,
+        fullTechniqueName: SolutionTechniqueEnum[SolutionTechniqueEnum.ALSXZ]
     },
     {
         name: 'a NishioForcingChain-composed placement',

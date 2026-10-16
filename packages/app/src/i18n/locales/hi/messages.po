@@ -11,10 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
-msgid "‹ Back"
-msgstr "‹ वापस"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -38,6 +34,10 @@ msgstr "{awaySeconds}s बाहर"
 #: src/daily/components/daily-week-card/daily-week-card.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {सबसे लंबा सिलसिला: # दिन} other {सबसे लंबा सिलसिला: # दिन}}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{cell} cannot be {values}"
+msgstr "{cell} {values} नहीं हो सकती"
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
@@ -113,16 +113,16 @@ msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
 msgstr "{techniqueName}: {cellName} एक को छोड़कर हर हाइलाइट किया गया अंक देखता है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
-msgstr "{techniqueName}: {valueList} को बेस लाइनों में ही रहना है, इसलिए कवर लाइनें चिह्नित सेल में उसे खो देती हैं।"
+msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{techniqueName}: {valueList} को बेस लाइनों में ही रहना है, इसलिए {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
 msgstr "{techniqueName}: एक शृंखला हाइलाइट किए गए दोनों सिरों को जोड़ती है, इसलिए {firstEnd} या {lastEnd} सही है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
-msgstr "{techniqueName}: एक पिंसर सेल हमेशा {valueList} होती है, इसलिए दोनों पिंसर को देखने वाली चिह्नित सेल {valueList} नहीं हो सकतीं।"
+msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "{techniqueName}: एक पिंसर सेल हमेशा {valueList} होती है और हर चिह्नित सेल दोनों पिंसर को देखती है, इसलिए {eliminationList}।"
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
@@ -145,16 +145,24 @@ msgid "{techniqueName}: column {regionNumber} has one empty cell left."
 msgstr "{techniqueName}: कॉलम {regionNumber} में केवल एक खाली सेल बची है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: हर चिह्नित सेल सभी हाइलाइट की गई सेल को देखती है, इसलिए {cellList} {valueList} नहीं हो सकतीं।"
+msgid "{techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
+msgstr "{techniqueName}: हाइलाइट किए गए हर समूह में सेल से एक उम्मीदवार अधिक है, और दोनों समूह एक ऐसा अंक साझा करते हैं जिसे उनमें से केवल एक ही रख सकता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "{techniqueName}: हर चिह्नित सेल सभी हाइलाइट की गई सेल को देखती है, इसलिए {eliminationList}।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "{techniqueName}: किसी भी स्थिति में {valueList} ऐसी सेल में आता है जिसे चिह्नित सेल देखती हैं, इसलिए {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: बाकी हर खाली सेल में दो उम्मीदवार हैं, इसलिए घातक पैटर्न से बचने के लिए {value} चिह्नित सेल में जाना चाहिए।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: हर संभावना विरोधाभास या उसी परिणाम पर खत्म होती है, इसलिए चिह्नित सेल से {valueList} हटा दिया जाता है।"
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "{techniqueName}: हर संभावना किसी विरोधाभास या एक ही नतीजे पर खत्म होती है, इसलिए {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
@@ -209,8 +217,16 @@ msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in 
 msgstr "{techniqueName}: हाइलाइट की गई बेस लाइनों में {valueList} केवल हाइलाइट की गई सेल में ही आ सकता है, इसलिए वह कवर लाइनों में बंध जाता है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: शृंखला का एक सिरा हमेशा सही होता है और हर चिह्नित उम्मीदवार दोनों सिरों से टकराता है, इसलिए {cellList} {valueList} नहीं हो सकता।"
+msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
+msgstr "{techniqueName}: हाइलाइट किए गए ब्लॉक में {valueList} केवल एक पंक्ति और एक स्तंभ में आ सकता है, और ब्लॉक के बाहर हाइलाइट किया गया जोड़ा एक सिरे पर या दूसरे सिरे पर {valueList} रखता है।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "{techniqueName}: चेन का एक सिरा हमेशा सही होता है और हर चिह्नित कैंडिडेट दोनों सिरों से टकराता है, इसलिए {eliminationList}।"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "{techniqueName}: एक समूह में {valueList} होना ही चाहिए, और हर चिह्नित सेल दोनों समूहों के हर {valueList} को देखती है, इसलिए {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -233,6 +249,10 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}: हाइलाइट किए गए सेल चिह्नित सेल के लिए केवल {value} छोड़ते हैं।"
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "{techniqueName}: हाइलाइट की गई सेल किसी अंक को दोहराए बिना अपने अंक पंक्ति या स्तंभ और ब्लॉक के बीच बाँटती हैं, इसलिए {eliminationList}।"
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
 msgstr "{techniqueName}: हाइलाइट किए गए सेल {valueList} के लिए दो रंगों में बँटते हैं, और ठीक एक रंग में हर {valueList} होता है।"
 
@@ -249,16 +269,16 @@ msgid "{techniqueName}: the marked cell sees every highlighted digit except {val
 msgstr "{techniqueName}: चिह्नित सेल {value} को छोड़कर हर हाइलाइट किया गया अंक देखता है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
-msgstr "{techniqueName}: चिह्नित सेल या तो दोनों रंग देखते हैं या ऐसा रंग रखते हैं जो खुद का खंडन करता है, इसलिए वे {valueList} नहीं हो सकते।"
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "{techniqueName}: चिह्नित सेल या तो दोनों रंग देखती हैं या ऐसा रंग रखती हैं जो खुद का विरोध करता है, इसलिए {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: ये सेल अंकों के उसी समूह के लिए आरक्षित हैं, इसलिए {cellList} {valueList} नहीं हो सकतीं।"
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
+msgstr "{techniqueName}: वे सेल अंकों के उस समूह के लिए आरक्षित हैं, इसलिए {eliminationList}।"
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: घातक पैटर्न से बचने के लिए चिह्नित सेल से {valueList} हटा दिया जाता है।"
+msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
+msgstr "{techniqueName}: घातक पैटर्न से बचने के लिए, {eliminationList}।"
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
@@ -328,6 +348,10 @@ msgstr "चुनौती स्वीकार करें"
 msgid "Accept challenge?"
 msgstr "चुनौती स्वीकार करें?"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Add games, statistics, and themes from a backup file"
+msgstr "बैकअप फ़ाइल से गेम, आँकड़े और थीम जोड़ें"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "सुडोकू बोर्ड पर अंकों का आकार बदलें"
@@ -355,6 +379,10 @@ msgstr "किसी अंक की सभी कोशिकाएँ (1-9)"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "सारी प्रगति खो जाएगी"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "ALS-XZ"
+msgstr "ALS-XZ"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Always off"
@@ -415,9 +443,26 @@ msgid "Avoid mistakes - they cost you points!"
 msgstr "गलतियों से बचें: वे आपके अंक घटाती हैं।"
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
+#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "वापस"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup"
+msgstr "बैकअप"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup imported"
+msgstr "बैकअप इम्पोर्ट हो गया"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not exported"
+msgstr "बैकअप एक्सपोर्ट नहीं हुआ"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not imported"
+msgstr "बैकअप इम्पोर्ट नहीं हुआ"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -517,6 +562,7 @@ msgstr "क्या आप उनसे बेहतर कर सकते ह
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "रद्द करें"
@@ -822,6 +868,10 @@ msgstr "संपादित करें"
 msgid "Empty cell text"
 msgstr "खाली सेल का टेक्स्ट"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Empty Rectangle"
+msgstr "खाली आयत"
+
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
 msgstr "English"
@@ -850,6 +900,10 @@ msgstr "विशेषज्ञ"
 msgid "Expert grid"
 msgstr "विशेषज्ञ ग्रिड"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Export backup"
+msgstr "बैकअप एक्सपोर्ट करें"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Extra points are awarded when your placement completes:"
 msgstr "जब आपकी चाल पूरा करती है, तो अतिरिक्त अंक मिलते हैं:"
@@ -865,6 +919,10 @@ msgstr "भरी हुई सेल"
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
 msgstr "अंतिम स्कोर"
+
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Finding a hint"
+msgstr "संकेत खोजा जा रहा है"
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
@@ -919,6 +977,14 @@ msgstr "गेम सेटिंग्स"
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "गेम"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are added to this device. Nothing here is removed, and your settings stay as they are."
+msgstr "फ़ाइल के गेम, आँकड़े और थीम इस डिवाइस में जोड़े जाते हैं। यहाँ से कुछ भी नहीं हटाया जाता और आपकी सेटिंग्स वैसी ही रहती हैं।"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are now on this device."
+msgstr "फ़ाइल के गेम, आँकड़े और थीम अब इस डिवाइस पर हैं।"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "General"
@@ -1076,6 +1142,18 @@ msgstr "यदि {path} → घेरे गए सेल में {value} क
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "अमर"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import"
+msgstr "इम्पोर्ट करें"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup"
+msgstr "बैकअप इम्पोर्ट करें"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup?"
+msgstr "बैकअप इम्पोर्ट करें?"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1323,8 +1401,8 @@ msgid "Newspaper"
 msgstr "न्यूज़पेपर"
 
 #: src/game/components/hint-stepper-next/hint-stepper-next.tsx
-msgid "Next ›"
-msgstr "आगे ›"
+msgid "Next"
+msgstr "आगे"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1611,10 +1689,6 @@ msgstr "सुडोकू हल हो गया।"
 msgid "Quit"
 msgstr "छोड़ें"
 
-#: src/game/components/hint-chain-block/hint-chain-block.tsx
-msgid "R{row}C{column} {operator} {value}"
-msgstr "R{row}C{column} {operator} {value}"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
 msgstr "उठी हुई सतह"
@@ -1769,6 +1843,10 @@ msgstr "सहेजें"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Save anyway"
 msgstr "फिर भी सहेजें"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Save your games, statistics, and themes to a file"
+msgstr "अपने गेम, आँकड़े और थीम एक फ़ाइल में सहेजें"
 
 #: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
@@ -2007,6 +2085,10 @@ msgstr "सूक्ष्म सतह का टेक्स्ट"
 msgid "Sudoku board, 9 by 9 cells"
 msgstr "सुडोकू बोर्ड, 9 गुणा 9 सेल"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sue de Coq"
+msgstr "सू दे कॉक"
+
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
 msgstr "समर्थन"
@@ -2081,6 +2163,14 @@ msgstr "भरे हुए नंबर पैड ट्रैक पर टे
 msgid "Text on ink"
 msgstr "स्याही पर टेक्स्ट"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup could not be added to this device. Please try again."
+msgstr "बैकअप इस डिवाइस में नहीं जोड़ा जा सका। कृपया फिर से कोशिश करें।"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup file could not be saved. Please try again."
+msgstr "बैकअप फ़ाइल सेव नहीं की जा सकी। कृपया फिर से कोशिश करें।"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "इस डिवाइस पर कमिट लिंक नहीं खोला जा सका।"
@@ -2115,6 +2205,10 @@ msgstr "थीम का नाम"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "इस बार यह बोर्ड पूरा नहीं हुआ। यूक्रेन में आज़ादी की लड़ाई जारी है। हर $1 दान मायने रखता है।"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
+msgstr "यह फ़ाइल {appName} बैकअप नहीं है, या इसे ऐप के नए संस्करण से बनाया गया है।"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

@@ -1,5 +1,6 @@
 import { useLingui } from '@lingui/react/macro';
-import { getDayStreak } from '@suuudokuuu/progress';
+import { SharedPayloadKindEnum } from '@suuudokuuu/encoder';
+import { gameStateToString, getDayStreak } from '@suuudokuuu/progress';
 import { Redirect } from 'expo-router';
 
 import { isPositiveNumber } from '@rnw-community/shared';
@@ -13,6 +14,7 @@ import { getChallengeRecordingSummary } from '../../../challenge/utils/get-chall
 import { isChallengeRecording } from '../../../challenge/utils/is-challenge-recording.util';
 import { DailyStreakSummary } from '../../../daily/components/daily-streak-summary/daily-streak-summary';
 import { getTimelineCellSteps } from '../../../game/utils/get-timeline-cell-steps.util';
+import { CompletedGameTechniqueSummary } from '../../../history/components/completed-game-technique-summary/completed-game-technique-summary';
 import { usePlayerStats } from '../../../history/query/use-player-stats.query';
 
 import { WinnerCalmResultHero } from './winner-calm-result-hero/winner-calm-result-hero';
@@ -47,13 +49,15 @@ export const WinnerScreen = () => {
     const dailyStreak = isPositiveNumber(gameState.dailyDayNumber) ? getDayStreak(dailyCompletedDayNumbers, gameState.dailyDayNumber) : 0;
     const dailySummary = isPositiveNumber(dailyStreak) ? <DailyStreakSummary bestStreak={dailyBestStreak} streak={dailyStreak} /> : null;
     const footer = <WinnerScreenActions gameState={gameState} retrySetup={retrySetup} />;
-    const recordingSummary = isChallengeRecording(gameState) ? (
+    const runSummary = isChallengeRecording(gameState) ? (
         <ChallengeRunSummary
             label={t`Your recording`}
             summary={getChallengeRecordingSummary(gameState.timelineEvents, gameState.elapsedTime)}
             totalTime={gameState.elapsedTime}
         />
-    ) : null;
+    ) : (
+        <CompletedGameTechniqueSummary encodedState={gameStateToString(gameState, SharedPayloadKindEnum.Handoff)} />
+    );
     const resultHero = isCalmMode ? (
         <WinnerCalmResultHero descriptorText={calmDescriptorText} moveCount={moveCount} />
     ) : (
@@ -71,7 +75,7 @@ export const WinnerScreen = () => {
 
             {dailySummary}
 
-            {recordingSummary}
+            {runSummary}
 
             <CompletedGameResultDetails
                 resultContext="winner"

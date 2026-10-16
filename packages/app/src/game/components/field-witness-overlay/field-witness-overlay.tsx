@@ -2,6 +2,7 @@ import { StepScriptStepKindEnum, type StepScriptStateInterface } from '@suuudoku
 import { View } from 'react-native';
 import Svg from 'react-native-svg';
 
+import { HintVisibleLinkCountConstant } from '../../constant/hint-visible-link-count.constant';
 import { FieldBranchWitness } from '../field-branch-witness/field-branch-witness';
 import { FieldChainWitness } from '../field-chain-witness/field-chain-witness';
 
@@ -21,6 +22,7 @@ interface Props {
 export const FieldWitnessOverlay = ({ cellMargin, cellSize, explanation, filledCells, revealedImplicationCount }: Props) => {
     const boardSize = cellSize * 9 + cellMargin * 2;
     const isChain = explanation.kind === StepScriptStepKindEnum.SHOW_CHAIN;
+    const firstVisibleLinkIndex = Math.max(revealedImplicationCount - HintVisibleLinkCountConstant, 0);
     const testID = isChain ? FieldWitnessOverlaySelectors.Chain : FieldWitnessOverlaySelectors.Branch;
 
     return (
@@ -31,7 +33,7 @@ export const FieldWitnessOverlay = ({ cellMargin, cellSize, explanation, filledC
                         boardSize={boardSize}
                         cellMargin={cellMargin}
                         cellSize={cellSize}
-                        chain={explanation.chain.slice(0, revealedImplicationCount + 1)}
+                        chain={explanation.chain.slice(firstVisibleLinkIndex, revealedImplicationCount + 1)}
                         filledCells={filledCells}
                     />
                 ) : (

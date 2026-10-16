@@ -24,4 +24,5 @@ export interface FieldSnapshotInterface {
     readonly hintPageIndex: number;
     readonly hintPageCount: number;
     readonly isNextPageCharged: boolean;
+    readonly hintEliminationStreak: number;
 }

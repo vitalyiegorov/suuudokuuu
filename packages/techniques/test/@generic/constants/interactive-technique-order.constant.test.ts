@@ -6,30 +6,33 @@ import { createTechniqueStrategies } from '../../../src/@generic/utils/create-te
 
 const registryTechniqueOrder = createTechniqueStrategies().map(strategy => strategy.technique);
 
-const expensiveTechniques = [
+const excludedTechniques = [
     SolutionTechniqueEnum.AIC,
     SolutionTechniqueEnum.UniqueRectangle,
     SolutionTechniqueEnum.BivalueUniversalGrave,
     SolutionTechniqueEnum.NishioForcingChain,
     SolutionTechniqueEnum.CellForcingChain,
-    SolutionTechniqueEnum.RegionForcingChain
+    SolutionTechniqueEnum.RegionForcingChain,
+    SolutionTechniqueEnum.EmptyRectangle,
+    SolutionTechniqueEnum.ALSXZ,
+    SolutionTechniqueEnum.SueDeCoq
 ];
 
 describe('interactiveTechniqueOrder', () => {
-    it('should be the registry order truncated before the expensive tail', () => {
+    it('should be the registry order truncated before AIC', () => {
         expect.assertions(2);
 
         expect([...interactiveTechniqueOrder]).toStrictEqual(registryTechniqueOrder.slice(0, interactiveTechniqueOrder.length));
         expect(interactiveTechniqueOrder.at(-1)).toBe(SolutionTechniqueEnum.SimpleColoring);
     });
 
-    it('should exclude every expensive technique and keep every cheaper one', () => {
+    it('should exclude every technique from AIC on and keep every one before it', () => {
         expect.assertions(2);
 
         const excluded = registryTechniqueOrder.filter(technique => !interactiveTechniqueOrder.includes(technique));
 
-        expect(excluded).toStrictEqual(expensiveTechniques);
-        expect(interactiveTechniqueOrder).toHaveLength(registryTechniqueOrder.length - expensiveTechniques.length);
+        expect(excluded).toStrictEqual(excludedTechniques);
+        expect(interactiveTechniqueOrder).toHaveLength(registryTechniqueOrder.length - excludedTechniques.length);
     });
 
     it('should never contain the guess fallback', () => {

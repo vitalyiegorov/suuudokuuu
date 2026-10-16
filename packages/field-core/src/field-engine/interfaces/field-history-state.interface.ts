@@ -4,4 +4,5 @@ export interface FieldHistoryStateInterface {
     sudokuString: string;
     candidates: FieldCandidatesType;
     eliminatedCandidates: FieldCandidatesType;
+    hintEliminationStreak: number;
 }

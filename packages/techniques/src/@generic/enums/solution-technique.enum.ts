@@ -30,5 +30,8 @@ export enum SolutionTechniqueEnum {
     BivalueUniversalGrave,
     NishioForcingChain,
     CellForcingChain,
-    RegionForcingChain
+    RegionForcingChain,
+    EmptyRectangle,
+    ALSXZ,
+    SueDeCoq
 }

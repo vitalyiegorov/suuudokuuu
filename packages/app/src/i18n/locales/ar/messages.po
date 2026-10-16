@@ -11,10 +11,6 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
-msgid "‹ Back"
-msgstr "العودة ›"
-
 #. placeholder {0}: 0
 #. placeholder {0}: 3
 #. placeholder {0}: 99
@@ -38,6 +34,10 @@ msgstr "غياب {awaySeconds} ثانية"
 #: src/daily/components/daily-week-card/daily-week-card.tsx
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, zero {أفضل تتابع: # يوم} one {أفضل تتابع: # يوم} two {أفضل تتابع: # يومين} few {أفضل تتابع: # أيام} many {أفضل تتابع: # يومًا} other {أفضل تتابع: # يوم}}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{cell} cannot be {values}"
+msgstr "لا يمكن أن تكون {cell} {values}"
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
@@ -113,16 +113,16 @@ msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
 msgstr "{techniqueName}: الخلية {cellName} ترى كل الأرقام المحددة ما عدا رقماً واحداً."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so the cover lines lose it in the marked cells."
-msgstr "{techniqueName}: يجب أن يقع {valueList} في خطوط الأساس، لذا تفقده خطوط التغطية في الخلايا المعلمة."
+msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{techniqueName}: يجب أن يقع {valueList} في خطوط الأساس، لذا {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
 msgstr "{techniqueName}: تربط سلسلة بين الطرفين المحددين، لذا فإما {firstEnd} صحيح أو {lastEnd} صحيح."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList}, so the marked cells that see both pincers cannot be {valueList}."
-msgstr "{techniqueName}: إحدى خليتي الكماشة هي دائماً {valueList}، لذا لا يمكن أن تكون الخلايا المعلمة التي ترى الخليتين معاً {valueList}."
+msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "{techniqueName}: إحدى خليتي الكماشة هي دائماً {valueList} وكل خلية معلمة ترى الخليتين معاً، لذا {eliminationList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
@@ -145,16 +145,24 @@ msgid "{techniqueName}: column {regionNumber} has one empty cell left."
 msgstr "{techniqueName}: بقي في العمود {regionNumber} خلية فارغة واحدة."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: كل خلية معلمة ترى جميع الخلايا المحددة، لذا لا يمكن أن تكون {cellList} {valueList}."
+msgid "{techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
+msgstr "{techniqueName}: لكل مجموعة محددة احتمال واحد زائد عن عدد خلاياها، وتشترك المجموعتان في رقم لا يمكن أن تحمله إلا إحداهما."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "{techniqueName}: كل خلية معلمة ترى جميع الخلايا المحددة، لذا {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "{techniqueName}: في الحالتين يقع {valueList} في خلية ترى الخلايا المعلمة، لذا {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
 msgstr "{techniqueName}: لكل خلية فارغة أخرى مرشحان فقط، لذا يجب وضع {value} في الخلية المعلمة لتجنب نمط قاتل."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: كل احتمال ينتهي بتناقض أو بالنتيجة نفسها، لذا يُستبعد {valueList} من الخلايا المعلمة."
+msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "{techniqueName}: كل احتمال ينتهي بتناقض أو بالنتيجة نفسها، لذا {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
@@ -209,8 +217,16 @@ msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in 
 msgstr "{techniqueName}: في خطوط الأساس المحددة، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، لذا فهو محصور في خطوط التغطية."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: أحد طرفي السلسلة صحيح دائماً، وكل مرشح معلَّم يتعارض مع الطرفين معاً، لذا لا يمكن أن تكون {cellList} هي {valueList}."
+msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
+msgstr "{techniqueName}: في المربع المحدد، لا يناسب {valueList} إلا صفاً واحداً وعموداً واحداً، ويحمل الزوج المحدد خارج المربع {valueList} في أحد طرفيه."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "{techniqueName}: أحد طرفي السلسلة صحيح دائماً وكل مرشح معلم يتعارض مع الطرفين، لذا {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "{techniqueName}: يجب أن تحمل إحدى المجموعتين {valueList}، وكل خلية معلمة ترى كل {valueList} في المجموعتين، لذا {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
@@ -233,6 +249,10 @@ msgid "{techniqueName}: the highlighted cells leave only {value} for the marked 
 msgstr "{techniqueName}: الخلايا المحددة تترك {value} فقط للخلية المعلمة."
 
 #: src/game/utils/game-get-step-narration.util.ts
+msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "{techniqueName}: تتقاسم الخلايا المحددة أرقامها بين الخط والمربع دون تكرار أي رقم، لذا {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
 msgstr "{techniqueName}: تنقسم الخلايا المميزة إلى لونين للرقم {valueList}، ولون واحد فقط يحمل كل {valueList}."
 
@@ -249,16 +269,16 @@ msgid "{techniqueName}: the marked cell sees every highlighted digit except {val
 msgstr "{techniqueName}: الخلية المعلمة ترى كل الأرقام المحددة ما عدا {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be {valueList}."
-msgstr "{techniqueName}: الخلايا المحددة إما ترى اللونين معًا أو تحمل لونًا يناقض نفسه، لذا لا يمكن أن تكون {valueList}."
+msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "{techniqueName}: الخلايا المعلمة إما ترى اللونين أو تحمل لوناً يناقض نفسه، لذا {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {cellList} cannot be {valueList}."
-msgstr "{techniqueName}: هذه الخلايا محجوزة لتلك المجموعة من الأرقام، لذا لا يمكن أن تكون {cellList} {valueList}."
+msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
+msgstr "{techniqueName}: هذه الخلايا محجوزة لهذه المجموعة من الأرقام، لذا {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {valueList} is ruled out of the marked cells."
-msgstr "{techniqueName}: لتجنب النمط القاتل، يُستبعد {valueList} من الخلايا المعلمة."
+msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
+msgstr "{techniqueName}: لتجنب النمط القاتل، {eliminationList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
@@ -328,6 +348,10 @@ msgstr "قبول التحدي"
 msgid "Accept challenge?"
 msgstr "قبول التحدي؟"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Add games, statistics, and themes from a backup file"
+msgstr "أضف الألعاب والإحصاءات والسمات من ملف نسخة احتياطية"
+
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Adjust the digits on the Sudoku board"
 msgstr "اضبط حجم الأرقام على لوحة السودوكو"
@@ -355,6 +379,10 @@ msgstr "كل خانات رقم معين (1-9)"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "سيضيع كل التقدم"
+
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "ALS-XZ"
+msgstr "ALS-XZ"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Always off"
@@ -415,9 +443,26 @@ msgid "Avoid mistakes - they cost you points!"
 msgstr "تجنب الأخطاء: فهي تخصم من نقاطك."
 
 #: src/@generic/components/header-back-button/header-back-button.tsx
+#: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
 msgid "Back"
 msgstr "رجوع"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup"
+msgstr "النسخ الاحتياطي"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup imported"
+msgstr "تم استيراد النسخة الاحتياطية"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not exported"
+msgstr "لم يتم تصدير النسخة الاحتياطية"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Backup not imported"
+msgstr "لم يتم استيراد النسخة الاحتياطية"
 
 #: src/settings/constant/language-labels.constant.ts
 msgid "Bahasa Indonesia"
@@ -517,6 +562,7 @@ msgstr "هل يمكنك التفوق عليهم؟"
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
 #: src/settings/component/theme-editor-color-sheet/theme-editor-color-sheet.tsx
 msgid "Cancel"
 msgstr "إلغاء"
@@ -822,6 +868,10 @@ msgstr "تعديل"
 msgid "Empty cell text"
 msgstr "نص الخلية الفارغة"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Empty Rectangle"
+msgstr "المستطيل الفارغ"
+
 #: src/settings/constant/language-labels.constant.ts
 msgid "English"
 msgstr "English"
@@ -850,6 +900,10 @@ msgstr "خبير"
 msgid "Expert grid"
 msgstr "شبكة للخبراء"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Export backup"
+msgstr "تصدير نسخة احتياطية"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Extra points are awarded when your placement completes:"
 msgstr "تحصل على نقاط إضافية عندما تكمل حركتك:"
@@ -865,6 +919,10 @@ msgstr "الخلية المملوءة"
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
 msgstr "النتيجة النهائية"
+
+#: src/game/components/hint-button/hint-button.tsx
+msgid "Finding a hint"
+msgstr "جارٍ البحث عن تلميح"
 
 #: src/history/components/history-empty-state/history-empty-state.tsx
 msgid "Finish a puzzle and it will appear here."
@@ -919,6 +977,14 @@ msgstr "إعدادات اللعبة"
 #: src/screens/components/history-games-screen/history-games.screen.tsx
 msgid "Games"
 msgstr "الألعاب"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are added to this device. Nothing here is removed, and your settings stay as they are."
+msgstr "تُضاف الألعاب والإحصاءات والسمات من الملف إلى هذا الجهاز. لا يُحذف أي شيء، وتبقى إعداداتك كما هي."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Games, statistics, and themes from the file are now on this device."
+msgstr "أصبحت الألعاب والإحصاءات والسمات من الملف على هذا الجهاز."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "General"
@@ -1076,6 +1142,18 @@ msgstr "إذا {path} → لا يبقى مكان للرقم {value} في الخ�
 #: src/scoring/components/scoring.screen.tsx
 msgid "Immortal"
 msgstr "خالد"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import"
+msgstr "استيراد"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup"
+msgstr "استيراد نسخة احتياطية"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Import backup?"
+msgstr "استيراد النسخة الاحتياطية؟"
 
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
@@ -1323,8 +1401,8 @@ msgid "Newspaper"
 msgstr "صحيفة"
 
 #: src/game/components/hint-stepper-next/hint-stepper-next.tsx
-msgid "Next ›"
-msgstr "‹ التالي"
+msgid "Next"
+msgstr "التالي"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1611,10 +1689,6 @@ msgstr "تم حل اللغز."
 msgid "Quit"
 msgstr "إنهاء"
 
-#: src/game/components/hint-chain-block/hint-chain-block.tsx
-msgid "R{row}C{column} {operator} {value}"
-msgstr "R{row}C{column} {operator} {value}"
-
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Raised surface"
 msgstr "السطح المرتفع"
@@ -1769,6 +1843,10 @@ msgstr "حفظ"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "Save anyway"
 msgstr "حفظ على أي حال"
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "Save your games, statistics, and themes to a file"
+msgstr "احفظ ألعابك وإحصاءاتك وسماتك في ملف"
 
 #: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
@@ -2007,6 +2085,10 @@ msgstr "نص السطح الخفيف"
 msgid "Sudoku board, 9 by 9 cells"
 msgstr "لوحة سودوكو، 9 في 9 خلايا"
 
+#: src/@generic/constants/technique-labels.constant.ts
+msgid "Sue de Coq"
+msgstr "سو دي كوك"
+
 #: src/@generic/components/support-ukraine-pill/support-ukraine-pill.tsx
 msgid "Support"
 msgstr "ادعم"
@@ -2081,6 +2163,14 @@ msgstr "النص على شريط لوحة الأرقام الممتلئ"
 msgid "Text on ink"
 msgstr "النص على الحبر"
 
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup could not be added to this device. Please try again."
+msgstr "تعذّرت إضافة النسخة الاحتياطية إلى هذا الجهاز. يُرجى المحاولة مرة أخرى."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "The backup file could not be saved. Please try again."
+msgstr "تعذّر حفظ ملف النسخة الاحتياطية. يُرجى المحاولة مرة أخرى."
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "The commit link could not be opened on this device."
 msgstr "تعذّر فتح رابط الالتزام على هذا الجهاز."
@@ -2115,6 +2205,10 @@ msgstr "اسم السمة"
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "لم تكتمل هذه اللوحة هذه المرة. يستمر الكفاح من أجل الحرية في أوكرانيا. كل تبرع بقيمة $1 يحدث فرقًا."
+
+#: src/settings/component/settings-backup-section/settings-backup-section.tsx
+msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
+msgstr "هذا الملف ليس نسخة احتياطية من {appName}، أو أنه أُنشئ بإصدار أحدث من التطبيق."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

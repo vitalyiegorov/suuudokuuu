@@ -5,59 +5,29 @@ import { ChainLinkEnum, ForcingOutcomeKindEnum, SolutionTechniqueEnum } from '@s
 
 import { isDefined } from '@rnw-community/shared';
 
+import { techniqueNarrationFamilyConstant } from '../constant/technique-narration-family.constant';
 import { NarrationFamilyEnum } from '../enums/narration-family.enum';
 
-import type { MessageDescriptor } from '@lingui/core';
+import { gameGetCellName } from './game-get-cell-name.util';
+
+import type { I18n, MessageDescriptor } from '@lingui/core';
 import type {
     StepScriptBranchStepInterface,
     StepScriptChainStepInterface,
     StepScriptCandidateInterface,
     StepScriptStepType
 } from '@suuudokuuu/field-core';
-import type { CellInterface } from '@suuudokuuu/generator';
-import type { ChainCandidateInterface, ForcingBranchInterface, ForcingContradictionType, ForcingOutcomeType } from '@suuudokuuu/techniques';
-
-const narrationFamilies: Partial<Record<SolutionTechniqueEnum, NarrationFamilyEnum>> = {
-    [SolutionTechniqueEnum.PointingPair]: NarrationFamilyEnum.POINTING,
-    [SolutionTechniqueEnum.PointingTriple]: NarrationFamilyEnum.POINTING,
-    [SolutionTechniqueEnum.BoxLineReduction]: NarrationFamilyEnum.BOX_LINE,
-    [SolutionTechniqueEnum.HiddenPair]: NarrationFamilyEnum.HIDDEN_SUBSET,
-    [SolutionTechniqueEnum.HiddenTriple]: NarrationFamilyEnum.HIDDEN_SUBSET,
-    [SolutionTechniqueEnum.HiddenQuad]: NarrationFamilyEnum.HIDDEN_SUBSET,
-    [SolutionTechniqueEnum.XWing]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.Swordfish]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.Jellyfish]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.FinnedXWing]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.FinnedSwordfish]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.SashimiXWing]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.SashimiSwordfish]: NarrationFamilyEnum.FISH,
-    [SolutionTechniqueEnum.XYWing]: NarrationFamilyEnum.WING,
-    [SolutionTechniqueEnum.XYZWing]: NarrationFamilyEnum.WING,
-    [SolutionTechniqueEnum.WWing]: NarrationFamilyEnum.CHAIN,
-    [SolutionTechniqueEnum.XChain]: NarrationFamilyEnum.CHAIN,
-    [SolutionTechniqueEnum.XYChain]: NarrationFamilyEnum.CHAIN,
-    [SolutionTechniqueEnum.SimpleColoring]: NarrationFamilyEnum.COLORING,
-    [SolutionTechniqueEnum.AIC]: NarrationFamilyEnum.CHAIN,
-    [SolutionTechniqueEnum.UniqueRectangle]: NarrationFamilyEnum.UNIQUE_RECTANGLE,
-    [SolutionTechniqueEnum.BivalueUniversalGrave]: NarrationFamilyEnum.BUG,
-    [SolutionTechniqueEnum.NishioForcingChain]: NarrationFamilyEnum.FORCING_CHAIN,
-    [SolutionTechniqueEnum.CellForcingChain]: NarrationFamilyEnum.FORCING_CHAIN,
-    [SolutionTechniqueEnum.RegionForcingChain]: NarrationFamilyEnum.FORCING_CHAIN
-};
+import type { ChainCandidateInterface, ForcingContradictionType, ForcingOutcomeType } from '@suuudokuuu/techniques';
 
 const getNarrationFamily = (technique: SolutionTechniqueEnum): NarrationFamilyEnum =>
-    narrationFamilies[technique] ?? NarrationFamilyEnum.LOCKED_SET;
+    techniqueNarrationFamilyConstant[technique] ?? NarrationFamilyEnum.LOCKED_SET;
 
-const joinValues = (values: number[]): string => values.join(', ');
-
-const formatCell = (cell: CellInterface): string => `r${cell.y + 1}c${cell.x + 1}`;
-
-const formatCandidate = ({ cell, value }: Pick<ChainCandidateInterface, 'cell' | 'value'>): string => `${formatCell(cell)}=${value}`;
+const formatCandidate = ({ cell, value }: Pick<ChainCandidateInterface, 'cell' | 'value'>): string => `${gameGetCellName(cell)}=${value}`;
 
 const formatChainCandidate = ({ cell, link, value }: ChainCandidateInterface): string => {
     const linkSymbol = link === ChainLinkEnum.WEAK ? ' − ' : ' = ';
 
-    return `${isDefined(link) ? linkSymbol : ''}(${value})${formatCell(cell)}`;
+    return `${isDefined(link) ? linkSymbol : ''}(${value})${gameGetCellName(cell)}`;
 };
 
 const getChainNarration = (step: StepScriptChainStepInterface): MessageDescriptor => {
@@ -71,7 +41,7 @@ const getRefutationNarration = (
     path: string,
     assumption: Pick<ChainCandidateInterface, 'cell' | 'value'>
 ): MessageDescriptor => {
-    const assumptionCell = formatCell(assumption.cell);
+    const assumptionCell = gameGetCellName(assumption.cell);
     const assumptionValue = assumption.value;
 
     if (outcome.kind === ForcingOutcomeKindEnum.NO_POSITION) {
@@ -80,7 +50,7 @@ const getRefutationNarration = (
         return msg`If ${path} → ${value} has no place left in the outlined cells. So ${assumptionCell} is not ${assumptionValue}.`;
     }
 
-    const cell = formatCell(outcome.cell);
+    const cell = gameGetCellName(outcome.cell);
 
     if (outcome.kind === ForcingOutcomeKindEnum.EMPTY_CELL) {
         return msg`If ${path} → ${cell} runs out of candidates. So ${assumptionCell} is not ${assumptionValue}.`;
@@ -94,16 +64,11 @@ const getRefutationNarration = (
 const isCellContradiction = (outcome: ForcingOutcomeType): outcome is ForcingContradictionType =>
     outcome.kind === ForcingOutcomeKindEnum.EMPTY_CELL || outcome.kind === ForcingOutcomeKindEnum.ASSIGNMENT_CONFLICT;
 
-const findRefutedBranch = (
-    eliminations: readonly StepScriptCandidateInterface[],
-    scriptSteps: readonly StepScriptStepType[]
-): ForcingBranchInterface | undefined =>
+const findRefutedBranch = (eliminations: readonly StepScriptCandidateInterface[], scriptSteps: readonly StepScriptStepType[]) =>
     scriptSteps
         .flatMap(scriptStep => (scriptStep.kind === StepScriptStepKindEnum.SHOW_BRANCH ? [scriptStep.branch] : []))
         .find(({ assumption }) =>
-            eliminations.some(
-                ({ cell, value }) => value === assumption.value && cell.x === assumption.cell.x && cell.y === assumption.cell.y
-            )
+            eliminations.some(({ cell, value }) => value === assumption.value && gameGetCellName(cell) === gameGetCellName(assumption.cell))
         );
 
 const getBranchNarration = ({ branch, branchIndex, branchCount }: StepScriptBranchStepInterface): MessageDescriptor => {
@@ -118,7 +83,7 @@ const getBranchNarration = ({ branch, branchIndex, branchCount }: StepScriptBran
     }
 
     if (outcome.kind === ForcingOutcomeKindEnum.COMMON_ELIMINATIONS) {
-        const eliminations = outcome.eliminations.map(({ cell, value }) => `${formatCell(cell)}≠${value}`).join(', ');
+        const eliminations = outcome.eliminations.map(({ cell, value }) => `${gameGetCellName(cell)}≠${value}`).join(', ');
 
         return msg`Branch ${branchNumber} of ${branchCount}: if ${path}. This branch rules out ${eliminations}.`;
     }
@@ -161,11 +126,9 @@ const getPlacementRevealNarration = (step: StepScriptStepType, techniqueName: st
     if (technique === SolutionTechniqueEnum.HiddenSingle || technique === SolutionTechniqueEnum.FullHouse) {
         const unitNarrations = technique === SolutionTechniqueEnum.HiddenSingle ? hiddenSingleNarrations : fullHouseNarrations;
 
-        return (unitNarrations[unit?.kind ?? HintRegionKindEnum.CELL] ?? getRemainingValueNarration)(
-            techniqueName,
-            value,
-            unit?.number ?? 0
-        );
+        const unitNarration = unitNarrations[unit?.kind ?? HintRegionKindEnum.CELL] ?? getRemainingValueNarration;
+
+        return unitNarration(techniqueName, value, unit?.number ?? 0);
     }
 
     if (family === NarrationFamilyEnum.BUG) {
@@ -181,7 +144,7 @@ const getPlacementRevealNarration = (step: StepScriptStepType, techniqueName: st
 
 type EliminationRevealNarrationType = (techniqueName: string, valueList: string, revealed: ChainCandidateInterface[]) => MessageDescriptor;
 
-type EliminationStrikeNarrationType = (techniqueName: string, valueList: string, cellList: string) => MessageDescriptor;
+type EliminationStrikeNarrationType = (techniqueName: string, valueList: string, eliminationList: string) => MessageDescriptor;
 
 const getLockedCandidatesNarration =
     (isPointing: boolean): EliminationRevealNarrationType =>
@@ -202,19 +165,21 @@ const getLockedCandidatesNarration =
             : msg`${techniqueName}: in column ${columnNumber}, ${valueList} fits only in the highlighted cells, and they all lie in box ${boxNumber}.`;
     };
 
-const getSeesAllStrikeNarration: EliminationStrikeNarrationType = (techniqueName, valueList, cellList) =>
-    msg`${techniqueName}: each marked cell sees all the highlighted cells, so ${cellList} cannot be ${valueList}.`;
+const getSeesAllStrikeNarration: EliminationStrikeNarrationType = (techniqueName, _valueList, eliminationList) =>
+    msg`${techniqueName}: each marked cell sees all the highlighted cells, so ${eliminationList}.`;
 
-const getDeadlyPatternStrikeNarration: EliminationStrikeNarrationType = (techniqueName, valueList) =>
-    msg`${techniqueName}: to avoid the deadly pattern, ${valueList} is ruled out of the marked cells.`;
+const getLockedSetRevealNarration: EliminationRevealNarrationType = (techniqueName, valueList) =>
+    msg`${techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so ${valueList} can only go in these cells.`;
+
+const getDeadlyPatternStrikeNarration: EliminationStrikeNarrationType = (techniqueName, _valueList, eliminationList) =>
+    msg`${techniqueName}: to avoid the deadly pattern, ${eliminationList}.`;
 
 const eliminationRevealNarrations: Record<NarrationFamilyEnum, EliminationRevealNarrationType> = {
     [NarrationFamilyEnum.POINTING]: getLockedCandidatesNarration(true),
     [NarrationFamilyEnum.BOX_LINE]: getLockedCandidatesNarration(false),
     [NarrationFamilyEnum.HIDDEN_SUBSET]: (techniqueName, valueList) =>
         msg`${techniqueName}: within one row, column or box, ${valueList} fit only in the highlighted cells, so those cells can hold nothing else.`,
-    [NarrationFamilyEnum.LOCKED_SET]: (techniqueName, valueList) =>
-        msg`${techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so ${valueList} can only go in these cells.`,
+    [NarrationFamilyEnum.LOCKED_SET]: getLockedSetRevealNarration,
     [NarrationFamilyEnum.FISH]: (techniqueName, valueList) =>
         msg`${techniqueName}: in the highlighted base lines, ${valueList} fits only in the highlighted cells, so it is locked into the cover lines.`,
     [NarrationFamilyEnum.WING]: (techniqueName, valueList) =>
@@ -232,35 +197,58 @@ const eliminationRevealNarrations: Record<NarrationFamilyEnum, EliminationReveal
     [NarrationFamilyEnum.BUG]: (techniqueName, valueList) =>
         msg`${techniqueName}: the highlighted cells would leave a deadly pattern of ${valueList}.`,
     [NarrationFamilyEnum.FORCING_CHAIN]: techniqueName =>
-        msg`${techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result.`
+        msg`${techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result.`,
+    [NarrationFamilyEnum.EMPTY_RECTANGLE]: (techniqueName, valueList) =>
+        msg`${techniqueName}: in the highlighted box, ${valueList} fits only on one row and one column, and the highlighted pair outside the box holds ${valueList} at one end or the other.`,
+    [NarrationFamilyEnum.ALMOST_LOCKED_SET]: techniqueName =>
+        msg`${techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold.`,
+    [NarrationFamilyEnum.SUE_DE_COQ]: getLockedSetRevealNarration
 };
 
 const eliminationStrikeNarrations: Record<NarrationFamilyEnum, EliminationStrikeNarrationType> = {
     [NarrationFamilyEnum.POINTING]: getSeesAllStrikeNarration,
     [NarrationFamilyEnum.BOX_LINE]: getSeesAllStrikeNarration,
     [NarrationFamilyEnum.LOCKED_SET]: getSeesAllStrikeNarration,
-    [NarrationFamilyEnum.HIDDEN_SUBSET]: (techniqueName, valueList, cellList) =>
-        msg`${techniqueName}: those cells are reserved for that set of digits, so ${cellList} cannot be ${valueList}.`,
-    [NarrationFamilyEnum.FISH]: (techniqueName, valueList) =>
-        msg`${techniqueName}: ${valueList} must sit in the base lines, so the cover lines lose it in the marked cells.`,
-    [NarrationFamilyEnum.WING]: (techniqueName, valueList) =>
-        msg`${techniqueName}: a pincer cell is always ${valueList}, so the marked cells that see both pincers cannot be ${valueList}.`,
-    [NarrationFamilyEnum.CHAIN]: (techniqueName, valueList, cellList) =>
-        msg`${techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so ${cellList} cannot be ${valueList}.`,
-    [NarrationFamilyEnum.COLORING]: (techniqueName, valueList) =>
-        msg`${techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so they cannot be ${valueList}.`,
+    [NarrationFamilyEnum.HIDDEN_SUBSET]: (techniqueName, _valueList, eliminationList) =>
+        msg`${techniqueName}: those cells are reserved for that set of digits, so ${eliminationList}.`,
+    [NarrationFamilyEnum.FISH]: (techniqueName, valueList, eliminationList) =>
+        msg`${techniqueName}: ${valueList} must sit in the base lines, so ${eliminationList}.`,
+    [NarrationFamilyEnum.WING]: (techniqueName, valueList, eliminationList) =>
+        msg`${techniqueName}: a pincer cell is always ${valueList} and each marked cell sees both pincers, so ${eliminationList}.`,
+    [NarrationFamilyEnum.CHAIN]: (techniqueName, _valueList, eliminationList) =>
+        msg`${techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so ${eliminationList}.`,
+    [NarrationFamilyEnum.COLORING]: (techniqueName, _valueList, eliminationList) =>
+        msg`${techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so ${eliminationList}.`,
     [NarrationFamilyEnum.UNIQUE_RECTANGLE]: getDeadlyPatternStrikeNarration,
     [NarrationFamilyEnum.BUG]: getDeadlyPatternStrikeNarration,
-    [NarrationFamilyEnum.FORCING_CHAIN]: (techniqueName, valueList) =>
-        msg`${techniqueName}: every possibility ends in a contradiction or the same result, so ${valueList} is ruled out of the marked cells.`
+    [NarrationFamilyEnum.FORCING_CHAIN]: (techniqueName, _valueList, eliminationList) =>
+        msg`${techniqueName}: every possibility ends in a contradiction or the same result, so ${eliminationList}.`,
+    [NarrationFamilyEnum.EMPTY_RECTANGLE]: (techniqueName, valueList, eliminationList) =>
+        msg`${techniqueName}: either way, ${valueList} lands in a cell the marked cells see, so ${eliminationList}.`,
+    [NarrationFamilyEnum.ALMOST_LOCKED_SET]: (techniqueName, valueList, eliminationList) =>
+        msg`${techniqueName}: one of the groups must hold ${valueList}, and each marked cell sees every ${valueList} in both groups, so ${eliminationList}.`,
+    [NarrationFamilyEnum.SUE_DE_COQ]: (techniqueName, _valueList, eliminationList) =>
+        msg`${techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so ${eliminationList}.`
 };
+
+const getEliminationList = (eliminations: readonly StepScriptCandidateInterface[], i18n: I18n): string =>
+    [...new Set(eliminations.map(({ cell }) => gameGetCellName(cell)))]
+        .map(cell => {
+            const values = eliminations
+                .flatMap(elimination => (gameGetCellName(elimination.cell) === cell ? [elimination.value] : []))
+                .join(', ');
+
+            return i18n._(msg`${cell} cannot be ${values}`);
+        })
+        .join('; ');
 
 export const gameGetStepNarration = (
     step: StepScriptStepType,
     techniqueName: string,
+    i18n: I18n,
     scriptSteps: readonly StepScriptStepType[] = []
 ): MessageDescriptor => {
-    const valueList = joinValues(step.narration.values);
+    const valueList = step.narration.values.join(', ');
 
     if (step.kind === StepScriptStepKindEnum.SHOW_CHAIN) {
         return getChainNarration(step);
@@ -284,14 +272,13 @@ export const gameGetStepNarration = (
 
     if (step.kind === StepScriptStepKindEnum.StrikeCandidates) {
         const refutedBranch = findRefutedBranch(step.eliminations, scriptSteps);
+        const strikeNarration = eliminationStrikeNarrations[getNarrationFamily(step.narration.technique)];
 
         if (isDefined(refutedBranch) && isCellContradiction(refutedBranch.outcome)) {
             return getRefutationNarration(refutedBranch.outcome, formatCandidate(refutedBranch.assumption), refutedBranch.assumption);
         }
 
-        const cellList = [...new Set(step.narration.cells.map(formatCell))].join(', ');
-
-        return eliminationStrikeNarrations[getNarrationFamily(step.narration.technique)](techniqueName, valueList, cellList);
+        return strikeNarration(techniqueName, valueList, getEliminationList(step.eliminations, i18n));
     }
 
     return msg`Place ${valueList} in the marked cell.`;

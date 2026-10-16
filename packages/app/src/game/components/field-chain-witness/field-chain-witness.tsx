@@ -4,7 +4,7 @@ import { Line } from 'react-native-svg';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { gameGetWitnessBadgeColors } from '../../utils/game-get-witness-badge-colors.util';
-import { gameGetWitnessPoint } from '../../utils/game-get-witness-point.util';
+import { gameGetWitnessBadges } from '../../utils/game-get-witness-badges.util';
 import { FieldWitnessCandidate } from '../field-witness-candidate/field-witness-candidate';
 import { FieldWitnessLinkMask } from '../field-witness-link-mask/field-witness-link-mask';
 
@@ -28,6 +28,7 @@ interface Props {
 export const FieldChainWitness = ({ boardSize, cellMargin, cellSize, chain, filledCells }: Props) => {
     const { theme } = use(ThemeContext);
     const badgeColors = gameGetWitnessBadgeColors(theme);
+    const badges = gameGetWitnessBadges(chain, cellSize, cellMargin);
     const lineWidth = Math.max(lineMinimumWidth, cellSize * lineWidthRatio);
     const weakDash = `${lineWidth * 2},${lineWidth * weakDashGapRatio}`;
 
@@ -35,8 +36,8 @@ export const FieldChainWitness = ({ boardSize, cellMargin, cellSize, chain, fill
         <>
             <FieldWitnessLinkMask boardSize={boardSize} cellMargin={cellMargin} cellSize={cellSize} filledCells={filledCells}>
                 {chain.slice(1).map((candidate, index) => {
-                    const previous = gameGetWitnessPoint(chain[index].cell, chain[index].value, cellSize, cellMargin);
-                    const current = gameGetWitnessPoint(candidate.cell, candidate.value, cellSize, cellMargin);
+                    const previous = badges[index];
+                    const current = badges[index + 1];
                     const isStrong = candidate.link === ChainLinkEnum.STRONG;
                     const stroke = isStrong ? badgeColors.fill : theme.colors.text.hint;
                     const strokeDasharray = isStrong ? '' : weakDash;
@@ -59,20 +60,13 @@ export const FieldChainWitness = ({ boardSize, cellMargin, cellSize, chain, fill
                     );
                 })}
             </FieldWitnessLinkMask>
-            {chain.map((candidate, index) => {
-                const isNewest = index === chain.length - 1;
+            {badges.map((badge, index) => {
+                const isNewest = index === badges.length - 1;
                 const fill = isNewest ? badgeColors.fill : theme.colors.surface.raised;
                 const textColor = isNewest ? badgeColors.text : theme.colors.text.primary;
 
                 return (
-                    <FieldWitnessCandidate
-                        candidate={candidate}
-                        cellMargin={cellMargin}
-                        cellSize={cellSize}
-                        fill={fill}
-                        key={`candidate-${index}`}
-                        textColor={textColor}
-                    />
+                    <FieldWitnessCandidate badge={badge} cellSize={cellSize} fill={fill} key={`candidate-${index}`} textColor={textColor} />
                 );
             })}
         </>

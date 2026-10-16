@@ -50,9 +50,9 @@ const TechniquesPage = () => (
             carry the hardest ones, followed by the named chain patterns the engine finds as part of its chain techniques.
         </p>
         <p>
-            It is not every technique ever named. Empty Rectangle, ALS-XZ and Sue de Coq, among others, have no detector in the engine yet,
-            so they have no page here; when the engine cannot finish a puzzle with what it implements, the hint and the solver say so rather
-            than guess.
+            It is not every technique ever named. The engine also detects Empty Rectangle, Sue de Coq and ALS-XZ, and the difficulty rating
+            prices them, but they have no page here yet. Other named techniques have no detector at all; when the engine cannot finish a
+            puzzle with what it implements, the hint and the solver say so rather than guess.
         </p>
         <p>
             Every technique page here carries a worked example board that was produced by running the solving engine bundled with the

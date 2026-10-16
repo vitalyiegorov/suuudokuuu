@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { FieldHistory } from '../../../src/field-engine/classes/field-history';
 
-const initialState = { sudokuString: 'initial', candidates: {}, eliminatedCandidates: {} };
+const initialState = { sudokuString: 'initial', candidates: {}, eliminatedCandidates: {}, hintEliminationStreak: 0 };
 const firstState = { ...initialState, sudokuString: 'first' };
 const secondState = { ...initialState, sudokuString: 'second' };
 

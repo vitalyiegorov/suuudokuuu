@@ -84,8 +84,8 @@ const findResult = (board: string[], technique: SolutionTechniqueEnum): Techniqu
 };
 
 describe('techniqueResultToStepScript', () => {
-    it('maps a placement technique into reveal and place steps that reveal the value only on the target', () => {
-        expect.assertions(7);
+    it('maps a placement technique into reveal and place steps that highlight the blocking cells and reveal the value only on the target', () => {
+        expect.assertions(8);
 
         const result = findResult(hiddenSingleBoard, SolutionTechniqueEnum.HiddenSingle);
         const script = techniqueResultToStepScript(result);
@@ -96,9 +96,10 @@ describe('techniqueResultToStepScript', () => {
         expect(script.eliminations).toEqual([]);
         expect(script.placement).toEqual({ cell: result.cell, value: result.value });
         expect(script.patternCells).toEqual(result.reasonCells);
+        expect(result.blockingCells).not.toHaveLength(0);
         expect(revealStep).toEqual({
             kind: StepScriptStepKindEnum.RevealCandidates,
-            patternCells: result.reasonCells,
+            patternCells: result.blockingCells,
             candidates: [{ cell: result.cell, value: result.value }],
             narration: {
                 technique: SolutionTechniqueEnum.HiddenSingle,

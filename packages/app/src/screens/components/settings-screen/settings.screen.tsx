@@ -5,6 +5,7 @@ import { View } from 'react-native';
 
 import { CollapsibleChromePage } from '../../../@generic/components/collapsible-chrome-page/collapsible-chrome-page';
 import { SettingsAppFooter } from '../../../settings/component/settings-app-footer/settings-app-footer';
+import { SettingsBackupSection } from '../../../settings/component/settings-backup-section/settings-backup-section';
 import { SettingsFeedbackSection } from '../../../settings/component/settings-feedback-section/settings-feedback-section';
 import { SettingsGuidanceSection } from '../../../settings/component/settings-guidance-section/settings-guidance-section';
 import { SettingsOptionLink } from '../../../settings/component/settings-option-link/settings-option-link';
@@ -87,6 +88,7 @@ export const SettingsScreen = () => {
 
             <View style={styles.secondaryColumn}>
                 <SettingsGuidanceSection />
+                <SettingsBackupSection />
 
                 <SettingsAppFooter version={version} />
             </View>

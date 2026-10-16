@@ -61,7 +61,7 @@ SE rates a puzzle as the hardest technique on the _rating-optimal_ path, so the 
 
 The order deliberately differs from `SolutionTechniqueEnum` ordinals: SE prices a Hidden Single (1.5) below a Naked Single (2.3), an X-Wing (3.2) below a Hidden Pair (3.4) and a Naked Triple (3.6), and a Naked Quad (5.0) above every wing. The registry-order rule in `packages/techniques/AGENTS.md` stays true; SE ordering lives only here.
 
-A length-priced chain is ordered by the cheapest value it can report, which is its table value, so the shortest-path chain detectors sort in the order X-Chain, XY-Chain, AIC. That is what keeps the rating-optimal path reaching for a length-priced chain before the flat-priced AIC that generalises both. The three forcing chains sort last of all, so a hypothetical argument is only ever reached once every direct technique has failed.
+A length-priced chain is ordered by the cheapest value it can report, which is its table value, so the shortest-path chain detectors sort in the order X-Chain, XY-Chain, AIC. That is what keeps the rating-optimal path reaching for a length-priced chain before the flat-priced AIC that generalises both. Empty Rectangle (4.5), Sue de Coq (5.8) and ALS-XZ (6.2) sort ahead of every chain, so the rating-optimal path tries them before any chain or forcing chain even though the techniques registry appends them after the forcing chains. The three forcing chains sort last of all, so a hypothetical argument is only ever reached once every direct technique has failed.
 
 ### Ceiling reporting
 
@@ -73,7 +73,7 @@ This is a first-class path, not an edge case. The curated Infinity corpus rates 
 
 `seTechniqueRatings` maps every `SolutionTechniqueEnum` member to a number. The record is exhaustive by type, so a new technique cannot be added to the enum without pricing it here.
 
-The implemented ladder covers SE 1.0–5.4 completely (17/17 techniques), plus the two uniqueness techniques that carry the ladder to 5.6, plus the chain band that carries it to 7.6, plus the forcing chain band that carries it to 8.5:
+The implemented ladder covers SE 1.0–5.4 completely (17/17 techniques), plus the two uniqueness techniques that carry the ladder to 5.6, plus the chain band that carries it to 7.6, plus the forcing chain band that carries it to 8.5. The approximated values for techniques SE does not implement are listed separately below:
 
 | Technique            | SE  |
 | -------------------- | --- |
@@ -110,7 +110,7 @@ SE's Box/Line Reduction is its "Claiming" rule, and both Pointing sizes share SE
 
 ### Non-SE approximations
 
-Seven registered detectors have no classic SE name. Their values below are **approximations**, not published SE numbers:
+Ten registered detectors have no classic SE name. Their values below are **approximations**, not published SE numbers:
 
 | Technique         | Approximate SE | Rationale                                                  |
 | ----------------- | -------------- | ---------------------------------------------------------- |
@@ -121,6 +121,17 @@ Seven registered detectors have no classic SE name. Their values below are **app
 | W-Wing            | 4.4            | Two bi-value cells joined by a strong link, XYZ-Wing class |
 | Simple Coloring   | 4.6            | Single-digit colouring, above every wing                   |
 | AIC               | 7.2            | Generalised chain, above both length-priced chain bases    |
+| Empty Rectangle   | 4.5            | Single-digit grouped strong link, level with the UR        |
+| Sue de Coq        | 5.8            | Two-unit locked set, above BUG and below ALS-XZ            |
+| ALS-XZ            | 6.2            | SE's Aligned Pair Exclusion, which ALS-XZ generalises      |
+
+Sudoku Explainer implements none of the last three, so their values place them by what they are and by HoDoKu's relative order, which rates Empty Rectangle with the wings at its Hard level and Sue de Coq below ALS-XZ at its Unfair level:
+
+- Empty Rectangle is a single-digit argument, a strong link joined to a box whose candidates are confined to one row and one column, so it sits with the single-digit and wing patterns between W-Wing (4.4) and Simple Coloring (4.6). It ties the type 1 Unique Rectangle and follows it by enum ordinal.
+- ALS-XZ takes 6.2, SE's Aligned Pair Exclusion. Aligned Pair Exclusion is the pair-of-cells special case of the almost locked set argument ALS-XZ generalises, so the two share a value. It stays below the 6.6 chain band, so a position an ALS-XZ cracks is priced as an ALS-XZ instead of as the X-Chain, XY-Chain, AIC or forcing chain that could also crack it.
+- Sue de Coq takes 5.8: it is a locked set spread over two units, harder than every subset and the BUG (5.6) and, following HoDoKu, easier than ALS-XZ.
+
+None of the three is length-priced: each is a fixed pattern rather than a chain whose length the detector minimises.
 
 Simple Coloring stays in the classic band even though SE would treat it as a single-digit cycle: it is a colouring contradiction rather than a chain with a measured length, and repricing it is out of scope until it reports one.
 
@@ -193,7 +204,7 @@ Closing the remaining 3.3% needs a tie-break that does not read cell coordinates
 
 - Tests live in `test/**/*.test.ts` (Vitest)
 - Fixtures are fixed 81-character board strings fed through `Sudoku.fromString`; never `Sudoku.create`, which uses unseeded randomness
-- `rate-puzzle.util.test.ts` guards known-technique boards against their SE values, max-over-path aggregation, ceiling reporting for an Infinity-corpus board no technique can finish, an exact rating for a board that only the uniqueness techniques unblock, one that only a forcing chain unblocks, a hell-corpus board priced above the XY-Chain base by its chain length, and determinism across repeated calls
+- `rate-puzzle.util.test.ts` guards known-technique boards against their SE values, one board each whose hardest step is an Empty Rectangle, a Sue de Coq or an ALS-XZ and that the ladder without that technique prices higher, max-over-path aggregation, ceiling reporting for an Infinity-corpus board no technique can finish, an exact rating for a board that only the uniqueness techniques unblock, one that only a forcing chain unblocks, a hell-corpus board priced above the XY-Chain base by its chain length, and determinism across repeated calls
 - `get-step-rating.util.test.ts` guards the length ladder: every band boundary for both chain bases and all three forcing chain bases, the 7.6 and 8.5 clamps, monotonicity in the chain length, the fallback to the table value when a step carries no length, and flat pricing for every other technique
 - `se-technique-order.constant.test.ts` guards the ordering policy: full coverage of the enum, cheapest-first ordering, enum-ordinal tie-breaking, and the chain and forcing chain bases
 - `se-rating-ceiling.constant.test.ts` guards the ceiling invariant: it equals the maximum reachable band value and sits at or above every band maximum and every table value, including the price of guessing

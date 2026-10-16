@@ -24,7 +24,7 @@ export const HintStepperNext = () => {
             size="compact"
             style={styles.stepperButton}
             testID={HintPanelSelectors.NextButton}
-            text={t`Next ›`}
+            text={t`Next`}
             {...(snapshot.isNextPageCharged && { accessibilityHint: t`Reveals more of the hint` })}
         />
     );

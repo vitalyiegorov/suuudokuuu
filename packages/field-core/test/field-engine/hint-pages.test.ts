@@ -13,10 +13,10 @@ import type { StepScriptBranchStepInterface } from '../../src/step-script/interf
 import type { StepScriptInterface } from '../../src/step-script/interfaces/step-script.interface';
 
 const chainBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
-const columnQuadBoard = '.....3...9....6......4...371..2..8..........5.8453.......3..67..27...........891.';
+const forcingBoard = '..3..2.6.9..3.1...1.2.5..8.........2..5..3.98...4..1....7.....5.2..6....4.19.....';
 const longBranchImplicationCount = 10;
 const firstGroupedLinkCount = 7;
-const forcingHintIndex = 11;
+const forcingHintIndex = 4;
 
 const createEngine = (sudokuString: string): FieldEngine => new FieldEngine({ sudokuString, difficulty: DifficultyEnum.Medium });
 
@@ -29,7 +29,7 @@ const requireHint = (engine: FieldEngine): StepScriptInterface => {
 };
 
 const findBranchHint = (): { engine: FieldEngine; script: StepScriptInterface; branch: StepScriptBranchStepInterface } => {
-    const engine = new FieldEngine({ sudokuString: columnQuadBoard, difficulty: DifficultyEnum.Medium, showAutoCandidates: true });
+    const engine = new FieldEngine({ sudokuString: forcingBoard, difficulty: DifficultyEnum.Medium, showAutoCandidates: true });
 
     let script = requireHint(engine);
 
@@ -82,23 +82,51 @@ describe('hint pages', () => {
         })
     );
 
-    it.effect('counts the level pages and one page per step of a merged chain', () =>
+    it.effect('counts the level pages and one page per step, without the walkthrough page that repeats the pattern page', () =>
         Effect.sync(() => {
             const engine = createEngine(chainBoard);
             const script = requireHint(engine);
 
             engine.startStepScript(script, HintLevelEnum.TECHNIQUE);
 
+            assert.deepEqual(
+                script.steps.slice(0, 2).map(step => step.kind),
+                [StepScriptStepKindEnum.RevealCandidates, StepScriptStepKindEnum.StrikeCandidates]
+            );
             assert.isAbove(script.steps.length, 3);
-            assert.deepInclude(engine.getSnapshot(), { hintPageIndex: 0, hintPageCount: script.steps.length + 2 });
+            assert.deepInclude(engine.getSnapshot(), { hintPageIndex: 0, hintPageCount: script.steps.length + 1 });
 
             engine.startStepScript(script, HintLevelEnum.PATTERN);
 
-            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.PATTERN, hintPageCount: script.steps.length + 1 });
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.PATTERN, hintPageCount: script.steps.length });
+
+            engine.hintNext();
+
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, stepIndex: 1 });
 
             engine.startStepScript(script);
 
-            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, hintPageCount: script.steps.length });
+            assert.deepInclude(engine.getSnapshot(), {
+                hintLevel: HintLevelEnum.WALKTHROUGH,
+                hintPageCount: script.steps.length,
+                stepIndex: 0
+            });
+        })
+    );
+
+    it.effect('moves whole steps past a step whose only page repeats the pattern page', () =>
+        Effect.sync(() => {
+            const engine = createEngine(chainBoard);
+            const [revealStep, strikeStep, ...laterSteps] = requireHint(engine).steps;
+
+            engine.startStepScript({ ...requireHint(engine), steps: [strikeStep, revealStep, ...laterSteps] }, HintLevelEnum.PATTERN);
+            engine.hintNext();
+
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, stepIndex: 0 });
+            assert.strictEqual(engine.stepScriptNext(), true);
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, stepIndex: 2 });
+            assert.strictEqual(engine.stepScriptBack(), true);
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, stepIndex: 0 });
         })
     );
 
@@ -116,11 +144,11 @@ describe('hint pages', () => {
             assert.deepInclude(engine.getSnapshot(), {
                 hintLevel: HintLevelEnum.WALKTHROUGH,
                 hintPageIndex: 2,
-                stepIndex: 0,
+                stepIndex: 1,
                 isNextPageCharged: false
             });
             assert.strictEqual(engine.hintNext(), false);
-            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, hintPageIndex: 3, stepIndex: 1 });
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, hintPageIndex: 3, stepIndex: 2 });
 
             engine.hintBack();
             engine.hintBack();
@@ -135,11 +163,11 @@ describe('hint pages', () => {
             assert.strictEqual(engine.hintNext(), false);
             assert.strictEqual(engine.hintSkipToEnd(), 0);
             assert.deepInclude(engine.getSnapshot(), {
-                hintPageIndex: script.steps.length + 1,
+                hintPageIndex: script.steps.length,
                 stepIndex: script.steps.length - 1
             });
             assert.strictEqual(engine.hintNext(), false);
-            assert.strictEqual(engine.getSnapshot().hintPageIndex, script.steps.length + 1);
+            assert.strictEqual(engine.getSnapshot().hintPageIndex, script.steps.length);
         })
     );
 
