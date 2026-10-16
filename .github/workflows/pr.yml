@@ -22,6 +22,7 @@ jobs:
     changes:
         name: Detect mobile changes
         runs-on: [self-hosted, linux-portable-2x4]
+        timeout-minutes: 10
         permissions:
             contents: read
         outputs:

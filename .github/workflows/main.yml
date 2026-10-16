@@ -18,8 +18,7 @@ on:
         - cron: '10 0 * * *'
 
 permissions:
-    contents: write
-    pull-requests: write
+    contents: read
 
 concurrency:
     group: deploy-production
@@ -31,6 +30,9 @@ jobs:
         if: github.event_name != 'schedule'
         runs-on: [self-hosted, linux-portable-2x4]
         timeout-minutes: 20
+        permissions:
+            contents: write
+            pull-requests: write
         steps:
             - name: Checkout repository
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -100,6 +102,8 @@ jobs:
         if: ${{ !cancelled() && (needs.release.result == 'success' || needs.release.result == 'skipped') }}
         runs-on: [self-hosted, linux-portable-2x4]
         timeout-minutes: 20
+        permissions:
+            contents: read
         env:
             VERCEL_CLI_VERSION: '64.2.0'
         steps:

@@ -12,6 +12,7 @@ jobs:
     analyze:
         name: Analyze
         runs-on: [self-hosted, linux-portable-4x8]
+        timeout-minutes: 30
         permissions:
             actions: read
             contents: read
