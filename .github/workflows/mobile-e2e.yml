@@ -23,6 +23,25 @@ on:
     workflow_dispatch:
     push:
         branches: [main]
+        # The app's dependency closure: every workspace package except the two
+        # only the website uses (landing, field-dom), the Maestro suite and its
+        # test-kit, and the root inputs every build reads. Negations keep a new
+        # package in by default - an over-wide filter costs one run, a missed
+        # path ships an untested app. Docs, reports and agent files never run it.
+        paths:
+            - 'packages/**'
+            - '!packages/landing/**'
+            - '!packages/field-dom/**'
+            - 'tests/app-tests/**'
+            - 'tests/test-kit/**'
+            - 'patches/**'
+            - 'types/**'
+            - 'package.json'
+            - 'pnpm-lock.yaml'
+            - 'pnpm-workspace.yaml'
+            - 'tsconfig*.json'
+            - 'turbo.json'
+            - '.github/workflows/mobile-e2e.yml'
 
 permissions:
     contents: read

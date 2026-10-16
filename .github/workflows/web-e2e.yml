@@ -5,6 +5,19 @@ on:
     workflow_dispatch:
     push:
         branches: [main]
+        # The web export and the landing site together pull in every workspace
+        # package, so only non-code paths (docs, reports, agent files) are left out.
+        paths:
+            - 'packages/**'
+            - 'tests/web-tests/**'
+            - 'patches/**'
+            - 'types/**'
+            - 'package.json'
+            - 'pnpm-lock.yaml'
+            - 'pnpm-workspace.yaml'
+            - 'tsconfig*.json'
+            - 'turbo.json'
+            - '.github/workflows/web-e2e.yml'
 
 permissions:
     contents: read
