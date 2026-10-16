@@ -90,7 +90,7 @@
         "@babel/core": "^7.29.7",
         "@lingui/babel-plugin-lingui-macro": "6.9.0",
         "@lingui/format-po": "6.9.0",
-        "@react-native/metro-config": "0.88.0-rc.3",
+        "@react-native/metro-config": "0.88.0-rc.4",
         "@types/react": "~19.3.0",
         "babel-plugin-macros": "^3.1.0",
         "babel-plugin-react-compiler": "^1.0.0",
