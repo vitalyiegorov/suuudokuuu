@@ -53,6 +53,10 @@ jobs:
             target-packages: |
                 @suuudokuuu/app
                 @suuudokuuu/app-tests
+            # The turbo locked in pnpm-lock.yaml: turbo.json uses `agentGuidance`
+            # (turbo >= 2.11), which mobile-ci's 2.10.8 default rejects. Drop once
+            # mobile-ci resolves the locked version (rnw-community/mobile-ci#189).
+            turbo-version: '2.11.8'
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
             flows-dir: tests/app-tests/flows
@@ -108,6 +112,10 @@ jobs:
             target-packages: |
                 @suuudokuuu/app
                 @suuudokuuu/app-tests
+            # The turbo locked in pnpm-lock.yaml: turbo.json uses `agentGuidance`
+            # (turbo >= 2.11), which mobile-ci's 2.10.8 default rejects. Drop once
+            # mobile-ci resolves the locked version (rnw-community/mobile-ci#189).
+            turbo-version: '2.11.8'
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
             flows-dir: tests/app-tests/flows
