@@ -321,9 +321,37 @@ jobs:
                   command: eas update --branch pr-${{ github.event.number }} --message pr-${{ github.event.number }}-${{ github.event.pull_request.head.sha }} --non-interactive
                   working-directory: packages/app
 
+    lint-workflows:
+        name: Lint workflows
+        # Catches workflow files GitHub would reject at startup (e.g. a key
+        # duplicated by two merged PRs) before they reach main.
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        permissions:
+            contents: read
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+
+            - name: Run actionlint
+              shell: bash
+              env:
+                  ACTIONLINT_VERSION: 1.7.12
+                  ACTIONLINT_SHA256: 8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8
+              run: |
+                  set -euo pipefail
+                  dir="$(mktemp -d)"
+                  archive="actionlint_${ACTIONLINT_VERSION}_linux_amd64.tar.gz"
+                  curl -fsSL --retry 3 -o "$dir/$archive" "https://github.com/rhysd/actionlint/releases/download/v${ACTIONLINT_VERSION}/${archive}"
+                  echo "${ACTIONLINT_SHA256}  $dir/$archive" | sha256sum -c -
+                  tar -xzf "$dir/$archive" -C "$dir" actionlint
+                  "$dir/actionlint" -color
+
     required-ci:
         if: ${{ always() }}
-        needs: [changes, code-quality, mobile-e2e, web-e2e]
+        needs: [changes, lint-workflows, code-quality, mobile-e2e, web-e2e]
         name: Required CI
         permissions:
             contents: read
@@ -335,15 +363,16 @@ jobs:
             - name: Verify required jobs
               env:
                   CHANGES_RESULT: ${{ needs.changes.result }}
+                  LINT_WORKFLOWS_RESULT: ${{ needs.lint-workflows.result }}
                   MOBILE_RESULT: ${{ needs.changes.outputs.mobile }}
                   CODE_QUALITY_RESULT: ${{ needs.code-quality.result }}
                   MOBILE_E2E_RESULT: ${{ needs.mobile-e2e.result }}
                   WEB_E2E_RESULT: ${{ needs.web-e2e.result }}
               run: |
                   set -euo pipefail
-                  summary="changes=$CHANGES_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, mobile-e2e=$MOBILE_E2E_RESULT, web-e2e=$WEB_E2E_RESULT"
+                  summary="changes=$CHANGES_RESULT, lint-workflows=$LINT_WORKFLOWS_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, mobile-e2e=$MOBILE_E2E_RESULT, web-e2e=$WEB_E2E_RESULT"
                   echo "CI summary: $summary"
-                  if [ "$CHANGES_RESULT" != 'success' ] || [ "$CODE_QUALITY_RESULT" != 'success' ]; then
+                  if [ "$CHANGES_RESULT" != 'success' ] || [ "$LINT_WORKFLOWS_RESULT" != 'success' ] || [ "$CODE_QUALITY_RESULT" != 'success' ]; then
                     echo "Required jobs did not pass: $summary"
                     exit 1
                   fi
