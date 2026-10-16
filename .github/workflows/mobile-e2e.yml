@@ -65,14 +65,14 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.3.0 # v3.3.0
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@b9502c1c3ea1c933485b3e657b47574072ed7ddf # v3.3.1
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
             # app, its workspace dependencies or the Maestro suite changed, so a
             # landing-only PR does not wait on the Macs. Non-PR events still
             # always run (mobile-ci forces always-affected off pull_request).
-            # turbo itself is resolved from pnpm-lock.yaml since mobile-ci v3.3.0.
+            # turbo itself is resolved from pnpm-lock.yaml (mobile-ci v3.3.0+).
             # target-packages stays explicit: mobile-ci only derives the
             # targets[].appDir package, and app-tests (the Maestro suite) is not
             # a dependency of the app, so a flow-only change would go untested.
@@ -80,6 +80,13 @@ jobs:
             exempt-paths: |
                 docs/**
                 **/*.md
+            # turbo never attributes a file outside a workspace package, so an
+            # edit to this pipeline, to the pr.yml job that calls it, or to a
+            # pnpm patch of an app dependency is matched here and runs Maestro.
+            trigger-paths: |
+                .github/workflows/mobile-e2e.yml
+                .github/workflows/pr.yml
+                patches/**
             target-packages: |
                 @suuudokuuu/app
                 @suuudokuuu/app-tests
@@ -128,14 +135,14 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.3.0 # v3.3.0
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@b9502c1c3ea1c933485b3e657b47574072ed7ddf # v3.3.1
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
             # app, its workspace dependencies or the Maestro suite changed, so a
             # landing-only PR does not wait on the Macs. Non-PR events still
             # always run (mobile-ci forces always-affected off pull_request).
-            # turbo itself is resolved from pnpm-lock.yaml since mobile-ci v3.3.0.
+            # turbo itself is resolved from pnpm-lock.yaml (mobile-ci v3.3.0+).
             # target-packages stays explicit: mobile-ci only derives the
             # targets[].appDir package, and app-tests (the Maestro suite) is not
             # a dependency of the app, so a flow-only change would go untested.
@@ -143,6 +150,13 @@ jobs:
             exempt-paths: |
                 docs/**
                 **/*.md
+            # turbo never attributes a file outside a workspace package, so an
+            # edit to this pipeline, to the pr.yml job that calls it, or to a
+            # pnpm patch of an app dependency is matched here and runs Maestro.
+            trigger-paths: |
+                .github/workflows/mobile-e2e.yml
+                .github/workflows/pr.yml
+                patches/**
             target-packages: |
                 @suuudokuuu/app
                 @suuudokuuu/app-tests
