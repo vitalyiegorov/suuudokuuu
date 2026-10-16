@@ -177,7 +177,8 @@ jobs:
         permissions:
             contents: read
         uses: ./.github/workflows/web-e2e.yml
-        secrets: inherit
+        secrets:
+            VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
 
     web-preview:
         name: Vercel preview Web
