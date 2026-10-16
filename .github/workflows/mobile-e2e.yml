@@ -48,7 +48,7 @@ permissions:
 
 concurrency:
     group: mobile-e2e-${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: ${{ github.event_name == 'push' }}
+    cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
     ios:

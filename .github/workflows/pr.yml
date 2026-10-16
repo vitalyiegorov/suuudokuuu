@@ -11,8 +11,8 @@ env:
     RCT_USE_RN_DEP: 1
 
 concurrency:
-    group: pr-${{ github.event.pull_request.number }}
-    cancel-in-progress: true
+    group: pr-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 on:
     pull_request:

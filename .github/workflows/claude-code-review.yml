@@ -7,8 +7,8 @@ on:
             - '.github/workflows/**'
 
 concurrency:
-    group: claude-code-review-${{ github.event.pull_request.number }}
-    cancel-in-progress: true
+    group: claude-code-review-${{ github.event.pull_request.number || github.ref }}
+    cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
     claude-review:
