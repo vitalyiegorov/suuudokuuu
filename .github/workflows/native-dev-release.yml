@@ -19,13 +19,13 @@ jobs:
         with:
             install-command: pnpm install --frozen-lockfile
             app-dir: packages/app
-            enable-ios: true
+            enable-ios: false
             enable-android: true
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             node-version: 22.x
             build-profile: development
             eas-cli-version: '20.5.1'
-            tag-prefix: development
+            tag-prefix: fleet-scratch-mci149
             keep-releases: '5'
             # eas.json pins cli.appVersionSource=remote for the store profiles, so the
             # dev build must be flipped to local or EAS ignores the run-derived
@@ -35,6 +35,20 @@ jobs:
             # effective by the preflight above); fail before publishing if the .ipa
             # carries anything else.
             ios-verify-embedded-build-number: true
+            android-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
+            android-pre-build-command: |
+                echo "node --version: $(node --version)"
+                echo "memory.max: $(cat /sys/fs/cgroup/memory.max 2>&1)"; echo "cpu.max: $(cat /sys/fs/cgroup/cpu.max 2>&1)"; echo "nproc: $(nproc)"
+                echo "memory.peak before build: $(cat /sys/fs/cgroup/memory.peak 2>&1)"
+                date +%s > "$RUNNER_TEMP/mci149-start"
+                nohup sh -c 'while :; do printf "%s %s\n" "$(date +%s)" "$(cat /sys/fs/cgroup/memory.current)" >> "$1"; sleep 5; done' sampler "$RUNNER_TEMP/mci149-mem.log" >/dev/null 2>&1 &
+            android-post-build-command: |
+                echo "eas build wall seconds: $(( $(date +%s) - $(cat "$RUNNER_TEMP/mci149-start") ))"
+                echo "memory.peak: $(cat /sys/fs/cgroup/memory.peak 2>&1)"
+                echo "max sampled memory.current: $(sort -k2 -n "$RUNNER_TEMP/mci149-mem.log" | tail -1)"
+                echo "samples: $(wc -l < "$RUNNER_TEMP/mci149-mem.log")"
+                echo "memory.events:"; cat /sys/fs/cgroup/memory.events 2>&1 || true
+                echo "artifact: $ARTIFACT_PATH ($(du -h "$ARTIFACT_PATH" | cut -f1)) versionCode=$EMBEDDED_BUILD_NUMBER"
             publish-env: |
                 EXPO_NO_TELEMETRY=1
                 LANG=en_US.UTF-8
