@@ -21,12 +21,12 @@ appId: ${APP_ID}
 - assertVisible: 'Taller marks = sharper techniques'
 - scrollUntilVisible:
       element:
-          text: 'AIC'
+          text: 'Finned X-Wing'
       direction: DOWN
       timeout: 10000
 - assertVisible:
-      id: 'ChallengeRunStatsSelectors.TechniqueTile.26'
-- assertVisible: 'AIC'
+      id: 'ChallengeRunStatsSelectors.TechniqueTile.16'
+- assertVisible: 'Finned X-Wing'
 - scrollUntilVisible:
       element:
           text: 'Hidden Pair'

@@ -21,12 +21,12 @@ appId: ${APP_ID}
       id: 'HintStepNarrationSelectors.Narration'
 - assertVisible:
       id: 'HintPanelSelectors.Progress'
-      text: 'Step 1 of 6'
+      text: 'Step 1 of 5'
 - tapOn:
       id: 'HintPanelSelectors.NextButton'
 - assertVisible:
       id: 'HintPanelSelectors.Progress'
-      text: 'Step 2 of 6'
+      text: 'Step 2 of 5'
 - assertVisible:
       id: 'HintStepNarrationSelectors.Narration'
       text: 'Pointing Pair: in box 6, 4 fits only in the highlighted cells, and they all lie in column 7.'
@@ -34,7 +34,7 @@ appId: ${APP_ID}
       id: 'HintPanelSelectors.BackButton'
 - assertVisible:
       id: 'HintPanelSelectors.Progress'
-      text: 'Step 1 of 6'
+      text: 'Step 1 of 5'
 - repeat:
       times: 3
       commands:
@@ -44,7 +44,7 @@ appId: ${APP_ID}
       id: 'HintPanelSelectors.BackButton'
 - assertVisible:
       id: 'HintPanelSelectors.Progress'
-      text: 'Step 3 of 6'
+      text: 'Step 3 of 5'
 - tapOn:
       id: 'HintPanelSelectors.DismissButton'
 - assertNotVisible:
@@ -52,7 +52,7 @@ appId: ${APP_ID}
 - tapOn:
       id: 'HintButtonSelectors.Root'
 - repeat:
-      times: 5
+      times: 4
       commands:
           - tapOn:
                 id: 'HintPanelSelectors.NextButton'
@@ -77,7 +77,7 @@ appId: ${APP_ID}
       id: 'HintPanelSelectors.ShowAnswerButton'
 - assertVisible:
       id: 'HintPanelSelectors.Progress'
-      text: 'Step 6 of 6'
+      text: 'Step 5 of 5'
 - tapOn:
       id: 'HintPanelSelectors.ApplyButton'
 - assertNotVisible:
