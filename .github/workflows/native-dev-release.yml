@@ -15,7 +15,7 @@ jobs:
         name: Development build and release
         permissions:
             contents: write
-        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@v3.2.0 # v3.2.0
+        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@v3.3.0 # v3.3.0
         with:
             install-command: pnpm install --frozen-lockfile
             app-dir: packages/app
