@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.34.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.0...v2.34.1) (2026-10-16)
+
+### Bug Fixes
+
+* **app:** hint quality, new techniques, backup and a wall-clock timer ([#639](https://github.com/vitalyiegorov/suuudokuuu/issues/639)) ([83412f3](https://github.com/vitalyiegorov/suuudokuuu/commit/83412f30facfabfa808b3f3b2f1bb98dfe5ce830)), closes [#620](https://github.com/vitalyiegorov/suuudokuuu/issues/620) [#621](https://github.com/vitalyiegorov/suuudokuuu/issues/621) [#628](https://github.com/vitalyiegorov/suuudokuuu/issues/628) [#629](https://github.com/vitalyiegorov/suuudokuuu/issues/629) [#626](https://github.com/vitalyiegorov/suuudokuuu/issues/626) [#627](https://github.com/vitalyiegorov/suuudokuuu/issues/627) [#618](https://github.com/vitalyiegorov/suuudokuuu/issues/618) [#631](https://github.com/vitalyiegorov/suuudokuuu/issues/631) [#632](https://github.com/vitalyiegorov/suuudokuuu/issues/632) [#630](https://github.com/vitalyiegorov/suuudokuuu/issues/630) [#633](https://github.com/vitalyiegorov/suuudokuuu/issues/633) [#634](https://github.com/vitalyiegorov/suuudokuuu/issues/634) [#636](https://github.com/vitalyiegorov/suuudokuuu/issues/636) [#631](https://github.com/vitalyiegorov/suuudokuuu/issues/631) [#632](https://github.com/vitalyiegorov/suuudokuuu/issues/632)
+
+
 # [2.34.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.33.0...v2.34.0) (2026-10-15)
 
 ### Features
