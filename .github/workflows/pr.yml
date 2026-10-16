@@ -21,7 +21,9 @@ on:
 jobs:
     changes:
         name: Detect mobile changes
-        runs-on: [self-hosted, linux-portable-2x4]
+        # A git diff and nothing else: GitHub-hosted, so every other job's start
+        # does not first wait for a fleet slot.
+        runs-on: ubuntu-latest
         timeout-minutes: 10
         permissions:
             contents: read
@@ -316,7 +318,9 @@ jobs:
         name: Required CI
         permissions:
             contents: read
-        runs-on: [self-hosted, linux-portable-2x4]
+        # Reads needs.* only; GitHub-hosted so the verdict never queues behind
+        # the fleet.
+        runs-on: ubuntu-latest
         timeout-minutes: 5
         steps:
             - name: Verify required jobs
