@@ -217,7 +217,7 @@ jobs:
               with:
                   persist-credentials: false
 
-            - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+            - uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
 
             - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
               with:
@@ -226,7 +226,7 @@ jobs:
 
             - run: pnpm install --frozen-lockfile
 
-            - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+            - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
               with:
                   name: android-e2e-app-e2e
                   path: .ci-artifacts/android-e2e-app-e2e
@@ -234,7 +234,7 @@ jobs:
             - run: sudo apt-get update && sudo apt-get -o DPkg::Lock::Timeout=300 install -y imagemagick
 
             - name: Capture seeded Android scenes
-              uses: reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed # v2.34.0
+              uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2.38.0
               with:
                   api-level: 34
                   target: google_apis
@@ -252,7 +252,7 @@ jobs:
 
             - name: Upload capture diagnostics
               if: always()
-              uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+              uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
               with:
                   name: android-store-capture-smoke
                   path: artifacts/store-capture-smoke
