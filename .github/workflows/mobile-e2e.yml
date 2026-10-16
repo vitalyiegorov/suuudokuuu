@@ -46,9 +46,6 @@ on:
 permissions:
     contents: read
 
-# A pull request's runs share one group and a newer push cancels the older;
-# every other run (a main push, a dispatch) gets a group of its own, so a third
-# pending main run can never displace the second (rnw-community/mobile-ci#200).
 concurrency:
     group: mobile-e2e-${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
     cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -72,11 +69,6 @@ jobs:
             # app, its workspace dependencies or the Maestro suite changed, so a
             # landing-only PR does not wait on the Macs. Non-PR events still
             # always run (mobile-ci forces always-affected off pull_request).
-            # turbo itself is resolved from pnpm-lock.yaml since mobile-ci v3.3.0.
-            # target-packages stays explicit: mobile-ci only derives the
-            # targets[].appDir package, and app-tests (the Maestro suite) is not
-            # a dependency of the app, so a flow-only change would go untested.
-            # Docs and markdown anywhere skip detection outright.
             exempt-paths: |
                 docs/**
                 **/*.md
@@ -135,11 +127,6 @@ jobs:
             # app, its workspace dependencies or the Maestro suite changed, so a
             # landing-only PR does not wait on the Macs. Non-PR events still
             # always run (mobile-ci forces always-affected off pull_request).
-            # turbo itself is resolved from pnpm-lock.yaml since mobile-ci v3.3.0.
-            # target-packages stays explicit: mobile-ci only derives the
-            # targets[].appDir package, and app-tests (the Maestro suite) is not
-            # a dependency of the app, so a flow-only change would go untested.
-            # Docs and markdown anywhere skip detection outright.
             exempt-paths: |
                 docs/**
                 **/*.md
