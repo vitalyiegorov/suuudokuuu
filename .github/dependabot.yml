@@ -33,8 +33,9 @@ updates:
           prefix: chore
           include: scope
       ignore:
-          # Versions of the Expo SDK and the native modules it pins move with an
-          # SDK upgrade (`expo install --fix`), not one package at a time.
+          # Versions of the Expo SDK and the native modules it pins (expo's
+          # bundledNativeModules.json) move with an SDK upgrade
+          # (`expo install --fix`), not one package at a time.
           - dependency-name: 'expo'
             update-types: ['version-update:semver-major', 'version-update:semver-minor']
           - dependency-name: 'expo-*'
@@ -47,8 +48,23 @@ updates:
             update-types: ['version-update:semver-major', 'version-update:semver-minor']
           - dependency-name: 'react-native'
             update-types: ['version-update:semver-major', 'version-update:semver-minor']
-          - dependency-name: 'react-native-*'
+          - dependency-name: 'react-native-gesture-handler'
             update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-reanimated'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-safe-area-context'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-screens'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-svg'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-web'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          - dependency-name: 'react-native-worklets'
+            update-types: ['version-update:semver-major', 'version-update:semver-minor']
+          # Pinned to 3.3.0 because patches/react-native-unistyles@3.3.0.patch
+          # applies to exactly that version; bump it together with the patch.
+          - dependency-name: 'react-native-unistyles'
           - dependency-name: '@react-native/*'
             update-types: ['version-update:semver-major', 'version-update:semver-minor']
           # Everything else: majors are deliberate upgrades, not weekly churn.
