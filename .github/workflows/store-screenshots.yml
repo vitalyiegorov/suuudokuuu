@@ -37,13 +37,11 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@4fc843cd3741a0354767d6a2499a6b4d17f6458c # main fleet-validation pin
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@72755ddb842b1fc41d404270580168158649b6e4 # feat/149-linux-screenshot-defaults
         with:
             config-path: .github/mobile-ci-avd-validation.json
             build-strategy: repack
-            android-driver: avd
             android-build-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
-            android-capture-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             upload-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
