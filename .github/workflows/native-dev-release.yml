@@ -44,7 +44,8 @@ jobs:
                   'org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8' \
                   'kotlin.compiler.execution.strategy=in-process' \
                   'org.gradle.workers.max=2' \
-                  'org.gradle.parallel=false' > "$gradle_user_home/gradle.properties"
+                  'org.gradle.parallel=false' \
+                  'expo.useLegacyPackaging=true' > "$gradle_user_home/gradle.properties"
                 cat "$gradle_user_home/gradle.properties"
                 mkdir -p "$gradle_user_home/init.d"
                 cat > "$gradle_user_home/init.d/mci149.gradle" <<'GRADLE'
