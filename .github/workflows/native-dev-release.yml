@@ -43,7 +43,7 @@ jobs:
                 printf '%s\n' \
                   'org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8' \
                   'kotlin.compiler.execution.strategy=in-process' \
-                  'org.gradle.workers.max=1' \
+                  'org.gradle.workers.max=2' \
                   'org.gradle.parallel=false' > "$gradle_user_home/gradle.properties"
                 cat "$gradle_user_home/gradle.properties"
                 mkdir -p "$gradle_user_home/init.d"
@@ -56,7 +56,7 @@ jobs:
                         project.pluginManager.withPlugin(plugin) {
                             project.extensions.getByName('androidComponents').finalizeDsl { android ->
                                 android.defaultConfig.externalNativeBuild.cmake.arguments.addAll([
-                                    '-DCMAKE_JOB_POOLS=mci_compile=1;mci_link=1',
+                                    '-DCMAKE_JOB_POOLS=mci_compile=2;mci_link=1',
                                     '-DCMAKE_JOB_POOL_COMPILE=mci_compile',
                                     '-DCMAKE_JOB_POOL_LINK=mci_link'
                                 ])
