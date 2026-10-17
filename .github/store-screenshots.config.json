@@ -54,5 +54,5 @@
         "prebuildCommand": "npx expo prebuild -p android --clean --no-install"
     },
     "android-gradle-task": ":app:assembleRelease",
-    "android-gradle-args": "-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64"
+    "android-gradle-args": "-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64 --max-workers=2"
 }
