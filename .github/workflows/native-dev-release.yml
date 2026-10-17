@@ -41,12 +41,28 @@ jobs:
                 gradle_user_home="${GRADLE_USER_HOME:-$HOME/.gradle}"
                 mkdir -p "$gradle_user_home"
                 printf '%s\n' \
-                  'org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8' \
-                  'kotlin.daemon.jvmargs=-Xmx1024m -XX:MaxMetaspaceSize=256m' \
+                  'org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m -XX:ActiveProcessorCount=2 -Dfile.encoding=UTF-8' \
+                  'kotlin.daemon.jvmargs=-Xmx1024m -XX:MaxMetaspaceSize=256m -XX:ActiveProcessorCount=2' \
                   'org.gradle.workers.max=2' \
                   'org.gradle.parallel=false' > "$gradle_user_home/gradle.properties"
                 cat "$gradle_user_home/gradle.properties"
-                printf 'CMAKE_BUILD_PARALLEL_LEVEL=%s\n' "$CMAKE_BUILD_PARALLEL_LEVEL"
+                mkdir -p "$gradle_user_home/init.d"
+                cat > "$gradle_user_home/init.d/mci149.gradle" <<'GRADLE'
+                println("mci149 heap_max_bytes=${Runtime.getRuntime().maxMemory()} processors=${Runtime.getRuntime().availableProcessors()} workers=${gradle.startParameter.maxWorkerCount}")
+                gradle.beforeProject { project ->
+                    ['com.android.application', 'com.android.library'].each { plugin ->
+                        project.pluginManager.withPlugin(plugin) {
+                            project.extensions.getByName('androidComponents').finalizeDsl { android ->
+                                android.defaultConfig.externalNativeBuild.cmake.arguments.addAll([
+                                    '-DCMAKE_JOB_POOLS=mci_compile=2;mci_link=1',
+                                    '-DCMAKE_JOB_POOL_COMPILE=mci_compile',
+                                    '-DCMAKE_JOB_POOL_LINK=mci_link'
+                                ])
+                            }
+                        }
+                    }
+                }
+                GRADLE
                 date +%s > "$RUNNER_TEMP/mci149-start"
                 nohup sh -c 'while :; do printf "%s %s %s %s\n" "$(date +%s)" "$(cat /sys/fs/cgroup/memory.current)" "$(awk "\$1==\"anon\"{print \$2}" /sys/fs/cgroup/memory.stat)" "$(ps -eo rss= | awk "{s+=\$1} END {print s*1024}")" >> "$1"; sleep 5; done' sampler "$RUNNER_TEMP/mci149-mem.log" >/dev/null 2>&1 &
             android-post-build-command: |
@@ -63,7 +79,6 @@ jobs:
                 echo "::notice title=mci149 eas build --local measurement::$msg"
                 echo "$msg" >> "$GITHUB_STEP_SUMMARY"
             publish-env: |
-                CMAKE_BUILD_PARALLEL_LEVEL=2
                 EXPO_NO_TELEMETRY=1
                 LANG=en_US.UTF-8
                 LC_ALL=en_US.UTF-8
