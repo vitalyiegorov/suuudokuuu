@@ -27,19 +27,26 @@ jobs:
             eas-cli-version: '20.5.1'
             tag-prefix: fleet-verify-mci149
             keep-releases: '5'
-            # eas.json pins cli.appVersionSource=remote for the store profiles, so the
-            # dev build must be flipped to local or EAS ignores the run-derived
-            # ios.buildNumber that app.config.js sets from DEVELOPMENT_BUILD_NUMBER.
             ios-pre-build-command: node scripts/preflight-development-build.ts
-            # app.config.js sets ios.buildNumber from DEVELOPMENT_BUILD_NUMBER (made
-            # effective by the preflight above); fail before publishing if the .ipa
-            # carries anything else.
             ios-verify-embedded-build-number: true
             android-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             android-pre-build-command: |
                 echo "node --version: $(node --version)"
-                echo "memory.max: $(cat /sys/fs/cgroup/memory.max 2>&1)"; echo "cpu.max: $(cat /sys/fs/cgroup/cpu.max 2>&1)"; echo "nproc: $(nproc)"
-                echo "memory.peak before build: $(cat /sys/fs/cgroup/memory.peak 2>&1)"
+                echo "memory.max: $(cat /sys/fs/cgroup/memory.max)"
+                echo "memory.swap.max: $(cat /sys/fs/cgroup/memory.swap.max)"
+                echo "cpu.max: $(cat /sys/fs/cgroup/cpu.max)"
+                echo "nproc: $(nproc)"
+                echo "memory.peak before build: $(cat /sys/fs/cgroup/memory.peak)"
+                cat /sys/fs/cgroup/memory.events /sys/fs/cgroup/memory.swap.events
+                gradle_user_home="${GRADLE_USER_HOME:-$HOME/.gradle}"
+                mkdir -p "$gradle_user_home"
+                printf '%s\n' \
+                  'org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m -Dfile.encoding=UTF-8' \
+                  'kotlin.daemon.jvmargs=-Xmx1024m -XX:MaxMetaspaceSize=256m' \
+                  'org.gradle.workers.max=2' \
+                  'org.gradle.parallel=false' > "$gradle_user_home/gradle.properties"
+                cat "$gradle_user_home/gradle.properties"
+                printf 'CMAKE_BUILD_PARALLEL_LEVEL=%s\n' "$CMAKE_BUILD_PARALLEL_LEVEL"
                 date +%s > "$RUNNER_TEMP/mci149-start"
                 nohup sh -c 'while :; do printf "%s %s %s %s\n" "$(date +%s)" "$(cat /sys/fs/cgroup/memory.current)" "$(awk "\$1==\"anon\"{print \$2}" /sys/fs/cgroup/memory.stat)" "$(ps -eo rss= | awk "{s+=\$1} END {print s*1024}")" >> "$1"; sleep 5; done' sampler "$RUNNER_TEMP/mci149-mem.log" >/dev/null 2>&1 &
             android-post-build-command: |
@@ -56,6 +63,7 @@ jobs:
                 echo "::notice title=mci149 eas build --local measurement::$msg"
                 echo "$msg" >> "$GITHUB_STEP_SUMMARY"
             publish-env: |
+                CMAKE_BUILD_PARALLEL_LEVEL=2
                 EXPO_NO_TELEMETRY=1
                 LANG=en_US.UTF-8
                 LC_ALL=en_US.UTF-8
@@ -111,7 +119,10 @@ jobs:
                   set -euo pipefail
                   adb -s "$ANDROID_SERIAL" install "$RUNNER_TEMP/install-verification/app.apk"
                   adb -s "$ANDROID_SERIAL" shell pm path "$APP_ID" | grep '^package:'
-                  adb -s "$ANDROID_SERIAL" shell am start -W -n "$APP_ID/.MainActivity"
+                  launch_output="$(adb -s "$ANDROID_SERIAL" shell am start -W -n "$APP_ID/.MainActivity" | tr -d '\r')"
+                  printf '%s\n' "$launch_output"
+                  printf '%s\n' "$launch_output" | grep '^Status: ok$'
+                  test -n "$(adb -s "$ANDROID_SERIAL" shell pidof "$APP_ID" | tr -d '\r')"
                   adb -s "$ANDROID_SERIAL" exec-out screencap -p > "$RUNNER_TEMP/install-verification/installed.png"
                   echo "Published app.apk checksum verified and installed as $APP_ID on $ANDROID_SERIAL." >> "$GITHUB_STEP_SUMMARY"
             - name: Retain installation evidence
