@@ -37,7 +37,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@72755ddb842b1fc41d404270580168158649b6e4 # feat/149-linux-screenshot-defaults
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@bcd2c3b6139077cdc413761e130a931dcbf17322 # feat/149-linux-screenshot-defaults
         with:
             config-path: .github/mobile-ci-avd-validation.json
             build-strategy: repack
