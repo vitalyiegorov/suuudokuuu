@@ -114,3 +114,4 @@ jobs:
                 ios.bundleIdentifier=com.vitalyiegorov.suuudokuuu.e2e
             build-env: |
                 APP_VARIANT=e2e
+            build-strategy: repack
