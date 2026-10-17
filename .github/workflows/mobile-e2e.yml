@@ -62,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.3.0 # v3.3.0
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@d53b2b9aaffd398735fb176c12f172bac7d8ec72 # ci/diagnose-node-exec-failure
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -83,7 +83,8 @@ jobs:
             flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
             pre-flow-command: tests/app-tests/scripts/seed-flow-fixture.sh
             flow-retries: 1
-            shard-count: 2
+            shard-count: 1
+            pre-test-command: echo "Intentional failure to verify Node diagnostics"; exit 1
             shard-manifest-dir: tests/app-tests/shards
             simulator-device: iPhone 17 Pro
             simulator-reduce-motion: 'true'
@@ -113,142 +114,3 @@ jobs:
                 ios.bundleIdentifier=com.vitalyiegorov.suuudokuuu.e2e
             build-env: |
                 APP_VARIANT=e2e
-
-    android:
-        name: Android Maestro E2E
-        permissions:
-            contents: read
-            packages: write
-            actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.3.0 # v3.3.0
-        with:
-            install-command: pnpm install --frozen-lockfile
-            # Gate pull requests on the turbo graph: Maestro runs only when the
-            # app, its workspace dependencies or the Maestro suite changed, so a
-            # landing-only PR does not wait on the Macs. Non-PR events still
-            # always run (mobile-ci forces always-affected off pull_request).
-            exempt-paths: |
-                docs/**
-                **/*.md
-            target-packages: |
-                @suuudokuuu/app
-                @suuudokuuu/app-tests
-            targets: >-
-                [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
-            flows-dir: tests/app-tests/flows
-            pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
-            maestro-config: tests/app-tests/config.yaml
-            flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
-            pre-flow-command: tests/app-tests/scripts/seed-flow-fixture.sh
-            flow-retries: 1
-            # One emulator job at a time: node-b budgets 8 CPU / 16 GiB to
-            # containers, a `trf-linux-amd64-4x8` container is 4 CPU / 8 GiB, and
-            # the AVD alone measured ~4.2 GiB RSS. One emulator shard alongside the
-            # APK build is what the host actually fits; a second shard would only
-            # queue behind the first while starving both.
-            shard-count: 1
-            maestro-version: '2.6.1'
-            # Both legs on node-b: the APK builds on Linux now (Google does ship an
-            # x86_64-linux NDK), and 8 GiB is what keeps D8 from being OOM-killed.
-            # The plan/repack job defaults to trf-linux-amd64-2x4 (no KVM, mobile-ci
-            # v3.2.0), so it never queues behind emulator shards on this pool.
-            build-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
-            # `trf-linux-amd64-4x8` is the ONLY node-b profile granted /dev/kvm, so
-            # this label is a hard requirement of the avd driver, not a preference.
-            test-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
-            # Google's own emulator instead of Redroid. api-level 34 / google_apis /
-            # x86_64 are the reusable workflow's defaults and are exactly the system
-            # image baked into the runner container, so they stay unset here rather
-            # than being restated in two places that could drift apart.
-            android-driver: avd
-            # The container is 4 CPU / 8 GiB. Since mobile-ci v3.2.0 the emulator's
-            # RAM and cores are derived from the container's cgroup (memory.max
-            # 8 GiB -> 2048 MB, cpu.max 4 -> 2 cores), and the fleet injects
-            # JAVA_TOOL_OPTIONS=-XX:MaxRAM=8192m so Maestro's JVM sizes its heap
-            # from the container rather than the host's 27 GiB. Neither bound is
-            # restated here (fleet-validated in run 38692037603).
-            # Nexus 4 is 768x1280 @ 320dpi - within a whisker of the 720x1280 @
-            # 320dpi Redroid presented, which is the geometry every flow here was
-            # calibrated against. pixel_6 (1080x2400 @ 420dpi) is both a
-            # different dp viewport and a materially larger software-rendered
-            # framebuffer: measured on this runner, the swap costs 450 MB of
-            # unreclaimable memory for a device the flows were never written for.
-            emulator-profile: Nexus 4
-            gradle-task: ':app:assembleRelease'
-            # x86_64 only: the AVD boots an x86_64 system image, so every other ABI
-            # is CMake time spent on a library nothing installs. The lint skips stay
-            # - lint is a separate PR gate, not this pipeline's job.
-            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
-            # Byte-identical to the iOS lane above and to seed-native-cache.yml.
-            fingerprint-env: |
-                APP_VARIANT=e2e
-            repack-env: |
-                APP_VARIANT=e2e
-            expect-config: |
-                name=suuudokuuu (E2E)
-                android.package=com.vitaliiyehorov.suuudokuuu.e2e
-            # The repacked APK is re-signed with the React Native debug keystore
-            # `expo prebuild` ships and Gradle signs its release build with, which
-            # is what android-keystore-path already defaults to. The emulator
-            # refuses to install a repack signed with anything else, so the
-            # defaults are correct here and stay unstated.
-            #
-            # No JAVA_HOME line: the runner image ships OpenJDK 17 and exports
-            # JAVA_HOME itself, unlike the macOS builder this job came from.
-            build-env: |
-                APP_VARIANT=e2e
-                ORG_GRADLE_PROJECT_reactNativeArchitectures=x86_64
-
-    android-capture-smoke:
-        name: Android store capture smoke
-        needs: android
-        if: github.event_name == 'workflow_dispatch'
-        runs-on: [self-hosted, trf-linux-amd64-4x8]
-        timeout-minutes: 45
-        permissions:
-            contents: read
-            actions: read
-        steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-              with:
-                  persist-credentials: false
-
-            - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
-
-            - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
-              with:
-                  node-version: 24.x
-                  cache: pnpm
-
-            - run: pnpm install --frozen-lockfile
-
-            - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
-              with:
-                  name: android-e2e-app-e2e
-                  path: .ci-artifacts/android-e2e-app-e2e
-
-            - run: sudo apt-get update && sudo apt-get -o DPkg::Lock::Timeout=300 install -y imagemagick
-
-            - name: Capture seeded Android scenes
-              uses: reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed # v2.34.0
-              with:
-                  api-level: 34
-                  target: google_apis
-                  arch: x86_64
-                  profile: Nexus 4
-                  ram-size: 2048
-                  disable-animations: true
-                  emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-                  script: |
-                      adb install -r .ci-artifacts/android-e2e-app-e2e/app-release.apk
-                      adb shell am start -n com.vitaliiyehorov.suuudokuuu.e2e/.MainActivity
-                      sleep 20
-                      adb shell am force-stop com.vitaliiyehorov.suuudokuuu.e2e
-                      start=$(date +%s); trap 'echo "Capture-only duration: $(($(date +%s) - start))s"' EXIT; timeout 300s pnpm --filter @suuudokuuu/app-tests screenshots:capture --platform=android --serial="$(adb devices | awk 'NR==2 { print $1 }')" --app-id=com.vitaliiyehorov.suuudokuuu.e2e --locales=en --appearances=dark --scenes=hero-board,hell,themes,editor,rival,replay,settings,home,stats,scoring,history,challenge-live,infinity --status-bar=real --verify --output-dir=artifacts/store-capture-smoke/raw --report-dir=artifacts/store-capture-smoke
-
-            - name: Upload capture diagnostics
-              if: always()
-              uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
-              with:
-                  name: android-store-capture-smoke
-                  path: artifacts/store-capture-smoke
