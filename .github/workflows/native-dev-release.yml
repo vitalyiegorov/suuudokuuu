@@ -144,11 +144,12 @@ jobs:
                   jq -e '.platform == "android" and .assetName == "app.apk"' build-meta.json
             - name: Start a clean test device
               id: emulator
-              uses: rnw-community/mobile-ci/actions/android-emulator@b9502c1c3ea1c933485b3e657b47574072ed7ddf # v3.3.1
+              uses: rnw-community/mobile-ci/actions/android-emulator@v4.0.0 # v4.0.0
               with:
                   mode: start
                   profile: Nexus 4
                   avd-name: mobile-ci-dev-release-install
+                  emulator-slots-dir: /var/lib/mobile-ci/emulator-slots
                   wipe-data: 'true'
             - name: Install the actual release asset
               env:
@@ -176,6 +177,6 @@ jobs:
                       ${{ runner.temp }}/install-verification/SHA256SUMS
             - name: Release the test device
               if: always()
-              uses: rnw-community/mobile-ci/actions/android-emulator@b9502c1c3ea1c933485b3e657b47574072ed7ddf # v3.3.1
+              uses: rnw-community/mobile-ci/actions/android-emulator@v4.0.0 # v4.0.0
               with:
                   mode: stop
