@@ -33,7 +33,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@f05274f20190706a34d688cc9e7050482f0e0e45 # perf/multi-simulator-lanes
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@b25d49ffed4323ecdef402496919979f1b47286d # perf/multi-simulator-lanes
         with:
             install-command: pnpm install --frozen-lockfile
             exempt-paths: 'docs/**
