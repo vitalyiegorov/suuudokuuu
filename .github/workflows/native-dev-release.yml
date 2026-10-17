@@ -53,6 +53,8 @@ jobs:
                 msg="node=$(node --version) wall_s=$wall memory.peak=$peak max_sampled_current=$maxcur samples=$samples events=[$events] $limits apk=$size"
                 echo "::notice title=mci149 eas build --local measurement::$msg"
                 echo "$msg" >> "$GITHUB_STEP_SUMMARY"
+                echo "Stopping before publication on purpose: two earlier runs lost the node-b runner during the GitHub Release upload, taking these measurements with them."
+                exit 1
             publish-env: |
                 EXPO_NO_TELEMETRY=1
                 LANG=en_US.UTF-8
