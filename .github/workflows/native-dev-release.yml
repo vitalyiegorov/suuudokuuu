@@ -69,6 +69,28 @@ jobs:
                 date +%s > "$RUNNER_TEMP/mci149-start"
                 nohup sh -c 'while :; do printf "%s %s %s %s\n" "$(date +%s)" "$(cat /sys/fs/cgroup/memory.current)" "$(awk "\$1==\"anon\"{print \$2}" /sys/fs/cgroup/memory.stat)" "$(ps -eo rss= | awk "{s+=\$1} END {print s*1024}")" >> "$1"; sleep 5; done' sampler "$RUNNER_TEMP/mci149-mem.log" >/dev/null 2>&1 &
             android-post-build-command: |
+                python3 - <<'PY'
+                import os
+                import re
+                import zipfile
+                from pathlib import Path
+
+                artifact = Path(os.environ['ARTIFACT_PATH'])
+                with zipfile.ZipFile(artifact) as apk:
+                    entries = apk.infolist()
+                    names = {entry.filename for entry in entries}
+                    if 'AndroidManifest.xml' not in names or 'BundleConfig.pb' in names:
+                        raise SystemExit('Expected an APK manifest and no app bundle configuration')
+                    if not any(re.fullmatch(r'classes[0-9]*\.dex', name) for name in names):
+                        raise SystemExit('APK contains no classes dex file')
+                    libraries = [entry for entry in entries if entry.filename.startswith('lib/') and entry.filename.endswith('.so')]
+                    abis = {entry.filename.split('/')[1] for entry in libraries}
+                    if abis != {'arm64-v8a', 'armeabi-v7a', 'x86', 'x86_64'}:
+                        raise SystemExit('APK must retain exactly arm64-v8a, armeabi-v7a, x86, x86_64 native libraries')
+                    if any(entry.file_size == 0 or entry.compress_type != zipfile.ZIP_DEFLATED for entry in libraries):
+                        raise SystemExit('Every APK native library must be nonempty and ZIP_DEFLATED')
+                    print(f'apk_bytes={artifact.stat().st_size} native_uncompressed_bytes={sum(entry.file_size for entry in libraries)} native_compressed_bytes={sum(entry.compress_size for entry in libraries)} abis={",".join(sorted(abis))}')
+                PY
                 wall=$(( $(date +%s) - $(cat "$RUNNER_TEMP/mci149-start") ))
                 peak=$(cat /sys/fs/cgroup/memory.peak 2>&1) || true
                 maxcur=$(sort -k2,2n "$RUNNER_TEMP/mci149-mem.log" | tail -1 | cut -d' ' -f2)
