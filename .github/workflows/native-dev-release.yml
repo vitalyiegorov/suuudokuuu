@@ -15,7 +15,7 @@ jobs:
         name: Development build and release
         permissions:
             contents: write
-        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@b9502c1c3ea1c933485b3e657b47574072ed7ddf # v3.3.1
+        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@9f4528cdc5dd57097a8af21db3cdf4284d9d4fd6 # fix/eas-failure-log-redaction
         with:
             install-command: pnpm install --frozen-lockfile
             app-dir: packages/app
