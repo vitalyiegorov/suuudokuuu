@@ -41,16 +41,18 @@ jobs:
                 echo "memory.max: $(cat /sys/fs/cgroup/memory.max 2>&1)"; echo "cpu.max: $(cat /sys/fs/cgroup/cpu.max 2>&1)"; echo "nproc: $(nproc)"
                 echo "memory.peak before build: $(cat /sys/fs/cgroup/memory.peak 2>&1)"
                 date +%s > "$RUNNER_TEMP/mci149-start"
-                nohup sh -c 'while :; do printf "%s %s\n" "$(date +%s)" "$(cat /sys/fs/cgroup/memory.current)" >> "$1"; sleep 5; done' sampler "$RUNNER_TEMP/mci149-mem.log" >/dev/null 2>&1 &
+                nohup sh -c 'while :; do printf "%s %s %s %s\n" "$(date +%s)" "$(cat /sys/fs/cgroup/memory.current)" "$(awk "\$1==\"anon\"{print \$2}" /sys/fs/cgroup/memory.stat)" "$(ps -eo rss= | awk "{s+=\$1} END {print s*1024}")" >> "$1"; sleep 5; done' sampler "$RUNNER_TEMP/mci149-mem.log" >/dev/null 2>&1 &
             android-post-build-command: |
                 wall=$(( $(date +%s) - $(cat "$RUNNER_TEMP/mci149-start") ))
                 peak=$(cat /sys/fs/cgroup/memory.peak 2>&1) || true
-                maxcur=$(sort -k2 -n "$RUNNER_TEMP/mci149-mem.log" | tail -1 | cut -d' ' -f2)
+                maxcur=$(sort -k2,2n "$RUNNER_TEMP/mci149-mem.log" | tail -1 | cut -d' ' -f2)
+                maxanon=$(sort -k3,3n "$RUNNER_TEMP/mci149-mem.log" | tail -1 | cut -d' ' -f3)
+                maxrss=$(sort -k4,4n "$RUNNER_TEMP/mci149-mem.log" | tail -1 | cut -d' ' -f4)
                 samples=$(wc -l < "$RUNNER_TEMP/mci149-mem.log")
                 events=$(tr '\n' ' ' < /sys/fs/cgroup/memory.events 2>&1) || true
                 limits="memory.max=$(cat /sys/fs/cgroup/memory.max 2>&1) cpu.max=$(cat /sys/fs/cgroup/cpu.max 2>&1) nproc=$(nproc)"
                 size=$(du -h "$ARTIFACT_PATH" | cut -f1)
-                msg="node=$(node --version) wall_s=$wall memory.peak=$peak max_sampled_current=$maxcur samples=$samples events=[$events] $limits apk=$size"
+                msg="node=$(node --version) wall_s=$wall memory.peak=$peak max_sampled_current=$maxcur max_sampled_anon=$maxanon max_sampled_sum_rss=$maxrss samples=$samples events=[$events] $limits apk=$size"
                 echo "::notice title=mci149 eas build --local measurement::$msg"
                 echo "$msg" >> "$GITHUB_STEP_SUMMARY"
                 echo "Stopping before publication on purpose: two earlier runs lost the node-b runner during the GitHub Release upload, taking these measurements with them."
