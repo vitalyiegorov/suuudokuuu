@@ -62,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@d53b2b9aaffd398735fb176c12f172bac7d8ec72 # ci/diagnose-node-exec-failure
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v4.0.0 # v4.0.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
