@@ -34,7 +34,7 @@ jobs:
             flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
             pre-flow-command: tests/app-tests/scripts/seed-flow-fixture.sh
             flow-retries: 1
-            shard-count: 3
+            shard-count: 4
             shard-manifest-dir: ''
             build-strategy: repack
             emulator-slots-dir: /var/lib/mobile-ci/emulator-slots
