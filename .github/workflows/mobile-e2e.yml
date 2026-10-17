@@ -120,7 +120,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v3.3.0 # v3.3.0
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v4.0.0 # v4.0.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -161,6 +161,7 @@ jobs:
             # image baked into the runner container, so they stay unset here rather
             # than being restated in two places that could drift apart.
             android-driver: avd
+            emulator-slots-dir: /var/lib/mobile-ci/emulator-slots
             # The container is 4 CPU / 8 GiB. Since mobile-ci v3.2.0 the emulator's
             # RAM and cores are derived from the container's cgroup (memory.max
             # 8 GiB -> 2048 MB, cpu.max 4 -> 2 cores), and the fleet injects
@@ -229,26 +230,39 @@ jobs:
 
             - run: sudo apt-get update && sudo apt-get -o DPkg::Lock::Timeout=300 install -y imagemagick
 
-            - name: Capture seeded Android scenes
-              uses: reactivecircus/android-emulator-runner@1dcd0090116d15e7c562f8db72807de5e036a4ed # v2.34.0
+            - name: Start the Android capture emulator
+              id: emulator
+              uses: rnw-community/mobile-ci/actions/android-emulator@v4.0.0 # v4.0.0
               with:
+                  mode: start
                   api-level: 34
                   target: google_apis
                   arch: x86_64
                   profile: Nexus 4
-                  ram-size: 2048
-                  disable-animations: true
-                  emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-                  script: |
-                      adb install -r .ci-artifacts/android-e2e-app-e2e/app-release.apk
-                      adb shell am start -n com.vitaliiyehorov.suuudokuuu.e2e/.MainActivity
-                      sleep 20
-                      adb shell am force-stop com.vitaliiyehorov.suuudokuuu.e2e
-                      start=$(date +%s); trap 'echo "Capture-only duration: $(($(date +%s) - start))s"' EXIT; timeout 300s pnpm --filter @suuudokuuu/app-tests screenshots:capture --platform=android --serial="$(adb devices | awk 'NR==2 { print $1 }')" --app-id=com.vitaliiyehorov.suuudokuuu.e2e --locales=en --appearances=dark --scenes=hero-board,hell,themes,editor,rival,replay,settings,home,stats,scoring,history,challenge-live,infinity --status-bar=real --verify --output-dir=artifacts/store-capture-smoke/raw --report-dir=artifacts/store-capture-smoke
+                  avd-name: store-capture-smoke
+                  emulator-slots-dir: /var/lib/mobile-ci/emulator-slots
+
+            - name: Capture seeded Android scenes
+              shell: bash
+              env:
+                  ANDROID_SERIAL: ${{ steps.emulator.outputs.android-serial }}
+              run: |
+                  adb install -r .ci-artifacts/android-e2e-app-e2e/app-release.apk
+                  adb shell am start -n com.vitaliiyehorov.suuudokuuu.e2e/.MainActivity
+                  sleep 20
+                  adb shell am force-stop com.vitaliiyehorov.suuudokuuu.e2e
+                  start=$(date +%s); trap 'echo "Capture-only duration: $(($(date +%s) - ${start}))s"' EXIT; timeout 300s pnpm --filter @suuudokuuu/app-tests screenshots:capture --platform=android --serial="$ANDROID_SERIAL" --app-id=com.vitaliiyehorov.suuudokuuu.e2e --locales=en --appearances=dark --scenes=hero-board,hell,themes,editor,rival,replay,settings,home,stats,scoring,history,challenge-live,infinity --status-bar=real --verify --output-dir=artifacts/store-capture-smoke/raw --report-dir=artifacts/store-capture-smoke
+
+            - name: Stop the Android capture emulator
+              if: always()
+              uses: rnw-community/mobile-ci/actions/android-emulator@v4.0.0 # v4.0.0
+              with:
+                  mode: stop
 
             - name: Upload capture diagnostics
               if: always()
               uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
               with:
                   name: android-store-capture-smoke
-                  path: artifacts/store-capture-smoke
+                  path: tests/app-tests/artifacts/store-capture-smoke
+                  if-no-files-found: error
