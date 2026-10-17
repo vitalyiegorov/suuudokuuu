@@ -25,7 +25,7 @@ jobs:
             node-version: 22.x
             build-profile: development
             eas-cli-version: '20.5.1'
-            tag-prefix: fleet-scratch-mci149
+            tag-prefix: fleet-verify-mci149
             keep-releases: '5'
             # eas.json pins cli.appVersionSource=remote for the store profiles, so the
             # dev build must be flipped to local or EAS ignores the run-derived
@@ -55,8 +55,6 @@ jobs:
                 msg="node=$(node --version) wall_s=$wall memory.peak=$peak max_sampled_current=$maxcur max_sampled_anon=$maxanon max_sampled_sum_rss=$maxrss samples=$samples events=[$events] $limits apk=$size"
                 echo "::notice title=mci149 eas build --local measurement::$msg"
                 echo "$msg" >> "$GITHUB_STEP_SUMMARY"
-                echo "Stopping before publication on purpose: two earlier runs lost the node-b runner during the GitHub Release upload, taking these measurements with them."
-                exit 1
             publish-env: |
                 EXPO_NO_TELEMETRY=1
                 LANG=en_US.UTF-8
@@ -72,3 +70,61 @@ jobs:
             ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
             ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
             ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
+
+    verify-apk:
+        name: Verify the published APK installs
+        needs: dev-release
+        runs-on: [self-hosted, trf-linux-amd64-4x8]
+        timeout-minutes: 20
+        permissions:
+            contents: read
+        steps:
+            - name: Download and verify the published development APK
+              env:
+                  GH_TOKEN: ${{ github.token }}
+                  REPOSITORY: ${{ github.repository }}
+                  RELEASE_TAG: fleet-verify-mci149-android-${{ github.run_number }}
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  mkdir -p "$RUNNER_TEMP/install-verification"
+                  gh release download "$RELEASE_TAG" --repo "$REPOSITORY" \
+                    --pattern app.apk --pattern SHA256SUMS --pattern build-meta.json \
+                    --dir "$RUNNER_TEMP/install-verification"
+                  cd "$RUNNER_TEMP/install-verification"
+                  sha256sum --check SHA256SUMS
+                  jq -e '.platform == "android" and .assetName == "app.apk"' build-meta.json
+            - name: Start a clean test device
+              id: emulator
+              uses: rnw-community/mobile-ci/actions/android-emulator@b9502c1c3ea1c933485b3e657b47574072ed7ddf # v3.3.1
+              with:
+                  mode: start
+                  profile: Nexus 4
+                  avd-name: mobile-ci-dev-release-install
+                  wipe-data: 'true'
+            - name: Install the actual release asset
+              env:
+                  ANDROID_SERIAL: ${{ steps.emulator.outputs.android-serial }}
+                  APP_ID: com.vitaliiyehorov.suuudokuuu.dev
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  adb -s "$ANDROID_SERIAL" install "$RUNNER_TEMP/install-verification/app.apk"
+                  adb -s "$ANDROID_SERIAL" shell pm path "$APP_ID" | grep '^package:'
+                  adb -s "$ANDROID_SERIAL" shell am start -W -n "$APP_ID/.MainActivity"
+                  adb -s "$ANDROID_SERIAL" exec-out screencap -p > "$RUNNER_TEMP/install-verification/installed.png"
+                  echo "Published app.apk checksum verified and installed as $APP_ID on $ANDROID_SERIAL." >> "$GITHUB_STEP_SUMMARY"
+            - name: Retain installation evidence
+              if: always()
+              uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+              with:
+                  name: mci149-apk-installation
+                  path: |
+                      ${{ runner.temp }}/install-verification/installed.png
+                      ${{ runner.temp }}/install-verification/build-meta.json
+                      ${{ runner.temp }}/install-verification/SHA256SUMS
+            - name: Release the test device
+              if: always()
+              uses: rnw-community/mobile-ci/actions/android-emulator@b9502c1c3ea1c933485b3e657b47574072ed7ddf # v3.3.1
+              with:
+                  mode: stop
