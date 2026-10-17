@@ -1,6 +1,16 @@
 name: Mobile CI simulator benchmark
 
 on:
+    workflow_call:
+        inputs:
+            simulator-count:
+                type: number
+                default: 1
+                required: false
+            shard-count:
+                type: number
+                default: 2
+                required: false
     workflow_dispatch:
         inputs:
             simulator-count:
@@ -17,6 +27,7 @@ permissions:
 
 jobs:
     ios:
+        if: github.event_name == 'workflow_dispatch'
         name: Simulator benchmark
         permissions:
             contents: read
