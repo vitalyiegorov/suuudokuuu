@@ -1,0 +1,76 @@
+{
+    "install-command": "pnpm install --frozen-lockfile",
+    "capture-mode": "direct",
+    "capture-manifest": [
+        {
+            "platform": "android",
+            "device": "phone-6.4",
+            "width": 1080,
+            "height": 2400,
+            "density": 420,
+            "locales": [
+                "en",
+                "de"
+            ],
+            "appearances": [
+                "light",
+                "dark"
+            ]
+        }
+    ],
+    "capture-scenes": [
+        {
+            "name": "home",
+            "deepLink": "suuudokuuu://",
+            "readySelector": {
+                "id": "HomeScreenSelectors.Root"
+            }
+        },
+        {
+            "name": "hero-board",
+            "deepLink": "suuudokuuu://game",
+            "readySelector": {
+                "id": "GameScreenSelectors.Root"
+            }
+        },
+        {
+            "name": "stats",
+            "deepLink": "suuudokuuu://history",
+            "readySelector": {
+                "id": "HistoryScreenSelectors.Root"
+            }
+        }
+    ],
+    "screenshots-dir": "tests/app-tests/flows/screenshots",
+    "seed-command": "node tests/app-tests/scripts/ci-seed-scene.ts",
+    "settle-seconds": "5",
+    "status-bar-override": true,
+    "apple-screenshot-slots": {
+        "1320x2868": "iPhone 6.9\"",
+        "1290x2796": "iPhone 6.9\"",
+        "1284x2778": "iPhone 6.5\"",
+        "1242x2688": "iPhone 6.5\"",
+        "1206x2622": "iPhone 6.3\"",
+        "1179x2556": "iPhone 6.1\"",
+        "2064x2752": "iPad 13\"",
+        "2752x2064": "iPad 13\"",
+        "2048x2732": "iPad 12.9\"",
+        "2732x2048": "iPad 12.9\""
+    },
+    "rct-use-prebuilt-rncore": true,
+    "rct-use-rn-dep": true,
+    "build-env": "APP_VARIANT=e2e\nORG_GRADLE_PROJECT_reactNativeArchitectures=x86_64\n",
+    "upload-screenshots": false,
+    "upload-command": "export PATH=\"$HOME/.rbenv/shims:/opt/homebrew/bin:/opt/homebrew/sbin:$PATH\"\nexport SCREENSHOT_VARIANT=ci\nfastlane ios ios_screenshots\n",
+    "screenshots-download-dir": "fastlane/screenshots/variants/ci",
+    "asc-dedupe-screenshots": false,
+    "asc-dedupe-app-id": "com.vitalyiegorov.suuudokuuu",
+    "android-target": {
+        "name": "e2e",
+        "appDir": "packages/app",
+        "appId": "com.vitaliiyehorov.suuudokuuu.e2e",
+        "prebuildCommand": "npx expo prebuild -p android --clean --no-install"
+    },
+    "android-gradle-task": ":app:assembleRelease",
+    "android-gradle-args": "-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64"
+}

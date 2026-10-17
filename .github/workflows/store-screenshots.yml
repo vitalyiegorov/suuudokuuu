@@ -37,9 +37,13 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@v3.3.0 # v3.3.0
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@4fc843cd3741a0354767d6a2499a6b4d17f6458c # main fleet-validation pin
         with:
-            config-path: .github/store-screenshots.config.json
+            config-path: .github/mobile-ci-avd-validation.json
+            build-strategy: repack
+            android-driver: avd
+            android-build-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
+            android-capture-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             upload-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
@@ -51,14 +55,12 @@ jobs:
             # environment the build does not use describes a native surface
             # nothing produces.
             fingerprint-env: |
-                APP_VARIANT=production
-                STORE_CAPTURE=1
+                APP_VARIANT=e2e
             repack-env: |
-                APP_VARIANT=production
-                STORE_CAPTURE=1
+                APP_VARIANT=e2e
             expect-config: |
-                name=suuudokuuu
-                ios.bundleIdentifier=com.vitalyiegorov.suuudokuuu
+                name=suuudokuuu (E2E)
+                android.package=com.vitaliiyehorov.suuudokuuu.e2e
         secrets:
             ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
             ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
