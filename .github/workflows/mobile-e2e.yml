@@ -1,268 +1,312 @@
-name: Mobile E2E
+name: Android Emulator Benchmark
 
-# iOS and Android each run as an independent rnw-community/mobile-ci reusable
-# pipeline (detect -> plan -> build -> test -> status), so the build-before-test
-# ordering the fleet needs is enforced inside each pipeline instead of by a
-# shared build workflow here.
-#
-# From mobile-ci v3 the normal outcome of a pull request is that NOTHING
-# compiles native code. The plan job computes the target's native key on the
-# x86_64 Linux pool, fetches the base binary published for that key from GHCR,
-# repacks it with this commit's JavaScript, and hands the result to the Maestro
-# shards. Only a key with no published base reaches the macOS builder or
-# Gradle - and when that happens on main, the binary it produces is published
-# as the base for the next run. seed-native-cache.yml is the warm-up that keeps
-# that from ever being a pull request's problem.
-#
-# iOS still belongs to the Macs when it does build: the single `macos-builder`
-# VM, with its Maestro shards on `macos-maestro`. Android has left them
-# entirely - both its APK build and its Maestro run happen on node-b's x86_64
-# Linux `trf-linux-amd64-4x8` containers, against a KVM-accelerated Google AVD.
 on:
-    workflow_call:
     workflow_dispatch:
-    push:
-        branches: [main]
-        # The app's dependency closure: every workspace package except the two
-        # only the website uses (landing, field-dom), the Maestro suite and its
-        # test-kit, and the root inputs every build reads. Negations keep a new
-        # package in by default - an over-wide filter costs one run, a missed
-        # path ships an untested app. Docs, reports and agent files never run it.
-        paths:
-            - 'packages/**'
-            - '!packages/landing/**'
-            - '!packages/field-dom/**'
-            - 'tests/app-tests/**'
-            - 'tests/test-kit/**'
-            - 'patches/**'
-            - 'types/**'
-            - 'package.json'
-            - 'pnpm-lock.yaml'
-            - 'pnpm-workspace.yaml'
-            - 'tsconfig*.json'
-            - 'turbo.json'
-            - '.github/workflows/mobile-e2e.yml'
+        inputs:
+            image-target:
+                description: Android 34 system image target
+                type: choice
+                required: true
+                default: google_apis
+                options:
+                    - google_apis
+                    - google_atd
+                    - aosp_atd
+            test-scope:
+                description: Maestro flows to run
+                type: choice
+                required: true
+                default: compatibility
+                options:
+                    - compatibility
+                    - full
 
 permissions:
     contents: read
-
-concurrency:
-    group: mobile-e2e-${{ github.workflow }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
-    cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+    actions: read
 
 jobs:
-    ios:
-        name: iOS Maestro E2E
-        # A reusable workflow can only narrow the token its caller grants, never
-        # widen it. Without these three scopes the plan job cannot read the base
-        # binary and a main run cannot publish one, so every run silently falls
-        # back to a full native build. pr.yml grants the same three on the job
-        # that calls this workflow - both levels are required.
-        permissions:
-            contents: read
-            packages: write
-            actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.3.0 # v3.3.0
-        with:
-            install-command: pnpm install --frozen-lockfile
-            # Gate pull requests on the turbo graph: Maestro runs only when the
-            # app, its workspace dependencies or the Maestro suite changed, so a
-            # landing-only PR does not wait on the Macs. Non-PR events still
-            # always run (mobile-ci forces always-affected off pull_request).
-            exempt-paths: |
-                docs/**
-                **/*.md
-            target-packages: |
-                @suuudokuuu/app
-                @suuudokuuu/app-tests
-            targets: >-
-                [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
-            flows-dir: tests/app-tests/flows
-            pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
-            maestro-config: tests/app-tests/config.yaml
-            flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
-            pre-flow-command: tests/app-tests/scripts/seed-flow-fixture.sh
-            flow-retries: 1
-            shard-count: 2
-            shard-manifest-dir: tests/app-tests/shards
-            simulator-device: iPhone 17 Pro
-            simulator-reduce-motion: 'true'
-            xcode-version: '26.4.1'
-            xcode-build: '17E202'
-            build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
-            test-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
-            rct-use-prebuilt-rncore: true
-            rct-use-rn-dep: true
-            # app.config.js branches on APP_VARIANT for the app name, the bundle
-            # identifier and updates.enabled, so the fingerprint has to be taken
-            # with exactly the variable the build exports - a key computed under
-            # a different environment describes a native surface no build
-            # produces. This block is byte-identical to seed-native-cache.yml's,
-            # which is the only way the warm-up and this workflow address the
-            # same base.
-            fingerprint-env: |
-                APP_VARIANT=e2e
-            # Exported for the re-bundle, so the repacked binary's embedded
-            # app.config carries the e2e identity rather than the production one.
-            repack-env: |
-                APP_VARIANT=e2e
-            # Every identity value the repack rewrites, asserted. A config
-            # rewrite nobody checked is a repack nobody can trust.
-            expect-config: |
-                name=suuudokuuu (E2E)
-                ios.bundleIdentifier=com.vitalyiegorov.suuudokuuu.e2e
-            build-env: |
-                APP_VARIANT=e2e
-
-    android:
-        name: Android Maestro E2E
-        permissions:
-            contents: read
-            packages: write
-            actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v4.0.0 # v4.0.0
-        with:
-            install-command: pnpm install --frozen-lockfile
-            # Gate pull requests on the turbo graph: Maestro runs only when the
-            # app, its workspace dependencies or the Maestro suite changed, so a
-            # landing-only PR does not wait on the Macs. Non-PR events still
-            # always run (mobile-ci forces always-affected off pull_request).
-            exempt-paths: |
-                docs/**
-                **/*.md
-            target-packages: |
-                @suuudokuuu/app
-                @suuudokuuu/app-tests
-            targets: >-
-                [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
-            flows-dir: tests/app-tests/flows
-            pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
-            maestro-config: tests/app-tests/config.yaml
-            flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
-            pre-flow-command: tests/app-tests/scripts/seed-flow-fixture.sh
-            flow-retries: 1
-            # One emulator job at a time: node-b budgets 8 CPU / 16 GiB to
-            # containers, a `trf-linux-amd64-4x8` container is 4 CPU / 8 GiB, and
-            # the AVD alone measured ~4.2 GiB RSS. One emulator shard alongside the
-            # APK build is what the host actually fits; a second shard would only
-            # queue behind the first while starving both.
-            shard-count: 1
-            maestro-version: '2.6.1'
-            # Both legs on node-b: the APK builds on Linux now (Google does ship an
-            # x86_64-linux NDK), and 8 GiB is what keeps D8 from being OOM-killed.
-            # The plan/repack job defaults to trf-linux-amd64-2x4 (no KVM, mobile-ci
-            # v3.2.0), so it never queues behind emulator shards on this pool.
-            build-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
-            # `trf-linux-amd64-4x8` is the ONLY node-b profile granted /dev/kvm, so
-            # this label is a hard requirement of the avd driver, not a preference.
-            test-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
-            # Google's own emulator instead of Redroid. api-level 34 / google_apis /
-            # x86_64 are the reusable workflow's defaults and are exactly the system
-            # image baked into the runner container, so they stay unset here rather
-            # than being restated in two places that could drift apart.
-            android-driver: avd
-            emulator-slots-dir: /var/lib/mobile-ci/emulator-slots
-            # The container is 4 CPU / 8 GiB. Since mobile-ci v3.2.0 the emulator's
-            # RAM and cores are derived from the container's cgroup (memory.max
-            # 8 GiB -> 2048 MB, cpu.max 4 -> 2 cores), and the fleet injects
-            # JAVA_TOOL_OPTIONS=-XX:MaxRAM=8192m so Maestro's JVM sizes its heap
-            # from the container rather than the host's 27 GiB. Neither bound is
-            # restated here (fleet-validated in run 38692037603).
-            # Nexus 4 is 768x1280 @ 320dpi - within a whisker of the 720x1280 @
-            # 320dpi Redroid presented, which is the geometry every flow here was
-            # calibrated against. pixel_6 (1080x2400 @ 420dpi) is both a
-            # different dp viewport and a materially larger software-rendered
-            # framebuffer: measured on this runner, the swap costs 450 MB of
-            # unreclaimable memory for a device the flows were never written for.
-            emulator-profile: Nexus 4
-            gradle-task: ':app:assembleRelease'
-            # x86_64 only: the AVD boots an x86_64 system image, so every other ABI
-            # is CMake time spent on a library nothing installs. The lint skips stay
-            # - lint is a separate PR gate, not this pipeline's job.
-            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
-            # Byte-identical to the iOS lane above and to seed-native-cache.yml.
-            fingerprint-env: |
-                APP_VARIANT=e2e
-            repack-env: |
-                APP_VARIANT=e2e
-            expect-config: |
-                name=suuudokuuu (E2E)
-                android.package=com.vitaliiyehorov.suuudokuuu.e2e
-            # The repacked APK is re-signed with the React Native debug keystore
-            # `expo prebuild` ships and Gradle signs its release build with, which
-            # is what android-keystore-path already defaults to. The emulator
-            # refuses to install a repack signed with anything else, so the
-            # defaults are correct here and stay unstated.
-            #
-            # No JAVA_HOME line: the runner image ships OpenJDK 17 and exports
-            # JAVA_HOME itself, unlike the macOS builder this job came from.
-            build-env: |
-                APP_VARIANT=e2e
-                ORG_GRADLE_PROJECT_reactNativeArchitectures=x86_64
-
-    android-capture-smoke:
-        name: Android store capture smoke
-        needs: android
-        if: github.event_name == 'workflow_dispatch'
+    android-benchmark:
+        name: Android emulator benchmark
         runs-on: [self-hosted, trf-linux-amd64-4x8]
-        timeout-minutes: 45
-        permissions:
-            contents: read
-            actions: read
+        timeout-minutes: 60
+        env:
+            ANDROID_AVD_HOME: ${{ runner.temp }}/android-benchmark-${{ github.run_id }}-${{ github.run_attempt }}
+            JAVA_TOOL_OPTIONS: -Xmx2g
         steps:
-            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+            - name: Checkout benchmark harness
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
               with:
+                  fetch-depth: 1
                   persist-credentials: false
 
-            - uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
-
-            - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+            - name: Download accepted E2E APK
+              uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
               with:
-                  node-version: 24.x
-                  cache: pnpm
+                  artifact-ids: 12105604104
+                  run-id: 39047053473
+                  github-token: ${{ github.token }}
+                  path: benchmark-apk
 
-            - run: pnpm install --frozen-lockfile
+            - name: Validate APK and record its digest
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  mapfile -d '' apks < <(find benchmark-apk -type f -name '*.apk' -print0)
+                  if [ "${#apks[@]}" -ne 1 ]; then
+                    echo "::error::Expected exactly one APK, found ${#apks[@]}"
+                    exit 1
+                  fi
+                  mkdir -p benchmark-evidence
+                  apk_path="${apks[0]}"
+                  if [ "$apk_path" != benchmark-apk/app.apk ]; then
+                    cp "$apk_path" benchmark-apk/app.apk
+                  fi
+                  apk_path=benchmark-apk/app.apk
+                  printf '%s\n' "$apk_path" > benchmark-evidence/apk-path.txt
+                  apk_sha256="$(sha256sum "$apk_path" | cut -d ' ' -f 1)"
+                  printf '%s  %s\n' "$apk_sha256" "$apk_path" | tee benchmark-evidence/apk-sha256.txt
+                  {
+                    printf 'apk_path=%s\n' "$apk_path"
+                    printf 'apk_sha256=%s\n' "$apk_sha256"
+                    printf 'artifact_id=12105604104\nsource_run_id=39047053473\n'
+                  } > benchmark-evidence/apk-metadata.txt
+                  {
+                    printf '## Android benchmark inputs\n\n'
+                    printf -- '- APK SHA-256: %s\n' "$apk_sha256"
+                    printf -- '- Source artifact: 12105604104 from run 39047053473\n'
+                  } >> "$GITHUB_STEP_SUMMARY"
 
-            - uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
-              with:
-                  name: android-e2e-app-e2e
-                  path: .ci-artifacts/android-e2e-app-e2e
-
-            - run: sudo apt-get update && sudo apt-get -o DPkg::Lock::Timeout=300 install -y imagemagick
-
-            - name: Start the Android capture emulator
-              id: emulator
-              uses: rnw-community/mobile-ci/actions/android-emulator@v4.0.0 # v4.0.0
-              with:
-                  mode: start
-                  api-level: 34
-                  target: google_apis
-                  arch: x86_64
-                  profile: Nexus 4
-                  avd-name: store-capture-smoke
-                  emulator-slots-dir: /var/lib/mobile-ci/emulator-slots
-
-            - name: Capture seeded Android scenes
+            - name: Install selected Android system image and record runner limits
               shell: bash
               env:
-                  ANDROID_SERIAL: ${{ steps.emulator.outputs.android-serial }}
+                  IMAGE_TARGET: ${{ inputs.image-target }}
+                  TEST_SCOPE: ${{ inputs.test-scope }}
               run: |
-                  adb install -r .ci-artifacts/android-e2e-app-e2e/app-release.apk
-                  adb shell am start -n com.vitaliiyehorov.suuudokuuu.e2e/.MainActivity
-                  sleep 20
-                  adb shell am force-stop com.vitaliiyehorov.suuudokuuu.e2e
-                  start=$(date +%s); trap 'echo "Capture-only duration: $(($(date +%s) - ${start}))s"' EXIT; timeout 300s pnpm --filter @suuudokuuu/app-tests screenshots:capture --platform=android --serial="$ANDROID_SERIAL" --app-id=com.vitaliiyehorov.suuudokuuu.e2e --locales=en --appearances=dark --scenes=hero-board,hell,themes,editor,rival,replay,settings,home,stats,scoring,history,challenge-live,infinity --status-bar=real --verify --output-dir=artifacts/store-capture-smoke/raw --report-dir=artifacts/store-capture-smoke
+                  set -euo pipefail
+                  sdk_root="${ANDROID_SDK_ROOT:-${ANDROID_HOME:-}}"
+                  if [ -z "$sdk_root" ] || [ ! -x "$sdk_root/cmdline-tools/latest/bin/sdkmanager" ]; then
+                    echo "::error::Android SDK with cmdline-tools/latest/bin/sdkmanager is required"
+                    exit 1
+                  fi
+                  sdkmanager="$sdk_root/cmdline-tools/latest/bin/sdkmanager"
+                  image_package="system-images;android-34;${IMAGE_TARGET};x86_64"
+                  case "$IMAGE_TARGET" in
+                    google_apis) expected_revision=14 ;;
+                    google_atd) expected_revision=1 ;;
+                    aosp_atd) expected_revision=2 ;;
+                    *) echo "::error::Unsupported system image target: $IMAGE_TARGET"; exit 1 ;;
+                  esac
+                  "$sdkmanager" --install "$image_package"
+                  image_directory="$sdk_root/system-images/android-34/$IMAGE_TARGET/x86_64"
+                  if [ ! -f "$image_directory/source.properties" ]; then
+                    echo "::error::Installed system image has no source.properties: $image_directory"
+                    exit 1
+                  fi
+                  mkdir -p benchmark-evidence/metadata
+                  cp "$image_directory/source.properties" benchmark-evidence/metadata/image-source.properties
+                  actual_revision="$(sed -n 's/^Pkg.Revision=//p' "$image_directory/source.properties" | tail -n 1)"
+                  if [ "$actual_revision" != "$expected_revision" ]; then
+                    echo "::error::System image revision drift: expected $expected_revision, got $actual_revision"
+                    exit 1
+                  fi
+                  system_image="$image_directory/system.img"
+                  if [ ! -f "$system_image" ]; then
+                    echo "::error::System image payload missing: $system_image"
+                    exit 1
+                  fi
+                  sha256sum "$system_image" > benchmark-evidence/metadata/system-image-sha256.txt
+                  emulator_bin="$sdk_root/emulator/emulator"
+                  if [ ! -x "$emulator_bin" ]; then
+                    echo "::error::Android emulator binary missing: $emulator_bin"
+                    exit 1
+                  fi
+                  "$emulator_bin" -version > benchmark-evidence/metadata/emulator-version.txt 2>&1
+                  java -XshowSettings:vm -version > benchmark-evidence/metadata/java-vm-settings.txt 2>&1
+                  {
+                    printf 'recorded_at_utc=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+                    printf 'image_package=%s\n' "$image_package"
+                    printf 'image_directory=%s\n' "$image_directory"
+                    printf 'image_revision=%s\nexpected_image_revision=%s\n' "$actual_revision" "$expected_revision"
+                    printf 'api_level=34\narch=x86_64\nprofile=Nexus 4\nram_mb=2048\ncores=2\n'
+                    printf 'test_scope=%s\n' "$TEST_SCOPE"
+                    printf 'kernel='; uname -a
+                    printf '\nself_cgroup:\n'; cat /proc/self/cgroup
+                    printf '\nself_limits:\n'
+                    for file in /sys/fs/cgroup/memory.max /sys/fs/cgroup/cpu.max /sys/fs/cgroup/memory.swap.max; do
+                      if [ -r "$file" ]; then printf '%s=' "$file"; cat "$file"; fi
+                    done
+                  } > benchmark-evidence/metadata/runner-and-image.txt
+                  {
+                    printf -- '- Android image: %s\n' "$image_package"
+                    printf -- '- Test scope: %s\n\n' "$TEST_SCOPE"
+                  } >> "$GITHUB_STEP_SUMMARY"
 
-            - name: Stop the Android capture emulator
-              if: always()
-              uses: rnw-community/mobile-ci/actions/android-emulator@v4.0.0 # v4.0.0
+            - name: Validate harness revision and cold AVD state
+              shell: bash
+              env:
+                  APP_BASELINE: c2d9f16137596940d997e686b171f48f57d77560
+              run: |
+                  set -euo pipefail
+                  git fetch --no-tags --depth=1 origin "$APP_BASELINE"
+                  if ! git diff --quiet "$APP_BASELINE" HEAD -- packages tests/app-tests \
+                    ':(exclude)tests/app-tests/scripts/android-benchmark-collect.py' \
+                    ':(exclude)tests/app-tests/scripts/android-benchmark-collect_test.py'; then
+                    echo "::error::App and flow harness differ from accepted baseline $APP_BASELINE outside the benchmark collector scripts"
+                    git diff --stat "$APP_BASELINE" HEAD -- packages tests/app-tests \
+                      ':(exclude)tests/app-tests/scripts/android-benchmark-collect.py' \
+                      ':(exclude)tests/app-tests/scripts/android-benchmark-collect_test.py'
+                    exit 1
+                  fi
+                  revision="$(git rev-parse HEAD)"
+                  mkdir -p benchmark-evidence/metadata
+                  {
+                    printf 'harness_revision=%s\napp_baseline=%s\n' "$revision" "$APP_BASELINE"
+                    printf 'checked_at_utc=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+                  } > benchmark-evidence/metadata/revision-validation.txt
+                  avd_home="${ANDROID_AVD_HOME:-$HOME/.android/avd}"
+                  if [ -e "$avd_home/test.avd" ] || [ -e "$avd_home/test.ini" ]; then
+                    echo "::error::Default AVD 'test' already exists; refusing to mix snapshot or persisted AVD state into this run"
+                    exit 1
+                  fi
+                  printf 'avd_home=%s\navd_name=test\nexisting_default_avd=false\n' "$avd_home" > benchmark-evidence/metadata/cold-avd-check.txt
+
+            - name: Start resource collector
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  mkdir -p benchmark-evidence
+                  collector="$(pwd)/tests/app-tests/scripts/android-benchmark-collect.py"
+                  output="$(pwd)/benchmark-evidence/resources.jsonl"
+                  stop_file="$(pwd)/benchmark-evidence/collector.stop"
+                  log="$(pwd)/benchmark-evidence/collector.log"
+                  rm -f "$stop_file" "$output" "${output%.jsonl}.status.json" "$log"
+                  nohup python3 "$collector" --output "$output" --stop-file "$stop_file" --duration 3300 --interval 1 > "$log" 2>&1 < /dev/null &
+                  collector_pid=$!
+                  printf '%s\n' "$collector_pid" > benchmark-evidence/collector.pid
+                  sleep 2
+                  if ! kill -0 "$collector_pid" 2>/dev/null || ! tr '\0' ' ' < "/proc/$collector_pid/cmdline" | grep -F -- "$collector" >/dev/null; then
+                    cat "$log"
+                    echo "::error::Resource collector failed to start"
+                    exit 1
+                  fi
+                  printf 'collector_started_at_utc=%s\ncollector_pid=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$collector_pid" > benchmark-evidence/metadata/collector-start.txt
+
+            - name: Run Android Maestro benchmark
+              id: maestro
+              uses: rnw-community/mobile-ci/actions/run-maestro-android@v4.0.0 # v4.0.0
               with:
-                  mode: stop
+                  apk-path: benchmark-apk/app.apk
+                  app-id: com.vitaliiyehorov.suuudokuuu.e2e
+                  flows-dir: tests/app-tests/flows
+                  flows-max-depth: '1'
+                  flows-name-pattern: ${{ inputs.test-scope == 'full' && '*.flow.yaml' || '06.resume-game.flow.yaml 07.background-foreground-game.flow.yaml 10.themes-screen.flow.yaml 24.store-intent-landing.flow.yaml' }}
+                  shard-index: '0'
+                  shard-count: '1'
+                  pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
+                  flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
+                  pre-test-command: |
+                      set -euo pipefail
+                      mkdir -p benchmark-evidence/metadata
+                      {
+                        printf 'capability_capture_at_utc=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+                        printf 'app_id=%s\n' "$APP_ID"
+                        printf '\npackages:\n'
+                        timeout 15s adb -s "$ANDROID_SERIAL" shell pm list packages "$APP_ID"
+                        printf '\nlauncher_resolution:\n'
+                        timeout 15s adb -s "$ANDROID_SERIAL" shell cmd package resolve-activity --brief "$APP_ID"
+                        printf '\nbuild_fingerprint:\n'
+                        timeout 15s adb -s "$ANDROID_SERIAL" shell getprop ro.build.fingerprint
+                        printf '\nwindow_size:\n'
+                        timeout 15s adb -s "$ANDROID_SERIAL" shell wm size
+                        printf '\nwindow_density:\n'
+                        timeout 15s adb -s "$ANDROID_SERIAL" shell wm density
+                      } > benchmark-evidence/metadata/device-capabilities.txt
+                  pre-flow-command: tests/app-tests/scripts/seed-flow-fixture.sh
+                  maestro-config: tests/app-tests/config.yaml
+                  flow-retries: '1'
+                  maestro-version: '2.6.1'
+                  api-level: '34'
+                  target: ${{ inputs.image-target }}
+                  arch: x86_64
+                  profile: Nexus 4
+                  ram-size: '2048'
+                  cores: '2'
+                  emulator-slots-dir: /var/lib/mobile-ci/emulator-slots
+                  shard-manifest-dir: ''
+                  artifacts-dir: benchmark-evidence/maestro
+                  artifact-name: android-emulator-benchmark-maestro
+                  retention-days: '7'
 
-            - name: Upload capture diagnostics
+            - name: Record benchmark phase end
+              if: always()
+              shell: bash
+              env:
+                  ACTION_OUTCOME: ${{ steps.maestro.outcome }}
+              run: |
+                  mkdir -p benchmark-evidence/metadata
+                  printf 'maestro_finished_at_utc=%s\nmaestro_outcome=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$ACTION_OUTCOME" > benchmark-evidence/metadata/maestro-finish.txt
+
+            - name: Stop resource collector
+              if: always()
+              shell: bash
+              run: |
+                  set -euo pipefail
+                  stop_file="$(pwd)/benchmark-evidence/collector.stop"
+                  output="$(pwd)/benchmark-evidence/resources.jsonl"
+                  log="$(pwd)/benchmark-evidence/collector.log"
+                  pid_file="benchmark-evidence/collector.pid"
+                  if [ ! -f "$pid_file" ]; then
+                    echo "::error::Collector PID file is missing"
+                    exit 1
+                  fi
+                  collector_pid="$(cat "$pid_file")"
+                  case "$collector_pid" in
+                    ''|*[!0-9]*) echo "::error::Invalid collector PID"; exit 1 ;;
+                  esac
+                  touch "$stop_file"
+                  if kill -0 "$collector_pid" 2>/dev/null; then
+                    if ! tr '\0' ' ' < "/proc/$collector_pid/cmdline" | grep -F -- "$(pwd)/tests/app-tests/scripts/android-benchmark-collect.py" >/dev/null; then
+                      echo "::error::Refusing to signal an unverified collector PID"
+                      exit 1
+                    fi
+                    exited=false
+                    for _ in $(seq 1 30); do
+                      if ! kill -0 "$collector_pid" 2>/dev/null; then exited=true; break; fi
+                      sleep 1
+                    done
+                    if [ "$exited" != true ]; then
+                      echo "::error::Resource collector did not exit after stop-file request"
+                      exit 1
+                    fi
+                  fi
+                  status="$(pwd)/benchmark-evidence/resources.status.json"
+                  if [ ! -s "$output" ] || [ ! -s "$status" ]; then
+                    cat "$log" 2>/dev/null || true
+                    echo "::error::Resource collector samples or status file are missing/empty"
+                    exit 1
+                  fi
+                  python3 - "$status" <<'STATUS_PY'
+                  import json
+                  import sys
+                  from pathlib import Path
+
+                  status = json.loads(Path(sys.argv[1]).read_text())
+                  if status.get('exit_code') != 0 or status.get('stop_reason') != 'stop_file' or status.get('samples', 0) < 1:
+                      raise SystemExit(f"collector did not stop cleanly on request: {status!r}")
+                  STATUS_PY
+                  if grep -q 'android-benchmark-collect:' "$log"; then
+                    cat "$log"
+                    echo "::error::Resource collector reported an error"
+                    exit 1
+                  fi
+                  printf 'collector_stopped_at_utc=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > benchmark-evidence/metadata/collector-stop.txt
+
+            - name: Upload benchmark evidence
               if: always()
               uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
               with:
-                  name: android-store-capture-smoke
-                  path: tests/app-tests/artifacts/store-capture-smoke
+                  name: android-emulator-benchmark-evidence
+                  path: benchmark-evidence
                   if-no-files-found: error
+                  retention-days: 7
