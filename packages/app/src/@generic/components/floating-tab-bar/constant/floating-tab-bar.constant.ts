@@ -1,7 +1,8 @@
 import { SpacingConstant } from '@suuudokuuu/ui/theme';
+import { Platform } from 'react-native';
 
 export const FloatingTabBarPillRadius = 999;
-export const FloatingTabBarBottomMargin = 16;
+export const FloatingTabBarBottomMargin = Platform.select({ web: 0, default: 16 });
 export const FloatingTabBarMaxWidth = 420;
 export const FloatingTabBarBlurIntensity = 80;
 export const FloatingTabBarWashAlpha = 0.72;
