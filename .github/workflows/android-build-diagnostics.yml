@@ -3,7 +3,9 @@ name: Android build diagnostics
 on:
     push:
         branches: [dependabot/npm_and_yarn/npm-minor-and-patch-8ddb0b59f1]
-        paths: [.github/workflows/android-build-diagnostics.yml]
+        paths:
+            - .github/workflows/android-build-diagnostics.yml
+            - .github/scripts/android-native-memory.init.gradle
 
 permissions:
     contents: read
@@ -52,7 +54,7 @@ jobs:
                   app-dir: packages/app
                   cmdline-tools-version: '12266719'
                   gradle-task: ':app:assembleRelease'
-                  gradle-args: '--max-workers=1 -x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
+                  gradle-args: '--init-script ../../../.github/scripts/android-native-memory.init.gradle --max-workers=1 -x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
                   output-dir: .ci-cache/android-native-app/e2e
                   gradle-cache-key: gradle-e2e-${{ runner.os }}-${{ hashFiles('packages/app/android/gradle/wrapper/gradle-wrapper.properties', 'packages/app/android/**/*.gradle*', 'packages/app/android/gradle/*.versions.toml', 'yarn.lock', 'pnpm-lock.yaml', 'package-lock.json', 'npm-shrinkwrap.json') }}
                   gradle-cache-restore-keys: |
@@ -78,7 +80,7 @@ jobs:
                     -exec cp --parents -- {} "$DIAGNOSTICS_DIR/files" \; 2> "$DIAGNOSTICS_DIR/jvm-collection-errors.txt"
                   find "$GITHUB_WORKSPACE/packages/app/android" "$GITHUB_WORKSPACE/node_modules/.pnpm" \
                     -type f \( -path '*/.cxx/*' -o -path '*/build/intermediates/cxx/*' \) \
-                    \( -name '*.log' -o -name '*.json' -o -name '*.txt' -o -name '*.yaml' -o -name '*.yml' \) \
+                    \( -name '*.log' -o -name '*.json' -o -name '*.txt' -o -name '*.yaml' -o -name '*.yml' -o -name '*.ninja' \) \
                     -exec cp --parents -- {} "$DIAGNOSTICS_DIR/files" \; 2> "$DIAGNOSTICS_DIR/native-collection-errors.txt"
                   exit 0
 
