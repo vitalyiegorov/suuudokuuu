@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  effect@4.0.0: 04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd
+  effect@4.0.5: ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0
   react-native-unistyles@3.3.0: f7824e78232d1c770718b2a6bc3b65bd2d6f786ad8afc61319785a4ef402d4ff
 
 importers:
@@ -106,14 +106,14 @@ importers:
   packages/app:
     dependencies:
       '@effect/atom-react':
-        specifier: 4.0.2
-        version: 4.0.2(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))(react@19.3.1)(scheduler@0.25.0)
+        specifier: 4.0.5
+        version: 4.0.5(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))(react@19.3.1)(scheduler@0.28.0)
       '@effect/sql-sqlite-react-native':
-        specifier: 4.0.2
-        version: 4.0.2(@op-engineering/op-sqlite@18.2.5(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.1)(supports-color@8.1.1))(react@19.3.1))(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))
+        specifier: 4.0.5
+        version: 4.0.5(@op-engineering/op-sqlite@18.2.5(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.1)(supports-color@8.1.1))(react@19.3.1))(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))
       '@effect/sql-sqlite-wasm':
-        specifier: 4.0.2
-        version: 4.0.2(@effect/wa-sqlite@0.2.1)(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))
+        specifier: 4.0.5
+        version: 4.0.5(@effect/wa-sqlite@0.2.1)(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))
       '@effect/wa-sqlite':
         specifier: 0.2.1
         version: 0.2.1
@@ -181,8 +181,8 @@ importers:
         specifier: ^4.4.0
         version: 4.4.0
       effect:
-        specifier: 4.0.0
-        version: 4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd)
+        specifier: 4.0.5
+        version: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)
       expo:
         specifier: ~58.0.14
         version: 58.0.14(@babel/core@7.29.7(supports-color@8.1.1))(@expo/metro-runtime@58.0.14)(expo-router@58.0.23)(react-dom@19.3.1(react@19.3.1))(react-native-web@0.21.4(encoding@0.1.13)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react-native-worklets@0.13.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.1)(supports-color@8.1.1))(react@19.3.1)(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.1)(supports-color@8.1.1))(react@19.3.1)(supports-color@8.1.1)(typescript@6.0.3)
@@ -367,8 +367,8 @@ importers:
         version: link:../techniques
     devDependencies:
       '@effect/vitest':
-        specifier: 4.0.2
-        version: 4.0.2(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))(vitest@5.0.3)
+        specifier: 4.0.5
+        version: 4.0.5(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))(vitest@5.0.3)
       '@suuudokuuu/hell-corpus':
         specifier: workspace:*
         version: link:../hell-corpus
@@ -388,8 +388,8 @@ importers:
         specifier: 5.0.3
         version: 5.0.3(vitest@5.0.3)
       effect:
-        specifier: 4.0.0
-        version: 4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd)
+        specifier: 4.0.5
+        version: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)
       react:
         specifier: 19.3.1
         version: 19.3.1
@@ -587,12 +587,12 @@ importers:
         specifier: workspace:*
         version: link:../techniques
       effect:
-        specifier: 4.0.0
-        version: 4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd)
+        specifier: 4.0.5
+        version: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)
     devDependencies:
       '@effect/vitest':
-        specifier: 4.0.2
-        version: 4.0.2(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))(vitest@5.0.3)
+        specifier: 4.0.5
+        version: 4.0.5(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))(vitest@5.0.3)
       '@suuudokuuu/test-kit':
         specifier: workspace:*
         version: link:../../tests/test-kit
@@ -805,8 +805,8 @@ importers:
         specifier: workspace:*
         version: link:../test-kit
       effect:
-        specifier: 4.0.0
-        version: 4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd)
+        specifier: 4.0.5
+        version: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)
     devDependencies:
       tsx:
         specifier: ^4.23.15
@@ -815,14 +815,14 @@ importers:
   tests/test-kit:
     dependencies:
       '@effect/sql-sqlite-node':
-        specifier: 4.0.2
-        version: 4.0.2(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))
+        specifier: 4.0.5
+        version: 4.0.5(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))
       '@suuudokuuu/progress':
         specifier: workspace:*
         version: link:../../packages/progress
       effect:
-        specifier: 4.0.0
-        version: 4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd)
+        specifier: 4.0.5
+        version: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)
     devDependencies:
       vite:
         specifier: ^8.3.2
@@ -1386,38 +1386,38 @@ packages:
     resolution: {integrity: sha512-aalGyl7dbB5PArRebDIX43ZvBlXrYm9uWzGJ26t+4SzJVPsOuvfILGGbw5X4yX7i50YEmJ8zvbiWnqH/AAnZqg==}
     engines: {node: '>=22'}
 
-  '@effect/atom-react@4.0.2':
-    resolution: {integrity: sha512-rg9xnPHzjURhKhOm+bKnYitPPQC02m6R7ZmJLNdxtrNCgDQ9fSOPqZHN5W/GzUw+OsvplKSvaBe/JSQejeYKYA==}
+  '@effect/atom-react@4.0.5':
+    resolution: {integrity: sha512-tqTSiy0rWBitej7kPfvTSw29q4ipof52+txDg6bIBJx0ksHVzVXaFTsssDa+AZBeImafK0xmjm9m1XzPfE6k2A==}
     peerDependencies:
-      effect: ^4.0.2
+      effect: ^4.0.5
       react: '>=19.0.0 <20.0.0'
-      scheduler: '>=0.25.0 <0.28.0'
+      scheduler: '>=0.25.0 <0.29.0'
 
   '@effect/language-service@0.87.4':
     resolution: {integrity: sha512-AfFn4K45l84LtbQSwoPWc06nrg7OzfV3uJOnIUqimSOWTCIsY1IKBXZfjSsVTq7jDuL9Jtoz8//bZp9+rkEihg==}
     hasBin: true
 
-  '@effect/sql-sqlite-node@4.0.2':
-    resolution: {integrity: sha512-QjhQ6yetczGE08ZV/05Y4Cj7GNGswloRZuk2cZ4tl84C91398Ho0PhDLexihO2RHBTE1YjpUW8Mdl4KH41I/LQ==}
+  '@effect/sql-sqlite-node@4.0.5':
+    resolution: {integrity: sha512-SHza5qNwiI4dRtUk45wvUfvZq7vB950DW2wD6npzt2aH/tesFfPlZJSDBIvwhazoK+gvDknBOONfKyFZsIF+tg==}
     peerDependencies:
-      effect: ^4.0.2
+      effect: ^4.0.5
 
-  '@effect/sql-sqlite-react-native@4.0.2':
-    resolution: {integrity: sha512-R/3YrqfuUO7SgcXrvXnRXphT2G9KrcI1eo4pgeDtobkx31UO6516e5xo8ms39OINjrX16NE+1KsN/eAqQSpzPg==}
+  '@effect/sql-sqlite-react-native@4.0.5':
+    resolution: {integrity: sha512-E4s3of3ZUQyaeoNyeByDz7JkRFxTjnHoVm03HOIaIoJFDonDFqcMM6FAsJiDGfL+Mx2ssEWjy5C7RTH7VGhx+w==}
     peerDependencies:
       '@op-engineering/op-sqlite': '>=17.1.2 <18.0.0'
-      effect: ^4.0.2
+      effect: ^4.0.5
 
-  '@effect/sql-sqlite-wasm@4.0.2':
-    resolution: {integrity: sha512-RoWRlWHtGn0gm8tt7FFD9hQw/qoSvvORk0JqUoJKOcwOnt64+N7cHw3NYIKX14j4oMwvt4WI7NHUb2WxIlMFdA==}
+  '@effect/sql-sqlite-wasm@4.0.5':
+    resolution: {integrity: sha512-jh39FFI1xpMwINyM+13X+RgPUsi6AxtD/LbJ57jDme4kVU+ZdD/s146s8LHAMlm8PjKbhkU/ZE2qTSW2yrHCww==}
     peerDependencies:
       '@effect/wa-sqlite': '>=0.1.2 <0.2.0'
-      effect: ^4.0.2
+      effect: ^4.0.5
 
-  '@effect/vitest@4.0.2':
-    resolution: {integrity: sha512-Zb72nu7iUy3rNdBp9J1Xu5oUQGwJ8cOYsUwmYgujj88aqyvASRDjOS01SjlcPViqf77csduetKdCJTVndMNfzw==}
+  '@effect/vitest@4.0.5':
+    resolution: {integrity: sha512-q64paZ/i4V2NiRhTyqCmT2KiDbFjlxc2EZrZca8GGt+Nf8844946HyJM5bPk/q+YeRkFSxIrlCs+J+LSfky/wA==}
     peerDependencies:
-      effect: ^4.0.2
+      effect: ^4.0.5
       vitest: '>=5.0.0 <6.0.0'
 
   '@effect/wa-sqlite@0.2.1':
@@ -4913,8 +4913,8 @@ packages:
   ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
 
-  effect@4.0.0:
-    resolution: {integrity: sha512-ooc1TG5t+FfzgYnFz2ff6BBKyZ7EwBRVXC7c4RhQUAD6/TZ2gTXXMeb4WX7a19ozQo4J73/QW+S00YAIresoMQ==}
+  effect@4.0.5:
+    resolution: {integrity: sha512-BY4/28NlpOd99yzmV741xbVGmp+1U7tks4oB7F/Png64bTa5tm5eCA6W0RiXsnuLDDoJpjfVSo4Dnq4BZb/89Q==}
 
   ejs@5.0.1:
     resolution: {integrity: sha512-COqBPFMxuPTPspXl2DkVYaDS3HtrD1GpzOGkNTJ1IYkifq/r9h8SVEFrjA3D9/VJGOEoMQcrlhpntcSUrM8k6A==}
@@ -8917,31 +8917,31 @@ snapshots:
 
   '@conventional-changelog/template@1.4.0': {}
 
-  '@effect/atom-react@4.0.2(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))(react@19.3.1)(scheduler@0.25.0)':
+  '@effect/atom-react@4.0.5(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))(react@19.3.1)(scheduler@0.28.0)':
     dependencies:
-      effect: 4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd)
+      effect: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)
       react: 19.3.1
-      scheduler: 0.25.0
+      scheduler: 0.28.0
 
   '@effect/language-service@0.87.4': {}
 
-  '@effect/sql-sqlite-node@4.0.2(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))':
+  '@effect/sql-sqlite-node@4.0.5(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))':
     dependencies:
-      effect: 4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd)
+      effect: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)
 
-  '@effect/sql-sqlite-react-native@4.0.2(@op-engineering/op-sqlite@18.2.5(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.1)(supports-color@8.1.1))(react@19.3.1))(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))':
+  '@effect/sql-sqlite-react-native@4.0.5(@op-engineering/op-sqlite@18.2.5(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.1)(supports-color@8.1.1))(react@19.3.1))(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))':
     dependencies:
       '@op-engineering/op-sqlite': 18.2.5(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.1)(supports-color@8.1.1))(react@19.3.1)
-      effect: 4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd)
+      effect: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)
 
-  '@effect/sql-sqlite-wasm@4.0.2(@effect/wa-sqlite@0.2.1)(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))':
+  '@effect/sql-sqlite-wasm@4.0.5(@effect/wa-sqlite@0.2.1)(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))':
     dependencies:
       '@effect/wa-sqlite': 0.2.1
-      effect: 4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd)
+      effect: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)
 
-  '@effect/vitest@4.0.2(effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd))(vitest@5.0.3)':
+  '@effect/vitest@4.0.5(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))(vitest@5.0.3)':
     dependencies:
-      effect: 4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd)
+      effect: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)
       vitest: 5.0.3(@types/node@26.6.4)(@vitest/coverage-v8@5.0.3)(vite@8.3.4(@types/node@26.6.4)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1))
 
   '@effect/wa-sqlite@0.2.1': {}
@@ -12281,7 +12281,7 @@ snapshots:
 
   ee-first@1.1.1: {}
 
-  effect@4.0.0(patch_hash=04a81b52cbe391f7d2e409f833c46212310b02feb08dd4125ccba55b194a50fd): {}
+  effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0): {}
 
   ejs@5.0.1: {}
 

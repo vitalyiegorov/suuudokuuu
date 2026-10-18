@@ -34,14 +34,14 @@
         "@suuudokuuu/techniques": "workspace:*"
     },
     "devDependencies": {
-        "@effect/vitest": "4.0.2",
+        "@effect/vitest": "4.0.5",
         "@suuudokuuu/hell-corpus": "workspace:*",
         "@suuudokuuu/rating": "workspace:*",
         "@suuudokuuu/solver-core": "workspace:*",
         "@suuudokuuu/test-kit": "workspace:*",
         "@types/react": "~19.3.0",
         "@vitest/coverage-v8": "5.0.3",
-        "effect": "4.0.0",
+        "effect": "4.0.5",
         "react": "19.3.1",
         "vite": "^8.3.2",
         "vitest": "5.0.3"

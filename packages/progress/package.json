@@ -28,10 +28,10 @@
         "@suuudokuuu/field-core": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/techniques": "workspace:*",
-        "effect": "4.0.0"
+        "effect": "4.0.5"
     },
     "devDependencies": {
-        "@effect/vitest": "4.0.2",
+        "@effect/vitest": "4.0.5",
         "@suuudokuuu/test-kit": "workspace:*",
         "@vitest/coverage-v8": "5.0.3",
         "vite": "^8.3.2",

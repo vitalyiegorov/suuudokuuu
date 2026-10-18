@@ -16,7 +16,7 @@
         "@suuudokuuu/progress": "workspace:*",
         "@suuudokuuu/techniques": "workspace:*",
         "@suuudokuuu/test-kit": "workspace:*",
-        "effect": "4.0.0"
+        "effect": "4.0.5"
     },
     "devDependencies": {
         "tsx": "^4.23.15"
