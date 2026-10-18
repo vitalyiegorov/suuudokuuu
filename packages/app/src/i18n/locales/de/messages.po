@@ -1604,10 +1604,6 @@ msgstr "Erneut spielen"
 msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles in your browser."
 msgstr "Spiele kostenloses Sudoku online mit sechs Schwierigkeitsgraden, Hinweisen und ohne Werbung. Schnelle, ablenkungsfreie Rätsel direkt im Browser."
 
-#: src/app/+html.tsx
-msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles that work great on any device."
-msgstr "Spiele kostenloses Sudoku online mit sechs Schwierigkeitsgraden, Hinweisen und ohne Werbung. Schnelle, ablenkungsfreie Rätsel, die auf jedem Gerät hervorragend funktionieren."
-
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "Spiele auf höheren Schwierigkeitsgraden für größere Multiplikatoren"
@@ -2109,7 +2105,6 @@ msgid "Surfaces"
 msgstr "Oberflächen"
 
 #: src/app/(tabs)/index.tsx
-#: src/app/+html.tsx
 msgid "Suuudokuuu — Free Online Sudoku, No Ads"
 msgstr "Suuudokuuu — kostenloses Online-Sudoku ohne Werbung"
 
