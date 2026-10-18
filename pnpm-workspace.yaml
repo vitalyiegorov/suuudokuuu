@@ -9,7 +9,6 @@ minimumReleaseAgeExclude:
 
 patchedDependencies:
     effect@4.0.5: patches/effect@4.0.5.patch
-    react-native-unistyles@3.3.0: patches/react-native-unistyles@3.3.0.patch
 
 allowBuilds:
     esbuild: false
