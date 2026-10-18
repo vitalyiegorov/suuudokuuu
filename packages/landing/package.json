@@ -21,8 +21,8 @@
         "ts": "tsc -p ."
     },
     "dependencies": {
-        "@lingui/core": "6.9.0",
-        "@lingui/react": "6.9.0",
+        "@lingui/core": "6.9.1",
+        "@lingui/react": "6.9.1",
         "@rnw-community/shared": "^2.15.0",
         "@suuudokuuu/encoder": "workspace:*",
         "@suuudokuuu/field-core": "workspace:*",
@@ -42,7 +42,7 @@
     },
     "devDependencies": {
         "@expo-google-fonts/inter": "^0.4.2",
-        "@lingui/format-po": "6.9.0",
+        "@lingui/format-po": "6.9.1",
         "@lingui/swc-plugin": "6.7.1",
         "@suuudokuuu/hell-corpus": "workspace:*",
         "@types/react": "~19.3.0",
