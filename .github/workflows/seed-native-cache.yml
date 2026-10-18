@@ -62,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@3e9afaf1888bce8a3e4a70818d457ffa9de11d8d # v4.0.0
+        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@a69b4ad458b91aacbb0af5324bee75256de81c7c # main
         with:
             install-command: pnpm install --frozen-lockfile
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
@@ -79,6 +79,7 @@ jobs:
             # warm-up that built another ABI set would publish under an address
             # the e2e pipeline never looks up.
             gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
+            android-abis: x86_64
             ios-cache-profile: suuudokuuu-ios-v2
             android-cache-profile: suuudokuuu-android-v1
             rct-use-prebuilt-rncore: true
