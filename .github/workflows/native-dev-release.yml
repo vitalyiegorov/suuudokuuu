@@ -15,7 +15,7 @@ jobs:
         name: Development build and release
         permissions:
             contents: write
-        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@a69b4ad458b91aacbb0af5324bee75256de81c7c # main
+        uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@validate/v4.1 # fleet-validation
         with:
             install-command: pnpm install --frozen-lockfile
             app-dir: packages/app

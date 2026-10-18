@@ -62,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@a69b4ad458b91aacbb0af5324bee75256de81c7c # main
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@validate/v4.1 # fleet-validation
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -124,7 +124,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@a69b4ad458b91aacbb0af5324bee75256de81c7c # main
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@validate/v4.1 # fleet-validation
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -240,7 +240,7 @@ jobs:
 
             - name: Start the Android capture emulator
               id: emulator
-              uses: rnw-community/mobile-ci/actions/android-emulator@a69b4ad458b91aacbb0af5324bee75256de81c7c # main
+              uses: rnw-community/mobile-ci/actions/android-emulator@validate/v4.1 # fleet-validation
               with:
                   mode: start
                   api-level: 34
@@ -263,7 +263,7 @@ jobs:
 
             - name: Stop the Android capture emulator
               if: always()
-              uses: rnw-community/mobile-ci/actions/android-emulator@a69b4ad458b91aacbb0af5324bee75256de81c7c # main
+              uses: rnw-community/mobile-ci/actions/android-emulator@validate/v4.1 # fleet-validation
               with:
                   mode: stop
 

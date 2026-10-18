@@ -37,7 +37,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@a69b4ad458b91aacbb0af5324bee75256de81c7c # main
+        uses: rnw-community/mobile-ci/.github/workflows/store-screenshots.yml@validate/v4.1 # fleet-validation
         with:
             config-path: .github/store-screenshots.config.json
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'

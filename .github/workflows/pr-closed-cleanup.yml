@@ -12,4 +12,4 @@ jobs:
         name: Cancel queued/in-progress runs for the closed PR branch
         permissions:
             actions: write
-        uses: rnw-community/mobile-ci/.github/workflows/pr-closed-cleanup-reusable.yml@a69b4ad458b91aacbb0af5324bee75256de81c7c # main
+        uses: rnw-community/mobile-ci/.github/workflows/pr-closed-cleanup-reusable.yml@validate/v4.1 # fleet-validation
