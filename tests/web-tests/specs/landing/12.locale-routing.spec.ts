@@ -7,6 +7,7 @@ import { readJsonLdSchema } from '../../src/utils/json-ld.util';
 
 const spanishHomePath = '/es';
 const englishOnlyPagePath = '/techniques/x-wing';
+const narrowViewportWidth = 320;
 
 test('serves the Spanish home page as a Spanish document in the home hreflang cluster', async ({ request }) => {
     const html = await fetchPageHtml(request, spanishHomePath);
@@ -38,3 +39,23 @@ test('offers the language switcher only on pages published in more than one lang
 
     await expect(page.getByRole('navigation', { name: 'Language' })).toHaveCount(0);
 });
+
+for (const pagePath of ['/how-to-play', '/ar/how-to-play']) {
+    test(`keeps the language menu inside a narrow viewport without moving the header on ${pagePath}`, async ({ page }) => {
+        await page.setViewportSize({ width: narrowViewportWidth, height: 640 });
+        await page.goto(pagePath);
+
+        const header = page.locator('.site-header');
+        const headerBoxBefore = await header.boundingBox();
+        const navigationTopBefore = (await page.locator('.site-header__nav').boundingBox())?.y;
+
+        await page.locator('.language-switcher summary').click();
+
+        const menuBox = await page.locator('.language-switcher__list').boundingBox();
+
+        expect(menuBox?.x).toBeGreaterThanOrEqual(0);
+        expect((menuBox?.x ?? 0) + (menuBox?.width ?? 0)).toBeLessThanOrEqual(narrowViewportWidth);
+        expect(await header.boundingBox()).toEqual(headerBoxBefore);
+        expect((await page.locator('.site-header__nav').boundingBox())?.y).toBe(navigationTopBefore);
+    });
+}
