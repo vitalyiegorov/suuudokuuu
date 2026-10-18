@@ -346,9 +346,18 @@ strong {
     font-size: 0.85rem;
 }
 
+.language-switcher__menu,
+.language-switcher__menu[open] {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+}
+
 .language-switcher__current {
     color: var(--landing-muted-text-color);
     cursor: pointer;
+    font-weight: 400;
 }
 
 .language-switcher__current:hover,
@@ -358,8 +367,12 @@ strong {
 
 .language-switcher__list {
     position: absolute;
-    inset-inline-end: 0;
+    inset-inline-start: 0;
     z-index: 10;
+    max-width: calc(100vw - 2rem);
+    max-height: 60dvh;
+    overflow: auto;
+    overscroll-behavior: contain;
     display: grid;
     gap: 0.45rem;
     margin: 0.5rem 0 0;
