@@ -13,7 +13,7 @@ permissions:
 jobs:
     build:
         runs-on: [self-hosted, trf-linux-amd64-4x8]
-        timeout-minutes: 60
+        timeout-minutes: 90
         env:
             APP_VARIANT: e2e
             ORG_GRADLE_PROJECT_reactNativeArchitectures: x86_64

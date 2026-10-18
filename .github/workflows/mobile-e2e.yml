@@ -161,6 +161,7 @@ jobs:
             # x86_64-linux NDK), and 8 GiB is what keeps D8 from being OOM-killed.
             # The plan/repack job defaults to trf-linux-amd64-2x4 (no KVM, mobile-ci
             # v3.2.0), so it never queues behind emulator shards on this pool.
+            build-timeout-minutes: 90
             build-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             # `trf-linux-amd64-4x8` is the ONLY node-b profile granted /dev/kvm, so
             # this label is a hard requirement of the avd driver, not a preference.
