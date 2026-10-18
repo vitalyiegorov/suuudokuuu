@@ -62,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@b9502c1c3ea1c933485b3e657b47574072ed7ddf # v3.3.1
+        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@3e9afaf1888bce8a3e4a70818d457ffa9de11d8d # v4.0.0
         with:
             install-command: pnpm install --frozen-lockfile
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
