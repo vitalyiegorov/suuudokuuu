@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.34.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.2...v2.34.3) (2026-10-18)
+
+### Bug Fixes
+
+* **app:** fit the web app to the visible viewport on iPhone Safari ([#663](https://github.com/vitalyiegorov/suuudokuuu/issues/663)) ([a5e7477](https://github.com/vitalyiegorov/suuudokuuu/commit/a5e74774fc0e40e51b59dd330f2e71f1658b23a8)), closes [#root](https://github.com/vitalyiegorov/suuudokuuu/issues/root)
+
+
 ## [2.34.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.1...v2.34.2) (2026-10-16)
 
 **Note:** Version bump only for package @suuudokuuu/app
