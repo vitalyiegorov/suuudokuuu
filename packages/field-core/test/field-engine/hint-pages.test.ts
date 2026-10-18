@@ -1,5 +1,6 @@
 import { it } from '@effect/vitest';
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import * as Effect from 'effect/Effect';
 import { assert, describe } from 'vitest';
 
@@ -13,6 +14,7 @@ import type { StepScriptBranchStepInterface } from '../../src/step-script/interf
 import type { StepScriptInterface } from '../../src/step-script/interfaces/step-script.interface';
 
 const chainBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
+const hiddenPairToSingleBoard = '.....53........2......915.79..4.312.3.1.6.74...2.1.9.3.3.7..65..751.68396.....47.';
 const forcingBoard = '..3..2.6.9..3.1...1.2.5..8.........2..5..3.98...4..1....7.....5.2..6....4.19.....';
 const longBranchImplicationCount = 10;
 const firstGroupedLinkCount = 7;
@@ -111,6 +113,36 @@ describe('hint pages', () => {
                 hintPageCount: script.steps.length,
                 stepIndex: 0
             });
+        })
+    );
+
+    it.effect('narrates a hidden pair that unlocks a hidden single once per page', () =>
+        Effect.sync(() => {
+            const engine = createEngine(hiddenPairToSingleBoard);
+            const script = requireHint(engine);
+            const readPage = (): [HintLevelEnum, StepScriptStepKindEnum, SolutionTechniqueEnum] => {
+                const { hintLevel, stepIndex } = engine.getSnapshot();
+                const { kind, narration } = script.steps[stepIndex];
+
+                return [hintLevel, kind, narration.technique];
+            };
+
+            engine.startStepScript(script, HintLevelEnum.TECHNIQUE);
+
+            const pages = [readPage()];
+
+            while (engine.getSnapshot().hintPageIndex < engine.getSnapshot().hintPageCount - 1) {
+                engine.hintNext();
+                pages.push(readPage());
+            }
+
+            assert.deepStrictEqual(pages, [
+                [HintLevelEnum.TECHNIQUE, StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.HiddenPair],
+                [HintLevelEnum.PATTERN, StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.HiddenPair],
+                [HintLevelEnum.WALKTHROUGH, StepScriptStepKindEnum.StrikeCandidates, SolutionTechniqueEnum.HiddenPair],
+                [HintLevelEnum.WALKTHROUGH, StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.HiddenSingle],
+                [HintLevelEnum.WALKTHROUGH, StepScriptStepKindEnum.PlaceValue, SolutionTechniqueEnum.HiddenSingle]
+            ]);
         })
     );
 
