@@ -62,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@v3.3.0 # v3.3.0
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@b9502c1c3ea1c933485b3e657b47574072ed7ddf # v3.3.1
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -72,6 +72,10 @@ jobs:
             exempt-paths: |
                 docs/**
                 **/*.md
+            trigger-paths: |
+                .github/workflows/mobile-e2e.yml
+                .github/workflows/pr.yml
+                patches/**
             target-packages: |
                 @suuudokuuu/app
                 @suuudokuuu/app-tests
@@ -120,7 +124,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@v4.0.0 # v4.0.0
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@3e9afaf1888bce8a3e4a70818d457ffa9de11d8d # v4.0.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -130,6 +134,10 @@ jobs:
             exempt-paths: |
                 docs/**
                 **/*.md
+            trigger-paths: |
+                .github/workflows/mobile-e2e.yml
+                .github/workflows/pr.yml
+                patches/**
             target-packages: |
                 @suuudokuuu/app
                 @suuudokuuu/app-tests
@@ -232,7 +240,7 @@ jobs:
 
             - name: Start the Android capture emulator
               id: emulator
-              uses: rnw-community/mobile-ci/actions/android-emulator@v4.0.0 # v4.0.0
+              uses: rnw-community/mobile-ci/actions/android-emulator@3e9afaf1888bce8a3e4a70818d457ffa9de11d8d # v4.0.0
               with:
                   mode: start
                   api-level: 34
@@ -255,7 +263,7 @@ jobs:
 
             - name: Stop the Android capture emulator
               if: always()
-              uses: rnw-community/mobile-ci/actions/android-emulator@v4.0.0 # v4.0.0
+              uses: rnw-community/mobile-ci/actions/android-emulator@3e9afaf1888bce8a3e4a70818d457ffa9de11d8d # v4.0.0
               with:
                   mode: stop
 
