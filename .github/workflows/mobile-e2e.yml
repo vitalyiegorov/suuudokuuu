@@ -107,9 +107,14 @@ jobs:
                   fi
                   mkdir -p benchmark-evidence/metadata
                   cp "$image_directory/source.properties" benchmark-evidence/metadata/image-source.properties
-                  actual_revision="$(sed -n 's/^Pkg.Revision=//p' "$image_directory/source.properties" | tail -n 1)"
+                  if [ ! -f "$image_directory/package.xml" ]; then
+                    echo "::error::Installed system image has no package.xml: $image_directory"
+                    exit 1
+                  fi
+                  cp "$image_directory/package.xml" benchmark-evidence/metadata/image-package.xml
+                  actual_revision="$(python3 -c 'import sys, xml.etree.ElementTree as ET; root=ET.parse(sys.argv[1]).getroot(); node=next((item for item in root.iter() if item.tag.rsplit("}", 1)[-1] == "major"), None); print((node.text or "") if node is not None else "")' "$image_directory/package.xml")"
                   if [ "$actual_revision" != "$expected_revision" ]; then
-                    echo "::error::System image revision drift: expected $expected_revision, got $actual_revision"
+                    echo "::error::System image package.xml revision drift: expected $expected_revision, got $actual_revision"
                     exit 1
                   fi
                   system_image="$image_directory/system.img"
