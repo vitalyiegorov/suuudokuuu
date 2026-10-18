@@ -30,8 +30,8 @@ importers:
         specifier: ^5.23.5
         version: 5.24.10(@typescript/typescript6@6.0.2)(eslint@10.12.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)
       '@lingui/cli':
-        specifier: 6.9.0
-        version: 6.9.0(babel-plugin-macros@3.1.0)(esbuild@0.28.2)(rolldown@1.2.12)(supports-color@7.2.0)
+        specifier: 6.10.0
+        version: 6.10.0(babel-plugin-macros@3.1.0)(esbuild@0.28.2)(rolldown@1.2.12)(supports-color@7.2.0)
       '@rnw-community/eslint-plugin':
         specifier: ^2.19.3
         version: 2.19.3(@typescript/typescript6@6.0.2)(eslint@10.12.0(jiti@2.7.0)(supports-color@7.2.0))(supports-color@7.2.0)
@@ -129,11 +129,11 @@ importers:
         specifier: ^6.3.15
         version: 6.3.15
       '@lingui/core':
-        specifier: 6.9.0
-        version: 6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)
+        specifier: 6.10.0
+        version: 6.10.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)
       '@lingui/react':
-        specifier: 6.9.0
-        version: 6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)(react@19.3.1)
+        specifier: 6.10.0
+        version: 6.10.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)(react@19.3.1)
       '@op-engineering/op-sqlite':
         specifier: 18.2.5
         version: 18.2.5(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.1)(supports-color@8.1.1))(react@19.3.1)
@@ -301,11 +301,11 @@ importers:
         specifier: ^7.29.7
         version: 7.29.7(supports-color@8.1.1)
       '@lingui/babel-plugin-lingui-macro':
-        specifier: 6.9.0
-        version: 6.9.0(@babel/core@7.29.7(supports-color@8.1.1))
+        specifier: 6.10.0
+        version: 6.10.0(@babel/core@7.29.7(supports-color@8.1.1))
       '@lingui/format-po':
-        specifier: 6.9.0
-        version: 6.9.0
+        specifier: 6.10.0
+        version: 6.10.0
       '@react-native/metro-config':
         specifier: 0.88.0
         version: 0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1)
@@ -489,11 +489,11 @@ importers:
   packages/landing:
     dependencies:
       '@lingui/core':
-        specifier: 6.9.0
-        version: 6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)
+        specifier: 6.10.0
+        version: 6.10.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)
       '@lingui/react':
-        specifier: 6.9.0
-        version: 6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)(react@19.3.1)
+        specifier: 6.10.0
+        version: 6.10.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)(react@19.3.1)
       '@rnw-community/shared':
         specifier: ^2.15.0
         version: 2.15.0
@@ -547,11 +547,11 @@ importers:
         specifier: ^0.4.2
         version: 0.4.2
       '@lingui/format-po':
-        specifier: 6.9.0
-        version: 6.9.0
+        specifier: 6.10.0
+        version: 6.10.0
       '@lingui/swc-plugin':
         specifier: 6.7.1
-        version: 6.7.1(@lingui/core@6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0))
+        version: 6.7.1(@lingui/core@6.10.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0))
       '@suuudokuuu/hell-corpus':
         specifier: workspace:*
         version: link:../hell-corpus
@@ -2309,12 +2309,12 @@ packages:
   '@keyv/serialize@1.1.1':
     resolution: {integrity: sha512-dXn3FZhPv0US+7dtJsIi2R+c7qWYiReoEh5zUntWCf4oSpMNib8FDhSoed6m3QyZdx5hK7iLFkYk3rNxwt8vTA==}
 
-  '@lingui/babel-plugin-extract-messages@6.9.0':
-    resolution: {integrity: sha512-udKlLtGtJ9TjVjqtogIage/Z3merz5Ko5u72uIaHMZ9aPFjSNDnrsglWEfMLWTeSxmkdOrASDpn8YuBMLbhvPA==}
+  '@lingui/babel-plugin-extract-messages@6.10.0':
+    resolution: {integrity: sha512-CGA6MdExnxm+QWI0Ebi6GhSSrD9hofVrYFdh6GxRZ2h3FMV06OJmmjoMm8D8EdH7T6N2wRISM14RI4InvbV5RA==}
     engines: {node: '>=22.19.0'}
 
-  '@lingui/babel-plugin-lingui-macro@6.9.0':
-    resolution: {integrity: sha512-AwbD2JKdy3L0Vppv5X8xPZJzgY4W9Y+DcH5Tzb7oZA6o96N+VVeJU9xsLFbh5UGIQAwLeY7BZKDH88qmWj1gUA==}
+  '@lingui/babel-plugin-lingui-macro@6.10.0':
+    resolution: {integrity: sha512-g9COw73hIICzmu4glu0CpwPWymEmcYCVZAOX6EyvtRLGQRCtNAuP/33ClcqW0c1NsE7wwKL/TYy3g5kCGrYdUg==}
     engines: {node: '>=22.19.0'}
     peerDependencies:
       '@babel/core': ^7.20.12 || ^8.0.0
@@ -2322,8 +2322,8 @@ packages:
       '@babel/core':
         optional: true
 
-  '@lingui/cli@6.9.0':
-    resolution: {integrity: sha512-/fO982w4GsMsxs5kTf/MnvkpD5/hm3c5uFaPmTWilvf5lnaJbjA3aBaBYliRocYDhvD71xMvLqcsfITB4wC4NA==}
+  '@lingui/cli@6.10.0':
+    resolution: {integrity: sha512-h8fk9GkASZDW5s1ZGSeIz0CCA6v9pm8zr9hJEuWtsrjT+YJKxHPVyLuSlAavZzsi4l2DypkQeJHqbBW1POAZaA==}
     engines: {node: '>=22.19.0'}
     hasBin: true
     peerDependencies:
@@ -2335,12 +2335,16 @@ packages:
       rolldown:
         optional: true
 
+  '@lingui/conf@6.10.0':
+    resolution: {integrity: sha512-eyaJH0q9w/jRokuuozk54n23CPKxw0bGRECTzdIjrebeLXn96dK408cuNjjf/d6FNL6iM8ciZuW8YuGLvGneaA==}
+    engines: {node: '>=22.19.0'}
+
   '@lingui/conf@6.9.0':
     resolution: {integrity: sha512-1fwYejoGLeoy5P1/mop0WP35fDRXkB7fUFxyPV5E+vBbgOXtw+QDRt1y9WtyqjI+dz9zQtNYmND3+tBSeAADfw==}
     engines: {node: '>=22.19.0'}
 
-  '@lingui/core@6.9.0':
-    resolution: {integrity: sha512-woQCOsmbG3LxhqTyECcpxn6t3V5tQOgYOG7LL424a/dmpKttyqtJ1/qq3/U7H+ZG+ewFHh56UvQrXSJVnjCf2g==}
+  '@lingui/core@6.10.0':
+    resolution: {integrity: sha512-A6phbNlbpsShJMYiOZMrVSubeb71FWeuOuEktBfbSmPpKqLIzf16Mod/t7mmG6m3ei4HCVUPKE8RuknHirrNjA==}
     engines: {node: '>=22.19.0'}
     peerDependencies:
       babel-plugin-macros: 2 || 3
@@ -2348,80 +2352,80 @@ packages:
       babel-plugin-macros:
         optional: true
 
-  '@lingui/format-po@6.9.0':
-    resolution: {integrity: sha512-nfeAxAj3An1zq0F8k01fvw+cMgqU4KAIDemylwNnTI+Mamo1x6WUo+vtpaJQjtDDTPBMVKkMoGx9G9fpy5xrtQ==}
+  '@lingui/format-po@6.10.0':
+    resolution: {integrity: sha512-6LfRGmgu2jadzbweaBtp9/CISvRMHymGvV1GGd6OBWdeQsSPw9g1pisfqsfZMhWFuok5yiLpHairWbUTus/CRA==}
     engines: {node: '>=22.19.0'}
 
-  '@lingui/message-utils@6.9.0':
-    resolution: {integrity: sha512-LaFvx9Vc/lx4EPbbDaiDtyumDM4aAglRA3yvFQsJkhs1UWrCgDaaUBWhkXKYcmVe9gb7qeGYCqmGWOL84N9xDw==}
+  '@lingui/message-utils@6.10.0':
+    resolution: {integrity: sha512-Mc5eL3TPP/yDCa05IK3UQH3/Xy2Yzpz9KMCkKeJ+Q8nDb+xaW/CnOpkOMsBbgdbLxP0cXV8CER3F1PE/F29g0Q==}
     engines: {node: '>=22.19.0'}
 
-  '@lingui/native-tools-android-arm64@0.1.5':
-    resolution: {integrity: sha512-2wmD2Fyr/wekxlHZ3+34l/dzyT3WzWtfEZK0CgPyuZpPmlb/MKrNkMHQ2QU1wBPmUcp3qiMtxv/qLLDcXj78Fw==}
+  '@lingui/native-tools-android-arm64@0.1.6':
+    resolution: {integrity: sha512-kAwVqJlKv868dGJOhqXXqHwhI3bOlvdHSZz8rozlEEidvBuw6Srr0Es5hwisLlwybzcTYstjOeVGxmvu3QAV4g==}
     engines: {node: '>=22.19.0'}
     cpu: [arm64]
     os: [android]
 
-  '@lingui/native-tools-darwin-arm64@0.1.5':
-    resolution: {integrity: sha512-i/Owg8RUWJ0u27T2268nAfSyL5tExXQgKfon5LxI21rUFQMaZ9cREu39KCLbE0dx40/09mEU3+qWgVgqaMhtFQ==}
+  '@lingui/native-tools-darwin-arm64@0.1.6':
+    resolution: {integrity: sha512-0KEoSob+pYS1jyRB+2bJp78L2L2i/VODFIk5Gs8LmKV58xZ+uN8MOhf1dYBBsi6+0tiqPartSCk3WA4i+lKPUQ==}
     engines: {node: '>=22.19.0'}
     cpu: [arm64]
     os: [darwin]
 
-  '@lingui/native-tools-darwin-x64@0.1.5':
-    resolution: {integrity: sha512-EuRwq9KVEHB2jy8RhUIUEd/0ZP4KghVikYVU21cgVxVD1hmO0/Ii/uDUW7atgYF3UGuPwQzOqvhjz3gctG2OKg==}
+  '@lingui/native-tools-darwin-x64@0.1.6':
+    resolution: {integrity: sha512-e7liIjkzbJ8w3F9PHzZPmpYpeiv7XO4Np9J1tEpUamKYEdYBNt4AKr/UmWAQ7AjxbZSV9N8lj1ulUl3pdFUuaQ==}
     engines: {node: '>=22.19.0'}
     cpu: [x64]
     os: [darwin]
 
-  '@lingui/native-tools-linux-arm64-gnu@0.1.5':
-    resolution: {integrity: sha512-n5lrZMOnNQnYyg4sGyQ23BiRvJXAIKI8O+jutpiBVNmFflWIgNll/mmvnEoo3699NknEM5lrD8c07CvhnlDqYQ==}
+  '@lingui/native-tools-linux-arm64-gnu@0.1.6':
+    resolution: {integrity: sha512-JKu/8CvLsYUiRbRSnuzmrQk24tfuizgnDYlMxE5/awUUrRE+GlpaMP76PhJpkl+tV0v7t6zVe3+I5lbq7LaqVw==}
     engines: {node: '>=22.19.0'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@lingui/native-tools-linux-arm64-musl@0.1.5':
-    resolution: {integrity: sha512-J6d0FX/paKFOuvvE+JJKyX34EYqlsqhbxKxzBMwwG49upB4LI2AkdsnSOXJJssS9umzhzGaLSZdz2cZ3nFACYA==}
+  '@lingui/native-tools-linux-arm64-musl@0.1.6':
+    resolution: {integrity: sha512-Aeexf/Ta0nZDZz3cDMAZ95GmFZ2lOxMwf1FK/ShK+U4WcNVSn3aI2KeuOeaLUfot9ZT8AiIIELPV4gO6b/GJgg==}
     engines: {node: '>=22.19.0'}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@lingui/native-tools-linux-x64-gnu@0.1.5':
-    resolution: {integrity: sha512-r6UV7YxDjl+r4Q6kViOtgqFG7i1uToPsmHokpdV079CroGm7m6SCUNMzbh88N7n0MAeb+VHA207YyMd8X0Jy8Q==}
+  '@lingui/native-tools-linux-x64-gnu@0.1.6':
+    resolution: {integrity: sha512-SwX1dLcQE9pVcXwIxSGTE2+zBmaO6NbjD9XPqCiyoO8RFTkUTLjdnRDGHxFlFpIGMlVArQz5mMQ6coyUFl+AiA==}
     engines: {node: '>=22.19.0'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@lingui/native-tools-linux-x64-musl@0.1.5':
-    resolution: {integrity: sha512-aADK9gUPz6BC6c0M/z6g48nViHb+BZuoPVLlTdc1ADuexYmcM4kEY7xyRJ/otKpNDtkBtFjYzJ+0Di62aLok9A==}
+  '@lingui/native-tools-linux-x64-musl@0.1.6':
+    resolution: {integrity: sha512-aWI8e10I6i7K9BG77LJDHREozx/VT8j8onf0wxd43ACor2S1VwS0ZNlIfpNWQTWovmU/CUliGO/VWQq2jGa+Sg==}
     engines: {node: '>=22.19.0'}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@lingui/native-tools-win32-arm64-msvc@0.1.5':
-    resolution: {integrity: sha512-838QHobbJEwehJQC3JMhSV8I7sypyNdxUOMZaK/p5f/+d1Q4YjvHaBMN0tmU+6pKKUXb3B6yK+PqNischjORgw==}
+  '@lingui/native-tools-win32-arm64-msvc@0.1.6':
+    resolution: {integrity: sha512-M2TZP4gKgLaLbiboXIrY5+8GsaQLHvZ8E6cUFgAuSaBa8AMa73+pZO1eay/St9t8yDh6EL6hOlqN0HedUHMwyQ==}
     engines: {node: '>=22.19.0'}
     cpu: [arm64]
     os: [win32]
 
-  '@lingui/native-tools-win32-x64-msvc@0.1.5':
-    resolution: {integrity: sha512-GkOI5ubf+NTvghE9sqWgdWs5ywNTDtXHTumDWHtI+FWAhdsLraEcIqy0ozUY24UansemSWBz81I4EphytN0i0A==}
+  '@lingui/native-tools-win32-x64-msvc@0.1.6':
+    resolution: {integrity: sha512-5KvuSTFtDB8UGHS3Rxd+juYZgc51isQSx0hPukDObre6UxZGuUVCBmJ9YwoGVzXedViiNGmsQvrnCTBbVqI75g==}
     engines: {node: '>=22.19.0'}
     cpu: [x64]
     os: [win32]
 
-  '@lingui/native-tools@0.1.5':
-    resolution: {integrity: sha512-K3CBSGN2vjFCqum6LmI/OxoMXDpfVhcUP3U0TNk3G75M4VTY9hSfi8YyknS8ifJ6D1+7R+a7TeoSGM3uA32X3w==}
+  '@lingui/native-tools@0.1.6':
+    resolution: {integrity: sha512-xsn2R9YvWL9WuemM0ivSlXy14ORlfvPYLxFP3kbcFU3Pg5T9aRnmYOTfwszwGnjt4QsORO1mHHZT6k/Wr7V9pA==}
     engines: {node: '>=22.19.0'}
     peerDependencies:
       '@lingui/conf': ^6.0.1
 
-  '@lingui/react@6.9.0':
-    resolution: {integrity: sha512-0oSy/GpQUzMrylviy/IiDg6b0DH4HwGusSD8ht2dsDCdunH+wX8bfJ/njo7qtjyaawTjEbdyLCUzlZc2Gd2kVQ==}
+  '@lingui/react@6.10.0':
+    resolution: {integrity: sha512-W0V66a9mc5sRZ3dMS/HJjhqOLxKsO93bOsA925mDULFICRZ1i5Wxtu0TR/jgen+4cJw8qErWEJ9IL76NmcGYfg==}
     engines: {node: '>=22.19.0'}
     peerDependencies:
       babel-plugin-macros: 2 || 3
@@ -9948,39 +9952,37 @@ snapshots:
 
   '@keyv/serialize@1.1.1': {}
 
-  '@lingui/babel-plugin-extract-messages@6.9.0':
+  '@lingui/babel-plugin-extract-messages@6.10.0':
     dependencies:
-      '@lingui/conf': 6.9.0
+      '@lingui/conf': 6.10.0
 
-  '@lingui/babel-plugin-lingui-macro@6.9.0(@babel/core@7.29.7(supports-color@7.2.0))':
+  '@lingui/babel-plugin-lingui-macro@6.10.0(@babel/core@7.29.7(supports-color@7.2.0))':
     dependencies:
-      '@babel/types': 7.29.8
-      '@lingui/conf': 6.9.0
-      '@lingui/message-utils': 6.9.0
+      '@lingui/conf': 6.10.0
+      '@lingui/message-utils': 6.10.0
     optionalDependencies:
       '@babel/core': 7.29.7(supports-color@7.2.0)
 
-  '@lingui/babel-plugin-lingui-macro@6.9.0(@babel/core@7.29.7(supports-color@8.1.1))':
+  '@lingui/babel-plugin-lingui-macro@6.10.0(@babel/core@7.29.7(supports-color@8.1.1))':
     dependencies:
-      '@babel/types': 7.29.8
-      '@lingui/conf': 6.9.0
-      '@lingui/message-utils': 6.9.0
+      '@lingui/conf': 6.10.0
+      '@lingui/message-utils': 6.10.0
     optionalDependencies:
       '@babel/core': 7.29.7(supports-color@8.1.1)
 
-  '@lingui/cli@6.9.0(babel-plugin-macros@3.1.0)(esbuild@0.28.2)(rolldown@1.2.12)(supports-color@7.2.0)':
+  '@lingui/cli@6.10.0(babel-plugin-macros@3.1.0)(esbuild@0.28.2)(rolldown@1.2.12)(supports-color@7.2.0)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@7.2.0)
       '@babel/generator': 7.29.8
       '@babel/parser': 7.29.9
       '@babel/types': 7.29.8
-      '@lingui/babel-plugin-extract-messages': 6.9.0
-      '@lingui/babel-plugin-lingui-macro': 6.9.0(@babel/core@7.29.7(supports-color@7.2.0))
-      '@lingui/conf': 6.9.0
-      '@lingui/core': 6.9.0(@babel/core@7.29.7(supports-color@7.2.0))(babel-plugin-macros@3.1.0)
-      '@lingui/format-po': 6.9.0
-      '@lingui/message-utils': 6.9.0
-      '@lingui/native-tools': 0.1.5(@lingui/conf@6.9.0)
+      '@lingui/babel-plugin-extract-messages': 6.10.0
+      '@lingui/babel-plugin-lingui-macro': 6.10.0(@babel/core@7.29.7(supports-color@7.2.0))
+      '@lingui/conf': 6.10.0
+      '@lingui/core': 6.10.0(@babel/core@7.29.7(supports-color@7.2.0))(babel-plugin-macros@3.1.0)
+      '@lingui/format-po': 6.10.0
+      '@lingui/message-utils': 6.10.0
+      '@lingui/native-tools': 0.1.6(@lingui/conf@6.10.0)
       chokidar: 5.0.0
       cli-table3: 0.6.5
       commander: 14.0.3
@@ -9999,6 +10001,13 @@ snapshots:
       - babel-plugin-macros
       - supports-color
 
+  '@lingui/conf@6.10.0':
+    dependencies:
+      jest-validate: 29.7.0
+      jiti: 2.7.0
+      lilconfig: 3.1.3
+      normalize-path: 3.0.0
+
   '@lingui/conf@6.9.0':
     dependencies:
       jest-validate: 29.7.0
@@ -10006,82 +10015,82 @@ snapshots:
       lilconfig: 3.1.3
       normalize-path: 3.0.0
 
-  '@lingui/core@6.9.0(@babel/core@7.29.7(supports-color@7.2.0))(babel-plugin-macros@3.1.0)':
+  '@lingui/core@6.10.0(@babel/core@7.29.7(supports-color@7.2.0))(babel-plugin-macros@3.1.0)':
     dependencies:
-      '@lingui/babel-plugin-lingui-macro': 6.9.0(@babel/core@7.29.7(supports-color@7.2.0))
-      '@lingui/message-utils': 6.9.0
+      '@lingui/babel-plugin-lingui-macro': 6.10.0(@babel/core@7.29.7(supports-color@7.2.0))
+      '@lingui/message-utils': 6.10.0
     optionalDependencies:
       babel-plugin-macros: 3.1.0
     transitivePeerDependencies:
       - '@babel/core'
 
-  '@lingui/core@6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)':
+  '@lingui/core@6.10.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)':
     dependencies:
-      '@lingui/babel-plugin-lingui-macro': 6.9.0(@babel/core@7.29.7(supports-color@8.1.1))
-      '@lingui/message-utils': 6.9.0
+      '@lingui/babel-plugin-lingui-macro': 6.10.0(@babel/core@7.29.7(supports-color@8.1.1))
+      '@lingui/message-utils': 6.10.0
     optionalDependencies:
       babel-plugin-macros: 3.1.0
     transitivePeerDependencies:
       - '@babel/core'
 
-  '@lingui/format-po@6.9.0':
+  '@lingui/format-po@6.10.0':
     dependencies:
-      '@lingui/conf': 6.9.0
-      '@lingui/message-utils': 6.9.0
+      '@lingui/conf': 6.10.0
+      '@lingui/message-utils': 6.10.0
       pofile-ts: 4.0.3
 
-  '@lingui/message-utils@6.9.0':
+  '@lingui/message-utils@6.10.0':
     dependencies:
       '@messageformat/date-skeleton': 1.1.0
       '@messageformat/parser': 5.1.1
       js-sha256: 0.10.1
 
-  '@lingui/native-tools-android-arm64@0.1.5':
+  '@lingui/native-tools-android-arm64@0.1.6':
     optional: true
 
-  '@lingui/native-tools-darwin-arm64@0.1.5':
+  '@lingui/native-tools-darwin-arm64@0.1.6':
     optional: true
 
-  '@lingui/native-tools-darwin-x64@0.1.5':
+  '@lingui/native-tools-darwin-x64@0.1.6':
     optional: true
 
-  '@lingui/native-tools-linux-arm64-gnu@0.1.5':
+  '@lingui/native-tools-linux-arm64-gnu@0.1.6':
     optional: true
 
-  '@lingui/native-tools-linux-arm64-musl@0.1.5':
+  '@lingui/native-tools-linux-arm64-musl@0.1.6':
     optional: true
 
-  '@lingui/native-tools-linux-x64-gnu@0.1.5':
+  '@lingui/native-tools-linux-x64-gnu@0.1.6':
     optional: true
 
-  '@lingui/native-tools-linux-x64-musl@0.1.5':
+  '@lingui/native-tools-linux-x64-musl@0.1.6':
     optional: true
 
-  '@lingui/native-tools-win32-arm64-msvc@0.1.5':
+  '@lingui/native-tools-win32-arm64-msvc@0.1.6':
     optional: true
 
-  '@lingui/native-tools-win32-x64-msvc@0.1.5':
+  '@lingui/native-tools-win32-x64-msvc@0.1.6':
     optional: true
 
-  '@lingui/native-tools@0.1.5(@lingui/conf@6.9.0)':
+  '@lingui/native-tools@0.1.6(@lingui/conf@6.10.0)':
     dependencies:
-      '@lingui/conf': 6.9.0
+      '@lingui/conf': 6.10.0
       '@swc/types': 0.1.28
     optionalDependencies:
-      '@lingui/native-tools-android-arm64': 0.1.5
-      '@lingui/native-tools-darwin-arm64': 0.1.5
-      '@lingui/native-tools-darwin-x64': 0.1.5
-      '@lingui/native-tools-linux-arm64-gnu': 0.1.5
-      '@lingui/native-tools-linux-arm64-musl': 0.1.5
-      '@lingui/native-tools-linux-x64-gnu': 0.1.5
-      '@lingui/native-tools-linux-x64-musl': 0.1.5
-      '@lingui/native-tools-win32-arm64-msvc': 0.1.5
-      '@lingui/native-tools-win32-x64-msvc': 0.1.5
+      '@lingui/native-tools-android-arm64': 0.1.6
+      '@lingui/native-tools-darwin-arm64': 0.1.6
+      '@lingui/native-tools-darwin-x64': 0.1.6
+      '@lingui/native-tools-linux-arm64-gnu': 0.1.6
+      '@lingui/native-tools-linux-arm64-musl': 0.1.6
+      '@lingui/native-tools-linux-x64-gnu': 0.1.6
+      '@lingui/native-tools-linux-x64-musl': 0.1.6
+      '@lingui/native-tools-win32-arm64-msvc': 0.1.6
+      '@lingui/native-tools-win32-x64-msvc': 0.1.6
 
-  '@lingui/react@6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)(react@19.3.1)':
+  '@lingui/react@6.10.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)(react@19.3.1)':
     dependencies:
-      '@lingui/babel-plugin-lingui-macro': 6.9.0(@babel/core@7.29.7(supports-color@8.1.1))
-      '@lingui/core': 6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)
+      '@lingui/babel-plugin-lingui-macro': 6.10.0(@babel/core@7.29.7(supports-color@8.1.1))
+      '@lingui/core': 6.10.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)
       react: 19.3.1
       use-sync-external-store: 1.7.0(react@19.3.1)
     optionalDependencies:
@@ -10089,10 +10098,10 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
 
-  '@lingui/swc-plugin@6.7.1(@lingui/core@6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0))':
+  '@lingui/swc-plugin@6.7.1(@lingui/core@6.10.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0))':
     dependencies:
       '@lingui/conf': 6.9.0
-      '@lingui/core': 6.9.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)
+      '@lingui/core': 6.10.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)
 
   '@messageformat/date-skeleton@1.1.0': {}
 
