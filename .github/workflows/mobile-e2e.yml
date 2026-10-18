@@ -78,13 +78,14 @@ jobs:
                       try:
                           quota, period = Path('/sys/fs/cgroup/cpu.max').read_text().split()
                           memory = Path('/sys/fs/cgroup/memory.max').read_text().strip()
+                          swap = Path('/sys/fs/cgroup/memory.swap.max').read_text().strip()
                           memory_bytes = int(memory)
                           if quota == 'max':
                               fail('Runner CPU limit is unbounded')
                           quota_value, period_value = int(quota), int(period)
                       except (OSError, ValueError, ZeroDivisionError) as error:
                           fail(f'Could not read bounded cgroup-v2 CPU/memory limits: {error}')
-                      if quota_value <= 0 or period_value <= 0 or quota_value % period_value or memory_bytes <= 0:
+                      if quota_value <= 0 or period_value <= 0 or quota_value % period_value or memory_bytes <= 0 or swap != '0':
                           fail('Runner cgroup-v2 limits are invalid or not integer CPU limits')
                       return quota_value // period_value, memory_bytes
 
