@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.34.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.3...v2.34.4) (2026-10-18)
+
+### Bug Fixes
+
+* **landing:** keep the language menu on screen and out of header layout ([#662](https://github.com/vitalyiegorov/suuudokuuu/issues/662)) ([3371cc6](https://github.com/vitalyiegorov/suuudokuuu/commit/3371cc6ac28358ed134125acc025f5db13c5bd61))
+
+
 ## [2.34.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.2...v2.34.3) (2026-10-18)
 
 ### Bug Fixes
