@@ -31,7 +31,7 @@ jobs:
         runs-on: [self-hosted, trf-linux-amd64-4x8]
         timeout-minutes: 60
         env:
-            ANDROID_AVD_HOME: ${{ runner.temp }}/android-benchmark-${{ github.run_id }}-${{ github.run_attempt }}
+            ANDROID_AVD_HOME: /tmp/android-benchmark-${{ github.run_id }}-${{ github.run_attempt }}
             JAVA_TOOL_OPTIONS: -Xmx2g
         steps:
             - name: Checkout benchmark harness
