@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.34.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.1...v2.34.2) (2026-10-16)
+
+### Bug Fixes
+
+* **ci:** drop the duplicate turbo-version keys in mobile-e2e.yml ([b8eb414](https://github.com/vitalyiegorov/suuudokuuu/commit/b8eb414e067cf0cf6ebabaf41aa4af3cc866a006)), closes [#639](https://github.com/vitalyiegorov/suuudokuuu/issues/639) [#644](https://github.com/vitalyiegorov/suuudokuuu/issues/644)
+
+
 ## [2.34.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.0...v2.34.1) (2026-10-16)
 
 ### Bug Fixes
