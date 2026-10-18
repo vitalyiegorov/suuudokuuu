@@ -179,7 +179,7 @@ jobs:
             # x86_64 only: the AVD boots an x86_64 system image, so every other ABI
             # is CMake time spent on a library nothing installs. The lint skips stay
             # - lint is a separate PR gate, not this pipeline's job.
-            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
+            gradle-args: '--max-workers=1 -x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
             # Byte-identical to the iOS lane above and to seed-native-cache.yml.
             fingerprint-env: |
                 APP_VARIANT=e2e
