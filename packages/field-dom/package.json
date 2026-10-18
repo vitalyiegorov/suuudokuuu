@@ -35,7 +35,7 @@
         "@suuudokuuu/test-kit": "workspace:*",
         "@types/react": "~19.3.0",
         "@vitest/coverage-v8": "5.0.3",
-        "react": "19.3.0",
+        "react": "19.3.1",
         "vite": "^8.3.2",
         "vitest": "5.0.3"
     },
