@@ -12,6 +12,16 @@ on:
                     - google_apis
                     - google_atd
                     - aosp_atd
+            worker-envelope:
+                description: Benchmark runner cgroup envelope
+                type: choice
+                required: true
+                default: 4x8
+                options:
+                    - 4x8
+                    - 4x6
+                    - 2x6
+                    - 2x4
             test-scope:
                 description: Maestro flows to run
                 type: choice
@@ -34,6 +44,135 @@ jobs:
             ANDROID_AVD_HOME: /tmp/android-benchmark-${{ github.run_id }}-${{ github.run_attempt }}
             JAVA_TOOL_OPTIONS: -Xmx2g
         steps:
+            - name: Gate worker envelope
+              shell: bash
+              env:
+                  ENVELOPE_CHOICE: ${{ inputs.worker-envelope }}
+                  RUN_ID: ${{ github.run_id }}
+                  RUN_ATTEMPT: ${{ github.run_attempt }}
+                  HEAD_SHA: ${{ github.sha }}
+                  REPOSITORY: ${{ github.repository }}
+                  RUNNER_NAME: ${{ runner.name }}
+              run: |
+                  set -euo pipefail
+                  python3 - <<'ENVELOPE_PY'
+                  import json
+                  import os
+                  import signal
+                  import sys
+                  import time
+                  from pathlib import Path
+
+                  limits = {
+                      '4x8': (4, 8 * 1024**3),
+                      '4x6': (4, 6 * 1024**3),
+                      '2x6': (2, 6 * 1024**3),
+                      '2x4': (2, 4 * 1024**3),
+                  }
+
+                  def fail(message):
+                      print(f'::error::{message}', file=sys.stderr)
+                      raise SystemExit(1)
+
+                  def actual_limits():
+                      try:
+                          quota, period = Path('/sys/fs/cgroup/cpu.max').read_text().split()
+                          memory = Path('/sys/fs/cgroup/memory.max').read_text().strip()
+                          memory_bytes = int(memory)
+                          if quota == 'max':
+                              fail('Runner CPU limit is unbounded')
+                          quota_value, period_value = int(quota), int(period)
+                      except (OSError, ValueError, ZeroDivisionError) as error:
+                          fail(f'Could not read bounded cgroup-v2 CPU/memory limits: {error}')
+                      if quota_value <= 0 or period_value <= 0 or quota_value % period_value or memory_bytes <= 0:
+                          fail('Runner cgroup-v2 limits are invalid or not integer CPU limits')
+                      return quota_value // period_value, memory_bytes
+
+                  choice = os.environ['ENVELOPE_CHOICE']
+                  if choice not in limits:
+                      fail('Unsupported worker-envelope choice')
+                  expected = limits[choice]
+                  if choice == '4x8':
+                      if actual_limits() != expected:
+                          fail('Default 4x8 runner cgroup does not match 4 CPU / 8 GiB')
+                      with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
+                          summary.write('Worker envelope verified: 4 CPU / 8 GiB (no mutation requested).\n')
+                      raise SystemExit(0)
+
+                  runner_temp = Path(os.environ['RUNNER_TEMP'])
+                  request_path = runner_temp / 'android-benchmark-envelope-request.json'
+                  confirmation_path = runner_temp / 'android-benchmark-envelope-confirmation.json'
+                  runner_temp.mkdir(parents=True, exist_ok=True)
+                  if request_path.exists():
+                      try:
+                          previous = json.loads(request_path.read_text(encoding='utf-8'))
+                      except (OSError, json.JSONDecodeError) as error:
+                          fail(f'Existing envelope request is invalid: {error}')
+                      if previous.get('phase') not in ('released', 'expired'):
+                          fail('An earlier worker-envelope request is still active')
+                      request_path.unlink()
+                      confirmation_path.unlink(missing_ok=True)
+                  elif confirmation_path.exists():
+                      fail('An orphaned worker-envelope confirmation exists')
+
+                  request = {
+                      'schema': 1,
+                      'phase': 'waiting',
+                      'repo': os.environ['REPOSITORY'],
+                      'run_id': int(os.environ['RUN_ID']),
+                      'attempt': int(os.environ['RUN_ATTEMPT']),
+                      'head_sha': os.environ['HEAD_SHA'],
+                      'runner_name': os.environ['RUNNER_NAME'],
+                      'target': choice,
+                      'cpus': expected[0],
+                      'memory_bytes': expected[1],
+                      'deadline_epoch': time.time() + 180,
+                  }
+
+                  def write_request():
+                      temporary = request_path.with_name('.android-benchmark-envelope-request.json.tmp')
+                      temporary.write_text(json.dumps(request, sort_keys=True) + '\n', encoding='utf-8')
+                      temporary.replace(request_path)
+
+                  def expire(message):
+                      request['phase'] = 'expired'
+                      write_request()
+                      fail(message)
+
+                  def on_cancel(_signum, _frame):
+                      expire('Worker-envelope wait was cancelled')
+
+                  signal.signal(signal.SIGTERM, on_cancel)
+                  signal.signal(signal.SIGINT, on_cancel)
+                  write_request()
+                  deadline = time.monotonic() + 180
+                  while time.monotonic() < deadline:
+                      if confirmation_path.is_file() and not confirmation_path.is_symlink():
+                          try:
+                              confirmation = json.loads(confirmation_path.read_text(encoding='utf-8'))
+                          except (OSError, json.JSONDecodeError) as error:
+                              expire(f'Worker-envelope confirmation is invalid: {error}')
+                          fields = ('schema', 'repo', 'run_id', 'attempt', 'head_sha', 'runner_name', 'target', 'cpus', 'memory_bytes')
+                          if not isinstance(confirmation, dict) or any(confirmation.get(key) != request[key] for key in fields):
+                              expire('Worker-envelope confirmation does not match this run and target')
+                          container_id = confirmation.get('container_id')
+                          if not isinstance(container_id, str) or len(container_id) != 64 or any(ch not in '0123456789abcdefABCDEF' for ch in container_id):
+                              expire('Worker-envelope confirmation has no valid immutable container id')
+                          if not confirmation.get('container_name'):
+                              expire('Worker-envelope confirmation has no container name')
+                          if confirmation.get('actual_cpus') != expected[0] or confirmation.get('actual_memory_bytes') != expected[1]:
+                              expire('Worker-envelope helper did not confirm target cgroup limits')
+                          if actual_limits() != expected:
+                              expire('Actual runner cgroup limits do not match the confirmed envelope')
+                          request['phase'] = 'released'
+                          write_request()
+                          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
+                              summary.write(f'Worker envelope verified: {expected[0]} CPU / {expected[1] // 1024**3} GiB.\n')
+                          raise SystemExit(0)
+                      time.sleep(1)
+                  expire('Timed out waiting 180 seconds for matching worker-envelope confirmation')
+                  ENVELOPE_PY
+
             - name: Checkout benchmark harness
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
               with:
