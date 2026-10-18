@@ -10,7 +10,7 @@
         "ts": "tsc -p scripts"
     },
     "dependencies": {
-        "@rnw-community/shared": "^2.15.0",
+        "@rnw-community/shared": "^2.28.0",
         "@suuudokuuu/encoder": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/progress": "workspace:*",

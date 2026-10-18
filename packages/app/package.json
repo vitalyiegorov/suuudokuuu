@@ -33,9 +33,9 @@
         "@lingui/react": "6.10.0",
         "@op-engineering/op-sqlite": "18.2.5",
         "@react-native-masked-view/masked-view": "0.3.2",
-        "@rnw-community/react-native-collapsible-header": "^2.18.0",
-        "@rnw-community/react-native-screen-chrome": "^2.19.1",
-        "@rnw-community/shared": "^2.15.0",
+        "@rnw-community/react-native-collapsible-header": "^2.28.2",
+        "@rnw-community/react-native-screen-chrome": "^2.28.2",
+        "@rnw-community/shared": "^2.28.0",
         "@shopify/react-native-skia": "2.14.0",
         "@suuudokuuu/encoder": "workspace:*",
         "@suuudokuuu/field-core": "workspace:*",
@@ -68,7 +68,7 @@
         "expo-store-review": "~58.0.2",
         "expo-system-ui": "~58.0.6",
         "expo-updates": "~58.0.17",
-        "lucide-react-native": "^1.49.0",
+        "lucide-react-native": "^1.59.0",
         "react": "19.3.1",
         "react-dom": "19.3.1",
         "react-native": "0.88.0",
@@ -83,10 +83,10 @@
         "react-native-web": "^0.21.4",
         "react-native-worklets": "0.13.0",
         "reanimated-color-picker": "^5.1.3",
-        "zod": "4.6.5"
+        "zod": "4.6.7"
     },
     "devDependencies": {
-        "@anthropic-ai/sdk": "^0.132.1",
+        "@anthropic-ai/sdk": "^0.135.0",
         "@babel/core": "^7.29.7",
         "@lingui/babel-plugin-lingui-macro": "6.10.0",
         "@lingui/format-po": "6.10.0",
@@ -95,7 +95,7 @@
         "babel-plugin-macros": "^3.1.0",
         "babel-plugin-react-compiler": "^1.0.0",
         "babel-preset-expo": "~58.0.17",
-        "eas-build-cache-provider": "^24.8.0",
+        "eas-build-cache-provider": "^25.1.1",
         "esbuild": "^0.28.2"
     },
     "expo": {
