@@ -78,7 +78,7 @@ jobs:
             # gradle-args are part of the native key's toolchain segment, so a
             # warm-up that built another ABI set would publish under an address
             # the e2e pipeline never looks up.
-            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
+            gradle-args: '--max-workers=1 -x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
             ios-cache-profile: suuudokuuu-ios-v2
             android-cache-profile: suuudokuuu-android-v1
             rct-use-prebuilt-rncore: true
