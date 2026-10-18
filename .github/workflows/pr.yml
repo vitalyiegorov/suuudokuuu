@@ -150,7 +150,7 @@ jobs:
               run: pnpm cpd
 
             - name: Unit tests
-              run: pnpm test:coverage
+              run: pnpm test:coverage --concurrency=1
 
             - name: Upload coverage reports to Codecov
               uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
