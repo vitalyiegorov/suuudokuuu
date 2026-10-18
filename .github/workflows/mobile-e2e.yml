@@ -97,10 +97,12 @@ jobs:
                     aosp_atd) expected_revision=2 ;;
                     *) echo "::error::Unsupported system image target: $IMAGE_TARGET"; exit 1 ;;
                   esac
-                  "$sdkmanager" --install "$image_package"
                   image_directory="$sdk_root/system-images/android-34/$IMAGE_TARGET/x86_64"
                   if [ ! -f "$image_directory/source.properties" ]; then
-                    echo "::error::Installed system image has no source.properties: $image_directory"
+                    "$sdkmanager" --install "$image_package"
+                  fi
+                  if [ ! -f "$image_directory/source.properties" ]; then
+                    echo "::error::Requested system image is unavailable after installation: $image_directory"
                     exit 1
                   fi
                   mkdir -p benchmark-evidence/metadata
