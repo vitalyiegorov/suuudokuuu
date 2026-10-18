@@ -1602,10 +1602,6 @@ msgstr "আবার খেলুন"
 msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles in your browser."
 msgstr "ছয়টি কঠিনতার স্তর, সংকেত আর কোনো বিজ্ঞাপন ছাড়া বিনামূল্যে অনলাইনে সুডোকু খেলুন। ব্রাউজারেই দ্রুত, মনোযোগ না ভাঙা সুডোকু।"
 
-#: src/app/+html.tsx
-msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles that work great on any device."
-msgstr "ছয়টি কঠিনতার স্তর, সংকেত আর কোনো বিজ্ঞাপন ছাড়া বিনামূল্যে অনলাইনে সুডোকু খেলুন। দ্রুত, মনোযোগ না ভাঙা সুডোকু, যেকোনো ডিভাইসে দারুণ চলে।"
-
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "বড় গুণকের জন্য বেশি কঠিনতায় খেলুন"
@@ -2107,7 +2103,6 @@ msgid "Surfaces"
 msgstr "পৃষ্ঠতল"
 
 #: src/app/(tabs)/index.tsx
-#: src/app/+html.tsx
 msgid "Suuudokuuu — Free Online Sudoku, No Ads"
 msgstr "Suuudokuuu — বিনামূল্যে অনলাইন সুডোকু, বিজ্ঞাপনহীন"
 

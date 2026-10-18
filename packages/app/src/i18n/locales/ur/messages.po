@@ -1602,10 +1602,6 @@ msgstr "دوبارہ کھیلیں"
 msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles in your browser."
 msgstr "چھ درجے مشکل، اشارے اور بغیر اشتہار کے مفت آن لائن سوڈوکو کھیلیں۔ براؤزر میں ہی تیز اور بغیر خلل والی پہیلیاں۔"
 
-#: src/app/+html.tsx
-msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles that work great on any device."
-msgstr "چھ درجے مشکل، اشارے اور بغیر اشتہار کے مفت آن لائن سوڈوکو کھیلیں۔ تیز، بغیر خلل والی پہیلیاں جو ہر آلے پر بہترین چلتی ہیں۔"
-
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "بڑے ملٹی پلائرز کے لیے زیادہ مشکل سطح پر کھیلیں"
@@ -2107,7 +2103,6 @@ msgid "Surfaces"
 msgstr "سطحیں"
 
 #: src/app/(tabs)/index.tsx
-#: src/app/+html.tsx
 msgid "Suuudokuuu — Free Online Sudoku, No Ads"
 msgstr "Suuudokuuu — مفت آن لائن سوڈوکو، بغیر اشتہار"
 

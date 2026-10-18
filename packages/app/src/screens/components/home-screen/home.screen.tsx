@@ -39,7 +39,7 @@ import { updateSettings } from '../../../settings/utils/update-settings.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { StoreIntentSchema } from '../../schema/store-intent.schema';
 
-import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayHeight, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
+import { HomeScreenBottomScrollPadding, HomeScreenTopOverlayIntensity } from './constant/home-screen.constant';
 import { HomeScreenBestRun } from './home-screen-best-run/home-screen-best-run';
 import { HomeScreenContinueRow } from './home-screen-continue-row/home-screen-continue-row';
 import { HomeScreenIntentSpotlight } from './home-screen-intent-spotlight/home-screen-intent-spotlight';
@@ -52,8 +52,6 @@ import { HomeScreenStyles as styles } from './home-screen.styles';
 import { type HomeScreenOptionCardInterface } from './interface/home-screen-option-card.interface';
 import { homeScreenGetContentInsetTop } from './utils/home-screen-get-content-inset-top.util';
 import { homeScreenGetDifficultyDescription } from './utils/home-screen-get-difficulty-description.util';
-
-const topEdgeFadeProps = { height: HomeScreenTopOverlayHeight, intensity: HomeScreenTopOverlayIntensity };
 
 // oxlint-disable-next-line max-lines-per-function
 export const HomeScreen = () => {
@@ -123,6 +121,7 @@ export const HomeScreen = () => {
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
     const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
     const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top);
+    const topEdgeFadeProps = { height: safeAreaInsets.top + contentInsetTop, intensity: HomeScreenTopOverlayIntensity };
     const contentStackStyles = hasStoreIntent ? [styles.contentStack, styles.intentContentStack] : styles.contentStack;
     const playActions = (
         <HomeScreenPlayActions
