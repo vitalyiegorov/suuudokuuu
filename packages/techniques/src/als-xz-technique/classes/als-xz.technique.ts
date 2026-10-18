@@ -2,7 +2,6 @@ import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { CandidateContext } from '../../@generic/classes/candidate-context/candidate-context';
 import { SolutionTechniqueEnum } from '../../@generic/enums/solution-technique.enum';
-import { canSee } from '../../@generic/utils/can-see.util';
 import { createEliminationResults } from '../../@generic/utils/create-elimination-results.util';
 
 import type { TechniqueResultInterface } from '../../@generic/interfaces/technique-result.interface';
@@ -36,9 +35,7 @@ const getCandidateKey = (cell: CellInterface, value: number): number =>
     cell.y * candidateKeyRowMultiplier + cell.x * candidateKeyColumnMultiplier + value;
 
 const getValueSeers = (context: CandidateContext, valueCells: readonly CellInterface[], value: number): CellInterface[] =>
-    context
-        .getPeers(valueCells[0])
-        .filter(cell => context.getCandidates(cell).includes(value) && valueCells.every(valueCell => canSee(cell, valueCell)));
+    context.getCommonPeers(valueCells).filter(cell => context.getCandidates(cell).includes(value));
 
 const indexByCandidate = (almostLockedSets: readonly AlmostLockedSetInterface[]): Map<number, number[]> => {
     const setPositionsByCandidate = new Map<number, number[]>();
@@ -88,7 +85,7 @@ export class ALSXZTechnique implements TechniqueStrategyInterface {
                     const second = almostLockedSets[secondPosition];
 
                     if (linkCounts[secondPosition] === second.cellsByValue[restrictedValue].length) {
-                        results.push(...this.createResults(context, [first, second], restrictedValue));
+                        results.push(...this.createResults(context, first, second, restrictedValue));
                     }
 
                     linkCounts[secondPosition] = 0;
@@ -141,7 +138,8 @@ export class ALSXZTechnique implements TechniqueStrategyInterface {
 
     private createResults(
         context: CandidateContext,
-        [first, second]: readonly AlmostLockedSetInterface[],
+        first: AlmostLockedSetInterface,
+        second: AlmostLockedSetInterface,
         restrictedValue: number
     ): TechniqueResultInterface[] {
         if (first.cells.some(cell => second.cells.includes(cell))) {
