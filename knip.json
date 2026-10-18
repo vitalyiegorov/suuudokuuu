@@ -10,8 +10,7 @@
         "@lingui/format-po",
         "@expo/fingerprint",
         "babel-plugin-react-compiler",
-        "eas-build-cache-provider",
-        "serve"
+        "eas-build-cache-provider"
     ],
     "workspaces": {
         "packages/field-core": {

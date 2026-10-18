@@ -65,7 +65,7 @@
             "version": ">=22.22.1"
         },
         "react": {
-            "version": "19.3.1"
+            "version": "19.3.0"
         }
     },
     "ignorePatterns": [
