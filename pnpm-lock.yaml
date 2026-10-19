@@ -141,14 +141,14 @@ importers:
         specifier: 0.3.2
         version: 0.3.2(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
       '@rnw-community/react-native-collapsible-header':
-        specifier: ^2.28.2
-        version: 2.28.2(react-native-reanimated@4.7.1(react-native-worklets@0.13.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
+        specifier: ^2.29.0
+        version: 2.29.0(react-native-reanimated@4.7.1(react-native-worklets@0.13.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
       '@rnw-community/react-native-screen-chrome':
-        specifier: ^2.28.2
-        version: 2.28.2(5b573391924cf01fa691caab306db4e9)
+        specifier: ^2.29.1
+        version: 2.29.1(94ca3120e227f60ba285d881abe6ab05)
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       '@shopify/react-native-skia':
         specifier: 2.14.0
         version: 2.14.0(5aa890baaf257d7eea9fcc8c80e7143c)
@@ -332,7 +332,7 @@ importers:
     dependencies:
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       '@thi.ng/bitstream':
         specifier: ^2.4.55
         version: 2.4.55
@@ -357,7 +357,7 @@ importers:
     dependencies:
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       '@suuudokuuu/generator':
         specifier: workspace:*
         version: link:../generator
@@ -403,7 +403,7 @@ importers:
     dependencies:
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       '@suuudokuuu/field-core':
         specifier: workspace:*
         version: link:../field-core
@@ -431,7 +431,7 @@ importers:
     dependencies:
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       '@suuudokuuu/solver-bitmask':
         specifier: workspace:*
         version: link:../solver-bitmask
@@ -456,7 +456,7 @@ importers:
     dependencies:
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       '@suuudokuuu/solver-core':
         specifier: workspace:*
         version: link:../solver-core
@@ -496,7 +496,7 @@ importers:
         version: 6.10.0(@babel/core@7.29.7(supports-color@8.1.1))(babel-plugin-macros@3.1.0)(react@19.3.0)
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       '@suuudokuuu/encoder':
         specifier: workspace:*
         version: link:../encoder
@@ -609,7 +609,7 @@ importers:
     dependencies:
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       '@suuudokuuu/generator':
         specifier: workspace:*
         version: link:../generator
@@ -687,7 +687,7 @@ importers:
     dependencies:
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
     devDependencies:
       '@suuudokuuu/test-kit':
         specifier: workspace:*
@@ -706,7 +706,7 @@ importers:
     dependencies:
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       '@suuudokuuu/solver-core':
         specifier: workspace:*
         version: link:../solver-core
@@ -728,7 +728,7 @@ importers:
     dependencies:
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       '@suuudokuuu/generator':
         specifier: workspace:*
         version: link:../generator
@@ -750,7 +750,7 @@ importers:
     dependencies:
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       lucide-react-native:
         specifier: ^1.59.0
         version: 1.59.0(@types/react@19.3.0)(react-native-svg@15.16.0(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
@@ -787,7 +787,7 @@ importers:
     dependencies:
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       '@suuudokuuu/encoder':
         specifier: workspace:*
         version: link:../../packages/encoder
@@ -837,7 +837,7 @@ importers:
         version: 1.64.1
       '@rnw-community/shared':
         specifier: ^2.28.0
-        version: 2.28.0
+        version: 2.29.0
       '@suuudokuuu/app':
         specifier: workspace:*
         version: link:../../packages/app
@@ -3527,16 +3527,16 @@ packages:
     peerDependencies:
       eslint: ^9 || ^10
 
-  '@rnw-community/react-native-collapsible-header@2.28.2':
-    resolution: {integrity: sha512-pzjmi8Y47lFGJcZzCNkArk6H8wv9keFuBY3x1Fjxh5rMgWCl6kY6wblZeZ+GK2ruYrfUzV4yEirKyZT6DJEHPQ==}
+  '@rnw-community/react-native-collapsible-header@2.29.0':
+    resolution: {integrity: sha512-Z3xdhZOBWawIcuornykfmMWuTD6nnZcM+R9u2PagzlXMV+JdtZhwgvSbVXbhGdYX+LMQ4KbFa5CCnw3Y5zl+XA==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       react: '>=18'
-      react-native: '>=0.72'
-      react-native-reanimated: '>=3.17.2 <5'
+      react-native: '>=0.78'
+      react-native-reanimated: '>=4.1.0 <5'
 
-  '@rnw-community/react-native-screen-chrome@2.28.2':
-    resolution: {integrity: sha512-vNrr3B5NjIfdIU26ww8ENjnMcsH4E48hb1M8S04hPyCDoZioB7L4+qhhnp/WfzKJiNs28wEvZxonhs5o48XaDw==}
+  '@rnw-community/react-native-screen-chrome@2.29.1':
+    resolution: {integrity: sha512-rvIWnR4RY1Ual0GtmMxy1w4HjFYMm2A7Lx3E20pRhhzhwH7ZMLAYaECJyCjSA6LydTJU2FtNYOXJ7xIEgsGmdg==}
     engines: {node: '>=22.0.0'}
     peerDependencies:
       '@react-native-masked-view/masked-view': '>=0.3 <1'
@@ -3544,12 +3544,19 @@ packages:
       expo-blur: '>=55 <59'
       expo-linear-gradient: '>=55 <59'
       react: '>=18'
-      react-native: '>=0.72'
-      react-native-reanimated: '>=3.17.2 <5'
+      react-native: '>=0.78'
+      react-native-reanimated: '>=4.1.0 <5'
       react-native-safe-area-context: '>=4 <6'
+    peerDependenciesMeta:
+      '@react-native-masked-view/masked-view':
+        optional: true
+      expo-blur:
+        optional: true
+      expo-linear-gradient:
+        optional: true
 
-  '@rnw-community/shared@2.28.0':
-    resolution: {integrity: sha512-OImNr5lECIE8/4QXvN2X/PVUL0MW5SvKVMWPXHd36xuWY9fYhQVlSmH3Sow38DI4+pcJw/Fp4RDLtW3lk1bOsg==}
+  '@rnw-community/shared@2.29.0':
+    resolution: {integrity: sha512-O5sjLHRYgmSRVLI8qacKyOL5z+ezXPy4yHjqg6D2STIXhpv6xWnu/Y/INRyKg3uzNM/1upmuaXbg3qD0C3gZ4Q==}
     engines: {node: '>=22.0.0'}
 
   '@rolldown/binding-android-arm-eabi@1.2.12':
@@ -10852,27 +10859,28 @@ snapshots:
       - supports-color
       - typescript
 
-  '@rnw-community/react-native-collapsible-header@2.28.2(react-native-reanimated@4.7.1(react-native-worklets@0.13.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)':
+  '@rnw-community/react-native-collapsible-header@2.29.0(react-native-reanimated@4.7.1(react-native-worklets@0.13.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)':
     dependencies:
-      '@rnw-community/shared': 2.28.0
+      '@rnw-community/shared': 2.29.0
       react: 19.3.0
       react-compiler-runtime: 1.0.0(react@19.3.0)
       react-native: 0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1)
       react-native-reanimated: 4.7.1(react-native-worklets@0.13.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
 
-  '@rnw-community/react-native-screen-chrome@2.28.2(5b573391924cf01fa691caab306db4e9)':
+  '@rnw-community/react-native-screen-chrome@2.29.1(94ca3120e227f60ba285d881abe6ab05)':
     dependencies:
-      '@react-native-masked-view/masked-view': 0.3.2(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
-      '@rnw-community/react-native-collapsible-header': 2.28.2(react-native-reanimated@4.7.1(react-native-worklets@0.13.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
-      '@rnw-community/shared': 2.28.0
-      expo-blur: 58.0.4(expo@58.0.14)(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
-      expo-linear-gradient: 58.0.3(expo@58.0.14)(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
+      '@rnw-community/react-native-collapsible-header': 2.29.0(react-native-reanimated@4.7.1(react-native-worklets@0.13.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
+      '@rnw-community/shared': 2.29.0
       react: 19.3.0
       react-native: 0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1)
       react-native-reanimated: 4.7.1(react-native-worklets@0.13.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)(supports-color@8.1.1))(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
       react-native-safe-area-context: 5.10.1(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
+    optionalDependencies:
+      '@react-native-masked-view/masked-view': 0.3.2(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
+      expo-blur: 58.0.4(expo@58.0.14)(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
+      expo-linear-gradient: 58.0.3(expo@58.0.14)(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.0)(supports-color@8.1.1))(react@19.3.0)
 
-  '@rnw-community/shared@2.28.0': {}
+  '@rnw-community/shared@2.29.0': {}
 
   '@rolldown/binding-android-arm-eabi@1.2.12':
     optional: true
