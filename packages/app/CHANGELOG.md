@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.34.7](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.6...v2.34.7) (2026-10-19)
+
+### Bug Fixes
+
+* **app:** raise Gradle metaspace for in-process Kotlin release builds ([#667](https://github.com/vitalyiegorov/suuudokuuu/issues/667)) ([ca7ecbb](https://github.com/vitalyiegorov/suuudokuuu/commit/ca7ecbbc04090e7404278a4a9a438b10ef4f49da))
+
+
 ## [2.34.6](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.5...v2.34.6) (2026-10-19)
 
 **Note:** Version bump only for package @suuudokuuu/app
