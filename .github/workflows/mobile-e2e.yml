@@ -126,6 +126,8 @@ jobs:
             actions: read
         uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@validate/v4.1 # fleet-validation
         with:
+            # Fleet validation only: the cache backend uploads the 2.2 GB Gradle cache at ~1.2 MB/s today (30 min), which alone exhausts the default 60-minute build budget.
+            build-timeout-minutes: 90
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
             # app, its workspace dependencies or the Maestro suite changed, so a
