@@ -8,6 +8,8 @@ import { readJsonLdSchema } from '../../src/utils/json-ld.util';
 const spanishHomePath = '/es';
 const englishOnlyPagePath = '/techniques/x-wing';
 const narrowViewportWidth = 320;
+const phoneViewportWidth = 390;
+const desktopViewportWidth = 1280;
 
 test('serves the Spanish home page as a Spanish document in the home hreflang cluster', async ({ request }) => {
     const html = await fetchPageHtml(request, spanishHomePath);
@@ -20,7 +22,7 @@ test('serves the Spanish home page as a Spanish document in the home hreflang cl
     expect(readJsonLdSchema(html, 'WebSite')).toMatchObject({ url: `${SITE_ORIGIN}${spanishHomePath}`, inLanguage: 'es' });
 });
 
-test('offers the language switcher only on pages published in more than one language', async ({ page }) => {
+test('offers the language switcher on every page, linking each language to its translation or its home page', async ({ page }) => {
     await page.goto('/');
 
     const languages = page.getByRole('navigation', { name: 'Language' });
@@ -36,9 +38,26 @@ test('offers the language switcher only on pages published in more than one lang
     await expect(spanishLanguages.getByRole('link', { name: 'Español' })).toHaveAttribute('aria-current', 'page');
 
     await page.goto(englishOnlyPagePath);
+    await languages.locator('summary').click();
 
-    await expect(page.getByRole('navigation', { name: 'Language' })).toHaveCount(0);
+    await expect(languages.getByRole('link', { name: 'English' })).toHaveAttribute('aria-current', 'page');
+    await expect(languages.getByRole('link', { name: 'Español' })).toHaveAttribute('href', spanishHomePath);
 });
+
+for (const viewportWidth of [narrowViewportWidth, phoneViewportWidth, desktopViewportWidth]) {
+    test(`keeps the same header layout on translated and English-only pages at ${viewportWidth}px`, async ({ page }) => {
+        await page.setViewportSize({ width: viewportWidth, height: 800 });
+        await page.goto('/how-to-play');
+
+        const translatedHeaderBox = await page.locator('.site-header').boundingBox();
+        const translatedNavigationBox = await page.locator('.site-header__nav').boundingBox();
+
+        await page.goto(englishOnlyPagePath);
+
+        expect(await page.locator('.site-header').boundingBox()).toEqual(translatedHeaderBox);
+        expect(await page.locator('.site-header__nav').boundingBox()).toEqual(translatedNavigationBox);
+    });
+}
 
 for (const pagePath of ['/how-to-play', '/ar/how-to-play']) {
     test(`keeps the language menu inside a narrow viewport without moving the header on ${pagePath}`, async ({ page }) => {

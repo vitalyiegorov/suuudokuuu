@@ -51,25 +51,27 @@ export const SiteHeader = ({ locale }: Props) => {
                 <img alt="" className="site-header__mark" height={32} src="/brand/icon-64.png" width={32} />
                 {SITE_NAME}
             </Link>
-            <nav aria-label={t`Primary`} className="site-header__nav">
-                <Link href={buildLocalizedPagePath(howToPlayPageMetadata)}>
-                    <Trans>How to play</Trans>
-                </Link>
-                <Link href={buildLocalizedPagePath(techniquesPageMetadata)}>
-                    <Trans>Techniques</Trans>
-                </Link>
-                <Link href={buildLocalizedPagePath(sudokuDifficultiesPageMetadata)}>
-                    <Trans>Difficulty</Trans>
-                </Link>
-                <Link href={buildLocalizedPagePath(solverPageMetadata)}>
-                    <Trans>Solver</Trans>
-                </Link>
-                <Link href={buildLocalizedPagePath(printableSudokuPageMetadata)}>
-                    <Trans>Printable</Trans>
-                </Link>
-            </nav>
-            <div className="site-header__controls">
+            <div className="site-header__links">
+                <nav aria-label={t`Primary`} className="site-header__nav">
+                    <Link href={buildLocalizedPagePath(howToPlayPageMetadata)}>
+                        <Trans>How to play</Trans>
+                    </Link>
+                    <Link href={buildLocalizedPagePath(techniquesPageMetadata)}>
+                        <Trans>Techniques</Trans>
+                    </Link>
+                    <Link href={buildLocalizedPagePath(sudokuDifficultiesPageMetadata)}>
+                        <Trans>Difficulty</Trans>
+                    </Link>
+                    <Link href={buildLocalizedPagePath(solverPageMetadata)}>
+                        <Trans>Solver</Trans>
+                    </Link>
+                    <Link href={buildLocalizedPagePath(printableSudokuPageMetadata)}>
+                        <Trans>Printable</Trans>
+                    </Link>
+                </nav>
                 <LanguageSwitcher label={t`Language`} locale={locale} translatedPageGroups={TRANSLATED_PAGE_GROUPS} />
+            </div>
+            <div className="site-header__controls">
                 <ComfortControl label={t`Text size`} stepLabels={comfortStepLabels} />
                 <a className="site-header__play" href={SITE_PLAY_URL}>
                     <Trans>Play</Trans>
