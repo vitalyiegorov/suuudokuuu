@@ -21,7 +21,7 @@ jobs:
             app-dir: packages/app
             enable-ios: true
             enable-android: true
-            ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            ios-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             node-version: 22.x
             build-profile: development
             eas-cli-version: '20.5.1'
