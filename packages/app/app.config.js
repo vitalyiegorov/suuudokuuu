@@ -1,4 +1,4 @@
-import { withAndroidManifest } from 'expo/config-plugins';
+import { withAndroidManifest, withGradleProperties, withSettingsGradle } from 'expo/config-plugins';
 
 import { brandConfig } from './brand.config';
 import rootPkg from './package.json';
@@ -67,6 +67,41 @@ const withPortraitLockedAndroid = config =>
         return mod;
     });
 
+const AndroidBuildMemoryProperties = {
+    'org.gradle.jvmargs': '-Xmx2048m -XX:MaxMetaspaceSize=1024m',
+    'systemProp.org.gradle.project.kotlin.compiler.execution.strategy': 'in-process'
+};
+const SerialNativeCompileGradle = `
+gradle.beforeProject { subproject ->
+    ['com.android.application', 'com.android.library'].each { pluginId ->
+        subproject.pluginManager.withPlugin(pluginId) {
+            subproject.androidComponents.finalizeDsl { android ->
+                android.defaultConfig.externalNativeBuild.cmake.arguments.addAll(['-DCMAKE_JOB_POOLS=native_compile=1', '-DCMAKE_JOB_POOL_COMPILE=native_compile'])
+            }
+        }
+    }
+}
+`;
+
+const withAndroidBuildMemoryLimits = config =>
+    withSettingsGradle(
+        withGradleProperties(config, mod => {
+            mod.modResults = [
+                ...mod.modResults.filter(property => !(property.key in AndroidBuildMemoryProperties)),
+                ...Object.entries(AndroidBuildMemoryProperties).map(([key, value]) => ({ type: 'property', key, value }))
+            ];
+
+            return mod;
+        }),
+        mod => {
+            if (!mod.modResults.contents.includes(SerialNativeCompileGradle)) {
+                mod.modResults.contents += SerialNativeCompileGradle;
+            }
+
+            return mod;
+        }
+    );
+
 const getExpoDevClientConfig = () => ({
     showMenuAtLaunch: false,
     skipOnboarding: true,
@@ -78,122 +113,124 @@ const getExpoDevClientConfig = () => ({
 });
 
 export default ({ config }) =>
-    withPortraitLockedAndroid({
-        ...config,
-        name: getAppName(),
-        slug: brandConfig.slug,
-        scheme: brandConfig.scheme,
-        version: rootPkg.version,
-        icon: brandConfig.assets.icon,
-        userInterfaceStyle: 'automatic',
-        splash: {
-            image: brandConfig.assets.splash,
-            resizeMode: 'contain',
-            backgroundColor: brandConfig.splashBackgroundColor
-        },
-        assetBundlePatterns: ['**/*'],
-        ios: {
-            supportsTablet: true,
-            bundleIdentifier: getUniqueIdentifier(false),
-            ...(IS_DEV && DEVELOPMENT_BUILD_NUMBER !== undefined && { buildNumber: DEVELOPMENT_BUILD_NUMBER }),
-            config: {
-                usesNonExemptEncryption: false
-            },
-            associatedDomains: brandConfig.associatedDomains.map(domain => `applinks:${domain}`),
-            infoPlist: {
-                NSPhotoLibraryUsageDescription: 'This app needs access to your photo library to share game results and screenshots.',
-                UISupportedInterfaceOrientations: ['UIInterfaceOrientationPortrait'],
-                'UISupportedInterfaceOrientations~ipad': [
-                    'UIInterfaceOrientationPortrait',
-                    'UIInterfaceOrientationPortraitUpsideDown',
-                    'UIInterfaceOrientationLandscapeLeft',
-                    'UIInterfaceOrientationLandscapeRight'
-                ]
-            }
-        },
-        android: {
-            adaptiveIcon: {
-                foregroundImage: brandConfig.assets.adaptiveIcon,
+    withAndroidBuildMemoryLimits(
+        withPortraitLockedAndroid({
+            ...config,
+            name: getAppName(),
+            slug: brandConfig.slug,
+            scheme: brandConfig.scheme,
+            version: rootPkg.version,
+            icon: brandConfig.assets.icon,
+            userInterfaceStyle: 'automatic',
+            splash: {
+                image: brandConfig.assets.splash,
+                resizeMode: 'contain',
                 backgroundColor: brandConfig.splashBackgroundColor
             },
-            package: getUniqueIdentifier(true),
-            allowBackup: true,
-            blockedPermissions: ['android.permission.READ_MEDIA_IMAGES', 'android.permission.READ_MEDIA_VIDEO'],
-            intentFilters: [
-                {
-                    action: 'VIEW',
-                    autoVerify: true,
-                    data: [
-                        {
-                            scheme: 'https',
-                            host: `*.${getApexAssociatedDomain()}`,
-                            pathPrefix: '/'
-                        },
-                        {
-                            scheme: 'https',
-                            host: getApexAssociatedDomain(),
-                            pathPrefix: '/'
-                        }
-                    ],
-                    category: ['BROWSABLE', 'DEFAULT']
+            assetBundlePatterns: ['**/*'],
+            ios: {
+                supportsTablet: true,
+                bundleIdentifier: getUniqueIdentifier(false),
+                ...(IS_DEV && DEVELOPMENT_BUILD_NUMBER !== undefined && { buildNumber: DEVELOPMENT_BUILD_NUMBER }),
+                config: {
+                    usesNonExemptEncryption: false
+                },
+                associatedDomains: brandConfig.associatedDomains.map(domain => `applinks:${domain}`),
+                infoPlist: {
+                    NSPhotoLibraryUsageDescription: 'This app needs access to your photo library to share game results and screenshots.',
+                    UISupportedInterfaceOrientations: ['UIInterfaceOrientationPortrait'],
+                    'UISupportedInterfaceOrientations~ipad': [
+                        'UIInterfaceOrientationPortrait',
+                        'UIInterfaceOrientationPortraitUpsideDown',
+                        'UIInterfaceOrientationLandscapeLeft',
+                        'UIInterfaceOrientationLandscapeRight'
+                    ]
                 }
-            ]
-        },
-        web: {
-            favicon: brandConfig.assets.favicon,
-            bundler: 'metro'
-        },
-        extra: {
-            eas: {
-                projectId: '4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
             },
-            isE2E: IS_E2E || IS_STORE_CAPTURE,
-            brand: {
-                appName: brandConfig.appName,
-                defaultTheme: brandConfig.defaultTheme,
-                links: brandConfig.links
-            }
-        },
-        owner: 'vitalyiegorov',
-        updates: {
-            enabled: !IS_E2E,
-            url: 'https://u.expo.dev/4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
-        },
-        plugins: [
-            [
-                'expo-build-properties',
-                {
-                    buildReactNativeFromSource: false,
-                    useHermesV1: true,
-                    ...(IS_PRODUCTION && { android: { buildArchs: StoreBuildArchs } }),
-                    ios: {
-                        ccacheEnabled: true,
-                        usePrecompiledModules: true
+            android: {
+                adaptiveIcon: {
+                    foregroundImage: brandConfig.assets.adaptiveIcon,
+                    backgroundColor: brandConfig.splashBackgroundColor
+                },
+                package: getUniqueIdentifier(true),
+                allowBackup: true,
+                blockedPermissions: ['android.permission.READ_MEDIA_IMAGES', 'android.permission.READ_MEDIA_VIDEO'],
+                intentFilters: [
+                    {
+                        action: 'VIEW',
+                        autoVerify: true,
+                        data: [
+                            {
+                                scheme: 'https',
+                                host: `*.${getApexAssociatedDomain()}`,
+                                pathPrefix: '/'
+                            },
+                            {
+                                scheme: 'https',
+                                host: getApexAssociatedDomain(),
+                                pathPrefix: '/'
+                            }
+                        ],
+                        category: ['BROWSABLE', 'DEFAULT']
                     }
+                ]
+            },
+            web: {
+                favicon: brandConfig.assets.favicon,
+                bundler: 'metro'
+            },
+            extra: {
+                eas: {
+                    projectId: '4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
+                },
+                isE2E: IS_E2E || IS_STORE_CAPTURE,
+                brand: {
+                    appName: brandConfig.appName,
+                    defaultTheme: brandConfig.defaultTheme,
+                    links: brandConfig.links
                 }
+            },
+            owner: 'vitalyiegorov',
+            updates: {
+                enabled: !IS_E2E,
+                url: 'https://u.expo.dev/4a70028a-5f9e-4ab6-9389-82d8b8b6c833'
+            },
+            plugins: [
+                [
+                    'expo-build-properties',
+                    {
+                        buildReactNativeFromSource: false,
+                        useHermesV1: true,
+                        ...(IS_PRODUCTION && { android: { buildArchs: StoreBuildArchs } }),
+                        ios: {
+                            ccacheEnabled: true,
+                            usePrecompiledModules: true
+                        }
+                    }
+                ],
+                'expo-font',
+                'expo-localization',
+                'expo-sharing',
+                'expo-splash-screen',
+                'expo-sqlite',
+                'expo-status-bar',
+                ['expo-dev-client', getExpoDevClientConfig()],
+                ['expo-router', { origin: brandConfig.webOrigin }],
+                [
+                    'react-native-share',
+                    {
+                        ios: ['fb', 'instagram', 'twitter', 'tiktoksharesdk'],
+                        android: ['com.facebook.katana', 'com.instagram.android', 'com.twitter.android', 'com.zhiliaoapp.musically'],
+                        enableBase64ShareAndroid: false
+                    }
+                ]
             ],
-            'expo-font',
-            'expo-localization',
-            'expo-sharing',
-            'expo-splash-screen',
-            'expo-sqlite',
-            'expo-status-bar',
-            ['expo-dev-client', getExpoDevClientConfig()],
-            ['expo-router', { origin: brandConfig.webOrigin }],
-            [
-                'react-native-share',
-                {
-                    ios: ['fb', 'instagram', 'twitter', 'tiktoksharesdk'],
-                    android: ['com.facebook.katana', 'com.instagram.android', 'com.twitter.android', 'com.zhiliaoapp.musically'],
-                    enableBase64ShareAndroid: false
-                }
-            ]
-        ],
-        buildCacheProvider: 'eas',
-        experiments: {
-            reactCompiler: true
-        },
-        runtimeVersion: {
-            policy: 'fingerprint'
-        }
-    });
+            buildCacheProvider: 'eas',
+            experiments: {
+                reactCompiler: true
+            },
+            runtimeVersion: {
+                policy: 'fingerprint'
+            }
+        })
+    );
