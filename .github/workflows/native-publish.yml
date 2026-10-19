@@ -18,7 +18,7 @@ concurrency:
 jobs:
     publish:
         name: Build and submit
-        uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@3e9afaf1888bce8a3e4a70818d457ffa9de11d8d # v4.0.0
+        uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@85f0985c18f295f0e380a91370130905eeef997e # v4.2.0
         with:
             install-command: pnpm install --frozen-lockfile
             app-dir: packages/app
