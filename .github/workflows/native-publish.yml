@@ -28,7 +28,7 @@ jobs:
             lint-timeout-minutes: 60
             # An all-ABI lint run OOMs D8; scope the gate to the shipping variant.
             android-lint-gate-gradle-args: '-PreactNativeArchitectures=arm64-v8a --no-daemon'
-            ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            ios-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             # The release AAB builds on the Linux node like the e2e APK does, so it no
             # longer queues behind the iOS build on the shared Mac builder.
             android-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
