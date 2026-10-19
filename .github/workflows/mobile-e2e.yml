@@ -135,7 +135,6 @@ jobs:
                 docs/**
                 **/*.md
             trigger-paths: |
-                .github/scripts/android-native-memory.init.gradle
                 .github/workflows/mobile-e2e.yml
                 .github/workflows/pr.yml
                 patches/**
@@ -161,7 +160,6 @@ jobs:
             # x86_64-linux NDK), and 8 GiB is what keeps D8 from being OOM-killed.
             # The plan/repack job defaults to trf-linux-amd64-2x4 (no KVM, mobile-ci
             # v3.2.0), so it never queues behind emulator shards on this pool.
-            build-timeout-minutes: 90
             build-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             # `trf-linux-amd64-4x8` is the ONLY node-b profile granted /dev/kvm, so
             # this label is a hard requirement of the avd driver, not a preference.
@@ -189,7 +187,7 @@ jobs:
             # x86_64 only: the AVD boots an x86_64 system image, so every other ABI
             # is CMake time spent on a library nothing installs. The lint skips stay
             # - lint is a separate PR gate, not this pipeline's job.
-            gradle-args: '--init-script ../../../.github/scripts/android-native-memory.init.gradle --max-workers=1 -x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
+            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
             # Byte-identical to the iOS lane above and to seed-native-cache.yml.
             fingerprint-env: |
                 APP_VARIANT=e2e

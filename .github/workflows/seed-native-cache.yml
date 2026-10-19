@@ -66,7 +66,6 @@ jobs:
         with:
             install-command: pnpm install --frozen-lockfile
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
-            android-timeout-minutes: 90
             android-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             ios-targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
@@ -79,7 +78,7 @@ jobs:
             # gradle-args are part of the native key's toolchain segment, so a
             # warm-up that built another ABI set would publish under an address
             # the e2e pipeline never looks up.
-            gradle-args: '--init-script ../../../.github/scripts/android-native-memory.init.gradle --max-workers=1 -x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
+            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
             ios-cache-profile: suuudokuuu-ios-v2
             android-cache-profile: suuudokuuu-android-v1
             rct-use-prebuilt-rncore: true
