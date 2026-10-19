@@ -45,7 +45,7 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         flexShrink: 1,
         height: appLayoutScreenIsWide(rt.screen) ? '100%' : 'auto',
         justifyContent: 'center',
-        marginHorizontal: appLayoutScreenIsWide(rt.screen) ? 0 : GamePanelHorizontalPaddingConstant,
+        marginHorizontal: appLayoutScreenIsWide(rt.screen) ? 0 : 1,
         minHeight: 0,
         minWidth: 0
     },
@@ -56,12 +56,10 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
     toolsSlot: {
         alignItems: 'center',
         alignSelf: 'stretch',
-        flexGrow: 1,
-        flexShrink: 1,
+        flexShrink: 0,
         justifyContent: 'center',
-        minHeight: 0,
-        paddingBottom: gameGetControlsSlackHeight(rt.fontScale) / 2,
-        paddingTop: theme.spacing.sm + gameGetControlsSlackHeight(rt.fontScale) / 2
+        paddingBottom: theme.spacing.sm,
+        paddingTop: gameGetControlsSlackHeight(rt.fontScale)
     },
     panelArea: (boardSize: number) => {
         const isWideLayout = appLayoutScreenIsWide(rt.screen);
