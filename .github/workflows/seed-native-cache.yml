@@ -65,7 +65,7 @@ jobs:
         uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@3e9afaf1888bce8a3e4a70818d457ffa9de11d8d # v4.0.0
         with:
             install-command: pnpm install --frozen-lockfile
-            ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            ios-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             android-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
             ios-targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]

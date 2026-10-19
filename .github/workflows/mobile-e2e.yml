@@ -14,8 +14,8 @@ name: Mobile E2E
 # as the base for the next run. seed-native-cache.yml is the warm-up that keeps
 # that from ever being a pull request's problem.
 #
-# iOS still belongs to the Macs when it does build: the single `macos-builder`
-# VM, with its Maestro shards on `macos-maestro`. Android has left them
+# iOS still belongs to the Macs when it does build: its native build and its
+# Maestro shards both run on the 4 CPU/7 GB `macos-maestro` VMs. Android has left them
 # entirely - both its APK build and its Maestro run happen on node-b's x86_64
 # Linux `trf-linux-amd64-4x8` containers, against a KVM-accelerated Google AVD.
 on:
@@ -93,7 +93,7 @@ jobs:
             simulator-reduce-motion: 'true'
             xcode-version: '26.4.1'
             xcode-build: '17E202'
-            build-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
+            build-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             test-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             rct-use-prebuilt-rncore: true
             rct-use-rn-dep: true
