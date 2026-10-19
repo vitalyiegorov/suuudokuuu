@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.34.8](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.7...v2.34.8) (2026-10-19)
+
+### Bug Fixes
+
+* **landing:** keep the header layout stable across translated and English-only pages ([#669](https://github.com/vitalyiegorov/suuudokuuu/issues/669)) ([c3f0eee](https://github.com/vitalyiegorov/suuudokuuu/commit/c3f0eee514460f4b1a363bf71489f9b28f58c5a0))
+
+
 ## [2.34.6](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.5...v2.34.6) (2026-10-19)
 
 **Note:** Version bump only for package @suuudokuuu/landing
