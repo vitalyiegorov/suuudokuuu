@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/ui",
-    "version": "2.34.1",
+    "version": "2.34.6",
     "private": true,
     "sideEffects": false,
     "main": "src/index.ts",

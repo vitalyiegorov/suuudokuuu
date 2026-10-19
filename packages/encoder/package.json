@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/encoder",
-    "version": "2.30.0",
+    "version": "2.34.6",
     "private": true,
     "files": [
         "dist/**/*"
