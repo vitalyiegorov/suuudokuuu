@@ -62,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@3e9afaf1888bce8a3e4a70818d457ffa9de11d8d # v4.0.0
+        uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@85f0985c18f295f0e380a91370130905eeef997e # v4.2.0
         with:
             install-command: pnpm install --frozen-lockfile
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
@@ -74,11 +74,12 @@ jobs:
             xcode-version: '26.4.1'
             xcode-build: '17E202'
             gradle-task: ':app:assembleRelease'
-            # x86_64, matching mobile-e2e.yml's Android lane: gradle-task and
-            # gradle-args are part of the native key's toolchain segment, so a
-            # warm-up that built another ABI set would publish under an address
-            # the e2e pipeline never looks up.
-            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
+            # Byte-identical to mobile-e2e.yml's Android lane, and android-abis
+            # stays on auto in both (x86_64 for the avd driver): gradle-task,
+            # gradle-args and the resolved ABIs are part of the native key's
+            # toolchain segment, so a warm-up that built anything else would
+            # publish under an address the e2e pipeline never looks up.
+            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease'
             ios-cache-profile: suuudokuuu-ios-v2
             android-cache-profile: suuudokuuu-android-v1
             rct-use-prebuilt-rncore: true
@@ -94,4 +95,3 @@ jobs:
             force-base: ${{ inputs.force-base || false }}
             build-env: |
                 APP_VARIANT=e2e
-                ORG_GRADLE_PROJECT_reactNativeArchitectures=x86_64
