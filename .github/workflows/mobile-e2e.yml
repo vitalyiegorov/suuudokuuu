@@ -62,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@3e9afaf1888bce8a3e4a70818d457ffa9de11d8d # v4.0.0
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@85f0985c18f295f0e380a91370130905eeef997e # v4.2.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -124,7 +124,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@3e9afaf1888bce8a3e4a70818d457ffa9de11d8d # v4.0.0
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@85f0985c18f295f0e380a91370130905eeef997e # v4.2.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -184,10 +184,9 @@ jobs:
             # unreclaimable memory for a device the flows were never written for.
             emulator-profile: Nexus 4
             gradle-task: ':app:assembleRelease'
-            # x86_64 only: the AVD boots an x86_64 system image, so every other ABI
-            # is CMake time spent on a library nothing installs. The lint skips stay
-            # - lint is a separate PR gate, not this pipeline's job.
-            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease -PreactNativeArchitectures=x86_64'
+            # android-abis: auto builds only the AVD's x86_64 ABI. The lint skips
+            # stay - lint is a separate PR gate, not this pipeline's job.
+            gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease'
             # Byte-identical to the iOS lane above and to seed-native-cache.yml.
             fingerprint-env: |
                 APP_VARIANT=e2e
@@ -206,7 +205,6 @@ jobs:
             # JAVA_HOME itself, unlike the macOS builder this job came from.
             build-env: |
                 APP_VARIANT=e2e
-                ORG_GRADLE_PROJECT_reactNativeArchitectures=x86_64
 
     android-capture-smoke:
         name: Android store capture smoke
@@ -240,7 +238,7 @@ jobs:
 
             - name: Start the Android capture emulator
               id: emulator
-              uses: rnw-community/mobile-ci/actions/android-emulator@3e9afaf1888bce8a3e4a70818d457ffa9de11d8d # v4.0.0
+              uses: rnw-community/mobile-ci/actions/android-emulator@85f0985c18f295f0e380a91370130905eeef997e # v4.2.0
               with:
                   mode: start
                   api-level: 34
@@ -263,7 +261,7 @@ jobs:
 
             - name: Stop the Android capture emulator
               if: always()
-              uses: rnw-community/mobile-ci/actions/android-emulator@3e9afaf1888bce8a3e4a70818d457ffa9de11d8d # v4.0.0
+              uses: rnw-community/mobile-ci/actions/android-emulator@85f0985c18f295f0e380a91370130905eeef997e # v4.2.0
               with:
                   mode: stop
 
