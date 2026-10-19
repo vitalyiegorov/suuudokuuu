@@ -19,7 +19,7 @@ jobs:
         with:
             install-command: pnpm install --frozen-lockfile
             app-dir: packages/app
-            enable-ios: true
+            enable-ios: false
             enable-android: true
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             node-version: 22.x
