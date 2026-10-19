@@ -67,8 +67,7 @@ jobs:
             install-command: pnpm install --frozen-lockfile
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-builder"]'
             android-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
-            ios-targets: >-
-                [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
+            ios-targets: '[]'
             android-targets: >-
                 [{"name":"e2e","appDir":"packages/app","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
             xcode-version: '26.4.1'
