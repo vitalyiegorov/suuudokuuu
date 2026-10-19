@@ -67,7 +67,10 @@ const withPortraitLockedAndroid = config =>
         return mod;
     });
 
-const InProcessKotlinCompilerProperty = 'systemProp.org.gradle.project.kotlin.compiler.execution.strategy';
+const AndroidBuildMemoryProperties = {
+    'org.gradle.jvmargs': '-Xmx2048m -XX:MaxMetaspaceSize=1024m',
+    'systemProp.org.gradle.project.kotlin.compiler.execution.strategy': 'in-process'
+};
 const SerialNativeCompileGradle = `
 gradle.beforeProject { subproject ->
     ['com.android.application', 'com.android.library'].each { pluginId ->
@@ -84,8 +87,8 @@ const withAndroidBuildMemoryLimits = config =>
     withSettingsGradle(
         withGradleProperties(config, mod => {
             mod.modResults = [
-                ...mod.modResults.filter(property => property.key !== InProcessKotlinCompilerProperty),
-                { type: 'property', key: InProcessKotlinCompilerProperty, value: 'in-process' }
+                ...mod.modResults.filter(property => !(property.key in AndroidBuildMemoryProperties)),
+                ...Object.entries(AndroidBuildMemoryProperties).map(([key, value]) => ({ type: 'property', key, value }))
             ];
 
             return mod;
