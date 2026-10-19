@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { LOCALE_NAMES } from '../../../seo/constants/site.constant';
+import { LOCALE_NAMES, SUPPORTED_LOCALES } from '../../../seo/constants/site.constant';
 import { buildLocalePath } from '../../../seo/utils/build-locale-path.util';
 import { LanguageSwitcherLink } from '../language-switcher-link/language-switcher-link';
 
@@ -21,23 +21,26 @@ export const LanguageSwitcher = ({ label, locale, translatedPageGroups }: Props)
     const pathname = usePathname();
     const pathWithoutLocale = pathname.slice(buildLocalePath(locale, '').length);
     const pagePath = isNotEmptyString(pathWithoutLocale) ? pathWithoutLocale : '/';
-    const pageLocales = translatedPageGroups.find(({ paths }) => paths.includes(pagePath))?.locales ?? [];
-
-    if (pageLocales.length < 2) {
-        return null;
-    }
+    const pageLocales = translatedPageGroups.find(({ paths }) => paths.includes(pagePath))?.locales ?? [locale];
+    const getLocaleHref = (linkLocale: LocaleType) => buildLocalePath(linkLocale, pageLocales.includes(linkLocale) ? pagePath : '/');
 
     return (
         <nav aria-label={label} className="language-switcher">
             <details className="language-switcher__menu">
-                <summary className="language-switcher__current">{LOCALE_NAMES[locale]}</summary>
+                <summary aria-label={LOCALE_NAMES[locale]} className="language-switcher__current">
+                    <svg aria-hidden className="language-switcher__icon" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="9" />
+                        <path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9s1.3-6.4 3.8-9Z" />
+                    </svg>
+                    {locale.toUpperCase()}
+                </summary>
                 <ul className="language-switcher__list">
-                    {pageLocales.map(pageLocale => (
+                    {SUPPORTED_LOCALES.map(linkLocale => (
                         <LanguageSwitcherLink
-                            href={buildLocalePath(pageLocale, pagePath)}
-                            isCurrent={pageLocale === locale}
-                            key={pageLocale}
-                            locale={pageLocale}
+                            href={getLocaleHref(linkLocale)}
+                            isCurrent={linkLocale === locale}
+                            key={linkLocale}
+                            locale={linkLocale}
                         />
                     ))}
                 </ul>
