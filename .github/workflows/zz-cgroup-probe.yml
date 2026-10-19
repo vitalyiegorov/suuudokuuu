@@ -1,0 +1,37 @@
+name: cgroup probe (scratch)
+on:
+    push:
+        branches: [ci/mobile-ci-cgroup-probe]
+permissions:
+    contents: read
+jobs:
+    probe:
+        runs-on: [self-hosted, trf-linux-amd64-4x8]
+        timeout-minutes: 15
+        steps:
+            - name: Probe
+              shell: bash
+              run: |
+                  set -x
+                  nproc || true
+                  getconf _NPROCESSORS_ONLN || true
+                  grep -c ^processor /proc/cpuinfo || true
+                  taskset -p $$ || true
+                  grep Cpus_allowed_list /proc/self/status || true
+                  cat /proc/self/cgroup || true
+                  for f in cpu.max memory.max memory.high memory.swap.max memory.current memory.peak cpuset.cpus.effective pids.max cgroup.controllers; do printf '%s: ' "$f"; cat "/sys/fs/cgroup/$f" 2>&1 || true; done
+                  head -5 /proc/meminfo
+                  nproc --version | head -1 || true
+                  java -version 2>&1 || true
+                  java -XX:+PrintFlagsFinal -version 2>/dev/null | grep -E "MaxHeapSize|ActiveProcessorCount" || true
+                  java -Xlog:os+container=info -version 2>&1 | head -20 || true
+                  echo "ANDROID_SDK_ROOT=${ANDROID_SDK_ROOT:-} ANDROID_HOME=${ANDROID_HOME:-}"
+                  ls "${ANDROID_SDK_ROOT:-/opt/android-sdk}" "${ANDROID_SDK_ROOT:-/opt/android-sdk}/cmake" 2>&1 || true
+                  command -v flock ninja cmake || true
+                  cd "$RUNNER_TEMP"
+                  curl -sfLo cmake.zip https://dl.google.com/android/repository/cmake-3.22.1-linux.zip
+                  unzip -q cmake.zip -d sdkcmake
+                  ls sdkcmake sdkcmake/bin
+                  sdkcmake/bin/ninja --version
+                  sdkcmake/bin/ninja -h 2>&1 | grep -- '-j N' || true
+                  uname -a
