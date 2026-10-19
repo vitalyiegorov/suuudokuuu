@@ -53,6 +53,8 @@ concurrency:
 jobs:
     ios:
         name: iOS Maestro E2E
+        # Fleet validation only: the Mac pool is congested and iOS is already validated.
+        if: false
         # A reusable workflow can only narrow the token its caller grants, never
         # widen it. Without these three scopes the plan job cannot read the base
         # binary and a main run cannot publish one, so every run silently falls
