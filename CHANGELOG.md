@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.35.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.8...v2.35.0) (2026-10-20)
+
+### Features
+
+* **app:** larger lower board with a technique pill in every run ([#671](https://github.com/vitalyiegorov/suuudokuuu/issues/671)) ([0fe9641](https://github.com/vitalyiegorov/suuudokuuu/commit/0fe96413a0fb50e3c2ffd4cfbbae8b748fe8a85f))
+
+
 ## [2.34.8](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.34.7...v2.34.8) (2026-10-19)
 
 ### Bug Fixes
