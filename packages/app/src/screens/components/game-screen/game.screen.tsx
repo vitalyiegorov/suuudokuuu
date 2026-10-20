@@ -38,6 +38,7 @@ import { GameNumpadStyles as numpadStyles } from './game-numpad/game-numpad.styl
 import { GameScreenSelectors } from './game-screen.selectors';
 import { GameScreenStyles as styles } from './game-screen.styles';
 import { GameStatusBlock } from './game-status-block/game-status-block';
+import { GameTechniqueBadge } from './game-technique-badge/game-technique-badge';
 import { useGameEngineEvents } from './hooks/use-game-engine-events.hook';
 
 import type { AvailableValuesItemRef } from '../../../game/components/available-values-item/available-values-item';
@@ -172,7 +173,7 @@ export const GameScreen = () => {
     );
     const challengeHudContent = hasRival ? <ChallengeRaceHud /> : <ChallengeRecordHud />;
     const challengeRecorder = isChallengeRun ? <ChallengeScreenshotRecorder /> : null;
-    const challengeHud = isChallengeRun ? challengeHudContent : null;
+    const runHud = isChallengeRun ? challengeHudContent : <GameTechniqueBadge />;
     const isGameRowReversed = isLeftHanded !== i18nIsRightToLeftLocale(i18n.locale);
 
     return (
@@ -194,7 +195,7 @@ export const GameScreen = () => {
                 </View>
             )}
 
-            {isWideLayout ? null : challengeHud}
+            {isWideLayout ? null : runHud}
 
             <View style={styles.gameRow(isGameRowReversed)}>
                 <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
@@ -212,7 +213,7 @@ export const GameScreen = () => {
                 <View style={styles.panelArea(boardSize)}>
                     {isWideLayout ? statusBlock : null}
 
-                    {isWideLayout ? challengeHud : null}
+                    {isWideLayout ? runHud : null}
 
                     <View {...(isWideLayout && { onLayout: handleControlsLayout })} style={styles.panelInputArea}>
                         {isWideLayout ? (

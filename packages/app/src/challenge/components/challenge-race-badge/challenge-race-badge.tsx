@@ -11,6 +11,7 @@ import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook'
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { TechniqueGlyph } from '../technique-glyph/technique-glyph';
 
+import { ChallengeRaceBadgeSelectors } from './challenge-race-badge.selectors';
 import { ChallengeRaceBadgeStyles as styles } from './challenge-race-badge.styles';
 
 import type { ChallengeTechniqueEventInterface } from '../../interfaces/challenge-technique-event.interface';
@@ -46,7 +47,12 @@ export const ChallengeRaceBadge = ({ events, elapsedTime }: Props) => {
     const enteringProps = isMotionReduced ? {} : { entering: FadeIn.duration(ENTER_DURATION_MS) };
 
     return (
-        <Animated.View key={`${latestEvent.technique}-${techniqueCount}`} style={badgeStyle} {...enteringProps}>
+        <Animated.View
+            key={`${latestEvent.technique}-${techniqueCount}`}
+            style={badgeStyle}
+            testID={ChallengeRaceBadgeSelectors.Root}
+            {...enteringProps}
+        >
             <TechniqueGlyph
                 accentColor={theme.colors.danger}
                 dimColor={theme.colors.text.hint}

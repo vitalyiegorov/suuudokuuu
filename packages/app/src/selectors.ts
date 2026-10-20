@@ -7,6 +7,7 @@ export * from './challenge/components/challenge-accept-screen/challenge-accept-s
 export * from './challenge/components/challenge-away-bands/challenge-away-bands.selectors';
 export * from './challenge/components/challenge-conditions-row/challenge-conditions-row.selectors';
 export * from './challenge/components/challenge-mode-switch/challenge-mode-switch.selectors';
+export * from './challenge/components/challenge-race-badge/challenge-race-badge.selectors';
 export * from './challenge/components/challenge-race-hud/challenge-race-hud.selectors';
 export * from './challenge/components/challenge-record-hud/challenge-record-hud.selectors';
 export * from './challenge/components/challenge-run-stats/challenge-run-stats.selectors';
