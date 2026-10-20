@@ -26,6 +26,7 @@ jobs:
             enable-android: true
             android-lint-gate: true
             lint-timeout-minutes: 60
+            android-lint-gate-gradle-cache: false
             # An all-ABI lint run OOMs D8; scope the gate to the shipping variant.
             android-lint-gate-gradle-args: '-PreactNativeArchitectures=arm64-v8a --no-daemon'
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
