@@ -1,4 +1,4 @@
-import { withAndroidManifest, withGradleProperties, withSettingsGradle } from 'expo/config-plugins';
+import { withAndroidManifest, withGradleProperties } from 'expo/config-plugins';
 
 import { brandConfig } from './brand.config';
 import rootPkg from './package.json';
@@ -67,40 +67,17 @@ const withPortraitLockedAndroid = config =>
         return mod;
     });
 
-const AndroidBuildMemoryProperties = {
-    'org.gradle.jvmargs': '-Xmx2048m -XX:MaxMetaspaceSize=1024m',
-    'systemProp.org.gradle.project.kotlin.compiler.execution.strategy': 'in-process'
-};
-const SerialNativeCompileGradle = `
-gradle.beforeProject { subproject ->
-    ['com.android.application', 'com.android.library'].each { pluginId ->
-        subproject.pluginManager.withPlugin(pluginId) {
-            subproject.androidComponents.finalizeDsl { android ->
-                android.defaultConfig.externalNativeBuild.cmake.arguments.addAll(['-DCMAKE_JOB_POOLS=native_compile=1', '-DCMAKE_JOB_POOL_COMPILE=native_compile'])
-            }
-        }
-    }
-}
-`;
+const GradleJvmArgs = '-Xmx2048m -XX:MaxMetaspaceSize=1024m';
 
-const withAndroidBuildMemoryLimits = config =>
-    withSettingsGradle(
-        withGradleProperties(config, mod => {
-            mod.modResults = [
-                ...mod.modResults.filter(property => !(property.key in AndroidBuildMemoryProperties)),
-                ...Object.entries(AndroidBuildMemoryProperties).map(([key, value]) => ({ type: 'property', key, value }))
-            ];
+const withGradleMetaspace = config =>
+    withGradleProperties(config, mod => {
+        mod.modResults = [
+            ...mod.modResults.filter(property => property.key !== 'org.gradle.jvmargs'),
+            { type: 'property', key: 'org.gradle.jvmargs', value: GradleJvmArgs }
+        ];
 
-            return mod;
-        }),
-        mod => {
-            if (!mod.modResults.contents.includes(SerialNativeCompileGradle)) {
-                mod.modResults.contents += SerialNativeCompileGradle;
-            }
-
-            return mod;
-        }
-    );
+        return mod;
+    });
 
 const getExpoDevClientConfig = () => ({
     showMenuAtLaunch: false,
@@ -113,7 +90,7 @@ const getExpoDevClientConfig = () => ({
 });
 
 export default ({ config }) =>
-    withAndroidBuildMemoryLimits(
+    withGradleMetaspace(
         withPortraitLockedAndroid({
             ...config,
             name: getAppName(),
