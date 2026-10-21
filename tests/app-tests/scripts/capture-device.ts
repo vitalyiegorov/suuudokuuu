@@ -44,11 +44,12 @@ const applyAndroidStatusBarOverride = (context: DeviceContext): void => {
     spawnSync('adb', [...serialArguments, 'shell', 'settings', 'put', 'global', 'sysui_demo_allowed', '1']);
 
     const demoCommands = [
+        ['command', 'exit'],
         ['command', 'enter'],
         ['command', 'clock', '-e', 'hhmm', '0941'],
         ['command', 'battery', '-e', 'level', '100', '-e', 'plugged', 'false'],
-        ['command', 'network', '-e', 'wifi', 'show', '-e', 'level', '4'],
-        ['command', 'network', '-e', 'mobile', 'show', '-e', 'level', '4', '-e', 'datatype', 'none'],
+        ['command', 'network', '-e', 'wifi', 'show', '-e', 'level', '4', '-e', 'fully', 'true'],
+        ['command', 'network', '-e', 'mobile', 'hide'],
         ['command', 'notifications', '-e', 'visible', 'false']
     ];
 
