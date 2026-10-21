@@ -16,6 +16,10 @@ on:
                 description: 'Only print the plan; change nothing in the stores'
                 type: boolean
                 default: true
+            ios_version:
+                description: 'iOS marketing version to submit (empty reads packages/app/package.json; set it when the last native build predates later OTA-only version bumps)'
+                type: string
+                default: ''
             android_rollout:
                 description: 'Google Play rollout fraction (1 completes the release)'
                 type: string
@@ -39,6 +43,7 @@ jobs:
             dry-run: ${{ inputs.dry_run }}
             version-file: packages/app/package.json
             ios-app-id: '6449440933'
+            ios-version: ${{ inputs.ios_version }}
             ios-release-type: AFTER_APPROVAL
             android-package: com.vitaliiyehorov.suuudokuuu
             android-from-track: internal
