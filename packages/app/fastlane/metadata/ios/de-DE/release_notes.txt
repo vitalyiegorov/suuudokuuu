@@ -1,7 +1,8 @@
-Hinweise, die etwas beibringen.
+Schlauere Hinweise, größeres Brett.
 
-• Hinweise sind jetzt ein kompaktes Schritt-für-Schritt-Panel mit Zurück, Weiter und einem klaren „Antwort zeigen“. Das Spielfeld bleibt in voller Größe, und dein offener Hinweis übersteht eine Pause.
-• Mit Hinweis gesetzte Züge sind im Replay markiert, und Verlaufskarten zeigen, wie viele Hinweise du genutzt hast.
-• Hinweise gibt es jetzt auch bei den schwersten Rätseln.
-• Eingaben per externer Tastatur sind auf iPhone und iPad zuverlässiger.
-• Ketten- und Verzweigungslinien auf dem Spielfeld sind besser lesbar.
+• Hinweise erklären jetzt Schritt für Schritt, mit Zurück, Weiter und Antwort zeigen, und ein Ladekreis erscheint, während ein Hinweis gesucht wird. Auch die schwersten Rätsel bekommen Hinweise.
+• Neue Techniken: Leeres Rechteck, Sue de Coq und ALS-XZ werden erkannt und in den Hinweisen erklärt.
+• Das Brett ist auf dem Handy größer, und eine Technik-Pille zeigt in jedem Spiel deine zuletzt genutzte Technik.
+• Exportiere deine Spiele, Statistiken und Themen als Sicherung in eine Datei und importiere sie auf einem anderen Gerät.
+• Der Timer folgt der echten Uhrzeit, damit Ergebnisse fair bleiben, und der Ergebnisbildschirm öffnet sich sofort.
+• Mit Hinweis gesetzte Züge sind in der Wiederholung markiert, und die Randunschärfe auf iOS ist zurück.

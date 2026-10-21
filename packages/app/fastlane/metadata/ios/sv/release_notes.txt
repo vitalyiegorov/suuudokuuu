@@ -1,7 +1,8 @@
-Tips som lär ut.
+Smartare ledtrådar, större bräde.
 
-• Tipsen är nu en kompakt panel steg för steg med Bakåt, Nästa och ett tydligt "Visa svaret". Brädet behåller sin fulla storlek och ditt öppna tips överlever en paus.
-• Drag som gjorts med ett tips märks i repriserna, och historikkorten visar hur många tips du använde.
-• Tips finns nu också på de svåraste pusslen.
-• Externt tangentbord fungerar mer pålitligt på iPhone och iPad.
-• Kedje- och grenlänkar på brädet är lättare att läsa.
+• Ledtrådar lär nu ut steg för steg, med Tillbaka, Nästa och Visa svaret, och en laddningsindikator medan en ledtråd söks. Även de svåraste pusslen har ledtrådar.
+• Nya tekniker: Tom rektangel, Sue de Coq och ALS-XZ upptäcks och förklaras i ledtrådarna.
+• Brädet är större på mobilen, och en teknikpill visar din senaste teknik i varje spel.
+• Exportera dina spel, din statistik och dina teman som säkerhetskopia och importera dem på en annan enhet.
+• Timern följer den riktiga klockan så att poängen blir rättvisa, och resultatskärmen öppnas direkt.
+• Drag gjorda med ledtråd märks i repris, och kantsuddet på iOS är tillbaka.

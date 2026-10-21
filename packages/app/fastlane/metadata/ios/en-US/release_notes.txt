@@ -1,7 +1,8 @@
-Hints that teach.
+Smarter hints, a bigger board.
 
-• Hints are now a compact step-by-step panel with Back, Next and a clear Show answer. The board stays full size, and your open hint survives a pause.
-• Moves placed with a hint are badged in the replay, and history cards show how many hints you used.
-• Hints are now on for the hardest puzzles too.
-• Hardware keyboard input is more reliable on iPhone and iPad.
-• Chain and branch links on the board are easier to read.
+• Hints now teach step by step, with Back, Next and Show answer, and a spinner while a hint is found. The hardest puzzles get hints too.
+• New techniques: Empty Rectangle, Sue de Coq and ALS-XZ are spotted and explained in hints.
+• The board is bigger on phones, and a technique pill shows your latest technique in every run.
+• Back up your games, statistics and themes to a file, and import them on another device.
+• The timer follows the wall clock so scores stay fair, and the result screen opens right away.
+• Moves placed with a hint are badged in the replay, and the iOS edge blur is back.

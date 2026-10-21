@@ -1,4 +1,6 @@
-Tips som lär ut: kompakt panel med Bakåt, Nästa och Visa svaret.
-Ditt öppna tips överlever en paus.
-Drag med tips märks i repriser och historiken visar antalet tips.
-Tips finns även på de svåraste pusslen.
+Smartare ledtrådar, större bräde.
+Ledtrådar steg för steg med Tillbaka, Nästa och Visa svaret, även för de svåraste pusslen.
+Nya tekniker: Tom rektangel, Sue de Coq, ALS-XZ.
+Större bräde och teknikpill i varje spel.
+Säkerhetskopia: exportera och importera spel, statistik och teman.
+Rättvisare timer och direkt resultat.

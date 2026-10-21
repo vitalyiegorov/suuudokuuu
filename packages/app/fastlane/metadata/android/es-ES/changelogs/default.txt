@@ -1,4 +1,6 @@
-Las pistas ahora enseñan: panel compacto con Atrás, Siguiente y Mostrar respuesta.
-Tu pista abierta sobrevive a una pausa.
-Las jugadas con pista llevan insignia en la repetición y el historial cuenta las pistas.
-Pistas activadas también en los puzles más difíciles.
+Sugerencias más listas, tablero más grande.
+Sugerencias paso a paso con Atrás, Siguiente y Mostrar respuesta, también en los puzles más difíciles.
+Técnicas nuevas: Rectángulo vacío, Sue de Coq, ALS-XZ.
+Tablero más grande y etiqueta de técnica en cada juego.
+Copia de seguridad: exporta e importa partidas, estadísticas y temas.
+Temporizador más justo y resultado al instante.

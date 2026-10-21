@@ -1,8 +1,8 @@
-Sugerencias que enseñan paso a paso, partidas nuevas más rápidas y un juego con teclado más fluido.
+Sugerencias más listas, tablero más grande.
 
-• Las sugerencias ahora se abren en cuatro pasos: primero la técnica y dónde mirar, luego las celdas clave, después un recorrido guiado y, solo al final, la jugada. Cada paso cuesta una cuarta parte de una sugerencia completa, así que solo pagas la ayuda que usas.
-• Las sugerencias van directo al siguiente dígito que puedes colocar. Las de pares apuntadores, región-línea y subconjuntos ahora indican la región, fila o columna exacta y las celdas que despejan.
-• Continuar y Revelar funcionan en todas las diapositivas de una sugerencia.
-• Los puzles nuevos se generan en segundo plano, así que iniciar incluso la partida más difícil ya no congela la app.
-• Jugar con un teclado físico en iPhone y iPad ya no mantiene ocupado el procesador.
-• Los enlaces de la App Store y de nuestro sitio web abren la app con una dificultad adecuada lista para empezar.
+• Las sugerencias ahora enseñan paso a paso, con Atrás, Siguiente y Mostrar respuesta, y un indicador de carga mientras se busca una. Los puzles más difíciles también las tienen.
+• Técnicas nuevas: Rectángulo vacío, Sue de Coq y ALS-XZ se detectan y se explican en las sugerencias.
+• El tablero es más grande en el móvil y una etiqueta de técnica muestra la última que usaste en cada juego.
+• Exporta tus partidas, estadísticas y temas en una copia de seguridad e impórtala en otro dispositivo.
+• El temporizador sigue el reloj real para que las puntuaciones sean justas, y la pantalla de resultado se abre al instante.
+• Los movimientos hechos con sugerencia llevan una marca en la repetición, y el desenfoque de bordes en iOS ha vuelto.

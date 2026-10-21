@@ -1,4 +1,6 @@
-Petunjuk yang mengajar: panel ringkas dengan Kembali, Berikutnya, dan Tampilkan jawaban.
-Petunjuk yang terbuka tetap ada saat dijeda.
-Langkah dengan petunjuk diberi lencana di tayangan ulang, riwayat menampilkan jumlahnya.
-Petunjuk juga aktif untuk teka-teki tersulit.
+Petunjuk lebih pintar, papan lebih besar.
+Petunjuk langkah demi langkah dengan Kembali, Berikutnya, dan Tampilkan jawaban, juga untuk teka-teki tersulit.
+Teknik baru: Persegi Panjang Kosong, Sue de Coq, ALS-XZ.
+Papan lebih besar dan pil teknik di setiap permainan.
+Cadangan: ekspor dan impor permainan, statistik, dan tema.
+Timer lebih adil dan hasil langsung tampil.

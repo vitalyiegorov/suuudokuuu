@@ -1,7 +1,8 @@
-Des indices qui enseignent.
+Des indices plus malins, un plateau plus grand.
 
-• Les indices prennent la forme d'un panneau compact, pas à pas, avec Retour, Suivant et un « Afficher la réponse » clair. La grille garde sa taille complète et votre indice ouvert survit à une pause.
-• Les coups joués avec un indice sont signalés dans le replay, et les cartes d'historique indiquent le nombre d'indices utilisés.
-• Les indices sont désormais aussi actifs sur les grilles les plus difficiles.
-• Le clavier physique est plus fiable sur iPhone et iPad.
-• Les liens de chaînes et de branches sur la grille sont plus lisibles.
+• Les indices expliquent désormais pas à pas, avec Retour, Suivant et Afficher la réponse, et un indicateur de chargement pendant la recherche. Les grilles les plus difficiles en bénéficient aussi.
+• Nouvelles techniques : Rectangle vide, Sue de Coq et ALS-XZ sont repérées et expliquées dans les indices.
+• Le plateau est plus grand sur téléphone, et une pastille de technique affiche la dernière utilisée à chaque jeu.
+• Exportez vos parties, statistiques et thèmes dans une sauvegarde et importez-la sur un autre appareil.
+• Le chronomètre suit l’horloge réelle pour des scores équitables, et l’écran de résultat s’ouvre aussitôt.
+• Les coups placés avec un indice sont signalés dans la relecture, et le flou des bords revient sur iOS.
