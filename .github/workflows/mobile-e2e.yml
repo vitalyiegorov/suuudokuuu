@@ -62,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@c45b9b0e1cc8e841a9d1f1df5f8a9acaa422ce19 # v4.3.1
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -124,7 +124,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@c45b9b0e1cc8e841a9d1f1df5f8a9acaa422ce19 # v4.3.1
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
         with:
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
@@ -238,7 +238,7 @@ jobs:
 
             - name: Start the Android capture emulator
               id: emulator
-              uses: rnw-community/mobile-ci/actions/android-emulator@c45b9b0e1cc8e841a9d1f1df5f8a9acaa422ce19 # v4.3.1
+              uses: rnw-community/mobile-ci/actions/android-emulator@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
               with:
                   mode: start
                   api-level: 34
@@ -261,7 +261,7 @@ jobs:
 
             - name: Stop the Android capture emulator
               if: always()
-              uses: rnw-community/mobile-ci/actions/android-emulator@c45b9b0e1cc8e841a9d1f1df5f8a9acaa422ce19 # v4.3.1
+              uses: rnw-community/mobile-ci/actions/android-emulator@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
               with:
                   mode: stop
 
