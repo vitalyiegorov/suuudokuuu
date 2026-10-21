@@ -1,6 +1,6 @@
 Smartare ledtrådar, större bräde.
 
-• Ledtrådar lär nu ut steg för steg, med Tillbaka, Nästa och Visa svaret, och en laddare medan en ledtråd söks. Även de svåraste pusslen har ledtrådar.
+• Ledtrådar lär nu ut steg för steg, med Tillbaka, Nästa och Visa svaret, och en laddningsindikator medan en ledtråd söks. Även de svåraste pusslen har ledtrådar.
 • Nya tekniker: Tom rektangel, Sue de Coq och ALS-XZ upptäcks och förklaras i ledtrådarna.
 • Brädet är större på mobilen, och en teknikpill visar din senaste teknik i varje spel.
 • Exportera dina spel, din statistik och dina teman som säkerhetskopia och importera dem på en annan enhet.
