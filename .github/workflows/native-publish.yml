@@ -7,6 +7,14 @@ on:
                 description: 'Also upload the committed store screenshots'
                 type: boolean
                 default: false
+            platforms:
+                description: 'Stores to build and upload for'
+                type: choice
+                options:
+                    - ios,android
+                    - ios
+                    - android
+                default: ios,android
 
 permissions:
     contents: read
@@ -22,17 +30,16 @@ jobs:
         with:
             install-command: pnpm install --frozen-lockfile
             app-dir: packages/app
-            enable-ios: true
-            enable-android: true
+            enable-ios: ${{ contains(inputs.platforms, 'ios') }}
+            enable-android: ${{ contains(inputs.platforms, 'android') }}
             android-lint-gate: true
             lint-timeout-minutes: 60
             android-lint-gate-gradle-cache: false
             # An all-ABI lint run OOMs D8; scope the gate to the shipping variant.
             android-lint-gate-gradle-args: '-PreactNativeArchitectures=arm64-v8a --no-daemon'
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
-            # The release AAB builds on the Linux node like the e2e APK does, so it no
-            # longer queues behind the iOS build on the shared Mac builder.
-            android-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
+            # The release AAB builds on a 16 GiB hosted runner: the 8 GiB self-hosted pool OOM-kills the Skia compile.
+            android-runner-labels: '["ubuntu-latest"]'
             node-version: 22.x
             build-profile: production
             submit-profile: production
@@ -45,6 +52,7 @@ jobs:
             # enters the eas build archive.
             google-key-path: google-service-account.json
             publish-env: |
+                NATIVE_COMPILE_JOBS=2
                 EXPO_NO_TELEMETRY=1
                 LANG=en_US.UTF-8
                 LC_ALL=en_US.UTF-8
