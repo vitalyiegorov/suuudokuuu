@@ -1,0 +1,51 @@
+# Submits the uploaded iOS build for App Review and promotes the Android internal release to production; dry run by default.
+name: Release to Stores
+
+on:
+    workflow_dispatch:
+        inputs:
+            platforms:
+                description: 'Stores to release'
+                type: choice
+                options:
+                    - ios,android
+                    - ios
+                    - android
+                default: ios,android
+            dry_run:
+                description: 'Only print the plan; change nothing in the stores'
+                type: boolean
+                default: true
+            android_rollout:
+                description: 'Google Play rollout fraction (1 completes the release)'
+                type: string
+                default: '1'
+
+permissions:
+    contents: read
+
+concurrency:
+    group: suuudokuuu-store-release
+    cancel-in-progress: false
+
+jobs:
+    release:
+        name: Release
+        permissions:
+            contents: read
+        uses: rnw-community/mobile-ci/.github/workflows/store-release.yml@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
+        with:
+            platforms: ${{ inputs.platforms }}
+            dry-run: ${{ inputs.dry_run }}
+            version-file: packages/app/package.json
+            ios-app-id: '6449440933'
+            ios-release-type: AFTER_APPROVAL
+            android-package: com.vitaliiyehorov.suuudokuuu
+            android-from-track: internal
+            android-to-track: production
+            android-rollout: ${{ inputs.android_rollout }}
+        secrets:
+            ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
+            ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
+            ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
+            GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}

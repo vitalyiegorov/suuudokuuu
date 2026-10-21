@@ -80,7 +80,14 @@ before relying on them.
   `tests/app-tests/scripts/screenshot-scenes.ts` defines all fifteen scenes: thirteen direct-link captures and two Maestro captures. The runner rotates landscape pixels with `sips` and rejects remaining EXIF orientation metadata other than 1.
 - `.github/workflows/native-publish.yml` - store publish; `fastlane
   store_preflight` gates both jobs; metadata pushes after each `eas submit`;
-  screenshots upload only with the `push_screenshots` checkbox.
+  screenshots upload only with the `push_screenshots` checkbox. It uploads
+  only: iOS to TestFlight, Android to the Play `internal` track.
+- `.github/workflows/store-release.yml` - makes an uploaded build public via
+  mobile-ci `store-release.yml`: submits the iOS version in
+  `packages/app/package.json` for App Review (released automatically after
+  approval) and promotes the newest Play `internal` release to production.
+  Dry run by default; dispatch with `dry_run` unticked only after the user
+  confirms. Push screenshots first: they lock once the version is in review.
 
 ## Workflows
 
