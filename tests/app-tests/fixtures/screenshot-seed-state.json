@@ -308,6 +308,7 @@
             "rating": 8,
             "isRatingCeiling": false,
             "elapsedTime": 12,
+            "timelineEvents": [{ "kind": 0, "cellIndex": 0, "value": 9, "ts": 6, "technique": 4 }],
             "score": 0,
             "mistakes": 0,
             "maxMistakes": 3,
@@ -341,6 +342,7 @@
             "rating": 11.9,
             "isRatingCeiling": false,
             "elapsedTime": 12,
+            "timelineEvents": [{ "kind": 0, "cellIndex": 0, "value": 8, "ts": 6, "technique": 3 }],
             "score": 0,
             "mistakes": 0,
             "maxMistakes": 3
