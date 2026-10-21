@@ -1,4 +1,6 @@
-Hints now teach: a compact step panel with Back, Next and Show answer.
-Your open hint survives a pause.
-Hint-placed moves are badged in the replay, and history shows hint counts.
-Hints are on for the hardest puzzles too.
+Smarter hints, a bigger board.
+Step-by-step hints with Back, Next and Show answer, now on the hardest puzzles too.
+New techniques: Empty Rectangle, Sue de Coq, ALS-XZ.
+Bigger board and a technique pill in every run.
+Back up and import your games, statistics and themes.
+Fairer timer and an instant result screen.

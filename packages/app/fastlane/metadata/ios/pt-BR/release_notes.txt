@@ -1,7 +1,8 @@
-Dicas que ensinam.
+Dicas mais inteligentes, tabuleiro maior.
 
-• As dicas agora são um painel compacto passo a passo, com Voltar, Avançar e um claro "Mostrar resposta". O tabuleiro mantém o tamanho total e a dica aberta sobrevive a uma pausa.
-• Jogadas feitas com dica ganham um selo no replay, e os cartões do histórico mostram quantas dicas você usou.
-• As dicas agora também estão ativas nos quebra-cabeças mais difíceis.
-• O teclado físico ficou mais confiável no iPhone e no iPad.
-• Os links de cadeias e ramificações no tabuleiro ficaram mais fáceis de ler.
+• As dicas agora ensinam passo a passo, com Voltar, Avançar e Mostrar resposta, e um indicador enquanto a dica é buscada. Os puzzles mais difíceis também têm dicas.
+• Técnicas novas: Retângulo vazio, Sue de Coq e ALS-XZ são detectadas e explicadas nas dicas.
+• O tabuleiro está maior no celular, e uma etiqueta de técnica mostra a última que você usou em cada jogo.
+• Exporte seus jogos, estatísticas e temas para um backup e importe em outro dispositivo.
+• O cronômetro segue o relógio real para as pontuações serem justas, e a tela de resultado abre na hora.
+• Jogadas feitas com dica ganham um selo na repetição, e o desfoque das bordas no iOS voltou.

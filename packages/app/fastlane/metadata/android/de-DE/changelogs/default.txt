@@ -1,4 +1,6 @@
-Hinweise bringen jetzt etwas bei: kompaktes Schrittpanel mit Zurück, Weiter und Antwort zeigen.
-Dein offener Hinweis übersteht eine Pause.
-Mit Hinweis gesetzte Züge sind im Replay markiert, der Verlauf zeigt die Hinweiszahl.
-Hinweise gibt es auch bei den schwersten Rätseln.
+Schlauere Hinweise, größeres Brett.
+Hinweise Schritt für Schritt mit Zurück, Weiter und Antwort zeigen, auch bei den schwersten Rätseln.
+Neue Techniken: Leeres Rechteck, Sue de Coq, ALS-XZ.
+Größeres Brett und eine Technik-Pille in jedem Spiel.
+Sicherung: Spiele, Statistiken und Themen exportieren und importieren.
+Fairerer Timer und sofortiger Ergebnisbildschirm.

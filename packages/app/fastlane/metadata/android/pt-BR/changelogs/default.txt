@@ -1,4 +1,6 @@
-Dicas que ensinam: painel compacto com Voltar, Avançar e Mostrar resposta.
-Sua dica aberta sobrevive a uma pausa.
-Jogadas com dica ganham selo no replay e o histórico mostra as dicas usadas.
-Dicas ativas também nos quebra-cabeças mais difíceis.
+Dicas mais inteligentes, tabuleiro maior.
+Dicas passo a passo com Voltar, Avançar e Mostrar resposta, também nos puzzles mais difíceis.
+Técnicas novas: Retângulo vazio, Sue de Coq, ALS-XZ.
+Tabuleiro maior e etiqueta de técnica em cada jogo.
+Backup: exporte e importe jogos, estatísticas e temas.
+Cronômetro mais justo e resultado na hora.

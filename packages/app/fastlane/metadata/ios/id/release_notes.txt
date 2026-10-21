@@ -1,7 +1,8 @@
-Petunjuk yang mengajar.
+Petunjuk lebih pintar, papan lebih besar.
 
-• Petunjuk kini berupa panel ringkas langkah demi langkah dengan Kembali, Berikutnya, dan "Tampilkan jawaban" yang jelas. Papan tetap berukuran penuh, dan petunjuk yang terbuka tetap ada saat kamu menjeda.
-• Langkah yang dibuat dengan petunjuk diberi lencana di tayangan ulang, dan kartu riwayat menampilkan jumlah petunjuk yang kamu pakai.
-• Petunjuk kini juga aktif untuk teka-teki tersulit.
-• Keyboard fisik lebih andal di iPhone dan iPad.
-• Tautan rantai dan cabang di papan lebih mudah dibaca.
+• Petunjuk kini mengajarkan langkah demi langkah, dengan Kembali, Berikutnya, dan Tampilkan jawaban, plus indikator saat petunjuk dicari. Teka-teki tersulit pun kini punya petunjuk.
+• Teknik baru: Persegi Panjang Kosong, Sue de Coq, dan ALS-XZ terdeteksi dan dijelaskan di petunjuk.
+• Papan lebih besar di ponsel, dan pil teknik menampilkan teknik terakhir yang kamu pakai di setiap permainan.
+• Ekspor permainan, statistik, dan tema kamu ke file cadangan, lalu impor di perangkat lain.
+• Timer mengikuti jam sebenarnya agar skor tetap adil, dan layar hasil terbuka seketika.
+• Langkah yang dibuat dengan petunjuk diberi lencana di putar ulang, dan blur tepi di iOS kembali.

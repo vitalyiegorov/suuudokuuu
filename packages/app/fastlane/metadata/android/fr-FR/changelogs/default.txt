@@ -1,4 +1,6 @@
-Les indices enseignent : panneau compact avec Retour, Suivant et Afficher la réponse.
-Votre indice ouvert survit à une pause.
-Les coups avec indice sont signalés dans le replay, l'historique compte les indices.
-Indices aussi actifs sur les grilles les plus difficiles.
+Des indices plus malins, un plateau plus grand.
+Indices pas à pas avec Retour, Suivant et Afficher la réponse, même sur les grilles les plus difficiles.
+Nouvelles techniques : Rectangle vide, Sue de Coq, ALS-XZ.
+Plateau plus grand et pastille de technique à chaque jeu.
+Sauvegarde : exportez et importez parties, statistiques et thèmes.
+Chronomètre plus juste et résultat instantané.

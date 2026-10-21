@@ -1,7 +1,8 @@
-Pistas que enseñan.
+Sugerencias más listas, tablero más grande.
 
-• Las pistas son ahora un panel compacto paso a paso con Atrás, Siguiente y un claro «Mostrar respuesta». El tablero mantiene su tamaño completo y tu pista abierta sobrevive a una pausa.
-• Las jugadas hechas con una pista llevan una insignia en la repetición, y las tarjetas del historial muestran cuántas pistas usaste.
-• Las pistas también están activadas en los puzles más difíciles.
-• El teclado físico funciona con más fiabilidad en iPhone y iPad.
-• Los enlaces de cadenas y ramas del tablero se leen mejor.
+• Las sugerencias ahora enseñan paso a paso, con Atrás, Siguiente y Mostrar respuesta, y un indicador de carga mientras se busca una. Los puzles más difíciles también las tienen.
+• Técnicas nuevas: Rectángulo vacío, Sue de Coq y ALS-XZ se detectan y se explican en las sugerencias.
+• El tablero es más grande en el móvil y una etiqueta de técnica muestra la última que usaste en cada juego.
+• Exporta tus partidas, estadísticas y temas en una copia de seguridad e impórtala en otro dispositivo.
+• El temporizador sigue el reloj real para que las puntuaciones sean justas, y la pantalla de resultado se abre al instante.
+• Los movimientos hechos con sugerencia llevan una marca en la repetición, y el desenfoque de bordes en iOS ha vuelto.
