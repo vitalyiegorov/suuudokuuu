@@ -38,7 +38,7 @@ jobs:
             # An all-ABI lint run OOMs D8; scope the gate to the shipping variant.
             android-lint-gate-gradle-args: '-PreactNativeArchitectures=arm64-v8a --no-daemon'
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
-            # The release AAB builds on a 16 GiB hosted runner: the 8 GiB self-hosted pool OOM-kills the Skia compile.
+            # The release AAB builds on a 16 GiB hosted runner: the 8 GiB self-hosted pool is too tight for the Gradle, Kotlin and R8 JVMs.
             android-runner-labels: '["ubuntu-latest"]'
             node-version: 22.x
             build-profile: production
