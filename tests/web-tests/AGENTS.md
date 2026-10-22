@@ -135,9 +135,9 @@ pnpm --filter @suuudokuuu/web-tests lint
   callback to the same "Stop current run?" confirmation used by the Quit button (a native
   `window.confirm()`), not to cell deselection. `07.keyboard-controls.spec.ts` asserts the actual
   behavior (the dialog opens) rather than the deselection originally assumed during design.
-- The cell-spacing `SettingsOptionSheet` renders through `@expo/ui`'s web fallback (a `vaul`
-  drawer), not a native bottom sheet, so it is a normal DOM overlay reachable with
-  `page.getByTestId` / `page.getByText`.
+- The settings option sheets and the rating explainer are `transparentModal` routes on web, drawn
+  by `sheet-frame.web.tsx` as a backdrop and a bottom panel, so they are normal DOM overlays
+  reachable with `page.getByTestId` / `page.getByText`.
 - `06.resume-game.spec.ts` reloads the page and re-visits `/` to prove the in-session pause/resume
   timer behavior, then asserts the persisted game survives the reload via `HomeScreenSelectors.ResumeButton`.
   This passed reliably in this harness (wa-sqlite/OPFS persistence survives a full page reload), so
