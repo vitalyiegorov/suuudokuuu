@@ -38,4 +38,3 @@ export const confettiMaxSwayFrequencyConstant = 3.5;
 
 export const confettiSpawnJitterRatioConstant = 0.03;
 export const confettiFadeOutFractionConstant = 0.15;
-export const confettiTextureSizeConstant = 32;
