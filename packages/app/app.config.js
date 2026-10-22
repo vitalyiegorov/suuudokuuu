@@ -1,4 +1,4 @@
-import { withAndroidManifest } from 'expo/config-plugins';
+import { withAndroidManifest, withPodfile } from 'expo/config-plugins';
 
 import { brandConfig } from './brand.config';
 import rootPkg from './package.json';
@@ -67,6 +67,34 @@ const withPortraitLockedAndroid = config =>
         return mod;
     });
 
+const StripEmbeddedFrameworksScriptPhase = `
+  script_phase name: 'Strip Embedded Frameworks', execution_position: :any, always_out_of_date: '1', script: <<~'SCRIPT'
+    if [ "$CONFIGURATION" != "Release" ]; then
+      exit 0
+    fi
+    for framework in "$TARGET_BUILD_DIR/$FRAMEWORKS_FOLDER_PATH"/*.framework; do
+      binary="$framework/$(basename "$framework" .framework)"
+      if [ "$(basename "$framework")" = "hermesvm.framework" ] || [ ! -f "$binary" ]; then
+        continue
+      fi
+      xcrun strip -x "$binary"
+      if [ -n "$EXPANDED_CODE_SIGN_IDENTITY" ]; then
+        codesign --force --sign "$EXPANDED_CODE_SIGN_IDENTITY" --preserve-metadata=identifier,entitlements "$framework"
+      fi
+    done
+  SCRIPT
+
+  post_install do |installer|`;
+
+const withStrippedIosFrameworks = config =>
+    withPodfile(config, mod => {
+        mod.modResults.contents = mod.modResults.contents.replace('\n  post_install do |installer|', StripEmbeddedFrameworksScriptPhase);
+
+        return mod;
+    });
+
+const withNativeProjectChanges = config => withStrippedIosFrameworks(withPortraitLockedAndroid(config));
+
 const getExpoDevClientConfig = () => ({
     showMenuAtLaunch: false,
     skipOnboarding: true,
@@ -78,7 +106,7 @@ const getExpoDevClientConfig = () => ({
 });
 
 export default ({ config }) =>
-    withPortraitLockedAndroid({
+    withNativeProjectChanges({
         ...config,
         name: getAppName(),
         slug: brandConfig.slug,
@@ -165,7 +193,16 @@ export default ({ config }) =>
                 {
                     buildReactNativeFromSource: false,
                     useHermesV1: true,
-                    ...(IS_PRODUCTION && { android: { buildArchs: StoreBuildArchs } }),
+                    android: {
+                        enableMinifyInReleaseBuilds: true,
+                        enableShrinkResourcesInReleaseBuilds: true,
+                        gifEnabled: false,
+                        webpEnabled: false,
+                        packagingOptions: {
+                            exclude: ['org/bouncycastle/pqc/**', 'org/bouncycastle/x509/**', 'org/apache/commons/codec/language/bm/**']
+                        },
+                        ...(IS_PRODUCTION && { buildArchs: StoreBuildArchs })
+                    },
                     ios: {
                         ccacheEnabled: true,
                         usePrecompiledModules: true
