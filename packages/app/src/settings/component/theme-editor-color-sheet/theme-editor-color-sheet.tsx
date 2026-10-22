@@ -2,7 +2,11 @@ import { useLingui } from '@lingui/react/macro';
 import { AppButton } from '@suuudokuuu/ui';
 import { use, useState } from 'react';
 import { Modal, View } from 'react-native';
-import ColorPicker, { HueSlider, OpacitySlider, Panel1, Preview } from 'reanimated-color-picker';
+import ColorPicker from 'reanimated-color-picker/lib/module/ColorPicker';
+import { Panel1 } from 'reanimated-color-picker/lib/module/components/Panels/Panel1';
+import { Preview } from 'reanimated-color-picker/lib/module/components/Preview';
+import { HueSlider } from 'reanimated-color-picker/lib/module/components/Sliders/Hue/HueSlider';
+import { OpacitySlider } from 'reanimated-color-picker/lib/module/components/Sliders/OpacitySlider';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { applyColorAlpha } from '../../../@generic/utils/apply-color-alpha.util';

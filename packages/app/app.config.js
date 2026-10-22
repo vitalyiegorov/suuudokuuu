@@ -213,7 +213,6 @@ export default ({ config }) =>
             'expo-localization',
             'expo-sharing',
             'expo-splash-screen',
-            'expo-sqlite',
             'expo-status-bar',
             ['expo-dev-client', getExpoDevClientConfig()],
             ['expo-router', { origin: brandConfig.webOrigin }],
