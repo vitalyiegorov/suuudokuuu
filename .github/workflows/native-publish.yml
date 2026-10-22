@@ -28,6 +28,7 @@ jobs:
         name: Build and submit
         uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
         with:
+            control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
             install-command: pnpm install --frozen-lockfile
             app-dir: packages/app
             enable-ios: ${{ contains(inputs.platforms, 'ios') }}
