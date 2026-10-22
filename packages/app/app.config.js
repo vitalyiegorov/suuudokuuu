@@ -166,6 +166,8 @@ export default ({ config }) =>
                     buildReactNativeFromSource: false,
                     useHermesV1: true,
                     android: {
+                        gifEnabled: false,
+                        webpEnabled: false,
                         packagingOptions: {
                             exclude: ['org/bouncycastle/pqc/**', 'org/bouncycastle/x509/**', 'org/apache/commons/codec/language/bm/**']
                         },
