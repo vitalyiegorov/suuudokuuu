@@ -5,6 +5,14 @@ on:
         branches: ['main']
     pull_request:
         branches: ['main']
+        # Docs, reports, store metadata and the landing site never reach the app
+        # bundle; main pushes and the weekly schedule still scan all of it.
+        paths-ignore:
+            - 'docs/**'
+            - 'reports/**'
+            - '**/*.md'
+            - 'packages/landing/**'
+            - 'packages/app/fastlane/**'
     schedule:
         - cron: '38 4 * * 0'
 
@@ -15,9 +23,7 @@ concurrency:
 jobs:
     analyze:
         name: Analyze
-        # GitHub-hosted: free for this public repository, and the no-build
-        # analysis finishes in minutes there instead of queueing for a fleet slot.
-        runs-on: ubuntu-latest
+        runs-on: [self-hosted, trf-linux-amd64-2x4]
         timeout-minutes: 30
         permissions:
             actions: read
@@ -41,13 +47,19 @@ jobs:
               with:
                   node-version: 22.x
 
+            # A container sees the host's memory and CPUs, not its 2 CPU / 4 GiB
+            # quota, so CodeQL is told the shape it has.
             - name: Initialize CodeQL
               uses: github/codeql-action/init@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
               with:
                   languages: ${{ matrix.language }}
                   build-mode: none
+                  ram: 3072
+                  threads: 2
 
             - name: Perform CodeQL Analysis
               uses: github/codeql-action/analyze@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
               with:
                   category: '/language:${{ matrix.language }}'
+                  ram: 3072
+                  threads: 2
