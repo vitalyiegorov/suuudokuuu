@@ -166,6 +166,8 @@ export default ({ config }) =>
                     buildReactNativeFromSource: false,
                     useHermesV1: true,
                     android: {
+                        enableMinifyInReleaseBuilds: true,
+                        enableShrinkResourcesInReleaseBuilds: true,
                         gifEnabled: false,
                         webpEnabled: false,
                         packagingOptions: {
