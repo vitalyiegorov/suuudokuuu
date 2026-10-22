@@ -88,6 +88,14 @@ before relying on them.
   approval) and promotes the newest Play `internal` release to production.
   Dry run by default; dispatch with `dry_run` unticked only after the user
   confirms. Push screenshots first: they lock once the version is in review.
+- `.github/workflows/ota-production.yml` - manual EAS Update (OTA) to the
+  `production` channel; nothing publishes there automatically. Use it for
+  JS-only fixes that must reach installed builds without store review; any
+  native change (dependency, plugin, app config, assets baked into the binary)
+  changes the fingerprint runtime version and needs `native-publish.yml`
+  instead. mobile-ci `eas-channel-fingerprint` compares the commit's runtime
+  with the production channel's builds and updates and the job fails when none
+  match. Dry run by default; a real publish runs from `main` only.
 
 ## Workflows
 
