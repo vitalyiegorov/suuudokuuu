@@ -1,0 +1,106 @@
+# Manual EAS Update to the production channel; refuses when no production store build shares the runtime, dry run by default.
+name: OTA to production
+
+on:
+    workflow_dispatch:
+        inputs:
+            message:
+                description: 'Update message'
+                type: string
+                required: true
+            platforms:
+                description: 'Platforms to update'
+                type: choice
+                options:
+                    - all
+                    - ios
+                    - android
+                default: all
+            rollout_percentage:
+                description: 'Roll out to this percentage (1-100) of users; empty ships to everyone'
+                type: string
+                default: ''
+            dry_run:
+                description: 'Only compute the runtime versions and show which store builds would receive the update'
+                type: boolean
+                default: true
+
+permissions:
+    contents: read
+
+concurrency:
+    group: suuudokuuu-ota-production
+    cancel-in-progress: false
+
+jobs:
+    ota:
+        name: Publish OTA update
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+        env:
+            APP_VARIANT: production
+            EXPO_NO_TELEMETRY: '1'
+        steps:
+            - name: Require main for a real publish
+              if: ${{ !inputs.dry_run && github.ref != 'refs/heads/main' }}
+              run: |
+                  echo "::error::Publish OTA updates from main only: dispatch with --ref main, or tick dry_run."
+                  exit 1
+
+            - name: Checkout repository
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
+            - name: Setup Node
+              uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+              with:
+                  node-version: 22.x
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Compare with the production store builds
+              id: fingerprint
+              uses: rnw-community/mobile-ci/actions/eas-channel-fingerprint@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
+              with:
+                  app-dir: packages/app
+                  eas-profile: production
+                  platform: ${{ inputs.platforms }}
+                  expo-token: ${{ secrets.EXPO_TOKEN }}
+
+            - name: Stop when a store build is required
+              if: ${{ steps.fingerprint.outputs.decision != 'ota' }}
+              env:
+                  REASON: ${{ steps.fingerprint.outputs.reason }}
+                  RUNTIME_VERSIONS: ${{ steps.fingerprint.outputs.runtime-versions }}
+              run: |
+                  echo "::error::No production store build shares the current runtime version ${RUNTIME_VERSIONS}. ${REASON} A native change needs a store build (Build and Publish to Stores), not an OTA update."
+                  exit 1
+
+            - name: Report the dry run
+              if: ${{ inputs.dry_run }}
+              env:
+                  RUNTIME_VERSIONS: ${{ steps.fingerprint.outputs.runtime-versions }}
+              run: |
+                  echo "Dry run: production store builds share runtime versions ${RUNTIME_VERSIONS}; the update would reach them. Nothing was published."
+                  echo "Dry run: runtime versions ${RUNTIME_VERSIONS} match the production store builds; nothing was published." >> "$GITHUB_STEP_SUMMARY"
+
+            - name: Publish the EAS update
+              if: ${{ !inputs.dry_run }}
+              uses: rnw-community/mobile-ci/actions/eas-update@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
+              with:
+                  app-dir: packages/app
+                  channel: production
+                  eas-profile: production
+                  platform: ${{ inputs.platforms }}
+                  message: ${{ inputs.message }}
+                  rollout-percentage: ${{ inputs.rollout_percentage }}
+                  ios-runtime-version: ${{ fromJSON(steps.fingerprint.outputs.runtime-versions).ios }}
+                  android-runtime-version: ${{ fromJSON(steps.fingerprint.outputs.runtime-versions).android }}
+                  skip-if-published: 'false'
+                  expo-token: ${{ secrets.EXPO_TOKEN }}
