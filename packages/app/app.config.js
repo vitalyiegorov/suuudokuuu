@@ -165,7 +165,12 @@ export default ({ config }) =>
                 {
                     buildReactNativeFromSource: false,
                     useHermesV1: true,
-                    ...(IS_PRODUCTION && { android: { buildArchs: StoreBuildArchs } }),
+                    android: {
+                        packagingOptions: {
+                            exclude: ['org/bouncycastle/pqc/**', 'org/bouncycastle/x509/**', 'org/apache/commons/codec/language/bm/**']
+                        },
+                        ...(IS_PRODUCTION && { buildArchs: StoreBuildArchs })
+                    },
                     ios: {
                         ccacheEnabled: true,
                         usePrecompiledModules: true
