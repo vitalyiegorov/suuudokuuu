@@ -281,8 +281,11 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
    breaks the legacy kv-store import.
 7. Import icons as `lucide-react-native/icons/<kebab-name>`, never from the package root. The root
    barrel pulls all 1744 icon modules into the bundle.
-8. Import Google fonts per weight (`@expo-google-fonts/inter/500Medium`), never from the package
-   root. The barrel `require()`s all 18 Inter weights into the native asset bundle.
+8. The two Inter weights live in `assets/fonts` as subsets of the `@expo-google-fonts/inter` TTFs
+   covering Latin, Latin Extended, Greek, Cyrillic and every non-ASCII character in the app catalogs,
+   with the default OpenType features plus `tnum`. Arabic, Devanagari, Bengali and CJK text falls
+   back to the system font, as it did with the full files. Regenerate them with `pyftsubset` when a
+   catalog adds a symbol outside those ranges.
 9. Import `reanimated-color-picker` components by their `lib/module` path, never from the package
    root. The barrel pulls every panel and slider, and with them about 450 KB of unused PNGs.
    `src/reanimated-color-picker.d.ts` maps each deep path to the barrel's types.

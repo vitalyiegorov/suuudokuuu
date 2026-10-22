@@ -116,9 +116,6 @@ importers:
       '@effect/wa-sqlite':
         specifier: 0.2.1
         version: 0.2.1
-      '@expo-google-fonts/inter':
-        specifier: ^0.4.2
-        version: 0.4.2
       '@expo/fingerprint':
         specifier: ~0.21.5
         version: 0.21.5(supports-color@8.1.1)

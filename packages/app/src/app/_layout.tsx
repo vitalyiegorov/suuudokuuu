@@ -1,5 +1,3 @@
-import { Inter_500Medium as inter500Medium } from '@expo-google-fonts/inter/500Medium';
-import { Inter_700Bold as inter700Bold } from '@expo-google-fonts/inter/700Bold';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -8,6 +6,8 @@ import { enableFreeze, enableScreens } from 'react-native-screens';
 
 import { isDefined } from '@rnw-community/shared';
 
+import inter500Medium from '../../assets/fonts/Inter_500Medium.ttf';
+import inter700Bold from '../../assets/fonts/Inter_700Bold.ttf';
 import { AppI18nProvider } from '../@generic/components/app-i18n-provider/app-i18n-provider';
 import { RootProviders } from '../@generic/components/root-providers/root-providers';
 import { applyGameControlsInteractions } from '../@generic/utils/apply-game-controls-interactions';
