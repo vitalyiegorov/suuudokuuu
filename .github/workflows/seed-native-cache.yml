@@ -64,6 +64,7 @@ jobs:
             actions: read
         uses: rnw-community/mobile-ci/.github/workflows/seed-native-cache.yml@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
         with:
+            control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
             install-command: pnpm install --frozen-lockfile
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             android-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
