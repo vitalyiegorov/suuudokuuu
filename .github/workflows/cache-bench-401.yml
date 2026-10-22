@@ -1,0 +1,121 @@
+name: cache-bench (temporary, tart-runner-fleet#401)
+
+# Temporary benchmark for vitalyiegorov/tart-runner-fleet#401. It runs
+# suuudokuuu's Android native build exactly as the warm-up does
+# (rnw-community/mobile-ci build-android-app, :app:assembleRelease, x86_64)
+# with ccache behind the compile slots, and saves every cache under a
+# per-run key so each run measures one restore and one save of the pnpm store,
+# the Gradle home and the ccache directory. Deleted when the measurement ends.
+on:
+    push:
+        branches: [scratch/cache-bench-401]
+    workflow_dispatch:
+
+permissions:
+    contents: read
+
+concurrency:
+    group: cache-bench-401
+    cancel-in-progress: false
+
+jobs:
+    android:
+        name: Android native build (cache bench)
+        runs-on: [self-hosted, trf-linux-amd64-4x8]
+        timeout-minutes: 100
+        env:
+            APP_VARIANT: e2e
+            CCACHE_DIR: ${{ github.workspace }}/.ci-cache/ccache
+            CCACHE_BASEDIR: ${{ github.workspace }}
+            CCACHE_MAXSIZE: 2G
+            CCACHE_COMPILERCHECK: content
+            CMAKE_C_COMPILER_LAUNCHER: ccache
+            CMAKE_CXX_COMPILER_LAUNCHER: ccache
+        steps:
+            - name: Describe the guest
+              run: |
+                  echo "runner=$RUNNER_NAME"
+                  echo "results-url-overridden=${ACTIONS_RESULTS_URL:+yes}"
+                  command -v zstd || echo 'zstd: absent'
+                  command -v ccache || echo 'ccache: absent'
+
+            - name: Checkout repository
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+
+            - name: Install ccache
+              run: |
+                  set -euo pipefail
+                  if command -v ccache >/dev/null; then exit 0; fi
+                  dir="$RUNNER_TEMP/ccache"
+                  mkdir -p "$dir"
+                  curl -fsSL https://github.com/ccache/ccache/releases/download/v4.11.3/ccache-4.11.3-linux-x86_64.tar.xz | tar -xJ -C "$dir" --strip-components 1
+                  echo "$dir" >> "$GITHUB_PATH"
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
+            - name: Setup Node
+              uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+              with:
+                  node-version: 22.x
+
+            - name: Resolve the pnpm store
+              id: pnpm-store
+              run: echo "path=$(pnpm store path --silent)" >> "$GITHUB_OUTPUT"
+
+            - name: Restore pnpm store
+              id: pnpm-restore
+              uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+              with:
+                  path: ${{ steps.pnpm-store.outputs.path }}
+                  key: bench401-pnpm-${{ github.run_id }}-${{ github.run_attempt }}
+                  restore-keys: bench401-pnpm-
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Save pnpm store
+              uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+              with:
+                  path: ${{ steps.pnpm-store.outputs.path }}
+                  key: bench401-pnpm-${{ github.run_id }}-${{ github.run_attempt }}
+
+            - name: Generate native project
+              working-directory: packages/app
+              run: npx expo prebuild -p android --clean --no-install
+
+            - name: Restore ccache
+              id: ccache-restore
+              uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+              with:
+                  path: .ci-cache/ccache
+                  key: bench401-ccache-${{ github.run_id }}-${{ github.run_attempt }}
+                  restore-keys: bench401-ccache-
+
+            - name: Zero ccache statistics
+              run: ccache --zero-stats
+
+            - name: build-android-app
+              id: build
+              uses: rnw-community/mobile-ci/actions/build-android-app@a9fac576ef1c8a9a565d03851f2624502a868214 # v4.4.1
+              with:
+                  app-dir: packages/app
+                  gradle-task: ':app:assembleRelease'
+                  gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease'
+                  android-abis: x86_64
+                  output-dir: .ci-cache/android-native-app/e2e
+                  gradle-cache-key: bench401-gradle-${{ github.run_id }}-${{ github.run_attempt }}
+                  gradle-cache-restore-keys: bench401-gradle-
+
+            - name: ccache statistics
+              if: always()
+              run: ccache --show-stats --verbose || true
+
+            - name: Save ccache
+              if: always()
+              uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+              with:
+                  path: .ci-cache/ccache
+                  key: bench401-ccache-${{ github.run_id }}-${{ github.run_attempt }}
