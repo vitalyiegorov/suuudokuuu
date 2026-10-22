@@ -283,6 +283,9 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
    barrel pulls all 1744 icon modules into the bundle.
 8. Import Google fonts per weight (`@expo-google-fonts/inter/500Medium`), never from the package
    root. The barrel `require()`s all 18 Inter weights into the native asset bundle.
+9. Import `reanimated-color-picker` components by their `lib/module` path, never from the package
+   root. The barrel pulls every panel and slider, and with them about 450 KB of unused PNGs.
+   `src/reanimated-color-picker.d.ts` maps each deep path to the barrel's types.
 
 ## Error Handling
 
