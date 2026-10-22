@@ -1,4 +1,4 @@
-# Manual EAS Update to the production channel; refuses when no production store build shares the runtime, dry run by default.
+# Manual EAS Update to the production channel; refuses unless the last recorded store build shares the runtime, dry run by default.
 name: OTA to production
 
 on:
@@ -64,31 +64,46 @@ jobs:
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
-            - name: Compare with the production store builds
-              id: fingerprint
-              uses: rnw-community/mobile-ci/actions/eas-channel-fingerprint@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
+            - name: Resolve the runtime versions
+              id: runtime
+              uses: rnw-community/mobile-ci/actions/ota-runtime-version@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
               with:
                   app-dir: packages/app
                   eas-profile: production
                   platform: ${{ inputs.platforms }}
-                  expo-token: ${{ secrets.EXPO_TOKEN }}
 
-            - name: Stop when a store build is required
-              if: ${{ steps.fingerprint.outputs.decision != 'ota' }}
+            - name: Compare with the last recorded store builds
               env:
-                  REASON: ${{ steps.fingerprint.outputs.reason }}
-                  RUNTIME_VERSIONS: ${{ steps.fingerprint.outputs.runtime-versions }}
+                  GH_TOKEN: ${{ github.token }}
+                  PLATFORMS: ${{ inputs.platforms == 'all' && 'ios android' || inputs.platforms }}
+                  RUNTIME_VERSIONS: ${{ steps.runtime.outputs.runtime-versions }}
+                  RECORD_ASSET: store-record-packages-app.json
               run: |
-                  echo "::error::No production store build shares the current runtime version ${RUNTIME_VERSIONS}. ${REASON} A native change needs a store build (Build and Publish to Stores), not an OTA update."
-                  exit 1
+                  set -euo pipefail
+                  mapfile -t tags < <(gh api --paginate "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
+                    --jq ".[] | select(.draft | not) | select(any(.assets[]; .name == \"${RECORD_ASSET}\")) | .tag_name")
+                  failed=0
+                  for platform in $PLATFORMS; do
+                    current="$(jq -r --arg platform "$platform" '.[$platform]' <<< "$RUNTIME_VERSIONS")"
+                    shipped=''
+                    for tag in "${tags[@]}"; do
+                      shipped="$(gh release download "$tag" --pattern "$RECORD_ASSET" --output - | jq -r --arg platform "$platform" '.targets[$platform].fingerprint // empty')"
+                      [ -z "$shipped" ] || break
+                    done
+                    echo "${platform}: last recorded store build ${shipped:-none}, this commit ${current}."
+                    if [ "$current" != "$shipped" ]; then
+                      echo "::error::The ${platform} runtime ${current} differs from the last recorded store build (${shipped:-none}). A native change needs a store build (Build and Publish to Stores), not an OTA update."
+                      failed=1
+                    fi
+                  done
+                  exit "$failed"
 
             - name: Report the dry run
               if: ${{ inputs.dry_run }}
               env:
-                  RUNTIME_VERSIONS: ${{ steps.fingerprint.outputs.runtime-versions }}
+                  RUNTIME_VERSIONS: ${{ steps.runtime.outputs.runtime-versions }}
               run: |
-                  echo "Dry run: production store builds share runtime versions ${RUNTIME_VERSIONS}; the update would reach them. Nothing was published."
-                  echo "Dry run: runtime versions ${RUNTIME_VERSIONS} match the production store builds; nothing was published." >> "$GITHUB_STEP_SUMMARY"
+                  echo "Dry run: runtime versions ${RUNTIME_VERSIONS} match the last recorded store builds; nothing was published." | tee -a "$GITHUB_STEP_SUMMARY"
 
             - name: Publish the EAS update
               if: ${{ !inputs.dry_run }}
@@ -100,7 +115,7 @@ jobs:
                   platform: ${{ inputs.platforms }}
                   message: ${{ inputs.message }}
                   rollout-percentage: ${{ inputs.rollout_percentage }}
-                  ios-runtime-version: ${{ fromJSON(steps.fingerprint.outputs.runtime-versions).ios }}
-                  android-runtime-version: ${{ fromJSON(steps.fingerprint.outputs.runtime-versions).android }}
+                  ios-runtime-version: ${{ steps.runtime.outputs.ios-runtime-version }}
+                  android-runtime-version: ${{ steps.runtime.outputs.android-runtime-version }}
                   skip-if-published: 'false'
                   expo-token: ${{ secrets.EXPO_TOKEN }}

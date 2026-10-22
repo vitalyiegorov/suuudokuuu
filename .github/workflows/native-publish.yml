@@ -24,8 +24,29 @@ concurrency:
     cancel-in-progress: false
 
 jobs:
+    release-tag:
+        name: Resolve the release tag
+        runs-on: ubuntu-latest
+        timeout-minutes: 5
+        outputs:
+            tag: ${{ steps.version.outputs.tag }}
+        steps:
+            - name: Checkout the app manifest
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+                  sparse-checkout: packages/app/package.json
+                  sparse-checkout-cone-mode: false
+
+            - name: Read the app version
+              id: version
+              run: echo "tag=v$(jq -r .version packages/app/package.json)" >> "$GITHUB_OUTPUT"
+
     publish:
         name: Build and submit
+        needs: [release-tag]
+        permissions:
+            contents: write
         uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
         with:
             install-command: pnpm install --frozen-lockfile
@@ -43,6 +64,8 @@ jobs:
             node-version: 22.x
             build-profile: production
             submit-profile: production
+            write-store-record: true
+            release-tag: ${{ needs.release-tag.outputs.tag }}
             eas-cli-version: '20.5.1'
             required-android-abi: arm64-v8a
             # eas.json submit.production.ios.ascApiKeyPath resolves relative to app-dir.

@@ -93,9 +93,11 @@ before relying on them.
   JS-only fixes that must reach installed builds without store review; any
   native change (dependency, plugin, app config, assets baked into the binary)
   changes the fingerprint runtime version and needs `native-publish.yml`
-  instead. mobile-ci `eas-channel-fingerprint` compares the commit's runtime
-  with the production channel's builds and updates and the job fails when none
-  match. Dry run by default; a real publish runs from `main` only.
+  instead. `native-publish.yml` writes mobile-ci's store build record
+  (`store-record-packages-app.json`, each platform's runtime version) to the
+  `v<version>` release after a successful submit; the OTA job fails unless
+  every platform's runtime matches the newest recorded store build. Dry run by
+  default; a real publish runs from `main` only.
 
 ## Workflows
 
