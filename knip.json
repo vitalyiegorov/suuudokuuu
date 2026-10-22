@@ -7,6 +7,7 @@
     ],
     "ignoreDependencies": [
         "@babel/core",
+        "@expo-google-fonts/inter",
         "@lingui/format-po",
         "@expo/fingerprint",
         "babel-plugin-react-compiler",
@@ -27,7 +28,7 @@
                 "scripts/*.ts!"
             ],
             "project": ["src/**/*.{ts,tsx}", "scripts/**/*.ts"],
-            "ignoreDependencies": ["@expo-google-fonts/inter", "@lingui/swc-plugin"]
+            "ignoreDependencies": ["@lingui/swc-plugin"]
         },
         "packages/app": {
             "entry": [
