@@ -1,11 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const SettingsOptionSheetStyles = StyleSheet.create(theme => ({
-    container: {
-        alignItems: 'stretch',
-        flex: 1,
-        paddingTop: 18
-    },
     description: {
         fontSize: theme.typography.size.sm,
         lineHeight: 19,
@@ -18,7 +13,8 @@ export const SettingsOptionSheetStyles = StyleSheet.create(theme => ({
     header: {
         gap: 6,
         paddingBottom: 16,
-        paddingHorizontal: 28
+        paddingHorizontal: 28,
+        paddingTop: 18
     },
     group: {
         overflow: 'hidden',

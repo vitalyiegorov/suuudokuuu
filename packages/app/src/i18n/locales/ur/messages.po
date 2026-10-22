@@ -664,6 +664,7 @@ msgstr "صاف سیاہ و سفید بورڈ"
 msgid "Clean win"
 msgstr "شاندار جیت"
 
+#: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "Close"
 msgstr "بند کریں"

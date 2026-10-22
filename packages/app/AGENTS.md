@@ -90,6 +90,7 @@ src/
 3. Use theme tokens from `theme/` and shared generic styles instead of duplicating raw colors.
 4. Preserve the existing theme contract in `ThemeInterface` from `@suuudokuuu/ui` (`packages/ui/src/theme/interface/theme.interface.ts`).
 5. Keep test selectors in nearby `*.selectors.ts` files when a screen or component is targeted by Maestro.
+6. Never transform a theme color inside a unistyles `StyleSheet.create` (for example `applyColorAlpha(theme.colors.ink, 0.4)`). On web the theme values there are CSS variables, so the result is a malformed declaration that truncates every unistyles rule after it. Derive such colors in the component from `ThemeContext` instead.
 
 ### Tab screen insets
 
@@ -199,6 +200,7 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
 3. `/play?difficulty=<DifficultyEnum value>` is the landing's tier deep link. `play.tsx` validates it with `DifficultySchema` and stores it as `lastGameDifficulty`; it never starts or replaces a run, and an unknown value is ignored.
 4. Keep `suuudokuuu://` and associated domain behavior working when touching app config, router files, encoder payloads, or sharing hooks.
 5. Prefer route files that delegate to screen components instead of embedding large screen logic directly.
+6. The settings option sheets and the rating explainer are routes wrapped in `SheetFrame`. On iOS and Android they are react-native-screens `formSheet` presentations whose detents and background `SheetFrame` sets through `sheetAllowedDetents` and `contentStyle`. `SheetFrame` renders no view of its own on native, because react-native-screens resizes a form sheet's scroll view only when it is the first child of the sheet, or the second after a `collapsable={false}` header; wrapping them in another view breaks the iOS layout; expo-router has no web form sheet, so on web they are `transparentModal` routes and `sheet-frame.web.tsx` draws the backdrop and the bottom panel at the first detent.
 
 ## i18n
 
