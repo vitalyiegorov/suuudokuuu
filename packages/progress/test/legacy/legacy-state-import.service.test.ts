@@ -3,6 +3,7 @@ import { DifficultyEnum } from '@suuudokuuu/generator';
 import * as Effect from 'effect/Effect';
 import * as Exit from 'effect/Exit';
 import * as Option from 'effect/Option';
+import * as SqlClient from 'effect/sql/SqlClient';
 
 import seedState from '../../../../tests/app-tests/fixtures/screenshot-seed-state.json';
 import { CompletedGameRepository } from '../../src/completed-game/repository/completed-game.repository';
@@ -11,6 +12,7 @@ import { ColorSchemaEnum } from '../../src/custom-theme/enum/color-schema.enum';
 import { ThemeEnum } from '../../src/custom-theme/enum/theme.enum';
 import { CustomThemeRepository } from '../../src/custom-theme/repository/custom-theme.repository';
 import { DifficultyStatsRepository } from '../../src/difficulty-stats/repository/difficulty-stats.repository';
+import { LegacyKvStoreConstant } from '../../src/legacy/constant/legacy-kv-store.constant';
 import { LegacyStateImportService } from '../../src/legacy/service/legacy-state-import.service';
 import { PlayerStatsRepository } from '../../src/player-stats/repository/player-stats.repository';
 import { SettingsRepository } from '../../src/settings/repository/settings.repository';
@@ -95,6 +97,25 @@ it.effect('rejects malformed legacy slices before replacing existing player data
         assert.isTrue(Exit.isFailure(result));
         assert.deepStrictEqual(yield* completedGameRepository.findAll, savedGames);
         assert.deepStrictEqual(yield* settingsRepository.get, savedSettings);
+    }).pipe(Effect.provide(ProgressTestLayer))
+);
+
+it.effect('reads the persisted root from an expo-sqlite kv-store table and deletes it after the import', () =>
+    Effect.gen(function* () {
+        const sql = yield* SqlClient.SqlClient;
+        const settingsRepository = yield* SettingsRepository;
+
+        yield* settingsRepository.initialize(initialSettings);
+        yield* sql`CREATE TABLE storage (key TEXT PRIMARY KEY NOT NULL, value TEXT)`;
+        yield* sql`INSERT INTO storage (key, value) VALUES ('persist:root', ${buildPersistedRoot(seedState.game)})`;
+
+        const [{ value: persistedRoot }] = yield* sql.unsafe<{ readonly value: string }>(LegacyKvStoreConstant.selectPersistedRootSql);
+
+        yield* importPersistedRoot(persistedRoot);
+        yield* sql.unsafe(LegacyKvStoreConstant.deletePersistedRootSql);
+
+        assert.deepStrictEqual(yield* settingsRepository.get, { ...initialSettings, ...seedState.settings });
+        assert.deepStrictEqual(yield* sql.unsafe(LegacyKvStoreConstant.selectPersistedRootSql), []);
     }).pipe(Effect.provide(ProgressTestLayer))
 );
 

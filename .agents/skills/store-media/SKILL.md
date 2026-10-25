@@ -88,6 +88,16 @@ before relying on them.
   approval) and promotes the newest Play `internal` release to production.
   Dry run by default; dispatch with `dry_run` unticked only after the user
   confirms. Push screenshots first: they lock once the version is in review.
+- `.github/workflows/ota-production.yml` - manual EAS Update (OTA) to the
+  `production` channel; nothing publishes there automatically. Use it for
+  JS-only fixes that must reach installed builds without store review; any
+  native change (dependency, plugin, app config, assets baked into the binary)
+  changes the fingerprint runtime version and needs `native-publish.yml`
+  instead. `native-publish.yml` writes mobile-ci's store build record
+  (`store-record-packages-app.json`, each platform's runtime version) to the
+  `v<version>` release after a successful submit; the OTA job fails unless
+  every platform's runtime matches the newest recorded store build. Dry run by
+  default; a real publish runs from `main` only.
 
 ## Workflows
 

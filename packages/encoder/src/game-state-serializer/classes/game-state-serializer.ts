@@ -1,5 +1,5 @@
 import { BitInputStream } from '@thi.ng/bitstream';
-import { decompressFromEncodedURIComponent } from 'lz-string';
+import lzString from 'lz-string';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
@@ -57,7 +57,7 @@ export class GameStateSerializer {
             return this.binaryCodec.decode(gameStateString.slice(CODEC_PREFIX.length));
         }
 
-        const decompressed = decompressFromEncodedURIComponent(gameStateString);
+        const decompressed = lzString.decompressFromEncodedURIComponent(gameStateString);
         if (!decompressed) {
             throw new Error('Failed to decompress game state');
         }

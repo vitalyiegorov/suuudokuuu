@@ -666,6 +666,7 @@ msgstr "Clean black-and-white board"
 msgid "Clean win"
 msgstr "Clean win"
 
+#: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "Close"
 msgstr "Close"
