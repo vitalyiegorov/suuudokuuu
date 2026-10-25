@@ -664,6 +664,7 @@ msgstr "لوحة نظيفة بالأبيض والأسود"
 msgid "Clean win"
 msgstr "فوز نظيف"
 
+#: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "Close"
 msgstr "إغلاق"

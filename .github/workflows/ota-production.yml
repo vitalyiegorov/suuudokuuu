@@ -1,0 +1,125 @@
+# Manual EAS Update to the production channel; refuses unless the last recorded store build shares the runtime, dry run by default.
+name: OTA to production
+
+on:
+    workflow_dispatch:
+        inputs:
+            message:
+                description: 'Update message'
+                type: string
+                required: true
+            platforms:
+                description: 'Platforms to update'
+                type: choice
+                options:
+                    - all
+                    - ios
+                    - android
+                default: all
+            rollout_percentage:
+                description: 'Roll out to this percentage (1-100) of users; empty ships to everyone'
+                type: string
+                default: ''
+            dry_run:
+                description: 'Only compute the runtime versions and show which store builds would receive the update'
+                type: boolean
+                default: true
+
+permissions:
+    contents: read
+
+concurrency:
+    group: suuudokuuu-ota-production
+    cancel-in-progress: false
+
+jobs:
+    ota:
+        name: Publish OTA update
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+        env:
+            APP_VARIANT: production
+            EXPO_NO_TELEMETRY: '1'
+        steps:
+            - name: Require main for a real publish
+              if: ${{ !inputs.dry_run && github.ref != 'refs/heads/main' }}
+              run: |
+                  echo "::error::Publish OTA updates from main only: dispatch with --ref main, or tick dry_run."
+                  exit 1
+
+            - name: Checkout repository
+              uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+
+            - name: Setup pnpm
+              uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
+            - name: Setup Node
+              uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+              with:
+                  node-version: 22.x
+                  cache: pnpm
+
+            - name: Install dependencies
+              run: pnpm install --frozen-lockfile
+
+            - name: Resolve the runtime versions
+              id: runtime
+              uses: rnw-community/mobile-ci/actions/ota-runtime-version@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
+              with:
+                  app-dir: packages/app
+                  eas-profile: production
+                  platform: ${{ inputs.platforms }}
+
+            - name: Compare with the last recorded store builds
+              env:
+                  GH_TOKEN: ${{ github.token }}
+                  PLATFORMS: ${{ inputs.platforms == 'all' && 'ios android' || inputs.platforms }}
+                  RUNTIME_VERSIONS: ${{ steps.runtime.outputs.runtime-versions }}
+                  RECORD_ASSET: store-record-packages-app.json
+              run: |
+                  set -euo pipefail
+                  mapfile -t tags < <(gh api --paginate "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
+                    --jq ".[] | select(.draft | not) | select(any(.assets[]; .name == \"${RECORD_ASSET}\")) | .tag_name")
+                  records="$(mktemp -d)"
+                  for tag in "${tags[@]}"; do
+                    gh release download "$tag" --pattern "$RECORD_ASSET" --output "${records}/${tag}.json"
+                  done
+                  shopt -s nullglob
+                  record_files=("$records"/*.json)
+                  failed=0
+                  for platform in $PLATFORMS; do
+                    current="$(jq -r --arg platform "$platform" '.[$platform]' <<< "$RUNTIME_VERSIONS")"
+                    shipped="$(jq -rs --arg platform "$platform" \
+                      'map(select((.targets[$platform].fingerprint // "") != "")) | max_by(.recordedAt) | .targets[$platform].fingerprint // empty' \
+                      "${record_files[@]}" < /dev/null)"
+                    echo "${platform}: last recorded store build ${shipped:-none}, this commit ${current}."
+                    if [ "$current" != "$shipped" ]; then
+                      echo "::error::The ${platform} runtime ${current} differs from the last recorded store build (${shipped:-none}). A native change needs a store build (Build and Publish to Stores), not an OTA update."
+                      failed=1
+                    fi
+                  done
+                  exit "$failed"
+
+            - name: Report the dry run
+              if: ${{ inputs.dry_run }}
+              env:
+                  RUNTIME_VERSIONS: ${{ steps.runtime.outputs.runtime-versions }}
+              run: |
+                  echo "Dry run: runtime versions ${RUNTIME_VERSIONS} match the last recorded store builds; nothing was published." | tee -a "$GITHUB_STEP_SUMMARY"
+
+            - name: Publish the EAS update
+              if: ${{ !inputs.dry_run }}
+              uses: rnw-community/mobile-ci/actions/eas-update@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
+              with:
+                  app-dir: packages/app
+                  channel: production
+                  eas-profile: production
+                  platform: ${{ inputs.platforms }}
+                  message: ${{ inputs.message }}
+                  rollout-percentage: ${{ inputs.rollout_percentage }}
+                  ios-runtime-version: ${{ steps.runtime.outputs.ios-runtime-version }}
+                  android-runtime-version: ${{ steps.runtime.outputs.android-runtime-version }}
+                  skip-if-published: 'false'
+                  expo-token: ${{ secrets.EXPO_TOKEN }}

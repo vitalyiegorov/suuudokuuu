@@ -664,6 +664,7 @@ msgstr "পরিষ্কার সাদা-কালো বোর্ড"
 msgid "Clean win"
 msgstr "নিখুঁত জয়"
 
+#: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "Close"
 msgstr "বন্ধ করুন"

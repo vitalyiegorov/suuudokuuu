@@ -1,6 +1,5 @@
-import { BottomSheetScrollView } from '@expo/ui/community/bottom-sheet';
 import { use } from 'react';
-import { View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../theme/context/theme.context';
@@ -22,7 +21,6 @@ export const SettingsOptionSheet = ({ description, items, title }: Props) => {
     const { theme } = use(ThemeContext);
 
     const sheetColors = settingsOptionSheetGetColors(theme);
-    const containerStyles = [styles.container, { backgroundColor: sheetColors.panelBackground }];
     const groupStyles = [
         styles.group,
         {
@@ -32,8 +30,8 @@ export const SettingsOptionSheet = ({ description, items, title }: Props) => {
     const descriptionStyles = [styles.description, { color: sheetColors.descriptionColor }];
 
     return (
-        <View style={containerStyles} testID={SettingsOptionSheetSelectors.Root}>
-            <View style={styles.header}>
+        <>
+            <View collapsable={false} style={styles.header}>
                 <BlackText style={styles.title} testID={SettingsOptionSheetSelectors.Title}>
                     {title}
                 </BlackText>
@@ -42,11 +40,12 @@ export const SettingsOptionSheet = ({ description, items, title }: Props) => {
                 </BlackText>
             </View>
 
-            <BottomSheetScrollView
+            <ScrollView
                 contentContainerStyle={styles.listContent}
                 contentInsetAdjustmentBehavior="never"
                 showsVerticalScrollIndicator={false}
                 style={styles.list}
+                testID={SettingsOptionSheetSelectors.Root}
             >
                 <View style={groupStyles}>
                     {items.map((item, index) => {
@@ -65,7 +64,7 @@ export const SettingsOptionSheet = ({ description, items, title }: Props) => {
                         );
                     })}
                 </View>
-            </BottomSheetScrollView>
-        </View>
+            </ScrollView>
+        </>
     );
 };

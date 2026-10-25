@@ -2,9 +2,7 @@
     "extends": "../../tsconfig.build-esm.json",
     "compilerOptions": {
         "rootDir": "./src",
-        "outDir": "./dist/esm",
-        "module": "NodeNext",
-        "moduleResolution": "NodeNext"
+        "outDir": "./dist/esm"
     },
     "include": ["./src"],
     "exclude": ["node_modules", "dist", "**/*.spec.*"]
