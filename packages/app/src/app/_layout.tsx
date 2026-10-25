@@ -1,5 +1,3 @@
-import { Inter_500Medium as inter500Medium } from '@expo-google-fonts/inter/500Medium';
-import { Inter_700Bold as inter700Bold } from '@expo-google-fonts/inter/700Bold';
 import * as Effect from 'effect/Effect';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
@@ -9,10 +7,11 @@ import { enableFreeze, enableScreens } from 'react-native-screens';
 
 import { isDefined } from '@rnw-community/shared';
 
+import inter500Medium from '../../assets/fonts/Inter_500Medium.ttf';
+import inter700Bold from '../../assets/fonts/Inter_700Bold.ttf';
 import { AppI18nProvider } from '../@generic/components/app-i18n-provider/app-i18n-provider';
 import { RootProviders } from '../@generic/components/root-providers/root-providers';
 import { applyGameControlsInteractions } from '../@generic/utils/apply-game-controls-interactions';
-import { applySheetContentWidth } from '../@generic/utils/apply-sheet-content-width';
 import { logErrorCause } from '../@generic/utils/log-error-cause.util';
 import { WinConfettiProvider } from '../confetti/components/win-confetti-provider/win-confetti-provider';
 import { GameProvider } from '../game/components/game-provider/game-provider';
@@ -22,19 +21,20 @@ if (Platform.OS !== 'web') {
     enableScreens();
     enableFreeze();
 }
-applySheetContentWidth();
 applyGameControlsInteractions();
 
 Effect.runFork(Effect.tryPromise(() => SplashScreen.preventAutoHideAsync()).pipe(Effect.catchCause(logErrorCause)));
 
 const stackOptions = { headerShown: false, gestureEnabled: true };
 const gameOptions = { gestureEnabled: false };
-const modalSheetOptions = {
+const webSheetOptions = {
     animation: 'fade' as const,
     contentStyle: { backgroundColor: 'transparent' },
     gestureEnabled: false,
     presentation: 'transparentModal' as const
 };
+const nativeSheetOptions = { presentation: 'formSheet' as const, sheetGrabberVisible: true };
+const modalSheetOptions = Platform.OS === 'web' ? webSheetOptions : nativeSheetOptions;
 
 export default function RootLayout() {
     const [loaded, error] = useFonts({ Inter_500Medium: inter500Medium, Inter_700Bold: inter700Bold });

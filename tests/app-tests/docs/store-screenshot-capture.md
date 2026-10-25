@@ -47,7 +47,7 @@ accessibility tree:
 
 1. **Seed state.** `scripts/seed-app-state.ts` writes the persisted redux
    blob straight into the app's storage: one `persist:root` row in a plain
-   `storage(key, value)` SQLite table (`expo-sqlite`), at
+   `storage(key, value)` SQLite table (the legacy `expo-sqlite` kv-store layout), at
    `<data container>/Documents/SQLite/ExpoSQLiteStorage` on iOS
    (`simctl get_app_container <udid> <app> data`) and
    `/data/data/<pkg>/files/SQLite/ExpoSQLiteStorage` on Android. Each

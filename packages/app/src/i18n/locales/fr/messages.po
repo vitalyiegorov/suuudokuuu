@@ -666,6 +666,7 @@ msgstr "Grille noir et blanc nette"
 msgid "Clean win"
 msgstr "Victoire nette"
 
+#: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "Close"
 msgstr "Fermer"

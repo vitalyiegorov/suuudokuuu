@@ -1,13 +1,13 @@
 import { LegacyStateImportService, SettingsRepository, runDatabaseMigrations } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
 import * as Atom from 'effect/reactivity/Atom';
-import Storage from 'expo-sqlite/kv-store';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { getDefaultSettings } from '../../settings/utils/get-default-settings.util';
 import { getTheme } from '../../theme/utils/get-theme.util';
 import { appAtomRuntime } from '../runtime/app.runtime';
+import { readLegacyPersistedRoot, removeLegacyPersistedRoot } from '../runtime/legacy-kv-store';
 
 import { i18nActivateLanguage } from './i18n-catalogs';
 import { logErrorCause } from './log-error-cause.util';
@@ -15,10 +15,8 @@ import { logErrorCause } from './log-error-cause.util';
 import type { AppServices } from '../runtime/app.runtime';
 import type { ReactivityKeyEnum } from '@suuudokuuu/progress';
 
-const LegacyPersistedRootKey = 'persist:root';
-
 const importLegacyState = Effect.gen(function* () {
-    const persistedRoot = yield* Effect.promise(() => Storage.getItem(LegacyPersistedRootKey));
+    const persistedRoot = yield* readLegacyPersistedRoot;
 
     if (!isNotEmptyString(persistedRoot)) {
         return;
@@ -27,7 +25,7 @@ const importLegacyState = Effect.gen(function* () {
     const legacyStateImportService = yield* LegacyStateImportService;
 
     yield* legacyStateImportService.importPersistedRoot(persistedRoot, (theme, colorSchema) => getTheme(theme, colorSchema).colors);
-    yield* Effect.promise(() => Storage.removeItem(LegacyPersistedRootKey));
+    yield* removeLegacyPersistedRoot;
 }).pipe(Effect.tapCause(logErrorCause), Effect.ignoreCause);
 
 export const databaseBootAtom = appAtomRuntime

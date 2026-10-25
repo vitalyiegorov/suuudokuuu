@@ -7,6 +7,7 @@
     ],
     "ignoreDependencies": [
         "@babel/core",
+        "@expo-google-fonts/inter",
         "@lingui/format-po",
         "@expo/fingerprint",
         "babel-plugin-react-compiler",
@@ -27,7 +28,7 @@
                 "scripts/*.ts!"
             ],
             "project": ["src/**/*.{ts,tsx}", "scripts/**/*.ts"],
-            "ignoreDependencies": ["@expo-google-fonts/inter", "@lingui/swc-plugin"]
+            "ignoreDependencies": ["@lingui/swc-plugin"]
         },
         "packages/app": {
             "entry": [
@@ -35,7 +36,8 @@
                 "vercel-functions/api/**/*.ts!",
                 "vercel-functions/shared/create-node-handler.util.ts!",
                 "metro/wa-sqlite-factory.web.js!",
-                "src/@generic/runtime/sqlite-opfs.worker.ts!"
+                "src/@generic/runtime/sqlite-opfs.worker.ts!",
+                "src/@generic/runtime/legacy-kv-store.worker.ts!"
             ]
         },
         "tests/app-tests": {

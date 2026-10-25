@@ -666,6 +666,7 @@ msgstr "Tablero limpio en blanco y negro"
 msgid "Clean win"
 msgstr "Victoria limpia"
 
+#: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "Close"
 msgstr "Cerrar"

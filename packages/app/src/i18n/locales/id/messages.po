@@ -664,6 +664,7 @@ msgstr "Papan hitam-putih yang bersih"
 msgid "Clean win"
 msgstr "Kemenangan bersih"
 
+#: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "Close"
 msgstr "Tutup"

@@ -1,17 +1,14 @@
-import BottomSheet, { BottomSheetView } from '@expo/ui/community/bottom-sheet';
-import { Redirect, Stack, router, useLocalSearchParams } from 'expo-router';
+import { Redirect, router, useLocalSearchParams } from 'expo-router';
 import { useEffect } from 'react';
 import { useWindowDimensions } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { SheetFrame } from '../../../@generic/components/sheet-frame/sheet-frame';
 import { HomeHrefConstant } from '../../../@generic/constants/home-href.constant';
 import { SettingsOptionSheet } from '../../../settings/component/settings-option-sheet/settings-option-sheet';
 import { useSettingsOptionSheetConfig } from '../../../settings/hooks/use-settings-option-sheet-config.hook';
 import { settingsOptionSheetGetAllowedDetents } from '../../../settings/utils/settings-option-sheet-get-allowed-detents.util';
-import { settingsOptionSheetGetSnapPoint } from '../../../settings/utils/settings-option-sheet-get-snap-point.util';
-
-import { SettingsOptionSheetScreenStyles as styles } from './settings-option-sheet-screen.styles';
 
 export const SettingsOptionSheetScreen = () => {
     const { height } = useWindowDimensions();
@@ -31,24 +28,9 @@ export const SettingsOptionSheetScreen = () => {
         return canGoBack ? null : <Redirect href={HomeHrefConstant} />;
     }
 
-    const sheetAllowedDetents = settingsOptionSheetGetAllowedDetents(config.items.length, height);
-    const sheetSnapPoints = sheetAllowedDetents.map(settingsOptionSheetGetSnapPoint);
-
     return (
-        <>
-            <Stack.Screen />
-            <BottomSheet
-                backgroundStyle={styles.sheetBackground}
-                enableDynamicSizing={false}
-                enablePanDownToClose
-                index={0}
-                onClose={router.back}
-                snapPoints={sheetSnapPoints}
-            >
-                <BottomSheetView style={styles.sheetContent}>
-                    <SettingsOptionSheet description={config.description} items={config.items} title={config.title} />
-                </BottomSheetView>
-            </BottomSheet>
-        </>
+        <SheetFrame detents={settingsOptionSheetGetAllowedDetents(config.items.length, height)}>
+            <SettingsOptionSheet description={config.description} items={config.items} title={config.title} />
+        </SheetFrame>
     );
 };
