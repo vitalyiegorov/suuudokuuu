@@ -4,7 +4,7 @@ import { use } from 'react';
 import { ScreenChromeProvider } from '@rnw-community/react-native-screen-chrome';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { AppScreenChromeConfig } from '../../constants/screen-chrome-config.constant';
+import { AppScreenChromeConfig, AppScreenChromeSolidAlpha } from '../../constants/screen-chrome-config.constant';
 import { applyColorAlpha } from '../../utils/apply-color-alpha.util';
 
 import { ScreenChromeWashAlphaContext } from './context/screen-chrome-wash-alpha.context';
@@ -21,13 +21,14 @@ export const ScreenChromeThemeProvider = ({ children, washAlpha }: Props) => {
     const { colorScheme, theme } = use(ThemeContext);
     const inheritedWashAlpha = use(ScreenChromeWashAlphaContext);
 
+    const resolvedWashAlpha = washAlpha ?? inheritedWashAlpha;
     const screenChromeColorScheme: ScreenChromeColorScheme = colorScheme === ColorSchemaEnum.Dark ? 'dark' : 'light';
     const screenChromeConfig = {
         ...AppScreenChromeConfig,
         colors: {
             [screenChromeColorScheme]: {
-                solid: theme.colors.background,
-                wash: applyColorAlpha(theme.colors.background, washAlpha ?? inheritedWashAlpha)
+                solid: applyColorAlpha(theme.colors.background, Math.max(AppScreenChromeSolidAlpha, resolvedWashAlpha)),
+                wash: applyColorAlpha(theme.colors.background, resolvedWashAlpha)
             }
         }
     };

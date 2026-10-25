@@ -15,13 +15,12 @@ import {
     FloatingTabBarBottomMargin,
     FloatingTabBarEdgeFadeHeight,
     FloatingTabBarIconSize,
+    FloatingTabBarOccupiedHeight,
     FloatingTabBarWashAlpha
 } from './constant/floating-tab-bar.constant';
 import { FloatingTabBarStyles as styles } from './floating-tab-bar.styles';
 
 import type { BottomTabBarProps } from 'expo-router/tabs';
-
-const bottomFadeStyle = { bottom: 0 };
 
 export const FloatingTabBar = ({ state, descriptors, emitter, navigateToTab }: BottomTabBarProps) => {
     const { theme } = use(ThemeContext);
@@ -32,7 +31,7 @@ export const FloatingTabBar = ({ state, descriptors, emitter, navigateToTab }: B
     return (
         <>
             <ScreenChromeThemeProvider washAlpha={FloatingTabBarWashAlpha}>
-                <EdgeFade height={FloatingTabBarEdgeFadeHeight} position="bottom" style={bottomFadeStyle} />
+                <EdgeFade chromeHeight={FloatingTabBarOccupiedHeight} height={FloatingTabBarEdgeFadeHeight} position="bottom" />
             </ScreenChromeThemeProvider>
 
             <View pointerEvents="box-none" ref={backdropRecompositeRef} style={anchorStyles}>

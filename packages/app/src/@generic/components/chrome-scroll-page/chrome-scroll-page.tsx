@@ -37,8 +37,12 @@ export const ChromeScrollPage = ({ children, footer, testID }: Props) => {
     const bandClearanceInset = ChromeScrollPageTopFadeHeight - ChromeScrollPageContentTuck - insets.top;
     const contentInsetTop = Math.max(ChromeScrollPageContentInsetTop, bandClearanceInset);
     const footerReserve = Math.max(ChromeScrollPageFooterMinReserve, footerHeight + insets.bottom + ChromeScrollPageFooterExtraReserve);
-    const footerEdgeFadeProps = { height: footerReserve - insets.bottom, intensity: ChromeScrollPageFooterFadeIntensity };
-    const topEdgeFadeProps = { height: ChromeScrollPageTopFadeHeight };
+    const footerEdgeFadeProps = {
+        chromeHeight: footerHeight,
+        height: footerReserve - insets.bottom,
+        intensity: ChromeScrollPageFooterFadeIntensity
+    };
+    const topEdgeFadeProps = { height: ChromeScrollPageTopFadeHeight - insets.top };
     const footerBand = (
         <StickyFooterBand contentStyle={styles.footer} edgeFadeProps={footerEdgeFadeProps}>
             <View onLayout={handleFooterLayout}>{footer}</View>

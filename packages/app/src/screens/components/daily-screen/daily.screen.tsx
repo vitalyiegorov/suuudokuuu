@@ -2,7 +2,6 @@ import { useLingui } from '@lingui/react/macro';
 import { AppButton, resolveUnistyleForAnimated } from '@suuudokuuu/ui';
 import { use } from 'react';
 import { View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
 import { isDefined } from '@rnw-community/shared';
@@ -30,10 +29,10 @@ import { DailyScreenStyles as styles } from './daily-screen.styles';
 const DailyScreenBottomScrollPadding = 12;
 const DailyScreenTopContentPadding = 12;
 const DailyScreenTopOverlayIntensity = 0.12;
+const DailyScreenTopEdgeFadeProps = { height: DailyScreenTopContentPadding, intensity: DailyScreenTopOverlayIntensity };
 
 export const DailyScreen = () => {
     const { t } = useLingui();
-    const safeAreaInsets = useSafeAreaInsets();
     const tabBarInset = use(TabBarInsetContext);
     const {
         bestStreak,
@@ -71,7 +70,6 @@ export const DailyScreen = () => {
     const todayResult = dailyResults.find(dailyResult => dailyResult.dailyDayNumber === todayDayNumber);
     const recentDays = dailyGetCompletedDays(completedDayNumbers, todayDayNumber, dailyResults);
     const contentInsetBottom = DailyScreenBottomScrollPadding + tabBarInset;
-    const topEdgeFadeProps = { height: safeAreaInsets.top + DailyScreenTopContentPadding, intensity: DailyScreenTopOverlayIntensity };
     const shareButton = isDefined(todayResult) ? <DailyShareButton encodedState={todayResult.encodedState} /> : null;
     const todayContent = isCompleted ? (
         <DailyTodayResult difficulty={difficulty} result={todayResult} />
@@ -95,7 +93,7 @@ export const DailyScreen = () => {
     );
 
     return (
-        <ChromePage testID={DailyScreenSelectors.Root} topEdgeFadeProps={topEdgeFadeProps}>
+        <ChromePage testID={DailyScreenSelectors.Root} topEdgeFadeProps={DailyScreenTopEdgeFadeProps}>
             <ScreenChromeScrollView
                 contentContainerStyle={resolveUnistyleForAnimated(styles.scrollContent)}
                 contentInsetBottom={contentInsetBottom}

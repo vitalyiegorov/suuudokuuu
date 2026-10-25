@@ -12,7 +12,7 @@ import {
 } from '@rnw-community/react-native-screen-chrome';
 import { isDefined } from '@rnw-community/shared';
 
-import { AppScreenChromeConfig } from '../../constants/screen-chrome-config.constant';
+import { AppScreenChromeConfig, AppScreenChromeHeaderBackdropScrollAnimation } from '../../constants/screen-chrome-config.constant';
 import { backdropRecompositeRef } from '../../utils/backdrop-recomposite-ref.util';
 import { HeaderBackButton } from '../header-back-button/header-back-button';
 import { Header } from '../header/header';
@@ -65,7 +65,7 @@ export const CollapsibleChromePage = (props: Props) => {
                         </ScreenChromeScrollView>
                     </View>
 
-                    <CollapsibleHeaderBackdrop />
+                    <CollapsibleHeaderBackdrop scrollAnimation={AppScreenChromeHeaderBackdropScrollAnimation} />
 
                     <CollapsibleHeader
                         collapsedContentContainerStyle={styles.titleLayer}
