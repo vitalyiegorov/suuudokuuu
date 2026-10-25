@@ -18,7 +18,7 @@ interface Props {
     readonly cellSize: number;
 }
 
-const textCandidatePositionStyles = {
+const textCandidatePositionStyles: Record<number, typeof styles.textCandidatePosition2> = {
     1: styles.textCandidatePosition1,
     2: styles.textCandidatePosition2,
     3: styles.textCandidatePosition3,
@@ -38,7 +38,7 @@ export const FieldCellCandidates = ({ cell, cellSize }: Props) => {
     const { showActiveCandidates } = useSettings();
 
     const getCandidateTextStyles = (candidate: number) => {
-        const textCandidatePositionStyle = textCandidatePositionStyles[candidate as keyof typeof textCandidatePositionStyles];
+        const textCandidatePositionStyle = textCandidatePositionStyles[candidate];
         const isCandidateActive = candidate === activeValue;
         const isCandidateEliminated = eliminatedCandidates.includes(candidate);
 

@@ -33,6 +33,7 @@ const renderBranchNarration = ({ branch, branchIndex, branchCount }: StepScriptB
             return `If ${path} → ${formatCellLabel(outcome.cell)} would have to be ${outcome.value}, which is no longer possible. ${refutation}`;
         case ForcingOutcomeKindEnum.COMMON_PLACEMENT:
             return `${branchLabel} This branch leads to ${formatCandidate(outcome)}.`;
+        case ForcingOutcomeKindEnum.COMMON_ELIMINATIONS:
         default:
             return `${branchLabel} This branch rules out ${outcome.eliminations.map(({ cell, value }) => `${formatCellLabel(cell)}≠${value}`).join(', ')}.`;
     }

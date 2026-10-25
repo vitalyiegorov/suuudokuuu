@@ -1,6 +1,8 @@
 import { AppSettingsRow, AppToggle } from '@suuudokuuu/ui';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 
+import { emptyFn } from '@rnw-community/shared';
+
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { useSettings } from '../../query/use-settings.query';
 import { updateSettings } from '../../utils/update-settings.util';
@@ -19,7 +21,7 @@ export const SettingsSwitch = ({ setting, title, description, testID }: Props) =
     const [, hapticImpact] = useVibration();
     const handleValueChange = (newValue: boolean) => {
         hapticImpact(ImpactFeedbackStyle.Light);
-        void updateSettings({ [setting]: newValue });
+        void updateSettings({ [setting]: newValue }).catch(emptyFn);
     };
     const trailing = <AppToggle accessibilityLabel={title} onValueChange={handleValueChange} testID={testID} value={settingValue} />;
 

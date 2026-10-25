@@ -62,8 +62,9 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@a9fac576ef1c8a9a565d03851f2624502a868214 # v4.4.1
         with:
+            control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
             # app, its workspace dependencies or the Maestro suite changed, so a
@@ -124,8 +125,9 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@a9fac576ef1c8a9a565d03851f2624502a868214 # v4.4.1
         with:
+            control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
             # app, its workspace dependencies or the Maestro suite changed, so a
@@ -238,7 +240,7 @@ jobs:
 
             - name: Start the Android capture emulator
               id: emulator
-              uses: rnw-community/mobile-ci/actions/android-emulator@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
+              uses: rnw-community/mobile-ci/actions/android-emulator@a9fac576ef1c8a9a565d03851f2624502a868214 # v4.4.1
               with:
                   mode: start
                   api-level: 34
@@ -261,7 +263,7 @@ jobs:
 
             - name: Stop the Android capture emulator
               if: always()
-              uses: rnw-community/mobile-ci/actions/android-emulator@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
+              uses: rnw-community/mobile-ci/actions/android-emulator@a9fac576ef1c8a9a565d03851f2624502a868214 # v4.4.1
               with:
                   mode: stop
 

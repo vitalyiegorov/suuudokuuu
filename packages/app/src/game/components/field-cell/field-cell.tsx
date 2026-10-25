@@ -45,7 +45,6 @@ interface Props {
     readonly children?: ReactNode;
 }
 
-// oxlint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const FieldCell = (props: Props) => {
     const { cell, cellSize, cellMargin, onSelect, successGeneration, children } = props;
 
@@ -103,7 +102,7 @@ export const FieldCell = (props: Props) => {
             withSequence(
                 withTiming(1, isMotionReduced ? successHoldConfig : successAnimationConfig),
                 withTiming(0, instantAnimationConfig, finished => {
-                    if (finished) {
+                    if (finished === true) {
                         scheduleOnRN(setIsSuccessPulsing, false);
                     }
                 })

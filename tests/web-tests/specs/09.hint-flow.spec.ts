@@ -659,9 +659,9 @@ test('ignores board keys while a hint is open and closes the hint with Escape', 
     const notedCell = page.getByTestId(cellTestId(0, 0));
     const dialogMessages: string[] = [];
 
-    page.on('dialog', dialog => {
+    page.on('dialog', async dialog => {
         dialogMessages.push(dialog.message());
-        void dialog.dismiss();
+        await dialog.dismiss();
     });
 
     const notedCellLabel = await notedCell.getAttribute('aria-label');

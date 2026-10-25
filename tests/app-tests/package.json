@@ -7,7 +7,7 @@
         "seed:check": "tsx --conditions=import scripts/seed-flow-state.ts --check",
         "seed:flow": "tsx --conditions=import scripts/seed-flow-state.ts",
         "selectors:check": "scripts/validate-shards.sh",
-        "ts": "tsc -p scripts"
+        "ts": "tsrs -p scripts"
     },
     "dependencies": {
         "@rnw-community/shared": "^2.28.0",

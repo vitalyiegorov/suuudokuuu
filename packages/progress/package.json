@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/progress",
-    "version": "2.34.6",
+    "version": "2.35.6",
     "private": true,
     "files": [
         "dist/**/*"
@@ -17,10 +17,10 @@
     },
     "scripts": {
         "build": "pnpm build:esm && find ./dist -name '*.tsbuildinfo' -delete",
-        "build:esm": "tsc --pretty -p tsconfig.build-esm.json",
+        "build:esm": "tsrs --pretty -p tsconfig.build-esm.json",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "ts": "tsc -p . && tsc -p tsconfig.test.json",
+        "ts": "tsrs -p . && tsrs -p tsconfig.test.json",
         "effect:check": "effect-language-service diagnostics --project tsconfig.json --format text --severity error"
     },
     "dependencies": {

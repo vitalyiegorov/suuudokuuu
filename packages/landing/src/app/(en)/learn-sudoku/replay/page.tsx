@@ -25,7 +25,6 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(sudokuReplayPageMetadata);
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SudokuReplayPage = () => (
     <main>
         <ArticleSchema metadata={sudokuReplayPageMetadata} />

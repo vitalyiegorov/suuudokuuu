@@ -9,7 +9,11 @@ export const trackInvalidations = Effect.gen(function* () {
 
     for (const key of Object.values(ReactivityKeyEnum)) {
         yield* Effect.acquireRelease(
-            Effect.sync(() => reactivity.registerUnsafe([key], () => invalidatedKeys.push(key))),
+            Effect.sync(() =>
+                reactivity.registerUnsafe([key], () => {
+                    invalidatedKeys.push(key);
+                })
+            ),
             unregister => Effect.sync(unregister)
         );
     }

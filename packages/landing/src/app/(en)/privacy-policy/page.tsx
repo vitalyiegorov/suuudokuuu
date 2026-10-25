@@ -13,7 +13,6 @@ export const metadata: Metadata = buildPageMetadata(privacyPolicyPageMetadata);
 const CONTACT_EMAIL = 'vitalyiegorov@gmail.com';
 const EFFECTIVE_DATE = '25 May 2023';
 
-// oxlint-disable-next-line max-lines-per-function -- Legal copy belongs in the route file
 const PrivacyPolicyPage = () => (
     <main>
         <PageHeader metadata={privacyPolicyPageMetadata}>

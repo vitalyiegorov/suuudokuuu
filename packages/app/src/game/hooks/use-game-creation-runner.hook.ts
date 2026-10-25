@@ -5,7 +5,7 @@ import { usePathname, useRouter } from 'expo-router';
 import { useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 
-import { getErrorMessage, isDefined } from '@rnw-community/shared';
+import { emptyFn, getErrorMessage, isDefined } from '@rnw-community/shared';
 
 import { Alert } from '../../@generic/components/alert/alert';
 import { appRuntime } from '../../@generic/runtime/app.runtime';
@@ -24,13 +24,15 @@ export const useGameCreationRunner = () => {
     const creationPathnameRef = useRef(pathname);
     const [isCreatingGame, setIsCreatingGame] = useState(false);
 
+    const handleInvalidGameDismiss = () => {
+        void runCurrentRunCommand(currentRunService => currentRunService.reset).catch(emptyFn);
+        router.replace('/');
+    };
+
     const showAlert = (error: unknown) => {
         Alert(t`Invalid Sudoku`, getErrorMessage(error), [
             {
-                onPress: () => {
-                    void runCurrentRunCommand(currentRunService => currentRunService.reset);
-                    router.replace('/');
-                },
+                onPress: handleInvalidGameDismiss,
                 text: t`OK`
             }
         ]);

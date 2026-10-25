@@ -24,7 +24,6 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(accessibleSudokuPageMetadata);
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const AccessibleSudokuPage = () => (
     <main>
         <ArticleSchema metadata={accessibleSudokuPageMetadata} />

@@ -13,6 +13,8 @@ export const appButtonGetTextColor = (theme: Pick<ThemeInterface, 'colors'>, var
             return theme.colors.dangerText;
         case 'boardSelected':
             return theme.colors.board.selectedText;
+        case 'primary':
+        case 'glass':
         default:
             return theme.colors.inkText;
     }

@@ -40,9 +40,9 @@ test('escape opens the quit confirmation instead of silently deselecting', async
     await page.keyboard.press('ArrowDown');
 
     let dialogMessage = '';
-    page.once('dialog', dialog => {
+    page.once('dialog', async dialog => {
         dialogMessage = dialog.message();
-        void dialog.dismiss();
+        await dialog.dismiss();
     });
     await page.keyboard.press('Escape');
 

@@ -18,7 +18,7 @@ export const detectBootedIosSimulatorUdid = (targetDeviceClass: string): string 
         return '';
     }
 
-    const match = matchingLine.match(BootedUdidPattern);
+    const match = BootedUdidPattern.exec(matchingLine);
 
     return match === null ? '' : match[1];
 };
