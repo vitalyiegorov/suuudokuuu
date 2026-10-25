@@ -66,7 +66,7 @@ jobs:
 
             - name: Resolve the runtime versions
               id: runtime
-              uses: rnw-community/mobile-ci/actions/ota-runtime-version@a0423d54ac305a82e98ee47448ee34f860c2d525 # v4.4.0
+              uses: rnw-community/mobile-ci/actions/ota-runtime-version@a9fac576ef1c8a9a565d03851f2624502a868214 # v4.4.1
               with:
                   app-dir: packages/app
                   eas-profile: production
