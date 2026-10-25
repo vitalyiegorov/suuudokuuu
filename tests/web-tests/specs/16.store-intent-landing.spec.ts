@@ -92,9 +92,9 @@ test('an intent link preserves an existing run and Start still asks before repla
     await page.goto('/start/expert');
     await expect(page.getByTestId(HomeScreenIntentSpotlightSelectors.ROOT)).toBeVisible();
     await expect(page.getByTestId(HomeScreenSelectors.ResumeButton)).toBeVisible();
-    page.once('dialog', dialog => {
+    page.once('dialog', async dialog => {
         expect(dialog.message()).toContain('Stop current run?');
-        void dialog.dismiss();
+        await dialog.dismiss();
     });
     await page.getByTestId(HomeScreenSelectors.StartButton).click();
     await expect(page.getByTestId(HomeScreenSelectors.ResumeButton)).toBeVisible();

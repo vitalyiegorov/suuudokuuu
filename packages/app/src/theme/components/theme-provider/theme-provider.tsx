@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import { Appearance, Platform } from 'react-native';
 import { UnistylesRuntime } from 'react-native-unistyles';
 
-import { isDefined } from '@rnw-community/shared';
+import { emptyFn, isDefined } from '@rnw-community/shared';
 
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { useSettings } from '../../../settings/query/use-settings.query';
@@ -52,7 +52,7 @@ export const ThemeProvider = ({ children }: Props) => {
     }, [colorScheme]);
 
     const changeTheme = (theme: SettingsType['theme']) => {
-        void updateSettings({ theme });
+        void updateSettings({ theme }).catch(emptyFn);
     };
 
     const theme = resolveTheme(selectedTheme, colorScheme, customThemes);

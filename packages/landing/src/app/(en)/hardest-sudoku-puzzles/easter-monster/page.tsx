@@ -19,7 +19,6 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(easterMonsterPageMetadata);
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const EasterMonsterPage = () => (
     <main>
         <FamousPuzzlePageHeader metadata={easterMonsterPageMetadata} />

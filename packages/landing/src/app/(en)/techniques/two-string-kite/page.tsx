@@ -25,7 +25,6 @@ export const metadata: Metadata = buildPageMetadata(twoStringKitePageMetadata);
 
 const EXAMPLE_BOARD = '5..73.2....2584.3.37.92..8549385.......3.2549.254.....23.6.5..8.5.14....8412.....';
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const TwoStringKitePage = () => (
     <main>
         <TechniquePageHeader metadata={twoStringKitePageMetadata} />

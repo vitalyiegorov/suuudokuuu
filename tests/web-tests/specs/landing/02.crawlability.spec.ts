@@ -31,7 +31,7 @@ const stripMarkupTags = (text: string): string => {
     let previousText = '';
     while (strippedText !== previousText) {
         previousText = strippedText;
-        strippedText = strippedText.replace(MarkupTagPattern, '');
+        strippedText = strippedText.replaceAll(MarkupTagPattern, '');
     }
 
     return strippedText;

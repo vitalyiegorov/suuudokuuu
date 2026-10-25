@@ -6,13 +6,13 @@ import { mergeConfig } from 'vitest/config';
 export default mergeConfig(createVitestConfig(), {
     resolve: {
         alias: [
-            { find: /^@suuudokuuu\/solver-core$/, replacement: fileURLToPath(new URL('../solver-core/src/index.ts', import.meta.url)) },
+            { find: /^@suuudokuuu\/solver-core$/u, replacement: fileURLToPath(new URL('../solver-core/src/index.ts', import.meta.url)) },
             {
-                find: /^@suuudokuuu\/solver-bitmask$/,
+                find: /^@suuudokuuu\/solver-bitmask$/u,
                 replacement: fileURLToPath(new URL('../solver-bitmask/src/index.ts', import.meta.url))
             },
-            { find: /^@suuudokuuu\/solver-dlx$/, replacement: fileURLToPath(new URL('../solver-dlx/src/index.ts', import.meta.url)) },
-            { find: /^@suuudokuuu\/rating$/, replacement: fileURLToPath(new URL('../rating/src/index.ts', import.meta.url)) }
+            { find: /^@suuudokuuu\/solver-dlx$/u, replacement: fileURLToPath(new URL('../solver-dlx/src/index.ts', import.meta.url)) },
+            { find: /^@suuudokuuu\/rating$/u, replacement: fileURLToPath(new URL('../rating/src/index.ts', import.meta.url)) }
         ]
     },
     test: {

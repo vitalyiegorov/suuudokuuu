@@ -17,13 +17,13 @@
     },
     "scripts": {
         "build": "pnpm build:esm && pnpm build:cjs && find ./dist -name '*.tsbuildinfo' -delete",
-        "build:cjs": "tsc --pretty -p tsconfig.build-cjs.json",
+        "build:cjs": "tsrs --pretty -p tsconfig.build-cjs.json",
         "build:corpus": "node ./scripts/build-corpus.mjs",
-        "build:esm": "tsc --pretty -p tsconfig.build-esm.json",
+        "build:esm": "tsrs --pretty -p tsconfig.build-esm.json",
         "build:infinity-corpus": "node ./scripts/build-infinity-corpus.mjs",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "ts": "tsc -p . && tsc -p tsconfig.test.json"
+        "ts": "tsrs -p . && tsrs -p tsconfig.test.json"
     },
     "dependencies": {
         "@rnw-community/shared": "^2.28.0",

@@ -99,6 +99,7 @@ class BranchReplay {
                 );
             case ForcingOutcomeKindEnum.COMMON_PLACEMENT:
                 return this.values[this.getIndex(outcome.cell)] === outcome.value;
+            case ForcingOutcomeKindEnum.COMMON_ELIMINATIONS:
             default:
                 return outcome.eliminations.every(elimination => this.isEliminated(elimination));
         }

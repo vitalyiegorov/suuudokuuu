@@ -30,7 +30,6 @@ const RECENT_DAY_COUNT = 30;
 
 const RECENT_DATES = DAILY_ARCHIVE_DATES.slice(1, RECENT_DAY_COUNT + 1);
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const DailySudokuPage = () => (
     <main>
         <ArticleSchema metadata={dailySudokuPageMetadata} />

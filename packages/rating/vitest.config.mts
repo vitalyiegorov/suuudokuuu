@@ -6,8 +6,8 @@ import { mergeConfig } from 'vitest/config';
 export default mergeConfig(createVitestConfig(), {
     resolve: {
         alias: [
-            { find: /^@suuudokuuu\/generator$/, replacement: fileURLToPath(new URL('../generator/src/index.ts', import.meta.url)) },
-            { find: /^@suuudokuuu\/techniques$/, replacement: fileURLToPath(new URL('../techniques/src/index.ts', import.meta.url)) }
+            { find: /^@suuudokuuu\/generator$/u, replacement: fileURLToPath(new URL('../generator/src/index.ts', import.meta.url)) },
+            { find: /^@suuudokuuu\/techniques$/u, replacement: fileURLToPath(new URL('../techniques/src/index.ts', import.meta.url)) }
         ]
     },
     test: {

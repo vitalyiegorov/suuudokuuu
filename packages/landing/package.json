@@ -18,7 +18,7 @@
         "seo:report": "tsx scripts/seo-report.ts",
         "start": "pnpm generate:printables && pnpm generate:og-images && pnpm generate:indexing && next dev",
         "submit:indexnow": "tsx scripts/submit-indexnow.ts",
-        "ts": "tsc -p ."
+        "ts": "tsrs -p ."
     },
     "dependencies": {
         "@lingui/core": "6.10.0",

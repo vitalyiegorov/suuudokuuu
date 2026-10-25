@@ -22,11 +22,11 @@
     },
     "scripts": {
         "build": "pnpm build:esm && pnpm build:cjs && find ./dist -name '*.tsbuildinfo' -delete",
-        "build:cjs": "tsc --pretty -p tsconfig.build-cjs.json",
-        "build:esm": "tsc --pretty -p tsconfig.build-esm.json",
+        "build:cjs": "tsrs --pretty -p tsconfig.build-cjs.json",
+        "build:esm": "tsrs --pretty -p tsconfig.build-esm.json",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "ts": "tsc -p . && tsc -p tsconfig.test.json"
+        "ts": "tsrs -p . && tsrs -p tsconfig.test.json"
     },
     "dependencies": {
         "@rnw-community/shared": "^2.28.0",

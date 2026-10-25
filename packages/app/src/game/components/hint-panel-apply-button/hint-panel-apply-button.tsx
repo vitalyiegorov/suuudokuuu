@@ -3,7 +3,7 @@ import { AppButton } from '@suuudokuuu/ui';
 import { ImpactFeedbackStyle } from 'expo-haptics';
 import { use } from 'react';
 
-import { isDefined } from '@rnw-community/shared';
+import { emptyFn, isDefined } from '@rnw-community/shared';
 
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { GameContext } from '../../context/game.context';
@@ -35,7 +35,7 @@ export const HintPanelApplyButton = ({ style }: Props) => {
         }
 
         const applyStepScript = () => {
-            void runCurrentRunCommand(currentRunService => currentRunService.hint(stepScript.eliminations));
+            void runCurrentRunCommand(currentRunService => currentRunService.hint(stepScript.eliminations)).catch(emptyFn);
             engine.applyStepScript();
         };
 

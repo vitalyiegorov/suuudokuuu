@@ -21,11 +21,11 @@
     },
     "scripts": {
         "build": "pnpm build:esm && pnpm build:styles && find ./dist -name '*.tsbuildinfo' -delete",
-        "build:esm": "tsc --pretty -p tsconfig.build-esm.json",
+        "build:esm": "tsrs --pretty -p tsconfig.build-esm.json",
         "build:styles": "cp src/styles/field-dom.css dist/field-dom.css",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "ts": "tsc -p . && tsc -p tsconfig.test.json"
+        "ts": "tsrs -p . && tsrs -p tsconfig.test.json"
     },
     "dependencies": {
         "@rnw-community/shared": "^2.28.0",

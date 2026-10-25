@@ -76,7 +76,7 @@ export const FieldCellText = (props: Props) => {
             withSequence(
                 withTiming(1, comboAnimationConfig),
                 withTiming(0, { duration: 0 }, finished => {
-                    if (finished) {
+                    if (finished === true) {
                         scheduleOnRN(setIsComboAnimating, false);
                     }
                 })

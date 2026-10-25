@@ -73,7 +73,7 @@ describe('FieldEngine', () => {
             expect.assertions(1);
 
             const engine = createEngine();
-            const handler = vi.fn();
+            const handler = vi.fn<() => void>();
 
             engine.on('moveApplied', handler);
             engine.placeValue(getCell(engine, 0, 0), 5);
@@ -85,7 +85,7 @@ describe('FieldEngine', () => {
             expect.assertions(3);
 
             const engine = createEngine();
-            const handler = vi.fn();
+            const handler = vi.fn<() => void>();
 
             engine.on('mistake', handler);
 
@@ -100,7 +100,7 @@ describe('FieldEngine', () => {
             expect.assertions(3);
 
             const engine = createEngine();
-            const handler = vi.fn();
+            const handler = vi.fn<() => void>();
 
             engine.on('completed', handler);
             fillBoard(engine);
@@ -454,7 +454,7 @@ describe('FieldEngine', () => {
             expect.assertions(4);
 
             const engine = createEngine();
-            const listener = vi.fn();
+            const listener = vi.fn<() => void>();
             const unsubscribe = engine.subscribe(listener);
             const snapshot = engine.getSnapshot();
 
@@ -475,7 +475,7 @@ describe('FieldEngine', () => {
             expect.assertions(1);
 
             const engine = createEngine();
-            const handler = vi.fn();
+            const handler = vi.fn<() => void>();
             const unsubscribe = engine.on('mistake', handler);
 
             unsubscribe();

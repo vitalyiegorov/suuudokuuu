@@ -23,7 +23,6 @@ interface Props {
     date: string;
 }
 
-// oxlint-disable-next-line max-lines-per-function -- Layout/form component requires many lines
 export const DailyPuzzle = ({ date }: Props) => {
     const difficulty = getDailyDifficulty(date);
     const puzzle = forgeSerializablePuzzle(difficulty, getDailyPuzzleSeed(date));

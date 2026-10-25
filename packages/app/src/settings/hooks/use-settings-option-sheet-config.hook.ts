@@ -3,7 +3,7 @@ import { CellMargin, FontSizes, Languages, MotionPreferences } from '@suuudokuuu
 import * as Effect from 'effect/Effect';
 import { router } from 'expo-router';
 
-import { isDefined } from '@rnw-community/shared';
+import { emptyFn, isDefined } from '@rnw-community/shared';
 
 import { appRuntime } from '../../@generic/runtime/app.runtime';
 import { i18nActivateLanguage } from '../../@generic/utils/i18n-catalogs';
@@ -37,7 +37,7 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
     const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel } = useSettingsOptionLabels();
 
     const selectSetting = (patch: Partial<Pick<SettingsType, 'cellMargin' | 'fontSize' | 'motionPreference' | 'language'>>) => {
-        void updateSettings(patch);
+        void updateSettings(patch).catch(emptyFn);
 
         if (isDefined(patch.language)) {
             appRuntime.runFork(i18nActivateLanguage(patch.language).pipe(Effect.tapCause(logErrorCause)));

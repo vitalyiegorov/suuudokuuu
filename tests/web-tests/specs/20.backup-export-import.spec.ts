@@ -35,9 +35,9 @@ test('exports progress to a file and restores it in a fresh browser', async ({ b
     const freshContext = await browser.newContext();
     const freshPage = await freshContext.newPage();
     const dialogMessages: string[] = [];
-    freshPage.on('dialog', dialog => {
+    freshPage.on('dialog', async dialog => {
         dialogMessages.push(dialog.message());
-        void dialog.accept();
+        await dialog.accept();
     });
 
     await launchHome(freshPage);
