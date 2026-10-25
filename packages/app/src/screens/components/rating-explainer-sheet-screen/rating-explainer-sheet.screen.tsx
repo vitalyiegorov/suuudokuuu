@@ -43,7 +43,11 @@ export const RatingExplainerSheetScreen = () => {
     }
 
     const handleClose = () => {
-        router.back();
+        if (router.canGoBack()) {
+            router.back();
+        } else {
+            router.replace('/');
+        }
     };
 
     return (

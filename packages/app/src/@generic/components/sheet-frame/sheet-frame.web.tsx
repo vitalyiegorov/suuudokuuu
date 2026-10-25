@@ -23,7 +23,11 @@ export const SheetFrame = ({ children, detents }: Props) => {
     const { theme } = use(ThemeContext);
 
     const handleClose = () => {
-        router.back();
+        if (router.canGoBack()) {
+            router.back();
+        } else {
+            router.replace('/');
+        }
     };
 
     const [initialDetent = 1] = detents;
