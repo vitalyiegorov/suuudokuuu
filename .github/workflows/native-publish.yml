@@ -42,6 +42,16 @@ jobs:
               id: version
               run: echo "tag=v$(jq -r .version packages/app/package.json)" >> "$GITHUB_OUTPUT"
 
+            - name: Require the release tag
+              env:
+                  GH_TOKEN: ${{ github.token }}
+                  TAG: ${{ steps.version.outputs.tag }}
+              run: |
+                  if ! gh api "repos/${GITHUB_REPOSITORY}/git/ref/tags/${TAG}" --silent; then
+                    echo "::error::Tag ${TAG} does not exist, and the store build record is written to its release. Release the version before publishing."
+                    exit 1
+                  fi
+
     publish:
         name: Build and submit
         needs: [release-tag]

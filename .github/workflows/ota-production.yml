@@ -82,14 +82,18 @@ jobs:
                   set -euo pipefail
                   mapfile -t tags < <(gh api --paginate "repos/${GITHUB_REPOSITORY}/releases?per_page=100" \
                     --jq ".[] | select(.draft | not) | select(any(.assets[]; .name == \"${RECORD_ASSET}\")) | .tag_name")
+                  records="$(mktemp -d)"
+                  for tag in "${tags[@]}"; do
+                    gh release download "$tag" --pattern "$RECORD_ASSET" --output "${records}/${tag}.json"
+                  done
+                  shopt -s nullglob
+                  record_files=("$records"/*.json)
                   failed=0
                   for platform in $PLATFORMS; do
                     current="$(jq -r --arg platform "$platform" '.[$platform]' <<< "$RUNTIME_VERSIONS")"
-                    shipped=''
-                    for tag in "${tags[@]}"; do
-                      shipped="$(gh release download "$tag" --pattern "$RECORD_ASSET" --output - | jq -r --arg platform "$platform" '.targets[$platform].fingerprint // empty')"
-                      [ -z "$shipped" ] || break
-                    done
+                    shipped="$(jq -rs --arg platform "$platform" \
+                      'map(select((.targets[$platform].fingerprint // "") != "")) | max_by(.recordedAt) | .targets[$platform].fingerprint // empty' \
+                      "${record_files[@]}" < /dev/null)"
                     echo "${platform}: last recorded store build ${shipped:-none}, this commit ${current}."
                     if [ "$current" != "$shipped" ]; then
                       echo "::error::The ${platform} runtime ${current} differs from the last recorded store build (${shipped:-none}). A native change needs a store build (Build and Publish to Stores), not an OTA update."
