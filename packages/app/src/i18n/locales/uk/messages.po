@@ -1590,7 +1590,7 @@ msgstr "Поставте {valueList} у позначену клітинку."
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
-#: src/app/play.tsx
+#: src/app/(tabs)/play.tsx
 msgid "Play"
 msgstr "Грати"
 
@@ -1612,8 +1612,8 @@ msgstr "Грай на вищій складності, щоб отримати �
 msgid "Play streak"
 msgstr "Ігрова серія"
 
+#: src/app/(tabs)/play.tsx
 #: src/app/game.tsx
-#: src/app/play.tsx
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "Грати в судоку — Suuudokuuu"
 

@@ -47,7 +47,7 @@ test('pauses the timer in settings and resumes the persisted game after reload',
 
     expect(advancedSeconds).toBeGreaterThan(returnedSeconds);
 
-    await page.goto('/');
+    await page.goto('/play');
     await expect(page.getByTestId(HomeScreenSelectors.ResumeButton)).toBeVisible();
 
     await page.getByTestId(HomeScreenSelectors.ResumeButton).click();

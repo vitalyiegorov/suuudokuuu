@@ -4,6 +4,7 @@ import CalendarDays from 'lucide-react-native/icons/calendar-days';
 import BarChart3 from 'lucide-react-native/icons/chart-column';
 import Play from 'lucide-react-native/icons/play';
 import Settings from 'lucide-react-native/icons/settings';
+import { Platform } from 'react-native';
 
 import { FloatingTabBarOccupiedHeight } from '../floating-tab-bar/constant/floating-tab-bar.constant';
 import { FloatingTabBar } from '../floating-tab-bar/floating-tab-bar';
@@ -19,6 +20,8 @@ interface TabBarIconInput {
 }
 
 const screenOptions = { headerShown: false, tabBarHideOnKeyboard: true };
+const hiddenTabOptions = { href: null };
+const isWeb = Platform.OS === 'web';
 const renderTabBar = (props: BottomTabBarProps) => <FloatingTabBar {...props} />;
 
 export const FloatingTabLayout = () => {
@@ -45,10 +48,14 @@ export const FloatingTabLayout = () => {
         title: t`Settings`
     };
 
+    const indexTabOptions = isWeb ? hiddenTabOptions : playOptions;
+    const playTabOptions = isWeb ? playOptions : hiddenTabOptions;
+
     return (
         <TabBarInsetContext value={FloatingTabBarOccupiedHeight}>
             <Tabs backBehavior="none" screenOptions={screenOptions} tabBar={renderTabBar}>
-                <Tabs.Screen name="index" options={playOptions} />
+                <Tabs.Screen name="index" options={indexTabOptions} />
+                <Tabs.Screen name="play" options={playTabOptions} />
                 <Tabs.Screen name="daily" options={dailyOptions} />
                 <Tabs.Screen name="history" options={statsOptions} />
                 <Tabs.Screen name="settings" options={settingsOptions} />

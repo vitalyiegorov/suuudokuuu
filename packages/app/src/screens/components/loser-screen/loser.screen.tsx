@@ -5,6 +5,7 @@ import { Redirect } from 'expo-router';
 
 import { CompletedGameResultDetails } from '../../../@generic/components/completed-game-result-details/completed-game-result-details';
 import { GameResultPage } from '../../../@generic/components/game-result-page/game-result-page';
+import { HomeHrefConstant } from '../../../@generic/constants/home-href.constant';
 import { useCompletedGameResult } from '../../../@generic/hooks/use-completed-game-result.hook';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { getSudokuProgress } from '../../../@generic/utils/get-sudoku-progress.util';
@@ -23,7 +24,7 @@ export const LoserScreen = () => {
     }
 
     if (completedGameResult.kind === 'redirect') {
-        return <Redirect href="/" />;
+        return <Redirect href={HomeHrefConstant} />;
     }
 
     const { gameState, retrySetup, timeText } = completedGameResult;

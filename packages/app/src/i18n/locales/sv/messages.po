@@ -1588,7 +1588,7 @@ msgstr "Placera {valueList} i den markerade cellen."
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
-#: src/app/play.tsx
+#: src/app/(tabs)/play.tsx
 msgid "Play"
 msgstr "Spela"
 
@@ -1610,8 +1610,8 @@ msgstr "Spela på högre svårighetsgrader för större multiplikatorer"
 msgid "Play streak"
 msgstr "Spelsvit"
 
+#: src/app/(tabs)/play.tsx
 #: src/app/game.tsx
-#: src/app/play.tsx
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "Spela sudoku — Suuudokuuu"
 

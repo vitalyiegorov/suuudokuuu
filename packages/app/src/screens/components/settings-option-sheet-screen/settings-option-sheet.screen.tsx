@@ -5,6 +5,7 @@ import { useWindowDimensions } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { HomeHrefConstant } from '../../../@generic/constants/home-href.constant';
 import { SettingsOptionSheet } from '../../../settings/component/settings-option-sheet/settings-option-sheet';
 import { useSettingsOptionSheetConfig } from '../../../settings/hooks/use-settings-option-sheet-config.hook';
 import { settingsOptionSheetGetAllowedDetents } from '../../../settings/utils/settings-option-sheet-get-allowed-detents.util';
@@ -27,7 +28,7 @@ export const SettingsOptionSheetScreen = () => {
     }, [config, canGoBack]);
 
     if (!isDefined(config)) {
-        return canGoBack ? null : <Redirect href="/" />;
+        return canGoBack ? null : <Redirect href={HomeHrefConstant} />;
     }
 
     const sheetAllowedDetents = settingsOptionSheetGetAllowedDetents(config.items.length, height);

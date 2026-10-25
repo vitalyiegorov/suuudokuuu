@@ -9,6 +9,7 @@ import { isNotEmptyString } from '@rnw-community/shared';
 
 import { AppIconButton } from '../../../@generic/components/app-icon-button/app-icon-button';
 import { RatingExplainer } from '../../../@generic/components/rating-explainer/rating-explainer';
+import { HomeHrefConstant } from '../../../@generic/constants/home-href.constant';
 import { RatingExplainerCeilingParamValue } from '../../../@generic/utils/get-rating-explainer-href.util';
 import { useDifficultyStats } from '../../../history/query/use-difficulty-stats.query';
 import { historyGetBestRating } from '../../../history/utils/history-get-best-rating.util';
@@ -41,7 +42,7 @@ export const RatingExplainerSheetScreen = () => {
     }, [shouldGoBack]);
 
     if (!hasValidRating) {
-        return canGoBack ? null : <Redirect href="/" />;
+        return canGoBack ? null : <Redirect href={HomeHrefConstant} />;
     }
 
     const handleClose = () => sheetRef.current?.close();

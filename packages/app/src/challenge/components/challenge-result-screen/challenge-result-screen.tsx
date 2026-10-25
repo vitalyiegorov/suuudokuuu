@@ -8,6 +8,7 @@ import { isNotEmptyString } from '@rnw-community/shared';
 
 import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
 import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
+import { HomeHrefConstant } from '../../../@generic/constants/home-href.constant';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
@@ -48,7 +49,7 @@ export const ChallengeResultScreen = (props: Props) => {
     const challengeTimeText = useTimerText(challengeTime);
 
     if (!isNotEmptyString(sudokuString) && elapsedTime === 0) {
-        return <Redirect href="/" />;
+        return <Redirect href={HomeHrefConstant} />;
     }
 
     const marginSeconds = Math.abs(challengeTime - elapsedTime);

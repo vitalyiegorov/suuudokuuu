@@ -6,6 +6,7 @@ import { useNavigation, useRouter } from 'expo-router';
 import { useEffect } from 'react';
 
 import { appAtomRegistry } from '../../../@generic/constants/app-atom-registry.constant';
+import { HomeHrefConstant } from '../../../@generic/constants/home-href.constant';
 import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { RelaxedMaxMistakesConstant } from '../../../settings/constant/max-mistakes.constant';
 import { settingsAtom } from '../../../settings/query/use-settings.query';
@@ -37,8 +38,8 @@ export const StoreIntentScreen = ({ intent }: Props) => {
                 })
             ).pipe(
                 Effect.andThen(AtomRegistry.getResult(appAtomRegistry, settingsAtom, { suspendOnWaiting: true })),
-                Effect.andThen(Effect.sync(() => void dismissTo({ pathname: '/', params: { intent, intentVisit } }))),
-                Effect.catchCause(cause => Effect.logError(cause).pipe(Effect.andThen(Effect.sync(() => void dismissTo('/')))))
+                Effect.andThen(Effect.sync(() => void dismissTo({ pathname: HomeHrefConstant, params: { intent, intentVisit } }))),
+                Effect.catchCause(cause => Effect.logError(cause).pipe(Effect.andThen(Effect.sync(() => void dismissTo(HomeHrefConstant)))))
             )
         );
 

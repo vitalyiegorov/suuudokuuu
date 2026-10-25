@@ -6,6 +6,7 @@ import { use } from 'react';
 import { Pressable } from 'react-native';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { HomeHrefConstant } from '../../constants/home-href.constant';
 import { i18nIsRightToLeftLocale } from '../../utils/i18n-is-right-to-left-locale.util';
 
 import { HeaderBackButtonGlyphSize } from './constant/header-back-button.constant';
@@ -24,7 +25,7 @@ export const HeaderBackButton = () => {
             return;
         }
 
-        router.replace('/');
+        router.replace(HomeHrefConstant);
     };
 
     const BackChevron = i18nIsRightToLeftLocale(i18n.locale) ? ChevronRight : ChevronLeft;

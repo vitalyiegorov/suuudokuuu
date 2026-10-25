@@ -9,6 +9,7 @@ import { isNotEmptyString } from '@rnw-community/shared';
 import { AppLinkButton } from '../../../@generic/components/app-link-button/app-link-button';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Header } from '../../../@generic/components/header/header';
+import { HomeHrefConstant } from '../../../@generic/constants/home-href.constant';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
@@ -31,7 +32,7 @@ export const SharedScreen = ({ stateString }: Props) => {
     const resumeTimeText = useTimerText(gameState.elapsedTime);
 
     if (!isNotEmptyString(gameState.sudokuString)) {
-        return <Redirect href="/" />;
+        return <Redirect href={HomeHrefConstant} />;
     }
 
     const { challengeState, challengeTime } = gameState;
@@ -77,7 +78,7 @@ export const SharedScreen = ({ stateString }: Props) => {
                     testID={SharedScreenSelectors.ConfirmButton}
                     text={confirmText}
                 />
-                <AppLinkButton href="/" testID={SharedScreenSelectors.CancelButton} text={t`Cancel`} />
+                <AppLinkButton href={HomeHrefConstant} testID={SharedScreenSelectors.CancelButton} text={t`Cancel`} />
             </View>
         </View>
     );

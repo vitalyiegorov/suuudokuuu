@@ -138,7 +138,7 @@ pnpm --filter @suuudokuuu/web-tests lint
 - The cell-spacing `SettingsOptionSheet` renders through `@expo/ui`'s web fallback (a `vaul`
   drawer), not a native bottom sheet, so it is a normal DOM overlay reachable with
   `page.getByTestId` / `page.getByText`.
-- `06.resume-game.spec.ts` reloads the page and re-visits `/` to prove the in-session pause/resume
+- `06.resume-game.spec.ts` reloads the page and re-visits `/play` to prove the in-session pause/resume
   timer behavior, then asserts the persisted game survives the reload via `HomeScreenSelectors.ResumeButton`.
   This passed reliably in this harness (wa-sqlite/OPFS persistence survives a full page reload), so
   the full scenario is kept. If it proves flaky elsewhere, trim to the in-session pause/resume

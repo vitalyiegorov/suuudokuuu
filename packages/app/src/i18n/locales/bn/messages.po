@@ -1588,7 +1588,7 @@ msgstr "চিহ্নিত ঘরে {valueList} বসান।"
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
-#: src/app/play.tsx
+#: src/app/(tabs)/play.tsx
 msgid "Play"
 msgstr "খেলুন"
 
@@ -1610,8 +1610,8 @@ msgstr "বড় গুণকের জন্য বেশি কঠিনত�
 msgid "Play streak"
 msgstr "খেলার ধারা"
 
+#: src/app/(tabs)/play.tsx
 #: src/app/game.tsx
-#: src/app/play.tsx
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "সুডোকু খেলুন — Suuudokuuu"
 
