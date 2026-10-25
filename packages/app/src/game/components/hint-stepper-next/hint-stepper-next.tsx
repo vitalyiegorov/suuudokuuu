@@ -2,6 +2,8 @@ import { useLingui } from '@lingui/react/macro';
 import { AppButton } from '@suuudokuuu/ui';
 import { use } from 'react';
 
+import { emptyFn } from '@rnw-community/shared';
+
 import { GameContext } from '../../context/game.context';
 import { runCurrentRunCommand } from '../../utils/run-current-run-command.util';
 import { HintPanelSelectors } from '../hint-panel/hint-panel.selectors';
@@ -13,7 +15,7 @@ export const HintStepperNext = () => {
 
     const handleNext = () => {
         if (engine.hintNext()) {
-            void runCurrentRunCommand(currentRunService => currentRunService.revealHintLevel());
+            void runCurrentRunCommand(currentRunService => currentRunService.revealHintLevel()).catch(emptyFn);
         }
     };
 

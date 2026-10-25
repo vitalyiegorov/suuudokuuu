@@ -6,11 +6,11 @@ import { mergeConfig } from 'vitest/config';
 export default mergeConfig(createVitestConfig(), {
     resolve: {
         alias: [
-            { find: /^@suuudokuuu\/generator$/, replacement: fileURLToPath(new URL('../generator/src/index.ts', import.meta.url)) },
-            { find: /^@suuudokuuu\/hell-corpus$/, replacement: fileURLToPath(new URL('../hell-corpus/src/index.ts', import.meta.url)) },
-            { find: /^@suuudokuuu\/rating$/, replacement: fileURLToPath(new URL('../rating/src/index.ts', import.meta.url)) },
-            { find: /^@suuudokuuu\/solver-core$/, replacement: fileURLToPath(new URL('../solver-core/src/index.ts', import.meta.url)) },
-            { find: /^@suuudokuuu\/techniques$/, replacement: fileURLToPath(new URL('../techniques/src/index.ts', import.meta.url)) }
+            { find: /^@suuudokuuu\/generator$/u, replacement: fileURLToPath(new URL('../generator/src/index.ts', import.meta.url)) },
+            { find: /^@suuudokuuu\/hell-corpus$/u, replacement: fileURLToPath(new URL('../hell-corpus/src/index.ts', import.meta.url)) },
+            { find: /^@suuudokuuu\/rating$/u, replacement: fileURLToPath(new URL('../rating/src/index.ts', import.meta.url)) },
+            { find: /^@suuudokuuu\/solver-core$/u, replacement: fileURLToPath(new URL('../solver-core/src/index.ts', import.meta.url)) },
+            { find: /^@suuudokuuu\/techniques$/u, replacement: fileURLToPath(new URL('../techniques/src/index.ts', import.meta.url)) }
         ]
     },
     test: {

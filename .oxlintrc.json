@@ -55,7 +55,8 @@
         "correctness": "off"
     },
     "options": {
-        "typeAware": true
+        "typeAware": true,
+        "reportUnusedDisableDirectives": "error"
     },
     "env": {
         "builtin": true
@@ -90,7 +91,7 @@
     ],
     "overrides": [
         {
-            "files": ["**/*.{ts,tsx}"],
+            "files": ["**/*.{ts,tsx,mts,cts}"],
             "rules": {
                 "accessor-pairs": "error",
                 "array-callback-return": "error",
@@ -407,6 +408,7 @@
                 "vars-on-top": "error",
                 "yoda": "error",
                 "typescript/consistent-return": "error",
+                "typescript/consistent-type-exports": "error",
                 "typescript/dot-notation": "error",
                 "typescript/await-thenable": "error",
                 "typescript/ban-ts-comment": [
@@ -424,7 +426,7 @@
                         "ignoreVoidOperator": true
                     }
                 ],
-                "typescript/no-deprecated": "off",
+                "typescript/no-deprecated": "warn",
                 "typescript/no-duplicate-enum-values": "error",
                 "typescript/no-duplicate-type-constituents": "error",
                 "typescript/no-dynamic-delete": "error",
@@ -437,32 +439,27 @@
                         "allowWithDecorator": true
                     }
                 ],
-                "typescript/no-floating-promises": "error",
+                "typescript/no-floating-promises": ["error", { "ignoreVoid": false }],
                 "typescript/no-for-in-array": "error",
                 "typescript/no-generated-empty-object-type": "error",
                 "typescript/no-implied-eval": "error",
                 "typescript/no-invalid-void-type": "error",
                 "typescript/no-meaningless-void-operator": "off",
                 "typescript/no-misused-new": "error",
-                "typescript/no-misused-promises": [
-                    "error",
-                    {
-                        "checksVoidReturn": {
-                            "attributes": false
-                        }
-                    }
-                ],
+                "typescript/no-misused-promises": "error",
                 "typescript/no-misused-spread": "error",
                 "typescript/no-mixed-enums": "error",
                 "typescript/no-namespace": "error",
                 "typescript/no-non-null-asserted-nullish-coalescing": "error",
                 "typescript/no-non-null-asserted-optional-chain": "error",
                 "typescript/no-non-null-assertion": "error",
+                "typescript/non-nullable-type-assertion-style": "off",
                 "typescript/no-redundant-type-constituents": "error",
                 "typescript/no-require-imports": "error",
                 "typescript/no-this-alias": "error",
                 "typescript/no-unnecessary-boolean-literal-compare": "error",
                 "typescript/no-unnecessary-condition": "error",
+                "typescript/no-unnecessary-qualifier": "error",
                 "typescript/no-unnecessary-template-expression": "error",
                 "typescript/no-unnecessary-type-arguments": "error",
                 "typescript/no-unnecessary-type-assertion": "error",
@@ -477,17 +474,27 @@
                 "typescript/no-unsafe-function-type": "error",
                 "typescript/no-unsafe-member-access": "error",
                 "typescript/no-unsafe-return": "error",
+                "typescript/no-unsafe-type-assertion": "error",
                 "typescript/no-unsafe-unary-minus": "error",
                 "typescript/no-useless-default-assignment": "error",
                 "typescript/no-wrapper-object-types": "error",
                 "typescript/only-throw-error": "error",
                 "typescript/prefer-as-const": "error",
+                "typescript/prefer-find": "error",
+                "typescript/prefer-includes": "error",
                 "typescript/prefer-literal-enum-member": "error",
                 "typescript/prefer-namespace-keyword": "error",
+                "typescript/prefer-nullish-coalescing": "error",
+                "typescript/prefer-optional-chain": "off",
                 "typescript/prefer-promise-reject-errors": "error",
+                "typescript/prefer-readonly": "error",
+                "typescript/prefer-readonly-parameter-types": "off",
                 "typescript/prefer-reduce-type-parameter": "error",
+                "typescript/prefer-regexp-exec": "error",
                 "typescript/prefer-return-this-type": "error",
+                "typescript/prefer-string-starts-ends-with": "error",
                 "typescript/related-getter-setter-pairs": "error",
+                "typescript/require-array-sort-compare": "error",
                 "typescript/require-await": "off",
                 "typescript/restrict-plus-operands": [
                     "error",
@@ -507,6 +514,9 @@
                 ],
                 "typescript/return-await": ["error", "error-handling-correctness-only"],
                 "typescript/triple-slash-reference": "error",
+                "typescript/strict-boolean-expressions": "error",
+                "typescript/strict-void-return": "error",
+                "typescript/switch-exhaustiveness-check": "error",
                 "typescript/unbound-method": "error",
                 "typescript/unified-signatures": "error",
                 "typescript/use-unknown-in-catch-callback-variable": "error",
@@ -710,7 +720,7 @@
             }
         },
         {
-            "files": ["**/*.ts"],
+            "files": ["**/*.{ts,mts,cts}"],
             "rules": {
                 "node/no-exports-assign": "error",
                 "n/no-deprecated-api": "error",
@@ -804,7 +814,7 @@
             }
         },
         {
-            "files": ["**/*.{ts,tsx}"],
+            "files": ["**/*.{ts,tsx,mts,cts}"],
             "rules": {
                 "promise/always-return": "error",
                 "promise/no-return-wrap": "error",
@@ -821,7 +831,7 @@
             "plugins": ["promise"]
         },
         {
-            "files": ["**/*.{ts,tsx}"],
+            "files": ["**/*.{ts,tsx,mts,cts}"],
             "plugins": ["unicorn", "oxc"],
             "rules": {
                 "oxc/approx-constant": "error",
@@ -1196,7 +1206,7 @@
             "plugins": ["vitest", "promise"]
         },
         {
-            "files": ["tests/app-tests/scripts/**/*.{ts,js,mjs,cjs}", "packages/*/scripts/**/*.{ts,js,mjs,cjs}"],
+            "files": ["tests/app-tests/scripts/**/*.{ts,mts,cts,js,mjs,cjs}", "packages/*/scripts/**/*.{ts,mts,cts,js,mjs,cjs}"],
             "env": {
                 "node": true
             },
@@ -1264,7 +1274,7 @@
             }
         },
         {
-            "files": ["tests/app-tests/scripts/**/*.ts", "packages/app/scripts/**/*.ts"],
+            "files": ["tests/app-tests/scripts/**/*.{ts,mts,cts}", "packages/app/scripts/**/*.{ts,mts,cts}"],
             "rules": {
                 "n/no-extraneous-import": "off"
             }

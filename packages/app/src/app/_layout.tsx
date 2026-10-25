@@ -1,5 +1,6 @@
 import { Inter_500Medium as inter500Medium } from '@expo-google-fonts/inter/500Medium';
 import { Inter_700Bold as inter700Bold } from '@expo-google-fonts/inter/700Bold';
+import * as Effect from 'effect/Effect';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
@@ -12,6 +13,7 @@ import { AppI18nProvider } from '../@generic/components/app-i18n-provider/app-i1
 import { RootProviders } from '../@generic/components/root-providers/root-providers';
 import { applyGameControlsInteractions } from '../@generic/utils/apply-game-controls-interactions';
 import { applySheetContentWidth } from '../@generic/utils/apply-sheet-content-width';
+import { logErrorCause } from '../@generic/utils/log-error-cause.util';
 import { WinConfettiProvider } from '../confetti/components/win-confetti-provider/win-confetti-provider';
 import { GameProvider } from '../game/components/game-provider/game-provider';
 import { ThemeProvider } from '../theme/components/theme-provider/theme-provider';
@@ -23,7 +25,7 @@ if (Platform.OS !== 'web') {
 applySheetContentWidth();
 applyGameControlsInteractions();
 
-void SplashScreen.preventAutoHideAsync();
+Effect.runFork(Effect.tryPromise(() => SplashScreen.preventAutoHideAsync()).pipe(Effect.catchCause(logErrorCause)));
 
 const stackOptions = { headerShown: false, gestureEnabled: true };
 const gameOptions = { gestureEnabled: false };

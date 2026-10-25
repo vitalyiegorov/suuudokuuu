@@ -7,10 +7,10 @@ export default mergeConfig(createVitestConfig(), {
     resolve: {
         alias: [
             {
-                find: /^@suuudokuuu\/solver-core\/testing$/,
+                find: /^@suuudokuuu\/solver-core\/testing$/u,
                 replacement: fileURLToPath(new URL('../solver-core/src/testing/index.ts', import.meta.url))
             },
-            { find: /^@suuudokuuu\/solver-core$/, replacement: fileURLToPath(new URL('../solver-core/src/index.ts', import.meta.url)) }
+            { find: /^@suuudokuuu\/solver-core$/u, replacement: fileURLToPath(new URL('../solver-core/src/index.ts', import.meta.url)) }
         ]
     },
     test: {

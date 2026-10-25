@@ -1,5 +1,7 @@
 import { View } from 'react-native';
 
+import { isNotEmptyString } from '@rnw-community/shared';
+
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { gameGetCellName } from '../../utils/game-get-cell-name.util';
 import { HintChainBlocksStyles as styles } from '../hint-chain-blocks/hint-chain-blocks.styles';
@@ -17,10 +19,11 @@ interface Props {
 export const HintChainBlock = ({ candidate, operator = '=', style, children }: Props) => {
     const blockStyles = [styles.block, style];
     const label = `${gameGetCellName(candidate.cell)} ${operator} ${candidate.value}`;
+    const hasArrow = isNotEmptyString(children);
 
     return (
         <View style={styles.link}>
-            {children ? <BlackText style={styles.arrow}>{children}</BlackText> : null}
+            {hasArrow ? <BlackText style={styles.arrow}>{children}</BlackText> : null}
             <View style={blockStyles}>
                 <BlackText style={styles.blockText}>{label}</BlackText>
             </View>

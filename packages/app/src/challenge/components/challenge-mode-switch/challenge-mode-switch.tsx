@@ -8,6 +8,8 @@ import { Pressable } from 'react-native';
 import Animated, { interpolate, interpolateColor, useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated';
 import { useUnistyles } from 'react-native-unistyles';
 
+import { emptyFn } from '@rnw-community/shared';
+
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { useSettings } from '../../../settings/query/use-settings.query';
@@ -42,7 +44,7 @@ export const ChallengeModeSwitch = () => {
 
     const handlePress = () => {
         hapticImpact(ImpactFeedbackStyle.Light);
-        void updateSettings({ lastGameChallengeMode: !isChallengeMode });
+        void updateSettings({ lastGameChallengeMode: !isChallengeMode }).catch(emptyFn);
     };
     const handlePressIn = () => {
         pressed.set(withTiming(1, { duration: pressDurationMs }));

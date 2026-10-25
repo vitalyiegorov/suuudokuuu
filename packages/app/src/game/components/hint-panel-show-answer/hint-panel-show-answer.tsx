@@ -3,6 +3,8 @@ import * as Effect from 'effect/Effect';
 import { use } from 'react';
 import { Pressable } from 'react-native';
 
+import { emptyFn } from '@rnw-community/shared';
+
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { GameContext } from '../../context/game.context';
 import { runCurrentRunCommand } from '../../utils/run-current-run-command.util';
@@ -21,7 +23,7 @@ export const HintPanelShowAnswer = () => {
         if (revealedLevelCount > 0) {
             void runCurrentRunCommand(currentRunService =>
                 Effect.replicateEffect(currentRunService.revealHintLevel(), revealedLevelCount, { discard: true })
-            );
+            ).catch(emptyFn);
         }
     };
 

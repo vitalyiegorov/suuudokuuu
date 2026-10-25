@@ -79,7 +79,7 @@ const reanchorChallengeWallClockStart = (game: ChallengeTimingState): void => {
 
 const readPersistVersion = (): number => {
     const source = readFileSync(migrationsSourcePath, 'utf8');
-    const match = source.match(PersistVersionPattern);
+    const match = PersistVersionPattern.exec(source);
 
     if (match === null) {
         throw new Error(`Could not read LegacyPersistVersion from ${migrationsSourcePath}`);
@@ -103,7 +103,7 @@ const resolveSeedPersistVersion = (): number => {
 
 const readSupportedLanguages = (): string[] => {
     const source = readFileSync(languagesSourcePath, 'utf8');
-    const match = source.match(LanguagesPattern);
+    const match = LanguagesPattern.exec(source);
 
     if (match === null) {
         throw new Error(`Could not read Languages from ${languagesSourcePath}`);

@@ -5,7 +5,7 @@ import { useRouter } from 'expo-router';
 import { use, useEffect, useRef, useState } from 'react';
 import { Pressable, ScrollView, View, useWindowDimensions } from 'react-native';
 
-import { isDefined, isNotEmptyString, isPositiveNumber } from '@rnw-community/shared';
+import { emptyFn, isDefined, isNotEmptyString, isPositiveNumber } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
@@ -78,13 +78,13 @@ export const GameScreen = () => {
 
     const handleShare = useShareGame();
     const handleOpenSettings = () => {
-        void runCurrentRunCommand(currentRunService => currentRunService.pause(false));
+        void runCurrentRunCommand(currentRunService => currentRunService.pause(false)).catch(emptyFn);
         router.push('/game-settings');
     };
 
     const handleConfirmedExit = () => {
         engine.stopStepScript();
-        void runCurrentRunCommand(currentRunService => currentRunService.reset);
+        void runCurrentRunCommand(currentRunService => currentRunService.reset).catch(emptyFn);
         router.dismissTo('/');
     };
     const handleExit = () => {
@@ -104,7 +104,7 @@ export const GameScreen = () => {
     };
 
     const handlePause = () => {
-        void runCurrentRunCommand(currentRunService => currentRunService.pause());
+        void runCurrentRunCommand(currentRunService => currentRunService.pause()).catch(emptyFn);
         router.replace('/pause');
     };
 

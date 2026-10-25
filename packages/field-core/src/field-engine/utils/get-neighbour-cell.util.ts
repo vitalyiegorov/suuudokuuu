@@ -13,6 +13,7 @@ export const getNeighbourCell = (
             return sudoku.getCellRight(selectedCell);
         case 'up':
             return sudoku.getCellUp(selectedCell);
+        case 'down':
         default:
             return sudoku.getCellDown(selectedCell);
     }
