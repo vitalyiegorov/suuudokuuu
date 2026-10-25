@@ -21,7 +21,7 @@
         "build:esm": "tsc --pretty -p tsconfig.build-esm.json",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "ts": "tsc -p . && tsc -p tsconfig.test.json"
+        "ts": "tsrs -p . && tsrs -p tsconfig.test.json"
     },
     "dependencies": {
         "@rnw-community/shared": "^2.28.0",
