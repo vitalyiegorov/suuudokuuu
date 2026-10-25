@@ -17,7 +17,7 @@
     },
     "scripts": {
         "build": "pnpm build:esm && find ./dist -name '*.tsbuildinfo' -delete",
-        "build:esm": "tsc --pretty -p tsconfig.build-esm.json",
+        "build:esm": "tsrs --pretty -p tsconfig.build-esm.json",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
         "ts": "tsrs -p . && tsrs -p tsconfig.test.json",

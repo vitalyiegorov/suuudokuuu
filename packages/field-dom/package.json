@@ -21,7 +21,7 @@
     },
     "scripts": {
         "build": "pnpm build:esm && pnpm build:styles && find ./dist -name '*.tsbuildinfo' -delete",
-        "build:esm": "tsc --pretty -p tsconfig.build-esm.json",
+        "build:esm": "tsrs --pretty -p tsconfig.build-esm.json",
         "build:styles": "cp src/styles/field-dom.css dist/field-dom.css",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",

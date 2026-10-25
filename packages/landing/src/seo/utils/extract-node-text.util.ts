@@ -18,7 +18,7 @@ const extractTransText = ({ id, values }: Pick<TransProps, 'id' | 'values'>): st
         throw new Error(`Rendering the "${id}" message needs an active locale: call activateLocale() in the route first`);
     }
 
-    return i18n._(id, values).replace(TransPlaceholderTagPattern, '');
+    return i18n._(id, values).replaceAll(TransPlaceholderTagPattern, '');
 };
 
 export const extractNodeText = (node: ReactNode): string =>
@@ -43,5 +43,5 @@ export const extractNodeText = (node: ReactNode): string =>
             return '';
         })
         .join('')
-        .replace(WhitespacePattern, ' ')
+        .replaceAll(WhitespacePattern, ' ')
         .trim();

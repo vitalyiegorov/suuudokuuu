@@ -111,7 +111,7 @@ const readSupportedLanguages = (): string[] => {
 
     return match[1]
         .split(',')
-        .map(entry => entry.trim().replace(LanguageQuotesPattern, ''))
+        .map(entry => entry.trim().replaceAll(LanguageQuotesPattern, ''))
         .filter(entry => entry.length > 0);
 };
 

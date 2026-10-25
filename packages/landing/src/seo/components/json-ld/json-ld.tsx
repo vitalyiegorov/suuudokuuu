@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const JsonLd = ({ data }: Props) => {
-    const scriptHtml = { __html: JSON.stringify(data).replace(ScriptOpeningBracketPattern, SCRIPT_SAFE_OPENING_BRACKET) };
+    const scriptHtml = { __html: JSON.stringify(data).replaceAll(ScriptOpeningBracketPattern, SCRIPT_SAFE_OPENING_BRACKET) };
 
     return <script type="application/ld+json" dangerouslySetInnerHTML={scriptHtml} />;
 };
