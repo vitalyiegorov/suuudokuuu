@@ -121,7 +121,7 @@ export const HomeScreen = () => {
     const startButtonText = isGameStarted ? t`Start new puzzle` : t`Start puzzle`;
     const contentInsetBottom = HomeScreenBottomScrollPadding + tabBarInset;
     const contentInsetTop = homeScreenGetContentInsetTop(safeAreaInsets.top);
-    const topEdgeFadeProps = { height: safeAreaInsets.top + contentInsetTop, intensity: HomeScreenTopOverlayIntensity };
+    const topEdgeFadeProps = { height: contentInsetTop, intensity: HomeScreenTopOverlayIntensity };
     const contentStackStyles = hasStoreIntent ? [styles.contentStack, styles.intentContentStack] : styles.contentStack;
     const playActions = (
         <HomeScreenPlayActions
