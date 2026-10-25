@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.35.7](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.35.6...v2.35.7) (2026-10-25)
+
+### Performance Improvements
+
+* **app:** shrink the Android and iOS app size ([#682](https://github.com/vitalyiegorov/suuudokuuu/issues/682)) ([457e2ec](https://github.com/vitalyiegorov/suuudokuuu/commit/457e2ec9483875b08ecbf1b73c1b62fd243a530f))
+
+
 ## [2.35.6](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.35.5...v2.35.6) (2026-10-25)
 
 **Note:** Version bump only for package @suuudokuuu/puzzle-forge
