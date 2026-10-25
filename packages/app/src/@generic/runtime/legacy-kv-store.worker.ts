@@ -1,10 +1,9 @@
 import * as WaSqlite from '@effect/wa-sqlite';
 import SQLiteESMFactory from '@effect/wa-sqlite/dist/wa-sqlite.mjs';
 import { AccessHandlePoolVFS } from '@effect/wa-sqlite/src/examples/AccessHandlePoolVFS.js';
+import * as Cause from 'effect/Cause';
 import * as Effect from 'effect/Effect';
 import * as Schema from 'effect/Schema';
-
-import { logErrorCause } from '../utils/log-error-cause.util';
 
 const LegacyKvStoreRequestSchema = Schema.Struct({
     databaseName: Schema.String,
@@ -44,13 +43,14 @@ self.addEventListener('message', event => {
     Effect.runFork(
         Schema.decodeUnknownEffect(LegacyKvStoreRequestSchema)(event.data).pipe(
             Effect.flatMap(runLegacyKvStoreStatement),
-            Effect.tapCause(logErrorCause),
-            Effect.catchCause(() => Effect.succeed(null)),
-            Effect.flatMap(persistedRoot =>
-                Effect.sync(() => {
+            Effect.matchCause({
+                onFailure: cause => {
+                    self.reportError(Cause.squash(cause));
+                },
+                onSuccess: persistedRoot => {
                     self.postMessage(persistedRoot, { transfer: [] });
-                })
-            )
+                }
+            })
         )
     );
 });
