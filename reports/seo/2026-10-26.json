@@ -1,0 +1,353 @@
+{
+    "generatedAt": "2026-10-26T06:46:30.520Z",
+    "origin": "https://www.suuudokuuu.com",
+    "searchConsole": {
+        "property": "sc-domain:suuudokuuu.com",
+        "current": {
+            "range": {
+                "start": "2026-09-26",
+                "end": "2026-10-23"
+            },
+            "totals": {
+                "clicks": 122,
+                "impressions": 3090,
+                "ctr": 0.039482200647249194,
+                "position": 17.975080906148868
+            }
+        },
+        "previous": {
+            "range": {
+                "start": "2026-08-29",
+                "end": "2026-09-25"
+            },
+            "totals": {
+                "clicks": 40,
+                "impressions": 1433,
+                "ctr": 0.027913468248429867,
+                "position": 42.47662247034194
+            }
+        },
+        "topQueries": [
+            {
+                "key": "golden nugget sudoku",
+                "clicks": 4,
+                "impressions": 12,
+                "ctr": 0.3333333333333333,
+                "position": 5.833333333333333
+            },
+            {
+                "key": "se rating sudoku",
+                "clicks": 4,
+                "impressions": 23,
+                "ctr": 0.17391304347826086,
+                "position": 4.260869565217391
+            },
+            {
+                "key": "سودوكو للطباعة pdf",
+                "clicks": 4,
+                "impressions": 26,
+                "ctr": 0.15384615384615385,
+                "position": 6.653846153846154
+            },
+            {
+                "key": "sudoku online gratis sin anuncios",
+                "clicks": 2,
+                "impressions": 9,
+                "ctr": 0.2222222222222222,
+                "position": 15.88888888888889
+            },
+            {
+                "key": "sudoku se rating",
+                "clicks": 2,
+                "impressions": 20,
+                "ctr": 0.1,
+                "position": 4.85
+            },
+            {
+                "key": "سودوكو متوسط pdf",
+                "clicks": 2,
+                "impressions": 22,
+                "ctr": 0.09090909090909091,
+                "position": 5.363636363636363
+            },
+            {
+                "key": "ai escargot",
+                "clicks": 1,
+                "impressions": 8,
+                "ctr": 0.125,
+                "position": 7.875
+            },
+            {
+                "key": "o sudoku mais difícil do mundo",
+                "clicks": 1,
+                "impressions": 1,
+                "ctr": 1,
+                "position": 5
+            },
+            {
+                "key": "sudoku drucken schwer",
+                "clicks": 1,
+                "impressions": 1,
+                "ctr": 1,
+                "position": 45
+            },
+            {
+                "key": "sudoku höllisch",
+                "clicks": 1,
+                "impressions": 1,
+                "ctr": 1,
+                "position": 51
+            },
+            {
+                "key": "судоку роздрукувати безкоштовно",
+                "clicks": 1,
+                "impressions": 1,
+                "ctr": 1,
+                "position": 29
+            },
+            {
+                "key": "судоку складні",
+                "clicks": 1,
+                "impressions": 16,
+                "ctr": 0.0625,
+                "position": 7.3125
+            },
+            {
+                "key": "مبتدئه",
+                "clicks": 1,
+                "impressions": 1,
+                "ctr": 1,
+                "position": 1
+            },
+            {
+                "key": "...",
+                "clicks": 0,
+                "impressions": 1,
+                "ctr": 0,
+                "position": 3
+            },
+            {
+                "key": "2 string kite",
+                "clicks": 0,
+                "impressions": 1,
+                "ctr": 0,
+                "position": 22
+            },
+            {
+                "key": "2 string kite sudoku",
+                "clicks": 0,
+                "impressions": 2,
+                "ctr": 0,
+                "position": 30
+            },
+            {
+                "key": "2 string kite sudoku explained",
+                "clicks": 0,
+                "impressions": 1,
+                "ctr": 0,
+                "position": 34
+            },
+            {
+                "key": "2012 everest",
+                "clicks": 0,
+                "impressions": 1,
+                "ctr": 0,
+                "position": 9
+            },
+            {
+                "key": "absurd sudoku",
+                "clicks": 0,
+                "impressions": 1,
+                "ctr": 0,
+                "position": 40
+            },
+            {
+                "key": "add free",
+                "clicks": 0,
+                "impressions": 1,
+                "ctr": 0,
+                "position": 5
+            }
+        ],
+        "topPages": [
+            {
+                "key": "https://www.suuudokuuu.com/guides/sudoku-difficulty-rating",
+                "clicks": 23,
+                "impressions": 500,
+                "ctr": 0.046,
+                "position": 6.62
+            },
+            {
+                "key": "https://www.suuudokuuu.com/hardest-sudoku-puzzles",
+                "clicks": 21,
+                "impressions": 742,
+                "ctr": 0.02830188679245283,
+                "position": 21.485175202156334
+            },
+            {
+                "key": "https://www.suuudokuuu.com/",
+                "clicks": 15,
+                "impressions": 80,
+                "ctr": 0.1875,
+                "position": 3.0125
+            },
+            {
+                "key": "https://www.suuudokuuu.com/ar/printable",
+                "clicks": 10,
+                "impressions": 126,
+                "ctr": 0.07936507936507936,
+                "position": 6.253968253968254
+            },
+            {
+                "key": "https://www.suuudokuuu.com/sudoku",
+                "clicks": 6,
+                "impressions": 48,
+                "ctr": 0.125,
+                "position": 14.229166666666666
+            },
+            {
+                "key": "https://www.suuudokuuu.com/hardest-sudoku-puzzles/platinum-blonde",
+                "clicks": 5,
+                "impressions": 25,
+                "ctr": 0.2,
+                "position": 4.6
+            },
+            {
+                "key": "https://www.suuudokuuu.com/solver",
+                "clicks": 4,
+                "impressions": 51,
+                "ctr": 0.0784313725490196,
+                "position": 10.470588235294118
+            },
+            {
+                "key": "https://www.suuudokuuu.com/printable",
+                "clicks": 3,
+                "impressions": 53,
+                "ctr": 0.05660377358490566,
+                "position": 10.075471698113208
+            },
+            {
+                "key": "https://www.suuudokuuu.com/printable/infinity",
+                "clicks": 3,
+                "impressions": 14,
+                "ctr": 0.21428571428571427,
+                "position": 5.928571428571429
+            },
+            {
+                "key": "https://www.suuudokuuu.com/ar/printable/medium",
+                "clicks": 2,
+                "impressions": 38,
+                "ctr": 0.05263157894736842,
+                "position": 5.473684210526316
+            },
+            {
+                "key": "https://www.suuudokuuu.com/es",
+                "clicks": 2,
+                "impressions": 14,
+                "ctr": 0.14285714285714285,
+                "position": 12.857142857142858
+            },
+            {
+                "key": "https://www.suuudokuuu.com/hardest-sudoku-puzzles/everest",
+                "clicks": 2,
+                "impressions": 30,
+                "ctr": 0.06666666666666667,
+                "position": 7.1
+            },
+            {
+                "key": "https://www.suuudokuuu.com/hardest-sudoku-puzzles/golden-nugget",
+                "clicks": 2,
+                "impressions": 15,
+                "ctr": 0.13333333333333333,
+                "position": 3.533333333333333
+            },
+            {
+                "key": "https://www.suuudokuuu.com/sudoku-for-seniors",
+                "clicks": 2,
+                "impressions": 40,
+                "ctr": 0.05,
+                "position": 25.2
+            },
+            {
+                "key": "https://www.suuudokuuu.com/uk/printable/easy",
+                "clicks": 2,
+                "impressions": 18,
+                "ctr": 0.1111111111111111,
+                "position": 14.88888888888889
+            },
+            {
+                "key": "https://www.suuudokuuu.com/uk/sudoku/hard",
+                "clicks": 2,
+                "impressions": 81,
+                "ctr": 0.024691358024691357,
+                "position": 7.148148148148148
+            },
+            {
+                "key": "https://www.suuudokuuu.com/why-suuudokuuu",
+                "clicks": 2,
+                "impressions": 19,
+                "ctr": 0.10526315789473684,
+                "position": 3.473684210526316
+            },
+            {
+                "key": "https://www.suuudokuuu.com/ar/printable/infinity",
+                "clicks": 1,
+                "impressions": 4,
+                "ctr": 0.25,
+                "position": 2.5
+            },
+            {
+                "key": "https://www.suuudokuuu.com/ar/printable/newbie",
+                "clicks": 1,
+                "impressions": 12,
+                "ctr": 0.08333333333333333,
+                "position": 5.916666666666667
+            },
+            {
+                "key": "https://www.suuudokuuu.com/daily-sudoku/2026-10-01",
+                "clicks": 1,
+                "impressions": 3,
+                "ctr": 0.3333333333333333,
+                "position": 6
+            }
+        ],
+        "sitemaps": [
+            {
+                "path": "https://www.suuudokuuu.com/sitemap.xml",
+                "lastSubmitted": "2026-10-05T05:36:29.811Z",
+                "lastDownloaded": "2026-10-25T11:15:48.037Z",
+                "isPending": false,
+                "warnings": 0,
+                "errors": 0,
+                "submitted": 343,
+                "indexed": 0
+            }
+        ]
+    },
+    "coreWebVitals": {
+        "origin": "https://www.suuudokuuu.com",
+        "metrics": [
+            {
+                "metric": "LCP (ms)",
+                "p75": 2666,
+                "good": 0.729,
+                "needsImprovement": 0.1262,
+                "poor": 0.1448
+            },
+            {
+                "metric": "CLS",
+                "p75": 0.04,
+                "good": 0.7947,
+                "needsImprovement": 0.1924,
+                "poor": 0.0129
+            },
+            {
+                "metric": "INP (ms)",
+                "p75": 0,
+                "good": 0,
+                "needsImprovement": 0,
+                "poor": 0
+            }
+        ]
+    }
+}
