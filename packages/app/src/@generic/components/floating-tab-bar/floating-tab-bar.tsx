@@ -15,7 +15,6 @@ import {
     FloatingTabBarBottomMargin,
     FloatingTabBarEdgeFadeHeight,
     FloatingTabBarIconSize,
-    FloatingTabBarOccupiedHeight,
     FloatingTabBarWashAlpha
 } from './constant/floating-tab-bar.constant';
 import { FloatingTabBarStyles as styles } from './floating-tab-bar.styles';
@@ -31,7 +30,7 @@ export const FloatingTabBar = ({ state, descriptors, emitter, navigateToTab }: B
     return (
         <>
             <ScreenChromeThemeProvider washAlpha={FloatingTabBarWashAlpha}>
-                <EdgeFade chromeHeight={FloatingTabBarOccupiedHeight} height={FloatingTabBarEdgeFadeHeight} position="bottom" />
+                <EdgeFade height={FloatingTabBarEdgeFadeHeight} position="bottom" />
             </ScreenChromeThemeProvider>
 
             <View pointerEvents="box-none" ref={backdropRecompositeRef} style={anchorStyles}>

@@ -31,7 +31,7 @@
         "@lingui/react": "6.10.0",
         "@op-engineering/op-sqlite": "18.2.5",
         "@rnw-community/react-native-collapsible-header": "^3.0.5",
-        "@rnw-community/react-native-screen-chrome": "^3.0.5",
+        "@rnw-community/react-native-screen-chrome": "^3.0.6",
         "@rnw-community/shared": "^2.28.0",
         "@suuudokuuu/encoder": "workspace:*",
         "@suuudokuuu/field-core": "workspace:*",
