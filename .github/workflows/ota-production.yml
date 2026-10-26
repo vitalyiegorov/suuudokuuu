@@ -35,7 +35,7 @@ concurrency:
 jobs:
     ota:
         name: Publish OTA update
-        runs-on: ubuntu-latest
+        runs-on: [self-hosted, trf-linux-amd64-2x4]
         timeout-minutes: 30
         env:
             APP_VARIANT: production

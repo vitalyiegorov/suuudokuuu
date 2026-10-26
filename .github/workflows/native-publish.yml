@@ -26,7 +26,7 @@ concurrency:
 jobs:
     release-tag:
         name: Resolve the release tag
-        runs-on: ubuntu-latest
+        runs-on: [self-hosted, trf-linux-amd64-2x4]
         timeout-minutes: 5
         outputs:
             tag: ${{ steps.version.outputs.tag }}
