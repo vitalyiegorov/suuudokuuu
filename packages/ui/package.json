@@ -33,7 +33,7 @@
     },
     "peerDependencies": {
         "lucide-react-native": "^1.59.0",
-        "react": "19.3.0",
+        "react": "19.3.1",
         "react-native": "0.88.0",
         "react-native-reanimated": "4.7.1",
         "react-native-unistyles": "^3.5.3"
