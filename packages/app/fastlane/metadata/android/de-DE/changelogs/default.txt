@@ -1,6 +1,3 @@
-Schlauere Hinweise, größeres Brett.
-Hinweise Schritt für Schritt mit Zurück, Weiter und Antwort zeigen, auch bei den schwersten Rätseln.
-Neue Techniken: Leeres Rechteck, Sue de Coq, ALS-XZ.
-Größeres Brett und eine Technik-Pille in jedem Spiel.
-Sicherung: Spiele, Statistiken und Themen exportieren und importieren.
-Fairerer Timer und sofortiger Ergebnisbildschirm.
+Leichter und flüssiger.
+Deutlich kleinerer Download: etwa 40 % leichter auf Android, 45 % auf iOS.
+Weichere Unschärfe unter Kopfzeilen und Tableiste, ohne harte Kante.

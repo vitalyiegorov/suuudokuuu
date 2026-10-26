@@ -1,5 +1,5 @@
 {
-    "baseRef": "v2.28.0",
-    "generatedAtCommit": "9f4fccad1b69fc6543f01967abae93ccbc1c4920",
-    "generatedFor": "2.35.3 (upcoming release)"
+    "baseRef": "v2.35.5",
+    "generatedAtCommit": "3c8048141ab52e4bc80980d914d8a924599b5cef",
+    "generatedFor": "2.35.10 (upcoming release)"
 }

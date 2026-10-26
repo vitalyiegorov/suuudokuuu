@@ -1,8 +1,4 @@
-Des indices plus malins, un plateau plus grand.
+Plus légère et plus fluide.
 
-• Les indices expliquent désormais pas à pas, avec Retour, Suivant et Afficher la réponse, et un indicateur de chargement pendant la recherche. Les grilles les plus difficiles en bénéficient aussi.
-• Nouvelles techniques : Rectangle vide, Sue de Coq et ALS-XZ sont repérées et expliquées dans les indices.
-• Le plateau est plus grand sur téléphone, et une pastille de technique affiche la dernière utilisée à chaque jeu.
-• Exportez vos parties, statistiques et thèmes dans une sauvegarde et importez-la sur un autre appareil.
-• Le chronomètre suit l’horloge réelle pour des scores équitables, et l’écran de résultat s’ouvre aussitôt.
-• Les coups placés avec un indice sont signalés dans la relecture, et le flou des bords revient sur iOS.
+• L'app est bien plus légère à télécharger : environ 40 % de moins sur Android et 45 % sur iOS.
+• Les en-têtes et la barre d'onglets floutent désormais le contenu en douceur pendant le défilement, sans bord net.

@@ -1,6 +1,3 @@
-Sugerencias más listas, tablero más grande.
-Sugerencias paso a paso con Atrás, Siguiente y Mostrar respuesta, también en los puzles más difíciles.
-Técnicas nuevas: Rectángulo vacío, Sue de Coq, ALS-XZ.
-Tablero más grande y etiqueta de técnica en cada juego.
-Copia de seguridad: exporta e importa partidas, estadísticas y temas.
-Temporizador más justo y resultado al instante.
+Más ligera y más fluida.
+Descarga mucho más pequeña: alrededor de un 40 % menos en Android y un 45 % en iOS.
+Desenfoque más suave bajo los encabezados y la barra de pestañas, sin bordes duros.

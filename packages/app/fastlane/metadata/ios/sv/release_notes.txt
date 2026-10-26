@@ -1,8 +1,4 @@
-Smartare ledtrådar, större bräde.
+Lättare och smidigare.
 
-• Ledtrådar lär nu ut steg för steg, med Tillbaka, Nästa och Visa svaret, och en laddningsindikator medan en ledtråd söks. Även de svåraste pusslen har ledtrådar.
-• Nya tekniker: Tom rektangel, Sue de Coq och ALS-XZ upptäcks och förklaras i ledtrådarna.
-• Brädet är större på mobilen, och en teknikpill visar din senaste teknik i varje spel.
-• Exportera dina spel, din statistik och dina teman som säkerhetskopia och importera dem på en annan enhet.
-• Timern följer den riktiga klockan så att poängen blir rättvisa, och resultatskärmen öppnas direkt.
-• Drag gjorda med ledtråd märks i repris, och kantsuddet på iOS är tillbaka.
+• Appen är en mycket mindre nedladdning: cirka 40 % mindre på Android och 45 % på iOS.
+• Rubriker och flikfältet suddar nu ut innehållet mjukt när du skrollar, utan hård kant.

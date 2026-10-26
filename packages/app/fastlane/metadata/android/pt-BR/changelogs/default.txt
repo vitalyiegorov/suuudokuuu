@@ -1,6 +1,3 @@
-Dicas mais inteligentes, tabuleiro maior.
-Dicas passo a passo com Voltar, Avançar e Mostrar resposta, também nos puzzles mais difíceis.
-Técnicas novas: Retângulo vazio, Sue de Coq, ALS-XZ.
-Tabuleiro maior e etiqueta de técnica em cada jogo.
-Backup: exporte e importe jogos, estatísticas e temas.
-Cronômetro mais justo e resultado na hora.
+Mais leve e mais fluido.
+Download bem menor: cerca de 40% mais leve no Android e 45% no iOS.
+Desfoque mais suave sob os cabeçalhos e a barra de abas, sem borda marcada.
