@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.35.9](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.35.8...v2.35.9) (2026-10-26)
+
+### Bug Fixes
+
+* **app:** show the tab bar on the web play screen ([#685](https://github.com/vitalyiegorov/suuudokuuu/issues/685)) ([5f3730c](https://github.com/vitalyiegorov/suuudokuuu/commit/5f3730ca00edb273cfbb6d4d1eeb2b2d6c7e50e0))
+
+
 ## [2.35.8](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.35.7...v2.35.8) (2026-10-25)
 
 **Note:** Version bump only for package @suuudokuuu/app
