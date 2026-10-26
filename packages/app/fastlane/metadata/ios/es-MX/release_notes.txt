@@ -1,8 +1,4 @@
-Sugerencias más listas, tablero más grande.
+Más ligera y más fluida.
 
-• Las sugerencias ahora enseñan paso a paso, con Atrás, Siguiente y Mostrar respuesta, y un indicador de carga mientras se busca una. Los puzles más difíciles también las tienen.
-• Técnicas nuevas: Rectángulo vacío, Sue de Coq y ALS-XZ se detectan y se explican en las sugerencias.
-• El tablero es más grande en el móvil y una etiqueta de técnica muestra la última que usaste en cada juego.
-• Exporta tus partidas, estadísticas y temas en una copia de seguridad e impórtala en otro dispositivo.
-• El temporizador sigue el reloj real para que las puntuaciones sean justas, y la pantalla de resultado se abre al instante.
-• Los movimientos hechos con sugerencia llevan una marca en la repetición, y el desenfoque de bordes en iOS ha vuelto.
+• La app es una descarga mucho más pequeña: alrededor de un 40 % menos en Android y un 45 % en iOS.
+• Los encabezados y la barra de pestañas ahora difuminan el contenido con suavidad al desplazarse, sin bordes duros.

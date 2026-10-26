@@ -1,6 +1,3 @@
-Smartare ledtrådar, större bräde.
-Ledtrådar steg för steg med Tillbaka, Nästa och Visa svaret, även för de svåraste pusslen.
-Nya tekniker: Tom rektangel, Sue de Coq, ALS-XZ.
-Större bräde och teknikpill i varje spel.
-Säkerhetskopia: exportera och importera spel, statistik och teman.
-Rättvisare timer och direkt resultat.
+Lättare och smidigare.
+Mycket mindre nedladdning: cirka 40 % lättare på Android, 45 % på iOS.
+Mjukare oskärpa under rubriker och flikfältet, utan hård kant.

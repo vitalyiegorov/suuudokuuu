@@ -1,8 +1,4 @@
-Smarter hints, a bigger board.
+Lighter and smoother.
 
-• Hints now teach step by step, with Back, Next and Show answer, and a spinner while a hint is found. The hardest puzzles get hints too.
-• New techniques: Empty Rectangle, Sue de Coq and ALS-XZ are spotted and explained in hints.
-• The board is bigger on phones, and a technique pill shows your latest technique in every run.
-• Back up your games, statistics and themes to a file, and import them on another device.
-• The timer follows the wall clock so scores stay fair, and the result screen opens right away.
-• Moves placed with a hint are badged in the replay, and the iOS edge blur is back.
+• The app is a much smaller download: about 40% smaller on Android and 45% smaller on iOS.
+• Headers and the tab bar now blur content smoothly as it scrolls beneath them, with no hard edge.

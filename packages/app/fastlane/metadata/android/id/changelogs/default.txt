@@ -1,6 +1,3 @@
-Petunjuk lebih pintar, papan lebih besar.
-Petunjuk langkah demi langkah dengan Kembali, Berikutnya, dan Tampilkan jawaban, juga untuk teka-teki tersulit.
-Teknik baru: Persegi Panjang Kosong, Sue de Coq, ALS-XZ.
-Papan lebih besar dan pil teknik di setiap permainan.
-Cadangan: ekspor dan impor permainan, statistik, dan tema.
-Timer lebih adil dan hasil langsung tampil.
+Lebih ringan dan lebih mulus.
+Unduhan jauh lebih kecil: sekitar 40% lebih ringan di Android, 45% di iOS.
+Efek buram lebih halus di bawah header dan bilah tab, tanpa tepi tajam.

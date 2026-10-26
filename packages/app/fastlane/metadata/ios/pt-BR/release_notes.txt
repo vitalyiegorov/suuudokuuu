@@ -1,8 +1,4 @@
-Dicas mais inteligentes, tabuleiro maior.
+Mais leve e mais fluido.
 
-• As dicas agora ensinam passo a passo, com Voltar, Avançar e Mostrar resposta, e um indicador enquanto a dica é buscada. Os puzzles mais difíceis também têm dicas.
-• Técnicas novas: Retângulo vazio, Sue de Coq e ALS-XZ são detectadas e explicadas nas dicas.
-• O tabuleiro está maior no celular, e uma etiqueta de técnica mostra a última que você usou em cada jogo.
-• Exporte seus jogos, estatísticas e temas para um backup e importe em outro dispositivo.
-• O cronômetro segue o relógio real para as pontuações serem justas, e a tela de resultado abre na hora.
-• Jogadas feitas com dica ganham um selo na repetição, e o desfoque das bordas no iOS voltou.
+• O app ficou bem menor para baixar: cerca de 40% menor no Android e 45% no iOS.
+• Os cabeçalhos e a barra de abas agora desfocam o conteúdo suavemente ao rolar, sem borda marcada.
