@@ -10,6 +10,12 @@ on:
     push:
         branches: [scratch/cache-bench-401]
     workflow_dispatch:
+        inputs:
+            arm:
+                description: github = GitHub's Actions cache; lan = the node's LAN cache (tart-runner-fleet ADR 0078)
+                type: choice
+                options: [lan, github]
+                default: lan
 
 permissions:
     contents: read
@@ -24,6 +30,7 @@ jobs:
         runs-on: [self-hosted, trf-linux-amd64-4x8]
         timeout-minutes: 100
         env:
+            ACTIONS_RESULTS_URL: ${{ inputs.arm == 'github' && 'https://results-receiver.actions.githubusercontent.com/' || 'http://host.containers.internal:3017/' }}
             APP_VARIANT: e2e
             CCACHE_DIR: ${{ github.workspace }}/.ci-cache/ccache
             CCACHE_BASEDIR: ${{ github.workspace }}
@@ -33,9 +40,12 @@ jobs:
             CMAKE_CXX_COMPILER_LAUNCHER: ccache
         steps:
             - name: Describe the guest
+              env:
+                  BENCH_ARM: ${{ inputs.arm || 'lan' }}
               run: |
                   echo "runner=$RUNNER_NAME"
-                  echo "results-url-overridden=${ACTIONS_RESULTS_URL:+yes}"
+                  echo "host-ip=$(hostname -I)"
+                  echo "arm=${BENCH_ARM} results-url=${ACTIONS_RESULTS_URL}"
                   command -v zstd || echo 'zstd: absent'
                   command -v ccache || echo 'ccache: absent'
 
@@ -70,8 +80,8 @@ jobs:
               uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
               with:
                   path: ${{ steps.pnpm-store.outputs.path }}
-                  key: bench401-pnpm-${{ github.run_id }}-${{ github.run_attempt }}
-                  restore-keys: bench401-pnpm-
+                  key: bench401-${{ inputs.arm || 'lan' }}-pnpm-${{ github.run_id }}-${{ github.run_attempt }}
+                  restore-keys: bench401-${{ inputs.arm || 'lan' }}-pnpm-
 
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
@@ -80,7 +90,7 @@ jobs:
               uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
               with:
                   path: ${{ steps.pnpm-store.outputs.path }}
-                  key: bench401-pnpm-${{ github.run_id }}-${{ github.run_attempt }}
+                  key: bench401-${{ inputs.arm || 'lan' }}-pnpm-${{ github.run_id }}-${{ github.run_attempt }}
 
             - name: Generate native project
               working-directory: packages/app
@@ -91,8 +101,8 @@ jobs:
               uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
               with:
                   path: .ci-cache/ccache
-                  key: bench401-ccache-${{ github.run_id }}-${{ github.run_attempt }}
-                  restore-keys: bench401-ccache-
+                  key: bench401-${{ inputs.arm || 'lan' }}-ccache-${{ github.run_id }}-${{ github.run_attempt }}
+                  restore-keys: bench401-${{ inputs.arm || 'lan' }}-ccache-
 
             - name: Zero ccache statistics
               run: ccache --zero-stats
@@ -106,8 +116,9 @@ jobs:
                   gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease'
                   android-abis: x86_64
                   output-dir: .ci-cache/android-native-app/e2e
-                  gradle-cache-key: bench401-gradle-${{ github.run_id }}-${{ github.run_attempt }}
-                  gradle-cache-restore-keys: bench401-gradle-
+                  android-sdk-cache-save: 'false'
+                  gradle-cache-key: bench401-${{ inputs.arm || 'lan' }}-gradle-${{ github.run_id }}-${{ github.run_attempt }}
+                  gradle-cache-restore-keys: bench401-${{ inputs.arm || 'lan' }}-gradle-
 
             - name: ccache statistics
               if: always()
@@ -118,4 +129,4 @@ jobs:
               uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
               with:
                   path: .ci-cache/ccache
-                  key: bench401-ccache-${{ github.run_id }}-${{ github.run_attempt }}
+                  key: bench401-${{ inputs.arm || 'lan' }}-ccache-${{ github.run_id }}-${{ github.run_attempt }}
