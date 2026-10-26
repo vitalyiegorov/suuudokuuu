@@ -3,4 +3,5 @@ self-hosted-runner:
         - linux-portable-2x4
         - linux-portable-4x8
         - trf-linux-amd64-2x4
+        - trf-linux-amd64-4x16
         - trf-linux-amd64-4x8
