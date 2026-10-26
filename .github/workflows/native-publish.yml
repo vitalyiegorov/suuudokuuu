@@ -57,7 +57,7 @@ jobs:
         needs: [release-tag]
         permissions:
             contents: write
-        uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@a9fac576ef1c8a9a565d03851f2624502a868214 # v4.4.1
+        uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@5c5de08a00dd47ed6dc354dc3777c00d8881da71 # v4.4.2
         with:
             control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
             install-command: pnpm install --frozen-lockfile

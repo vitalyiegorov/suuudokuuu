@@ -62,7 +62,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@a9fac576ef1c8a9a565d03851f2624502a868214 # v4.4.1
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@5c5de08a00dd47ed6dc354dc3777c00d8881da71 # v4.4.2
         with:
             control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
             install-command: pnpm install --frozen-lockfile
@@ -125,7 +125,7 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@a9fac576ef1c8a9a565d03851f2624502a868214 # v4.4.1
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@5c5de08a00dd47ed6dc354dc3777c00d8881da71 # v4.4.2
         with:
             control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
             install-command: pnpm install --frozen-lockfile
@@ -240,7 +240,7 @@ jobs:
 
             - name: Start the Android capture emulator
               id: emulator
-              uses: rnw-community/mobile-ci/actions/android-emulator@a9fac576ef1c8a9a565d03851f2624502a868214 # v4.4.1
+              uses: rnw-community/mobile-ci/actions/android-emulator@5c5de08a00dd47ed6dc354dc3777c00d8881da71 # v4.4.2
               with:
                   mode: start
                   api-level: 34
@@ -263,7 +263,7 @@ jobs:
 
             - name: Stop the Android capture emulator
               if: always()
-              uses: rnw-community/mobile-ci/actions/android-emulator@a9fac576ef1c8a9a565d03851f2624502a868214 # v4.4.1
+              uses: rnw-community/mobile-ci/actions/android-emulator@5c5de08a00dd47ed6dc354dc3777c00d8881da71 # v4.4.2
               with:
                   mode: stop
 
