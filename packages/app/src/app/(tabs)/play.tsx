@@ -7,13 +7,13 @@ import { useEffect } from 'react';
 
 import { emptyFn } from '@rnw-community/shared';
 
-import { PageHead } from '../@generic/components/page-head/page-head';
-import { PageHeader } from '../@generic/components/page-header/page-header';
-import { PageHorizontalSafeAreaEdges } from '../@generic/components/page/constant/page-safe-area-edges.constant';
-import { Page } from '../@generic/components/page/page';
-import { appRuntime } from '../@generic/runtime/app.runtime';
-import { logErrorCause } from '../@generic/utils/log-error-cause.util';
-import { HomeScreen } from '../screens/components/home-screen/home.screen';
+import { PageHead } from '../../@generic/components/page-head/page-head';
+import { PageHeader } from '../../@generic/components/page-header/page-header';
+import { PageHorizontalSafeAreaEdges } from '../../@generic/components/page/constant/page-safe-area-edges.constant';
+import { Page } from '../../@generic/components/page/page';
+import { appRuntime } from '../../@generic/runtime/app.runtime';
+import { logErrorCause } from '../../@generic/utils/log-error-cause.util';
+import { HomeScreen } from '../../screens/components/home-screen/home.screen';
 
 export default function PlayPage() {
     const { t } = useLingui();

@@ -1591,7 +1591,7 @@ msgstr "Placez {valueList} dans la case marquée."
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
-#: src/app/play.tsx
+#: src/app/(tabs)/play.tsx
 msgid "Play"
 msgstr "Jouer"
 
@@ -1613,8 +1613,8 @@ msgstr "Jouez à des niveaux plus difficiles pour obtenir de meilleurs multiplic
 msgid "Play streak"
 msgstr "Série de jeu"
 
+#: src/app/(tabs)/play.tsx
 #: src/app/game.tsx
-#: src/app/play.tsx
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "Jouer au sudoku — Suuudokuuu"
 

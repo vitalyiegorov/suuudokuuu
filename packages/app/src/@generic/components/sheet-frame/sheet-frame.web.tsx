@@ -4,6 +4,7 @@ import { use } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
+import { HomeHrefConstant } from '../../constants/home-href.constant';
 import { applyColorAlpha } from '../../utils/apply-color-alpha.util';
 
 import { SheetFrameStyles as styles } from './sheet-frame.styles';
@@ -26,7 +27,7 @@ export const SheetFrame = ({ children, detents }: Props) => {
         if (router.canGoBack()) {
             router.back();
         } else {
-            router.replace('/');
+            router.replace(HomeHrefConstant);
         }
     };
 

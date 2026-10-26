@@ -8,6 +8,7 @@ import { Pressable, ScrollView, View, useWindowDimensions } from 'react-native';
 import { emptyFn, isDefined, isNotEmptyString, isPositiveNumber } from '@rnw-community/shared';
 
 import { Alert } from '../../../@generic/components/alert/alert';
+import { HomeHrefConstant } from '../../../@generic/constants/home-href.constant';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
 import { i18nIsRightToLeftLocale } from '../../../@generic/utils/i18n-is-right-to-left-locale.util';
 import { ChallengeRaceHud } from '../../../challenge/components/challenge-race-hud/challenge-race-hud';
@@ -85,7 +86,7 @@ export const GameScreen = () => {
     const handleConfirmedExit = () => {
         engine.stopStepScript();
         void runCurrentRunCommand(currentRunService => currentRunService.reset).catch(emptyFn);
-        router.dismissTo('/');
+        router.dismissTo(HomeHrefConstant);
     };
     const handleExit = () => {
         Alert(t`Stop current run?`, t`All progress will be lost`, [

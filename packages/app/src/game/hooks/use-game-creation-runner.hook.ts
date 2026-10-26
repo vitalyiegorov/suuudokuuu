@@ -8,6 +8,7 @@ import { AppState } from 'react-native';
 import { emptyFn, getErrorMessage, isDefined } from '@rnw-community/shared';
 
 import { Alert } from '../../@generic/components/alert/alert';
+import { HomeHrefConstant } from '../../@generic/constants/home-href.constant';
 import { appRuntime } from '../../@generic/runtime/app.runtime';
 import { LoaderPaintDelayMillisecondsConstant } from '../constant/loader-paint-delay.constant';
 import { PuzzleGenerationService } from '../service/puzzle-generation.service';
@@ -26,7 +27,7 @@ export const useGameCreationRunner = () => {
 
     const handleInvalidGameDismiss = () => {
         void runCurrentRunCommand(currentRunService => currentRunService.reset).catch(emptyFn);
-        router.replace('/');
+        router.replace(HomeHrefConstant);
     };
 
     const showAlert = (error: unknown) => {

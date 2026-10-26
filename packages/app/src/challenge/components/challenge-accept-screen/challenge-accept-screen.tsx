@@ -10,6 +10,7 @@ import { AppLinkButton } from '../../../@generic/components/app-link-button/app-
 import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
 import { GlassIconButton } from '../../../@generic/components/glass-icon-button/glass-icon-button';
 import { ScreenActionBar } from '../../../@generic/components/screen-action-bar/screen-action-bar';
+import { HomeHrefConstant } from '../../../@generic/constants/home-href.constant';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
@@ -57,7 +58,11 @@ export const ChallengeAcceptScreen = ({ opponentTotalTime, challengeState, isLoa
     const arsenalTagStyle = [styles.arsenalTag, { color: theme.colors.text.hint }];
 
     const maybeLaterButton = (
-        <GlassIconButton accessibilityLabel={t`Maybe later`} href="/" testID={ChallengeAcceptScreenSelectors.MaybeLaterButton}>
+        <GlassIconButton
+            accessibilityLabel={t`Maybe later`}
+            href={HomeHrefConstant}
+            testID={ChallengeAcceptScreenSelectors.MaybeLaterButton}
+        >
             <LucideX color={theme.colors.inkText} />
         </GlassIconButton>
     );

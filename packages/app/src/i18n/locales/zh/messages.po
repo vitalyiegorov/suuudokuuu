@@ -1589,7 +1589,7 @@ msgstr "将 {valueList} 填入标记的单元格。"
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
-#: src/app/play.tsx
+#: src/app/(tabs)/play.tsx
 msgid "Play"
 msgstr "开始"
 
@@ -1611,8 +1611,8 @@ msgstr "选择更高难度可获得更大倍率"
 msgid "Play streak"
 msgstr "连续游戏天数"
 
+#: src/app/(tabs)/play.tsx
 #: src/app/game.tsx
-#: src/app/play.tsx
 msgid "Play Sudoku — Suuudokuuu"
 msgstr "玩数独 — Suuudokuuu"
 

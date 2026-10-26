@@ -138,7 +138,7 @@ pnpm --filter @suuudokuuu/web-tests lint
 - The settings option sheets and the rating explainer are `transparentModal` routes on web, drawn
   by `sheet-frame.web.tsx` as a backdrop and a bottom panel, so they are normal DOM overlays
   reachable with `page.getByTestId` / `page.getByText`.
-- `06.resume-game.spec.ts` reloads the page and re-visits `/` to prove the in-session pause/resume
+- `06.resume-game.spec.ts` reloads the page and re-visits `/play` to prove the in-session pause/resume
   timer behavior, then asserts the persisted game survives the reload via `HomeScreenSelectors.ResumeButton`.
   This passed reliably in this harness (wa-sqlite/OPFS persistence survives a full page reload), so
   the full scenario is kept. If it proves flaky elsewhere, trim to the in-session pause/resume

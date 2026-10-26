@@ -30,13 +30,12 @@ export const FloatingTabBarItem = (props: Props) => {
     const segmentStyles = [styles.segment, cs(isFocused, focusedSegmentStyle)];
     const labelColor = isFocused ? theme.colors.text.primary : theme.colors.text.hint;
     const labelStyles = [styles.label, { color: labelColor }];
-    const selectedState = { selected: isFocused };
 
     return (
         <Pressable
             accessibilityLabel={accessibilityLabel}
             accessibilityRole="tab"
-            accessibilityState={selectedState}
+            aria-selected={isFocused}
             onPress={onPress}
             style={segmentStyles}
             testID={testID}

@@ -8,6 +8,7 @@ import { emptyFn, isNotEmptyString } from '@rnw-community/shared';
 import { Alert } from '../../../@generic/components/alert/alert';
 import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
 import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
+import { HomeHrefConstant } from '../../../@generic/constants/home-href.constant';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
 import { getDifficultyMessage } from '../../../@generic/utils/get-difficulty-message.util';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
@@ -40,7 +41,10 @@ export const PauseScreen = () => {
     const handleShare = useShareGame();
     const handleConfirmedQuit = () => {
         engine.stopStepScript();
-        void runCurrentRunCommand(currentRunService => currentRunService.reset).then(() => void router.dismissTo('/'), emptyFn);
+        void runCurrentRunCommand(currentRunService => currentRunService.reset).then(
+            () => void router.dismissTo(HomeHrefConstant),
+            emptyFn
+        );
     };
     const handleQuit = () => {
         Alert(t`Stop current run?`, t`All progress will be lost`, [

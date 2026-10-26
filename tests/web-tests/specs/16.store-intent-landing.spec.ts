@@ -59,7 +59,7 @@ test('quiet link disables challenge mode and persists Easy with Relaxed mistakes
     await expect(page.getByTestId(HomeScreenIntentSpotlightSelectors.ROOT)).toBeVisible();
     await expect(page.getByTestId(HomeScreenSelectors.StartButton)).toContainText('Easy • Relaxed');
     await expect(page.getByTestId(HomeScreenSelectors.StartButton)).not.toContainText('Challenge');
-    await page.goto('/');
+    await page.goto('/play');
     await expect(page.getByTestId(HomeScreenSelectors.StartButton)).toContainText('Easy • Relaxed');
     await expect(page.getByTestId(HomeScreenIntentSpotlightSelectors.ROOT)).not.toBeVisible();
 });
@@ -81,7 +81,7 @@ test('unknown and repeated intent params leave the saved setup unchanged', async
     await page.goto('/start/unknown');
     await expect(page.getByTestId(HomeScreenSelectors.StartButton)).toContainText('Easy • Relaxed');
     await expect(page.getByTestId(HomeScreenIntentSpotlightSelectors.ROOT)).not.toBeVisible();
-    await page.goto('/?intent=expert&intent=quiet');
+    await page.goto('/play?intent=expert&intent=quiet');
     await expect(page.getByTestId(HomeScreenSelectors.StartButton)).toContainText('Easy • Relaxed');
     await expect(page.getByTestId(HomeScreenIntentSpotlightSelectors.ROOT)).not.toBeVisible();
 });

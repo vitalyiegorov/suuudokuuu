@@ -7,6 +7,7 @@ import { isPositiveNumber } from '@rnw-community/shared';
 
 import { CompletedGameResultDetails } from '../../../@generic/components/completed-game-result-details/completed-game-result-details';
 import { GameResultPage } from '../../../@generic/components/game-result-page/game-result-page';
+import { HomeHrefConstant } from '../../../@generic/constants/home-href.constant';
 import { useCompletedGameResult } from '../../../@generic/hooks/use-completed-game-result.hook';
 import { getLevelRatingText } from '../../../@generic/utils/get-level-rating-text.util';
 import { ChallengeRunSummary } from '../../../challenge/components/challenge-run-summary/challenge-run-summary';
@@ -32,7 +33,7 @@ export const WinnerScreen = () => {
     }
 
     if (completedGameResult.kind === 'redirect') {
-        return <Redirect href="/" />;
+        return <Redirect href={HomeHrefConstant} />;
     }
 
     const { gameState, isCalmMode, retrySetup, timeText } = completedGameResult;
