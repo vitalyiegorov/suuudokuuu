@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.35.11](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.35.10...v2.35.11) (2026-10-26)
+
+**Note:** Version bump only for package @suuudokuuu/root
+
+
+
+
+
 ## [2.35.10](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.35.9...v2.35.10) (2026-10-26)
 
 **Note:** Version bump only for package @suuudokuuu/root
