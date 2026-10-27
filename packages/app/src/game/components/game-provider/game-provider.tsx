@@ -65,17 +65,8 @@ export const GameProvider = ({ children }: Props) => {
             Effect.flatMap(puzzle => startRun(setup, puzzle))
         );
 
-    const createFromImport: GameContextValueInterface['createFromImport'] = (
-        sudokuString,
-        { difficulty, solutionString, rating, isRatingCeiling },
-        maxMistakes
-    ) =>
-        void runGameCreation(
-            startRun(
-                { difficulty, maxMistakes, isChallengeRun: false, dailyDayNumber: 0 },
-                { sudokuString, solutionString, rating, isRatingCeiling }
-            )
-        );
+    const createFromImport: GameContextValueInterface['createFromImport'] = (sudokuString, { difficulty, ...puzzle }, maxMistakes) =>
+        void runGameCreation(startRun({ difficulty, maxMistakes, isChallengeRun: false, dailyDayNumber: 0 }, { ...puzzle, sudokuString }));
 
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
         void runGameCreation(startForgedGame({ difficulty, isChallengeRun, maxMistakes, dailyDayNumber: 0 }));
