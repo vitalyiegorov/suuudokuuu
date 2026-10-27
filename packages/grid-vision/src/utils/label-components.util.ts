@@ -1,5 +1,4 @@
 import type { BinaryImageInterface } from '../interfaces/binary-image.interface';
-import type { ComponentLabelingInterface } from '../interfaces/component-labeling.interface';
 import type { ConnectedComponentInterface } from '../interfaces/connected-component.interface';
 
 const fillComponent = (mask: BinaryImageInterface, labels: Int32Array, start: number, label: number): ConnectedComponentInterface => {
@@ -39,7 +38,7 @@ const fillComponent = (mask: BinaryImageInterface, labels: Int32Array, start: nu
     return { label, area, minX, maxX, minY, maxY };
 };
 
-export const labelComponents = (mask: BinaryImageInterface): ComponentLabelingInterface => {
+export const labelComponents = (mask: BinaryImageInterface) => {
     const labels = new Int32Array(mask.width * mask.height);
     const components: ConnectedComponentInterface[] = [];
 

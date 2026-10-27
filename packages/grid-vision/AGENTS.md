@@ -1,6 +1,6 @@
 # Grid Vision Package
 
-Pure TypeScript recognition of a printed or on-screen sudoku from an RGBA image. `recognizeGrid` finds the grid, rectifies it, and classifies every cell, so the same code runs on Hermes (including a worklet runtime), on the web, and under Node tests.
+Pure TypeScript recognition of a printed or on-screen sudoku from an RGBA image. `recognizeGrid` finds the grid, rectifies it, and classifies every cell, so the same code runs on Hermes, on the web, and under Node tests.
 
 ## Commands
 
@@ -16,22 +16,30 @@ pnpm capture:fixtures
 
 ## Pipeline
 
-1. `to-grayscale.util.ts` box-averages the image down to a 640 px longest side and converts it to luma.
-2. `adaptive-threshold.util.ts` marks ink with integral-image local means.
-3. `find-grid-corners.util.ts` proposes grid corners as the extremes of `x + y` and `x - y` over the largest group of similar, square, enclosed background holes (the cells), and over the largest connected ink components, with and without a small dilation that bridges the gaps between separately drawn boxes.
-4. `read-grid-glyphs.util.ts` solves a 4-point homography per candidate, warps it to 450 px, flips the board to dark-on-light by the heavier intensity tail around the median, rejects candidates without both inner box lines in both directions or with mostly ink, and keeps the candidate whose ten line positions stand out most from the cell centers. The whole search repeats on the inverted image only when nothing qualifies.
-5. `extract-cell-glyph.util.ts` crops each cell, erases rows and columns that are mostly ink near the cell edge, keeps the central components, rejects too little ink as empty, and samples the result into a 28x28 glyph scaled to a 20 px box.
-6. `classify-glyph.util.ts` runs the 784-96-9 ReLU MLP over int8 weights from `constants/digit-classifier-weights.constant.ts` and returns the best digit, its softmax probability, and the runner-up.
+`read-grid-glyphs.util.ts` owns steps 1 to 4, `extract-cell-glyph.util.ts` step 5, and `recognize-grid.util.ts` step 6.
+
+1. Box-average the image down to a 640 px longest side and convert it to luma.
+2. Threshold it with integral-image local means (`adaptive-threshold.util.ts`) and label the ink (`label-components.util.ts`), once as is and once after a small dilation that bridges the gaps between separately drawn boxes. The three largest grid-sized components become candidates, with corners at the extremes of `x + y` and `x - y`.
+3. Warp each candidate to 450 px through a 4-point homography (`solve-homography.util.ts`), flip it to dark ink on a light board by the heavier intensity tail around the median, and threshold it again.
+4. Reject candidates whose inner box lines do not stand out from the cell centers in both directions, and keep the candidate whose ten line positions stand out most. The search repeats on the inverted image only when nothing qualifies.
+5. Crop each cell, erase rows and columns that are mostly ink near the cell edge, keep the central components, treat too little ink as empty, and sample the rest into a 28x28 glyph scaled to a 20 px box.
+6. Run the 784-96-9 ReLU MLP over the int8 weights in `constants/digit-classifier-weights.constant.ts` and return the best digit, its softmax probability, and the runner-up.
 
 ## Runtime Rules
 
 1. `src/` uses no DOM, Node, WASM, or native APIs: typed arrays and plain math only, within the root TypeScript `lib`.
 2. Keep the public API to `recognizeGrid`, `GridRecognitionKindEnum`, and the input and result types.
-3. Glyph extraction is shared by recognition and training. Any change to thresholds, cropping, or glyph sampling requires retraining with `pnpm train` and committing the regenerated weights module.
+3. The classifier weights decode once when `recognize-grid.util.ts` is evaluated. To run recognition on a worklet runtime, add `@suuudokuuu/grid-vision` to `importForwarding.moduleNames` in `packages/app/babel.config.js` the way `@suuudokuuu/puzzle-forge` is, so the module evaluates inside that runtime. The RGBA buffer crosses runtimes as a cloned typed array. Neither has been verified on a device yet.
+4. Glyph extraction is shared by recognition and training. Any change to thresholds, cropping, or glyph sampling requires `pnpm train` and committing the regenerated weights module.
 
 ## Training
 
-`pnpm train` renders synthetic photos with `scripts/shared/render-synthetic-photo.ts` (system fonts under `/usr/share/fonts` plus Inter from `@expo-google-fonts/inter`, without hairline and black weights, lined and app-style boxed grids, per-digit scale, offset, rotation within 8 degrees, stroke weight, perspective, lighting, noise, blur, and JPEG artifacts), pushes every photo through `readGridGlyphs`, and trains the MLP with plain SGD. Every fifth font is held out for evaluation. It prints held-out accuracy before and after int8 quantization and rewrites the weights module. The font set depends on the machine, so record the printed accuracy in the PR when the weights change.
+1. `pnpm train` registers every font under `/usr/share/fonts` whose file name matches the allowlist in `scripts/shared/register-digit-fonts.ts`, plus Inter from `@expo-google-fonts/inter`, skipping hairline and black weights. Every fifth font is held out.
+2. `scripts/shared/render-synthetic-photo.ts` renders 1,500 seeded photos of lined and app-style boxed grids with per-digit scale, offset, rotation within 8 degrees, and stroke weight, then perspective, lighting, noise, blur, background clutter, and JPEG artifacts.
+3. Every photo goes through `readGridGlyphs`. Photos whose empty cells do not line up with the puzzle are dropped as misaligned.
+4. A 784-96-9 MLP trains with plain SGD for 14 epochs. The script prints held-out accuracy per epoch and after int8 quantization, then rewrites the weights module.
+
+Training and `pnpm render:fixtures` both read the fonts installed on the machine, so the weights and the synthetic fixtures are machine-specific. Record the printed accuracy in the PR whenever the weights change, and regenerate fixtures only together with the manifest.
 
 ## Fixtures
 
