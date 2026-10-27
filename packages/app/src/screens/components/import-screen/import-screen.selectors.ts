@@ -1,5 +1,4 @@
 export enum ImportScreenSelectors {
-    CancelButton = 'ImportScreenSelectors.CancelButton',
     Cell = 'ImportScreenSelectors.Cell',
     ClearButton = 'ImportScreenSelectors.ClearButton',
     ClueCount = 'ImportScreenSelectors.ClueCount',

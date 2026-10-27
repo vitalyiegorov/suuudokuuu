@@ -92,13 +92,10 @@ appId: ${APP_ID}
 - assertVisible:
       id: 'ImportScreenSelectors.PlayButton'
       enabled: true
-- scrollUntilVisible:
-      element:
-          id: 'ImportScreenSelectors.CancelButton'
+- swipe:
+      from:
+          id: 'ImportScreenSelectors.Root'
       direction: DOWN
-      timeout: 5000
-- tapOn:
-      id: 'ImportScreenSelectors.CancelButton'
 - extendedWaitUntil:
       visible:
           id: 'HomeScreenSelectors.Root'

@@ -12,6 +12,7 @@ import type { Page } from '@playwright/test';
 const uniquePuzzle = '003020600900305001001806400008102900700000008006708200002609500800203009005010300';
 const uniquePuzzleLink = `https://www.sudokuwiki.org/sudoku.htm?bd=${uniquePuzzle}`;
 const cellsAfterFirst = 80;
+const sheetBackdropPosition = { x: 10, y: 10 };
 const uniqueStatus = 'Exactly one solution · SE 2.3 · Newbie';
 const gameScreenTimeoutMilliseconds = 15000;
 const pauseScreenTimeoutMilliseconds = 10000;
@@ -61,6 +62,9 @@ test('corrects cells on the board and names conflicts and ambiguous puzzles', as
     await page.getByTestId(ImportScreenSelectors.ClearButton).click();
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('More than one solution');
     await expect(page.getByTestId(ImportScreenSelectors.Input)).toHaveValue(`5${'.'.repeat(cellsAfterFirst)}`);
+
+    await page.getByLabel('Close', { exact: true }).click({ position: sheetBackdropPosition });
+    await expect(getVisibleByTestId(page, HomeScreenSelectors.Root)).toBeVisible();
 });
 
 test('fills the input from a paste anywhere on the screen and from the Paste button', async ({ context, page }) => {
@@ -84,21 +88,11 @@ test('fills the input from a paste anywhere on the screen and from the Paste but
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
 });
 
-test('opens a puzzle from an import link', async ({ page }) => {
-    await page.goto(`/import?puzzle=${uniquePuzzle}`);
-
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(uniqueStatus, { timeout: gameScreenTimeoutMilliseconds });
-    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
-
-    await page.getByTestId(ImportScreenSelectors.CancelButton).click();
-    await expect(getVisibleByTestId(page, HomeScreenSelectors.Root)).toBeVisible();
-});
-
-test('asks before an import replaces a game in progress', async ({ page }) => {
+test('opens an import link and asks before it replaces a game in progress', async ({ page }) => {
     const playButton = page.getByTestId(ImportScreenSelectors.PlayButton);
 
     await page.goto(`/import?puzzle=${uniquePuzzle}`);
-    await expect(playButton).toBeEnabled({ timeout: gameScreenTimeoutMilliseconds });
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(uniqueStatus, { timeout: gameScreenTimeoutMilliseconds });
     await playButton.click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
 

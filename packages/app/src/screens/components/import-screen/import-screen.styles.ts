@@ -1,10 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const ImportScreenStyles = StyleSheet.create(theme => ({
-    actions: {
-        gap: theme.spacing.sm,
-        width: '100%'
-    },
     content: {
         alignSelf: 'center',
         gap: theme.spacing.md,
