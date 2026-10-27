@@ -245,6 +245,10 @@ const findBestBoardMask = (gray: GrayImageInterface): BinaryImageInterface | nul
         )?.mask ?? null;
 
 export const readGridGlyphs = (image: RgbaImageInterface): (Float32Array | null)[] | null => {
+    if (image.width <= 0 || image.height <= 0 || image.data.length < image.width * image.height * RGBA_CHANNEL_COUNT) {
+        return null;
+    }
+
     const gray = toGrayscale(image);
     const mask = findBestBoardMask(gray) ?? findBestBoardMask(invertGray(gray));
 

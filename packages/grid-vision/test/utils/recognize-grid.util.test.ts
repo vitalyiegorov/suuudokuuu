@@ -57,6 +57,15 @@ describe('recognizeGrid', () => {
         );
     });
 
+    it('should report a missing grid for an empty or truncated image buffer', () => {
+        expect(recognizeGrid({ width: 0, height: 0, data: new Uint8ClampedArray() })).toStrictEqual({
+            kind: GridRecognitionKindEnum.GRID_NOT_FOUND
+        });
+        expect(recognizeGrid({ width: 2, height: 2, data: new Uint8ClampedArray(3) })).toStrictEqual({
+            kind: GridRecognitionKindEnum.GRID_NOT_FOUND
+        });
+    });
+
     it('should return a confidence and an alternative for every cell', () => {
         const recognition = recognizeFixture(gridFixtures[0].file);
 
