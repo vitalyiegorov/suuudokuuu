@@ -1,4 +1,4 @@
-import { defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { View } from 'react-native';
 
 import { FieldStyles as fieldStyles } from '../../../../game/components/field/field.styles';
@@ -9,8 +9,7 @@ import { ImportBoardStyles as styles } from './import-board.styles';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 
-const { fieldSize, fieldGroupHeight, fieldGroupWidth, blankCellValue } = defaultSudokuConfig;
-const rowIndexes = Array.from({ length: fieldSize }, (_, index) => index);
+const { fieldSize } = defaultSudokuConfig;
 
 interface Props {
     readonly puzzleString: string;
@@ -23,18 +22,7 @@ export const ImportBoard = ({ puzzleString, conflictCellIndexes, selectedCellInd
     const { cellSize, cellMargin, onBoardAreaLayout } = useBoardGeometry(0);
 
     const handleSelect = (cell: CellInterface) => void onSelectCell(cell.y * fieldSize + cell.x);
-    const field = rowIndexes.map(y =>
-        rowIndexes.map(x => {
-            const value = Number(puzzleString[y * fieldSize + x]);
-
-            return {
-                x,
-                y,
-                group: Math.floor(y / fieldGroupHeight) * fieldGroupWidth + Math.floor(x / fieldGroupWidth),
-                value: Number.isNaN(value) ? blankCellValue : value
-            };
-        })
-    );
+    const [field] = Sudoku.convertFieldFromString(puzzleString, defaultSudokuConfig);
 
     return (
         <View onLayout={onBoardAreaLayout} style={styles.area}>
