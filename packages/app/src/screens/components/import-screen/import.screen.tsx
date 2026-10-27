@@ -115,6 +115,7 @@ export const ImportScreen = ({ initialText }: Props) => {
         setSelectedCellIndex(isClear ? selectedCellIndex : Math.min(selectedCellIndex + 1, lastCellIndex));
     };
 
+    const settledAssessed = assessmentResult.waiting ? null : assessed;
     const isCheckFailed = AsyncResult.isFailure(assessmentResult) && !assessmentResult.waiting;
     const boardAssessed = hasDigits && assessed?.puzzleString !== GameEmptySudokuStringConstant ? assessed : null;
     const uniqueAssessment =
@@ -144,14 +145,14 @@ export const ImportScreen = ({ initialText }: Props) => {
     );
 
     useEffect(() => {
-        const settledKind = boardAssessed?.assessment.kind;
+        const settledKind = settledAssessed?.assessment.kind;
 
         if (settledKind === ImportedPuzzleAssessmentKindEnum.CONFLICT) {
             onAssessmentSettled(NotificationFeedbackType.Warning);
         } else if (settledKind === ImportedPuzzleAssessmentKindEnum.UNIQUE) {
             onAssessmentSettled(NotificationFeedbackType.Success);
         }
-    }, [boardAssessed]);
+    }, [settledAssessed]);
 
     return (
         <SheetFrame detents={ImportDetents}>
