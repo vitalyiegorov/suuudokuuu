@@ -40,8 +40,20 @@ msgid "{cell} cannot be {values}"
 msgstr "لا يمكن أن تكون {cell} {values}"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "{clueCount, plural, one {# clue} other {# clues}}"
-msgstr "{clueCount, plural, zero {# أدلة} one {# دليل} two {# دليلان} few {# أدلة} many {# دليلًا} other {# دليل}}"
+msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
+msgstr "{clueCount, plural, zero {# أدلة · أكثر من حل} one {دليل واحد · أكثر من حل} two {دليلان · أكثر من حل} few {# أدلة · أكثر من حل} many {# دليلًا · أكثر من حل} other {# دليل · أكثر من حل}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in box {box}} other {# {digit}s in box {box}}}"
+msgstr "{count, plural, =2 {رقمان {digit} في المربع {box}} other {# من الرقم {digit} في المربع {box}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in column {column}} other {# {digit}s in column {column}}}"
+msgstr "{count, plural, =2 {رقمان {digit} في العمود {column}} other {# من الرقم {digit} في العمود {column}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in row {row}} other {# {digit}s in row {row}}}"
+msgstr "{count, plural, =2 {رقمان {digit} في الصف {row}} other {# من الرقم {digit} في الصف {row}}}"
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
@@ -327,10 +339,6 @@ msgstr "✕ لا يوجد مرشح في {cell}"
 #: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
 msgid "✕ no place for {value}"
 msgstr "✕ لا موضع للرقم {value}"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "81 digits, a grid, or a puzzle link"
-msgstr "81 رقمًا، أو شبكة، أو رابط لغز"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
@@ -674,6 +682,10 @@ msgstr "لوحة نظيفة بالأبيض والأسود"
 msgid "Clean win"
 msgstr "فوز نظيف"
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Clear"
+msgstr "مسح"
+
 #: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
 msgid "Clear cell"
 msgstr "مسح الخلية"
@@ -906,10 +918,6 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "تعادل متقارب"
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Exactly one solution · SE {rating} · {difficulty}"
-msgstr "حل واحد فقط · SE {rating} · {difficulty}"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -1367,10 +1375,6 @@ msgstr "الحد الأدنى للنقاط"
 msgid "Mistakes"
 msgstr "أخطاء"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "More than one solution"
-msgstr "أكثر من حل واحد"
-
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "النقلة"
@@ -1478,6 +1482,10 @@ msgid "no pause"
 msgstr "بلا إيقاف"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No puzzle found on the clipboard"
+msgstr "لا يوجد لغز في الحافظة"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No solution"
 msgstr "لا يوجد حل"
 
@@ -1538,6 +1546,10 @@ msgstr "تقديم التلميحات أيضًا في ألغاز كابوس وج
 msgid "OK"
 msgstr "حسنًا"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "One solution · {difficulty} · SE {rating}"
+msgstr "حل واحد · {difficulty} · SE {rating}"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
 msgstr "فتح الالتزام {commitShortSha} على GitHub"
@@ -1580,13 +1592,13 @@ msgstr "يفتح هذا الالتزام على GitHub"
 msgid "Out of mistakes"
 msgstr "نفدت الأخطاء المسموحة"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Paste"
-msgstr "لصق"
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Paste a puzzle or tap a cell to type it"
+msgstr "الصق لغزًا أو اضغط على خلية لكتابته"
 
 #: src/screens/components/import-screen/import.screen.tsx
-msgid "Paste a puzzle or open a link"
-msgstr "الصق لغزًا أو افتح رابطًا"
+msgid "Paste puzzle"
+msgstr "لصق لغز"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
@@ -1720,10 +1732,6 @@ msgstr "اكتمل اللغز"
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Puzzle solved."
 msgstr "تم حل اللغز."
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Puzzle text"
-msgstr "نص اللغز"
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"

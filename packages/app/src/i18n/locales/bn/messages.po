@@ -40,8 +40,20 @@ msgid "{cell} cannot be {values}"
 msgstr "{cell} {values} হতে পারে না"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "{clueCount, plural, one {# clue} other {# clues}}"
-msgstr "{clueCount, plural, one {#টি সূত্র} other {#টি সূত্র}}"
+msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
+msgstr "{clueCount, plural, one {#টি সূত্র · একাধিক সমাধান} other {#টি সূত্র · একাধিক সমাধান}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in box {box}} other {# {digit}s in box {box}}}"
+msgstr "{count, plural, =2 {বাক্স {box}-এ দুটি {digit}} other {বাক্স {box}-এ #টি {digit}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in column {column}} other {# {digit}s in column {column}}}"
+msgstr "{count, plural, =2 {কলাম {column}-এ দুটি {digit}} other {কলাম {column}-এ #টি {digit}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in row {row}} other {# {digit}s in row {row}}}"
+msgstr "{count, plural, =2 {সারি {row}-এ দুটি {digit}} other {সারি {row}-এ #টি {digit}}}"
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
@@ -327,10 +339,6 @@ msgstr "✕ {cell}-এ কোনো প্রার্থী নেই"
 #: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
 msgid "✕ no place for {value}"
 msgstr "✕ {value}-এর জন্য কোনো ঘর নেই"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "81 digits, a grid, or a puzzle link"
-msgstr "৮১টি অঙ্ক, একটি গ্রিড, বা একটি ধাঁধার লিংক"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
@@ -674,6 +682,10 @@ msgstr "পরিষ্কার সাদা-কালো বোর্ড"
 msgid "Clean win"
 msgstr "নিখুঁত জয়"
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Clear"
+msgstr "মুছুন"
+
 #: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
 msgid "Clear cell"
 msgstr "ঘর মুছুন"
@@ -906,10 +918,6 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "সমানে সমান"
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Exactly one solution · SE {rating} · {difficulty}"
-msgstr "ঠিক একটি সমাধান · SE {rating} · {difficulty}"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -1367,10 +1375,6 @@ msgstr "ন্যূনতম স্কোর"
 msgid "Mistakes"
 msgstr "ভুল"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "More than one solution"
-msgstr "একাধিক সমাধান"
-
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "চাল"
@@ -1478,6 +1482,10 @@ msgid "no pause"
 msgstr "বিরতি নেই"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No puzzle found on the clipboard"
+msgstr "ক্লিপবোর্ডে কোনো ধাঁধা নেই"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No solution"
 msgstr "কোনো সমাধান নেই"
 
@@ -1538,6 +1546,10 @@ msgstr "দুঃস্বপ্ন, নরক ও অসীম সুডোক�
 msgid "OK"
 msgstr "ঠিক আছে"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "One solution · {difficulty} · SE {rating}"
+msgstr "একটি সমাধান · {difficulty} · SE {rating}"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
 msgstr "GitHub-এ {commitShortSha} কমিট খুলুন"
@@ -1580,13 +1592,13 @@ msgstr "GitHub-এ এই কমিটটি খোলে"
 msgid "Out of mistakes"
 msgstr "ভুলের সীমা শেষ"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Paste"
-msgstr "পেস্ট"
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Paste a puzzle or tap a cell to type it"
+msgstr "একটি ধাঁধা পেস্ট করুন বা টাইপ করতে একটি ঘরে ট্যাপ করুন"
 
 #: src/screens/components/import-screen/import.screen.tsx
-msgid "Paste a puzzle or open a link"
-msgstr "একটি ধাঁধা পেস্ট করুন বা একটি লিংক খুলুন"
+msgid "Paste puzzle"
+msgstr "ধাঁধা পেস্ট করুন"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
@@ -1720,10 +1732,6 @@ msgstr "সুডোকু সম্পূর্ণ"
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Puzzle solved."
 msgstr "সুডোকু সমাধান হয়েছে।"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Puzzle text"
-msgstr "ধাঁধার লেখা"
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"

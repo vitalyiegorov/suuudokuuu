@@ -40,8 +40,20 @@ msgid "{cell} cannot be {values}"
 msgstr "{cell} 不可能是 {values}"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "{clueCount, plural, one {# clue} other {# clues}}"
-msgstr "{clueCount, plural, other {# 个提示}}"
+msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
+msgstr "{clueCount, plural, other {# 个提示 · 多于一个解}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in box {box}} other {# {digit}s in box {box}}}"
+msgstr "{count, plural, =2 {第 {box} 宫有两个 {digit}} other {第 {box} 宫有 # 个 {digit}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in column {column}} other {# {digit}s in column {column}}}"
+msgstr "{count, plural, =2 {第 {column} 列有两个 {digit}} other {第 {column} 列有 # 个 {digit}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in row {row}} other {# {digit}s in row {row}}}"
+msgstr "{count, plural, =2 {第 {row} 行有两个 {digit}} other {第 {row} 行有 # 个 {digit}}}"
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
@@ -327,10 +339,6 @@ msgstr "✕ {cell} 没有候选数"
 #: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
 msgid "✕ no place for {value}"
 msgstr "✕ {value} 无处可放"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "81 digits, a grid, or a puzzle link"
-msgstr "81 位数字、网格或谜题链接"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
@@ -674,6 +682,10 @@ msgstr "清爽的黑白棋盘"
 msgid "Clean win"
 msgstr "完胜"
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Clear"
+msgstr "清空"
+
 #: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
 msgid "Clear cell"
 msgstr "清空格子"
@@ -906,10 +918,6 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "势均力敌"
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Exactly one solution · SE {rating} · {difficulty}"
-msgstr "唯一解 · SE {rating} · {difficulty}"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -1367,10 +1375,6 @@ msgstr "最低分"
 msgid "Mistakes"
 msgstr "错误"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "More than one solution"
-msgstr "多于一个解"
-
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "步"
@@ -1478,6 +1482,10 @@ msgid "no pause"
 msgstr "无暂停"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No puzzle found on the clipboard"
+msgstr "剪贴板中没有谜题"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No solution"
 msgstr "无解"
 
@@ -1538,6 +1546,10 @@ msgstr "在噩梦、地狱和无限难度的数独中也提供提示"
 msgid "OK"
 msgstr "确定"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "One solution · {difficulty} · SE {rating}"
+msgstr "唯一解 · {difficulty} · SE {rating}"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
 msgstr "在 GitHub 上打开提交 {commitShortSha}"
@@ -1580,13 +1592,13 @@ msgstr "在 GitHub 上打开此提交"
 msgid "Out of mistakes"
 msgstr "错误次数已用完"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Paste"
-msgstr "粘贴"
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Paste a puzzle or tap a cell to type it"
+msgstr "粘贴谜题，或点按格子输入"
 
 #: src/screens/components/import-screen/import.screen.tsx
-msgid "Paste a puzzle or open a link"
-msgstr "粘贴谜题或打开链接"
+msgid "Paste puzzle"
+msgstr "粘贴谜题"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
@@ -1720,10 +1732,6 @@ msgstr "数独完成"
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Puzzle solved."
 msgstr "数独已解开。"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Puzzle text"
-msgstr "谜题文本"
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"

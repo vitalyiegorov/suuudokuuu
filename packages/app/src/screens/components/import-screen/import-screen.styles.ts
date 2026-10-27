@@ -3,30 +3,41 @@ import { StyleSheet } from 'react-native-unistyles';
 export const ImportScreenStyles = StyleSheet.create((theme, rt) => ({
     content: {
         alignSelf: 'center',
-        gap: theme.spacing.md,
+        flex: 1,
+        gap: theme.spacing.sm,
         maxWidth: theme.contentWidth.standard,
-        paddingBottom: rt.insets.bottom + theme.spacing.xl,
+        paddingBottom: rt.insets.bottom + theme.spacing.md,
         paddingHorizontal: theme.spacing.lg,
-        paddingTop: theme.spacing.lg,
+        paddingTop: theme.spacing.md,
         width: '100%'
     },
     disabledButton: {
         opacity: 0.42
     },
-    hint: {
-        fontSize: theme.typography.size.md,
-        textAlign: 'center'
+    header: {
+        alignItems: 'center',
+        flexDirection: 'row',
+        gap: theme.spacing.md,
+        minHeight: 44
     },
-    input: {
-        borderRadius: 8,
-        borderWidth: 1,
-        fontSize: theme.typography.size.sm,
-        minHeight: 72,
-        paddingHorizontal: 12,
-        paddingVertical: 10,
-        textAlignVertical: 'top'
+    reset: {
+        justifyContent: 'center',
+        minHeight: 44,
+        _web: {
+            cursor: 'pointer'
+        }
+    },
+    resetPressed: {
+        opacity: 0.6,
+        transform: [{ scale: 0.97 }]
+    },
+    resetText: {
+        fontSize: theme.typography.size.md,
+        fontWeight: '700'
     },
     title: {
-        marginBottom: 0
+        flex: 1,
+        marginBottom: 0,
+        textAlign: 'left'
     }
 }));

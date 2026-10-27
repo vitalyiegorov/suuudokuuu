@@ -4,7 +4,7 @@ export const importScreenSubscribePaste = (onText: (text: string) => void) => {
     const handlePaste = (event: ClipboardEvent) => {
         const text = event.clipboardData?.getData('text/plain') ?? '';
 
-        if (event.target instanceof HTMLTextAreaElement || event.target instanceof HTMLInputElement || !isNotEmptyString(text)) {
+        if (!isNotEmptyString(text)) {
             return;
         }
 

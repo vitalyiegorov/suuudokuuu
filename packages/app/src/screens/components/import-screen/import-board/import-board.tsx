@@ -12,13 +12,14 @@ import type { CellInterface } from '@suuudokuuu/generator';
 const { fieldSize } = defaultSudokuConfig;
 
 interface Props {
+    readonly entranceKey: number;
     readonly puzzleString: string;
     readonly conflictCellIndexes: readonly number[];
     readonly selectedCellIndex: number | null;
     readonly onSelectCell: (cellIndex: number) => void;
 }
 
-export const ImportBoard = ({ puzzleString, conflictCellIndexes, selectedCellIndex, onSelectCell }: Props) => {
+export const ImportBoard = ({ entranceKey, puzzleString, conflictCellIndexes, selectedCellIndex, onSelectCell }: Props) => {
     const { cellSize, cellMargin, onBoardAreaLayout } = useBoardGeometry(0);
 
     const handleSelect = (cell: CellInterface) => void onSelectCell(cell.y * fieldSize + cell.x);
@@ -26,7 +27,7 @@ export const ImportBoard = ({ puzzleString, conflictCellIndexes, selectedCellInd
 
     return (
         <View onLayout={onBoardAreaLayout} style={styles.area}>
-            <View style={fieldStyles.wrapper}>
+            <View key={entranceKey} style={fieldStyles.wrapper}>
                 {field.map(row => (
                     <View key={`row-${row[0].y}`} style={fieldStyles.row}>
                         {row.map(cell => {

@@ -42,8 +42,20 @@ msgid "{cell} cannot be {values}"
 msgstr "{cell} не може бути {values}"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "{clueCount, plural, one {# clue} other {# clues}}"
-msgstr "{clueCount, plural, one {# підказка} few {# підказки} many {# підказок} other {# підказки}}"
+msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
+msgstr "{clueCount, plural, one {# підказка · більше одного розв’язку} few {# підказки · більше одного розв’язку} many {# підказок · більше одного розв’язку} other {# підказки · більше одного розв’язку}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in box {box}} other {# {digit}s in box {box}}}"
+msgstr "{count, plural, =2 {Дві {digit} у блоці {box}} other {{digit} × # у блоці {box}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in column {column}} other {# {digit}s in column {column}}}"
+msgstr "{count, plural, =2 {Дві {digit} у стовпці {column}} other {{digit} × # у стовпці {column}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in row {row}} other {# {digit}s in row {row}}}"
+msgstr "{count, plural, =2 {Дві {digit} у рядку {row}} other {{digit} × # у рядку {row}}}"
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
@@ -329,10 +341,6 @@ msgstr "✕ для {cell} немає кандидата"
 #: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
 msgid "✕ no place for {value}"
 msgstr "✕ для {value} немає місця"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "81 digits, a grid, or a puzzle link"
-msgstr "81 цифра, сітка або посилання на головоломку"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
@@ -676,6 +684,10 @@ msgstr "Чиста чорно-біла дошка"
 msgid "Clean win"
 msgstr "Чиста перемога"
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Clear"
+msgstr "Очистити"
+
 #: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
 msgid "Clear cell"
 msgstr "Очистити клітинку"
@@ -908,10 +920,6 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "Рівна боротьба"
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Exactly one solution · SE {rating} · {difficulty}"
-msgstr "Рівно один розв’язок · SE {rating} · {difficulty}"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -1369,10 +1377,6 @@ msgstr "Мінімальні бали"
 msgid "Mistakes"
 msgstr "Помилки"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "More than one solution"
-msgstr "Більше одного розв’язку"
-
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Хід"
@@ -1480,6 +1484,10 @@ msgid "no pause"
 msgstr "без паузи"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No puzzle found on the clipboard"
+msgstr "У буфері обміну немає головоломки"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No solution"
 msgstr "Немає розв’язку"
 
@@ -1540,6 +1548,10 @@ msgstr "Пропонувати підказки також у судоку рі�
 msgid "OK"
 msgstr "Гаразд"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "One solution · {difficulty} · SE {rating}"
+msgstr "Один розв’язок · {difficulty} · SE {rating}"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
 msgstr "Відкрити коміт {commitShortSha} на GitHub"
@@ -1582,13 +1594,13 @@ msgstr "Відкриває цей коміт на GitHub"
 msgid "Out of mistakes"
 msgstr "Вичерпано ліміт помилок"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Paste"
-msgstr "Вставити"
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Paste a puzzle or tap a cell to type it"
+msgstr "Вставте головоломку або торкніться клітинки, щоб ввести її"
 
 #: src/screens/components/import-screen/import.screen.tsx
-msgid "Paste a puzzle or open a link"
-msgstr "Вставте головоломку або відкрийте посилання"
+msgid "Paste puzzle"
+msgstr "Вставити головоломку"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
@@ -1722,10 +1734,6 @@ msgstr "Судоку завершено"
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Puzzle solved."
 msgstr "Судоку розв’язано."
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Puzzle text"
-msgstr "Текст головоломки"
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"

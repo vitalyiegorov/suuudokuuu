@@ -1,12 +1,9 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const ImportStatusStyles = StyleSheet.create(theme => ({
-    clueCount: {
-        fontSize: theme.typography.size.sm
-    },
     container: {
-        alignItems: 'center',
-        gap: theme.spacing.xs,
+        height: 48,
+        justifyContent: 'center',
         width: '100%'
     },
     status: {

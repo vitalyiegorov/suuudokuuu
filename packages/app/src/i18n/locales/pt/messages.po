@@ -40,8 +40,20 @@ msgid "{cell} cannot be {values}"
 msgstr "{cell} não pode ser {values}"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "{clueCount, plural, one {# clue} other {# clues}}"
-msgstr "{clueCount, plural, one {# pista} other {# pistas}}"
+msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
+msgstr "{clueCount, plural, one {# pista · mais de uma solução} other {# pistas · mais de uma solução}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in box {box}} other {# {digit}s in box {box}}}"
+msgstr "{count, plural, =2 {Dois {digit} na caixa {box}} other {# vezes {digit} na caixa {box}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in column {column}} other {# {digit}s in column {column}}}"
+msgstr "{count, plural, =2 {Dois {digit} na coluna {column}} other {# vezes {digit} na coluna {column}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in row {row}} other {# {digit}s in row {row}}}"
+msgstr "{count, plural, =2 {Dois {digit} na linha {row}} other {# vezes {digit} na linha {row}}}"
 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
@@ -327,10 +339,6 @@ msgstr "✕ não há candidato para {cell}"
 #: src/game/components/hint-chain-contradiction/hint-chain-contradiction.tsx
 msgid "✕ no place for {value}"
 msgstr "✕ não há lugar para {value}"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "81 digits, a grid, or a puzzle link"
-msgstr "81 dígitos, uma grade ou um link do quebra-cabeça"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
@@ -674,6 +682,10 @@ msgstr "Tabuleiro limpo em preto e branco"
 msgid "Clean win"
 msgstr "Vitória limpa"
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Clear"
+msgstr "Limpar"
+
 #: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
 msgid "Clear cell"
 msgstr "Limpar célula"
@@ -906,10 +918,6 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "Disputa equilibrada"
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Exactly one solution · SE {rating} · {difficulty}"
-msgstr "Exatamente uma solução · SE {rating} · {difficulty}"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -1367,10 +1375,6 @@ msgstr "Pontuação mínima"
 msgid "Mistakes"
 msgstr "Erros"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "More than one solution"
-msgstr "Mais de uma solução"
-
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Jogada"
@@ -1478,6 +1482,10 @@ msgid "no pause"
 msgstr "sem pausa"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No puzzle found on the clipboard"
+msgstr "Nenhum quebra-cabeça na área de transferência"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No solution"
 msgstr "Sem solução"
 
@@ -1538,6 +1546,10 @@ msgstr "Oferecer dicas também nos sudokus Pesadelo, Inferno e Infinito"
 msgid "OK"
 msgstr "OK"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "One solution · {difficulty} · SE {rating}"
+msgstr "Uma solução · {difficulty} · SE {rating}"
+
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
 msgstr "Abrir o commit {commitShortSha} no GitHub"
@@ -1580,13 +1592,13 @@ msgstr "Abre este commit no GitHub"
 msgid "Out of mistakes"
 msgstr "Sem mais erros permitidos"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Paste"
-msgstr "Colar"
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Paste a puzzle or tap a cell to type it"
+msgstr "Cole um quebra-cabeça ou toque numa célula para digitá-lo"
 
 #: src/screens/components/import-screen/import.screen.tsx
-msgid "Paste a puzzle or open a link"
-msgstr "Cole um quebra-cabeça ou abra um link"
+msgid "Paste puzzle"
+msgstr "Colar quebra-cabeça"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
@@ -1720,10 +1732,6 @@ msgstr "Sudoku concluído"
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Puzzle solved."
 msgstr "Sudoku resolvido."
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Puzzle text"
-msgstr "Texto do quebra-cabeça"
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
