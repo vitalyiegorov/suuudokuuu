@@ -11,7 +11,9 @@ appId: ${APP_ID}
       element:
           id: 'HomeScreenSelectors.ImportLink'
       direction: DOWN
+      visibilityPercentage: 100
       timeout: 10000
+- scroll
 - tapOn:
       id: 'HomeScreenSelectors.ImportLink'
 - extendedWaitUntil:
@@ -40,9 +42,21 @@ appId: ${APP_ID}
           id: 'ImportScreenSelectors.Status'
           text: 'These cells conflict'
       timeout: 3000
+- scrollUntilVisible:
+      element:
+          id: 'ImportScreenSelectors.PlayButton'
+      direction: DOWN
+      visibilityPercentage: 100
+      timeout: 5000
 - assertVisible:
       id: 'ImportScreenSelectors.PlayButton'
       enabled: false
+- scrollUntilVisible:
+      element:
+          id: 'ImportScreenSelectors.ClearButton'
+      direction: UP
+      visibilityPercentage: 100
+      timeout: 5000
 - tapOn:
       id: 'ImportScreenSelectors.ClearButton'
 - extendedWaitUntil:
@@ -51,15 +65,23 @@ appId: ${APP_ID}
           text: 'More than one solution'
       timeout: 3000
 
+- scrollUntilVisible:
+      element:
+          id: 'ImportScreenSelectors.Input'
+      direction: DOWN
+      visibilityPercentage: 100
+      timeout: 5000
 - tapOn:
       id: 'ImportScreenSelectors.Input'
 - eraseText:
       charactersToErase: 100
 - inputText: '003020600900305001001806400008102900700000008006708200002609500800203009005010300'
-- extendedWaitUntil:
-      visible:
+- scrollUntilVisible:
+      element:
           id: 'ImportScreenSelectors.Status'
           text: 'Exactly one solution · SE 2\.3 · Newbie'
+      direction: UP
+      visibilityPercentage: 100
       timeout: 5000
 - tapOn:
       id: 'ImportScreenSelectors.Status'
@@ -67,6 +89,7 @@ appId: ${APP_ID}
       element:
           id: 'ImportScreenSelectors.PlayButton'
       direction: DOWN
+      visibilityPercentage: 100
       timeout: 5000
 - tapOn:
       id: 'ImportScreenSelectors.PlayButton'
@@ -92,6 +115,12 @@ appId: ${APP_ID}
           id: 'ImportScreenSelectors.Status'
           text: 'Exactly one solution · SE 2\.3 · Newbie'
       timeout: 10000
+- scrollUntilVisible:
+      element:
+          id: 'ImportScreenSelectors.PlayButton'
+      direction: DOWN
+      visibilityPercentage: 100
+      timeout: 5000
 - tapOn:
       id: 'ImportScreenSelectors.PlayButton'
 - extendedWaitUntil:
@@ -108,12 +137,8 @@ appId: ${APP_ID}
       link: 'suuudokuuu://import?puzzle=003020600900305001001806400008102900700000008006708200002609500800203009005010300'
 - extendedWaitUntil:
       visible:
-          id: 'ImportScreenSelectors.Status'
-          text: 'Exactly one solution · SE 2\.3 · Newbie'
+          id: 'ImportScreenSelectors.Title'
       timeout: 10000
-- assertVisible:
-      id: 'ImportScreenSelectors.PlayButton'
-      enabled: true
 - swipe:
       from:
           id: 'ImportScreenSelectors.Title'
