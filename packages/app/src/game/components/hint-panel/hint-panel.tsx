@@ -6,6 +6,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { animationEaseOutCurveConstant } from '../../../@generic/constants/animation.constant';
 import { useReduceMotion } from '../../../@generic/hooks/use-reduce-motion.hook';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { HintPanelEnterDurationMillisecondsConstant } from '../../constant/hint-panel-enter-duration.constant';
@@ -20,9 +21,7 @@ import { HintStepper } from '../hint-stepper/hint-stepper';
 import { HintPanelSelectors } from './hint-panel.selectors';
 import { HintPanelStyles as styles } from './hint-panel.styles';
 
-const easeOutFirstControlX = 0.23;
-const easeOutSecondControlX = 0.32;
-const panelEaseOut = Easing.bezier(easeOutFirstControlX, 1, easeOutSecondControlX, 1);
+const panelEaseOut = Easing.bezier(...animationEaseOutCurveConstant);
 const panelEnterOffset = 8;
 const panelExitDurationMs = 150;
 const panelResizeDurationMs = 200;
