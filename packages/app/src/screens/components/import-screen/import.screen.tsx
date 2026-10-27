@@ -10,7 +10,7 @@ import * as Atom from 'effect/reactivity/Atom';
 import * as Clipboard from 'expo-clipboard';
 import LucideClipboardPaste from 'lucide-react-native/icons/clipboard-paste';
 import { use, useEffect, useState } from 'react';
-import { ScrollView, TextInput } from 'react-native';
+import { Keyboard, ScrollView, TextInput } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -71,7 +71,10 @@ export const ImportScreen = ({ initialText }: Props) => {
             )
         );
 
-    const handleSelectCell = (cellIndex: number) => void setSelectedCellIndex(cellIndex === selectedCellIndex ? null : cellIndex);
+    const handleSelectCell = (cellIndex: number) => {
+        Keyboard.dismiss();
+        setSelectedCellIndex(cellIndex === selectedCellIndex ? null : cellIndex);
+    };
 
     const handleCellInput = (value: number) => {
         if (!isDefined(selectedCellIndex)) {
@@ -106,7 +109,9 @@ export const ImportScreen = ({ initialText }: Props) => {
     return (
         <SheetFrame detents={ImportDetents}>
             <ScrollView
+                automaticallyAdjustKeyboardInsets
                 contentContainerStyle={styles.content}
+                keyboardDismissMode="interactive"
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
                 testID={ImportScreenSelectors.Root}
