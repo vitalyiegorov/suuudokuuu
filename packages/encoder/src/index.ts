@@ -9,3 +9,4 @@ export { TimelineEventKindEnum } from './@generic/enums/timeline-event-kind.enum
 export { applyCellEventsToField, removeCellEventsFromField } from './@generic/utils/timeline-event-stream-codec.util';
 
 export { GameStateSerializer } from './game-state-serializer/classes/game-state-serializer';
+export { parsePuzzleText } from './puzzle-text-parser/utils/parse-puzzle-text.util';
