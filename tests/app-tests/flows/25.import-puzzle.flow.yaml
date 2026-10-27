@@ -64,6 +64,21 @@ appId: ${APP_ID}
           id: 'ImportScreenSelectors.Status'
           text: 'More than one solution'
       timeout: 3000
+- scrollUntilVisible:
+      element:
+          id: 'ImportScreenSelectors.Cell.0-0'
+      direction: UP
+      visibilityPercentage: 100
+      timeout: 5000
+- tapOn:
+      id: 'ImportScreenSelectors.Cell.0-0'
+- tapOn:
+      id: 'ImportScreenSelectors.ClearButton'
+- extendedWaitUntil:
+      visible:
+          id: 'ImportScreenSelectors.Status'
+          text: 'Paste a puzzle or open a link'
+      timeout: 3000
 
 - scrollUntilVisible:
       element:
