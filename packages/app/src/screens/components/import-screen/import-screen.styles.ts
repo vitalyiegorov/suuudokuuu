@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const ImportScreenStyles = StyleSheet.create(theme => ({
+export const ImportScreenStyles = StyleSheet.create((theme, rt) => ({
     content: {
         alignSelf: 'center',
         gap: theme.spacing.md,
         maxWidth: theme.contentWidth.standard,
-        paddingBottom: theme.spacing.xl,
+        paddingBottom: rt.insets.bottom + theme.spacing.xl,
         paddingHorizontal: theme.spacing.lg,
         paddingTop: theme.spacing.lg,
         width: '100%'
