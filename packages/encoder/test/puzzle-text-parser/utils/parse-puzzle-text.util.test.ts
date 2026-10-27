@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import { parsePuzzleText } from '../../../src/puzzle-text-parser/utils/parse-puzzle-text.util';
 
+const strayNumberCount = 20_000;
 const puzzle = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
 const zeroPuzzle = puzzle.replaceAll('.', '0');
 const rows = Array.from(puzzle.matchAll(/.{9}/gu), match => match[0]);
@@ -45,6 +46,7 @@ describe('parsePuzzleText', () => {
         ['a link with encoded row breaks', `https://example.com/import?puzzle=${rows.join('%0A')}`],
         ['a numbered grid', `Puzzle 1\n${rows.join('\n')}`],
         ['a puzzle followed by its solution grid', `${rows.join('\n')}\n\n${rows.join('\n')}`],
+        ['a puzzle after a long run of stray numbers', `${'12345678 '.repeat(strayNumberCount)}${puzzle}`],
         ['a puzzle inside a post', `Can someone help with this one? Stuck after the X-Wing.\n\n${puzzle}\n\nRated 7.2 - thanks!`]
     ])('should parse %s', (_name, text) => {
         expect.assertions(1);

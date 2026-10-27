@@ -1,4 +1,4 @@
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../../@generic/constants/grid.constant';
 
@@ -13,10 +13,10 @@ const readTokenCells = (token: string): string | null => {
 const collectCellRuns = (tokenCells: (string | null)[]): string[][] =>
     tokenCells.reduce<string[][]>(
         (runs, cells) => {
-            if (isDefined(cells)) {
-                runs.at(-1)?.push(cells);
-            } else {
+            if (!isDefined(cells)) {
                 runs.push([]);
+            } else if (isNotEmptyString(cells)) {
+                runs.at(-1)?.push(cells);
             }
 
             return runs;
@@ -29,5 +29,5 @@ const joinUpToGrid = (joinedCells: string, cells: string): string =>
 
 export const parsePuzzleText = (text: string): string | null =>
     collectCellRuns(text.split(TOKEN_DELIMITER_PATTERN).map(readTokenCells))
-        .flatMap(run => run.map((_cells, startIndex) => run.slice(startIndex).reduce(joinUpToGrid, '')))
+        .flatMap(run => run.map((_cells, startIndex) => run.slice(startIndex, startIndex + GRID_CELL_COUNT).reduce(joinUpToGrid, '')))
         .find(cells => cells.length === GRID_CELL_COUNT) ?? null;
