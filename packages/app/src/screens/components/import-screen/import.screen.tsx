@@ -97,7 +97,7 @@ export const ImportScreen = () => {
     ];
     const hintStyles = [styles.hint, { color: theme.colors.text.hint }];
     const isPlayDisabled = !isDefined(uniqueAssessment);
-    const playButtonStyles = isPlayDisabled ? styles.disabledButton : null;
+    const playButtonStyles = isPlayDisabled && styles.disabledButton;
 
     const handlePlay = () => {
         if (isDefined(uniqueAssessment)) {
