@@ -14,8 +14,10 @@ import { currentRunAtom } from '../../query/use-current-run.query';
 import { PuzzleGenerationService } from '../../service/puzzle-generation.service';
 import { gameCreateEngine } from '../../utils/game-create-engine.util';
 
+import type { GameContextValueInterface } from '../../interface/game-context-value.interface';
 import type { GameSetupInterface } from '../../interface/game-setup.interface';
 import type { CurrentRunType } from '@suuudokuuu/progress';
+import type { SerializedPuzzleInterface } from '@suuudokuuu/puzzle-forge';
 import type { ReactNode } from 'react';
 
 interface Props {
@@ -46,16 +48,32 @@ export const GameProvider = ({ children }: Props) => {
             )
         );
 
+    const startRun = (
+        setup: Pick<CurrentRunType, 'dailyDayNumber' | 'difficulty' | 'isChallengeRun' | 'maxMistakes'>,
+        { sudokuString, solutionString, rating, isRatingCeiling }: SerializedPuzzleInterface
+    ) =>
+        enterRun(
+            () => new FieldEngine({ sudokuString, solutionString, difficulty: setup.difficulty }),
+            currentRunService => currentRunService.start({ ...setup, sudokuString, rating, isRatingCeiling })
+        );
+
     const startForgedGame = (
         setup: Pick<CurrentRunType, 'dailyDayNumber' | 'difficulty' | 'isChallengeRun' | 'maxMistakes'>,
         seed?: number
     ) =>
         Effect.flatMap(PuzzleGenerationService, service => service.generate(setup.difficulty, seed)).pipe(
-            Effect.flatMap(({ sudokuString, solutionString, rating, isRatingCeiling }) =>
-                enterRun(
-                    () => new FieldEngine({ sudokuString, solutionString, difficulty: setup.difficulty }),
-                    currentRunService => currentRunService.start({ ...setup, sudokuString, rating, isRatingCeiling })
-                )
+            Effect.flatMap(puzzle => startRun(setup, puzzle))
+        );
+
+    const createFromImport: GameContextValueInterface['createFromImport'] = (
+        sudokuString,
+        { difficulty, solutionString, rating, isRatingCeiling },
+        maxMistakes
+    ) =>
+        void runGameCreation(
+            startRun(
+                { difficulty, maxMistakes, isChallengeRun: false, dailyDayNumber: 0 },
+                { sudokuString, solutionString, rating, isRatingCeiling }
             )
         );
 
@@ -80,7 +98,7 @@ export const GameProvider = ({ children }: Props) => {
             )
         );
 
-    const value = { create, createDaily, createFromState, engine, isCreatingGame, snapshot };
+    const value = { create, createDaily, createFromImport, createFromState, engine, isCreatingGame, snapshot };
 
     return <GameContext value={value}>{children}</GameContext>;
 };
