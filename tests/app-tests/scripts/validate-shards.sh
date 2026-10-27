@@ -22,6 +22,7 @@ recovery_flow_paths = %w[
 
 native_boundary_text_selectors = {
   'subflows/game/quit-current-game.flow.yaml' => ['OK|Гаразд|حسنًا|ঠিক আছে|ठीक है|ٹھیک ہے|确定'],
+  '25.import-puzzle.flow.yaml' => ['OK'],
   'screenshots/subflows/reset-app.flow.yaml' => ['^Open$']
 }
 

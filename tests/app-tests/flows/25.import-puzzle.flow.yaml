@@ -5,6 +5,8 @@ appId: ${APP_ID}
       optional: true
 
 - runFlow: subflows/navigation/launch-home.flow.yaml
+- tapOn:
+      id: 'MainTabSelectors.Play'
 - scrollUntilVisible:
       element:
           id: 'HomeScreenSelectors.ImportLink'
@@ -59,6 +61,8 @@ appId: ${APP_ID}
           id: 'ImportScreenSelectors.Status'
           text: 'Exactly one solution · SE 2\.3 · Newbie'
       timeout: 5000
+- tapOn:
+      id: 'ImportScreenSelectors.Status'
 - scrollUntilVisible:
       element:
           id: 'ImportScreenSelectors.PlayButton'
@@ -80,6 +84,24 @@ appId: ${APP_ID}
       visible:
           id: 'GameScreenSelectors.Root'
       timeout: 10000
+
+- openLink:
+      link: 'suuudokuuu://import?puzzle=003020600900305001001806400008102900700000008006708200002609500800203009005010300'
+- extendedWaitUntil:
+      visible:
+          id: 'ImportScreenSelectors.Status'
+          text: 'Exactly one solution · SE 2\.3 · Newbie'
+      timeout: 10000
+- tapOn:
+      id: 'ImportScreenSelectors.PlayButton'
+- extendedWaitUntil:
+      visible: 'Stop current run\?'
+      timeout: 3000
+- tapOn: 'OK'
+- extendedWaitUntil:
+      visible:
+          id: 'GameScreenSelectors.Root'
+      timeout: 10000
 - runFlow: subflows/game/quit-current-game.flow.yaml
 
 - openLink:
@@ -94,9 +116,11 @@ appId: ${APP_ID}
       enabled: true
 - swipe:
       from:
-          id: 'ImportScreenSelectors.Root'
+          id: 'ImportScreenSelectors.Title'
       direction: DOWN
 - extendedWaitUntil:
-      visible:
-          id: 'HomeScreenSelectors.Root'
+      notVisible:
+          id: 'ImportScreenSelectors.Root'
       timeout: 3000
+- assertVisible:
+      id: 'HomeScreenSelectors.Root'

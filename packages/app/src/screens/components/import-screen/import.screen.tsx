@@ -116,7 +116,7 @@ export const ImportScreen = ({ initialText }: Props) => {
                 showsVerticalScrollIndicator={false}
                 testID={ImportScreenSelectors.Root}
             >
-                <Header style={styles.title} text={t`Import a puzzle`} />
+                <Header style={styles.title} testID={ImportScreenSelectors.Title} text={t`Import a puzzle`} />
 
                 <ImportBoard
                     conflictCellIndexes={conflictCellIndexes}

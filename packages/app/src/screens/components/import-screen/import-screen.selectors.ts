@@ -7,5 +7,6 @@ export enum ImportScreenSelectors {
     PasteButton = 'ImportScreenSelectors.PasteButton',
     PlayButton = 'ImportScreenSelectors.PlayButton',
     Root = 'ImportScreenSelectors.Root',
-    Status = 'ImportScreenSelectors.Status'
+    Status = 'ImportScreenSelectors.Status',
+    Title = 'ImportScreenSelectors.Title'
 }
