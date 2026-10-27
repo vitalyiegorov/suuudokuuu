@@ -41,6 +41,10 @@ msgstr "{bestStreak, plural, one {Найкраща серія: # день} few {
 msgid "{cell} cannot be {values}"
 msgstr "{cell} не може бути {values}"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{clueCount, plural, one {# clue} other {# clues}}"
+msgstr "{clueCount, plural, one {# підказка} few {# підказки} many {# підказок} other {# підказки}}"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
@@ -326,6 +330,10 @@ msgstr "✕ для {cell} немає кандидата"
 msgid "✕ no place for {value}"
 msgstr "✕ для {value} немає місця"
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "81 digits, a grid, or a puzzle link"
+msgstr "81 цифра, сітка або посилання на головоломку"
+
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Знак «+» означає, що це судоку має щонайменше SE {seRatingCeilingText}. Далі розв’язання можуть розтягуватися в дуже довгі ланцюги, тож ми обмежуємо показане число, а не вдаємо хибну точність."
@@ -561,6 +569,7 @@ msgstr "Зможеш їх обіграти?"
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/import-screen/import.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
@@ -633,6 +642,10 @@ msgstr "Виклики"
 msgid "Check out this Sudoku puzzle!"
 msgstr "Поглянь на це судоку!"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Checking…"
+msgstr "Перевірка…"
+
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how large board digits appear"
 msgstr "Виберіть розмір цифр на дошці"
@@ -665,6 +678,10 @@ msgstr "Чиста чорно-біла дошка"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Чиста перемога"
+
+#: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
+msgid "Clear cell"
+msgstr "Очистити клітинку"
 
 #: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
@@ -894,6 +911,10 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "Рівна боротьба"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Exactly one solution · SE {rating} · {difficulty}"
+msgstr "Рівно один розв’язок · SE {rating} · {difficulty}"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -1150,6 +1171,11 @@ msgstr "Безсмертний"
 msgid "Import"
 msgstr "Імпортувати"
 
+#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Import a puzzle"
+msgstr "Імпортувати головоломку"
+
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Import backup"
 msgstr "Імпортувати резервну копію"
@@ -1346,6 +1372,10 @@ msgstr "Мінімальні бали"
 msgid "Mistakes"
 msgstr "Помилки"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "More than one solution"
+msgstr "Більше одного розв’язку"
+
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Хід"
@@ -1452,6 +1482,10 @@ msgstr "Попри штрафи, ти завжди отримуєш щонайм
 msgid "no pause"
 msgstr "без паузи"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No solution"
+msgstr "Немає розв’язку"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "Ще жодного розв'язання. Сьогоднішнє судоку чекає."
@@ -1552,6 +1586,14 @@ msgstr "Відкриває цей коміт на GitHub"
 msgid "Out of mistakes"
 msgstr "Вичерпано ліміт помилок"
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Paste"
+msgstr "Вставити"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Paste a puzzle or open a link"
+msgstr "Вставте головоломку або відкрийте посилання"
+
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
 msgstr "Пауза"
@@ -1592,6 +1634,7 @@ msgstr "Поставте {valueList} у позначену клітинку."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
+#: src/screens/components/import-screen/import.screen.tsx
 msgid "Play"
 msgstr "Грати"
 
@@ -1683,6 +1726,10 @@ msgstr "Судоку завершено"
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Puzzle solved."
 msgstr "Судоку розв’язано."
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Puzzle text"
+msgstr "Текст головоломки"
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
@@ -2200,6 +2247,10 @@ msgstr "Редактор теми"
 msgid "Theme name"
 msgstr "Назва теми"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "These cells conflict"
+msgstr "Ці клітинки конфліктують"
+
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Цю дошку цього разу не завершено. Боротьба за свободу в Україні триває. Кожен донат у 1 $ має значення."
@@ -2207,6 +2258,10 @@ msgstr "Цю дошку цього разу не завершено. Борот�
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
 msgstr "Цей файл не є резервною копією {appName} або створений новішою версією застосунку."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle could not be checked"
+msgstr "Не вдалося перевірити цю головоломку"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

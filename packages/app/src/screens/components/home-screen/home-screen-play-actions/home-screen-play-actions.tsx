@@ -1,6 +1,8 @@
+import { Trans } from '@lingui/react/macro';
 import { DifficultyEnum } from '@suuudokuuu/generator';
+import { Link } from 'expo-router';
 import { type ReactNode, use } from 'react';
-import { View } from 'react-native';
+import { Pressable, View } from 'react-native';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../../theme/context/theme.context';
@@ -28,6 +30,7 @@ export const HomeScreenPlayActions = ({ children, difficulty, isLoading, onStart
     const startButtonTextColor = isSpecialTierSelected ? specialButtonTextColor : theme.colors.inkText;
     const startButtonTitleStyles = [styles.startButtonTitle, { color: startButtonTextColor }];
     const startButtonSubtitleStyles = [styles.startButtonSubtitle, { color: startButtonTextColor }];
+    const importLinkTextStyles = [styles.importLinkText, { color: theme.colors.text.hint }];
 
     return (
         <View style={styles.playActions}>
@@ -45,6 +48,14 @@ export const HomeScreenPlayActions = ({ children, difficulty, isLoading, onStart
                     <BlackText style={startButtonSubtitleStyles}>{startButtonSubtitle}</BlackText>
                 </View>
             </HomeScreenStartButton>
+
+            <Link asChild href="/import">
+                <Pressable accessibilityRole="link" style={styles.importLink} testID={HomeScreenSelectors.ImportLink}>
+                    <BlackText style={importLinkTextStyles}>
+                        <Trans>Import a puzzle</Trans>
+                    </BlackText>
+                </Pressable>
+            </Link>
         </View>
     );
 };

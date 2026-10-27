@@ -39,6 +39,10 @@ msgstr "{bestStreak, plural, one {بہترین تسلسل: # دن} other {بہت
 msgid "{cell} cannot be {values}"
 msgstr "{cell} {values} نہیں ہو سکتا"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{clueCount, plural, one {# clue} other {# clues}}"
+msgstr "{clueCount, plural, one {# اشارہ} other {# اشارے}}"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}، {stateText}"
@@ -324,6 +328,10 @@ msgstr "✕ {cell} کے لیے کوئی امیدوار نہیں"
 msgid "✕ no place for {value}"
 msgstr "✕ {value} کے لیے کوئی جگہ نہیں"
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "81 digits, a grid, or a puzzle link"
+msgstr "81 ہندسے، ایک گرڈ، یا پہیلی کا لنک"
+
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "“+” کا مطلب ہے کہ یہ سوڈوکو کم از کم SE {seRatingCeilingText} کا ہے۔ اس کے بعد حل بہت لمبی زنجیروں میں بندھ سکتے ہیں، اس لیے ہم جھوٹی درستی دکھانے کے بجائے دکھائے گئے عدد پر حد لگا دیتے ہیں۔"
@@ -559,6 +567,7 @@ msgstr "کیا آپ انہیں ہرا سکتے ہیں؟"
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/import-screen/import.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
@@ -631,6 +640,10 @@ msgstr "چیلنجز"
 msgid "Check out this Sudoku puzzle!"
 msgstr "یہ سوڈوکو دیکھیں!"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Checking…"
+msgstr "جانچ ہو رہی ہے…"
+
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how large board digits appear"
 msgstr "منتخب کریں کہ بورڈ کے ہندسے کتنے بڑے دکھیں"
@@ -663,6 +676,10 @@ msgstr "صاف سیاہ و سفید بورڈ"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "شاندار جیت"
+
+#: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
+msgid "Clear cell"
+msgstr "خانہ صاف کریں"
 
 #: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
@@ -892,6 +909,10 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "برابر کا مقابلہ"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Exactly one solution · SE {rating} · {difficulty}"
+msgstr "بالکل ایک حل · SE {rating} · {difficulty}"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -1148,6 +1169,11 @@ msgstr "لافانی"
 msgid "Import"
 msgstr "امپورٹ کریں"
 
+#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Import a puzzle"
+msgstr "پہیلی درآمد کریں"
+
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Import backup"
 msgstr "بیک اپ امپورٹ کریں"
@@ -1344,6 +1370,10 @@ msgstr "کم از کم اسکور"
 msgid "Mistakes"
 msgstr "غلطیاں"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "More than one solution"
+msgstr "ایک سے زیادہ حل"
+
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "چال"
@@ -1450,6 +1480,10 @@ msgstr "پنالٹیز کتنی بھی ہوں، آپ کو ہمیشہ کم از �
 msgid "no pause"
 msgstr "کوئی وقفہ نہیں"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No solution"
+msgstr "کوئی حل نہیں"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "ابھی کوئی حل نہیں۔ آج کا سوڈوکو انتظار کر رہا ہے۔"
@@ -1550,6 +1584,14 @@ msgstr "اس کمیٹ کو GitHub پر کھولتا ہے"
 msgid "Out of mistakes"
 msgstr "غلطیوں کی حد ختم"
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Paste"
+msgstr "چسپاں کریں"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Paste a puzzle or open a link"
+msgstr "پہیلی چسپاں کریں یا لنک کھولیں"
+
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
 msgstr "وقفہ"
@@ -1590,6 +1632,7 @@ msgstr "{valueList} کو معلم خانے میں رکھیں۔"
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
+#: src/screens/components/import-screen/import.screen.tsx
 msgid "Play"
 msgstr "کھیلیں"
 
@@ -1681,6 +1724,10 @@ msgstr "سوڈوکو مکمل"
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Puzzle solved."
 msgstr "سوڈوکو حل ہو گیا۔"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Puzzle text"
+msgstr "پہیلی کا متن"
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
@@ -2198,6 +2245,10 @@ msgstr "تھیم ایڈیٹر"
 msgid "Theme name"
 msgstr "تھیم کا نام"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "These cells conflict"
+msgstr "یہ خانے آپس میں متصادم ہیں"
+
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "اس بار یہ بورڈ مکمل نہیں ہوا۔ یوکرین میں آزادی کی جنگ جاری ہے۔ ہر $1 عطیہ معنی رکھتا ہے۔"
@@ -2205,6 +2256,10 @@ msgstr "اس بار یہ بورڈ مکمل نہیں ہوا۔ یوکرین میں
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
 msgstr "یہ فائل {appName} کا بیک اپ نہیں ہے، یا اسے ایپ کے نئے ورژن سے بنایا گیا ہے۔"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle could not be checked"
+msgstr "اس پہیلی کی جانچ نہیں ہو سکی"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

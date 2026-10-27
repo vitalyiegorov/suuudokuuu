@@ -29,14 +29,14 @@
             "continue": true
         },
         {
-            "src": "^/play/?$",
+            "src": "^/(?:play|import)/?$",
             "headers": {
                 "X-Robots-Tag": "noindex, follow"
             },
             "continue": true
         },
         {
-            "src": "^/(?:play|game|game-settings|pause|winner|loser|challenge-won|challenge-lost|scoring|beta|daily)/?$",
+            "src": "^/(?:play|game|game-settings|pause|winner|loser|challenge-won|challenge-lost|scoring|beta|daily|import)/?$",
             "dest": "/_app/index.html"
         },
         {

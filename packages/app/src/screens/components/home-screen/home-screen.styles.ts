@@ -167,6 +167,23 @@ const HomeScreenStaticStyles = {
         lineHeight: 16,
         textAlign: 'left'
     },
+    importLink: {
+        alignItems: 'center',
+        minHeight: 44,
+        justifyContent: 'center',
+        paddingHorizontal: 16,
+        _web: {
+            cursor: 'pointer',
+            _hover: {
+                opacity: 0.85
+            }
+        }
+    },
+    importLinkText: {
+        fontSize: 15,
+        fontWeight: '700',
+        textAlign: 'center'
+    },
     mistakeGrid: {
         flexDirection: 'row',
         gap: 8,

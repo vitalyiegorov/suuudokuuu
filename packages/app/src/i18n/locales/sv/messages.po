@@ -39,6 +39,10 @@ msgstr "{bestStreak, plural, one {Bästa svit: # dag} other {Bästa svit: # daga
 msgid "{cell} cannot be {values}"
 msgstr "{cell} kan inte vara {values}"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{clueCount, plural, one {# clue} other {# clues}}"
+msgstr "{clueCount, plural, one {# ledtråd} other {# ledtrådar}}"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
@@ -324,6 +328,10 @@ msgstr "✕ ingen kandidat för {cell}"
 msgid "✕ no place for {value}"
 msgstr "✕ ingen plats för {value}"
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "81 digits, a grid, or a puzzle link"
+msgstr "81 siffror, ett rutnät eller en pussellänk"
+
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Ett ”+” betyder att det här sudokut är minst SE {seRatingCeilingText}. Bortom den punkten kan lösningarna kedjas ihop till väldigt långa resonemang, så vi sätter ett tak för det visade talet i stället för att låtsas om en precision som inte finns."
@@ -559,6 +567,7 @@ msgstr "Kan du slå dem?"
 #: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
 #: src/screens/components/home-screen/home.screen.tsx
+#: src/screens/components/import-screen/import.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
@@ -631,6 +640,10 @@ msgstr "Utmaningar"
 msgid "Check out this Sudoku puzzle!"
 msgstr "Kolla in detta sudoku!"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Checking…"
+msgstr "Kontrollerar…"
+
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how large board digits appear"
 msgstr "Välj hur stora siffrorna på brädet ska vara"
@@ -663,6 +676,10 @@ msgstr "Rent svartvitt bräde"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Ren vinst"
+
+#: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
+msgid "Clear cell"
+msgstr "Töm ruta"
 
 #: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
@@ -892,6 +909,10 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "Jämn match"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Exactly one solution · SE {rating} · {difficulty}"
+msgstr "Exakt en lösning · SE {rating} · {difficulty}"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -1148,6 +1169,11 @@ msgstr "Odödlig"
 msgid "Import"
 msgstr "Importera"
 
+#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Import a puzzle"
+msgstr "Importera ett pussel"
+
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Import backup"
 msgstr "Importera säkerhetskopia"
@@ -1344,6 +1370,10 @@ msgstr "Minimipoäng"
 msgid "Mistakes"
 msgstr "Misstag"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "More than one solution"
+msgstr "Mer än en lösning"
+
 #: src/history/components/replay-controls/replay-step-card/replay-step-card.tsx
 msgid "Move"
 msgstr "Drag"
@@ -1450,6 +1480,10 @@ msgstr "Oavsett straff får du alltid minst"
 msgid "no pause"
 msgstr "ingen paus"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No solution"
+msgstr "Ingen lösning"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "Inga lösningar än. Dagens sudoku väntar."
@@ -1550,6 +1584,14 @@ msgstr "Öppnar denna commit på GitHub"
 msgid "Out of mistakes"
 msgstr "Slut på misstag"
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Paste"
+msgstr "Klistra in"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Paste a puzzle or open a link"
+msgstr "Klistra in ett pussel eller öppna en länk"
+
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
 msgstr "Pausa"
@@ -1590,6 +1632,7 @@ msgstr "Placera {valueList} i den markerade cellen."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
+#: src/screens/components/import-screen/import.screen.tsx
 msgid "Play"
 msgstr "Spela"
 
@@ -1681,6 +1724,10 @@ msgstr "Sudoku klart"
 #: src/screens/components/game-screen/hooks/use-game-engine-events.hook.ts
 msgid "Puzzle solved."
 msgstr "Sudokut är löst."
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Puzzle text"
+msgstr "Pusseltext"
 
 #: src/screens/components/pause-screen/pause-screen-actions/pause-screen-actions.tsx
 msgid "Quit"
@@ -2198,6 +2245,10 @@ msgstr "Temaredigerare"
 msgid "Theme name"
 msgstr "Temanamn"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "These cells conflict"
+msgstr "De här rutorna krockar"
+
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Det här brädet blev inte klart den här gången. Kampen för frihet i Ukraina fortsätter. Varje donation på 1 $ gör skillnad."
@@ -2205,6 +2256,10 @@ msgstr "Det här brädet blev inte klart den här gången. Kampen för frihet i 
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
 msgstr "Den här filen är ingen säkerhetskopia från {appName}, eller så skapades den av en nyare version av appen."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle could not be checked"
+msgstr "Pusslet kunde inte kontrolleras"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
