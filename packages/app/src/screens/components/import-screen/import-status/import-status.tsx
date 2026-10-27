@@ -72,20 +72,24 @@ const getConflictMessage = (puzzleString: string, cellIndexes: readonly number[]
 };
 
 interface Props {
-    readonly assessment: ImportedPuzzleAssessmentType | null;
+    readonly assessed: { readonly assessment: ImportedPuzzleAssessmentType; readonly puzzleString: string } | null;
     readonly isCheckFailed: boolean;
     readonly isPasteMissed: boolean;
     readonly puzzleString: string;
 }
 
-export const ImportStatus = ({ assessment, isCheckFailed, isPasteMissed, puzzleString }: Props) => {
+export const ImportStatus = ({ assessed, isCheckFailed, isPasteMissed, puzzleString }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const clueCount = Array.from(puzzleString).filter(cell => digitPattern.test(cell)).length;
-    const getAssessmentText = (settledAssessment: ImportedPuzzleAssessmentType): string => {
+    const getClueCount = (text: string) => Array.from(text).filter(cell => digitPattern.test(cell)).length;
+    const boardClueCount = getClueCount(puzzleString);
+    const getAssessmentText = ({
+        assessment: settledAssessment,
+        puzzleString: assessedPuzzleString
+    }: NonNullable<Props['assessed']>): string => {
         if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.CONFLICT) {
-            return t(getConflictMessage(puzzleString, settledAssessment.cellIndexes));
+            return t(getConflictMessage(assessedPuzzleString, settledAssessment.cellIndexes));
         }
 
         if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.UNIQUE) {
@@ -94,6 +98,8 @@ export const ImportStatus = ({ assessment, isCheckFailed, isPasteMissed, puzzleS
 
             return t`One solution · ${difficulty} · SE ${rating}`;
         }
+
+        const clueCount = getClueCount(assessedPuzzleString);
 
         return settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.NO_SOLUTION
             ? t`No solution`
@@ -104,18 +110,18 @@ export const ImportStatus = ({ assessment, isCheckFailed, isPasteMissed, puzzleS
             return t`This puzzle could not be checked`;
         }
 
-        return isDefined(assessment) ? getAssessmentText(assessment) : t`Checking…`;
+        return isDefined(assessed) ? getAssessmentText(assessed) : t`Checking…`;
     };
     const getStatusText = (): string => {
         if (isPasteMissed) {
             return t`No puzzle found on the clipboard`;
         }
 
-        return clueCount > 0 ? getBoardText() : t`Paste a puzzle or tap a cell to type it`;
+        return boardClueCount > 0 ? getBoardText() : t`Paste a puzzle or tap a cell to type it`;
     };
 
     const statusText = getStatusText();
-    const isHint = clueCount === 0 || isPasteMissed;
+    const isHint = boardClueCount === 0 || isPasteMissed;
     const textStyles = [styles.status, { color: isHint ? theme.colors.text.hint : theme.colors.text.primary }];
 
     return (

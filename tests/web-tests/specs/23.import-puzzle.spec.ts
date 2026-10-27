@@ -31,7 +31,7 @@ const writeClipboard = async (context: BrowserContext, page: Page, text: string)
 
 const cell = (page: Page, cellKey: string) => page.getByTestId(`${ImportScreenSelectors.Cell}.${cellKey}`);
 
-test('pastes a puzzle link anywhere on the sheet and plays it with its rating', async ({ context, page }) => {
+test('pastes a puzzle link anywhere on the sheet', async ({ context, page }) => {
     await openImportFromPlay(page);
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(emptyStatus);
     await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeDisabled();
@@ -39,22 +39,15 @@ test('pastes a puzzle link anywhere on the sheet and plays it with its rating', 
     await writeClipboard(context, page, uniquePuzzleLink);
     await page.keyboard.press('ControlOrMeta+V');
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(uniqueStatus);
-
-    await page.getByTestId(ImportScreenSelectors.PlayButton).click();
-    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
-
-    await sendAppToBackground(page);
-    await expect(page.getByTestId(PauseScreenSelectors.Root)).toBeVisible({ timeout: pauseScreenTimeoutMilliseconds });
-    await bringAppToForeground(page);
-    await expect(page.getByTestId(PauseScreenSelectors.DetailsValue)).toHaveText(/Newbie · 2\.3/u);
-
-    await quitCurrentGame(page, PauseScreenSelectors.QuitButton);
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
 });
 
 test('types on the board with the pad and keyboard, names conflicts and closes from the backdrop', async ({ page }) => {
     await openImportFromPlay(page);
 
     await cell(page, '0-0').click();
+    await page.keyboard.press('ControlOrMeta+5');
+    await expect(cell(page, '0-0')).toHaveAccessibleName('Row 1, column 1, empty');
     await page.getByTestId(`${ImportScreenSelectors.PadValue}.5`).click();
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(singleClueStatus);
 
@@ -66,6 +59,7 @@ test('types on the board with the pad and keyboard, names conflicts and closes f
     await page.keyboard.press('ArrowLeft');
     await page.keyboard.press('Backspace');
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(singleClueStatus);
+    await expect(cell(page, '0-0')).toHaveAccessibleName('Row 1, column 1, 5');
 
     await page.getByTestId(ImportScreenSelectors.ResetButton).click();
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(emptyStatus);
@@ -95,6 +89,11 @@ test('opens an import link and asks before it replaces a game in progress', asyn
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(uniqueStatus, { timeout: gameScreenTimeoutMilliseconds });
     await playButton.click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+
+    await sendAppToBackground(page);
+    await expect(page.getByTestId(PauseScreenSelectors.Root)).toBeVisible({ timeout: pauseScreenTimeoutMilliseconds });
+    await bringAppToForeground(page);
+    await expect(page.getByTestId(PauseScreenSelectors.DetailsValue)).toHaveText(/Newbie · 2\.3/u);
 
     await page.goto(`/import?puzzle=${uniquePuzzle}`);
     await expect(playButton).toBeEnabled({ timeout: gameScreenTimeoutMilliseconds });
