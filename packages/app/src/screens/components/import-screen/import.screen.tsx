@@ -83,7 +83,9 @@ export const ImportScreen = ({ initialText }: Props) => {
 
         const cellText = value === defaultSudokuConfig.blankCellValue ? EmptyCellText : String(value);
 
-        setText(`${puzzleString.slice(0, selectedCellIndex)}${cellText}${puzzleString.slice(selectedCellIndex + 1)}`);
+        const nextPuzzleString = `${puzzleString.slice(0, selectedCellIndex)}${cellText}${puzzleString.slice(selectedCellIndex + 1)}`;
+
+        setText(/[1-9]/u.test(nextPuzzleString) ? nextPuzzleString : '');
     };
 
     const assessment = AsyncResult.isSuccess(assessmentResult) ? assessmentResult.value : null;
