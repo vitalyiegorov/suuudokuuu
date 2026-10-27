@@ -39,6 +39,22 @@ msgstr "{bestStreak, plural, one {सबसे लंबा सिलसिल�
 msgid "{cell} cannot be {values}"
 msgstr "{cell} {values} नहीं हो सकती"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
+msgstr "{clueCount, plural, one {# संकेत · एक से अधिक हल} other {# संकेत · एक से अधिक हल}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in box {box}} other {# {digit}s in box {box}}}"
+msgstr "{count, plural, =2 {बॉक्स {box} में दो {digit}} other {बॉक्स {box} में # बार {digit}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in column {column}} other {# {digit}s in column {column}}}"
+msgstr "{count, plural, =2 {स्तंभ {column} में दो {digit}} other {स्तंभ {column} में # बार {digit}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in row {row}} other {# {digit}s in row {row}}}"
+msgstr "{count, plural, =2 {पंक्ति {row} में दो {digit}} other {पंक्ति {row} में # बार {digit}}}"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
@@ -372,9 +388,8 @@ msgstr "सभी"
 msgid "All of a number (1-9)"
 msgstr "किसी अंक की सभी कोशिकाएँ (1-9)"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
@@ -555,10 +570,9 @@ msgstr "शांत खेल"
 msgid "Can you beat them?"
 msgstr "क्या आप उनसे बेहतर कर सकते हैं?"
 
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/game/hooks/use-share-game.hook.ts
-#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
@@ -631,6 +645,10 @@ msgstr "चुनौतियाँ"
 msgid "Check out this Sudoku puzzle!"
 msgstr "यह सुडोकू देखें!"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Checking…"
+msgstr "जाँच हो रही है…"
+
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how large board digits appear"
 msgstr "चुनें कि बोर्ड के अंक कितने बड़े दिखें"
@@ -663,6 +681,14 @@ msgstr "साफ काला-सफेद बोर्ड"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "स्वच्छ जीत"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Clear"
+msgstr "साफ़ करें"
+
+#: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
+msgid "Clear cell"
+msgstr "खाना साफ़ करें"
 
 #: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
@@ -1148,6 +1174,11 @@ msgstr "अमर"
 msgid "Import"
 msgstr "इम्पोर्ट करें"
 
+#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Import a puzzle"
+msgstr "पहेली आयात करें"
+
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Import backup"
 msgstr "बैकअप इम्पोर्ट करें"
@@ -1450,6 +1481,14 @@ msgstr "दंड चाहे जितने हों, आपको हमे
 msgid "no pause"
 msgstr "कोई पॉज़ नहीं"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No puzzle found on the clipboard"
+msgstr "क्लिपबोर्ड में कोई पहेली नहीं मिली"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No solution"
+msgstr "कोई हल नहीं"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "अभी कोई हल नहीं। आज का सुडोकू इंतज़ार कर रहा है।"
@@ -1499,14 +1538,17 @@ msgstr "एक स्थान का"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "दुःस्वप्न, नरक और अनंत सुडोकू में भी संकेत दें"
 
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/game/hooks/use-game-creation-runner.hook.ts
-#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "OK"
 msgstr "ठीक है"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "One solution · {difficulty} · SE {rating}"
+msgstr "एक हल · {difficulty} · SE {rating}"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1550,6 +1592,14 @@ msgstr "इस कमिट को GitHub पर खोलता है"
 msgid "Out of mistakes"
 msgstr "गलतियों की सीमा समाप्त"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Paste a puzzle or tap a cell to type it"
+msgstr "पहेली पेस्ट करें या लिखने के लिए किसी खाने पर टैप करें"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Paste puzzle"
+msgstr "पहेली पेस्ट करें"
+
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
 msgstr "रोकें"
@@ -1590,6 +1640,7 @@ msgstr "{valueList} को चिह्नित सेल में रखे�
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
+#: src/screens/components/import-screen/import.screen.tsx
 msgid "Play"
 msgstr "खेलें"
 
@@ -2055,9 +2106,8 @@ msgstr "कुल {stepCount} में से चरण {currentStepNumber}"
 msgid "Step time"
 msgstr "चाल समय"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Stop current run?"
 msgstr "मौजूदा गेम रोकें?"
@@ -2198,6 +2248,10 @@ msgstr "थीम एडिटर"
 msgid "Theme name"
 msgstr "थीम का नाम"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "These cells conflict"
+msgstr "ये खाने आपस में टकराते हैं"
+
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "इस बार यह बोर्ड पूरा नहीं हुआ। यूक्रेन में आज़ादी की लड़ाई जारी है। हर $1 दान मायने रखता है।"
@@ -2205,6 +2259,10 @@ msgstr "इस बार यह बोर्ड पूरा नहीं हु
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
 msgstr "यह फ़ाइल {appName} बैकअप नहीं है, या इसे ऐप के नए संस्करण से बनाया गया है।"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle could not be checked"
+msgstr "इस पहेली की जाँच नहीं हो सकी"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

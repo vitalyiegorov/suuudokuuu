@@ -6,7 +6,6 @@ import { View } from 'react-native';
 import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
 import { isDefined } from '@rnw-community/shared';
 
-import { Alert } from '../../../@generic/components/alert/alert';
 import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
 import { Header } from '../../../@generic/components/header/header';
 import { TabBarInsetContext } from '../../../@generic/components/main-tab-layout/context/tab-bar-inset.context';
@@ -21,6 +20,7 @@ import { DailyWeekCard } from '../../../daily/components/daily-week-card/daily-w
 import { useDailyChallenge } from '../../../daily/hooks/use-daily-challenge.hook';
 import { useDailyResults } from '../../../daily/query/use-daily-results.query';
 import { dailyGetCompletedDays } from '../../../daily/utils/daily-get-completed-days.util';
+import { useConfirmRunReplacement } from '../../../game/hooks/use-confirm-run-replacement.hook';
 import { useResumeGame } from '../../../game/hooks/use-resume-game.hook';
 
 import { DailyScreenSelectors } from './daily-screen.selectors';
@@ -39,7 +39,6 @@ export const DailyScreen = () => {
         completedDayNumbers,
         difficulty,
         isCreatingGame,
-        isGameStarted,
         nowMs,
         startDaily,
         status,
@@ -49,19 +48,9 @@ export const DailyScreen = () => {
     } = useDailyChallenge();
     const dailyResults = useDailyResults();
     const resumeGame = useResumeGame();
+    const confirmRunReplacement = useConfirmRunReplacement();
 
-    const handleStart = () => {
-        if (!isGameStarted) {
-            startDaily();
-
-            return;
-        }
-
-        Alert(t`Stop current run?`, t`All progress will be lost`, [
-            { text: t`Cancel`, style: 'cancel' },
-            { text: t`OK`, onPress: startDaily }
-        ]);
-    };
+    const handleStart = () => void confirmRunReplacement(startDaily);
 
     const isCompleted = status === 'completed';
     const isInProgress = status === 'inProgress';

@@ -35,3 +35,4 @@ executionOrder:
         - 22.challenge-over-live-game.flow
         - 23.tab-navigation.flow
         - 24.store-intent-landing.flow
+        - 25.import-puzzle.flow

@@ -39,6 +39,22 @@ msgstr "{bestStreak, plural, one {Rentetan terbaik: # hari} other {Rentetan terb
 msgid "{cell} cannot be {values}"
 msgstr "{cell} tidak bisa {values}"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
+msgstr "{clueCount, plural, one {# petunjuk · lebih dari satu solusi} other {# petunjuk · lebih dari satu solusi}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in box {box}} other {# {digit}s in box {box}}}"
+msgstr "{count, plural, =2 {Dua {digit} di kotak {box}} other {# angka {digit} di kotak {box}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in column {column}} other {# {digit}s in column {column}}}"
+msgstr "{count, plural, =2 {Dua {digit} di kolom {column}} other {# angka {digit} di kolom {column}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in row {row}} other {# {digit}s in row {row}}}"
+msgstr "{count, plural, =2 {Dua {digit} di baris {row}} other {# angka {digit} di baris {row}}}"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
@@ -372,9 +388,8 @@ msgstr "Semua"
 msgid "All of a number (1-9)"
 msgstr "Semua kotak dengan satu angka (1-9)"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
@@ -555,10 +570,9 @@ msgstr "Permainan tenang"
 msgid "Can you beat them?"
 msgstr "Bisakah kamu mengalahkannya?"
 
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/game/hooks/use-share-game.hook.ts
-#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
@@ -631,6 +645,10 @@ msgstr "Tantangan"
 msgid "Check out this Sudoku puzzle!"
 msgstr "Coba sudoku ini!"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Checking…"
+msgstr "Memeriksa…"
+
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how large board digits appear"
 msgstr "Pilih ukuran angka di papan"
@@ -663,6 +681,14 @@ msgstr "Papan hitam-putih yang bersih"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Kemenangan bersih"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Clear"
+msgstr "Hapus"
+
+#: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
+msgid "Clear cell"
+msgstr "Kosongkan sel"
 
 #: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
@@ -1148,6 +1174,11 @@ msgstr "Abadi"
 msgid "Import"
 msgstr "Impor"
 
+#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Import a puzzle"
+msgstr "Impor teka-teki"
+
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Import backup"
 msgstr "Impor cadangan"
@@ -1450,6 +1481,14 @@ msgstr "Berapa pun penaltinya, kamu selalu mendapat setidaknya"
 msgid "no pause"
 msgstr "tanpa jeda"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No puzzle found on the clipboard"
+msgstr "Tidak ada teka-teki di papan klip"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No solution"
+msgstr "Tidak ada solusi"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "Belum ada solusi. Sudoku hari ini menunggu."
@@ -1499,14 +1538,17 @@ msgstr "dari satu penempatan"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "Tawarkan petunjuk juga di sudoku Mimpi buruk, Neraka, dan Tak Terhingga"
 
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/game/hooks/use-game-creation-runner.hook.ts
-#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "OK"
 msgstr "OK"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "One solution · {difficulty} · SE {rating}"
+msgstr "Satu solusi · {difficulty} · SE {rating}"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1550,6 +1592,14 @@ msgstr "Membuka commit ini di GitHub"
 msgid "Out of mistakes"
 msgstr "Kesalahan sudah habis"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Paste a puzzle or tap a cell to type it"
+msgstr "Tempel teka-teki atau ketuk sel untuk mengetiknya"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Paste puzzle"
+msgstr "Tempel teka-teki"
+
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
 msgstr "Jeda"
@@ -1590,6 +1640,7 @@ msgstr "Tempatkan {valueList} di sel yang ditandai."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
+#: src/screens/components/import-screen/import.screen.tsx
 msgid "Play"
 msgstr "Main"
 
@@ -2055,9 +2106,8 @@ msgstr "Langkah {currentStepNumber} dari {stepCount}"
 msgid "Step time"
 msgstr "Waktu langkah"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Stop current run?"
 msgstr "Hentikan permainan saat ini?"
@@ -2198,6 +2248,10 @@ msgstr "Editor tema"
 msgid "Theme name"
 msgstr "Nama tema"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "These cells conflict"
+msgstr "Sel-sel ini bertentangan"
+
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Papan ini belum selesai kali ini. Perjuangan untuk kebebasan di Ukraina terus berlanjut. Setiap donasi $1 berarti."
@@ -2205,6 +2259,10 @@ msgstr "Papan ini belum selesai kali ini. Perjuangan untuk kebebasan di Ukraina 
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
 msgstr "File ini bukan cadangan {appName}, atau dibuat oleh versi aplikasi yang lebih baru."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle could not be checked"
+msgstr "Teka-teki ini tidak dapat diperiksa"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

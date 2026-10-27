@@ -39,6 +39,22 @@ msgstr "{bestStreak, plural, zero {أفضل تتابع: # يوم} one {أفضل 
 msgid "{cell} cannot be {values}"
 msgstr "لا يمكن أن تكون {cell} {values}"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
+msgstr "{clueCount, plural, zero {# أدلة · أكثر من حل} one {دليل واحد · أكثر من حل} two {دليلان · أكثر من حل} few {# أدلة · أكثر من حل} many {# دليلًا · أكثر من حل} other {# دليل · أكثر من حل}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in box {box}} other {# {digit}s in box {box}}}"
+msgstr "{count, plural, =2 {رقمان {digit} في المربع {box}} other {# من الرقم {digit} في المربع {box}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in column {column}} other {# {digit}s in column {column}}}"
+msgstr "{count, plural, =2 {رقمان {digit} في العمود {column}} other {# من الرقم {digit} في العمود {column}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in row {row}} other {# {digit}s in row {row}}}"
+msgstr "{count, plural, =2 {رقمان {digit} في الصف {row}} other {# من الرقم {digit} في الصف {row}}}"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}، {stateText}"
@@ -372,9 +388,8 @@ msgstr "الكل"
 msgid "All of a number (1-9)"
 msgstr "كل خانات رقم معين (1-9)"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
@@ -555,10 +570,9 @@ msgstr "لعب هادئ"
 msgid "Can you beat them?"
 msgstr "هل يمكنك التفوق عليهم؟"
 
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/game/hooks/use-share-game.hook.ts
-#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
@@ -631,6 +645,10 @@ msgstr "التحديات"
 msgid "Check out this Sudoku puzzle!"
 msgstr "جرّب لغز السودوكو هذا!"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Checking…"
+msgstr "جارٍ التحقق…"
+
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how large board digits appear"
 msgstr "اختر حجم أرقام اللوحة"
@@ -663,6 +681,14 @@ msgstr "لوحة نظيفة بالأبيض والأسود"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "فوز نظيف"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Clear"
+msgstr "مسح"
+
+#: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
+msgid "Clear cell"
+msgstr "مسح الخلية"
 
 #: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
@@ -1148,6 +1174,11 @@ msgstr "خالد"
 msgid "Import"
 msgstr "استيراد"
 
+#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Import a puzzle"
+msgstr "استيراد لغز"
+
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Import backup"
 msgstr "استيراد نسخة احتياطية"
@@ -1450,6 +1481,14 @@ msgstr "مهما بلغت العقوبات، ستحصل دائمًا على ال
 msgid "no pause"
 msgstr "بلا إيقاف"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No puzzle found on the clipboard"
+msgstr "لا يوجد لغز في الحافظة"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No solution"
+msgstr "لا يوجد حل"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "لا حلول بعد. سودوكو اليوم ينتظرك."
@@ -1499,14 +1538,17 @@ msgstr "من إدخال واحد"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "تقديم التلميحات أيضًا في ألغاز كابوس وجحيم ولانهاية"
 
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/game/hooks/use-game-creation-runner.hook.ts
-#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "OK"
 msgstr "حسنًا"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "One solution · {difficulty} · SE {rating}"
+msgstr "حل واحد · {difficulty} · SE {rating}"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1550,6 +1592,14 @@ msgstr "يفتح هذا الالتزام على GitHub"
 msgid "Out of mistakes"
 msgstr "نفدت الأخطاء المسموحة"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Paste a puzzle or tap a cell to type it"
+msgstr "الصق لغزًا أو اضغط على خلية لكتابته"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Paste puzzle"
+msgstr "لصق لغز"
+
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
 msgstr "إيقاف مؤقت"
@@ -1590,6 +1640,7 @@ msgstr "ضع {valueList} في الخلية المعلمة."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
+#: src/screens/components/import-screen/import.screen.tsx
 msgid "Play"
 msgstr "العب"
 
@@ -2055,9 +2106,8 @@ msgstr "الخطوة {currentStepNumber} من {stepCount}"
 msgid "Step time"
 msgstr "وقت الحركة"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Stop current run?"
 msgstr "إنهاء الجولة الحالية؟"
@@ -2198,6 +2248,10 @@ msgstr "محرر السمة"
 msgid "Theme name"
 msgstr "اسم السمة"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "These cells conflict"
+msgstr "هذه الخلايا متعارضة"
+
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "لم تكتمل هذه اللوحة هذه المرة. يستمر الكفاح من أجل الحرية في أوكرانيا. كل تبرع بقيمة $1 يحدث فرقًا."
@@ -2205,6 +2259,10 @@ msgstr "لم تكتمل هذه اللوحة هذه المرة. يستمر الك
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
 msgstr "هذا الملف ليس نسخة احتياطية من {appName}، أو أنه أُنشئ بإصدار أحدث من التطبيق."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle could not be checked"
+msgstr "تعذّر التحقق من هذا اللغز"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

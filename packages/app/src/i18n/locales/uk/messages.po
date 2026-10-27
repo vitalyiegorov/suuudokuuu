@@ -41,6 +41,22 @@ msgstr "{bestStreak, plural, one {Найкраща серія: # день} few {
 msgid "{cell} cannot be {values}"
 msgstr "{cell} не може бути {values}"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
+msgstr "{clueCount, plural, one {# підказка · більше одного розв’язку} few {# підказки · більше одного розв’язку} many {# підказок · більше одного розв’язку} other {# підказки · більше одного розв’язку}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in box {box}} other {# {digit}s in box {box}}}"
+msgstr "{count, plural, =2 {Дві {digit} у блоці {box}} other {{digit} × # у блоці {box}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in column {column}} other {# {digit}s in column {column}}}"
+msgstr "{count, plural, =2 {Дві {digit} у стовпці {column}} other {{digit} × # у стовпці {column}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in row {row}} other {# {digit}s in row {row}}}"
+msgstr "{count, plural, =2 {Дві {digit} у рядку {row}} other {{digit} × # у рядку {row}}}"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
@@ -374,9 +390,8 @@ msgstr "Усі"
 msgid "All of a number (1-9)"
 msgstr "Усі клітинки числа (1-9)"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
@@ -557,10 +572,9 @@ msgstr "Спокійна гра"
 msgid "Can you beat them?"
 msgstr "Зможеш їх обіграти?"
 
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/game/hooks/use-share-game.hook.ts
-#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
@@ -633,6 +647,10 @@ msgstr "Виклики"
 msgid "Check out this Sudoku puzzle!"
 msgstr "Поглянь на це судоку!"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Checking…"
+msgstr "Перевірка…"
+
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how large board digits appear"
 msgstr "Виберіть розмір цифр на дошці"
@@ -665,6 +683,14 @@ msgstr "Чиста чорно-біла дошка"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Чиста перемога"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Clear"
+msgstr "Очистити"
+
+#: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
+msgid "Clear cell"
+msgstr "Очистити клітинку"
 
 #: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
@@ -1150,6 +1176,11 @@ msgstr "Безсмертний"
 msgid "Import"
 msgstr "Імпортувати"
 
+#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Import a puzzle"
+msgstr "Імпортувати головоломку"
+
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Import backup"
 msgstr "Імпортувати резервну копію"
@@ -1452,6 +1483,14 @@ msgstr "Попри штрафи, ти завжди отримуєш щонайм
 msgid "no pause"
 msgstr "без паузи"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No puzzle found on the clipboard"
+msgstr "У буфері обміну немає головоломки"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No solution"
+msgstr "Немає розв’язку"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "Ще жодного розв'язання. Сьогоднішнє судоку чекає."
@@ -1501,14 +1540,17 @@ msgstr "від одного розміщення"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "Пропонувати підказки також у судоку рівнів Кошмар, Пекло і Нескінченність"
 
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/game/hooks/use-game-creation-runner.hook.ts
-#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "OK"
 msgstr "Гаразд"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "One solution · {difficulty} · SE {rating}"
+msgstr "Один розв’язок · {difficulty} · SE {rating}"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1552,6 +1594,14 @@ msgstr "Відкриває цей коміт на GitHub"
 msgid "Out of mistakes"
 msgstr "Вичерпано ліміт помилок"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Paste a puzzle or tap a cell to type it"
+msgstr "Вставте головоломку або торкніться клітинки, щоб ввести її"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Paste puzzle"
+msgstr "Вставити головоломку"
+
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
 msgstr "Пауза"
@@ -1592,6 +1642,7 @@ msgstr "Поставте {valueList} у позначену клітинку."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
+#: src/screens/components/import-screen/import.screen.tsx
 msgid "Play"
 msgstr "Грати"
 
@@ -2057,9 +2108,8 @@ msgstr "Крок {currentStepNumber} із {stepCount}"
 msgid "Step time"
 msgstr "Час ходу"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Stop current run?"
 msgstr "Завершити поточну партію?"
@@ -2200,6 +2250,10 @@ msgstr "Редактор теми"
 msgid "Theme name"
 msgstr "Назва теми"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "These cells conflict"
+msgstr "Ці клітинки конфліктують"
+
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Цю дошку цього разу не завершено. Боротьба за свободу в Україні триває. Кожен донат у 1 $ має значення."
@@ -2207,6 +2261,10 @@ msgstr "Цю дошку цього разу не завершено. Борот�
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
 msgstr "Цей файл не є резервною копією {appName} або створений новішою версією застосунку."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle could not be checked"
+msgstr "Не вдалося перевірити цю головоломку"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

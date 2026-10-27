@@ -41,6 +41,22 @@ msgstr "{bestStreak, plural, one {Beste Serie: # Tag} other {Beste Serie: # Tage
 msgid "{cell} cannot be {values}"
 msgstr "{cell} kann nicht {values} sein"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
+msgstr "{clueCount, plural, one {# Vorgabe · mehr als eine Lösung} other {# Vorgaben · mehr als eine Lösung}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in box {box}} other {# {digit}s in box {box}}}"
+msgstr "{count, plural, =2 {Zweimal {digit} in Block {box}} other {#-mal {digit} in Block {box}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in column {column}} other {# {digit}s in column {column}}}"
+msgstr "{count, plural, =2 {Zweimal {digit} in Spalte {column}} other {#-mal {digit} in Spalte {column}}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{count, plural, =2 {Two {digit}s in row {row}} other {# {digit}s in row {row}}}"
+msgstr "{count, plural, =2 {Zweimal {digit} in Zeile {row}} other {#-mal {digit} in Zeile {row}}}"
+
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
@@ -374,9 +390,8 @@ msgstr "Alle"
 msgid "All of a number (1-9)"
 msgstr "Alle Felder einer Zahl (1-9)"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
@@ -557,10 +572,9 @@ msgstr "Ruhiges Spiel"
 msgid "Can you beat them?"
 msgstr "Kannst du sie schlagen?"
 
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/game/hooks/use-share-game.hook.ts
-#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/shared-screen/shared-screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
@@ -633,6 +647,10 @@ msgstr "Herausforderungen"
 msgid "Check out this Sudoku puzzle!"
 msgstr "Schau dir dieses Sudoku-Rätsel an!"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Checking…"
+msgstr "Wird geprüft…"
+
 #: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Choose how large board digits appear"
 msgstr "Lege fest, wie groß die Zahlen auf dem Brett erscheinen"
@@ -665,6 +683,14 @@ msgstr "Klares Schwarz-Weiß-Brett"
 #: src/screens/components/winner-screen/winner.screen.tsx
 msgid "Clean win"
 msgstr "Sauberer Sieg"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Clear"
+msgstr "Leeren"
+
+#: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
+msgid "Clear cell"
+msgstr "Zelle leeren"
 
 #: src/@generic/components/sheet-frame/sheet-frame.web.tsx
 #: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
@@ -1150,6 +1176,11 @@ msgstr "Unsterblich"
 msgid "Import"
 msgstr "Importieren"
 
+#: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Import a puzzle"
+msgstr "Rätsel importieren"
+
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Import backup"
 msgstr "Sicherung importieren"
@@ -1452,6 +1483,14 @@ msgstr "Egal wie viele Abzüge es gibt, du bekommst mindestens"
 msgid "no pause"
 msgstr "keine Pause"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No puzzle found on the clipboard"
+msgstr "Kein Rätsel in der Zwischenablage"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No solution"
+msgstr "Keine Lösung"
+
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "No solves yet. Today’s puzzle is waiting."
 msgstr "Noch keine Lösungen. Das heutige Sudoku wartet."
@@ -1501,14 +1540,17 @@ msgstr "einer Platzierung"
 msgid "Offer hints on Nightmare, Hell, and Infinity puzzles too"
 msgstr "Hinweise auch in Rätseln der Stufen Albtraum, Hölle und Unendlich anbieten"
 
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/game/hooks/use-game-creation-runner.hook.ts
-#: src/screens/components/daily-screen/daily.screen.tsx
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "OK"
 msgstr "OK"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "One solution · {difficulty} · SE {rating}"
+msgstr "Eine Lösung · {difficulty} · SE {rating}"
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1552,6 +1594,14 @@ msgstr "Öffnet diesen Commit auf GitHub"
 msgid "Out of mistakes"
 msgstr "Fehlerlimit erreicht"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Paste a puzzle or tap a cell to type it"
+msgstr "Füge ein Rätsel ein oder tippe auf ein Feld"
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Paste puzzle"
+msgstr "Rätsel einfügen"
+
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
 msgstr "Pause"
@@ -1592,6 +1642,7 @@ msgstr "Trage {valueList} in die markierte Zelle ein."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
+#: src/screens/components/import-screen/import.screen.tsx
 msgid "Play"
 msgstr "Spielen"
 
@@ -2057,9 +2108,8 @@ msgstr "Schritt {currentStepNumber} von {stepCount}"
 msgid "Step time"
 msgstr "Zugzeit"
 
-#: src/screens/components/daily-screen/daily.screen.tsx
+#: src/game/hooks/use-confirm-run-replacement.hook.ts
 #: src/screens/components/game-screen/game.screen.tsx
-#: src/screens/components/home-screen/home.screen.tsx
 #: src/screens/components/pause-screen/pause.screen.tsx
 msgid "Stop current run?"
 msgstr "Aktuelle Partie beenden?"
@@ -2200,6 +2250,10 @@ msgstr "Themeneditor"
 msgid "Theme name"
 msgstr "Themenname"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "These cells conflict"
+msgstr "Diese Zellen widersprechen sich"
+
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "This board did not go your way. The fight for freedom in Ukraine continues. Every $1 makes a difference."
 msgstr "Dieses Feld hat diesmal nicht geklappt. Der Kampf für die Freiheit in der Ukraine geht weiter. Jeder 1-$-Beitrag macht einen Unterschied."
@@ -2207,6 +2261,10 @@ msgstr "Dieses Feld hat diesmal nicht geklappt. Der Kampf für die Freiheit in d
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "This file is not a {appName} backup, or it was made by a newer version of the app."
 msgstr "Diese Datei ist keine {appName}-Sicherung oder wurde mit einer neueren Version der App erstellt."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle could not be checked"
+msgstr "Dieses Rätsel konnte nicht geprüft werden"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."

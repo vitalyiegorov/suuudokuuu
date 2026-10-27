@@ -24,7 +24,6 @@ interface DailyChallengeInterface {
     readonly completedDayNumbers: readonly number[];
     readonly difficulty: DifficultyEnum;
     readonly isCreatingGame: boolean;
-    readonly isGameStarted: boolean;
     readonly nowMs: number;
     readonly startDaily: () => void;
     readonly status: DailyStatusType;
@@ -63,7 +62,6 @@ export const useDailyChallenge = (): DailyChallengeInterface => {
         completedDayNumbers,
         difficulty: getDailyDifficulty(todayDateString),
         isCreatingGame,
-        isGameStarted,
         nowMs,
         startDaily: () => void createDaily(maxMistakes),
         status: dailyGetStatus(todayDayNumber, completedDayNumbers, activeRunDayNumber),
