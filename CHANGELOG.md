@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.38.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.37.0...v2.38.0) (2026-10-27)
+
+### Features
+
+* **app:** import a puzzle by paste or link with a tap-to-correct board ([#705](https://github.com/vitalyiegorov/suuudokuuu/issues/705)) ([3e1e15f](https://github.com/vitalyiegorov/suuudokuuu/commit/3e1e15f1c31fb771867625c188f990cd1377f9cc)), closes [#698](https://github.com/vitalyiegorov/suuudokuuu/issues/698)
+
+
 # [2.37.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.36.0...v2.37.0) (2026-10-27)
 
 ### Features
