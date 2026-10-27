@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.37.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.36.0...v2.37.0) (2026-10-27)
+
+### Features
+
+* **puzzle-forge:** assess imported puzzles for uniqueness, rating, and tier ([#704](https://github.com/vitalyiegorov/suuudokuuu/issues/704)) ([b15c4d1](https://github.com/vitalyiegorov/suuudokuuu/commit/b15c4d14faea62ceb2f785be916095d4ce4b1743))
+
+
 ## [2.35.7](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.35.6...v2.35.7) (2026-10-25)
 
 ### Performance Improvements

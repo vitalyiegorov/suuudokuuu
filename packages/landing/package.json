@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/landing",
-    "version": "2.36.0",
+    "version": "2.37.0",
     "private": true,
     "description": "Static Next.js content and SEO surface for www.suuudokuuu.com",
     "scripts": {
