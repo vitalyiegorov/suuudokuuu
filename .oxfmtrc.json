@@ -29,6 +29,7 @@
         ".claude/**",
         "**/CHANGELOG.md",
         "packages/{app,landing}/src/i18n/locales/**/messages.ts",
+        "packages/grid-vision/src/constants/digit-classifier-weights.constant.ts",
         "packages/hell-corpus/src/constants/hell-corpus-data.constant.ts",
         "packages/landing/next-env.d.ts"
     ]

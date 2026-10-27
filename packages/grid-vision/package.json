@@ -1,0 +1,40 @@
+{
+    "name": "@suuudokuuu/grid-vision",
+    "version": "2.35.11",
+    "private": true,
+    "files": [
+        "dist/**/*"
+    ],
+    "type": "module",
+    "sideEffects": false,
+    "main": "dist/esm/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/esm/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/esm/index.js",
+            "types": "./dist/esm/index.d.ts"
+        }
+    },
+    "scripts": {
+        "build": "pnpm build:esm && find ./dist -name '*.tsbuildinfo' -delete",
+        "build:esm": "tsrs --pretty -p tsconfig.build-esm.json",
+        "capture:fixtures": "tsx scripts/capture-app-fixtures.ts",
+        "render:fixtures": "tsx scripts/render-synthetic-fixtures.ts",
+        "test": "vitest run",
+        "test:coverage": "vitest run --coverage",
+        "train": "tsx scripts/train-digit-classifier.ts",
+        "ts": "tsrs -p . && tsrs -p tsconfig.test.json"
+    },
+    "devDependencies": {
+        "@expo-google-fonts/inter": "^0.4.2",
+        "@napi-rs/canvas": "^1.0.13",
+        "@playwright/test": "^1.64.1",
+        "@suuudokuuu/test-kit": "workspace:*",
+        "@vitest/coverage-v8": "5.0.5",
+        "jpeg-js": "^0.4.4",
+        "tsx": "^4.23.15",
+        "vite": "^8.3.4",
+        "vitest": "5.0.5"
+    }
+}

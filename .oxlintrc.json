@@ -87,7 +87,8 @@
         "**/babel.config.js",
         "**/fingerprint.config.js",
         "packages/hell-corpus/src/constants/hell-corpus-data.constant.ts",
-        "packages/hell-corpus/src/constants/infinity-corpus-data.constant.ts"
+        "packages/hell-corpus/src/constants/infinity-corpus-data.constant.ts",
+        "packages/grid-vision/src/constants/digit-classifier-weights.constant.ts"
     ],
     "overrides": [
         {

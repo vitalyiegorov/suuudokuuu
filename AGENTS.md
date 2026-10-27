@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has fifteen core packages and one shared test harness: `app` for the game UI and the platform/runtime edge, `ui` for shared React Native components, hooks, and the theme contract, `progress` for the persisted SQL schema, migrations, repositories, reactivity keys, and the player-progress domain services (current run, finishing a run into history and stats, legacy import), `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation, gameplay state, navigation, and scoring, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection and the logical-solve driver, `rating` for Sudoku Explainer difficulty rating, `puzzle-forge` for technique-aware puzzle sourcing per difficulty tier, `field-core` for the headless interactive field engine and technique step-script player, `field-dom` for the React DOM board renderer, `encoder` for compact shareable game-state encoding, and `hell-corpus` for the bundled, verified Hell-difficulty and Infinity puzzle corpora. `tests/test-kit` holds the shared Vitest and in-memory SQLite test harness.
+Suuudokuuu is an open-source Sudoku game built with React Native and Expo. This monorepo has sixteen core packages and one shared test harness: `app` for the game UI and the platform/runtime edge, `ui` for shared React Native components, hooks, and the theme contract, `progress` for the persisted SQL schema, migrations, repositories, reactivity keys, and the player-progress domain services (current run, finishing a run into history and stats, legacy import), `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation, gameplay state, navigation, and scoring, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection and the logical-solve driver, `rating` for Sudoku Explainer difficulty rating, `puzzle-forge` for technique-aware puzzle sourcing per difficulty tier, `field-core` for the headless interactive field engine and technique step-script player, `field-dom` for the React DOM board renderer, `encoder` for compact shareable game-state encoding, `hell-corpus` for the bundled, verified Hell-difficulty and Infinity puzzle corpora, and `grid-vision` for on-device recognition of a sudoku grid and its digits from an image. `tests/test-kit` holds the shared Vitest and in-memory SQLite test harness.
 
 Persistence is Effect v4 services over SQLite (op-sqlite on native, wa-sqlite on web) with `@effect/atom-react` atoms for reads. The pre-SQLite redux-persist payload survives only as the one-time legacy import in `packages/progress`.
 
@@ -64,6 +64,7 @@ packages/
 ├── field-dom/          # React DOM board, number pad, and step-player components with plain CSS
 ├── encoder/            # Binary/LZ encoding for puzzle sharing and replay
 ├── hell-corpus/        # Bundled, verified Hell (forcing-chain) and Infinity puzzle corpora
+├── grid-vision/        # Pure TypeScript sudoku photo and screenshot recognition with a bundled int8 digit classifier
 └── landing/            # Static Next.js App Router content and SEO site for www.suuudokuuu.com
 tests/
 ├── app-tests/          # Maestro E2E flows
@@ -83,6 +84,7 @@ tests/
 - Read `packages/encoder/AGENTS.md` before changing binary formats, solution-step encoding, URL serialization, compression, or decode error behavior.
 - Read `packages/puzzle-forge/AGENTS.md` before changing what a difficulty tier means: the per-tier technique bands, blank-cell targets, the attempt budget, or how the app asks for a new board.
 - Read `packages/hell-corpus/scripts/build-corpus.mjs` before changing the bundled Hell-difficulty puzzle corpus, its build/verification CLI, or the packed record format.
+- Read `packages/grid-vision/AGENTS.md` before changing grid detection, glyph extraction, the digit classifier or its training script, or the recognition fixtures.
 - Read `packages/landing/AGENTS.md` before changing the landing site: App Router routes, page metadata sidecars, the metadata registry, JSON-LD schema components, `sitemap.ts`, `robots.ts`, `manifest.ts`, or landing copy.
 - Read the `@rnw-community/react-native-screen-chrome` and `@rnw-community/react-native-collapsible-header` readmes before changing screen chrome: the app consumes those published primitives and owns only the thin page wrappers in `packages/app/src/@generic/components`.
 - Read `.agents/skills/store-media/SKILL.md` before changing store listing metadata, store screenshots, release-notes generation, or `packages/app/fastlane`. It also records the App Store rules that publishing depends on, including the requirement that `packages/app/package.json` stay ahead of the version already released on the App Store; a lower version produces a listing that can never be submitted and cannot be deleted.
@@ -240,7 +242,7 @@ Label taxonomy (`gh label list --repo vitalyiegorov/suuudokuuu` has the exact wo
 - `priority:*`: `P0` blocker | `P1` schedule now | `P2` do when the area is open | `P3` nice to have
 - `needs:*`: `decision` | `repro` | `triage` | `image-generation` (the issue body is a ready-to-use image-generation brief; see the `store-media` skill)
 - `agent:*`: which agent claimed the issue (for example `agent:claude`)
-- `area:*`: one per package (`app`, `ui`, `landing`, `progress`, `generator`, `techniques`, `puzzle-forge`, `rating`, `field-core`, `field-dom`, `encoder`, `hell-corpus`) plus cross-cutting `ci`, `e2e`, `app-store`, `google-play`, `aso`, `media`
+- `area:*`: one per package (`app`, `ui`, `landing`, `progress`, `generator`, `techniques`, `puzzle-forge`, `rating`, `field-core`, `field-dom`, `encoder`, `hell-corpus`, `grid-vision`) plus cross-cutting `ci`, `e2e`, `app-store`, `google-play`, `aso`, `media`
 
 Claiming an issue: post a comment in this exact format, then set `status:in-progress` and `agent:<model>`.
 
@@ -263,7 +265,7 @@ Use Conventional Commits for commit messages and PR titles:
 type(scope): short description
 ```
 
-Scopes are `app`, `ui`, `progress`, `test-kit`, `landing`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, `rating`, `puzzle-forge`, `encoder`, `hell-corpus`, `field-core`, and `field-dom`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
+Scopes are `app`, `ui`, `progress`, `test-kit`, `landing`, `generator`, `solver-core`, `solver-dlx`, `solver-bitmask`, `techniques`, `rating`, `puzzle-forge`, `encoder`, `hell-corpus`, `grid-vision`, `field-core`, and `field-dom`. Omit the scope for repo-wide docs, tooling, skills, or workspace configuration.
 
 Use these types: `feat`, `fix`, `refactor`, `chore`, `docs`, `ci`, `test`, `i18n`, `perf`, and `build`.
 
