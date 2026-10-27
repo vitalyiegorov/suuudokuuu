@@ -30,7 +30,7 @@ export class PuzzleGenerationService extends Context.Service<PuzzleGenerationSer
             Effect.try(() => createWorkletRuntime({ name: 'puzzle-generation', enableNetworking: false }))
         );
 
-        const runOnWorker = <A>(spanName: string, job: (runtime: WorkletRuntime) => Promise<A>, runOnJsThread: () => A) =>
+        const runOnWorker = <A>(spanName: string, job: (runtime: WorkletRuntime) => Promise<A>) =>
             Effect.gen(function* () {
                 const runtime = yield* workerRuntime;
                 const fiber = yield* Effect.acquireRelease(
@@ -39,28 +39,26 @@ export class PuzzleGenerationService extends Context.Service<PuzzleGenerationSer
                 );
 
                 return yield* Fiber.join(fiber);
-            }).pipe(
-                Effect.scoped,
-                Effect.withSpan(spanName),
-                Effect.timeout(workerTimeoutMilliseconds),
-                Effect.catch(error =>
-                    Effect.logWarning('puzzle-worker-fallback', spanName, error).pipe(Effect.andThen(Effect.try(runOnJsThread)))
-                )
-            );
+            }).pipe(Effect.scoped, Effect.withSpan(spanName), Effect.timeout(workerTimeoutMilliseconds));
+
+        const runOnJsThread =
+            <A>(job: () => A) =>
+            (error: unknown) =>
+                Effect.logWarning('puzzle-worker-fallback', error).pipe(Effect.andThen(Effect.try(job)));
 
         return {
             warm: Effect.asVoid(workerRuntime),
             generate: (difficulty: DifficultyEnum, seed?: number) =>
-                runOnWorker(
-                    'puzzle-generation.generate',
-                    runtime => runOnRuntimeAsync(runtime, forgeOnWorker, difficulty, seed),
-                    () => forgeSerializablePuzzle(difficulty, seed)
+                runOnWorker('puzzle-generation.generate', runtime => runOnRuntimeAsync(runtime, forgeOnWorker, difficulty, seed)).pipe(
+                    Effect.catch(runOnJsThread(() => forgeSerializablePuzzle(difficulty, seed)))
                 ),
             assess: (puzzleString: string) =>
-                runOnWorker(
-                    'puzzle-generation.assess',
-                    runtime => runOnRuntimeAsync(runtime, assessOnWorker, puzzleString),
-                    () => assessImportedPuzzle(puzzleString)
+                workerRuntime.pipe(
+                    Effect.matchEffect({
+                        onFailure: runOnJsThread(() => assessImportedPuzzle(puzzleString)),
+                        onSuccess: () =>
+                            runOnWorker('puzzle-generation.assess', runtime => runOnRuntimeAsync(runtime, assessOnWorker, puzzleString))
+                    })
                 )
         };
     })
