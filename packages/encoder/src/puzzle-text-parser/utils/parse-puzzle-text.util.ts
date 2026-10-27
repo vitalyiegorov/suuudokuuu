@@ -1,11 +1,11 @@
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../../@generic/constants/grid.constant';
 
-const TOKEN_DELIMITER_PATTERN = /[\s?&#=/,;]+/u;
+const TOKEN_DELIMITER_PATTERN = /(?:[\s?&#=/,;()[\]{}"'`]|%(?:0[9AD]|20|2C))+/iu;
 
-const readTokenCells = (token: string, isDashBlank: boolean): string | null => {
-    const cells = token.replaceAll(isDashBlank ? /[+|]/gu : /[+|-]/gu, '');
+const readTokenCells = (token: string): string | null => {
+    const cells = token.replaceAll(/[+|]/u.test(token) ? /[+|-]/gu : /[+|]/gu, '');
 
     return /^[\d.*_-]*$/u.test(cells) ? cells.replaceAll(/[0*_-]/gu, GRID_EMPTY_CELL) : null;
 };
@@ -13,10 +13,10 @@ const readTokenCells = (token: string, isDashBlank: boolean): string | null => {
 const collectCellRuns = (tokenCells: (string | null)[]): string[][] =>
     tokenCells.reduce<string[][]>(
         (runs, cells) => {
-            if (isDefined(cells)) {
-                runs.at(-1)?.push(cells);
-            } else {
+            if (!isDefined(cells)) {
                 runs.push([]);
+            } else if (isNotEmptyString(cells)) {
+                runs.at(-1)?.push(cells);
             }
 
             return runs;
@@ -24,13 +24,10 @@ const collectCellRuns = (tokenCells: (string | null)[]): string[][] =>
         [[]]
     );
 
-export const parsePuzzleText = (text: string): string | null => {
-    const isDashBlank = !/[|+]/u.test(text);
-    const tokenCells = text.split(TOKEN_DELIMITER_PATTERN).map(token => readTokenCells(token, isDashBlank));
+const joinUpToGrid = (joinedCells: string, cells: string): string =>
+    joinedCells.length < GRID_CELL_COUNT ? `${joinedCells}${cells}` : joinedCells;
 
-    return (
-        collectCellRuns(tokenCells)
-            .flatMap(run => [run.join(''), ...run])
-            .find(cells => cells.length === GRID_CELL_COUNT) ?? null
-    );
-};
+export const parsePuzzleText = (text: string): string | null =>
+    collectCellRuns(text.split(TOKEN_DELIMITER_PATTERN).map(readTokenCells))
+        .flatMap(run => run.map((_cells, startIndex) => run.slice(startIndex, startIndex + GRID_CELL_COUNT).reduce(joinUpToGrid, '')))
+        .find(cells => cells.length === GRID_CELL_COUNT) ?? null;
