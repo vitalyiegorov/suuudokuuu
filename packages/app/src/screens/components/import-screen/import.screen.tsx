@@ -24,6 +24,7 @@ import { logErrorCause } from '../../../@generic/utils/log-error-cause.util';
 import { GameEmptySudokuStringConstant } from '../../../game/constant/empty-sudoku-string.constant';
 import { LoaderPaintDelayMillisecondsConstant } from '../../../game/constant/loader-paint-delay.constant';
 import { GameContext } from '../../../game/context/game.context';
+import { useConfirmRunReplacement } from '../../../game/hooks/use-confirm-run-replacement.hook';
 import { PuzzleGenerationService } from '../../../game/service/puzzle-generation.service';
 import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
@@ -53,6 +54,7 @@ export const ImportScreen = () => {
     const { createFromImport, isCreatingGame } = use(GameContext);
     const { puzzle = '' } = useLocalSearchParams<{ puzzle?: string }>();
     const { lastGameMaxMistakes } = useSettings();
+    const confirmRunReplacement = useConfirmRunReplacement();
     const [text, setText] = useState(puzzle);
     const [selectedCellIndex, setSelectedCellIndex] = useState<number | null>(null);
     const parsedPuzzleString = parsePuzzleText(text);
@@ -101,7 +103,7 @@ export const ImportScreen = () => {
 
     const handlePlay = () => {
         if (isDefined(uniqueAssessment)) {
-            createFromImport(puzzleString, uniqueAssessment, lastGameMaxMistakes);
+            confirmRunReplacement(() => void createFromImport(puzzleString, uniqueAssessment, lastGameMaxMistakes));
         }
     };
 

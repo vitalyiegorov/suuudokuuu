@@ -11,7 +11,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ScreenChromeScrollView } from '@rnw-community/react-native-screen-chrome';
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { Alert } from '../../../@generic/components/alert/alert';
 import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { ChromePage } from '../../../@generic/components/chrome-page/chrome-page';
 import { Header } from '../../../@generic/components/header/header';
@@ -30,6 +29,7 @@ import { DifficultyComplexityPreviewMistakes } from '../../../game/components/di
 import { DifficultyComplexityPreview } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-preview/difficulty-complexity-preview';
 import { DifficultyComplexitySlider } from '../../../game/components/difficulty-complexity-slider/difficulty-complexity-slider';
 import { GameContext } from '../../../game/context/game.context';
+import { useConfirmRunReplacement } from '../../../game/hooks/use-confirm-run-replacement.hook';
 import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { useElapsedTime } from '../../../game/query/use-elapsed-time.query';
 import { useDifficultyStats } from '../../../history/query/use-difficulty-stats.query';
@@ -68,6 +68,7 @@ export const HomeScreen = () => {
         bestTime: 0
     });
     const currentElapsedTime = useElapsedTime();
+    const confirmRunReplacement = useConfirmRunReplacement();
     const { sudokuString: currentSudokuString } = useCurrentRun();
     const { lastGameChallengeMode: isChallengeMode, lastGameDifficulty: difficulty, lastGameMaxMistakes: maxMistakes } = useSettings();
     const isGameStarted = isNotEmptyString(currentSudokuString);
@@ -75,18 +76,7 @@ export const HomeScreen = () => {
     const handleMaxMistakes = (newMaxMistakes: number) => () => void updateSettings({ lastGameMaxMistakes: newMaxMistakes });
     const startNewPuzzle = () => void create({ difficulty, isChallengeRun: isChallengeMode, maxMistakes });
 
-    const handleStart = () => {
-        if (!isGameStarted) {
-            startNewPuzzle();
-
-            return;
-        }
-
-        Alert(t`Stop current run?`, t`All progress will be lost`, [
-            { text: t`Cancel`, style: 'cancel' },
-            { text: t`OK`, onPress: startNewPuzzle }
-        ]);
-    };
+    const handleStart = () => void confirmRunReplacement(startNewPuzzle);
 
     const standardMistakesOption = {
         description: t`Three mistakes`,

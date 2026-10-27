@@ -93,3 +93,27 @@ test('opens a puzzle from an import link', async ({ page }) => {
     await page.getByTestId(ImportScreenSelectors.CancelButton).click();
     await expect(getVisibleByTestId(page, HomeScreenSelectors.Root)).toBeVisible();
 });
+
+test('asks before an import replaces a game in progress', async ({ page }) => {
+    const playButton = page.getByTestId(ImportScreenSelectors.PlayButton);
+
+    await page.goto(`/import?puzzle=${uniquePuzzle}`);
+    await expect(playButton).toBeEnabled({ timeout: gameScreenTimeoutMilliseconds });
+    await playButton.click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+
+    await page.goto(`/import?puzzle=${uniquePuzzle}`);
+    await expect(playButton).toBeEnabled({ timeout: gameScreenTimeoutMilliseconds });
+
+    const dismissedDialog = page.waitForEvent('dialog');
+    page.once('dialog', dialog => void dialog.dismiss());
+    await playButton.click();
+    expect((await dismissedDialog).message()).toContain('Stop current run?');
+    await expect(page.getByTestId(ImportScreenSelectors.Root)).toBeVisible();
+
+    page.once('dialog', dialog => void dialog.accept());
+    await playButton.click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+
+    await quitCurrentGame(page);
+});
