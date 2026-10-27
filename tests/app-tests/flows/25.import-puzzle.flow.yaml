@@ -18,11 +18,9 @@ appId: ${APP_ID}
       id: 'HomeScreenSelectors.ImportLink'
 - extendedWaitUntil:
       visible:
-          id: 'ImportScreenSelectors.Root'
+          id: 'ImportScreenSelectors.Status'
+          text: 'Paste a puzzle or tap a cell to type it'
       timeout: 3000
-- assertVisible:
-      id: 'ImportScreenSelectors.Status'
-      text: 'Paste a puzzle or open a link'
 
 - tapOn:
       id: 'ImportScreenSelectors.Cell.0-0'
@@ -31,81 +29,51 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'ImportScreenSelectors.Status'
-          text: 'More than one solution'
+          text: '1 clue · more than one solution'
       timeout: 3000
-- tapOn:
-      id: 'ImportScreenSelectors.Cell.0-1'
 - tapOn:
       id: 'ImportScreenSelectors.PadValue.5'
 - extendedWaitUntil:
       visible:
           id: 'ImportScreenSelectors.Status'
-          text: 'These cells conflict'
+          text: 'Two 5s in row 1'
       timeout: 3000
-- scrollUntilVisible:
-      element:
-          id: 'ImportScreenSelectors.PlayButton'
-      direction: DOWN
-      visibilityPercentage: 100
-      timeout: 5000
 - assertVisible:
       id: 'ImportScreenSelectors.PlayButton'
       enabled: false
-- scrollUntilVisible:
-      element:
-          id: 'ImportScreenSelectors.ClearButton'
-      direction: UP
-      visibilityPercentage: 100
-      timeout: 5000
+- tapOn:
+      id: 'ImportScreenSelectors.Cell.0-1'
 - tapOn:
       id: 'ImportScreenSelectors.ClearButton'
 - extendedWaitUntil:
       visible:
           id: 'ImportScreenSelectors.Status'
-          text: 'More than one solution'
+          text: '1 clue · more than one solution'
       timeout: 3000
-- scrollUntilVisible:
-      element:
-          id: 'ImportScreenSelectors.Cell.0-0'
-      direction: UP
-      visibilityPercentage: 100
-      timeout: 5000
 - tapOn:
-      id: 'ImportScreenSelectors.Cell.0-0'
-- tapOn:
-      id: 'ImportScreenSelectors.ClearButton'
+      id: 'ImportScreenSelectors.ResetButton'
 - extendedWaitUntil:
       visible:
-          id: 'ImportScreenSelectors.Status'
-          text: 'Paste a puzzle or open a link'
+          id: 'ImportScreenSelectors.PasteButton'
       timeout: 3000
+- swipe:
+      from:
+          id: 'ImportScreenSelectors.Title'
+      direction: DOWN
+- extendedWaitUntil:
+      notVisible:
+          id: 'ImportScreenSelectors.Root'
+      timeout: 3000
+- assertVisible:
+      id: 'HomeScreenSelectors.Root'
 
-- scrollUntilVisible:
-      element:
-          id: 'ImportScreenSelectors.Input'
-      direction: DOWN
-      visibilityPercentage: 100
-      timeout: 5000
-- tapOn:
-      id: 'ImportScreenSelectors.Input'
-- eraseText:
-      charactersToErase: 100
-- inputText: '003020600900305001001806400008102900700000008006708200002609500800203009005010300'
-- scrollUntilVisible:
-      element:
+- openLink:
+      link: 'suuudokuuu://import?puzzle=003020600900305001001806400008102900700000008006708200002609500800203009005010300'
+- extendedWaitUntil:
+      visible:
           id: 'ImportScreenSelectors.Status'
-          text: 'Exactly one solution · SE 2\.3 · Newbie'
-      direction: UP
-      visibilityPercentage: 100
-      timeout: 5000
-- tapOn:
-      id: 'ImportScreenSelectors.Status'
-- scrollUntilVisible:
-      element:
-          id: 'ImportScreenSelectors.PlayButton'
-      direction: DOWN
-      visibilityPercentage: 100
-      timeout: 5000
+          text: 'One solution · Newbie · SE 2\.3'
+      timeout: 10000
 - tapOn:
       id: 'ImportScreenSelectors.PlayButton'
 - extendedWaitUntil:
@@ -128,14 +96,8 @@ appId: ${APP_ID}
 - extendedWaitUntil:
       visible:
           id: 'ImportScreenSelectors.Status'
-          text: 'Exactly one solution · SE 2\.3 · Newbie'
+          text: 'One solution · Newbie · SE 2\.3'
       timeout: 10000
-- scrollUntilVisible:
-      element:
-          id: 'ImportScreenSelectors.PlayButton'
-      direction: DOWN
-      visibilityPercentage: 100
-      timeout: 5000
 - tapOn:
       id: 'ImportScreenSelectors.PlayButton'
 - extendedWaitUntil:
@@ -147,20 +109,3 @@ appId: ${APP_ID}
           id: 'GameScreenSelectors.Root'
       timeout: 10000
 - runFlow: subflows/game/quit-current-game.flow.yaml
-
-- openLink:
-      link: 'suuudokuuu://import?puzzle=003020600900305001001806400008102900700000008006708200002609500800203009005010300'
-- extendedWaitUntil:
-      visible:
-          id: 'ImportScreenSelectors.Title'
-      timeout: 10000
-- swipe:
-      from:
-          id: 'ImportScreenSelectors.Title'
-      direction: DOWN
-- extendedWaitUntil:
-      notVisible:
-          id: 'ImportScreenSelectors.Root'
-      timeout: 3000
-- assertVisible:
-      id: 'HomeScreenSelectors.Root'
