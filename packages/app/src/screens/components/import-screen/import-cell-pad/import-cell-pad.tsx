@@ -31,10 +31,9 @@ export const ImportCellPad = ({ isDisabled, onInput }: Props) => {
     const handleClear = () => void onInput(defaultSudokuConfig.blankCellValue);
 
     const dimStyles = { ...dimTransition, opacity: isDisabled ? disabledOpacity : 1 };
-    const pointerEvents = isDisabled ? 'none' : 'auto';
 
     return (
-        <Animated.View pointerEvents={pointerEvents} style={dimStyles}>
+        <Animated.View style={dimStyles}>
             <View style={styles.pad}>
                 {padValues.map(value => (
                     <ImportCellPadButton isDisabled={isDisabled} key={value} onInput={onInput} value={value} />

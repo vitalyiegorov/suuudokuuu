@@ -75,7 +75,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     const assessmentResult = useAtomValue(assessmentAtom);
     const hasDigits = puzzleString !== GameEmptySudokuStringConstant;
     const assessed = AsyncResult.isSuccess(assessmentResult) ? assessmentResult.value : null;
-    const isAssessedCurrent = isDefined(assessed) && !assessmentResult.waiting && assessed.puzzleString === puzzleString;
+    const isAssessedCurrent = isDefined(assessed) && assessed.puzzleString === puzzleString;
 
     const handleLoadText = (text: string) => {
         const parsedPuzzleString = parsePuzzleText(text);
@@ -115,8 +115,8 @@ export const ImportScreen = ({ initialText }: Props) => {
         setSelectedCellIndex(isClear ? selectedCellIndex : Math.min(selectedCellIndex + 1, lastCellIndex));
     };
 
-    const boardAssessed = hasDigits ? assessed : null;
-    const assessedKind = boardAssessed?.assessment.kind;
+    const isCheckFailed = AsyncResult.isFailure(assessmentResult) && !assessmentResult.waiting;
+    const boardAssessed = hasDigits && assessed?.puzzleString !== GameEmptySudokuStringConstant ? assessed : null;
     const uniqueAssessment =
         isAssessedCurrent && assessed.assessment.kind === ImportedPuzzleAssessmentKindEnum.UNIQUE ? assessed.assessment : null;
     const conflictCellIndexes =
@@ -144,12 +144,14 @@ export const ImportScreen = ({ initialText }: Props) => {
     );
 
     useEffect(() => {
-        if (assessedKind === ImportedPuzzleAssessmentKindEnum.CONFLICT) {
+        const settledKind = boardAssessed?.assessment.kind;
+
+        if (settledKind === ImportedPuzzleAssessmentKindEnum.CONFLICT) {
             onAssessmentSettled(NotificationFeedbackType.Warning);
-        } else if (assessedKind === ImportedPuzzleAssessmentKindEnum.UNIQUE) {
+        } else if (settledKind === ImportedPuzzleAssessmentKindEnum.UNIQUE) {
             onAssessmentSettled(NotificationFeedbackType.Success);
         }
-    }, [assessedKind]);
+    }, [boardAssessed]);
 
     return (
         <SheetFrame detents={ImportDetents}>
@@ -183,7 +185,7 @@ export const ImportScreen = ({ initialText }: Props) => {
 
                 <ImportStatus
                     assessed={boardAssessed}
-                    isCheckFailed={AsyncResult.isFailure(assessmentResult)}
+                    isCheckFailed={isCheckFailed}
                     isPasteMissed={isPasteMissed}
                     puzzleString={puzzleString}
                 />
