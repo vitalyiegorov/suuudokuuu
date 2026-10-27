@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/grid-vision",
-    "version": "2.35.11",
+    "version": "2.36.0",
     "private": true,
     "files": [
         "dist/**/*"

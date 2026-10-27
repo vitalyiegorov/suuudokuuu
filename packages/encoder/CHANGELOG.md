@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.36.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.35.11...v2.36.0) (2026-10-27)
+
+### Features
+
+* **encoder:** parse puzzle strings, grids, and links from other sites ([#703](https://github.com/vitalyiegorov/suuudokuuu/issues/703)) ([dc16d2a](https://github.com/vitalyiegorov/suuudokuuu/commit/dc16d2a2367c2d99c7f23f7df46f2efc579a6537)), closes [#698](https://github.com/vitalyiegorov/suuudokuuu/issues/698)
+
+
 ## [2.35.7](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.35.6...v2.35.7) (2026-10-25)
 
 ### Performance Improvements
