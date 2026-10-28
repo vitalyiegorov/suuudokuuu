@@ -35,9 +35,33 @@ msgstr "{awaySeconds}s غیر حاضر"
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {بہترین تسلسل: # دن} other {بہترین تسلسل: # دن}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
+#: src/game/utils/game-get-elimination-list.util.ts
 msgid "{cell} cannot be {values}"
 msgstr "{cell} {values} نہیں ہو سکتا"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{cellList} are kept for {digitList}, so {eliminationList}."
+msgstr "خانے {cellList} ہندسوں {digitList} کے لیے محفوظ ہیں، اس لیے {eliminationList}۔"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in box {regionNumber}."
+msgstr "خانے {cellList} صرف {digitChoice} ہو سکتے ہیں: باقی ہر ہندسہ پہلے ہی ہر خانے کی قطار، کالم یا بلاک میں موجود ہے۔ اس لیے ہندسے {digitList} انہی خانوں میں آئیں گے اور بلاک {regionNumber} میں کہیں اور نہیں۔"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in column {regionNumber}."
+msgstr "خانے {cellList} صرف {digitChoice} ہو سکتے ہیں: باقی ہر ہندسہ پہلے ہی ہر خانے کی قطار، کالم یا بلاک میں موجود ہے۔ اس لیے ہندسے {digitList} انہی خانوں میں آئیں گے اور کالم {regionNumber} میں کہیں اور نہیں۔"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in row {regionNumber}."
+msgstr "خانے {cellList} صرف {digitChoice} ہو سکتے ہیں: باقی ہر ہندسہ پہلے ہی ہر خانے کی قطار، کالم یا بلاک میں موجود ہے۔ اس لیے ہندسے {digitList} انہی خانوں میں آئیں گے اور قطار {regionNumber} میں کہیں اور نہیں۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{cellName} could be {candidateList}; with {removedList} gone, only {value} is left."
+msgstr "خانہ {cellName} میں {candidateList} ہو سکتا ہے؛ {removedList} ہٹنے کے بعد صرف {value} بچتا ہے۔"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{cellName} sees every highlighted digit except one."
+msgstr "{cellName} ایک کے سوا تمام نمایاں ہندسے دیکھتا ہے۔"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
@@ -58,6 +82,26 @@ msgstr "{count, plural, =2 {قطار {row} میں دو {digit}} other {قطار 
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}، {stateText}"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{digitList} cannot go anywhere else in box {regionNumber}, so {eliminationList}."
+msgstr "ہندسے {digitList} بلاک {regionNumber} میں کہیں اور نہیں جا سکتے، اس لیے {eliminationList}۔"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{digitList} cannot go anywhere else in column {regionNumber}, so {eliminationList}."
+msgstr "ہندسے {digitList} کالم {regionNumber} میں کہیں اور نہیں جا سکتے، اس لیے {eliminationList}۔"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{digitList} cannot go anywhere else in row {regionNumber}, so {eliminationList}."
+msgstr "ہندسے {digitList} قطار {regionNumber} میں کہیں اور نہیں جا سکتے، اس لیے {eliminationList}۔"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{digitList} must go in {cellList}, so those cells hold nothing else."
+msgstr "ہندسے {digitList} خانوں {cellList} میں ہی آئیں گے، اس لیے ان خانوں میں اور کچھ نہیں ہوگا۔"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{digitList} must stay in {cellList}, so {eliminationList}."
+msgstr "ہندسے {digitList} خانوں {cellList} میں ہی رہیں گے، اس لیے {eliminationList}۔"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
@@ -90,6 +134,14 @@ msgstr "{hintCount, plural, one {# اشارہ} other {# اشارے}}"
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# گھنٹہ} other {# گھنٹے}}"
+
+#: src/game/utils/game-format-list.util.ts
+msgid "{leadingItems} and {lastItem}"
+msgstr "{leadingItems} اور {lastItem}"
+
+#: src/game/utils/game-format-list.util.ts
+msgid "{leadingItems} or {lastItem}"
+msgstr "{leadingItems} یا {lastItem}"
 
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{minutes, plural, one {# min} other {# min}}"
@@ -124,189 +176,29 @@ msgstr "{score, plural, one {# پوائنٹ} other {# پوائنٹس}}"
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {# دن کا تسلسل} other {# دن کا تسلسل}}"
 
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
-msgstr "{techniqueName}: {cellName} ایک کے سوا تمام نمایاں ہندسے دیکھتا ہے۔"
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at box {regionNumber}: # cells there can hold only the same # digits.}}"
+msgstr "{subsetSize, plural, one {بلاک {regionNumber} دیکھیں: وہاں # خانہ صرف # ہندسہ رکھ سکتا ہے۔} other {بلاک {regionNumber} دیکھیں: وہاں # خانے صرف انہی # ہندسوں کو رکھ سکتے ہیں۔}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
-msgstr "{techniqueName}: {valueList} کو بنیادی لائنوں میں ہی ہونا ہے، اس لیے {eliminationList}۔"
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at box {regionNumber}: # digits there fit in only # cells.}}"
+msgstr "{subsetSize, plural, one {بلاک {regionNumber} دیکھیں: وہاں # ہندسہ صرف # خانے میں آ سکتا ہے۔} other {بلاک {regionNumber} دیکھیں: وہاں # ہندسے صرف # خانوں میں آ سکتے ہیں۔}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
-msgstr "{techniqueName}: ایک زنجیر نمایاں کردہ دونوں سروں کو جوڑتی ہے، اس لیے {firstEnd} یا {lastEnd} درست ہے۔"
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at column {regionNumber}: # cells there can hold only the same # digits.}}"
+msgstr "{subsetSize, plural, one {کالم {regionNumber} دیکھیں: وہاں # خانہ صرف # ہندسہ رکھ سکتا ہے۔} other {کالم {regionNumber} دیکھیں: وہاں # خانے صرف انہی # ہندسوں کو رکھ سکتے ہیں۔}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
-msgstr "{techniqueName}: ایک پنسر خانہ ہمیشہ {valueList} ہوتا ہے اور ہر معلم خانہ دونوں پنسر کو دیکھتا ہے، اس لیے {eliminationList}۔"
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at column {regionNumber}: # digits there fit in only # cells.}}"
+msgstr "{subsetSize, plural, one {کالم {regionNumber} دیکھیں: وہاں # ہندسہ صرف # خانے میں آ سکتا ہے۔} other {کالم {regionNumber} دیکھیں: وہاں # ہندسے صرف # خانوں میں آ سکتے ہیں۔}}"
 
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
-msgstr "{techniqueName}: فرض کریں کہ {cellName} میں {value} ہے اور دیکھیں کہ اس سے کیا کیا لازم آتا ہے۔"
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at row {regionNumber}: # cells there can hold only the same # digits.}}"
+msgstr "{subsetSize, plural, one {قطار {regionNumber} دیکھیں: وہاں # خانہ صرف # ہندسہ رکھ سکتا ہے۔} other {قطار {regionNumber} دیکھیں: وہاں # خانے صرف انہی # ہندسوں کو رکھ سکتے ہیں۔}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: box {regionNumber} has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: بلاک {regionNumber} میں صرف ایک خالی خانہ بچا ہے، اس لیے {value} وہیں جائے گا۔"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: box {regionNumber} has one empty cell left."
-msgstr "{techniqueName}: بلاک {regionNumber} میں صرف ایک خالی خانہ بچا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: column {regionNumber} has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: کالم {regionNumber} میں صرف ایک خالی خانہ بچا ہے، اس لیے {value} وہیں جائے گا۔"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: column {regionNumber} has one empty cell left."
-msgstr "{techniqueName}: کالم {regionNumber} میں صرف ایک خالی خانہ بچا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
-msgstr "{techniqueName}: ہر نمایاں گروپ میں خانوں سے ایک امیدوار زیادہ ہے، اور دونوں گروپ ایک ایسا ہندسہ بانٹتے ہیں جو ان میں سے صرف ایک ہی رکھ سکتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
-msgstr "{techniqueName}: ہر معلم خانہ تمام نمایاں خانوں کو دیکھتا ہے، اس لیے {eliminationList}۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
-msgstr "{techniqueName}: دونوں صورتوں میں {valueList} ایسے خانے میں آتا ہے جسے معلم خانے دیکھتے ہیں، اس لیے {eliminationList}۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
-msgstr "{techniqueName}: باقی ہر خالی خانے میں دو امیدوار ہیں، اس لیے مہلک نمونے سے بچنے کے لیے {value} معلم خانے میں جانا چاہیے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
-msgstr "{techniqueName}: ہر امکان کسی تضاد یا ایک ہی نتیجے پر ختم ہوتا ہے، اس لیے {eliminationList}۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
-msgstr "{techniqueName}: نمایاں کردہ خانوں میں ہر امکان معلم خانے میں {value} تک لے جاتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
-msgstr "{techniqueName}: نمایاں کردہ خانوں سے ہر امکان کو اس وقت تک آگے بڑھایا جاتا ہے جب تک وہ تضاد یا اسی نتیجے تک نہ پہنچ جائے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
-msgstr "{techniqueName}: بلاک {boxNumber} میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب کالم {columnNumber} میں ہیں۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
-msgstr "{techniqueName}: بلاک {boxNumber} میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب قطار {rowNumber} میں ہیں۔"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in box {regionNumber}, {value} fits in only one cell."
-msgstr "{techniqueName}: بلاک {regionNumber} میں، {value} صرف ایک خانے میں ہی آ سکتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in box {regionNumber}, {value} fits only in the marked cell."
-msgstr "{techniqueName}: بلاک {regionNumber} میں، {value} صرف معلم خانے میں ہی آ سکتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
-msgstr "{techniqueName}: کالم {columnNumber} میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب بلاک {boxNumber} میں ہیں۔"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in column {regionNumber}, {value} fits in only one cell."
-msgstr "{techniqueName}: کالم {regionNumber} میں، {value} صرف ایک خانے میں ہی آ سکتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in column {regionNumber}, {value} fits only in the marked cell."
-msgstr "{techniqueName}: کالم {regionNumber} میں، {value} صرف معلم خانے میں ہی آ سکتا ہے۔"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in row {regionNumber}, {value} fits in only one cell."
-msgstr "{techniqueName}: قطار {regionNumber} میں، {value} صرف ایک خانے میں ہی آ سکتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in row {regionNumber}, {value} fits only in the marked cell."
-msgstr "{techniqueName}: قطار {regionNumber} میں، {value} صرف معلم خانے میں ہی آ سکتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
-msgstr "{techniqueName}: قطار {rowNumber} میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب بلاک {boxNumber} میں ہیں۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
-msgstr "{techniqueName}: نمایاں کردہ بنیادی لائنوں میں {valueList} صرف نمایاں خانوں میں آ سکتا ہے، اس لیے وہ کور لائنوں میں بند ہو جاتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
-msgstr "{techniqueName}: نمایاں بلاک میں {valueList} صرف ایک قطار اور ایک کالم میں آ سکتا ہے، اور بلاک سے باہر نمایاں جوڑا ایک سرے پر یا دوسرے سرے پر {valueList} رکھتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
-msgstr "{techniqueName}: زنجیر کا ایک سرا ہمیشہ درست ہوتا ہے اور ہر معلم امیدوار دونوں سروں سے ٹکراتا ہے، اس لیے {eliminationList}۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
-msgstr "{techniqueName}: ایک گروپ میں {valueList} ہونا لازم ہے، اور ہر معلم خانہ دونوں گروپوں کے ہر {valueList} کو دیکھتا ہے، اس لیے {eliminationList}۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: قطار {regionNumber} میں صرف ایک خالی خانہ بچا ہے، اس لیے {value} وہیں جائے گا۔"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: row {regionNumber} has one empty cell left."
-msgstr "{techniqueName}: قطار {regionNumber} میں صرف ایک خالی خانہ بچا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
-msgstr "{techniqueName}: نمایاں خانوں میں بالکل اتنے ہی ہندسے ہیں جتنے خانے ہیں، اس لیے {valueList} صرف انہی خانوں میں آ سکتا ہے۔"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: the highlighted cells leave {value} only one place."
-msgstr "{techniqueName}: نمایاں کردہ خانے {value} کے لیے صرف ایک جگہ چھوڑتے ہیں۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
-msgstr "{techniqueName}: نمایاں کردہ خانے معلم خانے کے لیے صرف {value} چھوڑتے ہیں۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
-msgstr "{techniqueName}: نمایاں خانے کسی ہندسے کو دہرائے بغیر اپنے ہندسے قطار یا کالم اور بلاک کے درمیان بانٹتے ہیں، اس لیے {eliminationList}۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
-msgstr "{techniqueName}: نمایاں خانے {valueList} کے لیے دو رنگوں میں بٹ جاتے ہیں، اور صرف ایک رنگ ہر {valueList} رکھتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
-msgstr "{techniqueName}: نمایاں کردہ خانے {valueList} کا ایک مہلک نمونہ بناتے، جس سے پہیلی کے دو حل رہ جاتے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
-msgstr "{techniqueName}: نمایاں کردہ خانے {valueList} کا ایک مہلک نمونہ چھوڑ دیتے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
-msgstr "{techniqueName}: معلم خانہ {value} کے سوا تمام نمایاں ہندسے دیکھتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
-msgstr "{techniqueName}: معلم خانے یا تو دونوں رنگ دیکھتے ہیں یا ایسا رنگ رکھتے ہیں جو خود اپنی تردید کرتا ہے، اس لیے {eliminationList}۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
-msgstr "{techniqueName}: وہ خانے ہندسوں کے اس مجموعے کے لیے مخصوص ہیں، اس لیے {eliminationList}۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
-msgstr "{techniqueName}: مہلک نمونے سے بچنے کے لیے، {eliminationList}۔"
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
-msgstr "{techniqueName}: ہر نمایاں امکان کو باری باری آزمائیں اور دیکھیں کہ اس سے کیا کیا لازم آتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
-msgstr "{techniqueName}: نمایاں کردہ محوری خانہ جیسے بھی حل ہو، اس کا ایک پنسر خانہ {valueList} بن جاتا ہے۔"
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: within one row, column or box, {valueList} fit only in the highlighted cells, so those cells can hold nothing else."
-msgstr "{techniqueName}: کسی ایک قطار، کالم یا باکس میں {valueList} صرف نمایاں خانوں میں ہی آ سکتے ہیں، اس لیے ان خانوں میں کچھ اور نہیں آ سکتا۔"
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
+msgstr "{subsetSize, plural, one {قطار {regionNumber} دیکھیں: وہاں # ہندسہ صرف # خانے میں آ سکتا ہے۔} other {قطار {regionNumber} دیکھیں: وہاں # ہندسے صرف # خانوں میں آ سکتے ہیں۔}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -323,6 +215,10 @@ msgstr "{value, plural, one {# منٹ} other {# منٹ}}"
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# second} other {# seconds}}"
 msgstr "{value, plural, one {# سیکنڈ} other {# سیکنڈ}}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{valueList} کو بنیادی لائنوں میں ہی ہونا ہے، اس لیے {eliminationList}۔"
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
@@ -344,6 +240,10 @@ msgstr "✕ {value} کے لیے کوئی جگہ نہیں"
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "“+” کا مطلب ہے کہ یہ سوڈوکو کم از کم SE {seRatingCeilingText} کا ہے۔ اس کے بعد حل بہت لمبی زنجیروں میں بندھ سکتے ہیں، اس لیے ہم جھوٹی درستی دکھانے کے بجائے دکھائے گئے عدد پر حد لگا دیتے ہیں۔"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "A chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
+msgstr "ایک زنجیر نمایاں کردہ دونوں سروں کو جوڑتی ہے، اس لیے {firstEnd} یا {lastEnd} درست ہے۔"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "A direct Reveal costs one level only when you apply it."
 msgstr "براہِ راست ہندسہ ظاہر کرنے پر صرف اسے لاگو کرنے کے وقت ایک درجے کی قیمت لگتی ہے۔"
@@ -351,6 +251,10 @@ msgstr "براہِ راست ہندسہ ظاہر کرنے پر صرف اسے لا
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "خانوں کے درمیان تھوڑی جگہ"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "A pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "ایک پنسر خانہ ہمیشہ {valueList} ہوتا ہے اور ہر معلم خانہ دونوں پنسر کو دیکھتا ہے، اس لیے {eliminationList}۔"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Accent"
@@ -435,6 +339,10 @@ msgstr "لاگو کریں اور آگے"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
 msgstr "مددگار سہولتیں"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Assume {cellName} is {value} and follow what it forces."
+msgstr "فرض کریں کہ {cellName} میں {value} ہے اور دیکھیں کہ اس سے کیا کیا لازم آتا ہے۔"
 
 #: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
 msgid "At least one end of this chain must be true."
@@ -541,6 +449,14 @@ msgstr "بورڈ کے رنگ اور اسکرین کی شکل"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Board states told apart by lightness and outlines, not hue"
 msgstr "بورڈ کی حالتیں رنگت سے نہیں بلکہ روشنی اور خاکے سے الگ کی جاتی ہیں"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Box {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "بلاک {regionNumber} میں صرف ایک خالی خانہ بچا ہے، اس لیے {value} وہیں جائے گا۔"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Box {regionNumber} has one empty cell left."
+msgstr "بلاک {regionNumber} میں صرف ایک خالی خانہ بچا ہے۔"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
@@ -706,6 +622,14 @@ msgstr "رنگوں کی نابینائی کے لیے موزوں"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "کالم"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Column {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "کالم {regionNumber} میں صرف ایک خالی خانہ بچا ہے، اس لیے {value} وہیں جائے گا۔"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Column {regionNumber} has one empty cell left."
+msgstr "کالم {regionNumber} میں صرف ایک خالی خانہ بچا ہے۔"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
@@ -878,9 +802,17 @@ msgstr "نقل بنائیں"
 msgid "Each correct placement starts with a base value:"
 msgstr "ہر درست جگہ پر رکھنے کی بنیادی قدر ہوتی ہے:"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
+msgstr "ہر نمایاں گروپ میں خانوں سے ایک امیدوار زیادہ ہے، اور دونوں گروپ ایک ایسا ہندسہ بانٹتے ہیں جو ان میں سے صرف ایک ہی رکھ سکتا ہے۔"
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each hint level you reveal"
 msgstr "ہر کھولا گیا اشارے کا درجہ"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "ہر معلم خانہ تمام نمایاں خانوں کو دیکھتا ہے، اس لیے {eliminationList}۔"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -890,6 +822,10 @@ msgstr "آسان"
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Edit"
 msgstr "ترمیم کریں"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "دونوں صورتوں میں {valueList} ایسے خانے میں آتا ہے جسے معلم خانے دیکھتے ہیں، اس لیے {eliminationList}۔"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Empty cell text"
@@ -918,6 +854,18 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "برابر کا مقابلہ"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "باقی ہر خالی خانے میں دو امیدوار ہیں، اس لیے مہلک نمونے سے بچنے کے لیے {value} معلم خانے میں جانا چاہیے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "ہر امکان کسی تضاد یا ایک ہی نتیجے پر ختم ہوتا ہے، اس لیے {eliminationList}۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "نمایاں کردہ خانوں میں ہر امکان معلم خانے میں {value} تک لے جاتا ہے۔"
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -982,6 +930,10 @@ msgstr "بنیادی"
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
 msgstr "Français"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "From the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "نمایاں کردہ خانوں سے ہر امکان کو اس وقت تک آگے بڑھایا جاتا ہے جب تک وہ تضاد یا اسی نتیجے تک نہ پہنچ جائے۔"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Full House"
@@ -1187,6 +1139,66 @@ msgstr "بیک اپ امپورٹ کریں"
 msgid "Import backup?"
 msgstr "بیک اپ امپورٹ کریں؟"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "بلاک {boxNumber} میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب کالم {columnNumber} میں ہیں۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "بلاک {boxNumber} میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب قطار {rowNumber} میں ہیں۔"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "In box {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
+msgstr "بلاک {regionNumber} میں، ہندسے {digitList} صرف خانوں {cellList} میں آ سکتے ہیں، اس لیے ان خانوں میں اور کچھ نہیں ہوگا۔"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "In box {regionNumber}, {value} fits in only one cell."
+msgstr "بلاک {regionNumber} میں، {value} صرف ایک خانے میں ہی آ سکتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In box {regionNumber}, {value} fits only in the marked cell."
+msgstr "بلاک {regionNumber} میں، {value} صرف معلم خانے میں ہی آ سکتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "کالم {columnNumber} میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب بلاک {boxNumber} میں ہیں۔"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "In column {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
+msgstr "کالم {regionNumber} میں، ہندسے {digitList} صرف خانوں {cellList} میں آ سکتے ہیں، اس لیے ان خانوں میں اور کچھ نہیں ہوگا۔"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "In column {regionNumber}, {value} fits in only one cell."
+msgstr "کالم {regionNumber} میں، {value} صرف ایک خانے میں ہی آ سکتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In column {regionNumber}, {value} fits only in the marked cell."
+msgstr "کالم {regionNumber} میں، {value} صرف معلم خانے میں ہی آ سکتا ہے۔"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "In row {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
+msgstr "قطار {regionNumber} میں، ہندسے {digitList} صرف خانوں {cellList} میں آ سکتے ہیں، اس لیے ان خانوں میں اور کچھ نہیں ہوگا۔"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "In row {regionNumber}, {value} fits in only one cell."
+msgstr "قطار {regionNumber} میں، {value} صرف ایک خانے میں ہی آ سکتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In row {regionNumber}, {value} fits only in the marked cell."
+msgstr "قطار {regionNumber} میں، {value} صرف معلم خانے میں ہی آ سکتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "قطار {rowNumber} میں، {valueList} صرف نمایاں خانوں میں ہی آ سکتا ہے، اور وہ سب بلاک {boxNumber} میں ہیں۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "نمایاں کردہ بنیادی لائنوں میں {valueList} صرف نمایاں خانوں میں آ سکتا ہے، اس لیے وہ کور لائنوں میں بند ہو جاتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
+msgstr "نمایاں بلاک میں {valueList} صرف ایک قطار اور ایک کالم میں آ سکتا ہے، اور بلاک سے باہر نمایاں جوڑا ایک سرے پر یا دوسرے سرے پر {valueList} رکھتا ہے۔"
+
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "نامکمل"
@@ -1298,25 +1310,26 @@ msgid "Loading the latest development build…"
 msgstr "تازہ ترین ڈیولپمنٹ بِلڈ لوڈ ہو رہا ہے…"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} around cell {cellName}."
-msgstr "{techniqueName} کو خانے {cellName} کے آس پاس تلاش کریں۔"
+msgid "Look around cell {cellName}."
+msgstr "خانہ {cellName} کے اردگرد دیکھیں۔"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} in box {regionNumber}."
-msgstr "{techniqueName} کو بلاک {regionNumber} میں تلاش کریں۔"
+msgid "Look at box {regionNumber}."
+msgstr "بلاک {regionNumber} دیکھیں۔"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} in column {regionNumber}."
-msgstr "{techniqueName} کو کالم {regionNumber} میں تلاش کریں۔"
+msgid "Look at column {regionNumber}."
+msgstr "کالم {regionNumber} دیکھیں۔"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} in row {regionNumber}."
-msgstr "{techniqueName} کو قطار {regionNumber} میں تلاش کریں۔"
+msgid "Look at row {regionNumber}."
+msgstr "قطار {regionNumber} دیکھیں۔"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 #: src/game/utils/game-get-pattern-narration.util.ts
-msgid "Look for {techniqueName}."
-msgstr "{techniqueName} تلاش کریں۔"
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "Look at the highlighted cells."
+msgstr "نمایاں خانے دیکھیں۔"
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -1545,6 +1558,14 @@ msgstr "ڈراؤنا خواب، جہنم اور لامحدود سوڈوکو می
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "OK"
 msgstr "ٹھیک ہے"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "One end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "زنجیر کا ایک سرا ہمیشہ درست ہوتا ہے اور ہر معلم امیدوار دونوں سروں سے ٹکراتا ہے، اس لیے {eliminationList}۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "One of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "ایک گروپ میں {valueList} ہونا لازم ہے، اور ہر معلم خانہ دونوں گروپوں کے ہر {valueList} کو دیکھتا ہے، اس لیے {eliminationList}۔"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "One solution · {difficulty} · SE {rating}"
@@ -1819,7 +1840,6 @@ msgid "Retry loading development build"
 msgstr "ڈیولپمنٹ بِلڈ دوبارہ لوڈ کریں"
 
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "ظاہر کریں"
 
@@ -1851,6 +1871,14 @@ msgstr "حریف کا وقت جسے پیچھے چھوڑنا ہے"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
 msgstr "قطار"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Row {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "قطار {regionNumber} میں صرف ایک خالی خانہ بچا ہے، اس لیے {value} وہیں جائے گا۔"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Row {regionNumber} has one empty cell left."
+msgstr "قطار {regionNumber} میں صرف ایک خالی خانہ بچا ہے۔"
 
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, {value}"
@@ -2221,9 +2249,45 @@ msgstr "بیک اپ فائل محفوظ نہیں کی جا سکی۔ براہ ک�
 msgid "The commit link could not be opened on this device."
 msgstr "اس ڈیوائس پر کمیٹ کا لنک نہیں کھولا جا سکا۔"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "نمایاں خانوں میں بالکل اتنے ہی ہندسے ہیں جتنے خانے ہیں، اس لیے {valueList} صرف انہی خانوں میں آ سکتا ہے۔"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "The highlighted cells leave {value} only one place."
+msgstr "نمایاں کردہ خانے {value} کے لیے صرف ایک جگہ چھوڑتے ہیں۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells leave only {value} for the marked cell."
+msgstr "نمایاں کردہ خانے معلم خانے کے لیے صرف {value} چھوڑتے ہیں۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "نمایاں خانے کسی ہندسے کو دہرائے بغیر اپنے ہندسے قطار یا کالم اور بلاک کے درمیان بانٹتے ہیں، اس لیے {eliminationList}۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "نمایاں خانے {valueList} کے لیے دو رنگوں میں بٹ جاتے ہیں، اور صرف ایک رنگ ہر {valueList} رکھتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "نمایاں کردہ خانے {valueList} کا ایک مہلک نمونہ بناتے، جس سے پہیلی کے دو حل رہ جاتے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "نمایاں کردہ خانے {valueList} کا ایک مہلک نمونہ چھوڑ دیتے۔"
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "انسٹالیشن کا لنک نہیں کھولا جا سکا۔ اپنے براؤزر کی ترتیبات چیک کریں اور دوبارہ کوشش کریں۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The marked cell sees every highlighted digit except {value}."
+msgstr "معلم خانہ {value} کے سوا تمام نمایاں ہندسے دیکھتا ہے۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "معلم خانے یا تو دونوں رنگ دیکھتے ہیں یا ایسا رنگ رکھتے ہیں جو خود اپنی تردید کرتا ہے، اس لیے {eliminationList}۔"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "The SE difficulty scale"
@@ -2311,6 +2375,10 @@ msgstr "ننھا"
 msgid "Tips for High Scores"
 msgstr "ہائی اسکور کے مشورے"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "To avoid the deadly pattern, {eliminationList}."
+msgstr "مہلک نمونے سے بچنے کے لیے، {eliminationList}۔"
+
 #: src/daily/components/daily-today-summary/daily-today-summary.tsx
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "Today"
@@ -2336,6 +2404,10 @@ msgstr "دوبارہ کوشش کریں"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "دوبارہ کوشش کریں"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Try each highlighted possibility in turn and follow what it forces."
+msgstr "ہر نمایاں امکان کو باری باری آزمائیں اور دیکھیں کہ اس سے کیا کیا لازم آتا ہے۔"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
@@ -2457,6 +2529,10 @@ msgstr "زیادہ روشن بورڈ کے لیے گرم سنہری جھلکیا�
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "تازہ ترین ڈیولپمنٹ بِلڈ لوڈ نہیں کیا جا سکا۔ براہ کرم دوبارہ کوشش کریں۔"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "نمایاں کردہ محوری خانہ جیسے بھی حل ہو، اس کا ایک پنسر خانہ {valueList} بن جاتا ہے۔"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."
