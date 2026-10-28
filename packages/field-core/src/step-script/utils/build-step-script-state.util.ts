@@ -1,5 +1,5 @@
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
-import { ForcingOutcomeKindEnum, SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import { ForcingOutcomeKindEnum } from '@suuudokuuu/techniques';
 
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
@@ -8,14 +8,12 @@ import { HintLevelEnum } from '../enums/hint-level.enum';
 import { HintRegionKindEnum } from '../enums/hint-region-kind.enum';
 import { StepScriptStepKindEnum } from '../enums/step-script-step-kind.enum';
 
-import { getBoxNumber } from './get-box-number.util';
-import { getHintRegion } from './get-hint-region.util';
+import { getDeductionRegion } from './get-deduction-region.util';
 import { getStepLinkCount } from './get-step-link-count.util';
 
 import type { HintRegionInterface } from '../interfaces/hint-region.interface';
 import type { StepScriptRevealCandidatesStepInterface } from '../interfaces/step-script-reveal-candidates-step.interface';
 import type { StepScriptStateInterface } from '../interfaces/step-script-state.interface';
-import type { StepScriptStrikeCandidatesStepInterface } from '../interfaces/step-script-strike-candidates-step.interface';
 import type { StepScriptInterface } from '../interfaces/step-script.interface';
 import type { StepScriptStepType } from '../types/step-script-step.type';
 import type { CellInterface } from '@suuudokuuu/generator';
@@ -68,16 +66,8 @@ const collectPlacedValues = (steps: readonly StepScriptStepType[]): ReadonlyMap<
 };
 
 const { fieldGroupHeight, fieldGroupWidth, fieldSize } = defaultSudokuConfig;
-const pointingTechniques: ReadonlySet<SolutionTechniqueEnum> = new Set([
-    SolutionTechniqueEnum.PointingPair,
-    SolutionTechniqueEnum.PointingTriple
-]);
-
 const isRevealStep = (step: StepScriptStepType): step is StepScriptRevealCandidatesStepInterface =>
     step.kind === StepScriptStepKindEnum.RevealCandidates;
-
-const isStrikeStep = (step: StepScriptStepType): step is StepScriptStrikeCandidatesStepInterface =>
-    step.kind === StepScriptStepKindEnum.StrikeCandidates;
 
 const getRegionCells = (region: HintRegionInterface): Pick<CellInterface, 'x' | 'y'>[] => {
     const lineIndex = region.number - 1;
@@ -138,24 +128,8 @@ const getDeductionPatternCells = (steps: readonly StepScriptStepType[], revealIn
     return revealStep?.kind === StepScriptStepKindEnum.RevealCandidates ? revealStep.patternCells : [];
 };
 
-const getFirstDeductionRegion = (steps: readonly StepScriptStepType[]): HintRegionInterface | null => {
-    const revealIndex = steps.findIndex(isRevealStep);
-    const revealStep = steps.find(isRevealStep);
-
-    if (!isDefined(revealStep)) {
-        return null;
-    }
-
-    const { cells, placement, technique } = revealStep.narration;
-    const [firstCell] = cells;
-    const eliminationCell = steps.slice(revealIndex).find(isStrikeStep)?.eliminations.at(0)?.cell;
-
-    if (pointingTechniques.has(technique) && isDefined(firstCell)) {
-        return { kind: HintRegionKindEnum.BOX, number: getBoxNumber(firstCell) };
-    }
-
-    return getHintRegion(cells, placement?.cell ?? eliminationCell);
-};
+const getUnitCellKeys = (steps: readonly StepScriptStepType[], revealIndex: number): string[] =>
+    ((revealIndex < 0 ? null : steps.at(revealIndex))?.narration.unitCells ?? []).map(getCellKey);
 
 export const buildStepScriptState = (
     stepScript: StepScriptInterface | null,
@@ -164,7 +138,8 @@ export const buildStepScriptState = (
     revealedImplicationCount = Number.POSITIVE_INFINITY
 ): StepScriptStateInterface => {
     const scriptSteps = stepScript?.steps ?? [];
-    const hintRegion = getFirstDeductionRegion(scriptSteps);
+    const firstRevealIndex = scriptSteps.findIndex(isRevealStep);
+    const hintRegion = getDeductionRegion(scriptSteps, firstRevealIndex);
     const emptyState: StepScriptStateInterface = {
         hintRegion,
         regionCellKeys: new Set(),
@@ -178,13 +153,21 @@ export const buildStepScriptState = (
     };
 
     if (hintLevel === HintLevelEnum.TECHNIQUE) {
-        return { ...emptyState, regionCellKeys: new Set(isDefined(hintRegion) ? getRegionCells(hintRegion).map(getCellKey) : []) };
+        return {
+            ...emptyState,
+            regionCellKeys: new Set(isDefined(hintRegion) ? getRegionCells(hintRegion).map(getCellKey) : []),
+            candidateCellKeys: new Set(getUnitCellKeys(scriptSteps, firstRevealIndex))
+        };
     }
 
     if (hintLevel === HintLevelEnum.PATTERN) {
-        const patternCellKeys = new Set(getDeductionPatternCells(scriptSteps, scriptSteps.findIndex(isRevealStep)).map(getCellKey));
+        const patternCellKeys = new Set(getDeductionPatternCells(scriptSteps, firstRevealIndex).map(getCellKey));
 
-        return { ...emptyState, patternCellKeys, candidateCellKeys: patternCellKeys };
+        return {
+            ...emptyState,
+            patternCellKeys,
+            candidateCellKeys: new Set([...patternCellKeys, ...getUnitCellKeys(scriptSteps, firstRevealIndex)])
+        };
     }
 
     const currentStep = scriptSteps.at(stepIndex);
@@ -215,6 +198,7 @@ export const buildStepScriptState = (
         patternCellKeys,
         candidateCellKeys: new Set([
             ...patternCellKeys,
+            ...getUnitCellKeys(steps, revealIndex),
             ...revealedCandidates.keys(),
             ...eliminatedCandidates.keys(),
             ...(isDefined(targetCellKey) ? [targetCellKey] : [])

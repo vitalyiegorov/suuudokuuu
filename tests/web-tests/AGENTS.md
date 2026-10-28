@@ -29,10 +29,12 @@ pnpm --filter @suuudokuuu/web-tests lint
    behavior under test, not a workaround for flakiness.
 3. Use exact `data-testid` selectors (via `page.getByTestId`) for stable controls. Use text only
    for user-visible copy that is itself the behavior under test.
-4. Keep specs pinned to English (`locale: 'en-US'` in `playwright.config.ts`). The single exception is
+4. Keep specs pinned to English (`locale: 'en-US'` in `playwright.config.ts`). The exceptions are
    `10.localized-quit-game.spec.ts`, which sets `test.use({ locale: 'uk-UA' })` because the translated
-   app language _is_ the behavior under test (see the `Alert` note under Known App Issues). Do not copy
-   this override into other specs.
+   app language _is_ the behavior under test (see the `Alert` note under Known App Issues), and the
+   Ukrainian naked pair block in `09.hint-flow.spec.ts`, which reproduces the reported uk hint on a
+   375x667 viewport through `/import?puzzle=` and asserts every page's full text can be read. Do not
+   copy this override into other specs.
 5. Prefer positive-state flow control: perform the action, then assert the destination.
 6. Helpers in `src/utils` mirror Maestro subflows one-to-one and keep a single responsibility.
    Do not add thin wrappers that only rename another helper.
@@ -116,7 +118,7 @@ pnpm --filter @suuudokuuu/web-tests lint
   out `6` at `y=1, x=6` through an empty cell, whose last page states that refutation. That is the sixth
   elimination hint in a row, so the seventh hint is a reveal of `1` at `y=0, x=1` (the six-in-a-row
   elimination cap), and the twelfth chains a Nishio branch (`r5c6=9` refuted by an empty cell at `r9c3`)
-  into the Naked Single `1` at `y=4, x=5` on 10 pages, its 19-link branch revealed four links per page; `09.hint-flow.spec.ts` walks it to prove the
+  into the Naked Single `1` at `y=4, x=5` on 9 pages, its 19-link branch revealed four links per page; `09.hint-flow.spec.ts` walks it to prove the
   witness overlay draws branch and outcome slides without changing the board until Apply.
 - `09.hint-flow.spec.ts` presses Show answer on the first walkthrough page of the Nishio elimination card
   on `eliminationHintSharedPuzzleEncodedConstant` after five eliminations are continued, because gating

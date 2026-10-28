@@ -7,4 +7,5 @@ export interface StepScriptNarrationInterface {
     cells: CellInterface[];
     values: number[];
     placement?: StepScriptCandidateInterface;
+    unitCells?: readonly CellInterface[];
 }

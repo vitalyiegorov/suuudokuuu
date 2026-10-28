@@ -49,7 +49,9 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, isConf
     const containerStyles = [cellStyles.container(cellSize), { backgroundColor }, ...borderStyles];
     const ringStyles = [styles.ring, { borderColor: theme.colors.board.selected }];
     const cellText = isEmpty ? '' : String(cell.value);
-    const accessibilityLabel = i18n._(gameGetCellAccessibilityLabel({ candidates: [], cell, isEmpty, isWrong: isConflict }));
+    const accessibilityLabel = i18n._(
+        gameGetCellAccessibilityLabel({ candidates: [], cell, eliminatedCandidates: [], isEmpty, isWrong: isConflict })
+    );
     const accessibilityState = { selected: isSelected };
     const textStyles = {
         animationDelay: cell.y * digitEnterRowDelayMs,

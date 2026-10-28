@@ -6,7 +6,7 @@ import type { GameCellAccessibilityLabelParamsInterface } from '../interface/gam
 import type { MessageDescriptor } from '@lingui/core';
 
 export const gameGetCellAccessibilityLabel = (params: GameCellAccessibilityLabelParamsInterface): MessageDescriptor => {
-    const { candidates, cell, isEmpty, isWrong } = params;
+    const { candidates, cell, eliminatedCandidates, isEmpty, isWrong } = params;
 
     const row = cell.y + 1;
     const column = cell.x + 1;
@@ -22,8 +22,11 @@ export const gameGetCellAccessibilityLabel = (params: GameCellAccessibilityLabel
 
     if (isNotEmptyArray(candidates)) {
         const noteList = candidates.join(', ');
+        const crossedOutList = eliminatedCandidates.join(', ');
 
-        return msg`Row ${row}, column ${column}, empty, notes ${noteList}`;
+        return isNotEmptyArray(eliminatedCandidates)
+            ? msg`Row ${row}, column ${column}, empty, notes ${noteList}, crossed out ${crossedOutList}`
+            : msg`Row ${row}, column ${column}, empty, notes ${noteList}`;
     }
 
     return msg`Row ${row}, column ${column}, empty`;

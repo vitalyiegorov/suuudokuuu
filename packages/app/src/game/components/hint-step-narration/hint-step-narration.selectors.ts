@@ -5,5 +5,6 @@ export enum HintStepNarrationSelectors {
     NARRATION_SCROLL = 'HintStepNarrationSelectors.NarrationScroll',
     Narration = 'HintStepNarrationSelectors.Narration',
     Technique = 'HintStepNarrationSelectors.Technique',
+    TECHNIQUE_CHAIN = 'HintStepNarrationSelectors.TechniqueChain',
     Value = 'HintStepNarrationSelectors.Value'
 }

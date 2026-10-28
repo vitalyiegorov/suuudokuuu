@@ -50,7 +50,8 @@ export const FieldCell = (props: Props) => {
 
     const { i18n } = useLingui();
     const { engine } = use(GameContext);
-    const { candidates, isActive, isActiveValue, isEmpty, isHighlighted, isHintCell, isTargetCell, isWrong } = useFieldCellState(cell);
+    const { candidates, eliminatedCandidates, isActive, isActiveValue, isEmpty, isHighlighted, isHintCell, isTargetCell, isWrong } =
+        useFieldCellState(cell);
     const { theme } = use(ThemeContext);
 
     const isMotionReduced = useReduceMotion();
@@ -124,7 +125,7 @@ export const FieldCell = (props: Props) => {
     ];
     const successMarker = isMotionReduced ? <FieldCellSuccessOutline /> : <FieldCellSuccessRing animation={successAnimation} />;
     const cellAccessibilityState = { selected: isActive };
-    const accessibilityLabel = i18n._(gameGetCellAccessibilityLabel({ candidates, cell, isEmpty, isWrong }));
+    const accessibilityLabel = i18n._(gameGetCellAccessibilityLabel({ candidates, cell, eliminatedCandidates, isEmpty, isWrong }));
 
     return (
         <ReanimatedPressable

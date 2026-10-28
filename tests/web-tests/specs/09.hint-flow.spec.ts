@@ -10,6 +10,7 @@ import {
     HistoryDifficultySelectors,
     HistoryGamesScreenSelectors,
     HomeScreenSelectors,
+    ImportScreenSelectors,
     PauseScreenSelectors,
     ReplayControlsSelectors,
     ReplayTechniqueSelectors,
@@ -51,6 +52,16 @@ const revealPuzzle = '8..........36......7..9.2...5...7.......457.....1...3...1.
 const revealPuzzleSolution = '812753649943682175675491283154237896369845721287169534521974368438526917796318452';
 const revealedCellIndex = 69;
 const fieldSize = 9;
+
+const smallPhoneViewportWidth = 375;
+const smallPhoneViewportHeight = 667;
+const nakedPairPuzzle = '003020000020380740040000230007000920052830100001002050390015002274968010510203090';
+const nakedPairHintPages: readonly (readonly [string, string])[] = [
+    ['Відкрита пара', 'Подивіться на рядок 1: 2 клітинки там можуть містити лише ті самі 2 цифри.'],
+    ['Відкрита пара', 'Цифри 6 і 8 мають стояти в клітинках r1c2 і r1c8: ці клітинки можуть містити лише 6 або 8.'],
+    ['Відкрита пара', 'Тож цифри 6 і 8 не можуть стояти більше ніде в рядку 1.'],
+    ['Відкритий одинак', 'Для клітинки r1c7 лишається тільки 5, бо 6 і 8 вже вибули.']
+];
 
 const gameScreenTimeoutMilliseconds = 15000;
 const winnerScreenTimeoutMilliseconds = 30000;
@@ -164,6 +175,21 @@ const countTintedCells = async (page: Page, backgroundsBefore: Map<string, strin
         ([cellTestIdentifier, background]) => backgroundsBefore.get(cellTestIdentifier) !== background
     ).length;
 
+const isNarrationEndVisible = async (page: Page): Promise<boolean> =>
+    page.getByTestId(HintStepNarrationSelectors.Narration).evaluate((element, scrollTestId) => {
+        const scrollElement = element.closest(`[data-testid="${scrollTestId}"]`);
+
+        if (scrollElement === null) {
+            return false;
+        }
+
+        scrollElement.scrollTop = scrollElement.scrollHeight;
+
+        const scrollBounds = scrollElement.getBoundingClientRect();
+
+        return element.getBoundingClientRect().bottom <= scrollBounds.bottom + 1 && scrollBounds.bottom <= window.innerHeight;
+    }, HintStepNarrationSelectors.NARRATION_SCROLL);
+
 const openSharedHintPuzzle = async (page: Page, encodedPuzzle: string): Promise<void> => {
     await launchHome(page);
     await openSharedPuzzle(page, encodedPuzzle);
@@ -188,7 +214,7 @@ test('walks a hint from activation through the stepper, applying and a later dis
 
     await expect(hintPanel).toBeVisible();
     await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveText(/.+/u);
-    await expect(narration).toHaveText(/^Look for .+ (?:in (?:row|column|box) \d+|around cell r\dc\d)\.$/u);
+    await expect(narration).toHaveText(/^Look (?:at (?:row|column|box) \d+|around cell r\dc\d|at the highlighted cells)(?:: .+)?\.$/u);
     await expect(narration).toHaveAttribute('aria-live', 'polite');
     await expect(progress).toHaveAttribute('aria-label', /^Step 1 of \d+$/u);
     await expect(back).toBeDisabled();
@@ -198,8 +224,9 @@ test('walks a hint from activation through the stepper, applying and a later dis
     await page.screenshot({ scale: 'css', path: testInfo.outputPath('hint-level-1-technique.png'), fullPage: true });
 
     await next.click();
-    await expect(narration).not.toHaveText(/^Look for /u);
-    await expect(narration).toHaveText(/^[^:]+: [^1-9]*[1-9]/u);
+    await expect(narration).not.toHaveText(/^Look /u);
+    await expect(narration).toHaveText(/[1-9]/u);
+    expect(await narration.textContent()).not.toContain(await page.getByTestId(HintStepNarrationSelectors.Technique).textContent());
     await expect(progress).toHaveAttribute('aria-label', /^Step 2 of \d+$/u);
     await expect(back).toBeEnabled();
     await back.click();
@@ -257,27 +284,27 @@ test('chains a pointing pair into the hidden single it enables and places the di
     const next = page.getByTestId(HintPanelSelectors.NextButton);
 
     await page.getByTestId(HintButtonSelectors.Root).click();
+    await expect(page.getByTestId(HintStepNarrationSelectors.TECHNIQUE_CHAIN)).toHaveText('Pointing Pair → Hidden Single');
     await next.click();
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(
-        'Pointing Pair: in box 6, 4 fits only in the highlighted cells, and they all lie in column 7.'
+        'In box 6, 4 fits only in the highlighted cells, and they all lie in column 7.'
     );
-    await expect(technique).toHaveText('Hidden Single');
+    await expect(technique).toHaveText('Pointing Pair');
     await next.click();
 
-    await expect(progress).toHaveAttribute('aria-label', 'Step 3 of 5');
+    await expect(progress).toHaveAttribute('aria-label', 'Step 3 of 4');
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(
-        /^Pointing Pair: .+, so r\dc7 cannot be 4(?:; r\dc7 cannot be 4)*\.$/u
+        /^Each marked cell sees all the highlighted cells, so r\dc7 cannot be 4(?:; r\dc7 cannot be 4)*\.$/u
     );
-    await expect(technique).toHaveText('Hidden Single');
+    await expect(technique).toHaveText('Pointing Pair');
     await expect(value).toHaveCount(0);
 
     await next.click();
-    await expect(progress).toHaveAttribute('aria-label', 'Step 4 of 5');
+    await expect(progress).toHaveAttribute('aria-label', 'Step 4 of 4');
     await expect(technique).toHaveText('Hidden Single');
-    await expect(value).toHaveCount(0);
-
-    await next.click();
-    await expect(progress).toHaveAttribute('aria-label', 'Step 5 of 5');
+    await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(
+        /^In (?:row|column|box) \d, 4 fits only in the marked cell\.$/u
+    );
     await expect(value).toHaveText('4');
     await page.getByTestId(HintPanelSelectors.ApplyButton).click();
     await expect(hintPanel).not.toBeVisible();
@@ -287,6 +314,7 @@ test('chains a pointing pair into the hidden single it enables and places the di
     await revealHintWalkthrough(page);
     await expect(progress).toHaveAttribute('aria-label', 'Step 3 of 4');
     await expect(technique).toHaveText('Hidden Single');
+    await expect(page.getByTestId(HintStepNarrationSelectors.TECHNIQUE_CHAIN)).toHaveCount(0);
     await next.click();
     await expect(value).toHaveText('8');
 });
@@ -359,7 +387,7 @@ test('starts a fresh hint at level one after continuing an elimination', async (
     await expect(page.getByTestId(HintPanelSelectors.BackButton)).toBeDisabled();
 });
 
-test('walks a long Nishio hint link by link under the header of the technique that places the digit', async ({ page }, testInfo) => {
+test('walks a long Nishio hint link by link under the header of the technique each page teaches', async ({ page }, testInfo) => {
     test.setTimeout(longHintTimeoutMilliseconds);
     await page.setViewportSize({ width: 360, height: 640 });
     await openSharedHintPuzzle(page, eliminationHintSharedPuzzleEncodedConstant);
@@ -380,7 +408,8 @@ test('walks a long Nishio hint link by link under the header of the technique th
 
     const pageCount = await readPageCount(page);
 
-    expect(pageCount).toBeGreaterThan(9);
+    expect(pageCount).toBeGreaterThan(8);
+    await expect(page.getByTestId(HintStepNarrationSelectors.TECHNIQUE_CHAIN)).toHaveText('Nishio Forcing Chain → Naked Single');
 
     const branch = page.getByTestId(FieldWitnessOverlaySelectors.Branch);
     const outcome = page.getByTestId(FieldWitnessOverlaySelectors.Outcome);
@@ -391,7 +420,7 @@ test('walks a long Nishio hint link by link under the header of the technique th
     let sawScrolledPage = false;
 
     for (let pageNumber = walkthroughFirstPage; pageNumber <= pageCount; pageNumber += 1) {
-        await expect(technique).toHaveText('Naked Single');
+        await expect(technique).toHaveText(pageNumber === pageCount ? 'Naked Single' : 'Nishio Forcing Chain');
         narrations.add((await narration.getAttribute('aria-label')) ?? (await narration.textContent()) ?? '');
 
         if (!sawBranch && (await branch.count())) {
@@ -448,7 +477,7 @@ test('teaches the reported Hardcore board a lone pointing pair, then the ALS-XZ 
 
     await page.getByTestId(HintButtonSelectors.Root).click();
     await next.click();
-    await expect(narration).toHaveText('Pointing Pair: in box 8, 5 fits only in the highlighted cells, and they all lie in row 7.');
+    await expect(narration).toHaveText('In box 8, 5 fits only in the highlighted cells, and they all lie in row 7.');
     await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
     await expect(continueButton).toHaveText('Apply & next');
     await continueButton.click();
@@ -456,12 +485,12 @@ test('teaches the reported Hardcore board a lone pointing pair, then the ALS-XZ 
     await expect(technique).toHaveText('ALS-XZ');
     await next.click();
     await expect(narration).toHaveText(
-        'ALS-XZ: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold.'
+        'Each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold.'
     );
     expect(await countTintedCells(page, backgroundsBefore)).toBeLessThanOrEqual(maxPatternCellCount);
 
     await page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON).click();
-    await expect(narration).toHaveText(/^ALS-XZ: .+ r9c7 cannot be 2\.$/u);
+    await expect(narration).toHaveText(/^One of the groups must hold .+ r9c7 cannot be 2\.$/u);
     expect(await countTintedCells(page, backgroundsBefore)).toBeLessThanOrEqual(maxPatternCellCount);
     await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toHaveCount(0);
     await expect(continueButton).toHaveText('Apply & next');
@@ -594,7 +623,7 @@ for (const bottomInset of [0, mobileBottomInset]) {
             .toBeLessThanOrEqual(viewportHeight - Math.max(bottomInset, panelHorizontalGap) - panelHorizontalGap);
 
         const footer = page.getByTestId(HintPanelSelectors.FOOTER);
-        const buttons = footer.getByRole('button');
+        const primaryButton = page.getByTestId(HintPanelSelectors.NextButton).or(page.getByTestId(HintPanelSelectors.ApplyButton));
         const back = page.getByTestId(HintPanelSelectors.BackButton);
         const footerBounds = await footer.boundingBox();
         const pageCount = await readPageCount(page);
@@ -603,12 +632,12 @@ for (const bottomInset of [0, mobileBottomInset]) {
         expect(await back.evaluate(element => getComputedStyle(element).opacity)).toBe('0.4');
 
         for (let pageNumber = 1; pageNumber <= pageCount; pageNumber += 1) {
-            await expect(buttons).toHaveCount(2);
+            await expect(primaryButton).toHaveCount(1);
             expect(await footer.boundingBox()).toEqual(footerBounds);
 
-            const primary = await buttons.nth(1).boundingBox();
+            const primary = await primaryButton.boundingBox();
 
-            expect((await buttons.nth(0).boundingBox())?.height).toBe(primary?.height);
+            expect((await back.boundingBox())?.height).toBe(primary?.height);
             expect((primary?.y ?? 0) + (primary?.height ?? 0)).toBeLessThanOrEqual(viewportHeight - panelBottomGap);
 
             if (pageNumber < pageCount) {
@@ -634,7 +663,7 @@ test('keeps the open hint on the same page across pause and resume without charg
     await page.getByTestId(HintButtonSelectors.Root).click();
     await revealHintWalkthrough(page);
     await page.getByTestId(HintPanelSelectors.NextButton).click();
-    await expect(progress).toHaveAttribute('aria-label', 'Step 4 of 5');
+    await expect(progress).toHaveAttribute('aria-label', 'Step 4 of 4');
 
     const narrationBefore = await page.getByTestId(HintStepNarrationSelectors.Narration).textContent();
     const scoreBefore = await score.textContent();
@@ -646,7 +675,7 @@ test('keeps the open hint on the same page across pause and resume without charg
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
 
     await expect(page.getByTestId(HintPanelSelectors.Root)).toBeVisible();
-    await expect(progress).toHaveAttribute('aria-label', 'Step 4 of 5');
+    await expect(progress).toHaveAttribute('aria-label', 'Step 4 of 4');
     await expect(page.getByTestId(HintStepNarrationSelectors.Narration)).toHaveText(narrationBefore ?? '');
     await expect(score).toHaveText(scoreBefore ?? '');
 });
@@ -709,7 +738,9 @@ test('moves keyboard focus into the open hint card, never into the hidden contro
     await expect(hintPanel).toBeVisible();
     await expect
         .poll(async () =>
-            page.getByTestId(HintStepNarrationSelectors.Technique).evaluate(technique => technique.parentElement === document.activeElement)
+            page
+                .getByTestId(HintStepNarrationSelectors.Technique)
+                .evaluate(technique => technique.closest('[tabindex="-1"]') === document.activeElement)
         )
         .toBe(true);
     await expect(page.getByTestId(HintStepNarrationSelectors.Technique)).toHaveRole('heading');
@@ -760,7 +791,10 @@ test('shows the candidates an elimination hint strikes while candidates are hidd
     const column = Number(strikeMatch?.groups?.['column']);
     const value = strikeMatch?.groups?.['value'] ?? '';
     const struckCell = page.getByTestId(cellTestId(row - 1, column - 1));
-    const notesPattern = new RegExp(`^Row ${row}, column ${column}, empty, notes (?:\\d, )*${value}(?:, \\d)*$`, 'u');
+    const notesPattern = new RegExp(
+        `^Row ${row}, column ${column}, empty, notes (?:\\d, )*${value}(?:, \\d)*, crossed out (?:\\d, )*${value}(?:, \\d)*$`,
+        'u'
+    );
 
     await expect(struckCell).toHaveAttribute('aria-label', notesPattern);
     await expect(struckCell.getByText(value, { exact: true })).toHaveCSS('text-decoration-line', 'line-through');
@@ -768,4 +802,38 @@ test('shows the candidates an elimination hint strikes while candidates are hidd
     await page.getByTestId(HintPanelSelectors.ContinueButton).click();
     await expect(page.getByTestId(HintPanelSelectors.Progress)).toHaveAttribute('aria-label', /^Step 1 of \d+$/u);
     await expect(struckCell).not.toHaveAttribute('aria-label', notesPattern);
+});
+
+test.describe('the reported naked pair hint in Ukrainian on a small phone', () => {
+    test.use({ locale: 'uk-UA', viewport: { width: smallPhoneViewportWidth, height: smallPhoneViewportHeight } });
+
+    test('explains the naked pair and the single it leaves in four complete, unclipped steps', async ({ page }) => {
+        const narration = page.getByTestId(HintStepNarrationSelectors.Narration);
+        const technique = page.getByTestId(HintStepNarrationSelectors.Technique);
+        const next = page.getByTestId(HintPanelSelectors.NextButton);
+
+        await page.goto(`/import?puzzle=${nakedPairPuzzle}`);
+        await page.getByTestId(ImportScreenSelectors.PlayButton).click();
+        await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+        await page.getByTestId(HintButtonSelectors.Root).click();
+        await expect(page.getByTestId(HintStepNarrationSelectors.TECHNIQUE_CHAIN)).toHaveText('Відкрита пара → Відкритий одинак');
+
+        for (const [pageIndex, [pageTechnique, pageNarration]] of nakedPairHintPages.entries()) {
+            await expect(page.getByTestId(HintPanelSelectors.Progress)).toHaveAttribute(
+                'aria-label',
+                `Крок ${pageIndex + 1} із ${nakedPairHintPages.length}`
+            );
+            await expect(technique).toHaveText(pageTechnique);
+            await expect(narration).toHaveText(pageNarration);
+            expect(await isNarrationEndVisible(page)).toBe(true);
+
+            if (pageIndex < nakedPairHintPages.length - 1) {
+                await next.click();
+            }
+        }
+
+        await expect(page.getByTestId(cellTestId(0, 0))).toHaveAttribute('aria-label', /, закреслено 6, 8$/u);
+        await page.getByTestId(HintPanelSelectors.ApplyButton).click();
+        await expect(page.getByTestId(cellTestId(0, 6))).toHaveAttribute('aria-label', /, 5$/u);
+    });
 });

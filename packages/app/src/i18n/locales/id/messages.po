@@ -39,6 +39,10 @@ msgstr "{bestStreak, plural, one {Rentetan terbaik: # hari} other {Rentetan terb
 msgid "{cell} cannot be {values}"
 msgstr "{cell} tidak bisa {values}"
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{cellName} sees every highlighted digit except one."
+msgstr "{cellName} melihat semua angka yang disorot kecuali satu."
+
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
 msgstr "{clueCount, plural, one {# petunjuk · lebih dari satu solusi} other {# petunjuk · lebih dari satu solusi}}"
@@ -58,6 +62,10 @@ msgstr "{count, plural, =2 {Dua {digit} di baris {row}} other {# angka {digit} d
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{digitList} must go in {cellList}: those cells can only be {digitChoice}."
+msgstr "Angka {digitList} harus ada di sel {cellList}: sel-sel itu hanya bisa berisi {digitChoice}."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
@@ -90,6 +98,14 @@ msgstr "{hintCount, plural, other {# petunjuk}}"
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# jam} other {# jam}}"
+
+#: src/game/utils/game-format-list.util.ts
+msgid "{leadingItems} and {lastItem}"
+msgstr "{leadingItems} dan {lastItem}"
+
+#: src/game/utils/game-format-list.util.ts
+msgid "{leadingItems} or {lastItem}"
+msgstr "{leadingItems} atau {lastItem}"
 
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{minutes, plural, one {# min} other {# min}}"
@@ -124,189 +140,29 @@ msgstr "{score, plural, one {# poin} other {# poin}}"
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Rentetan # hari} other {Rentetan # hari}}"
 
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
-msgstr "{techniqueName}: {cellName} melihat semua angka yang disorot kecuali satu."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at box {regionNumber}: # cells there can hold only the same # digits.}}"
+msgstr "{subsetSize, plural, other {Lihat kotak {regionNumber}: # sel di sana hanya bisa berisi # angka yang sama.}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
-msgstr "{techniqueName}: {valueList} harus berada di garis dasar, sehingga {eliminationList}."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at box {regionNumber}: # digits there fit in only # cells.}}"
+msgstr "{subsetSize, plural, other {Lihat kotak {regionNumber}: # angka di sana hanya muat di # sel.}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
-msgstr "{techniqueName}: sebuah rantai menghubungkan kedua ujung yang disorot, sehingga {firstEnd} atau {lastEnd} benar."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at column {regionNumber}: # cells there can hold only the same # digits.}}"
+msgstr "{subsetSize, plural, other {Lihat kolom {regionNumber}: # sel di sana hanya bisa berisi # angka yang sama.}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
-msgstr "{techniqueName}: salah satu sel penjepit selalu {valueList} dan setiap sel yang ditandai melihat kedua penjepit, sehingga {eliminationList}."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at column {regionNumber}: # digits there fit in only # cells.}}"
+msgstr "{subsetSize, plural, other {Lihat kolom {regionNumber}: # angka di sana hanya muat di # sel.}}"
 
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
-msgstr "{techniqueName}: anggap {cellName} adalah {value} dan ikuti apa yang dipaksakannya."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at row {regionNumber}: # cells there can hold only the same # digits.}}"
+msgstr "{subsetSize, plural, other {Lihat baris {regionNumber}: # sel di sana hanya bisa berisi # angka yang sama.}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: box {regionNumber} has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: kotak {regionNumber} hanya menyisakan satu sel kosong, jadi {value} ditempatkan di sana."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: box {regionNumber} has one empty cell left."
-msgstr "{techniqueName}: kotak {regionNumber} hanya menyisakan satu sel kosong."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: column {regionNumber} has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: kolom {regionNumber} hanya menyisakan satu sel kosong, jadi {value} ditempatkan di sana."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: column {regionNumber} has one empty cell left."
-msgstr "{techniqueName}: kolom {regionNumber} hanya menyisakan satu sel kosong."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
-msgstr "{techniqueName}: setiap grup yang disorot punya satu kandidat lebih banyak daripada jumlah selnya, dan kedua grup berbagi satu angka yang hanya bisa dimiliki salah satunya."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
-msgstr "{techniqueName}: setiap sel yang ditandai melihat semua sel yang disorot, sehingga {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
-msgstr "{techniqueName}: bagaimanapun, {valueList} jatuh di sel yang terlihat oleh sel yang ditandai, sehingga {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
-msgstr "{techniqueName}: setiap sel kosong lainnya punya dua kandidat, sehingga {value} harus masuk ke sel yang ditandai untuk menghindari pola mematikan."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
-msgstr "{techniqueName}: setiap kemungkinan berakhir pada kontradiksi atau hasil yang sama, sehingga {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
-msgstr "{techniqueName}: setiap kemungkinan di sel yang disorot mengarah ke {value} di sel yang ditandai."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
-msgstr "{techniqueName}: dari sel yang disorot, setiap kemungkinan diikuti sampai mencapai kontradiksi atau hasil yang sama."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
-msgstr "{techniqueName}: di kotak {boxNumber}, {valueList} hanya muat di sel yang disorot, dan semuanya berada di kolom {columnNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
-msgstr "{techniqueName}: di kotak {boxNumber}, {valueList} hanya muat di sel yang disorot, dan semuanya berada di baris {rowNumber}."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in box {regionNumber}, {value} fits in only one cell."
-msgstr "{techniqueName}: di kotak {regionNumber}, {value} hanya muat di satu sel."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in box {regionNumber}, {value} fits only in the marked cell."
-msgstr "{techniqueName}: di kotak {regionNumber}, {value} hanya muat di sel yang ditandai."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
-msgstr "{techniqueName}: di kolom {columnNumber}, {valueList} hanya muat di sel yang disorot, dan semuanya berada di kotak {boxNumber}."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in column {regionNumber}, {value} fits in only one cell."
-msgstr "{techniqueName}: di kolom {regionNumber}, {value} hanya muat di satu sel."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in column {regionNumber}, {value} fits only in the marked cell."
-msgstr "{techniqueName}: di kolom {regionNumber}, {value} hanya muat di sel yang ditandai."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in row {regionNumber}, {value} fits in only one cell."
-msgstr "{techniqueName}: di baris {regionNumber}, {value} hanya muat di satu sel."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in row {regionNumber}, {value} fits only in the marked cell."
-msgstr "{techniqueName}: di baris {regionNumber}, {value} hanya muat di sel yang ditandai."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
-msgstr "{techniqueName}: di baris {rowNumber}, {valueList} hanya muat di sel yang disorot, dan semuanya berada di kotak {boxNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
-msgstr "{techniqueName}: di garis dasar yang disorot, {valueList} hanya muat di sel yang disorot, sehingga terkunci di garis penutup."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
-msgstr "{techniqueName}: di kotak yang disorot, {valueList} hanya muat di satu baris dan satu kolom, dan pasangan yang disorot di luar kotak memuat {valueList} di salah satu ujungnya."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
-msgstr "{techniqueName}: salah satu ujung rantai selalu benar dan setiap kandidat yang ditandai bertentangan dengan kedua ujung, sehingga {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
-msgstr "{techniqueName}: salah satu grup harus memuat {valueList}, dan setiap sel yang ditandai melihat setiap {valueList} di kedua grup, sehingga {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: baris {regionNumber} hanya menyisakan satu sel kosong, jadi {value} ditempatkan di sana."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: row {regionNumber} has one empty cell left."
-msgstr "{techniqueName}: baris {regionNumber} hanya menyisakan satu sel kosong."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
-msgstr "{techniqueName}: sel yang disorot memuat angka sebanyak jumlah selnya, sehingga {valueList} hanya bisa berada di sel-sel ini."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: the highlighted cells leave {value} only one place."
-msgstr "{techniqueName}: sel yang disorot hanya menyisakan satu tempat untuk {value}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
-msgstr "{techniqueName}: sel yang disorot hanya menyisakan {value} untuk sel yang ditandai."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
-msgstr "{techniqueName}: sel yang disorot berbagi angkanya antara baris atau kolom dan kotak tanpa mengulang satu pun, sehingga {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
-msgstr "{techniqueName}: sel yang disorot terbagi menjadi dua warna untuk {valueList}, dan tepat satu warna memuat setiap {valueList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
-msgstr "{techniqueName}: sel yang disorot akan membentuk pola mematikan dari {valueList} yang membuat teka-teki punya dua solusi."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
-msgstr "{techniqueName}: sel yang disorot akan menyisakan pola mematikan dari {valueList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
-msgstr "{techniqueName}: sel yang ditandai melihat semua angka yang disorot kecuali {value}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
-msgstr "{techniqueName}: sel yang ditandai melihat kedua warna atau membawa warna yang bertentangan dengan dirinya sendiri, sehingga {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
-msgstr "{techniqueName}: sel-sel itu dicadangkan untuk kumpulan angka tersebut, sehingga {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
-msgstr "{techniqueName}: untuk menghindari pola mematikan, {eliminationList}."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
-msgstr "{techniqueName}: coba setiap kemungkinan yang disorot satu per satu dan ikuti apa yang dipaksakannya."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
-msgstr "{techniqueName}: bagaimanapun sel poros yang disorot diselesaikan, salah satu sel penjepitnya menjadi {valueList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: within one row, column or box, {valueList} fit only in the highlighted cells, so those cells can hold nothing else."
-msgstr "{techniqueName}: dalam satu baris, kolom, atau kotak, {valueList} hanya muat di sel yang disorot, sehingga sel-sel itu tidak bisa berisi angka lain."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
+msgstr "{subsetSize, plural, other {Lihat baris {regionNumber}: # angka di sana hanya muat di # sel.}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -323,6 +179,10 @@ msgstr "{value, plural, one {# menit} other {# menit}}"
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# second} other {# seconds}}"
 msgstr "{value, plural, one {# detik} other {# detik}}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{valueList} harus berada di garis dasar, sehingga {eliminationList}."
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
@@ -344,6 +204,10 @@ msgstr "✕ tidak ada tempat untuk {value}"
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Tanda “+” berarti sudoku ini setidaknya SE {seRatingCeilingText}. Di atas titik itu, penyelesaian bisa merangkai penalaran yang sangat panjang, jadi kami membatasi angka yang ditampilkan daripada mengejar ketelitian semu."
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "A chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
+msgstr "Sebuah rantai menghubungkan kedua ujung yang disorot, sehingga {firstEnd} atau {lastEnd} benar."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "A direct Reveal costs one level only when you apply it."
 msgstr "Pengungkapan langsung dikenai biaya satu tingkat hanya saat Anda menerapkannya."
@@ -351,6 +215,10 @@ msgstr "Pengungkapan langsung dikenai biaya satu tingkat hanya saat Anda menerap
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "Sedikit ruang antar sel"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "A pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "Salah satu sel penjepit selalu {valueList} dan setiap sel yang ditandai melihat kedua penjepit, sehingga {eliminationList}."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Accent"
@@ -435,6 +303,10 @@ msgstr "Terapkan & berikutnya"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
 msgstr "Bantuan"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Assume {cellName} is {value} and follow what it forces."
+msgstr "Anggap {cellName} adalah {value} dan ikuti apa yang dipaksakannya."
 
 #: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
 msgid "At least one end of this chain must be true."
@@ -541,6 +413,14 @@ msgstr "Warna papan dan tampilan layar"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Board states told apart by lightness and outlines, not hue"
 msgstr "Kondisi papan dibedakan lewat kecerahan dan garis tepi, bukan warna"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Box {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "Kotak {regionNumber} hanya menyisakan satu sel kosong, jadi {value} ditempatkan di sana."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Box {regionNumber} has one empty cell left."
+msgstr "Kotak {regionNumber} hanya menyisakan satu sel kosong."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
@@ -706,6 +586,14 @@ msgstr "Ramah buta warna"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "Kolom"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Column {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "Kolom {regionNumber} hanya menyisakan satu sel kosong, jadi {value} ditempatkan di sana."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Column {regionNumber} has one empty cell left."
+msgstr "Kolom {regionNumber} hanya menyisakan satu sel kosong."
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
@@ -878,9 +766,17 @@ msgstr "Duplikat"
 msgid "Each correct placement starts with a base value:"
 msgstr "Setiap penempatan benar dimulai dari nilai dasar:"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
+msgstr "Setiap grup yang disorot punya satu kandidat lebih banyak daripada jumlah selnya, dan kedua grup berbagi satu angka yang hanya bisa dimiliki salah satunya."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each hint level you reveal"
 msgstr "Setiap level petunjuk yang dibuka"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "Setiap sel yang ditandai melihat semua sel yang disorot, sehingga {eliminationList}."
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -890,6 +786,10 @@ msgstr "Mudah"
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Edit"
 msgstr "Edit"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "Bagaimanapun, {valueList} jatuh di sel yang terlihat oleh sel yang ditandai, sehingga {eliminationList}."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Empty cell text"
@@ -918,6 +818,18 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "Sama kuat"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "Setiap sel kosong lainnya punya dua kandidat, sehingga {value} harus masuk ke sel yang ditandai untuk menghindari pola mematikan."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "Setiap kemungkinan berakhir pada kontradiksi atau hasil yang sama, sehingga {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "Setiap kemungkinan di sel yang disorot mengarah ke {value} di sel yang ditandai."
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -982,6 +894,10 @@ msgstr "Dasar"
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
 msgstr "Français"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "From the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "Dari sel yang disorot, setiap kemungkinan diikuti sampai mencapai kontradiksi atau hasil yang sama."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Full House"
@@ -1187,6 +1103,66 @@ msgstr "Impor cadangan"
 msgid "Import backup?"
 msgstr "Impor cadangan?"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "Di kotak {boxNumber}, {valueList} hanya muat di sel yang disorot, dan semuanya berada di kolom {columnNumber}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "Di kotak {boxNumber}, {valueList} hanya muat di sel yang disorot, dan semuanya berada di baris {rowNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "In box {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "Di kotak {regionNumber}, angka {digitList} hanya muat di sel {cellList}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "In box {regionNumber}, {value} fits in only one cell."
+msgstr "Di kotak {regionNumber}, {value} hanya muat di satu sel."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In box {regionNumber}, {value} fits only in the marked cell."
+msgstr "Di kotak {regionNumber}, {value} hanya muat di sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "Di kolom {columnNumber}, {valueList} hanya muat di sel yang disorot, dan semuanya berada di kotak {boxNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "In column {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "Di kolom {regionNumber}, angka {digitList} hanya muat di sel {cellList}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "In column {regionNumber}, {value} fits in only one cell."
+msgstr "Di kolom {regionNumber}, {value} hanya muat di satu sel."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In column {regionNumber}, {value} fits only in the marked cell."
+msgstr "Di kolom {regionNumber}, {value} hanya muat di sel yang ditandai."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "In row {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "Di baris {regionNumber}, angka {digitList} hanya muat di sel {cellList}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "In row {regionNumber}, {value} fits in only one cell."
+msgstr "Di baris {regionNumber}, {value} hanya muat di satu sel."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In row {regionNumber}, {value} fits only in the marked cell."
+msgstr "Di baris {regionNumber}, {value} hanya muat di sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "Di baris {rowNumber}, {valueList} hanya muat di sel yang disorot, dan semuanya berada di kotak {boxNumber}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "Di garis dasar yang disorot, {valueList} hanya muat di sel yang disorot, sehingga terkunci di garis penutup."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
+msgstr "Di kotak yang disorot, {valueList} hanya muat di satu baris dan satu kolom, dan pasangan yang disorot di luar kotak memuat {valueList} di salah satu ujungnya."
+
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "Belum selesai"
@@ -1298,25 +1274,25 @@ msgid "Loading the latest development build…"
 msgstr "Memuat build pengembangan terbaru…"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} around cell {cellName}."
-msgstr "Carilah {techniqueName} di sekitar sel {cellName}."
+msgid "Look around cell {cellName}."
+msgstr "Lihat sekitar sel {cellName}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} in box {regionNumber}."
-msgstr "Carilah {techniqueName} di kotak {regionNumber}."
+msgid "Look at box {regionNumber}."
+msgstr "Lihat kotak {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} in column {regionNumber}."
-msgstr "Carilah {techniqueName} di kolom {regionNumber}."
+msgid "Look at column {regionNumber}."
+msgstr "Lihat kolom {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} in row {regionNumber}."
-msgstr "Carilah {techniqueName} di baris {regionNumber}."
+msgid "Look at row {regionNumber}."
+msgstr "Lihat baris {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 #: src/game/utils/game-get-pattern-narration.util.ts
-msgid "Look for {techniqueName}."
-msgstr "Carilah {techniqueName}."
+msgid "Look at the highlighted cells."
+msgstr "Lihat sel yang disorot."
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -1546,9 +1522,21 @@ msgstr "Tawarkan petunjuk juga di sudoku Mimpi buruk, Neraka, dan Tak Terhingga"
 msgid "OK"
 msgstr "OK"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "One end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "Salah satu ujung rantai selalu benar dan setiap kandidat yang ditandai bertentangan dengan kedua ujung, sehingga {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "One of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "Salah satu grup harus memuat {valueList}, dan setiap sel yang ditandai melihat setiap {valueList} di kedua grup, sehingga {eliminationList}."
+
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "One solution · {difficulty} · SE {rating}"
 msgstr "Satu solusi · {difficulty} · SE {rating}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Only {value} is left for {cellName}, with {removedList} gone."
+msgstr "Hanya {value} yang tersisa untuk {cellName}, karena {removedList} sudah dicoret."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1819,7 +1807,6 @@ msgid "Retry loading development build"
 msgstr "Coba lagi memuat build pengembangan"
 
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "Ungkap"
 
@@ -1852,6 +1839,14 @@ msgstr "Waktu lawan yang harus dikalahkan"
 msgid "Row"
 msgstr "Baris"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Row {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "Baris {regionNumber} hanya menyisakan satu sel kosong, jadi {value} ditempatkan di sana."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Row {regionNumber} has one empty cell left."
+msgstr "Baris {regionNumber} hanya menyisakan satu sel kosong."
+
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, {value}"
 msgstr "Baris {row}, kolom {column}, {value}"
@@ -1867,6 +1862,10 @@ msgstr "Baris {row}, kolom {column}, kosong"
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, empty, notes {noteList}"
 msgstr "Baris {row}, kolom {column}, kosong, catatan {noteList}"
+
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, empty, notes {noteList}, crossed out {crossedOutList}"
+msgstr "Baris {row}, kolom {column}, kosong, catatan {noteList}, dicoret {crossedOutList}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Same-value cell"
@@ -2031,6 +2030,22 @@ msgstr "Angka lebih kecil agar papan punya lebih banyak ruang"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Smallest digits for compact boards"
 msgstr "Angka paling kecil untuk papan yang padat"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {cellList} can hold only {digitList}."
+msgstr "Jadi sel {cellList} hanya bisa berisi {digitList}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in box {regionNumber}."
+msgstr "Jadi angka {digitList} tidak bisa ditempatkan di tempat lain di kotak {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in column {regionNumber}."
+msgstr "Jadi angka {digitList} tidak bisa ditempatkan di tempat lain di kolom {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in row {regionNumber}."
+msgstr "Jadi angka {digitList} tidak bisa ditempatkan di tempat lain di baris {regionNumber}."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
@@ -2221,9 +2236,45 @@ msgstr "File cadangan tidak dapat disimpan. Silakan coba lagi."
 msgid "The commit link could not be opened on this device."
 msgstr "Tautan commit tidak dapat dibuka di perangkat ini."
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "Sel yang disorot memuat angka sebanyak jumlah selnya, sehingga {valueList} hanya bisa berada di sel-sel ini."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "The highlighted cells leave {value} only one place."
+msgstr "Sel yang disorot hanya menyisakan satu tempat untuk {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells leave only {value} for the marked cell."
+msgstr "Sel yang disorot hanya menyisakan {value} untuk sel yang ditandai."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "Sel yang disorot berbagi angkanya antara baris atau kolom dan kotak tanpa mengulang satu pun, sehingga {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "Sel yang disorot terbagi menjadi dua warna untuk {valueList}, dan tepat satu warna memuat setiap {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "Sel yang disorot akan membentuk pola mematikan dari {valueList} yang membuat teka-teki punya dua solusi."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "Sel yang disorot akan menyisakan pola mematikan dari {valueList}."
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "Tautan penginstalan tidak dapat dibuka. Periksa pengaturan browsermu dan coba lagi."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The marked cell sees every highlighted digit except {value}."
+msgstr "Sel yang ditandai melihat semua angka yang disorot kecuali {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "Sel yang ditandai melihat kedua warna atau membawa warna yang bertentangan dengan dirinya sendiri, sehingga {eliminationList}."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "The SE difficulty scale"
@@ -2311,6 +2362,10 @@ msgstr "Mini"
 msgid "Tips for High Scores"
 msgstr "Tips skor tinggi"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "To avoid the deadly pattern, {eliminationList}."
+msgstr "Untuk menghindari pola mematikan, {eliminationList}."
+
 #: src/daily/components/daily-today-summary/daily-today-summary.tsx
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "Today"
@@ -2336,6 +2391,10 @@ msgstr "Coba lagi"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "Coba lagi"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Try each highlighted possibility in turn and follow what it forces."
+msgstr "Coba setiap kemungkinan yang disorot satu per satu dan ikuti apa yang dipaksakannya."
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
@@ -2457,6 +2516,10 @@ msgstr "Aksen emas hangat untuk papan yang lebih cerah"
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "Build pengembangan terbaru tidak dapat dimuat. Silakan coba lagi."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "Bagaimanapun sel poros yang disorot diselesaikan, salah satu sel penjepitnya menjadi {valueList}."
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."

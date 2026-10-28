@@ -12,7 +12,12 @@ const createCell = (y: number, x: number, value = 0) => ({ x, y, value, group: M
 const patternCells = [createCell(0, 0), createCell(0, 1)];
 const eliminationCell = createCell(0, 4);
 const placementCell = createCell(2, 2);
-const narration = { technique: SolutionTechniqueEnum.NakedPair, cells: patternCells, values: [3, 7] };
+const narration = {
+    technique: SolutionTechniqueEnum.NakedPair,
+    cells: patternCells,
+    values: [3, 7],
+    unitCells: Array.from({ length: 9 }, (_, x) => createCell(0, x))
+};
 
 const nakedPairScript: StepScriptInterface = {
     technique: SolutionTechniqueEnum.NakedPair,
@@ -88,13 +93,28 @@ describe('buildStepScriptState', () => {
         expect(stepState.revealedCandidates.get('0-0')).toEqual([3, 7]);
     });
 
-    it('lists the cells whose candidates the current page refers to', () => {
-        expect.assertions(4);
+    it('lists the cells whose candidates the current page refers to, with the whole region of a subset', () => {
+        expect.assertions(5);
 
-        expect(buildStepScriptState(nakedPairScript, 0, HintLevelEnum.TECHNIQUE).candidateCellKeys.size).toBe(0);
-        expect(buildStepScriptState(nakedPairScript, 0, HintLevelEnum.PATTERN).candidateCellKeys).toEqual(new Set(['0-0', '0-1']));
-        expect(buildStepScriptState(nakedPairScript, 1).candidateCellKeys).toEqual(new Set(['0-0', '0-1', '0-4']));
+        const rowCellKeys = new Set(Array.from({ length: 9 }, (_, x) => `0-${x}`));
+
+        expect(buildStepScriptState(nakedPairScript, 0, HintLevelEnum.TECHNIQUE).candidateCellKeys).toEqual(rowCellKeys);
+        expect(buildStepScriptState(nakedPairScript, 0, HintLevelEnum.PATTERN).candidateCellKeys).toEqual(rowCellKeys);
+        expect(buildStepScriptState(nakedPairScript, 1).candidateCellKeys).toEqual(rowCellKeys);
         expect(buildStepScriptState(nakedPairScript, 2).candidateCellKeys.has('2-2')).toBe(true);
+        expect(
+            buildStepScriptState(
+                {
+                    ...nakedPairScript,
+                    technique: SolutionTechniqueEnum.XWing,
+                    steps: nakedPairScript.steps.map(step => ({
+                        ...step,
+                        narration: { cells: step.narration.cells, values: step.narration.values, technique: SolutionTechniqueEnum.XWing }
+                    }))
+                },
+                1
+            ).candidateCellKeys
+        ).toEqual(new Set(['0-0', '0-1', '0-4']));
     });
 
     it('reports no target cell for an elimination-only script', () => {

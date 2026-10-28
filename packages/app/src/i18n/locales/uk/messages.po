@@ -41,6 +41,10 @@ msgstr "{bestStreak, plural, one {Найкраща серія: # день} few {
 msgid "{cell} cannot be {values}"
 msgstr "{cell} не може бути {values}"
 
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{cellName} sees every highlighted digit except one."
+msgstr "{cellName} бачить усі підсвічені цифри, крім однієї."
+
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
 msgstr "{clueCount, plural, one {# підказка · більше одного розв’язку} few {# підказки · більше одного розв’язку} many {# підказок · більше одного розв’язку} other {# підказки · більше одного розв’язку}}"
@@ -60,6 +64,10 @@ msgstr "{count, plural, =2 {Дві {digit} у рядку {row}} other {{digit} �
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{digitList} must go in {cellList}: those cells can only be {digitChoice}."
+msgstr "Цифри {digitList} мають стояти в клітинках {cellList}: ці клітинки можуть містити лише {digitChoice}."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
@@ -92,6 +100,14 @@ msgstr "{hintCount, plural, one {# підказка} few {# підказки} ma
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# год} few {# год} many {# год} other {# год}}"
+
+#: src/game/utils/game-format-list.util.ts
+msgid "{leadingItems} and {lastItem}"
+msgstr "{leadingItems} і {lastItem}"
+
+#: src/game/utils/game-format-list.util.ts
+msgid "{leadingItems} or {lastItem}"
+msgstr "{leadingItems} або {lastItem}"
 
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{minutes, plural, one {# min} other {# min}}"
@@ -126,189 +142,29 @@ msgstr "{score, plural, one {# бал} few {# бали} many {# балів} othe
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Серія # день} few {Серія # дні} many {Серія # днів} other {Серія # дня}}"
 
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
-msgstr "{techniqueName}: {cellName} бачить усі підсвічені цифри, крім однієї."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at box {regionNumber}: # cells there can hold only the same # digits.}}"
+msgstr "{subsetSize, plural, one {Подивіться на блок {regionNumber}: # клітинка там може містити лише ту саму # цифру.} few {Подивіться на блок {regionNumber}: # клітинки там можуть містити лише ті самі # цифри.} many {Подивіться на блок {regionNumber}: # клітинок там можуть містити лише ті самі # цифр.} other {Подивіться на блок {regionNumber}: # клітинки там можуть містити лише ті самі # цифри.}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
-msgstr "{techniqueName}: {valueList} має стояти в базових лініях, тож {eliminationList}."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at box {regionNumber}: # digits there fit in only # cells.}}"
+msgstr "{subsetSize, plural, one {Подивіться на блок {regionNumber}: # цифра там може стояти лише в # клітинці.} few {Подивіться на блок {regionNumber}: # цифри там можуть стояти лише в # клітинках.} many {Подивіться на блок {regionNumber}: # цифр там можуть стояти лише в # клітинках.} other {Подивіться на блок {regionNumber}: # цифри там можуть стояти лише в # клітинках.}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
-msgstr "{techniqueName}: ланцюг з'єднує підсвічені кінці, тож істинне {firstEnd} або {lastEnd}."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at column {regionNumber}: # cells there can hold only the same # digits.}}"
+msgstr "{subsetSize, plural, one {Подивіться на стовпець {regionNumber}: # клітинка там може містити лише ту саму # цифру.} few {Подивіться на стовпець {regionNumber}: # клітинки там можуть містити лише ті самі # цифри.} many {Подивіться на стовпець {regionNumber}: # клітинок там можуть містити лише ті самі # цифр.} other {Подивіться на стовпець {regionNumber}: # клітинки там можуть містити лише ті самі # цифри.}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
-msgstr "{techniqueName}: одна з клітинок-кліщів завжди дорівнює {valueList}, а кожна позначена клітинка бачить обидві, тож {eliminationList}."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at column {regionNumber}: # digits there fit in only # cells.}}"
+msgstr "{subsetSize, plural, one {Подивіться на стовпець {regionNumber}: # цифра там може стояти лише в # клітинці.} few {Подивіться на стовпець {regionNumber}: # цифри там можуть стояти лише в # клітинках.} many {Подивіться на стовпець {regionNumber}: # цифр там можуть стояти лише в # клітинках.} other {Подивіться на стовпець {regionNumber}: # цифри там можуть стояти лише в # клітинках.}}"
 
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
-msgstr "{techniqueName}: припустіть, що в {cellName} стоїть {value}, і простежте, що з цього випливає."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at row {regionNumber}: # cells there can hold only the same # digits.}}"
+msgstr "{subsetSize, plural, one {Подивіться на рядок {regionNumber}: # клітинка там може містити лише ту саму # цифру.} few {Подивіться на рядок {regionNumber}: # клітинки там можуть містити лише ті самі # цифри.} many {Подивіться на рядок {regionNumber}: # клітинок там можуть містити лише ті самі # цифр.} other {Подивіться на рядок {regionNumber}: # клітинки там можуть містити лише ті самі # цифри.}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: box {regionNumber} has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: у блоці {regionNumber} лишилась одна порожня клітинка — там стоїть {value}."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: box {regionNumber} has one empty cell left."
-msgstr "{techniqueName}: у блоці {regionNumber} лишилась одна порожня клітинка."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: column {regionNumber} has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: у стовпці {regionNumber} лишилась одна порожня клітинка — там стоїть {value}."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: column {regionNumber} has one empty cell left."
-msgstr "{techniqueName}: у стовпці {regionNumber} лишилась одна порожня клітинка."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
-msgstr "{techniqueName}: кожна підсвічена група має на одного кандидата більше, ніж клітинок, і обидві групи ділять цифру, яку може містити лише одна з них."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
-msgstr "{techniqueName}: кожна позначена клітинка бачить усі підсвічені клітинки, тож {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
-msgstr "{techniqueName}: так чи інакше {valueList} опиняється в клітинці, яку бачать позначені клітинки, тож {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
-msgstr "{techniqueName}: кожна інша порожня клітинка має по два кандидати, тож {value} має стояти в позначеній клітинці, щоб уникнути смертельного візерунка."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
-msgstr "{techniqueName}: кожна можливість закінчується суперечністю або тим самим результатом, тож {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
-msgstr "{techniqueName}: кожна можливість у підсвічених клітинках веде до {value} у позначеній клітинці."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
-msgstr "{techniqueName}: від підсвічених клітинок кожну можливість простежують, доки вона не дійде до суперечності або до того самого результату."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
-msgstr "{techniqueName}: у блоці {boxNumber} цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать у стовпці {columnNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
-msgstr "{techniqueName}: у блоці {boxNumber} цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать у рядку {rowNumber}."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in box {regionNumber}, {value} fits in only one cell."
-msgstr "{techniqueName}: у блоці {regionNumber} цифра {value} може стояти лише в одній клітинці."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in box {regionNumber}, {value} fits only in the marked cell."
-msgstr "{techniqueName}: у блоці {regionNumber} цифра {value} може стояти лише в позначеній клітинці."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
-msgstr "{techniqueName}: у стовпці {columnNumber} цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать у блоці {boxNumber}."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in column {regionNumber}, {value} fits in only one cell."
-msgstr "{techniqueName}: у стовпці {regionNumber} цифра {value} може стояти лише в одній клітинці."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in column {regionNumber}, {value} fits only in the marked cell."
-msgstr "{techniqueName}: у стовпці {regionNumber} цифра {value} може стояти лише в позначеній клітинці."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in row {regionNumber}, {value} fits in only one cell."
-msgstr "{techniqueName}: у рядку {regionNumber} цифра {value} може стояти лише в одній клітинці."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in row {regionNumber}, {value} fits only in the marked cell."
-msgstr "{techniqueName}: у рядку {regionNumber} цифра {value} може стояти лише в позначеній клітинці."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
-msgstr "{techniqueName}: у рядку {rowNumber} цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать у блоці {boxNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
-msgstr "{techniqueName}: у підсвічених базових лініях {valueList} може стояти лише в підсвічених клітинках, тож його замкнено в покривних лініях."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
-msgstr "{techniqueName}: у підсвіченому блоці {valueList} вміщується лише в одному рядку й одному стовпці, а підсвічена пара поза блоком містить {valueList} на одному з кінців."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
-msgstr "{techniqueName}: один кінець ланцюга завжди істинний, а кожен позначений кандидат суперечить обом кінцям, тож {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
-msgstr "{techniqueName}: одна з груп має містити {valueList}, а кожна позначена клітинка бачить усі {valueList} в обох групах, тож {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
-msgstr "{techniqueName}: у рядку {regionNumber} лишилась одна порожня клітинка — там стоїть {value}."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: row {regionNumber} has one empty cell left."
-msgstr "{techniqueName}: у рядку {regionNumber} лишилась одна порожня клітинка."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
-msgstr "{techniqueName}: підсвічені клітинки містять рівно стільки цифр, скільки є клітинок, тож {valueList} може стояти лише в цих клітинках."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: the highlighted cells leave {value} only one place."
-msgstr "{techniqueName}: підсвічені клітинки залишають цифрі {value} лише одне місце."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
-msgstr "{techniqueName}: підсвічені клітинки залишають лише {value} у позначеній клітинці."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
-msgstr "{techniqueName}: підсвічені клітинки ділять свої цифри між рядком чи стовпцем і блоком без повторень, тож {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
-msgstr "{techniqueName}: виділені клітинки діляться на два кольори для {valueList}, і рівно один колір містить усі {valueList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
-msgstr "{techniqueName}: підсвічені клітинки утворили б смертельний візерунок із {valueList}, і в головоломки було б два розв'язки."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
-msgstr "{techniqueName}: підсвічені клітинки залишили б смертельний візерунок із {valueList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
-msgstr "{techniqueName}: позначена клітинка бачить усі підсвічені цифри, крім {value}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
-msgstr "{techniqueName}: позначені клітинки або бачать обидва кольори, або мають колір, що суперечить сам собі, тож {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
-msgstr "{techniqueName}: ці клітинки зарезервовані для цього набору цифр, тож {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
-msgstr "{techniqueName}: щоб уникнути смертельного візерунка, {eliminationList}."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
-msgstr "{techniqueName}: спробуйте по черзі кожну підсвічену можливість і простежте, що з неї випливає."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
-msgstr "{techniqueName}: як би не розв'язалася підсвічена клітинка-опора, одна з її клітинок-кліщів стає {valueList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: within one row, column or box, {valueList} fit only in the highlighted cells, so those cells can hold nothing else."
-msgstr "{techniqueName}: у межах одного рядка, стовпця чи блоку цифри {valueList} можуть стояти лише в підсвічених клітинках, тож у цих клітинках не може бути нічого іншого."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
+msgstr "{subsetSize, plural, one {Подивіться на рядок {regionNumber}: # цифра там може стояти лише в # клітинці.} few {Подивіться на рядок {regionNumber}: # цифри там можуть стояти лише в # клітинках.} many {Подивіться на рядок {regionNumber}: # цифр там можуть стояти лише в # клітинках.} other {Подивіться на рядок {regionNumber}: # цифри там можуть стояти лише в # клітинках.}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -325,6 +181,10 @@ msgstr "{value, plural, one {# хвилину} few {# хвилини} many {# х
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# second} other {# seconds}}"
 msgstr "{value, plural, one {# секунду} few {# секунди} many {# секунд} other {# секунди}}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{valueList} має стояти в базових лініях, тож {eliminationList}."
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
@@ -346,6 +206,10 @@ msgstr "✕ для {value} немає місця"
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Знак «+» означає, що це судоку має щонайменше SE {seRatingCeilingText}. Далі розв’язання можуть розтягуватися в дуже довгі ланцюги, тож ми обмежуємо показане число, а не вдаємо хибну точність."
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "A chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
+msgstr "Ланцюг з'єднує підсвічені кінці, тож істинне {firstEnd} або {lastEnd}."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "A direct Reveal costs one level only when you apply it."
 msgstr "Пряме відкриття цифри коштує один рівень лише тоді, коли ви його застосовуєте."
@@ -353,6 +217,10 @@ msgstr "Пряме відкриття цифри коштує один ріве�
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "Трохи простору між клітинками"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "A pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "Одна з клітинок-кліщів завжди дорівнює {valueList}, а кожна позначена клітинка бачить обидві, тож {eliminationList}."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Accent"
@@ -437,6 +305,10 @@ msgstr "Застосувати й далі"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
 msgstr "Допоміжні дії"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Assume {cellName} is {value} and follow what it forces."
+msgstr "Припустіть, що в {cellName} стоїть {value}, і простежте, що з цього випливає."
 
 #: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
 msgid "At least one end of this chain must be true."
@@ -543,6 +415,14 @@ msgstr "Кольори дошки та вигляд екранів"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Board states told apart by lightness and outlines, not hue"
 msgstr "Стани дошки розрізняються світлістю та контурами, а не відтінком"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Box {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "У блоці {regionNumber} лишилась одна порожня клітинка — там стоїть {value}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Box {regionNumber} has one empty cell left."
+msgstr "У блоці {regionNumber} лишилась одна порожня клітинка."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
@@ -708,6 +588,14 @@ msgstr "Безпечна для дальтоніків"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "Стовпець"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Column {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "У стовпці {regionNumber} лишилась одна порожня клітинка — там стоїть {value}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Column {regionNumber} has one empty cell left."
+msgstr "У стовпці {regionNumber} лишилась одна порожня клітинка."
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
@@ -880,9 +768,17 @@ msgstr "Дублювати"
 msgid "Each correct placement starts with a base value:"
 msgstr "Кожне правильне розміщення починається з базового значення:"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
+msgstr "Кожна підсвічена група має на одного кандидата більше, ніж клітинок, і обидві групи ділять цифру, яку може містити лише одна з них."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each hint level you reveal"
 msgstr "Кожен відкритий рівень підказки"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "Кожна позначена клітинка бачить усі підсвічені клітинки, тож {eliminationList}."
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -892,6 +788,10 @@ msgstr "Легкий"
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Edit"
 msgstr "Редагувати"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "Так чи інакше {valueList} опиняється в клітинці, яку бачать позначені клітинки, тож {eliminationList}."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Empty cell text"
@@ -920,6 +820,18 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "Рівна боротьба"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "Кожна інша порожня клітинка має по два кандидати, тож {value} має стояти в позначеній клітинці, щоб уникнути смертельного візерунка."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "Кожна можливість закінчується суперечністю або тим самим результатом, тож {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "Кожна можливість у підсвічених клітинках веде до {value} у позначеній клітинці."
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -984,6 +896,10 @@ msgstr "Базовий"
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
 msgstr "Français"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "From the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "Від підсвічених клітинок кожну можливість простежують, доки вона не дійде до суперечності або до того самого результату."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Full House"
@@ -1189,6 +1105,66 @@ msgstr "Імпортувати резервну копію"
 msgid "Import backup?"
 msgstr "Імпортувати резервну копію?"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "У блоці {boxNumber} цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать у стовпці {columnNumber}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "У блоці {boxNumber} цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать у рядку {rowNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "In box {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "У блоці {regionNumber} цифри {digitList} можуть стояти лише в клітинках {cellList}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "In box {regionNumber}, {value} fits in only one cell."
+msgstr "У блоці {regionNumber} цифра {value} може стояти лише в одній клітинці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In box {regionNumber}, {value} fits only in the marked cell."
+msgstr "У блоці {regionNumber} цифра {value} може стояти лише в позначеній клітинці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "У стовпці {columnNumber} цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать у блоці {boxNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "In column {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "У стовпці {regionNumber} цифри {digitList} можуть стояти лише в клітинках {cellList}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "In column {regionNumber}, {value} fits in only one cell."
+msgstr "У стовпці {regionNumber} цифра {value} може стояти лише в одній клітинці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In column {regionNumber}, {value} fits only in the marked cell."
+msgstr "У стовпці {regionNumber} цифра {value} може стояти лише в позначеній клітинці."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "In row {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "У рядку {regionNumber} цифри {digitList} можуть стояти лише в клітинках {cellList}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "In row {regionNumber}, {value} fits in only one cell."
+msgstr "У рядку {regionNumber} цифра {value} може стояти лише в одній клітинці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In row {regionNumber}, {value} fits only in the marked cell."
+msgstr "У рядку {regionNumber} цифра {value} може стояти лише в позначеній клітинці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "У рядку {rowNumber} цифра {valueList} може стояти лише в підсвічених клітинках, і всі вони лежать у блоці {boxNumber}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "У підсвічених базових лініях {valueList} може стояти лише в підсвічених клітинках, тож його замкнено в покривних лініях."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
+msgstr "У підсвіченому блоці {valueList} вміщується лише в одному рядку й одному стовпці, а підсвічена пара поза блоком містить {valueList} на одному з кінців."
+
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "Незавершено"
@@ -1300,25 +1276,25 @@ msgid "Loading the latest development build…"
 msgstr "Завантаження найновішої збірки для розробки…"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} around cell {cellName}."
-msgstr "Шукайте {techniqueName} довкола клітинки {cellName}."
+msgid "Look around cell {cellName}."
+msgstr "Подивіться навколо клітинки {cellName}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} in box {regionNumber}."
-msgstr "Шукайте {techniqueName} у блоці {regionNumber}."
+msgid "Look at box {regionNumber}."
+msgstr "Подивіться на блок {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} in column {regionNumber}."
-msgstr "Шукайте {techniqueName} у стовпці {regionNumber}."
+msgid "Look at column {regionNumber}."
+msgstr "Подивіться на стовпець {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} in row {regionNumber}."
-msgstr "Шукайте {techniqueName} у рядку {regionNumber}."
+msgid "Look at row {regionNumber}."
+msgstr "Подивіться на рядок {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 #: src/game/utils/game-get-pattern-narration.util.ts
-msgid "Look for {techniqueName}."
-msgstr "Шукайте {techniqueName}."
+msgid "Look at the highlighted cells."
+msgstr "Подивіться на підсвічені клітинки."
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -1548,9 +1524,21 @@ msgstr "Пропонувати підказки також у судоку рі�
 msgid "OK"
 msgstr "Гаразд"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "One end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "Один кінець ланцюга завжди істинний, а кожен позначений кандидат суперечить обом кінцям, тож {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "One of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "Одна з груп має містити {valueList}, а кожна позначена клітинка бачить усі {valueList} в обох групах, тож {eliminationList}."
+
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "One solution · {difficulty} · SE {rating}"
 msgstr "Один розв’язок · {difficulty} · SE {rating}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Only {value} is left for {cellName}, with {removedList} gone."
+msgstr "Для клітинки {cellName} лишається тільки {value}, бо {removedList} вже вибули."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1821,7 +1809,6 @@ msgid "Retry loading development build"
 msgstr "Повторити завантаження збірки для розробки"
 
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "Розкрити"
 
@@ -1854,6 +1841,14 @@ msgstr "Час суперника, який треба побити"
 msgid "Row"
 msgstr "Рядок"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Row {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "У рядку {regionNumber} лишилась одна порожня клітинка — там стоїть {value}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Row {regionNumber} has one empty cell left."
+msgstr "У рядку {regionNumber} лишилась одна порожня клітинка."
+
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, {value}"
 msgstr "Рядок {row}, стовпець {column}, {value}"
@@ -1869,6 +1864,10 @@ msgstr "Рядок {row}, стовпець {column}, порожньо"
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, empty, notes {noteList}"
 msgstr "Рядок {row}, стовпець {column}, порожньо, нотатки {noteList}"
+
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, empty, notes {noteList}, crossed out {crossedOutList}"
+msgstr "Рядок {row}, стовпець {column}, порожня, нотатки {noteList}, закреслено {crossedOutList}"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Same-value cell"
@@ -2033,6 +2032,22 @@ msgstr "Менші цифри, щоб лишити більше місця на 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Smallest digits for compact boards"
 msgstr "Найменші цифри для компактних дошок"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {cellList} can hold only {digitList}."
+msgstr "Тож клітинки {cellList} можуть містити лише {digitList}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in box {regionNumber}."
+msgstr "Тож цифри {digitList} не можуть стояти більше ніде в блоці {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in column {regionNumber}."
+msgstr "Тож цифри {digitList} не можуть стояти більше ніде в стовпці {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in row {regionNumber}."
+msgstr "Тож цифри {digitList} не можуть стояти більше ніде в рядку {regionNumber}."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
@@ -2223,9 +2238,45 @@ msgstr "Не вдалося зберегти файл резервної коп�
 msgid "The commit link could not be opened on this device."
 msgstr "Не вдалося відкрити посилання на коміт на цьому пристрої."
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "Підсвічені клітинки містять рівно стільки цифр, скільки є клітинок, тож {valueList} може стояти лише в цих клітинках."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "The highlighted cells leave {value} only one place."
+msgstr "Підсвічені клітинки залишають цифрі {value} лише одне місце."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells leave only {value} for the marked cell."
+msgstr "Підсвічені клітинки залишають лише {value} у позначеній клітинці."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "Підсвічені клітинки ділять свої цифри між рядком чи стовпцем і блоком без повторень, тож {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "Виділені клітинки діляться на два кольори для {valueList}, і рівно один колір містить усі {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "Підсвічені клітинки утворили б смертельний візерунок із {valueList}, і в головоломки було б два розв'язки."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "Підсвічені клітинки залишили б смертельний візерунок із {valueList}."
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "Не вдалося відкрити посилання для інсталяції. Перевірте налаштування браузера й повторіть спробу."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The marked cell sees every highlighted digit except {value}."
+msgstr "Позначена клітинка бачить усі підсвічені цифри, крім {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "Позначені клітинки або бачать обидва кольори, або мають колір, що суперечить сам собі, тож {eliminationList}."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "The SE difficulty scale"
@@ -2313,6 +2364,10 @@ msgstr "Крихітний"
 msgid "Tips for High Scores"
 msgstr "Поради для високих результатів"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "To avoid the deadly pattern, {eliminationList}."
+msgstr "Щоб уникнути смертельного візерунка, {eliminationList}."
+
 #: src/daily/components/daily-today-summary/daily-today-summary.tsx
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "Today"
@@ -2338,6 +2393,10 @@ msgstr "Спробувати ще раз"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "Спробувати ще раз"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Try each highlighted possibility in turn and follow what it forces."
+msgstr "Спробуйте по черзі кожну підсвічену можливість і простежте, що з неї випливає."
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
@@ -2459,6 +2518,10 @@ msgstr "Теплі золоті акценти для яскравішої до�
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "Не вдалося завантажити найновішу збірку для розробки. Повторіть спробу."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "Як би не розв'язалася підсвічена клітинка-опора, одна з її клітинок-кліщів стає {valueList}."
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."

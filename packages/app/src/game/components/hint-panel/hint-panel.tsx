@@ -14,7 +14,6 @@ import { GameContext } from '../../context/game.context';
 import { HintLevelNarration } from '../hint-level-narration/hint-level-narration';
 import { HintPanelApplyButton } from '../hint-panel-apply-button/hint-panel-apply-button';
 import { HintPanelHeader } from '../hint-panel-header/hint-panel-header';
-import { HintPanelShowAnswer } from '../hint-panel-show-answer/hint-panel-show-answer';
 import { HintStepNarration } from '../hint-step-narration/hint-step-narration';
 import { HintStepper } from '../hint-stepper/hint-stepper';
 
@@ -76,7 +75,6 @@ export const HintPanel = ({ controlsTop }: Props) => {
                     ) : (
                         <HintLevelNarration hintLevel={hintLevel} hintRegion={hintRegion} stepScript={stepScript} />
                     )}
-                    {isLastPage ? null : <HintPanelShowAnswer />}
                 </Animated.View>
                 {isSinglePage ? (
                     <View style={styles.actions} testID={HintPanelSelectors.FOOTER}>

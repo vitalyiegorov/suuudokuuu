@@ -6,6 +6,7 @@ import { assert, describe } from 'vitest';
 
 import { FieldEngine } from '../../src/field-engine/classes/field-engine';
 import { HintLevelEnum } from '../../src/step-script/enums/hint-level.enum';
+import { HintRegionKindEnum } from '../../src/step-script/enums/hint-region-kind.enum';
 import { StepScriptStepKindEnum } from '../../src/step-script/enums/step-script-step-kind.enum';
 import { buildStepScriptState } from '../../src/step-script/utils/build-step-script-state.util';
 import { findHintStepScript, findRevealStepScript } from '../../src/step-script/utils/find-hint-step-script.util';
@@ -15,6 +16,7 @@ import type { StepScriptInterface } from '../../src/step-script/interfaces/step-
 
 const chainBoard = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
 const hiddenPairToSingleBoard = '.....53........2......915.79..4.312.3.1.6.74...2.1.9.3.3.7..65..751.68396.....47.';
+const nakedPairToSingleBoard = '..3.2.....2.38.74..4....23...7...92..5283.1....1..2.5.39..15..2274968.1.51.2.3.9.';
 const forcingBoard = '..3..2.6.9..3.1...1.2.5..8.........2..5..3.98...4..1....7.....5.2..6....4.19.....';
 const longBranchImplicationCount = 10;
 const firstGroupedLinkCount = 7;
@@ -84,7 +86,7 @@ describe('hint pages', () => {
         })
     );
 
-    it.effect('counts the level pages and one page per step, without the walkthrough page that repeats the pattern page', () =>
+    it.effect('counts the level pages and one page per step, without the pages that repeat the pattern page or the placement page', () =>
         Effect.sync(() => {
             const engine = createEngine(chainBoard);
             const script = requireHint(engine);
@@ -96,11 +98,11 @@ describe('hint pages', () => {
                 [StepScriptStepKindEnum.RevealCandidates, StepScriptStepKindEnum.StrikeCandidates]
             );
             assert.isAbove(script.steps.length, 3);
-            assert.deepInclude(engine.getSnapshot(), { hintPageIndex: 0, hintPageCount: script.steps.length + 1 });
+            assert.deepInclude(engine.getSnapshot(), { hintPageIndex: 0, hintPageCount: script.steps.length });
 
             engine.startStepScript(script, HintLevelEnum.PATTERN);
 
-            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.PATTERN, hintPageCount: script.steps.length });
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.PATTERN, hintPageCount: script.steps.length - 1 });
 
             engine.hintNext();
 
@@ -113,6 +115,57 @@ describe('hint pages', () => {
                 hintPageCount: script.steps.length,
                 stepIndex: 0
             });
+        })
+    );
+
+    it.effect('teaches the reported naked pair and the naked single it leaves in four pages over the whole row', () =>
+        Effect.sync(() => {
+            const engine = createEngine(nakedPairToSingleBoard);
+            const script = requireHint(engine);
+            const cellName = ({ x, y }: { readonly x: number; readonly y: number }): string => `r${y + 1}c${x + 1}`;
+            const readPage = (): [HintLevelEnum, StepScriptStepKindEnum, SolutionTechniqueEnum, number] => {
+                const { hintLevel, revealedImplicationCount, stepIndex } = engine.getSnapshot();
+                const { kind, narration } = script.steps[stepIndex];
+                const { candidateCellKeys } = buildStepScriptState(script, stepIndex, hintLevel, revealedImplicationCount);
+
+                return [hintLevel, kind, narration.technique, candidateCellKeys.size];
+            };
+            const [revealStep, strikeStep] = script.steps;
+
+            engine.startStepScript(script, HintLevelEnum.TECHNIQUE);
+
+            const pages = [readPage()];
+
+            while (engine.getSnapshot().hintPageIndex < engine.getSnapshot().hintPageCount - 1) {
+                engine.hintNext();
+                pages.push(readPage());
+            }
+
+            assert.deepStrictEqual(
+                pages.map(([hintLevel, kind, technique]) => [hintLevel, kind, technique]),
+                [
+                    [HintLevelEnum.TECHNIQUE, StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.NakedPair],
+                    [HintLevelEnum.PATTERN, StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.NakedPair],
+                    [HintLevelEnum.WALKTHROUGH, StepScriptStepKindEnum.StrikeCandidates, SolutionTechniqueEnum.NakedPair],
+                    [HintLevelEnum.WALKTHROUGH, StepScriptStepKindEnum.PlaceValue, SolutionTechniqueEnum.NakedSingle]
+                ]
+            );
+            assert.deepStrictEqual(
+                pages.slice(0, 3).map(([, , , candidateCellCount]) => candidateCellCount),
+                [9, 9, 9]
+            );
+            assert.deepInclude(buildStepScriptState(script, 0, HintLevelEnum.TECHNIQUE), {
+                hintRegion: { kind: HintRegionKindEnum.ROW, number: 1 }
+            });
+            assert.strictEqual(revealStep.narration.cells.map(cellName).join(' '), 'r1c2 r1c8');
+            assert.deepStrictEqual(revealStep.narration.values, [6, 8]);
+            assert(strikeStep.kind === StepScriptStepKindEnum.StrikeCandidates, 'Expected the naked pair strike');
+            assert.deepStrictEqual(
+                strikeStep.eliminations.filter(({ cell }) => cellName(cell) === 'r1c7').map(({ value }) => value),
+                [6, 8]
+            );
+            assert.deepInclude(script.placement, { value: 5 });
+            assert.strictEqual(cellName(script.placement?.cell ?? { x: -1, y: -1 }), 'r1c7');
         })
     );
 
@@ -140,7 +193,6 @@ describe('hint pages', () => {
                 [HintLevelEnum.TECHNIQUE, StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.HiddenPair],
                 [HintLevelEnum.PATTERN, StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.HiddenPair],
                 [HintLevelEnum.WALKTHROUGH, StepScriptStepKindEnum.StrikeCandidates, SolutionTechniqueEnum.HiddenPair],
-                [HintLevelEnum.WALKTHROUGH, StepScriptStepKindEnum.RevealCandidates, SolutionTechniqueEnum.HiddenSingle],
                 [HintLevelEnum.WALKTHROUGH, StepScriptStepKindEnum.PlaceValue, SolutionTechniqueEnum.HiddenSingle]
             ]);
         })
@@ -180,7 +232,7 @@ describe('hint pages', () => {
                 isNextPageCharged: false
             });
             assert.strictEqual(engine.hintNext(), false);
-            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, hintPageIndex: 3, stepIndex: 2 });
+            assert.deepInclude(engine.getSnapshot(), { hintLevel: HintLevelEnum.WALKTHROUGH, hintPageIndex: 3, stepIndex: 3 });
 
             engine.hintBack();
             engine.hintBack();
@@ -195,11 +247,11 @@ describe('hint pages', () => {
             assert.strictEqual(engine.hintNext(), false);
             assert.strictEqual(engine.hintSkipToEnd(), 0);
             assert.deepInclude(engine.getSnapshot(), {
-                hintPageIndex: script.steps.length,
+                hintPageIndex: script.steps.length - 1,
                 stepIndex: script.steps.length - 1
             });
             assert.strictEqual(engine.hintNext(), false);
-            assert.strictEqual(engine.getSnapshot().hintPageIndex, script.steps.length);
+            assert.strictEqual(engine.getSnapshot().hintPageIndex, script.steps.length - 1);
         })
     );
 
