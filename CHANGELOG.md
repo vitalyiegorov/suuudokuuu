@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.38.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.38.0...v2.38.1) (2026-10-28)
+
+### Bug Fixes
+
+* **app:** explain subset hints in plain, complete steps ([#713](https://github.com/vitalyiegorov/suuudokuuu/issues/713)) ([45385be](https://github.com/vitalyiegorov/suuudokuuu/commit/45385be4b38afbc57b2666e7687ace4bf80f86ab))
+
+
 # [2.38.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.37.0...v2.38.0) (2026-10-27)
 
 ### Features
