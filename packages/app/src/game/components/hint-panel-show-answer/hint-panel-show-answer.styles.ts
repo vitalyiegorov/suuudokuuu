@@ -2,8 +2,7 @@ import { StyleSheet } from 'react-native-unistyles';
 
 export const HintPanelShowAnswerStyles = StyleSheet.create(theme => ({
     button: {
-        alignSelf: 'flex-start',
-        paddingVertical: theme.spacing.xs
+        alignSelf: 'center'
     },
     text: {
         color: theme.colors.surface.raisedText,

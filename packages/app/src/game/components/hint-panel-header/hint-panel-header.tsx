@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
-import { StepScriptStepKindEnum } from '@suuudokuuu/field-core';
+import { HintLevelEnum } from '@suuudokuuu/field-core';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import LucideX from 'lucide-react-native/icons/x';
 import { use, useEffect, useRef } from 'react';
 import { View } from 'react-native';
@@ -25,9 +26,10 @@ export const HintPanelHeader = () => {
     const { engine, snapshot } = use(GameContext);
     const headerRef = useRef<HostInstance>(null);
 
-    const { stepScript } = snapshot;
+    const { hintLevel, stepIndex, stepScript } = snapshot;
     const technique =
-        stepScript?.steps.find(step => step.kind === StepScriptStepKindEnum.PlaceValue)?.narration.technique ?? stepScript?.technique;
+        hintLevel === HintLevelEnum.WALKTHROUGH ? stepScript?.steps.at(stepIndex)?.narration.technique : stepScript?.technique;
+    const chainTechniques = [...new Set(stepScript?.steps.map(step => step.narration.technique))];
 
     useEffect(() => {
         const focusTimeout = setTimeout(() => headerRef.current?.focus(), HintPanelEnterDurationMillisecondsConstant);
@@ -41,16 +43,38 @@ export const HintPanelHeader = () => {
         return null;
     }
 
-    const techniqueName = technique === SolutionTechniqueEnum.Guess ? t`Reveal` : i18n._(techniqueLabelsConstant[technique]);
+    const getTechniqueName = (stepTechnique: SolutionTechniqueEnum): string =>
+        stepTechnique === SolutionTechniqueEnum.Guess ? t`Reveal` : i18n._(techniqueLabelsConstant[stepTechnique]);
+    const techniqueName = getTechniqueName(technique);
+    const isTechniqueChain = chainTechniques.length > 1;
+    const techniqueChain = chainTechniques.map(getTechniqueName).join(' → ');
     const handleDismiss = () => {
         engine.stopStepScript();
     };
 
     return (
         <View ref={headerRef} style={styles.header} tabIndex={-1}>
-            <BlackText numberOfLines={2} role="heading" style={styles.technique} testID={HintStepNarrationSelectors.Technique}>
-                {techniqueName}
-            </BlackText>
+            <View style={styles.titles}>
+                <BlackText
+                    maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                    numberOfLines={2}
+                    role="heading"
+                    style={styles.technique}
+                    testID={HintStepNarrationSelectors.Technique}
+                >
+                    {techniqueName}
+                </BlackText>
+                {isTechniqueChain ? (
+                    <BlackText
+                        maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                        numberOfLines={2}
+                        style={styles.techniqueChain}
+                        testID={HintStepNarrationSelectors.TECHNIQUE_CHAIN}
+                    >
+                        {techniqueChain}
+                    </BlackText>
+                ) : null}
+            </View>
             <AppIconButton
                 accessibilityLabel={t`Close hint`}
                 onPress={handleDismiss}

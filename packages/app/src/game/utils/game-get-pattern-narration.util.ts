@@ -10,32 +10,26 @@ import { gameGetStepNarration } from './game-get-step-narration.util';
 import type { I18n, MessageDescriptor } from '@lingui/core';
 import type { HintRegionInterface, StepScriptCandidateInterface, StepScriptInterface } from '@suuudokuuu/field-core';
 
-type UnitPatternNarrationType = (techniqueName: string, value: number, regionNumber: number) => MessageDescriptor;
+type UnitPatternNarrationType = (value: number, regionNumber: number) => MessageDescriptor;
 
 const hiddenSinglePatternNarrations: Partial<Record<HintRegionKindEnum, UnitPatternNarrationType>> = {
-    [HintRegionKindEnum.ROW]: (techniqueName, value, regionNumber) =>
-        msg`${techniqueName}: in row ${regionNumber}, ${value} fits in only one cell.`,
-    [HintRegionKindEnum.COLUMN]: (techniqueName, value, regionNumber) =>
-        msg`${techniqueName}: in column ${regionNumber}, ${value} fits in only one cell.`,
-    [HintRegionKindEnum.BOX]: (techniqueName, value, regionNumber) =>
-        msg`${techniqueName}: in box ${regionNumber}, ${value} fits in only one cell.`
+    [HintRegionKindEnum.ROW]: (value, regionNumber) => msg`In row ${regionNumber}, ${value} fits in only one cell.`,
+    [HintRegionKindEnum.COLUMN]: (value, regionNumber) => msg`In column ${regionNumber}, ${value} fits in only one cell.`,
+    [HintRegionKindEnum.BOX]: (value, regionNumber) => msg`In box ${regionNumber}, ${value} fits in only one cell.`
 };
 
 const fullHousePatternNarrations: Partial<Record<HintRegionKindEnum, UnitPatternNarrationType>> = {
-    [HintRegionKindEnum.ROW]: (techniqueName, _value, regionNumber) => msg`${techniqueName}: row ${regionNumber} has one empty cell left.`,
-    [HintRegionKindEnum.COLUMN]: (techniqueName, _value, regionNumber) =>
-        msg`${techniqueName}: column ${regionNumber} has one empty cell left.`,
-    [HintRegionKindEnum.BOX]: (techniqueName, _value, regionNumber) => msg`${techniqueName}: box ${regionNumber} has one empty cell left.`
+    [HintRegionKindEnum.ROW]: (_value, regionNumber) => msg`Row ${regionNumber} has one empty cell left.`,
+    [HintRegionKindEnum.COLUMN]: (_value, regionNumber) => msg`Column ${regionNumber} has one empty cell left.`,
+    [HintRegionKindEnum.BOX]: (_value, regionNumber) => msg`Box ${regionNumber} has one empty cell left.`
 };
 
-const getSingleCellPatternNarration = (techniqueName: string, value: number): MessageDescriptor =>
-    msg`${techniqueName}: the highlighted cells leave ${value} only one place.`;
+const getSingleCellPatternNarration = (value: number): MessageDescriptor => msg`The highlighted cells leave ${value} only one place.`;
 
 const getPlacementPatternNarration = (
     { cell, value }: StepScriptCandidateInterface,
     technique: SolutionTechniqueEnum,
-    hintRegion: HintRegionInterface | null,
-    techniqueName: string
+    hintRegion: HintRegionInterface | null
 ): MessageDescriptor => {
     const regionKind = hintRegion?.kind ?? HintRegionKindEnum.CELL;
     const regionNumber = hintRegion?.number ?? 0;
@@ -43,24 +37,23 @@ const getPlacementPatternNarration = (
     if (technique === SolutionTechniqueEnum.NakedSingle) {
         const cellName = gameGetCellName(cell);
 
-        return msg`${techniqueName}: ${cellName} sees every highlighted digit except one.`;
+        return msg`${cellName} sees every highlighted digit except one.`;
     }
 
     if (technique === SolutionTechniqueEnum.HiddenSingle) {
-        return (hiddenSinglePatternNarrations[regionKind] ?? getSingleCellPatternNarration)(techniqueName, value, regionNumber);
+        return (hiddenSinglePatternNarrations[regionKind] ?? getSingleCellPatternNarration)(value, regionNumber);
     }
 
     if (technique === SolutionTechniqueEnum.FullHouse) {
-        return (fullHousePatternNarrations[regionKind] ?? getSingleCellPatternNarration)(techniqueName, value, regionNumber);
+        return (fullHousePatternNarrations[regionKind] ?? getSingleCellPatternNarration)(value, regionNumber);
     }
 
-    return getSingleCellPatternNarration(techniqueName, value);
+    return getSingleCellPatternNarration(value);
 };
 
 export const gameGetPatternNarration = (
     { steps }: Pick<StepScriptInterface, 'steps'>,
     hintRegion: HintRegionInterface | null,
-    techniqueName: string,
     i18n: I18n
 ): MessageDescriptor => {
     const firstStep = steps.at(0);
@@ -72,15 +65,15 @@ export const gameGetPatternNarration = (
         const cellName = gameGetCellName(cell);
 
         return firstStep.branchCount > 1
-            ? msg`${techniqueName}: try each highlighted possibility in turn and follow what it forces.`
-            : msg`${techniqueName}: assume ${cellName} is ${value} and follow what it forces.`;
+            ? msg`Try each highlighted possibility in turn and follow what it forces.`
+            : msg`Assume ${cellName} is ${value} and follow what it forces.`;
     }
 
     if (!isDefined(revealStep)) {
-        return msg`Look for ${techniqueName}.`;
+        return msg`Look at the highlighted cells.`;
     }
 
     return isDefined(placement)
-        ? getPlacementPatternNarration(placement, revealStep.narration.technique, hintRegion, techniqueName)
-        : gameGetStepNarration(revealStep, techniqueName, i18n);
+        ? getPlacementPatternNarration(placement, revealStep.narration.technique, hintRegion)
+        : gameGetStepNarration(revealStep, i18n, steps);
 };

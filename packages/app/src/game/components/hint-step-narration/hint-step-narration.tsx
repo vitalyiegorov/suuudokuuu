@@ -1,13 +1,11 @@
 import { useLingui } from '@lingui/react/macro';
 import { StepScriptStepKindEnum } from '@suuudokuuu/field-core';
-import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { use, useEffect, useRef } from 'react';
 import { AccessibilityInfo, ScrollView, type ScrollViewInstance, View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
 import { BlackText } from '../../../@generic/components/black-text/black-text';
-import { techniqueLabelsConstant } from '../../../@generic/constants/technique-labels.constant';
 import { ThemeContext } from '../../../theme/context/theme.context';
 import { GameContext } from '../../context/game.context';
 import { gameGetStepNarration } from '../../utils/game-get-step-narration.util';
@@ -26,16 +24,15 @@ interface Props {
 }
 
 export const HintStepNarration = ({ step, revealedImplicationCount, value }: Props) => {
-    const { i18n, t } = useLingui();
+    const { i18n } = useLingui();
     const { theme } = use(ThemeContext);
     const { snapshot } = use(GameContext);
     const narrationScrollRef = useRef<ScrollViewInstance>(null);
-    const techniqueName =
-        step.narration.technique === SolutionTechniqueEnum.Guess ? t`Reveal` : i18n._(techniqueLabelsConstant[step.narration.technique]);
-    const narrationText = i18n._(gameGetStepNarration(step, techniqueName, i18n, snapshot.stepScript?.steps));
+    const narrationText = i18n._(gameGetStepNarration(step, i18n, snapshot.stepScript?.steps));
     const narrationStyles = [styles.narration, { color: theme.colors.surface.raisedText }];
     const chipStyles = [styles.chip, { backgroundColor: theme.colors.ink }];
     const chipTextStyles = [styles.chipText, { color: theme.colors.inkText }];
+    const containerStyles = isDefined(value) ? [styles.container, styles.placementContainer] : styles.container;
     const isWitness = step.kind === StepScriptStepKindEnum.SHOW_CHAIN || step.kind === StepScriptStepKindEnum.SHOW_BRANCH;
 
     useEffect(() => void AccessibilityInfo.announceForAccessibility(narrationText), [narrationText]);
@@ -46,7 +43,7 @@ export const HintStepNarration = ({ step, revealedImplicationCount, value }: Pro
 
     return (
         <ScrollView
-            contentContainerStyle={styles.container}
+            contentContainerStyle={containerStyles}
             onContentSizeChange={handleNarrationContentSizeChange}
             persistentScrollbar
             ref={narrationScrollRef}

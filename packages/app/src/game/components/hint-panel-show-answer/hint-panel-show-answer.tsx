@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/react/macro';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import * as Effect from 'effect/Effect';
 import { use } from 'react';
 import { Pressable } from 'react-native';
@@ -35,7 +36,7 @@ export const HintPanelShowAnswer = () => {
             style={styles.button}
             testID={HintPanelSelectors.SHOW_ANSWER_BUTTON}
         >
-            <BlackText style={styles.text}>
+            <BlackText maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={1} style={styles.text}>
                 <Trans>Show answer</Trans>
             </BlackText>
         </Pressable>

@@ -53,11 +53,17 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
         height: hintPanelControlSize,
         width: hintPanelControlSize
     },
+    titles: { flex: 1 },
     technique: {
         color: theme.colors.text.hint,
-        flex: 1,
         fontSize: theme.typography.size.sm,
         fontWeight: '800',
+        textAlign: 'left'
+    },
+    techniqueChain: {
+        color: theme.colors.text.hint,
+        fontSize: theme.typography.size.xs,
+        fontWeight: '600',
         textAlign: 'left'
     },
     actions: {
@@ -80,9 +86,9 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
     disabledButton: {
         opacity: 0.4
     },
+    stepperCenter: { alignItems: 'center', flex: 1 },
     stepperLabel: {
         color: theme.colors.text.hint,
-        flex: 1,
         fontSize: theme.typography.size.sm,
         fontVariant: ['tabular-nums'],
         fontWeight: '700',

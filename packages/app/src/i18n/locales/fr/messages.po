@@ -37,9 +37,33 @@ msgstr "{awaySeconds}s absent"
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Meilleure série : # jour} other {Meilleure série : # jours}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
+#: src/game/utils/game-get-elimination-list.util.ts
 msgid "{cell} cannot be {values}"
 msgstr "{cell} ne peut pas valoir {values}"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{cellList} are kept for {digitList}, so {eliminationList}."
+msgstr "Les cases {cellList} sont réservées aux chiffres {digitList}, donc {eliminationList}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in box {regionNumber}."
+msgstr "Les cases {cellList} ne peuvent contenir que {digitChoice} : tout autre chiffre figure déjà dans la ligne, la colonne ou la région de chaque case. Les chiffres {digitList} doivent donc aller dans ces cases et nulle part ailleurs dans la région {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in column {regionNumber}."
+msgstr "Les cases {cellList} ne peuvent contenir que {digitChoice} : tout autre chiffre figure déjà dans la ligne, la colonne ou la région de chaque case. Les chiffres {digitList} doivent donc aller dans ces cases et nulle part ailleurs dans la colonne {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in row {regionNumber}."
+msgstr "Les cases {cellList} ne peuvent contenir que {digitChoice} : tout autre chiffre figure déjà dans la ligne, la colonne ou la région de chaque case. Les chiffres {digitList} doivent donc aller dans ces cases et nulle part ailleurs dans la ligne {regionNumber}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{cellName} could be {candidateList}; with {removedList} gone, only {value} is left."
+msgstr "La case {cellName} pourrait contenir {candidateList} ; sans {removedList}, il ne reste que {value}."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "{cellName} sees every highlighted digit except one."
+msgstr "{cellName} voit tous les chiffres surlignés sauf un."
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{clueCount, plural, one {# clue · more than one solution} other {# clues · more than one solution}}"
@@ -60,6 +84,26 @@ msgstr "{count, plural, =2 {Deux {digit} dans la ligne {row}} other {# fois {dig
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{digitList} cannot go anywhere else in box {regionNumber}, so {eliminationList}."
+msgstr "Les chiffres {digitList} ne peuvent aller nulle part ailleurs dans la région {regionNumber}, donc {eliminationList}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{digitList} cannot go anywhere else in column {regionNumber}, so {eliminationList}."
+msgstr "Les chiffres {digitList} ne peuvent aller nulle part ailleurs dans la colonne {regionNumber}, donc {eliminationList}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{digitList} cannot go anywhere else in row {regionNumber}, so {eliminationList}."
+msgstr "Les chiffres {digitList} ne peuvent aller nulle part ailleurs dans la ligne {regionNumber}, donc {eliminationList}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{digitList} must go in {cellList}, so those cells hold nothing else."
+msgstr "Les chiffres {digitList} doivent aller dans les cases {cellList}, donc ces cases ne contiennent rien d’autre."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{digitList} must stay in {cellList}, so {eliminationList}."
+msgstr "Les chiffres {digitList} doivent rester dans les cases {cellList}, donc {eliminationList}."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
@@ -92,6 +136,14 @@ msgstr "{hintCount, plural, one {# indice} many {# indices} other {# indices}}"
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# h} other {# h}}"
+
+#: src/game/utils/game-format-list.util.ts
+msgid "{leadingItems} and {lastItem}"
+msgstr "{leadingItems} et {lastItem}"
+
+#: src/game/utils/game-format-list.util.ts
+msgid "{leadingItems} or {lastItem}"
+msgstr "{leadingItems} ou {lastItem}"
 
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{minutes, plural, one {# min} other {# min}}"
@@ -126,189 +178,29 @@ msgstr "{score, plural, one {# point} other {# points}}"
 msgid "{streak, plural, one {# day streak} other {# day streak}}"
 msgstr "{streak, plural, one {Série de # jour} other {Série de # jours}}"
 
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: {cellName} sees every highlighted digit except one."
-msgstr "{techniqueName} : {cellName} voit tous les chiffres surlignés sauf un."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at box {regionNumber}: # cells there can hold only the same # digits.}}"
+msgstr "{subsetSize, plural, one {Regardez région {regionNumber} : # case ne peut contenir que # chiffre.} other {Regardez région {regionNumber} : # cases ne peuvent contenir que les mêmes # chiffres.}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: {valueList} must sit in the base lines, so {eliminationList}."
-msgstr "{techniqueName} : {valueList} doit se trouver dans les lignes de base, donc {eliminationList}."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at box {regionNumber}: # digits there fit in only # cells.}}"
+msgstr "{subsetSize, plural, one {Regardez région {regionNumber} : # chiffre ne tient que dans # case.} other {Regardez région {regionNumber} : # chiffres ne tiennent que dans # cases.}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
-msgstr "{techniqueName} : une chaîne relie les extrémités surlignées, donc {firstEnd} ou {lastEnd} est vrai."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at column {regionNumber}: # cells there can hold only the same # digits.}}"
+msgstr "{subsetSize, plural, one {Regardez colonne {regionNumber} : # case ne peut contenir que # chiffre.} other {Regardez colonne {regionNumber} : # cases ne peuvent contenir que les mêmes # chiffres.}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: a pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
-msgstr "{techniqueName} : une case pince vaut toujours {valueList} et chaque case marquée voit les deux pinces, donc {eliminationList}."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at column {regionNumber}: # digits there fit in only # cells.}}"
+msgstr "{subsetSize, plural, one {Regardez colonne {regionNumber} : # chiffre ne tient que dans # case.} other {Regardez colonne {regionNumber} : # chiffres ne tiennent que dans # cases.}}"
 
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: assume {cellName} is {value} and follow what it forces."
-msgstr "{techniqueName} : supposez que {cellName} vaut {value} et suivez ce que cela impose."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at row {regionNumber}: # cells there can hold only the same # digits.}}"
+msgstr "{subsetSize, plural, one {Regardez ligne {regionNumber} : # case ne peut contenir que # chiffre.} other {Regardez ligne {regionNumber} : # cases ne peuvent contenir que les mêmes # chiffres.}}"
 
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: box {regionNumber} has one empty cell left, so {value} goes there."
-msgstr "{techniqueName} : il ne reste qu’une case vide dans le bloc {regionNumber}, donc {value} va là."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: box {regionNumber} has one empty cell left."
-msgstr "{techniqueName} : il ne reste qu’une case vide dans le bloc {regionNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: column {regionNumber} has one empty cell left, so {value} goes there."
-msgstr "{techniqueName} : il ne reste qu’une case vide dans la colonne {regionNumber}, donc {value} va là."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: column {regionNumber} has one empty cell left."
-msgstr "{techniqueName} : il ne reste qu’une case vide dans la colonne {regionNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
-msgstr "{techniqueName} : chaque groupe surligné a un candidat de plus que de cases, et les deux groupes partagent un chiffre que l'un seulement d'entre eux peut contenir."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: each marked cell sees all the highlighted cells, so {eliminationList}."
-msgstr "{techniqueName} : chaque case marquée voit toutes les cases surlignées, donc {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
-msgstr "{techniqueName} : dans les deux cas, {valueList} se retrouve dans une case que voient les cases marquées, donc {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
-msgstr "{techniqueName} : chaque autre case vide a deux candidats, donc {value} doit aller dans la case marquée pour éviter un motif mortel."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility ends in a contradiction or the same result, so {eliminationList}."
-msgstr "{techniqueName} : chaque possibilité aboutit à une contradiction ou au même résultat, donc {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: every possibility in the highlighted cells leads to {value} in the marked cell."
-msgstr "{techniqueName} : chaque possibilité dans les cases surlignées mène à {value} dans la case marquée."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: from the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
-msgstr "{techniqueName} : à partir des cases surlignées, chaque possibilité est suivie jusqu'à une contradiction ou au même résultat."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
-msgstr "{techniqueName} : dans le bloc {boxNumber}, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans la colonne {columnNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
-msgstr "{techniqueName} : dans le bloc {boxNumber}, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans la ligne {rowNumber}."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in box {regionNumber}, {value} fits in only one cell."
-msgstr "{techniqueName} : dans le bloc {regionNumber}, {value} ne peut aller que dans une seule case."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in box {regionNumber}, {value} fits only in the marked cell."
-msgstr "{techniqueName} : dans le bloc {regionNumber}, {value} ne peut aller que dans la case marquée."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
-msgstr "{techniqueName} : dans la colonne {columnNumber}, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans le bloc {boxNumber}."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in column {regionNumber}, {value} fits in only one cell."
-msgstr "{techniqueName} : dans la colonne {regionNumber}, {value} ne peut aller que dans une seule case."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in column {regionNumber}, {value} fits only in the marked cell."
-msgstr "{techniqueName} : dans la colonne {regionNumber}, {value} ne peut aller que dans la case marquée."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: in row {regionNumber}, {value} fits in only one cell."
-msgstr "{techniqueName} : dans la ligne {regionNumber}, {value} ne peut aller que dans une seule case."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in row {regionNumber}, {value} fits only in the marked cell."
-msgstr "{techniqueName} : dans la ligne {regionNumber}, {value} ne peut aller que dans la case marquée."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
-msgstr "{techniqueName} : dans la ligne {rowNumber}, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans le bloc {boxNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
-msgstr "{techniqueName} : dans les lignes de base surlignées, {valueList} ne tient que dans les cases surlignées, donc il est verrouillé dans les lignes de couverture."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: in the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
-msgstr "{techniqueName} : dans le bloc surligné, {valueList} ne tient que sur une ligne et une colonne, et la paire surlignée hors du bloc contient {valueList} à l'une ou l'autre de ses extrémités."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
-msgstr "{techniqueName} : une extrémité de la chaîne est toujours vraie et chaque candidat marqué entre en conflit avec les deux extrémités, donc {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: one of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
-msgstr "{techniqueName} : l'un des groupes doit contenir {valueList}, et chaque case marquée voit tous les {valueList} des deux groupes, donc {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: row {regionNumber} has one empty cell left, so {value} goes there."
-msgstr "{techniqueName} : il ne reste qu’une case vide dans la ligne {regionNumber}, donc {value} va là."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: row {regionNumber} has one empty cell left."
-msgstr "{techniqueName} : il ne reste qu’une case vide dans la ligne {regionNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
-msgstr "{techniqueName} : les cases surlignées contiennent exactement autant de chiffres qu'il y a de cases, donc {valueList} ne peut aller que dans ces cases."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: the highlighted cells leave {value} only one place."
-msgstr "{techniqueName} : les cases surlignées ne laissent qu’une place à {value}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells leave only {value} for the marked cell."
-msgstr "{techniqueName} : les cases surlignées ne laissent que {value} pour la case marquée."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
-msgstr "{techniqueName} : les cases surlignées se partagent leurs chiffres entre la ligne et le bloc sans en répéter un, donc {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
-msgstr "{techniqueName} : les cases surlignées se répartissent en deux couleurs pour {valueList}, et une seule couleur contient tous les {valueList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
-msgstr "{techniqueName} : les cases surlignées formeraient un motif mortel de {valueList} qui laisserait deux solutions à la grille."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the highlighted cells would leave a deadly pattern of {valueList}."
-msgstr "{techniqueName} : les cases surlignées laisseraient un motif mortel de {valueList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cell sees every highlighted digit except {value}."
-msgstr "{techniqueName} : la case marquée voit tous les chiffres surlignés sauf {value}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: the marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
-msgstr "{techniqueName} : les cases marquées voient les deux couleurs ou portent une couleur qui se contredit, donc {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: those cells are reserved for that set of digits, so {eliminationList}."
-msgstr "{techniqueName} : ces cases sont réservées à cet ensemble de chiffres, donc {eliminationList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: to avoid the deadly pattern, {eliminationList}."
-msgstr "{techniqueName} : pour éviter le motif mortel, {eliminationList}."
-
-#: src/game/utils/game-get-pattern-narration.util.ts
-msgid "{techniqueName}: try each highlighted possibility in turn and follow what it forces."
-msgstr "{techniqueName} : essayez tour à tour chaque possibilité surlignée et suivez ce qu’elle impose."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
-msgstr "{techniqueName} : quelle que soit la façon de résoudre la case pivot surlignée, l'une de ses cases pinces devient {valueList}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{techniqueName}: within one row, column or box, {valueList} fit only in the highlighted cells, so those cells can hold nothing else."
-msgstr "{techniqueName} : dans une ligne, une colonne ou un bloc, {valueList} ne peut aller que dans les cases surlignées, donc ces cases ne peuvent rien contenir d'autre."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
+msgstr "{subsetSize, plural, one {Regardez ligne {regionNumber} : # chiffre ne tient que dans # case.} other {Regardez ligne {regionNumber} : # chiffres ne tiennent que dans # cases.}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -325,6 +217,10 @@ msgstr "{value, plural, one {# minute} other {# minutes}}"
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# second} other {# seconds}}"
 msgstr "{value, plural, one {# seconde} other {# secondes}}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "{valueList} must sit in the base lines, so {eliminationList}."
+msgstr "{valueList} doit se trouver dans les lignes de base, donc {eliminationList}."
 
 #: src/screens/components/beta-screen/components/beta-platform-instructions/beta-platform-instructions.tsx
 msgid "<0>Development client required</0><1>Development clients need Metro, the launch URL configured in <2>EXPO_DEV_CLIENT_DEFAULT_LAUNCH_URL</2>, or a compatible update on the <3>development</3> channel. This install flow does not publish an update.</1>"
@@ -346,6 +242,10 @@ msgstr "✕ aucune place pour {value}"
 msgid "A “+” means this puzzle is at least SE {seRatingCeilingText}. Beyond that point, puzzles can chain into very long solutions, so we cap the displayed number instead of chasing false precision."
 msgstr "Un « + » signifie que cette grille atteint au moins SE {seRatingCeilingText}. Au-delà, les solutions peuvent s’enchaîner sur des raisonnements très longs : nous plafonnons donc le nombre affiché plutôt que d’afficher une fausse précision."
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "A chain links the highlighted ends, so {firstEnd} or {lastEnd} is true."
+msgstr "Une chaîne relie les extrémités surlignées, donc {firstEnd} ou {lastEnd} est vrai."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "A direct Reveal costs one level only when you apply it."
 msgstr "Une révélation directe ne coûte un niveau que lorsque vous l’appliquez."
@@ -353,6 +253,10 @@ msgstr "Une révélation directe ne coûte un niveau que lorsque vous l’appliq
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "A little room between cells"
 msgstr "Un peu d’espace entre les cases"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "A pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
+msgstr "Une case pince vaut toujours {valueList} et chaque case marquée voit les deux pinces, donc {eliminationList}."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Accent"
@@ -437,6 +341,10 @@ msgstr "Appliquer et suivant"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Assists"
 msgstr "Aides"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Assume {cellName} is {value} and follow what it forces."
+msgstr "Supposez que {cellName} vaut {value} et suivez ce que cela impose."
 
 #: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
 msgid "At least one end of this chain must be true."
@@ -543,6 +451,14 @@ msgstr "Couleurs de la grille et apparence des écrans"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Board states told apart by lightness and outlines, not hue"
 msgstr "États de la grille distingués par la luminosité et les contours, pas par la teinte"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Box {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "Il ne reste qu’une case vide dans le bloc {regionNumber}, donc {value} va là."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Box {regionNumber} has one empty cell left."
+msgstr "Il ne reste qu’une case vide dans le bloc {regionNumber}."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Box-Line Reduction"
@@ -708,6 +624,14 @@ msgstr "Adapté au daltonisme"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Column"
 msgstr "Colonne"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Column {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "Il ne reste qu’une case vide dans la colonne {regionNumber}, donc {value} va là."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Column {regionNumber} has one empty cell left."
+msgstr "Il ne reste qu’une case vide dans la colonne {regionNumber}."
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Comfortable"
@@ -880,9 +804,17 @@ msgstr "Dupliquer"
 msgid "Each correct placement starts with a base value:"
 msgstr "Chaque placement correct commence avec une valeur de base :"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Each highlighted group has one more candidate than cells, and the two groups share a digit that only one of them can hold."
+msgstr "Chaque groupe surligné a un candidat de plus que de cases, et les deux groupes partagent un chiffre que l'un seulement d'entre eux peut contenir."
+
 #: src/scoring/components/scoring.screen.tsx
 msgid "Each hint level you reveal"
 msgstr "Chaque niveau d'indice révélé"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Each marked cell sees all the highlighted cells, so {eliminationList}."
+msgstr "Chaque case marquée voit toutes les cases surlignées, donc {eliminationList}."
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -892,6 +824,10 @@ msgstr "Facile"
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Edit"
 msgstr "Modifier"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
+msgstr "Dans les deux cas, {valueList} se retrouve dans une case que voient les cases marquées, donc {eliminationList}."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Empty cell text"
@@ -920,6 +856,18 @@ msgstr "Español"
 #: src/challenge/components/challenge-result-screen/challenge-result-screen.tsx
 msgid "Evenly matched"
 msgstr "Match équilibré"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
+msgstr "Chaque autre case vide a deux candidats, donc {value} doit aller dans la case marquée pour éviter un motif mortel."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Every possibility ends in a contradiction or the same result, so {eliminationList}."
+msgstr "Chaque possibilité aboutit à une contradiction ou au même résultat, donc {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Every possibility in the highlighted cells leads to {value} in the marked cell."
+msgstr "Chaque possibilité dans les cases surlignées mène à {value} dans la case marquée."
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -984,6 +932,10 @@ msgstr "Fondamental"
 #: src/settings/constant/language-labels.constant.ts
 msgid "Français"
 msgstr "Français"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "From the highlighted cells, every possibility is followed until it hits a contradiction or the same result."
+msgstr "À partir des cases surlignées, chaque possibilité est suivie jusqu'à une contradiction ou au même résultat."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "Full House"
@@ -1189,6 +1141,66 @@ msgstr "Importer une sauvegarde"
 msgid "Import backup?"
 msgstr "Importer la sauvegarde ?"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in column {columnNumber}."
+msgstr "Dans le bloc {boxNumber}, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans la colonne {columnNumber}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In box {boxNumber}, {valueList} fits only in the highlighted cells, and they all lie in row {rowNumber}."
+msgstr "Dans le bloc {boxNumber}, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans la ligne {rowNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "In box {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
+msgstr "Dans la région {regionNumber}, les chiffres {digitList} ne tiennent que dans les cases {cellList}, donc ces cases ne contiennent rien d’autre."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "In box {regionNumber}, {value} fits in only one cell."
+msgstr "Dans le bloc {regionNumber}, {value} ne peut aller que dans une seule case."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In box {regionNumber}, {value} fits only in the marked cell."
+msgstr "Dans le bloc {regionNumber}, {value} ne peut aller que dans la case marquée."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "Dans la colonne {columnNumber}, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans le bloc {boxNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "In column {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
+msgstr "Dans la colonne {regionNumber}, les chiffres {digitList} ne tiennent que dans les cases {cellList}, donc ces cases ne contiennent rien d’autre."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "In column {regionNumber}, {value} fits in only one cell."
+msgstr "Dans la colonne {regionNumber}, {value} ne peut aller que dans une seule case."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In column {regionNumber}, {value} fits only in the marked cell."
+msgstr "Dans la colonne {regionNumber}, {value} ne peut aller que dans la case marquée."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "In row {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
+msgstr "Dans la ligne {regionNumber}, les chiffres {digitList} ne tiennent que dans les cases {cellList}, donc ces cases ne contiennent rien d’autre."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "In row {regionNumber}, {value} fits in only one cell."
+msgstr "Dans la ligne {regionNumber}, {value} ne peut aller que dans une seule case."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In row {regionNumber}, {value} fits only in the marked cell."
+msgstr "Dans la ligne {regionNumber}, {value} ne peut aller que dans la case marquée."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
+msgstr "Dans la ligne {rowNumber}, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans le bloc {boxNumber}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In the highlighted base lines, {valueList} fits only in the highlighted cells, so it is locked into the cover lines."
+msgstr "Dans les lignes de base surlignées, {valueList} ne tient que dans les cases surlignées, donc il est verrouillé dans les lignes de couverture."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "In the highlighted box, {valueList} fits only on one row and one column, and the highlighted pair outside the box holds {valueList} at one end or the other."
+msgstr "Dans le bloc surligné, {valueList} ne tient que sur une ligne et une colonne, et la paire surlignée hors du bloc contient {valueList} à l'une ou l'autre de ses extrémités."
+
 #: src/screens/components/loser-screen/loser.screen.tsx
 msgid "Incomplete"
 msgstr "Incomplet"
@@ -1300,25 +1312,26 @@ msgid "Loading the latest development build…"
 msgstr "Chargement de la dernière version de développement…"
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} around cell {cellName}."
-msgstr "Cherchez {techniqueName} autour de la cellule {cellName}."
+msgid "Look around cell {cellName}."
+msgstr "Regardez autour de la case {cellName}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} in box {regionNumber}."
-msgstr "Cherchez {techniqueName} dans le bloc {regionNumber}."
+msgid "Look at box {regionNumber}."
+msgstr "Regardez région {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} in column {regionNumber}."
-msgstr "Cherchez {techniqueName} dans la colonne {regionNumber}."
+msgid "Look at column {regionNumber}."
+msgstr "Regardez colonne {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
-msgid "Look for {techniqueName} in row {regionNumber}."
-msgstr "Cherchez {techniqueName} dans la ligne {regionNumber}."
+msgid "Look at row {regionNumber}."
+msgstr "Regardez ligne {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 #: src/game/utils/game-get-pattern-narration.util.ts
-msgid "Look for {techniqueName}."
-msgstr "Cherchez {techniqueName}."
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "Look at the highlighted cells."
+msgstr "Regardez les cases surlignées."
 
 #: src/history/components/history-games-summary-band/history-games-summary-band.tsx
 #: src/history/components/history-progress-box/history-progress-box.tsx
@@ -1547,6 +1560,14 @@ msgstr "Proposer aussi des indices dans les grilles Cauchemar, Enfer et Infini"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "OK"
 msgstr "OK"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "One end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
+msgstr "Une extrémité de la chaîne est toujours vraie et chaque candidat marqué entre en conflit avec les deux extrémités, donc {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "One of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
+msgstr "L'un des groupes doit contenir {valueList}, et chaque case marquée voit tous les {valueList} des deux groupes, donc {eliminationList}."
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "One solution · {difficulty} · SE {rating}"
@@ -1821,7 +1842,6 @@ msgid "Retry loading development build"
 msgstr "Recharger la version de développement"
 
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
-#: src/game/components/hint-step-narration/hint-step-narration.tsx
 msgid "Reveal"
 msgstr "Révéler"
 
@@ -1853,6 +1873,14 @@ msgstr "Temps du rival à battre"
 #: src/scoring/components/scoring.screen.tsx
 msgid "Row"
 msgstr "Ligne"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Row {regionNumber} has one empty cell left, so {value} goes there."
+msgstr "Il ne reste qu’une case vide dans la ligne {regionNumber}, donc {value} va là."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Row {regionNumber} has one empty cell left."
+msgstr "Il ne reste qu’une case vide dans la ligne {regionNumber}."
 
 #: src/game/utils/game-get-cell-accessibility-label.util.ts
 msgid "Row {row}, column {column}, {value}"
@@ -2223,9 +2251,45 @@ msgstr "Impossible d’enregistrer le fichier de sauvegarde. Réessayez."
 msgid "The commit link could not be opened on this device."
 msgstr "Impossible d’ouvrir le lien du commit sur cet appareil."
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells hold exactly as many digits as there are cells, so {valueList} can only go in these cells."
+msgstr "Les cases surlignées contiennent exactement autant de chiffres qu'il y a de cases, donc {valueList} ne peut aller que dans ces cases."
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "The highlighted cells leave {value} only one place."
+msgstr "Les cases surlignées ne laissent qu’une place à {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells leave only {value} for the marked cell."
+msgstr "Les cases surlignées ne laissent que {value} pour la case marquée."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
+msgstr "Les cases surlignées se partagent leurs chiffres entre la ligne et le bloc sans en répéter un, donc {eliminationList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells split into two colors for {valueList}, and exactly one color holds every {valueList}."
+msgstr "Les cases surlignées se répartissent en deux couleurs pour {valueList}, et une seule couleur contient tous les {valueList}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells would form a deadly pattern of {valueList} that leaves the puzzle with two solutions."
+msgstr "Les cases surlignées formeraient un motif mortel de {valueList} qui laisserait deux solutions à la grille."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The highlighted cells would leave a deadly pattern of {valueList}."
+msgstr "Les cases surlignées laisseraient un motif mortel de {valueList}."
+
 #: src/screens/components/beta-screen/components/beta-install-actions/beta-install-actions.tsx
 msgid "The install link could not be opened. Check your browser settings and try again."
 msgstr "Impossible d’ouvrir le lien d’installation. Vérifiez les réglages de votre navigateur et réessayez."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The marked cell sees every highlighted digit except {value}."
+msgstr "La case marquée voit tous les chiffres surlignés sauf {value}."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "The marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
+msgstr "Les cases marquées voient les deux couleurs ou portent une couleur qui se contredit, donc {eliminationList}."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "The SE difficulty scale"
@@ -2313,6 +2377,10 @@ msgstr "Minuscule"
 msgid "Tips for High Scores"
 msgstr "Conseils pour de meilleurs scores"
 
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "To avoid the deadly pattern, {eliminationList}."
+msgstr "Pour éviter le motif mortel, {eliminationList}."
+
 #: src/daily/components/daily-today-summary/daily-today-summary.tsx
 #: src/daily/components/daily-week-day/daily-week-day.tsx
 msgid "Today"
@@ -2338,6 +2406,10 @@ msgstr "Réessayer"
 #: src/challenge/components/challenge-try-again-button/challenge-try-again-button.tsx
 msgid "Try Again"
 msgstr "Réessayer"
+
+#: src/game/utils/game-get-pattern-narration.util.ts
+msgid "Try each highlighted possibility in turn and follow what it forces."
+msgstr "Essayez tour à tour chaque possibilité surlignée et suivez ce qu’elle impose."
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
@@ -2459,6 +2531,10 @@ msgstr "Accents dorés chaleureux pour une grille plus lumineuse"
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "We could not load the latest development build. Please try again."
 msgstr "Impossible de charger la dernière version de développement. Réessayez."
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Whichever way the highlighted pivot cell is solved, one of its pincer cells becomes {valueList}."
+msgstr "Quelle que soit la façon de résoudre la case pivot surlignée, l'une de ses cases pinces devient {valueList}."
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "While you were away, the fight for freedom continued. Every $1 makes a difference."
