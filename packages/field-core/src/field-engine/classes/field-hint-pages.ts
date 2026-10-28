@@ -53,8 +53,17 @@ export class FieldHintPages {
         const firstRevealIndex = script.steps.findIndex(step => step.kind === StepScriptStepKindEnum.RevealCandidates);
         const isPatternRepeat = (step: StepScriptStepType, stepIndex: number): boolean =>
             isNotEmptyArray(levelPages) && stepIndex === firstRevealIndex && !isDefined(step.narration.placement);
+        const isPlacementResult = (step: StepScriptStepType, stepIndex: number): boolean =>
+            isNotEmptyArray(levelPages) &&
+            step.kind === StepScriptStepKindEnum.RevealCandidates &&
+            isDefined(step.narration.placement) &&
+            stepIndex > 0 &&
+            script.steps.at(stepIndex - 1)?.kind === StepScriptStepKindEnum.StrikeCandidates;
         const walkthroughPages = script.steps.flatMap((step, stepIndex) =>
-            (isPatternRepeat(step, stepIndex) ? [] : getRevealedLinkCounts(getStepLinkCount(step))).map(revealedImplicationCount => ({
+            (isPatternRepeat(step, stepIndex) || isPlacementResult(step, stepIndex)
+                ? []
+                : getRevealedLinkCounts(getStepLinkCount(step))
+            ).map(revealedImplicationCount => ({
                 hintLevel: HintLevelEnum.WALKTHROUGH,
                 stepIndex,
                 revealedImplicationCount

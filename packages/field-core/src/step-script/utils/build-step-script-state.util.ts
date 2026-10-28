@@ -72,6 +72,14 @@ const pointingTechniques: ReadonlySet<SolutionTechniqueEnum> = new Set([
     SolutionTechniqueEnum.PointingPair,
     SolutionTechniqueEnum.PointingTriple
 ]);
+const subsetTechniques: ReadonlySet<SolutionTechniqueEnum> = new Set([
+    SolutionTechniqueEnum.NakedPair,
+    SolutionTechniqueEnum.NakedTriple,
+    SolutionTechniqueEnum.NakedQuad,
+    SolutionTechniqueEnum.HiddenPair,
+    SolutionTechniqueEnum.HiddenTriple,
+    SolutionTechniqueEnum.HiddenQuad
+]);
 
 const isRevealStep = (step: StepScriptStepType): step is StepScriptRevealCandidatesStepInterface =>
     step.kind === StepScriptStepKindEnum.RevealCandidates;
@@ -138,11 +146,10 @@ const getDeductionPatternCells = (steps: readonly StepScriptStepType[], revealIn
     return revealStep?.kind === StepScriptStepKindEnum.RevealCandidates ? revealStep.patternCells : [];
 };
 
-const getFirstDeductionRegion = (steps: readonly StepScriptStepType[]): HintRegionInterface | null => {
-    const revealIndex = steps.findIndex(isRevealStep);
-    const revealStep = steps.find(isRevealStep);
+const getDeductionRegion = (steps: readonly StepScriptStepType[], revealIndex: number): HintRegionInterface | null => {
+    const revealStep = steps.at(revealIndex);
 
-    if (!isDefined(revealStep)) {
+    if (!isDefined(revealStep) || !isRevealStep(revealStep)) {
         return null;
     }
 
@@ -154,7 +161,19 @@ const getFirstDeductionRegion = (steps: readonly StepScriptStepType[]): HintRegi
         return { kind: HintRegionKindEnum.BOX, number: getBoxNumber(firstCell) };
     }
 
+    if (subsetTechniques.has(technique) && isDefined(eliminationCell)) {
+        return getHintRegion([...cells, eliminationCell], eliminationCell);
+    }
+
     return getHintRegion(cells, placement?.cell ?? eliminationCell);
+};
+
+const getSubsetRegionCellKeys = (steps: readonly StepScriptStepType[], revealIndex: number): string[] => {
+    const revealStep = steps.at(revealIndex);
+    const region =
+        isDefined(revealStep) && subsetTechniques.has(revealStep.narration.technique) ? getDeductionRegion(steps, revealIndex) : null;
+
+    return isDefined(region) ? getRegionCells(region).map(getCellKey) : [];
 };
 
 export const buildStepScriptState = (
@@ -164,7 +183,8 @@ export const buildStepScriptState = (
     revealedImplicationCount = Number.POSITIVE_INFINITY
 ): StepScriptStateInterface => {
     const scriptSteps = stepScript?.steps ?? [];
-    const hintRegion = getFirstDeductionRegion(scriptSteps);
+    const firstRevealIndex = scriptSteps.findIndex(isRevealStep);
+    const hintRegion = getDeductionRegion(scriptSteps, firstRevealIndex);
     const emptyState: StepScriptStateInterface = {
         hintRegion,
         regionCellKeys: new Set(),
@@ -178,13 +198,21 @@ export const buildStepScriptState = (
     };
 
     if (hintLevel === HintLevelEnum.TECHNIQUE) {
-        return { ...emptyState, regionCellKeys: new Set(isDefined(hintRegion) ? getRegionCells(hintRegion).map(getCellKey) : []) };
+        return {
+            ...emptyState,
+            regionCellKeys: new Set(isDefined(hintRegion) ? getRegionCells(hintRegion).map(getCellKey) : []),
+            candidateCellKeys: new Set(getSubsetRegionCellKeys(scriptSteps, firstRevealIndex))
+        };
     }
 
     if (hintLevel === HintLevelEnum.PATTERN) {
-        const patternCellKeys = new Set(getDeductionPatternCells(scriptSteps, scriptSteps.findIndex(isRevealStep)).map(getCellKey));
+        const patternCellKeys = new Set(getDeductionPatternCells(scriptSteps, firstRevealIndex).map(getCellKey));
 
-        return { ...emptyState, patternCellKeys, candidateCellKeys: patternCellKeys };
+        return {
+            ...emptyState,
+            patternCellKeys,
+            candidateCellKeys: new Set([...patternCellKeys, ...getSubsetRegionCellKeys(scriptSteps, firstRevealIndex)])
+        };
     }
 
     const currentStep = scriptSteps.at(stepIndex);
@@ -215,6 +243,7 @@ export const buildStepScriptState = (
         patternCellKeys,
         candidateCellKeys: new Set([
             ...patternCellKeys,
+            ...getSubsetRegionCellKeys(steps, revealIndex),
             ...revealedCandidates.keys(),
             ...eliminatedCandidates.keys(),
             ...(isDefined(targetCellKey) ? [targetCellKey] : [])
