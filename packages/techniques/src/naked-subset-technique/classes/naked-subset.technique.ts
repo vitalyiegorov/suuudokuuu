@@ -32,7 +32,8 @@ export class NakedSubsetTechnique extends AbstractSizedTechnique {
                     results.push(
                         ...createEliminationResults(this.technique, eliminations, [...cells]).map(result => ({
                             ...result,
-                            patternCandidates: cells.flatMap(cell => context.getCandidates(cell).map(value => ({ cell, value })))
+                            patternCandidates: cells.flatMap(cell => context.getCandidates(cell).map(value => ({ cell, value }))),
+                            unitCells: unit.cells
                         }))
                     );
                 }

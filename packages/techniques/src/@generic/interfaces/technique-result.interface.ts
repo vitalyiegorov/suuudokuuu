@@ -13,6 +13,7 @@ export interface TechniqueResultInterface {
     readonly eliminations: CandidateEliminationInterface[];
     readonly reasonCells: CellInterface[];
     readonly blockingCells?: readonly CellInterface[];
+    readonly unitCells?: readonly CellInterface[];
     readonly chainLength?: number;
     readonly patternCandidates?: readonly CandidateEliminationInterface[];
     readonly chain?: readonly ChainCandidateInterface[];
