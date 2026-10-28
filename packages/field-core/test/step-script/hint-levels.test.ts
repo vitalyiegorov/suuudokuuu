@@ -34,6 +34,8 @@ const hiddenSingleBoard = [
 
 const pointingPairBoard = '534678912672195348.9834.56785.76142342685379...392485.9615372842.74196353.5286179';
 
+const boxHiddenPairBoard = '................12....345........3....67......581..........54..2.1....7.3........';
+
 const forcingHintIndex = 12;
 
 const fieldCells = new FieldEngine({ sudokuString: nakedPairBoard, difficulty: DifficultyEnum.Newbie }).Sudoku.Field;
@@ -110,6 +112,29 @@ describe('progressive hint levels', () => {
 });
 
 describe('getHintRegion', () => {
+    it.effect('names the box of a hidden pair whose cells also share a row where the pair is not hidden', () =>
+        Effect.sync(() => {
+            const engine = new FieldEngine({ sudokuString: boxHiddenPairBoard, difficulty: DifficultyEnum.Hell });
+            const strategies = createTechniqueStrategies().filter(({ technique }) => technique === SolutionTechniqueEnum.HiddenPair);
+            const script = findStepScript(engine.Sudoku, strategies);
+
+            assert(script !== null, 'Expected a hidden pair');
+
+            const { cells, values } = script.steps[0].narration;
+            const [firstCell] = cells;
+            const rowCandidateCellCount = engine.Sudoku.Field[firstCell.y].filter(cell =>
+                engine.Sudoku.getCellCandidates(cell).some(value => values.includes(value))
+            ).length;
+
+            assert.deepEqual(getHintRegion(cells), { kind: HintRegionKindEnum.ROW, number: 1 });
+            assert.isAbove(rowCandidateCellCount, cells.length);
+            assert.deepEqual(buildStepScriptState(script, 0, HintLevelEnum.TECHNIQUE).hintRegion, {
+                kind: HintRegionKindEnum.BOX,
+                number: 3
+            });
+        })
+    );
+
     it.effect('names a shared row, column, or box', () =>
         Effect.sync(() => {
             assert.deepEqual(getHintRegion([createCell(2, 0), createCell(2, 5)]), { kind: HintRegionKindEnum.ROW, number: 3 });

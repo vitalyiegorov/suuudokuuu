@@ -12,7 +12,12 @@ const createCell = (y: number, x: number, value = 0) => ({ x, y, value, group: M
 const patternCells = [createCell(0, 0), createCell(0, 1)];
 const eliminationCell = createCell(0, 4);
 const placementCell = createCell(2, 2);
-const narration = { technique: SolutionTechniqueEnum.NakedPair, cells: patternCells, values: [3, 7] };
+const narration = {
+    technique: SolutionTechniqueEnum.NakedPair,
+    cells: patternCells,
+    values: [3, 7],
+    unitCells: Array.from({ length: 9 }, (_, x) => createCell(0, x))
+};
 
 const nakedPairScript: StepScriptInterface = {
     technique: SolutionTechniqueEnum.NakedPair,
@@ -104,7 +109,7 @@ describe('buildStepScriptState', () => {
                     technique: SolutionTechniqueEnum.XWing,
                     steps: nakedPairScript.steps.map(step => ({
                         ...step,
-                        narration: { ...step.narration, technique: SolutionTechniqueEnum.XWing }
+                        narration: { cells: step.narration.cells, values: step.narration.values, technique: SolutionTechniqueEnum.XWing }
                     }))
                 },
                 1

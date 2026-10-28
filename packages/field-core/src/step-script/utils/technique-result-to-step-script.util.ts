@@ -1,6 +1,6 @@
 import { ForcingOutcomeKindEnum, SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
-import { isNotEmptyArray } from '@rnw-community/shared';
+import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { StepScriptStepKindEnum } from '../enums/step-script-step-kind.enum';
 
@@ -27,7 +27,8 @@ const createRevealStep = (
         technique: result.technique,
         cells: narrationCells,
         values: [...new Set(candidates.map(candidate => candidate.value))].sort((left, right) => left - right),
-        ...(result.kind !== 'elimination' && { placement: { cell: result.cell, value: result.value } })
+        ...(result.kind !== 'elimination' && { placement: { cell: result.cell, value: result.value } }),
+        ...(isDefined(result.unitCells) && { unitCells: result.unitCells })
     }
 });
 

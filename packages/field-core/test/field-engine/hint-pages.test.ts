@@ -123,12 +123,12 @@ describe('hint pages', () => {
             const engine = createEngine(nakedPairToSingleBoard);
             const script = requireHint(engine);
             const cellName = ({ x, y }: { readonly x: number; readonly y: number }): string => `r${y + 1}c${x + 1}`;
-            const readPage = (): [HintLevelEnum, StepScriptStepKindEnum, SolutionTechniqueEnum, string, number] => {
+            const readPage = (): [HintLevelEnum, StepScriptStepKindEnum, SolutionTechniqueEnum, number] => {
                 const { hintLevel, revealedImplicationCount, stepIndex } = engine.getSnapshot();
                 const { kind, narration } = script.steps[stepIndex];
                 const { candidateCellKeys } = buildStepScriptState(script, stepIndex, hintLevel, revealedImplicationCount);
 
-                return [hintLevel, kind, narration.technique, narration.cells.map(cellName).join(' '), candidateCellKeys.size];
+                return [hintLevel, kind, narration.technique, candidateCellKeys.size];
             };
             const [revealStep, strikeStep] = script.steps;
 
@@ -151,7 +151,7 @@ describe('hint pages', () => {
                 ]
             );
             assert.deepStrictEqual(
-                pages.slice(0, 3).map(([, , , , candidateCellCount]) => candidateCellCount),
+                pages.slice(0, 3).map(([, , , candidateCellCount]) => candidateCellCount),
                 [9, 9, 9]
             );
             assert.deepInclude(buildStepScriptState(script, 0, HintLevelEnum.TECHNIQUE), {

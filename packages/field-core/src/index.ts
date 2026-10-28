@@ -19,6 +19,7 @@ export { buildStepScriptState } from './step-script/utils/build-step-script-stat
 export { findHintStepScript, findRevealStepScript } from './step-script/utils/find-hint-step-script.util';
 export { findStepScript } from './step-script/utils/find-step-script.util';
 export { getBoxNumber } from './step-script/utils/get-box-number.util';
+export { getDeductionRegion } from './step-script/utils/get-deduction-region.util';
 export { getHintRegion } from './step-script/utils/get-hint-region.util';
 export { getCellKey } from './@generic/utils/get-cell-key.util';
 export { techniqueResultToStepScript } from './step-script/utils/technique-result-to-step-script.util';

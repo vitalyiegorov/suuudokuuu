@@ -51,19 +51,15 @@ export class FieldHintPages {
             .slice(hintLevelOrder.indexOf(hintLevel), -1)
             .map(level => ({ hintLevel: level, stepIndex: 0, revealedImplicationCount: 0 }));
         const firstRevealIndex = script.steps.findIndex(step => step.kind === StepScriptStepKindEnum.RevealCandidates);
-        const isPatternRepeat = (step: StepScriptStepType, stepIndex: number): boolean =>
-            isNotEmptyArray(levelPages) && stepIndex === firstRevealIndex && !isDefined(step.narration.placement);
-        const isPlacementResult = (step: StepScriptStepType, stepIndex: number): boolean =>
+        const isLevelRepeat = (step: StepScriptStepType, stepIndex: number): boolean =>
             isNotEmptyArray(levelPages) &&
-            step.kind === StepScriptStepKindEnum.RevealCandidates &&
-            isDefined(step.narration.placement) &&
-            stepIndex > 0 &&
-            script.steps.at(stepIndex - 1)?.kind === StepScriptStepKindEnum.StrikeCandidates;
+            (isDefined(step.narration.placement)
+                ? step.kind === StepScriptStepKindEnum.RevealCandidates &&
+                  stepIndex > 0 &&
+                  script.steps.at(stepIndex - 1)?.kind === StepScriptStepKindEnum.StrikeCandidates
+                : stepIndex === firstRevealIndex);
         const walkthroughPages = script.steps.flatMap((step, stepIndex) =>
-            (isPatternRepeat(step, stepIndex) || isPlacementResult(step, stepIndex)
-                ? []
-                : getRevealedLinkCounts(getStepLinkCount(step))
-            ).map(revealedImplicationCount => ({
+            (isLevelRepeat(step, stepIndex) ? [] : getRevealedLinkCounts(getStepLinkCount(step))).map(revealedImplicationCount => ({
                 hintLevel: HintLevelEnum.WALKTHROUGH,
                 stepIndex,
                 revealedImplicationCount
