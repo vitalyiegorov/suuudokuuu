@@ -35,29 +35,9 @@ msgstr "{awaySeconds}s borta"
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Bästa svit: # dag} other {Bästa svit: # dagar}}"
 
-#: src/game/utils/game-get-elimination-list.util.ts
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{cell} cannot be {values}"
 msgstr "{cell} kan inte vara {values}"
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} are kept for {digitList}, so {eliminationList}."
-msgstr "Cellerna {cellList} är reserverade för siffrorna {digitList}, så {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in box {regionNumber}."
-msgstr "Cellerna {cellList} kan bara vara {digitChoice}: varje annan siffra finns redan i cellens rad, kolumn eller ruta. Därför måste siffrorna {digitList} stå i dessa celler och ingen annanstans i ruta {regionNumber}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in column {regionNumber}."
-msgstr "Cellerna {cellList} kan bara vara {digitChoice}: varje annan siffra finns redan i cellens rad, kolumn eller ruta. Därför måste siffrorna {digitList} stå i dessa celler och ingen annanstans i kolumn {regionNumber}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in row {regionNumber}."
-msgstr "Cellerna {cellList} kan bara vara {digitChoice}: varje annan siffra finns redan i cellens rad, kolumn eller ruta. Därför måste siffrorna {digitList} stå i dessa celler och ingen annanstans i rad {regionNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{cellName} could be {candidateList}; with {removedList} gone, only {value} is left."
-msgstr "Cellen {cellName} kan vara {candidateList}; när {removedList} är borta återstår bara {value}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{cellName} sees every highlighted digit except one."
@@ -84,24 +64,8 @@ msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} cannot go anywhere else in box {regionNumber}, so {eliminationList}."
-msgstr "Siffrorna {digitList} kan inte stå någon annanstans i ruta {regionNumber}, så {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} cannot go anywhere else in column {regionNumber}, so {eliminationList}."
-msgstr "Siffrorna {digitList} kan inte stå någon annanstans i kolumn {regionNumber}, så {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} cannot go anywhere else in row {regionNumber}, so {eliminationList}."
-msgstr "Siffrorna {digitList} kan inte stå någon annanstans i rad {regionNumber}, så {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} must go in {cellList}, so those cells hold nothing else."
-msgstr "Siffrorna {digitList} måste stå i cellerna {cellList}, så de cellerna innehåller inget annat."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} must stay in {cellList}, so {eliminationList}."
-msgstr "Siffrorna {digitList} måste stanna i cellerna {cellList}, så {eliminationList}."
+msgid "{digitList} must go in {cellList}: those cells can only be {digitChoice}."
+msgstr "Siffrorna {digitList} måste stå i cellerna {cellList}: de cellerna kan bara vara {digitChoice}."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
@@ -1148,8 +1112,8 @@ msgid "In box {boxNumber}, {valueList} fits only in the highlighted cells, and t
 msgstr "I block {boxNumber} passar {valueList} bara i de framhävda cellerna, och alla ligger i rad {rowNumber}."
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "In box {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
-msgstr "I ruta {regionNumber} får siffrorna {digitList} bara plats i cellerna {cellList}, så de cellerna innehåller inget annat."
+msgid "In box {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "I block {regionNumber} får siffrorna {digitList} bara plats i cellerna {cellList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "In box {regionNumber}, {value} fits in only one cell."
@@ -1164,8 +1128,8 @@ msgid "In column {columnNumber}, {valueList} fits only in the highlighted cells,
 msgstr "I kolumn {columnNumber} passar {valueList} bara i de framhävda cellerna, och alla ligger i block {boxNumber}."
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "In column {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
-msgstr "I kolumn {regionNumber} får siffrorna {digitList} bara plats i cellerna {cellList}, så de cellerna innehåller inget annat."
+msgid "In column {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "I kolumn {regionNumber} får siffrorna {digitList} bara plats i cellerna {cellList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "In column {regionNumber}, {value} fits in only one cell."
@@ -1176,8 +1140,8 @@ msgid "In column {regionNumber}, {value} fits only in the marked cell."
 msgstr "I kolumn {regionNumber} passar {value} bara i den markerade cellen."
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "In row {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
-msgstr "I rad {regionNumber} får siffrorna {digitList} bara plats i cellerna {cellList}, så de cellerna innehåller inget annat."
+msgid "In row {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "I rad {regionNumber} får siffrorna {digitList} bara plats i cellerna {cellList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "In row {regionNumber}, {value} fits in only one cell."
@@ -1327,7 +1291,6 @@ msgstr "Titta på rad {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 #: src/game/utils/game-get-pattern-narration.util.ts
-#: src/game/utils/game-get-subset-narration.util.ts
 msgid "Look at the highlighted cells."
 msgstr "Titta på de framhävda cellerna."
 
@@ -1570,6 +1533,10 @@ msgstr "En av grupperna måste innehålla {valueList}, och varje markerad cell s
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "One solution · {difficulty} · SE {rating}"
 msgstr "En lösning · {difficulty} · SE {rating}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Only {value} is left for {cellName}, with {removedList} gone."
+msgstr "Bara {value} finns kvar för {cellName} när {removedList} har strukits."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1896,6 +1863,10 @@ msgstr "Rad {row}, kolumn {column}, tom"
 msgid "Row {row}, column {column}, empty, notes {noteList}"
 msgstr "Rad {row}, kolumn {column}, tom, anteckningar {noteList}"
 
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, empty, notes {noteList}, crossed out {crossedOutList}"
+msgstr "Rad {row}, kolumn {column}, tom, anteckningar {noteList}, överstrukna {crossedOutList}"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Same-value cell"
 msgstr "Ruta med samma värde"
@@ -2059,6 +2030,22 @@ msgstr "Mindre siffror för mer plats på brädet"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Smallest digits for compact boards"
 msgstr "Minsta siffror för kompakta bräden"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {cellList} can hold only {digitList}."
+msgstr "Så cellerna {cellList} kan bara innehålla {digitList}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in box {regionNumber}."
+msgstr "Så siffrorna {digitList} kan inte stå någon annanstans i block {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in column {regionNumber}."
+msgstr "Så siffrorna {digitList} kan inte stå någon annanstans i kolumn {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in row {regionNumber}."
+msgstr "Så siffrorna {digitList} kan inte stå någon annanstans i rad {regionNumber}."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"

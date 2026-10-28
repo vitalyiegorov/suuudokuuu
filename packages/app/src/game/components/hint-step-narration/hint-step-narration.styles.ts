@@ -1,8 +1,7 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { HintNarrationLineHeightConstant } from '../../constant/hint-narration-line-height.constant';
-
 const chipSize = 40;
+const narrationLineHeight = 22;
 
 export const HintStepNarrationStyles = StyleSheet.create(theme => ({
     container: {
@@ -42,7 +41,7 @@ export const HintStepNarrationStyles = StyleSheet.create(theme => ({
         flexShrink: 1,
         fontSize: theme.typography.size.md,
         fontWeight: '600',
-        lineHeight: HintNarrationLineHeightConstant,
+        lineHeight: narrationLineHeight,
         textAlign: 'left'
     }
 }));

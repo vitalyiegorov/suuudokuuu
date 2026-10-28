@@ -35,29 +35,9 @@ msgstr "غياب {awaySeconds} ثانية"
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, zero {أفضل تتابع: # يوم} one {أفضل تتابع: # يوم} two {أفضل تتابع: # يومين} few {أفضل تتابع: # أيام} many {أفضل تتابع: # يومًا} other {أفضل تتابع: # يوم}}"
 
-#: src/game/utils/game-get-elimination-list.util.ts
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{cell} cannot be {values}"
 msgstr "لا يمكن أن تكون {cell} {values}"
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} are kept for {digitList}, so {eliminationList}."
-msgstr "الخلايا {cellList} محجوزة للأرقام {digitList}، لذا {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in box {regionNumber}."
-msgstr "الخلايا {cellList} لا يمكن أن تكون إلا {digitChoice}: فكل رقم آخر موجود بالفعل في صف كل خلية أو عمودها أو مربعها. لذا يجب أن تكون الأرقام {digitList} في هذه الخلايا فقط وليس في أي مكان آخر في المربع {regionNumber}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in column {regionNumber}."
-msgstr "الخلايا {cellList} لا يمكن أن تكون إلا {digitChoice}: فكل رقم آخر موجود بالفعل في صف كل خلية أو عمودها أو مربعها. لذا يجب أن تكون الأرقام {digitList} في هذه الخلايا فقط وليس في أي مكان آخر في العمود {regionNumber}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in row {regionNumber}."
-msgstr "الخلايا {cellList} لا يمكن أن تكون إلا {digitChoice}: فكل رقم آخر موجود بالفعل في صف كل خلية أو عمودها أو مربعها. لذا يجب أن تكون الأرقام {digitList} في هذه الخلايا فقط وليس في أي مكان آخر في الصف {regionNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{cellName} could be {candidateList}; with {removedList} gone, only {value} is left."
-msgstr "يمكن أن تكون الخلية {cellName} {candidateList}؛ وبعد استبعاد {removedList} لا يتبقى سوى {value}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{cellName} sees every highlighted digit except one."
@@ -84,24 +64,8 @@ msgid "{dateText}, {stateText}"
 msgstr "{dateText}، {stateText}"
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} cannot go anywhere else in box {regionNumber}, so {eliminationList}."
-msgstr "لا يمكن وضع الأرقام {digitList} في أي مكان آخر في المربع {regionNumber}، لذا {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} cannot go anywhere else in column {regionNumber}, so {eliminationList}."
-msgstr "لا يمكن وضع الأرقام {digitList} في أي مكان آخر في العمود {regionNumber}، لذا {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} cannot go anywhere else in row {regionNumber}, so {eliminationList}."
-msgstr "لا يمكن وضع الأرقام {digitList} في أي مكان آخر في الصف {regionNumber}، لذا {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} must go in {cellList}, so those cells hold nothing else."
-msgstr "يجب أن تكون الأرقام {digitList} في الخلايا {cellList}، لذا لا تحتوي هذه الخلايا على أي رقم آخر."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} must stay in {cellList}, so {eliminationList}."
-msgstr "يجب أن تبقى الأرقام {digitList} في الخلايا {cellList}، لذا {eliminationList}."
+msgid "{digitList} must go in {cellList}: those cells can only be {digitChoice}."
+msgstr "يجب أن توضع الأرقام {digitList} في الخلايا {cellList}: هذه الخلايا لا يمكن أن تكون إلا {digitChoice}."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
@@ -178,7 +142,7 @@ msgstr "{streak, plural, zero {تتابع # يوم} one {تتابع # يوم} tw
 
 #: src/game/utils/game-get-subset-narration.util.ts
 msgid "{subsetSize, plural, other {Look at box {regionNumber}: # cells there can hold only the same # digits.}}"
-msgstr "{subsetSize, plural, zero {انظر إلى المربع {regionNumber}: لا توجد خلايا هناك تحمل أرقامًا محددة (#).} one {انظر إلى المربع {regionNumber}: خلية واحدة هناك لا تحمل إلا رقمًا واحدًا.} two {انظر إلى المربع {regionNumber}: خليتان هناك لا تحملان إلا الرقمين نفسيهما.} few {انظر إلى المربع {regionNumber}: # خلايا هناك لا تحمل إلا # أرقام نفسها.} many {انظر إلى المربع {regionNumber}: # خلية هناك لا تحمل إلا # رقمًا نفسها.} other {انظر إلى المربع {regionNumber}: # خلية هناك لا تحمل إلا # رقم نفسها.}}"
+msgstr "{subsetSize, plural, zero {انظر إلى المربع {regionNumber}: لا توجد خلايا هناك تحمل أرقامًا محددة (#).} one {انظر إلى المربع {regionNumber}: خلية واحدة هناك لا تحمل إلا رقمًا واحدًا.} two {انظر إلى المربع {regionNumber}: خليتان هناك لا تحملان إلا الرقمين نفسيهما.} few {انظر إلى المربع {regionNumber}: # خلايا هناك لا تحمل إلا الأرقام نفسها، وعددها #.} many {انظر إلى المربع {regionNumber}: # خلية هناك لا تحمل إلا الأرقام نفسها، وعددها #.} other {انظر إلى المربع {regionNumber}: # خلية هناك لا تحمل إلا الأرقام نفسها، وعددها #.}}"
 
 #: src/game/utils/game-get-subset-narration.util.ts
 msgid "{subsetSize, plural, other {Look at box {regionNumber}: # digits there fit in only # cells.}}"
@@ -186,7 +150,7 @@ msgstr "{subsetSize, plural, zero {انظر إلى المربع {regionNumber}: 
 
 #: src/game/utils/game-get-subset-narration.util.ts
 msgid "{subsetSize, plural, other {Look at column {regionNumber}: # cells there can hold only the same # digits.}}"
-msgstr "{subsetSize, plural, zero {انظر إلى العمود {regionNumber}: لا توجد خلايا هناك تحمل أرقامًا محددة (#).} one {انظر إلى العمود {regionNumber}: خلية واحدة هناك لا تحمل إلا رقمًا واحدًا.} two {انظر إلى العمود {regionNumber}: خليتان هناك لا تحملان إلا الرقمين نفسيهما.} few {انظر إلى العمود {regionNumber}: # خلايا هناك لا تحمل إلا # أرقام نفسها.} many {انظر إلى العمود {regionNumber}: # خلية هناك لا تحمل إلا # رقمًا نفسها.} other {انظر إلى العمود {regionNumber}: # خلية هناك لا تحمل إلا # رقم نفسها.}}"
+msgstr "{subsetSize, plural, zero {انظر إلى العمود {regionNumber}: لا توجد خلايا هناك تحمل أرقامًا محددة (#).} one {انظر إلى العمود {regionNumber}: خلية واحدة هناك لا تحمل إلا رقمًا واحدًا.} two {انظر إلى العمود {regionNumber}: خليتان هناك لا تحملان إلا الرقمين نفسيهما.} few {انظر إلى العمود {regionNumber}: # خلايا هناك لا تحمل إلا الأرقام نفسها، وعددها #.} many {انظر إلى العمود {regionNumber}: # خلية هناك لا تحمل إلا الأرقام نفسها، وعددها #.} other {انظر إلى العمود {regionNumber}: # خلية هناك لا تحمل إلا الأرقام نفسها، وعددها #.}}"
 
 #: src/game/utils/game-get-subset-narration.util.ts
 msgid "{subsetSize, plural, other {Look at column {regionNumber}: # digits there fit in only # cells.}}"
@@ -194,7 +158,7 @@ msgstr "{subsetSize, plural, zero {انظر إلى العمود {regionNumber}: 
 
 #: src/game/utils/game-get-subset-narration.util.ts
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # cells there can hold only the same # digits.}}"
-msgstr "{subsetSize, plural, zero {انظر إلى الصف {regionNumber}: لا توجد خلايا هناك تحمل أرقامًا محددة (#).} one {انظر إلى الصف {regionNumber}: خلية واحدة هناك لا تحمل إلا رقمًا واحدًا.} two {انظر إلى الصف {regionNumber}: خليتان هناك لا تحملان إلا الرقمين نفسيهما.} few {انظر إلى الصف {regionNumber}: # خلايا هناك لا تحمل إلا # أرقام نفسها.} many {انظر إلى الصف {regionNumber}: # خلية هناك لا تحمل إلا # رقمًا نفسها.} other {انظر إلى الصف {regionNumber}: # خلية هناك لا تحمل إلا # رقم نفسها.}}"
+msgstr "{subsetSize, plural, zero {انظر إلى الصف {regionNumber}: لا توجد خلايا هناك تحمل أرقامًا محددة (#).} one {انظر إلى الصف {regionNumber}: خلية واحدة هناك لا تحمل إلا رقمًا واحدًا.} two {انظر إلى الصف {regionNumber}: خليتان هناك لا تحملان إلا الرقمين نفسيهما.} few {انظر إلى الصف {regionNumber}: # خلايا هناك لا تحمل إلا الأرقام نفسها، وعددها #.} many {انظر إلى الصف {regionNumber}: # خلية هناك لا تحمل إلا الأرقام نفسها، وعددها #.} other {انظر إلى الصف {regionNumber}: # خلية هناك لا تحمل إلا الأرقام نفسها، وعددها #.}}"
 
 #: src/game/utils/game-get-subset-narration.util.ts
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
@@ -254,7 +218,7 @@ msgstr "مسافة قليلة بين الخلايا"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "A pincer cell is always {valueList} and each marked cell sees both pincers, so {eliminationList}."
-msgstr "إحدى خليتي الكماشة هي دائماً {valueList} وكل خلية معلمة ترى الخليتين معاً، لذا {eliminationList}."
+msgstr "إحدى خليتي الكماشة هي دائماً {valueList} وكل خلية مميَّزة ترى الخليتين معاً، لذا {eliminationList}."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Accent"
@@ -812,7 +776,7 @@ msgstr "كل مستوى تلميح تكشفه"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Each marked cell sees all the highlighted cells, so {eliminationList}."
-msgstr "كل خلية معلمة ترى جميع الخلايا المحددة، لذا {eliminationList}."
+msgstr "كل خلية مميَّزة ترى جميع الخلايا المحددة، لذا {eliminationList}."
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -825,7 +789,7 @@ msgstr "تعديل"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Either way, {valueList} lands in a cell the marked cells see, so {eliminationList}."
-msgstr "في الحالتين يقع {valueList} في خلية ترى الخلايا المعلمة، لذا {eliminationList}."
+msgstr "في الحالتين يقع {valueList} في خلية ترى الخلايا المميَّزة، لذا {eliminationList}."
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Empty cell text"
@@ -857,7 +821,7 @@ msgstr "تعادل متقارب"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Every other empty cell has two candidates, so {value} must go in the marked cell to avoid a deadly pattern."
-msgstr "لكل خلية فارغة أخرى مرشحان فقط، لذا يجب وضع {value} في الخلية المعلمة لتجنب نمط قاتل."
+msgstr "لكل خلية فارغة أخرى مرشحان فقط، لذا يجب وضع {value} في الخلية المميَّزة لتجنب نمط قاتل."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Every possibility ends in a contradiction or the same result, so {eliminationList}."
@@ -865,7 +829,7 @@ msgstr "كل احتمال ينتهي بتناقض أو بالنتيجة نفسه
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Every possibility in the highlighted cells leads to {value} in the marked cell."
-msgstr "كل احتمال في الخلايا المحددة يؤدي إلى {value} في الخلية المعلمة."
+msgstr "كل احتمال في الخلايا المحددة يؤدي إلى {value} في الخلية المميَّزة."
 
 #: src/history/constants/se-rating-band.constant.ts
 msgid "Expert"
@@ -1148,8 +1112,8 @@ msgid "In box {boxNumber}, {valueList} fits only in the highlighted cells, and t
 msgstr "في المربع {boxNumber}، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في الصف {rowNumber}."
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "In box {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
-msgstr "في المربع {regionNumber}، لا تناسب الأرقام {digitList} إلا الخلايا {cellList}، لذا لا تحتوي هذه الخلايا على أي رقم آخر."
+msgid "In box {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "في المربع {regionNumber}، لا تناسب الأرقام {digitList} إلا الخلايا {cellList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "In box {regionNumber}, {value} fits in only one cell."
@@ -1157,15 +1121,15 @@ msgstr "في المربع {regionNumber}، لا يمكن لـ {value} أن يو�
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "In box {regionNumber}, {value} fits only in the marked cell."
-msgstr "في المربع {regionNumber}، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
+msgstr "في المربع {regionNumber}، لا يمكن لـ {value} أن يوضع إلا في الخلية المميَّزة."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "In column {columnNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
 msgstr "في العمود {columnNumber}، لا يمكن لـ {valueList} أن يوضع إلا في الخلايا المحددة، وكلها تقع في المربع {boxNumber}."
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "In column {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
-msgstr "في العمود {regionNumber}، لا تناسب الأرقام {digitList} إلا الخلايا {cellList}، لذا لا تحتوي هذه الخلايا على أي رقم آخر."
+msgid "In column {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "في العمود {regionNumber}، لا تناسب الأرقام {digitList} إلا الخلايا {cellList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "In column {regionNumber}, {value} fits in only one cell."
@@ -1173,11 +1137,11 @@ msgstr "في العمود {regionNumber}، لا يمكن لـ {value} أن يو�
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "In column {regionNumber}, {value} fits only in the marked cell."
-msgstr "في العمود {regionNumber}، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
+msgstr "في العمود {regionNumber}، لا يمكن لـ {value} أن يوضع إلا في الخلية المميَّزة."
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "In row {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
-msgstr "في الصف {regionNumber}، لا تناسب الأرقام {digitList} إلا الخلايا {cellList}، لذا لا تحتوي هذه الخلايا على أي رقم آخر."
+msgid "In row {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "في الصف {regionNumber}، لا تناسب الأرقام {digitList} إلا الخلايا {cellList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "In row {regionNumber}, {value} fits in only one cell."
@@ -1185,7 +1149,7 @@ msgstr "في الصف {regionNumber}، لا يمكن لـ {value} أن يوضع 
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "In row {regionNumber}, {value} fits only in the marked cell."
-msgstr "في الصف {regionNumber}، لا يمكن لـ {value} أن يوضع إلا في الخلية المعلمة."
+msgstr "في الصف {regionNumber}، لا يمكن لـ {value} أن يوضع إلا في الخلية المميَّزة."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "In row {rowNumber}, {valueList} fits only in the highlighted cells, and they all lie in box {boxNumber}."
@@ -1327,7 +1291,6 @@ msgstr "انظر إلى الصف {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 #: src/game/utils/game-get-pattern-narration.util.ts
-#: src/game/utils/game-get-subset-narration.util.ts
 msgid "Look at the highlighted cells."
 msgstr "انظر إلى الخلايا المحددة."
 
@@ -1561,15 +1524,19 @@ msgstr "حسنًا"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "One end of the chain is always true and each marked candidate clashes with both ends, so {eliminationList}."
-msgstr "أحد طرفي السلسلة صحيح دائماً وكل مرشح معلم يتعارض مع الطرفين، لذا {eliminationList}."
+msgstr "أحد طرفي السلسلة صحيح دائماً وكل مرشح مميَّز يتعارض مع الطرفين، لذا {eliminationList}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "One of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
-msgstr "يجب أن تحمل إحدى المجموعتين {valueList}، وكل خلية معلمة ترى كل {valueList} في المجموعتين، لذا {eliminationList}."
+msgstr "يجب أن تحمل إحدى المجموعتين {valueList}، وكل خلية مميَّزة ترى كل {valueList} في المجموعتين، لذا {eliminationList}."
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "One solution · {difficulty} · SE {rating}"
 msgstr "حل واحد · {difficulty} · SE {rating}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Only {value} is left for {cellName}, with {removedList} gone."
+msgstr "لم يبقَ للخلية {cellName} إلا {value} بعد استبعاد {removedList}."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1655,7 +1622,7 @@ msgstr "ضع {placementValue}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Place {valueList} in the marked cell."
-msgstr "ضع {valueList} في الخلية المعلمة."
+msgstr "ضع {valueList} في الخلية المميَّزة."
 
 #: src/@generic/components/floating-tab-layout/floating-tab-layout.tsx
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
@@ -1896,6 +1863,10 @@ msgstr "الصف {row}، العمود {column}، فارغة"
 msgid "Row {row}, column {column}, empty, notes {noteList}"
 msgstr "الصف {row}، العمود {column}، فارغة، ملاحظات {noteList}"
 
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, empty, notes {noteList}, crossed out {crossedOutList}"
+msgstr "الصف {row}، العمود {column}، فارغة، ملاحظات {noteList}، مشطوبة {crossedOutList}"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Same-value cell"
 msgstr "الخلية ذات القيمة نفسها"
@@ -2059,6 +2030,22 @@ msgstr "أرقام أصغر لمساحة أكبر على اللوحة"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Smallest digits for compact boards"
 msgstr "أصغر أرقام للوحات المدمجة"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {cellList} can hold only {digitList}."
+msgstr "إذن لا يمكن أن تحتوي الخلايا {cellList} إلا على {digitList}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in box {regionNumber}."
+msgstr "إذن لا يمكن وضع الأرقام {digitList} في أي مكان آخر في المربع {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in column {regionNumber}."
+msgstr "إذن لا يمكن وضع الأرقام {digitList} في أي مكان آخر في العمود {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in row {regionNumber}."
+msgstr "إذن لا يمكن وضع الأرقام {digitList} في أي مكان آخر في الصف {regionNumber}."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
@@ -2259,7 +2246,7 @@ msgstr "الخلايا المحددة لا تترك لـ {value} إلا مكان
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "The highlighted cells leave only {value} for the marked cell."
-msgstr "الخلايا المحددة تترك {value} فقط للخلية المعلمة."
+msgstr "الخلايا المحددة تترك {value} فقط للخلية المميَّزة."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "The highlighted cells share their digits between the line and the box without repeating one, so {eliminationList}."
@@ -2283,11 +2270,11 @@ msgstr "تعذّر فتح رابط التثبيت. تحقق من إعدادات 
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "The marked cell sees every highlighted digit except {value}."
-msgstr "الخلية المعلمة ترى كل الأرقام المحددة ما عدا {value}."
+msgstr "الخلية المميَّزة ترى كل الأرقام المحددة ما عدا {value}."
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "The marked cells either see both colors or carry a color that contradicts itself, so {eliminationList}."
-msgstr "الخلايا المعلمة إما ترى اللونين أو تحمل لوناً يناقض نفسه، لذا {eliminationList}."
+msgstr "الخلايا المميَّزة إما ترى اللونين أو تحمل لوناً يناقض نفسه، لذا {eliminationList}."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "The SE difficulty scale"

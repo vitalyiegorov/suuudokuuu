@@ -1,5 +1,5 @@
 import { msg } from '@lingui/core/macro';
-import { HintLevelEnum, HintRegionKindEnum, StepScriptStepKindEnum, getBoxNumber, getHintRegion } from '@suuudokuuu/field-core';
+import { HintRegionKindEnum, StepScriptStepKindEnum, getBoxNumber, getHintRegion } from '@suuudokuuu/field-core';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { ChainLinkEnum, ForcingOutcomeKindEnum, SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
@@ -11,7 +11,6 @@ import { NarrationFamilyEnum } from '../enums/narration-family.enum';
 
 import { gameFormatList } from './game-format-list.util';
 import { gameGetCellName } from './game-get-cell-name.util';
-import { gameGetEliminationList } from './game-get-elimination-list.util';
 import { gameGetSubsetNarration } from './game-get-subset-narration.util';
 
 import type { I18n, MessageDescriptor } from '@lingui/core';
@@ -22,9 +21,6 @@ import type {
     StepScriptStepType
 } from '@suuudokuuu/field-core';
 import type { ChainCandidateInterface, ForcingContradictionType, ForcingOutcomeType } from '@suuudokuuu/techniques';
-
-const getNarrationFamily = (technique: SolutionTechniqueEnum): NarrationFamilyEnum =>
-    techniqueNarrationFamilyConstant[technique] ?? NarrationFamilyEnum.LOCKED_SET;
 
 const formatCandidate = ({ cell, value }: Pick<ChainCandidateInterface, 'cell' | 'value'>): string => `${gameGetCellName(cell)}=${value}`;
 
@@ -43,9 +39,10 @@ const getChainNarration = (step: StepScriptChainStepInterface): MessageDescripto
 const getRefutationNarration = (
     outcome: ForcingContradictionType,
     path: string,
-    { cell: assumedCell, value: assumptionValue }: Pick<ChainCandidateInterface, 'cell' | 'value'>
+    assumption: Pick<ChainCandidateInterface, 'cell' | 'value'>
 ): MessageDescriptor => {
-    const assumptionCell = gameGetCellName(assumedCell);
+    const assumptionCell = gameGetCellName(assumption.cell);
+    const assumptionValue = assumption.value;
 
     if (outcome.kind === ForcingOutcomeKindEnum.NO_POSITION) {
         const { value } = outcome;
@@ -114,7 +111,7 @@ const fullHouseNarrations: Partial<Record<HintRegionKindEnum, UnitPlacementNarra
 const getPlacementRevealNarration = (step: StepScriptStepType, value: string): MessageDescriptor => {
     const { cells, technique } = step.narration;
     const unit = cells.length === defaultSudokuConfig.fieldSize ? getHintRegion(cells) : null;
-    const family = getNarrationFamily(technique);
+    const family = techniqueNarrationFamilyConstant[technique] ?? NarrationFamilyEnum.LOCKED_SET;
 
     if (technique === SolutionTechniqueEnum.NakedSingle) {
         return msg`The marked cell sees every highlighted digit except ${value}.`;
@@ -218,22 +215,28 @@ const eliminationStrikeNarrations: Partial<Record<NarrationFamilyEnum, Eliminati
         msg`The highlighted cells share their digits between the line and the box without repeating one, so ${eliminationList}.`
 };
 
-const getPlaceNarration = (
-    scriptSteps: readonly StepScriptStepType[],
-    stepIndex: number,
-    valueList: string,
-    i18n: I18n
-): MessageDescriptor => {
-    const revealStep = scriptSteps.at(stepIndex - 1);
+const getEliminationList = (eliminations: readonly StepScriptCandidateInterface[], i18n: I18n): string =>
+    [...new Set(eliminations.map(({ cell }) => gameGetCellName(cell)))]
+        .map(cell => {
+            const values = eliminations
+                .flatMap(elimination => (gameGetCellName(elimination.cell) === cell ? [elimination.value] : []))
+                .join(', ');
+
+            return i18n._(msg`${cell} cannot be ${values}`);
+        })
+        .join('; ');
+
+const getPlaceNarration = (steps: readonly StepScriptStepType[], stepIndex: number, valueList: string, i18n: I18n): MessageDescriptor => {
+    const revealStep = steps.at(stepIndex - 1);
     const placement = revealStep?.narration.placement;
-    const isChainResult = stepIndex > 1 && scriptSteps.at(stepIndex - 2)?.kind === StepScriptStepKindEnum.StrikeCandidates;
+    const isChainResult = stepIndex > 1 && steps.at(stepIndex - 2)?.kind === StepScriptStepKindEnum.StrikeCandidates;
 
     if (!isChainResult || !isDefined(revealStep) || !isDefined(placement)) {
         return msg`Place ${valueList} in the marked cell.`;
     }
 
     const cellName = gameGetCellName(placement.cell);
-    const removedValues = scriptSteps
+    const removedValues = steps
         .flatMap(scriptStep => (scriptStep.kind === StepScriptStepKindEnum.StrikeCandidates ? scriptStep.eliminations : []))
         .flatMap(elimination => (gameGetCellName(elimination.cell) === cellName ? [elimination.value] : []))
         .sort((left, right) => left - right);
@@ -243,14 +246,9 @@ const getPlaceNarration = (
     }
 
     const { value } = placement;
-    const candidateList = gameFormatList(
-        [value, ...removedValues].sort((left, right) => left - right),
-        ListConjunctionEnum.OR,
-        i18n
-    );
     const removedList = gameFormatList(removedValues, ListConjunctionEnum.AND, i18n);
 
-    return msg`${cellName} could be ${candidateList}; with ${removedList} gone, only ${value} is left.`;
+    return msg`Only ${value} is left for ${cellName}, with ${removedList} gone.`;
 };
 
 export const gameGetStepNarration = (
@@ -260,8 +258,7 @@ export const gameGetStepNarration = (
 ): MessageDescriptor => {
     const valueList = step.narration.values.join(', ');
     const stepIndex = scriptSteps.indexOf(step);
-    const subsetNarration = gameGetSubsetNarration(scriptSteps, stepIndex, HintLevelEnum.WALKTHROUGH, i18n);
-    const family = getNarrationFamily(step.narration.technique);
+    const family = techniqueNarrationFamilyConstant[step.narration.technique] ?? NarrationFamilyEnum.LOCKED_SET;
 
     if (step.kind === StepScriptStepKindEnum.SHOW_CHAIN) {
         return getChainNarration(step);
@@ -282,7 +279,7 @@ export const gameGetStepNarration = (
 
         const revealNarration = eliminationRevealNarrations[family] ?? getLockedSetRevealNarration;
 
-        return subsetNarration ?? revealNarration(valueList, step.candidates);
+        return gameGetSubsetNarration(scriptSteps, stepIndex, i18n) ?? revealNarration(valueList, step.candidates);
     }
 
     if (step.kind === StepScriptStepKindEnum.StrikeCandidates) {
@@ -293,7 +290,9 @@ export const gameGetStepNarration = (
             return getRefutationNarration(refutedBranch.outcome, formatCandidate(refutedBranch.assumption), refutedBranch.assumption);
         }
 
-        return subsetNarration ?? strikeNarration(valueList, gameGetEliminationList(step.eliminations, i18n));
+        return (
+            gameGetSubsetNarration(scriptSteps, stepIndex, i18n) ?? strikeNarration(valueList, getEliminationList(step.eliminations, i18n))
+        );
     }
 
     return getPlaceNarration(scriptSteps, stepIndex, valueList, i18n);

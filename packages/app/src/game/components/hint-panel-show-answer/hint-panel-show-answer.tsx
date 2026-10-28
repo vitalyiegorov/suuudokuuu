@@ -14,6 +14,7 @@ import { HintPanelSelectors } from '../hint-panel/hint-panel.selectors';
 import { HintPanelShowAnswerStyles as styles } from './hint-panel-show-answer.styles';
 
 const showAnswerHitSlop = 12;
+const showAnswerMinimumFontScale = 0.6;
 
 export const HintPanelShowAnswer = () => {
     const { engine } = use(GameContext);
@@ -36,7 +37,13 @@ export const HintPanelShowAnswer = () => {
             style={styles.button}
             testID={HintPanelSelectors.SHOW_ANSWER_BUTTON}
         >
-            <BlackText maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} numberOfLines={1} style={styles.text}>
+            <BlackText
+                adjustsFontSizeToFit
+                maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                minimumFontScale={showAnswerMinimumFontScale}
+                numberOfLines={1}
+                style={styles.text}
+            >
                 <Trans>Show answer</Trans>
             </BlackText>
         </Pressable>

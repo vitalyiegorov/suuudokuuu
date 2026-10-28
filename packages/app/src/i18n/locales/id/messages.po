@@ -35,29 +35,9 @@ msgstr "{awaySeconds}s di luar aplikasi"
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Rentetan terbaik: # hari} other {Rentetan terbaik: # hari}}"
 
-#: src/game/utils/game-get-elimination-list.util.ts
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{cell} cannot be {values}"
 msgstr "{cell} tidak bisa {values}"
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} are kept for {digitList}, so {eliminationList}."
-msgstr "Sel {cellList} dicadangkan untuk angka {digitList}, sehingga {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in box {regionNumber}."
-msgstr "Sel {cellList} hanya bisa berisi {digitChoice}: setiap angka lain sudah ada di baris, kolom, atau kotak masing-masing sel. Jadi angka {digitList} harus berada di sel-sel ini dan tidak di tempat lain di kotak {regionNumber}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in column {regionNumber}."
-msgstr "Sel {cellList} hanya bisa berisi {digitChoice}: setiap angka lain sudah ada di baris, kolom, atau kotak masing-masing sel. Jadi angka {digitList} harus berada di sel-sel ini dan tidak di tempat lain di kolom {regionNumber}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in row {regionNumber}."
-msgstr "Sel {cellList} hanya bisa berisi {digitChoice}: setiap angka lain sudah ada di baris, kolom, atau kotak masing-masing sel. Jadi angka {digitList} harus berada di sel-sel ini dan tidak di tempat lain di baris {regionNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{cellName} could be {candidateList}; with {removedList} gone, only {value} is left."
-msgstr "Sel {cellName} bisa berisi {candidateList}; setelah {removedList} dihapus, hanya {value} yang tersisa."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{cellName} sees every highlighted digit except one."
@@ -84,24 +64,8 @@ msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} cannot go anywhere else in box {regionNumber}, so {eliminationList}."
-msgstr "Angka {digitList} tidak bisa ditempatkan di tempat lain di kotak {regionNumber}, sehingga {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} cannot go anywhere else in column {regionNumber}, so {eliminationList}."
-msgstr "Angka {digitList} tidak bisa ditempatkan di tempat lain di kolom {regionNumber}, sehingga {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} cannot go anywhere else in row {regionNumber}, so {eliminationList}."
-msgstr "Angka {digitList} tidak bisa ditempatkan di tempat lain di baris {regionNumber}, sehingga {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} must go in {cellList}, so those cells hold nothing else."
-msgstr "Angka {digitList} harus berada di sel {cellList}, sehingga sel-sel itu tidak berisi yang lain."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} must stay in {cellList}, so {eliminationList}."
-msgstr "Angka {digitList} harus tetap berada di sel {cellList}, sehingga {eliminationList}."
+msgid "{digitList} must go in {cellList}: those cells can only be {digitChoice}."
+msgstr "Angka {digitList} harus ada di sel {cellList}: sel-sel itu hanya bisa berisi {digitChoice}."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
@@ -1148,8 +1112,8 @@ msgid "In box {boxNumber}, {valueList} fits only in the highlighted cells, and t
 msgstr "Di kotak {boxNumber}, {valueList} hanya muat di sel yang disorot, dan semuanya berada di baris {rowNumber}."
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "In box {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
-msgstr "Di kotak {regionNumber}, angka {digitList} hanya muat di sel {cellList}, sehingga sel-sel itu tidak berisi yang lain."
+msgid "In box {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "Di kotak {regionNumber}, angka {digitList} hanya muat di sel {cellList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "In box {regionNumber}, {value} fits in only one cell."
@@ -1164,8 +1128,8 @@ msgid "In column {columnNumber}, {valueList} fits only in the highlighted cells,
 msgstr "Di kolom {columnNumber}, {valueList} hanya muat di sel yang disorot, dan semuanya berada di kotak {boxNumber}."
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "In column {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
-msgstr "Di kolom {regionNumber}, angka {digitList} hanya muat di sel {cellList}, sehingga sel-sel itu tidak berisi yang lain."
+msgid "In column {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "Di kolom {regionNumber}, angka {digitList} hanya muat di sel {cellList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "In column {regionNumber}, {value} fits in only one cell."
@@ -1176,8 +1140,8 @@ msgid "In column {regionNumber}, {value} fits only in the marked cell."
 msgstr "Di kolom {regionNumber}, {value} hanya muat di sel yang ditandai."
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "In row {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
-msgstr "Di baris {regionNumber}, angka {digitList} hanya muat di sel {cellList}, sehingga sel-sel itu tidak berisi yang lain."
+msgid "In row {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "Di baris {regionNumber}, angka {digitList} hanya muat di sel {cellList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "In row {regionNumber}, {value} fits in only one cell."
@@ -1327,7 +1291,6 @@ msgstr "Lihat baris {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 #: src/game/utils/game-get-pattern-narration.util.ts
-#: src/game/utils/game-get-subset-narration.util.ts
 msgid "Look at the highlighted cells."
 msgstr "Lihat sel yang disorot."
 
@@ -1570,6 +1533,10 @@ msgstr "Salah satu grup harus memuat {valueList}, dan setiap sel yang ditandai m
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "One solution · {difficulty} · SE {rating}"
 msgstr "Satu solusi · {difficulty} · SE {rating}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Only {value} is left for {cellName}, with {removedList} gone."
+msgstr "Hanya {value} yang tersisa untuk {cellName}, karena {removedList} sudah dicoret."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1896,6 +1863,10 @@ msgstr "Baris {row}, kolom {column}, kosong"
 msgid "Row {row}, column {column}, empty, notes {noteList}"
 msgstr "Baris {row}, kolom {column}, kosong, catatan {noteList}"
 
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, empty, notes {noteList}, crossed out {crossedOutList}"
+msgstr "Baris {row}, kolom {column}, kosong, catatan {noteList}, dicoret {crossedOutList}"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Same-value cell"
 msgstr "Sel bernilai sama"
@@ -2059,6 +2030,22 @@ msgstr "Angka lebih kecil agar papan punya lebih banyak ruang"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Smallest digits for compact boards"
 msgstr "Angka paling kecil untuk papan yang padat"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {cellList} can hold only {digitList}."
+msgstr "Jadi sel {cellList} hanya bisa berisi {digitList}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in box {regionNumber}."
+msgstr "Jadi angka {digitList} tidak bisa ditempatkan di tempat lain di kotak {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in column {regionNumber}."
+msgstr "Jadi angka {digitList} tidak bisa ditempatkan di tempat lain di kolom {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in row {regionNumber}."
+msgstr "Jadi angka {digitList} tidak bisa ditempatkan di tempat lain di baris {regionNumber}."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"

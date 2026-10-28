@@ -29,7 +29,7 @@ export const HintLevelNarration = ({ hintLevel, hintRegion, stepScript }: Props)
     const regionNumber = hintRegion?.number;
     const regionCell = hintRegion?.cell;
 
-    const subsetNudge = gameGetSubsetNarration(stepScript.steps, 0, HintLevelEnum.TECHNIQUE, i18n);
+    const subsetNudge = gameGetSubsetNarration(stepScript.steps, 0, i18n, HintLevelEnum.TECHNIQUE);
 
     const getNarrationText = () => {
         if (hintLevel === HintLevelEnum.PATTERN) {

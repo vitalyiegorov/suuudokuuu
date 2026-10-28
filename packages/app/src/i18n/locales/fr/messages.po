@@ -37,29 +37,9 @@ msgstr "{awaySeconds}s absent"
 msgid "{bestStreak, plural, one {Best streak: # day} other {Best streak: # days}}"
 msgstr "{bestStreak, plural, one {Meilleure série : # jour} other {Meilleure série : # jours}}"
 
-#: src/game/utils/game-get-elimination-list.util.ts
+#: src/game/utils/game-get-step-narration.util.ts
 msgid "{cell} cannot be {values}"
 msgstr "{cell} ne peut pas valoir {values}"
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} are kept for {digitList}, so {eliminationList}."
-msgstr "Les cases {cellList} sont réservées aux chiffres {digitList}, donc {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in box {regionNumber}."
-msgstr "Les cases {cellList} ne peuvent contenir que {digitChoice} : tout autre chiffre figure déjà dans la ligne, la colonne ou la région de chaque case. Les chiffres {digitList} doivent donc aller dans ces cases et nulle part ailleurs dans la région {regionNumber}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in column {regionNumber}."
-msgstr "Les cases {cellList} ne peuvent contenir que {digitChoice} : tout autre chiffre figure déjà dans la ligne, la colonne ou la région de chaque case. Les chiffres {digitList} doivent donc aller dans ces cases et nulle part ailleurs dans la colonne {regionNumber}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{cellList} can only be {digitChoice}: every other digit already appears in each cell's row, column or box. So {digitList} must go in these cells and nowhere else in row {regionNumber}."
-msgstr "Les cases {cellList} ne peuvent contenir que {digitChoice} : tout autre chiffre figure déjà dans la ligne, la colonne ou la région de chaque case. Les chiffres {digitList} doivent donc aller dans ces cases et nulle part ailleurs dans la ligne {regionNumber}."
-
-#: src/game/utils/game-get-step-narration.util.ts
-msgid "{cellName} could be {candidateList}; with {removedList} gone, only {value} is left."
-msgstr "La case {cellName} pourrait contenir {candidateList} ; sans {removedList}, il ne reste que {value}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "{cellName} sees every highlighted digit except one."
@@ -86,24 +66,8 @@ msgid "{dateText}, {stateText}"
 msgstr "{dateText}, {stateText}"
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} cannot go anywhere else in box {regionNumber}, so {eliminationList}."
-msgstr "Les chiffres {digitList} ne peuvent aller nulle part ailleurs dans la région {regionNumber}, donc {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} cannot go anywhere else in column {regionNumber}, so {eliminationList}."
-msgstr "Les chiffres {digitList} ne peuvent aller nulle part ailleurs dans la colonne {regionNumber}, donc {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} cannot go anywhere else in row {regionNumber}, so {eliminationList}."
-msgstr "Les chiffres {digitList} ne peuvent aller nulle part ailleurs dans la ligne {regionNumber}, donc {eliminationList}."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} must go in {cellList}, so those cells hold nothing else."
-msgstr "Les chiffres {digitList} doivent aller dans les cases {cellList}, donc ces cases ne contiennent rien d’autre."
-
-#: src/game/utils/game-get-subset-narration.util.ts
-msgid "{digitList} must stay in {cellList}, so {eliminationList}."
-msgstr "Les chiffres {digitList} doivent rester dans les cases {cellList}, donc {eliminationList}."
+msgid "{digitList} must go in {cellList}: those cells can only be {digitChoice}."
+msgstr "Les chiffres {digitList} doivent aller dans les cases {cellList} : ces cases ne peuvent contenir que {digitChoice}."
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "{draftThemeName} copy"
@@ -1150,8 +1114,8 @@ msgid "In box {boxNumber}, {valueList} fits only in the highlighted cells, and t
 msgstr "Dans le bloc {boxNumber}, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans la ligne {rowNumber}."
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "In box {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
-msgstr "Dans la région {regionNumber}, les chiffres {digitList} ne tiennent que dans les cases {cellList}, donc ces cases ne contiennent rien d’autre."
+msgid "In box {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "Dans le bloc {regionNumber}, les chiffres {digitList} ne tiennent que dans les cases {cellList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "In box {regionNumber}, {value} fits in only one cell."
@@ -1166,8 +1130,8 @@ msgid "In column {columnNumber}, {valueList} fits only in the highlighted cells,
 msgstr "Dans la colonne {columnNumber}, {valueList} ne peut aller que dans les cases surlignées, et elles sont toutes dans le bloc {boxNumber}."
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "In column {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
-msgstr "Dans la colonne {regionNumber}, les chiffres {digitList} ne tiennent que dans les cases {cellList}, donc ces cases ne contiennent rien d’autre."
+msgid "In column {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "Dans la colonne {regionNumber}, les chiffres {digitList} ne tiennent que dans les cases {cellList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "In column {regionNumber}, {value} fits in only one cell."
@@ -1178,8 +1142,8 @@ msgid "In column {regionNumber}, {value} fits only in the marked cell."
 msgstr "Dans la colonne {regionNumber}, {value} ne peut aller que dans la case marquée."
 
 #: src/game/utils/game-get-subset-narration.util.ts
-msgid "In row {regionNumber}, {digitList} fit only in {cellList}, so those cells hold nothing else."
-msgstr "Dans la ligne {regionNumber}, les chiffres {digitList} ne tiennent que dans les cases {cellList}, donc ces cases ne contiennent rien d’autre."
+msgid "In row {regionNumber}, {digitList} fit only in {cellList}."
+msgstr "Dans la ligne {regionNumber}, les chiffres {digitList} ne tiennent que dans les cases {cellList}."
 
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "In row {regionNumber}, {value} fits in only one cell."
@@ -1329,7 +1293,6 @@ msgstr "Regardez ligne {regionNumber}."
 
 #: src/game/components/hint-level-narration/hint-level-narration.tsx
 #: src/game/utils/game-get-pattern-narration.util.ts
-#: src/game/utils/game-get-subset-narration.util.ts
 msgid "Look at the highlighted cells."
 msgstr "Regardez les cases surlignées."
 
@@ -1572,6 +1535,10 @@ msgstr "L'un des groupes doit contenir {valueList}, et chaque case marquée voit
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "One solution · {difficulty} · SE {rating}"
 msgstr "Une seule solution · {difficulty} · SE {rating}"
+
+#: src/game/utils/game-get-step-narration.util.ts
+msgid "Only {value} is left for {cellName}, with {removedList} gone."
+msgstr "Il ne reste que {value} pour {cellName}, une fois {removedList} écartés."
 
 #: src/screens/components/beta-screen/components/beta-release-details/beta-release-details.tsx
 msgid "Open commit {commitShortSha} on GitHub"
@@ -1898,6 +1865,10 @@ msgstr "Ligne {row}, colonne {column}, vide"
 msgid "Row {row}, column {column}, empty, notes {noteList}"
 msgstr "Ligne {row}, colonne {column}, vide, notes {noteList}"
 
+#: src/game/utils/game-get-cell-accessibility-label.util.ts
+msgid "Row {row}, column {column}, empty, notes {noteList}, crossed out {crossedOutList}"
+msgstr "Ligne {row}, colonne {column}, vide, notes {noteList}, barrées {crossedOutList}"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Same-value cell"
 msgstr "Cellule de même valeur"
@@ -2061,6 +2032,22 @@ msgstr "Chiffres plus petits pour laisser plus de place à la grille"
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Smallest digits for compact boards"
 msgstr "Chiffres les plus petits pour les grilles compactes"
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {cellList} can hold only {digitList}."
+msgstr "Donc les cases {cellList} ne peuvent contenir que {digitList}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in box {regionNumber}."
+msgstr "Donc les chiffres {digitList} ne peuvent aller nulle part ailleurs dans le bloc {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in column {regionNumber}."
+msgstr "Donc les chiffres {digitList} ne peuvent aller nulle part ailleurs dans la colonne {regionNumber}."
+
+#: src/game/utils/game-get-subset-narration.util.ts
+msgid "So {digitList} cannot go anywhere else in row {regionNumber}."
+msgstr "Donc les chiffres {digitList} ne peuvent aller nulle part ailleurs dans la ligne {regionNumber}."
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Soft gray board with a paper-like feel"
