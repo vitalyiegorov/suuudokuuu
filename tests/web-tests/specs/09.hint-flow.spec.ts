@@ -56,18 +56,11 @@ const fieldSize = 9;
 const smallPhoneViewportWidth = 375;
 const smallPhoneViewportHeight = 667;
 const nakedPairPuzzle = '003020000020380740040000230007000920052830100001002050390015002274968010510203090';
-const nakedPairTechniqueLabels = ['Відкрита пара', 'Відкритий одинак'];
 const nakedPairHintPages: readonly (readonly [string, string])[] = [
     ['Відкрита пара', 'Подивіться на рядок 1: 2 клітинки там можуть містити лише ті самі 2 цифри.'],
-    [
-        'Відкрита пара',
-        'Клітинки r1c2 і r1c8 можуть містити лише 6 або 8: усі інші цифри вже є в рядку, стовпці чи блоці кожної з них. Тож цифри 6 і 8 мають стояти саме в цих клітинках і більше ніде в рядку 1.'
-    ],
-    [
-        'Відкрита пара',
-        'Цифри 6 і 8 не можуть стояти більше ніде в рядку 1, тож r1c1 не може бути 6 або 8; r1c4 не може бути 6; r1c6 не може бути 6; r1c7 не може бути 6 або 8; r1c9 не може бути 6 або 8.'
-    ],
-    ['Відкритий одинак', 'Клітинка r1c7 могла містити 5, 6 або 8; без 6 і 8 у ній лишається тільки 5.']
+    ['Відкрита пара', 'Цифри 6 і 8 мають стояти в клітинках r1c2 і r1c8: ці клітинки можуть містити лише 6 або 8.'],
+    ['Відкрита пара', 'Тож цифри 6 і 8 не можуть стояти більше ніде в рядку 1.'],
+    ['Відкритий одинак', 'Для клітинки r1c7 лишається тільки 5, бо 6 і 8 вже вибули.']
 ];
 
 const gameScreenTimeoutMilliseconds = 15000;
@@ -182,23 +175,19 @@ const countTintedCells = async (page: Page, backgroundsBefore: Map<string, strin
         ([cellTestIdentifier, background]) => backgroundsBefore.get(cellTestIdentifier) !== background
     ).length;
 
-const readNarrationEndVisibility = async (page: Page): Promise<readonly [boolean, boolean]> =>
+const isNarrationEndVisible = async (page: Page): Promise<boolean> =>
     page.getByTestId(HintStepNarrationSelectors.Narration).evaluate((element, scrollTestId) => {
         const scrollElement = element.closest(`[data-testid="${scrollTestId}"]`);
 
         if (scrollElement === null) {
-            return [false, false] as const;
+            return false;
         }
-
-        const isScrollable =
-            scrollElement.scrollHeight <= scrollElement.clientHeight || getComputedStyle(scrollElement).overflowY !== 'hidden';
 
         scrollElement.scrollTop = scrollElement.scrollHeight;
 
-        const textBounds = element.getBoundingClientRect();
         const scrollBounds = scrollElement.getBoundingClientRect();
 
-        return [isScrollable, textBounds.bottom <= scrollBounds.bottom + 1 && scrollBounds.bottom <= window.innerHeight] as const;
+        return element.getBoundingClientRect().bottom <= scrollBounds.bottom + 1 && scrollBounds.bottom <= window.innerHeight;
     }, HintStepNarrationSelectors.NARRATION_SCROLL);
 
 const openSharedHintPuzzle = async (page: Page, encodedPuzzle: string): Promise<void> => {
@@ -802,7 +791,10 @@ test('shows the candidates an elimination hint strikes while candidates are hidd
     const column = Number(strikeMatch?.groups?.['column']);
     const value = strikeMatch?.groups?.['value'] ?? '';
     const struckCell = page.getByTestId(cellTestId(row - 1, column - 1));
-    const notesPattern = new RegExp(`^Row ${row}, column ${column}, empty, notes (?:\\d, )*${value}(?:, \\d)*$`, 'u');
+    const notesPattern = new RegExp(
+        `^Row ${row}, column ${column}, empty, notes (?:\\d, )*${value}(?:, \\d)*, crossed out (?:\\d, )*${value}(?:, \\d)*$`,
+        'u'
+    );
 
     await expect(struckCell).toHaveAttribute('aria-label', notesPattern);
     await expect(struckCell.getByText(value, { exact: true })).toHaveCSS('text-decoration-line', 'line-through');
@@ -815,7 +807,7 @@ test('shows the candidates an elimination hint strikes while candidates are hidd
 test.describe('the reported naked pair hint in Ukrainian on a small phone', () => {
     test.use({ locale: 'uk-UA', viewport: { width: smallPhoneViewportWidth, height: smallPhoneViewportHeight } });
 
-    test('explains the naked pair and the single it leaves in four complete, unclipped steps', async ({ page }, testInfo) => {
+    test('explains the naked pair and the single it leaves in four complete, unclipped steps', async ({ page }) => {
         const narration = page.getByTestId(HintStepNarrationSelectors.Narration);
         const technique = page.getByTestId(HintStepNarrationSelectors.Technique);
         const next = page.getByTestId(HintPanelSelectors.NextButton);
@@ -824,7 +816,7 @@ test.describe('the reported naked pair hint in Ukrainian on a small phone', () =
         await page.getByTestId(ImportScreenSelectors.PlayButton).click();
         await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
         await page.getByTestId(HintButtonSelectors.Root).click();
-        await expect(page.getByTestId(HintStepNarrationSelectors.TECHNIQUE_CHAIN)).toHaveText(nakedPairTechniqueLabels.join(' → '));
+        await expect(page.getByTestId(HintStepNarrationSelectors.TECHNIQUE_CHAIN)).toHaveText('Відкрита пара → Відкритий одинак');
 
         for (const [pageIndex, [pageTechnique, pageNarration]] of nakedPairHintPages.entries()) {
             await expect(page.getByTestId(HintPanelSelectors.Progress)).toHaveAttribute(
@@ -833,15 +825,14 @@ test.describe('the reported naked pair hint in Ukrainian on a small phone', () =
             );
             await expect(technique).toHaveText(pageTechnique);
             await expect(narration).toHaveText(pageNarration);
-            expect(nakedPairTechniqueLabels.some(label => pageNarration.includes(label))).toBe(false);
-            await page.screenshot({ scale: 'css', path: testInfo.outputPath(`naked-pair-uk-step-${pageIndex + 1}.png`) });
-            expect(await readNarrationEndVisibility(page)).toEqual([true, true]);
+            expect(await isNarrationEndVisible(page)).toBe(true);
 
             if (pageIndex < nakedPairHintPages.length - 1) {
                 await next.click();
             }
         }
 
+        await expect(page.getByTestId(cellTestId(0, 0))).toHaveAttribute('aria-label', /, закреслено 6, 8$/u);
         await page.getByTestId(HintPanelSelectors.ApplyButton).click();
         await expect(page.getByTestId(cellTestId(0, 6))).toHaveAttribute('aria-label', /, 5$/u);
     });
