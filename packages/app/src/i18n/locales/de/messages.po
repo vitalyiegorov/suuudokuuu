@@ -2116,7 +2116,7 @@ msgstr "Statistik"
 msgid "Stayed in app"
 msgstr "In der App geblieben"
 
-#: src/game/components/hint-stepper/hint-stepper.tsx
+#: src/game/components/hint-stepper-progress/hint-stepper-progress.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Schritt {currentStepNumber} von {stepCount}"
 

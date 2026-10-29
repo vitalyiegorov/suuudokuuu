@@ -59,7 +59,7 @@ export const GameScreenStyles = StyleSheet.create((theme, rt) => ({
         flexShrink: 0,
         justifyContent: 'center',
         paddingBottom: theme.spacing.sm,
-        paddingTop: gameGetControlsSlackHeight(rt.fontScale)
+        paddingTop: gameGetControlsSlackHeight(rt.fontScale, rt.screen.width)
     },
     panelArea: (boardSize: number) => {
         const isWideLayout = appLayoutScreenIsWide(rt.screen);
