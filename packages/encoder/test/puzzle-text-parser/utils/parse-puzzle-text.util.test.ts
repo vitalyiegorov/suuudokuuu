@@ -1,7 +1,8 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { parsePuzzleText } from '../../../src/puzzle-text-parser/utils/parse-puzzle-text.util';
 
+const trailingTokenCount = 1_000_000;
 const strayNumberCount = 20_000;
 const puzzle = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
 const zeroPuzzle = puzzle.replaceAll('.', '0');
@@ -24,6 +25,18 @@ const borderedGrid = [
 ].join('\n');
 
 describe('parsePuzzleText', () => {
+    it('stops normalizing tokens after the first grid', () => {
+        expect.assertions(2);
+
+        const normalization = vi.spyOn(String.prototype, 'replaceAll');
+        const result = parsePuzzleText(`${puzzle}\n${'1 '.repeat(trailingTokenCount)}`);
+        const calls = normalization.mock.calls.length;
+
+        normalization.mockRestore();
+        expect(result).toBe(puzzle);
+        expect(calls).toBeLessThanOrEqual(4);
+    });
+
     it.each([
         ['a dotted string', puzzle],
         ['a zero string', zeroPuzzle],
@@ -56,6 +69,7 @@ describe('parsePuzzleText', () => {
 
     it.each([
         ['an empty string', ''],
+        ['a large invalid run', '12345678 '.repeat(strayNumberCount)],
         ['eighty cells', puzzle.slice(1)],
         ['eighty-two cells', `${puzzle}1`],
         ['a letter inside the string', puzzle.replace('7', 'x')],
