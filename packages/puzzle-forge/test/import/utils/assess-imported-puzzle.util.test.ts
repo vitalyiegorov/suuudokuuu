@@ -13,6 +13,16 @@ const easyPuzzle = '2.846.9.5.75.....2.9.32.4.896.1438.75......6.7....82..32..1.
 const aiEscargotPuzzle = '1....7.9..3..2...8..96..5....53..9...1..8...26....4...3......1..4......7..7...3..';
 
 describe('assessImportedPuzzle', () => {
+    it('should distinguish a complete grid from its playable one-blank control', () => {
+        const solution = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
+
+        expect(assessImportedPuzzle(solution)).toStrictEqual({ kind: ImportedPuzzleAssessmentKindEnum.COMPLETE });
+        expect(assessImportedPuzzle(`${solution.slice(0, -1)}.`)).toMatchObject({
+            kind: ImportedPuzzleAssessmentKindEnum.UNIQUE,
+            solutionString: solution
+        });
+    });
+
     it('should report every cell holding a duplicated given across rows, columns and boxes', () => {
         expect(assessImportedPuzzle(`1......1.${emptyRow}..1......${emptyRow.repeat(6)}`)).toStrictEqual({
             kind: ImportedPuzzleAssessmentKindEnum.CONFLICT,

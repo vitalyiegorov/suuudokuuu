@@ -51,6 +51,10 @@ export const assessImportedPuzzle = (puzzleString: string): ImportedPuzzleAssess
         return { kind: ImportedPuzzleAssessmentKindEnum.CONFLICT, cellIndexes };
     }
 
+    if (!grid.includes(GRID_BLANK_VALUE)) {
+        return { kind: ImportedPuzzleAssessmentKindEnum.COMPLETE };
+    }
+
     const solver = new DLXSolver();
 
     if (solver.countSolutions(grid, UNIQUENESS_COUNT_LIMIT) > 1) {

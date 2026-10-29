@@ -2315,6 +2315,10 @@ msgstr "此文件不是 {appName} 备份，或由更新版本的应用创建。"
 msgid "This puzzle could not be checked"
 msgstr "无法检查此谜题"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle is already complete"
+msgstr "此数独已完成"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
 msgstr "这会显示答案中标记单元格的数字。"
