@@ -27,6 +27,20 @@ const borderedGrid = [
 ].join('\n');
 
 describe('parsePuzzleText', () => {
+    it.each(['------+-------+------', '---------------------', '-'.repeat(9)])('ignores horizontal row separator %s', separator => {
+        expect.assertions(1);
+
+        expect(parsePuzzleText(rows.join(`\n${separator}\n`))).toBe(puzzle);
+    });
+
+    it.each([0, 4, 8])('preserves an unbordered blank dashed row at index %s', blankRowIndex => {
+        expect.assertions(1);
+
+        const gridRows = rows.map((row, rowIndex) => (rowIndex === blankRowIndex ? '---------' : row.replaceAll('.', '-')));
+
+        expect(parsePuzzleText(gridRows.join('\n'))).toBe(gridRows.join('').replaceAll('-', '.'));
+    });
+
     it('stops normalizing tokens after the first grid', () => {
         expect.assertions(2);
 

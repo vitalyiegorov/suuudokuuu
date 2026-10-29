@@ -1,11 +1,12 @@
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
-import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../../@generic/constants/grid.constant';
+import { GRID_CELL_COUNT, GRID_EMPTY_CELL, GRID_SIZE } from '../../@generic/constants/grid.constant';
 
+const DASHED_ROW = '-'.repeat(GRID_SIZE);
 const TOKEN_DELIMITER_PATTERN = /[\s?&#=/,;()[\]{}"'`]+/gu;
 
 const readTokenCells = (token: string): string | null => {
-    const cells = /^\+[-+]+\+$/u.test(token) ? '' : token.replaceAll(/[+|]/gu, '');
+    const cells = /^(?=[-+]*\+)[-+]+$/u.test(token) || /^-{10,80}$/u.test(token) ? '' : token.replaceAll(/[+|]/gu, '');
 
     return /^[\d.*_-]*$/u.test(cells) ? cells.replaceAll(/[0*_-]/gu, GRID_EMPTY_CELL) : null;
 };
@@ -27,25 +28,50 @@ const readDecodedTokens = function* (text: string): Generator<string> {
     }
 };
 
+const readRowsWithoutSeparators = (rows: readonly string[], tokens: Generator<string>): string | null => {
+    let candidate = rows.filter(row => row !== DASHED_ROW).join('');
+
+    for (const token of tokens) {
+        const cells = /^-+$/u.test(token) ? '' : readTokenCells(token);
+
+        if (cells !== '') {
+            if (cells?.length !== GRID_SIZE) {
+                return null;
+            }
+            candidate += cells;
+            if (candidate.length === GRID_CELL_COUNT) {
+                return candidate;
+            }
+        }
+    }
+
+    return null;
+};
+
 export const parsePuzzleText = (text: string): string | null => {
-    const tokenLengths: number[] = [];
+    const tokenCells: string[] = [];
+    const tokens = readDecodedTokens(text);
     let candidate = '';
 
-    for (const token of readDecodedTokens(text)) {
+    for (const token of tokens) {
         const cells = readTokenCells(token);
 
         if (!isDefined(cells)) {
             candidate = '';
-            tokenLengths.length = 0;
+            tokenCells.length = 0;
         } else if (isNotEmptyString(cells)) {
             candidate += cells;
-            tokenLengths.push(cells.length);
+            tokenCells.push(token === DASHED_ROW ? token : cells);
 
             while (candidate.length > GRID_CELL_COUNT) {
-                candidate = candidate.slice(tokenLengths.shift());
+                candidate = candidate.slice(tokenCells.shift()?.length);
             }
 
             if (candidate.length === GRID_CELL_COUNT) {
+                if (tokenCells.every(row => row.length === GRID_SIZE) && tokenCells.includes(DASHED_ROW)) {
+                    return readRowsWithoutSeparators(tokenCells, tokens) ?? candidate;
+                }
+
                 return candidate;
             }
         }
