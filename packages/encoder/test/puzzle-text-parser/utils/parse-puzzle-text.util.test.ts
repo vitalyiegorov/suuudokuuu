@@ -48,6 +48,11 @@ describe('parsePuzzleText', () => {
         ['nine rows with spaced cells', rows.map(row => row.split('').join(' ')).join('\r\n')],
         ['space-separated row groups on one line', rows.join(' ')],
         ['a bordered grid', borderedGrid],
+        ['compact pipe borders with dashed blanks', rows.map(row => `|${row.replaceAll('.', '-')}|`).join('\n')],
+        [
+            'compact dashed rows with horizontal frames',
+            rows.map(row => `|${row.replaceAll('.', '-')}|`).join('\n+-------+-------+-------+\n')
+        ],
         ['a SudokuWiki link', `https://www.sudokuwiki.org/sudoku.htm?bd=${zeroPuzzle}`],
         ['an import link', `https://www.suuudokuuu.com/import?puzzle=${puzzle}`],
         ['a link with the puzzle in the path', `https://example.com/play/${zeroPuzzle}?mode=classic#top`],
@@ -65,6 +70,12 @@ describe('parsePuzzleText', () => {
         expect.assertions(1);
 
         expect(parsePuzzleText(text)).toBe(puzzle);
+    });
+
+    it('preserves completely blank dashed rows inside pipe borders', () => {
+        expect.assertions(1);
+
+        expect(parsePuzzleText(Array.from({ length: 9 }, () => '|---------|').join('\n'))).toBe('.'.repeat(puzzle.length));
     });
 
     it.each([

@@ -5,7 +5,7 @@ import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../../@generic/constants/grid.
 const TOKEN_DELIMITER_PATTERN = /(?:[\s?&#=/,;()[\]{}"'`]|%(?:0[9AD]|20|2C))+/giu;
 
 const readTokenCells = (token: string): string | null => {
-    const cells = token.replaceAll(/[+|]/u.test(token) ? /[+|-]/gu : /[+|]/gu, '');
+    const cells = /^\+[-+]+\+$/u.test(token) ? '' : token.replaceAll(/[+|]/gu, '');
 
     return /^[\d.*_-]*$/u.test(cells) ? cells.replaceAll(/[0*_-]/gu, GRID_EMPTY_CELL) : null;
 };
