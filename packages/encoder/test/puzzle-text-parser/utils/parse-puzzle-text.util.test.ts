@@ -57,6 +57,8 @@ describe('parsePuzzleText', () => {
         ],
         ['a fully percent-encoded SudokuWiki value', `https://www.sudokuwiki.org/sudoku.htm?bd=${encodedPuzzle}`],
         ['lowercase percent escapes', `https://www.sudokuwiki.org/sudoku.htm?bd=${encodedPuzzle.toLowerCase()}`],
+        ['encoded semicolon-separated rows', `https://example.com/?puzzle=${encodeURIComponent(rows.join(';'))}`],
+        ['encoded bordered grid', `https://example.com/?puzzle=${encodeURIComponent(borderedGrid)}`],
         ['mixed encoded cells', `https://example.com/?puzzle=${puzzle.replaceAll('.', '%30')}`],
         ['a puzzle after malformed URL escapes', `https://example.com/?bad=%GG&puzzle=${encodedPuzzle}`],
         ['a SudokuWiki link', `https://www.sudokuwiki.org/sudoku.htm?bd=${zeroPuzzle}`],
@@ -85,6 +87,8 @@ describe('parsePuzzleText', () => {
     });
 
     it.each([
+        ['double-encoded cells', `https://example.com/?puzzle=${encodedPuzzle.replaceAll('%', '%25')}`],
+        ['double-encoded row breaks', `https://example.com/?puzzle=${rows.join('%250A')}`],
         ['an incomplete percent escape', `https://example.com/?puzzle=${puzzle.slice(1)}%`],
         ['a truncated percent escape', `https://example.com/?puzzle=${puzzle.slice(1)}%3`],
         ['a non-hexadecimal percent escape', `https://example.com/?puzzle=${puzzle.slice(1)}%GG`],

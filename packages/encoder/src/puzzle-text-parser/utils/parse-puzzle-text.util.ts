@@ -2,11 +2,10 @@ import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { GRID_CELL_COUNT, GRID_EMPTY_CELL } from '../../@generic/constants/grid.constant';
 
-const TOKEN_DELIMITER_PATTERN = /(?:[\s?&#=/,;()[\]{}"'`]|%(?:0[9AD]|20|2C))+/giu;
+const TOKEN_DELIMITER_PATTERN = /[\s?&#=/,;()[\]{}"'`]+/gu;
 
 const readTokenCells = (token: string): string | null => {
-    const decodedToken = token.replaceAll(/%[\dA-F]{2}/giu, encoded => String.fromCharCode(Number(`0x${encoded.slice(1)}`)));
-    const cells = /^\+[-+]+\+$/u.test(decodedToken) ? '' : decodedToken.replaceAll(/[+|]/gu, '');
+    const cells = /^\+[-+]+\+$/u.test(token) ? '' : token.replaceAll(/[+|]/gu, '');
 
     return /^[\d.*_-]*$/u.test(cells) ? cells.replaceAll(/[0*_-]/gu, GRID_EMPTY_CELL) : null;
 };
@@ -22,11 +21,17 @@ const readTokens = function* (text: string): Generator<string> {
     yield text.slice(startIndex);
 };
 
+const readDecodedTokens = function* (text: string): Generator<string> {
+    for (const token of readTokens(text)) {
+        yield* readTokens(token.replaceAll(/%[\dA-F]{2}/giu, encoded => String.fromCharCode(Number(`0x${encoded.slice(1)}`))));
+    }
+};
+
 export const parsePuzzleText = (text: string): string | null => {
     const tokenLengths: number[] = [];
     let candidate = '';
 
-    for (const token of readTokens(text)) {
+    for (const token of readDecodedTokens(text)) {
         const cells = readTokenCells(token);
 
         if (!isDefined(cells)) {
