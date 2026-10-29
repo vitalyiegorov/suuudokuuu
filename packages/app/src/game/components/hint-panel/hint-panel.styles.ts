@@ -2,6 +2,7 @@ import { appLayoutScreenIsWide } from '@suuudokuuu/ui';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { gameGetHintFooterHeight } from '../../utils/game-get-hint-footer-height.util';
+import { gameGetHintMinHeight } from '../../utils/game-get-hint-min-height.util';
 
 import type { EdgeInsets } from 'react-native-safe-area-context';
 
@@ -11,16 +12,21 @@ const hintPanelControlSize = 44;
 const hintPanelStepperButtonMinWidth = 80;
 
 export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
-    region: (controlsTop: number, insets: EdgeInsets) => {
+    region: (controlsTop: number, availableHeight: number, insets: EdgeInsets) => {
         const isWideLayout = appLayoutScreenIsWide(rt.screen);
 
+        const bottom =
+            Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md - (isWideLayout ? 0 : rt.insets.bottom + theme.spacing.xs);
+        const controlsOffset = isWideLayout ? controlsTop : controlsTop + theme.spacing.md;
+        const top = Math.min(controlsOffset, Math.max(0, availableHeight - bottom - gameGetHintMinHeight(rt.fontScale)));
+
         return {
-            bottom: Math.max(insets.bottom, theme.spacing.md) + theme.spacing.md - (isWideLayout ? 0 : rt.insets.bottom + theme.spacing.xs),
+            bottom,
             justifyContent: 'flex-start',
             left: isWideLayout ? 0 : insets.left + theme.spacing.md,
             position: 'absolute',
             right: isWideLayout ? 0 : insets.right + theme.spacing.md,
-            top: isWideLayout ? controlsTop : controlsTop + theme.spacing.md,
+            top,
             zIndex: 10
         };
     },
@@ -38,21 +44,9 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
         width: '100%',
         overflow: 'hidden'
     },
-    page: {
-        flexGrow: 1,
-        flexShrink: 1,
-        gap: theme.spacing.sm,
-        minHeight: 0
-    },
-    header: {
-        alignItems: 'center',
-        flexDirection: 'row',
-        flexShrink: 0
-    },
-    dismissButton: {
-        height: hintPanelControlSize,
-        width: hintPanelControlSize
-    },
+    page: { flexGrow: 1, flexShrink: 1, gap: theme.spacing.sm, minHeight: 0 },
+    header: { alignItems: 'center', flexDirection: 'row', flexShrink: 0 },
+    dismissButton: { height: hintPanelControlSize, width: hintPanelControlSize },
     titles: { flex: 1 },
     technique: {
         color: theme.colors.text.hint,
@@ -67,8 +61,8 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
         textAlign: 'left'
     },
     actions: {
-        alignItems: 'center',
-        flexDirection: 'row',
+        alignItems: 'stretch',
+        flexDirection: 'column',
         flexShrink: 0,
         gap: theme.spacing.sm,
         marginTop: theme.spacing.xs
@@ -81,12 +75,12 @@ export const HintPanelStyles = StyleSheet.create((theme, rt) => ({
     stepperButton: {
         borderRadius: theme.radius.pill,
         height: gameGetHintFooterHeight(rt.fontScale),
-        minWidth: hintPanelStepperButtonMinWidth
+        minWidth: hintPanelStepperButtonMinWidth,
+        ...(rt.fontScale > 1 && { flex: 1 })
     },
-    disabledButton: {
-        opacity: 0.4
-    },
-    stepperCenter: { alignItems: 'center', flex: 1 },
+    disabledButton: { opacity: 0.4 },
+    stepperCenter: { alignItems: 'center', ...(rt.fontScale <= 1 && { flex: 1 }) },
+    stepperControls: { alignItems: 'center', flexDirection: 'row', gap: theme.spacing.sm },
     stepperLabel: {
         color: theme.colors.text.hint,
         fontSize: theme.typography.size.sm,

@@ -155,7 +155,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     }, [settledAssessed]);
 
     return (
-        <SheetFrame detents={ImportDetents}>
+        <SheetFrame accessibilityLabel={t`Import a puzzle`} detents={ImportDetents}>
             <View style={styles.content} testID={ImportScreenSelectors.Root}>
                 <View style={styles.header}>
                     <Header style={styles.title} testID={ImportScreenSelectors.Title} text={t`Import a puzzle`} />

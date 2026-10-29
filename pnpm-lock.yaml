@@ -5,6 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
+  '@effect/sql-sqlite-wasm@4.0.5': 03f9b3b0901d71684d2198609a41ff18109fe7bc00d53f8ee23a61f3b106cf47
   effect@4.0.5: ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0
 
 importers:
@@ -112,7 +113,7 @@ importers:
         version: 4.0.5(@op-engineering/op-sqlite@18.2.5(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.1)(supports-color@8.1.1))(react@19.3.1))(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))
       '@effect/sql-sqlite-wasm':
         specifier: 4.0.5
-        version: 4.0.5(@effect/wa-sqlite@0.2.1)(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))
+        version: 4.0.5(patch_hash=03f9b3b0901d71684d2198609a41ff18109fe7bc00d53f8ee23a61f3b106cf47)(@effect/wa-sqlite@0.2.1)(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))
       '@effect/wa-sqlite':
         specifier: 0.2.1
         version: 0.2.1
@@ -8809,7 +8810,7 @@ snapshots:
       '@op-engineering/op-sqlite': 18.2.5(react-native@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(@react-native/metro-config@0.88.0(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(@types/react@19.3.0)(react@19.3.1)(supports-color@8.1.1))(react@19.3.1)
       effect: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)
 
-  '@effect/sql-sqlite-wasm@4.0.5(@effect/wa-sqlite@0.2.1)(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))':
+  '@effect/sql-sqlite-wasm@4.0.5(patch_hash=03f9b3b0901d71684d2198609a41ff18109fe7bc00d53f8ee23a61f3b106cf47)(@effect/wa-sqlite@0.2.1)(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))':
     dependencies:
       '@effect/wa-sqlite': 0.2.1
       effect: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)

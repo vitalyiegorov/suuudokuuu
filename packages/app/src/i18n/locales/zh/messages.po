@@ -1952,6 +1952,7 @@ msgstr "发送数独让对方从零开始解题，或交接你的对局以在别
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Settings"
 msgstr "设置"
 
@@ -2113,7 +2114,7 @@ msgstr "统计"
 msgid "Stayed in app"
 msgstr "未离开应用"
 
-#: src/game/components/hint-stepper/hint-stepper.tsx
+#: src/game/components/hint-stepper-progress/hint-stepper-progress.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "第 {currentStepNumber} 步，共 {stepCount} 步"
 
@@ -2179,6 +2180,10 @@ msgstr "SuuudokuuU 挑战"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU game handoff"
 msgstr "SuuudokuuU 对局交接"
+
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
+msgid "Suuudokuuu is open in another tab. Close that tab, then try again here. Your saved progress is safe."
+msgstr "Suuudokuuu 已在另一个标签页中打开。请关闭该标签页，然后在此重试。您保存的进度是安全的。"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
@@ -2277,6 +2282,7 @@ msgid "The marked cells either see both colors or carry a color that contradicts
 msgstr "标记的单元格要么同时看到两种颜色，要么带有自相矛盾的颜色，因此 {eliminationList}。"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "The SE difficulty scale"
 msgstr "SE 难度量表"
 
@@ -2314,6 +2320,10 @@ msgstr "此文件不是 {appName} 备份，或由更新版本的应用创建。"
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "This puzzle could not be checked"
 msgstr "无法检查此谜题"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle is already complete"
+msgstr "此数独已完成"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
@@ -2384,6 +2394,7 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "记录你已完成的数独、最佳用时和各个难度的分数。"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "重试"
@@ -2401,6 +2412,7 @@ msgid "Ukraine keeps fighting"
 msgstr "乌克兰仍在战斗"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 msgid "Unable to load your game"
 msgstr "无法加载你的游戏"
 

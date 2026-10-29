@@ -1954,6 +1954,7 @@ msgstr "Envoyez la grille à résoudre depuis le début, ou transmettez votre pa
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Settings"
 msgstr "Paramètres"
 
@@ -2115,7 +2116,7 @@ msgstr "Stats"
 msgid "Stayed in app"
 msgstr "Resté dans l’app"
 
-#: src/game/components/hint-stepper/hint-stepper.tsx
+#: src/game/components/hint-stepper-progress/hint-stepper-progress.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Étape {currentStepNumber} sur {stepCount}"
 
@@ -2181,6 +2182,10 @@ msgstr "Défi SuuudokuuU"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU game handoff"
 msgstr "Transfert de partie SuuudokuuU"
+
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
+msgid "Suuudokuuu is open in another tab. Close that tab, then try again here. Your saved progress is safe."
+msgstr "Suuudokuuu est ouvert dans un autre onglet. Fermez cet onglet, puis réessayez ici. Votre progression enregistrée est en sécurité."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
@@ -2279,6 +2284,7 @@ msgid "The marked cells either see both colors or carry a color that contradicts
 msgstr "Les cases marquées voient les deux couleurs ou portent une couleur qui se contredit, donc {eliminationList}."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "The SE difficulty scale"
 msgstr "L’échelle de difficulté SE"
 
@@ -2316,6 +2322,10 @@ msgstr "Ce fichier n’est pas une sauvegarde {appName}, ou il a été créé pa
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "This puzzle could not be checked"
 msgstr "Impossible de vérifier cette grille"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle is already complete"
+msgstr "Cette grille est déjà complète"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
@@ -2386,6 +2396,7 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "Suivez vos grilles de sudoku résolues, vos meilleurs temps et vos scores dans tous les niveaux de difficulté."
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Réessayer"
@@ -2403,6 +2414,7 @@ msgid "Ukraine keeps fighting"
 msgstr "L’Ukraine continue de se battre"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 msgid "Unable to load your game"
 msgstr "Impossible de charger votre partie"
 

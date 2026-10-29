@@ -25,15 +25,6 @@ const crossfadeEasing = Easing.bezier(...animationEaseOutCurveConstant);
 const statusEntering = FadeIn.duration(animationDurationConstant).easing(crossfadeEasing);
 const statusExiting = FadeOut.duration(animationDurationConstant).easing(crossfadeEasing);
 const digitPattern = /[1-9]/u;
-const statusLayerStyle = {
-    alignItems: 'center',
-    bottom: 0,
-    justifyContent: 'center',
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0
-} as const;
 
 const conflictUnits = [
     {
@@ -99,6 +90,10 @@ export const ImportStatus = ({ assessed, isCheckFailed, isPasteMissed, puzzleStr
             return t`One solution · ${difficulty} · SE ${rating}`;
         }
 
+        if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.COMPLETE) {
+            return t`This puzzle is already complete`;
+        }
+
         const clueCount = getClueCount(assessedPuzzleString);
 
         return settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.NO_SOLUTION
@@ -132,10 +127,8 @@ export const ImportStatus = ({ assessed, isCheckFailed, isPasteMissed, puzzleStr
             style={styles.container}
             testID={ImportScreenSelectors.Status}
         >
-            <Animated.View entering={statusEntering} exiting={statusExiting} key={statusText} style={statusLayerStyle}>
-                <BlackText numberOfLines={2} style={textStyles}>
-                    {statusText}
-                </BlackText>
+            <Animated.View entering={statusEntering} exiting={statusExiting} key={statusText}>
+                <BlackText style={textStyles}>{statusText}</BlackText>
             </Animated.View>
         </View>
     );

@@ -8,6 +8,7 @@ export const HintPanelShowAnswerStyles = StyleSheet.create(theme => ({
         color: theme.colors.surface.raisedText,
         fontSize: theme.typography.size.sm,
         fontWeight: '700',
+        lineHeight: 18,
         textAlign: 'center',
         textDecorationLine: 'underline'
     }

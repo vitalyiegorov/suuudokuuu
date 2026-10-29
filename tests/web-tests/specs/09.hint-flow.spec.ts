@@ -39,6 +39,7 @@ const desktopViewportWidth = 1280;
 const viewportHeight = 844;
 const landscapeViewportWidth = 844;
 const landscapeViewportHeight = 390;
+const minimumNarrationViewportHeight = 44;
 const panelHorizontalGap = 12;
 const panelBottomGap = 24;
 const mobileBottomInset = 34;
@@ -835,5 +836,33 @@ test.describe('the reported naked pair hint in Ukrainian on a small phone', () =
         await expect(page.getByTestId(cellTestId(0, 0))).toHaveAttribute('aria-label', /, закреслено 6, 8$/u);
         await page.getByTestId(HintPanelSelectors.ApplyButton).click();
         await expect(page.getByTestId(cellTestId(0, 6))).toHaveAttribute('aria-label', /, 5$/u);
+    });
+});
+
+test.describe('localized hint actions on a tablet', () => {
+    test.use({ locale: 'uk-UA', viewport: { width: 1024, height: 1366 } });
+
+    test('keeps the complete Show answer label readable beside the stepper buttons', async ({ page }) => {
+        await page.goto(`/import?puzzle=${nakedPairPuzzle}`);
+        await page.getByTestId(ImportScreenSelectors.PlayButton).click();
+        await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
+        await page.getByTestId(HintButtonSelectors.Root).click();
+        await page.getByTestId(HintPanelSelectors.NextButton).click();
+
+        const showAnswer = page.getByTestId(HintPanelSelectors.SHOW_ANSWER_BUTTON);
+
+        await expect(showAnswer).toHaveText('Показати відповідь');
+        await expect
+            .poll(async () => (await page.getByTestId(HintStepNarrationSelectors.NARRATION_SCROLL).boundingBox())?.height ?? 0)
+            .toBeGreaterThanOrEqual(minimumNarrationViewportHeight);
+        expect(
+            await showAnswer.evaluate(element => {
+                const label = element.firstElementChild;
+
+                return label !== null && label.scrollWidth <= label.clientWidth && getComputedStyle(label).whiteSpace !== 'nowrap';
+            })
+        ).toBe(true);
+        await showAnswer.click();
+        await expect(page.getByTestId(HintPanelSelectors.ApplyButton)).toBeVisible();
     });
 });

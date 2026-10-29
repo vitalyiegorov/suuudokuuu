@@ -36,9 +36,10 @@ const pageEntering = FadeIn.duration(pageFadeDurationMs);
 
 interface Props {
     readonly controlsTop: number;
+    readonly availableHeight: number;
 }
 
-export const HintPanel = ({ controlsTop }: Props) => {
+export const HintPanel = ({ controlsTop, availableHeight }: Props) => {
     const { theme } = use(ThemeContext);
     const { snapshot } = use(GameContext);
 
@@ -65,7 +66,7 @@ export const HintPanel = ({ controlsTop }: Props) => {
             entering={panelEnteringAnimation}
             exiting={panelExiting}
             pointerEvents="box-none"
-            style={styles.region(controlsTop, insets)}
+            style={styles.region(controlsTop, availableHeight, insets)}
         >
             <Animated.View style={containerStyles} testID={HintPanelSelectors.Root} {...(!isMotionReduced && { layout: panelLayout })}>
                 <HintPanelHeader />

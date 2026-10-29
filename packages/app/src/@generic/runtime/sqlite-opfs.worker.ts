@@ -15,4 +15,4 @@ const workerPort = {
     }
 };
 
-Effect.runFork(OpfsWorker.run({ port: workerPort, dbName: DatabaseFileName }));
+Effect.runFork(OpfsWorker.run({ port: workerPort, dbName: DatabaseFileName }).pipe(Effect.tapCause(Effect.logError)));

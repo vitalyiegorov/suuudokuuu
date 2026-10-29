@@ -1954,6 +1954,7 @@ msgstr "Sende das Rätsel zum Lösen von Anfang an oder übergib deine Runde, um
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -2115,7 +2116,7 @@ msgstr "Statistik"
 msgid "Stayed in app"
 msgstr "In der App geblieben"
 
-#: src/game/components/hint-stepper/hint-stepper.tsx
+#: src/game/components/hint-stepper-progress/hint-stepper-progress.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Schritt {currentStepNumber} von {stepCount}"
 
@@ -2181,6 +2182,10 @@ msgstr "SuuudokuuU-Duell"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU game handoff"
 msgstr "SuuudokuuU Spielübergabe"
+
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
+msgid "Suuudokuuu is open in another tab. Close that tab, then try again here. Your saved progress is safe."
+msgstr "Suuudokuuu ist in einem anderen Tab geöffnet. Schließe diesen Tab und versuche es dann hier erneut. Dein gespeicherter Fortschritt ist sicher."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
@@ -2279,6 +2284,7 @@ msgid "The marked cells either see both colors or carry a color that contradicts
 msgstr "Die markierten Zellen sehen entweder beide Farben oder tragen eine Farbe, die sich selbst widerspricht, daher gilt: {eliminationList}."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "The SE difficulty scale"
 msgstr "Die SE-Schwierigkeitsskala"
 
@@ -2316,6 +2322,10 @@ msgstr "Diese Datei ist keine {appName}-Sicherung oder wurde mit einer neueren V
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "This puzzle could not be checked"
 msgstr "Dieses Rätsel konnte nicht geprüft werden"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle is already complete"
+msgstr "Dieses Rätsel ist bereits vollständig ausgefüllt"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
@@ -2386,6 +2396,7 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "Verfolge deine gelösten Sudokus, Bestzeiten und Punktzahlen über alle Schwierigkeitsgrade hinweg."
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Erneut versuchen"
@@ -2403,6 +2414,7 @@ msgid "Ukraine keeps fighting"
 msgstr "Die Ukraine kämpft weiter"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 msgid "Unable to load your game"
 msgstr "Dein Spiel konnte nicht geladen werden"
 

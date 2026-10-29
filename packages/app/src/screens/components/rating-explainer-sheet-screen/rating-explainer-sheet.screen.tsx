@@ -52,7 +52,7 @@ export const RatingExplainerSheetScreen = () => {
     };
 
     return (
-        <SheetFrame detents={RatingExplainerDetents}>
+        <SheetFrame accessibilityLabel={t`The SE difficulty scale`} detents={RatingExplainerDetents}>
             <ScrollView contentContainerStyle={styles.sheetContent} showsVerticalScrollIndicator={false}>
                 <View style={styles.sheetHeader}>
                     <AppIconButton

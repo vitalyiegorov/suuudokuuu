@@ -1952,6 +1952,7 @@ msgstr "শুরু থেকে সমাধানের জন্য পা�
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Settings"
 msgstr "সেটিংস"
 
@@ -2113,7 +2114,7 @@ msgstr "পরিসংখ্যান"
 msgid "Stayed in app"
 msgstr "অ্যাপেই ছিলেন"
 
-#: src/game/components/hint-stepper/hint-stepper.tsx
+#: src/game/components/hint-stepper-progress/hint-stepper-progress.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "{stepCount}-এর মধ্যে ধাপ {currentStepNumber}"
 
@@ -2179,6 +2180,10 @@ msgstr "SuuudokuuU চ্যালেঞ্জ"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU game handoff"
 msgstr "SuuudokuuU খেলা হস্তান্তর"
+
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
+msgid "Suuudokuuu is open in another tab. Close that tab, then try again here. Your saved progress is safe."
+msgstr "Suuudokuuu অন্য একটি ট্যাবে খোলা আছে। সেই ট্যাবটি বন্ধ করে এখানে আবার চেষ্টা করুন। আপনার সংরক্ষিত অগ্রগতি নিরাপদ আছে।"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
@@ -2277,6 +2282,7 @@ msgid "The marked cells either see both colors or carry a color that contradicts
 msgstr "চিহ্নিত ঘরগুলো হয় দুই রংই দেখে, নয়তো এমন একটি রং বহন করে যা নিজের সাথেই বিরোধী, তাই {eliminationList}।"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "The SE difficulty scale"
 msgstr "SE কঠিনতার স্কেল"
 
@@ -2314,6 +2320,10 @@ msgstr "এই ফাইলটি {appName} ব্যাকআপ নয়, অ
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "This puzzle could not be checked"
 msgstr "এই ধাঁধাটি যাচাই করা যায়নি"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle is already complete"
+msgstr "এই ধাঁধাটি ইতিমধ্যেই সম্পূর্ণ"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
@@ -2384,6 +2394,7 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "সব কঠিনতায় আপনার সমাধান করা সুডোকু, সেরা সময় ও স্কোর দেখে নিন।"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "আবার চেষ্টা করুন"
@@ -2401,6 +2412,7 @@ msgid "Ukraine keeps fighting"
 msgstr "ইউক্রেন লড়াই চালিয়ে যাচ্ছে"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 msgid "Unable to load your game"
 msgstr "আপনার খেলা লোড করা যায়নি"
 

@@ -1,10 +1,17 @@
 import { expect, test } from '@playwright/test';
-import { GameScreenSelectors, HomeScreenSelectors, ImportScreenSelectors, PauseScreenSelectors } from '@suuudokuuu/app/src/selectors';
+import {
+    GameScreenSelectors,
+    HomeScreenSelectors,
+    ImportScreenSelectors,
+    PauseScreenSelectors,
+    WinnerScreenSelectors
+} from '@suuudokuuu/app/src/selectors';
 
 import { bringAppToForeground } from '../src/utils/bring-app-to-foreground.util';
 import { launchHome } from '../src/utils/launch-home.util';
 import { quitCurrentGame } from '../src/utils/quit-current-game.util';
 import { sendAppToBackground } from '../src/utils/send-app-to-background.util';
+import { cellTestId } from '../src/utils/test-id.util';
 import { getVisibleByTestId } from '../src/utils/visible-locator.util';
 
 import type { BrowserContext, Page } from '@playwright/test';
@@ -110,3 +117,66 @@ test('opens an import link and asks before it replaces a game in progress', asyn
 
     await quitCurrentGame(page);
 });
+
+test('rejects a completed grid and lets its one-blank control finish', async ({ page }) => {
+    const solution = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
+
+    await page.goto(`/import?puzzle=${solution}`);
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('This puzzle is already complete');
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeDisabled();
+    await cell(page, '8-8').click();
+    await page.keyboard.press('Backspace');
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    await page.getByTestId(ImportScreenSelectors.PlayButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    await page.getByTestId(cellTestId(8, 8)).click();
+    await page.keyboard.press('9');
+    await expect(page.getByTestId(WinnerScreenSelectors.Root)).toBeVisible();
+});
+
+test('keeps the full assessment above Play at twice the text size', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto(`/import?puzzle=${uniquePuzzle}`);
+    const status = page.getByTestId(ImportScreenSelectors.Status);
+
+    await expect(status).toHaveText(uniqueStatus);
+    await page.addStyleTag({
+        content: `html { font-size: 200%; } [data-testid="${ImportScreenSelectors.Status}"] div { font-size: 1rem !important; }`
+    });
+    await expect
+        .poll(() =>
+            status.evaluate(element => {
+                const text = element.querySelector('[dir="auto"]');
+
+                return text instanceof HTMLElement && text.scrollHeight <= element.clientHeight && text.scrollHeight <= text.clientHeight;
+            })
+        )
+        .toBe(true);
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeInViewport({ ratio: 1 });
+});
+
+for (const viewport of [
+    { width: 1280, height: 800 },
+    { width: 375, height: 667 }
+]) {
+    test(`contains keyboard focus and restores it when closed at ${viewport.width}px`, async ({ page }) => {
+        await page.setViewportSize(viewport);
+        await launchHome(page);
+        const importLink = getVisibleByTestId(page, HomeScreenSelectors.ImportLink);
+
+        await importLink.focus();
+        await page.keyboard.press('Enter');
+        const dialog = page.getByRole('dialog', { name: 'Import a puzzle', exact: true });
+
+        await expect(dialog).toBeVisible();
+        await expect(dialog).toHaveAttribute('aria-modal', 'true');
+        await expect.poll(() => dialog.evaluate(element => element.contains(document.activeElement))).toBe(true);
+        for (const key of ['Tab', 'Tab', 'Tab', 'Shift+Tab', 'Shift+Tab', 'Shift+Tab']) {
+            await page.keyboard.press(key);
+            await expect.poll(() => dialog.evaluate(element => element.contains(document.activeElement))).toBe(true);
+        }
+        await page.keyboard.press('Escape');
+        await expect(page.getByTestId(ImportScreenSelectors.Root)).toBeHidden();
+        await expect(importLink).toBeFocused();
+    });
+}

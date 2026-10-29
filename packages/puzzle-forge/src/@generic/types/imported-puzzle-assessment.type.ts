@@ -4,7 +4,12 @@ import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
 export type ImportedPuzzleAssessmentType =
     | { readonly kind: ImportedPuzzleAssessmentKindEnum.CONFLICT; readonly cellIndexes: readonly number[] }
-    | { readonly kind: ImportedPuzzleAssessmentKindEnum.NO_SOLUTION | ImportedPuzzleAssessmentKindEnum.MULTIPLE_SOLUTIONS }
+    | {
+          readonly kind:
+              | ImportedPuzzleAssessmentKindEnum.COMPLETE
+              | ImportedPuzzleAssessmentKindEnum.NO_SOLUTION
+              | ImportedPuzzleAssessmentKindEnum.MULTIPLE_SOLUTIONS;
+      }
     | {
           readonly kind: ImportedPuzzleAssessmentKindEnum.UNIQUE;
           readonly solutionString: string;

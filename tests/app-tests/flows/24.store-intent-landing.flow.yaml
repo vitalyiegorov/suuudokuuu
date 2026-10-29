@@ -16,7 +16,9 @@ appId: ${APP_ID}
           id: 'HomeScreenSelectors.StartButton'
       direction: DOWN
       timeout: 3000
-- assertVisible: 'Nightmare • Standard'
+- assertVisible:
+      id: 'HomeScreenSelectors.StartButton'
+      text: '.*Nightmare • Standard.*'
 - scroll
 - openLink:
       link: 'suuudokuuu://start/expert'

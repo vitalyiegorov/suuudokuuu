@@ -8,6 +8,7 @@ minimumReleaseAgeExclude:
     - '@rnw-community/*'
 
 patchedDependencies:
+    '@effect/sql-sqlite-wasm@4.0.5': patches/@effect__sql-sqlite-wasm@4.0.5.patch
     effect@4.0.5: patches/effect@4.0.5.patch
 
 allowBuilds:

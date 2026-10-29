@@ -1,10 +1,12 @@
 import { useLingui } from '@lingui/react/macro';
 import { CellMargin, FontSizes, Languages, MotionPreferences } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
-import { router } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
+import { useRef } from 'react';
 
-import { emptyFn, isDefined } from '@rnw-community/shared';
+import { getErrorMessage, isDefined } from '@rnw-community/shared';
 
+import { Alert } from '../../@generic/components/alert/alert';
 import { appRuntime } from '../../@generic/runtime/app.runtime';
 import { i18nActivateLanguage } from '../../@generic/utils/i18n-catalogs';
 import { logErrorCause } from '../../@generic/utils/log-error-cause.util';
@@ -26,6 +28,8 @@ interface SettingsOptionSheetConfig {
 
 export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOptionSheetConfig | null => {
     const { t } = useLingui();
+    const navigation = useNavigation();
+    const isSaving = useRef(false);
     const {
         cellMargin: currentCellMargin,
         fontSize: currentFontSize,
@@ -36,14 +40,22 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
         useSettingsOptionDescriptions();
     const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel } = useSettingsOptionLabels();
 
+    const handleError = (error: unknown) => {
+        isSaving.current = false;
+        Alert(t`Settings`, getErrorMessage(error));
+    };
     const selectSetting = (patch: Partial<Pick<SettingsType, 'cellMargin' | 'fontSize' | 'motionPreference' | 'language'>>) => {
-        void updateSettings(patch).catch(emptyFn);
-
-        if (isDefined(patch.language)) {
-            appRuntime.runFork(i18nActivateLanguage(patch.language).pipe(Effect.tapCause(logErrorCause)));
+        if (isSaving.current) {
+            return;
         }
+        isSaving.current = true;
+        void updateSettings(patch).then(() => {
+            if (isDefined(patch.language)) {
+                appRuntime.runFork(i18nActivateLanguage(patch.language).pipe(Effect.tapCause(logErrorCause)));
+            }
 
-        router.back();
+            return void (navigation.isFocused() && router.back());
+        }, handleError);
     };
 
     if (setting === 'cell-margin') {

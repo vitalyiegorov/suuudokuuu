@@ -1952,6 +1952,7 @@ msgstr "Skicka sudokut för att lösas från början, eller lämna över din run
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Settings"
 msgstr "Inställningar"
 
@@ -2113,7 +2114,7 @@ msgstr "Statistik"
 msgid "Stayed in app"
 msgstr "Stannade i appen"
 
-#: src/game/components/hint-stepper/hint-stepper.tsx
+#: src/game/components/hint-stepper-progress/hint-stepper-progress.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "Steg {currentStepNumber} av {stepCount}"
 
@@ -2179,6 +2180,10 @@ msgstr "SuuudokuuU-utmaning"
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "SuuudokuuU game handoff"
 msgstr "SuuudokuuU spelöverlämning"
+
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
+msgid "Suuudokuuu is open in another tab. Close that tab, then try again here. Your saved progress is safe."
+msgstr "Suuudokuuu är öppet i en annan flik. Stäng den fliken och försök sedan igen här. Dina sparade framsteg är säkra."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
@@ -2277,6 +2282,7 @@ msgid "The marked cells either see both colors or carry a color that contradicts
 msgstr "De markerade cellerna ser antingen båda färgerna eller bär en färg som motsäger sig själv, så {eliminationList}."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "The SE difficulty scale"
 msgstr "SE-svårighetsskalan"
 
@@ -2314,6 +2320,10 @@ msgstr "Den här filen är ingen säkerhetskopia från {appName}, eller så skap
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "This puzzle could not be checked"
 msgstr "Pusslet kunde inte kontrolleras"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle is already complete"
+msgstr "Det här pusslet är redan färdigt"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
@@ -2384,6 +2394,7 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "Följ dina lösta sudokun, bästa tider och poäng i alla svårighetsgrader."
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Försök igen"
@@ -2401,6 +2412,7 @@ msgid "Ukraine keeps fighting"
 msgstr "Ukraina fortsätter kämpa"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 msgid "Unable to load your game"
 msgstr "Det gick inte att läsa in ditt spel"
 

@@ -21,6 +21,7 @@ export const SheetFrameStyles = StyleSheet.create(theme => ({
     },
     root: {
         flex: 1,
+        height: '100%',
         justifyContent: 'flex-end'
     }
 }));
