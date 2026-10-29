@@ -10,32 +10,30 @@ import { isDefined } from '@rnw-community/shared';
 
 import { DatabaseInUseError } from '../error/database-in-use.error';
 
-const workerInitializationTimeoutMilliseconds = 15000;
+const databaseInitializationTimeoutMilliseconds = 15000;
 
 const sqliteWorker = Effect.gen(function* () {
     const released = yield* Deferred.make<boolean>();
     const context = yield* Effect.context();
 
-    yield* Effect.acquireRelease(
-        Effect.callback<boolean, DatabaseInUseError>(resume => {
-            window.navigator.locks
-                .request('suuudokuuu-opfs', { ifAvailable: true }, lock => {
-                    if (!isDefined(lock)) {
-                        resume(new DatabaseInUseError());
+    yield* Effect.addFinalizer(() => Deferred.succeed(released, true));
+    yield* Effect.callback<boolean, DatabaseInUseError>(resume => {
+        window.navigator.locks
+            .request('suuudokuuu-opfs', { ifAvailable: true }, lock => {
+                if (!isDefined(lock)) {
+                    resume(new DatabaseInUseError());
 
-                        return false;
-                    }
+                    return false;
+                }
 
-                    resume(Effect.succeed(true));
+                resume(Effect.succeed(true));
 
-                    return Effect.runPromiseWith(context)(Deferred.await(released));
-                })
-                .catch((cause: unknown) => {
-                    resume(Effect.die(cause));
-                });
-        }),
-        () => Deferred.succeed(released, true)
-    );
+                return Effect.runPromiseWith(context)(Deferred.await(released));
+            })
+            .catch((cause: unknown) => {
+                resume(Effect.die(cause));
+            });
+    });
 
     return yield* Effect.acquireRelease(
         Effect.sync(() => new Worker(new URL('./sqlite-opfs.worker', window.location.href))),
@@ -46,17 +44,13 @@ const sqliteWorker = Effect.gen(function* () {
     );
 }).pipe(Effect.orDie);
 
-const isOpfsAvailable = Effect.isSuccess(Effect.tryPromise(() => window.navigator.storage.getDirectory()));
+export const sqlPlatformLayer = Layer.effect(
+    SqlClient.SqlClient,
+    Effect.gen(function* () {
+        const isOpfsAvailable = yield* Effect.isSuccess(Effect.tryPromise(() => window.navigator.storage.getDirectory()));
 
-export const sqlPlatformLayer = Layer.unwrap(
-    Effect.map(isOpfsAvailable, isAvailable =>
-        isAvailable
-            ? Layer.effect(
-                  SqlClient.SqlClient,
-                  SqliteClient.make({ worker: sqliteWorker, ...SqlNameTransforms }).pipe(
-                      Effect.timeout(workerInitializationTimeoutMilliseconds)
-                  )
-              ).pipe(Layer.provide(Reactivity.layer))
-            : SqliteClient.layerMemory(SqlNameTransforms)
-    )
-).pipe(Layer.orDie);
+        return yield* isOpfsAvailable
+            ? SqliteClient.make({ worker: sqliteWorker, ...SqlNameTransforms })
+            : SqliteClient.makeMemory(SqlNameTransforms);
+    }).pipe(Effect.timeout(databaseInitializationTimeoutMilliseconds))
+).pipe(Layer.provide(Reactivity.layer), Layer.orDie);

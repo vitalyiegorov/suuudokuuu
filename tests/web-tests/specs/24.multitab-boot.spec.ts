@@ -16,6 +16,19 @@ import { startNewGame } from '../src/utils/start-new-game.util';
 
 const bootTimeoutMilliseconds = 20000;
 
+for (const browserApi of ['storage', 'locks'] as const) {
+    test(`bounds stalled ${browserApi} startup`, async ({ page }) => {
+        await page.addInitScript(api => {
+            const target = api === 'storage' ? window.navigator.storage : window.navigator.locks;
+            const method = api === 'storage' ? 'getDirectory' : 'request';
+
+            Object.defineProperty(target, method, { value: () => Promise.withResolvers<unknown>().promise });
+        }, browserApi);
+        await page.goto('/play');
+        await expect(page.getByRole('alert')).toHaveText('Unable to load your game', { timeout: bootTimeoutMilliseconds });
+    });
+}
+
 test('keeps one owner and preserves settings, the current game and history across tab changes', async ({ context, page }) => {
     await launchHome(page);
     await completeWinningSharedChallenge(page, winningSharedChallengeEncodedConstant);
@@ -65,10 +78,13 @@ test('keeps one owner and preserves settings, the current game and history acros
     expect(await returningPage.getByTestId(/^CellSelectors\.Cell\./u).allTextContents()).toEqual(savedGrid);
 });
 
-test('surfaces a worker that exits before ready and retries with a fresh runtime', async ({ page }) => {
+test('surfaces a worker that exits before ready and retries with a fresh runtime', async ({ context, page }) => {
     await page.route('**/sqlite-opfs-*.js', route => route.fulfill({ contentType: 'application/javascript', body: 'self.close();' }));
     await page.goto('/play');
     await expect(page.getByRole('alert')).toHaveText('Unable to load your game', { timeout: bootTimeoutMilliseconds });
+    const recoveryPage = await context.newPage();
+    await launchHome(recoveryPage);
+    await recoveryPage.close();
     await page.unroute('**/sqlite-opfs-*.js');
     await page.getByRole('button', { name: 'Try again' }).click();
     await expect(page.getByTestId(HomeScreenSelectors.Root)).toBeVisible();
