@@ -6,6 +6,7 @@ import { ThemeContext } from '../../../theme/context/theme.context';
 import type { ReactNode } from 'react';
 
 interface Props {
+    readonly accessibilityLabel: string;
     readonly children: ReactNode;
     readonly detents: readonly number[];
 }

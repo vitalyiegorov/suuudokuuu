@@ -2278,6 +2278,7 @@ msgid "The marked cells either see both colors or carry a color that contradicts
 msgstr "চিহ্নিত ঘরগুলো হয় দুই রংই দেখে, নয়তো এমন একটি রং বহন করে যা নিজের সাথেই বিরোধী, তাই {eliminationList}।"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "The SE difficulty scale"
 msgstr "SE কঠিনতার স্কেল"
 

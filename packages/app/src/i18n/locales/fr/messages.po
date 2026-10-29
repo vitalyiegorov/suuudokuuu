@@ -2280,6 +2280,7 @@ msgid "The marked cells either see both colors or carry a color that contradicts
 msgstr "Les cases marquées voient les deux couleurs ou portent une couleur qui se contredit, donc {eliminationList}."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "The SE difficulty scale"
 msgstr "L’échelle de difficulté SE"
 

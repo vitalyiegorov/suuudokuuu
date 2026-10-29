@@ -2280,6 +2280,7 @@ msgid "The marked cells either see both colors or carry a color that contradicts
 msgstr "Позначені клітинки або бачать обидва кольори, або мають колір, що суперечить сам собі, тож {eliminationList}."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "The SE difficulty scale"
 msgstr "Шкала складності SE"
 

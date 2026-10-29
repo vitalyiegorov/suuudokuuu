@@ -154,3 +154,29 @@ test('keeps the full assessment above Play at twice the text size', async ({ pag
         .toBe(true);
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeInViewport({ ratio: 1 });
 });
+
+for (const viewport of [
+    { width: 1280, height: 800 },
+    { width: 375, height: 667 }
+]) {
+    test(`contains keyboard focus and restores it when closed at ${viewport.width}px`, async ({ page }) => {
+        await page.setViewportSize(viewport);
+        await launchHome(page);
+        const importLink = getVisibleByTestId(page, HomeScreenSelectors.ImportLink);
+
+        await importLink.focus();
+        await page.keyboard.press('Enter');
+        const dialog = page.getByRole('dialog', { name: 'Import a puzzle', exact: true });
+
+        await expect(dialog).toBeVisible();
+        await expect(dialog).toHaveAttribute('aria-modal', 'true');
+        await expect.poll(() => dialog.evaluate(element => element.contains(document.activeElement))).toBe(true);
+        for (const key of ['Tab', 'Tab', 'Tab', 'Shift+Tab', 'Shift+Tab', 'Shift+Tab']) {
+            await page.keyboard.press(key);
+            await expect.poll(() => dialog.evaluate(element => element.contains(document.activeElement))).toBe(true);
+        }
+        await page.keyboard.press('Escape');
+        await expect(page.getByTestId(ImportScreenSelectors.Root)).toBeHidden();
+        await expect(importLink).toBeFocused();
+    });
+}
