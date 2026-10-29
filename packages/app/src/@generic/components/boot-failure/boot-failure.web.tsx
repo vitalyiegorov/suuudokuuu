@@ -7,6 +7,8 @@ import * as AsyncResult from 'effect/reactivity/AsyncResult';
 import { useEffect } from 'react';
 import { Button, Text, View } from 'react-native';
 
+import { emptyFn } from '@rnw-community/shared';
+
 import { settingsAtom } from '../../../settings/query/use-settings.query';
 import { getDefaultSettings } from '../../../settings/utils/get-default-settings.util';
 import { DatabaseInUseError } from '../../error/database-in-use.error';
@@ -22,10 +24,15 @@ export const BootFailure = () => {
     const isDatabaseInUse = AsyncResult.isFailure(settingsResult) && Cause.squash(settingsResult.cause) instanceof DatabaseInUseError;
 
     useEffect(() => {
-        const fiber = Effect.runFork(i18nActivateLanguage(getDefaultSettings().language).pipe(Effect.tapCause(logErrorCause)));
+        if (!AsyncResult.isSuccess(settingsResult) && !AsyncResult.isFailure(settingsResult)) {
+            return emptyFn;
+        }
+
+        const language = AsyncResult.isSuccess(settingsResult) ? settingsResult.value.language : getDefaultSettings().language;
+        const fiber = Effect.runFork(i18nActivateLanguage(language).pipe(Effect.tapCause(logErrorCause)));
 
         return () => void Effect.runFork(Fiber.interrupt(fiber));
-    }, []);
+    }, [settingsResult]);
 
     return (
         <View style={styles.container}>

@@ -101,3 +101,26 @@ test.describe('localized contention', () => {
         await expect(secondPage.getByRole('button', { name: 'Спробувати ще раз' })).toBeVisible();
     });
 });
+
+test('keeps the saved language when only the current run fails to load', async ({ page }) => {
+    await page.goto('/settings');
+    const settings = page.getByTestId(SettingsScreenSelectors.Root);
+    await expect(settings).toBeVisible();
+    await settings.getByText('Language', { exact: true }).click();
+    await page.getByTestId(`${SettingsOptionSheetSelectors.Option}.uk`).click();
+    await expect(page.getByTestId(SettingsOptionSheetSelectors.Root)).not.toBeVisible();
+    await page.addInitScript(() => {
+        window.Worker = class extends Worker {
+            override postMessage(message: unknown) {
+                if (Array.isArray(message) && typeof message[1] === 'string' && /^select.*from current_run/iu.test(message[1])) {
+                    super.postMessage([message[0], 'select * from missing_current_run', []], []);
+                } else {
+                    super.postMessage(message, []);
+                }
+            }
+        };
+    });
+    await page.reload();
+    await expect(page.getByRole('alert')).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Спробувати ще раз' })).toBeVisible();
+});
