@@ -1,0 +1,26 @@
+diff --git a/dist/SqliteClient.js b/dist/SqliteClient.js
+index 12605b7ba6c0863054912683ec5f14fef6c667b6..61c5e2c0d6e00b280fb257a80e488121371f9d21 100644
+--- a/dist/SqliteClient.js
++++ b/dist/SqliteClient.js
+@@ -310,7 +310,7 @@ export const make = options => Effect.gen(function* () {
+       }
+     });
+   });
+-  const connectionRef = yield* ScopedRef.fromAcquire(makeConnection);
++  const connectionRef = yield* ScopedRef.fromAcquire(Effect.interruptible(makeConnection));
+   const {
+     acquirer,
+     borrower,
+diff --git a/src/SqliteClient.ts b/src/SqliteClient.ts
+index 1aa165597e71768de331ab34b5e12540a3f3eeed..48a8b82343a211ec971a4bbcdb4c554e82c19310 100644
+--- a/src/SqliteClient.ts
++++ b/src/SqliteClient.ts
+@@ -436,7 +436,7 @@ export const make = (
+       })
+     })
+ 
+-    const connectionRef = yield* ScopedRef.fromAcquire(makeConnection)
++    const connectionRef = yield* ScopedRef.fromAcquire(Effect.interruptible(makeConnection))
+ 
+     const { acquirer, borrower, onCommitFailure, transactionAcquirer } = Client.makeSqliteAcquirers({
+       connection: ScopedRef.get(connectionRef),

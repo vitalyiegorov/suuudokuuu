@@ -18,6 +18,6 @@ const appLayer = ProgressLayer.pipe(
 
 export const appRuntime = ManagedRuntime.make(appLayer, { memoMap: appMemoMap });
 
-export const appAtomRuntime = Atom.context({ memoMap: appMemoMap })(appLayer);
+export const appAtomRuntime = Atom.context({ memoMap: appMemoMap })(appLayer).pipe(Atom.keepAlive);
 
 export type AppServices = ManagedRuntime.ManagedRuntime.Services<typeof appRuntime>;

@@ -2181,6 +2181,10 @@ msgstr "SuuudokuuU 挑战"
 msgid "SuuudokuuU game handoff"
 msgstr "SuuudokuuU 对局交接"
 
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
+msgid "Suuudokuuu is open in another tab. Close that tab, then try again here. Your saved progress is safe."
+msgstr "Suuudokuuu 已在另一个标签页中打开。请关闭该标签页，然后在此重试。您保存的进度是安全的。"
+
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
 msgstr "Suuudokuuu 用 Sudoku Explainer（SE）量表为每道数独评分，这也是资深爱好者用来比较一道题真正推理难度的量表，而不只是看它给了多少提示。"
@@ -2390,6 +2394,7 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "记录你已完成的数独、最佳用时和各个难度的分数。"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "重试"
@@ -2407,6 +2412,7 @@ msgid "Ukraine keeps fighting"
 msgstr "乌克兰仍在战斗"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 msgid "Unable to load your game"
 msgstr "无法加载你的游戏"
 
