@@ -5,6 +5,8 @@ import { parsePuzzleText } from '../../../src/puzzle-text-parser/utils/parse-puz
 const trailingTokenCount = 1_000_000;
 const strayNumberCount = 20_000;
 const puzzle = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28....419..5....8..79';
+const encodedPuzzle =
+    '%35%33%2E%2E%37%2E%2E%2E%2E%36%2E%2E%31%39%35%2E%2E%2E%2E%39%38%2E%2E%2E%2E%36%2E%38%2E%2E%2E%36%2E%2E%2E%33%34%2E%2E%38%2E%33%2E%2E%31%37%2E%2E%2E%32%2E%2E%2E%36%2E%36%2E%2E%2E%2E%32%38%2E%2E%2E%2E%34%31%39%2E%2E%35%2E%2E%2E%2E%38%2E%2E%37%39';
 const zeroPuzzle = puzzle.replaceAll('.', '0');
 const rows = Array.from(puzzle.matchAll(/.{9}/gu), match => match[0]);
 
@@ -53,6 +55,10 @@ describe('parsePuzzleText', () => {
             'compact dashed rows with horizontal frames',
             rows.map(row => `|${row.replaceAll('.', '-')}|`).join('\n+-------+-------+-------+\n')
         ],
+        ['a fully percent-encoded SudokuWiki value', `https://www.sudokuwiki.org/sudoku.htm?bd=${encodedPuzzle}`],
+        ['lowercase percent escapes', `https://www.sudokuwiki.org/sudoku.htm?bd=${encodedPuzzle.toLowerCase()}`],
+        ['mixed encoded cells', `https://example.com/?puzzle=${puzzle.replaceAll('.', '%30')}`],
+        ['a puzzle after malformed URL escapes', `https://example.com/?bad=%GG&puzzle=${encodedPuzzle}`],
         ['a SudokuWiki link', `https://www.sudokuwiki.org/sudoku.htm?bd=${zeroPuzzle}`],
         ['an import link', `https://www.suuudokuuu.com/import?puzzle=${puzzle}`],
         ['a link with the puzzle in the path', `https://example.com/play/${zeroPuzzle}?mode=classic#top`],
@@ -79,6 +85,10 @@ describe('parsePuzzleText', () => {
     });
 
     it.each([
+        ['an incomplete percent escape', `https://example.com/?puzzle=${puzzle.slice(1)}%`],
+        ['a truncated percent escape', `https://example.com/?puzzle=${puzzle.slice(1)}%3`],
+        ['a non-hexadecimal percent escape', `https://example.com/?puzzle=${puzzle.slice(1)}%GG`],
+        ['malformed UTF-8 escapes', `https://example.com/?puzzle=${puzzle.slice(1)}%E0%A4%A`],
         ['an empty string', ''],
         ['a large invalid run', '12345678 '.repeat(strayNumberCount)],
         ['eighty cells', puzzle.slice(1)],
