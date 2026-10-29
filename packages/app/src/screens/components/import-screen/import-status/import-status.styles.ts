@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native-unistyles';
 
 export const ImportStatusStyles = StyleSheet.create(theme => ({
     container: {
-        height: 48,
+        minHeight: 48,
         justifyContent: 'center',
         width: '100%'
     },

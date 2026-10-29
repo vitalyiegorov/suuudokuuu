@@ -133,3 +133,24 @@ test('rejects a completed grid and lets its one-blank control finish', async ({ 
     await page.keyboard.press('9');
     await expect(page.getByTestId(WinnerScreenSelectors.Root)).toBeVisible();
 });
+
+test('keeps the full assessment above Play at twice the text size', async ({ page }) => {
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto(`/import?puzzle=${uniquePuzzle}`);
+    const status = page.getByTestId(ImportScreenSelectors.Status);
+
+    await expect(status).toHaveText(uniqueStatus);
+    await page.addStyleTag({
+        content: `html { font-size: 200%; } [data-testid="${ImportScreenSelectors.Status}"] div { font-size: 1rem !important; }`
+    });
+    await expect
+        .poll(() =>
+            status.evaluate(element => {
+                const text = element.querySelector('[dir="auto"]');
+
+                return text instanceof HTMLElement && text.scrollHeight <= element.clientHeight && text.scrollHeight <= text.clientHeight;
+            })
+        )
+        .toBe(true);
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeInViewport({ ratio: 1 });
+});
