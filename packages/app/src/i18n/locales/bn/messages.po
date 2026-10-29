@@ -2113,7 +2113,7 @@ msgstr "পরিসংখ্যান"
 msgid "Stayed in app"
 msgstr "অ্যাপেই ছিলেন"
 
-#: src/game/components/hint-stepper/hint-stepper.tsx
+#: src/game/components/hint-stepper-progress/hint-stepper-progress.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "{stepCount}-এর মধ্যে ধাপ {currentStepNumber}"
 

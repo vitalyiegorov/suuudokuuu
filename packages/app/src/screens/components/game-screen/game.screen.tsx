@@ -57,9 +57,9 @@ export const GameScreen = () => {
     const [, hapticImpact] = useVibration();
 
     const { sizeClass } = useAppLayout();
-    const { fontScale } = useWindowDimensions();
+    const { fontScale, width } = useWindowDimensions();
     const isWideLayout = sizeClass === 'wide';
-    const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant + gameGetControlsSlackHeight(fontScale);
+    const reservedBoardHeight = isWideLayout ? 0 : GameToolsSlotReservedHeightConstant + gameGetControlsSlackHeight(fontScale, width);
     const { cellSize: boardCellSize, cellMargin: boardCellMargin, boardSize, onBoardAreaLayout } = useBoardGeometry(reservedBoardHeight);
     const { challengeState, isChallengeRun, maxMistakes, mistakes, score } = useCurrentRun();
     const { hasTimer, isLeftHanded, keepActiveCell } = useSettings();
@@ -71,6 +71,7 @@ export const GameScreen = () => {
 
     const [hasSharing, setHasSharing] = useState(false);
     const [controlsTop, setControlsTop] = useState(0);
+    const [gameRowHeight, setGameRowHeight] = useState(0);
 
     const { selectedCell } = snapshot;
     const maxMistakesReached = mistakes >= maxMistakes;
@@ -126,6 +127,10 @@ export const GameScreen = () => {
         }
     };
 
+    const handleGameRowLayout = (event: LayoutChangeEvent) => {
+        setGameRowHeight(event.nativeEvent.layout.height);
+    };
+
     const handleControlsLayout = (event: LayoutChangeEvent) => {
         setControlsTop(event.nativeEvent.layout.y);
     };
@@ -142,7 +147,10 @@ export const GameScreen = () => {
     const gameActionsIconColor = theme.colors.surface.raisedText;
     const isHintActive = isDefined(snapshot.stepScript);
     const wideActionsPointerEvents = isHintActive ? 'none' : 'auto';
-    const hintPanel = isPositiveNumber(controlsTop) ? <HintPanel controlsTop={controlsTop} /> : null;
+    const hintPanelAvailableHeight = isWideLayout ? boardSize : gameRowHeight;
+    const hintPanel = isPositiveNumber(controlsTop) ? (
+        <HintPanel availableHeight={hintPanelAvailableHeight} controlsTop={controlsTop} />
+    ) : null;
 
     const numpadElement = (
         <GameNumpad availableValuesRefsHandler={handleAvailableRef} onSelectValue={handleSelectValue} selectedCell={selectedCell} />
@@ -198,7 +206,7 @@ export const GameScreen = () => {
 
             {isWideLayout ? null : runHud}
 
-            <View style={styles.gameRow(isGameRowReversed)}>
+            <View onLayout={handleGameRowLayout} style={styles.gameRow(isGameRowReversed)}>
                 <View onLayout={onBoardAreaLayout} style={styles.boardArea}>
                     {isWideLayout ? null : <View style={styles.boardSpacer} />}
 

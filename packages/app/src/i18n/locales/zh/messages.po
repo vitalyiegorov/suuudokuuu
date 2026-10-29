@@ -2113,7 +2113,7 @@ msgstr "统计"
 msgid "Stayed in app"
 msgstr "未离开应用"
 
-#: src/game/components/hint-stepper/hint-stepper.tsx
+#: src/game/components/hint-stepper-progress/hint-stepper-progress.tsx
 msgid "Step {currentStepNumber} of {stepCount}"
 msgstr "第 {currentStepNumber} 步，共 {stepCount} 步"
 
