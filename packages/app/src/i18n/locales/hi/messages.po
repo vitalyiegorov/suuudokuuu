@@ -2315,6 +2315,10 @@ msgstr "यह फ़ाइल {appName} बैकअप नहीं है, �
 msgid "This puzzle could not be checked"
 msgstr "इस पहेली की जाँच नहीं हो सकी"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle is already complete"
+msgstr "यह पहेली पहले से ही पूरी है"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
 msgstr "यह हल से चिह्नित खाने का अंक दिखाता है।"

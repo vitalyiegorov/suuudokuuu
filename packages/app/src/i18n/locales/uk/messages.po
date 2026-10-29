@@ -2317,6 +2317,10 @@ msgstr "Цей файл не є резервною копією {appName} або
 msgid "This puzzle could not be checked"
 msgstr "Не вдалося перевірити цю головоломку"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle is already complete"
+msgstr "Цю головоломку вже завершено"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
 msgstr "Це відкриває цифру позначеної клітинки з розв’язку."

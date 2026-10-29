@@ -99,6 +99,10 @@ export const ImportStatus = ({ assessed, isCheckFailed, isPasteMissed, puzzleStr
             return t`One solution · ${difficulty} · SE ${rating}`;
         }
 
+        if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.COMPLETE) {
+            return t`This puzzle is already complete`;
+        }
+
         const clueCount = getClueCount(assessedPuzzleString);
 
         return settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.NO_SOLUTION

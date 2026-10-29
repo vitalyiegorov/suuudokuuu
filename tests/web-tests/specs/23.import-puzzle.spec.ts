@@ -1,10 +1,17 @@
 import { expect, test } from '@playwright/test';
-import { GameScreenSelectors, HomeScreenSelectors, ImportScreenSelectors, PauseScreenSelectors } from '@suuudokuuu/app/src/selectors';
+import {
+    GameScreenSelectors,
+    HomeScreenSelectors,
+    ImportScreenSelectors,
+    PauseScreenSelectors,
+    WinnerScreenSelectors
+} from '@suuudokuuu/app/src/selectors';
 
 import { bringAppToForeground } from '../src/utils/bring-app-to-foreground.util';
 import { launchHome } from '../src/utils/launch-home.util';
 import { quitCurrentGame } from '../src/utils/quit-current-game.util';
 import { sendAppToBackground } from '../src/utils/send-app-to-background.util';
+import { cellTestId } from '../src/utils/test-id.util';
 import { getVisibleByTestId } from '../src/utils/visible-locator.util';
 
 import type { BrowserContext, Page } from '@playwright/test';
@@ -109,4 +116,20 @@ test('opens an import link and asks before it replaces a game in progress', asyn
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible({ timeout: gameScreenTimeoutMilliseconds });
 
     await quitCurrentGame(page);
+});
+
+test('rejects a completed grid and lets its one-blank control finish', async ({ page }) => {
+    const solution = '534678912672195348198342567859761423426853791713924856961537284287419635345286179';
+
+    await page.goto(`/import?puzzle=${solution}`);
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('This puzzle is already complete');
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeDisabled();
+    await cell(page, '8-8').click();
+    await page.keyboard.press('Backspace');
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    await page.getByTestId(ImportScreenSelectors.PlayButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    await page.getByTestId(cellTestId(8, 8)).click();
+    await page.keyboard.press('9');
+    await expect(page.getByTestId(WinnerScreenSelectors.Root)).toBeVisible();
 });

@@ -2315,6 +2315,10 @@ msgstr "এই ফাইলটি {appName} ব্যাকআপ নয়, অ
 msgid "This puzzle could not be checked"
 msgstr "এই ধাঁধাটি যাচাই করা যায়নি"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle is already complete"
+msgstr "এই ধাঁধাটি ইতিমধ্যেই সম্পূর্ণ"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
 msgstr "এটি সমাধান থেকে চিহ্নিত ঘরের সংখ্যাটি দেখায়।"

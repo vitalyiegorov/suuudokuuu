@@ -2315,6 +2315,10 @@ msgstr "Este arquivo não é um backup do {appName} ou foi criado por uma versã
 msgid "This puzzle could not be checked"
 msgstr "Não foi possível verificar este quebra-cabeça"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle is already complete"
+msgstr "Este sudoku já está completo"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
 msgstr "Isto revela o número da célula marcada a partir da solução."

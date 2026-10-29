@@ -1,4 +1,5 @@
 export enum ImportedPuzzleAssessmentKindEnum {
+    COMPLETE = 'COMPLETE',
     CONFLICT = 'CONFLICT',
     NO_SOLUTION = 'NO_SOLUTION',
     MULTIPLE_SOLUTIONS = 'MULTIPLE_SOLUTIONS',

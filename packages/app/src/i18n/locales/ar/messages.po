@@ -2315,6 +2315,10 @@ msgstr "هذا الملف ليس نسخة احتياطية من {appName}، أو
 msgid "This puzzle could not be checked"
 msgstr "تعذّر التحقق من هذا اللغز"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "This puzzle is already complete"
+msgstr "هذا اللغز مكتمل بالفعل"
+
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "This reveals the marked cell's digit from the solution."
 msgstr "يعرض هذا رقم الخلية المحددة من الحل."
