@@ -2277,6 +2277,7 @@ msgid "The marked cells either see both colors or carry a color that contradicts
 msgstr "标记的单元格要么同时看到两种颜色，要么带有自相矛盾的颜色，因此 {eliminationList}。"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "The SE difficulty scale"
 msgstr "SE 难度量表"
 

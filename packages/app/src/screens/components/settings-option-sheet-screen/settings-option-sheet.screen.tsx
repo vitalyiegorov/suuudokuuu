@@ -29,7 +29,7 @@ export const SettingsOptionSheetScreen = () => {
     }
 
     return (
-        <SheetFrame detents={settingsOptionSheetGetAllowedDetents(config.items.length, height)}>
+        <SheetFrame accessibilityLabel={config.title} detents={settingsOptionSheetGetAllowedDetents(config.items.length, height)}>
             <SettingsOptionSheet description={config.description} items={config.items} title={config.title} />
         </SheetFrame>
     );

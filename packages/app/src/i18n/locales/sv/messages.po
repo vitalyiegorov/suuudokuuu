@@ -2277,6 +2277,7 @@ msgid "The marked cells either see both colors or carry a color that contradicts
 msgstr "De markerade cellerna ser antingen båda färgerna eller bär en färg som motsäger sig själv, så {eliminationList}."
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
+#: src/screens/components/rating-explainer-sheet-screen/rating-explainer-sheet.screen.tsx
 msgid "The SE difficulty scale"
 msgstr "SE-svårighetsskalan"
 
