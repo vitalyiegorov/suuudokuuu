@@ -38,17 +38,17 @@ interface LiveBoardState {
     readonly isForging: boolean;
 }
 
-enum LiveBoardActionType {
+enum LiveBoardActionTypeEnum {
     FORGE_STARTED = 'FORGE_STARTED',
     FORGE_FAILED = 'FORGE_FAILED',
     PUZZLE_FORGED = 'PUZZLE_FORGED'
 }
 
 type LiveBoardAction =
-    | { readonly type: LiveBoardActionType.FORGE_STARTED }
-    | { readonly type: LiveBoardActionType.FORGE_FAILED }
+    | { readonly type: LiveBoardActionTypeEnum.FORGE_STARTED }
+    | { readonly type: LiveBoardActionTypeEnum.FORGE_FAILED }
     | {
-          readonly type: LiveBoardActionType.PUZZLE_FORGED;
+          readonly type: LiveBoardActionTypeEnum.PUZZLE_FORGED;
           readonly engine: FieldEngine;
           readonly givenCellKeys: ReturnType<typeof getGivenCellKeys>;
       };
@@ -61,11 +61,11 @@ const createInitialLiveBoardState = ({ difficulty, puzzle, solution }: Props): L
 
 const liveBoardReducer = (state: LiveBoardState, action: LiveBoardAction): LiveBoardState => {
     switch (action.type) {
-        case LiveBoardActionType.FORGE_STARTED:
+        case LiveBoardActionTypeEnum.FORGE_STARTED:
             return { ...state, isForging: true };
-        case LiveBoardActionType.FORGE_FAILED:
+        case LiveBoardActionTypeEnum.FORGE_FAILED:
             return { ...state, isForging: false };
-        case LiveBoardActionType.PUZZLE_FORGED:
+        case LiveBoardActionTypeEnum.PUZZLE_FORGED:
             return { engine: action.engine, givenCellKeys: action.givenCellKeys, isForging: false };
         default:
             return state;
@@ -81,17 +81,17 @@ export const DifficultyLiveBoard = (props: Props) => {
 
     const startForgedPuzzle = ({ solutionString, sudokuString }: SerializedPuzzleInterface) => {
         dispatch({
-            type: LiveBoardActionType.PUZZLE_FORGED,
+            type: LiveBoardActionTypeEnum.PUZZLE_FORGED,
             engine: new FieldEngine({ sudokuString, solutionString, difficulty }),
             givenCellKeys: getGivenCellKeys(sudokuString)
         });
     };
 
     const handleNewPuzzle = () => {
-        dispatch({ type: LiveBoardActionType.FORGE_STARTED });
+        dispatch({ type: LiveBoardActionTypeEnum.FORGE_STARTED });
         import('@suuudokuuu/puzzle-forge')
             .then(({ forgeSerializablePuzzle }) => void startForgedPuzzle(forgeSerializablePuzzle(difficulty)))
-            .catch(() => void dispatch({ type: LiveBoardActionType.FORGE_FAILED }));
+            .catch(() => void dispatch({ type: LiveBoardActionTypeEnum.FORGE_FAILED }));
     };
 
     return (

@@ -17,7 +17,7 @@ interface SolverWorkbenchState {
     readonly errorMessage: string | null;
 }
 
-enum SolverWorkbenchActionEnum {
+enum SolverWorkbenchActionTypeEnum {
     SOLVE_STARTED = 'SOLVE_STARTED',
     SOLVE_COMPLETED = 'SOLVE_COMPLETED',
     SOLVE_FAILED = 'SOLVE_FAILED',
@@ -26,25 +26,25 @@ enum SolverWorkbenchActionEnum {
 }
 
 type SolverWorkbenchAction =
-    | { readonly type: SolverWorkbenchActionEnum.ENTRY_CHANGED }
-    | { readonly type: SolverWorkbenchActionEnum.SOLVE_COMPLETED; readonly outcome: SolverOutcomeType }
-    | { readonly type: SolverWorkbenchActionEnum.SOLVE_FAILED; readonly errorMessage: string }
-    | { readonly type: SolverWorkbenchActionEnum.SOLVE_STARTED }
-    | { readonly type: SolverWorkbenchActionEnum.STEP_SELECTED; readonly stepIndex: number | null };
+    | { readonly type: SolverWorkbenchActionTypeEnum.ENTRY_CHANGED }
+    | { readonly type: SolverWorkbenchActionTypeEnum.SOLVE_COMPLETED; readonly outcome: SolverOutcomeType }
+    | { readonly type: SolverWorkbenchActionTypeEnum.SOLVE_FAILED; readonly errorMessage: string }
+    | { readonly type: SolverWorkbenchActionTypeEnum.SOLVE_STARTED }
+    | { readonly type: SolverWorkbenchActionTypeEnum.STEP_SELECTED; readonly stepIndex: number | null };
 
 const INITIAL_STATE: SolverWorkbenchState = { outcome: null, selectedStepIndex: null, isSolving: false, errorMessage: null };
 
-const reduceSolverWorkbench = (state: SolverWorkbenchState, action: SolverWorkbenchAction): SolverWorkbenchState => {
+const solverWorkbenchReducer = (state: SolverWorkbenchState, action: SolverWorkbenchAction): SolverWorkbenchState => {
     switch (action.type) {
-        case SolverWorkbenchActionEnum.SOLVE_STARTED:
+        case SolverWorkbenchActionTypeEnum.SOLVE_STARTED:
             return { ...state, isSolving: true, errorMessage: null };
-        case SolverWorkbenchActionEnum.SOLVE_COMPLETED:
+        case SolverWorkbenchActionTypeEnum.SOLVE_COMPLETED:
             return { ...state, outcome: action.outcome, selectedStepIndex: null, isSolving: false };
-        case SolverWorkbenchActionEnum.SOLVE_FAILED:
+        case SolverWorkbenchActionTypeEnum.SOLVE_FAILED:
             return { ...state, errorMessage: action.errorMessage, isSolving: false };
-        case SolverWorkbenchActionEnum.ENTRY_CHANGED:
+        case SolverWorkbenchActionTypeEnum.ENTRY_CHANGED:
             return { ...state, outcome: null, selectedStepIndex: null, errorMessage: null };
-        case SolverWorkbenchActionEnum.STEP_SELECTED:
+        case SolverWorkbenchActionTypeEnum.STEP_SELECTED:
             return { ...state, selectedStepIndex: action.stepIndex };
         default:
             return state;
@@ -52,40 +52,40 @@ const reduceSolverWorkbench = (state: SolverWorkbenchState, action: SolverWorkbe
 };
 
 export const SolverWorkbench = () => {
-    const [{ outcome, selectedStepIndex, isSolving, errorMessage }, dispatch] = useReducer(reduceSolverWorkbench, INITIAL_STATE);
+    const [{ outcome, selectedStepIndex, isSolving, errorMessage }, dispatch] = useReducer(solverWorkbenchReducer, INITIAL_STATE);
 
     const handleOutcome = (nextOutcome: SolverOutcomeType) => {
         track('solver_used', { outcome: nextOutcome.kind });
-        dispatch({ type: SolverWorkbenchActionEnum.SOLVE_COMPLETED, outcome: nextOutcome });
+        dispatch({ type: SolverWorkbenchActionTypeEnum.SOLVE_COMPLETED, outcome: nextOutcome });
     };
 
     const handleLoadFailure = (error: unknown) => {
         dispatch({
-            type: SolverWorkbenchActionEnum.SOLVE_FAILED,
+            type: SolverWorkbenchActionTypeEnum.SOLVE_FAILED,
             errorMessage: `The solver could not load: ${getErrorMessage(error)}. Check your connection and try again.`
         });
     };
 
     const handleSolveFailure = (error: unknown) => {
         dispatch({
-            type: SolverWorkbenchActionEnum.SOLVE_FAILED,
+            type: SolverWorkbenchActionTypeEnum.SOLVE_FAILED,
             errorMessage: `The solver failed on this puzzle: ${getErrorMessage(error)}. That is a bug in Suuudokuuu, not in your puzzle.`
         });
     };
 
     const handleSolve = (entry: string) => {
-        dispatch({ type: SolverWorkbenchActionEnum.SOLVE_STARTED });
+        dispatch({ type: SolverWorkbenchActionTypeEnum.SOLVE_STARTED });
         import('../../utils/solve-puzzle.util')
             .then(module => void handleOutcome(module.solvePuzzle(entry)), handleLoadFailure)
             .catch(handleSolveFailure);
     };
 
     const handleEntryChange = () => {
-        dispatch({ type: SolverWorkbenchActionEnum.ENTRY_CHANGED });
+        dispatch({ type: SolverWorkbenchActionTypeEnum.ENTRY_CHANGED });
     };
 
     const handleSelectStep = (stepIndex: number | null) => {
-        dispatch({ type: SolverWorkbenchActionEnum.STEP_SELECTED, stepIndex });
+        dispatch({ type: SolverWorkbenchActionTypeEnum.STEP_SELECTED, stepIndex });
     };
 
     const errorView = isDefined(errorMessage) ? (
