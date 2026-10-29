@@ -6,7 +6,7 @@ import { msg } from '@lingui/core/macro';
 import { FieldEngine } from '@suuudokuuu/field-core';
 import { FieldGame, getGivenCellKeys } from '@suuudokuuu/field-dom';
 import { DifficultyEnum } from '@suuudokuuu/generator';
-import { useState } from 'react';
+import { useReducer, useState } from 'react';
 
 import { CLIENT_MESSAGES } from '../../../i18n/constants/client-messages.constant';
 import { buildFieldLabels } from '../../../techniques/utils/build-field-labels.util';
@@ -32,25 +32,66 @@ interface Props {
     solution: string;
 }
 
-export const DifficultyLiveBoard = ({ difficulty, puzzle, solution }: Props) => {
+interface LiveBoardState {
+    readonly engine: FieldEngine;
+    readonly givenCellKeys: ReturnType<typeof getGivenCellKeys>;
+    readonly isForging: boolean;
+}
+
+enum LiveBoardActionType {
+    FORGE_STARTED = 'FORGE_STARTED',
+    FORGE_FAILED = 'FORGE_FAILED',
+    PUZZLE_FORGED = 'PUZZLE_FORGED'
+}
+
+type LiveBoardAction =
+    | { readonly type: LiveBoardActionType.FORGE_STARTED }
+    | { readonly type: LiveBoardActionType.FORGE_FAILED }
+    | {
+          readonly type: LiveBoardActionType.PUZZLE_FORGED;
+          readonly engine: FieldEngine;
+          readonly givenCellKeys: ReturnType<typeof getGivenCellKeys>;
+      };
+
+const createInitialLiveBoardState = ({ difficulty, puzzle, solution }: Props): LiveBoardState => ({
+    engine: new FieldEngine({ sudokuString: puzzle, solutionString: solution, difficulty }),
+    givenCellKeys: getGivenCellKeys(puzzle),
+    isForging: false
+});
+
+const liveBoardReducer = (state: LiveBoardState, action: LiveBoardAction): LiveBoardState => {
+    switch (action.type) {
+        case LiveBoardActionType.FORGE_STARTED:
+            return { ...state, isForging: true };
+        case LiveBoardActionType.FORGE_FAILED:
+            return { ...state, isForging: false };
+        case LiveBoardActionType.PUZZLE_FORGED:
+            return { engine: action.engine, givenCellKeys: action.givenCellKeys, isForging: false };
+        default:
+            return state;
+    }
+};
+
+export const DifficultyLiveBoard = (props: Props) => {
+    const { difficulty } = props;
     const [i18n] = useState(() => setupI18n({ locale: document.documentElement.lang, messages: CLIENT_MESSAGES }));
     const fieldLabels = buildFieldLabels(i18n);
-    const [engine, setEngine] = useState(() => new FieldEngine({ sudokuString: puzzle, solutionString: solution, difficulty }));
-    const [givenCellKeys, setGivenCellKeys] = useState(() => getGivenCellKeys(puzzle));
-    const [isForging, setIsForging] = useState(false);
+    const [{ engine, givenCellKeys, isForging }, dispatch] = useReducer(liveBoardReducer, props, createInitialLiveBoardState);
     const difficultyName = i18n._(DIFFICULTY_NAME_MESSAGES[difficulty]);
 
     const startForgedPuzzle = ({ solutionString, sudokuString }: SerializedPuzzleInterface) => {
-        setEngine(new FieldEngine({ sudokuString, solutionString, difficulty }));
-        setGivenCellKeys(getGivenCellKeys(sudokuString));
-        setIsForging(false);
+        dispatch({
+            type: LiveBoardActionType.PUZZLE_FORGED,
+            engine: new FieldEngine({ sudokuString, solutionString, difficulty }),
+            givenCellKeys: getGivenCellKeys(sudokuString)
+        });
     };
 
     const handleNewPuzzle = () => {
-        setIsForging(true);
+        dispatch({ type: LiveBoardActionType.FORGE_STARTED });
         import('@suuudokuuu/puzzle-forge')
             .then(({ forgeSerializablePuzzle }) => void startForgedPuzzle(forgeSerializablePuzzle(difficulty)))
-            .catch(() => void setIsForging(false));
+            .catch(() => void dispatch({ type: LiveBoardActionType.FORGE_FAILED }));
     };
 
     return (
