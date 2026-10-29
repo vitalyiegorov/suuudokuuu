@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/app",
-    "version": "2.38.3",
+    "version": "2.38.4",
     "private": true,
     "main": "index.ts",
     "scripts": {
