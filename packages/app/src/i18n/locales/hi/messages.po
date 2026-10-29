@@ -2180,6 +2180,10 @@ msgstr "SuuudokuuU चुनौती"
 msgid "SuuudokuuU game handoff"
 msgstr "SuuudokuuU गेम हैंडऑफ़"
 
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
+msgid "Suuudokuuu is open in another tab. Close that tab, then try again here. Your saved progress is safe."
+msgstr "Suuudokuuu दूसरे टैब में खुला है। उस टैब को बंद करें, फिर यहाँ दोबारा कोशिश करें। आपकी सहेजी गई प्रगति सुरक्षित है।"
+
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
 msgstr "Suuudokuuu हर सुडोकू को Sudoku Explainer (SE) पैमाने पर आँकता है — वही पैमाना जिससे गंभीर खिलाड़ी तुलना करते हैं कि सुडोकू को सोच-समझकर हल करना असल में कितना कठिन है, न कि सिर्फ़ उसमें कितने संकेत हैं।"
@@ -2384,6 +2388,7 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "हर कठिनाई पर अपने हल किए सुडोकू, बेस्ट समय और स्कोर देखें।"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "फिर कोशिश करें"
@@ -2401,6 +2406,7 @@ msgid "Ukraine keeps fighting"
 msgstr "यूक्रेन लड़ता रहता है"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 msgid "Unable to load your game"
 msgstr "आपका गेम लोड नहीं हो सका"
 

@@ -2180,6 +2180,10 @@ msgstr "Tantangan SuuudokuuU"
 msgid "SuuudokuuU game handoff"
 msgstr "Serah terima permainan SuuudokuuU"
 
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
+msgid "Suuudokuuu is open in another tab. Close that tab, then try again here. Your saved progress is safe."
+msgstr "Suuudokuuu terbuka di tab lain. Tutup tab tersebut, lalu coba lagi di sini. Progres tersimpan Anda aman."
+
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
 msgstr "Suuudokuuu menilai setiap sudoku dengan skala Sudoku Explainer (SE), skala yang dipakai pemain serius untuk membandingkan seberapa sulit sebuah sudoku benar-benar dinalar, bukan sekadar berapa banyak petunjuknya."
@@ -2384,6 +2388,7 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "Pantau sudoku yang sudah kamu selesaikan, waktu terbaik, dan skor di semua tingkat kesulitan."
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Coba lagi"
@@ -2401,6 +2406,7 @@ msgid "Ukraine keeps fighting"
 msgstr "Ukraina terus berjuang"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 msgid "Unable to load your game"
 msgstr "Tidak dapat memuat permainan Anda"
 

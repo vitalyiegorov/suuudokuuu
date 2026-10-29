@@ -2182,6 +2182,10 @@ msgstr "Défi SuuudokuuU"
 msgid "SuuudokuuU game handoff"
 msgstr "Transfert de partie SuuudokuuU"
 
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
+msgid "Suuudokuuu is open in another tab. Close that tab, then try again here. Your saved progress is safe."
+msgstr "Suuudokuuu est ouvert dans un autre onglet. Fermez cet onglet, puis réessayez ici. Votre progression enregistrée est en sécurité."
+
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Suuudokuuu rates every puzzle on the Sudoku Explainer (SE) scale, the same scale serious solvers use to compare how hard a puzzle actually is to reason through, not just how many clues it has."
 msgstr "Suuudokuuu évalue chaque grille sur l’échelle Sudoku Explainer (SE), celle qu’utilisent les solveurs chevronnés pour comparer la difficulté réelle du raisonnement, et pas seulement le nombre d’indices."
@@ -2386,6 +2390,7 @@ msgid "Track your solved Sudoku puzzles, best times, and scores across every dif
 msgstr "Suivez vos grilles de sudoku résolues, vos meilleurs temps et vos scores dans tous les niveaux de difficulté."
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
 msgid "Try again"
 msgstr "Réessayer"
@@ -2403,6 +2408,7 @@ msgid "Ukraine keeps fighting"
 msgstr "L’Ukraine continue de se battre"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
+#: src/@generic/components/boot-failure/boot-failure.web.tsx
 msgid "Unable to load your game"
 msgstr "Impossible de charger votre partie"
 
