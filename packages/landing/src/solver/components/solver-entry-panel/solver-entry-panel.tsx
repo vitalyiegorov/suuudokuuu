@@ -26,8 +26,9 @@ export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) =
     const [isLinkUnreadable, setIsLinkUnreadable] = useState(false);
     const solveLabel = isSolving ? 'Solving…' : 'Solve step by step';
     const entryTextCellCount = readPuzzleEntryCells(entryText).length;
-    const isEntryTextIncomplete = !entryText.includes(SHARED_LINK_MARKER) && entryTextCellCount !== ENTRY_CELL_COUNT;
-    const isSolveDisabled = isSolving || isEntryTextIncomplete;
+    const isEntryTextLink = entryText.includes(SHARED_LINK_MARKER);
+    const isEntryTextIncomplete = !isEntryTextLink && entryTextCellCount !== ENTRY_CELL_COUNT;
+    const isSolveDisabled = isSolving || isEntryTextLink || isLinkUnreadable || isEntryTextIncomplete;
 
     const applyEntry = (nextEntry: string) => {
         setEntry(nextEntry);
@@ -75,7 +76,9 @@ export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) =
     };
 
     const handleSolve = () => {
-        onSolve(entry);
+        if (!isSolveDisabled) {
+            onSolve(entry);
+        }
     };
 
     const linkNotice = isLinkUnreadable ? <SolverEntryLinkNotice /> : null;
