@@ -37,13 +37,13 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
     const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel } = useSettingsOptionLabels();
 
     const selectSetting = (patch: Partial<Pick<SettingsType, 'cellMargin' | 'fontSize' | 'motionPreference' | 'language'>>) => {
-        void updateSettings(patch).catch(emptyFn);
+        void updateSettings(patch).then(() => {
+            if (isDefined(patch.language)) {
+                appRuntime.runFork(i18nActivateLanguage(patch.language).pipe(Effect.tapCause(logErrorCause)));
+            }
 
-        if (isDefined(patch.language)) {
-            appRuntime.runFork(i18nActivateLanguage(patch.language).pipe(Effect.tapCause(logErrorCause)));
-        }
-
-        router.back();
+            return void router.back();
+        }, emptyFn);
     };
 
     if (setting === 'cell-margin') {
