@@ -11,6 +11,7 @@ const emptyPuzzleEntry = '.'.repeat(entryCellCount);
 const contradictoryPuzzleEntry = `11${'.'.repeat(entryCellCount - 2)}`;
 const pastedPuzzle = '000260701680070090190004500820100040004602900050003028009300074040050036703018000';
 const sharedPuzzleLink = `https://www.suuudokuuu.com/shared/${pointingPairHintSharedPuzzleEncodedConstant}`;
+const unreadableSharedPuzzleLink = 'https://www.suuudokuuu.com/shared/invalid';
 const sharedPuzzleEntry = '.3.1.......17..63.5..623..1...2...13..38.1..61..3.48..357986142894512367.1.437.8.';
 const steppedThroughCount = 3;
 const shortPuzzleEntry = pastedPuzzle.slice(1);
@@ -133,4 +134,47 @@ test('reports a contradictory grid as having no solution', async ({ page }) => {
     await page.getByRole('button', { name: 'Solve step by step' }).click();
 
     await expect(page.locator('.solver-notice[data-tone="error"]')).toContainText('No solution — r1c1 and r1c2 both hold 1 in row 1');
+});
+
+for (const previousEntry of [emptyPuzzleEntry, contradictoryPuzzleEntry]) {
+    test(`blocks an unreadable share link after ${previousEntry} and accepts replacement input`, async ({ page }) => {
+        await page.goto(solverPagePath);
+        await page.locator('.solver-entry__input').fill(previousEntry);
+        await page.locator('.solver-entry__input').fill(unreadableSharedPuzzleLink);
+
+        await expect(page.locator('.solver-notice[data-tone="error"]')).toContainText('That share link could not be read');
+        await expect(page.getByRole('button', { name: 'Solve step by step' })).toBeDisabled();
+
+        await page.getByRole('button', { name: 'Solve step by step' }).dispatchEvent('click');
+
+        await expect(page.locator('.solver-result')).toHaveCount(0);
+        await page.locator('.solver-entry__input').fill(pastedPuzzle);
+
+        await expect(page.getByRole('button', { name: 'Solve step by step' })).toBeEnabled();
+        await expect(page.locator('.solver-notice[data-tone="error"]')).toHaveCount(0);
+        await page.getByRole('button', { name: 'Solve step by step' }).click();
+
+        await expect(page.locator('.solver-notice[data-tone="success"]')).toContainText('Verified unique');
+        await page.locator('.solver-entry__input').fill(unreadableSharedPuzzleLink);
+
+        await expect(page.locator('.solver-notice[data-tone="error"]')).toContainText('That share link could not be read');
+        await page.locator('.solver-entry__input').fill(sharedPuzzleLink);
+
+        await expect(page.locator('.solver-entry__input')).toHaveValue(sharedPuzzleEntry);
+        await expect(page.getByRole('button', { name: 'Solve step by step' })).toBeEnabled();
+        await expect(page.locator('.solver-notice[data-tone="error"]')).toHaveCount(0);
+    });
+}
+
+test('blocks solving while a share link is loading', async ({ page }) => {
+    await page.goto(solverPagePath);
+    await page.locator('.solver-entry__input').fill(contradictoryPuzzleEntry);
+    await page.route('**/*.js', async route => {
+        await expect(page.getByRole('button', { name: 'Solve step by step' })).toBeDisabled();
+        await route.continue();
+    });
+    await page.locator('.solver-entry__input').fill(sharedPuzzleLink);
+
+    await expect(page.locator('.solver-entry__input')).toHaveValue(sharedPuzzleEntry);
+    await expect(page.getByRole('button', { name: 'Solve step by step' })).toBeEnabled();
 });
