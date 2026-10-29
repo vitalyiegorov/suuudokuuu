@@ -1952,6 +1952,7 @@ msgstr "Skicka sudokut för att lösas från början, eller lämna över din run
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Settings"
 msgstr "Inställningar"
 

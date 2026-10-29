@@ -1952,6 +1952,7 @@ msgstr "শুরু থেকে সমাধানের জন্য পা�
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Settings"
 msgstr "সেটিংস"
 

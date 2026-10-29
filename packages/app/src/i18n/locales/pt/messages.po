@@ -1952,6 +1952,7 @@ msgstr "Envie o sudoku para resolver do zero, ou passe sua partida para continua
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Settings"
 msgstr "Configurações"
 

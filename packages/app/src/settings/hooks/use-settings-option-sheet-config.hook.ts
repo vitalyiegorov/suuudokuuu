@@ -3,8 +3,9 @@ import { CellMargin, FontSizes, Languages, MotionPreferences } from '@suuudokuuu
 import * as Effect from 'effect/Effect';
 import { router } from 'expo-router';
 
-import { emptyFn, isDefined } from '@rnw-community/shared';
+import { getErrorMessage, isDefined } from '@rnw-community/shared';
 
+import { Alert } from '../../@generic/components/alert/alert';
 import { appRuntime } from '../../@generic/runtime/app.runtime';
 import { i18nActivateLanguage } from '../../@generic/utils/i18n-catalogs';
 import { logErrorCause } from '../../@generic/utils/log-error-cause.util';
@@ -36,14 +37,17 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
         useSettingsOptionDescriptions();
     const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel } = useSettingsOptionLabels();
 
+    const handleError = (error: unknown) => {
+        Alert(t`Settings`, getErrorMessage(error));
+    };
     const selectSetting = (patch: Partial<Pick<SettingsType, 'cellMargin' | 'fontSize' | 'motionPreference' | 'language'>>) => {
-        void updateSettings(patch).catch(emptyFn);
+        void updateSettings(patch).then(() => {
+            if (isDefined(patch.language)) {
+                appRuntime.runFork(i18nActivateLanguage(patch.language).pipe(Effect.tapCause(logErrorCause)));
+            }
 
-        if (isDefined(patch.language)) {
-            appRuntime.runFork(i18nActivateLanguage(patch.language).pipe(Effect.tapCause(logErrorCause)));
-        }
-
-        router.back();
+            return void router.back();
+        }, handleError);
     };
 
     if (setting === 'cell-margin') {
