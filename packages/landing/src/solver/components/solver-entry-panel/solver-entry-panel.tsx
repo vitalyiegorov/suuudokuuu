@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useReducer } from 'react';
 
 import { EMPTY_PUZZLE_ENTRY, ENTRY_CELL_COUNT, ENTRY_FIRST_CELL_INDEX, SAMPLE_PUZZLE_ENTRY } from '../../constants/puzzle-entry.constant';
 import { readPuzzleEntryCells } from '../../utils/read-puzzle-entry-cells.util';
@@ -13,6 +13,74 @@ import type { ChangeEvent } from 'react';
 const ENTRY_INPUT_ID = 'solver-entry-string';
 const SHARED_LINK_MARKER = '/shared/';
 
+enum EntryActionTypeEnum {
+    CELL_SELECTED = 'CELL_SELECTED',
+    VALUE_ENTERED = 'VALUE_ENTERED',
+    TEXT_PASTED = 'TEXT_PASTED',
+    PUZZLE_LOADED = 'PUZZLE_LOADED',
+    SHARED_PUZZLE_DECODED = 'SHARED_PUZZLE_DECODED',
+    SHARED_LINK_UNREADABLE = 'SHARED_LINK_UNREADABLE'
+}
+
+interface EntryState {
+    readonly entry: string;
+    readonly entryText: string;
+    readonly selectedIndex: number | null;
+    readonly isLinkUnreadable: boolean;
+}
+
+type EntryAction =
+    | { readonly type: EntryActionTypeEnum.CELL_SELECTED; readonly index: number }
+    | { readonly type: EntryActionTypeEnum.VALUE_ENTERED; readonly character: string }
+    | { readonly type: EntryActionTypeEnum.TEXT_PASTED; readonly value: string }
+    | { readonly type: EntryActionTypeEnum.PUZZLE_LOADED; readonly entry: string }
+    | { readonly type: EntryActionTypeEnum.SHARED_PUZZLE_DECODED; readonly entry: string }
+    | { readonly type: EntryActionTypeEnum.SHARED_LINK_UNREADABLE };
+
+const INITIAL_ENTRY_STATE: EntryState = {
+    entry: EMPTY_PUZZLE_ENTRY,
+    entryText: EMPTY_PUZZLE_ENTRY,
+    selectedIndex: null,
+    isLinkUnreadable: false
+};
+
+const entryReducer = (state: EntryState, action: EntryAction): EntryState => {
+    switch (action.type) {
+        case EntryActionTypeEnum.CELL_SELECTED: {
+            return { ...state, selectedIndex: action.index };
+        }
+        case EntryActionTypeEnum.VALUE_ENTERED: {
+            const selectedIndex = state.selectedIndex ?? ENTRY_FIRST_CELL_INDEX;
+            const entry = replaceEntryValue(state.entry, selectedIndex, action.character);
+
+            return { entry, entryText: entry, selectedIndex, isLinkUnreadable: false };
+        }
+        case EntryActionTypeEnum.TEXT_PASTED: {
+            const cells = readPuzzleEntryCells(action.value);
+            const isPlainFullPuzzle = !action.value.includes(SHARED_LINK_MARKER) && cells.length === ENTRY_CELL_COUNT;
+
+            return {
+                ...state,
+                entry: isPlainFullPuzzle ? cells.join('') : state.entry,
+                entryText: action.value,
+                isLinkUnreadable: false
+            };
+        }
+        case EntryActionTypeEnum.PUZZLE_LOADED: {
+            return { entry: action.entry, entryText: action.entry, selectedIndex: null, isLinkUnreadable: false };
+        }
+        case EntryActionTypeEnum.SHARED_PUZZLE_DECODED: {
+            return { ...state, entry: action.entry, entryText: action.entry, isLinkUnreadable: false };
+        }
+        case EntryActionTypeEnum.SHARED_LINK_UNREADABLE: {
+            return { ...state, isLinkUnreadable: true };
+        }
+        default: {
+            return state;
+        }
+    }
+};
+
 interface Props {
     isSolving: boolean;
     onSolve: (entry: string) => void;
@@ -20,59 +88,52 @@ interface Props {
 }
 
 export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) => {
-    const [entry, setEntry] = useState(EMPTY_PUZZLE_ENTRY);
-    const [entryText, setEntryText] = useState(EMPTY_PUZZLE_ENTRY);
-    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
-    const [isLinkUnreadable, setIsLinkUnreadable] = useState(false);
+    const [{ entry, entryText, selectedIndex, isLinkUnreadable }, dispatch] = useReducer(entryReducer, INITIAL_ENTRY_STATE);
     const solveLabel = isSolving ? 'Solving…' : 'Solve step by step';
     const entryTextCellCount = readPuzzleEntryCells(entryText).length;
     const isEntryTextLink = entryText.includes(SHARED_LINK_MARKER);
     const isEntryTextIncomplete = !isEntryTextLink && entryTextCellCount !== ENTRY_CELL_COUNT;
     const isSolveDisabled = isSolving || isEntryTextLink || isLinkUnreadable || isEntryTextIncomplete;
 
-    const applyEntry = (nextEntry: string) => {
-        setEntry(nextEntry);
-        setEntryText(nextEntry);
-        setIsLinkUnreadable(false);
+    const handleSelectCell = (index: number) => {
+        dispatch({ type: EntryActionTypeEnum.CELL_SELECTED, index });
+    };
+
+    const handleEnterValue = (character: string) => {
+        dispatch({ type: EntryActionTypeEnum.VALUE_ENTERED, character });
+        onEntryChange();
+    };
+
+    const applySharedEntry = (sharedEntry: string) => {
+        dispatch({ type: EntryActionTypeEnum.SHARED_PUZZLE_DECODED, entry: sharedEntry });
         onEntryChange();
     };
 
     const handleUnreadableLink = () => {
-        setIsLinkUnreadable(true);
-    };
-
-    const handleEnterValue = (character: string) => {
-        const index = selectedIndex ?? ENTRY_FIRST_CELL_INDEX;
-
-        setSelectedIndex(index);
-        applyEntry(replaceEntryValue(entry, index, character));
+        dispatch({ type: EntryActionTypeEnum.SHARED_LINK_UNREADABLE });
     };
 
     const handlePasteChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         const { value } = event.target;
-        const cells = readPuzzleEntryCells(value);
 
-        setEntryText(value);
-        setIsLinkUnreadable(false);
+        dispatch({ type: EntryActionTypeEnum.TEXT_PASTED, value });
         onEntryChange();
 
         if (value.includes(SHARED_LINK_MARKER)) {
             import('../../utils/decode-shared-puzzle.util')
-                .then(module => void applyEntry(module.decodeSharedPuzzle(value)))
+                .then(module => void applySharedEntry(module.decodeSharedPuzzle(value)))
                 .catch(handleUnreadableLink);
-        } else if (cells.length === ENTRY_CELL_COUNT) {
-            setEntry(cells.join(''));
         }
     };
 
     const handleLoadSample = () => {
-        setSelectedIndex(null);
-        applyEntry(SAMPLE_PUZZLE_ENTRY);
+        dispatch({ type: EntryActionTypeEnum.PUZZLE_LOADED, entry: SAMPLE_PUZZLE_ENTRY });
+        onEntryChange();
     };
 
     const handleClear = () => {
-        setSelectedIndex(null);
-        applyEntry(EMPTY_PUZZLE_ENTRY);
+        dispatch({ type: EntryActionTypeEnum.PUZZLE_LOADED, entry: EMPTY_PUZZLE_ENTRY });
+        onEntryChange();
     };
 
     const handleSolve = () => {
@@ -86,7 +147,7 @@ export const SolverEntryPanel = ({ isSolving, onEntryChange, onSolve }: Props) =
 
     return (
         <div className="solver-entry">
-            <SolverEntryBoard entry={entry} onEnterValue={handleEnterValue} onSelect={setSelectedIndex} selectedIndex={selectedIndex} />
+            <SolverEntryBoard entry={entry} onEnterValue={handleEnterValue} onSelect={handleSelectCell} selectedIndex={selectedIndex} />
             <SolverEntryPad onEnterValue={handleEnterValue} />
             <label className="solver-entry__label" htmlFor={ENTRY_INPUT_ID}>
                 Or paste an 81-cell puzzle — digits for givens; dots, zeros, dashes, x, * or _ for blanks — or a Suuudokuuu share link.
