@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.38.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.38.1...v2.38.2) (2026-10-29)
+
+### Bug Fixes
+
+* **landing:** block solving unreadable share links ([#730](https://github.com/vitalyiegorov/suuudokuuu/issues/730)) ([b3dc7f7](https://github.com/vitalyiegorov/suuudokuuu/commit/b3dc7f7fc2fc46062f68ca2b40f82d199f16177c))
+
+
 ## [2.38.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.38.0...v2.38.1) (2026-10-28)
 
 **Note:** Version bump only for package @suuudokuuu/landing
