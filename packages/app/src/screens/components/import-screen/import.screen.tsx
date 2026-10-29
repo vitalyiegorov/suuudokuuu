@@ -11,7 +11,7 @@ import * as Clipboard from 'expo-clipboard';
 import { NotificationFeedbackType } from 'expo-haptics';
 import { useIsFocused } from 'expo-router';
 import LucideClipboardPaste from 'lucide-react-native/icons/clipboard-paste';
-import { use, useEffect, useEffectEvent, useState } from 'react';
+import { use, useEffect, useEffectEvent, useReducer, useState } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { emptyFn, isDefined } from '@rnw-community/shared';
@@ -37,12 +37,60 @@ import { ImportScreenStyles as styles } from './import-screen.styles';
 import { ImportStatus } from './import-status/import-status';
 import { importScreenSubscribeWebInput } from './utils/import-screen-subscribe-web-input.util';
 
+import type { SetStateAction } from 'react';
 import type { PressableStateCallbackType } from 'react-native';
 
 const ImportDetent = 0.9;
 const ImportDetents = [ImportDetent];
 const EmptyCellText = '.';
 const lastCellIndex = GameEmptySudokuStringConstant.length - 1;
+
+interface ImportScreenState {
+    readonly entranceKey: number;
+    readonly isPasteMissed: boolean;
+    readonly selectedCellIndex: number | null;
+}
+
+enum ImportScreenActionTypeEnum {
+    CELL_INPUT_APPLIED = 'CELL_INPUT_APPLIED',
+    CELL_TAPPED = 'CELL_TAPPED',
+    PASTE_REJECTED = 'PASTE_REJECTED',
+    PUZZLE_LOADED = 'PUZZLE_LOADED',
+    RESET = 'RESET',
+    SELECTION_MOVED = 'SELECTION_MOVED'
+}
+
+type ImportScreenAction =
+    | { readonly type: ImportScreenActionTypeEnum.CELL_INPUT_APPLIED; readonly nextSelectedCellIndex: number }
+    | { readonly type: ImportScreenActionTypeEnum.CELL_TAPPED; readonly cellIndex: number }
+    | { readonly type: ImportScreenActionTypeEnum.PASTE_REJECTED }
+    | { readonly type: ImportScreenActionTypeEnum.PUZZLE_LOADED }
+    | { readonly type: ImportScreenActionTypeEnum.RESET }
+    | { readonly type: ImportScreenActionTypeEnum.SELECTION_MOVED; readonly selection: SetStateAction<number | null> };
+
+const initialImportScreenState: ImportScreenState = { entranceKey: 0, isPasteMissed: false, selectedCellIndex: null };
+
+const importScreenReducer = (state: ImportScreenState, action: ImportScreenAction): ImportScreenState => {
+    switch (action.type) {
+        case ImportScreenActionTypeEnum.CELL_INPUT_APPLIED:
+            return { ...state, isPasteMissed: false, selectedCellIndex: action.nextSelectedCellIndex };
+        case ImportScreenActionTypeEnum.CELL_TAPPED:
+            return { ...state, selectedCellIndex: action.cellIndex === state.selectedCellIndex ? null : action.cellIndex };
+        case ImportScreenActionTypeEnum.PASTE_REJECTED:
+            return { ...state, isPasteMissed: true, selectedCellIndex: null };
+        case ImportScreenActionTypeEnum.PUZZLE_LOADED:
+            return { entranceKey: state.entranceKey + 1, isPasteMissed: false, selectedCellIndex: null };
+        case ImportScreenActionTypeEnum.RESET:
+            return { ...state, isPasteMissed: false, selectedCellIndex: null };
+        case ImportScreenActionTypeEnum.SELECTION_MOVED:
+            return {
+                ...state,
+                selectedCellIndex: typeof action.selection === 'function' ? action.selection(state.selectedCellIndex) : action.selection
+            };
+        default:
+            return state;
+    }
+};
 
 interface Props {
     readonly initialText: string;
@@ -69,9 +117,7 @@ export const ImportScreen = ({ initialText }: Props) => {
         })
     );
     const [puzzleString, setPuzzleString] = useAtom(puzzleAtom);
-    const [entranceKey, setEntranceKey] = useState(0);
-    const [selectedCellIndex, setSelectedCellIndex] = useState<number | null>(null);
-    const [isPasteMissed, setIsPasteMissed] = useState(false);
+    const [{ entranceKey, isPasteMissed, selectedCellIndex }, dispatch] = useReducer(importScreenReducer, initialImportScreenState);
     const assessmentResult = useAtomValue(assessmentAtom);
     const hasDigits = puzzleString !== GameEmptySudokuStringConstant;
     const assessed = AsyncResult.isSuccess(assessmentResult) ? assessmentResult.value : null;
@@ -80,12 +126,11 @@ export const ImportScreen = ({ initialText }: Props) => {
     const handleLoadText = (text: string) => {
         const parsedPuzzleString = parsePuzzleText(text);
 
-        setIsPasteMissed(!isDefined(parsedPuzzleString));
-        setSelectedCellIndex(null);
-
         if (isDefined(parsedPuzzleString)) {
             setPuzzleString(parsedPuzzleString);
-            setEntranceKey(key => key + 1);
+            dispatch({ type: ImportScreenActionTypeEnum.PUZZLE_LOADED });
+        } else {
+            dispatch({ type: ImportScreenActionTypeEnum.PASTE_REJECTED });
         }
     };
 
@@ -96,11 +141,13 @@ export const ImportScreen = ({ initialText }: Props) => {
 
     const handleReset = () => {
         setPuzzleString(GameEmptySudokuStringConstant);
-        setSelectedCellIndex(null);
-        setIsPasteMissed(false);
+        dispatch({ type: ImportScreenActionTypeEnum.RESET });
     };
 
-    const handleSelectCell = (cellIndex: number) => void setSelectedCellIndex(cellIndex === selectedCellIndex ? null : cellIndex);
+    const handleSelectCell = (cellIndex: number) => void dispatch({ type: ImportScreenActionTypeEnum.CELL_TAPPED, cellIndex });
+
+    const handleMoveSelection = (selection: SetStateAction<number | null>) =>
+        void dispatch({ type: ImportScreenActionTypeEnum.SELECTION_MOVED, selection });
 
     const handleCellInput = (value: number) => {
         if (!isDefined(selectedCellIndex)) {
@@ -110,9 +157,11 @@ export const ImportScreen = ({ initialText }: Props) => {
         const isClear = value === defaultSudokuConfig.blankCellValue;
         const cellText = isClear ? EmptyCellText : String(value);
 
-        setIsPasteMissed(false);
         setPuzzleString(`${puzzleString.slice(0, selectedCellIndex)}${cellText}${puzzleString.slice(selectedCellIndex + 1)}`);
-        setSelectedCellIndex(isClear ? selectedCellIndex : Math.min(selectedCellIndex + 1, lastCellIndex));
+        dispatch({
+            type: ImportScreenActionTypeEnum.CELL_INPUT_APPLIED,
+            nextSelectedCellIndex: isClear ? selectedCellIndex : Math.min(selectedCellIndex + 1, lastCellIndex)
+        });
     };
 
     const settledAssessed = assessmentResult.waiting ? null : assessed;
@@ -139,10 +188,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     const onKeyboardInput = useEffectEvent(handleCellInput);
     const onAssessmentSettled = useEffectEvent(hapticNotification);
 
-    useEffect(
-        () => (isFocused ? importScreenSubscribeWebInput(onPastedText, setSelectedCellIndex, onKeyboardInput) : emptyFn),
-        [isFocused]
-    );
+    useEffect(() => (isFocused ? importScreenSubscribeWebInput(onPastedText, handleMoveSelection, onKeyboardInput) : emptyFn), [isFocused]);
 
     useEffect(() => {
         const settledKind = settledAssessed?.assessment.kind;
