@@ -1,7 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
 import { CellMargin, FontSizes, Languages, MotionPreferences } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
-import { router } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
+import { useRef } from 'react';
 
 import { getErrorMessage, isDefined } from '@rnw-community/shared';
 
@@ -27,6 +28,8 @@ interface SettingsOptionSheetConfig {
 
 export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOptionSheetConfig | null => {
     const { t } = useLingui();
+    const navigation = useNavigation();
+    const isSaving = useRef(false);
     const {
         cellMargin: currentCellMargin,
         fontSize: currentFontSize,
@@ -38,15 +41,20 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
     const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel } = useSettingsOptionLabels();
 
     const handleError = (error: unknown) => {
+        isSaving.current = false;
         Alert(t`Settings`, getErrorMessage(error));
     };
     const selectSetting = (patch: Partial<Pick<SettingsType, 'cellMargin' | 'fontSize' | 'motionPreference' | 'language'>>) => {
+        if (isSaving.current) {
+            return;
+        }
+        isSaving.current = true;
         void updateSettings(patch).then(() => {
             if (isDefined(patch.language)) {
                 appRuntime.runFork(i18nActivateLanguage(patch.language).pipe(Effect.tapCause(logErrorCause)));
             }
 
-            return void router.back();
+            return void (navigation.isFocused() && router.back());
         }, handleError);
     };
 
