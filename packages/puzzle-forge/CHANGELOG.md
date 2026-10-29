@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.38.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.38.2...v2.38.3) (2026-10-29)
+
+### Bug Fixes
+
+* import, hint, settings, and web boot fixes from the QA pass ([#740](https://github.com/vitalyiegorov/suuudokuuu/issues/740)) ([5aae9db](https://github.com/vitalyiegorov/suuudokuuu/commit/5aae9db164cf3208e14208d8807552af94532d10)), closes [#733](https://github.com/vitalyiegorov/suuudokuuu/issues/733) [#731](https://github.com/vitalyiegorov/suuudokuuu/issues/731) [#732](https://github.com/vitalyiegorov/suuudokuuu/issues/732) [#734](https://github.com/vitalyiegorov/suuudokuuu/issues/734) [#735](https://github.com/vitalyiegorov/suuudokuuu/issues/735) [#736](https://github.com/vitalyiegorov/suuudokuuu/issues/736) [#737](https://github.com/vitalyiegorov/suuudokuuu/issues/737) [#738](https://github.com/vitalyiegorov/suuudokuuu/issues/738) [#739](https://github.com/vitalyiegorov/suuudokuuu/issues/739)
+
+
 ## [2.38.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.38.0...v2.38.1) (2026-10-28)
 
 **Note:** Version bump only for package @suuudokuuu/puzzle-forge
