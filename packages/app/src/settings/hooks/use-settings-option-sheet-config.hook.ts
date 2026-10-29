@@ -3,8 +3,9 @@ import { CellMargin, FontSizes, Languages, MotionPreferences } from '@suuudokuuu
 import * as Effect from 'effect/Effect';
 import { router } from 'expo-router';
 
-import { emptyFn, isDefined } from '@rnw-community/shared';
+import { getErrorMessage, isDefined } from '@rnw-community/shared';
 
+import { Alert } from '../../@generic/components/alert/alert';
 import { appRuntime } from '../../@generic/runtime/app.runtime';
 import { i18nActivateLanguage } from '../../@generic/utils/i18n-catalogs';
 import { logErrorCause } from '../../@generic/utils/log-error-cause.util';
@@ -36,6 +37,9 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
         useSettingsOptionDescriptions();
     const { getCellMarginLabel, getFontSizeLabel, getLanguageLabel, getMotionPreferenceLabel } = useSettingsOptionLabels();
 
+    const handleError = (error: unknown) => {
+        Alert(t`Settings`, getErrorMessage(error));
+    };
     const selectSetting = (patch: Partial<Pick<SettingsType, 'cellMargin' | 'fontSize' | 'motionPreference' | 'language'>>) => {
         void updateSettings(patch).then(() => {
             if (isDefined(patch.language)) {
@@ -43,7 +47,7 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
             }
 
             return void router.back();
-        }, emptyFn);
+        }, handleError);
     };
 
     if (setting === 'cell-margin') {

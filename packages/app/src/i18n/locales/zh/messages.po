@@ -1952,6 +1952,7 @@ msgstr "发送数独让对方从零开始解题，或交接你的对局以在别
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Settings"
 msgstr "设置"
 

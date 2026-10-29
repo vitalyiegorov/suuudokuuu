@@ -1954,6 +1954,7 @@ msgstr "Sende das Rätsel zum Lösen von Anfang an oder übergib deine Runde, um
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/screens/components/settings-screen/settings.screen.tsx
 #: src/settings/component/settings-page-content/settings-page-content.tsx
+#: src/settings/hooks/use-settings-option-sheet-config.hook.ts
 msgid "Settings"
 msgstr "Einstellungen"
 
