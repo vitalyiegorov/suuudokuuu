@@ -290,7 +290,7 @@ lane :store_preflight do
   verify_store_directory("iOS metadata", IOS_METADATA_PATH)
   verify_store_directory("Android metadata", ANDROID_METADATA_PATH)
   verify_no_foreign_platform("iOS metadata", [IOS_METADATA_PATH, File.join(FASTLANE_DIR, "metadata", "custom-product-pages")], /\bandroid\b|google play/i)
-  verify_no_foreign_platform("Android metadata", [ANDROID_METADATA_PATH, File.join(FASTLANE_DIR, "metadata", "custom-listings")], /\biOS\b|iPhone|iPad|App Store/)
+  verify_no_foreign_platform("Android metadata", [ANDROID_METADATA_PATH, File.join(FASTLANE_DIR, "metadata", "custom-listings")], /\b(ios|iphone|ipad|app store)\b/i)
   screenshot_paths = ["dark", "light"].map { |variant| File.join(FASTLANE_DIR, "screenshots", "variants", variant, "ios") }
   (screenshot_paths + [ios_screenshots_path]).uniq.each { |path| verify_ios_screenshot_slots(path) }
   verify_iphone_duo_screenshots(File.join(File.dirname(ios_screenshots_path), "iphone-duo"))
