@@ -1,4 +1,4 @@
 Mais leve e mais fluido.
 
-• O app ficou bem menor para baixar: cerca de 40% menor no Android e 45% no iOS.
+• O app ficou bem menor para baixar: cerca de 45% menor.
 • Os cabeçalhos e a barra de abas agora desfocam o conteúdo suavemente ao rolar, sem borda marcada.

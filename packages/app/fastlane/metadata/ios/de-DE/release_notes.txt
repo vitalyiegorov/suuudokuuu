@@ -1,4 +1,4 @@
 Leichter und flüssiger.
 
-• Die App ist ein deutlich kleinerer Download: etwa 40 % kleiner auf Android und 45 % auf iOS.
+• Die App ist ein deutlich kleinerer Download: etwa 45 % kleiner.
 • Kopfzeilen und Tableiste zeichnen Inhalte beim Scrollen jetzt weich unscharf, ohne harte Kante.

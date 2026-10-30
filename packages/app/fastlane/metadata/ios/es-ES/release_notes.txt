@@ -1,4 +1,4 @@
 Más ligera y más fluida.
 
-• La app es una descarga mucho más pequeña: alrededor de un 40 % menos en Android y un 45 % en iOS.
+• La app es una descarga mucho más pequeña: alrededor de un 45 % menos.
 • Los encabezados y la barra de pestañas ahora difuminan el contenido con suavidad al desplazarse, sin bordes duros.

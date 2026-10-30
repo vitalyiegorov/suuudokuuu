@@ -1,3 +1,3 @@
 Mais leve e mais fluido.
-Download bem menor: cerca de 40% mais leve no Android e 45% no iOS.
+Download bem menor: cerca de 40% mais leve.
 Desfoque mais suave sob os cabeçalhos e a barra de abas, sem borda marcada.

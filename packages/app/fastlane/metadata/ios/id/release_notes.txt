@@ -1,4 +1,4 @@
 Lebih ringan dan lebih mulus.
 
-• Ukuran unduhan aplikasi jauh lebih kecil: sekitar 40% lebih kecil di Android dan 45% di iOS.
+• Ukuran unduhan aplikasi jauh lebih kecil: sekitar 45% lebih kecil.
 • Header dan bilah tab kini memburamkan konten dengan halus saat digulir, tanpa tepi tajam.

@@ -67,6 +67,13 @@ def verify_copyright_year
   UI.success("Copyright: #{copyright}")
 end
 
+def verify_no_foreign_platform(label, directories, pattern)
+  offenders = directories.flat_map { |directory| Dir.glob(File.join(directory, "**", "*.txt")) }.select { |path| File.read(path).match?(pattern) }
+  UI.user_error!("#{label} names another platform (App Review guideline 2.3.10): #{offenders.join(', ')}") unless offenders.empty?
+
+  UI.success("#{label}: no other platform named")
+end
+
 def png_header(path)
   UI.user_error!("Missing PNG artwork at #{path}") unless File.file?(path)
   contents = File.binread(path)
@@ -282,6 +289,8 @@ lane :store_preflight do
   verify_copyright_year
   verify_store_directory("iOS metadata", IOS_METADATA_PATH)
   verify_store_directory("Android metadata", ANDROID_METADATA_PATH)
+  verify_no_foreign_platform("iOS metadata", [IOS_METADATA_PATH, File.join(FASTLANE_DIR, "metadata", "custom-product-pages")], /\bandroid\b|google play/i)
+  verify_no_foreign_platform("Android metadata", [ANDROID_METADATA_PATH, File.join(FASTLANE_DIR, "metadata", "custom-listings")], /\biOS\b|iPhone|iPad|App Store/)
   screenshot_paths = ["dark", "light"].map { |variant| File.join(FASTLANE_DIR, "screenshots", "variants", variant, "ios") }
   (screenshot_paths + [ios_screenshots_path]).uniq.each { |path| verify_ios_screenshot_slots(path) }
   verify_iphone_duo_screenshots(File.join(File.dirname(ios_screenshots_path), "iphone-duo"))

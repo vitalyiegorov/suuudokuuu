@@ -1,3 +1,3 @@
 Lighter and smoother.
-A much smaller download: about 40% lighter on Android, 45% on iOS.
+A much smaller download: about 40% lighter.
 Smoother blur under headers and the tab bar, with no hard edge.

@@ -1,4 +1,4 @@
 Plus légère et plus fluide.
 
-• L'app est bien plus légère à télécharger : environ 40 % de moins sur Android et 45 % sur iOS.
+• L'app est bien plus légère à télécharger : environ 45 % de moins.
 • Les en-têtes et la barre d'onglets floutent désormais le contenu en douceur pendant le défilement, sans bord net.
