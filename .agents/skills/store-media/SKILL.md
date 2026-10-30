@@ -205,6 +205,11 @@ Screenshots, end to end:
 - **precheck only warns.** It runs at the end of `ios_metadata` and never fails the
   lane, so read its output - it is the only place these problems surface before a
   human review rejection.
+- **Never name the other platform.** App Review rejected 2.35.10 under guideline
+  2.3.10 because its What's New text said "40% smaller on Android". iOS metadata
+  never says Android or Google Play, and Play metadata never says iOS, iPhone,
+  iPad or App Store, even for a per-platform comparison. `store_preflight` fails
+  on either.
 - **Nothing reaches the public listing until the version is submitted and approved.**
   Metadata pushes land on the editable version page; the live listing is unchanged.
   Screenshots are opt-in: the publish workflow only uploads them when the

@@ -1,4 +1,4 @@
 Lighter and smoother.
 
-• The app is a much smaller download: about 40% smaller on Android and 45% smaller on iOS.
+• The app is a much smaller download: about 45% smaller.
 • Headers and the tab bar now blur content smoothly as it scrolls beneath them, with no hard edge.

@@ -74,6 +74,8 @@ For every locale, write native-quality, idiomatic copy — never a literal trans
 - "appStore": Apple App Store "What's New" release notes, aiming for 600 characters or fewer.
 - "play": Google Play changelog, a hard limit of 490 characters, written as 4 to 6 short lines.
 
+Each variant is read only by users of its own store. Never name another platform or store in either variant: no "Android" or "Google Play" in "appStore", no "iOS", "iPhone", "iPad" or "App Store" in "play". Apple rejects an update whose What's New mentions Android. When a change differs per platform, describe only that store's platform without naming it.
+
 Respond with JSON only, matching the provided schema exactly.`;
 
 function runGit(args: string[]): string {

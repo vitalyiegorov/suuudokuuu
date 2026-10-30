@@ -1,4 +1,4 @@
 Lättare och smidigare.
 
-• Appen är en mycket mindre nedladdning: cirka 40 % mindre på Android och 45 % på iOS.
+• Appen är en mycket mindre nedladdning: cirka 45 % mindre.
 • Rubriker och flikfältet suddar nu ut innehållet mjukt när du skrollar, utan hård kant.
