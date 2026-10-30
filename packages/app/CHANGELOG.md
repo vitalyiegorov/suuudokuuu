@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.38.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.38.4...v2.38.5) (2026-10-30)
+
+### Bug Fixes
+
+* **app:** keep store release notes free of other-platform mentions ([#741](https://github.com/vitalyiegorov/suuudokuuu/issues/741)) ([4a04f95](https://github.com/vitalyiegorov/suuudokuuu/commit/4a04f9565a9e6654b5d92e3de6e2fc7d461ea008))
+
+
 ## [2.38.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.38.3...v2.38.4) (2026-10-29)
 
 **Note:** Version bump only for package @suuudokuuu/app
