@@ -34,7 +34,7 @@
         "@commitlint/config-workspace-scopes": "^21.2.0",
         "@effect/language-service": "^0.87.5",
         "@eslint-react/eslint-plugin": "^5.28.8",
-        "@lingui/cli": "6.10.0",
+        "@lingui/cli": "6.10.1",
         "@rnw-community/eslint-plugin": "^3.0.0",
         "@types/node": "^26.6.5",
         "@typescript-eslint/eslint-plugin": "^8.72.0",

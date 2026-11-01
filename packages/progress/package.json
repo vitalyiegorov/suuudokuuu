@@ -32,7 +32,7 @@
         "effect": "4.0.5"
     },
     "devDependencies": {
-        "@effect/vitest": "4.0.5",
+        "@effect/vitest": "4.0.6",
         "@suuudokuuu/test-kit": "workspace:*",
         "@vitest/coverage-v8": "5.0.5",
         "vite": "^8.3.4",

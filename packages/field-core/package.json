@@ -36,7 +36,7 @@
         "@suuudokuuu/techniques": "workspace:*"
     },
     "devDependencies": {
-        "@effect/vitest": "4.0.5",
+        "@effect/vitest": "4.0.6",
         "@suuudokuuu/hell-corpus": "workspace:*",
         "@suuudokuuu/rating": "workspace:*",
         "@suuudokuuu/solver-core": "workspace:*",
