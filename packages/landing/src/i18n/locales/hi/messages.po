@@ -67,6 +67,10 @@ msgstr "{HELL_CORPUS_MINIMUM_GIVEN_COUNT} से {HELL_CORPUS_MAXIMUM_GIVEN_COUN
 msgid "{infinityCorpusSize} record puzzles with {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues, published at SE {lowestRatingLabel} to {highestRatingLabel}."
 msgstr "{INFINITY_MINIMUM_GIVEN_COUNT} से {INFINITY_MAXIMUM_GIVEN_COUNT} क्लू वाली {infinityCorpusSize} रिकॉर्ड पहेलियाँ, जो SE {lowestRatingLabel} से {highestRatingLabel} रेटिंग के साथ प्रकाशित हुईं।"
 
+#: src/rating/utils/format-se-rating-range.util.ts
+msgid "{lowestLabel} to {highestLabel}{ceilingSuffix}"
+msgstr "{lowestLabel} से {highestLabel}{ceilingSuffix}"
+
 #: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
 msgid "{mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets. See the <0>Medium sudoku lander</0> to play it digitally."
 msgstr "{mediumClueCount} क्लू; एकल पर अटकना तय है, और इंटरसेक्शन व सबसेट से रास्ता खुलता है। इसे डिजिटल रूप में खेलने के लिए <0>मध्यम सुडोकू पेज</0> देखें।"

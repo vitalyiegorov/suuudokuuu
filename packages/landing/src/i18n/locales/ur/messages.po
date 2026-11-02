@@ -67,6 +67,10 @@ msgstr "{hellCorpusSize} تصدیق شدہ پزلز جن میں {HELL_CORPUS_MIN
 msgid "{infinityCorpusSize} record puzzles with {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues, published at SE {lowestRatingLabel} to {highestRatingLabel}."
 msgstr "{infinityCorpusSize} ریکارڈ پزلز جن میں {INFINITY_MINIMUM_GIVEN_COUNT} سے {INFINITY_MAXIMUM_GIVEN_COUNT} کلیوز ہیں، جو SE {lowestRatingLabel} سے {highestRatingLabel} کی شائع شدہ ریٹنگ رکھتے ہیں۔"
 
+#: src/rating/utils/format-se-rating-range.util.ts
+msgid "{lowestLabel} to {highestLabel}{ceilingSuffix}"
+msgstr "{lowestLabel} سے {highestLabel}{ceilingSuffix} تک"
+
 #: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
 msgid "{mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets. See the <0>Medium sudoku lander</0> to play it digitally."
 msgstr "{mediumClueCount} کلیوز، جو اکہروں پر رک جاتے ہیں اور تقاطع اور سبسیٹس سے حل ہوتے ہیں۔ اسے ڈیجیٹل طور پر کھیلنے کے لیے <0>درمیانہ سوڈوکو کا صفحہ</0> دیکھیں۔"

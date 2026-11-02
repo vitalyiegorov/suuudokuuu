@@ -67,6 +67,10 @@ msgstr "{hellCorpusSize} verifierade sudokun med {HELL_CORPUS_MINIMUM_GIVEN_COUN
 msgid "{infinityCorpusSize} record puzzles with {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues, published at SE {lowestRatingLabel} to {highestRatingLabel}."
 msgstr "{infinityCorpusSize} rekordsudokun med {INFINITY_MINIMUM_GIVEN_COUNT} till {INFINITY_MAXIMUM_GIVEN_COUNT} givna siffror, publicerade med SE {lowestRatingLabel} till {highestRatingLabel}."
 
+#: src/rating/utils/format-se-rating-range.util.ts
+msgid "{lowestLabel} to {highestLabel}{ceilingSuffix}"
+msgstr "{lowestLabel} till {highestLabel}{ceilingSuffix}"
+
 #: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
 msgid "{mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets. See the <0>Medium sudoku lander</0> to play it digitally."
 msgstr "{mediumClueCount} givna siffror, garanterat att stanna av på singlar och ge vika för skärningar och delmängder. Se <0>sidan för medelsvår sudoku</0> om du vill spela det digitalt."

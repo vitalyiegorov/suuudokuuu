@@ -67,6 +67,10 @@ msgstr "{hellCorpusSize}টি যাচাই করা ধাঁধা, {HELL_
 msgid "{infinityCorpusSize} record puzzles with {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues, published at SE {lowestRatingLabel} to {highestRatingLabel}."
 msgstr "{infinityCorpusSize}টি রেকর্ড ধাঁধা, {INFINITY_MINIMUM_GIVEN_COUNT} থেকে {INFINITY_MAXIMUM_GIVEN_COUNT}টি সূত্র সহ, SE {lowestRatingLabel} থেকে {highestRatingLabel} রেটিংয়ে প্রকাশিত।"
 
+#: src/rating/utils/format-se-rating-range.util.ts
+msgid "{lowestLabel} to {highestLabel}{ceilingSuffix}"
+msgstr "{lowestLabel} থেকে {highestLabel}{ceilingSuffix}"
+
 #: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
 msgid "{mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets. See the <0>Medium sudoku lander</0> to play it digitally."
 msgstr "{mediumClueCount}টি সূত্র; একক কৌশলে আটকে যাবে এবং ইন্টারসেকশন ও সাবসেটে এগোবে, এটি নিশ্চিত। ডিজিটালভাবে খেলতে <0>মাঝারি সুডোকু পাতা</0> দেখুন।"

@@ -67,6 +67,10 @@ msgstr "{hellCorpusSize} geprüfte Rätsel mit {HELL_CORPUS_MINIMUM_GIVEN_COUNT}
 msgid "{infinityCorpusSize} record puzzles with {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues, published at SE {lowestRatingLabel} to {highestRatingLabel}."
 msgstr "{infinityCorpusSize} Rekordrätsel mit {INFINITY_MINIMUM_GIVEN_COUNT} bis {INFINITY_MAXIMUM_GIVEN_COUNT} Vorgaben, veröffentlicht mit SE {lowestRatingLabel} bis {highestRatingLabel}."
 
+#: src/rating/utils/format-se-rating-range.util.ts
+msgid "{lowestLabel} to {highestLabel}{ceilingSuffix}"
+msgstr "{lowestLabel} bis {highestLabel}{ceilingSuffix}"
+
 #: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
 msgid "{mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets. See the <0>Medium sudoku lander</0> to play it digitally."
 msgstr "{mediumClueCount} Vorgaben; mit Singles kommt man garantiert nicht weiter, mit Schnittmengen und Subsets schon. Zum digitalen Spielen siehe die <0>Seite zu Sudoku Mittelschwer</0>."
