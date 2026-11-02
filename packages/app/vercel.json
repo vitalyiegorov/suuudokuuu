@@ -11,6 +11,13 @@
             }
         },
         {
+            "src": "^/(.+)/$",
+            "status": 308,
+            "headers": {
+                "Location": "/$1"
+            }
+        },
+        {
             "src": "^/\\.well-known/apple-app-site-association$",
             "headers": {
                 "Content-Type": "application/json"
