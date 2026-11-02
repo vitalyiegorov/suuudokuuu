@@ -63,3 +63,5 @@ tests/app-tests/artifacts
 .scratch/
 /docs/superpowers/
 .superpowers/
+
+.lighthouseci/

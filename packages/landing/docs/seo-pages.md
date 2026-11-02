@@ -305,3 +305,9 @@ Treat a rejected submission as a configuration question, not a retry loop: reche
 ## 6. Generated guide data
 
 `generate:rating-sample` writes both the fixed `rating-sample.constant.ts` puzzles and their derived `tier-technique-reports.constant.ts` reports. Five tiers use in-band forge results; Hell samples evenly spaced corpus records. The guides read the committed reports through `getTierTechniqueReports()`, so static builds do not rerun the logical solves. Run `check:tier-reports` to verify the reports still match the sample after changing solver or rating behavior. Regeneration changes published guide figures and printable booklets and must be reviewed as a data change.
+
+## 7. Lighthouse budgets
+
+After building the export, run `pnpm --filter @suuudokuuu/landing check:lighthouse`. Set `CHROME_PATH` to a local Chromium executable when Chrome is not installed; CI reuses Playwright's Chromium. LHCI serves `out/` itself and audits `/`, `/techniques/x-wing.html`, `/sudoku/hard.html`, and `/pt-br/sudoku/easy.html` once each with default mobile emulation. The `.html` suffix is required by its static server. Reports stay in the ignored `.lighthouseci/` directory, including HTML reports under `.lighthouseci/reports/`; nothing is uploaded publicly.
+
+The initial mobile baseline scored 100 for SEO and accessibility with zero CLS on every page, so SEO and accessibility must remain 100, crawlability must pass, and CLS must stay at or below 0.1. Performance below 90, LCP above 2,500 ms, and TBT above 300 ms warn because shared-runner lab timings vary. Baseline performance ranged from 84 to 99, LCP from 1,605 to 2,394 ms, and TBT from 124 to 621 ms; X-Wing already exceeds the advisory performance and TBT thresholds. These seven assertions protect stable quality while exposing performance work without making noisy timings block changes.

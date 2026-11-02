@@ -73,6 +73,10 @@ jobs:
             - name: Install Playwright browsers
               run: pnpm --filter @suuudokuuu/web-tests exec playwright install --with-deps chromium webkit
 
+            - name: Check landing Lighthouse budgets
+              run: |
+                  CHROME_PATH="$(pnpm --filter @suuudokuuu/web-tests exec node -p "require('@playwright/test').chromium.executablePath()")" pnpm --filter @suuudokuuu/landing check:lighthouse
+
             - name: Run Playwright web E2E
               run: pnpm --filter @suuudokuuu/web-tests test:e2e
 
