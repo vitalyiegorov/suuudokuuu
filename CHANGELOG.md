@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.39.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.39.0...v2.39.1) (2026-11-02)
+
+### Bug Fixes
+
+* **app:** redirect trailing-slash URLs to their canonical path ([#777](https://github.com/vitalyiegorov/suuudokuuu/issues/777)) ([106556c](https://github.com/vitalyiegorov/suuudokuuu/commit/106556c231b5edd3afcd54efbe2be7a2b336301a))
+
+
 # [2.39.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.38.5...v2.39.0) (2026-11-02)
 
 ### Bug Fixes
