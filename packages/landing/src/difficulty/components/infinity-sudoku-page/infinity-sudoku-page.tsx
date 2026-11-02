@@ -102,7 +102,10 @@ export const InfinitySudokuPage = ({ locale }: Props) => {
                         </Trans>
                     </li>
                     <li>
-                        <Trans>Includes Everest (SE 11.9), Platinum Blonde (SE 10.9) and AI Escargot (SE 10.6).</Trans>
+                        <Trans>
+                            Includes Everest (SE 11.9), Platinum Blonde (SE 10.9) and{' '}
+                            <Link href={buildLocalizedPagePath(aiEscargotPageMetadata)}>AI Escargot</Link> (SE 10.6).
+                        </Trans>
                     </li>
                     <li>
                         <Trans>Every board is checked for exactly one solution by two independent solving algorithms.</Trans>

@@ -103,7 +103,7 @@ const HardestSudokuPuzzlesPage = () => (
         </p>
         <PuzzleBoard givens={AI_ESCARGOT.givens}>Arto Inkala’s AI Escargot (2006), 23 givens, commonly rated around SE 10.6.</PuzzleBoard>
         <p>
-            <Link href={aiEscargotPageMetadata.path}>Play AI Escargot online, print it and read its step-by-step solution</Link>.
+            <Link href={aiEscargotPageMetadata.path}>Play AI Escargot online</Link>, print it and read its step-by-step solution.
         </p>
         <h3>Easter Monster</h3>
         <p>

@@ -926,6 +926,9 @@ msgid "How to start solving a Sudoku puzzle"
 msgstr "সুডোকু ধাঁধা সমাধান শুরু করবেন কীভাবে"
 
 #: src/difficulty/components/infinity-sudoku-page/infinity-sudoku-page.tsx
+msgid "Includes Everest (SE 11.9), Platinum Blonde (SE 10.9) and <0>AI Escargot</0> (SE 10.6)."
+msgstr "Everest (SE 11.9), Platinum Blonde (SE 10.9) ও <0>AI Escargot</0> (SE 10.6) এতে আছে।"
+
 #: src/printable/components/printable-infinity-sudoku-page/printable-infinity-sudoku-page.tsx
 msgid "Includes Everest (SE 11.9), Platinum Blonde (SE 10.9) and AI Escargot (SE 10.6)."
 msgstr "Everest (SE 11.9), Platinum Blonde (SE 10.9) ও AI Escargot (SE 10.6) এতে আছে।"
