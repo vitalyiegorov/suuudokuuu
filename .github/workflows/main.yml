@@ -155,6 +155,9 @@ jobs:
                   VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
               run: pnpm dlx "vercel@${VERCEL_CLI_VERSION}" deploy --prebuilt --prod --token="$VERCEL_TOKEN"
 
+            - name: Check the live site
+              run: pnpm --filter @suuudokuuu/landing check:live
+
             - name: Submit changed pages to IndexNow
               env:
                   INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}

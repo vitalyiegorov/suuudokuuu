@@ -111,7 +111,13 @@ The key file must already be live when the submission runs, otherwise IndexNow a
 3. Verify `https://www.suuudokuuu.com/<key>.txt` returns the key as plaintext.
 4. Run `submit:indexnow`.
 
-### 5.4 Key rotation
+### 5.4 Live check
+
+`scripts/check-live.ts` runs in `main.yml` right after the production deploy, including the nightly daily-puzzle run, and before IndexNow submission. It fetches the live `sitemap.xml`, requests every `<loc>` without following redirects, and fails unless each answers `200` with a `<link rel="canonical">` equal to its `loc` and no `noindex` robots meta; `/robots.txt` and `/llms.txt` must answer `200` too. Requests run eight at a time, and a failing URL is retried once after five seconds so CDN propagation does not fail a deploy. Crawler user-agent checks are unnecessary because a static export serves every user agent the same HTML.
+
+Run it locally with `pnpm --filter @suuudokuuu/landing check:live`. Pass `--origin <url>` to check a preview deployment: the sitemap and pages are fetched from that origin while canonicals are still compared with the production `loc` values.
+
+### 5.5 Key rotation
 
 1. Generate a new key.
 2. Update `INDEXNOW_KEY` in the CI secret store.

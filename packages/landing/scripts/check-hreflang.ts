@@ -6,9 +6,10 @@ import { isDefined } from '@rnw-community/shared';
 
 import { DEFAULT_LOCALE, HREFLANG_DEFAULT_KEY, SUPPORTED_LOCALES } from '../src/seo/constants/site.constant';
 
-const EXPORT_DIRECTORY = join(import.meta.dirname, '..', 'out');
+import { readCanonical } from './utils/read-canonical.util';
+import { readLinkAttributes } from './utils/read-link-attributes.util';
 
-const LinkTagPattern = /<(?:xhtml:)?link\b[^>]*>/gu;
+const EXPORT_DIRECTORY = join(import.meta.dirname, '..', 'out');
 
 const SitemapEntryPattern = /<url>([\s\S]*?)<\/url>/gu;
 
@@ -16,25 +17,12 @@ const SitemapLocationPattern = /<loc>([^<]+)<\/loc>/u;
 
 const HtmlLangPattern = /<html\b[^>]*\slang="([^"]*)"/u;
 
-const AttributePattern = /\s([\w-]+)="([^"]*)"/gu;
-
-const readLinkAttributes = (markup: string): Record<string, string>[] =>
-    Array.from(markup.match(LinkTagPattern) ?? [], tag =>
-        Object.fromEntries(Array.from(tag.matchAll(AttributePattern), ([, name = '', value = '']) => [name.toLowerCase(), value]))
-    );
-
 const readCluster = (markup: string): Record<string, string> =>
     Object.fromEntries(
         readLinkAttributes(markup).flatMap(({ href, hreflang, rel }) =>
             rel === 'alternate' && isDefined(hreflang) && isDefined(href) ? [[hreflang, new URL(href).href]] : []
         )
     );
-
-const readCanonical = (markup: string): string | undefined => {
-    const canonicalHref = readLinkAttributes(markup).find(({ rel }) => rel === 'canonical')?.['href'];
-
-    return isDefined(canonicalHref) ? new URL(canonicalHref).href : undefined;
-};
 
 const toExportFile = (url: string): string => {
     const { pathname } = new URL(url);

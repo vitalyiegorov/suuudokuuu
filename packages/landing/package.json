@@ -11,6 +11,7 @@
         "generate:printables": "tsx scripts/generate-printables.ts",
         "generate:rating-sample": "tsx scripts/generate-rating-sample.ts",
         "check:hreflang": "tsx scripts/check-hreflang.ts",
+        "check:live": "tsx scripts/check-live.ts",
         "check:tier-reports": "tsx scripts/check-tier-reports.ts",
         "i18n:compile": "lingui compile --strict --typescript",
         "i18n:extract": "lingui extract --overwrite --clean",
