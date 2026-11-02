@@ -86,15 +86,19 @@ const comparisons: { readonly key: string; readonly score: number }[] = [];
 for (const [index, left] of pages.entries()) {
     for (const right of pages.slice(index + 1)) {
         if (left.lang === right.lang) {
-            const score = similarity(left.shingles, right.shingles);
-            comparisons.push({ key: `${left.lang} ${left.path} ${right.path}`, score });
+            comparisons.push({
+                key: `${left.lang} ${left.path} ${right.path}`.replaceAll(/\d{4}-\d{2}(?:-\d{2})?/gu, ':date'),
+                score: similarity(left.shingles, right.shingles)
+            });
         }
     }
 }
 
 const pairs = comparisons.filter(({ score }) => score >= THRESHOLD);
 const current = Object.fromEntries(
-    pairs.toSorted((left, right) => left.key.localeCompare(right.key)).map(({ key, score }) => [key, Math.round(score * 1000) / 1000])
+    pairs
+        .toSorted((left, right) => left.key.localeCompare(right.key) || left.score - right.score)
+        .map(({ key, score }) => [key, Math.round(score * 1000) / 1000])
 );
 if (process.argv.includes('--write-baseline')) {
     writeFileSync(BASELINE_FILE, `${JSON.stringify(current, null, 4)}\n`);

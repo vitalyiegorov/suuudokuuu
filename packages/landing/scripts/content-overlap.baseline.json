@@ -1,4 +1,4 @@
 {
-    "en /daily-sudoku /daily-sudoku/2026-11-02": 0.536,
-    "en /daily-sudoku/archive/2026-09 /daily-sudoku/archive/2026-11": 0.326
+    "en /daily-sudoku /daily-sudoku/:date": 0.536,
+    "en /daily-sudoku/archive/:date /daily-sudoku/archive/:date": 0.326
 }

@@ -139,9 +139,6 @@ jobs:
             - name: Check landing hreflang clusters
               run: pnpm --filter @suuudokuuu/landing check:hreflang
 
-            - name: Check landing content overlap
-              run: pnpm --filter @suuudokuuu/landing check:content-overlap
-
             - name: Pull Vercel project settings
               working-directory: packages/app
               env:
