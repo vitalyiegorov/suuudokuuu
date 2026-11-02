@@ -67,6 +67,10 @@ msgstr "{hellCorpusSize} لغزًا موثقًا بين {HELL_CORPUS_MINIMUM_GIV
 msgid "{infinityCorpusSize} record puzzles with {INFINITY_MINIMUM_GIVEN_COUNT} to {INFINITY_MAXIMUM_GIVEN_COUNT} clues, published at SE {lowestRatingLabel} to {highestRatingLabel}."
 msgstr "{infinityCorpusSize} لغزًا قياسيًا بين {INFINITY_MINIMUM_GIVEN_COUNT} و{INFINITY_MAXIMUM_GIVEN_COUNT} معطى، منشورة بتقييم SE يتراوح من {lowestRatingLabel} إلى {highestRatingLabel}."
 
+#: src/rating/utils/format-se-rating-range.util.ts
+msgid "{lowestLabel} to {highestLabel}{ceilingSuffix}"
+msgstr "من {lowestLabel} إلى {highestLabel}{ceilingSuffix}"
+
 #: src/printable/components/printable-sudoku-page/printable-sudoku-page.tsx
 msgid "{mediumClueCount} clues, guaranteed to stall on singles and to yield to intersections and subsets. See the <0>Medium sudoku lander</0> to play it digitally."
 msgstr "{mediumClueCount} معطى، ويضمن المستوى أن تتعطل الحلول المفردة وأن يُحل بالتقاطعات والمجموعات الجزئية. تعرّف على <0>صفحة سودوكو متوسط</0> للعب رقميًا."

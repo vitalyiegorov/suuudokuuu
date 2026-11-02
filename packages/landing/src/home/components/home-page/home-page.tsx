@@ -7,8 +7,14 @@ import { hardestSudokuPuzzlesPageMetadata } from '../../../app/(en)/hardest-sudo
 import { howToPlayPageMetadata } from '../../../app/(en)/how-to-play/metadata';
 import { homePageMetadata } from '../../../app/(en)/metadata';
 import { solverPageMetadata } from '../../../app/(en)/solver/metadata';
+import { easySudokuPageMetadata } from '../../../app/(en)/sudoku/easy/metadata';
+import { hardSudokuPageMetadata } from '../../../app/(en)/sudoku/hard/metadata';
+import { hellSudokuPageMetadata } from '../../../app/(en)/sudoku/hell/metadata';
 import { infinitySudokuPageMetadata } from '../../../app/(en)/sudoku/infinity/metadata';
+import { mediumSudokuPageMetadata } from '../../../app/(en)/sudoku/medium/metadata';
 import { sudokuDifficultiesPageMetadata } from '../../../app/(en)/sudoku/metadata';
+import { newbieSudokuPageMetadata } from '../../../app/(en)/sudoku/newbie/metadata';
+import { nightmareSudokuPageMetadata } from '../../../app/(en)/sudoku/nightmare/metadata';
 import { fullHousePageMetadata } from '../../../app/(en)/techniques/full-house/metadata';
 import { hiddenSinglePageMetadata } from '../../../app/(en)/techniques/hidden-single/metadata';
 import { techniquesPageMetadata } from '../../../app/(en)/techniques/metadata';
@@ -17,6 +23,7 @@ import { whySuuudokuuuPageMetadata } from '../../../app/(en)/why-suuudokuuu/meta
 import { StoreBadges } from '../../../chrome/components/store-badges/store-badges';
 import { StoreBadgeCampaignEnum } from '../../../chrome/enums/store-badge-campaign.enum';
 import { DifficultyBoard } from '../../../difficulty/components/difficulty-board/difficulty-board';
+import { DifficultyLink } from '../../../difficulty/components/difficulty-link/difficulty-link';
 import { activateLocale } from '../../../i18n/utils/activate-locale.util';
 import { FaqAnswer } from '../../../seo/components/faq-answer/faq-answer';
 import { FaqHeading } from '../../../seo/components/faq-heading/faq-heading';
@@ -36,6 +43,16 @@ import type { LocaleType } from '../../../seo/types/locale.type';
 interface Props {
     locale: LocaleType;
 }
+
+const difficultyPages = [
+    newbieSudokuPageMetadata,
+    easySudokuPageMetadata,
+    mediumSudokuPageMetadata,
+    hardSudokuPageMetadata,
+    nightmareSudokuPageMetadata,
+    hellSudokuPageMetadata,
+    infinitySudokuPageMetadata
+];
 
 // oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 export const HomePage = ({ locale }: Props) => {
@@ -158,6 +175,11 @@ export const HomePage = ({ locale }: Props) => {
                     published.
                 </Trans>
             </p>
+            <ul className="link-list">
+                {difficultyPages.map(metadata => (
+                    <DifficultyLink key={metadata.path} metadata={metadata} />
+                ))}
+            </ul>
             <FaqPage>
                 <FaqHeading>
                     <Trans>Frequently asked questions</Trans>
