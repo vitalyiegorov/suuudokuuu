@@ -10,6 +10,7 @@
         "generate:og-images": "tsx scripts/generate-og-images.ts",
         "generate:printables": "tsx scripts/generate-printables.ts",
         "generate:rating-sample": "tsx scripts/generate-rating-sample.ts",
+        "check:content-overlap": "tsx scripts/check-content-overlap.ts",
         "check:hreflang": "tsx scripts/check-hreflang.ts",
         "check:tier-reports": "tsx scripts/check-tier-reports.ts",
         "i18n:compile": "lingui compile --strict --typescript",
