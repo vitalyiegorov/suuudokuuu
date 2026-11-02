@@ -7,9 +7,9 @@ import type { PageMetadataInterface } from '../../../../seo/interfaces/page-meta
 export const fullHousePageMetadata: PageMetadataInterface = {
     path: '/techniques/full-house',
     ...buildTechniquePageNames(SolutionTechniqueEnum.FullHouse),
-    metaTitle: 'Full House Sudoku Technique — The Last Empty Cell in a Unit',
+    metaTitle: 'Full House Sudoku: Solve the Last Empty Cell in a Unit',
     metaDescription:
-        'A full house is the last empty cell in a row, column or box, and its value is the one digit that unit is still missing. Worked example, spotting steps and FAQs.',
+        'A full house in Sudoku is the last empty cell in a row, column or box, and its value is the one digit still missing. Worked example, spotting steps and FAQ.',
     publishedAt: '2026-08-11T00:00:00.000Z',
     updatedAt: '2026-10-15T00:00:00.000Z',
     changeFrequency: 'monthly',
