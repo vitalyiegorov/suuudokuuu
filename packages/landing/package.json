@@ -4,7 +4,7 @@
     "private": true,
     "description": "Static Next.js content and SEO surface for www.suuudokuuu.com",
     "scripts": {
-        "build": "pnpm generate:printables && pnpm generate:og-images && pnpm generate:indexing && next build",
+        "build": "pnpm generate:printables && pnpm generate:og-images && pnpm generate:indexing && next build && tsx scripts/generate-llms-full.ts",
         "clear": "pnpm rimraf .next out node_modules/.cache .turbo",
         "generate:indexing": "tsx scripts/generate-indexing-files.ts",
         "generate:og-images": "tsx scripts/generate-og-images.ts",

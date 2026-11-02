@@ -3,6 +3,8 @@ import { join } from 'node:path';
 
 import { isDefined, isNumber, isRecord } from '@rnw-community/shared';
 
+import { readMainText } from './utils/read-main-text.util';
+
 const EXPORT_DIRECTORY = join(import.meta.dirname, '..', 'out');
 const BASELINE_FILE = join(import.meta.dirname, 'content-overlap.baseline.json');
 const THRESHOLD = 0.3;
@@ -19,14 +21,7 @@ const readCanonical = (markup: string): string | undefined => {
 };
 
 const readShingles = (main: string): Set<string> => {
-    const tokens =
-        main
-            .replaceAll(/<!--[\s\S]*?-->/gu, ' ')
-            .replaceAll(/<(script|style|svg|noscript)\b[^>]*>[\s\S]*?<\/\1>/giu, ' ')
-            .replaceAll(/<[^<>]+>/gu, ' ')
-            .replaceAll(/&#?\w+;/gu, ' ')
-            .toLowerCase()
-            .match(/[\p{L}\p{N}]+/gu) ?? [];
+    const tokens = main.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [];
 
     return new Set(
         tokens
@@ -58,7 +53,7 @@ const pages = readdirSync(EXPORT_DIRECTORY, { recursive: true, encoding: 'utf8' 
             return [];
         }
         const lang = /<html\b[^>]*\slang="([^"]+)"/u.exec(markup)?.[1];
-        const main = /<main\b[^>]*>([\s\S]*?)<\/main>/u.exec(markup)?.[1];
+        const main = readMainText(markup);
         if (!isDefined(lang) || !isDefined(main)) {
             throw new Error(`${file} has a canonical but is missing <html lang> or <main>`);
         }

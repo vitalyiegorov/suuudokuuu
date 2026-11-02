@@ -14,9 +14,10 @@ Read this before touching `src/indexing`, `src/app/sitemap.ts`, `src/app/robots.
 | `robots.txt`           | `src/app/robots.ts`, a static metadata route              | `out/robots.txt`           |
 | `manifest.webmanifest` | `src/app/manifest.ts`                                     | `out/manifest.webmanifest` |
 | `llms.txt`             | `scripts/generate-indexing-files.ts` → `public/llms.txt`  | `out/llms.txt`             |
+| `llms-full.txt`        | `scripts/generate-llms-full.ts`, after `next build`       | `out/llms-full.txt`        |
 | IndexNow key file      | `scripts/generate-indexing-files.ts` → `public/<key>.txt` | `out/<key>.txt`            |
 
-All five are byte-identical on every request because the site is a fully static export. There is no server.
+All six are byte-identical on every request because the site is a fully static export. There is no server.
 
 `robots.txt` names the AI search, assistant and training crawlers (`AI_CRAWLER_USER_AGENTS` in `src/seo/constants/crawler.constant.ts`) explicitly and allows them everywhere, because the site is open source and ad free and wants to be cited in AI answers. To opt a crawler out, add a `{ userAgent, disallow: ['/'] }` group for it in `src/app/robots.ts`; there is no per-crawler disallow today.
 
@@ -40,7 +41,7 @@ These come from `docs/seo-pages.md` §4 and from a production indexing incident 
 
 ### 3.1 Submitted URLs come from the sitemap function, never from a content registry
 
-`src/indexing/utils/build-indexable-pages.util.ts` is the single enumeration of every indexable URL. It carries one entry per page per published locale, with the localized title and description. `src/app/sitemap.ts` maps over it to produce `sitemap.xml`, with each entry's hreflang alternates as `xhtml:link` elements, and `check:hreflang` proves those alternates match the exported pages. `buildLlmsTxt` groups it into `llms.txt`. `scripts/submit-indexnow.ts` submits it.
+`src/indexing/utils/build-indexable-pages.util.ts` is the single enumeration of every indexable URL. It carries one entry per page per published locale, with the localized title and description. `src/app/sitemap.ts` maps over it to produce `sitemap.xml`, with each entry's hreflang alternates as `xhtml:link` elements, and `check:hreflang` proves those alternates match the exported pages. `buildLlmsTxt` groups its English subset into `llms.txt`. `scripts/submit-indexnow.ts` submits it.
 
 After building, `pnpm --filter @suuudokuuu/landing check:content-overlap` compares five-word shingles from exported `<main>` text between pages with the same HTML language. Dates in paths are keyed as `:date`, so the daily puzzle rollover keeps the same keys; the gate runs in the PR web E2E workflow, not in the production deploy. It rejects new pairs with Jaccard similarity ≥ 0.3 and increases above the committed baseline plus 0.02; resolved pairs are reported without failing. After reviewing intentional overlap changes, run `pnpm --filter @suuudokuuu/landing check:content-overlap --write-baseline` and commit `scripts/content-overlap.baseline.json`.
 
@@ -54,13 +55,15 @@ Nothing else may walk `PAGE_METADATA_REGISTRY` to build a URL list. Two enumerat
 
 ---
 
-## 4. `llms.txt`
+## 4. `llms.txt` and `llms-full.txt`
 
 `out/llms.txt` is the agent-readable index of the site, in the `llmstxt.org` shape: an `# <site>` heading, a `>` summary line, an orientation paragraph, then `## <section>` lists of `- [Title](url): description` entries.
 
-It is generated, never authored. Its links are `buildIndexablePages()` in registry order, grouped by `resolveLlmsSection`, whose fallback section catches any page whose path does not match a known family — so a newly added route appears in `llms.txt` on the next build without anyone remembering to list it. The one thing to keep true when adding a page family is the section mapping in `src/indexing/utils/resolve-llms-section.util.ts`; forgetting it costs a page its section, not its listing.
+It is generated, never authored. Its links are the default-locale (English) entries from `buildIndexablePages()` in registry order, grouped by `resolveLlmsSection`, whose fallback section catches any page whose path does not match a known family — so a newly added route appears in `llms.txt` on the next build without anyone remembering to list it. The one thing to keep true when adding a page family is the section mapping in `src/indexing/utils/build-llms-txt.util.ts`; forgetting it costs a page its section, not its listing.
 
-The only URL in `llms.txt` that is not a page URL is the `sitemap.xml` reference in the orientation paragraph, and it is deliberately plain text rather than a list entry so that the link list and the sitemap stay exactly equal.
+The orientation paragraph links to `sitemap.xml` for every published URL, names the supported locales and their URL pattern, and points to `llms-full.txt` for full English page text. These references are plain text rather than list entries, so the link list equals exactly the English subset of the sitemap. Localized URLs remain in the sitemap and IndexNow submissions.
+
+After `next build`, `scripts/generate-llms-full.ts` reads the links in the exported `llms.txt`, preserving their section and page order. It reads each page's exported HTML and writes `out/llms-full.txt` with a site heading and intro, then each page's title, URL and full `<main>` text. Body copy stays in JSX. The shared `scripts/utils/read-main-text.util.ts` also serves the content-overlap gate: it strips comments, scripts, styles, SVG, noscript, tags and entities, then collapses whitespace to readable single spaces. The Vercel output composer recursively copies all of `out/`, including both text files.
 
 ---
 
