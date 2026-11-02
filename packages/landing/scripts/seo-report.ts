@@ -4,7 +4,7 @@ import { join } from 'node:path';
 
 import { getErrorMessage, isDefined, isNotEmptyString, isNumber, isString } from '@rnw-community/shared';
 
-import { SITE_ORIGIN } from '../src/seo/constants/site.constant';
+import { DEFAULT_LOCALE, SITE_ORIGIN, SUPPORTED_LOCALES } from '../src/seo/constants/site.constant';
 
 const SERVICE_ACCOUNT_ENVIRONMENT_VARIABLE = 'GCP_SA_KEY';
 const CRUX_API_KEY_ENVIRONMENT_VARIABLE = 'CRUX_API_KEY';
@@ -22,6 +22,8 @@ const MILLISECONDS_PER_DAY = 86_400_000;
 const WINDOW_DAYS = 28;
 const DATA_LAG_DAYS = 3;
 const TOP_ROW_LIMIT = 20;
+const SEARCH_ROW_LIMIT = 1000;
+const LOW_CTR_THRESHOLD = 0.04;
 const PERCENT_SCALE = 100;
 
 const SEARCH_CONSOLE_PROPERTY = 'sc-domain:suuudokuuu.com';
@@ -76,6 +78,12 @@ interface SearchConsoleReportInterface {
     previous: SearchWindowInterface;
     topQueries: SearchRowInterface[];
     topPages: SearchRowInterface[];
+    readonly strikingDistanceQueries: SearchRowInterface[];
+    readonly lowCtrPages: SearchRowInterface[];
+    readonly byLocale: SearchRowInterface[];
+    readonly bySection: SearchRowInterface[];
+    readonly countries: SearchRowInterface[];
+    readonly devices: SearchRowInterface[];
     sitemaps: SitemapStatusInterface[];
 }
 
@@ -261,7 +269,7 @@ const querySearchRows = async (accessToken: string, range: DateRangeInterface, d
         startDate: range.start,
         endDate: range.end,
         dimensions: [dimension],
-        rowLimit: TOP_ROW_LIMIT
+        rowLimit: SEARCH_ROW_LIMIT
     });
 
     return readArray(payload['rows'])
@@ -290,17 +298,70 @@ const querySitemaps = async (accessToken: string): Promise<SitemapStatusInterfac
         });
 };
 
+const findStrikingDistanceQueries = (rows: SearchRowInterface[]): SearchRowInterface[] =>
+    rows
+        .filter(row => row.position >= 4 && row.position <= 20 && row.impressions >= 10)
+        .sort((first, second) => second.impressions - first.impressions)
+        .slice(0, TOP_ROW_LIMIT);
+
+const findLowCtrPages = (rows: SearchRowInterface[]): SearchRowInterface[] =>
+    rows
+        .filter(row => row.position <= 10 && row.ctr < LOW_CTR_THRESHOLD && row.impressions >= 50)
+        .sort((first, second) => second.impressions - first.impressions)
+        .slice(0, TOP_ROW_LIMIT);
+
+const readPageGroups = (page: string): { readonly locale: string; readonly section: string } => {
+    const segments = new URL(page).pathname.split('/').filter(isNotEmptyString);
+    const locale = SUPPORTED_LOCALES.find(supported => supported.toLowerCase() === segments[0]?.toLowerCase());
+
+    return { locale: locale ?? DEFAULT_LOCALE, section: segments[isDefined(locale) ? 1 : 0] ?? 'home' };
+};
+
+const aggregatePages = (rows: SearchRowInterface[], dimension: 'locale' | 'section'): SearchRowInterface[] => {
+    const groups = new Map<string, SearchTotalsInterface>();
+
+    for (const row of rows) {
+        const key = readPageGroups(row.key)[dimension];
+        const previous = groups.get(key);
+
+        groups.set(key, {
+            clicks: (previous?.clicks ?? 0) + row.clicks,
+            impressions: (previous?.impressions ?? 0) + row.impressions,
+            ctr: 0,
+            position: (previous?.position ?? 0) + row.position * row.impressions
+        });
+    }
+
+    return [...groups]
+        .map(([key, totals]) => ({
+            ...totals,
+            key,
+            ctr: totals.impressions === 0 ? 0 : totals.clicks / totals.impressions,
+            position: totals.impressions === 0 ? 0 : totals.position / totals.impressions
+        }))
+        .sort((first, second) => second.impressions - first.impressions);
+};
+
 const collectSearchConsole = async (rawKey: string): Promise<SearchConsoleReportInterface> => {
     const accessToken = await requestAccessToken(parseServiceAccount(rawKey));
     const currentRange = buildDateRange(shiftDate(new Date(), -DATA_LAG_DAYS));
     const previousRange = buildDateRange(shiftDate(new Date(currentRange.start), -1));
 
+    const queries = await querySearchRows(accessToken, currentRange, 'query');
+    const pages = await querySearchRows(accessToken, currentRange, 'page');
+
     return {
         property: SEARCH_CONSOLE_PROPERTY,
         current: await querySearchTotals(accessToken, currentRange),
         previous: await querySearchTotals(accessToken, previousRange),
-        topQueries: await querySearchRows(accessToken, currentRange, 'query'),
-        topPages: await querySearchRows(accessToken, currentRange, 'page'),
+        topQueries: queries.slice(0, TOP_ROW_LIMIT),
+        topPages: pages.slice(0, TOP_ROW_LIMIT),
+        strikingDistanceQueries: findStrikingDistanceQueries(queries),
+        lowCtrPages: findLowCtrPages(pages),
+        byLocale: aggregatePages(pages, 'locale'),
+        bySection: aggregatePages(pages, 'section'),
+        countries: (await querySearchRows(accessToken, currentRange, 'country')).slice(0, TOP_ROW_LIMIT),
+        devices: await querySearchRows(accessToken, currentRange, 'device'),
         sitemaps: await querySitemaps(accessToken)
     };
 };
@@ -427,6 +488,18 @@ const buildSearchConsoleMarkdown = (report: SearchConsoleReportInterface): strin
         rowsTable('Query', report.topQueries),
         `### Top ${TOP_ROW_LIMIT} pages`,
         rowsTable('Page', report.topPages),
+        '### Striking distance queries',
+        rowsTable('Query', report.strikingDistanceQueries),
+        '### Low-CTR pages',
+        rowsTable('Page', report.lowCtrPages),
+        '### By locale',
+        rowsTable('Locale', report.byLocale),
+        '### By section',
+        rowsTable('Section', report.bySection),
+        '### Countries',
+        rowsTable('Country', report.countries),
+        '### Devices',
+        rowsTable('Device', report.devices),
         '### Sitemaps',
         sitemapTable
     ].join('\n\n');
