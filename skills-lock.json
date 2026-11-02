@@ -1,6 +1,17 @@
 {
     "version": 1,
     "skills": {
+        "agent-browser": {
+            "source": "vercel-labs/agent-browser",
+            "sourceType": "github",
+            "computedHash": "2462fa74e41cf41b83ba098a34b316c4ce126e4597da7db39dd8e659cfee9136"
+        },
+        "ai-seo": {
+            "source": "coreyhaines31/marketingskills",
+            "sourceType": "github",
+            "skillPath": "skills/ai-seo/SKILL.md",
+            "computedHash": "d17bcf49642639b1978e59aee3f13a1a5c80198a56c3c33cb7aee34df7b79359"
+        },
         "animate": {
             "source": "emilkowalski/skills",
             "sourceType": "github",
@@ -23,6 +34,18 @@
             "source": "obra/superpowers",
             "sourceType": "github",
             "computedHash": "8df9b47092524833138b58682d03f2e153a242e550d1693657afdbee0cc9cdb0"
+        },
+        "content-strategy": {
+            "source": "coreyhaines31/marketingskills",
+            "sourceType": "github",
+            "skillPath": "skills/content-strategy/SKILL.md",
+            "computedHash": "e91fcb1011fb0c165d4b80e7d230f08e9cf702945ab180f2b3fabd84b1877bda"
+        },
+        "copywriting": {
+            "source": "coreyhaines31/marketingskills",
+            "sourceType": "github",
+            "skillPath": "skills/copywriting/SKILL.md",
+            "computedHash": "34095dc1ba236967c7515c62568591008f8ec795e1a5fd4b018f2b127a36b32c"
         },
         "dispatching-parallel-agents": {
             "source": "obra/superpowers",
@@ -69,6 +92,62 @@
             "skillPath": "skills/improve-animations/SKILL.md",
             "computedHash": "eeb219a407e325b687af88db25771cc3018e3148245604112f5ac6990b6fd79c"
         },
+        "marketing-psychology": {
+            "source": "coreyhaines31/marketingskills",
+            "sourceType": "github",
+            "skillPath": "skills/marketing-psychology/SKILL.md",
+            "computedHash": "50d735eb0f5c36f379ed2200f21aeacc9b9ad85667b5d33ec6111857352a1340"
+        },
+        "next-browser-initial-load-optimizer": {
+            "source": "vercel/next.js",
+            "sourceType": "github",
+            "skillPath": "skills/next-browser-initial-load-optimizer/SKILL.md",
+            "computedHash": "ce61f4b32f6682b24d607607ba53f3b9eeb4e76addb3b2d4efa7b456410e47b4"
+        },
+        "next-cache-components-adoption": {
+            "source": "vercel/next.js",
+            "ref": "canary",
+            "sourceType": "github",
+            "skillPath": "skills/next-cache-components-adoption/SKILL.md",
+            "computedHash": "38eb3cb9e625b46b54493459a106ac410bc0fe59b124903d55f5090c959d292f"
+        },
+        "next-cache-components-optimizer": {
+            "source": "vercel/next.js",
+            "sourceType": "github",
+            "skillPath": "skills/next-cache-components-optimizer/SKILL.md",
+            "computedHash": "7c1e21574ff39a11fc3874e4df2ab8a355154cc7b6bf4897ad570a2dd9e5a5f2"
+        },
+        "next-dev-loop": {
+            "source": "vercel/next.js",
+            "ref": "canary",
+            "sourceType": "github",
+            "skillPath": "skills/next-dev-loop/SKILL.md",
+            "computedHash": "c305c83b726212e0284930c65cded2c4a4ab85f9bfccfa83b62274247fe3580e"
+        },
+        "next-partial-prefetching-adoption": {
+            "source": "vercel/next.js",
+            "ref": "canary",
+            "sourceType": "github",
+            "skillPath": "skills/next-partial-prefetching-adoption/SKILL.md",
+            "computedHash": "e523f1aec1789b3a1f4ca881898d99416427f9d853b3b1841f0e13657bc38f77"
+        },
+        "next-partial-prefetching-optimizer": {
+            "source": "vercel/next.js",
+            "sourceType": "github",
+            "skillPath": "skills/next-partial-prefetching-optimizer/SKILL.md",
+            "computedHash": "93e27c90ea70107ea500c4f1fe4f10eaaba61847b40b868337f4f748cab6de07"
+        },
+        "playwright-best-practices": {
+            "source": "currents-dev/playwright-best-practices-skill",
+            "sourceType": "github",
+            "computedHash": "320eaf861e3a0a923bfaad0726cb311a3fe30093378f8d26c89b9c5ae5c42b35"
+        },
+        "programmatic-seo": {
+            "source": "coreyhaines31/marketingskills",
+            "sourceType": "github",
+            "skillPath": "skills/programmatic-seo/SKILL.md",
+            "computedHash": "e40eee11a367397e56e304fd646d582e276751ffd6f7275c64ea74b046cf5c22"
+        },
         "receiving-code-review": {
             "source": "obra/superpowers",
             "sourceType": "github",
@@ -84,6 +163,24 @@
             "sourceType": "github",
             "skillPath": "skills/review-animations/SKILL.md",
             "computedHash": "b9f669af5ae280c19a592a94611520335a81de25c88f225bf60ae4b2d66c8c7c"
+        },
+        "schema": {
+            "source": "coreyhaines31/marketingskills",
+            "sourceType": "github",
+            "skillPath": "skills/schema/SKILL.md",
+            "computedHash": "6809d198493d08931ea1c35ab40d2fca27c6ae63a07a4bc183b75df51243a374"
+        },
+        "seo-audit": {
+            "source": "coreyhaines31/marketingskills",
+            "sourceType": "github",
+            "skillPath": "skills/seo-audit/SKILL.md",
+            "computedHash": "9a94c66cb3098b03037f072b6f561cca75410c6d8611e50646baf9e8a5dabe8f"
+        },
+        "site-architecture": {
+            "source": "coreyhaines31/marketingskills",
+            "sourceType": "github",
+            "skillPath": "skills/site-architecture/SKILL.md",
+            "computedHash": "20ea864cae2d3261fd233dd5175d8aa0b806857447083c175ed9250066efff90"
         },
         "subagent-driven-development": {
             "source": "obra/superpowers",
@@ -104,6 +201,24 @@
             "source": "obra/superpowers",
             "sourceType": "github",
             "computedHash": "52bbb4b6e80918e83e92a1514f3b3757712154c2a8a42de24919e48a794c54fc"
+        },
+        "vercel-cli-with-tokens": {
+            "source": "vercel-labs/agent-skills",
+            "sourceType": "github",
+            "skillPath": "skills/vercel-cli-with-tokens/SKILL.md",
+            "computedHash": "eb16b20dcbe6ce51e0372083d624e0847af1b09487ec99249227d5a8eddebfc0"
+        },
+        "vercel-optimize": {
+            "source": "vercel-labs/agent-skills",
+            "sourceType": "github",
+            "skillPath": "skills/vercel-optimize/SKILL.md",
+            "computedHash": "9d4ace02972b9b1c462f097c7322eb32c9f04bba6f2fb5cf482086d402eeec33"
+        },
+        "vercel-react-view-transitions": {
+            "source": "vercel-labs/agent-skills",
+            "sourceType": "github",
+            "skillPath": "skills/react-view-transitions/SKILL.md",
+            "computedHash": "2033ef20681c90d4f93deee719e55e019c254e496d9bf80381c27cc539292001"
         },
         "verification-before-completion": {
             "source": "obra/superpowers",
