@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.40.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.39.1...v2.40.0) (2026-11-02)
+
+### Bug Fixes
+
+* **landing:** link every locale home to its difficulty pages ([#784](https://github.com/vitalyiegorov/suuudokuuu/issues/784)) ([b84278b](https://github.com/vitalyiegorov/suuudokuuu/commit/b84278b169c6954a8a92a3f4e33c7a50ff157a73))
+
+### Features
+
+* **landing:** add search-demand breakdowns to the weekly SEO report ([#782](https://github.com/vitalyiegorov/suuudokuuu/issues/782)) ([bf04597](https://github.com/vitalyiegorov/suuudokuuu/commit/bf04597f4b9ddd2e2429b6eb529bc8b9e9565fea))
+* **landing:** turn llms.txt into an English answer index and add llms-full.txt ([#779](https://github.com/vitalyiegorov/suuudokuuu/issues/779)) ([b49d485](https://github.com/vitalyiegorov/suuudokuuu/commit/b49d485479ee9d74019383c9792d8b2c18ed6ec0))
+
+
 ## [2.39.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.39.0...v2.39.1) (2026-11-02)
 
 ### Bug Fixes
