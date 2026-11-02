@@ -67,6 +67,9 @@ jobs:
             - name: Check landing hreflang clusters
               run: pnpm --filter @suuudokuuu/landing check:hreflang
 
+            - name: Check landing content overlap
+              run: pnpm --filter @suuudokuuu/landing check:content-overlap
+
             - name: Install Playwright browsers
               run: pnpm --filter @suuudokuuu/web-tests exec playwright install --with-deps chromium webkit
 

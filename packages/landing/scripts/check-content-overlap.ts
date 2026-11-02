@@ -1,0 +1,126 @@
+import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+import { isDefined, isNumber, isRecord } from '@rnw-community/shared';
+
+const EXPORT_DIRECTORY = join(import.meta.dirname, '..', 'out');
+const BASELINE_FILE = join(import.meta.dirname, 'content-overlap.baseline.json');
+const THRESHOLD = 0.3;
+const TOLERANCE = 0.02;
+const SHINGLE_SIZE = 5;
+const MAX_CODEPOINT = 0x10ffff;
+const ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+
+const readCanonical = (markup: string): string | undefined => {
+    const links = Array.from(markup.match(/<link\b[^>]*>/gu) ?? [], tag =>
+        Object.fromEntries(Array.from(tag.matchAll(/\s([\w-]+)="([^"]*)"/gu), ([, name = '', value = '']) => [name.toLowerCase(), value]))
+    );
+    const canonical = links.find(({ rel }) => rel === 'canonical')?.['href'];
+
+    return isDefined(canonical) ? new URL(canonical).pathname : undefined;
+};
+
+const decodeEntity = (entity: string, name: string): string => {
+    if (!name.startsWith('#')) {
+        return ENTITIES[name] ?? entity;
+    }
+    const codepoint = name.startsWith('#x') ? Number.parseInt(name.slice(2), 16) : Number(name.slice(1));
+
+    return codepoint > 0 && codepoint <= MAX_CODEPOINT ? String.fromCodePoint(codepoint) : ' ';
+};
+
+const readShingles = (main: string): Set<string> => {
+    const tokens =
+        main
+            .replaceAll(/<!--[\s\S]*?-->/gu, ' ')
+            .replaceAll(/<(script|style|svg|noscript)\b[^>]*>[\s\S]*?<\/\1>/giu, ' ')
+            .replaceAll(/<[^<>]+>/gu, ' ')
+            .replaceAll(/&(#x[\da-f]+|#\d+|\w+);/giu, decodeEntity)
+            .toLowerCase()
+            .match(/[\p{L}\p{N}]+/gu) ?? [];
+
+    return new Set(
+        tokens
+            .slice(0, Math.max(0, tokens.length - SHINGLE_SIZE + 1))
+            .map((_, index) => tokens.slice(index, index + SHINGLE_SIZE).join(' '))
+    );
+};
+
+const similarity = (left: Set<string>, right: Set<string>): number => {
+    const smaller = left.size <= right.size ? left : right;
+    const larger = left.size <= right.size ? right : left;
+    let shared = 0;
+    for (const shingle of smaller) {
+        if (larger.has(shingle)) {
+            shared += 1;
+        }
+    }
+    const union = left.size + right.size - shared;
+
+    return union === 0 ? 0 : shared / union;
+};
+
+const pages = readdirSync(EXPORT_DIRECTORY, { recursive: true, encoding: 'utf8' })
+    .filter(file => file.endsWith('.html'))
+    .flatMap(file => {
+        const markup = readFileSync(join(EXPORT_DIRECTORY, file), 'utf8');
+        const path = readCanonical(markup);
+        if (!isDefined(path)) {
+            return [];
+        }
+        const lang = /<html\b[^>]*\slang="([^"]+)"/u.exec(markup)?.[1];
+        const main = /<main\b[^>]*>([\s\S]*?)<\/main>/u.exec(markup)?.[1];
+        if (!isDefined(lang) || !isDefined(main)) {
+            throw new Error(`${file} has a canonical but is missing <html lang> or <main>`);
+        }
+
+        return [{ path, lang, shingles: readShingles(main) }];
+    })
+    .sort((left, right) => left.path.localeCompare(right.path));
+
+if (pages.length === 0) {
+    throw new Error('No canonical pages found in the landing export; build it first');
+}
+
+const comparisons: { readonly key: string; readonly score: number }[] = [];
+for (const [index, left] of pages.entries()) {
+    for (const right of pages.slice(index + 1)) {
+        if (left.lang === right.lang) {
+            const score = similarity(left.shingles, right.shingles);
+            comparisons.push({ key: `${left.lang} ${left.path} ${right.path}`, score });
+        }
+    }
+}
+
+const pairs = comparisons.filter(({ score }) => score >= THRESHOLD);
+const current = Object.fromEntries(
+    pairs.toSorted((left, right) => left.key.localeCompare(right.key)).map(({ key, score }) => [key, Math.round(score * 1000) / 1000])
+);
+if (process.argv.includes('--write-baseline')) {
+    writeFileSync(BASELINE_FILE, `${JSON.stringify(current, null, 4)}\n`);
+}
+const baseline: unknown = JSON.parse(readFileSync(BASELINE_FILE, 'utf8'));
+if (!isRecord(baseline) || !Object.values(baseline).every(isNumber)) {
+    throw new Error('Content overlap baseline must be an object of numeric scores');
+}
+const problems = pairs.flatMap(({ key, score }) => {
+    const previous = baseline[key];
+
+    return !isNumber(previous) || score > previous + TOLERANCE
+        ? [
+              `${key}: ${score.toFixed(3)} overlap (${isNumber(previous) ? `baseline ${previous.toFixed(3)} + ${TOLERANCE}` : 'missing from baseline'})`
+          ]
+        : [];
+});
+const resolved = Object.keys(baseline).filter(key => !Object.hasOwn(current, key));
+const highest = comparisons
+    .toSorted((left, right) => right.score - left.score)
+    .slice(0, 5)
+    .map(({ key, score }) => `${key}: ${score.toFixed(3)}`);
+
+process.stdout.write(
+    `${pages.length} pages checked; ${pairs.length} pairs >= ${THRESHOLD}; top 5: ${highest.join('; ')}${resolved.length > 0 ? `; ${resolved.length} resolved — rerun with --write-baseline: ${resolved.join('; ')}` : ''}\n`
+);
+if (problems.length > 0) {
+    throw new Error(`Content overlap regressions:\n${problems.join('\n')}`);
+}

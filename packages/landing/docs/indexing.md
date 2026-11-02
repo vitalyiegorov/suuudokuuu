@@ -40,6 +40,8 @@ These come from `docs/seo-pages.md` §4 and from a production indexing incident 
 
 `src/indexing/utils/build-indexable-pages.util.ts` is the single enumeration of every indexable URL. It carries one entry per page per published locale, with the localized title and description. `src/app/sitemap.ts` maps over it to produce `sitemap.xml`, with each entry's hreflang alternates as `xhtml:link` elements, and `check:hreflang` proves those alternates match the exported pages. `buildLlmsTxt` groups it into `llms.txt`. `scripts/submit-indexnow.ts` submits it.
 
+After building, `pnpm --filter @suuudokuuu/landing check:content-overlap` compares five-word shingles from exported `<main>` text between pages with the same HTML language. It rejects new pairs with Jaccard similarity ≥ 0.3 and increases above the committed baseline plus 0.02; resolved pairs are reported without failing. After reviewing intentional overlap changes, run `pnpm --filter @suuudokuuu/landing check:content-overlap --write-baseline` and commit `scripts/content-overlap.baseline.json`.
+
 Nothing else may walk `PAGE_METADATA_REGISTRY` to build a URL list. Two enumerations look equivalent until one grows a filter, a locale or a conditional entry the other lacks; from that moment the submitted set silently stops matching the crawlable set, and on a multi-host build it submits URLs that do not belong to the host being submitted for, which corrupts ownership signals in the search consoles.
 
 `scripts/submit-indexnow.ts` additionally refuses to send any URL whose host is not the `SITE_ORIGIN` host, and fails loudly rather than filtering them out.
