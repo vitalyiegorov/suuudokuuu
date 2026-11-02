@@ -21,6 +21,7 @@ import { SITE_PLAY_URL } from '../../../../seo/constants/site.constant';
 import { buildPageMetadata } from '../../../../seo/utils/build-page-metadata.util';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
 import { seventeenClueSudokuPageMetadata } from '../../17-clue-sudoku/metadata';
+import { aiEscargotPageMetadata } from '../../hardest-sudoku-puzzles/ai-escargot/metadata';
 import { hardestSudokuPuzzlesPageMetadata } from '../../hardest-sudoku-puzzles/metadata';
 import { homePageMetadata } from '../../metadata';
 import { solverPageMetadata } from '../../solver/metadata';
@@ -70,7 +71,8 @@ const SudokuDifficultyRatingPage = () => {
                     <li>Published technique costs: hidden single 1.5, X-Wing 3.2, swordfish 3.8, forcing chains 7.0 and up.</li>
                     <li>
                         Record-puzzle landmarks are figures their publishers and the sudoku-solving community report, not our own
-                        measurement: AI Escargot near SE 10.6, Platinum Blonde near SE 10.9, Arto Inkala’s Everest near SE 11.9.
+                        measurement: <Link href={aiEscargotPageMetadata.path}>AI Escargot</Link> near SE 10.6, Platinum Blonde near SE 10.9,
+                        Arto Inkala’s Everest near SE 11.9.
                     </li>
                     <li>
                         Suuudokuuu rates every puzzle it creates. Our source-available rating package scores a board the moment it is
