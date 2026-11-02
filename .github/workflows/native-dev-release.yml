@@ -17,7 +17,7 @@ jobs:
             contents: write
         uses: rnw-community/mobile-ci/.github/workflows/native-dev-release.yml@f90309c791283d6e2dd1e35eb2ae6c5aee2151cd # v4.7.0
         with:
-            control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
+            control-runner-labels: '["self-hosted","linux-portable-2x4"]'
             install-command: pnpm install --frozen-lockfile
             app-dir: packages/app
             enable-ios: true

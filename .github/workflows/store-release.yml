@@ -39,7 +39,7 @@ jobs:
             contents: read
         uses: rnw-community/mobile-ci/.github/workflows/store-release.yml@f90309c791283d6e2dd1e35eb2ae6c5aee2151cd # v4.7.0
         with:
-            control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
+            control-runner-labels: '["self-hosted","linux-portable-2x4"]'
             platforms: ${{ inputs.platforms }}
             dry-run: ${{ inputs.dry_run }}
             version-file: packages/app/package.json
