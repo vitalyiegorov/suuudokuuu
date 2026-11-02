@@ -1,6 +1,6 @@
 import { createSign } from 'node:crypto';
 import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { basename, join } from 'node:path';
 
 import { getErrorMessage, isDefined, isNotEmptyString, isNumber, isString } from '@rnw-community/shared';
 
@@ -9,6 +9,9 @@ import { SITE_ORIGIN } from '../src/seo/constants/site.constant';
 const SERVICE_ACCOUNT_ENVIRONMENT_VARIABLE = 'GCP_SA_KEY';
 const CRUX_API_KEY_ENVIRONMENT_VARIABLE = 'CRUX_API_KEY';
 const STEP_SUMMARY_ENVIRONMENT_VARIABLE = 'GITHUB_STEP_SUMMARY';
+const OUTPUT_ENVIRONMENT_VARIABLE = 'GITHUB_OUTPUT';
+const REGRESSION_RATIO = 0.7;
+const REGRESSION_MINIMUM_PREVIOUS_CLICKS = 20;
 
 const GOOGLE_TOKEN_ENDPOINT = 'https://oauth2.googleapis.com/token';
 const GOOGLE_JWT_GRANT_TYPE = 'urn:ietf:params:oauth:grant-type:jwt-bearer';
@@ -469,6 +472,24 @@ const publishMarkdown = (markdown: string): void => {
     }
 };
 
+const publishRegression = (report: SeoReportInterface, reportPath: string): void => {
+    const outputPath = process.env[OUTPUT_ENVIRONMENT_VARIABLE];
+
+    if (!isNotEmptyString(outputPath)) {
+        return;
+    }
+
+    const { current, previous } = report.searchConsole ?? {};
+    const regressed =
+        isDefined(current) &&
+        isDefined(previous) &&
+        previous.totals.clicks >= REGRESSION_MINIMUM_PREVIOUS_CLICKS &&
+        (current.totals.clicks < previous.totals.clicks * REGRESSION_RATIO ||
+            current.totals.impressions < previous.totals.impressions * REGRESSION_RATIO);
+
+    appendFileSync(outputPath, `regressed=${String(regressed)}\nreport_path=${join('reports', 'seo', basename(reportPath))}\n`);
+};
+
 const writeReport = (report: SeoReportInterface): string => {
     const reportPath = join(REPORT_DIRECTORY, `${toIsoDay(new Date(report.generatedAt))}.json`);
 
@@ -510,6 +531,7 @@ const generateReport = async (): Promise<void> => {
 
     log(`Wrote ${reportPath}`);
     publishMarkdown(buildMarkdown(report, reportPath));
+    publishRegression(report, reportPath);
 };
 
 const handleReportError = (error: unknown): void => {
