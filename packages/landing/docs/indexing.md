@@ -18,6 +18,8 @@ Read this before touching `src/indexing`, `src/app/sitemap.ts`, `src/app/robots.
 
 All five are byte-identical on every request because the site is a fully static export. There is no server.
 
+`robots.txt` names the AI search, assistant and training crawlers (`AI_CRAWLER_USER_AGENTS` in `src/seo/constants/crawler.constant.ts`) explicitly and allows them everywhere, because the site is open source and ad free and wants to be cited in AI answers. To opt a crawler out, add a `{ userAgent, disallow: ['/'] }` group for it in `src/app/robots.ts`; there is no per-crawler disallow today.
+
 ---
 
 ## 2. Why submission is a CLI script, not an API route

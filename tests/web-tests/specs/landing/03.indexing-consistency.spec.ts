@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { AI_CRAWLER_USER_AGENTS } from '@suuudokuuu/landing/src/seo/constants/crawler.constant';
 import { SITE_ORIGIN } from '@suuudokuuu/landing/src/seo/constants/site.constant';
 
 const sitemapPath = '/sitemap.xml';
@@ -41,6 +42,10 @@ test('robots.txt advertises the sitemap and allows crawlers to load rendering as
     expect(robots).toContain(`Sitemap: ${SITE_ORIGIN}${sitemapPath}`);
     expect(robots).not.toMatch(/^Disallow:\s*\/_next(?:\/|\s|$)/gmu);
     expect(robots).toContain('Allow: /');
+
+    for (const userAgent of AI_CRAWLER_USER_AGENTS) {
+        expect(robots).toContain(`User-Agent: ${userAgent}\nAllow: /`);
+    }
 });
 
 test('llms.txt enumerates exactly the sitemap URL set', async ({ request }) => {
