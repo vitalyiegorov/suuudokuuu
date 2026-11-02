@@ -73,6 +73,19 @@ jobs:
             - name: Install Playwright browsers
               run: pnpm --filter @suuudokuuu/web-tests exec playwright install --with-deps chromium webkit
 
+            - name: Check landing Lighthouse budgets
+              run: |
+                  CHROME_PATH="$(pnpm --filter @suuudokuuu/web-tests exec node -p "require('@playwright/test').chromium.executablePath()")" pnpm --filter @suuudokuuu/landing check:lighthouse
+
+            - name: Upload Lighthouse reports
+              if: ${{ !cancelled() }}
+              uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+              with:
+                  name: lighthouse-report
+                  path: packages/landing/.lighthouseci
+                  include-hidden-files: true
+                  retention-days: 7
+
             - name: Run Playwright web E2E
               run: pnpm --filter @suuudokuuu/web-tests test:e2e
 

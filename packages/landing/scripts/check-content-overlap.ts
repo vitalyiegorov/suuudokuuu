@@ -3,6 +3,7 @@ import { join } from 'node:path';
 
 import { isDefined, isNumber, isRecord } from '@rnw-community/shared';
 
+import { readCanonical } from './utils/read-canonical.util';
 import { readMainText } from './utils/read-main-text.util';
 
 const EXPORT_DIRECTORY = join(import.meta.dirname, '..', 'out');
@@ -10,15 +11,6 @@ const BASELINE_FILE = join(import.meta.dirname, 'content-overlap.baseline.json')
 const THRESHOLD = 0.3;
 const TOLERANCE = 0.02;
 const SHINGLE_SIZE = 5;
-
-const readCanonical = (markup: string): string | undefined => {
-    const links = Array.from(markup.match(/<link\b[^>]*>/gu) ?? [], tag =>
-        Object.fromEntries(Array.from(tag.matchAll(/\s([\w-]+)="([^"]*)"/gu), ([, name = '', value = '']) => [name.toLowerCase(), value]))
-    );
-    const canonical = links.find(({ rel }) => rel === 'canonical')?.['href'];
-
-    return isDefined(canonical) ? new URL(canonical).pathname : undefined;
-};
 
 const readShingles = (main: string): Set<string> => {
     const tokens = main.toLowerCase().match(/[\p{L}\p{N}]+/gu) ?? [];
@@ -48,10 +40,11 @@ const pages = readdirSync(EXPORT_DIRECTORY, { recursive: true, encoding: 'utf8' 
     .filter(file => file.endsWith('.html'))
     .flatMap(file => {
         const markup = readFileSync(join(EXPORT_DIRECTORY, file), 'utf8');
-        const path = readCanonical(markup);
-        if (!isDefined(path)) {
+        const canonical = readCanonical(markup);
+        if (!isDefined(canonical)) {
             return [];
         }
+        const path = new URL(canonical).pathname;
         const lang = /<html\b[^>]*\slang="([^"]+)"/u.exec(markup)?.[1];
         const main = readMainText(markup);
         if (!isDefined(lang) || !isDefined(main)) {

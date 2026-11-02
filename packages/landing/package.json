@@ -12,6 +12,7 @@
         "generate:rating-sample": "tsx scripts/generate-rating-sample.ts",
         "check:content-overlap": "tsx scripts/check-content-overlap.ts",
         "check:hreflang": "tsx scripts/check-hreflang.ts",
+        "check:lighthouse": "pnpm dlx @lhci/cli@0.15.1 autorun --config=lighthouserc.json",
         "check:live": "tsx scripts/check-live.ts",
         "check:tier-reports": "tsx scripts/check-tier-reports.ts",
         "i18n:compile": "lingui compile --strict --typescript",

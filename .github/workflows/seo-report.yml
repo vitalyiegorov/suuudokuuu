@@ -19,6 +19,7 @@ jobs:
         timeout-minutes: 20
         permissions:
             contents: write
+            issues: write
         steps:
             - name: Checkout repository
               uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -39,6 +40,7 @@ jobs:
               run: pnpm install --frozen-lockfile
 
             - name: Generate the SEO report
+              id: report
               env:
                   GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
                   CRUX_API_KEY: ${{ secrets.CRUX_API_KEY }}
@@ -65,3 +67,23 @@ jobs:
                   git commit -m "chore: weekly seo snapshot $(date -u +%Y-%m-%d) [skip ci]"
                   git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
                   git push origin "HEAD:${GITHUB_REF_NAME}"
+
+            - name: Open or update the regression issue
+              if: ${{ !cancelled() && steps.report.outputs.regressed == 'true' }}
+              env:
+                  GH_TOKEN: ${{ github.token }}
+                  REPORT_PATH: ${{ steps.report.outputs.report_path }}
+                  RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+                  REPORT_URL: ${{ github.server_url }}/${{ github.repository }}/blob/${{ github.ref_name }}
+              run: |
+                  set -euo pipefail
+
+                  title="SEO weekly report: regression detected"
+                  body="Clicks or impressions fell below 70% of the prior 28 days. Snapshot: [${REPORT_PATH}](${REPORT_URL}/${REPORT_PATH}). Run: ${RUN_URL}"
+                  existing=$(gh issue list --state open --search "in:title \"${title}\"" --json number,title --jq "map(select(.title == \"${title}\"))[0].number // empty")
+
+                  if [ -n "$existing" ]; then
+                    gh issue comment "$existing" --body "$body"
+                  else
+                    gh issue create --title "$title" --label "kind:regression,area:landing,priority:P1,status:ready" --body "$body"
+                  fi
