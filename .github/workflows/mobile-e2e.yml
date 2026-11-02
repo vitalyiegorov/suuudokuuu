@@ -64,7 +64,7 @@ jobs:
             actions: read
         uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@f90309c791283d6e2dd1e35eb2ae6c5aee2151cd # v4.7.0
         with:
-            control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
+            control-runner-labels: '["self-hosted","linux-portable-2x4"]'
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
             # app, its workspace dependencies or the Maestro suite changed, so a
@@ -127,7 +127,7 @@ jobs:
             actions: read
         uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@f90309c791283d6e2dd1e35eb2ae6c5aee2151cd # v4.7.0
         with:
-            control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
+            control-runner-labels: '["self-hosted","linux-portable-2x4"]'
             install-command: pnpm install --frozen-lockfile
             # Gate pull requests on the turbo graph: Maestro runs only when the
             # app, its workspace dependencies or the Maestro suite changed, so a

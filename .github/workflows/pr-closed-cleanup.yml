@@ -14,8 +14,8 @@ jobs:
             actions: write
         uses: rnw-community/mobile-ci/.github/workflows/pr-closed-cleanup-reusable.yml@f90309c791283d6e2dd1e35eb2ae6c5aee2151cd # v4.7.0
         with:
-            control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
-            ota-preview-cleanup-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
+            control-runner-labels: '["self-hosted","linux-portable-2x4"]'
+            ota-preview-cleanup-runner-labels: '["self-hosted","linux-portable-2x4"]'
 
     eas-channel-cleanup:
         name: Delete the closed PR's EAS Update channel
@@ -26,7 +26,7 @@ jobs:
         uses: rnw-community/mobile-ci/.github/workflows/eas-channel-cleanup-reusable.yml@f90309c791283d6e2dd1e35eb2ae6c5aee2151cd # v4.7.0
         with:
             app-dir: packages/app
-            runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
+            runner-labels: '["self-hosted","linux-portable-2x4"]'
             install-command: corepack enable && pnpm install --frozen-lockfile
         secrets:
             EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}

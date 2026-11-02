@@ -26,7 +26,7 @@ concurrency:
 jobs:
     release-tag:
         name: Resolve the release tag
-        runs-on: [self-hosted, trf-linux-amd64-2x4]
+        runs-on: [self-hosted, linux-portable-2x4]
         timeout-minutes: 5
         outputs:
             tag: ${{ steps.version.outputs.tag }}
@@ -59,7 +59,7 @@ jobs:
             contents: write
         uses: rnw-community/mobile-ci/.github/workflows/native-publish.yml@f90309c791283d6e2dd1e35eb2ae6c5aee2151cd # v4.7.0
         with:
-            control-runner-labels: '["self-hosted","trf-linux-amd64-2x4"]'
+            control-runner-labels: '["self-hosted","linux-portable-2x4"]'
             install-command: pnpm install --frozen-lockfile
             app-dir: packages/app
             enable-ios: ${{ contains(inputs.platforms, 'ios') }}
