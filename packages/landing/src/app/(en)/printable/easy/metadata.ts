@@ -1,3 +1,4 @@
+import { PRINTABLE_BOOKLET_PAGE_COUNT } from '../../../../printable/constants/printable-page-count.constant';
 import { PRINTABLE_BOOKLET_SIZE } from '../../../../printable/constants/printable-sample.constant';
 
 import type { PageMetadataInterface } from '../../../../seo/interfaces/page-metadata.interface';
@@ -16,8 +17,8 @@ export const printableEasySudokuPageMetadata: PageMetadataInterface = {
         ar: {
             title: 'سودوكو سهل للطباعة',
             headline: 'سودوكو سهل للطباعة (PDF)',
-            metaTitle: 'سودوكو سهل للطباعة PDF — ألغاز مجانية بالحلول',
-            metaDescription: `نزّل كتيّب سودوكو سهل للطباعة مجانا بصيغة PDF: ${PRINTABLE_BOOKLET_SIZE} لغزًا بتقنية واحدة لحل مريح وهادئ، مع الحلول في آخر الكتيّب وبلا تسجيل.`
+            metaTitle: 'سودوكو سهل PDF للطباعة مع الحل — تحميل مجاني',
+            metaDescription: `حمّل ملف سودوكو سهل PDF للطباعة مجانا: ${PRINTABLE_BOOKLET_SIZE} لغزًا في ${PRINTABLE_BOOKLET_PAGE_COUNT} صفحات مع الحلول في الصفحات الأخيرة، وبلا تسجيل.`
         },
         bn: {
             title: 'প্রিন্ট করার সহজ সুডোকু',

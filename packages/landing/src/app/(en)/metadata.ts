@@ -73,9 +73,9 @@ export const homePageMetadata: PageMetadataInterface = {
         sv: {
             title: 'Suuudokuuu',
             headline: 'Spela sudoku gratis online',
-            metaTitle: 'Sudoku gratis online – utan reklam, sju nivåer',
+            metaTitle: 'Gratis sudoku utan reklam – spela online, sju nivåer',
             metaDescription:
-                'Suuudokuuu är ett gratis sudoku utan reklam som fungerar offline. Sju svårighetsnivåer, ledtrådar som förklarar tekniken, sviter och sudokun att dela.'
+                'Gratis sudoku utan reklam i webbläsaren och appen, även offline. Sju nivåer från Nybörjare till Oändlighet, ledtrådar som förklarar tekniken och sviter.'
         },
         uk: {
             title: 'Suuudokuuu',
