@@ -8,7 +8,6 @@ const BASELINE_FILE = join(import.meta.dirname, 'content-overlap.baseline.json')
 const THRESHOLD = 0.3;
 const TOLERANCE = 0.02;
 const SHINGLE_SIZE = 5;
-const ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', '#x27': "'" };
 
 const readCanonical = (markup: string): string | undefined => {
     const links = Array.from(markup.match(/<link\b[^>]*>/gu) ?? [], tag =>
@@ -25,7 +24,7 @@ const readShingles = (main: string): Set<string> => {
             .replaceAll(/<!--[\s\S]*?-->/gu, ' ')
             .replaceAll(/<(script|style|svg|noscript)\b[^>]*>[\s\S]*?<\/\1>/giu, ' ')
             .replaceAll(/<[^<>]+>/gu, ' ')
-            .replaceAll(/&(amp|lt|gt|quot|#x27);/gu, (entity, name: string) => ENTITIES[name] ?? entity)
+            .replaceAll(/&#?\w+;/gu, ' ')
             .toLowerCase()
             .match(/[\p{L}\p{N}]+/gu) ?? [];
 
