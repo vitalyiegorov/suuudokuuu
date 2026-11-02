@@ -1,6 +1,5 @@
 import { getActiveLocale } from '../../../i18n/utils/get-active-locale.util';
-import { SCHEMA_CONTEXT } from '../../constants/schema.constant';
-import { SITE_NAME } from '../../constants/site.constant';
+import { ORGANIZATION_SCHEMA, SCHEMA_CONTEXT } from '../../constants/schema.constant';
 import { buildLocaleUrl } from '../../utils/build-locale-url.util';
 import { buildOgImageUrl } from '../../utils/build-og-image-url.util';
 import { localizePageMetadata } from '../../utils/localize-page-metadata.util';
@@ -14,9 +13,7 @@ interface Props {
     author?: { readonly '@type': string; readonly name: string };
 }
 
-const ORGANIZATION_AUTHOR = { '@type': 'Organization', name: SITE_NAME };
-
-export const ArticleSchema = ({ author = ORGANIZATION_AUTHOR, metadata }: Props) => {
+export const ArticleSchema = ({ author = ORGANIZATION_SCHEMA, metadata }: Props) => {
     const locale = getActiveLocale();
     const localizedMetadata = localizePageMetadata(metadata, locale);
     const schema = {
@@ -30,7 +27,7 @@ export const ArticleSchema = ({ author = ORGANIZATION_AUTHOR, metadata }: Props)
         image: buildOgImageUrl(metadata),
         inLanguage: locale,
         author,
-        publisher: { '@type': 'Organization', name: SITE_NAME }
+        publisher: ORGANIZATION_SCHEMA
     };
 
     return <JsonLd data={schema} />;

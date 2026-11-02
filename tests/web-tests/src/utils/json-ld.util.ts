@@ -11,3 +11,10 @@ export const readJsonLdSchema = (html: string, schemaType: string): unknown => {
 
     return schema;
 };
+
+export const readJsonLdSchemas = (html: string): unknown[] =>
+    Array.from(html.matchAll(JsonLdScriptPattern), match => {
+        const schema: unknown = JSON.parse(match[1]);
+
+        return schema;
+    });

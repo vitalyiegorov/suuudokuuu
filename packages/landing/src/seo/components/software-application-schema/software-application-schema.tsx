@@ -1,12 +1,5 @@
-import { SCHEMA_CONTEXT } from '../../constants/schema.constant';
-import {
-    SITE_APP_STORE_URL,
-    SITE_GITHUB_URL,
-    SITE_GOOGLE_PLAY_URL,
-    SITE_LICENSE_URL,
-    SITE_NAME,
-    SITE_ORIGIN
-} from '../../constants/site.constant';
+import { ORGANIZATION_SCHEMA, SCHEMA_CONTEXT } from '../../constants/schema.constant';
+import { SITE_APP_STORE_URL, SITE_GITHUB_URL, SITE_GOOGLE_PLAY_URL, SITE_LICENSE_URL, SITE_ORIGIN } from '../../constants/site.constant';
 import { buildLocaleUrl } from '../../utils/build-locale-url.util';
 import { extractNodeText } from '../../utils/extract-node-text.util';
 import { findSlots } from '../../utils/find-slots.util';
@@ -37,6 +30,7 @@ export const SoftwareApplicationSchema = ({ children, description, locale, name,
     const schema = {
         '@context': SCHEMA_CONTEXT,
         '@type': 'SoftwareApplication',
+        '@id': `${SITE_ORIGIN}/#software`,
         name,
         description,
         url: buildLocaleUrl(locale, path),
@@ -50,13 +44,8 @@ export const SoftwareApplicationSchema = ({ children, description, locale, name,
         installUrl: STORE_URLS,
         screenshot: `${SITE_ORIGIN}/brand/app-screenshot.png`,
         sameAs: [SITE_GITHUB_URL, ...STORE_URLS],
-        author: {
-            '@type': 'Organization',
-            name: SITE_NAME,
-            url: SITE_ORIGIN,
-            logo: `${SITE_ORIGIN}/brand/icon-512.png`,
-            sameAs: [SITE_GITHUB_URL, ...STORE_URLS]
-        },
+        author: ORGANIZATION_SCHEMA,
+        publisher: ORGANIZATION_SCHEMA,
         featureList
     };
 
