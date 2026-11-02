@@ -2,6 +2,8 @@ import { expect, test } from '@playwright/test';
 import { DAILY_BUILD_DATE } from '@suuudokuuu/landing/src/daily/constants/daily-archive.constant';
 import { SITE_ORIGIN } from '@suuudokuuu/landing/src/seo/constants/site.constant';
 
+import { isRecord, isString } from '@rnw-community/shared';
+
 import { fetchPageHtml } from '../../src/utils/fetch-page-html.util';
 import { readJsonLdSchema, readJsonLdSchemas } from '../../src/utils/json-ld.util';
 
@@ -20,11 +22,11 @@ const collectNodes = (value: unknown): Record<string, unknown>[] => {
     if (Array.isArray(value)) {
         return value.flatMap(collectNodes);
     }
-    if (typeof value !== 'object' || value === null) {
+    if (!isRecord(value)) {
         return [];
     }
 
-    return [Object.fromEntries(Object.entries(value)), ...Object.values(value).flatMap(collectNodes)];
+    return [value, ...Object.values(value).flatMap(collectNodes)];
 };
 
 for (const path of pagePaths) {
@@ -42,7 +44,7 @@ for (const path of pagePaths) {
             if (node['@type'] === 'Organization') {
                 expect(identifier).toBe(`${SITE_ORIGIN}/#organization`);
             }
-            if (typeof identifier === 'string') {
+            if (isString(identifier)) {
                 expect(node).toEqual(identifiedNodes.get(identifier) ?? node);
                 identifiedNodes.set(identifier, node);
             }
