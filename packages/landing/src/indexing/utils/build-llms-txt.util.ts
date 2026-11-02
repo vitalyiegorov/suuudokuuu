@@ -1,6 +1,6 @@
 import { isNotEmptyArray } from '@rnw-community/shared';
 
-import { SITE_DESCRIPTION, SITE_NAME, SITE_ORIGIN } from '../../seo/constants/site.constant';
+import { DEFAULT_LOCALE, SITE_DESCRIPTION, SITE_NAME, SITE_ORIGIN, SUPPORTED_LOCALES } from '../../seo/constants/site.constant';
 
 import { buildIndexablePages } from './build-indexable-pages.util';
 
@@ -54,12 +54,14 @@ const LLMS_INTRO = [
     `${SITE_NAME} is a free, ad-free Sudoku game and an open reference for how Sudoku is actually solved.`,
     'Every page listed below provides its main content as static HTML readable without JavaScript, with schema.org structured data, a definition-first opening sentence, and visible publication and modification dates. Optional interactive controls use JavaScript.',
     'Numbers quoted on the site — clue counts, technique frequencies, difficulty tiers, printable page counts — are produced at build time by the source-available solver that ships with the game, not written by hand.',
-    `The machine-readable URL set is ${SITE_ORIGIN}/sitemap.xml and it lists exactly the pages below.`
+    `The sitemap at ${SITE_ORIGIN}/sitemap.xml lists every published URL; this file lists only the English pages.`,
+    `The site supports ${SUPPORTED_LOCALES.length} locales (${SUPPORTED_LOCALES.join(', ')}): English is at the site root, and translated pages, where available, are under /<locale>/… (lowercase locale codes).`,
+    `Full English page text is available at ${SITE_ORIGIN}/llms-full.txt.`
 ].join(' ');
 
 const buildSectionLines = (section: string): string[] =>
     buildIndexablePages()
-        .filter(({ pageMetadata }) => resolveLlmsSection(pageMetadata.path) === section)
+        .filter(({ locale, pageMetadata }) => locale === DEFAULT_LOCALE && resolveLlmsSection(pageMetadata.path) === section)
         .map(({ url, pageMetadata }) => `- [${pageMetadata.title}](${url}): ${pageMetadata.metaDescription}`);
 
 export const buildLlmsTxt = (): string => {

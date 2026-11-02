@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 import { AI_CRAWLER_USER_AGENTS } from '@suuudokuuu/landing/src/seo/constants/crawler.constant';
-import { SITE_ORIGIN } from '@suuudokuuu/landing/src/seo/constants/site.constant';
+import { DEFAULT_LOCALE, SITE_ORIGIN, SUPPORTED_LOCALES } from '@suuudokuuu/landing/src/seo/constants/site.constant';
 
 const sitemapPath = '/sitemap.xml';
 const robotsPath = '/robots.txt';
@@ -48,7 +48,7 @@ test('robots.txt advertises the sitemap and allows crawlers to load rendering as
     }
 });
 
-test('llms.txt enumerates exactly the sitemap URL set', async ({ request }) => {
+test('llms.txt enumerates exactly the English sitemap URL set and llms-full.txt contains every answer', async ({ request }) => {
     const llmsResponse = await request.get(llmsPath);
 
     expect(llmsResponse.status(), 'llms.txt is written into public/ by the landing build, so the export always carries it').toBe(okStatus);
@@ -57,6 +57,23 @@ test('llms.txt enumerates exactly the sitemap URL set', async ({ request }) => {
     const llmsUrls = Array.from(llms.matchAll(LlmsLinkPattern), match => match[1]);
     const sitemapUrls = readSitemapUrls(await (await request.get(sitemapPath)).text());
 
+    const localizedPrefixes = SUPPORTED_LOCALES.filter(locale => locale !== DEFAULT_LOCALE).map(locale => `/${locale.toLowerCase()}`);
+    const englishSitemapUrls = sitemapUrls.filter(url => {
+        const { pathname } = new URL(url);
+
+        return !localizedPrefixes.some(prefix => pathname === prefix || pathname.startsWith(`${prefix}/`));
+    });
+    const fullResponse = await request.get('/llms-full.txt');
+
+    expect(fullResponse.status()).toBe(okStatus);
+    expect(fullResponse.headers()['content-type']).toContain('text/plain');
+
+    const fullText = await fullResponse.text();
+
+    expect(llmsUrls.length).toBe(new Set(llmsUrls).size);
+    for (const url of llmsUrls) {
+        expect(fullText).toContain(`URL: ${url}\n`);
+    }
     expect(llms).toContain(`${SITE_ORIGIN}${sitemapPath}`);
-    expect([...new Set(llmsUrls)].sort()).toEqual([...sitemapUrls].sort());
+    expect([...new Set(llmsUrls)].sort()).toEqual([...englishSitemapUrls].sort());
 });
