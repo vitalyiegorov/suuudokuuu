@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.39.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.38.5...v2.39.0) (2026-11-02)
+
+### Bug Fixes
+
+* **landing:** match titles and descriptions to the queries they already rank for ([#781](https://github.com/vitalyiegorov/suuudokuuu/issues/781)) ([4c0fa9e](https://github.com/vitalyiegorov/suuudokuuu/commit/4c0fa9e701a72287e08e443d228dab93d2f52dd1))
+* **landing:** stop the hardest-sudoku hub from competing with the AI Escargot page ([#783](https://github.com/vitalyiegorov/suuudokuuu/issues/783)) ([b20d201](https://github.com/vitalyiegorov/suuudokuuu/commit/b20d2018aaa1720eebca1679b123265291f4edf4))
+
+### Features
+
+* **landing:** give the JSON-LD nodes one shared identity graph ([#780](https://github.com/vitalyiegorov/suuudokuuu/issues/780)) ([5710ec7](https://github.com/vitalyiegorov/suuudokuuu/commit/5710ec7a5a2b076ae9cd09ba3c4e1f28d4871447))
+* **landing:** name AI crawlers explicitly in robots.txt ([#778](https://github.com/vitalyiegorov/suuudokuuu/issues/778)) ([3e694c7](https://github.com/vitalyiegorov/suuudokuuu/commit/3e694c7437b12eb9b6b83f5e40863975160759f5))
+
+
 ## [2.38.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.38.3...v2.38.4) (2026-10-29)
 
 **Note:** Version bump only for package @suuudokuuu/landing
