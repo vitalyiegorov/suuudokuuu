@@ -8,8 +8,7 @@ const BASELINE_FILE = join(import.meta.dirname, 'content-overlap.baseline.json')
 const THRESHOLD = 0.3;
 const TOLERANCE = 0.02;
 const SHINGLE_SIZE = 5;
-const MAX_CODEPOINT = 0x10ffff;
-const ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ' };
+const ENTITIES: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', '#x27': "'" };
 
 const readCanonical = (markup: string): string | undefined => {
     const links = Array.from(markup.match(/<link\b[^>]*>/gu) ?? [], tag =>
@@ -20,22 +19,13 @@ const readCanonical = (markup: string): string | undefined => {
     return isDefined(canonical) ? new URL(canonical).pathname : undefined;
 };
 
-const decodeEntity = (entity: string, name: string): string => {
-    if (!name.startsWith('#')) {
-        return ENTITIES[name] ?? entity;
-    }
-    const codepoint = name.startsWith('#x') ? Number.parseInt(name.slice(2), 16) : Number(name.slice(1));
-
-    return codepoint > 0 && codepoint <= MAX_CODEPOINT ? String.fromCodePoint(codepoint) : ' ';
-};
-
 const readShingles = (main: string): Set<string> => {
     const tokens =
         main
             .replaceAll(/<!--[\s\S]*?-->/gu, ' ')
             .replaceAll(/<(script|style|svg|noscript)\b[^>]*>[\s\S]*?<\/\1>/giu, ' ')
             .replaceAll(/<[^<>]+>/gu, ' ')
-            .replaceAll(/&(#x[\da-f]+|#\d+|\w+);/giu, decodeEntity)
+            .replaceAll(/&(amp|lt|gt|quot|#x27);/gu, (entity, name: string) => ENTITIES[name] ?? entity)
             .toLowerCase()
             .match(/[\p{L}\p{N}]+/gu) ?? [];
 
