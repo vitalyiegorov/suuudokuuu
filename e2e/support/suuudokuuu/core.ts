@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { setTimeout as sleep } from 'node:timers/promises';
 
+import { exec, leaseIdForUdid, mustDrop, mustExec, simlockApiFromEnv, writeFile, type SimlockApi } from '@mobile-ci/e2e-simlock/exec';
+import { byId, scrollTo } from '@mobile-ci/e2e-simlock/steps';
 import { expect } from 'e2e';
-
-import { exec, leaseIdForUdid, mustDrop, mustExec, simlockApiFromEnv, writeFile, type SimlockApi } from '../simlock/exec.ts';
 
 import type { Device } from '@e2e-dev/mobile';
 import type { App, Locator, Screen } from 'e2e';
@@ -13,7 +13,11 @@ export const WAIT_DEFAULT = 10_000;
 export const WAIT_SLOW = 15_000;
 export const WAIT_LAUNCH = 30_000;
 
-export const BUNDLE_ID = process.env.E2E_APP_ID ?? 'com.vitalyiegorov.suuudokuuu.e2e';
+export const BUNDLE_IDS = { ios: 'com.vitalyiegorov.suuudokuuu.e2e', android: 'com.vitaliiyehorov.suuudokuuu.e2e' } as const;
+
+type Platform = keyof typeof BUNDLE_IDS;
+
+const bundleId = (platform: Platform): string => process.env.E2E_APP_ID ?? BUNDLE_IDS[platform];
 
 const DATABASES = new URL('../../../tests/app-tests/fixtures/databases/', import.meta.url);
 
@@ -22,8 +26,6 @@ export interface Ctx {
     readonly app: App;
     readonly device: Device;
 }
-
-export const byId = (screen: Screen, testId: string | RegExp): Locator => screen.getByTestId(testId).first();
 
 const exactly = (text: string | RegExp): RegExp =>
     typeof text === 'string' ? new RegExp(`^${text.replaceAll(/[.*+?^${}()|[\]\\]/gu, '\\$&')}$`, 'iu') : text;
@@ -43,11 +45,11 @@ export async function tapId(ctx: Ctx, testId: string): Promise<void> {
     await byId(ctx.screen, testId).tap();
 }
 
-export async function expectId(ctx: Ctx, testId: string | RegExp, timeout?: number): Promise<void> {
+export async function expectId(ctx: Ctx, testId: string, timeout?: number): Promise<void> {
     await expect(byId(ctx.screen, testId)).toBeVisible(timeout === undefined ? undefined : { timeout });
 }
 
-export async function expectNoId(ctx: Ctx, testId: string | RegExp, timeout?: number): Promise<void> {
+export async function expectNoId(ctx: Ctx, testId: string, timeout?: number): Promise<void> {
     await expect(byId(ctx.screen, testId)).toBeHidden(timeout === undefined ? undefined : { timeout });
 }
 
@@ -55,18 +57,14 @@ export async function expectText(ctx: Ctx, text: string | RegExp, timeout?: numb
     await expect(byText(ctx.screen, text)).toBeVisible(timeout === undefined ? undefined : { timeout });
 }
 
-export async function expectIdText(ctx: Ctx, testId: string | RegExp, text: string | RegExp, timeout?: number): Promise<void> {
+export async function expectIdText(ctx: Ctx, testId: string, text: string | RegExp, timeout?: number): Promise<void> {
     await expect(ctx.screen.getByTestId(testId).filter({ hasText: text }).first()).toBeVisible(
         timeout === undefined ? undefined : { timeout }
     );
 }
 
-export async function scrollTo(ctx: Ctx, target: Locator, direction: 'up' | 'down' = 'down'): Promise<void> {
-    await ctx.screen.scrollUntilVisible(target, { direction, timeout: 20_000 });
-}
-
-export async function scrollToId(ctx: Ctx, testId: string | RegExp, direction: 'up' | 'down' = 'down'): Promise<void> {
-    await scrollTo(ctx, byId(ctx.screen, testId), direction);
+export async function scrollToId(ctx: Ctx, testId: string, direction: 'up' | 'down' = 'down'): Promise<void> {
+    await scrollTo(ctx.screen, byId(ctx.screen, testId), direction);
 }
 
 export async function scrollDown(ctx: Ctx): Promise<void> {
@@ -92,6 +90,15 @@ export async function goHome(ctx: Ctx): Promise<void> {
     await expectId(ctx, 'HomeScreenSelectors.Root');
 }
 
+export async function backgroundFor(ctx: Ctx, milliseconds: number): Promise<number> {
+    await ctx.device.home();
+    const backgroundedAt = Date.now();
+    await sleep(milliseconds);
+    await ctx.device.openApp(bundleId(ctx.device.unstable_raw.platform));
+
+    return backgroundedAt;
+}
+
 export async function seconds(ctx: Ctx, testId: string): Promise<number> {
     const [minutes = '', rest = ''] = ((await byId(ctx.screen, testId).textContent()) ?? '').split(':');
     const value = Number(minutes) * 60 + Number(rest);
@@ -102,6 +109,71 @@ export async function seconds(ctx: Ctx, testId: string): Promise<number> {
 
     return value;
 }
+
+async function mustAdb(api: SimlockApi, lease: string, args: readonly string[], stdin?: string): Promise<void> {
+    const response = await fetch(`${api.url.replace(/\/$/u, '')}/v1/leases/${lease}/exec`, {
+        method: 'POST',
+        headers: { authorization: `Bearer ${api.token}`, 'content-type': 'application/json' },
+        body: JSON.stringify({ tool: 'adb', args, ...(stdin === undefined ? {} : { stdin }) }),
+        signal: AbortSignal.timeout(WAIT_LAUNCH * 4)
+    });
+    const events = (await response.text()).split('\n\n');
+    const exit = events.find(event => event.startsWith('event: exit'));
+    if (!response.ok || exit === undefined || !exit.includes('"exitCode":0')) {
+        throw new Error(`adb ${args.join(' ')} failed (HTTP ${response.status}): ${events.join(' ').slice(0, 500)}`);
+    }
+}
+
+interface DeviceState {
+    readonly prepare: (api: SimlockApi, lease: string) => Promise<void>;
+    readonly seed: (api: SimlockApi, lease: string, database?: Buffer) => Promise<void>;
+}
+
+const DEVICE_STATES: Record<Platform, DeviceState> = {
+    ios: {
+        prepare: async (api, lease) => {
+            for (const setting of [
+                ['.GlobalPreferences', 'AppleLanguages', '-array', 'en-US'],
+                ['.GlobalPreferences', 'AppleLocale', '-string', 'en_US'],
+                ['com.apple.Accessibility', 'ReduceMotionEnabled', '-bool', 'true']
+            ]) {
+                await mustExec(api, lease, ['spawn', 'defaults', 'write', ...setting]);
+            }
+        },
+        seed: async (api, lease, database) => {
+            await exec(api, lease, ['terminate', bundleId('ios')]);
+            const container = (await mustExec(api, lease, ['get_app_container', bundleId('ios'), 'data'])).trim();
+            if (!container.startsWith('/')) {
+                throw new Error(`unexpected app data container for ${bundleId('ios')}: ${container}`);
+            }
+            await mustDrop(api, lease, ['rm', `${container}/Library`, 'suuudokuuu.db']);
+            if (database !== undefined) {
+                await writeFile(api, lease, `${container}/Library/suuudokuuu.db`, database);
+            }
+        }
+    },
+    android: {
+        prepare: async (api, lease) => {
+            await mustAdb(api, lease, ['root']);
+        },
+        seed: async (api, lease, database) => {
+            const directory = `/data/data/${bundleId('android')}/databases`;
+            const installed = `${directory}/suuudokuuu.db`;
+            await mustAdb(api, lease, ['shell', `am force-stop ${bundleId('android')} && mkdir -p ${directory} && rm -f ${installed}*`]);
+            if (database !== undefined) {
+                await mustAdb(
+                    api,
+                    lease,
+                    [
+                        'shell',
+                        `base64 -d > ${installed} && chown $(stat -c %u:%g /data/data/${bundleId('android')}) ${directory} ${installed} && restorecon ${directory} ${installed}`
+                    ],
+                    database.toString('base64')
+                );
+            }
+        }
+    }
+};
 
 const prepared = new Set<string>();
 
@@ -119,11 +191,14 @@ export class Suuudokuuu {
 
     async start(fixture?: string): Promise<void> {
         const lease = await this.lease();
+        const state = DEVICE_STATES[this.ctx.device.unstable_raw.platform];
         if (!prepared.has(lease)) {
-            await phase('prepare simulator', () => this.#prepare(lease));
+            await phase('prepare device', () => this.#prepare(state, lease));
             prepared.add(lease);
         }
-        await phase('seed', () => this.#seed(lease, fixture));
+        await phase('seed', () =>
+            state.seed(this.api, lease, fixture === undefined ? undefined : readFileSync(new URL(`${fixture}.db`, DATABASES)))
+        );
         await phase('launch', async () => {
             await this.ctx.app.open();
             await expectId(this.ctx, 'MainTabSelectors.Play', WAIT_LAUNCH);
@@ -132,10 +207,8 @@ export class Suuudokuuu {
         });
     }
 
-    async #prepare(lease: string): Promise<void> {
-        await mustExec(this.api, lease, ['spawn', 'defaults', 'write', '.GlobalPreferences', 'AppleLanguages', '-array', 'en-US']);
-        await mustExec(this.api, lease, ['spawn', 'defaults', 'write', '.GlobalPreferences', 'AppleLocale', '-string', 'en_US']);
-        await mustExec(this.api, lease, ['spawn', 'defaults', 'write', 'com.apple.Accessibility', 'ReduceMotionEnabled', '-bool', 'true']);
+    async #prepare(state: DeviceState, lease: string): Promise<void> {
+        await state.prepare(this.api, lease);
         await this.ctx.app.open();
         await expectId(this.ctx, 'HomeScreenSelectors.Root', WAIT_LAUNCH);
         await openLink(this.ctx, 'suuudokuuu://');
@@ -143,21 +216,9 @@ export class Suuudokuuu {
         await acceptOpenInPrompt(this.ctx);
         await expectId(this.ctx, 'HomeScreenSelectors.Root', WAIT_LAUNCH);
     }
-
-    async #seed(lease: string, fixture?: string): Promise<void> {
-        await exec(this.api, lease, ['terminate', BUNDLE_ID]);
-        const container = (await mustExec(this.api, lease, ['get_app_container', BUNDLE_ID, 'data'])).trim();
-        if (!container.startsWith('/')) {
-            throw new Error(`unexpected app data container for ${BUNDLE_ID}: ${container}`);
-        }
-        await mustDrop(this.api, lease, ['rm', `${container}/Library`, 'suuudokuuu.db']);
-        if (fixture !== undefined) {
-            await writeFile(this.api, lease, `${container}/Library/suuudokuuu.db`, readFileSync(new URL(`${fixture}.db`, DATABASES)));
-        }
-    }
 }
 
-export async function expectNoIdText(ctx: Ctx, testId: string | RegExp, text: string | RegExp, timeout?: number): Promise<void> {
+export async function expectNoIdText(ctx: Ctx, testId: string, text: string | RegExp, timeout?: number): Promise<void> {
     await expect(ctx.screen.getByTestId(testId).filter({ hasText: text }).first()).toBeHidden(
         timeout === undefined ? undefined : { timeout }
     );

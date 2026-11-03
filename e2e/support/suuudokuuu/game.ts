@@ -3,7 +3,7 @@ import { setTimeout as sleep } from 'node:timers/promises';
 import { expect } from 'e2e';
 
 import {
-    BUNDLE_ID,
+    backgroundFor,
     expectId,
     goHome,
     expectText,
@@ -35,8 +35,8 @@ export async function startNewGame(ctx: Ctx): Promise<void> {
     await tapId(ctx, 'HomeScreenSelectors.StartButton');
     await expectId(ctx, 'GameScreenSelectors.Root', WAIT_SLOW);
     await expectNoId(ctx, 'HomeScreenSelectors.Root');
-    await expectId(ctx, /^CellSelectors\.Cell\./u);
-    await expectId(ctx, /^AvailableValueItemSelectors\.Button\./u);
+    await expect(ctx.screen.getByTestId(/^CellSelectors\.Cell\./u).first()).toBeVisible();
+    await expect(ctx.screen.getByTestId(/^AvailableValueItemSelectors\.Button\./u).first()).toBeVisible();
 }
 
 export async function quitCurrentGame(ctx: Ctx): Promise<void> {
@@ -55,9 +55,7 @@ export async function openSettingsFromGame(ctx: Ctx): Promise<void> {
 }
 
 export async function pauseCurrentGame(ctx: Ctx): Promise<void> {
-    await ctx.device.home();
-    await sleep(1_000);
-    await ctx.device.openApp(BUNDLE_ID);
+    await backgroundFor(ctx, 1_000);
     await expectId(ctx, 'PauseScreenSelectors.Root');
 }
 

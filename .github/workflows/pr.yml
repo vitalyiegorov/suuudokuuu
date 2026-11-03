@@ -139,6 +139,10 @@ jobs:
             - name: Install e2e suite dependencies
               run: npm ci --prefix e2e --no-audit --no-fund
 
+            - uses: rnw-community/mobile-ci/actions/e2e-simlock-install@v4.9.0 # v4.9.0
+              with:
+                  e2e-dir: e2e
+
             - name: Lint checks
               run: pnpm lint
 
@@ -283,7 +287,7 @@ jobs:
         permissions:
             contents: write
             pull-requests: write
-        uses: rnw-community/mobile-ci/.github/workflows/expo-ota-preview.yml@f90309c791283d6e2dd1e35eb2ae6c5aee2151cd # v4.7.0
+        uses: rnw-community/mobile-ci/.github/workflows/expo-ota-preview.yml@v4.9.0 # v4.9.0
         with:
             app-dir: packages/app
             scheme: suuudokuuu

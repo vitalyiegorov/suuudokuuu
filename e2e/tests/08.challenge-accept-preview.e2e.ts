@@ -1,3 +1,5 @@
+import { scrollTo } from '@mobile-ci/e2e-simlock/steps';
+
 import * as core from '../support/suuudokuuu/core.ts';
 import * as game from '../support/suuudokuuu/game.ts';
 import { test } from '../support/suuudokuuu/test.ts';
@@ -23,10 +25,10 @@ test('08 challenge accept preview', async ({ suuudokuuu }) => {
     });
 
     await core.phase('rival arsenal', async () => {
-        await core.scrollTo(ctx, core.byText(ctx.screen, 'Finned X-Wing'));
+        await scrollTo(ctx.screen, core.byText(ctx.screen, 'Finned X-Wing'));
         await core.expectId(ctx, 'ChallengeRunStatsSelectors.TechniqueTile.16');
         await core.expectText(ctx, 'Finned X-Wing');
-        await core.scrollTo(ctx, core.byText(ctx.screen, 'Hidden Pair'));
+        await scrollTo(ctx.screen, core.byText(ctx.screen, 'Hidden Pair'));
         await core.expectId(ctx, 'ChallengeRunStatsSelectors.TechniqueTile.10');
         await core.expectText(ctx, 'Hidden Pair');
     });

@@ -1,4 +1,4 @@
-import { expect } from 'e2e';
+import { byId, scrollTo } from '@mobile-ci/e2e-simlock/steps';
 
 import * as core from '../support/suuudokuuu/core.ts';
 import * as game from '../support/suuudokuuu/game.ts';
@@ -20,21 +20,21 @@ test('10 themes screen', async ({ suuudokuuu }) => {
         await core.expectId(ctx, 'themes-screen-create-button');
         await core.tapId(ctx, 'themes-screen-create-button');
         await core.expectId(ctx, 'theme-editor-screen');
-        const name = core.byId(ctx.screen, 'theme-editor-screen-name-input');
+        const name = byId(ctx.screen, 'theme-editor-screen-name-input');
         await name.clear();
         await name.fill('Maestro theme');
         await ctx.device.dismissKeyboard();
         await core.expectId(ctx, 'theme-editor-screen-save-button');
         await core.tapId(ctx, 'theme-editor-screen-save-button');
         await core.expectId(ctx, 'themes-screen');
-        await core.scrollTo(ctx, core.byText(ctx.screen, 'Maestro theme'));
+        await scrollTo(ctx.screen, core.byText(ctx.screen, 'Maestro theme'));
     });
 
     await core.phase('theme shows in settings', async () => {
         await core.tapId(ctx, 'HeaderBackButtonSelectors.Root');
         await core.expectId(ctx, 'SettingsScreenSelectors.Root');
         await core.scrollToId(ctx, 'SettingsScreenSelectors.ThemeOption', 'up');
-        await expect(core.byId(ctx.screen, 'SettingsScreenSelectors.ThemeOption')).toHaveValue('Maestro theme');
+        await core.expectIdText(ctx, 'SettingsScreenSelectors.ThemeOption', /Maestro theme/iu);
         await core.goHome(ctx);
     });
 });

@@ -1,5 +1,6 @@
 import { setTimeout as sleep } from 'node:timers/promises';
 
+import { byId, scrollTo } from '@mobile-ci/e2e-simlock/steps';
 import { expect } from 'e2e';
 
 import * as core from '../support/suuudokuuu/core.ts';
@@ -11,7 +12,7 @@ test('01 home screen', async ({ suuudokuuu }) => {
     await suuudokuuu.start();
 
     await core.phase('home setup', async () => {
-        await core.scrollTo(ctx, core.byText(ctx.screen, 'Difficulty'), 'up');
+        await scrollTo(ctx.screen, core.byText(ctx.screen, 'Difficulty'), 'up');
         await core.expectText(ctx, 'Difficulty');
         await core.expectText(ctx, 'Newbie');
         await core.expectText(ctx, 'Mistakes');
@@ -19,7 +20,7 @@ test('01 home screen', async ({ suuudokuuu }) => {
 
     await core.phase('start and inspect a game', async () => {
         await game.startNewGame(ctx);
-        await expect(core.byId(ctx.screen, 'GameScreenSelectors.Score')).toHaveText('0');
+        await expect(byId(ctx.screen, 'GameScreenSelectors.Score')).toHaveText('0');
         await core.expectText(ctx, '0/3');
         await core.expectNoId(ctx, 'GameScreenSelectors.Level');
         await core.expectNoId(ctx, 'GameScreenSelectors.Rating');
@@ -29,7 +30,7 @@ test('01 home screen', async ({ suuudokuuu }) => {
     await core.phase('rapid start taps open one game', async () => {
         await core.scrollToId(ctx, 'HomeScreenSelectors.StartButton');
         await core.scrollDown(ctx);
-        const start = await core.byId(ctx.screen, 'HomeScreenSelectors.StartButton').boundingBox();
+        const start = await byId(ctx.screen, 'HomeScreenSelectors.StartButton').boundingBox();
         if (start === null) {
             throw new Error('HomeScreenSelectors.StartButton has no bounds');
         }

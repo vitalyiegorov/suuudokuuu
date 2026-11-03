@@ -48,8 +48,8 @@ test('06 resume game', async ({ suuudokuuu }) => {
         await core.expectId(ctx, 'GameScreenSelectors.Root', core.WAIT_LAUNCH);
         expect(await core.seconds(ctx, 'GameScreenSelectors.Time')).toBeGreaterThanOrEqual(returned);
         await game.assertTimerAdvances(ctx);
-        await core.expectId(ctx, /^CellSelectors\.Cell\./u);
-        await core.expectId(ctx, /^AvailableValueItemSelectors\.Button\./u);
+        await expect(ctx.screen.getByTestId(/^CellSelectors\.Cell\./u).first()).toBeVisible();
+        await expect(ctx.screen.getByTestId(/^AvailableValueItemSelectors\.Button\./u).first()).toBeVisible();
         await game.quitCurrentGame(ctx);
     });
 });

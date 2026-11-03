@@ -1,5 +1,3 @@
-import { setTimeout as sleep } from 'node:timers/promises';
-
 import { expect } from 'e2e';
 
 import * as core from '../support/suuudokuuu/core.ts';
@@ -18,10 +16,7 @@ test('07 background foreground game', async ({ suuudokuuu }) => {
     await core.phase('background pauses the timer', async () => {
         const before = await core.seconds(ctx, 'GameScreenSelectors.Time');
         const sampledAt = Date.now();
-        await ctx.device.home();
-        const backgroundedAt = Date.now();
-        await sleep(core.WAIT_QUICK);
-        await ctx.device.openApp(core.BUNDLE_ID);
+        const backgroundedAt = await core.backgroundFor(ctx, core.WAIT_QUICK);
         await core.expectId(ctx, 'PauseScreenSelectors.Root');
         await core.expectText(ctx, 'Paused');
         await core.expectNoId(ctx, 'GameScreenSelectors.Root');

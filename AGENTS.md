@@ -66,9 +66,9 @@ packages/
 ├── hell-corpus/        # Bundled, verified Hell (forcing-chain) and Infinity puzzle corpora
 ├── grid-vision/        # Pure TypeScript sudoku photo and screenshot recognition with a bundled int8 digit classifier
 └── landing/            # Static Next.js App Router content and SEO site for www.suuudokuuu.com
-e2e/                    # iOS E2E suite: tester-army e2e on simlock simulators, a standalone npm project
+e2e/                    # iOS and Android E2E suite: tester-army e2e on simlock devices, a standalone npm project
 tests/
-├── app-tests/          # Maestro E2E flows (Android CI) and their database fixtures
+├── app-tests/          # Maestro flows the e2e suite ports, store-screenshot capture, and database fixtures
 ├── test-kit/           # Shared Vitest config and makeTestSqlLayer() in-memory SQLite harness
 └── web-tests/          # Playwright web E2E specs
 ```
@@ -215,7 +215,7 @@ export class RunService extends Context.Service<RunService>()('@suuudokuuu/progr
 
 - Tests use Vitest and `@effect/vitest`. They live in `packages/<package>/test/**/*.test.ts`, not colocated `.spec.ts` files. Cross-package scenarios live in `tests/*`; shared harness code lives in `tests/test-kit`, not in a scenario suite.
 - `packages/app` and `packages/landing` host no unit tests. Pure logic that needs tests belongs in a domain package (`progress`, `generator`, ...); UI behavior is covered by the e2e suite, Maestro and Playwright.
-- iOS E2E coverage lives under `e2e`; Maestro E2E coverage (the Android CI lane) lives under `tests/app-tests`. A user scenario changes in both.
+- Mobile E2E coverage (iOS and Android CI) lives under `e2e`, one test per Maestro flow in `tests/app-tests/flows`. A user scenario changes in both.
 - Web E2E coverage lives under `tests/web-tests` (Playwright against the Expo web export).
 - Add or update tests when changing puzzle generation, solving, serialization, scoring, SQL migrations, repositories, or externally visible behavior.
 - Migrating packages still on Jest convert to Vitest mechanically, keeping every assertion.

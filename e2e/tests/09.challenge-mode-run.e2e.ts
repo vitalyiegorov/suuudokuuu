@@ -1,5 +1,3 @@
-import { setTimeout as sleep } from 'node:timers/promises';
-
 import { expect } from 'e2e';
 
 import * as core from '../support/suuudokuuu/core.ts';
@@ -19,9 +17,7 @@ test('09 challenge mode run', async ({ suuudokuuu }) => {
 
     await core.phase('clock runs in the background', async () => {
         const before = await core.seconds(ctx, 'GameScreenSelectors.Time');
-        await ctx.device.home();
-        await sleep(core.WAIT_QUICK);
-        await ctx.device.openApp(core.BUNDLE_ID);
+        await core.backgroundFor(ctx, core.WAIT_QUICK);
         await core.expectId(ctx, 'GameScreenSelectors.Root');
         await core.expectNoId(ctx, 'PauseScreenSelectors.Root');
         expect(await core.seconds(ctx, 'GameScreenSelectors.Time')).toBeGreaterThan(before);

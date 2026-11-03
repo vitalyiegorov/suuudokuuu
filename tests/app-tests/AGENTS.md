@@ -30,7 +30,7 @@ APP_ID=<installed-app-id> SIMULATOR_UDID=<simulator-udid> tests/app-tests/script
 
 Use a freshly rebuilt and reinstalled app when validating code, selector, deep-link, app-config, or native changes. CI installs an embedded Release E2E app, so it does not use `launch-dev-client.flow.yaml` or depend on Metro. The suite runner primes the iOS custom-scheme confirmation once in a separate Maestro session, then runs every selected numbered scenario in its own Maestro/XCTest session while preserving the installed app container. After a failed flow, the runner clears app state and re-primes deep links so leftover in-progress state cannot cascade into later flows.
 
-CI runs these flows on Android only, in one shard. iOS CI runs the `e2e/` suite instead, one `e2e/tests/<flow>.e2e.ts` per numbered flow here; change a scenario in both. `shards/shard-0.txt` and `shards/shard-1.txt` split the flows for a two-shard iOS Maestro run (each line is a path relative to `flows/`): keep every flow in `config.yaml` in exactly one manifest and run `scripts/validate-shards.sh` after changing the inventory.
+No CI job runs these flows: iOS and Android CI run the `e2e/` suite, one `e2e/tests/<flow>.e2e.ts` per numbered flow here; change a scenario in both. `shards/shard-0.txt` and `shards/shard-1.txt` split the flows for a two-shard iOS Maestro run (each line is a path relative to `flows/`): keep every flow in `config.yaml` in exactly one manifest and run `scripts/validate-shards.sh` after changing the inventory.
 
 ## Robustness Rules
 
