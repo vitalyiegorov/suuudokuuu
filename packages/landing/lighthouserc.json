@@ -8,7 +8,10 @@
                 "http://localhost/sudoku/hard.html",
                 "http://localhost/pt-br/sudoku/easy.html"
             ],
-            "numberOfRuns": 1
+            "numberOfRuns": 1,
+            "settings": {
+                "chromeFlags": "--no-sandbox"
+            }
         },
         "upload": {
             "target": "filesystem",
