@@ -1,4 +1,5 @@
-Lebih ringan dan lebih mulus.
+Impor teka-teki apa pun, dengan petunjuk yang lebih jelas.
 
-• Ukuran unduhan aplikasi jauh lebih kecil: sekitar 45% lebih kecil.
-• Header dan bilah tab kini memburamkan konten dengan halus saat digulir, tanpa tepi tajam.
+• Tempel teka-teki (angka, teks kisi, atau tautan dari situs sudoku lain) atau buka tautan impor. Koreksi di papan yang bisa diketuk, pastikan hanya ada satu solusi, lihat tingkat kesulitannya, lalu main.
+• Petunjuk untuk pasangan dan triplet dijelaskan dengan kalimat lengkap yang mudah dipahami, menampilkan kandidat terkait, dan pas di layar kecil maupun ukuran teks besar.
+• Perbaikan: kisi yang sudah selesai ditolak saat impor, tempelan besar atau tidak biasa dibaca dengan benar, tombol angka menyesuaikan ukuran dengan benar, pengaturan seperti bahasa tersimpan dengan andal, fokus keyboard tetap di dalam lembar di web, dan aplikasi bisa dibuka di tab browser kedua.

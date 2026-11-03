@@ -1,4 +1,5 @@
-Más ligera y más fluida.
+Importa cualquier puzle, con pistas más claras.
 
-• La app es una descarga mucho más pequeña: alrededor de un 45 % menos.
-• Los encabezados y la barra de pestañas ahora difuminan el contenido con suavidad al desplazarse, sin bordes duros.
+• Pega un puzle (dígitos, texto de cuadrícula o un enlace de otros sitios de sudoku) o abre un enlace de importación. Corrígelo en un tablero táctil, comprueba que tiene una única solución, consulta su dificultad y juega.
+• Las pistas de pares y tríos se explican con frases claras y completas, muestran los candidatos implicados y se adaptan a pantallas pequeñas y tamaños de texto grandes.
+• Correcciones: se rechazan las cuadrículas ya completadas al importar, los textos pegados grandes o poco habituales se leen bien, el teclado numérico se ajusta correctamente, los ajustes como el idioma se guardan de forma fiable, el foco del teclado se mantiene dentro de las hojas en la web y la app se abre en una segunda pestaña del navegador.

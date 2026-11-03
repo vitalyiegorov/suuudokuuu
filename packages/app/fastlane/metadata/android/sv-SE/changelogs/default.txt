@@ -1,3 +1,5 @@
-Lättare och smidigare.
-Mycket mindre nedladdning: cirka 40 % lättare.
-Mjukare oskärpa under rubriker och flikfältet, utan hård kant.
+Importera valfritt pussel, med tydligare tips.
+
+• Klistra in ett pussel eller öppna en importlänk, kontrollera att det har exakt en lösning, se svårighetsgraden och spela.
+• Tips för par och trippler förklaras med tydliga, hela meningar och ryms på små skärmar och med stor text.
+• Rättningar för importkontroll, sifferknappsats, sparade inställningar och tangentbordsfokus på webben.

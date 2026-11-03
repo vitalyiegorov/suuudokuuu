@@ -1,3 +1,5 @@
-Lighter and smoother.
-A much smaller download: about 40% lighter.
-Smoother blur under headers and the tab bar, with no hard edge.
+Import any puzzle, with clearer hints.
+
+• Paste a puzzle or open an import link, check it has exactly one solution, see its difficulty, then play.
+• Pair and triple hints are explained in plain, complete sentences and fit small screens and large text.
+• Fixes for import checks, the number pad, saved settings, and keyboard focus on the web.

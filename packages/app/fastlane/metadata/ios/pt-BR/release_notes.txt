@@ -1,4 +1,5 @@
-Mais leve e mais fluido.
+Importe qualquer puzzle, com dicas mais claras.
 
-• O app ficou bem menor para baixar: cerca de 45% menor.
-• Os cabeçalhos e a barra de abas agora desfocam o conteúdo suavemente ao rolar, sem borda marcada.
+• Cole um puzzle (dígitos, texto de grade ou um link de outros sites de sudoku) ou abra um link de importação. Corrija-o em um tabuleiro que você toca, confira se ele tem exatamente uma solução, veja a dificuldade e jogue.
+• As dicas de pares e trios são explicadas em frases simples e completas, mostram os candidatos envolvidos e cabem em telas pequenas e em textos grandes.
+• Correções: grades já completas são recusadas na importação, colagens grandes ou incomuns são lidas corretamente, o teclado numérico se redimensiona direito, ajustes como o idioma são salvos de forma confiável, o foco do teclado fica dentro das folhas na web e o app abre em uma segunda aba do navegador.

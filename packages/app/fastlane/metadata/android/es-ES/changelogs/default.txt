@@ -1,3 +1,5 @@
-Más ligera y más fluida.
-Descarga mucho más pequeña: alrededor de un 40 % menos.
-Desenfoque más suave bajo los encabezados y la barra de pestañas, sin bordes duros.
+Importa cualquier puzle, con pistas más claras.
+
+• Pega un puzle o abre un enlace de importación, comprueba que tiene una única solución, consulta su dificultad y juega.
+• Las pistas de pares y tríos se explican con frases claras y completas, y caben en pantallas pequeñas y con texto grande.
+• Correcciones en la importación, el teclado numérico, los ajustes guardados y el foco del teclado en la web.

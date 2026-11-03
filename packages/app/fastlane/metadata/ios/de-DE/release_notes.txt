@@ -1,4 +1,5 @@
-Leichter und flüssiger.
+Rätsel importieren, klarere Hinweise.
 
-• Die App ist ein deutlich kleinerer Download: etwa 45 % kleiner.
-• Kopfzeilen und Tableiste zeichnen Inhalte beim Scrollen jetzt weich unscharf, ohne harte Kante.
+• Füge ein Rätsel ein (Ziffern, Rastertext oder ein Link von anderen Sudoku-Seiten) oder öffne einen Import-Link. Korrigiere es auf einem antippbaren Brett, prüfe, dass es genau eine Lösung hat, sieh dir den Schwierigkeitsgrad an und spiele los.
+• Hinweise zu Paaren und Tripeln werden in klaren, vollständigen Sätzen erklärt, zeigen die beteiligten Kandidaten und passen auf kleine Bildschirme und große Schriftgrößen.
+• Korrekturen: Fertige Gitter werden beim Import abgelehnt, große oder ungewöhnliche Einfügungen werden richtig gelesen, das Zahlenfeld passt sich korrekt an, Einstellungen wie die Sprache werden zuverlässig gespeichert, der Tastaturfokus bleibt im Web in Dialogen, und die App öffnet sich in einem zweiten Browser-Tab.
