@@ -77,6 +77,10 @@ const LEASE_CUT_OFF = /Invalid daemon response|error code: 52\d|socket hang up|o
 
 const sleep = (ms: number, signal: AbortSignal): Promise<void> =>
     new Promise((resolve, reject) => {
+        if (signal.aborted) {
+            reject(signal.reason);
+            return;
+        }
         const timer = setTimeout(resolve, ms);
         signal.addEventListener(
             'abort',
@@ -157,8 +161,13 @@ export function simlockDevices(options: SimlockOptions): DeviceProvider {
         let logged = false;
         for (;;) {
             const free = await freeDevices();
-            if (free === undefined || free > 0 || Date.now() > deadline) {
+            if (free === undefined || free > 0) {
                 return;
+            }
+            if (Date.now() > deadline) {
+                throw new Error(
+                    `simlock: no free device on the farm within the ${Math.round((options.queueMs ?? 20 * 60_000) / 60_000)} min queue`
+                );
             }
             if (!logged) {
                 request.log('simlock: the farm is full; waiting for a free device');
@@ -177,17 +186,21 @@ export function simlockDevices(options: SimlockOptions): DeviceProvider {
         const deadline = Date.now() + (options.queueMs ?? 20 * 60_000);
         for (;;) {
             await waitForDevice(request, deadline);
+            request.signal.throwIfAborted();
             const leaseId = randomBytes(16).toString('hex');
             try {
                 return await c.leases.allocate({ ...params, leaseId });
             } catch (cause) {
                 const message = cause instanceof Error ? cause.message : String(cause);
-                if (!LEASE_CUT_OFF.test(message) || Date.now() > deadline) {
+                if (!LEASE_CUT_OFF.test(message)) {
                     throw cause;
                 }
-                // The farm may still grant it after the cut-off: hand that lease back before asking again.
+                // The farm may still grant it after the cut-off: hand that lease back, whether or not we ask again.
                 const { tenant, runId, leaseBackend, leaseProvider, clientId } = params;
                 await c.leases.release({ tenant, runId, leaseBackend, leaseProvider, clientId, leaseId }).catch(() => undefined);
+                if (Date.now() > deadline) {
+                    throw cause;
+                }
                 request.log(`simlock: lease request cut off while the farm was full (${message}); waiting to ask again`);
             }
         }
