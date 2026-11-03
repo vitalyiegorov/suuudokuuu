@@ -28,6 +28,12 @@ export interface SimlockOptions {
      * at once on a busy farm did, so the run uploads a few at a time.
      */
     readonly installConcurrency?: number;
+    /**
+     * How long a slot may wait for the farm to have a device free. A lease request blocks while the
+     * farm is full, and through the public Cloudflare tunnel a request open past 100 s ends in a 524,
+     * so the slot waits here, polling the farm's free count, and only then asks for a lease.
+     */
+    readonly queueMs?: number;
 }
 
 /** A counting semaphore: `run` waits until fewer than `limit` calls are in flight. */
@@ -65,6 +71,22 @@ const TENANT = 'budgie-e2e';
 
 /** A leased device that could not be set up (an app install failed): another device may well succeed. */
 class DeviceSetupFailed extends Error {}
+
+/** A lease request the tunnel cut off while the farm was full: the slot waits for a device and asks again. */
+const LEASE_CUT_OFF = /Invalid daemon response|error code: 52\d|socket hang up|other side closed/i;
+
+const sleep = (ms: number, signal: AbortSignal): Promise<void> =>
+    new Promise((resolve, reject) => {
+        const timer = setTimeout(resolve, ms);
+        signal.addEventListener(
+            'abort',
+            () => {
+                clearTimeout(timer);
+                reject(signal.reason);
+            },
+            { once: true }
+        );
+    });
 
 /** Errors that mean the farm, not one simulator, failed (simlock's gateway and agent-device wording). */
 const FARM_DOWN =
@@ -109,6 +131,68 @@ export function simlockDevices(options: SimlockOptions): DeviceProvider {
         writeFileSync(file, JSON.stringify([...new Set([...ids, id])]));
     };
 
+    /** Free iOS devices on the farm (limit minus devices leased), or undefined when the farm does not say. */
+    const freeDevices = async (): Promise<number | undefined> => {
+        try {
+            const response = await fetch(`${options.url.replace(/\/$/, '')}/v1/status`, {
+                headers: { authorization: `Bearer ${options.token}` },
+                signal: AbortSignal.timeout(15_000)
+            });
+            if (!response.ok) {
+                return undefined;
+            }
+            const ios = ((await response.json()) as { capacity?: { ios?: { limit?: number; used?: number; warm?: number } } }).capacity
+                ?.ios;
+            if (ios?.limit === undefined) {
+                return undefined;
+            }
+            return ios.limit - ((ios.used ?? 0) - (ios.warm ?? 0));
+        } catch {
+            return undefined;
+        }
+    };
+
+    /** Blocks until the farm reports a free device or the queue deadline passes; an unknown count does not block. */
+    const waitForDevice = async (request: DeviceRequest, deadline: number): Promise<void> => {
+        let logged = false;
+        for (;;) {
+            const free = await freeDevices();
+            if (free === undefined || free > 0 || Date.now() > deadline) {
+                return;
+            }
+            if (!logged) {
+                request.log('simlock: the farm is full; waiting for a free device');
+                logged = true;
+            }
+            await sleep(10_000 + Math.floor(Math.random() * 5_000), request.signal);
+        }
+    };
+
+    /** `allocate`, queued client-side: a request the tunnel cut off is released by its own id and asked again. */
+    const allocate = async (
+        request: DeviceRequest,
+        c: ReturnType<typeof client>,
+        params: Omit<Parameters<ReturnType<typeof client>['leases']['allocate']>[0], 'leaseId'>
+    ): Promise<Awaited<ReturnType<ReturnType<typeof client>['leases']['allocate']>>> => {
+        const deadline = Date.now() + (options.queueMs ?? 20 * 60_000);
+        for (;;) {
+            await waitForDevice(request, deadline);
+            const leaseId = randomBytes(16).toString('hex');
+            try {
+                return await c.leases.allocate({ ...params, leaseId });
+            } catch (cause) {
+                const message = cause instanceof Error ? cause.message : String(cause);
+                if (!LEASE_CUT_OFF.test(message) || Date.now() > deadline) {
+                    throw cause;
+                }
+                // The farm may still grant it after the cut-off: hand that lease back before asking again.
+                const { tenant, runId, leaseBackend, leaseProvider, clientId } = params;
+                await c.leases.release({ tenant, runId, leaseBackend, leaseProvider, clientId, leaseId }).catch(() => undefined);
+                request.log(`simlock: lease request cut off while the farm was full (${message}); waiting to ask again`);
+            }
+        }
+    };
+
     const leaseOnce = async (request: DeviceRequest, attempt: number): Promise<DeviceLease> => {
         const session = `e2e-${request.runId.slice(0, 12)}-${request.slot}${attempt === 0 ? '' : `-r${attempt}`}`;
         const started = Date.now();
@@ -120,10 +204,9 @@ export function simlockDevices(options: SimlockOptions): DeviceProvider {
         };
         const c = client(session);
         const clientId = randomBytes(8).toString('hex');
-        const lease = await c.leases.allocate({
+        const lease = await allocate(request, c, {
             ...scopeBase,
             clientId,
-            leaseId: randomBytes(16).toString('hex'),
             ttlMs,
             platform: 'ios',
             target: 'mobile',
