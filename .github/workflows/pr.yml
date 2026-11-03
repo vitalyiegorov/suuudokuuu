@@ -158,8 +158,9 @@ jobs:
 
     mobile-e2e:
         # Starts alongside code-quality instead of after it: the e2e plan/build
-        # is the long pole, and Required CI still fails the PR on either.
-        if: ${{ needs.changes.outputs.mobile == 'true' }}
+        # is the long pole, and Required CI still fails the PR on either. A fork
+        # gets no SIMLOCK_TOKEN, so its iOS suite could not lease a simulator.
+        if: ${{ needs.changes.outputs.mobile == 'true' && github.event.pull_request.head.repo.full_name == github.repository }}
         needs: [changes]
         # Each nesting level can only narrow the token, so the scopes mobile-ci's
         # plan job needs to read a published base binary have to be granted here
@@ -342,6 +343,7 @@ jobs:
                   CODE_QUALITY_RESULT: ${{ needs.code-quality.result }}
                   MOBILE_E2E_RESULT: ${{ needs.mobile-e2e.result }}
                   WEB_E2E_RESULT: ${{ needs.web-e2e.result }}
+                  FORK_PULL_REQUEST: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
               run: |
                   set -euo pipefail
                   summary="changes=$CHANGES_RESULT, lint-workflows=$LINT_WORKFLOWS_RESULT, code-quality=$CODE_QUALITY_RESULT, mobile=$MOBILE_RESULT, mobile-e2e=$MOBILE_E2E_RESULT, web-e2e=$WEB_E2E_RESULT"
@@ -357,6 +359,11 @@ jobs:
 
                   if [ "$MOBILE_RESULT" = 'false' ] && [ "$MOBILE_E2E_RESULT" = 'skipped' ] && [ "$WEB_E2E_RESULT" = 'skipped' ]; then
                     exit 0
+                  fi
+
+                  if [ "$MOBILE_RESULT" = 'true' ] && [ "$FORK_PULL_REQUEST" = 'true' ]; then
+                    echo "::error::Mobile E2E needs SIMLOCK_TOKEN, which a fork pull request does not get: push the branch to this repository to run it."
+                    exit 1
                   fi
 
                   echo "::error::Required jobs did not succeed: $summary"
