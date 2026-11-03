@@ -13,7 +13,9 @@ export interface SimlockOptions {
     /** `http://10.10.1.28:4701`: the worker's HTTP address, without `/v1`. */
     readonly url: string;
     readonly token: string;
-    /** A model simlock's catalog lists: `iPhone 17 Pro`. */
+    /** The platform to lease: simlock's `ios-instance` or `android-instance` backend. */
+    readonly platform: 'ios' | 'android';
+    /** A model simlock's catalog lists: `iPhone 17 Pro`, `Pixel 6`. */
     readonly device: string;
     /** Apps installed on every leased device after the app under test, such as `E2E_DROP_APP`. */
     readonly extraApps?: readonly string[];
@@ -60,14 +62,14 @@ interface Held extends DeviceLease {
         tenant: string;
         runId: string;
         leaseId: string;
-        leaseBackend: 'ios-instance';
+        leaseBackend: 'ios-instance' | 'android-instance';
         leaseProvider: 'proxy';
         clientId: string;
         deviceKey?: string;
     };
 }
 
-const TENANT = 'budgie-e2e';
+const TENANT = 'suuudokuuu-e2e';
 
 /** A leased device that could not be set up (an app install failed): another device may well succeed. */
 class DeviceSetupFailed extends Error {}
@@ -135,7 +137,7 @@ export function simlockDevices(options: SimlockOptions): DeviceProvider {
         writeFileSync(file, JSON.stringify([...new Set([...ids, id])]));
     };
 
-    /** Free iOS devices on the farm (limit minus devices leased), or undefined when the farm does not say. */
+    /** Free devices of this platform on the farm (limit minus devices leased), or undefined when the farm does not say. */
     const freeDevices = async (): Promise<number | undefined> => {
         try {
             const response = await fetch(`${options.url.replace(/\/$/, '')}/v1/status`, {
@@ -145,12 +147,13 @@ export function simlockDevices(options: SimlockOptions): DeviceProvider {
             if (!response.ok) {
                 return undefined;
             }
-            const ios = ((await response.json()) as { capacity?: { ios?: { limit?: number; used?: number; warm?: number } } }).capacity
-                ?.ios;
-            if (ios?.limit === undefined) {
+            const capacity = (
+                (await response.json()) as { capacity?: Record<string, { limit?: number; used?: number; warm?: number } | undefined> }
+            ).capacity?.[options.platform];
+            if (capacity?.limit === undefined) {
                 return undefined;
             }
-            return ios.limit - ((ios.used ?? 0) - (ios.warm ?? 0));
+            return capacity.limit - ((capacity.used ?? 0) - (capacity.warm ?? 0));
         } catch {
             return undefined;
         }
@@ -212,7 +215,7 @@ export function simlockDevices(options: SimlockOptions): DeviceProvider {
         const scopeBase = {
             tenant: TENANT,
             runId: request.runId,
-            leaseBackend: 'ios-instance' as const,
+            leaseBackend: `${options.platform}-instance` as const,
             leaseProvider: 'proxy' as const
         };
         const c = client(session);
@@ -221,7 +224,7 @@ export function simlockDevices(options: SimlockOptions): DeviceProvider {
             ...scopeBase,
             clientId,
             ttlMs,
-            platform: 'ios',
+            platform: options.platform,
             target: 'mobile',
             device: options.device
         });
@@ -231,8 +234,10 @@ export function simlockDevices(options: SimlockOptions): DeviceProvider {
             clientId: lease.clientId ?? clientId,
             ...(lease.deviceKey === undefined ? {} : { deviceKey: lease.deviceKey })
         };
-        // The proxy lists every simulator its token holds, so each command names the leased one.
+        // The proxy lists every device its token holds, so each command names the leased one:
+        // a simulator by UDID (`ios:mobile:<udid>`), an emulator by adb serial (`android:mobile:<serial>`).
         const udid = lease.deviceKey?.split(':').pop();
+        const selection = options.platform === 'android' ? { serial: udid } : { udid };
         recordLease(request.projectRoot, lease.leaseId);
         request.log(`simlock lease ${lease.leaseId} granted in ${Date.now() - started} ms (${options.device} ${udid ?? 'no udid'})`);
         let missedHeartbeats = 0;
@@ -264,7 +269,9 @@ export function simlockDevices(options: SimlockOptions): DeviceProvider {
             const scoped = createAgentDeviceClient({ daemonBaseUrl: baseUrl, daemonAuthToken: options.token, session, ...scope });
             const install = async (appPath: string, app?: string): Promise<void> => {
                 try {
-                    await uploads(() => scoped.apps.install({ platform: 'ios', udid, appPath, ...(app === undefined ? {} : { app }) }));
+                    await uploads(() =>
+                        scoped.apps.install({ platform: options.platform, ...selection, appPath, ...(app === undefined ? {} : { app }) })
+                    );
                 } catch (cause) {
                     throw new DeviceSetupFailed(`${String(cause instanceof Error ? cause.message : cause)} (${udid})`, { cause });
                 }
@@ -302,8 +309,8 @@ export function simlockDevices(options: SimlockOptions): DeviceProvider {
     return {
         name: 'simlock',
         async acquire(request: DeviceRequest): Promise<DeviceLease> {
-            if (request.platform !== 'ios') {
-                throw new Error(`simlockDevices leases iOS simulators, not ${request.platform}`);
+            if (request.platform !== options.platform) {
+                throw new Error(`simlockDevices leases ${options.platform} devices, not ${request.platform}`);
             }
             try {
                 return await leaseOnce(request, 0);

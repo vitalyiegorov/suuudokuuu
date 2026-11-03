@@ -75,12 +75,13 @@ jobs:
             xcode-version: '26.4.1'
             xcode-build: '17E202'
             gradle-task: ':app:assembleRelease'
-            # Byte-identical to mobile-e2e.yml's Android lane, and android-abis
-            # stays on auto in both (x86_64 for the avd driver): gradle-task,
-            # gradle-args and the resolved ABIs are part of the native key's
-            # toolchain segment, so a warm-up that built anything else would
-            # publish under an address the e2e pipeline never looks up.
+            # Byte-identical to mobile-e2e.yml's Android lane, ABIs included
+            # (arm64-v8a, the farm's emulators): gradle-task, gradle-args and the
+            # resolved ABIs are part of the native key's toolchain segment, so a
+            # warm-up that built anything else would publish under an address
+            # the e2e pipeline never looks up.
             gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease'
+            android-abis: arm64-v8a
             ios-cache-profile: suuudokuuu-ios-v2
             android-cache-profile: suuudokuuu-android-v1
             rct-use-prebuilt-rncore: true

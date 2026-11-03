@@ -59,9 +59,15 @@ export async function leaseIdForUdid(api: SimlockApi, udid: string): Promise<str
     throw new Error(`no simlock lease of this token holds ${udid} (${body.leases.length} leases)`);
 }
 
-/** Runs one `simctl` command on the leased simulator. */
-export async function exec(api: SimlockApi, leaseId: string, args: readonly string[], stdin?: string): Promise<ExecResult> {
-    const body = JSON.stringify({ tool: 'simctl', args, ...(stdin === undefined ? {} : { stdin }) });
+/** Runs one `simctl` command on the leased simulator, or one `adb` command on the leased emulator. */
+export async function exec(
+    api: SimlockApi,
+    leaseId: string,
+    args: readonly string[],
+    stdin?: string,
+    tool: 'simctl' | 'adb' = 'simctl'
+): Promise<ExecResult> {
+    const body = JSON.stringify({ tool, args, ...(stdin === undefined ? {} : { stdin }) });
     let response: Response;
     for (let attempt = 1; ; attempt++) {
         try {

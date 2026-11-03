@@ -14,11 +14,11 @@ name: Mobile E2E
 # as the base for the next run. seed-native-cache.yml is the warm-up that keeps
 # that from ever being a pull request's problem.
 #
-# iOS still belongs to the Macs when it does build, on the 4 CPU/7 GB
-# `macos-maestro` VMs; its tests run from Linux as the tester-army e2e suite
-# (e2e/) against simulators leased from the simlock farm. Android has left them
-# entirely - both its APK build and its Maestro run happen on node-b's x86_64
-# Linux `trf-linux-amd64-4x8` containers, against a KVM-accelerated Google AVD.
+# Both platforms run one tester-army e2e suite (e2e/) from Linux against
+# devices leased from the simlock farm: iOS simulators and arm64 Android
+# emulators. A native build, when one is needed, runs on the 4 CPU/7 GB
+# `macos-maestro` VMs for iOS and on node-b's `trf-linux-amd64-4x8`
+# containers for Android.
 on:
     workflow_call:
         secrets:
@@ -28,7 +28,7 @@ on:
     push:
         branches: [main]
         # The app's dependency closure: every workspace package except the two
-        # only the website uses (landing, field-dom), the e2e and Maestro suites, the
+        # only the website uses (landing, field-dom), the e2e suite and its fixtures, the
         # test-kit, and the root inputs every build reads. Negations keep a new
         # package in by default - an over-wide filter costs one run, a missed
         # path ships an untested app. Docs, reports and agent files never run it.
@@ -128,19 +128,15 @@ jobs:
             simlock-token: ${{ secrets.SIMLOCK_TOKEN }}
 
     android:
-        name: Android Maestro E2E
+        name: Android E2E
         permissions:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@f90309c791283d6e2dd1e35eb2ae6c5aee2151cd # v4.7.0
+        uses: rnw-community/mobile-ci/.github/workflows/android-maestro.yml@e962422723ac5fd794d812128673ae399c42723a # feat/android-e2e-simlock-farm
         with:
             control-runner-labels: '["self-hosted","linux-portable-2x4"]'
             install-command: pnpm install --frozen-lockfile
-            # Gate pull requests on the turbo graph: Maestro runs only when the
-            # app, its workspace dependencies or the Maestro suite changed, so a
-            # landing-only PR does not wait on the Macs. Non-PR events still
-            # always run (mobile-ci forces always-affected off pull_request).
             exempt-paths: |
                 docs/**
                 **/*.md
@@ -148,55 +144,19 @@ jobs:
                 .github/workflows/mobile-e2e.yml
                 .github/workflows/pr.yml
                 patches/**
+                e2e/**
             target-packages: |
                 @suuudokuuu/app
                 @suuudokuuu/app-tests
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","appId":"com.vitaliiyehorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p android --clean --no-install"}]
-            flows-dir: tests/app-tests/flows
-            pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
-            maestro-config: tests/app-tests/config.yaml
-            flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
-            pre-flow-command: tests/app-tests/scripts/seed-flow-fixture.sh
-            flow-retries: 1
-            # One emulator job at a time: node-b budgets 8 CPU / 16 GiB to
-            # containers, a `trf-linux-amd64-4x8` container is 4 CPU / 8 GiB, and
-            # the AVD alone measured ~4.2 GiB RSS. One emulator shard alongside the
-            # APK build is what the host actually fits; a second shard would only
-            # queue behind the first while starving both.
-            shard-count: 1
-            maestro-version: '2.6.1'
-            # Both legs on node-b: the APK builds on Linux now (Google does ship an
-            # x86_64-linux NDK), and 8 GiB is what keeps D8 from being OOM-killed.
-            # The plan/repack job defaults to trf-linux-amd64-2x4 (no KVM, mobile-ci
-            # v3.2.0), so it never queues behind emulator shards on this pool.
+            # The APK builds on Linux, and 8 GiB is what keeps D8 from being OOM-killed.
             build-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
-            # `trf-linux-amd64-4x8` is the ONLY node-b profile granted /dev/kvm, so
-            # this label is a hard requirement of the avd driver, not a preference.
-            test-runner-labels: '["self-hosted","trf-linux-amd64-4x8"]'
-            # Google's own emulator instead of Redroid. api-level 34 / google_apis /
-            # x86_64 are the reusable workflow's defaults and are exactly the system
-            # image baked into the runner container, so they stay unset here rather
-            # than being restated in two places that could drift apart.
-            android-driver: avd
-            emulator-slots-dir: /var/lib/mobile-ci/emulator-slots
-            # The container is 4 CPU / 8 GiB. Since mobile-ci v3.2.0 the emulator's
-            # RAM and cores are derived from the container's cgroup (memory.max
-            # 8 GiB -> 2048 MB, cpu.max 4 -> 2 cores), and the fleet injects
-            # JAVA_TOOL_OPTIONS=-XX:MaxRAM=8192m so Maestro's JVM sizes its heap
-            # from the container rather than the host's 27 GiB. Neither bound is
-            # restated here (fleet-validated in run 38692037603).
-            # Nexus 4 is 768x1280 @ 320dpi - within a whisker of the 720x1280 @
-            # 320dpi Redroid presented, which is the geometry every flow here was
-            # calibrated against. pixel_6 (1080x2400 @ 420dpi) is both a
-            # different dp viewport and a materially larger software-rendered
-            # framebuffer: measured on this runner, the swap costs 450 MB of
-            # unreclaimable memory for a device the flows were never written for.
-            emulator-profile: Nexus 4
             gradle-task: ':app:assembleRelease'
-            # android-abis: auto builds only the AVD's x86_64 ABI. The lint skips
-            # stay - lint is a separate PR gate, not this pipeline's job.
             gradle-args: '-x lint -x lintVitalAnalyzeRelease -x lintAnalyzeRelease'
+            # The farm's emulators are arm64-v8a. Part of the native key, so
+            # seed-native-cache.yml builds the same ABI.
+            android-abis: arm64-v8a
             # Byte-identical to the iOS lane above and to seed-native-cache.yml.
             fingerprint-env: |
                 APP_VARIANT=e2e
@@ -205,16 +165,19 @@ jobs:
             expect-config: |
                 name=suuudokuuu (E2E)
                 android.package=com.vitaliiyehorov.suuudokuuu.e2e
-            # The repacked APK is re-signed with the React Native debug keystore
-            # `expo prebuild` ships and Gradle signs its release build with, which
-            # is what android-keystore-path already defaults to. The emulator
-            # refuses to install a repack signed with anything else, so the
-            # defaults are correct here and stay unstated.
-            #
-            # No JAVA_HOME line: the runner image ships OpenJDK 17 and exports
-            # JAVA_HOME itself, unlike the macOS builder this job came from.
             build-env: |
                 APP_VARIANT=e2e
+            # The same e2e suite as iOS, against Pixel 6 emulators leased from
+            # the simlock farm. It replaces the AVD Maestro shard.
+            test-framework: e2e
+            e2e-dir: e2e
+            e2e-runner-labels: '["self-hosted","linux-portable-4x8"]'
+            e2e-workers: '2'
+            e2e-retries: '1'
+            e2e-timeout-minutes: 45
+            simlock-url: https://simlock.vitaliiyehorov.dev
+        secrets:
+            simlock-token: ${{ secrets.SIMLOCK_TOKEN }}
 
     android-capture-smoke:
         name: Android store capture smoke

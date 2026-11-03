@@ -3,7 +3,7 @@ import { setTimeout as sleep } from 'node:timers/promises';
 import { expect } from 'e2e';
 
 import {
-    BUNDLE_ID,
+    backgroundFor,
     expectId,
     goHome,
     expectText,
@@ -55,9 +55,7 @@ export async function openSettingsFromGame(ctx: Ctx): Promise<void> {
 }
 
 export async function pauseCurrentGame(ctx: Ctx): Promise<void> {
-    await ctx.device.home();
-    await sleep(1_000);
-    await ctx.device.openApp(BUNDLE_ID);
+    await backgroundFor(ctx, 1_000);
     await expectId(ctx, 'PauseScreenSelectors.Root');
 }
 

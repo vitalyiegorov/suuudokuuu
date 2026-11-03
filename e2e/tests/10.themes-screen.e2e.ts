@@ -1,5 +1,3 @@
-import { expect } from 'e2e';
-
 import * as core from '../support/suuudokuuu/core.ts';
 import * as game from '../support/suuudokuuu/game.ts';
 import { test } from '../support/suuudokuuu/test.ts';
@@ -34,7 +32,7 @@ test('10 themes screen', async ({ suuudokuuu }) => {
         await core.tapId(ctx, 'HeaderBackButtonSelectors.Root');
         await core.expectId(ctx, 'SettingsScreenSelectors.Root');
         await core.scrollToId(ctx, 'SettingsScreenSelectors.ThemeOption', 'up');
-        await expect(core.byId(ctx.screen, 'SettingsScreenSelectors.ThemeOption')).toHaveValue('Maestro theme');
+        await core.expectIdText(ctx, 'SettingsScreenSelectors.ThemeOption', /Maestro theme/iu);
         await core.goHome(ctx);
     });
 });

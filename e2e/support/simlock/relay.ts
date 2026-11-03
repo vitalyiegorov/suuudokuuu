@@ -159,7 +159,9 @@ export async function startBootRelay(upstreamBaseUrl: string): Promise<BootRelay
             // collides with itself ("Request ID is already in flight"), and the leased device is
             // already booted. The engine names it by UDID; that is all a boot answer needs.
             const flags = ((rpc.params as Record<string, unknown> | undefined)?.flags ?? {}) as Record<string, unknown>;
-            const udid = typeof flags.udid === 'string' ? flags.udid : undefined;
+            // A simulator is named by UDID, an Android emulator by adb serial.
+            const serial = typeof flags.serial === 'string' ? flags.serial : undefined;
+            const udid = typeof flags.udid === 'string' ? flags.udid : serial;
             if (udid === undefined) {
                 outgoing.writeHead(200, { 'content-type': 'application/json' });
                 outgoing.end(
@@ -168,14 +170,17 @@ export async function startBootRelay(upstreamBaseUrl: string): Promise<BootRelay
                         id: rpc.id,
                         error: {
                             code: -32000,
-                            message: 'simlock relay: boot names no udid',
-                            data: { code: 'INVALID_ARGS', message: 'simlock relay: boot names no udid' }
+                            message: 'simlock relay: boot names no udid or serial',
+                            data: { code: 'INVALID_ARGS', message: 'simlock relay: boot names no udid or serial' }
                         }
                     })
                 );
                 return;
             }
-            const data = { platform: 'ios', target: 'mobile', device: udid, id: udid, kind: 'simulator', booted: true };
+            const data =
+                serial === undefined
+                    ? { platform: 'ios', target: 'mobile', device: udid, id: udid, kind: 'simulator', booted: true }
+                    : { platform: 'android', target: 'mobile', device: serial, id: serial, kind: 'emulator', booted: true };
             if (DEBUG) {
                 console.error(`[relay] boot ${udid} answered locally`);
             }

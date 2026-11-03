@@ -13,7 +13,11 @@ export const WAIT_DEFAULT = 10_000;
 export const WAIT_SLOW = 15_000;
 export const WAIT_LAUNCH = 30_000;
 
-export const BUNDLE_ID = process.env.E2E_APP_ID ?? 'com.vitalyiegorov.suuudokuuu.e2e';
+export const BUNDLE_IDS = { ios: 'com.vitalyiegorov.suuudokuuu.e2e', android: 'com.vitaliiyehorov.suuudokuuu.e2e' } as const;
+
+type Platform = keyof typeof BUNDLE_IDS;
+
+const bundleId = (platform: Platform): string => process.env.E2E_APP_ID ?? BUNDLE_IDS[platform];
 
 const DATABASES = new URL('../../../tests/app-tests/fixtures/databases/', import.meta.url);
 
@@ -92,6 +96,15 @@ export async function goHome(ctx: Ctx): Promise<void> {
     await expectId(ctx, 'HomeScreenSelectors.Root');
 }
 
+export async function backgroundFor(ctx: Ctx, milliseconds: number): Promise<number> {
+    await ctx.device.home();
+    const backgroundedAt = Date.now();
+    await sleep(milliseconds);
+    await ctx.device.openApp(bundleId(ctx.device.unstable_raw.platform));
+
+    return backgroundedAt;
+}
+
 export async function seconds(ctx: Ctx, testId: string): Promise<number> {
     const [minutes = '', rest = ''] = ((await byId(ctx.screen, testId).textContent()) ?? '').split(':');
     const value = Number(minutes) * 60 + Number(rest);
@@ -102,6 +115,67 @@ export async function seconds(ctx: Ctx, testId: string): Promise<number> {
 
     return value;
 }
+
+async function mustAdb(api: SimlockApi, lease: string, args: readonly string[], stdin?: string): Promise<void> {
+    const result = await exec(api, lease, args, stdin, 'adb');
+    if (result.exitCode !== 0) {
+        throw new Error(`adb ${args.join(' ')} exited ${result.exitCode}: ${result.stderr.trim()}`);
+    }
+}
+
+interface DeviceState {
+    readonly prepare: (api: SimlockApi, lease: string) => Promise<void>;
+    readonly seed: (api: SimlockApi, lease: string, database?: Buffer) => Promise<void>;
+}
+
+const DEVICE_STATES: Record<Platform, DeviceState> = {
+    ios: {
+        prepare: async (api, lease) => {
+            for (const setting of [
+                ['.GlobalPreferences', 'AppleLanguages', '-array', 'en-US'],
+                ['.GlobalPreferences', 'AppleLocale', '-string', 'en_US'],
+                ['com.apple.Accessibility', 'ReduceMotionEnabled', '-bool', 'true']
+            ]) {
+                await mustExec(api, lease, ['spawn', 'defaults', 'write', ...setting]);
+            }
+        },
+        seed: async (api, lease, database) => {
+            await exec(api, lease, ['terminate', bundleId('ios')]);
+            const container = (await mustExec(api, lease, ['get_app_container', bundleId('ios'), 'data'])).trim();
+            if (!container.startsWith('/')) {
+                throw new Error(`unexpected app data container for ${bundleId('ios')}: ${container}`);
+            }
+            await mustDrop(api, lease, ['rm', `${container}/Library`, 'suuudokuuu.db']);
+            if (database !== undefined) {
+                await writeFile(api, lease, `${container}/Library/suuudokuuu.db`, database);
+            }
+        }
+    },
+    android: {
+        prepare: async (api, lease) => {
+            await mustAdb(api, lease, ['root']);
+            for (const scale of ['window_animation_scale', 'transition_animation_scale', 'animator_duration_scale']) {
+                await mustAdb(api, lease, ['shell', `settings put global ${scale} 0`]);
+            }
+        },
+        seed: async (api, lease, database) => {
+            const directory = `/data/data/${bundleId('android')}/databases`;
+            const installed = `${directory}/suuudokuuu.db`;
+            await mustAdb(api, lease, ['shell', `am force-stop ${bundleId('android')} && mkdir -p ${directory} && rm -f ${installed}*`]);
+            if (database !== undefined) {
+                await mustAdb(
+                    api,
+                    lease,
+                    [
+                        'shell',
+                        `base64 -d > ${installed} && chown $(stat -c %u:%g /data/data/${bundleId('android')}) ${directory} ${installed} && restorecon ${directory} ${installed}`
+                    ],
+                    database.toString('base64')
+                );
+            }
+        }
+    }
+};
 
 const prepared = new Set<string>();
 
@@ -119,11 +193,14 @@ export class Suuudokuuu {
 
     async start(fixture?: string): Promise<void> {
         const lease = await this.lease();
+        const state = DEVICE_STATES[this.ctx.device.unstable_raw.platform];
         if (!prepared.has(lease)) {
-            await phase('prepare simulator', () => this.#prepare(lease));
+            await phase('prepare device', () => this.#prepare(state, lease));
             prepared.add(lease);
         }
-        await phase('seed', () => this.#seed(lease, fixture));
+        await phase('seed', () =>
+            state.seed(this.api, lease, fixture === undefined ? undefined : readFileSync(new URL(`${fixture}.db`, DATABASES)))
+        );
         await phase('launch', async () => {
             await this.ctx.app.open();
             await expectId(this.ctx, 'MainTabSelectors.Play', WAIT_LAUNCH);
@@ -132,28 +209,14 @@ export class Suuudokuuu {
         });
     }
 
-    async #prepare(lease: string): Promise<void> {
-        await mustExec(this.api, lease, ['spawn', 'defaults', 'write', '.GlobalPreferences', 'AppleLanguages', '-array', 'en-US']);
-        await mustExec(this.api, lease, ['spawn', 'defaults', 'write', '.GlobalPreferences', 'AppleLocale', '-string', 'en_US']);
-        await mustExec(this.api, lease, ['spawn', 'defaults', 'write', 'com.apple.Accessibility', 'ReduceMotionEnabled', '-bool', 'true']);
+    async #prepare(state: DeviceState, lease: string): Promise<void> {
+        await state.prepare(this.api, lease);
         await this.ctx.app.open();
         await expectId(this.ctx, 'HomeScreenSelectors.Root', WAIT_LAUNCH);
         await openLink(this.ctx, 'suuudokuuu://');
         await sleep(1_000);
         await acceptOpenInPrompt(this.ctx);
         await expectId(this.ctx, 'HomeScreenSelectors.Root', WAIT_LAUNCH);
-    }
-
-    async #seed(lease: string, fixture?: string): Promise<void> {
-        await exec(this.api, lease, ['terminate', BUNDLE_ID]);
-        const container = (await mustExec(this.api, lease, ['get_app_container', BUNDLE_ID, 'data'])).trim();
-        if (!container.startsWith('/')) {
-            throw new Error(`unexpected app data container for ${BUNDLE_ID}: ${container}`);
-        }
-        await mustDrop(this.api, lease, ['rm', `${container}/Library`, 'suuudokuuu.db']);
-        if (fixture !== undefined) {
-            await writeFile(this.api, lease, `${container}/Library/suuudokuuu.db`, readFileSync(new URL(`${fixture}.db`, DATABASES)));
-        }
     }
 }
 
