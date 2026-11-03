@@ -52,8 +52,6 @@ packages/app/ios
 report.xml
 build-*.tar.gz
 *.app
-!e2e/support/simlock/e2e-drop/E2EDrop.app/
-!e2e/support/simlock/e2e-drop/E2EDrop.app/**
 *.apk
 app*.tar.gz
 tests/app-tests/artifacts

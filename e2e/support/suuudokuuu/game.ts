@@ -35,8 +35,8 @@ export async function startNewGame(ctx: Ctx): Promise<void> {
     await tapId(ctx, 'HomeScreenSelectors.StartButton');
     await expectId(ctx, 'GameScreenSelectors.Root', WAIT_SLOW);
     await expectNoId(ctx, 'HomeScreenSelectors.Root');
-    await expectId(ctx, /^CellSelectors\.Cell\./u);
-    await expectId(ctx, /^AvailableValueItemSelectors\.Button\./u);
+    await expect(ctx.screen.getByTestId(/^CellSelectors\.Cell\./u).first()).toBeVisible();
+    await expect(ctx.screen.getByTestId(/^AvailableValueItemSelectors\.Button\./u).first()).toBeVisible();
 }
 
 export async function quitCurrentGame(ctx: Ctx): Promise<void> {

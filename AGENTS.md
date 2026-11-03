@@ -66,7 +66,7 @@ packages/
 ├── hell-corpus/        # Bundled, verified Hell (forcing-chain) and Infinity puzzle corpora
 ├── grid-vision/        # Pure TypeScript sudoku photo and screenshot recognition with a bundled int8 digit classifier
 └── landing/            # Static Next.js App Router content and SEO site for www.suuudokuuu.com
-e2e/                    # iOS E2E suite: tester-army e2e on simlock simulators, a standalone npm project
+e2e/                    # iOS and Android E2E suite: tester-army e2e on simlock devices, a standalone npm project
 tests/
 ├── app-tests/          # Maestro flows the e2e suite ports, store-screenshot capture, and database fixtures
 ├── test-kit/           # Shared Vitest config and makeTestSqlLayer() in-memory SQLite harness

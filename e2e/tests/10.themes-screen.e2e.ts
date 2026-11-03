@@ -1,3 +1,5 @@
+import { byId, scrollTo } from '@mobile-ci/e2e-simlock/steps';
+
 import * as core from '../support/suuudokuuu/core.ts';
 import * as game from '../support/suuudokuuu/game.ts';
 import { test } from '../support/suuudokuuu/test.ts';
@@ -18,14 +20,14 @@ test('10 themes screen', async ({ suuudokuuu }) => {
         await core.expectId(ctx, 'themes-screen-create-button');
         await core.tapId(ctx, 'themes-screen-create-button');
         await core.expectId(ctx, 'theme-editor-screen');
-        const name = core.byId(ctx.screen, 'theme-editor-screen-name-input');
+        const name = byId(ctx.screen, 'theme-editor-screen-name-input');
         await name.clear();
         await name.fill('Maestro theme');
         await ctx.device.dismissKeyboard();
         await core.expectId(ctx, 'theme-editor-screen-save-button');
         await core.tapId(ctx, 'theme-editor-screen-save-button');
         await core.expectId(ctx, 'themes-screen');
-        await core.scrollTo(ctx, core.byText(ctx.screen, 'Maestro theme'));
+        await scrollTo(ctx.screen, core.byText(ctx.screen, 'Maestro theme'));
     });
 
     await core.phase('theme shows in settings', async () => {

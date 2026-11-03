@@ -1,3 +1,5 @@
+import { scrollTo } from '@mobile-ci/e2e-simlock/steps';
+
 import * as core from '../support/suuudokuuu/core.ts';
 import * as game from '../support/suuudokuuu/game.ts';
 import { test } from '../support/suuudokuuu/test.ts';
@@ -12,8 +14,8 @@ test('05 settings screen', async ({ suuudokuuu }) => {
         await core.expectText(ctx, /^Language/iu);
         await core.expectText(ctx, /^Number size/iu);
         await core.expectText(ctx, /^Cell spacing/iu);
-        await core.scrollTo(ctx, core.byText(ctx.screen, 'Display'));
-        await core.scrollTo(ctx, core.byText(ctx.screen, 'Dark mode'));
+        await scrollTo(ctx.screen, core.byText(ctx.screen, 'Display'));
+        await scrollTo(ctx.screen, core.byText(ctx.screen, 'Dark mode'));
     });
 
     await core.phase('cell spacing sheet', async () => {

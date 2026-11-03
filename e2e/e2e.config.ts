@@ -1,9 +1,9 @@
 import { randomBytes } from 'node:crypto';
 
 import { mobile } from '@e2e-dev/mobile';
+import { simlockDevices } from '@mobile-ci/e2e-simlock';
+import { E2E_DROP_APP } from '@mobile-ci/e2e-simlock/exec';
 
-import { E2E_DROP_APP } from './support/simlock/exec.ts';
-import { simlockDevices } from './support/simlock/provider.ts';
 import { BUNDLE_IDS } from './support/suuudokuuu/core.ts';
 
 import type { E2EConfig } from 'e2e';
@@ -31,6 +31,7 @@ const target = (platform: keyof typeof BUNDLE_IDS, device: string, extraApps: re
             token: env('SIMLOCK_TOKEN'),
             platform,
             device: process.env.SIMLOCK_DEVICE ?? device,
+            tenant: 'suuudokuuu',
             extraApps
         })
     }),

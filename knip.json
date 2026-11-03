@@ -46,7 +46,7 @@
         "e2e": {
             "entry": ["e2e.config.ts", "tests/**/*.e2e.ts"],
             "project": ["**/*.ts"],
-            "ignore": ["support/simlock/**"]
+            "ignoreDependencies": ["@mobile-ci/e2e-simlock", "agent-device"]
         }
     },
     "ignoreBinaries": ["adb", "convert", "ffmpeg", "sips", "maestro"]

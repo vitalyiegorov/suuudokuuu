@@ -1,3 +1,5 @@
+import { scrollTo } from '@mobile-ci/e2e-simlock/steps';
+
 import * as core from '../support/suuudokuuu/core.ts';
 import * as game from '../support/suuudokuuu/game.ts';
 import { test } from '../support/suuudokuuu/test.ts';
@@ -15,9 +17,9 @@ test('14 infinity difficulty run', async ({ suuudokuuu }) => {
     await suuudokuuu.start();
 
     await core.phase('infinity run', async () => {
-        await core.scrollTo(ctx, core.byText(ctx.screen, 'Difficulty'), 'up');
+        await scrollTo(ctx.screen, core.byText(ctx.screen, 'Difficulty'), 'up');
         await core.tapId(ctx, 'DifficultyComplexityOptionSelectors.Option.Infinity');
-        await core.scrollTo(ctx, core.byText(ctx.screen, 'World-record puzzles'));
+        await scrollTo(ctx.screen, core.byText(ctx.screen, 'World-record puzzles'));
         await game.startNewGame(ctx);
         await core.expectNoId(ctx, 'GameScreenSelectors.Level');
         await pausedDetails(ctx, /Infinity · \d+\.\d\+? • /iu);

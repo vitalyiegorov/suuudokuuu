@@ -1,9 +1,9 @@
 import { readFileSync } from 'node:fs';
 import { setTimeout as sleep } from 'node:timers/promises';
 
+import { exec, leaseIdForUdid, mustDrop, mustExec, simlockApiFromEnv, writeFile, type SimlockApi } from '@mobile-ci/e2e-simlock/exec';
+import { byId, scrollTo } from '@mobile-ci/e2e-simlock/steps';
 import { expect } from 'e2e';
-
-import { exec, leaseIdForUdid, mustDrop, mustExec, simlockApiFromEnv, writeFile, type SimlockApi } from '../simlock/exec.ts';
 
 import type { Device } from '@e2e-dev/mobile';
 import type { App, Locator, Screen } from 'e2e';
@@ -27,8 +27,6 @@ export interface Ctx {
     readonly device: Device;
 }
 
-export const byId = (screen: Screen, testId: string | RegExp): Locator => screen.getByTestId(testId).first();
-
 const exactly = (text: string | RegExp): RegExp =>
     typeof text === 'string' ? new RegExp(`^${text.replaceAll(/[.*+?^${}()|[\]\\]/gu, '\\$&')}$`, 'iu') : text;
 
@@ -47,11 +45,11 @@ export async function tapId(ctx: Ctx, testId: string): Promise<void> {
     await byId(ctx.screen, testId).tap();
 }
 
-export async function expectId(ctx: Ctx, testId: string | RegExp, timeout?: number): Promise<void> {
+export async function expectId(ctx: Ctx, testId: string, timeout?: number): Promise<void> {
     await expect(byId(ctx.screen, testId)).toBeVisible(timeout === undefined ? undefined : { timeout });
 }
 
-export async function expectNoId(ctx: Ctx, testId: string | RegExp, timeout?: number): Promise<void> {
+export async function expectNoId(ctx: Ctx, testId: string, timeout?: number): Promise<void> {
     await expect(byId(ctx.screen, testId)).toBeHidden(timeout === undefined ? undefined : { timeout });
 }
 
@@ -59,18 +57,14 @@ export async function expectText(ctx: Ctx, text: string | RegExp, timeout?: numb
     await expect(byText(ctx.screen, text)).toBeVisible(timeout === undefined ? undefined : { timeout });
 }
 
-export async function expectIdText(ctx: Ctx, testId: string | RegExp, text: string | RegExp, timeout?: number): Promise<void> {
+export async function expectIdText(ctx: Ctx, testId: string, text: string | RegExp, timeout?: number): Promise<void> {
     await expect(ctx.screen.getByTestId(testId).filter({ hasText: text }).first()).toBeVisible(
         timeout === undefined ? undefined : { timeout }
     );
 }
 
-export async function scrollTo(ctx: Ctx, target: Locator, direction: 'up' | 'down' = 'down'): Promise<void> {
-    await ctx.screen.scrollUntilVisible(target, { direction, timeout: 20_000 });
-}
-
-export async function scrollToId(ctx: Ctx, testId: string | RegExp, direction: 'up' | 'down' = 'down'): Promise<void> {
-    await scrollTo(ctx, byId(ctx.screen, testId), direction);
+export async function scrollToId(ctx: Ctx, testId: string, direction: 'up' | 'down' = 'down'): Promise<void> {
+    await scrollTo(ctx.screen, byId(ctx.screen, testId), direction);
 }
 
 export async function scrollDown(ctx: Ctx): Promise<void> {
@@ -117,9 +111,16 @@ export async function seconds(ctx: Ctx, testId: string): Promise<number> {
 }
 
 async function mustAdb(api: SimlockApi, lease: string, args: readonly string[], stdin?: string): Promise<void> {
-    const result = await exec(api, lease, args, stdin, 'adb');
-    if (result.exitCode !== 0) {
-        throw new Error(`adb ${args.join(' ')} exited ${result.exitCode}: ${result.stderr.trim()}`);
+    const response = await fetch(`${api.url.replace(/\/$/u, '')}/v1/leases/${lease}/exec`, {
+        method: 'POST',
+        headers: { authorization: `Bearer ${api.token}`, 'content-type': 'application/json' },
+        body: JSON.stringify({ tool: 'adb', args, ...(stdin === undefined ? {} : { stdin }) }),
+        signal: AbortSignal.timeout(WAIT_LAUNCH * 4)
+    });
+    const events = (await response.text()).split('\n\n');
+    const exit = events.find(event => event.startsWith('event: exit'));
+    if (!response.ok || exit === undefined || !exit.includes('"exitCode":0')) {
+        throw new Error(`adb ${args.join(' ')} failed (HTTP ${response.status}): ${events.join(' ').slice(0, 500)}`);
     }
 }
 
@@ -154,9 +155,6 @@ const DEVICE_STATES: Record<Platform, DeviceState> = {
     android: {
         prepare: async (api, lease) => {
             await mustAdb(api, lease, ['root']);
-            for (const scale of ['window_animation_scale', 'transition_animation_scale', 'animator_duration_scale']) {
-                await mustAdb(api, lease, ['shell', `settings put global ${scale} 0`]);
-            }
         },
         seed: async (api, lease, database) => {
             const directory = `/data/data/${bundleId('android')}/databases`;
@@ -220,7 +218,7 @@ export class Suuudokuuu {
     }
 }
 
-export async function expectNoIdText(ctx: Ctx, testId: string | RegExp, text: string | RegExp, timeout?: number): Promise<void> {
+export async function expectNoIdText(ctx: Ctx, testId: string, text: string | RegExp, timeout?: number): Promise<void> {
     await expect(ctx.screen.getByTestId(testId).filter({ hasText: text }).first()).toBeHidden(
         timeout === undefined ? undefined : { timeout }
     );

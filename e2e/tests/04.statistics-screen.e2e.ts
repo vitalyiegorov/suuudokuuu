@@ -1,3 +1,5 @@
+import { byId, scrollTo } from '@mobile-ci/e2e-simlock/steps';
+
 import * as core from '../support/suuudokuuu/core.ts';
 import * as game from '../support/suuudokuuu/game.ts';
 import { test } from '../support/suuudokuuu/test.ts';
@@ -8,7 +10,7 @@ test('04 statistics screen', async ({ suuudokuuu }) => {
 
     await core.phase('history', async () => {
         await game.openHistory(ctx);
-        await core.scrollTo(ctx, core.byText(ctx.screen, /games? played/iu));
+        await scrollTo(ctx.screen, core.byText(ctx.screen, /games? played/iu));
         await core.expectText(ctx, /^Newbie/iu);
         await core.scrollDown(ctx);
         await core.tapId(ctx, 'HistoryDifficultySelectors.Card.Newbie');
@@ -32,7 +34,7 @@ test('04 statistics screen', async ({ suuudokuuu }) => {
         await core.expectText(ctx, 'Move 1 / 1', core.WAIT_SLOW);
         await core.tapId(ctx, 'ReplayControlsSelectors.PreviousButton');
         await core.expectText(ctx, 'Move 0 / 1', core.WAIT_SLOW);
-        const scrubber = await core.byId(ctx.screen, 'ReplayScrubberSelectors.Root').boundingBox();
+        const scrubber = await byId(ctx.screen, 'ReplayScrubberSelectors.Root').boundingBox();
         if (scrubber === null) {
             throw new Error('ReplayScrubberSelectors.Root has no bounds');
         }
