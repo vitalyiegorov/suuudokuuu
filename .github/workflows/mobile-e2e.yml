@@ -8,23 +8,27 @@ name: Mobile E2E
 # From mobile-ci v3 the normal outcome of a pull request is that NOTHING
 # compiles native code. The plan job computes the target's native key on the
 # x86_64 Linux pool, fetches the base binary published for that key from GHCR,
-# repacks it with this commit's JavaScript, and hands the result to the Maestro
-# shards. Only a key with no published base reaches the macOS builder or
+# repacks it with this commit's JavaScript, and hands the result to the test
+# job. Only a key with no published base reaches the macOS builder or
 # Gradle - and when that happens on main, the binary it produces is published
 # as the base for the next run. seed-native-cache.yml is the warm-up that keeps
 # that from ever being a pull request's problem.
 #
-# iOS still belongs to the Macs when it does build: its native build and its
-# Maestro shards both run on the 4 CPU/7 GB `macos-maestro` VMs. Android has left them
+# iOS still belongs to the Macs when it does build, on the 4 CPU/7 GB
+# `macos-maestro` VMs; its tests run from Linux as the tester-army e2e suite
+# (e2e/) against simulators leased from the simlock farm. Android has left them
 # entirely - both its APK build and its Maestro run happen on node-b's x86_64
 # Linux `trf-linux-amd64-4x8` containers, against a KVM-accelerated Google AVD.
 on:
     workflow_call:
+        secrets:
+            SIMLOCK_TOKEN:
+                required: true
     workflow_dispatch:
     push:
         branches: [main]
         # The app's dependency closure: every workspace package except the two
-        # only the website uses (landing, field-dom), the Maestro suite and its
+        # only the website uses (landing, field-dom), the e2e and Maestro suites, the
         # test-kit, and the root inputs every build reads. Negations keep a new
         # package in by default - an over-wide filter costs one run, a missed
         # path ships an untested app. Docs, reports and agent files never run it.
@@ -34,6 +38,7 @@ on:
             - '!packages/field-dom/**'
             - 'tests/app-tests/**'
             - 'tests/test-kit/**'
+            - 'e2e/**'
             - 'patches/**'
             - 'types/**'
             - 'package.json'
@@ -52,7 +57,7 @@ concurrency:
 
 jobs:
     ios:
-        name: iOS Maestro E2E
+        name: iOS E2E
         # A reusable workflow can only narrow the token its caller grants, never
         # widen it. Without these three scopes the plan job cannot read the base
         # binary and a main run cannot publish one, so every run silently falls
@@ -62,13 +67,13 @@ jobs:
             contents: read
             packages: write
             actions: read
-        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@f90309c791283d6e2dd1e35eb2ae6c5aee2151cd # v4.7.0
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@3e22c383f15427da8e9b5e211701f133cc111535 # v4.8.0
         with:
             control-runner-labels: '["self-hosted","linux-portable-2x4"]'
             install-command: pnpm install --frozen-lockfile
-            # Gate pull requests on the turbo graph: Maestro runs only when the
-            # app, its workspace dependencies or the Maestro suite changed, so a
-            # landing-only PR does not wait on the Macs. Non-PR events still
+            # Gate pull requests on the turbo graph: the suite runs only when the
+            # app, its workspace dependencies or the e2e suite changed, so a
+            # landing-only PR does not wait on the farm. Non-PR events still
             # always run (mobile-ci forces always-affected off pull_request).
             exempt-paths: |
                 docs/**
@@ -77,25 +82,15 @@ jobs:
                 .github/workflows/mobile-e2e.yml
                 .github/workflows/pr.yml
                 patches/**
+                e2e/**
             target-packages: |
                 @suuudokuuu/app
                 @suuudokuuu/app-tests
             targets: >-
                 [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
-            flows-dir: tests/app-tests/flows
-            pre-run-flow: tests/app-tests/flows/setup/prime-deep-links.flow.yaml
-            maestro-config: tests/app-tests/config.yaml
-            flow-recovery-flow: tests/app-tests/flows/setup/recover-after-failed-flow.flow.yaml
-            pre-flow-command: tests/app-tests/scripts/seed-flow-fixture.sh
-            flow-retries: 1
-            shard-count: 2
-            shard-manifest-dir: tests/app-tests/shards
-            simulator-device: iPhone 17 Pro
-            simulator-reduce-motion: 'true'
             xcode-version: '26.4.1'
             xcode-build: '17E202'
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
-            test-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             rct-use-prebuilt-rncore: true
             rct-use-rn-dep: true
             # app.config.js branches on APP_VARIANT for the app name, the bundle
@@ -118,6 +113,19 @@ jobs:
                 ios.bundleIdentifier=com.vitalyiegorov.suuudokuuu.e2e
             build-env: |
                 APP_VARIANT=e2e
+            # The tester-army e2e suite (e2e/), run from Linux against simulators
+            # leased from the Mac Studio simlock farm. It replaces the iOS Maestro
+            # shards: no macOS test runner is used.
+            test-framework: e2e
+            e2e-dir: e2e
+            e2e-runner-labels: '["self-hosted","linux-portable-4x8"]'
+            e2e-workers: '8'
+            e2e-retries: '1'
+            e2e-timeout-minutes: 45
+            # The public gateway: only one Linux host shares the farm's LAN.
+            simlock-url: https://simlock.vitaliiyehorov.dev
+        secrets:
+            simlock-token: ${{ secrets.SIMLOCK_TOKEN }}
 
     android:
         name: Android Maestro E2E

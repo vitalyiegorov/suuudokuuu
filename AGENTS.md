@@ -66,8 +66,9 @@ packages/
 ├── hell-corpus/        # Bundled, verified Hell (forcing-chain) and Infinity puzzle corpora
 ├── grid-vision/        # Pure TypeScript sudoku photo and screenshot recognition with a bundled int8 digit classifier
 └── landing/            # Static Next.js App Router content and SEO site for www.suuudokuuu.com
+e2e/                    # iOS E2E suite: tester-army e2e on simlock simulators, a standalone npm project
 tests/
-├── app-tests/          # Maestro E2E flows
+├── app-tests/          # Maestro E2E flows (Android CI) and their database fixtures
 ├── test-kit/           # Shared Vitest config and makeTestSqlLayer() in-memory SQLite harness
 └── web-tests/          # Playwright web E2E specs
 ```
@@ -88,6 +89,7 @@ tests/
 - Read `packages/landing/AGENTS.md` before changing the landing site: App Router routes, page metadata sidecars, the metadata registry, JSON-LD schema components, `sitemap.ts`, `robots.ts`, `manifest.ts`, or landing copy.
 - Read the `@rnw-community/react-native-screen-chrome` and `@rnw-community/react-native-collapsible-header` readmes before changing screen chrome: the app consumes those published primitives and owns only the thin page wrappers in `packages/app/src/@generic/components`.
 - Read `.agents/skills/store-media/SKILL.md` before changing store listing metadata, store screenshots, release-notes generation, or `packages/app/fastlane`. It also records the App Store rules that publishing depends on, including the requirement that `packages/app/package.json` stay ahead of the version already released on the App Store; a lower version produces a listing that can never be submitted and cannot be deleted.
+- Read `e2e/AGENTS.md` before changing the iOS e2e suite or its CI wiring.
 - Read `tests/app-tests/AGENTS.md` before changing Maestro flows, test IDs used by flows, deep-link fixtures, or E2E app assumptions.
 - Read `tests/app-tests/docs/store-screenshot-capture.md` before changing store-screenshot capture, the seed fixture, the compose pipeline, or before capturing any store screenshots. It is the canonical capture reference: seeded-state fast path, per-platform commands, verification checklist, and the hazards that already burned one release cycle.
 - Read `tests/web-tests/AGENTS.md` before changing Playwright web flows, web selectors, or web E2E CI assumptions.
@@ -212,8 +214,8 @@ export class RunService extends Context.Service<RunService>()('@suuudokuuu/progr
 ## Testing
 
 - Tests use Vitest and `@effect/vitest`. They live in `packages/<package>/test/**/*.test.ts`, not colocated `.spec.ts` files. Cross-package scenarios live in `tests/*`; shared harness code lives in `tests/test-kit`, not in a scenario suite.
-- `packages/app` and `packages/landing` host no unit tests. Pure logic that needs tests belongs in a domain package (`progress`, `generator`, ...); UI behavior is covered by Maestro and Playwright.
-- Maestro E2E coverage lives under `tests/app-tests`.
+- `packages/app` and `packages/landing` host no unit tests. Pure logic that needs tests belongs in a domain package (`progress`, `generator`, ...); UI behavior is covered by the e2e suite, Maestro and Playwright.
+- iOS E2E coverage lives under `e2e`; Maestro E2E coverage (the Android CI lane) lives under `tests/app-tests`. A user scenario changes in both.
 - Web E2E coverage lives under `tests/web-tests` (Playwright against the Expo web export).
 - Add or update tests when changing puzzle generation, solving, serialization, scoring, SQL migrations, repositories, or externally visible behavior.
 - Migrating packages still on Jest convert to Vitest mechanically, keeping every assertion.
