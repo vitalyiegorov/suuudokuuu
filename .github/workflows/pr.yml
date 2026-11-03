@@ -136,6 +136,9 @@ jobs:
             - name: Effect diagnostics
               run: pnpm effect:check
 
+            - name: Install e2e suite dependencies
+              run: npm ci --prefix e2e --no-audit --no-fund
+
             - name: Lint checks
               run: pnpm lint
 
