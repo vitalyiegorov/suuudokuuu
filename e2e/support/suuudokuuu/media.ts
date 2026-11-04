@@ -25,6 +25,9 @@ interface Tap {
     readonly yPoints: number;
 }
 
+/** A screen's entry fade outlasts its testIDs appearing: one second caught Android's result screen mid-fade. */
+const SETTLE_MS = 6_000;
+
 const WIN_CHALLENGE = 'suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-';
 
 /** Longer than the longest gap `compose-app-preview.ts` cuts to, so every cut has footage. */
@@ -203,7 +206,7 @@ export class Media extends Suuudokuuu {
             sceneState: scene.seed?.sceneState
         }));
         await scene.run(this, cell);
-        await sleep(1_000);
+        await sleep(SETTLE_MS);
         await this.screenshot(cell.path);
     }
 
