@@ -2,4 +2,4 @@ Importera valfritt pussel, med tydligare tips.
 
 • Klistra in ett pussel (siffror, rutnätstext eller en länk från andra sudokusajter) eller öppna en importlänk. Rätta det på ett bräde du kan trycka på, kontrollera att det har exakt en lösning, se svårighetsgraden och spela.
 • Tips för par och trippler förklaras med tydliga, hela meningar, visar kandidaterna som är inblandade och ryms på små skärmar och med stor text.
-• Rättningar: färdiga rutnät avvisas vid import, stora eller ovanliga inklistringar läses rätt, sifferknappsatsen ändrar storlek som den ska, inställningar som språk sparas pålitligt, tangentbordsfokus stannar inuti blad på webben och appen öppnas i en andra webbläsarflik.
+• Rättningar: färdiga rutnät avvisas vid import, stora eller ovanliga inklistringar läses rätt, sifferknappsatsen ändrar storlek som den ska och inställningar som språk sparas pålitligt.
