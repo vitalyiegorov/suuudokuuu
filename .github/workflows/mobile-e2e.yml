@@ -114,8 +114,7 @@ jobs:
             build-env: |
                 APP_VARIANT=e2e
             # The tester-army e2e suite (e2e/), run from Linux against simulators
-            # leased from the Mac Studio simlock farm. It replaces the iOS Maestro
-            # shards: no macOS test runner is used.
+            # leased from the Mac Studio simlock farm: no macOS test runner is used.
             test-framework: e2e
             e2e-dir: e2e
             e2e-runner-labels: '["self-hosted","linux-portable-4x8"]'
@@ -168,7 +167,7 @@ jobs:
             build-env: |
                 APP_VARIANT=e2e
             # The same e2e suite as iOS, against Pixel 6 emulators leased from
-            # the simlock farm. It replaces the AVD Maestro shard.
+            # the simlock farm.
             test-framework: e2e
             e2e-dir: e2e
             e2e-runner-labels: '["self-hosted","linux-portable-4x8"]'

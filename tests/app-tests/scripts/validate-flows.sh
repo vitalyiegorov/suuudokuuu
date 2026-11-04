@@ -15,37 +15,19 @@ relative_path = lambda { |path| path.delete_prefix("#{flows_directory}/") }
 all_flow_paths = Dir.glob(File.join(flows_directory, '**/*.flow.yaml'))
 
 recovery_flow_paths = %w[
-  subflows/navigation/launch-home.flow.yaml
-  subflows/navigation/relaunch-home.flow.yaml
   setup/prime-deep-links.flow.yaml
 ]
 
 native_boundary_text_selectors = {
-  'subflows/game/quit-current-game.flow.yaml' => ['OK|Гаразд|حسنًا|ঠিক আছে|ठीक है|ٹھیک ہے|确定'],
-  '25.import-puzzle.flow.yaml' => ['OK'],
   'screenshots/subflows/reset-app.flow.yaml' => ['^Open$']
 }
 
 native_boundary_press_keys = {
-  '07.background-foreground-game.flow.yaml' => ['Home'],
-  '09.challenge-mode-run.flow.yaml' => ['Home'],
-  'subflows/game/pause-current-game.flow.yaml' => ['Home'],
   'screenshots/11.pause.flow.yaml' => ['Home']
 }
 
 violations = []
 app_tests_directory = ARGV.fetch(2)
-config = YAML.safe_load(File.read(File.join(app_tests_directory, 'config.yaml')), permitted_classes: [], aliases: false)
-configured_flows = config.dig('executionOrder', 'flowsOrder')
-abort 'Expected executionOrder.flowsOrder to be an array' unless configured_flows.is_a?(Array)
-actual_flows = Dir.glob(File.join(flows_directory, '*.flow.yaml')).map { |path| File.basename(path, '.yaml') }.sort
-violations << 'executionOrder.flowsOrder must name every top-level flow exactly once' unless actual_flows == configured_flows.sort
-sharded_flows = %w[shard-0.txt shard-1.txt].flat_map do |name|
-  paths = File.readlines(File.join(app_tests_directory, 'shards', name), chomp: true)
-  violations << "Empty shard manifest: #{name}" if paths.empty?
-  paths
-end
-violations << 'Shard manifests must name every configured flow exactly once' unless sharded_flows.sort == configured_flows.map { |flow| "#{flow}.yaml" }.sort
 selector_ids = []
 app_owned_flow_paths = all_flow_paths.reject { |flow_path| recovery_flow_paths.include?(relative_path.call(flow_path)) }
 coordinate_fields = %w[point coordinates x y start end]
@@ -126,20 +108,6 @@ Dir.glob(File.join(app_tests_directory, '**/*.yaml')).each do |flow_path|
   end
 end
 
-%w[subflows/navigation/launch-home.flow.yaml subflows/navigation/relaunch-home.flow.yaml].each do |flow_path|
-  contents = File.read(File.join(flows_directory, flow_path))
-  violations << "#{flow_path}: launch flows must not open URLs" if contents.include?('openLink')
-end
-
-business_flow_paths = Dir.glob(File.join(flows_directory, '*.flow.yaml'))
-business_flow_paths.each do |flow_path|
-  contents = File.read(flow_path)
-  unless contents.include?('HomeScreenSelectors.Root') || contents.include?('subflows/game/quit-current-game.flow.yaml')
-    violations << "#{relative_path.call(flow_path)}: top-level flows must assert the Home teardown contract"
-  end
-  violations << "#{relative_path.call(flow_path)}: native Open prompt handling belongs in setup/prime-deep-links.flow.yaml" if contents.match?(/visible:\s*['\"]?(?:\^)?Open/)
-end
-
 app_source = Dir.glob(File.join(app_source_directory, '**/*.{ts,tsx}')).map { |path| File.read(path) }.join("\n")
 selector_ids.uniq.each do |flow_path, selector_id|
   selector_declaration = selector_id.gsub('\\.', '.')[/\A\w+\.\w+/] || selector_id[/\A\w+/]
@@ -151,5 +119,5 @@ unless violations.empty?
   abort "Maestro selector policy violations:\n#{violations.join("\n")}"
 end
 
-puts "Validated flow inventory, shard manifests, file references, Home teardown and app-owned selector policy for #{app_owned_flow_paths.length} flows; recovery and native-boundary exceptions are explicit."
+puts "Validated file references and app-owned selector policy for #{app_owned_flow_paths.length} flows; recovery and native-boundary exceptions are explicit."
 RUBY

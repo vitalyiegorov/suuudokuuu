@@ -1,9 +1,0 @@
-appId: ${APP_ID}
----
-- launchApp:
-      clearState: true
-- extendedWaitUntil:
-      visible:
-          id: 'HomeScreenSelectors.Root'
-      timeout: 30000
-- stopApp

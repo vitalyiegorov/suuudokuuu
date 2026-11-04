@@ -69,7 +69,7 @@ All changes are represented as `pull requests`, each pipeline runs:
 - [Copy-paste detection](https://github.com/kucherenko/jscpd) to ensure code uniqueness
 - [Dead code detection](https://knip.dev/) to ensure code cleanliness
 - [CodeQL](https://codeql.github.com/) to ensure code security
-- TODO: [Maestro tests](https://maestro.mobile.dev/) to ensure app functionality
+- [tester-army e2e](https://github.com/tester-army/e2e) tests on iOS and Android to ensure app functionality
 
 > These strict rules ensure that the code is of high quality, secure, and maintainable.
 > Also this is very helpful for Copilot and other AI tools
@@ -155,7 +155,7 @@ The app uses [react-native-reanimated](https://docs.swmansion.com/react-native-r
 
 - [app](packages/app/readme.md) - React Native / Expo application package
 - [generator](packages/generator/readme.md) - Sudoku puzzle generator
-- [app-tests](tests/app-tests/AGENTS.md) - Maestro tests for the app package
+- [app-tests](tests/app-tests/AGENTS.md) - store capture tooling and e2e fixtures for the app package
 
 ## Acknowledgements
 

@@ -1,7 +1,7 @@
 # Web Tests Package
 
-Playwright E2E flows for the Expo web export of Suuudokuuu. Mirrors the Maestro suite in
-`tests/app-tests` in scenario coverage, selector strategy, and flow-design discipline, against the
+Playwright E2E flows for the Expo web export of Suuudokuuu. Mirrors the mobile suite in
+`e2e` in scenario coverage, selector strategy, and flow-design discipline, against the
 real static build (`packages/app/dist`), not the Metro dev server.
 
 ## Commands
@@ -36,7 +36,7 @@ pnpm --filter @suuudokuuu/web-tests lint
    375x667 viewport through `/import?puzzle=` and asserts every page's full text can be read. Do not
    copy this override into other specs.
 5. Prefer positive-state flow control: perform the action, then assert the destination.
-6. Helpers in `src/utils` mirror Maestro subflows one-to-one and keep a single responsibility.
+6. Helpers in `src/utils` mirror the mobile suite's shared steps one-to-one and keep a single responsibility.
    Do not add thin wrappers that only rename another helper.
 7. Do not change app behavior solely to satisfy these tests. If a control lacks a `data-testid` on
    web, report it back instead of hacking around it with positional or CSS selectors.
@@ -58,7 +58,7 @@ pnpm --filter @suuudokuuu/web-tests lint
    members: use `cellTestId(y, x)` and `valueButtonTestId(value)` from `src/utils/test-id.util.ts`
    instead of hand-building the string.
 3. Deep-link fixtures live in `src/constants/shared-challenge-links.constant.ts` and reuse the
-   exact encoded payloads from the Maestro flows so both suites exercise the same decode path.
+   exact encoded payloads from the mobile e2e tests so both suites exercise the same decode path.
 
 ## Fixture Notes
 
@@ -74,7 +74,7 @@ pnpm --filter @suuudokuuu/web-tests lint
   trailer format changes: decode the current constant with `GameStateSerializer.decodeState`, then
   re-encode the same field through `gameStateToString` with `difficulty: DifficultyEnum.Infinity`,
   `rating: 11.9`, and `SharedPayloadKindEnum.Puzzle`, and keep
-  `tests/app-tests/flows/14.infinity-difficulty-run.flow.yaml` in sync with the new string.
+  `e2e/tests/14.infinity-difficulty-run.e2e.ts` in sync with the new string.
 - `ratedWinningSharedChallengeEncodedConstant`: the same one-empty-cell win as
   `winningSharedChallengeEncodedConstant` (cell `y=6, x=0`, value `2`), re-encoded with a real
   `rating`/`isRatingCeiling`/`difficulty` trailer instead of the legacy fixture's unknown rating, so

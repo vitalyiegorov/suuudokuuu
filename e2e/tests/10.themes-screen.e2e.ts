@@ -22,19 +22,19 @@ test('10 themes screen', async ({ suuudokuuu }) => {
         await core.expectId(ctx, 'theme-editor-screen');
         const name = byId(ctx.screen, 'theme-editor-screen-name-input');
         await name.clear();
-        await name.fill('Maestro theme');
+        await name.fill('Test theme');
         await ctx.device.dismissKeyboard();
         await core.expectId(ctx, 'theme-editor-screen-save-button');
         await core.tapId(ctx, 'theme-editor-screen-save-button');
         await core.expectId(ctx, 'themes-screen');
-        await scrollTo(ctx.screen, core.byText(ctx.screen, 'Maestro theme'));
+        await scrollTo(ctx.screen, core.byText(ctx.screen, 'Test theme'));
     });
 
     await core.phase('theme shows in settings', async () => {
         await core.tapId(ctx, 'HeaderBackButtonSelectors.Root');
         await core.expectId(ctx, 'SettingsScreenSelectors.Root');
         await core.scrollToId(ctx, 'SettingsScreenSelectors.ThemeOption', 'up');
-        await core.expectIdText(ctx, 'SettingsScreenSelectors.ThemeOption', /Maestro theme/iu);
+        await core.expectIdText(ctx, 'SettingsScreenSelectors.ThemeOption', /Test theme/iu);
         await core.goHome(ctx);
     });
 });
