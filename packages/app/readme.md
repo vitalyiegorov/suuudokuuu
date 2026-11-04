@@ -4,7 +4,6 @@ React Native / Expo application package
 
 ## TODO
 
-- [ ] setup maestro e2e tests on CI pull request
 - [ ] add sentry for error reporting
 - [ ] migrate game logic to RxJS
 

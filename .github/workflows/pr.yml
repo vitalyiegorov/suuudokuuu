@@ -1,12 +1,8 @@
 name: Pull Request
 env:
-    MAESTRO_VERSION: '2.6.1'
-    MAESTRO_DRIVER_STARTUP_TIMEOUT: '300000'
     TURBO_TEAM: vitalyiegorov
     TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
     PR_NUMBER: ${{ github.event.pull_request.number }}
-    MAESTRO_CLI_NO_ANALYTICS: true
-    MAESTRO_CLI_ANALYSIS_NOTIFICATION_DISABLED: true
     RCT_USE_PREBUILT_RNCORE: 1
     RCT_USE_RN_DEP: 1
 
@@ -45,12 +41,12 @@ jobs:
                   head_sha="$GITHUB_SHA"
 
                   if [ -z "$base_sha" ] || [ -z "$head_sha" ]; then
-                    echo '::warning::Missing pull request base or head SHA; Maestro remains required.'
+                    echo '::warning::Missing pull request base or head SHA; mobile E2E remains required.'
                   elif git fetch --no-tags --depth=1 origin "$base_sha" && changed_paths=$(git diff --name-only --no-renames "$base_sha" "$head_sha"); then
                     echo 'Changed paths:'
                     if [ -z "$changed_paths" ]; then
                       echo '(none)'
-                      echo '::warning::Diff is empty; Maestro remains required.'
+                      echo '::warning::Diff is empty; mobile E2E remains required.'
                     else
                       printf '%s\n' "$changed_paths"
                       only_documentation_changes=true
@@ -74,7 +70,7 @@ jobs:
                       fi
                     fi
                   else
-                    echo '::warning::Unable to compare pull request base to head; Maestro remains required.'
+                    echo '::warning::Unable to compare pull request base to head; mobile E2E remains required.'
                   fi
 
                   echo "Mobile impact: $mobile"
@@ -118,10 +114,10 @@ jobs:
                     bash "$test_script"
                   done
 
-            - name: Maestro selector checks
+            - name: Store capture flow checks
               run: pnpm --filter @suuudokuuu/app-tests selectors:check
 
-            - name: Maestro seed fixtures are current
+            - name: E2E seed fixtures are current
               run: pnpm --filter @suuudokuuu/app-tests seed:check
 
             - name: Lingui catalogs are up to date

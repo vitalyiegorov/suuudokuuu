@@ -1,4 +1,0 @@
-appId: ${APP_ID}
----
-- runFlow: reset-app-state.flow.yaml
-- runFlow: prime-deep-links.flow.yaml

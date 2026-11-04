@@ -114,6 +114,6 @@ assets. After editing it:
 2. Re-verify the resolved config with
    `cd packages/app && npx expo config --type public` to confirm the new
    values took effect.
-3. Re-run the deep-link Maestro flow
-   (`tests/app-tests/flows/02.game-screen-win.flow.yaml`) after the rebuild
+3. Re-run the deep-link e2e test
+   (`e2e/tests/02.game-screen-win.e2e.ts`) after the rebuild
    to confirm shared links still open correctly under the new identity.

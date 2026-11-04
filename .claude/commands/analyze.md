@@ -27,7 +27,7 @@ For multiple agents, distribute by focus area:
 | App | Expo Router routes, screens, components, Redux, themes, i18n |
 | Generator | Sudoku class, DLX solver, difficulty config, puzzle interfaces |
 | Encoder | Binary formats, solution steps, URL-safe game-state serialization |
-| Tests | Jest coverage, Maestro flows, selectors, deep-link fixtures |
+| Tests | Jest coverage, e2e tests, selectors, deep-link fixtures |
 
 Rephrase the request naturally for each agent's scope.
 
