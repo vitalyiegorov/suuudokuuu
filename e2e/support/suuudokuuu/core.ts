@@ -110,20 +110,6 @@ export async function seconds(ctx: Ctx, testId: string): Promise<number> {
     return value;
 }
 
-async function mustAdb(api: SimlockApi, lease: string, args: readonly string[], stdin?: string): Promise<void> {
-    const response = await fetch(`${api.url.replace(/\/$/u, '')}/v1/leases/${lease}/exec`, {
-        method: 'POST',
-        headers: { authorization: `Bearer ${api.token}`, 'content-type': 'application/json' },
-        body: JSON.stringify({ tool: 'adb', args, ...(stdin === undefined ? {} : { stdin }) }),
-        signal: AbortSignal.timeout(WAIT_LAUNCH * 4)
-    });
-    const events = (await response.text()).split('\n\n');
-    const exit = events.find(event => event.startsWith('event: exit'));
-    if (!response.ok || exit === undefined || !exit.includes('"exitCode":0')) {
-        throw new Error(`adb ${args.join(' ')} failed (HTTP ${response.status}): ${events.join(' ').slice(0, 500)}`);
-    }
-}
-
 interface DeviceState {
     readonly prepare: (api: SimlockApi, lease: string) => Promise<void>;
     readonly seed: (api: SimlockApi, lease: string, database?: Buffer) => Promise<void>;
@@ -154,14 +140,14 @@ const DEVICE_STATES: Record<Platform, DeviceState> = {
     },
     android: {
         prepare: async (api, lease) => {
-            await mustAdb(api, lease, ['root']);
+            await mustExec(api, lease, ['root']);
         },
         seed: async (api, lease, database) => {
             const directory = `/data/data/${bundleId('android')}/databases`;
             const installed = `${directory}/suuudokuuu.db`;
-            await mustAdb(api, lease, ['shell', `am force-stop ${bundleId('android')} && mkdir -p ${directory} && rm -f ${installed}*`]);
+            await mustExec(api, lease, ['shell', `am force-stop ${bundleId('android')} && mkdir -p ${directory} && rm -f ${installed}*`]);
             if (database !== undefined) {
-                await mustAdb(
+                await mustExec(
                     api,
                     lease,
                     [

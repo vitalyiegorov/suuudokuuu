@@ -139,7 +139,7 @@ jobs:
             - name: Install e2e suite dependencies
               run: npm ci --prefix e2e --no-audit --no-fund
 
-            - uses: rnw-community/mobile-ci/actions/e2e-simlock-install@v4.9.0 # v4.9.0
+            - uses: rnw-community/mobile-ci/actions/e2e-simlock-install@v4.10.0 # v4.10.0
               with:
                   e2e-dir: e2e
 
@@ -287,7 +287,7 @@ jobs:
         permissions:
             contents: write
             pull-requests: write
-        uses: rnw-community/mobile-ci/.github/workflows/expo-ota-preview.yml@v4.9.0 # v4.9.0
+        uses: rnw-community/mobile-ci/.github/workflows/expo-ota-preview.yml@v4.10.0 # v4.10.0
         with:
             app-dir: packages/app
             scheme: suuudokuuu
