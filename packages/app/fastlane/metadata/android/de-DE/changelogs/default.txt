@@ -1,3 +1,5 @@
-Leichter und flüssiger.
-Deutlich kleinerer Download: etwa 40 % leichter.
-Weichere Unschärfe unter Kopfzeilen und Tableiste, ohne harte Kante.
+Rätsel importieren, klarere Hinweise.
+
+• Füge ein Rätsel ein oder öffne einen Import-Link, prüfe die eindeutige Lösung, sieh den Schwierigkeitsgrad und spiele los.
+• Hinweise zu Paaren und Tripeln sind in klaren, vollständigen Sätzen erklärt und passen auf kleine Bildschirme und große Schrift.
+• Korrekturen bei Import-Prüfung, Zahlenfeld, gespeicherten Einstellungen und Tastaturfokus im Web.

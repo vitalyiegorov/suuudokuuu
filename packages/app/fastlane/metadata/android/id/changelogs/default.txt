@@ -1,3 +1,5 @@
-Lebih ringan dan lebih mulus.
-Unduhan jauh lebih kecil: sekitar 40% lebih ringan.
-Efek buram lebih halus di bawah header dan bilah tab, tanpa tepi tajam.
+Impor teka-teki apa pun, dengan petunjuk yang lebih jelas.
+
+• Tempel teka-teki atau buka tautan impor, pastikan hanya ada satu solusi, lihat tingkat kesulitannya, lalu main.
+• Petunjuk pasangan dan triplet dijelaskan dengan kalimat lengkap yang mudah dipahami dan pas di layar kecil serta teks besar.
+• Perbaikan pada impor, tombol angka, pengaturan tersimpan, dan fokus keyboard di web.
