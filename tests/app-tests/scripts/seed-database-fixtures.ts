@@ -91,7 +91,7 @@ const readContent = Effect.fn('readContent')(function* (databasePath: string) {
 
 const checkFixtures = Effect.gen(function* () {
     const directory = yield* Effect.acquireRelease(
-        Effect.sync(() => mkdtempSync(join(tmpdir(), 'seed-flow-state-'))),
+        Effect.sync(() => mkdtempSync(join(tmpdir(), 'seed-database-fixtures-'))),
         temporaryDirectory => Effect.sync(() => void rmSync(temporaryDirectory, { force: true, recursive: true }))
     );
 
@@ -106,7 +106,7 @@ const checkFixtures = Effect.gen(function* () {
 
     if (isNotEmptyArray(staleFixtures)) {
         yield* Effect.die(
-            `Stale seed fixtures: ${staleFixtures.join(', ')}. Regenerate them with pnpm --filter ./tests/app-tests seed:flow`
+            `Stale seed fixtures: ${staleFixtures.join(', ')}. Regenerate them with pnpm --filter ./tests/app-tests seed:fixtures`
         );
     }
 });

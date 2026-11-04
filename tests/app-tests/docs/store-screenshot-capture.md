@@ -68,11 +68,18 @@ accessibility tree:
    briefly, `simctl io screenshot` (Android: `adb exec-out screencap -p`).
 
 Scene definitions live in `scripts/screenshot-scenes.ts`: each scene carries
-its `deepLink`, optional `sceneState`/`seedDifficulty`, and an optional Maestro
-flow file. A scene without a `deepLink` (currently the win and pause scenes)
-automatically falls back to its Maestro flow, so the two mechanisms mix
-freely. Device commands are in `scripts/capture-device.ts`, the Maestro
-fallback in `scripts/maestro-scene.ts`.
+its `deepLink` and optional `sceneState`/`seedDifficulty`. A scene without a
+`deepLink` (currently the win and pause scenes) needs real gameplay, so the `e2e`
+media capture (`e2e/support/suuudokuuu/media.ts`) drives it and writes it at the
+same raw path; this runner skips it and refuses it by name. CI's store capture
+(`store-screenshots.yml`) is that same e2e capture, from Linux against the simlock
+farm. Device commands are in `scripts/capture-device.ts`.
+
+The App Store preview comes from `store-media.yml`: the e2e capture records the
+scripted game and logs each tap, and `scripts/compose-app-preview.ts` cuts the
+recording to human pacing with tap indicators, into the `app-store-preview`
+artifact. Put its `01_IPHONE_67.mp4` at `fastlane/app-previews/en-US/` for the
+`ios_app_previews` lane.
 
 For iPad landscape captures, the macOS runner reads pixel dimensions with
 `sips` and rotates portrait pixel captures by 90 degrees. Images that already
@@ -80,7 +87,7 @@ have landscape dimensions stay unchanged.
 
 ## Why it is built this way
 
-The previous pipeline drove every scene through Maestro and switched language
+The first pipeline drove every scene through the UI and switched language
 through the in-app sheet, costing ~40 minutes per locale; the statistics
 scene additionally needed complete games played through the UI at ~20 minutes
 per game. Measured on the same simulator and build, the current path runs
@@ -143,8 +150,7 @@ is exactly what step 2 above already does.
   "Open in <app>?" custom-scheme dialog strands every scene until it is
   primed once, on either device class - on iOS 26.2 the iPhone 17 Pro Max
   simulator stranded every scene on the dialog exactly like the iPad. A
-  single tap on "Open" via a UI driver (`npx serve-sim tap`) or one run of
-  `flows/setup/prime-deep-links.flow.yaml` primes it. The iPad additionally
+  single tap on "Open" via a UI driver (`npx serve-sim tap`) primes it. The iPad additionally
   queues the dialog across relaunch, so `simctl erase` it and reinstall
   before priming.
 - `CAPTURE_LAUNCH_SETTLE_MS` and `CAPTURE_SCENE_SETTLE_MS` override the
@@ -162,8 +168,7 @@ state the app itself persisted, so they cannot drift from the reducers.
 The app no longer writes `persist:root` itself (state lives in the SQLite
 tables of `suuudokuuu.db`), so the fixture is now frozen in the legacy shape
 and edited by hand. It was originally captured from the legacy storage row
-before the SQLite migration; the removed hero-board Maestro flow is no longer
-a way to regenerate it from the current app.
+before the SQLite migration, and the current app cannot regenerate it.
 
 The fixture is not, and cannot be, kept in sync with every `SettingsState`
 field by hand: it once fell three fields behind (`allowHintsOnHardDifficulties`,

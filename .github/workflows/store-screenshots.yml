@@ -6,8 +6,9 @@ name: Store screenshots
 # existing fastlane deliver lane, and dedupes the editable App Store Connect
 # version afterwards (deliver retries are known to double-upload).
 #
-# Dispatch-only: capturing overwrites nothing until upload-screenshots runs,
-# but it does contact App Store Connect - run deliberately, not on push.
+# Dispatch-only. Uploading is opt-in through the `upload` input, and only that
+# step contacts App Store Connect. The cells are captured by the e2e project's
+# media capture (e2e/media.config.ts) from Linux against the simlock farm.
 #
 # From mobile-ci v3 the capture jobs install a binary the plan job repacked on
 # Linux from the base published for this target's native key, and the macOS
@@ -24,6 +25,11 @@ name: Store screenshots
 # are not config-loadable stay here.
 on:
     workflow_dispatch:
+        inputs:
+            upload:
+                description: Upload the captured screenshots to App Store Connect
+                type: boolean
+                default: false
 
 permissions:
     contents: read
@@ -42,7 +48,14 @@ jobs:
             control-runner-labels: '["self-hosted","linux-portable-2x4"]'
             config-path: .github/store-screenshots.config.json
             build-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
-            capture-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
+            test-framework: e2e
+            e2e-dir: e2e
+            e2e-command: npx e2e run --config media.config.ts --target ios
+            e2e-runner-labels: '["self-hosted","linux-portable-4x8"]'
+            e2e-workers: '2'
+            e2e-retries: '1'
+            simlock-url: https://simlock.vitaliiyehorov.dev
+            upload-screenshots: ${{ inputs.upload }}
             upload-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             # app.config.js branches on APP_VARIANT and STORE_CAPTURE, so the
             # fingerprint has to be taken under exactly what this workflow's build
@@ -64,3 +77,4 @@ jobs:
             ASC_API_KEY: ${{ secrets.EXPO_IOS_ASC_API_KEY }}
             ASC_KEY_ID: ${{ secrets.EXPO_IOS_ASC_KEY_ID }}
             ASC_ISSUER_ID: ${{ secrets.EXPO_IOS_ASC_ISSUER_ID }}
+            simlock-token: ${{ secrets.SIMLOCK_TOKEN }}

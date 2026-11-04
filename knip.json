@@ -41,13 +41,13 @@
             ]
         },
         "tests/app-tests": {
-            "entry": ["scripts/ci-seed-scene.ts", "scripts/compose-app-preview.ts"]
+            "entry": ["scripts/compose-app-preview.ts"]
         },
         "e2e": {
-            "entry": ["e2e.config.ts", "tests/**/*.e2e.ts"],
+            "entry": ["e2e.config.ts", "media.config.ts", "media/**/*.e2e.ts", "tests/**/*.e2e.ts"],
             "project": ["**/*.ts"],
             "ignoreDependencies": ["@mobile-ci/e2e-simlock", "agent-device"]
         }
     },
-    "ignoreBinaries": ["adb", "convert", "ffmpeg", "sips", "maestro"]
+    "ignoreBinaries": ["adb", "convert", "ffmpeg", "sips"]
 }

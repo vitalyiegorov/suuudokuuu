@@ -1,9 +1,0 @@
-appId: ${APP_ID}
----
-- waitForAnimationToEnd
-- tapOn:
-      id: 'ChallengeAcceptScreenSelectors.AcceptButton'
-- extendedWaitUntil:
-      visible:
-          id: 'GameScreenSelectors.Root'
-      timeout: 10000

@@ -14,13 +14,11 @@ import {
     clearAndroidSceneLogs,
     openDeepLink,
     readAndroidAppPid,
-    recycleIosDriver,
     rotateSimulator,
     waitForRender,
     writeDeviceScreenshot,
     verifyAndroidScene
 } from './capture-device.ts';
-import { type MaestroContext, runMaestroScene } from './maestro-scene.ts';
 import {
     AllAppearances,
     AllDeviceClasses,
@@ -37,8 +35,6 @@ import { type SeedTarget, launchSeededApp, seedAppState } from './seed-app-state
 const scriptDirectory = dirname(fileURLToPath(import.meta.url));
 const appTestsDirectory = dirname(scriptDirectory);
 const repositoryRootDirectory = dirname(dirname(appTestsDirectory));
-const configPath = join(appTestsDirectory, 'config.yaml');
-const screenshotsFlowsDirectory = join(appTestsDirectory, 'flows', 'screenshots');
 const defaultOutputRootDirectory = join(repositoryRootDirectory, 'packages', 'app', 'fastlane', 'screenshots', 'raw');
 
 const DefaultLaunchSettleMilliseconds = 3500;
@@ -101,15 +97,6 @@ const launchSettleMilliseconds = readSettleMilliseconds(CAPTURE_LAUNCH_SETTLE_MS
 const sceneSettleMilliseconds = readSettleMilliseconds(CAPTURE_SCENE_SETTLE_MS, DefaultSceneSettleMilliseconds);
 
 const deviceContext: DeviceContext = { androidSerial, platform, scriptDirectory, simulatorUdid, statusBarMode };
-const maestroContext: MaestroContext = {
-    appId: appId ?? '',
-    artifactsDirectory: join(appTestsDirectory, 'artifacts', 'screenshots-debug'),
-    configPath,
-    flowsDirectory: screenshotsFlowsDirectory,
-    platform,
-    simulatorUdid
-};
-
 if (!['portrait', 'landscape'].includes(orientation)) {
     throw new Error(`Unknown orientation "${orientation}". Use portrait or landscape.`);
 }
@@ -121,7 +108,7 @@ if (orientation === 'landscape' && deviceClass !== 'ipad') {
 const selectedLocales = isDefined(cliOptions.locales) ? parseCommaSeparatedList(cliOptions.locales) : AllLocales;
 const selectedAppearances = isDefined(cliOptions.appearances) ? parseCommaSeparatedList(cliOptions.appearances) : AllAppearances;
 const selectedSceneNames = isDefined(cliOptions.scenes) ? parseCommaSeparatedList(cliOptions.scenes) : AllScenes.map(scene => scene.name);
-const selectedScenes = AllScenes.filter(scene => selectedSceneNames.includes(scene.name));
+const selectedScenes = AllScenes.filter(scene => selectedSceneNames.includes(scene.name) && (isDefined(cliOptions.scenes) || isNotEmptyString(scene.deepLink)));
 const verifiesAndroidScenes = cliOptions.verify === true;
 const reportDirectory = cliOptions['report-dir'] ?? join(appTestsDirectory, 'artifacts', 'screenshots-debug');
 
@@ -244,22 +231,8 @@ const captureCombination = (locale: string, appearance: string): CaptureResult[]
 
     return selectedScenes.map(scene => {
         const startedAt = Date.now();
-        const capturesWithoutMaestro = isNotEmptyString(scene.deepLink);
         const screenshotPath = join(testOutputDirectory, `${sceneScreenshotBaseName(scene)}.png`);
-        let sceneOutcome: SceneOutcome;
-
-        if (capturesWithoutMaestro) {
-            sceneOutcome = captureSceneDirectly(scene, locale, appearance, testOutputDirectory);
-        } else {
-            seedAppState(seedTargetForRun(), seedOptionsForScene(scene, locale, appearance));
-            const maestroRequest = { appearance, locale, scene, testOutputDirectory };
-            sceneOutcome = runMaestroScene(maestroContext, maestroRequest);
-
-            if (!sceneOutcome.succeeded) {
-                recycleIosDriver(deviceContext);
-                sceneOutcome = runMaestroScene(maestroContext, maestroRequest);
-            }
-        }
+        const sceneOutcome = captureSceneDirectly(scene, locale, appearance, testOutputDirectory);
 
         if (sceneOutcome.succeeded && orientation === 'landscape') {
             const dimensions = execFileSync('sips', ['-g', 'pixelWidth', '-g', 'pixelHeight', screenshotPath], { encoding: 'utf8' });
@@ -278,7 +251,7 @@ const captureCombination = (locale: string, appearance: string): CaptureResult[]
             }
         }
 
-        return reportSceneOutcome({ appearance, locale, scene, startedAt, suffix: capturesWithoutMaestro ? ', direct' : '' }, sceneOutcome);
+        return reportSceneOutcome({ appearance, locale, scene, startedAt, suffix: '' }, sceneOutcome);
     });
 };
 
@@ -325,16 +298,13 @@ const main = (): void => {
         throw new Error('Android serial is required for --verify. Pass --serial or set ANDROID_SERIAL.');
     }
 
-    if (verifiesAndroidScenes) {
-        const unsupportedScenes = selectedScenes.filter(scene => !isNotEmptyString(scene.deepLink));
+    const e2eDrivenScenes = selectedScenes.filter(scene => !isNotEmptyString(scene.deepLink));
 
-        if (unsupportedScenes.length > 0) {
-            throw new Error(`--verify requires a deep link for every scene: ${unsupportedScenes.map(scene => scene.name).join(', ')}`);
-        }
+    if (isDefined(cliOptions.scenes) && e2eDrivenScenes.length > 0) {
+        throw new Error(`${e2eDrivenScenes.map(scene => scene.name).join(', ')}: captured by the e2e media suite, see e2e/AGENTS.md.`);
     }
 
     deviceContext.simulatorUdid = simulatorUdid || (platform === 'ios' ? detectBootedIosSimulatorUdid(deviceClass) : '');
-    maestroContext.simulatorUdid = deviceContext.simulatorUdid;
 
     if (platform === 'ios' && !isNotEmptyString(deviceContext.simulatorUdid)) {
         process.stderr.write('No booted iOS simulator found. Boot one or pass --udid=<simulator-udid>.\n');
@@ -343,7 +313,6 @@ const main = (): void => {
         return;
     }
 
-    recycleIosDriver(deviceContext);
 
     if (orientation === 'landscape') {
         rotateSimulator(deviceContext, 'landscape_left');

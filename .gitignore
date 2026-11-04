@@ -47,7 +47,6 @@ tests/web-tests/test-results/
 packages/app/android
 packages/app/ios
 
-.maestro
 *.mp4
 report.xml
 build-*.tar.gz

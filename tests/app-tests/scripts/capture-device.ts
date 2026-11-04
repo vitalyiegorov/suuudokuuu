@@ -214,11 +214,3 @@ export const rotateSimulator = (context: DeviceContext, targetOrientation: strin
         throw new Error(`Failed to rotate simulator to ${targetOrientation}: ${rotateResult.stderr}`);
     }
 };
-
-export const recycleIosDriver = (context: DeviceContext): void => {
-    if (context.platform !== 'ios' || context.simulatorUdid.length === 0) {
-        return;
-    }
-
-    spawnSync('bash', [join(context.scriptDirectory, 'recycle-ios-driver.sh'), context.simulatorUdid], { encoding: 'utf8' });
-};

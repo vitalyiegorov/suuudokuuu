@@ -2,7 +2,7 @@
 
 This package hosts the store-screenshot capture pipeline
 (`scripts/capture-store-screenshots.ts` and friends), the App Store preview
-capture (`scripts/capture-app-preview.sh`), and the database fixtures the `e2e`
+composer (`scripts/compose-app-preview.ts`), and the database fixtures the `e2e`
 suite installs. Read `docs/store-screenshot-capture.md` before touching the
 capture pipeline or capturing store screenshots. UI scenarios live in `e2e`.
 
@@ -13,17 +13,13 @@ installation and emulator warm-up. `--verify` fails on an unknown or empty
 scene selection, a changed or missing app process, AndroidRuntime errors, or
 an invalid or blank screenshot. Raw captures and the JSON report are CI
 artifacts only; the job never composes or commits store assets. The win and
-pause scenes require Maestro. Verification uses the app PID, per-scene logcat,
+pause scenes are not direct-link scenes: the `e2e` media capture drives them. Verification uses the app PID, per-scene logcat,
 and ImageMagick image statistics without a UI hierarchy, so running game
 clocks do not block capture.
 
-## Capture flows
-
-Three flows under `flows/screenshots` still run on Maestro, because nothing replaces them: the `win` and `pause` store scenes and the App Store preview. They run by hand, never in CI, and read `config.yaml` and the subflows under `flows/subflows`. `flows/setup/prime-deep-links.flow.yaml` is the manual fix for a simulator stranded on the deep-link prompt. `selectors:check` (`scripts/validate-flows.sh`) checks these flows' references and selectors.
-
 ## Database fixtures
 
-`fixtures/databases/<fixture>.db` are finished-game databases the `e2e` suite installs through `Suuudokuuu.start(fixture)`. `scripts/seed-flow-state.ts` builds them through the `packages/progress` migrations and services: add fixtures to its `fixtures` map, regenerate with `pnpm --filter ./tests/app-tests seed:flow`, and commit the result. `seed:check` in PR CI fails when a committed database no longer matches what the current migrations produce.
+`fixtures/databases/<fixture>.db` are finished-game databases the `e2e` suite installs through `Suuudokuuu.start(fixture)`. `scripts/seed-database-fixtures.ts` builds them through the `packages/progress` migrations and services: add fixtures to its `fixtures` map, regenerate with `pnpm --filter ./tests/app-tests seed:fixtures`, and commit the result. `seed:check` in PR CI fails when a committed database no longer matches what the current migrations produce.
 
 ## Selector Rules
 
