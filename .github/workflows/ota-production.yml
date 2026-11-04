@@ -66,7 +66,7 @@ jobs:
 
             - name: Resolve the runtime versions
               id: runtime
-              uses: rnw-community/mobile-ci/actions/ota-runtime-version@v4.9.0 # v4.9.0
+              uses: rnw-community/mobile-ci/actions/ota-runtime-version@v4.10.0 # v4.10.0
               with:
                   app-dir: packages/app
                   eas-profile: production
@@ -111,7 +111,7 @@ jobs:
 
             - name: Publish the EAS update
               if: ${{ !inputs.dry_run }}
-              uses: rnw-community/mobile-ci/actions/eas-update@v4.9.0 # v4.9.0
+              uses: rnw-community/mobile-ci/actions/eas-update@v4.10.0 # v4.10.0
               with:
                   app-dir: packages/app
                   channel: production
