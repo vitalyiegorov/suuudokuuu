@@ -201,7 +201,12 @@ export class Suuudokuuu {
             prepared.add(lease);
         }
         await phase('seed', () =>
-            state.seed(this.api, lease, fixture === undefined ? undefined : readFileSync(new URL(`${fixture}.db`, DATABASES)), legacyStorage)
+            state.seed(
+                this.api,
+                lease,
+                fixture === undefined ? undefined : readFileSync(new URL(`${fixture}.db`, DATABASES)),
+                legacyStorage
+            )
         );
         await phase('launch', async () => {
             await this.ctx.app.open();

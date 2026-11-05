@@ -13,17 +13,7 @@
         {
             "platform": "ios",
             "device": "iPhone 17 Pro Max",
-            "locales": [
-                "en",
-                "de",
-                "es",
-                "fr",
-                "pt",
-                "sv",
-                "hi",
-                "ar",
-                "id"
-            ],
+            "locales": ["en", "de", "es", "fr", "pt", "sv", "hi", "ar", "id"],
             "appearances": ["light"]
         }
     ],

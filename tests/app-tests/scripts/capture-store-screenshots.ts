@@ -108,7 +108,9 @@ if (orientation === 'landscape' && deviceClass !== 'ipad') {
 const selectedLocales = isDefined(cliOptions.locales) ? parseCommaSeparatedList(cliOptions.locales) : AllLocales;
 const selectedAppearances = isDefined(cliOptions.appearances) ? parseCommaSeparatedList(cliOptions.appearances) : AllAppearances;
 const selectedSceneNames = isDefined(cliOptions.scenes) ? parseCommaSeparatedList(cliOptions.scenes) : AllScenes.map(scene => scene.name);
-const selectedScenes = AllScenes.filter(scene => selectedSceneNames.includes(scene.name) && (isDefined(cliOptions.scenes) || isNotEmptyString(scene.deepLink)));
+const selectedScenes = AllScenes.filter(
+    scene => selectedSceneNames.includes(scene.name) && (isDefined(cliOptions.scenes) || isNotEmptyString(scene.deepLink))
+);
 const verifiesAndroidScenes = cliOptions.verify === true;
 const reportDirectory = cliOptions['report-dir'] ?? join(appTestsDirectory, 'artifacts', 'screenshots-debug');
 
@@ -312,7 +314,6 @@ const main = (): void => {
 
         return;
     }
-
 
     if (orientation === 'landscape') {
         rotateSimulator(deviceContext, 'landscape_left');

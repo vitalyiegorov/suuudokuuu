@@ -2,10 +2,15 @@ import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
 import { setTimeout as sleep } from 'node:timers/promises';
 
-import { exec, mustExec } from '@mobile-ci/e2e-simlock/exec';
 import { test as base } from '@e2e-dev/mobile';
+import { exec, mustExec } from '@mobile-ci/e2e-simlock/exec';
 
-import { AllScenes, DefaultSeedDifficulty, localeIdentifierFor, sceneScreenshotBaseName } from '../../../tests/app-tests/scripts/screenshot-scenes.ts';
+import {
+    AllScenes,
+    DefaultSeedDifficulty,
+    localeIdentifierFor,
+    sceneScreenshotBaseName
+} from '../../../tests/app-tests/scripts/screenshot-scenes.ts';
 import { persistRootDatabase } from '../../../tests/app-tests/scripts/seed-app-state.ts';
 
 import { BUNDLE_IDS, backgroundFor, byText, expectId, openLink, Suuudokuuu, tapId, WAIT_SLOW, type Ctx } from './core.ts';
@@ -59,7 +64,22 @@ const PREVIEW_TAPS = [
 ];
 
 /** The status bar every capture shows. */
-const IOS_STATUS_BAR = ['status_bar', 'override', '--time', '9:41', '--dataNetwork', 'wifi', '--wifiMode', 'active', '--wifiBars', '3', '--batteryState', 'charged', '--batteryLevel', '100'];
+const IOS_STATUS_BAR = [
+    'status_bar',
+    'override',
+    '--time',
+    '9:41',
+    '--dataNetwork',
+    'wifi',
+    '--wifiMode',
+    'active',
+    '--wifiBars',
+    '3',
+    '--batteryState',
+    'charged',
+    '--batteryLevel',
+    '100'
+];
 const ANDROID_STATUS_BAR = [
     'settings put global sysui_demo_allowed 1',
     'am broadcast -a com.android.systemui.demo -e command enter',
@@ -199,12 +219,15 @@ export class Media extends Suuudokuuu {
             prepared.add(lease);
         }
         await this.setLocale(lease, cell.locale);
-        await this.start(undefined, persistRootDatabase({
-            appearance: cell.appearance,
-            difficulty: scene.seed?.difficulty ?? DefaultSeedDifficulty,
-            language: cell.locale,
-            sceneState: scene.seed?.sceneState
-        }));
+        await this.start(
+            undefined,
+            persistRootDatabase({
+                appearance: cell.appearance,
+                difficulty: scene.seed?.difficulty ?? DefaultSeedDifficulty,
+                language: cell.locale,
+                sceneState: scene.seed?.sceneState
+            })
+        );
         await scene.run(this, cell);
         await sleep(SETTLE_MS);
         await this.screenshot(cell.path);
@@ -272,7 +295,15 @@ export class Media extends Suuudokuuu {
             return;
         }
         await mustExec(this.api, lease, ['spawn', 'defaults', 'write', '.GlobalPreferences', 'AppleLanguages', '-array', locale]);
-        await mustExec(this.api, lease, ['spawn', 'defaults', 'write', '.GlobalPreferences', 'AppleLocale', '-string', localeIdentifierFor(locale)]);
+        await mustExec(this.api, lease, [
+            'spawn',
+            'defaults',
+            'write',
+            '.GlobalPreferences',
+            'AppleLocale',
+            '-string',
+            localeIdentifierFor(locale)
+        ]);
     }
 }
 
