@@ -12,7 +12,7 @@ jobs:
         name: Cancel queued/in-progress runs for the closed PR branch
         permissions:
             actions: write
-        uses: rnw-community/mobile-ci/.github/workflows/pr-closed-cleanup-reusable.yml@d8b7f0c45ff83974aa9e4e8e14ba6dbc336f8525 # v4.10.2
+        uses: rnw-community/mobile-ci/.github/workflows/pr-closed-cleanup-reusable.yml@f42a0f863990b5da40b35261f7d610e42215313e # v4.11.1
         with:
             control-runner-labels: '["self-hosted","linux-portable-2x4"]'
             ota-preview-cleanup-runner-labels: '["self-hosted","linux-portable-2x4"]'
@@ -23,10 +23,11 @@ jobs:
         needs: [cleanup]
         permissions:
             contents: read
-        uses: rnw-community/mobile-ci/.github/workflows/eas-channel-cleanup-reusable.yml@d8b7f0c45ff83974aa9e4e8e14ba6dbc336f8525 # v4.10.2
+        uses: rnw-community/mobile-ci/.github/workflows/eas-channel-cleanup-reusable.yml@f42a0f863990b5da40b35261f7d610e42215313e # v4.11.1
         with:
             app-dir: packages/app
             runner-labels: '["self-hosted","linux-portable-2x4"]'
-            install-command: corepack enable && pnpm install --frozen-lockfile
+            project-id: 4a70028a-5f9e-4ab6-9389-82d8b8b6c833
+            project-slug: suuudokuuu
         secrets:
             EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
