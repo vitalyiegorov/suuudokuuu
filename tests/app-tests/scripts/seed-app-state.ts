@@ -1,5 +1,5 @@
 import { spawnSync } from 'node:child_process';
-import { mkdirSync, readFileSync, rmSync } from 'node:fs';
+import { mkdirSync, mkdtempSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
@@ -189,6 +189,19 @@ const writePersistRootToDatabase = (databasePath: string, value: string): void =
             .run(PersistRootKey, value);
     } finally {
         database.close();
+    }
+};
+
+export const persistRootDatabase = (options: SeedOptions): Buffer => {
+    const directory = mkdtempSync(join(tmpdir(), 'suuudokuuu-persist-'));
+    const databasePath = join(directory, 'ExpoSQLiteStorage');
+
+    try {
+        writePersistRootToDatabase(databasePath, buildPersistRootValue(options));
+
+        return readFileSync(databasePath);
+    } finally {
+        rmSync(directory, { force: true, recursive: true });
     }
 };
 

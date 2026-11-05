@@ -75,9 +75,9 @@ before relying on them.
   `submit.production.android.track` in `eas.json` and resolve the version code
   with `google_play_track_version_codes` (supply cannot infer one when it
   uploads no binary).
-- `tests/app-tests/flows/screenshots/` - capture flows for the Maestro-only win and pause scenes,
-  `tests/app-tests/scripts/capture-store-screenshots.ts` - runner,
-  `tests/app-tests/scripts/screenshot-scenes.ts` defines all fifteen scenes: thirteen direct-link captures and two Maestro captures. The runner rotates landscape pixels with `sips` and rejects remaining EXIF orientation metadata other than 1.
+- `e2e/support/suuudokuuu/media.ts` - the e2e capture CI runs, and the only one for the win and pause scenes.
+- `tests/app-tests/scripts/capture-store-screenshots.ts` - local direct-link runner.
+- `tests/app-tests/scripts/screenshot-scenes.ts` defines all fifteen scenes: thirteen direct-link captures and two e2e-driven ones. The runner rotates landscape pixels with `sips` and rejects remaining EXIF orientation metadata other than 1.
 - `.github/workflows/native-publish.yml` - store publish; `fastlane
   store_preflight` gates both jobs; metadata pushes after each `eas submit`;
   screenshots upload only with the `push_screenshots` checkbox. It uploads
@@ -234,18 +234,14 @@ Android emulator) are in the capture doc.
 - fastlane overwrites `fastlane/README.md` with its generated lane docs after
   every local lane run, destroying the hand-written doc. The Fastfile calls
   `skip_docs` to prevent that; do not remove it.
-- Maestro XCUITest driver wedges (instant connection-refused): run
-  `tests/app-tests/scripts/recycle-ios-driver.sh <udid>`; the runner
-  does this automatically. If it persists, uninstall
-  `dev.mobile.maestro-driver-iosUITests.xctrunner` from the sim.
 - ImageMagick here has ZERO registered fonts: always pass
   `-font <abs path>` (Inter Black at repo-root
   `node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf`).
 - ImageMagick silently degrades composites to grayscale when a flat
   neutral layer is involved: force `-define png:color-type=2|6` on writes.
-- Maestro writes landscape screenshots in the portrait framebuffer with a
-  PNG eXIf orientation-6 hint; stores need baked pixels. The runner rotates with
-  `sips` and asserts that orientation is 1 or absent before reporting success.
+- Landscape captures can arrive in the portrait framebuffer with a PNG eXIf
+  orientation-6 hint; stores need baked pixels. The runner rotates with `sips`
+  and asserts that orientation is 1 or absent before reporting success.
 - iPad GameScreen captures show a stray iPadOS predictive-text toolbar
   (suspected hidden hardware-keyboard listener in-app). Still unfixed, and
   present in every committed iPad shot - verified byte-for-byte identical

@@ -11,6 +11,11 @@ It is a standalone npm project, not a pnpm workspace member: mobile-ci hashes th
 - `support/suuudokuuu/core.ts`: locators and assertions, and `Suuudokuuu.start(fixture?)`, which prepares the leased device once (iOS: English, Reduce Motion, the deep-link prompt; Android: root, animations off), removes the app database, installs `tests/app-tests/fixtures/databases/<fixture>.db` when given (through the package's exec helper, `simctl` on iOS and `adb` on Android, with E2EDrop for iOS files), and launches to Home.
 - `support/suuudokuuu/game.ts`: the shared game steps.
 - `tests/<scenario>.e2e.ts`: one per scenario.
+- `media.config.ts`, `media/capture-*.e2e.ts`, `support/suuudokuuu/media.ts`: the store media capture, its own config so the PR suite never collects it. `store-screenshots.yml` runs it with mobile-ci's `SCREENSHOT_PLAN`; `store-media.yml` runs the scenes outside the store set (`win`, `pause`) and records the App Store preview. Without a plan, `SCREENSHOT_SCENES`, `SCREENSHOT_LOCALES`, `SCREENSHOT_APPEARANCES` and `SCREENSHOT_PLATFORM` pick the cells, written to `.e2e/media/raw` at the layout the store compose script reads. A new `test` scene goes in that file's `SCENES`.
+    - Stills come from the XCTest runner, which draws no Dynamic Island. Android leases the API 35 `google_apis` image, because the ATD image's screenshots are black and its recordings never finalize.
+    - Every capture settles for 6 s before its still: one second caught Android's result screen mid-fade, because a screen's entry fade outlasts its testIDs appearing.
+    - The preview holds each tap longer than the longest gap `compose-app-preview.ts` cuts to, so every cut has footage.
+    - `store-media.yml` runs on the E2E build the warm-up keeps a base for. These screens show nothing that differs from the production variant, and `STORE_CAPTURE` sets the same `isE2E` flag this build has.
 
 ## Rules
 

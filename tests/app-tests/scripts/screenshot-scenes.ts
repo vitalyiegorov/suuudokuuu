@@ -1,6 +1,5 @@
 export interface Scene {
     deepLink?: string;
-    file?: string;
     name: string;
     sceneState?: string;
     seedDifficulty?: string;
@@ -22,13 +21,13 @@ export const AllScenes: Scene[] = [
     { deepLink: HomeDeepLink, name: 'hell', seedDifficulty: 'Hell' },
     { deepLink: 'suuudokuuu://settings/themes', name: 'themes' },
     { deepLink: 'suuudokuuu://settings/themes/editor', name: 'editor' },
-    { file: '05.win.flow.yaml', name: 'win' },
+    { name: 'win' },
     { deepLink: RivalChallengeLink, name: 'rival' },
     { deepLink: `suuudokuuu://history/Newbie/${SeededReplayCompletedAt}`, name: 'replay' },
     { deepLink: 'suuudokuuu://settings', name: 'settings' },
     { deepLink: HomeDeepLink, name: 'home', seedDifficulty: 'Medium' },
     { deepLink: 'suuudokuuu://history', name: 'stats' },
-    { file: '11.pause.flow.yaml', name: 'pause' },
+    { name: 'pause' },
     { deepLink: 'suuudokuuu://scoring', name: 'scoring' },
     { deepLink: 'suuudokuuu://history/Newbie', name: 'history' },
     {

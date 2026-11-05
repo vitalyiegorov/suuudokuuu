@@ -103,9 +103,6 @@ jobs:
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
-            - name: Install Ruby
-              run: command -v ruby || (sudo apt-get update -qq && sudo apt-get -o DPkg::Lock::Timeout=300 install -y -qq --no-install-recommends ruby)
-
             - name: App test script self-tests
               shell: bash
               run: |
@@ -113,9 +110,6 @@ jobs:
                   for test_script in tests/app-tests/scripts/test-*.sh; do
                     bash "$test_script"
                   done
-
-            - name: Store capture flow checks
-              run: pnpm --filter @suuudokuuu/app-tests selectors:check
 
             - name: E2E seed fixtures are current
               run: pnpm --filter @suuudokuuu/app-tests seed:check

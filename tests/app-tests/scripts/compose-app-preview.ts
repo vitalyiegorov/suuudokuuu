@@ -17,45 +17,26 @@ const OutputWidth = 886;
 const OutputHeight = 1920;
 const DevicePointWidth = 440;
 const SceneChangeThreshold = 0.003;
-const TapStartPattern = /^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})\.(\d+)([+-]\d{2})(\d{2}) .*Tapping ([\d.]+), ([\d.]+)$/u;
-const TapDurationPattern = /^.*Tapping took ([\d.]+)$/u;
-const TapTimestampPattern = /^(\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}:\d{2})\.(\d+)([+-]\d{2})(\d{2}) /u;
-
 const HumanGapsSeconds = '0.45 1.0 0.4 1.0 0.5 0.35 0.4 0.55 0.45 0.5 0.35 0.35 0.5 1.6 1.1 1.0 0.9 0.8 0.7 0.4 2.0'.split(' ').map(Number);
 
-const toEpochSeconds = (line: string): number => {
-    const match = TapTimestampPattern.exec(line);
+const isTapEvent = (value: unknown): value is TapEvent =>
+    typeof value === 'object' &&
+    value !== null &&
+    'endSeconds' in value &&
+    'xPoints' in value &&
+    'yPoints' in value &&
+    Number.isFinite(value.endSeconds) &&
+    Number.isFinite(value.xPoints) &&
+    Number.isFinite(value.yPoints);
 
-    if (match === null) {
-        throw new Error(`Unparseable driver log timestamp: ${line}`);
+const readTapEvents = (tapsPath: string): TapEvent[] => {
+    const parsed: unknown = JSON.parse(readFileSync(tapsPath, 'utf8'));
+
+    if (!Array.isArray(parsed) || !parsed.every(isTapEvent)) {
+        throw new Error(`${tapsPath} is not a list of taps with endSeconds, xPoints and yPoints`);
     }
 
-    const [, date, time, fraction, zoneHours, zoneMinutes] = match;
-
-    return Date.parse(`${date}T${time}.000${zoneHours}:${zoneMinutes}`) / 1000 + Number(`0.${fraction}`);
-};
-
-const readTapEvents = (driverLogPath: string): TapEvent[] => {
-    const events: TapEvent[] = [];
-    let pendingStart: { startSeconds: number; xPoints: number; yPoints: number } | null = null;
-
-    for (const line of readFileSync(driverLogPath, 'utf8').split('\n')) {
-        const startMatch = TapStartPattern.exec(line);
-        const durationMatch = TapDurationPattern.exec(line);
-
-        if (startMatch !== null) {
-            pendingStart = { startSeconds: toEpochSeconds(line), xPoints: Number(startMatch[6]), yPoints: Number(startMatch[7]) };
-        } else if (durationMatch !== null && pendingStart !== null) {
-            events.push({
-                endSeconds: pendingStart.startSeconds + Number(durationMatch[1]),
-                xPoints: pendingStart.xPoints,
-                yPoints: pendingStart.yPoints
-            });
-            pendingStart = null;
-        }
-    }
-
-    return events;
+    return parsed;
 };
 
 const detectFirstSceneChangeSeconds = (recordingPath: string): number => {
@@ -121,21 +102,21 @@ const buildFilterGraph = (taps: readonly TapEvent[], videoOffsetSeconds: number)
 const main = (): void => {
     const { values } = parseArgs({
         options: {
-            'driver-log': { type: 'string' },
             output: { type: 'string' },
-            recording: { type: 'string' }
+            recording: { type: 'string' },
+            taps: { type: 'string' }
         }
     });
-    const { 'driver-log': driverLogPath, output: outputPath, recording: recordingPath } = values;
+    const { output: outputPath, recording: recordingPath, taps: tapsPath } = values;
 
-    if (driverLogPath === undefined || outputPath === undefined || recordingPath === undefined) {
-        throw new Error('Pass --recording, --driver-log and --output');
+    if (tapsPath === undefined || outputPath === undefined || recordingPath === undefined) {
+        throw new Error('Pass --recording, --taps and --output');
     }
 
-    const taps = readTapEvents(driverLogPath);
+    const taps = readTapEvents(tapsPath);
 
     if (taps.length !== HumanGapsSeconds.length) {
-        throw new Error(`Expected ${HumanGapsSeconds.length} taps in the driver log, found ${taps.length}`);
+        throw new Error(`Expected ${HumanGapsSeconds.length} taps in the tap log, found ${taps.length}`);
     }
 
     const videoOffsetSeconds = detectFirstSceneChangeSeconds(recordingPath) - taps[0].endSeconds;

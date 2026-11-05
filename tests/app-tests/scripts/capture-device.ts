@@ -1,6 +1,5 @@
 import { spawnSync } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
-import { join } from 'node:path';
 
 const WaitBufferByteLength = 4;
 const ScreenshotMaxBufferBytes = 67108864;
@@ -26,7 +25,6 @@ export const detectBootedIosSimulatorUdid = (targetDeviceClass: string): string 
 export interface DeviceContext {
     androidSerial: string;
     platform: string;
-    scriptDirectory: string;
     simulatorUdid: string;
     statusBarMode: string;
 }
@@ -213,12 +211,4 @@ export const rotateSimulator = (context: DeviceContext, targetOrientation: strin
     if (rotateResult.status !== 0) {
         throw new Error(`Failed to rotate simulator to ${targetOrientation}: ${rotateResult.stderr}`);
     }
-};
-
-export const recycleIosDriver = (context: DeviceContext): void => {
-    if (context.platform !== 'ios' || context.simulatorUdid.length === 0) {
-        return;
-    }
-
-    spawnSync('bash', [join(context.scriptDirectory, 'recycle-ios-driver.sh'), context.simulatorUdid], { encoding: 'utf8' });
 };

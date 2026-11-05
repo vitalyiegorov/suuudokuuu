@@ -1,0 +1,91 @@
+name: Store media
+
+on:
+    workflow_dispatch:
+    pull_request:
+        paths:
+            - .github/workflows/store-media.yml
+            - e2e/media/**
+            - e2e/media.config.ts
+            - e2e/support/suuudokuuu/media.ts
+            - tests/app-tests/scripts/compose-app-preview.ts
+
+concurrency:
+    group: store-media-${{ github.ref }}
+    cancel-in-progress: true
+
+permissions: {}
+
+jobs:
+    ios:
+        name: iOS store media
+        permissions:
+            contents: read
+            packages: write
+            actions: read
+        uses: rnw-community/mobile-ci/.github/workflows/ios-maestro.yml@d8b7f0c45ff83974aa9e4e8e14ba6dbc336f8525 # v4.10.2
+        with:
+            control-runner-labels: '["self-hosted","linux-portable-2x4"]'
+            install-command: pnpm install --frozen-lockfile
+            trigger-paths: |
+                .github/workflows/store-media.yml
+                e2e/**
+            targets: >-
+                [{"name":"e2e","appDir":"packages/app","workspace":"suuudokuuuE2E.xcworkspace","scheme":"suuudokuuuE2E","appId":"com.vitalyiegorov.suuudokuuu.e2e","prebuildCommand":"npx expo prebuild -p ios --clean --no-install"}]
+            xcode-version: '26.4.1'
+            xcode-build: '17E202'
+            build-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
+            rct-use-prebuilt-rncore: true
+            rct-use-rn-dep: true
+            fingerprint-env: |
+                APP_VARIANT=e2e
+            repack-env: |
+                APP_VARIANT=e2e
+            expect-config: |
+                name=suuudokuuu (E2E)
+                ios.bundleIdentifier=com.vitalyiegorov.suuudokuuu.e2e
+            build-env: |
+                APP_VARIANT=e2e
+            test-framework: e2e
+            e2e-dir: e2e
+            e2e-command: SCREENSHOT_DEVICE='iPhone 17 Pro Max' SCREENSHOT_SCENES=win,pause,app-preview npx e2e run --config media.config.ts --target ios
+            e2e-runner-labels: '["self-hosted","linux-portable-2x4"]'
+            e2e-retries: '1'
+            e2e-timeout-minutes: 30
+            simlock-url: https://simlock.vitaliiyehorov.dev
+        secrets:
+            simlock-token: ${{ secrets.SIMLOCK_TOKEN }}
+
+    compose-preview:
+        name: Compose the App Store preview
+        needs: ios
+        if: needs.ios.outputs.result == 'passed'
+        permissions:
+            contents: read
+        runs-on: [self-hosted, linux-portable-2x4]
+        timeout-minutes: 15
+        steps:
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
+            - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+              with:
+                  node-version: 24.x
+            - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+              with:
+                  name: e2e-ios-e2e
+                  path: capture
+            - name: Cut the recording to the store preview
+              run: |
+                  set -euo pipefail
+                  command -v ffmpeg >/dev/null || { sudo apt-get update -q && sudo apt-get install -y -q ffmpeg; }
+                  raw=capture/media/raw/ios/iphone/en/dark
+                  mkdir -p preview
+                  node tests/app-tests/scripts/compose-app-preview.ts --recording="$raw/app-preview.mp4" --taps="$raw/app-preview.taps.json" --output=preview/01_IPHONE_67.mp4
+                  ffprobe -v error -show_entries stream=codec_name,width,height,duration -of csv=p=0 preview/01_IPHONE_67.mp4
+            - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+              with:
+                  name: app-store-preview
+                  path: preview/01_IPHONE_67.mp4
+                  if-no-files-found: error
+                  retention-days: 30
