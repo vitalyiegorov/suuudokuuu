@@ -1,6 +1,5 @@
 import { spawnSync } from 'node:child_process';
 import { writeFileSync } from 'node:fs';
-import { join } from 'node:path';
 
 const WaitBufferByteLength = 4;
 const ScreenshotMaxBufferBytes = 67108864;
@@ -26,7 +25,6 @@ export const detectBootedIosSimulatorUdid = (targetDeviceClass: string): string 
 export interface DeviceContext {
     androidSerial: string;
     platform: string;
-    scriptDirectory: string;
     simulatorUdid: string;
     statusBarMode: string;
 }

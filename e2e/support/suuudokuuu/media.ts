@@ -16,7 +16,7 @@ import { persistRootDatabase } from '../../../tests/app-tests/scripts/seed-app-s
 import { BUNDLE_IDS, backgroundFor, byText, expectId, openLink, Suuudokuuu, tapId, WAIT_SLOW, type Ctx } from './core.ts';
 import { acceptSharedChallenge, openSharedChallenge, startNewGame } from './game.ts';
 
-export interface Cell {
+interface Cell {
     readonly test: string;
     readonly locale: string;
     readonly appearance: string;
@@ -177,7 +177,7 @@ function parseCell(value: unknown, index: number): Cell {
 const rawDirectory = (platform: string, device: string): string[] =>
     platform === 'android' ? ['android'] : ['ios', device.startsWith('iPad') ? 'ipad' : 'iphone'];
 
-export function plan(env: NodeJS.ProcessEnv = process.env): readonly Cell[] {
+function plan(env: NodeJS.ProcessEnv = process.env): readonly Cell[] {
     if (env.SCREENSHOT_PLAN !== undefined && env.SCREENSHOT_PLAN !== '') {
         const parsed: unknown = JSON.parse(readFileSync(env.SCREENSHOT_PLAN, 'utf8'));
         if (!Array.isArray(parsed) || parsed.length === 0) {
@@ -201,7 +201,7 @@ export function plan(env: NodeJS.ProcessEnv = process.env): readonly Cell[] {
 
 const prepared = new Set<string>();
 
-export class Media extends Suuudokuuu {
+class Media extends Suuudokuuu {
     async capture(cell: Cell): Promise<void> {
         const scene = SCENES[cell.test];
         const lease = await this.lease();

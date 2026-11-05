@@ -96,7 +96,7 @@ const readSettleMilliseconds = (value: string | undefined, fallback: number): nu
 const launchSettleMilliseconds = readSettleMilliseconds(CAPTURE_LAUNCH_SETTLE_MS, DefaultLaunchSettleMilliseconds);
 const sceneSettleMilliseconds = readSettleMilliseconds(CAPTURE_SCENE_SETTLE_MS, DefaultSceneSettleMilliseconds);
 
-const deviceContext: DeviceContext = { androidSerial, platform, scriptDirectory, simulatorUdid, statusBarMode };
+const deviceContext: DeviceContext = { androidSerial, platform, simulatorUdid, statusBarMode };
 if (!['portrait', 'landscape'].includes(orientation)) {
     throw new Error(`Unknown orientation "${orientation}". Use portrait or landscape.`);
 }
