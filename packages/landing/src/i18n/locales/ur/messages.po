@@ -1631,6 +1631,10 @@ msgstr "تکنیک سے باخبر ہنٹس جو صرف اگلا ہندسہ نہ
 msgid "Techniques"
 msgstr "تکنیکیں"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "استعمال کی شرائط"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "متن کا سائز"

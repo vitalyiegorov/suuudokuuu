@@ -1631,6 +1631,10 @@ msgstr "तकनीक-जागरूक संकेत जो सिर्�
 msgid "Techniques"
 msgstr "तकनीकें"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "उपयोग की शर्तें"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "टेक्स्ट आकार"

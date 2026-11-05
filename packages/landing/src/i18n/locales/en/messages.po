@@ -1631,6 +1631,10 @@ msgstr "Technique-aware hints that name the exact solving pattern, not just the 
 msgid "Techniques"
 msgstr "Techniques"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "Terms of use"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "Text size"

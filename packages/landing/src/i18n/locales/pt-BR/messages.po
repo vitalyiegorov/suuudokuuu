@@ -1631,6 +1631,10 @@ msgstr "Dicas que conhecem as técnicas e nomeiam o padrão exato de resolução
 msgid "Techniques"
 msgstr "Técnicas"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "Termos de uso"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "Tamanho do texto"
