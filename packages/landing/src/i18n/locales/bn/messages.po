@@ -1631,6 +1631,10 @@ msgstr "কৌশল-সচেতন হিন্ট, যা কেবল পর
 msgid "Techniques"
 msgstr "কৌশল"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "ব্যবহারের শর্তাবলী"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "লেখার আকার"

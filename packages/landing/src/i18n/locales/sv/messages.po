@@ -1631,6 +1631,10 @@ msgstr "Teknikmedvetna ledtrådar som namnger exakt vilket lösningsmönster som
 msgid "Techniques"
 msgstr "Tekniker"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "Användarvillkor"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "Textstorlek"

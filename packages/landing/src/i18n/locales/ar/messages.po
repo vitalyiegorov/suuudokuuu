@@ -1631,6 +1631,10 @@ msgstr "تلميحات تدرك التقنية وتسمّي نمط الحل بد
 msgid "Techniques"
 msgstr "التقنيات"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "شروط الاستخدام"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "حجم النص"

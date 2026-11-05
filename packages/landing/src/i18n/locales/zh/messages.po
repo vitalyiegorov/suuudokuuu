@@ -1631,6 +1631,10 @@ msgstr "能说出具体解题模式的技巧感知提示，而不只是告诉你
 msgid "Techniques"
 msgstr "技巧"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "使用条款"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "文字大小"

@@ -1631,6 +1631,10 @@ msgstr "Petunjuk yang memahami teknik dan menyebutkan pola penyelesaian yang tep
 msgid "Techniques"
 msgstr "Teknik"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "Ketentuan penggunaan"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "Ukuran teks"

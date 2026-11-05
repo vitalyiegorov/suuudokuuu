@@ -15,6 +15,7 @@ import { sudokuForSeniorsPageMetadata } from '../../../app/(en)/sudoku-for-senio
 import { sudokuTipsPageMetadata } from '../../../app/(en)/sudoku-tips/metadata';
 import { sudokuDifficultiesPageMetadata } from '../../../app/(en)/sudoku/metadata';
 import { techniquesPageMetadata } from '../../../app/(en)/techniques/metadata';
+import { termsOfUsePageMetadata } from '../../../app/(en)/terms-of-use/metadata';
 import { whySuuudokuuuPageMetadata } from '../../../app/(en)/why-suuudokuuu/metadata';
 import { SITE_GITHUB_URL, SITE_LICENSE, SITE_NAME, SITE_PLAY_URL, SITE_PRIVACY_URL } from '../../../seo/constants/site.constant';
 import { buildLocalizedPagePath } from '../../../seo/utils/build-localized-page-path.util';
@@ -109,6 +110,9 @@ export const SiteFooter = () => {
                         <a href={SITE_PRIVACY_URL}>
                             <Trans>Privacy policy</Trans>
                         </a>
+                        <Link href={termsOfUsePageMetadata.path}>
+                            <Trans>Terms of use</Trans>
+                        </Link>
                     </div>
                 </nav>
             </div>

@@ -1631,6 +1631,10 @@ msgstr "Technikbewusste Hinweise, die das genaue Lösungsmuster benennen und nic
 msgid "Techniques"
 msgstr "Techniken"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "Nutzungsbedingungen"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "Textgröße"

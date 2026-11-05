@@ -1631,6 +1631,10 @@ msgstr "Підказки з урахуванням техніки: назива�
 msgid "Techniques"
 msgstr "Техніки"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "Умови використання"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "Розмір тексту"

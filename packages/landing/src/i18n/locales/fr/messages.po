@@ -1631,6 +1631,10 @@ msgstr "Des indices qui nomment la technique exacte à employer, pas seulement l
 msgid "Techniques"
 msgstr "Techniques"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "Conditions d’utilisation"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "Taille du texte"

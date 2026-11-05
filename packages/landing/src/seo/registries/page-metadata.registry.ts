@@ -82,6 +82,7 @@ import { xWingPageMetadata } from '../../app/(en)/techniques/x-wing/metadata';
 import { xyChainPageMetadata } from '../../app/(en)/techniques/xy-chain/metadata';
 import { xyWingPageMetadata } from '../../app/(en)/techniques/xy-wing/metadata';
 import { xyzWingPageMetadata } from '../../app/(en)/techniques/xyz-wing/metadata';
+import { termsOfUsePageMetadata } from '../../app/(en)/terms-of-use/metadata';
 import { trackYourProgressPageMetadata } from '../../app/(en)/track-your-progress/metadata';
 import { whySuuudokuuuPageMetadata } from '../../app/(en)/why-suuudokuuu/metadata';
 
@@ -158,6 +159,7 @@ export const PAGE_METADATA_REGISTRY: readonly PageMetadataInterface[] = [
     cellForcingChainPageMetadata,
     regionForcingChainPageMetadata,
     privacyPolicyPageMetadata,
+    termsOfUsePageMetadata,
     turbotFishPageMetadata,
     skyscraperPageMetadata,
     twoStringKitePageMetadata,

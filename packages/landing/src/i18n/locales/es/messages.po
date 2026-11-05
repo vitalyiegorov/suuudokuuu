@@ -1631,6 +1631,10 @@ msgstr "Pistas que nombran la técnica exacta para resolver, no solo el siguient
 msgid "Techniques"
 msgstr "Técnicas"
 
+#: src/chrome/components/site-footer/site-footer.tsx
+msgid "Terms of use"
+msgstr "Términos de uso"
+
 #: src/chrome/components/site-header/site-header.tsx
 msgid "Text size"
 msgstr "Tamaño del texto"
