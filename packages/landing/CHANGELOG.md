@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.41.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.40.6...v2.41.0) (2026-11-05)
+
+### Features
+
+* **landing:** add terms of use page ([#804](https://github.com/vitalyiegorov/suuudokuuu/issues/804)) ([0fac91d](https://github.com/vitalyiegorov/suuudokuuu/commit/0fac91d443f4d62208330d345e49279b01176bf9))
+
+
 ## [2.40.2](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.40.1...v2.40.2) (2026-11-03)
 
 **Note:** Version bump only for package @suuudokuuu/landing
