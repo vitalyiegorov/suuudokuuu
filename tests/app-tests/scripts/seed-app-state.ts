@@ -192,7 +192,6 @@ const writePersistRootToDatabase = (databasePath: string, value: string): void =
     }
 };
 
-/** The legacy kv-store file holding only this seed: what a client with no local device tools installs through exec. */
 export const persistRootDatabase = (options: SeedOptions): Buffer => {
     const directory = mkdtempSync(join(tmpdir(), 'suuudokuuu-persist-'));
     const databasePath = join(directory, 'ExpoSQLiteStorage');

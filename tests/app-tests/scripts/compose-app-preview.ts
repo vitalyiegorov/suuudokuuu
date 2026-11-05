@@ -19,7 +19,25 @@ const DevicePointWidth = 440;
 const SceneChangeThreshold = 0.003;
 const HumanGapsSeconds = '0.45 1.0 0.4 1.0 0.5 0.35 0.4 0.55 0.45 0.5 0.35 0.35 0.5 1.6 1.1 1.0 0.9 0.8 0.7 0.4 2.0'.split(' ').map(Number);
 
-const readTapEvents = (tapsPath: string): TapEvent[] => JSON.parse(readFileSync(tapsPath, 'utf8')) as TapEvent[];
+const isTapEvent = (value: unknown): value is TapEvent =>
+    typeof value === 'object' &&
+    value !== null &&
+    'endSeconds' in value &&
+    'xPoints' in value &&
+    'yPoints' in value &&
+    Number.isFinite(value.endSeconds) &&
+    Number.isFinite(value.xPoints) &&
+    Number.isFinite(value.yPoints);
+
+const readTapEvents = (tapsPath: string): TapEvent[] => {
+    const parsed: unknown = JSON.parse(readFileSync(tapsPath, 'utf8'));
+
+    if (!Array.isArray(parsed) || !parsed.every(isTapEvent)) {
+        throw new Error(`${tapsPath} is not a list of taps with endSeconds, xPoints and yPoints`);
+    }
+
+    return parsed;
+};
 
 const detectFirstSceneChangeSeconds = (recordingPath: string): number => {
     const result = spawnSync(

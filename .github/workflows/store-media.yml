@@ -1,11 +1,5 @@
 name: Store media
 
-# The store media outside the store-screenshots set, on demand: the win and pause
-# scenes on iOS and Android, and the App Store preview. Nothing here contacts a
-# store. It runs the e2e project's media capture (e2e/media.config.ts) on the E2E
-# build the warm-up keeps a base for. These screens show nothing that differs from
-# the production variant, and STORE_CAPTURE sets the same isE2E flag this build has.
-# The pull_request trigger only fires when the capture plumbing itself changes.
 on:
     workflow_dispatch:
     pull_request:

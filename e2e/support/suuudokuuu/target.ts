@@ -21,7 +21,6 @@ process.env.E2E_SESSION ??= `e2e-${randomBytes(4).toString('hex')}`;
 
 type Lease = Pick<SimlockOptions, 'animations' | 'imageTag' | 'iosScreenshotBackend' | 'osVersion'>;
 
-/** A target on a device leased from the farm: the iOS one also installs E2EDrop, the way files reach a simulator. */
 export const target = (platform: keyof typeof BUNDLE_IDS, device: string, lease: Lease = {}, videoTouches = true) => ({
     name: platform,
     engine: mobile({

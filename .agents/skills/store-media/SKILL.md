@@ -75,9 +75,9 @@ before relying on them.
   `submit.production.android.track` in `eas.json` and resolve the version code
   with `google_play_track_version_codes` (supply cannot infer one when it
   uploads no binary).
-- `e2e/support/suuudokuuu/media.ts` - the e2e capture CI runs, and the only one for the win and pause scenes,
-  `tests/app-tests/scripts/capture-store-screenshots.ts` - local direct-link runner,
-  `tests/app-tests/scripts/screenshot-scenes.ts` defines all fifteen scenes: thirteen direct-link captures and two e2e-driven ones. The runner rotates landscape pixels with `sips` and rejects remaining EXIF orientation metadata other than 1.
+- `e2e/support/suuudokuuu/media.ts` - the e2e capture CI runs, and the only one for the win and pause scenes.
+- `tests/app-tests/scripts/capture-store-screenshots.ts` - local direct-link runner.
+- `tests/app-tests/scripts/screenshot-scenes.ts` defines all fifteen scenes: thirteen direct-link captures and two e2e-driven ones. The runner rotates landscape pixels with `sips` and rejects remaining EXIF orientation metadata other than 1.
 - `.github/workflows/native-publish.yml` - store publish; `fastlane
   store_preflight` gates both jobs; metadata pushes after each `eas submit`;
   screenshots upload only with the `push_screenshots` checkbox. It uploads

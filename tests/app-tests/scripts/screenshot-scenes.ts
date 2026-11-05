@@ -16,7 +16,6 @@ export const DefaultSeedDifficulty = 'Hell';
 export const AllAppearances = ['light', 'dark'];
 export const AllDeviceClasses = ['iphone', 'ipad'];
 
-/** A scene with no `deepLink` is driven by the `e2e` media capture; it keeps its place here for the numbered file names. */
 export const AllScenes: Scene[] = [
     { deepLink: 'suuudokuuu://game', name: 'hero-board', sceneState: 'hero', seedDifficulty: 'Nightmare' },
     { deepLink: HomeDeepLink, name: 'hell', seedDifficulty: 'Hell' },
