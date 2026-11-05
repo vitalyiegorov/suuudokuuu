@@ -1,6 +1,6 @@
 # E2E Suite
 
-The E2E suite for both platforms: one [tester-army e2e](https://github.com/tester-army/e2e) test per user scenario. CI (`mobile-e2e.yml`, mobile-ci's `ios-maestro.yml` and `android-maestro.yml` with `test-framework: e2e`) runs it from Linux runners against devices leased from the simlock farm (iPhone 17 Pro simulators, arm64 Pixel 6 emulators) on the repacked E2E app.
+The E2E suite for both platforms: one [tester-army e2e](https://github.com/tester-army/e2e) test per user scenario. CI (`mobile-e2e.yml`, mobile-ci's `ios-e2e.yml` and `android-e2e.yml`) runs it from Linux runners against devices leased from the simlock farm (iPhone 17 Pro simulators, arm64 Pixel 6 emulators) on the repacked E2E app.
 
 It is a standalone npm project, not a pnpm workspace member: mobile-ci hashes this directory into its result-cache key and installs it with `npm ci`.
 
@@ -31,7 +31,7 @@ It is a standalone npm project, not a pnpm workspace member: mobile-ci hashes th
 
 ```bash
 cd e2e && npm ci
-curl -fsSLO https://raw.githubusercontent.com/rnw-community/mobile-ci/v4.10.2/scripts/fetch-e2e-simlock.sh && bash fetch-e2e-simlock.sh v4.10.2 . && rm fetch-e2e-simlock.sh
+curl -fsSLO https://raw.githubusercontent.com/rnw-community/mobile-ci/v5.0.0/scripts/fetch-e2e-simlock.sh && bash fetch-e2e-simlock.sh v5.0.0 . && rm fetch-e2e-simlock.sh
 SIMLOCK_URL=https://simlock.vitaliiyehorov.dev SIMLOCK_TOKEN=<token> E2E_APP_PATH=<path>/Base.app E2E_WORKERS=4 npx e2e run --target ios
 SIMLOCK_URL=https://simlock.vitaliiyehorov.dev SIMLOCK_TOKEN=<token> E2E_APP_PATH=<path>/app-release.apk E2E_WORKERS=2 npx e2e run --target android
 ```

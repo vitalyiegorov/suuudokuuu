@@ -8,7 +8,6 @@
         "appId": "com.vitalyiegorov.suuudokuuu",
         "prebuildCommand": "npx expo prebuild -p ios --clean --no-install"
     },
-    "capture-mode": "direct",
     "capture-manifest": [
         {
             "platform": "ios",
