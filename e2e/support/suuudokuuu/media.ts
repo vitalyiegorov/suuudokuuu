@@ -32,6 +32,7 @@ interface Tap {
 const SETTLE_MS = 6_000;
 
 const LOCALE = /^[a-z]{2}(?:-[A-Za-z]{2,4})?$/u;
+const BACKGROUNDED_MS = 3_000;
 const WIN_CHALLENGE = 'suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-';
 
 const PREVIEW_HOLD_MS = 2_400;
@@ -123,7 +124,7 @@ const SCENES: Record<string, Scene> = {
     pause: {
         run: async ({ ctx }) => {
             await startNewGame(ctx);
-            await backgroundFor(ctx, 3_000);
+            await backgroundFor(ctx, BACKGROUNDED_MS);
             await expectId(ctx, 'PauseScreenSelectors.TimeValue');
         }
     },
