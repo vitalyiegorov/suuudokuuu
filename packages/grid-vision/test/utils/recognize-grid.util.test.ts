@@ -84,6 +84,23 @@ describe('recognizeGrid', () => {
         );
     });
 
+    it('should use the unique app puzzle with solution entries and exactly one wrong handwritten digit', () => {
+        const printed = fixtures.find(fixture => fixture.file === 'app-classic-light-390.jpg')?.expected;
+        const solution = '581279436342618957679354218214863579735491682896725341923147865457986123168532794';
+        const wrongEntryCounts = gridFixtures
+            .filter(fixture => fixture.handwritten.length > 0)
+            .map(fixture => {
+                expect(Array.from(fixture.expected, (digit, index) => (fixture.handwritten[index] === 'h' ? '.' : digit)).join('')).toBe(
+                    printed
+                );
+
+                return Array.from(fixture.expected).filter(
+                    (digit, index) => fixture.handwritten[index] === 'h' && digit !== solution[index]
+                ).length;
+            });
+        expect(wrongEntryCounts).toEqual([0, 0, 0, 0, 0, 1]);
+    });
+
     it.each([0, 1, 2])('should flag nothing with %i filled cells', filledCount => {
         const canvas = renderFlatGrid(
             new SeededRandom(SPARSE_GRID_SEED),
