@@ -71,7 +71,7 @@ msgstr "अंक {digitList} सेल {cellList} में ही आने �
 msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (कॉपी)"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "{droppedCount, plural, one {# didn’t match} other {# didn’t match}}"
 msgstr "{droppedCount, plural, one {# मेल नहीं खाए} other {# मेल नहीं खाए}}"
 
@@ -278,6 +278,10 @@ msgstr "किसी अंक की सभी कोशिकाएँ (1-9)"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "सारी प्रगति खो जाएगी"
+
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "Already solved on paper. You'll start from the printed clues."
+msgstr "कागज़ पर पहले ही हल हो चुका है। आप छपे हुए अंकों से शुरू करेंगे।"
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "ALS-XZ"
@@ -1781,7 +1785,6 @@ msgstr "उठी हुई सतह का टेक्स्ट"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "डेटा संग्रह, भंडारण और आपके अधिकारों पर Suuudokuuu की गोपनीयता नीति पढ़ें।"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Reading the puzzle…"
 msgstr "सुडोकू पढ़ रहे हैं…"

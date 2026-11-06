@@ -73,7 +73,7 @@ msgstr "Los dígitos {digitList} deben ir en las celdas {cellList}: esas celdas 
 msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (copia)"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "{droppedCount, plural, one {# didn’t match} other {# didn’t match}}"
 msgstr "{droppedCount, plural, one {# no coinciden} other {# no coinciden}}"
 
@@ -280,6 +280,10 @@ msgstr "Todas las casillas de un número (1-9)"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "Se perderá todo el progreso"
+
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "Already solved on paper. You'll start from the printed clues."
+msgstr "Ya está resuelto en papel. Empezarás con las pistas impresas."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "ALS-XZ"
@@ -1783,7 +1787,6 @@ msgstr "Texto de la superficie elevada"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Lee la política de privacidad de Suuudokuuu sobre la recogida de datos, su almacenamiento y tus derechos."
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Reading the puzzle…"
 msgstr "Leyendo el sudoku…"

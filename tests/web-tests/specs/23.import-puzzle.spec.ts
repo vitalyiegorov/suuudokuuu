@@ -252,7 +252,7 @@ test('keeps matching handwritten entries, drops wrong entries and starts with no
     await page.getByTestId(`${ImportScreenSelectors.PadValue}.2`).click();
     await cell(page, '0-6').click();
     await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/1 didn’t match.*1 of your entries kept/u);
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/1 didn’t match.*1 of your entries kept/su);
     await page.getByTestId(ImportScreenSelectors.PlayButton).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
     await expect(page.getByTestId(cellTestId(0, 4))).toHaveAccessibleName('Row 1, column 5, 7');
@@ -271,7 +271,7 @@ test('reports a photo without a grid and allows another source', async ({ page }
     await expect(page.getByTestId(ImportScreenSelectors.Sources)).toBeVisible();
 });
 
-test('completes a run when its last digit is a matching handwritten entry', async ({ page }) => {
+test('starts from printed clues when handwritten entries complete the puzzle', async ({ page }) => {
     await openImportFromPlay(page);
     await pickPhoto(page, 'app-classic-light-390.jpg');
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
@@ -280,9 +280,13 @@ test('completes a run when its last digit is a matching handwritten entry', asyn
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('This puzzle is already complete');
     await cell(page, '0-4').click();
     await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/1 of your entries kept/u);
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toContainText(
+        "Already solved on paper. You'll start from the printed clues."
+    );
     await page.getByTestId(ImportScreenSelectors.PlayButton).click();
-    await expect(page.getByTestId(WinnerScreenSelectors.Root)).toBeVisible();
+    await expect(page).toHaveURL(/\/game$/u);
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    await expect(page.getByTestId(cellTestId(0, 4))).toHaveAccessibleName('Row 1, column 5, empty');
 });
 
 test('rejecting pasted text interrupts recognition and restores the sources', async ({ page }) => {
@@ -327,7 +331,7 @@ test('plays and restores handwritten progress recognized from a photo', async ({
     }
 });
 
-test('keeps the selected row visible and the pad scrollable at 200% zoom', async ({ page }) => {
+test('prioritizes the pad when the row and controls cannot fit at 200% zoom', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`/import?puzzle=${uniquePuzzle}`);
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
@@ -341,9 +345,7 @@ test('keeps the selected row visible and the pad scrollable at 200% zoom', async
         })
         .toBe(true);
     await firstCell.click();
-    await expect(firstCell).toBeInViewport({ ratio: 1 });
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeInViewport({ ratio: 1 });
-    await page.getByTestId(ImportScreenSelectors.ClearButton).scrollIntoViewIfNeeded();
     await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
 });
 
@@ -370,7 +372,12 @@ test('keeps the selected row and pad visible while typing at twice the text size
     await page.getByTestId(ImportScreenSelectors.TypeButton).click();
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeVisible();
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeDisabled();
+    const statusText = page.getByTestId(ImportScreenSelectors.Status).getByText(emptyStatus);
+    const initialFontSize = await statusText.evaluate(element => Number.parseFloat(getComputedStyle(element).fontSize));
     await page.addStyleTag({ content: '[dir="auto"] { font-size: 200% !important; }' });
+    await expect
+        .poll(() => statusText.evaluate(element => Number.parseFloat(getComputedStyle(element).fontSize)))
+        .toBeGreaterThan(initialFontSize);
     await cell(page, '0-0').click();
     await expect(cell(page, '0-0')).toBeInViewport({ ratio: 1 });
     await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
@@ -412,12 +419,12 @@ test('pins Play while typing, selecting a cell and loading a unique puzzle', asy
     expect((await play.boundingBox())?.y).toBe(typingBounds?.y);
 });
 
-test('keeps the selected first row inside the desktop scroll viewport', async ({ page }) => {
+test('keeps the selected row inside the desktop scroll viewport when it fits with the pad', async ({ page }) => {
     await page.setViewportSize({ width: 1440, height: 900 });
     await openImportFromPlay(page);
     await pickPhoto(page, 'handwritten-photo-01.jpg');
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
-    const selectedCell = page.getByRole('button', { name: /Row 1,.*handwritten/u }).first();
+    const selectedCell = page.getByRole('button', { name: /Row 5,.*handwritten/u }).first();
     await selectedCell.click();
     await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toBeVisible();
     await expect
@@ -435,4 +442,45 @@ test('keeps the selected first row inside the desktop scroll viewport', async ({
             );
         })
         .toBe(true);
+});
+
+for (const viewport of [
+    { width: 1440, height: 900 },
+    { width: 390, height: 844 }
+]) {
+    test(`keeps the entry toggle above Play at ${viewport.width}px`, async ({ page }) => {
+        await page.setViewportSize(viewport);
+        await openImportFromPlay(page);
+        await pickPhoto(page, 'handwritten-photo-01.jpg');
+        await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+        if (viewport.width < viewport.height) {
+            await page.addStyleTag({ content: '[dir="auto"] { font-size: 200% !important; }' });
+        }
+        await page
+            .getByRole('button', { name: /Row 1,.*handwritten/u })
+            .first()
+            .click();
+        await expect
+            .poll(async () => {
+                const toggle = await page.getByTestId(ImportScreenSelectors.EntryToggleButton).boundingBox();
+                const play = await page.getByTestId(ImportScreenSelectors.PlayButton).boundingBox();
+                const scroll = await page.getByTestId(ImportScreenSelectors.Root).boundingBox();
+
+                return (
+                    toggle !== null &&
+                    play !== null &&
+                    scroll !== null &&
+                    toggle.y >= scroll.y &&
+                    toggle.y + toggle.height <= Math.min(play.y, scroll.y + scroll.height)
+                );
+            })
+            .toBe(true);
+    });
+}
+
+test('marks uncertain digits recognized from a photo for review', async ({ page }) => {
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'handwritten-photo-03.jpg');
+    await expect(page.getByRole('button', { name: /check this digit/u }).first()).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toContainText('digits to check');
 });

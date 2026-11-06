@@ -32,6 +32,7 @@ import { useImportReview } from './hooks/use-import-review.hook';
 import { useImportScroll } from './hooks/use-import-scroll.hook';
 import { ImportBoard } from './import-board/import-board';
 import { ImportCellPad } from './import-cell-pad/import-cell-pad';
+import { ImportReviewGuidance } from './import-review-guidance/import-review-guidance';
 import { ImportScreenSelectors } from './import-screen.selectors';
 import { ImportScreenStyles as styles } from './import-screen.styles';
 import { ImportSources } from './import-sources/import-sources';
@@ -77,8 +78,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     const isAssessedCurrent = isDefined(assessed) && assessed.puzzleString === puzzleString;
 
     const hasBoard = hasDigits || isTyping || isRecognizing;
-    const { scrollRef, handleScroll, handleScrollLayout, handleBoardLayout, handlePadLayout, handleFooterLayout, bottomInset } =
-        useImportScroll(selectedCellIndex, hasBoard);
+    const { scrollRef, handleScroll, handleScrollLayout, handleBoardLayout, handlePadLayout } = useImportScroll(selectedCellIndex);
     const imageFiber = useRef<Fiber.Fiber<void> | null>(null);
     const interruptImage = () => {
         if (isDefined(imageFiber.current)) {
@@ -183,7 +183,6 @@ export const ImportScreen = ({ initialText }: Props) => {
         }
     }, [settledAssessed]);
 
-    const contentStyles = [styles.content, { paddingBottom: bottomInset }];
     const entryLabel = isEntry ? t`Make printed clue` : t`Make my entry`;
     const toggleLabel = canToggle ? entryLabel : null;
 
@@ -227,7 +226,7 @@ export const ImportScreen = ({ initialText }: Props) => {
                 onLayout={handleScrollLayout}
                 onScroll={handleScroll}
                 scrollEventThrottle={16}
-                contentContainerStyle={contentStyles}
+                contentContainerStyle={styles.content}
                 contentInsetAdjustmentBehavior="never"
                 style={styles.scroll}
                 testID={ImportScreenSelectors.Root}
@@ -249,20 +248,26 @@ export const ImportScreen = ({ initialText }: Props) => {
 
                 {hasBoard || isPasteMissed || isGridMissed ? (
                     <ImportStatus
-                        entryString={entryString}
-                        uncertainCellCount={uncertainCellIndexes.length}
                         sourceStatus={sourceStatus}
                         assessed={boardAssessed}
                         isCheckFailed={isCheckFailed}
+                        isRecognizing={isRecognizing}
                         puzzleString={puzzleString}
-                    />
+                    >
+                        <ImportReviewGuidance
+                            clueString={puzzleString}
+                            entryString={entryString}
+                            assessment={uniqueAssessment}
+                            uncertainCellCount={uncertainCellIndexes.length}
+                        />
+                    </ImportStatus>
                 ) : null}
                 {isDefined(selectedCellIndex) ? (
                     <ImportCellPad onLayout={handlePadLayout} onInput={input} onToggleEntry={toggleEntry} toggleLabel={toggleLabel} />
                 ) : null}
             </ScrollView>
             {hasBoard ? (
-                <View onLayout={handleFooterLayout} style={styles.footer}>
+                <View style={styles.footer}>
                     <View style={styles.footerSlot}>
                         <AppButton
                             disabled={isPlayDisabled}

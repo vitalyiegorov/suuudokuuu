@@ -1,5 +1,6 @@
 import { plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
+import { getMatchingEntryCellIndexes, isImportedPuzzleCompleted } from '@suuudokuuu/puzzle-forge';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -7,14 +8,22 @@ import { BlackText } from '../../../../@generic/components/black-text/black-text
 
 import { ImportReviewGuidanceStyles as styles } from './import-review-guidance.styles';
 
+import type { SerializedPuzzleInterface } from '@suuudokuuu/puzzle-forge';
+
 interface Props {
-    readonly keptEntryCount: number;
-    readonly entryCount: number;
+    readonly clueString: string;
+    readonly entryString: string;
+    readonly assessment: Pick<SerializedPuzzleInterface, 'solutionString'> | null;
     readonly uncertainCellCount: number;
 }
 
-export const ImportReviewGuidance = ({ entryCount, uncertainCellCount, keptEntryCount: keptCount }: Props) => {
+export const ImportReviewGuidance = ({ clueString, entryString, assessment, uncertainCellCount }: Props) => {
     const { t } = useLingui();
+    const solutionString = assessment?.solutionString ?? null;
+    const entryCount = Array.from(entryString).filter(digit => /[1-9]/u.test(digit)).length;
+    const keptCount = isDefined(solutionString) ? getMatchingEntryCellIndexes(entryString, solutionString).length : 0;
+    const droppedCount = isDefined(solutionString) ? entryCount - keptCount : 0;
+    const isCompleted = isDefined(solutionString) && isImportedPuzzleCompleted(clueString, entryString, solutionString);
     const getGuidance = (): string | null => {
         const hasEntries = entryCount > 0;
         if (uncertainCellCount > 0) {
@@ -32,7 +41,10 @@ export const ImportReviewGuidance = ({ entryCount, uncertainCellCount, keptEntry
     };
     const keptText =
         keptCount > 0 ? t({ message: plural(keptCount, { one: '# of your entries kept', other: '# of your entries kept' }) }) : null;
-    const guidance = [keptText, getGuidance()].filter(isDefined).join(' · ');
+    const droppedText = droppedCount > 0 ? t({ message: plural(droppedCount, { one: '# didn’t match', other: '# didn’t match' }) }) : null;
+    const guidance = isCompleted
+        ? t`Already solved on paper. You'll start from the printed clues.`
+        : [droppedText, keptText, getGuidance()].filter(isDefined).join('\n');
 
     return guidance.length > 0 ? <BlackText style={styles.guidance}>{guidance}</BlackText> : null;
 };

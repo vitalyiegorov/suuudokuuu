@@ -71,7 +71,7 @@ msgstr "يجب أن توضع الأرقام {digitList} في الخلايا {cel
 msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (نسخة)"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "{droppedCount, plural, one {# didn’t match} other {# didn’t match}}"
 msgstr "{droppedCount, plural, one {# لم تتطابق} other {# لم تتطابق}}"
 
@@ -278,6 +278,10 @@ msgstr "كل خانات رقم معين (1-9)"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "سيضيع كل التقدم"
+
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "Already solved on paper. You'll start from the printed clues."
+msgstr "حُلّت بالفعل على الورق. ستبدأ من الأرقام المطبوعة."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "ALS-XZ"
@@ -1781,7 +1785,6 @@ msgstr "نص السطح المرتفع"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "اطّلع على سياسة خصوصية Suuudokuuu بشأن جمع البيانات وتخزينها وحقوقك."
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Reading the puzzle…"
 msgstr "جارٍ قراءة السودوكو…"

@@ -3,6 +3,7 @@ import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { CurrentRunService } from '@suuudokuuu/progress';
 import {
     getMatchingEntryCellIndexes,
+    isImportedPuzzleCompleted,
     getDailyDateString,
     getDailyDayNumber,
     getDailyDifficulty,
@@ -32,10 +33,10 @@ const replayEntries = (
     currentRunService: CurrentRunService['Service'],
     nextEngine: FieldEngine,
     entryString: string,
-    solutionString: string
+    matchingEntryCellIndexes: readonly number[]
 ) =>
     Effect.forEach(
-        getMatchingEntryCellIndexes(entryString, solutionString),
+        matchingEntryCellIndexes,
         index =>
             Effect.sync(() =>
                 nextEngine.placeValue(
@@ -68,7 +69,7 @@ export const useGameCreation = () => {
             Effect.flatMap(nextEngine => Effect.flatMap(CurrentRunService, service => command(service, nextEngine))),
             Effect.tap(nextEngine => Effect.sync(() => void setEngine(nextEngine))),
             Effect.tap(() => AtomRegistry.getResult(appAtomRegistry, currentRunAtom, { suspendOnWaiting: true })),
-            Effect.flatMap(nextEngine => Effect.sync(() => void router.dismissTo(nextEngine.getSnapshot().isWon ? '/winner' : '/game')))
+            Effect.flatMap(() => Effect.sync(() => void router.dismissTo('/game')))
         );
 
     const createFromState = (newState: CurrentRunType) =>
@@ -82,19 +83,26 @@ export const useGameCreation = () => {
     const startRun = (
         setup: Pick<CurrentRunType, 'dailyDayNumber' | 'difficulty' | 'isChallengeRun' | 'maxMistakes'>,
         { sudokuString, solutionString, rating, isRatingCeiling }: SerializedPuzzleInterface,
-        entryString = ''
-    ) =>
-        enterRun(
+        entryString?: string
+    ) => {
+        const matchingEntryCellIndexes =
+            isDefined(entryString) && !isImportedPuzzleCompleted(sudokuString, entryString, solutionString)
+                ? getMatchingEntryCellIndexes(entryString, solutionString)
+                : [];
+
+        return enterRun(
             () => new FieldEngine({ sudokuString, solutionString, difficulty: setup.difficulty }),
             (currentRunService, nextEngine) =>
                 currentRunService.start({ ...setup, sudokuString, rating, isRatingCeiling }).pipe(
-                    Effect.andThen(replayEntries(currentRunService, nextEngine, entryString, solutionString)),
                     Effect.andThen(
-                        Effect.suspend(() => (nextEngine.getSnapshot().isWon ? currentRunService.finish(true, false) : Effect.void))
+                        isDefined(entryString) && matchingEntryCellIndexes.length > 0
+                            ? replayEntries(currentRunService, nextEngine, entryString, matchingEntryCellIndexes)
+                            : Effect.void
                     ),
-                    Effect.map(() => (entryString.length > 0 ? gameCreateEngine(nextEngine.serialize()) : nextEngine))
+                    Effect.map(() => (matchingEntryCellIndexes.length > 0 ? gameCreateEngine(nextEngine.serialize()) : nextEngine))
                 )
         );
+    };
 
     const startForgedGame = (
         setup: Pick<CurrentRunType, 'dailyDayNumber' | 'difficulty' | 'isChallengeRun' | 'maxMistakes'>,

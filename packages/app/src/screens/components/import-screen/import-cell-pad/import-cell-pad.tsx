@@ -26,7 +26,7 @@ export const ImportCellPad = ({ onLayout, onInput, toggleLabel, onToggleEntry }:
         <View onLayout={onLayout} style={styles.wrapper}>
             <View style={styles.pad}>
                 {padValues.map(value => (
-                    <ImportCellPadButton isDisabled={false} key={value} onInput={onInput} value={value} />
+                    <ImportCellPadButton key={value} onInput={onInput} value={value} />
                 ))}
                 <AppButton
                     accessibilityLabel={t`Clear cell`}

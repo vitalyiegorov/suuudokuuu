@@ -16,3 +16,5 @@ export { getDailyPuzzleSeed } from './daily/utils/get-daily-puzzle-seed.util';
 export { assessImportedPuzzle } from './import/utils/assess-imported-puzzle.util';
 export { splitRecognizedPuzzle } from './import/utils/split-recognized-puzzle.util';
 export { getMatchingEntryCellIndexes } from './import/utils/get-matching-entry-cell-indexes.util';
+
+export { isImportedPuzzleCompleted } from './import/utils/is-imported-puzzle-completed.util';

@@ -1,9 +1,9 @@
 import { msg, plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
-import { getMatchingEntryCellIndexes, ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
+import { ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
 import LucideCircleAlert from 'lucide-react-native/icons/circle-alert';
-import { use } from 'react';
+import { use, type ReactNode } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { interpolateColor } from 'react-native-reanimated';
 
@@ -13,7 +13,6 @@ import { BlackText } from '../../../../@generic/components/black-text/black-text
 import { formatSeRatingValue } from '../../../../@generic/utils/format-se-rating-value.util';
 import { getDifficultyMessage } from '../../../../@generic/utils/get-difficulty-message.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
-import { ImportReviewGuidance } from '../import-review-guidance/import-review-guidance';
 import { ImportScreenSelectors } from '../import-screen.selectors';
 
 import { ImportStatusStyles as styles } from './import-status.styles';
@@ -63,32 +62,26 @@ const getConflictMessage = (puzzleString: string, cellIndexes: readonly number[]
 const errorForegroundBlend = 0.25;
 
 interface Props {
-    readonly entryString: string;
-    readonly uncertainCellCount: number;
+    readonly children: ReactNode;
     readonly sourceStatus: string | null;
     readonly assessed: { readonly assessment: ImportedPuzzleAssessmentType; readonly puzzleString: string } | null;
     readonly isCheckFailed: boolean;
+    readonly isRecognizing: boolean;
     readonly puzzleString: string;
 }
 
-export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryString, sourceStatus, uncertainCellCount }: Props) => {
+export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, children, sourceStatus, isRecognizing }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
     const getClueCount = (text: string) => Array.from(text).filter(cell => digitPattern.test(cell)).length;
-    const boardClueCount = getClueCount(puzzleString);
     const getUniqueText = (
         settledAssessment: Extract<ImportedPuzzleAssessmentType, { readonly kind: ImportedPuzzleAssessmentKindEnum.UNIQUE }>
     ): string => {
         const difficulty = t(getDifficultyMessage(settledAssessment.difficulty));
         const rating = formatSeRatingValue(settledAssessment.rating, settledAssessment.isRatingCeiling);
 
-        const keptCount = getMatchingEntryCellIndexes(entryString, settledAssessment.solutionString).length;
-        const droppedCount = getClueCount(entryString) - keptCount;
-        const droppedText = t({ message: plural(droppedCount, { one: '# didn’t match', other: '# didn’t match' }) });
-        const assessmentText = t`One solution · ${difficulty} · SE ${rating}`;
-
-        return [assessmentText, ...(droppedCount > 0 ? [droppedText] : [])].join(' · ');
+        return t`One solution · ${difficulty} · SE ${rating}`;
     };
     const getAssessmentText = ({
         assessment: settledAssessment,
@@ -124,23 +117,18 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
             return sourceStatus;
         }
 
-        return boardClueCount > 0 ? getBoardText() : t`Tap a cell to type it`;
+        return getClueCount(puzzleString) > 0 ? getBoardText() : t`Tap a cell to type it`;
     };
 
     const statusText = getStatusText();
     const isError =
-        (isDefined(sourceStatus) && sourceStatus !== t`Reading the puzzle…`) ||
+        (isDefined(sourceStatus) && !isRecognizing) ||
         isCheckFailed ||
         assessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.CONFLICT ||
         assessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.NO_SOLUTION;
     const errorColor = interpolateColor(errorForegroundBlend, [0, 1], [theme.colors.danger, theme.colors.text.primary]);
     const color = isError ? errorColor : theme.colors.text.primary;
     const textStyles = [styles.status, { color }];
-
-    const keptEntryCount =
-        assessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.UNIQUE
-            ? getMatchingEntryCellIndexes(entryString, assessed.assessment.solutionString).length
-            : 0;
 
     return (
         <View
@@ -156,14 +144,10 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
                         <LucideCircleAlert color={color} size={20} />
                     </View>
                 ) : null}
-                {sourceStatus === t`Reading the puzzle…` ? <ActivityIndicator color={color} size={20} style={styles.icon} /> : null}
+                {isRecognizing ? <ActivityIndicator color={color} size={20} style={styles.icon} /> : null}
                 <BlackText style={textStyles}>{statusText}</BlackText>
             </View>
-            <ImportReviewGuidance
-                keptEntryCount={keptEntryCount}
-                entryCount={getClueCount(entryString)}
-                uncertainCellCount={uncertainCellCount}
-            />
+            {children}
         </View>
     );
 };
