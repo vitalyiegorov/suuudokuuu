@@ -1,4 +1,5 @@
 import { FieldEngine } from '@suuudokuuu/field-core';
+import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { CurrentRunService } from '@suuudokuuu/progress';
 import {
     getMatchingEntryCellIndexes,
@@ -37,7 +38,10 @@ const replayEntries = (
         getMatchingEntryCellIndexes(entryString, solutionString),
         index =>
             Effect.sync(() =>
-                nextEngine.placeValue(nextEngine.Sudoku.Field[Math.floor(index / 9)][index % 9], Number(entryString[index]))
+                nextEngine.placeValue(
+                    nextEngine.Sudoku.Field[Math.floor(index / defaultSudokuConfig.fieldSize)][index % defaultSudokuConfig.fieldSize],
+                    Number(entryString[index])
+                )
             ).pipe(
                 Effect.flatMap(move =>
                     isDefined(move)

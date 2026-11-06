@@ -53,7 +53,7 @@ export const useImportReview = (initialText: string) => {
             setPuzzleString(parsed);
             update({ ...initialState, entranceKey: state.entranceKey + 1 });
         } else {
-            update({ isPasteMissed: true });
+            update({ isPasteMissed: true, isRecognizing: false });
         }
     };
     const loadGrid = (result: Extract<GridRecognitionType, { readonly puzzleString: string }>) => {

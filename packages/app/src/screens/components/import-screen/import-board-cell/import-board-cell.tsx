@@ -7,6 +7,7 @@ import Animated, { cubicBezier } from 'react-native-reanimated';
 import { animationEaseOutCurveConstant } from '../../../../@generic/constants/animation.constant';
 import { useReduceMotion } from '../../../../@generic/hooks/use-reduce-motion.hook';
 import { CellStyles as cellStyles } from '../../../../@generic/styles/cell.styles';
+import { applyColorAlpha } from '../../../../@generic/utils/apply-color-alpha.util';
 import { useCellBorderStyles } from '../../../../game/hooks/use-cell-border-styles.hook';
 import { useCellFontSize } from '../../../../game/hooks/use-cell-font-size.hook';
 import { gameGetCellAccessibilityLabel } from '../../../../game/utils/game-get-cell-accessibility-label.util';
@@ -18,6 +19,8 @@ import { ImportBoardCellStyles as styles } from './import-board-cell.styles';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 
+const reviewTintAlpha = 0.15;
+const conflictTintAlpha = 0.12;
 const boardSudoku = new Sudoku();
 const digitEnterDurationMs = 200;
 const digitEnterRowDelayMs = 25;
@@ -49,10 +52,10 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
     const isUncertain = tone === ImportCellToneEnum.UNCERTAIN || tone === ImportCellToneEnum.UNCERTAIN_ENTRY;
     const isEmpty = cell.value === defaultSudokuConfig.blankCellValue;
     const valueBackgroundColor = isEmpty ? theme.colors.surface.raised : theme.colors.board.filled;
-    const checkedBackgroundColor = isUncertain ? theme.colors.surface.subtle : valueBackgroundColor;
-    const backgroundColor = isConflict ? theme.colors.board.error : checkedBackgroundColor;
+    const checkedBackgroundColor = isUncertain || isEntry ? applyColorAlpha(theme.colors.accent, reviewTintAlpha) : valueBackgroundColor;
+    const backgroundColor = isConflict ? applyColorAlpha(theme.colors.danger, conflictTintAlpha) : checkedBackgroundColor;
     const containerStyles = [cellStyles.container(cellSize), { backgroundColor }, ...borderStyles];
-    const ringStyles = [styles.ring, { borderColor: theme.colors.board.selected }];
+    const ringStyles = [styles.ring, { borderColor: theme.colors.accent }];
     const cellText = isEmpty ? '' : String(cell.value);
     const cellLabel = i18n._(
         gameGetCellAccessibilityLabel({ candidates: [], cell, eliminatedCandidates: [], isEmpty, isWrong: isConflict })
@@ -65,7 +68,7 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
         animationFillMode: 'backwards' as const,
         animationName: isMotionReduced ? digitFadeKeyframes : digitEnterKeyframes,
         animationTimingFunction: digitEnterEasing,
-        color: isEntry ? theme.colors.board.emptyText : theme.colors.ink,
+        color: isConflict ? theme.colors.danger : theme.colors.text.primary,
         fontSize
     };
 

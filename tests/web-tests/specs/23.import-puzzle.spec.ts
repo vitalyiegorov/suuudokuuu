@@ -283,3 +283,65 @@ test('completes a run when its last digit is a matching handwritten entry', asyn
     await page.getByTestId(ImportScreenSelectors.PlayButton).click();
     await expect(page.getByTestId(WinnerScreenSelectors.Root)).toBeVisible();
 });
+
+test('rejecting pasted text interrupts recognition and restores the sources', async ({ page }) => {
+    await openImportFromPlay(page);
+    await page.clock.install();
+    await page.clock.pauseAt(new Date());
+    await pickPhoto(page, 'app-classic-light-390.jpg');
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('Reading the puzzle…');
+    await page.evaluate(() => {
+        const transfer = new DataTransfer();
+        transfer.setData('text/plain', 'not a puzzle');
+        document.dispatchEvent(new ClipboardEvent('paste', { clipboardData: transfer, bubbles: true }));
+    });
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('No puzzle found on the clipboard');
+    await expect(page.getByTestId(ImportScreenSelectors.Sources)).toBeVisible();
+});
+
+test('plays and restores handwritten progress recognized from a photo', async ({ page }) => {
+    const [file, puzzle, handwriting] =
+        readFileSync(resolve(fixtureDirectory, 'manifest.txt'), 'utf8')
+            .split('\n')
+            .find(line => line.startsWith('handwritten-photo-01.jpg '))
+            ?.split(' ') ?? [];
+    await openImportFromPlay(page);
+    await pickPhoto(page, file);
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/of your entries kept/u);
+    await page.getByTestId(ImportScreenSelectors.PlayButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    for (const [index, mark] of Array.from(handwriting).entries()) {
+        if (mark === 'h') {
+            await expect(page.getByTestId(cellTestId(Math.floor(index / 9), index % 9))).toHaveText(puzzle[index]);
+        }
+    }
+    await expect(page.getByTestId(UndoButtonSelectors.Root)).toBeDisabled();
+    await page.reload();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    for (const [index, mark] of Array.from(handwriting).entries()) {
+        if (mark === 'h') {
+            await expect(page.getByTestId(cellTestId(Math.floor(index / 9), index % 9))).toHaveText(puzzle[index]);
+        }
+    }
+});
+
+test('keeps a square board in place when opening the pad at 200% zoom', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(`/import?puzzle=${uniquePuzzle}`);
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    await page.addStyleTag({ content: 'html { zoom: 2; }' });
+    const firstCell = cell(page, '0-0');
+    await expect
+        .poll(async () => {
+            const bounds = await firstCell.boundingBox();
+
+            return bounds !== null && bounds.width > 0 && Math.abs(bounds.width - bounds.height) < 1;
+        })
+        .toBe(true);
+    const boardTop = await firstCell.boundingBox();
+    await firstCell.click();
+    await expect(page.getByTestId(`${ImportScreenSelectors.PadValue}.1`)).toBeVisible();
+    await expect.poll(async () => (await firstCell.boundingBox())?.y).toBe(boardTop?.y);
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeInViewport({ ratio: 1 });
+});

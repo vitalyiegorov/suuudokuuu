@@ -3,7 +3,7 @@ import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { AppButton } from '@suuudokuuu/ui';
 import LucideDelete from 'lucide-react-native/icons/delete';
 import { View } from 'react-native';
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import Animated, { FadeIn } from 'react-native-reanimated';
 
 import { useReduceMotion } from '../../../../@generic/hooks/use-reduce-motion.hook';
 import { ImportCellPadButton } from '../import-cell-pad-button/import-cell-pad-button';
@@ -22,7 +22,7 @@ export const ImportCellPad = ({ onInput, toggleLabel, onToggleEntry }: Props) =>
     const { t } = useLingui();
 
     const isMotionReduced = useReduceMotion();
-    const motionProps = isMotionReduced ? {} : { entering: FadeIn, exiting: FadeOut };
+    const motionProps = isMotionReduced ? {} : { entering: FadeIn };
 
     const handleClear = () => void onInput(defaultSudokuConfig.blankCellValue);
 

@@ -1,15 +1,14 @@
 import { msg, plural } from '@lingui/core/macro';
-import { useLingui } from '@lingui/react/macro';
+import { Trans, useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { getMatchingEntryCellIndexes, ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
+import LucideCircleAlert from 'lucide-react-native/icons/circle-alert';
 import { use } from 'react';
-import { View } from 'react-native';
-import Animated, { Easing, FadeIn, FadeOut } from 'react-native-reanimated';
+import { ActivityIndicator, View } from 'react-native';
 
 import { isDefined } from '@rnw-community/shared';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
-import { animationDurationConstant, animationEaseOutCurveConstant } from '../../../../@generic/constants/animation.constant';
 import { formatSeRatingValue } from '../../../../@generic/utils/format-se-rating-value.util';
 import { getDifficultyMessage } from '../../../../@generic/utils/get-difficulty-message.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
@@ -21,9 +20,6 @@ import type { MessageDescriptor } from '@lingui/core';
 import type { ImportedPuzzleAssessmentType } from '@suuudokuuu/puzzle-forge';
 
 const { fieldGroupHeight, fieldGroupWidth, fieldSize } = defaultSudokuConfig;
-const crossfadeEasing = Easing.bezier(...animationEaseOutCurveConstant);
-const statusEntering = FadeIn.duration(animationDurationConstant).easing(crossfadeEasing);
-const statusExiting = FadeOut.duration(animationDurationConstant).easing(crossfadeEasing);
 const digitPattern = /[1-9]/u;
 
 const conflictUnits = [
@@ -64,13 +60,14 @@ const getConflictMessage = (puzzleString: string, cellIndexes: readonly number[]
 
 interface Props {
     readonly entryString: string;
+    readonly uncertainCellCount: number;
     readonly sourceStatus: string | null;
     readonly assessed: { readonly assessment: ImportedPuzzleAssessmentType; readonly puzzleString: string } | null;
     readonly isCheckFailed: boolean;
     readonly puzzleString: string;
 }
 
-export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryString, sourceStatus }: Props) => {
+export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryString, sourceStatus, uncertainCellCount }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
@@ -129,8 +126,14 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
     };
 
     const statusText = getStatusText();
-    const isHint = boardClueCount === 0 || isDefined(sourceStatus);
-    const textStyles = [styles.status, { color: isHint ? theme.colors.text.hint : theme.colors.text.primary }];
+    const isError =
+        (isDefined(sourceStatus) && sourceStatus !== t`Reading the puzzle…`) ||
+        isCheckFailed ||
+        assessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.CONFLICT ||
+        assessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.NO_SOLUTION;
+    const color = isError ? theme.colors.danger : theme.colors.text.primary;
+    const textStyles = [styles.status, { color }];
+    const hasReviewDigits = getClueCount(entryString) > 0 || uncertainCellCount > 0;
 
     return (
         <View
@@ -140,9 +143,16 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
             style={styles.container}
             testID={ImportScreenSelectors.Status}
         >
-            <Animated.View entering={statusEntering} exiting={statusExiting} key={statusText}>
+            <View style={styles.message}>
+                {isError ? <LucideCircleAlert color={color} size={20} /> : null}
+                {sourceStatus === t`Reading the puzzle…` ? <ActivityIndicator color={color} /> : null}
                 <BlackText style={textStyles}>{statusText}</BlackText>
-            </Animated.View>
+            </View>
+            {hasReviewDigits ? (
+                <BlackText style={styles.guidance}>
+                    <Trans>Handwritten digits are kept as progress. Tap a shaded cell to review it.</Trans>
+                </BlackText>
+            ) : null}
         </View>
     );
 };

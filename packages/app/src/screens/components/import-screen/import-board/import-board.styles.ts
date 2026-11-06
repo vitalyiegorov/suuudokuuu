@@ -4,7 +4,8 @@ export const ImportBoardStyles = StyleSheet.create({
     area: {
         alignItems: 'center',
         alignSelf: 'center',
-        flex: 1,
+        aspectRatio: 1,
+        flexShrink: 0,
         justifyContent: 'center',
         maxWidth: 480,
         minHeight: 0,

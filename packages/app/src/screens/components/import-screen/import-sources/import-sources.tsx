@@ -33,7 +33,7 @@ export const ImportSources = ({ onScan, onPhotos, onPaste, onType }: Props) => {
                 style={styles.hero}
                 testID={ImportScreenSelectors.ScanButton}
             >
-                <LucideScanLine color={theme.colors.board.selectedText} size={32} />
+                <LucideScanLine color={theme.colors.inkText} size={32} />
                 <BlackText style={styles.title}>
                     <Trans>Scan a puzzle</Trans>
                 </BlackText>

@@ -10,7 +10,7 @@ import { NotificationFeedbackType } from 'expo-haptics';
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useIsFocused } from 'expo-router';
 import { use, useEffect, useEffectEvent, useRef, useState } from 'react';
-import { Pressable, View } from 'react-native';
+import { Pressable, ScrollView, View } from 'react-native';
 
 import { emptyFn, isDefined } from '@rnw-community/shared';
 
@@ -202,7 +202,7 @@ export const ImportScreen = ({ initialText }: Props) => {
 
     return (
         <SheetFrame accessibilityLabel={t`Import a puzzle`} detents={ImportDetents}>
-            <View style={styles.content} testID={ImportScreenSelectors.Root}>
+            <View collapsable={false} style={styles.headerContainer}>
                 <View style={styles.header}>
                     <Header style={styles.title} testID={ImportScreenSelectors.Title} text={t`Import a puzzle`} />
                     {hasBoard ? (
@@ -219,7 +219,13 @@ export const ImportScreen = ({ initialText }: Props) => {
                         </Pressable>
                     ) : null}
                 </View>
-
+            </View>
+            <ScrollView
+                contentContainerStyle={styles.content}
+                contentInsetAdjustmentBehavior="never"
+                style={styles.scroll}
+                testID={ImportScreenSelectors.Root}
+            >
                 {hasBoard ? (
                     <ImportBoard
                         entryString={entryString}
@@ -234,13 +240,10 @@ export const ImportScreen = ({ initialText }: Props) => {
                     <ImportSources onScan={handleScan} onPhotos={handlePhotos} onPaste={handlePaste} onType={handleType} />
                 )}
 
-                {isDefined(selectedCellIndex) ? (
-                    <ImportCellPad onInput={input} onToggleEntry={toggleEntry} toggleLabel={toggleLabel} />
-                ) : null}
-
                 {hasBoard || isPasteMissed || isGridMissed ? (
                     <ImportStatus
                         entryString={entryString}
+                        uncertainCellCount={uncertainCellIndexes.length}
                         sourceStatus={sourceStatus}
                         assessed={boardAssessed}
                         isCheckFailed={isCheckFailed}
@@ -248,6 +251,13 @@ export const ImportScreen = ({ initialText }: Props) => {
                     />
                 ) : null}
 
+                <View style={styles.padSlot}>
+                    {isDefined(selectedCellIndex) ? (
+                        <ImportCellPad onInput={input} onToggleEntry={toggleEntry} toggleLabel={toggleLabel} />
+                    ) : null}
+                </View>
+            </ScrollView>
+            <View style={styles.footer}>
                 {hasDigits ? (
                     <AppButton
                         disabled={isPlayDisabled}

@@ -16,3 +16,11 @@
         opacity: 0.85;
     }
 }
+
+[data-testid='ImportScreenSelectors.ResetButton'] {
+    outline: none;
+}
+[data-testid='ImportScreenSelectors.ResetButton']:focus-visible {
+    outline: 2px solid var(--colors-ink);
+    outline-offset: 2px;
+}
