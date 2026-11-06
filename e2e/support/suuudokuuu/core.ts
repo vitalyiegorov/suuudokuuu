@@ -111,6 +111,7 @@ export async function seconds(ctx: Ctx, testId: string): Promise<number> {
 }
 
 interface DeviceState {
+    readonly importPhoto?: (ctx: Ctx, api: SimlockApi, lease: string, photo: Buffer) => Promise<void>;
     readonly prepare: (api: SimlockApi, lease: string) => Promise<void>;
     readonly seed: (api: SimlockApi, lease: string, database?: Buffer, legacyStorage?: Buffer) => Promise<void>;
 }
@@ -144,6 +145,21 @@ const DEVICE_STATES: Record<Platform, DeviceState> = {
         }
     },
     android: {
+        importPhoto: async (ctx, api, lease, photo) => {
+            const path = '/sdcard/Pictures/import-puzzle.jpg';
+            await mustExec(api, lease, ['shell', `mkdir -p /sdcard/Pictures && base64 -d > ${path}`], photo.toString('base64'));
+            await mustExec(api, lease, [
+                'shell',
+                'am',
+                'broadcast',
+                '-a',
+                'android.intent.action.MEDIA_SCANNER_SCAN_FILE',
+                '-d',
+                `file://${path}`
+            ]);
+            await tapId(ctx, 'ImportScreenSelectors.PhotosButton');
+            await ctx.screen.getByTestId('com.google.android.providers.media.module:id/icon_thumbnail').first().tap();
+        },
         prepare: async (api, lease) => {
             await mustExec(api, lease, ['root']);
         },
@@ -214,6 +230,23 @@ export class Suuudokuuu {
             await tapId(this.ctx, 'MainTabSelectors.Play');
             await expectId(this.ctx, 'HomeScreenSelectors.Root', WAIT_SLOW);
         });
+    }
+
+    async importPhoto(): Promise<boolean> {
+        const { importPhoto } = DEVICE_STATES[this.ctx.device.unstable_raw.platform];
+        if (importPhoto === undefined) {
+            console.log('[skip] Photos import: iOS farm addmedia fails with PHPhotosErrorDomain 3301 (LaunchdSimError 133)');
+
+            return false;
+        }
+        await importPhoto(
+            this.ctx,
+            this.api,
+            await this.lease(),
+            readFileSync(new URL('../../../packages/grid-vision/test/fixtures/app-classic-light-390.jpg', import.meta.url))
+        );
+
+        return true;
     }
 
     async #prepare(state: DeviceState, lease: string): Promise<void> {

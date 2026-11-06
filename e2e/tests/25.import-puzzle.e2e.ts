@@ -71,4 +71,18 @@ test('25 import puzzle', async ({ suuudokuuu }) => {
         await core.expectId(ctx, 'GameScreenSelectors.Root');
         await game.quitCurrentGame(ctx);
     });
+
+    await core.phase('import from Photos and play', async () => {
+        await core.scrollToId(ctx, 'HomeScreenSelectors.ImportLink');
+        await core.scrollDown(ctx);
+        await core.tapId(ctx, 'HomeScreenSelectors.ImportLink');
+        if (!(await suuudokuuu.importPhoto())) {
+            return;
+        }
+        await status(ctx, /One solution/u, core.WAIT_LAUNCH);
+        await core.expectIdText(ctx, 'ImportScreenSelectors.Cell.0-0', /^Row 1, column 1, 5$/u);
+        await core.expectIdText(ctx, 'ImportScreenSelectors.Cell.8-1', /^Row 9, column 2, 6$/u);
+        await core.tapId(ctx, 'ImportScreenSelectors.PlayButton');
+        await core.expectId(ctx, 'GameScreenSelectors.Root');
+    });
 });
