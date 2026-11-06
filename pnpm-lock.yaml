@@ -663,12 +663,18 @@ importers:
         specifier: workspace:*
         version: link:../techniques
     devDependencies:
+      '@effect/vitest':
+        specifier: 4.0.5
+        version: 4.0.5(effect@4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0))(vitest@5.0.5)
       '@suuudokuuu/test-kit':
         specifier: workspace:*
         version: link:../../tests/test-kit
       '@vitest/coverage-v8':
         specifier: 5.0.5
         version: 5.0.5(vitest@5.0.5)
+      effect:
+        specifier: 4.0.5
+        version: 4.0.5(patch_hash=ab66ee656c482841ef8e1c4f164e7dd7aac03b2f9324515de7f4e7b37ac254f0)
       vite:
         specifier: ^8.3.4
         version: 8.3.4(@types/node@26.6.5)(esbuild@0.28.2)(jiti@2.7.0)(terser@5.51.2)(tsx@4.23.15)(yaml@2.9.1)
