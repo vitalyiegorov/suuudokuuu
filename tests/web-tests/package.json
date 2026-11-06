@@ -7,12 +7,12 @@
         "ts": "tsrs -p ."
     },
     "devDependencies": {
-        "@playwright/test": "^1.64.1",
-        "@rnw-community/shared": "^2.28.0",
+        "@playwright/test": "1.64.1",
+        "@rnw-community/shared": "2.29.0",
         "@suuudokuuu/app": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/landing": "workspace:*",
         "@suuudokuuu/puzzle-forge": "workspace:*",
-        "serve": "^14.2.6"
+        "serve": "14.2.6"
     }
 }
