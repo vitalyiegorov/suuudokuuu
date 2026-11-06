@@ -1,5 +1,5 @@
 Import a puzzle from a photo.
 
-• Scan a puzzle from a newspaper, book or screen, or pick one from your photos. Recognition runs on your device, and photos are never saved or sent.
+• Scan a puzzle from a newspaper, book or screen, or pick one from your photos. Recognition runs on your device, and your photos never leave it.
 • Started it on paper? Your handwritten digits are kept as your progress.
 • Digits worth a second look are marked, so you can fix any cell before you play.

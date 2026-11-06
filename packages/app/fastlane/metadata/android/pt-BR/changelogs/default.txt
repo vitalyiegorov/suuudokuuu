@@ -1,5 +1,5 @@
 Importe um quebra-cabeça a partir de uma foto.
 
-• Escaneie um quebra-cabeça de um jornal, livro ou tela, ou escolha um das suas fotos. O reconhecimento acontece no seu aparelho, e as fotos nunca são salvas nem enviadas.
+• Escaneie um quebra-cabeça de um jornal, livro ou tela, ou escolha um das suas fotos. O reconhecimento acontece no seu aparelho, e suas fotos nunca saem dele.
 • Começou no papel? Seus dígitos escritos à mão são mantidos como seu progresso.
 • Dígitos que merecem conferência ficam marcados, para você corrigir qualquer casa antes de jogar.

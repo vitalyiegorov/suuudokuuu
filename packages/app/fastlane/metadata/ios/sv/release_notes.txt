@@ -1,5 +1,5 @@
 Importera ett pussel från ett foto.
 
-• Skanna ett pussel från en tidning, en bok eller en skärm, eller välj ett bland dina foton. Igenkänningen sker på din enhet, och foton sparas eller skickas aldrig.
+• Skanna ett pussel från en tidning, en bok eller en skärm, eller välj ett bland dina foton. Igenkänningen sker på din enhet, och dina foton lämnar den aldrig.
 • Började du på papper? Dina handskrivna siffror sparas som dina framsteg.
 • Osäkra siffror markeras så att du kan rätta vilken ruta som helst innan du spelar.

@@ -1,5 +1,5 @@
 Rätsel per Foto importieren.
 
-• Scanne ein Rätsel aus Zeitung, Buch oder von einem Bildschirm oder wähle eines aus deinen Fotos. Die Erkennung läuft auf deinem Gerät, Fotos werden nie gespeichert oder gesendet.
+• Scanne ein Rätsel aus Zeitung, Buch oder von einem Bildschirm oder wähle eines aus deinen Fotos. Die Erkennung läuft auf deinem Gerät, und deine Fotos verlassen es nie.
 • Schon auf Papier begonnen? Deine handschriftlichen Ziffern bleiben als Fortschritt erhalten.
 • Unsichere Ziffern sind markiert, damit du jedes Feld vor dem Spielen korrigieren kannst.

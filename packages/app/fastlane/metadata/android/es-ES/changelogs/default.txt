@@ -1,5 +1,5 @@
 Importa un puzle desde una foto.
 
-• Escanea un puzle de un periódico, un libro o una pantalla, o elige uno de tus fotos. El reconocimiento se hace en tu dispositivo y las fotos nunca se guardan ni se envían.
+• Escanea un puzle de un periódico, un libro o una pantalla, o elige uno de tus fotos. El reconocimiento se hace en tu dispositivo y tus fotos nunca salen de él.
 • ¿Lo empezaste en papel? Tus dígitos escritos a mano se conservan como tu progreso.
 • Los dígitos dudosos se marcan para que corrijas cualquier casilla antes de jugar.
