@@ -31,6 +31,7 @@ const digitEnterKeyframes = {
 const digitFadeKeyframes = { from: { opacity: 0 }, to: { opacity: 1 } };
 
 const errorForegroundBlend = 0.25;
+const accentForegroundBlend = 0.25;
 
 interface Props {
     readonly tone: ImportCellToneEnum;
@@ -55,7 +56,12 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
     const valueBackgroundColor = isEmpty || isEntry ? theme.colors.surface.raised : theme.colors.board.filled;
     const backgroundColor = isConflict ? applyColorAlpha(theme.colors.danger, conflictTintAlpha) : valueBackgroundColor;
     const containerStyles = [cellStyles.container(cellSize), { backgroundColor }, ...borderStyles];
-    const ringStyles = [styles.ring, { borderColor: theme.colors.accent }];
+    const accentColor = interpolateColor(
+        accentForegroundBlend,
+        [0, 1],
+        [applyColorAlpha(theme.colors.accent, 1), theme.colors.text.primary]
+    );
+    const ringStyles = [styles.ring, { borderColor: accentColor }];
     const cellText = isEmpty ? '' : String(cell.value);
     const cellLabel = i18n._(
         gameGetCellAccessibilityLabel({ candidates: [], cell, eliminatedCandidates: [], isEmpty, isWrong: isConflict })
@@ -64,13 +70,14 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
     const accessibilityState = { selected: isSelected };
     const errorColor = interpolateColor(errorForegroundBlend, [0, 1], [theme.colors.danger, theme.colors.text.primary]);
     const uncertaintyStyles = [styles.uncertainty, { borderColor: theme.colors.text.primary }];
+    const digitColor = isEntry ? accentColor : theme.colors.text.primary;
     const textStyles = {
         animationDelay: cell.y * digitEnterRowDelayMs,
         animationDuration: digitEnterDurationMs,
         animationFillMode: 'backwards' as const,
         animationName: isMotionReduced ? digitFadeKeyframes : digitEnterKeyframes,
         animationTimingFunction: digitEnterEasing,
-        color: isConflict ? errorColor : theme.colors.text.primary,
+        color: isConflict ? errorColor : digitColor,
         fontSize
     };
 

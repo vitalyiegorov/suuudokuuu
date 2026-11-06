@@ -4,7 +4,7 @@ import LucideImage from 'lucide-react-native/icons/image';
 import LucidePencil from 'lucide-react-native/icons/pencil';
 import LucideScanLine from 'lucide-react-native/icons/scan-line';
 import { use } from 'react';
-import { Pressable, View } from 'react-native';
+import { Pressable, View, useWindowDimensions } from 'react-native';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
 import { ThemeContext } from '../../../../theme/context/theme.context';
@@ -22,6 +22,8 @@ interface Props {
 
 export const ImportSources = ({ onScan, onPhotos, onPaste, onType }: Props) => {
     const { t } = useLingui();
+    const { fontScale } = useWindowDimensions();
+    const heroStyles = [styles.hero, fontScale >= 2 && styles.compactHero];
     const { theme } = use(ThemeContext);
 
     return (
@@ -30,7 +32,7 @@ export const ImportSources = ({ onScan, onPhotos, onPaste, onType }: Props) => {
                 accessibilityRole="button"
                 accessibilityLabel={t`Scan a puzzle`}
                 onPress={onScan}
-                style={styles.hero}
+                style={heroStyles}
                 testID={ImportScreenSelectors.ScanButton}
             >
                 <LucideScanLine color={theme.colors.inkText} size={32} />

@@ -1,34 +1,30 @@
 import { StyleSheet } from 'react-native-unistyles';
 
+const boardMaxWidth = 480;
+
 export const ImportScreenStyles = StyleSheet.create((theme, rt) => ({
-    content: (footerHeight: number) => ({
+    content: {
         alignSelf: 'center',
         flexGrow: 0,
         gap: theme.spacing.sm,
-        maxWidth: theme.contentWidth.standard,
-        paddingBottom: footerHeight + theme.spacing.md,
+        maxWidth: boardMaxWidth + theme.spacing.lg * 2,
+        paddingBottom: theme.spacing.md,
         paddingHorizontal: theme.spacing.lg,
         paddingTop: theme.spacing.md,
         width: '100%'
-    }),
-    scroll: { flexGrow: 0, flexShrink: 1, minHeight: 0 },
+    },
+    boardSlot: { aspectRatio: 1, width: '100%', flexShrink: 0 },
+    scroll: { flexGrow: 1, flexBasis: 0, flexShrink: 1, minHeight: 0 },
     headerContainer: { flexShrink: 0, paddingHorizontal: theme.spacing.lg, paddingTop: theme.spacing.md },
     footer: {
         alignSelf: 'center',
         width: '100%',
-        maxWidth: theme.contentWidth.standard,
+        maxWidth: boardMaxWidth + theme.spacing.lg * 2,
         flexShrink: 0,
         paddingHorizontal: theme.spacing.lg,
         paddingBottom: rt.insets.bottom + theme.spacing.md
     },
-    padSlot: {
-        alignSelf: 'center',
-        maxWidth: theme.contentWidth.standard,
-        flexShrink: 0,
-        width: '100%',
-        paddingHorizontal: theme.spacing.lg,
-        paddingBottom: theme.spacing.md
-    },
+    footerSlot: { minHeight: 52, justifyContent: 'center' },
     disabledButton: {
         opacity: 0.42
     },

@@ -103,7 +103,7 @@ msgstr "{hintCount, plural, one {# संकेत} other {# संकेत}}"
 msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# घंटा} other {# घंटे}}"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
 msgstr "{keptCount, plural, one {आपकी # प्रविष्टियाँ रखीं} other {आपकी # प्रविष्टियाँ रखीं}}"
 

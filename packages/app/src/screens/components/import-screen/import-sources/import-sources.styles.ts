@@ -11,6 +11,7 @@ export const ImportSourcesStyles = StyleSheet.create(theme => ({
         minHeight: 160,
         justifyContent: 'center'
     },
+    compactHero: { padding: theme.spacing.sm, minHeight: 0 },
     title: { color: theme.colors.inkText, fontSize: theme.typography.size.xl, fontWeight: '700', textAlign: 'center' },
     subtitle: { color: theme.colors.inkText, fontSize: theme.typography.size.md, textAlign: 'center' },
     chips: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: theme.spacing.sm },

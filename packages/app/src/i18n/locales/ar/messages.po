@@ -103,7 +103,7 @@ msgstr "{hintCount, plural, zero {# تلميحات} one {# تلميح} two {# ت
 msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, zero {# ساعة} one {# ساعة} two {# ساعتان} few {# ساعات} many {# ساعة} other {# ساعة}}"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
 msgstr "{keptCount, plural, one {تم الاحتفاظ بـ # من إدخالاتك} other {تم الاحتفاظ بـ # من إدخالاتك}}"
 

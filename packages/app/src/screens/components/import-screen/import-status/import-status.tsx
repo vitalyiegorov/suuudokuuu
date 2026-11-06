@@ -85,11 +85,10 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
 
         const keptCount = getMatchingEntryCellIndexes(entryString, settledAssessment.solutionString).length;
         const droppedCount = getClueCount(entryString) - keptCount;
-        const keptText = t({ message: plural(keptCount, { one: '# of your entries kept', other: '# of your entries kept' }) });
         const droppedText = t({ message: plural(droppedCount, { one: '# didn’t match', other: '# didn’t match' }) });
         const assessmentText = t`One solution · ${difficulty} · SE ${rating}`;
 
-        return [assessmentText, ...(keptCount > 0 ? [keptText] : []), ...(droppedCount > 0 ? [droppedText] : [])].join(' · ');
+        return [assessmentText, ...(droppedCount > 0 ? [droppedText] : [])].join(' · ');
     };
     const getAssessmentText = ({
         assessment: settledAssessment,
@@ -138,6 +137,11 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
     const color = isError ? errorColor : theme.colors.text.primary;
     const textStyles = [styles.status, { color }];
 
+    const keptEntryCount =
+        assessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.UNIQUE
+            ? getMatchingEntryCellIndexes(entryString, assessed.assessment.solutionString).length
+            : 0;
+
     return (
         <View
             accessibilityLabel={statusText}
@@ -147,11 +151,15 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
             testID={ImportScreenSelectors.Status}
         >
             <View style={styles.message}>
-                {isError ? <LucideCircleAlert color={color} size={20} /> : null}
-                {sourceStatus === t`Reading the puzzle…` ? <ActivityIndicator color={color} /> : null}
+                {isError ? <LucideCircleAlert color={color} size={20} style={styles.icon} /> : null}
+                {sourceStatus === t`Reading the puzzle…` ? <ActivityIndicator color={color} size={20} style={styles.icon} /> : null}
                 <BlackText style={textStyles}>{statusText}</BlackText>
             </View>
-            <ImportReviewGuidance entryCount={getClueCount(entryString)} uncertainCellCount={uncertainCellCount} />
+            <ImportReviewGuidance
+                keptEntryCount={keptEntryCount}
+                entryCount={getClueCount(entryString)}
+                uncertainCellCount={uncertainCellCount}
+            />
         </View>
     );
 };

@@ -7,6 +7,7 @@ export const ImportStatusStyles = StyleSheet.create(theme => ({
         justifyContent: 'center',
         width: '100%'
     },
+    icon: { width: 20, height: 20, flexShrink: 0 },
     message: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: theme.spacing.sm },
     status: {
         flexShrink: 1,

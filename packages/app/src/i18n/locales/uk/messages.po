@@ -105,7 +105,7 @@ msgstr "{hintCount, plural, one {# підказка} few {# підказки} ma
 msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# год} few {# год} many {# год} other {# год}}"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
 msgstr "{keptCount, plural, one {# ваших записів збережено} other {# ваших записів збережено}}"
 

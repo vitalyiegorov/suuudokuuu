@@ -1,8 +1,8 @@
 import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
-import { AppButton } from '@suuudokuuu/ui';
+import { AppButton, CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui';
 import LucideDelete from 'lucide-react-native/icons/delete';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 
 import { ImportCellPadButton } from '../import-cell-pad-button/import-cell-pad-button';
 import { ImportScreenSelectors } from '../import-screen.selectors';
@@ -38,14 +38,11 @@ export const ImportCellPad = ({ onInput, toggleLabel, onToggleEntry }: Props) =>
                 />
             </View>
             {toggleLabel === null ? null : (
-                <AppButton
-                    onPress={onToggleEntry}
-                    size="compact"
-                    testID={ImportScreenSelectors.EntryToggleButton}
-                    text={toggleLabel}
-                    textStyle={styles.toggleLabel}
-                    variant="secondary"
-                />
+                <AppButton onPress={onToggleEntry} size="compact" testID={ImportScreenSelectors.EntryToggleButton} variant="secondary">
+                    <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={styles.label}>
+                        {toggleLabel}
+                    </Text>
+                </AppButton>
             )}
         </View>
     );

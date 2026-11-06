@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const ImportCellPadStyles = StyleSheet.create(theme => ({
-    toggleLabel: { textAlign: 'center' },
+    label: { textAlign: 'center', color: theme.colors.surface.subtleText, fontSize: theme.typography.size.md, fontWeight: '700' },
     wrapper: { width: '100%', gap: theme.spacing.sm },
     button: {
         flexBasis: '17%',

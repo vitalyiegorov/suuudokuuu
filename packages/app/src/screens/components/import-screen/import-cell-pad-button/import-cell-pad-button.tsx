@@ -1,4 +1,5 @@
-import { AppButton } from '@suuudokuuu/ui';
+import { AppButton, CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui';
+import { Text } from 'react-native';
 
 import { ImportCellPadStyles as styles } from '../import-cell-pad/import-cell-pad.styles';
 import { ImportScreenSelectors } from '../import-screen.selectors';
@@ -19,8 +20,11 @@ export const ImportCellPadButton = ({ value, isDisabled, onInput }: Props) => {
             size="compact"
             style={styles.button}
             testID={`${ImportScreenSelectors.PadValue}.${value}`}
-            text={String(value)}
             variant="secondary"
-        />
+        >
+            <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={styles.label}>
+                {String(value)}
+            </Text>
+        </AppButton>
     );
 };

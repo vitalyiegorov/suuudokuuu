@@ -252,7 +252,7 @@ test('keeps matching handwritten entries, drops wrong entries and starts with no
     await page.getByTestId(`${ImportScreenSelectors.PadValue}.2`).click();
     await cell(page, '0-6').click();
     await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/1 of your entries kept · 1 didn’t match/u);
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/1 didn’t match.*1 of your entries kept/u);
     await page.getByTestId(ImportScreenSelectors.PlayButton).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
     await expect(page.getByTestId(cellTestId(0, 4))).toHaveAccessibleName('Row 1, column 5, 7');
@@ -392,4 +392,21 @@ test('keeps the selected row and pad visible while typing at twice the text size
     await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
     await page.getByTestId(ImportScreenSelectors.ResetButton).click();
     await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toHaveCount(0);
+});
+
+test('pins Play while typing, selecting a cell and loading a unique puzzle', async ({ context, page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await openImportFromPlay(page);
+    await page.getByTestId(ImportScreenSelectors.TypeButton).click();
+    const play = page.getByTestId(ImportScreenSelectors.PlayButton);
+    await expect(play).toBeVisible();
+    const typingBounds = await play.boundingBox();
+    expect(typingBounds).not.toBeNull();
+    await cell(page, '0-0').click();
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
+    expect((await play.boundingBox())?.y).toBe(typingBounds?.y);
+    await writeClipboard(context, page, uniquePuzzle);
+    await page.keyboard.press('ControlOrMeta+V');
+    await expect(play).toBeEnabled();
+    expect((await play.boundingBox())?.y).toBe(typingBounds?.y);
 });

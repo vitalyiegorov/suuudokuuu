@@ -75,10 +75,8 @@ export const ImportScreen = ({ initialText }: Props) => {
     const assessed = AsyncResult.isSuccess(assessmentResult) ? assessmentResult.value : null;
     const isAssessedCurrent = isDefined(assessed) && assessed.puzzleString === puzzleString;
 
-    const [boardTop, setBoardTop] = useState(0);
-    const [boardHeight, setBoardHeight] = useState(0);
     const [viewportHeight, setViewportHeight] = useState(0);
-    const [footerHeight, setFooterHeight] = useState(0);
+    const [contentHeight, setContentHeight] = useState(0);
     const scrollRef = useRef<ScrollViewInstance>(null);
     const imageFiber = useRef<Fiber.Fiber<void> | null>(null);
     const interruptImage = () => {
@@ -189,27 +187,13 @@ export const ImportScreen = ({ initialText }: Props) => {
     const toggleLabel = canToggle ? entryLabel : null;
 
     const handleScrollLayout = (event: LayoutChangeEvent) => void setViewportHeight(event.nativeEvent.layout.height);
-    const handleFooterLayout = (event: LayoutChangeEvent) => void setFooterHeight(event.nativeEvent.layout.height);
-    const handleBoardLayout = (event: LayoutChangeEvent) => {
-        setBoardTop(event.nativeEvent.layout.y);
-        setBoardHeight(event.nativeEvent.layout.height);
-    };
+    const handleContentSizeChange = (_width: number, height: number) => void setContentHeight(height);
     const handleSelectCell = (cellIndex: number) => void update({ selectedCellIndex: cellIndex === selectedCellIndex ? null : cellIndex });
     useLayoutEffect(() => {
-        if (isDefined(selectedCellIndex) && boardHeight > 0 && viewportHeight > 0) {
-            const rowHeight = boardHeight / 9;
-            const selectedRowTop = boardTop + Math.floor(selectedCellIndex / 9) * rowHeight;
-
-            appRuntime.runFork(
-                Effect.sync(() =>
-                    scrollRef.current?.scrollTo({
-                        y: Math.max(0, selectedRowTop - (viewportHeight - rowHeight) / 2),
-                        animated: false
-                    })
-                )
-            );
+        if (isDefined(selectedCellIndex) && contentHeight > 0 && viewportHeight > 0) {
+            appRuntime.runFork(Effect.sync(() => scrollRef.current?.scrollToEnd({ animated: false })));
         }
-    }, [selectedCellIndex, boardHeight, boardTop, viewportHeight]);
+    }, [selectedCellIndex, viewportHeight, contentHeight]);
     const handleScan = () => void handleImageSource(importScreenScanImage);
     const handleType = () => void update({ isTyping: true });
     const getSourceStatus = () => {
@@ -247,13 +231,14 @@ export const ImportScreen = ({ initialText }: Props) => {
             <ScrollView
                 ref={scrollRef}
                 onLayout={handleScrollLayout}
-                contentContainerStyle={styles.content(footerHeight)}
+                onContentSizeChange={handleContentSizeChange}
+                contentContainerStyle={styles.content}
                 contentInsetAdjustmentBehavior="never"
                 style={styles.scroll}
                 testID={ImportScreenSelectors.Root}
             >
                 {hasBoard ? (
-                    <View onLayout={handleBoardLayout}>
+                    <View style={styles.boardSlot}>
                         <ImportBoard
                             entryString={entryString}
                             uncertainCellIndexes={uncertainCellIndexes}
@@ -277,23 +262,23 @@ export const ImportScreen = ({ initialText }: Props) => {
                         puzzleString={puzzleString}
                     />
                 ) : null}
-            </ScrollView>
-            {isDefined(selectedCellIndex) ? (
-                <View style={styles.padSlot}>
+                {isDefined(selectedCellIndex) ? (
                     <ImportCellPad onInput={input} onToggleEntry={toggleEntry} toggleLabel={toggleLabel} />
-                </View>
-            ) : null}
-            <View style={styles.footer} onLayout={handleFooterLayout}>
-                {hasBoard ? (
-                    <AppButton
-                        disabled={isPlayDisabled}
-                        isLoading={isCreatingGame}
-                        onPress={handlePlay}
-                        style={playButtonStyles}
-                        testID={ImportScreenSelectors.PlayButton}
-                        text={t`Play`}
-                    />
                 ) : null}
+            </ScrollView>
+            <View style={styles.footer}>
+                <View style={styles.footerSlot}>
+                    {hasBoard ? (
+                        <AppButton
+                            disabled={isPlayDisabled}
+                            isLoading={isCreatingGame}
+                            onPress={handlePlay}
+                            style={playButtonStyles}
+                            testID={ImportScreenSelectors.PlayButton}
+                            text={t`Play`}
+                        />
+                    ) : null}
+                </View>
             </View>
         </SheetFrame>
     );
