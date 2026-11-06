@@ -172,6 +172,14 @@ msgstr "{subsetSize, plural, zero {انظر إلى الصف {regionNumber}: لا
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, zero {انظر إلى الصف {regionNumber}: لا توجد أرقام هناك تناسب خلايا محددة (#).} one {انظر إلى الصف {regionNumber}: رقم واحد هناك لا يناسب إلا خلية واحدة.} two {انظر إلى الصف {regionNumber}: رقمان هناك لا يناسبان إلا خليتين.} few {انظر إلى الصف {regionNumber}: # أرقام هناك لا تناسب إلا # خلايا.} many {انظر إلى الصف {regionNumber}: # رقمًا هناك لا تناسب إلا # خلية.} other {انظر إلى الصف {regionNumber}: # رقم هناك لا تناسب إلا # خلية.}}"
 
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
+msgstr "{uncertainCellCount, plural, zero {# أرقام للتحقق. تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا.} one {# رقم للتحقق. تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا.} two {# رقمان للتحقق. تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا.} few {# أرقام للتحقق. تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا.} many {# رقمًا للتحقق. تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا.} other {# رقم للتحقق. تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا.}}"
+
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
+msgstr "{uncertainCellCount, plural, zero {# أرقام للتحقق} one {# رقم للتحقق} two {# رقمان للتحقق} few {# أرقام للتحقق} many {# رقمًا للتحقق} other {# رقم للتحقق}}"
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, zero {# يوم} one {# يوم} two {# يومين} few {# أيام} many {# يومًا} other {# يوم}}"
@@ -981,7 +989,7 @@ msgstr "h"
 msgid "handwritten"
 msgstr "مكتوب بخط اليد"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
 msgstr "تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا."
 

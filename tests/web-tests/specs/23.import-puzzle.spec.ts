@@ -30,6 +30,7 @@ const uniqueStatus = 'One solution · Newbie · SE 2.3';
 const singleClueStatus = '1 clue · more than one solution';
 const gameScreenTimeoutMilliseconds = 15000;
 const pauseScreenTimeoutMilliseconds = 10000;
+const minimumTouchTargetSize = 44;
 
 const openImportFromPlay = async (page: Page): Promise<void> => {
     await launchHome(page);
@@ -286,8 +287,8 @@ test('completes a run when its last digit is a matching handwritten entry', asyn
 
 test('rejecting pasted text interrupts recognition and restores the sources', async ({ page }) => {
     await openImportFromPlay(page);
-    await page.clock.install();
-    await page.clock.pauseAt(new Date());
+    await page.clock.install({ time: new Date('2030-01-01T00:00:00Z') });
+    await page.clock.pauseAt(new Date('2030-01-01T00:01:00Z'));
     await pickPhoto(page, 'app-classic-light-390.jpg');
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('Reading the puzzle…');
     await page.evaluate(() => {
@@ -360,4 +361,35 @@ test('reserves the clear slot and reveals the handwritten entry toggle', async (
     await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toBeInViewport({ ratio: 1 });
     await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toHaveAccessibleName('Make printed clue');
     await expect(page.getByTestId(ImportScreenSelectors.Status)).not.toHaveText(/0 didn’t match/u);
+});
+
+test('keeps the selected row and pad visible while typing at twice the text size', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await openImportFromPlay(page);
+    await page.getByTestId(ImportScreenSelectors.TypeButton).click();
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeDisabled();
+    await page.addStyleTag({ content: '[dir="auto"] { font-size: 200% !important; }' });
+    await cell(page, '0-0').click();
+    await expect(cell(page, '0-0')).toBeInViewport({ ratio: 1 });
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
+    const firstKey = await page.getByTestId(`${ImportScreenSelectors.PadValue}.1`).boundingBox();
+    const fifthKey = await page.getByTestId(`${ImportScreenSelectors.PadValue}.5`).boundingBox();
+    const ninthKey = await page.getByTestId(`${ImportScreenSelectors.PadValue}.9`).boundingBox();
+    const clearKey = await page.getByTestId(ImportScreenSelectors.ClearButton).boundingBox();
+
+    expect(firstKey?.width).toBeGreaterThanOrEqual(minimumTouchTargetSize);
+    expect(fifthKey?.y).toBe(firstKey?.y);
+    expect(clearKey?.y).toBe(ninthKey?.y);
+    expect(clearKey?.y).toBeGreaterThan(firstKey?.y ?? 0);
+    await page.keyboard.press('1');
+    await page.keyboard.press('1');
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('Two 1s in row 1');
+    await expect(cell(page, '0-2')).toBeInViewport({ ratio: 1 });
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
+    await page.keyboard.press('ArrowUp');
+    await expect(cell(page, '8-2')).toBeInViewport({ ratio: 1 });
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
+    await page.getByTestId(ImportScreenSelectors.ResetButton).click();
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toHaveCount(0);
 });

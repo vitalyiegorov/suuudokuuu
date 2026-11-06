@@ -172,6 +172,14 @@ msgstr "{subsetSize, plural, one {Titta på rad {regionNumber}: # cell där kan 
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, one {Titta på rad {regionNumber}: # siffra får bara plats i # cell.} other {Titta på rad {regionNumber}: # siffror får bara plats i # celler.}}"
 
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
+msgstr "{uncertainCellCount, plural, one {# siffra att kontrollera. Handskrivna siffror sparas som dina framsteg. Tryck på en för att göra den till en tryckt ledtråd.} other {# siffror att kontrollera. Handskrivna siffror sparas som dina framsteg. Tryck på en för att göra den till en tryckt ledtråd.}}"
+
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
+msgstr "{uncertainCellCount, plural, one {# siffra att kontrollera} other {# siffror att kontrollera}}"
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, one {# dag} other {# dagar}}"
@@ -981,7 +989,7 @@ msgstr "h"
 msgid "handwritten"
 msgstr "handskriven"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
 msgstr "Handskrivna siffror sparas som dina framsteg. Tryck på en för att göra den till en tryckt ledtråd."
 

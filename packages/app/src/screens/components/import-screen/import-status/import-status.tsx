@@ -1,5 +1,5 @@
 import { msg, plural } from '@lingui/core/macro';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { getMatchingEntryCellIndexes, ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
 import LucideCircleAlert from 'lucide-react-native/icons/circle-alert';
@@ -13,6 +13,7 @@ import { BlackText } from '../../../../@generic/components/black-text/black-text
 import { formatSeRatingValue } from '../../../../@generic/utils/format-se-rating-value.util';
 import { getDifficultyMessage } from '../../../../@generic/utils/get-difficulty-message.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
+import { ImportReviewGuidance } from '../import-review-guidance/import-review-guidance';
 import { ImportScreenSelectors } from '../import-screen.selectors';
 
 import { ImportStatusStyles as styles } from './import-status.styles';
@@ -136,7 +137,6 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
     const errorColor = interpolateColor(errorForegroundBlend, [0, 1], [theme.colors.danger, theme.colors.text.primary]);
     const color = isError ? errorColor : theme.colors.text.primary;
     const textStyles = [styles.status, { color }];
-    const hasReviewDigits = getClueCount(entryString) > 0 || uncertainCellCount > 0;
 
     return (
         <View
@@ -151,11 +151,7 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
                 {sourceStatus === t`Reading the puzzle…` ? <ActivityIndicator color={color} /> : null}
                 <BlackText style={textStyles}>{statusText}</BlackText>
             </View>
-            {hasReviewDigits ? (
-                <BlackText style={styles.guidance}>
-                    <Trans>Handwritten digits are kept as your progress. Tap one to make it a printed clue.</Trans>
-                </BlackText>
-            ) : null}
+            <ImportReviewGuidance entryCount={getClueCount(entryString)} uncertainCellCount={uncertainCellCount} />
         </View>
     );
 };

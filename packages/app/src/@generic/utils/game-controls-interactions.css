@@ -5,6 +5,7 @@
 }
 
 [data-testid^='CellSelectors.Cell.'],
+[data-testid^='ImportScreenSelectors.Cell.'],
 [data-testid='GameScreenSelectors.Root'] {
     outline: none;
 }

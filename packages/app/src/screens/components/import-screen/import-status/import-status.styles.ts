@@ -8,7 +8,6 @@ export const ImportStatusStyles = StyleSheet.create(theme => ({
         width: '100%'
     },
     message: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: theme.spacing.sm },
-    guidance: { color: theme.colors.text.primary, fontSize: theme.typography.size.sm, textAlign: 'center' },
     status: {
         flexShrink: 1,
         fontSize: theme.typography.size.md,

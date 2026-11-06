@@ -39,34 +39,36 @@ export const ImportBoard = ({
 
     return (
         <View onLayout={onBoardAreaLayout} style={styles.area}>
-            <View style={fieldStyles.wrapper}>
-                {field.map(row => (
-                    <View key={`row-${row[0].y}`} style={fieldStyles.row}>
-                        {row.map(cell => {
-                            const cellIndex = cell.y * fieldSize + cell.x;
+            {cellSize > 0 ? (
+                <View style={fieldStyles.wrapper}>
+                    {field.map(row => (
+                        <View key={`row-${row[0].y}`} style={fieldStyles.row}>
+                            {row.map(cell => {
+                                const cellIndex = cell.y * fieldSize + cell.x;
 
-                            const isEntry = /[1-9]/u.test(entryString[cellIndex]);
-                            const isUncertain = uncertainCellIndexes.includes(cellIndex);
-                            const entryTone = isUncertain ? ImportCellToneEnum.UNCERTAIN_ENTRY : ImportCellToneEnum.ENTRY;
-                            const clueTone = isUncertain ? ImportCellToneEnum.UNCERTAIN : ImportCellToneEnum.CLUE;
-                            const tone = isEntry ? entryTone : clueTone;
-                            const cellTone = conflictCellIndexes.includes(cellIndex) ? ImportCellToneEnum.CONFLICT : tone;
+                                const isEntry = /[1-9]/u.test(entryString[cellIndex]);
+                                const isUncertain = uncertainCellIndexes.includes(cellIndex);
+                                const entryTone = isUncertain ? ImportCellToneEnum.UNCERTAIN_ENTRY : ImportCellToneEnum.ENTRY;
+                                const clueTone = isUncertain ? ImportCellToneEnum.UNCERTAIN : ImportCellToneEnum.CLUE;
+                                const tone = isEntry ? entryTone : clueTone;
+                                const cellTone = conflictCellIndexes.includes(cellIndex) ? ImportCellToneEnum.CONFLICT : tone;
 
-                            return (
-                                <ImportBoardCell
-                                    cell={cell}
-                                    cellMargin={cellMargin}
-                                    cellSize={cellSize}
-                                    isSelected={cellIndex === selectedCellIndex}
-                                    key={cellIndex}
-                                    onSelect={handleSelect}
-                                    tone={cellTone}
-                                />
-                            );
-                        })}
-                    </View>
-                ))}
-            </View>
+                                return (
+                                    <ImportBoardCell
+                                        cell={cell}
+                                        cellMargin={cellMargin}
+                                        cellSize={cellSize}
+                                        isSelected={cellIndex === selectedCellIndex}
+                                        key={cellIndex}
+                                        onSelect={handleSelect}
+                                        tone={cellTone}
+                                    />
+                                );
+                            })}
+                        </View>
+                    ))}
+                </View>
+            ) : null}
         </View>
     );
 };

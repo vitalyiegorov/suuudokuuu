@@ -19,7 +19,6 @@ import { ImportBoardCellStyles as styles } from './import-board-cell.styles';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 
-const reviewTintAlpha = 0.15;
 const conflictTintAlpha = 0.12;
 const boardSudoku = new Sudoku();
 const digitEnterDurationMs = 200;
@@ -54,8 +53,7 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
     const isUncertain = tone === ImportCellToneEnum.UNCERTAIN || tone === ImportCellToneEnum.UNCERTAIN_ENTRY;
     const isEmpty = cell.value === defaultSudokuConfig.blankCellValue;
     const valueBackgroundColor = isEmpty || isEntry ? theme.colors.surface.raised : theme.colors.board.filled;
-    const checkedBackgroundColor = isUncertain ? applyColorAlpha(theme.colors.accent, reviewTintAlpha) : valueBackgroundColor;
-    const backgroundColor = isConflict ? applyColorAlpha(theme.colors.danger, conflictTintAlpha) : checkedBackgroundColor;
+    const backgroundColor = isConflict ? applyColorAlpha(theme.colors.danger, conflictTintAlpha) : valueBackgroundColor;
     const containerStyles = [cellStyles.container(cellSize), { backgroundColor }, ...borderStyles];
     const ringStyles = [styles.ring, { borderColor: theme.colors.accent }];
     const cellText = isEmpty ? '' : String(cell.value);
@@ -65,16 +63,18 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
     const accessibilityLabel = [cellLabel, ...(isEntry ? [t`handwritten`] : []), ...(isUncertain ? [t`check this digit`] : [])].join(', ');
     const accessibilityState = { selected: isSelected };
     const errorColor = interpolateColor(errorForegroundBlend, [0, 1], [theme.colors.danger, theme.colors.text.primary]);
-    const digitColor = isEntry ? applyColorAlpha(theme.colors.accent, 1) : theme.colors.text.primary;
+    const uncertaintyStyles = [styles.uncertainty, { borderColor: theme.colors.text.primary }];
     const textStyles = {
         animationDelay: cell.y * digitEnterRowDelayMs,
         animationDuration: digitEnterDurationMs,
         animationFillMode: 'backwards' as const,
         animationName: isMotionReduced ? digitFadeKeyframes : digitEnterKeyframes,
         animationTimingFunction: digitEnterEasing,
-        color: isConflict ? errorColor : digitColor,
+        color: isConflict ? errorColor : theme.colors.text.primary,
         fontSize
     };
+
+    const digitStyles = [textStyles, isEntry ? styles.entry : styles.clue];
 
     const handlePress = () => void onSelect(cell);
 
@@ -88,9 +88,10 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
             tabIndex={-1}
             testID={`${ImportScreenSelectors.Cell}.${cell.y}-${cell.x}`}
         >
-            <Animated.Text allowFontScaling={false} style={textStyles}>
+            <Animated.Text allowFontScaling={false} style={digitStyles}>
                 {cellText}
             </Animated.Text>
+            {isUncertain ? <View pointerEvents="none" style={uncertaintyStyles} /> : null}
             {isSelected ? <View pointerEvents="none" style={ringStyles} /> : null}
         </Pressable>
     );

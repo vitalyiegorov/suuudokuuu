@@ -172,6 +172,14 @@ msgstr "{subsetSize, plural, other {Lihat baris {regionNumber}: # sel di sana ha
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, other {Lihat baris {regionNumber}: # angka di sana hanya muat di # sel.}}"
 
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
+msgstr "{uncertainCellCount, plural, other {# angka perlu diperiksa. Angka tulisan tangan disimpan sebagai progresmu. Ketuk salah satunya untuk menjadikannya petunjuk tercetak.}}"
+
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
+msgstr "{uncertainCellCount, plural, other {# angka perlu diperiksa}}"
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
 msgstr "{value, plural, one {# hari} other {# hari}}"
@@ -981,7 +989,7 @@ msgstr "h"
 msgid "handwritten"
 msgstr "tulisan tangan"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
 msgstr "Angka tulisan tangan disimpan sebagai progresmu. Ketuk salah satunya untuk menjadikannya petunjuk tercetak."
 
