@@ -984,8 +984,8 @@ msgid "handwritten"
 msgstr "handwritten"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Handwritten digits are kept as progress. Tap a shaded cell to review it."
-msgstr "Handwritten digits are kept as progress. Tap a shaded cell to review it."
+msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
+msgstr "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1334,12 +1334,12 @@ msgid "m"
 msgstr "m"
 
 #: src/screens/components/import-screen/import.screen.tsx
-msgid "Mark as handwritten"
-msgstr "Mark as handwritten"
+msgid "Make my entry"
+msgstr "Make my entry"
 
 #: src/screens/components/import-screen/import.screen.tsx
-msgid "Mark as printed"
-msgstr "Mark as printed"
+msgid "Make printed clue"
+msgstr "Make printed clue"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"

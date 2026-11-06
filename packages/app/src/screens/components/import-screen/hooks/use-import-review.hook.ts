@@ -12,7 +12,6 @@ import type { GridRecognitionType } from '@suuudokuuu/grid-vision';
 import type { SetStateAction } from 'react';
 
 interface ImportReviewState {
-    readonly entranceKey: number;
     readonly isPasteMissed: boolean;
     readonly selectedCellIndex: number | null;
     readonly entryString: string;
@@ -24,7 +23,6 @@ interface ImportReviewState {
 }
 
 const initialState: ImportReviewState = {
-    entranceKey: 0,
     isPasteMissed: false,
     selectedCellIndex: null,
     entryString: GameEmptySudokuStringConstant,
@@ -51,7 +49,7 @@ export const useImportReview = (initialText: string) => {
         const parsed = parsePuzzleText(text);
         if (isDefined(parsed)) {
             setPuzzleString(parsed);
-            update({ ...initialState, entranceKey: state.entranceKey + 1 });
+            update(initialState);
         } else {
             update({ isPasteMissed: true, isRecognizing: false });
         }
@@ -66,7 +64,6 @@ export const useImportReview = (initialText: string) => {
         setPuzzleString(split.clueString);
         update({
             ...initialState,
-            entranceKey: state.entranceKey + 1,
             entryString: split.entryString,
             isTyping: true,
             uncertainCellIndexes: split.uncertainCellIndexes,

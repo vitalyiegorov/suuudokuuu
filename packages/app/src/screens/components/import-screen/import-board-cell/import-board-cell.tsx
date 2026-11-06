@@ -2,7 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { use } from 'react';
 import { Pressable, View } from 'react-native';
-import Animated, { cubicBezier } from 'react-native-reanimated';
+import Animated, { cubicBezier, interpolateColor } from 'react-native-reanimated';
 
 import { animationEaseOutCurveConstant } from '../../../../@generic/constants/animation.constant';
 import { useReduceMotion } from '../../../../@generic/hooks/use-reduce-motion.hook';
@@ -31,6 +31,8 @@ const digitEnterKeyframes = {
 };
 const digitFadeKeyframes = { from: { opacity: 0 }, to: { opacity: 1 } };
 
+const errorForegroundBlend = 0.25;
+
 interface Props {
     readonly tone: ImportCellToneEnum;
     readonly cell: CellInterface;
@@ -51,8 +53,8 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
     const isEntry = tone === ImportCellToneEnum.ENTRY || tone === ImportCellToneEnum.UNCERTAIN_ENTRY;
     const isUncertain = tone === ImportCellToneEnum.UNCERTAIN || tone === ImportCellToneEnum.UNCERTAIN_ENTRY;
     const isEmpty = cell.value === defaultSudokuConfig.blankCellValue;
-    const valueBackgroundColor = isEmpty ? theme.colors.surface.raised : theme.colors.board.filled;
-    const checkedBackgroundColor = isUncertain || isEntry ? applyColorAlpha(theme.colors.accent, reviewTintAlpha) : valueBackgroundColor;
+    const valueBackgroundColor = isEmpty || isEntry ? theme.colors.surface.raised : theme.colors.board.filled;
+    const checkedBackgroundColor = isUncertain ? applyColorAlpha(theme.colors.accent, reviewTintAlpha) : valueBackgroundColor;
     const backgroundColor = isConflict ? applyColorAlpha(theme.colors.danger, conflictTintAlpha) : checkedBackgroundColor;
     const containerStyles = [cellStyles.container(cellSize), { backgroundColor }, ...borderStyles];
     const ringStyles = [styles.ring, { borderColor: theme.colors.accent }];
@@ -62,13 +64,15 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
     );
     const accessibilityLabel = [cellLabel, ...(isEntry ? [t`handwritten`] : []), ...(isUncertain ? [t`check this digit`] : [])].join(', ');
     const accessibilityState = { selected: isSelected };
+    const errorColor = interpolateColor(errorForegroundBlend, [0, 1], [theme.colors.danger, theme.colors.text.primary]);
+    const digitColor = isEntry ? applyColorAlpha(theme.colors.accent, 1) : theme.colors.text.primary;
     const textStyles = {
         animationDelay: cell.y * digitEnterRowDelayMs,
         animationDuration: digitEnterDurationMs,
         animationFillMode: 'backwards' as const,
         animationName: isMotionReduced ? digitFadeKeyframes : digitEnterKeyframes,
         animationTimingFunction: digitEnterEasing,
-        color: isConflict ? theme.colors.danger : theme.colors.text.primary,
+        color: isConflict ? errorColor : digitColor,
         fontSize
     };
 

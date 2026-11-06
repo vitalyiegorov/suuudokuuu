@@ -1,5 +1,5 @@
 import { useAtomValue } from '@effect/atom-react/Hooks';
-import { Trans, useLingui } from '@lingui/react/macro';
+import { useLingui } from '@lingui/react/macro';
 import { GridRecognitionKindEnum } from '@suuudokuuu/grid-vision';
 import { ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
 import { AppButton } from '@suuudokuuu/ui';
@@ -9,12 +9,12 @@ import * as Clipboard from 'expo-clipboard';
 import { NotificationFeedbackType } from 'expo-haptics';
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useIsFocused } from 'expo-router';
+import LucideTrash from 'lucide-react-native/icons/trash';
 import { use, useEffect, useEffectEvent, useRef, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 
 import { emptyFn, isDefined } from '@rnw-community/shared';
 
-import { BlackText } from '../../../@generic/components/black-text/black-text';
 import { Header } from '../../../@generic/components/header/header';
 import { SheetFrame } from '../../../@generic/components/sheet-frame/sheet-frame';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
@@ -40,7 +40,7 @@ import { importScreenScanImage } from './utils/import-screen-scan-image.util';
 import { importScreenSubscribeWebInput } from './utils/import-screen-subscribe-web-input.util';
 
 import type * as Fiber from 'effect/Fiber';
-import type { PressableStateCallbackType } from 'react-native';
+import type { PressableStateCallbackType, ScrollViewInstance } from 'react-native';
 
 const ImportDetent = 0.9;
 const ImportDetents = [ImportDetent];
@@ -59,8 +59,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     const [hapticNotification] = useVibration();
     const { state, puzzleAtom, puzzleString, reset, loadText, loadGrid, input, toggleEntry, moveSelection, update, canToggle, isEntry } =
         useImportReview(initialText);
-    const { entranceKey, entryString, isPasteMissed, isGridMissed, isRecognizing, isTyping, selectedCellIndex, uncertainCellIndexes } =
-        state;
+    const { entryString, isPasteMissed, isGridMissed, isRecognizing, isTyping, selectedCellIndex, uncertainCellIndexes } = state;
     const [assessmentAtom] = useState(() =>
         appAtomRuntime.atom(get => {
             const assessedPuzzleString = get(puzzleAtom);
@@ -76,6 +75,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     const assessed = AsyncResult.isSuccess(assessmentResult) ? assessmentResult.value : null;
     const isAssessedCurrent = isDefined(assessed) && assessed.puzzleString === puzzleString;
 
+    const scrollRef = useRef<ScrollViewInstance>(null);
     const imageFiber = useRef<Fiber.Fiber<void> | null>(null);
     const interruptImage = () => {
         if (isDefined(imageFiber.current)) {
@@ -142,7 +142,6 @@ export const ImportScreen = ({ initialText }: Props) => {
             : [];
     const isPlayDisabled = !isDefined(uniqueAssessment) || isRecognizing;
     const playButtonStyles = isPlayDisabled && styles.disabledButton;
-    const resetTextStyles = [styles.resetText, { color: theme.colors.text.hint }];
     const getResetStyles = ({ pressed }: PressableStateCallbackType) => [styles.reset, pressed && styles.resetPressed];
 
     const handlePlay = () => {
@@ -182,10 +181,15 @@ export const ImportScreen = ({ initialText }: Props) => {
     }, [settledAssessed]);
 
     const hasBoard = hasDigits || isTyping || isRecognizing;
-    const entryLabel = isEntry ? t`Mark as printed` : t`Mark as handwritten`;
+    const entryLabel = isEntry ? t`Make printed clue` : t`Make my entry`;
     const toggleLabel = canToggle ? entryLabel : null;
 
     const handleSelectCell = (cellIndex: number) => void update({ selectedCellIndex: cellIndex === selectedCellIndex ? null : cellIndex });
+    const handleContentSizeChange = () => {
+        if (isDefined(selectedCellIndex)) {
+            scrollRef.current?.scrollToEnd();
+        }
+    };
     const handleScan = () => void handleImageSource(importScreenScanImage);
     const handleType = () => void update({ isTyping: true });
     const getSourceStatus = () => {
@@ -205,22 +209,24 @@ export const ImportScreen = ({ initialText }: Props) => {
             <View collapsable={false} style={styles.headerContainer}>
                 <View style={styles.header}>
                     <Header style={styles.title} testID={ImportScreenSelectors.Title} text={t`Import a puzzle`} />
-                    {hasBoard ? (
-                        <Pressable
-                            accessibilityRole="button"
-                            hitSlop={12}
-                            onPress={handleReset}
-                            style={getResetStyles}
-                            testID={ImportScreenSelectors.ResetButton}
-                        >
-                            <BlackText style={resetTextStyles}>
-                                <Trans>Clear</Trans>
-                            </BlackText>
-                        </Pressable>
-                    ) : null}
+                    <View style={styles.resetSlot}>
+                        {hasBoard ? (
+                            <Pressable
+                                accessibilityLabel={t`Clear`}
+                                accessibilityRole="button"
+                                onPress={handleReset}
+                                style={getResetStyles}
+                                testID={ImportScreenSelectors.ResetButton}
+                            >
+                                <LucideTrash color={theme.colors.text.hint} size={22} />
+                            </Pressable>
+                        ) : null}
+                    </View>
                 </View>
             </View>
             <ScrollView
+                ref={scrollRef}
+                onContentSizeChange={handleContentSizeChange}
                 contentContainerStyle={styles.content}
                 contentInsetAdjustmentBehavior="never"
                 style={styles.scroll}
@@ -231,7 +237,6 @@ export const ImportScreen = ({ initialText }: Props) => {
                         entryString={entryString}
                         uncertainCellIndexes={uncertainCellIndexes}
                         conflictCellIndexes={conflictCellIndexes}
-                        key={entranceKey}
                         onSelectCell={handleSelectCell}
                         puzzleString={puzzleString}
                         selectedCellIndex={selectedCellIndex}

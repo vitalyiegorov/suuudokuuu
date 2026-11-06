@@ -326,7 +326,7 @@ test('plays and restores handwritten progress recognized from a photo', async ({
     }
 });
 
-test('keeps a square board in place when opening the pad at 200% zoom', async ({ page }) => {
+test('keeps a square board and scrolls the pad into view at 200% zoom', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`/import?puzzle=${uniquePuzzle}`);
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
@@ -339,9 +339,25 @@ test('keeps a square board in place when opening the pad at 200% zoom', async ({
             return bounds !== null && bounds.width > 0 && Math.abs(bounds.width - bounds.height) < 1;
         })
         .toBe(true);
-    const boardTop = await firstCell.boundingBox();
     await firstCell.click();
     await expect(page.getByTestId(`${ImportScreenSelectors.PadValue}.1`)).toBeVisible();
-    await expect.poll(async () => (await firstCell.boundingBox())?.y).toBe(boardTop?.y);
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeInViewport({ ratio: 1 });
+});
+
+test('reserves the clear slot and reveals the handwritten entry toggle', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await openImportFromPlay(page);
+    const titleBounds = await page.getByTestId(ImportScreenSelectors.Title).boundingBox();
+    await expect(page.getByTestId(ImportScreenSelectors.ResetButton)).toBeHidden();
+    await pickPhoto(page, 'handwritten-photo-01.jpg');
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    expect(await page.getByTestId(ImportScreenSelectors.Title).boundingBox()).toEqual(titleBounds);
+    await page
+        .getByRole('button', { name: /handwritten/u })
+        .first()
+        .click();
+    await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toBeInViewport({ ratio: 1 });
+    await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toHaveAccessibleName('Make printed clue');
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).not.toHaveText(/0 didn’t match/u);
 });

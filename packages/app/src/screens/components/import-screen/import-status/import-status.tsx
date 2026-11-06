@@ -5,6 +5,7 @@ import { getMatchingEntryCellIndexes, ImportedPuzzleAssessmentKindEnum } from '@
 import LucideCircleAlert from 'lucide-react-native/icons/circle-alert';
 import { use } from 'react';
 import { ActivityIndicator, View } from 'react-native';
+import { interpolateColor } from 'react-native-reanimated';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -58,6 +59,8 @@ const getConflictMessage = (puzzleString: string, cellIndexes: readonly number[]
         : msg`These cells conflict`;
 };
 
+const errorForegroundBlend = 0.25;
+
 interface Props {
     readonly entryString: string;
     readonly uncertainCellCount: number;
@@ -79,14 +82,13 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
         const difficulty = t(getDifficultyMessage(settledAssessment.difficulty));
         const rating = formatSeRatingValue(settledAssessment.rating, settledAssessment.isRatingCeiling);
 
-        const entryCount = getClueCount(entryString);
         const keptCount = getMatchingEntryCellIndexes(entryString, settledAssessment.solutionString).length;
-        const droppedCount = entryCount - keptCount;
+        const droppedCount = getClueCount(entryString) - keptCount;
         const keptText = t({ message: plural(keptCount, { one: '# of your entries kept', other: '# of your entries kept' }) });
         const droppedText = t({ message: plural(droppedCount, { one: '# didn’t match', other: '# didn’t match' }) });
         const assessmentText = t`One solution · ${difficulty} · SE ${rating}`;
 
-        return entryCount > 0 ? `${assessmentText} · ${keptText} · ${droppedText}` : assessmentText;
+        return [assessmentText, ...(keptCount > 0 ? [keptText] : []), ...(droppedCount > 0 ? [droppedText] : [])].join(' · ');
     };
     const getAssessmentText = ({
         assessment: settledAssessment,
@@ -131,7 +133,8 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
         isCheckFailed ||
         assessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.CONFLICT ||
         assessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.NO_SOLUTION;
-    const color = isError ? theme.colors.danger : theme.colors.text.primary;
+    const errorColor = interpolateColor(errorForegroundBlend, [0, 1], [theme.colors.danger, theme.colors.text.primary]);
+    const color = isError ? errorColor : theme.colors.text.primary;
     const textStyles = [styles.status, { color }];
     const hasReviewDigits = getClueCount(entryString) > 0 || uncertainCellCount > 0;
 
@@ -150,7 +153,7 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
             </View>
             {hasReviewDigits ? (
                 <BlackText style={styles.guidance}>
-                    <Trans>Handwritten digits are kept as progress. Tap a shaded cell to review it.</Trans>
+                    <Trans>Handwritten digits are kept as your progress. Tap one to make it a printed clue.</Trans>
                 </BlackText>
             ) : null}
         </View>

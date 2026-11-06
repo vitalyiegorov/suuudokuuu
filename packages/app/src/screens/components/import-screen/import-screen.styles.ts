@@ -11,10 +11,10 @@ export const ImportScreenStyles = StyleSheet.create((theme, rt) => ({
         paddingTop: theme.spacing.md,
         width: '100%'
     },
-    scroll: { flex: 1 },
-    headerContainer: { paddingHorizontal: theme.spacing.lg, paddingTop: theme.spacing.md },
-    footer: { paddingHorizontal: theme.spacing.lg, paddingBottom: rt.insets.bottom + theme.spacing.md },
-    padSlot: { minHeight: 100, width: '100%' },
+    scroll: { flex: 1, minHeight: 0 },
+    headerContainer: { flexShrink: 0, paddingHorizontal: theme.spacing.lg, paddingTop: theme.spacing.md },
+    footer: { flexShrink: 0, paddingHorizontal: theme.spacing.lg, paddingBottom: rt.insets.bottom + theme.spacing.md },
+    padSlot: { flexShrink: 0, width: '100%' },
     disabledButton: {
         opacity: 0.42
     },
@@ -24,10 +24,13 @@ export const ImportScreenStyles = StyleSheet.create((theme, rt) => ({
         gap: theme.spacing.md,
         minHeight: 64
     },
+    resetSlot: { width: 44, height: 44 },
     reset: {
+        alignItems: 'center',
         justifyContent: 'center',
-        minHeight: 44,
-        paddingHorizontal: theme.spacing.sm,
+        height: 44,
+        width: 44,
+        borderRadius: theme.radius.sm,
         _web: {
             cursor: 'pointer'
         }
@@ -35,10 +38,6 @@ export const ImportScreenStyles = StyleSheet.create((theme, rt) => ({
     resetPressed: {
         opacity: 0.6,
         transform: [{ scale: 0.97 }]
-    },
-    resetText: {
-        fontSize: theme.typography.size.md,
-        fontWeight: '700'
     },
     title: {
         flex: 1,
