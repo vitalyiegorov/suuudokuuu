@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.42.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.41.1...v2.42.0) (2026-11-06)
+
+### Features
+
+* **app:** scan or pick a photo to import a puzzle, keeping handwritten progress ([#807](https://github.com/vitalyiegorov/suuudokuuu/issues/807)) ([2f97a12](https://github.com/vitalyiegorov/suuudokuuu/commit/2f97a1245e03fe11b69e6df247dea1d38d45d0d5))
+
+
 ## [2.41.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.41.0...v2.41.1) (2026-11-06)
 
 **Note:** Version bump only for package @suuudokuuu/app
