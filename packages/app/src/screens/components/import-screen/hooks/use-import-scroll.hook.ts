@@ -7,6 +7,7 @@ import { isDefined } from '@rnw-community/shared';
 import type { LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, ScrollViewInstance } from 'react-native';
 
 const boardMaxWidth = 480;
+const selectedCellSizeMin = 28;
 
 export const useImportScroll = (selectedCellIndex: number | null) => {
     const [viewportHeight, setViewportHeight] = useState(0);
@@ -15,7 +16,10 @@ export const useImportScroll = (selectedCellIndex: number | null) => {
     const [padHeight, setPadHeight] = useState(0);
     const [statusHeight, setStatusHeight] = useState(0);
     const boardSide = isDefined(selectedCellIndex)
-        ? Math.max(0, Math.min(boardWidth, viewportHeight - statusHeight - padHeight - SpacingConstant.sm * 2 - SpacingConstant.md * 2))
+        ? Math.max(
+              Math.min(boardWidth, selectedCellSizeMin * defaultSudokuConfig.fieldSize),
+              Math.min(boardWidth, viewportHeight - statusHeight - padHeight - SpacingConstant.sm * 2 - SpacingConstant.md * 2)
+          )
         : boardWidth;
     const scrollOffset = useRef(0);
     const scrollRef = useRef<ScrollViewInstance>(null);

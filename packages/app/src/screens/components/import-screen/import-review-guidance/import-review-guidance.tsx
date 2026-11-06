@@ -5,6 +5,7 @@ import { getMatchingEntryCellIndexes, isImportedPuzzleCompleted } from '@suuudok
 import { isDefined } from '@rnw-community/shared';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
+import { ImportScreenSelectors } from '../import-screen.selectors';
 
 import { ImportReviewGuidanceStyles as styles } from './import-review-guidance.styles';
 
@@ -46,5 +47,9 @@ export const ImportReviewGuidance = ({ clueString, entryString, assessment, unce
         ? t`Already solved on paper. You'll start from the printed clues.`
         : [droppedText, keptText, getGuidance()].filter(isDefined).join('\n');
 
-    return guidance.length > 0 ? <BlackText style={styles.guidance}>{guidance}</BlackText> : null;
+    return guidance.length > 0 ? (
+        <BlackText accessibilityLiveRegion="polite" style={styles.guidance} testID={ImportScreenSelectors.Guidance}>
+            {guidance}
+        </BlackText>
+    ) : null;
 };

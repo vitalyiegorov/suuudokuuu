@@ -20,6 +20,7 @@ import { getVisibleByTestId } from '../src/utils/visible-locator.util';
 
 import type { BrowserContext, Page } from '@playwright/test';
 
+const selectedCellSizeMin = 28;
 const uniquePuzzle = '003020600900305001001806400008102900700000008006708200002609500800203009005010300';
 const uniquePuzzleLink = `https://www.sudokuwiki.org/sudoku.htm?bd=${uniquePuzzle}`;
 const sheetBackdropPosition = { x: 10, y: 10 };
@@ -252,7 +253,8 @@ test('keeps matching handwritten entries, drops wrong entries and starts with no
     await page.getByTestId(`${ImportScreenSelectors.PadValue}.2`).click();
     await cell(page, '0-6').click();
     await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/1 didn’t match.*1 of your entries kept/su);
+    await cell(page, '0-6').click();
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveText(/1 didn’t match.*1 of your entries kept/su);
     await page.getByTestId(ImportScreenSelectors.PlayButton).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
     await expect(page.getByTestId(cellTestId(0, 4))).toHaveAccessibleName('Row 1, column 5, 7');
@@ -280,7 +282,8 @@ test('starts from printed clues when handwritten entries complete the puzzle', a
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('This puzzle is already complete');
     await cell(page, '0-4').click();
     await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toContainText(
+    await cell(page, '0-4').click();
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toContainText(
         "Already solved on paper. You'll start from the printed clues."
     );
     await page.getByTestId(ImportScreenSelectors.PlayButton).click();
@@ -313,7 +316,7 @@ test('plays and restores handwritten progress recognized from a photo', async ({
     await openImportFromPlay(page);
     await pickPhoto(page, file);
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/of your entries kept/u);
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveText(/of your entries kept/u);
     await page.getByTestId(ImportScreenSelectors.PlayButton).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
     for (const [index, mark] of Array.from(handwriting).entries()) {
@@ -345,7 +348,7 @@ test('reserves the clear slot and reveals the handwritten entry toggle', async (
         .click();
     await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toBeInViewport({ ratio: 1 });
     await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toHaveAccessibleName('Make printed clue');
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).not.toHaveText(/0 didn’t match/u);
+    await expect(page.getByTestId(ImportScreenSelectors.Root)).not.toContainText('0 didn’t match');
 });
 
 test('keeps the selected row and pad visible while typing at twice the text size', async ({ page }) => {
@@ -441,6 +444,7 @@ for (const viewport of [
         const selectedCell = page.getByRole('button', { name: /Row 1,.*handwritten/u }).first();
         await selectedCell.click();
         await expect(selectedCell).toBeInViewport({ ratio: 1 });
+        await expect.poll(async () => (await selectedCell.boundingBox())?.width ?? 0).toBeGreaterThanOrEqual(selectedCellSizeMin);
         await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeInViewport({ ratio: 1 });
         await expect
             .poll(async () => {
@@ -468,5 +472,5 @@ test('marks uncertain digits recognized from a photo for review', async ({ page 
     await openImportFromPlay(page);
     await pickPhoto(page, 'handwritten-photo-03.jpg');
     await expect(page.getByRole('button', { name: /check this digit/u }).first()).toBeVisible();
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toContainText('digits to check');
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toContainText('digits to check');
 });

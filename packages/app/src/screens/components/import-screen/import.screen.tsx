@@ -255,19 +255,19 @@ export const ImportScreen = ({ initialText }: Props) => {
                             isCheckFailed={isCheckFailed}
                             isRecognizing={isRecognizing}
                             puzzleString={puzzleString}
-                        >
-                            <ImportReviewGuidance
-                                clueString={puzzleString}
-                                entryString={entryString}
-                                assessment={uniqueAssessment}
-                                uncertainCellCount={uncertainCellIndexes.length}
-                            />
-                        </ImportStatus>
+                        />
                     </View>
                 ) : null}
                 {isDefined(selectedCellIndex) ? (
                     <ImportCellPad onLayout={handlePadLayout} onInput={input} onToggleEntry={toggleEntry} toggleLabel={toggleLabel} />
-                ) : null}
+                ) : (
+                    <ImportReviewGuidance
+                        clueString={puzzleString}
+                        entryString={entryString}
+                        assessment={uniqueAssessment}
+                        uncertainCellCount={uncertainCellIndexes.length}
+                    />
+                )}
             </ScrollView>
             {hasBoard ? (
                 <View style={styles.footer}>

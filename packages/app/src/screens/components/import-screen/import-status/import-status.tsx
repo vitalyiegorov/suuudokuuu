@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
 import LucideCircleAlert from 'lucide-react-native/icons/circle-alert';
-import { use, type ReactNode } from 'react';
+import { use } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { interpolateColor } from 'react-native-reanimated';
 
@@ -62,7 +62,6 @@ const getConflictMessage = (puzzleString: string, cellIndexes: readonly number[]
 const errorForegroundBlend = 0.25;
 
 interface Props {
-    readonly children: ReactNode;
     readonly sourceStatus: string | null;
     readonly assessed: { readonly assessment: ImportedPuzzleAssessmentType; readonly puzzleString: string } | null;
     readonly isCheckFailed: boolean;
@@ -70,7 +69,7 @@ interface Props {
     readonly puzzleString: string;
 }
 
-export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, children, sourceStatus, isRecognizing }: Props) => {
+export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, sourceStatus, isRecognizing }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
@@ -147,7 +146,6 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, children, 
                 {isRecognizing ? <ActivityIndicator color={color} size={20} style={styles.icon} /> : null}
                 <BlackText style={textStyles}>{statusText}</BlackText>
             </View>
-            {children}
         </View>
     );
 };
