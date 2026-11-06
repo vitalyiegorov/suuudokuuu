@@ -2,14 +2,14 @@ import { msg, plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
+import LucideCircleExclamationPoint from 'lucide-react-native/icons/circle-exclamation-point';
 import { use } from 'react';
-import { View } from 'react-native';
-import Animated, { Easing, FadeIn, FadeOut } from 'react-native-reanimated';
+import { ActivityIndicator, View } from 'react-native';
+import { interpolateColor } from 'react-native-reanimated';
 
 import { isDefined } from '@rnw-community/shared';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
-import { animationDurationConstant, animationEaseOutCurveConstant } from '../../../../@generic/constants/animation.constant';
 import { formatSeRatingValue } from '../../../../@generic/utils/format-se-rating-value.util';
 import { getDifficultyMessage } from '../../../../@generic/utils/get-difficulty-message.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
@@ -21,9 +21,6 @@ import type { MessageDescriptor } from '@lingui/core';
 import type { ImportedPuzzleAssessmentType } from '@suuudokuuu/puzzle-forge';
 
 const { fieldGroupHeight, fieldGroupWidth, fieldSize } = defaultSudokuConfig;
-const crossfadeEasing = Easing.bezier(...animationEaseOutCurveConstant);
-const statusEntering = FadeIn.duration(animationDurationConstant).easing(crossfadeEasing);
-const statusExiting = FadeOut.duration(animationDurationConstant).easing(crossfadeEasing);
 const digitPattern = /[1-9]/u;
 
 const conflictUnits = [
@@ -62,19 +59,29 @@ const getConflictMessage = (puzzleString: string, cellIndexes: readonly number[]
         : msg`These cells conflict`;
 };
 
+const errorForegroundBlend = 0.25;
+
 interface Props {
+    readonly sourceStatus: string | null;
     readonly assessed: { readonly assessment: ImportedPuzzleAssessmentType; readonly puzzleString: string } | null;
     readonly isCheckFailed: boolean;
-    readonly isPasteMissed: boolean;
+    readonly isRecognizing: boolean;
     readonly puzzleString: string;
 }
 
-export const ImportStatus = ({ assessed, isCheckFailed, isPasteMissed, puzzleString }: Props) => {
+export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, sourceStatus, isRecognizing }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
     const getClueCount = (text: string) => Array.from(text).filter(cell => digitPattern.test(cell)).length;
-    const boardClueCount = getClueCount(puzzleString);
+    const getUniqueText = (
+        settledAssessment: Extract<ImportedPuzzleAssessmentType, { readonly kind: ImportedPuzzleAssessmentKindEnum.UNIQUE }>
+    ): string => {
+        const difficulty = t(getDifficultyMessage(settledAssessment.difficulty));
+        const rating = formatSeRatingValue(settledAssessment.rating, settledAssessment.isRatingCeiling);
+
+        return t`One solution · ${difficulty} · SE ${rating}`;
+    };
     const getAssessmentText = ({
         assessment: settledAssessment,
         puzzleString: assessedPuzzleString
@@ -84,10 +91,7 @@ export const ImportStatus = ({ assessed, isCheckFailed, isPasteMissed, puzzleStr
         }
 
         if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.UNIQUE) {
-            const difficulty = t(getDifficultyMessage(settledAssessment.difficulty));
-            const rating = formatSeRatingValue(settledAssessment.rating, settledAssessment.isRatingCeiling);
-
-            return t`One solution · ${difficulty} · SE ${rating}`;
+            return getUniqueText(settledAssessment);
         }
 
         if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.COMPLETE) {
@@ -108,16 +112,22 @@ export const ImportStatus = ({ assessed, isCheckFailed, isPasteMissed, puzzleStr
         return isDefined(assessed) ? getAssessmentText(assessed) : t`Checking…`;
     };
     const getStatusText = (): string => {
-        if (isPasteMissed) {
-            return t`No puzzle found on the clipboard`;
+        if (isDefined(sourceStatus)) {
+            return sourceStatus;
         }
 
-        return boardClueCount > 0 ? getBoardText() : t`Paste a puzzle or tap a cell to type it`;
+        return getClueCount(puzzleString) > 0 ? getBoardText() : t`Tap a cell to type it`;
     };
 
     const statusText = getStatusText();
-    const isHint = boardClueCount === 0 || isPasteMissed;
-    const textStyles = [styles.status, { color: isHint ? theme.colors.text.hint : theme.colors.text.primary }];
+    const isError =
+        (isDefined(sourceStatus) && !isRecognizing) ||
+        isCheckFailed ||
+        assessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.CONFLICT ||
+        assessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.NO_SOLUTION;
+    const errorColor = interpolateColor(errorForegroundBlend, [0, 1], [theme.colors.danger, theme.colors.text.primary]);
+    const color = isError ? errorColor : theme.colors.text.primary;
+    const textStyles = [styles.status, { color }];
 
     return (
         <View
@@ -127,9 +137,15 @@ export const ImportStatus = ({ assessed, isCheckFailed, isPasteMissed, puzzleStr
             style={styles.container}
             testID={ImportScreenSelectors.Status}
         >
-            <Animated.View entering={statusEntering} exiting={statusExiting} key={statusText}>
+            <View style={styles.message}>
+                {isError ? (
+                    <View style={styles.icon}>
+                        <LucideCircleExclamationPoint color={color} size={20} />
+                    </View>
+                ) : null}
+                {isRecognizing ? <ActivityIndicator color={color} size={20} style={styles.icon} /> : null}
                 <BlackText style={textStyles}>{statusText}</BlackText>
-            </Animated.View>
+            </View>
         </View>
     );
 };

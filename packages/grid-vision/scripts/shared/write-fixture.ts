@@ -8,9 +8,9 @@ const MAXIMUM_FIXTURE_BYTES = 150_000;
 export const readFixtureManifest = (): Map<string, string> =>
     new Map(
         (existsSync(MANIFEST_FILE) ? readFileSync(MANIFEST_FILE, 'utf8').split('\n') : []).filter(Boolean).map(line => {
-            const [file, expected] = line.split(' ');
+            const [file, ...expected] = line.split(' ');
 
-            return [file, expected];
+            return [file, expected.join(' ')];
         })
     );
 

@@ -91,7 +91,12 @@ const sampleGlyphPixel = (
     return inkCount / (SUPERSAMPLE_COUNT * SUPERSAMPLE_COUNT);
 };
 
-export const extractCellGlyph = (mask: BinaryImageInterface, row: number, column: number): Float32Array | null => {
+export const extractCellGlyph = (
+    mask: BinaryImageInterface,
+    row: number,
+    column: number,
+    visitInk: ((x: number, y: number) => void) | null = null
+): Float32Array | null => {
     const { labels, components } = labelComponents(eraseGridLines(cropCell(mask, row, column)));
     const pieces = components.filter(isCentralPiece);
     const bounds = pieces.length > 0 ? mergePieces(pieces) : null;
@@ -104,6 +109,17 @@ export const extractCellGlyph = (mask: BinaryImageInterface, row: number, column
 
     for (const piece of pieces) {
         isGlyphLabel[piece.label] = 1;
+    }
+
+    if (visitInk !== null) {
+        for (let pixel = 0; pixel < labels.length; pixel += 1) {
+            if (isGlyphLabel[labels[pixel]] === 1) {
+                visitInk(
+                    column * CELL_SIZE + CELL_MARGIN + (pixel % CROP_SIZE),
+                    row * CELL_SIZE + CELL_MARGIN + Math.floor(pixel / CROP_SIZE)
+                );
+            }
+        }
     }
 
     return Float32Array.from({ length: GLYPH_PIXEL_COUNT }, (_, glyphIndex) => sampleGlyphPixel(isGlyphLabel, labels, bounds, glyphIndex));

@@ -120,7 +120,14 @@ const drawBoxedGrid = (context: SKRSContext2D, random: SeededRandom, size: numbe
     return origins;
 };
 
-const drawDigits = (context: SKRSContext2D, random: SeededRandom, origins: readonly number[], puzzle: string, fontFamily: string): void => {
+const drawDigits = (
+    context: SKRSContext2D,
+    random: SeededRandom,
+    origins: readonly number[],
+    puzzle: string,
+    fontFamily: string,
+    handwritten = ''
+): void => {
     const cell = origins[1] - origins[0];
     const fontSize = cell * random.between(STYLE.digitSize);
     const strokeWidth = random.chance(STYLE.strokeChance) ? random.between({ minimum: 0, maximum: fontSize * STYLE.strokeWidthRatio }) : 0;
@@ -133,6 +140,10 @@ const drawDigits = (context: SKRSContext2D, random: SeededRandom, origins: reado
     for (let index = 0; index < puzzle.length; index += 1) {
         if (puzzle[index] !== '.') {
             context.save();
+            if (handwritten[index] === 'h') {
+                context.fillStyle = index % 2 === 0 ? 'rgb(25, 65, 190)' : 'rgb(145, 145, 145)';
+                context.strokeStyle = context.fillStyle;
+            }
             context.translate(
                 origins[index % GRID_SIZE] + cell * (0.5 + random.between(STYLE.digitOffset)),
                 origins[Math.floor(index / GRID_SIZE)] + cell * (0.5 + random.between(STYLE.digitOffset))
@@ -147,7 +158,7 @@ const drawDigits = (context: SKRSContext2D, random: SeededRandom, origins: reado
     }
 };
 
-export const renderFlatGrid = (random: SeededRandom, puzzle: string, fontFamily: string): Canvas => {
+export const renderFlatGrid = (random: SeededRandom, puzzle: string, fontFamily: string, handwritten = ''): Canvas => {
     const size = random.integer(STYLE.gridSize);
     const margin = Math.round(size * random.between(STYLE.paperMargin));
     const canvas = createCanvas(size + 2 * margin, size + 2 * margin);
@@ -163,7 +174,7 @@ export const renderFlatGrid = (random: SeededRandom, puzzle: string, fontFamily:
 
     context.fillStyle = ink;
     context.strokeStyle = ink;
-    drawDigits(context, random, origins, puzzle, fontFamily);
+    drawDigits(context, random, origins, puzzle, fontFamily, handwritten);
 
     return canvas;
 };

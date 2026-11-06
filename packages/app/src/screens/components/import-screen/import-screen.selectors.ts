@@ -1,4 +1,10 @@
 export enum ImportScreenSelectors {
+    ScanButton = 'ImportScreenSelectors.ScanButton',
+    PhotosButton = 'ImportScreenSelectors.PhotosButton',
+    TypeButton = 'ImportScreenSelectors.TypeButton',
+    EntryToggleButton = 'ImportScreenSelectors.EntryToggleButton',
+    Guidance = 'ImportScreenSelectors.Guidance',
+    Sources = 'ImportScreenSelectors.Sources',
     Cell = 'ImportScreenSelectors.Cell',
     ClearButton = 'ImportScreenSelectors.ClearButton',
     PadValue = 'ImportScreenSelectors.PadValue',

@@ -1,46 +1,35 @@
 import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
-import { AppButton } from '@suuudokuuu/ui';
+import { AppButton, CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui';
 import LucideDelete from 'lucide-react-native/icons/delete';
-import { View } from 'react-native';
-import Animated, { cubicBezier } from 'react-native-reanimated';
+import { Text, View, type LayoutChangeEvent } from 'react-native';
 
-import { animationDurationConstant, animationEaseOutCurveConstant } from '../../../../@generic/constants/animation.constant';
 import { ImportCellPadButton } from '../import-cell-pad-button/import-cell-pad-button';
 import { ImportScreenSelectors } from '../import-screen.selectors';
 
 import { ImportCellPadStyles as styles } from './import-cell-pad.styles';
 
 const padValues = Array.from({ length: defaultSudokuConfig.fieldSize }, (_, index) => index + 1);
-const disabledOpacity = 0.42;
-const dimTransition = {
-    transitionDuration: animationDurationConstant,
-    transitionProperty: 'opacity',
-    transitionTimingFunction: cubicBezier(...animationEaseOutCurveConstant),
-    width: '100%'
-} as const;
-
 interface Props {
-    readonly isDisabled: boolean;
+    readonly onLayout: (event: LayoutChangeEvent) => void;
+    readonly toggleLabel: string | null;
+    readonly onToggleEntry: () => void;
     readonly onInput: (value: number) => void;
 }
 
-export const ImportCellPad = ({ isDisabled, onInput }: Props) => {
+export const ImportCellPad = ({ onLayout, onInput, toggleLabel, onToggleEntry }: Props) => {
     const { t } = useLingui();
 
     const handleClear = () => void onInput(defaultSudokuConfig.blankCellValue);
 
-    const dimStyles = { ...dimTransition, opacity: isDisabled ? disabledOpacity : 1 };
-
     return (
-        <Animated.View style={dimStyles}>
+        <View onLayout={onLayout} style={styles.wrapper}>
             <View style={styles.pad}>
                 {padValues.map(value => (
-                    <ImportCellPadButton isDisabled={isDisabled} key={value} onInput={onInput} value={value} />
+                    <ImportCellPadButton key={value} onInput={onInput} value={value} />
                 ))}
                 <AppButton
                     accessibilityLabel={t`Clear cell`}
-                    disabled={isDisabled}
                     icon={LucideDelete}
                     onPress={handleClear}
                     size="compact"
@@ -49,6 +38,13 @@ export const ImportCellPad = ({ isDisabled, onInput }: Props) => {
                     variant="secondary"
                 />
             </View>
-        </Animated.View>
+            {toggleLabel === null ? null : (
+                <AppButton onPress={onToggleEntry} size="compact" testID={ImportScreenSelectors.EntryToggleButton} variant="secondary">
+                    <Text maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant} style={styles.label}>
+                        {toggleLabel}
+                    </Text>
+                </AppButton>
+            )}
+        </View>
     );
 };

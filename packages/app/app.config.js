@@ -129,7 +129,6 @@ export default ({ config }) =>
             },
             associatedDomains: brandConfig.associatedDomains.map(domain => `applinks:${domain}`),
             infoPlist: {
-                NSPhotoLibraryUsageDescription: 'This app needs access to your photo library to share game results and screenshots.',
                 UISupportedInterfaceOrientations: ['UIInterfaceOrientationPortrait'],
                 'UISupportedInterfaceOrientations~ipad': [
                     'UIInterfaceOrientationPortrait',
@@ -209,6 +208,8 @@ export default ({ config }) =>
                     }
                 }
             ],
+            ['react-native-document-scanner-plugin', { cameraPermission: 'Scan a sudoku from a newspaper, book or screen.' }],
+            ['expo-image-picker', { photosPermission: false, cameraPermission: false, microphonePermission: false }],
             'expo-font',
             'expo-localization',
             'expo-sharing',

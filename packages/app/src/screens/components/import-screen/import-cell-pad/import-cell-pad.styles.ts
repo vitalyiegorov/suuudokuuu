@@ -1,15 +1,18 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 export const ImportCellPadStyles = StyleSheet.create(theme => ({
+    label: { textAlign: 'center', color: theme.colors.surface.subtleText, fontSize: theme.typography.size.md, fontWeight: '700' },
+    wrapper: { width: '100%', gap: theme.spacing.sm },
     button: {
-        flexBasis: 0,
+        flexBasis: '17%',
         flexGrow: 1,
-        minWidth: 0,
+        minWidth: 44,
         paddingHorizontal: 0
     },
     pad: {
         flexDirection: 'row',
-        gap: theme.spacing.xs,
+        flexWrap: 'wrap',
+        gap: theme.spacing.sm,
         width: '100%'
     }
 }));

@@ -193,6 +193,10 @@ That split matters because the interactive ladder is a fidelity trade, not a fre
 
 The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmare rival of `08.challenge-accept-preview` costs 139 ms on the full registry against 198 ms on the interactive ladder, because a move the full ladder settles at `AIC` instead falls through the whole direct pass and then the whole enabling pass. Only the hardest boards invert that: a 60-move Infinity replay costs 0.6-1.4 s full against 0.3-0.5 s interactive, and both of those are already too slow to hide, for legacy records only. Rating and solving still use the full registry.
 
+## Import
+
+The import sheet offers native document scanning, web camera capture, Photos on every platform, text paste, web image paste, and manual entry. The `import-screen-read-grid` platform pair converts image URIs to RGBA for local recognition. `puzzle-forge` splits printed clues from handwritten entries and selects entries matching the solution; only clues are assessed, and matching entries are replayed and saved as run progress before Play opens the game.
+
 ## Routing And Deep Links
 
 1. Expo Router routes live under `src/app`.

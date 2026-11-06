@@ -1,16 +1,39 @@
 import { StyleSheet } from 'react-native-unistyles';
 
+const boardMaxWidth = 480;
+
 export const ImportScreenStyles = StyleSheet.create((theme, rt) => ({
     content: {
         alignSelf: 'center',
-        flex: 1,
+        flexGrow: 0,
         gap: theme.spacing.sm,
-        maxWidth: theme.contentWidth.standard,
-        paddingBottom: rt.insets.bottom + theme.spacing.md,
+        maxWidth: boardMaxWidth + theme.spacing.lg * 2,
+        paddingBottom: theme.spacing.md,
         paddingHorizontal: theme.spacing.lg,
         paddingTop: theme.spacing.md,
         width: '100%'
     },
+    boardSlot: { aspectRatio: 1, alignSelf: 'center', flexShrink: 0 },
+    scroll: { flexGrow: 1, flexBasis: 0, flexShrink: 1, minHeight: 0 },
+    headerContainer: {
+        alignSelf: 'center',
+        width: '100%',
+        maxWidth: boardMaxWidth + theme.spacing.lg * 2,
+        flexShrink: 0,
+        paddingHorizontal: theme.spacing.lg,
+        paddingTop: theme.spacing.md
+    },
+    footer: {
+        alignSelf: 'center',
+        width: '100%',
+        maxWidth: boardMaxWidth + theme.spacing.lg * 2,
+        flexShrink: 0,
+        paddingHorizontal: theme.spacing.lg,
+        paddingBottom: rt.insets.bottom + theme.spacing.md
+    },
+    footerSlot: { minHeight: 52, justifyContent: 'center' },
+    playButton: { paddingVertical: theme.spacing.md },
+    buttonText: { _web: { lineHeight: 'normal' } },
     disabledButton: {
         opacity: 0.42
     },
@@ -18,11 +41,15 @@ export const ImportScreenStyles = StyleSheet.create((theme, rt) => ({
         alignItems: 'center',
         flexDirection: 'row',
         gap: theme.spacing.md,
-        minHeight: 44
+        minHeight: 64
     },
+    resetSlot: { width: 44, height: 44 },
     reset: {
+        alignItems: 'center',
         justifyContent: 'center',
-        minHeight: 44,
+        height: 44,
+        width: 44,
+        borderRadius: theme.radius.sm,
         _web: {
             cursor: 'pointer'
         }
@@ -30,10 +57,6 @@ export const ImportScreenStyles = StyleSheet.create((theme, rt) => ({
     resetPressed: {
         opacity: 0.6,
         transform: [{ scale: 0.97 }]
-    },
-    resetText: {
-        fontSize: theme.typography.size.md,
-        fontWeight: '700'
     },
     title: {
         flex: 1,

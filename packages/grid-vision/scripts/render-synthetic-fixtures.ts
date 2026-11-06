@@ -64,3 +64,33 @@ for (let photo = 0; photo < NO_GRID_PHOTO_COUNT; photo += 1) {
 
     writeFixture(`no-grid-${fixtureNumber(photo)}.jpg`, photographCanvas(random, page).encodeSync('jpeg', NO_GRID_JPEG_QUALITY), NO_GRID);
 }
+
+const HANDWRITING_SEED = 19031;
+const HANDWRITING_PUZZLE = '5...794.......8..7.7.3542.8..4..3579.3.4.1..2...7..3..9...4..6..5..8...3.68......';
+const HANDWRITING_SOLUTION = '581279436342618957679354218214863579735491682896725341923147865457986123168532794';
+const HANDWRITING_ENTRY_PROBABILITY = 0.15;
+const HANDWRITING_JPEG_QUALITY = 80;
+
+for (let photo = 0; photo < 6; photo += 1) {
+    const seed = HANDWRITING_SEED + ((photo + 1) % 6);
+    const handwritingRandom = new SeededRandom(seed);
+    const printed = HANDWRITING_PUZZLE;
+    const handwritten = Array.from(printed, cell =>
+        cell === '.' && handwritingRandom.chance(HANDWRITING_ENTRY_PROBABILITY) ? 'h' : '.'
+    ).join('');
+    const wrongEntryIndex = photo === 5 ? handwritten.indexOf('h') : -1;
+    const puzzle = Array.from(printed, (cell, index) => {
+        if (index === wrongEntryIndex) {
+            return String((Number(HANDWRITING_SOLUTION[index]) % 9) + 1);
+        }
+
+        return handwritten[index] === 'h' ? HANDWRITING_SOLUTION[index] : cell;
+    }).join('');
+    const canvas = photographCanvas(new SeededRandom(seed), renderFlatGrid(new SeededRandom(seed), puzzle, 'sans-serif', handwritten));
+
+    writeFixture(
+        `handwritten-photo-${fixtureNumber(photo)}.jpg`,
+        canvas.encodeSync('jpeg', HANDWRITING_JPEG_QUALITY),
+        `${puzzle} ${handwritten}`
+    );
+}

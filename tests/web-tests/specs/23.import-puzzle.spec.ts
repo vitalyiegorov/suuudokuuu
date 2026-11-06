@@ -1,9 +1,13 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
 import { expect, test } from '@playwright/test';
 import {
     GameScreenSelectors,
     HomeScreenSelectors,
     ImportScreenSelectors,
     PauseScreenSelectors,
+    UndoButtonSelectors,
     WinnerScreenSelectors
 } from '@suuudokuuu/app/src/selectors';
 
@@ -16,14 +20,18 @@ import { getVisibleByTestId } from '../src/utils/visible-locator.util';
 
 import type { BrowserContext, Page } from '@playwright/test';
 
+const selectedCellSizeMin = 28;
 const uniquePuzzle = '003020600900305001001806400008102900700000008006708200002609500800203009005010300';
 const uniquePuzzleLink = `https://www.sudokuwiki.org/sudoku.htm?bd=${uniquePuzzle}`;
 const sheetBackdropPosition = { x: 10, y: 10 };
-const emptyStatus = 'Paste a puzzle or tap a cell to type it';
+const emptyStatus = 'Tap a cell to type it';
+const fixtureDirectory = resolve(__dirname, '../../../packages/grid-vision/test/fixtures');
+const photoPuzzle = '5...794.......8..7.7.3542.8..4..3579.3.4.1..2...7..3..9...4..6..5..8...3.68......';
 const uniqueStatus = 'One solution · Newbie · SE 2.3';
 const singleClueStatus = '1 clue · more than one solution';
 const gameScreenTimeoutMilliseconds = 15000;
 const pauseScreenTimeoutMilliseconds = 10000;
+const minimumTouchTargetSize = 44;
 
 const openImportFromPlay = async (page: Page): Promise<void> => {
     await launchHome(page);
@@ -40,8 +48,12 @@ const cell = (page: Page, cellKey: string) => page.getByTestId(`${ImportScreenSe
 
 test('pastes a puzzle link anywhere on the sheet', async ({ context, page }) => {
     await openImportFromPlay(page);
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(emptyStatus);
-    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeDisabled();
+    await expect(page.getByTestId(ImportScreenSelectors.Sources)).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.ScanButton)).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.PhotosButton)).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.PasteButton)).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.TypeButton)).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeHidden();
 
     await writeClipboard(context, page, uniquePuzzleLink);
     await page.keyboard.press('ControlOrMeta+V');
@@ -52,6 +64,8 @@ test('pastes a puzzle link anywhere on the sheet', async ({ context, page }) => 
 test('types on the board with the pad and keyboard, names conflicts and closes from the backdrop', async ({ page }) => {
     await openImportFromPlay(page);
 
+    await page.getByTestId(ImportScreenSelectors.TypeButton).click();
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(emptyStatus);
     await cell(page, '0-0').click();
     await page.keyboard.press('ControlOrMeta+5');
     await expect(cell(page, '0-0')).toHaveAccessibleName('Row 1, column 1, empty');
@@ -69,7 +83,7 @@ test('types on the board with the pad and keyboard, names conflicts and closes f
     await expect(cell(page, '0-0')).toHaveAccessibleName('Row 1, column 1, 5');
 
     await page.getByTestId(ImportScreenSelectors.ResetButton).click();
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(emptyStatus);
+    await expect(page.getByTestId(ImportScreenSelectors.Sources)).toBeVisible();
     await expect(page.getByTestId(ImportScreenSelectors.PasteButton)).toBeVisible();
 
     await page.getByLabel('Close', { exact: true }).click({ position: sheetBackdropPosition });
@@ -180,3 +194,283 @@ for (const viewport of [
         await expect(importLink).toBeFocused();
     });
 }
+
+const pickPhoto = async (page: Page, name: string): Promise<void> => {
+    const fileChooser = page.waitForEvent('filechooser');
+    await page.getByTestId(ImportScreenSelectors.PhotosButton).click();
+    await (await fileChooser).setFiles(resolve(fixtureDirectory, name));
+};
+
+const expectPhotoDigits = async (page: Page): Promise<void> => {
+    for (const [index, digit] of Array.from(photoPuzzle).entries()) {
+        if (digit !== '.') {
+            await expect(cell(page, `${Math.floor(index / 9)}-${index % 9}`)).toHaveText(digit);
+        }
+    }
+};
+
+test('recognizes a photo and starts the puzzle', async ({ page }) => {
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'app-classic-light-390.jpg');
+    await expectPhotoDigits(page);
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/One solution/u);
+    await page.getByTestId(ImportScreenSelectors.PlayButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+});
+
+test('recognizes an image pasted onto the sheet', async ({ page }) => {
+    await openImportFromPlay(page);
+    const image = readFileSync(resolve(fixtureDirectory, 'app-classic-light-390.jpg')).toString('base64');
+    await page.evaluate(base64 => {
+        const bytes = Uint8Array.from(atob(base64), character => character.charCodeAt(0));
+        const transfer = new DataTransfer();
+        transfer.items.add(new File([bytes], 'puzzle.jpg', { type: 'image/jpeg' }));
+        document.dispatchEvent(new ClipboardEvent('paste', { clipboardData: transfer, bubbles: true }));
+    }, image);
+    await expectPhotoDigits(page);
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+});
+
+test('reviews handwritten digits from a photo', async ({ page }) => {
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'handwritten-photo-01.jpg');
+    await expect(
+        page
+            .getByTestId(ImportScreenSelectors.Root)
+            .getByRole('button', { name: /handwritten/u })
+            .first()
+    ).toBeVisible();
+});
+
+test('keeps matching handwritten entries, drops wrong entries and starts with no undo history', async ({ page }) => {
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'app-classic-light-390.jpg');
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    await cell(page, '0-4').click();
+    await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
+    await expect(cell(page, '0-4')).toHaveAccessibleName(/7, handwritten/u);
+    await cell(page, '0-6').click();
+    await page.getByTestId(`${ImportScreenSelectors.PadValue}.2`).click();
+    await cell(page, '0-6').click();
+    await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
+    await cell(page, '0-6').click();
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveText(/1 didn’t match.*1 of your entries kept/su);
+    await page.getByTestId(ImportScreenSelectors.PlayButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    await expect(page.getByTestId(cellTestId(0, 4))).toHaveAccessibleName('Row 1, column 5, 7');
+    await expect(page.getByTestId(cellTestId(0, 6))).toHaveAccessibleName('Row 1, column 7, empty');
+    await expect(page.getByTestId(UndoButtonSelectors.Root)).toBeDisabled();
+    await page.reload();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    await expect(page.getByTestId(cellTestId(0, 4))).toHaveAccessibleName('Row 1, column 5, 7');
+    await expect(page.getByTestId(cellTestId(0, 6))).toHaveAccessibleName('Row 1, column 7, empty');
+});
+
+test('reports a photo without a grid and allows another source', async ({ page }) => {
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'no-grid-01.jpg');
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText("Couldn't find a sudoku grid. Try a closer, straighter photo.");
+    await expect(page.getByTestId(ImportScreenSelectors.Sources)).toBeVisible();
+});
+
+test('starts from printed clues when handwritten entries complete the puzzle', async ({ page }) => {
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'app-classic-light-390.jpg');
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    await cell(page, '0-0').click();
+    await page.keyboard.type('581279436342618957679354218214863579735491682896725341923147865457986123168532794');
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('This puzzle is already complete');
+    await cell(page, '0-4').click();
+    await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
+    await cell(page, '0-4').click();
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toContainText(
+        "Already solved on paper. You'll start from the printed clues."
+    );
+    await page.getByTestId(ImportScreenSelectors.PlayButton).click();
+    await expect(page).toHaveURL(/\/game$/u);
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    await expect(page.getByTestId(cellTestId(0, 4))).toHaveAccessibleName('Row 1, column 5, empty');
+});
+
+test('rejecting pasted text interrupts recognition and restores the sources', async ({ page }) => {
+    await openImportFromPlay(page);
+    await page.clock.install({ time: new Date('2030-01-01T00:00:00Z') });
+    await page.clock.pauseAt(new Date('2030-01-01T00:01:00Z'));
+    await pickPhoto(page, 'app-classic-light-390.jpg');
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('Reading the puzzle…');
+    await page.evaluate(() => {
+        const transfer = new DataTransfer();
+        transfer.setData('text/plain', 'not a puzzle');
+        document.dispatchEvent(new ClipboardEvent('paste', { clipboardData: transfer, bubbles: true }));
+    });
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('No puzzle found on the clipboard');
+    await expect(page.getByTestId(ImportScreenSelectors.Sources)).toBeVisible();
+});
+
+test('plays and restores handwritten progress recognized from a photo', async ({ page }) => {
+    const [file, puzzle, handwriting] =
+        readFileSync(resolve(fixtureDirectory, 'manifest.txt'), 'utf8')
+            .split('\n')
+            .find(line => line.startsWith('handwritten-photo-01.jpg '))
+            ?.split(' ') ?? [];
+    await openImportFromPlay(page);
+    await pickPhoto(page, file);
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveText(/of your entries kept/u);
+    await page.getByTestId(ImportScreenSelectors.PlayButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    for (const [index, mark] of Array.from(handwriting).entries()) {
+        if (mark === 'h') {
+            await expect(page.getByTestId(cellTestId(Math.floor(index / 9), index % 9))).toHaveText(puzzle[index]);
+        }
+    }
+    await expect(page.getByTestId(UndoButtonSelectors.Root)).toBeDisabled();
+    await page.reload();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    for (const [index, mark] of Array.from(handwriting).entries()) {
+        if (mark === 'h') {
+            await expect(page.getByTestId(cellTestId(Math.floor(index / 9), index % 9))).toHaveText(puzzle[index]);
+        }
+    }
+});
+
+test('reserves the clear slot and reveals the handwritten entry toggle', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await openImportFromPlay(page);
+    const titleBounds = await page.getByTestId(ImportScreenSelectors.Title).boundingBox();
+    await expect(page.getByTestId(ImportScreenSelectors.ResetButton)).toBeHidden();
+    await pickPhoto(page, 'handwritten-photo-01.jpg');
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    expect(await page.getByTestId(ImportScreenSelectors.Title).boundingBox()).toEqual(titleBounds);
+    await page
+        .getByRole('button', { name: /handwritten/u })
+        .first()
+        .click();
+    await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toBeInViewport({ ratio: 1 });
+    await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toHaveAccessibleName('Make printed clue');
+    await expect(page.getByTestId(ImportScreenSelectors.Root)).not.toContainText('0 didn’t match');
+});
+
+test('keeps the selected row and pad visible while typing at twice the text size', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await openImportFromPlay(page);
+    await page.getByTestId(ImportScreenSelectors.TypeButton).click();
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeDisabled();
+    const statusText = page.getByTestId(ImportScreenSelectors.Status).getByText(emptyStatus);
+    const initialFontSize = await statusText.evaluate(element => Number.parseFloat(getComputedStyle(element).fontSize));
+    await page.addStyleTag({ content: '[dir="auto"] { font-size: 200% !important; }' });
+    await expect
+        .poll(() => statusText.evaluate(element => Number.parseFloat(getComputedStyle(element).fontSize)))
+        .toBeGreaterThan(initialFontSize);
+    await cell(page, '0-0').click();
+    await expect(cell(page, '0-0')).toBeInViewport({ ratio: 1 });
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
+    const firstKey = await page.getByTestId(`${ImportScreenSelectors.PadValue}.1`).boundingBox();
+    const fifthKey = await page.getByTestId(`${ImportScreenSelectors.PadValue}.5`).boundingBox();
+    const ninthKey = await page.getByTestId(`${ImportScreenSelectors.PadValue}.9`).boundingBox();
+    const clearKey = await page.getByTestId(ImportScreenSelectors.ClearButton).boundingBox();
+
+    expect(firstKey?.width).toBeGreaterThanOrEqual(minimumTouchTargetSize);
+    expect(fifthKey?.y).toBe(firstKey?.y);
+    expect(clearKey?.y).toBe(ninthKey?.y);
+    expect(clearKey?.y).toBeGreaterThan(firstKey?.y ?? 0);
+    await page.keyboard.press('1');
+    await page.keyboard.press('1');
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('Two 1s in row 1');
+    await expect(cell(page, '0-2')).toBeInViewport({ ratio: 1 });
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
+    await page.keyboard.press('ArrowUp');
+    await expect(cell(page, '8-2')).toBeInViewport({ ratio: 1 });
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
+    await page.getByTestId(ImportScreenSelectors.ResetButton).click();
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toHaveCount(0);
+});
+
+test('pins Play while typing, selecting a cell and loading a unique puzzle', async ({ context, page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await openImportFromPlay(page);
+    await page.getByTestId(ImportScreenSelectors.TypeButton).click();
+    const play = page.getByTestId(ImportScreenSelectors.PlayButton);
+    await expect(play).toBeVisible();
+    const typingBounds = await play.boundingBox();
+    expect(typingBounds).not.toBeNull();
+    await cell(page, '0-0').click();
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
+    expect((await play.boundingBox())?.y).toBe(typingBounds?.y);
+    await writeClipboard(context, page, uniquePuzzle);
+    await page.keyboard.press('ControlOrMeta+V');
+    await expect(play).toBeEnabled();
+    expect((await play.boundingBox())?.y).toBe(typingBounds?.y);
+});
+
+test('keeps the selected row inside the desktop scroll viewport when it fits with the pad', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'handwritten-photo-01.jpg');
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    const selectedCell = page.getByRole('button', { name: /Row 5,.*handwritten/u }).first();
+    await selectedCell.click();
+    await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toBeVisible();
+    await expect
+        .poll(async () => {
+            const selectedBounds = await selectedCell.boundingBox();
+            const viewportBounds = await page.getByTestId(ImportScreenSelectors.Root).boundingBox();
+
+            return (
+                selectedBounds !== null &&
+                viewportBounds !== null &&
+                selectedBounds.x >= viewportBounds.x &&
+                selectedBounds.y >= viewportBounds.y &&
+                selectedBounds.x + selectedBounds.width <= viewportBounds.x + viewportBounds.width &&
+                selectedBounds.y + selectedBounds.height <= viewportBounds.y + viewportBounds.height
+            );
+        })
+        .toBe(true);
+});
+
+for (const viewport of [
+    { width: 1440, height: 900 },
+    { width: 390, height: 844 }
+]) {
+    test(`keeps the selected entry, toggle and Play visible at ${viewport.width}px`, async ({ page }) => {
+        await page.setViewportSize(viewport);
+        await openImportFromPlay(page);
+        await pickPhoto(page, 'handwritten-photo-01.jpg');
+        await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+        if (viewport.width < viewport.height) {
+            await page.addStyleTag({ content: '[dir="auto"] { font-size: 200% !important; }' });
+        }
+        const selectedCell = page.getByRole('button', { name: /Row 1,.*handwritten/u }).first();
+        await selectedCell.click();
+        await expect(selectedCell).toBeInViewport({ ratio: 1 });
+        await expect.poll(async () => (await selectedCell.boundingBox())?.width ?? 0).toBeGreaterThanOrEqual(selectedCellSizeMin);
+        await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeInViewport({ ratio: 1 });
+        await expect
+            .poll(async () => {
+                const selected = await selectedCell.boundingBox();
+                const toggle = await page.getByTestId(ImportScreenSelectors.EntryToggleButton).boundingBox();
+                const play = await page.getByTestId(ImportScreenSelectors.PlayButton).boundingBox();
+                const scroll = await page.getByTestId(ImportScreenSelectors.Root).boundingBox();
+
+                return (
+                    selected !== null &&
+                    selected.y >= (scroll?.y ?? 0) &&
+                    selected.y + selected.height <= (toggle?.y ?? 0) &&
+                    toggle !== null &&
+                    play !== null &&
+                    scroll !== null &&
+                    toggle.y >= scroll.y &&
+                    toggle.y + toggle.height <= Math.min(play.y, scroll.y + scroll.height)
+                );
+            })
+            .toBe(true);
+    });
+}
+
+test('marks uncertain digits recognized from a photo for review', async ({ page }) => {
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'handwritten-photo-03.jpg');
+    await expect(page.getByRole('button', { name: /check this digit/u }).first()).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toContainText('digits to check');
+});
