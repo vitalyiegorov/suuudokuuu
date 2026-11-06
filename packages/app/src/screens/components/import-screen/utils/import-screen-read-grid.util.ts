@@ -10,6 +10,8 @@ const MaxImageSide = 768;
 
 export const importScreenReadGrid: (uri: string) => Effect.Effect<GridRecognitionType> = Effect.fn('importScreenReadGrid')(
     function* (uri: string) {
+        yield* Effect.addFinalizer(() => Effect.ignore(Effect.try(() => void new File(uri).delete())));
+
         const context = yield* Effect.acquireRelease(
             Effect.sync(() => ImageManipulator.manipulate(uri, { maxWidth: MaxImageSide, maxHeight: MaxImageSide })),
             resource => Effect.sync(() => void resource.release())
