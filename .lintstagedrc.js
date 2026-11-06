@@ -12,7 +12,7 @@ module.exports = {
         const lintTargets = [...new Set(fileNames.filter(fileName => /\.(?:ts|tsx|mts|cts)$/u.test(fileName)).map(getLintTarget))];
         const lintCommands =
             lintTargets.length > 0
-                ? [`effect-tsgo --tsrs-lint oxlint --type-aware --fix --no-error-on-unmatched-pattern ${quoteFileNames(lintTargets)}`]
+                ? [`effect-tsgo --tsrs-lint oxlint --type-aware --no-error-on-unmatched-pattern ${quoteFileNames(lintTargets)}`]
                 : [];
 
         return [...lintCommands, `oxfmt --no-error-on-unmatched-pattern ${quoteFileNames(fileNames)}`];
