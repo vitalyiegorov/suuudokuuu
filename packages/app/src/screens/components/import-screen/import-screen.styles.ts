@@ -13,7 +13,7 @@ export const ImportScreenStyles = StyleSheet.create((theme, rt) => ({
         paddingTop: theme.spacing.md,
         width: '100%'
     },
-    boardSlot: { aspectRatio: 1, width: '100%', flexShrink: 0 },
+    boardSlot: { aspectRatio: 1, alignSelf: 'center', flexShrink: 0 },
     scroll: { flexGrow: 1, flexBasis: 0, flexShrink: 1, minHeight: 0 },
     headerContainer: {
         alignSelf: 'center',

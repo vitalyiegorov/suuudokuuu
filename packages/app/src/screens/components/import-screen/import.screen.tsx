@@ -78,7 +78,8 @@ export const ImportScreen = ({ initialText }: Props) => {
     const isAssessedCurrent = isDefined(assessed) && assessed.puzzleString === puzzleString;
 
     const hasBoard = hasDigits || isTyping || isRecognizing;
-    const { scrollRef, handleScroll, handleScrollLayout, handleBoardLayout, handlePadLayout } = useImportScroll(selectedCellIndex);
+    const { boardSide, scrollRef, handleScroll, handleScrollLayout, handleBoardLayout, handlePadLayout, handleStatusLayout } =
+        useImportScroll(selectedCellIndex);
     const imageFiber = useRef<Fiber.Fiber<void> | null>(null);
     const interruptImage = () => {
         if (isDefined(imageFiber.current)) {
@@ -143,6 +144,7 @@ export const ImportScreen = ({ initialText }: Props) => {
             ? boardAssessed.assessment.cellIndexes.filter(cellIndex => puzzleString[cellIndex] === boardAssessed.puzzleString[cellIndex])
             : [];
     const isPlayDisabled = !isDefined(uniqueAssessment) || isRecognizing;
+    const boardSlotStyles = [styles.boardSlot, { width: boardSide }];
     const playButtonStyles = [styles.playButton, isPlayDisabled && styles.disabledButton];
     const getResetStyles = ({ pressed }: PressableStateCallbackType) => [styles.reset, pressed && styles.resetPressed];
 
@@ -231,7 +233,7 @@ export const ImportScreen = ({ initialText }: Props) => {
                 testID={ImportScreenSelectors.Root}
             >
                 {hasBoard ? (
-                    <View onLayout={handleBoardLayout} style={styles.boardSlot}>
+                    <View onLayout={handleBoardLayout} style={boardSlotStyles}>
                         <ImportBoard
                             entryString={entryString}
                             uncertainCellIndexes={uncertainCellIndexes}
@@ -246,20 +248,22 @@ export const ImportScreen = ({ initialText }: Props) => {
                 )}
 
                 {hasBoard || isPasteMissed || isGridMissed ? (
-                    <ImportStatus
-                        sourceStatus={sourceStatus}
-                        assessed={boardAssessed}
-                        isCheckFailed={isCheckFailed}
-                        isRecognizing={isRecognizing}
-                        puzzleString={puzzleString}
-                    >
-                        <ImportReviewGuidance
-                            clueString={puzzleString}
-                            entryString={entryString}
-                            assessment={uniqueAssessment}
-                            uncertainCellCount={uncertainCellIndexes.length}
-                        />
-                    </ImportStatus>
+                    <View onLayout={handleStatusLayout}>
+                        <ImportStatus
+                            sourceStatus={sourceStatus}
+                            assessed={boardAssessed}
+                            isCheckFailed={isCheckFailed}
+                            isRecognizing={isRecognizing}
+                            puzzleString={puzzleString}
+                        >
+                            <ImportReviewGuidance
+                                clueString={puzzleString}
+                                entryString={entryString}
+                                assessment={uniqueAssessment}
+                                uncertainCellCount={uncertainCellIndexes.length}
+                            />
+                        </ImportStatus>
+                    </View>
                 ) : null}
                 {isDefined(selectedCellIndex) ? (
                     <ImportCellPad onLayout={handlePadLayout} onInput={input} onToggleEntry={toggleEntry} toggleLabel={toggleLabel} />

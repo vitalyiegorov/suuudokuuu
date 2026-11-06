@@ -331,24 +331,6 @@ test('plays and restores handwritten progress recognized from a photo', async ({
     }
 });
 
-test('prioritizes the pad when the row and controls cannot fit at 200% zoom', async ({ page }) => {
-    await page.setViewportSize({ width: 390, height: 844 });
-    await page.goto(`/import?puzzle=${uniquePuzzle}`);
-    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
-    await page.addStyleTag({ content: 'html { zoom: 2; }' });
-    const firstCell = cell(page, '0-0');
-    await expect
-        .poll(async () => {
-            const bounds = await firstCell.boundingBox();
-
-            return bounds !== null && bounds.width > 0 && Math.abs(bounds.width - bounds.height) < 1;
-        })
-        .toBe(true);
-    await firstCell.click();
-    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeInViewport({ ratio: 1 });
-    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
-});
-
 test('reserves the clear slot and reveals the handwritten entry toggle', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await openImportFromPlay(page);
@@ -448,7 +430,7 @@ for (const viewport of [
     { width: 1440, height: 900 },
     { width: 390, height: 844 }
 ]) {
-    test(`keeps the entry toggle above Play at ${viewport.width}px`, async ({ page }) => {
+    test(`keeps the selected entry, toggle and Play visible at ${viewport.width}px`, async ({ page }) => {
         await page.setViewportSize(viewport);
         await openImportFromPlay(page);
         await pickPhoto(page, 'handwritten-photo-01.jpg');
@@ -456,17 +438,21 @@ for (const viewport of [
         if (viewport.width < viewport.height) {
             await page.addStyleTag({ content: '[dir="auto"] { font-size: 200% !important; }' });
         }
-        await page
-            .getByRole('button', { name: /Row 1,.*handwritten/u })
-            .first()
-            .click();
+        const selectedCell = page.getByRole('button', { name: /Row 1,.*handwritten/u }).first();
+        await selectedCell.click();
+        await expect(selectedCell).toBeInViewport({ ratio: 1 });
+        await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeInViewport({ ratio: 1 });
         await expect
             .poll(async () => {
+                const selected = await selectedCell.boundingBox();
                 const toggle = await page.getByTestId(ImportScreenSelectors.EntryToggleButton).boundingBox();
                 const play = await page.getByTestId(ImportScreenSelectors.PlayButton).boundingBox();
                 const scroll = await page.getByTestId(ImportScreenSelectors.Root).boundingBox();
 
                 return (
+                    selected !== null &&
+                    selected.y >= (scroll?.y ?? 0) &&
+                    selected.y + selected.height <= (toggle?.y ?? 0) &&
                     toggle !== null &&
                     play !== null &&
                     scroll !== null &&

@@ -12,7 +12,11 @@ export const useImportScroll = (selectedCellIndex: number | null) => {
     const [viewportHeight, setViewportHeight] = useState(0);
     const [boardWidth, setBoardWidth] = useState(0);
     const [boardTop, setBoardTop] = useState(0);
-    const [padBottom, setPadBottom] = useState(0);
+    const [padHeight, setPadHeight] = useState(0);
+    const [statusHeight, setStatusHeight] = useState(0);
+    const boardSide = isDefined(selectedCellIndex)
+        ? Math.max(0, Math.min(boardWidth, viewportHeight - statusHeight - padHeight - SpacingConstant.sm * 2 - SpacingConstant.md * 2))
+        : boardWidth;
     const scrollOffset = useRef(0);
     const scrollRef = useRef<ScrollViewInstance>(null);
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -23,20 +27,22 @@ export const useImportScroll = (selectedCellIndex: number | null) => {
         setBoardWidth(Math.min(boardMaxWidth, event.nativeEvent.layout.width - SpacingConstant.lg * 2));
     };
     const handleBoardLayout = (event: LayoutChangeEvent) => void setBoardTop(event.nativeEvent.layout.y);
-    const handlePadLayout = (event: LayoutChangeEvent) => {
-        const { y, height } = event.nativeEvent.layout;
-        setPadBottom(y + height);
-    };
+    const handlePadLayout = (event: LayoutChangeEvent) => void setPadHeight(event.nativeEvent.layout.height);
+    const handleStatusLayout = (event: LayoutChangeEvent) => void setStatusHeight(event.nativeEvent.layout.height);
     useLayoutEffect(() => {
         if (isDefined(selectedCellIndex)) {
             const rowTop =
-                boardTop + (Math.floor(selectedCellIndex / defaultSudokuConfig.fieldSize) * boardWidth) / defaultSudokuConfig.fieldSize;
-            const offset = Math.ceil(Math.max(0, padBottom + SpacingConstant.sm - viewportHeight, Math.min(rowTop, scrollOffset.current)));
+                boardTop + (Math.floor(selectedCellIndex / defaultSudokuConfig.fieldSize) * boardSide) / defaultSudokuConfig.fieldSize;
+            const offset = Math.ceil(
+                Math.max(0, rowTop + boardSide / defaultSudokuConfig.fieldSize - viewportHeight, Math.min(rowTop, scrollOffset.current))
+            );
             scrollRef.current?.scrollTo({ y: offset, animated: false });
         }
-    }, [selectedCellIndex, viewportHeight, boardTop, boardWidth, padBottom]);
+    }, [selectedCellIndex, viewportHeight, boardTop, boardSide]);
 
     return {
+        boardSide,
+        handleStatusLayout,
         scrollRef,
         handleScroll,
         handleScrollLayout,
