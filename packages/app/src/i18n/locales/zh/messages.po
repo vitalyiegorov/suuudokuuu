@@ -73,7 +73,7 @@ msgstr "{draftThemeName}副本"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{droppedCount, plural, one {# didn’t match} other {# didn’t match}}"
-msgstr ""
+msgstr "{droppedCount, plural, one {# 个不匹配} other {# 个不匹配}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -105,7 +105,7 @@ msgstr "{hours, plural, other {# 小时}}"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
-msgstr ""
+msgstr "{keptCount, plural, one {保留了 # 个已填数字} other {保留了 # 个已填数字}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -535,7 +535,7 @@ msgstr "看看这道数独！"
 
 #: src/screens/components/import-screen/import-board-cell/import-board-cell.tsx
 msgid "check this digit"
-msgstr ""
+msgstr "检查此数字"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Checking…"
@@ -655,7 +655,7 @@ msgstr "出现矛盾，因此 {cell} 不是 {value}。"
 
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
-msgstr ""
+msgstr "未找到数独网格。请靠近并摆正后重拍。"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -979,7 +979,11 @@ msgstr "h"
 
 #: src/screens/components/import-screen/import-board-cell/import-board-cell.tsx
 msgid "handwritten"
-msgstr ""
+msgstr "手写"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Handwritten digits are kept as progress. Tap a shaded cell to review it."
+msgstr "手写数字会保留为进度。轻点带底色的格子进行检查。"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1329,11 +1333,11 @@ msgstr "m"
 
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Mark as handwritten"
-msgstr ""
+msgstr "标记为手写"
 
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Mark as printed"
-msgstr ""
+msgstr "标记为印刷"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
@@ -1438,7 +1442,7 @@ msgstr "报纸"
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Newspaper, book or screen"
-msgstr ""
+msgstr "报纸、书本或屏幕"
 
 #: src/game/components/hint-stepper-next/hint-stepper-next.tsx
 msgid "Next"
@@ -1614,7 +1618,7 @@ msgstr "错误次数已用完"
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Paste"
-msgstr ""
+msgstr "粘贴"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
@@ -1646,7 +1650,7 @@ msgstr "每秒"
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Photos"
-msgstr ""
+msgstr "照片"
 
 #: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Place {placementValue}"
@@ -1769,9 +1773,10 @@ msgstr "凸起表面文字"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "阅读 Suuudokuuu 隐私政策，了解数据收集、存储以及你的权利。"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Reading the puzzle…"
-msgstr ""
+msgstr "正在读取数独…"
 
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Ready for a real challenge"
@@ -1783,7 +1788,7 @@ msgstr "最近的解答"
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Recognized on your device"
-msgstr ""
+msgstr "在您的设备上识别"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1937,7 +1942,7 @@ msgstr "将你的游戏、统计和主题保存到文件"
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Scan a puzzle"
-msgstr ""
+msgstr "扫描数独"
 
 #: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
@@ -2259,7 +2264,7 @@ msgstr "标记越高，技巧越精妙"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell to type it"
-msgstr ""
+msgstr "轻点格子输入"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
@@ -2457,7 +2462,7 @@ msgstr "依次尝试每种突出显示的可能性，并推演它迫使出的结
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Type it in"
-msgstr ""
+msgstr "手动输入"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"

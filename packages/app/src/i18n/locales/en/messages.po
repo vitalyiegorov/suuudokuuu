@@ -983,6 +983,10 @@ msgstr "h"
 msgid "handwritten"
 msgstr "handwritten"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Handwritten digits are kept as progress. Tap a shaded cell to review it."
+msgstr "Handwritten digits are kept as progress. Tap a shaded cell to review it."
+
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
@@ -1771,6 +1775,7 @@ msgstr "Raised surface text"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Reading the puzzle…"
 msgstr "Reading the puzzle…"

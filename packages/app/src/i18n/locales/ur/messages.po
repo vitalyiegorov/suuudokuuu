@@ -73,7 +73,7 @@ msgstr "{draftThemeName} (کاپی)"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{droppedCount, plural, one {# didn’t match} other {# didn’t match}}"
-msgstr ""
+msgstr "{droppedCount, plural, one {# میل نہیں کھاتے} other {# میل نہیں کھاتے}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -105,7 +105,7 @@ msgstr "{hours, plural, one {# گھنٹہ} other {# گھنٹے}}"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
-msgstr ""
+msgstr "{keptCount, plural, one {آپ کے # اندراجات محفوظ} other {آپ کے # اندراجات محفوظ}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -535,7 +535,7 @@ msgstr "یہ سوڈوکو دیکھیں!"
 
 #: src/screens/components/import-screen/import-board-cell/import-board-cell.tsx
 msgid "check this digit"
-msgstr ""
+msgstr "اس ہندسے کو جانچیں"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Checking…"
@@ -655,7 +655,7 @@ msgstr "تضاد، لہٰذا {cell}، {value} نہیں ہے۔"
 
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
-msgstr ""
+msgstr "سڈوکو گرڈ نہیں ملا۔ قریب سے سیدھی تصویر لیں۔"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -979,7 +979,11 @@ msgstr "h"
 
 #: src/screens/components/import-screen/import-board-cell/import-board-cell.tsx
 msgid "handwritten"
-msgstr ""
+msgstr "ہاتھ سے لکھا ہوا"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Handwritten digits are kept as progress. Tap a shaded cell to review it."
+msgstr "ہاتھ سے لکھے ہندسے آپ کی پیش رفت کے طور پر محفوظ ہوتے ہیں۔ جانچنے کے لیے رنگین خانے پر ٹیپ کریں۔"
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1329,11 +1333,11 @@ msgstr "m"
 
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Mark as handwritten"
-msgstr ""
+msgstr "ہاتھ سے لکھا ہوا نشان لگائیں"
 
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Mark as printed"
-msgstr ""
+msgstr "چھپا ہوا نشان لگائیں"
 
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
@@ -1438,7 +1442,7 @@ msgstr "اخبار"
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Newspaper, book or screen"
-msgstr ""
+msgstr "اخبار، کتاب یا اسکرین"
 
 #: src/game/components/hint-stepper-next/hint-stepper-next.tsx
 msgid "Next"
@@ -1614,7 +1618,7 @@ msgstr "غلطیوں کی حد ختم"
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Paste"
-msgstr ""
+msgstr "پیسٹ کریں"
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
@@ -1646,7 +1650,7 @@ msgstr "ہر سیکنڈ پر"
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Photos"
-msgstr ""
+msgstr "تصاویر"
 
 #: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Place {placementValue}"
@@ -1769,9 +1773,10 @@ msgstr "ابھری ہوئی سطح کا متن"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "ڈیٹا جمع کرنے، محفوظ رکھنے اور آپ کے حقوق سے متعلق Suuudokuuu کی پرائیویسی پالیسی پڑھیں۔"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Reading the puzzle…"
-msgstr ""
+msgstr "سڈوکو پڑھ رہے ہیں…"
 
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Ready for a real challenge"
@@ -1783,7 +1788,7 @@ msgstr "حالیہ حل"
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Recognized on your device"
-msgstr ""
+msgstr "آپ کے آلے پر شناخت"
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1937,7 +1942,7 @@ msgstr "اپنے گیمز، اعداد و شمار اور تھیمز ایک فا
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Scan a puzzle"
-msgstr ""
+msgstr "سڈوکو اسکین کریں"
 
 #: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
@@ -2259,7 +2264,7 @@ msgstr "اونچے نشان = تیز تکنیکیں"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell to type it"
-msgstr ""
+msgstr "لکھنے کے لیے خانے پر ٹیپ کریں"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
@@ -2457,7 +2462,7 @@ msgstr "ہر نمایاں امکان کو باری باری آزمائیں او�
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Type it in"
-msgstr ""
+msgstr "خود لکھیں"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
