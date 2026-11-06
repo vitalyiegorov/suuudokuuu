@@ -1,17 +1,15 @@
-import { useAtom, useAtomValue } from '@effect/atom-react/Hooks';
+import { useAtomValue } from '@effect/atom-react/Hooks';
 import { Trans, useLingui } from '@lingui/react/macro';
-import { parsePuzzleText } from '@suuudokuuu/encoder';
-import { defaultSudokuConfig } from '@suuudokuuu/generator';
+import { GridRecognitionKindEnum } from '@suuudokuuu/grid-vision';
 import { ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
 import { AppButton } from '@suuudokuuu/ui';
 import * as Effect from 'effect/Effect';
 import * as AsyncResult from 'effect/reactivity/AsyncResult';
-import * as Atom from 'effect/reactivity/Atom';
 import * as Clipboard from 'expo-clipboard';
 import { NotificationFeedbackType } from 'expo-haptics';
+import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useIsFocused } from 'expo-router';
-import LucideClipboardPaste from 'lucide-react-native/icons/clipboard-paste';
-import { use, useEffect, useEffectEvent, useReducer, useState } from 'react';
+import { use, useEffect, useEffectEvent, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { emptyFn, isDefined } from '@rnw-community/shared';
@@ -30,68 +28,22 @@ import { PuzzleGenerationService } from '../../../game/service/puzzle-generation
 import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
+import { useImportReview } from './hooks/use-import-review.hook';
 import { ImportBoard } from './import-board/import-board';
 import { ImportCellPad } from './import-cell-pad/import-cell-pad';
 import { ImportScreenSelectors } from './import-screen.selectors';
 import { ImportScreenStyles as styles } from './import-screen.styles';
+import { ImportSources } from './import-sources/import-sources';
 import { ImportStatus } from './import-status/import-status';
+import { importScreenReadGrid } from './utils/import-screen-read-grid.util';
+import { importScreenScanImage } from './utils/import-screen-scan-image.util';
 import { importScreenSubscribeWebInput } from './utils/import-screen-subscribe-web-input.util';
 
-import type { SetStateAction } from 'react';
+import type * as Fiber from 'effect/Fiber';
 import type { PressableStateCallbackType } from 'react-native';
 
 const ImportDetent = 0.9;
 const ImportDetents = [ImportDetent];
-const EmptyCellText = '.';
-const lastCellIndex = GameEmptySudokuStringConstant.length - 1;
-
-interface ImportScreenState {
-    readonly entranceKey: number;
-    readonly isPasteMissed: boolean;
-    readonly selectedCellIndex: number | null;
-}
-
-enum ImportScreenActionTypeEnum {
-    CELL_INPUT_APPLIED = 'CELL_INPUT_APPLIED',
-    CELL_TAPPED = 'CELL_TAPPED',
-    PASTE_REJECTED = 'PASTE_REJECTED',
-    PUZZLE_LOADED = 'PUZZLE_LOADED',
-    RESET = 'RESET',
-    SELECTION_MOVED = 'SELECTION_MOVED'
-}
-
-type ImportScreenAction =
-    | { readonly type: ImportScreenActionTypeEnum.CELL_INPUT_APPLIED; readonly nextSelectedCellIndex: number }
-    | { readonly type: ImportScreenActionTypeEnum.CELL_TAPPED; readonly cellIndex: number }
-    | { readonly type: ImportScreenActionTypeEnum.PASTE_REJECTED }
-    | { readonly type: ImportScreenActionTypeEnum.PUZZLE_LOADED }
-    | { readonly type: ImportScreenActionTypeEnum.RESET }
-    | { readonly type: ImportScreenActionTypeEnum.SELECTION_MOVED; readonly selection: SetStateAction<number | null> };
-
-const initialImportScreenState: ImportScreenState = { entranceKey: 0, isPasteMissed: false, selectedCellIndex: null };
-
-const importScreenReducer = (state: ImportScreenState, action: ImportScreenAction): ImportScreenState => {
-    switch (action.type) {
-        case ImportScreenActionTypeEnum.CELL_INPUT_APPLIED:
-            return { ...state, isPasteMissed: false, selectedCellIndex: action.nextSelectedCellIndex };
-        case ImportScreenActionTypeEnum.CELL_TAPPED:
-            return { ...state, selectedCellIndex: action.cellIndex === state.selectedCellIndex ? null : action.cellIndex };
-        case ImportScreenActionTypeEnum.PASTE_REJECTED:
-            return { ...state, isPasteMissed: true, selectedCellIndex: null };
-        case ImportScreenActionTypeEnum.PUZZLE_LOADED:
-            return { entranceKey: state.entranceKey + 1, isPasteMissed: false, selectedCellIndex: null };
-        case ImportScreenActionTypeEnum.RESET:
-            return { ...state, isPasteMissed: false, selectedCellIndex: null };
-        case ImportScreenActionTypeEnum.SELECTION_MOVED:
-            return {
-                ...state,
-                selectedCellIndex: typeof action.selection === 'function' ? action.selection(state.selectedCellIndex) : action.selection
-            };
-        default:
-            return state;
-    }
-};
-
 interface Props {
     readonly initialText: string;
 }
@@ -105,7 +57,10 @@ export const ImportScreen = ({ initialText }: Props) => {
     const { lastGameMaxMistakes } = useSettings();
     const confirmRunReplacement = useConfirmRunReplacement();
     const [hapticNotification] = useVibration();
-    const [puzzleAtom] = useState(() => Atom.make(parsePuzzleText(initialText) ?? GameEmptySudokuStringConstant));
+    const { state, puzzleAtom, puzzleString, reset, loadText, loadGrid, input, toggleEntry, moveSelection, update, canToggle, isEntry } =
+        useImportReview(initialText);
+    const { entranceKey, entryString, isPasteMissed, isGridMissed, isRecognizing, isTyping, selectedCellIndex, uncertainCellIndexes } =
+        state;
     const [assessmentAtom] = useState(() =>
         appAtomRuntime.atom(get => {
             const assessedPuzzleString = get(puzzleAtom);
@@ -116,53 +71,65 @@ export const ImportScreen = ({ initialText }: Props) => {
             );
         })
     );
-    const [puzzleString, setPuzzleString] = useAtom(puzzleAtom);
-    const [{ entranceKey, isPasteMissed, selectedCellIndex }, dispatch] = useReducer(importScreenReducer, initialImportScreenState);
     const assessmentResult = useAtomValue(assessmentAtom);
     const hasDigits = puzzleString !== GameEmptySudokuStringConstant;
     const assessed = AsyncResult.isSuccess(assessmentResult) ? assessmentResult.value : null;
     const isAssessedCurrent = isDefined(assessed) && assessed.puzzleString === puzzleString;
 
-    const handleLoadText = (text: string) => {
-        const parsedPuzzleString = parsePuzzleText(text);
-
-        if (isDefined(parsedPuzzleString)) {
-            setPuzzleString(parsedPuzzleString);
-            dispatch({ type: ImportScreenActionTypeEnum.PUZZLE_LOADED });
-        } else {
-            dispatch({ type: ImportScreenActionTypeEnum.PASTE_REJECTED });
+    const imageFiber = useRef<Fiber.Fiber<void> | null>(null);
+    const interruptImage = () => {
+        if (isDefined(imageFiber.current)) {
+            imageFiber.current.interruptUnsafe();
         }
     };
+    const handleReset = () => {
+        interruptImage();
+        reset();
+    };
 
+    const handleLoadText = (text: string) => {
+        interruptImage();
+        loadText(text);
+    };
     const handlePaste = () =>
         void appRuntime.runFork(
             Effect.tryPromise(() => Clipboard.getStringAsync()).pipe(Effect.map(handleLoadText), Effect.catchCause(logErrorCause))
         );
-
-    const handleReset = () => {
-        setPuzzleString(GameEmptySudokuStringConstant);
-        dispatch({ type: ImportScreenActionTypeEnum.RESET });
+    const readImage = (uri: string) =>
+        Effect.sync(() => void update({ isRecognizing: true, isGridMissed: false, isPasteMissed: false, selectedCellIndex: null })).pipe(
+            Effect.andThen(Effect.sleep(LoaderPaintDelayMillisecondsConstant)),
+            Effect.andThen(importScreenReadGrid(uri)),
+            Effect.tap(result =>
+                Effect.sync(() => {
+                    if (result.kind === GridRecognitionKindEnum.GRID_NOT_FOUND) {
+                        update({ isRecognizing: false, isGridMissed: true });
+                        hapticNotification(NotificationFeedbackType.Warning);
+                    } else {
+                        loadGrid(result);
+                        hapticNotification(NotificationFeedbackType.Success);
+                    }
+                })
+            )
+        );
+    const handleImageSource = (source: Effect.Effect<string | null>) => {
+        interruptImage();
+        imageFiber.current = appRuntime.runFork(
+            source.pipe(
+                Effect.flatMap(uri => (isDefined(uri) ? readImage(uri) : Effect.void)),
+                Effect.catchCause(cause =>
+                    Effect.sync(() => void update({ isRecognizing: false, isGridMissed: true })).pipe(Effect.andThen(logErrorCause(cause)))
+                )
+            )
+        );
     };
-
-    const handleSelectCell = (cellIndex: number) => void dispatch({ type: ImportScreenActionTypeEnum.CELL_TAPPED, cellIndex });
-
-    const handleMoveSelection = (selection: SetStateAction<number | null>) =>
-        void dispatch({ type: ImportScreenActionTypeEnum.SELECTION_MOVED, selection });
-
-    const handleCellInput = (value: number) => {
-        if (!isDefined(selectedCellIndex)) {
-            return;
-        }
-
-        const isClear = value === defaultSudokuConfig.blankCellValue;
-        const cellText = isClear ? EmptyCellText : String(value);
-
-        setPuzzleString(`${puzzleString.slice(0, selectedCellIndex)}${cellText}${puzzleString.slice(selectedCellIndex + 1)}`);
-        dispatch({
-            type: ImportScreenActionTypeEnum.CELL_INPUT_APPLIED,
-            nextSelectedCellIndex: isClear ? selectedCellIndex : Math.min(selectedCellIndex + 1, lastCellIndex)
-        });
-    };
+    const handlePhotos = () =>
+        void handleImageSource(
+            Effect.tryPromise(() => launchImageLibraryAsync({ mediaTypes: ['images'] })).pipe(
+                Effect.map(result => (result.canceled ? null : result.assets[0].uri)),
+                Effect.orDie
+            )
+        );
+    const handlePasteImage = (uri: string) => void handleImageSource(Effect.succeed(uri));
 
     const settledAssessed = assessmentResult.waiting ? null : assessed;
     const isCheckFailed = AsyncResult.isFailure(assessmentResult) && !assessmentResult.waiting;
@@ -173,7 +140,7 @@ export const ImportScreen = ({ initialText }: Props) => {
         boardAssessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.CONFLICT
             ? boardAssessed.assessment.cellIndexes.filter(cellIndex => puzzleString[cellIndex] === boardAssessed.puzzleString[cellIndex])
             : [];
-    const isPlayDisabled = !isDefined(uniqueAssessment);
+    const isPlayDisabled = !isDefined(uniqueAssessment) || isRecognizing;
     const playButtonStyles = isPlayDisabled && styles.disabledButton;
     const resetTextStyles = [styles.resetText, { color: theme.colors.text.hint }];
     const getResetStyles = ({ pressed }: PressableStateCallbackType) => [styles.reset, pressed && styles.resetPressed];
@@ -184,11 +151,25 @@ export const ImportScreen = ({ initialText }: Props) => {
         }
     };
 
+    const onMoveSelection = useEffectEvent(moveSelection);
     const onPastedText = useEffectEvent(handleLoadText);
-    const onKeyboardInput = useEffectEvent(handleCellInput);
+    const onKeyboardInput = useEffectEvent(input);
+    const onPastedImage = useEffectEvent(handlePasteImage);
     const onAssessmentSettled = useEffectEvent(hapticNotification);
 
-    useEffect(() => (isFocused ? importScreenSubscribeWebInput(onPastedText, handleMoveSelection, onKeyboardInput) : emptyFn), [isFocused]);
+    useEffect(
+        () => () => {
+            if (isDefined(imageFiber.current)) {
+                imageFiber.current.interruptUnsafe();
+            }
+        },
+        []
+    );
+
+    useEffect(
+        () => (isFocused ? importScreenSubscribeWebInput(onPastedText, onMoveSelection, onKeyboardInput, onPastedImage) : emptyFn),
+        [isFocused]
+    );
 
     useEffect(() => {
         const settledKind = settledAssessed?.assessment.kind;
@@ -200,12 +181,31 @@ export const ImportScreen = ({ initialText }: Props) => {
         }
     }, [settledAssessed]);
 
+    const hasBoard = hasDigits || isTyping || isRecognizing;
+    const entryLabel = isEntry ? t`Mark as printed` : t`Mark as handwritten`;
+    const toggleLabel = canToggle ? entryLabel : null;
+
+    const handleSelectCell = (cellIndex: number) => void update({ selectedCellIndex: cellIndex === selectedCellIndex ? null : cellIndex });
+    const handleScan = () => void handleImageSource(importScreenScanImage);
+    const handleType = () => void update({ isTyping: true });
+    const getSourceStatus = () => {
+        if (isRecognizing) {
+            return t`Reading the puzzle…`;
+        }
+        if (isGridMissed) {
+            return t`Couldn't find a sudoku grid. Try a closer, straighter photo.`;
+        }
+
+        return isPasteMissed ? t`No puzzle found on the clipboard` : null;
+    };
+    const sourceStatus = getSourceStatus();
+
     return (
         <SheetFrame accessibilityLabel={t`Import a puzzle`} detents={ImportDetents}>
             <View style={styles.content} testID={ImportScreenSelectors.Root}>
                 <View style={styles.header}>
                     <Header style={styles.title} testID={ImportScreenSelectors.Title} text={t`Import a puzzle`} />
-                    {hasDigits ? (
+                    {hasBoard ? (
                         <Pressable
                             accessibilityRole="button"
                             hitSlop={12}
@@ -220,22 +220,33 @@ export const ImportScreen = ({ initialText }: Props) => {
                     ) : null}
                 </View>
 
-                <ImportBoard
-                    conflictCellIndexes={conflictCellIndexes}
-                    entranceKey={entranceKey}
-                    onSelectCell={handleSelectCell}
-                    puzzleString={puzzleString}
-                    selectedCellIndex={selectedCellIndex}
-                />
+                {hasBoard ? (
+                    <ImportBoard
+                        entryString={entryString}
+                        uncertainCellIndexes={uncertainCellIndexes}
+                        conflictCellIndexes={conflictCellIndexes}
+                        key={entranceKey}
+                        onSelectCell={handleSelectCell}
+                        puzzleString={puzzleString}
+                        selectedCellIndex={selectedCellIndex}
+                    />
+                ) : (
+                    <ImportSources onScan={handleScan} onPhotos={handlePhotos} onPaste={handlePaste} onType={handleType} />
+                )}
 
-                <ImportCellPad isDisabled={!isDefined(selectedCellIndex)} onInput={handleCellInput} />
+                {isDefined(selectedCellIndex) ? (
+                    <ImportCellPad onInput={input} onToggleEntry={toggleEntry} toggleLabel={toggleLabel} />
+                ) : null}
 
-                <ImportStatus
-                    assessed={boardAssessed}
-                    isCheckFailed={isCheckFailed}
-                    isPasteMissed={isPasteMissed}
-                    puzzleString={puzzleString}
-                />
+                {hasBoard || isPasteMissed || isGridMissed ? (
+                    <ImportStatus
+                        entryString={entryString}
+                        sourceStatus={sourceStatus}
+                        assessed={boardAssessed}
+                        isCheckFailed={isCheckFailed}
+                        puzzleString={puzzleString}
+                    />
+                ) : null}
 
                 {hasDigits ? (
                     <AppButton
@@ -246,14 +257,7 @@ export const ImportScreen = ({ initialText }: Props) => {
                         testID={ImportScreenSelectors.PlayButton}
                         text={t`Play`}
                     />
-                ) : (
-                    <AppButton
-                        icon={LucideClipboardPaste}
-                        onPress={handlePaste}
-                        testID={ImportScreenSelectors.PasteButton}
-                        text={t`Paste puzzle`}
-                    />
-                )}
+                ) : null}
             </View>
         </SheetFrame>
     );

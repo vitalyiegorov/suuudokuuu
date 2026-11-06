@@ -1,7 +1,7 @@
 import { msg, plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
-import { ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
+import { getMatchingEntryCellIndexes, ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
 import { use } from 'react';
 import { View } from 'react-native';
 import Animated, { Easing, FadeIn, FadeOut } from 'react-native-reanimated';
@@ -63,18 +63,34 @@ const getConflictMessage = (puzzleString: string, cellIndexes: readonly number[]
 };
 
 interface Props {
+    readonly entryString: string;
+    readonly sourceStatus: string | null;
     readonly assessed: { readonly assessment: ImportedPuzzleAssessmentType; readonly puzzleString: string } | null;
     readonly isCheckFailed: boolean;
-    readonly isPasteMissed: boolean;
     readonly puzzleString: string;
 }
 
-export const ImportStatus = ({ assessed, isCheckFailed, isPasteMissed, puzzleString }: Props) => {
+export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryString, sourceStatus }: Props) => {
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
     const getClueCount = (text: string) => Array.from(text).filter(cell => digitPattern.test(cell)).length;
     const boardClueCount = getClueCount(puzzleString);
+    const getUniqueText = (
+        settledAssessment: Extract<ImportedPuzzleAssessmentType, { readonly kind: ImportedPuzzleAssessmentKindEnum.UNIQUE }>
+    ): string => {
+        const difficulty = t(getDifficultyMessage(settledAssessment.difficulty));
+        const rating = formatSeRatingValue(settledAssessment.rating, settledAssessment.isRatingCeiling);
+
+        const entryCount = getClueCount(entryString);
+        const keptCount = getMatchingEntryCellIndexes(entryString, settledAssessment.solutionString).length;
+        const droppedCount = entryCount - keptCount;
+        const keptText = t({ message: plural(keptCount, { one: '# of your entries kept', other: '# of your entries kept' }) });
+        const droppedText = t({ message: plural(droppedCount, { one: '# didn’t match', other: '# didn’t match' }) });
+        const assessmentText = t`One solution · ${difficulty} · SE ${rating}`;
+
+        return entryCount > 0 ? `${assessmentText} · ${keptText} · ${droppedText}` : assessmentText;
+    };
     const getAssessmentText = ({
         assessment: settledAssessment,
         puzzleString: assessedPuzzleString
@@ -84,10 +100,7 @@ export const ImportStatus = ({ assessed, isCheckFailed, isPasteMissed, puzzleStr
         }
 
         if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.UNIQUE) {
-            const difficulty = t(getDifficultyMessage(settledAssessment.difficulty));
-            const rating = formatSeRatingValue(settledAssessment.rating, settledAssessment.isRatingCeiling);
-
-            return t`One solution · ${difficulty} · SE ${rating}`;
+            return getUniqueText(settledAssessment);
         }
 
         if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.COMPLETE) {
@@ -108,15 +121,15 @@ export const ImportStatus = ({ assessed, isCheckFailed, isPasteMissed, puzzleStr
         return isDefined(assessed) ? getAssessmentText(assessed) : t`Checking…`;
     };
     const getStatusText = (): string => {
-        if (isPasteMissed) {
-            return t`No puzzle found on the clipboard`;
+        if (isDefined(sourceStatus)) {
+            return sourceStatus;
         }
 
-        return boardClueCount > 0 ? getBoardText() : t`Paste a puzzle or tap a cell to type it`;
+        return boardClueCount > 0 ? getBoardText() : t`Tap a cell to type it`;
     };
 
     const statusText = getStatusText();
-    const isHint = boardClueCount === 0 || isPasteMissed;
+    const isHint = boardClueCount === 0 || isDefined(sourceStatus);
     const textStyles = [styles.status, { color: isHint ? theme.colors.text.hint : theme.colors.text.primary }];
 
     return (

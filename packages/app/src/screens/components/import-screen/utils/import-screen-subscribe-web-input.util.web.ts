@@ -24,9 +24,20 @@ const getArrowTarget = (cellIndex: number, key: string): number | null => {
 export const importScreenSubscribeWebInput = (
     onPaste: (text: string) => void,
     onSelectCell: Dispatch<SetStateAction<number | null>>,
-    onInput: (value: number) => void
+    onInput: (value: number) => void,
+    onPasteImage: (uri: string) => void
 ) => {
+    const imageUris = new Set<string>();
     const handlePaste = (event: ClipboardEvent) => {
+        const file = event.clipboardData?.files[0];
+        if (isDefined(file) && file.type.startsWith('image/')) {
+            event.preventDefault();
+            const uri = window.URL.createObjectURL(file);
+            imageUris.add(uri);
+            onPasteImage(uri);
+
+            return;
+        }
         const text = event.clipboardData?.getData('text/plain') ?? '';
 
         if (isNotEmptyString(text)) {
@@ -58,6 +69,7 @@ export const importScreenSubscribeWebInput = (
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
+        imageUris.forEach(uri => void window.URL.revokeObjectURL(uri));
         document.removeEventListener('paste', handlePaste);
         window.removeEventListener('keydown', handleKeyDown);
     };

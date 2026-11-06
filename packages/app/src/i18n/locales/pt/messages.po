@@ -71,6 +71,10 @@ msgstr "Os dígitos {digitList} têm de ir para as células {cellList}: essas c�
 msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (cópia)"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{droppedCount, plural, one {# didn’t match} other {# didn’t match}}"
+msgstr ""
+
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
 msgstr "{durationText} mais rápido"
@@ -98,6 +102,10 @@ msgstr "{hintCount, plural, one {# dica} many {# dicas} other {# dicas}}"
 #: src/daily/components/daily-next-puzzle-bar/daily-next-puzzle-bar.tsx
 msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# h} other {# h}}"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
+msgstr ""
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -525,6 +533,10 @@ msgstr "Desafios"
 msgid "Check out this Sudoku puzzle!"
 msgstr "Confira este sudoku!"
 
+#: src/screens/components/import-screen/import-board-cell/import-board-cell.tsx
+msgid "check this digit"
+msgstr ""
+
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Checking…"
 msgstr "Verificando…"
@@ -640,6 +652,10 @@ msgstr "Continue este sudoku exatamente de onde eu parei!"
 #: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "Contradição, então {cell} não é {value}."
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
+msgstr ""
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -960,6 +976,10 @@ msgstr "Ajuda"
 #: src/@generic/hooks/use-timer-text.hook.ts
 msgid "h"
 msgstr "h"
+
+#: src/screens/components/import-screen/import-board-cell/import-board-cell.tsx
+msgid "handwritten"
+msgstr ""
 
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
@@ -1307,6 +1327,14 @@ msgstr "Baixo contraste"
 msgid "m"
 msgstr "m"
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Mark as handwritten"
+msgstr ""
+
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Mark as printed"
+msgstr ""
+
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "Seguir a configuração de redução de movimento do seu aparelho"
@@ -1408,6 +1436,10 @@ msgstr "Iniciante"
 msgid "Newspaper"
 msgstr "Jornal"
 
+#: src/screens/components/import-screen/import-sources/import-sources.tsx
+msgid "Newspaper, book or screen"
+msgstr ""
+
 #: src/game/components/hint-stepper-next/hint-stepper-next.tsx
 msgid "Next"
 msgstr "Avançar"
@@ -1457,7 +1489,7 @@ msgstr "Mesmo com penalidades, você sempre ganha pelo menos"
 msgid "no pause"
 msgstr "sem pausa"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import.screen.tsx
 msgid "No puzzle found on the clipboard"
 msgstr "Nenhum quebra-cabeça na área de transferência"
 
@@ -1580,13 +1612,9 @@ msgstr "Abre este commit no GitHub"
 msgid "Out of mistakes"
 msgstr "Sem mais erros permitidos"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Paste a puzzle or tap a cell to type it"
-msgstr "Cole um quebra-cabeça ou toque numa célula para digitá-lo"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Paste puzzle"
-msgstr "Colar quebra-cabeça"
+#: src/screens/components/import-screen/import-sources/import-sources.tsx
+msgid "Paste"
+msgstr ""
 
 #: src/screens/components/game-screen/game-actions/game-actions.tsx
 msgid "Pause"
@@ -1615,6 +1643,10 @@ msgstr "por erro"
 #: src/scoring/components/scoring.screen.tsx
 msgid "per second"
 msgstr "por segundo"
+
+#: src/screens/components/import-screen/import-sources/import-sources.tsx
+msgid "Photos"
+msgstr ""
 
 #: src/game/components/hint-panel-apply-button/hint-panel-apply-button.tsx
 msgid "Place {placementValue}"
@@ -1737,6 +1769,10 @@ msgstr "Texto da superfície elevada"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Leia a política de privacidade do Suuudokuuu sobre coleta de dados, armazenamento e seus direitos."
 
+#: src/screens/components/import-screen/import.screen.tsx
+msgid "Reading the puzzle…"
+msgstr ""
+
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Ready for a real challenge"
 msgstr "Pronto para um verdadeiro desafio?"
@@ -1744,6 +1780,10 @@ msgstr "Pronto para um verdadeiro desafio?"
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
 msgstr "Soluções recentes"
+
+#: src/screens/components/import-screen/import-sources/import-sources.tsx
+msgid "Recognized on your device"
+msgstr ""
 
 #: src/challenge/components/challenge-conditions-row/challenge-conditions-row.tsx
 msgid "recorded"
@@ -1894,6 +1934,10 @@ msgstr "Salvar mesmo assim"
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Save your games, statistics, and themes to a file"
 msgstr "Salve seus jogos, estatísticas e temas em um arquivo"
+
+#: src/screens/components/import-screen/import-sources/import-sources.tsx
+msgid "Scan a puzzle"
+msgstr ""
 
 #: src/daily/components/daily-today-result-stats/daily-today-result-stats.tsx
 #: src/history/components/completed-games-list/completed-game-item.tsx
@@ -2213,6 +2257,10 @@ msgstr "Vá com calma"
 msgid "Taller marks = sharper techniques"
 msgstr "Marcas mais altas = técnicas mais engenhosas"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Tap a cell to type it"
+msgstr ""
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "Texto e rótulos"
@@ -2406,6 +2454,10 @@ msgstr "Tentar de novo"
 #: src/game/utils/game-get-pattern-narration.util.ts
 msgid "Try each highlighted possibility in turn and follow what it forces."
 msgstr "Tente cada possibilidade destacada por vez e siga o que ela força."
+
+#: src/screens/components/import-screen/import-sources/import-sources.tsx
+msgid "Type it in"
+msgstr ""
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"
