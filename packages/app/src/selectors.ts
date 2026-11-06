@@ -70,3 +70,4 @@ export * from './screens/components/winner-screen/winner-screen.selectors';
 export * from './settings/component/settings-app-footer/settings-app-footer.selectors';
 export * from './settings/component/settings-option-sheet/settings-option-sheet.selectors';
 export * from './screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.selectors';
+export * from './game/components/undo-button/undo-button.selectors';

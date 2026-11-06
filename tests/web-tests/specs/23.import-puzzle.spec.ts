@@ -1,9 +1,13 @@
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+
 import { expect, test } from '@playwright/test';
 import {
     GameScreenSelectors,
     HomeScreenSelectors,
     ImportScreenSelectors,
     PauseScreenSelectors,
+    UndoButtonSelectors,
     WinnerScreenSelectors
 } from '@suuudokuuu/app/src/selectors';
 
@@ -19,7 +23,9 @@ import type { BrowserContext, Page } from '@playwright/test';
 const uniquePuzzle = '003020600900305001001806400008102900700000008006708200002609500800203009005010300';
 const uniquePuzzleLink = `https://www.sudokuwiki.org/sudoku.htm?bd=${uniquePuzzle}`;
 const sheetBackdropPosition = { x: 10, y: 10 };
-const emptyStatus = 'Paste a puzzle or tap a cell to type it';
+const emptyStatus = 'Tap a cell to type it';
+const fixtureDirectory = resolve(__dirname, '../../../packages/grid-vision/test/fixtures');
+const photoPuzzle = '5...794.......8..7.7.3542.8..4..3579.3.4.1..2...7..3..9...4..6..5..8...3.68......';
 const uniqueStatus = 'One solution · Newbie · SE 2.3';
 const singleClueStatus = '1 clue · more than one solution';
 const gameScreenTimeoutMilliseconds = 15000;
@@ -40,8 +46,12 @@ const cell = (page: Page, cellKey: string) => page.getByTestId(`${ImportScreenSe
 
 test('pastes a puzzle link anywhere on the sheet', async ({ context, page }) => {
     await openImportFromPlay(page);
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(emptyStatus);
-    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeDisabled();
+    await expect(page.getByTestId(ImportScreenSelectors.Sources)).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.ScanButton)).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.PhotosButton)).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.PasteButton)).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.TypeButton)).toBeVisible();
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeHidden();
 
     await writeClipboard(context, page, uniquePuzzleLink);
     await page.keyboard.press('ControlOrMeta+V');
@@ -52,6 +62,8 @@ test('pastes a puzzle link anywhere on the sheet', async ({ context, page }) => 
 test('types on the board with the pad and keyboard, names conflicts and closes from the backdrop', async ({ page }) => {
     await openImportFromPlay(page);
 
+    await page.getByTestId(ImportScreenSelectors.TypeButton).click();
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(emptyStatus);
     await cell(page, '0-0').click();
     await page.keyboard.press('ControlOrMeta+5');
     await expect(cell(page, '0-0')).toHaveAccessibleName('Row 1, column 1, empty');
@@ -69,7 +81,7 @@ test('types on the board with the pad and keyboard, names conflicts and closes f
     await expect(cell(page, '0-0')).toHaveAccessibleName('Row 1, column 1, 5');
 
     await page.getByTestId(ImportScreenSelectors.ResetButton).click();
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(emptyStatus);
+    await expect(page.getByTestId(ImportScreenSelectors.Sources)).toBeVisible();
     await expect(page.getByTestId(ImportScreenSelectors.PasteButton)).toBeVisible();
 
     await page.getByLabel('Close', { exact: true }).click({ position: sheetBackdropPosition });
@@ -180,3 +192,94 @@ for (const viewport of [
         await expect(importLink).toBeFocused();
     });
 }
+
+const pickPhoto = async (page: Page, name: string): Promise<void> => {
+    const fileChooser = page.waitForEvent('filechooser');
+    await page.getByTestId(ImportScreenSelectors.PhotosButton).click();
+    await (await fileChooser).setFiles(resolve(fixtureDirectory, name));
+};
+
+const expectPhotoDigits = async (page: Page): Promise<void> => {
+    for (const [index, digit] of Array.from(photoPuzzle).entries()) {
+        if (digit !== '.') {
+            await expect(cell(page, `${Math.floor(index / 9)}-${index % 9}`)).toHaveText(digit);
+        }
+    }
+};
+
+test('recognizes a photo and starts the puzzle', async ({ page }) => {
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'app-classic-light-390.jpg');
+    await expectPhotoDigits(page);
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/One solution/u);
+    await page.getByTestId(ImportScreenSelectors.PlayButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+});
+
+test('recognizes an image pasted onto the sheet', async ({ page }) => {
+    await openImportFromPlay(page);
+    const image = readFileSync(resolve(fixtureDirectory, 'app-classic-light-390.jpg')).toString('base64');
+    await page.evaluate(base64 => {
+        const bytes = Uint8Array.from(atob(base64), character => character.charCodeAt(0));
+        const transfer = new DataTransfer();
+        transfer.items.add(new File([bytes], 'puzzle.jpg', { type: 'image/jpeg' }));
+        document.dispatchEvent(new ClipboardEvent('paste', { clipboardData: transfer, bubbles: true }));
+    }, image);
+    await expectPhotoDigits(page);
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+});
+
+test('reviews handwritten digits from a photo', async ({ page }) => {
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'handwritten-photo-01.jpg');
+    await expect(
+        page
+            .getByTestId(ImportScreenSelectors.Root)
+            .getByRole('button', { name: /handwritten/u })
+            .first()
+    ).toBeVisible();
+});
+
+test('keeps matching handwritten entries, drops wrong entries and starts with no undo history', async ({ page }) => {
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'app-classic-light-390.jpg');
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    await cell(page, '0-4').click();
+    await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
+    await expect(cell(page, '0-4')).toHaveAccessibleName(/7, handwritten/u);
+    await cell(page, '0-6').click();
+    await page.getByTestId(`${ImportScreenSelectors.PadValue}.2`).click();
+    await cell(page, '0-6').click();
+    await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/1 of your entries kept · 1 didn’t match/u);
+    await page.getByTestId(ImportScreenSelectors.PlayButton).click();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    await expect(page.getByTestId(cellTestId(0, 4))).toHaveAccessibleName('Row 1, column 5, 7');
+    await expect(page.getByTestId(cellTestId(0, 6))).toHaveAccessibleName('Row 1, column 7, empty');
+    await expect(page.getByTestId(UndoButtonSelectors.Root)).toBeDisabled();
+    await page.reload();
+    await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
+    await expect(page.getByTestId(cellTestId(0, 4))).toHaveAccessibleName('Row 1, column 5, 7');
+    await expect(page.getByTestId(cellTestId(0, 6))).toHaveAccessibleName('Row 1, column 7, empty');
+});
+
+test('reports a photo without a grid and allows another source', async ({ page }) => {
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'no-grid-01.jpg');
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText("Couldn't find a sudoku grid. Try a closer, straighter photo.");
+    await expect(page.getByTestId(ImportScreenSelectors.Sources)).toBeVisible();
+});
+
+test('completes a run when its last digit is a matching handwritten entry', async ({ page }) => {
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'app-classic-light-390.jpg');
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    await cell(page, '0-0').click();
+    await page.keyboard.type('581279436342618957679354218214863579735491682896725341923147865457986123168532794');
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('This puzzle is already complete');
+    await cell(page, '0-4').click();
+    await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/1 of your entries kept/u);
+    await page.getByTestId(ImportScreenSelectors.PlayButton).click();
+    await expect(page.getByTestId(WinnerScreenSelectors.Root)).toBeVisible();
+});

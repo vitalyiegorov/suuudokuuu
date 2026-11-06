@@ -20,7 +20,10 @@ test('25 import puzzle', async ({ suuudokuuu }) => {
         await core.scrollToId(ctx, 'HomeScreenSelectors.ImportLink');
         await core.scrollDown(ctx);
         await core.tapId(ctx, 'HomeScreenSelectors.ImportLink');
-        await status(ctx, 'Paste a puzzle or tap a cell to type it');
+        await core.expectId(ctx, 'ImportScreenSelectors.ScanButton', core.WAIT_QUICK);
+        await core.expectId(ctx, 'ImportScreenSelectors.PhotosButton', core.WAIT_QUICK);
+        await core.tapId(ctx, 'ImportScreenSelectors.TypeButton');
+        await status(ctx, 'Tap a cell to type it');
     });
 
     await core.phase('type, conflict, clear, reset', async () => {
