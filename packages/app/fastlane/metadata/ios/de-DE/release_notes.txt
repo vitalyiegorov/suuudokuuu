@@ -1,5 +1,5 @@
-Rätsel importieren, klarere Hinweise.
+Rätsel per Foto importieren.
 
-• Füge ein Rätsel ein (Ziffern, Rastertext oder ein Link von anderen Sudoku-Seiten) oder öffne einen Import-Link. Korrigiere es auf einem antippbaren Brett, prüfe, dass es genau eine Lösung hat, sieh dir den Schwierigkeitsgrad an und spiele los.
-• Hinweise zu Paaren und Tripeln werden in klaren, vollständigen Sätzen erklärt, zeigen die beteiligten Kandidaten und passen auf kleine Bildschirme und große Schriftgrößen.
-• Korrekturen: Fertige Gitter werden beim Import abgelehnt, große oder ungewöhnliche Einfügungen werden richtig gelesen, das Zahlenfeld passt sich korrekt an, und Einstellungen wie die Sprache werden zuverlässig gespeichert.
+• Scanne ein Rätsel aus Zeitung, Buch oder von einem Bildschirm oder wähle eines aus deinen Fotos. Die Erkennung läuft auf deinem Gerät, und deine Fotos verlassen es nie.
+• Schon auf Papier begonnen? Deine handschriftlichen Ziffern bleiben als Fortschritt erhalten.
+• Unsichere Ziffern sind markiert, damit du jedes Feld vor dem Spielen korrigieren kannst.

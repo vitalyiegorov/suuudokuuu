@@ -1,5 +1,5 @@
-Impor teka-teki apa pun, dengan petunjuk yang lebih jelas.
+Impor teka-teki dari foto.
 
-• Tempel teka-teki atau buka tautan impor, pastikan hanya ada satu solusi, lihat tingkat kesulitannya, lalu main.
-• Petunjuk pasangan dan triplet dijelaskan dengan kalimat lengkap yang mudah dipahami dan pas di layar kecil serta teks besar.
-• Perbaikan pada impor, tombol angka, pengaturan tersimpan, dan fokus keyboard di web.
+• Pindai teka-teki dari koran, buku, atau layar, atau pilih dari foto Anda. Pengenalan berjalan di perangkat Anda, dan foto Anda tidak pernah keluar dari perangkat.
+• Sudah mulai di kertas? Angka tulisan tangan Anda disimpan sebagai progres Anda.
+• Angka yang perlu dicek ditandai, jadi Anda bisa memperbaiki kotak mana pun sebelum bermain.
