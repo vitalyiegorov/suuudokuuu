@@ -4,6 +4,8 @@ import { File } from 'expo-file-system';
 import { ImageManipulator, SaveFormat } from 'expo-image-manipulator';
 import { decode } from 'jpeg-js';
 
+import { LoaderPaintDelayMillisecondsConstant } from '../../../../game/constant/loader-paint-delay.constant';
+
 import type { GridRecognitionType } from '@suuudokuuu/grid-vision';
 
 const MaxImageSide = 768;
@@ -11,6 +13,7 @@ const MaxImageSide = 768;
 export const importScreenReadGrid: (uri: string) => Effect.Effect<GridRecognitionType> = Effect.fn('importScreenReadGrid')(
     function* (uri: string) {
         yield* Effect.addFinalizer(() => Effect.ignore(Effect.try(() => void new File(uri).delete())));
+        yield* Effect.sleep(LoaderPaintDelayMillisecondsConstant);
 
         const context = yield* Effect.acquireRelease(
             Effect.sync(() => ImageManipulator.manipulate(uri, { maxWidth: MaxImageSide, maxHeight: MaxImageSide })),

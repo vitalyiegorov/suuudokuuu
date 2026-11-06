@@ -100,7 +100,6 @@ export const ImportScreen = ({ initialText }: Props) => {
         );
     const readImage = (uri: string) =>
         Effect.sync(() => void update({ isRecognizing: true, isGridMissed: false, isPasteMissed: false, selectedCellIndex: null })).pipe(
-            Effect.andThen(Effect.sleep(LoaderPaintDelayMillisecondsConstant)),
             Effect.andThen(importScreenReadGrid(uri)),
             Effect.tap(result =>
                 Effect.sync(() => {

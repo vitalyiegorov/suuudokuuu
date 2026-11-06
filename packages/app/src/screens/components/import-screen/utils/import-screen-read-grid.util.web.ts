@@ -5,6 +5,8 @@ import * as HttpClient from 'effect/http/HttpClient';
 
 import { isDefined } from '@rnw-community/shared';
 
+import { LoaderPaintDelayMillisecondsConstant } from '../../../../game/constant/loader-paint-delay.constant';
+
 import type { GridRecognitionType } from '@suuudokuuu/grid-vision';
 
 const MaxImageSide = 768;
@@ -12,6 +14,7 @@ const MaxImageSide = 768;
 export const importScreenReadGrid: (uri: string) => Effect.Effect<GridRecognitionType> = Effect.fn('importScreenReadGrid')(
     function* (uri: string) {
         yield* Effect.addFinalizer(() => Effect.sync(() => void window.URL.revokeObjectURL(uri)));
+        yield* Effect.sleep(LoaderPaintDelayMillisecondsConstant);
         const response = yield* HttpClient.get(uri);
         const blob = new Blob([yield* response.arrayBuffer]);
         const bitmap = yield* Effect.acquireRelease(
