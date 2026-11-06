@@ -151,7 +151,11 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, entryStrin
             testID={ImportScreenSelectors.Status}
         >
             <View style={styles.message}>
-                {isError ? <LucideCircleAlert color={color} size={20} style={styles.icon} /> : null}
+                {isError ? (
+                    <View style={styles.icon}>
+                        <LucideCircleAlert color={color} size={20} />
+                    </View>
+                ) : null}
                 {sourceStatus === t`Reading the puzzle…` ? <ActivityIndicator color={color} size={20} style={styles.icon} /> : null}
                 <BlackText style={textStyles}>{statusText}</BlackText>
             </View>

@@ -1,8 +1,11 @@
 import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
-import { View } from 'react-native';
+import { SpacingConstant } from '@suuudokuuu/ui/theme';
+import { useState } from 'react';
+import { View, useWindowDimensions, type LayoutChangeEvent } from 'react-native';
 
 import { FieldStyles as fieldStyles } from '../../../../game/components/field/field.styles';
-import { useBoardGeometry } from '../../../../game/hooks/use-board-geometry.hook';
+import { gameGetBoardGeometry } from '../../../../game/utils/game-get-board-geometry.util';
+import { useSettings } from '../../../../settings/query/use-settings.query';
 import { ImportCellToneEnum } from '../enums/import-cell-tone.enum';
 import { ImportBoardCell } from '../import-board-cell/import-board-cell';
 
@@ -10,6 +13,7 @@ import { ImportBoardStyles as styles } from './import-board.styles';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 
+const boardMaxWidth = 480;
 const { fieldSize } = defaultSudokuConfig;
 
 interface Props {
@@ -29,7 +33,18 @@ export const ImportBoard = ({
     selectedCellIndex,
     onSelectCell
 }: Props) => {
-    const { cellSize, cellMargin, onBoardAreaLayout } = useBoardGeometry(0);
+    const settings = useSettings();
+    const window = useWindowDimensions();
+    const [width, setWidth] = useState(Math.min(boardMaxWidth, window.width - SpacingConstant.lg * 2));
+    const handleLayout = (event: LayoutChangeEvent) => void setWidth(event.nativeEvent.layout.width);
+    const { cellSize, cellMargin } = gameGetBoardGeometry({
+        availableWidth: width,
+        availableHeight: width,
+        reservedHeight: 0,
+        fieldSize,
+        fieldGroupSize: defaultSudokuConfig.fieldGroupWidth,
+        cellMargin: settings.cellMargin
+    });
 
     const handleSelect = (cell: CellInterface) => void onSelectCell(cell.y * fieldSize + cell.x);
     const [field] = Sudoku.convertFieldFromString(
@@ -38,7 +53,7 @@ export const ImportBoard = ({
     );
 
     return (
-        <View onLayout={onBoardAreaLayout} style={styles.area}>
+        <View onLayout={handleLayout} style={styles.area}>
             {cellSize > 0 ? (
                 <View style={fieldStyles.wrapper}>
                     {field.map(row => (

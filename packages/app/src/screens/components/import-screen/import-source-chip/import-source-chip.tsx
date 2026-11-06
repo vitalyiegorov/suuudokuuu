@@ -1,5 +1,7 @@
 import { AppButton } from '@suuudokuuu/ui';
 
+import { ImportSourceChipStyles as styles } from './import-source-chip.styles';
+
 import type { LucideIcon } from 'lucide-react-native';
 
 interface Props {
@@ -10,5 +12,14 @@ interface Props {
 }
 
 export const ImportSourceChip = ({ icon, text, testID, onPress }: Props) => (
-    <AppButton icon={icon} onPress={onPress} size="compact" testID={testID} text={text} variant="secondary" />
+    <AppButton
+        style={styles.button}
+        textStyle={styles.text}
+        icon={icon}
+        onPress={onPress}
+        size="compact"
+        testID={testID}
+        text={text}
+        variant="secondary"
+    />
 );

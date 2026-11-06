@@ -10,7 +10,7 @@ import { NotificationFeedbackType } from 'expo-haptics';
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useIsFocused } from 'expo-router';
 import LucideTrash from 'lucide-react-native/icons/trash';
-import { use, useEffect, useEffectEvent, useLayoutEffect, useRef, useState } from 'react';
+import { use, useEffect, useEffectEvent, useRef, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 
 import { emptyFn, isDefined } from '@rnw-community/shared';
@@ -29,6 +29,7 @@ import { useSettings } from '../../../settings/query/use-settings.query';
 import { ThemeContext } from '../../../theme/context/theme.context';
 
 import { useImportReview } from './hooks/use-import-review.hook';
+import { useImportScroll } from './hooks/use-import-scroll.hook';
 import { ImportBoard } from './import-board/import-board';
 import { ImportCellPad } from './import-cell-pad/import-cell-pad';
 import { ImportScreenSelectors } from './import-screen.selectors';
@@ -40,7 +41,7 @@ import { importScreenScanImage } from './utils/import-screen-scan-image.util';
 import { importScreenSubscribeWebInput } from './utils/import-screen-subscribe-web-input.util';
 
 import type * as Fiber from 'effect/Fiber';
-import type { LayoutChangeEvent, PressableStateCallbackType, ScrollViewInstance } from 'react-native';
+import type { PressableStateCallbackType } from 'react-native';
 
 const ImportDetent = 0.9;
 const ImportDetents = [ImportDetent];
@@ -75,9 +76,9 @@ export const ImportScreen = ({ initialText }: Props) => {
     const assessed = AsyncResult.isSuccess(assessmentResult) ? assessmentResult.value : null;
     const isAssessedCurrent = isDefined(assessed) && assessed.puzzleString === puzzleString;
 
-    const [viewportHeight, setViewportHeight] = useState(0);
-    const [contentHeight, setContentHeight] = useState(0);
-    const scrollRef = useRef<ScrollViewInstance>(null);
+    const hasBoard = hasDigits || isTyping || isRecognizing;
+    const { scrollRef, handleScroll, handleScrollLayout, handleBoardLayout, handlePadLayout, handleFooterLayout, bottomInset } =
+        useImportScroll(selectedCellIndex, hasBoard);
     const imageFiber = useRef<Fiber.Fiber<void> | null>(null);
     const interruptImage = () => {
         if (isDefined(imageFiber.current)) {
@@ -143,7 +144,7 @@ export const ImportScreen = ({ initialText }: Props) => {
             ? boardAssessed.assessment.cellIndexes.filter(cellIndex => puzzleString[cellIndex] === boardAssessed.puzzleString[cellIndex])
             : [];
     const isPlayDisabled = !isDefined(uniqueAssessment) || isRecognizing;
-    const playButtonStyles = isPlayDisabled && styles.disabledButton;
+    const playButtonStyles = [styles.playButton, isPlayDisabled && styles.disabledButton];
     const getResetStyles = ({ pressed }: PressableStateCallbackType) => [styles.reset, pressed && styles.resetPressed];
 
     const handlePlay = () => {
@@ -182,18 +183,11 @@ export const ImportScreen = ({ initialText }: Props) => {
         }
     }, [settledAssessed]);
 
-    const hasBoard = hasDigits || isTyping || isRecognizing;
+    const contentStyles = [styles.content, { paddingBottom: bottomInset }];
     const entryLabel = isEntry ? t`Make printed clue` : t`Make my entry`;
     const toggleLabel = canToggle ? entryLabel : null;
 
-    const handleScrollLayout = (event: LayoutChangeEvent) => void setViewportHeight(event.nativeEvent.layout.height);
-    const handleContentSizeChange = (_width: number, height: number) => void setContentHeight(height);
     const handleSelectCell = (cellIndex: number) => void update({ selectedCellIndex: cellIndex === selectedCellIndex ? null : cellIndex });
-    useLayoutEffect(() => {
-        if (isDefined(selectedCellIndex) && contentHeight > 0 && viewportHeight > 0) {
-            appRuntime.runFork(Effect.sync(() => scrollRef.current?.scrollToEnd({ animated: false })));
-        }
-    }, [selectedCellIndex, viewportHeight, contentHeight]);
     const handleScan = () => void handleImageSource(importScreenScanImage);
     const handleType = () => void update({ isTyping: true });
     const getSourceStatus = () => {
@@ -231,14 +225,15 @@ export const ImportScreen = ({ initialText }: Props) => {
             <ScrollView
                 ref={scrollRef}
                 onLayout={handleScrollLayout}
-                onContentSizeChange={handleContentSizeChange}
-                contentContainerStyle={styles.content}
+                onScroll={handleScroll}
+                scrollEventThrottle={16}
+                contentContainerStyle={contentStyles}
                 contentInsetAdjustmentBehavior="never"
                 style={styles.scroll}
                 testID={ImportScreenSelectors.Root}
             >
                 {hasBoard ? (
-                    <View style={styles.boardSlot}>
+                    <View onLayout={handleBoardLayout} style={styles.boardSlot}>
                         <ImportBoard
                             entryString={entryString}
                             uncertainCellIndexes={uncertainCellIndexes}
@@ -263,23 +258,24 @@ export const ImportScreen = ({ initialText }: Props) => {
                     />
                 ) : null}
                 {isDefined(selectedCellIndex) ? (
-                    <ImportCellPad onInput={input} onToggleEntry={toggleEntry} toggleLabel={toggleLabel} />
+                    <ImportCellPad onLayout={handlePadLayout} onInput={input} onToggleEntry={toggleEntry} toggleLabel={toggleLabel} />
                 ) : null}
             </ScrollView>
-            <View style={styles.footer}>
-                <View style={styles.footerSlot}>
-                    {hasBoard ? (
+            {hasBoard ? (
+                <View onLayout={handleFooterLayout} style={styles.footer}>
+                    <View style={styles.footerSlot}>
                         <AppButton
                             disabled={isPlayDisabled}
                             isLoading={isCreatingGame}
                             onPress={handlePlay}
                             style={playButtonStyles}
                             testID={ImportScreenSelectors.PlayButton}
+                            textStyle={styles.buttonText}
                             text={t`Play`}
                         />
-                    ) : null}
+                    </View>
                 </View>
-            </View>
+            ) : null}
         </SheetFrame>
     );
 };

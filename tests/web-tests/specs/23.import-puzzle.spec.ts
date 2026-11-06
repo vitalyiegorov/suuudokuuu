@@ -327,7 +327,7 @@ test('plays and restores handwritten progress recognized from a photo', async ({
     }
 });
 
-test('keeps a square board and scrolls the pad into view at 200% zoom', async ({ page }) => {
+test('keeps the selected row visible and the pad scrollable at 200% zoom', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`/import?puzzle=${uniquePuzzle}`);
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
@@ -341,9 +341,10 @@ test('keeps a square board and scrolls the pad into view at 200% zoom', async ({
         })
         .toBe(true);
     await firstCell.click();
-    await expect(page.getByTestId(`${ImportScreenSelectors.PadValue}.1`)).toBeVisible();
-    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
+    await expect(firstCell).toBeInViewport({ ratio: 1 });
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeInViewport({ ratio: 1 });
+    await page.getByTestId(ImportScreenSelectors.ClearButton).scrollIntoViewIfNeeded();
+    await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
 });
 
 test('reserves the clear slot and reveals the handwritten entry toggle', async ({ page }) => {
@@ -409,4 +410,29 @@ test('pins Play while typing, selecting a cell and loading a unique puzzle', asy
     await page.keyboard.press('ControlOrMeta+V');
     await expect(play).toBeEnabled();
     expect((await play.boundingBox())?.y).toBe(typingBounds?.y);
+});
+
+test('keeps the selected first row inside the desktop scroll viewport', async ({ page }) => {
+    await page.setViewportSize({ width: 1440, height: 900 });
+    await openImportFromPlay(page);
+    await pickPhoto(page, 'handwritten-photo-01.jpg');
+    await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
+    const selectedCell = page.getByRole('button', { name: /Row 1,.*handwritten/u }).first();
+    await selectedCell.click();
+    await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toBeVisible();
+    await expect
+        .poll(async () => {
+            const selectedBounds = await selectedCell.boundingBox();
+            const viewportBounds = await page.getByTestId(ImportScreenSelectors.Root).boundingBox();
+
+            return (
+                selectedBounds !== null &&
+                viewportBounds !== null &&
+                selectedBounds.x >= viewportBounds.x &&
+                selectedBounds.y >= viewportBounds.y &&
+                selectedBounds.x + selectedBounds.width <= viewportBounds.x + viewportBounds.width &&
+                selectedBounds.y + selectedBounds.height <= viewportBounds.y + viewportBounds.height
+            );
+        })
+        .toBe(true);
 });

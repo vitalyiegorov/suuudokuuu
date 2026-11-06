@@ -2,7 +2,7 @@ import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { AppButton, CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui';
 import LucideDelete from 'lucide-react-native/icons/delete';
-import { Text, View } from 'react-native';
+import { Text, View, type LayoutChangeEvent } from 'react-native';
 
 import { ImportCellPadButton } from '../import-cell-pad-button/import-cell-pad-button';
 import { ImportScreenSelectors } from '../import-screen.selectors';
@@ -11,18 +11,19 @@ import { ImportCellPadStyles as styles } from './import-cell-pad.styles';
 
 const padValues = Array.from({ length: defaultSudokuConfig.fieldSize }, (_, index) => index + 1);
 interface Props {
+    readonly onLayout: (event: LayoutChangeEvent) => void;
     readonly toggleLabel: string | null;
     readonly onToggleEntry: () => void;
     readonly onInput: (value: number) => void;
 }
 
-export const ImportCellPad = ({ onInput, toggleLabel, onToggleEntry }: Props) => {
+export const ImportCellPad = ({ onLayout, onInput, toggleLabel, onToggleEntry }: Props) => {
     const { t } = useLingui();
 
     const handleClear = () => void onInput(defaultSudokuConfig.blankCellValue);
 
     return (
-        <View style={styles.wrapper}>
+        <View onLayout={onLayout} style={styles.wrapper}>
             <View style={styles.pad}>
                 {padValues.map(value => (
                     <ImportCellPadButton isDisabled={false} key={value} onInput={onInput} value={value} />
