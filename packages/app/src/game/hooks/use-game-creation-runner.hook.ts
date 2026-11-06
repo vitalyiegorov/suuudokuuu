@@ -39,7 +39,7 @@ export const useGameCreationRunner = () => {
         ]);
     };
 
-    const runGameCreation = (operation: Effect.Effect<void, unknown, AppServices>) => {
+    const runGameCreation = <E>(operation: Effect.Effect<void, E, AppServices>) => {
         if (isDefined(creationFiberRef.current)) {
             return;
         }

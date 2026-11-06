@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-pnpm ts
 pnpm exec lint-staged
+pnpm ts

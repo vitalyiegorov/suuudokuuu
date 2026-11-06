@@ -2,7 +2,9 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "tsBuildInfoFile": "./node_modules/.cache/tsbuildinfo.test.json",
-        "types": ["node"]
+        "types": ["node"],
+        "declaration": false,
+        "declarationMap": false
     },
     "include": ["./test", "./vitest.config.mts"],
     "exclude": ["node_modules", "dist"]

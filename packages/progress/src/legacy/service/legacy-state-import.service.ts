@@ -41,7 +41,7 @@ export class LegacyStateImportService extends Context.Service<LegacyStateImportS
                 persistedRoot: string,
                 getThemeColors: (theme: ThemeEnum, colorSchema: ColorSchemaEnum) => ThemeColorsType
             ) {
-                const { _persist: persistMetadata, ...slices } = yield* Schema.decodeUnknownEffect(PersistedRootSchema)(persistedRoot).pipe(
+                const { _persist: persistMetadata, ...slices } = yield* Schema.decodeEffect(PersistedRootSchema)(persistedRoot).pipe(
                     Effect.orDie
                 );
                 const inboundVersion = Option.match(Schema.decodeUnknownOption(PersistMetadataSchema)(persistMetadata), {

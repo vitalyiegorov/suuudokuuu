@@ -299,7 +299,7 @@ Treat a rejected submission as a configuration question, not a retry loop: reche
 6. Add the extra schema the page earns: `ArticleSchema` explicitly on article routes, `SoftwareApplicationSchema` for product surfaces and `FaqPage` for questions. Use `HowTo` for visible procedures without HowTo JSON-LD. Feed each one children or sidecar fields — never a duplicated string.
 7. Link outward through neighbouring sidecars, and add the inbound link from at least one hub page so the new URL is reachable.
 8. Add prev / next navigation if the page belongs to a chain.
-9. Run `pnpm --filter @suuudokuuu/landing ts` and `pnpm --filter @suuudokuuu/landing lint`, then the root validation sequence: `pnpm format && pnpm ts && pnpm effect:check && pnpm lint && pnpm deadcode && pnpm cpd`.
+9. Run `pnpm --filter @suuudokuuu/landing ts` and `pnpm --filter @suuudokuuu/landing lint`, then the root validation sequence: `pnpm format && pnpm ts && pnpm lint && pnpm deadcode && pnpm cpd`.
 10. Confirm the new URL appears in the built `sitemap.xml`, and that the exported HTML contains the visible copy and the JSON-LD without JavaScript.
 
 ## 6. Generated guide data

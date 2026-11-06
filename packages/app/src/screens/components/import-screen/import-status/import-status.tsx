@@ -2,7 +2,7 @@ import { msg, plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
-import LucideCircleAlert from 'lucide-react-native/icons/circle-alert';
+import LucideCircleExclamationPoint from 'lucide-react-native/icons/circle-exclamation-point';
 import { use } from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { interpolateColor } from 'react-native-reanimated';
@@ -140,7 +140,7 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, sourceStat
             <View style={styles.message}>
                 {isError ? (
                     <View style={styles.icon}>
-                        <LucideCircleAlert color={color} size={20} />
+                        <LucideCircleExclamationPoint color={color} size={20} />
                     </View>
                 ) : null}
                 {isRecognizing ? <ActivityIndicator color={color} size={20} style={styles.icon} /> : null}

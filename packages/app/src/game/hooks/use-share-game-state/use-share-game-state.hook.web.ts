@@ -17,8 +17,9 @@ export const useShareGameState = (kind: SharedPayloadKindEnum, gameState: Curren
                     ? Effect.tryPromise(() =>
                           Share.share({ url: `${window.location.origin}/shared/${gameStateToString(gameState, kind)}` })
                       ).pipe(
-                          Effect.catch(error =>
-                              error.cause instanceof DOMException && error.cause.name === 'AbortError' ? Effect.void : Effect.fail(error)
+                          Effect.catchIf(
+                              error => error.cause instanceof DOMException && error.cause.name === 'AbortError',
+                              () => Effect.void
                           )
                       )
                     : Effect.void

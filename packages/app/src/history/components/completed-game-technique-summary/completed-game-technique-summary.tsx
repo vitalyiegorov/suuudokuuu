@@ -30,7 +30,7 @@ export const CompletedGameTechniqueSummary = ({ encodedState }: Props) => {
 
     useEffect(() => {
         const fiber = appRuntime.runFork(
-            Effect.sleep(0).pipe(
+            Effect.yieldNow.pipe(
                 Effect.andThen(() => Effect.sync(() => void setSummary([encodedState, getCompletedGameTechniqueSummary(encodedState)]))),
                 Effect.tapCause(logErrorCause)
             )

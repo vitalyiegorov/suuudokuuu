@@ -31,13 +31,13 @@ export const ConfettiBurst = () => {
         }
 
         const startTime = performance.now();
-        let animationFrameId = 0;
+        const animationFrame = { id: 0 };
         let previousTime = startTime;
         let averageFrameDuration = 0;
         let visibleParticleAmount = particles.length;
 
         const renderFrame = (frameTime: number) => {
-            animationFrameId = requestAnimationFrame(renderFrame);
+            animationFrame.id = requestAnimationFrame(renderFrame);
 
             if (document.hidden) {
                 previousTime = frameTime;
@@ -60,11 +60,11 @@ export const ConfettiBurst = () => {
 
         const resizeObserver = observeConfettiCanvasSize(canvas, context);
 
-        animationFrameId = requestAnimationFrame(renderFrame);
+        animationFrame.id = requestAnimationFrame(renderFrame);
 
         return () => {
             resizeObserver.disconnect();
-            cancelAnimationFrame(animationFrameId);
+            cancelAnimationFrame(animationFrame.id);
         };
     }, [particles]);
 

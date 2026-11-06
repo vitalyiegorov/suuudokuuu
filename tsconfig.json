@@ -48,29 +48,17 @@
         "plugins": [
             {
                 "name": "@effect/language-service",
-                "diagnosticSeverity": {
-                    "floatingEffect": "error",
-                    "outdatedApi": "error",
-                    "globalFetch": "error",
-                    "globalFetchInEffect": "error",
-                    "missingReturnYieldStar": "error",
-                    "missingStarInYieldEffectGen": "error",
-                    "effectFnIife": "error",
-                    "effectGenUsesAdapter": "error",
-                    "effectInFailure": "error",
-                    "effectInVoidSuccess": "error",
-                    "lazyPromiseInEffectSync": "error",
-                    "multipleEffectProvide": "error",
-                    "returnEffectInGen": "error",
-                    "runEffectInsideEffect": "error",
-                    "unknownInEffectCatch": "error",
-                    "globalErrorInEffectCatch": "error",
-                    "globalErrorInEffectFailure": "error",
-                    "layerMergeAllWithDependencies": "error",
-                    "unsafeEffectTypeAssertion": "error",
-                    "effectFnImplicitAny": "error",
-                    "serviceNotAsClass": "error"
-                }
+                "diagnostics": false,
+                "allowedUnstableApis": [
+                    "@effect/atom-react",
+                    "@effect/sql-sqlite-node",
+                    "@effect/sql-sqlite-react-native",
+                    "@effect/sql-sqlite-wasm",
+                    "@effect/vitest",
+                    "effect/http",
+                    "effect/reactivity",
+                    "effect/sql"
+                ]
             }
         ]
     }

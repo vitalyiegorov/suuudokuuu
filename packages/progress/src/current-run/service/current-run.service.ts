@@ -435,7 +435,7 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
             screenshot: updateRun(run => (run.isChallengeRun ? withTimelineMarker(run, TimelineEventKindEnum.Screenshot) : run)),
             save: (move: Parameters<typeof saveMove>[1]) => updateRun(run => saveMove(run, move)),
             classifyMove: (move: Parameters<typeof classifyMove>[0]) => updateRunWithStats(classifyMove(move)),
-            revealHintLevel: () => updateRun(chargeHintLevel),
+            revealHintLevel: updateRun(chargeHintLevel),
             hint: (eliminations: readonly StepScriptCandidateInterface[]) => updateRun(run => applyHint(run, eliminations)),
             undo: (fieldState: FieldStateType) => updateRunWithStats(undoMove(fieldState)),
             redo: (fieldState: FieldStateType) => updateRunWithStats(redoMove(fieldState)),

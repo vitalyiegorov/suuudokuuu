@@ -23,7 +23,7 @@ jobs:
             enable-ios: true
             enable-android: true
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
-            node-version: 22.x
+            node-version: 26.13.0
             build-profile: development
             eas-cli-version: '20.5.1'
             tag-prefix: development
