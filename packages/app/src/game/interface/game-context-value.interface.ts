@@ -10,7 +10,8 @@ export interface GameContextValueInterface {
     readonly createFromImport: (
         sudokuString: string,
         assessment: Extract<ImportedPuzzleAssessmentType, { readonly kind: ImportedPuzzleAssessmentKindEnum.UNIQUE }>,
-        maxMistakes: number
+        maxMistakes: number,
+        entryString: string
     ) => void;
     readonly engine: FieldEngine;
     readonly isCreatingGame: boolean;

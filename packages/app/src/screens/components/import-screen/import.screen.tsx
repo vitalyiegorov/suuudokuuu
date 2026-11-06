@@ -147,7 +147,7 @@ export const ImportScreen = ({ initialText }: Props) => {
 
     const handlePlay = () => {
         if (isDefined(uniqueAssessment)) {
-            confirmRunReplacement(() => void createFromImport(puzzleString, uniqueAssessment, lastGameMaxMistakes));
+            confirmRunReplacement(() => void createFromImport(puzzleString, uniqueAssessment, lastGameMaxMistakes, entryString));
         }
     };
 
