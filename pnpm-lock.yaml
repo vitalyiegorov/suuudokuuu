@@ -150,6 +150,9 @@ importers:
       '@suuudokuuu/generator':
         specifier: workspace:*
         version: link:../generator
+      '@suuudokuuu/grid-vision':
+        specifier: workspace:*
+        version: link:../grid-vision
       '@suuudokuuu/progress':
         specifier: workspace:*
         version: link:../progress

@@ -36,6 +36,7 @@
         "@suuudokuuu/encoder": "workspace:*",
         "@suuudokuuu/field-core": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",
+        "@suuudokuuu/grid-vision": "workspace:*",
         "@suuudokuuu/progress": "workspace:*",
         "@suuudokuuu/puzzle-forge": "workspace:*",
         "@suuudokuuu/rating": "workspace:*",
