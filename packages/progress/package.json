@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/progress",
-    "version": "2.38.3",
+    "version": "2.41.1",
     "private": true,
     "files": [
         "dist/**/*"

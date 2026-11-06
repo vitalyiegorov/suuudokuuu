@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/generator",
-    "version": "2.35.7",
+    "version": "2.41.1",
     "private": true,
     "files": [
         "dist/**/*"

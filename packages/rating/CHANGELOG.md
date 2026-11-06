@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.41.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.41.0...v2.41.1) (2026-11-06)
+
+**Note:** Version bump only for package @suuudokuuu/rating
+
+
+
+
+
 ## [2.38.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.38.0...v2.38.1) (2026-10-28)
 
 **Note:** Version bump only for package @suuudokuuu/rating

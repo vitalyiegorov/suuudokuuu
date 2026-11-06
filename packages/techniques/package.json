@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/techniques",
-    "version": "2.38.1",
+    "version": "2.41.1",
     "private": true,
     "files": [
         "dist/**/*"

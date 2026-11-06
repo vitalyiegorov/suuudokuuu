@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.41.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.41.0...v2.41.1) (2026-11-06)
+
+### Performance Improvements
+
+* **ci:** cut CI downloads from checkouts and the Playwright browser install ([#803](https://github.com/vitalyiegorov/suuudokuuu/issues/803)) ([a4dcb2c](https://github.com/vitalyiegorov/suuudokuuu/commit/a4dcb2cf2a5addab3e92bde2273d43620fc6a5c3))
+
+
 # [2.41.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.40.6...v2.41.0) (2026-11-05)
 
 ### Features
