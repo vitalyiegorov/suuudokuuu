@@ -192,7 +192,7 @@ import * as Effect from 'effect/Effect';
 import * as Layer from 'effect/Layer';
 import * as Schema from 'effect/Schema';
 
-export class RunNotFoundError extends Schema.TaggedError<RunNotFoundError>()('RunNotFoundError', {}) {}
+export class RunNotFoundError extends Schema.TaggedError<RunNotFoundError, { readonly brand: unique symbol }>()('RunNotFoundError', {}) {}
 
 export class RunService extends Context.Service<RunService>()('@suuudokuuu/progress/RunService', {
     make: Effect.gen(function* () {

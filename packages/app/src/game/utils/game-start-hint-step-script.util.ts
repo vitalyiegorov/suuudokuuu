@@ -15,5 +15,5 @@ export const gameStartHintStepScript = (engine: FieldEngine, stepScript: StepScr
     }
 
     engine.startStepScript(stepScript, HintLevelEnum.TECHNIQUE);
-    void runCurrentRunCommand(currentRunService => currentRunService.revealHintLevel()).catch(emptyFn);
+    void runCurrentRunCommand(currentRunService => currentRunService.revealHintLevel).catch(emptyFn);
 };

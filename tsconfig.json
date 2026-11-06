@@ -1,7 +1,5 @@
 {
-    "files": [
-        "./types/hermes-runtime.d.ts"
-    ],
+    "files": ["./types/hermes-runtime.d.ts"],
     "compilerOptions": {
         "esModuleInterop": true,
         "target": "ESNext",

@@ -90,7 +90,7 @@ const subscribeMoves = (
             pendingClassifications,
             appRuntime.runFork(
                 Effect.gen(function* () {
-                    yield* Effect.sleep(0);
+                    yield* Effect.yieldNow;
                     yield* classification;
                 }).pipe(Effect.tapCause(logErrorCause))
             )

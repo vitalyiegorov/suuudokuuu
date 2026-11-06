@@ -11,7 +11,7 @@ export const settingsPickBackupFile = Effect.callback<Option.Option<string>>(res
     input.addEventListener('change', () => {
         const file = input.files?.item(0);
 
-        resume(isDefined(file) ? Effect.promise(() => file.text()).pipe(Effect.map(Option.some)) : Effect.succeedNone);
+        resume(isDefined(file) ? Effect.promise(() => file.text()).pipe(Effect.asSome) : Effect.succeedNone);
     });
     input.addEventListener('cancel', () => {
         resume(Effect.succeedNone);

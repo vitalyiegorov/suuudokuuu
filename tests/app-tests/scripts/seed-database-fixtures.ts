@@ -67,7 +67,7 @@ const writeFixture = Effect.fn('writeFixture')(
         rmSync(databasePath, { force: true });
         yield* sql`VACUUM INTO ${databasePath}`;
     },
-    Effect.provide(Layer.mergeAll(CurrentRunService.layer.pipe(Layer.provideMerge(makeTestSqlLayer())), TestClock.layer()))
+    Effect.provide([CurrentRunService.layer.pipe(Layer.provideMerge(makeTestSqlLayer())), TestClock.layer()])
 );
 
 const writeFixtures = (directory: string) =>
@@ -104,11 +104,9 @@ const checkFixtures = Effect.gen(function* () {
         )
     );
 
-    if (isNotEmptyArray(staleFixtures)) {
-        yield* Effect.die(
-            `Stale seed fixtures: ${staleFixtures.join(', ')}. Regenerate them with pnpm --filter ./tests/app-tests seed:fixtures`
-        );
-    }
+    return yield* isNotEmptyArray(staleFixtures)
+        ? Effect.die(`Stale seed fixtures: ${staleFixtures.join(', ')}. Regenerate them with pnpm --filter ./tests/app-tests seed:fixtures`)
+        : Effect.void;
 });
 
 await Effect.runPromise(process.argv.includes('--check') ? Effect.scoped(checkFixtures) : writeFixtures(fixturesDirectory));

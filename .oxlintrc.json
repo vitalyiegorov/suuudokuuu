@@ -1,8 +1,6 @@
 {
     "$schema": "./node_modules/oxlint/configuration_schema.json",
-    "extends": [
-        "./node_modules/@effect/tsgo/oxlint-presets/strict.json"
-    ],
+    "extends": ["./node_modules/@effect/tsgo/oxlint-presets/strict.json"],
     "plugins": [],
     "jsPlugins": [
         {
@@ -95,23 +93,15 @@
     ],
     "overrides": [
         {
-            "files": [
-                "**/*.{ts,tsx,mts,cts}"
-            ],
+            "files": ["**/*.{ts,tsx,mts,cts}"],
             "rules": {
                 "accessor-pairs": "error",
                 "array-callback-return": "error",
-                "arrow-body-style": [
-                    "error",
-                    "as-needed"
-                ],
+                "arrow-body-style": ["error", "as-needed"],
                 "block-scoped-var": "error",
                 "capitalized-comments": "off",
                 "class-methods-use-this": "off",
-                "complexity": [
-                    "error",
-                    25
-                ],
+                "complexity": ["error", 25],
                 "curly": "error",
                 "default-case": "error",
                 "default-case-last": "error",
@@ -133,18 +123,7 @@
                 "id-length": [
                     "warn",
                     {
-                        "exceptions": [
-                            "x",
-                            "y",
-                            "z",
-                            "i",
-                            "j",
-                            "e",
-                            "_",
-                            "w",
-                            "h",
-                            "t"
-                        ],
+                        "exceptions": ["x", "y", "z", "i", "j", "e", "_", "w", "h", "t"],
                         "checkGeneric": false
                     }
                 ],
@@ -206,9 +185,7 @@
                 "no-empty-function": [
                     "error",
                     {
-                        "allow": [
-                            "constructors"
-                        ]
+                        "allow": ["constructors"]
                     }
                 ],
                 "no-empty-pattern": "error",
@@ -240,58 +217,9 @@
                     "error",
                     {
                         "ignore": [
-                            -20,
-                            -10,
-                            -1,
-                            0,
-                            0.05,
-                            0.1,
-                            0.5,
-                            0.7,
-                            0.8,
-                            1,
-                            1.2,
-                            1.3,
-                            1.8,
-                            2,
-                            2.5,
-                            2.9,
-                            3,
-                            3.7,
-                            4,
-                            5,
-                            6,
-                            7,
-                            8,
-                            9,
-                            10,
-                            13,
-                            20,
-                            30,
-                            35,
-                            40,
-                            45,
-                            50,
-                            60,
-                            70,
-                            75,
-                            99,
-                            100,
-                            155,
-                            235,
-                            300,
-                            360,
-                            400,
-                            500,
-                            600,
-                            700,
-                            800,
-                            960,
-                            999,
-                            1000,
-                            1200,
-                            3600,
-                            8191
+                            -20, -10, -1, 0, 0.05, 0.1, 0.5, 0.7, 0.8, 1, 1.2, 1.3, 1.8, 2, 2.5, 2.9, 3, 3.7, 4, 5, 6, 7, 8, 9, 10, 13, 20,
+                            30, 35, 40, 45, 50, 60, 70, 75, 99, 100, 155, 235, 300, 360, 400, 500, 600, 700, 800, 960, 999, 1000, 1200,
+                            3600, 8191
                         ]
                     }
                 ],
@@ -448,10 +376,7 @@
                 "no-warning-comments": [
                     "error",
                     {
-                        "terms": [
-                            "fixme",
-                            "xxx"
-                        ],
+                        "terms": ["fixme", "xxx"],
                         "location": "start"
                     }
                 ],
@@ -594,10 +519,7 @@
                         "allowNumber": true
                     }
                 ],
-                "typescript/return-await": [
-                    "error",
-                    "error-handling-correctness-only"
-                ],
+                "typescript/return-await": ["error", "error-handling-correctness-only"],
                 "typescript/triple-slash-reference": "error",
                 "typescript/strict-boolean-expressions": "error",
                 "typescript/strict-void-return": "error",
@@ -798,19 +720,14 @@
                 "regexp/use-ignore-case": "error",
                 "regexp/no-super-linear-move": "error"
             },
-            "plugins": [
-                "typescript",
-                "import"
-            ],
+            "plugins": ["typescript", "import"],
             "env": {
                 "es2018": true,
                 "es2026": true
             }
         },
         {
-            "files": [
-                "**/*.{ts,mts,cts}"
-            ],
+            "files": ["**/*.{ts,mts,cts}"],
             "rules": {
                 "node/no-exports-assign": "error",
                 "n/no-deprecated-api": "error",
@@ -897,18 +814,14 @@
                 "WritableStreamDefaultController": "readonly",
                 "WritableStreamDefaultWriter": "readonly"
             },
-            "plugins": [
-                "node"
-            ],
+            "plugins": ["node"],
             "env": {
                 "commonjs": true,
                 "es2024": true
             }
         },
         {
-            "files": [
-                "**/*.{ts,tsx,mts,cts}"
-            ],
+            "files": ["**/*.{ts,tsx,mts,cts}"],
             "rules": {
                 "promise/always-return": "error",
                 "promise/no-return-wrap": "error",
@@ -922,18 +835,11 @@
                 "promise/no-return-in-finally": "warn",
                 "promise/valid-params": "warn"
             },
-            "plugins": [
-                "promise"
-            ]
+            "plugins": ["promise"]
         },
         {
-            "files": [
-                "**/*.{ts,tsx,mts,cts}"
-            ],
-            "plugins": [
-                "unicorn",
-                "oxc"
-            ],
+            "files": ["**/*.{ts,tsx,mts,cts}"],
+            "plugins": ["unicorn", "oxc"],
             "rules": {
                 "oxc/approx-constant": "error",
                 "oxc/bad-array-method-on-arguments": "error",
@@ -980,9 +886,7 @@
             }
         },
         {
-            "files": [
-                "packages/app/**/*.{ts,tsx}"
-            ],
+            "files": ["packages/app/**/*.{ts,tsx}"],
             "rules": {
                 "lingui/t-call-in-function": "error",
                 "lingui/no-single-tag-to-translate": "error",
@@ -1031,22 +935,15 @@
                                 }
                             }
                         ],
-                        "ignoreFunctions": [
-                            "format",
-                            "cva"
-                        ]
+                        "ignoreFunctions": ["format", "cva"]
                     }
                 ],
                 "react/todo": "error"
             },
-            "plugins": [
-                "react"
-            ]
+            "plugins": ["react"]
         },
         {
-            "files": [
-                "packages/landing/src/**/*.{ts,tsx}"
-            ],
+            "files": ["packages/landing/src/**/*.{ts,tsx}"],
             "rules": {
                 "lingui/t-call-in-function": "error",
                 "lingui/no-single-tag-to-translate": "error",
@@ -1069,11 +966,7 @@
                 "lingui/no-unlocalized-strings": [
                     "error",
                     {
-                        "ignore": [
-                            "^(?![A-Z])\\S+$",
-                            "^[A-Z0-9_-]+$",
-                            "use client"
-                        ],
+                        "ignore": ["^(?![A-Z])\\S+$", "^[A-Z0-9_-]+$", "use client"],
                         "ignoreNames": [
                             {
                                 "regex": {
@@ -1087,9 +980,7 @@
             }
         },
         {
-            "files": [
-                "**/*.{ts,tsx}"
-            ],
+            "files": ["**/*.{ts,tsx}"],
             "rules": {
                 "react/display-name": "off",
                 "react/jsx-key": "error",
@@ -1108,11 +999,7 @@
                 "react/no-unknown-property": [
                     "error",
                     {
-                        "ignore": [
-                            "popover",
-                            "popoverTarget",
-                            "popoverTargetAction"
-                        ]
+                        "ignore": ["popover", "popoverTarget", "popoverTargetAction"]
                     }
                 ],
                 "react/no-unsafe": "off",
@@ -1126,9 +1013,7 @@
                 "react/jsx-filename-extension": [
                     "error",
                     {
-                        "extensions": [
-                            ".tsx"
-                        ]
+                        "extensions": [".tsx"]
                     }
                 ],
                 "react/jsx-props-no-spreading": "off",
@@ -1171,13 +1056,7 @@
                 "react/only-export-components": [
                     "error",
                     {
-                        "allowExportNames": [
-                            "metadata",
-                            "viewport",
-                            "generateMetadata",
-                            "generateStaticParams",
-                            "dynamicParams"
-                        ]
+                        "allowExportNames": ["metadata", "viewport", "generateMetadata", "generateStaticParams", "dynamicParams"]
                     }
                 ],
                 "eslint-react/no-context-provider": "error",
@@ -1196,33 +1075,22 @@
                 "react-effect/no-pass-live-state-to-parent": "error",
                 "react-effect/no-external-store-subscription": "error"
             },
-            "plugins": [
-                "react"
-            ]
+            "plugins": ["react"]
         },
         {
-            "files": [
-                "**/*.tsx"
-            ],
+            "files": ["**/*.tsx"],
             "rules": {
                 "suuudokuuu/no-leaked-jsx-and": "error"
             }
         },
         {
-            "files": [
-                "packages/app/**/*.tsx",
-                "packages/ui/**/*.tsx"
-            ],
+            "files": ["packages/app/**/*.tsx", "packages/ui/**/*.tsx"],
             "rules": {
                 "react-native/no-inline-styles": "error",
                 "react-native/no-raw-text": [
                     "error",
                     {
-                        "skip": [
-                            "Trans",
-                            "BlackText",
-                            "ListItem"
-                        ]
+                        "skip": ["Trans", "BlackText", "ListItem"]
                     }
                 ],
                 "react-native/no-single-element-style-arrays": "error",
@@ -1230,14 +1098,8 @@
             }
         },
         {
-            "files": [
-                "packages/field-dom/**/*.tsx",
-                "packages/landing/**/*.tsx"
-            ],
-            "plugins": [
-                "jsx-a11y",
-                "react"
-            ],
+            "files": ["packages/field-dom/**/*.tsx", "packages/landing/**/*.tsx"],
+            "plugins": ["jsx-a11y", "react"],
             "rules": {
                 "jsx-a11y/alt-text": "error",
                 "jsx-a11y/anchor-has-content": "error",
@@ -1278,12 +1140,8 @@
             }
         },
         {
-            "files": [
-                "packages/landing/**/*.{ts,tsx}"
-            ],
-            "plugins": [
-                "nextjs"
-            ],
+            "files": ["packages/landing/**/*.{ts,tsx}"],
+            "plugins": ["nextjs"],
             "rules": {
                 "nextjs/google-font-display": "error",
                 "nextjs/google-font-preconnect": "error",
@@ -1309,10 +1167,7 @@
             }
         },
         {
-            "files": [
-                "**/*.service.ts",
-                "**/*.repository.ts"
-            ],
+            "files": ["**/*.service.ts", "**/*.repository.ts"],
             "rules": {
                 "max-lines": [
                     "error",
@@ -1326,20 +1181,13 @@
             }
         },
         {
-            "files": [
-                "packages/app/{vercel-functions,scripts}/**/*.{ts,tsx}"
-            ],
+            "files": ["packages/app/{vercel-functions,scripts}/**/*.{ts,tsx}"],
             "rules": {
                 "lingui/no-unlocalized-strings": "off"
             }
         },
         {
-            "files": [
-                "**/*.spec.ts",
-                "**/*.spec.tsx",
-                "**/test/**/*.test.ts",
-                "**/test/**/*.test.tsx"
-            ],
+            "files": ["**/*.spec.ts", "**/*.spec.tsx", "**/test/**/*.test.ts", "**/test/**/*.test.tsx"],
             "rules": {
                 "vitest/expect-expect": "off",
                 "vitest/no-commented-out-tests": "error",
@@ -1369,10 +1217,7 @@
                 "func-names": "off",
                 "promise/no-nesting": "off"
             },
-            "plugins": [
-                "vitest",
-                "promise"
-            ]
+            "plugins": ["vitest", "promise"]
         },
         {
             "files": [
@@ -1421,14 +1266,8 @@
                         "skipComments": true
                     }
                 ],
-                "max-statements": [
-                    "error",
-                    45
-                ],
-                "max-params": [
-                    "error",
-                    6
-                ],
+                "max-statements": ["error", 45],
+                "max-params": ["error", 6],
                 "no-unused-vars": "error",
                 "no-unreachable": "error",
                 "no-constant-condition": "error",
@@ -1438,59 +1277,9 @@
                     "error",
                     {
                         "ignore": [
-                            -20,
-                            -10,
-                            -1,
-                            0,
-                            0.05,
-                            0.1,
-                            0.5,
-                            0.7,
-                            0.8,
-                            1,
-                            1.2,
-                            1.3,
-                            1.8,
-                            2,
-                            2.5,
-                            2.9,
-                            3,
-                            3.7,
-                            4,
-                            5,
-                            6,
-                            7,
-                            8,
-                            9,
-                            10,
-                            13,
-                            20,
-                            30,
-                            35,
-                            40,
-                            45,
-                            50,
-                            60,
-                            70,
-                            75,
-                            99,
-                            100,
-                            155,
-                            235,
-                            300,
-                            360,
-                            400,
-                            500,
-                            600,
-                            700,
-                            800,
-                            960,
-                            999,
-                            1000,
-                            1200,
-                            3600,
-                            8191,
-                            0.01
+                            -20, -10, -1, 0, 0.05, 0.1, 0.5, 0.7, 0.8, 1, 1.2, 1.3, 1.8, 2, 2.5, 2.9, 3, 3.7, 4, 5, 6, 7, 8, 9, 10, 13, 20,
+                            30, 35, 40, 45, 50, 60, 70, 75, 99, 100, 155, 235, 300, 360, 400, 500, 600, 700, 800, 960, 999, 1000, 1200,
+                            3600, 8191, 0.01
                         ]
                     }
                 ],
@@ -1503,19 +1292,13 @@
             }
         },
         {
-            "files": [
-                "e2e/**/*.ts",
-                "tests/app-tests/scripts/**/*.{ts,mts,cts}",
-                "packages/app/scripts/**/*.{ts,mts,cts}"
-            ],
+            "files": ["e2e/**/*.ts", "tests/app-tests/scripts/**/*.{ts,mts,cts}", "packages/app/scripts/**/*.{ts,mts,cts}"],
             "rules": {
                 "n/no-extraneous-import": "off"
             }
         },
         {
-            "files": [
-                "**/*.{ts,tsx,mts,cts}"
-            ],
+            "files": ["**/*.{ts,tsx,mts,cts}"],
             "rules": {
                 "effecttsgo/map-map-error-to-map-both": "error",
                 "effecttsgo/instance-of-schema": "error",
@@ -1545,20 +1328,13 @@
             }
         },
         {
-            "files": [
-                "packages/app/**/*.{ts,tsx}",
-                "packages/progress/**/*.ts",
-                "tests/test-kit/**/*.ts"
-            ],
+            "files": ["packages/app/**/*.{ts,tsx}", "packages/progress/**/*.ts", "tests/test-kit/**/*.ts"],
             "rules": {
                 "effecttsgo/global-fetch": "error"
             }
         },
         {
-            "files": [
-                "packages/progress/src/**/*.{service,repository}.ts",
-                "tests/test-kit/src/**/*.ts"
-            ],
+            "files": ["packages/progress/src/**/*.{service,repository}.ts", "tests/test-kit/src/**/*.ts"],
             "rules": {
                 "effecttsgo/async-function": "error",
                 "effecttsgo/new-promise": "error",
@@ -1572,24 +1348,25 @@
             }
         },
         {
-            "files": [
-                "packages/progress/src/**/*.ts"
-            ],
+            "files": ["packages/progress/src/**/*.ts"],
             "rules": {
                 "effecttsgo/schema-number": "off"
             }
         },
         {
-            "files": [
-                "**/test/**/*.{ts,tsx}",
-                "tests/app-tests/scripts/**/*.ts"
-            ],
+            "files": ["**/test/**/*.{ts,tsx}", "tests/app-tests/scripts/**/*.ts"],
             "rules": {
                 "effecttsgo/strict-effect-provide": "off",
                 "effecttsgo/yield-in-call-argument": "off",
                 "effecttsgo/global-json-in-effect": "off",
                 "effecttsgo/global-date-in-effect": "off",
                 "effecttsgo/unstable-api-usage": "off"
+            }
+        },
+        {
+            "files": ["tests/test-kit/src/**/*.ts"],
+            "rules": {
+                "effecttsgo/lazy-effect": "off"
             }
         }
     ]

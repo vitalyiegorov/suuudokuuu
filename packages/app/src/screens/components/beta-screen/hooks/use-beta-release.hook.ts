@@ -32,10 +32,10 @@ const fetchBetaRelease = Effect.gen(function* () {
     return { release, status: 'ready' } as const;
 }).pipe(
     Effect.tapCause(logErrorCause),
-    Effect.catch(() => Effect.succeed<BetaReleaseState>({ status: 'error' }))
+    Effect.orElseSucceed((): BetaReleaseState => ({ status: 'error' }))
 );
 
-const betaReleaseAtom = Atom.make(fetchBetaRelease.pipe(Effect.provide(FetchHttpClient.layer)));
+const betaReleaseAtom = Atom.runtime(FetchHttpClient.layer).atom(fetchBetaRelease);
 
 export const useBetaRelease = () => {
     const result = useAtomValue(betaReleaseAtom);

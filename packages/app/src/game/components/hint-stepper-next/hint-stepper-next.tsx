@@ -15,7 +15,7 @@ export const HintStepperNext = () => {
 
     const handleNext = () => {
         if (engine.hintNext()) {
-            void runCurrentRunCommand(currentRunService => currentRunService.revealHintLevel()).catch(emptyFn);
+            void runCurrentRunCommand(currentRunService => currentRunService.revealHintLevel).catch(emptyFn);
         }
     };
 
