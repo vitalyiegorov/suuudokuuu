@@ -1,5 +1,5 @@
-Import any puzzle, with clearer hints.
+Import a puzzle from a photo.
 
-• Paste a puzzle or open an import link, check it has exactly one solution, see its difficulty, then play.
-• Pair and triple hints are explained in plain, complete sentences and fit small screens and large text.
-• Fixes for import checks, the number pad, saved settings, and keyboard focus on the web.
+• Scan a puzzle from a newspaper, book or screen, or pick one from your photos. Recognition runs on your device, and photos are never saved or sent.
+• Started it on paper? Your handwritten digits are kept as your progress.
+• Digits worth a second look are marked, so you can fix any cell before you play.

@@ -1,5 +1,5 @@
-Importa cualquier puzle, con pistas más claras.
+Importa un puzle desde una foto.
 
-• Pega un puzle o abre un enlace de importación, comprueba que tiene una única solución, consulta su dificultad y juega.
-• Las pistas de pares y tríos se explican con frases claras y completas, y caben en pantallas pequeñas y con texto grande.
-• Correcciones en la importación, el teclado numérico, los ajustes guardados y el foco del teclado en la web.
+• Escanea un puzle de un periódico, un libro o una pantalla, o elige uno de tus fotos. El reconocimiento se hace en tu dispositivo y las fotos nunca se guardan ni se envían.
+• ¿Lo empezaste en papel? Tus dígitos escritos a mano se conservan como tu progreso.
+• Los dígitos dudosos se marcan para que corrijas cualquier casilla antes de jugar.

@@ -1,5 +1,5 @@
-Rätsel importieren, klarere Hinweise.
+Rätsel per Foto importieren.
 
-• Füge ein Rätsel ein oder öffne einen Import-Link, prüfe die eindeutige Lösung, sieh den Schwierigkeitsgrad und spiele los.
-• Hinweise zu Paaren und Tripeln sind in klaren, vollständigen Sätzen erklärt und passen auf kleine Bildschirme und große Schrift.
-• Korrekturen bei Import-Prüfung, Zahlenfeld, gespeicherten Einstellungen und Tastaturfokus im Web.
+• Scanne ein Rätsel aus Zeitung, Buch oder von einem Bildschirm oder wähle eines aus deinen Fotos. Die Erkennung läuft auf deinem Gerät, Fotos werden nie gespeichert oder gesendet.
+• Schon auf Papier begonnen? Deine handschriftlichen Ziffern bleiben als Fortschritt erhalten.
+• Unsichere Ziffern sind markiert, damit du jedes Feld vor dem Spielen korrigieren kannst.

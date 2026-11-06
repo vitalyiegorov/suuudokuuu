@@ -1,5 +1,5 @@
-Importe qualquer puzzle, com dicas mais claras.
+Importe um quebra-cabeça a partir de uma foto.
 
-• Cole um puzzle (dígitos, texto de grade ou um link de outros sites de sudoku) ou abra um link de importação. Corrija-o em um tabuleiro que você toca, confira se ele tem exatamente uma solução, veja a dificuldade e jogue.
-• As dicas de pares e trios são explicadas em frases simples e completas, mostram os candidatos envolvidos e cabem em telas pequenas e em textos grandes.
-• Correções: grades já completas são recusadas na importação, colagens grandes ou incomuns são lidas corretamente, o teclado numérico se redimensiona direito e ajustes como o idioma são salvos de forma confiável.
+• Escaneie um quebra-cabeça de um jornal, livro ou tela, ou escolha um das suas fotos. O reconhecimento acontece no seu aparelho, e as fotos nunca são salvas nem enviadas.
+• Começou no papel? Seus dígitos escritos à mão são mantidos como seu progresso.
+• Dígitos que merecem conferência ficam marcados, para você corrigir qualquer casa antes de jogar.

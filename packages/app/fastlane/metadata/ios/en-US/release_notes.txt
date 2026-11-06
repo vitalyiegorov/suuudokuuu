@@ -1,5 +1,5 @@
-Import any puzzle, with clearer hints.
+Import a puzzle from a photo.
 
-• Paste a puzzle (digits, grid text, or a link from other sudoku sites) or open an import link. Check it on a board you can tap to correct, see that it has exactly one solution and its difficulty, then play.
-• Hints for pairs and triples are explained in plain, complete sentences, show the candidates involved, and fit small screens and large text sizes.
-• Fixes: completed grids are rejected on import, large or unusual pastes are read correctly, the number pad resizes properly, and settings such as language are saved reliably.
+• Scan a puzzle from a newspaper, book or screen, or pick one from your photos. Recognition runs on your device, and photos are never saved or sent.
+• Started it on paper? Your handwritten digits are kept as your progress.
+• Digits worth a second look are marked, so you can fix any cell before you play.

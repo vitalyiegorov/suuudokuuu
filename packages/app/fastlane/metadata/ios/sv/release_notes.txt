@@ -1,5 +1,5 @@
-Importera valfritt pussel, med tydligare tips.
+Importera ett pussel från ett foto.
 
-• Klistra in ett pussel (siffror, rutnätstext eller en länk från andra sudokusajter) eller öppna en importlänk. Rätta det på ett bräde du kan trycka på, kontrollera att det har exakt en lösning, se svårighetsgraden och spela.
-• Tips för par och trippler förklaras med tydliga, hela meningar, visar kandidaterna som är inblandade och ryms på små skärmar och med stor text.
-• Rättningar: färdiga rutnät avvisas vid import, stora eller ovanliga inklistringar läses rätt, sifferknappsatsen ändrar storlek som den ska och inställningar som språk sparas pålitligt.
+• Skanna ett pussel från en tidning, en bok eller en skärm, eller välj ett bland dina foton. Igenkänningen sker på din enhet, och foton sparas eller skickas aldrig.
+• Började du på papper? Dina handskrivna siffror sparas som dina framsteg.
+• Osäkra siffror markeras så att du kan rätta vilken ruta som helst innan du spelar.

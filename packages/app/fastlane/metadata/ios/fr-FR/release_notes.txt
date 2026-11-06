@@ -1,5 +1,5 @@
-Importez n'importe quelle grille, avec des indices plus clairs.
+Importez une grille depuis une photo.
 
-• Collez une grille (chiffres, texte de grille ou lien d'un autre site de sudoku) ou ouvrez un lien d'importation. Corrigez-la sur un plateau tactile, vérifiez qu'elle a une solution unique, découvrez sa difficulté, puis jouez.
-• Les indices sur les paires et les triplets sont expliqués en phrases claires et complètes, montrent les candidats concernés et s'adaptent aux petits écrans et aux grandes tailles de texte.
-• Correctifs : les grilles déjà terminées sont refusées à l'import, les collages volumineux ou inhabituels sont bien lus, le pavé numérique se redimensionne correctement et les réglages comme la langue sont enregistrés de façon fiable.
+• Scannez une grille dans un journal, un livre ou sur un écran, ou choisissez-en une dans vos photos. La reconnaissance se fait sur votre appareil et les photos ne sont jamais enregistrées ni envoyées.
+• Commencée sur papier ? Vos chiffres manuscrits sont conservés comme votre progression.
+• Les chiffres à vérifier sont signalés pour corriger n'importe quelle case avant de jouer.

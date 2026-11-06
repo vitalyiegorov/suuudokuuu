@@ -1,5 +1,5 @@
-Importa cualquier puzle, con pistas más claras.
+Importa un puzle desde una foto.
 
-• Pega un puzle (dígitos, texto de cuadrícula o un enlace de otros sitios de sudoku) o abre un enlace de importación. Corrígelo en un tablero táctil, comprueba que tiene una única solución, consulta su dificultad y juega.
-• Las pistas de pares y tríos se explican con frases claras y completas, muestran los candidatos implicados y se adaptan a pantallas pequeñas y tamaños de texto grandes.
-• Correcciones: se rechazan las cuadrículas ya completadas al importar, los textos pegados grandes o poco habituales se leen bien, el teclado numérico se ajusta correctamente y los ajustes como el idioma se guardan de forma fiable.
+• Escanea un puzle de un periódico, un libro o una pantalla, o elige uno de tus fotos. El reconocimiento se hace en tu dispositivo y las fotos nunca se guardan ni se envían.
+• ¿Lo empezaste en papel? Tus dígitos escritos a mano se conservan como tu progreso.
+• Los dígitos dudosos se marcan para que corrijas cualquier casilla antes de jugar.
