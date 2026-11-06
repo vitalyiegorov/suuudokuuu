@@ -11,6 +11,7 @@ export const createVitestConfig = () =>
         },
         test: {
             include: ['test/**/*.test.ts'],
+            maxWorkers: 4,
             testTimeout: 60_000
         }
     });

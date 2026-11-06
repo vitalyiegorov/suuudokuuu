@@ -1,17 +1,13 @@
 {
-    "ignore": [
-        "packages/app/lingui.config.js",
-        "packages/app/fingerprint.config.js",
-        "packages/hell-corpus/scripts/shared/rate-puzzle-worker.mjs",
-        ".agents/**"
-    ],
+    "ignore": ["packages/app/fingerprint.config.js", "packages/hell-corpus/scripts/shared/rate-puzzle-worker.mjs", ".agents/**"],
     "ignoreDependencies": [
         "@babel/core",
         "@expo-google-fonts/inter",
-        "@lingui/format-po",
         "@expo/fingerprint",
         "babel-plugin-react-compiler",
-        "eas-build-cache-provider"
+        "eas-build-cache-provider",
+        "@effect/language-service",
+        "oxlint"
     ],
     "workspaces": {
         "packages/field-core": {
@@ -39,9 +35,6 @@
                 "src/@generic/runtime/sqlite-opfs.worker.ts!",
                 "src/@generic/runtime/legacy-kv-store.worker.ts!"
             ]
-        },
-        "tests/app-tests": {
-            "entry": ["scripts/compose-app-preview.ts"]
         },
         "e2e": {
             "entry": ["e2e.config.ts", "media.config.ts", "media/**/*.e2e.ts", "tests/**/*.e2e.ts"],

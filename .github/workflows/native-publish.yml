@@ -72,7 +72,7 @@ jobs:
             ios-runner-labels: '["self-hosted","macOS","ARM64","macos-maestro"]'
             # The release AAB builds on a 16 GiB hosted runner: the 8 GiB self-hosted pool is too tight for the Gradle, Kotlin and R8 JVMs.
             android-runner-labels: '["ubuntu-latest"]'
-            node-version: 22.x
+            node-version: 26.13.0
             build-profile: production
             submit-profile: production
             write-store-record: true
