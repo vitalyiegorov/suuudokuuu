@@ -23,7 +23,7 @@ pnpm capture:fixtures
 3. Warp each candidate to 450 px through a 4-point homography (`solve-homography.util.ts`), flip it to dark ink on a light board by the heavier intensity tail around the median, and threshold it again.
 4. Reject candidates whose inner box lines do not stand out from the cell centers in both directions, and keep the candidate whose ten line positions stand out most. The search repeats on the inverted image only when nothing qualifies.
 5. Crop each cell, erase rows and columns that are mostly ink near the cell edge, keep the central components, treat too little ink as empty, and sample the rest into a 28x28 glyph scaled to a 20 px box.
-6. Run the 784-96-9 ReLU MLP over the int8 weights in `constants/digit-classifier-weights.constant.ts` and return the best digit, its softmax probability, and the runner-up.
+6. Run the 784-96-9 ReLU MLP over the int8 weights in `constants/digit-classifier-weights.constant.ts` and return the best digit, its softmax probability, the runner-up, and an 81-cell handwriting mask: sample original RGBA at retained ink pixels through the winning homography and compare mean luma and chroma against the filled-cell medians (no flags below three filled cells).
 
 ## Runtime Rules
 
@@ -43,8 +43,9 @@ Training and `pnpm render:fixtures` both read the fonts installed on the machine
 
 ## Fixtures
 
-`test/fixtures/manifest.txt` lists every fixture with its expected 81-character puzzle string, or `none` for images without a grid. The Vitest gate requires at least 98% correct cells and at least 80% exactly recognized grids.
+`test/fixtures/manifest.txt` lists every fixture with its expected 81-character puzzle string, or `none` for images without a grid. An optional third field is an 81-character handwriting mask (`h` for handwritten, `.` otherwise); handwritten digits remain in the expected puzzle. The Vitest gate requires at least 98% correct cells and at least 80% exactly recognized grids.
 
 - `app-*.jpg`: real screenshots of the web export in every preset theme, light and dark. Serve `packages/app/dist` on port 4173 (see `tests/web-tests/AGENTS.md`) and run `pnpm capture:fixtures`, which reads the expected puzzle from the board cells.
+- `handwritten-photo-*.jpg`: six seeded photos with blue pen and pencil-grey entries; require at least 95% filled-cell mask accuracy and zero flags on all other fixtures.
 - `printed-photo-*.jpg`, `screen-photo-*.jpg`, `no-grid-*.jpg`: seeded synthetic photos from `pnpm render:fixtures`, using held-out fonts only. Screen photos re-photograph the light app screenshots.
 - Keep each fixture a JPEG of at most 800 px and under 150 KB. Real phone photos of printed puzzles belong here too; never add copyrighted images.

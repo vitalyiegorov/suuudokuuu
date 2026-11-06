@@ -64,3 +64,29 @@ for (let photo = 0; photo < NO_GRID_PHOTO_COUNT; photo += 1) {
 
     writeFixture(`no-grid-${fixtureNumber(photo)}.jpg`, photographCanvas(random, page).encodeSync('jpeg', NO_GRID_JPEG_QUALITY), NO_GRID);
 }
+
+const HANDWRITING_SEED = 19031;
+const HANDWRITING_CLUE_PROBABILITY = 0.4;
+const HANDWRITING_ENTRY_PROBABILITY = 0.22;
+const HANDWRITING_JPEG_QUALITY = 80;
+const handwritingRandom = new SeededRandom(HANDWRITING_SEED);
+
+for (let photo = 0; photo < 6; photo += 1) {
+    const printed = handwritingRandom.puzzle(HANDWRITING_CLUE_PROBABILITY);
+    const handwritten = Array.from(printed, cell =>
+        cell === '.' && handwritingRandom.chance(HANDWRITING_ENTRY_PROBABILITY) ? 'h' : '.'
+    ).join('');
+    const puzzle = Array.from(printed, (cell, index) =>
+        handwritten[index] === 'h' ? String(handwritingRandom.integer({ minimum: 1, maximum: 9 })) : cell
+    ).join('');
+    const canvas = photographCanvas(
+        handwritingRandom,
+        renderFlatGrid(handwritingRandom, puzzle, handwritingRandom.pick(fonts.heldOutFamilies), handwritten)
+    );
+
+    writeFixture(
+        `handwritten-photo-${fixtureNumber(photo)}.jpg`,
+        canvas.encodeSync('jpeg', HANDWRITING_JPEG_QUALITY),
+        `${puzzle} ${handwritten}`
+    );
+}

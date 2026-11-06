@@ -1,5 +1,10 @@
 import { DIGIT_CLASSIFIER_BASE64, DIGIT_CLASSIFIER_HIDDEN_SIZE } from '../constants/digit-classifier-weights.constant';
-import { DIGIT_COUNT, GLYPH_PIXEL_COUNT } from '../constants/grid-vision.constant';
+import {
+    DIGIT_COUNT,
+    GLYPH_PIXEL_COUNT,
+    HANDWRITTEN_LUMA_DIFFERENCE,
+    HANDWRITTEN_CHROMA_DIFFERENCE
+} from '../constants/grid-vision.constant';
 import { GridRecognitionKindEnum } from '../enums/grid-recognition-kind.enum';
 
 import { readGridGlyphs } from './read-grid-glyphs.util';
@@ -92,6 +97,12 @@ const classifyGlyph = (glyph: Float32Array) => {
     return { digit: bestIndex + 1, confidence: probabilities[bestIndex], alternative: alternativeIndex + 1 };
 };
 
+const median = (values: number[]): number => {
+    values.sort((first, second) => first - second);
+
+    return (values[Math.floor((values.length - 1) / 2)] + values[Math.floor(values.length / 2)]) / 2;
+};
+
 export const recognizeGrid = (image: RgbaImageInterface): GridRecognitionType => {
     const glyphs = readGridGlyphs(image);
 
@@ -99,10 +110,20 @@ export const recognizeGrid = (image: RgbaImageInterface): GridRecognitionType =>
         return { kind: GridRecognitionKindEnum.GRID_NOT_FOUND };
     }
 
-    const predictions = glyphs.map(glyph => (glyph === null ? null : classifyGlyph(glyph)));
+    const predictions = glyphs.map(glyph => (glyph === null ? null : classifyGlyph(glyph.glyph)));
+
+    const filled = glyphs.filter(glyph => glyph !== null);
+    const medianLuma = median(filled.map(ink => ink.luma));
+    const medianChroma = median(filled.map(ink => ink.chroma));
 
     return {
         kind: GridRecognitionKindEnum.RECOGNIZED,
+        handwritten: glyphs.map(
+            ink =>
+                filled.length >= 3 &&
+                ink !== null &&
+                (ink.luma > medianLuma + HANDWRITTEN_LUMA_DIFFERENCE || ink.chroma > medianChroma + HANDWRITTEN_CHROMA_DIFFERENCE)
+        ),
         puzzleString: predictions.map(prediction => prediction?.digit.toString() ?? EMPTY_CELL).join(''),
         confidences: predictions.map(prediction => prediction?.confidence ?? 1),
         alternatives: predictions.map(prediction => prediction?.alternative ?? null)

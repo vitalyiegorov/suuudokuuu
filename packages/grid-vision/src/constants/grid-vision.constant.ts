@@ -5,3 +5,5 @@ export const CELL_SIZE = WARPED_GRID_SIZE / GRID_SIZE;
 export const GLYPH_SIZE = 28;
 export const GLYPH_PIXEL_COUNT = GLYPH_SIZE * GLYPH_SIZE;
 export const DIGIT_COUNT = 9;
+export const HANDWRITTEN_LUMA_DIFFERENCE = 45;
+export const HANDWRITTEN_CHROMA_DIFFERENCE = 35;

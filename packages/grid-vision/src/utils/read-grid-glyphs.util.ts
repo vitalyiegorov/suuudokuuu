@@ -231,28 +231,63 @@ const scoreBoard = (mask: BinaryImageInterface): number => {
         : -Infinity;
 };
 
-const findBestBoardMask = (gray: GrayImageInterface): BinaryImageInterface | null =>
-    findGridCorners(gray)
+const findBestBoardMask = (gray: GrayImageInterface, invertedSearch = false) =>
+    findGridCorners(invertedSearch ? invertGray(gray) : gray)
         .map(corners => solveHomography(WARPED_TARGET_CORNERS, corners))
         .filter(homography => homography !== null)
-        .map(homography => warpBoard(gray, homography))
-        .map(board => adaptiveThreshold(hasDarkInk(board) ? board : invertGray(board), CELL_THRESHOLD_RADIUS, CELL_THRESHOLD_SENSITIVITY))
-        .map(mask => ({ mask, score: scoreBoard(mask) }))
-        .filter(board => board.score > -Infinity)
-        .reduce<{ mask: BinaryImageInterface; score: number } | null>(
-            (best, board) => (best === null || board.score > best.score ? board : best),
-            null
-        )?.mask ?? null;
+        .map(homography => {
+            const board = warpBoard(gray, homography);
+            const isDarkInk = hasDarkInk(board);
+            const mask = adaptiveThreshold(isDarkInk ? board : invertGray(board), CELL_THRESHOLD_RADIUS, CELL_THRESHOLD_SENSITIVITY);
 
-export const readGridGlyphs = (image: RgbaImageInterface): (Float32Array | null)[] | null => {
+            return { mask, homography, isDarkInk, score: scoreBoard(mask) };
+        })
+        .filter(board => board.score > -Infinity)
+        .reduce<{
+            readonly mask: BinaryImageInterface;
+            readonly homography: Float64Array;
+            readonly isDarkInk: boolean;
+            readonly score: number;
+        } | null>((best, board) => (best === null || board.score > best.score ? board : best), null);
+
+const readCellInk = (image: RgbaImageInterface, homography: Float64Array, mask: BinaryImageInterface, cell: number) => {
+    const [h00, h01, h02, h10, h11, h12, h20, h21, h22] = homography;
+    const scale = Math.max(1, Math.max(image.width, image.height) / MAXIMUM_IMAGE_SIDE);
+    let luma = 0;
+    let chroma = 0;
+    let count = 0;
+    const glyph = extractCellGlyph(mask, Math.floor(cell / GRID_SIZE), cell % GRID_SIZE, (x, y) => {
+        const targetX = x + PIXEL_CENTER;
+        const targetY = y + PIXEL_CENTER;
+        const depth = h20 * targetX + h21 * targetY + h22;
+        const sourceX = Math.min(image.width - 1, Math.max(0, Math.floor((scale * (h00 * targetX + h01 * targetY + h02)) / depth)));
+        const sourceY = Math.min(image.height - 1, Math.max(0, Math.floor((scale * (h10 * targetX + h11 * targetY + h12)) / depth)));
+        const offset = (sourceY * image.width + sourceX) * RGBA_CHANNEL_COUNT;
+        const red = image.data[offset];
+        const green = image.data[offset + 1];
+        const blue = image.data[offset + 2];
+
+        luma += RED_LUMA_WEIGHT * red + GREEN_LUMA_WEIGHT * green + BLUE_LUMA_WEIGHT * blue;
+        chroma += Math.max(red, green, blue) - Math.min(red, green, blue);
+        count += 1;
+    });
+
+    return glyph === null ? null : { glyph, luma: luma / count, chroma: chroma / count };
+};
+
+export const readGridGlyphs = (image: RgbaImageInterface) => {
     if (image.width <= 0 || image.height <= 0 || image.data.length < image.width * image.height * RGBA_CHANNEL_COUNT) {
         return null;
     }
 
     const gray = toGrayscale(image);
-    const mask = findBestBoardMask(gray) ?? findBestBoardMask(invertGray(gray));
+    const board = findBestBoardMask(gray) ?? findBestBoardMask(gray, true);
 
-    return mask === null
+    return board === null
         ? null
-        : Array.from({ length: CELL_COUNT }, (_, cell) => extractCellGlyph(mask, Math.floor(cell / GRID_SIZE), cell % GRID_SIZE));
+        : Array.from({ length: CELL_COUNT }, (_, cell) => {
+              const ink = readCellInk(image, board.homography, board.mask, cell);
+
+              return ink === null ? null : { ...ink, luma: board.isDarkInk ? ink.luma : MAXIMUM_GRAY - ink.luma };
+          });
 };

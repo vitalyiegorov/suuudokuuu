@@ -59,7 +59,7 @@ const collectGlyphs = (seed: number, photoCount: number, families: readonly stri
         missedGridCount += isAligned ? 0 : 1;
         cellGlyphs?.forEach((glyph, cell) => {
             if (isAligned && glyph !== null && puzzle[cell] !== '.') {
-                glyphs.push(glyph);
+                glyphs.push(glyph.glyph);
                 labels.push(Number(puzzle[cell]) - 1);
             }
         });

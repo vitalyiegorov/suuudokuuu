@@ -7,6 +7,7 @@ interface GridNotFoundInterface {
 interface RecognizedGridInterface {
     readonly kind: GridRecognitionKindEnum.RECOGNIZED;
     readonly puzzleString: string;
+    readonly handwritten: readonly boolean[];
     readonly confidences: readonly number[];
     readonly alternatives: readonly (number | null)[];
 }

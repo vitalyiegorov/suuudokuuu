@@ -3,6 +3,8 @@ import { readFileSync } from 'node:fs';
 import jpeg from 'jpeg-js';
 import { describe, expect, it } from 'vitest';
 
+import { renderFlatGrid } from '../../scripts/shared/render-synthetic-photo';
+import { SeededRandom } from '../../scripts/shared/seeded-random';
 import { GridRecognitionKindEnum, recognizeGrid } from '../../src';
 
 import type { GridRecognitionType } from '../../src';
@@ -10,6 +12,8 @@ import type { GridRecognitionType } from '../../src';
 const FIXTURE_DIRECTORY = new URL('../fixtures/', import.meta.url);
 const NO_GRID = 'none';
 const CELL_COUNT = 81;
+const SPARSE_GRID_SEED = 2606;
+const MINIMUM_HANDWRITTEN_ACCURACY = 0.95;
 const MINIMUM_CELL_ACCURACY = 0.98;
 const MINIMUM_EXACT_FIXTURE_RATIO = 0.8;
 
@@ -17,9 +21,9 @@ const fixtures = readFileSync(new URL('manifest.txt', FIXTURE_DIRECTORY), 'utf8'
     .trim()
     .split('\n')
     .map(line => {
-        const [file, expected] = line.split(' ');
+        const [file, expected, handwritten = ''] = line.split(' ');
 
-        return { file, expected };
+        return { file, expected, handwritten };
     });
 const gridFixtures = fixtures.filter(fixture => fixture.expected !== NO_GRID);
 const noGridFixtures = fixtures.filter(fixture => fixture.expected === NO_GRID);
@@ -37,7 +41,8 @@ const countMatchingCells = (actual: string, expected: string): number =>
     Array.from(expected).filter((cell, index) => actual[index] === cell).length;
 
 describe('recognizeGrid', () => {
-    const puzzleStrings = gridFixtures.map(fixture => readPuzzleString(recognizeFixture(fixture.file)));
+    const recognitions = gridFixtures.map(fixture => recognizeFixture(fixture.file));
+    const puzzleStrings = recognitions.map(readPuzzleString);
 
     it('should recognize at least 98% of cells and 80% of fixtures exactly', () => {
         const matchingCellCount = gridFixtures.reduce(
@@ -49,6 +54,52 @@ describe('recognizeGrid', () => {
         expect(gridFixtures.length).toBeGreaterThanOrEqual(30);
         expect(matchingCellCount / (gridFixtures.length * CELL_COUNT)).toBeGreaterThanOrEqual(MINIMUM_CELL_ACCURACY);
         expect(exactFixtureCount / gridFixtures.length).toBeGreaterThanOrEqual(MINIMUM_EXACT_FIXTURE_RATIO);
+    });
+
+    it('should identify at least 95% of filled-cell handwriting masks without false flags on other fixtures', () => {
+        const cells = gridFixtures.flatMap((fixture, index) => {
+            const recognition = recognitions[index];
+
+            return recognition.kind === GridRecognitionKindEnum.RECOGNIZED
+                ? Array.from(fixture.expected, (digit, cell) => ({
+                      filled: digit !== '.',
+                      handwritingFixture: fixture.handwritten.length > 0,
+                      actual: recognition.handwritten[cell],
+                      expected: fixture.handwritten[cell] === 'h'
+                  }))
+                : [];
+        });
+        const handwritingCells = cells.filter(cell => cell.handwritingFixture && cell.filled);
+
+        expect(recognitions.map(recognition => recognition.kind)).toEqual(gridFixtures.map(() => GridRecognitionKindEnum.RECOGNIZED));
+        expect(
+            recognitions.map(recognition => (recognition.kind === GridRecognitionKindEnum.RECOGNIZED ? recognition.handwritten.length : 0))
+        ).toEqual(gridFixtures.map(() => CELL_COUNT));
+        expect(
+            gridFixtures.filter(fixture => fixture.handwritten.length > 0).map(fixture => /^[h.]{81}$/u.test(fixture.handwritten))
+        ).toEqual(Array.from({ length: 6 }, () => true));
+        expect(cells.filter(cell => !cell.handwritingFixture || !cell.filled).some(cell => cell.actual)).toBe(false);
+        expect(handwritingCells.filter(cell => cell.actual === cell.expected).length / handwritingCells.length).toBeGreaterThanOrEqual(
+            MINIMUM_HANDWRITTEN_ACCURACY
+        );
+    });
+
+    it.each([0, 1, 2])('should flag nothing with %i filled cells', filledCount => {
+        const canvas = renderFlatGrid(
+            new SeededRandom(SPARSE_GRID_SEED),
+            '12'.slice(0, filledCount).padEnd(CELL_COUNT, '.'),
+            'sans-serif',
+            '.h'
+        );
+        const recognition = recognizeGrid(canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height));
+
+        expect(recognition.kind).toBe(GridRecognitionKindEnum.RECOGNIZED);
+        expect(recognition.kind === GridRecognitionKindEnum.RECOGNIZED ? recognition.puzzleString.replaceAll('.', '').length : -1).toBe(
+            filledCount
+        );
+        expect(recognition.kind === GridRecognitionKindEnum.RECOGNIZED ? recognition.handwritten : []).toEqual(
+            Array.from({ length: CELL_COUNT }, () => false)
+        );
     });
 
     it('should report a missing grid for images without a sudoku', () => {
