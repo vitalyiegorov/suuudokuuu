@@ -1,3 +1,4 @@
+import * as Arr from 'effect/Array';
 import * as Context from 'effect/Context';
 import * as Effect from 'effect/Effect';
 import * as Layer from 'effect/Layer';
@@ -38,7 +39,7 @@ export class CompletedGameRepository extends Context.Service<CompletedGameReposi
             execute: game => sql`INSERT INTO completed_games ${sql.insert(game)}`
         });
         const insertGames = SqlSchema.void({
-            Request: Schema.Array(CompletedGameSchema),
+            Request: Schema.NonEmptyArray(CompletedGameSchema),
             execute: games => sql`INSERT INTO completed_games ${sql.insert(games)}`
         });
         const trimGames = (difficulty: DifficultyEnum) => sql`
@@ -59,7 +60,7 @@ export class CompletedGameRepository extends Context.Service<CompletedGameReposi
                     )
                     .pipe(Effect.orDie),
             insertMany: Effect.fn('CompletedGameRepository.insertMany')(function* (games: readonly CompletedGameType[]) {
-                if (games.length === 0) {
+                if (!Arr.isReadonlyArrayNonEmpty(games)) {
                     return;
                 }
 

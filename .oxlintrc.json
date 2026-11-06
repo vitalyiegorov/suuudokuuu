@@ -1,5 +1,6 @@
 {
     "$schema": "./node_modules/oxlint/configuration_schema.json",
+    "extends": ["./node_modules/@effect/tsgo/oxlint-presets/strict.json"],
     "plugins": [],
     "jsPlugins": [
         {
@@ -63,7 +64,7 @@
     },
     "settings": {
         "node": {
-            "version": ">=22.22.1"
+            "version": ">=26.13.0"
         },
         "react": {
             "version": "19.3.0"
@@ -440,7 +441,12 @@
                         "allowWithDecorator": true
                     }
                 ],
-                "typescript/no-floating-promises": ["error", { "ignoreVoid": false }],
+                "typescript/no-floating-promises": [
+                    "error",
+                    {
+                        "ignoreVoid": false
+                    }
+                ],
                 "typescript/no-for-in-array": "error",
                 "typescript/no-generated-empty-object-type": "error",
                 "typescript/no-implied-eval": "error",
@@ -961,7 +967,14 @@
                     "error",
                     {
                         "ignore": ["^(?![A-Z])\\S+$", "^[A-Z0-9_-]+$", "use client"],
-                        "ignoreNames": [{ "regex": { "pattern": "className", "flags": "i" } }]
+                        "ignoreNames": [
+                            {
+                                "regex": {
+                                    "pattern": "className",
+                                    "flags": "i"
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -1282,6 +1295,78 @@
             "files": ["e2e/**/*.ts", "tests/app-tests/scripts/**/*.{ts,mts,cts}", "packages/app/scripts/**/*.{ts,mts,cts}"],
             "rules": {
                 "n/no-extraneous-import": "off"
+            }
+        },
+        {
+            "files": ["**/*.{ts,tsx,mts,cts}"],
+            "rules": {
+                "effecttsgo/map-map-error-to-map-both": "error",
+                "effecttsgo/instance-of-schema": "error",
+                "effecttsgo/new-schema-class": "error",
+                "effecttsgo/prefer-schema-type-property": "error",
+                "effecttsgo/provide-merge-all-to-array": "error",
+                "effecttsgo/yield-in-call-argument": "error",
+                "effecttsgo/type-union-to-schema-union": "error",
+                "effecttsgo/schema-union-of-literals": "error",
+                "effecttsgo/global-console-in-effect": "error",
+                "effecttsgo/global-date-in-effect": "error",
+                "effecttsgo/global-fetch-in-effect": "error",
+                "effecttsgo/global-json-in-effect": "error",
+                "effecttsgo/global-random-in-effect": "error",
+                "effecttsgo/global-timers-in-effect": "error",
+                "effecttsgo/crypto-random-uuid-in-effect": "error",
+                "effecttsgo/process-env-in-effect": "error",
+                "effecttsgo/strict-effect-provide": "error",
+                "effecttsgo/any-unknown-in-error-context": "error",
+                "effecttsgo/missing-effect-service-dependency": "error",
+                "effecttsgo/unsafe-effect-type-assertion": "error",
+                "effecttsgo/service-not-as-class": "error",
+                "effecttsgo/deterministic-keys": "off",
+                "effecttsgo/missed-pipeable-opportunity": "off",
+                "effecttsgo/effect-try-without-catch": "off",
+                "effecttsgo/api-stability-leak": "off"
+            }
+        },
+        {
+            "files": ["packages/app/**/*.{ts,tsx}", "packages/progress/**/*.ts", "tests/test-kit/**/*.ts"],
+            "rules": {
+                "effecttsgo/global-fetch": "error"
+            }
+        },
+        {
+            "files": ["packages/progress/src/**/*.{service,repository}.ts", "tests/test-kit/src/**/*.ts"],
+            "rules": {
+                "effecttsgo/async-function": "error",
+                "effecttsgo/new-promise": "error",
+                "effecttsgo/global-console": "error",
+                "effecttsgo/global-date": "error",
+                "effecttsgo/global-random": "error",
+                "effecttsgo/global-timers": "error",
+                "effecttsgo/node-builtin-import": "error",
+                "effecttsgo/process-env": "error",
+                "effecttsgo/crypto-random-uuid": "error"
+            }
+        },
+        {
+            "files": ["packages/progress/src/**/*.ts"],
+            "rules": {
+                "effecttsgo/schema-number": "off"
+            }
+        },
+        {
+            "files": ["**/test/**/*.{ts,tsx}", "tests/app-tests/scripts/**/*.ts"],
+            "rules": {
+                "effecttsgo/strict-effect-provide": "off",
+                "effecttsgo/yield-in-call-argument": "off",
+                "effecttsgo/global-json-in-effect": "off",
+                "effecttsgo/global-date-in-effect": "off",
+                "effecttsgo/unstable-api-usage": "off"
+            }
+        },
+        {
+            "files": ["tests/test-kit/src/**/*.ts"],
+            "rules": {
+                "effecttsgo/lazy-effect": "off"
             }
         }
     ]

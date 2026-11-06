@@ -1,5 +1,5 @@
 module.exports = {
-    extends: ['@commitlint/config-conventional', '@commitlint/config-workspace-scopes'],
+    extends: ['@commitlint/config-conventional', '@commitlint/config-pnpm-scopes'],
     rules: {
         'type-enum': [2, 'always', ['build', 'chore', 'ci', 'docs', 'feat', 'fix', 'i18n', 'perf', 'refactor', 'revert', 'style', 'test']]
     },

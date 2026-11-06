@@ -69,7 +69,7 @@ export const decodeLegacyState = Effect.fn('decodeLegacyState')(function* (
     initialSettings: SettingsType,
     inboundVersion: number
 ) {
-    const legacySlices = yield* Schema.decodeUnknownEffect(
+    const legacySlices = yield* Schema.decodeEffect(
         Schema.Struct({
             game: Schema.optionalKey(LegacyRecordSchema),
             settings: Schema.optionalKey(LegacyRecordSchema),
@@ -78,13 +78,13 @@ export const decodeLegacyState = Effect.fn('decodeLegacyState')(function* (
         })
     )(slices);
     const game = legacySlices.game ?? {};
-    const settings = yield* Schema.decodeUnknownEffect(LegacyRecordSchema)(legacySlices.settings ?? {});
-    const customThemes = yield* Schema.decodeUnknownEffect(
+    const settings = yield* Schema.decodeEffect(LegacyRecordSchema)(legacySlices.settings ?? {});
+    const customThemes = yield* Schema.decodeEffect(
         Schema.Struct({
             themes: Schema.Array(LegacyRecordSchema).pipe(Schema.withDecodingDefaultKey(Effect.succeed([])))
         })
     )(legacySlices.customThemes ?? {});
-    const firstHistory = yield* Schema.decodeUnknownEffect(LegacyRecordSchema)(legacySlices.history ?? {});
+    const firstHistory = yield* Schema.decodeEffect(LegacyRecordSchema)(legacySlices.history ?? {});
     const historyByDifficulty = yield* Schema.decodeUnknownEffect(LegacyRecordSchema)(
         inboundVersion < FirstHistoryPersistVersion
             ? (firstHistory['byDifficulty'] ?? game['historyByDifficulty'] ?? {})

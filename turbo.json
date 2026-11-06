@@ -4,14 +4,16 @@
     "globalDependencies": ["tsconfig*.json", "types/**", ".env*"],
     "tasks": {
         "ts": {
-            "dependsOn": ["transit"],
+            "dependsOn": ["transit", "^build"],
+            "outputs": ["node_modules/.cache/tsbuildinfo*.json", "**/node_modules/.cache/tsbuildinfo*.json"]
+        },
+        "@suuudokuuu/web-tests#ts": {
+            "dependsOn": ["transit", "@suuudokuuu/app#ts", "@suuudokuuu/landing#ts"],
             "outputs": ["node_modules/.cache/tsbuildinfo*.json", "**/node_modules/.cache/tsbuildinfo*.json"]
         },
         "transit": {
-            "dependsOn": ["^transit"]
-        },
-        "effect:check": {
-            "outputs": []
+            "dependsOn": ["^transit"],
+            "inputs": ["$TURBO_DEFAULT$", "!test/**", "!coverage/**", "!vitest.config.mts", "!tsconfig.test.json"]
         },
         "export:web": {
             "outputs": ["dist/**"],
@@ -19,15 +21,19 @@
         },
         "build": {
             "dependsOn": ["^build"],
-            "outputs": ["dist/**"]
+            "outputs": ["dist/**"],
+            "inputs": ["$TURBO_DEFAULT$", "!test/**", "!coverage/**", "!vitest.config.mts", "!tsconfig.test.json"]
         },
         "@suuudokuuu/landing#build": {
             "dependsOn": ["^build"],
             "env": ["INDEXNOW_KEY", "LANDING_BUILD_DATE"],
             "outputs": ["out/**", ".next/**", "!.next/cache/**"]
         },
-        "test": {},
+        "test": {
+            "dependsOn": ["transit", "^build"]
+        },
         "test:coverage": {
+            "dependsOn": ["transit", "^build"],
             "outputs": ["coverage/**"]
         }
     }

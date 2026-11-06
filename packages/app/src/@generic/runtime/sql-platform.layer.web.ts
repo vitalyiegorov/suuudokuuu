@@ -21,7 +21,7 @@ const sqliteWorker = Effect.gen(function* () {
         window.navigator.locks
             .request('suuudokuuu-opfs', { ifAvailable: true }, lock => {
                 if (!isDefined(lock)) {
-                    resume(new DatabaseInUseError());
+                    resume(DatabaseInUseError.make());
 
                     return false;
                 }

@@ -1,3 +1,4 @@
+import * as Arr from 'effect/Array';
 import * as Effect from 'effect/Effect';
 import * as SqlClient from 'effect/sql/SqlClient';
 
@@ -103,7 +104,7 @@ const createDifficultyStatsTable = Effect.flatMap(
 const seedDifficultyStats = Effect.flatMap(
     SqlClient.SqlClient,
     sql =>
-        sql`INSERT INTO difficulty_stats ${sql.insert(['Newbie', 'Easy', 'Medium', 'Hard', 'Nightmare', 'Hell', 'Infinity'].map(difficulty => ({ difficulty })))}`
+        sql`INSERT INTO difficulty_stats ${sql.insert(Arr.map(Arr.make('Newbie', 'Easy', 'Medium', 'Hard', 'Nightmare', 'Hell', 'Infinity'), difficulty => ({ difficulty })))}`
 );
 
 const createCompletedGamesTable = Effect.flatMap(

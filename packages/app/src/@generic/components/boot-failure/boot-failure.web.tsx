@@ -4,6 +4,7 @@ import * as Cause from 'effect/Cause';
 import * as Effect from 'effect/Effect';
 import * as Fiber from 'effect/Fiber';
 import * as AsyncResult from 'effect/reactivity/AsyncResult';
+import * as Schema from 'effect/Schema';
 import { useEffect } from 'react';
 import { Button, Text, View } from 'react-native';
 
@@ -21,7 +22,7 @@ export const BootFailure = () => {
     const { t } = useLingui();
     const reloadPage = window.location.reload.bind(window.location);
     const settingsResult = useAtomValue(settingsAtom);
-    const isDatabaseInUse = AsyncResult.isFailure(settingsResult) && Cause.squash(settingsResult.cause) instanceof DatabaseInUseError;
+    const isDatabaseInUse = AsyncResult.isFailure(settingsResult) && Schema.is(DatabaseInUseError)(Cause.squash(settingsResult.cause));
 
     useEffect(() => {
         if (!AsyncResult.isSuccess(settingsResult) && !AsyncResult.isFailure(settingsResult)) {

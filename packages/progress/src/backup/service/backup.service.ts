@@ -112,7 +112,7 @@ export class BackupService extends Context.Service<BackupService>()('@suuudokuuu
                 Effect.orDie
             ),
             importBackup: Effect.fn('BackupService.importBackup')(function* (backupJson: string) {
-                const backup = yield* Schema.decodeUnknownEffect(BackupSchema)(backupJson);
+                const backup = yield* Schema.decodeEffect(BackupSchema)(backupJson);
 
                 yield* Effect.gen(function* () {
                     const localGameKeys = new Set((yield* completedGameRepository.findAll).map(getCompletedGameKey));
@@ -131,7 +131,9 @@ export class BackupService extends Context.Service<BackupService>()('@suuudokuuu
                             ),
                         { discard: true }
                     );
-                    yield* playerStatsRepository.save(mergePlayerStats(yield* playerStatsRepository.get, backup.playerStats));
+                    const localPlayerStats = yield* playerStatsRepository.get;
+
+                    yield* playerStatsRepository.save(mergePlayerStats(localPlayerStats, backup.playerStats));
                     yield* Effect.forEach(
                         backup.customThemes.filter(theme => theme.updatedAt > (localThemes.get(theme.id)?.updatedAt ?? -1)),
                         theme => customThemeRepository.upsert(theme),

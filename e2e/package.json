@@ -7,9 +7,9 @@
     },
     "devDependencies": {
         "@e2e-dev/mobile": "0.12.5",
-        "@types/node": "^22.10.0",
+        "@types/node": "26.6.6",
         "agent-device": "0.21.35",
         "e2e": "0.22.0",
-        "typescript": "~5.9.3"
+        "typescript": "npm:@typescript/typescript6@6.0.2"
     }
 }

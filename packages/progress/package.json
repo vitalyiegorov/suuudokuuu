@@ -21,21 +21,20 @@
         "build:esm": "tsrs --pretty -p tsconfig.build-esm.json",
         "test": "vitest run",
         "test:coverage": "vitest run --coverage",
-        "ts": "tsrs -p . && tsrs -p tsconfig.test.json",
-        "effect:check": "effect-language-service diagnostics --project tsconfig.json --format text --severity error"
+        "ts": "tsrs -p . && tsrs -p tsconfig.test.json"
     },
     "dependencies": {
         "@suuudokuuu/encoder": "workspace:*",
         "@suuudokuuu/field-core": "workspace:*",
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/techniques": "workspace:*",
-        "effect": "4.0.5"
+        "effect": "4.1.2"
     },
     "devDependencies": {
-        "@effect/vitest": "4.0.5",
+        "@effect/vitest": "4.1.2",
         "@suuudokuuu/test-kit": "workspace:*",
-        "@vitest/coverage-v8": "5.0.5",
-        "vite": "^8.3.4",
-        "vitest": "5.0.5"
+        "@vitest/coverage-v8": "5.1.0",
+        "vite": "8.3.6",
+        "vitest": "5.1.0"
     }
 }

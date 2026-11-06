@@ -23,7 +23,7 @@ export const HintPanelShowAnswer = () => {
 
         if (revealedLevelCount > 0) {
             void runCurrentRunCommand(currentRunService =>
-                Effect.replicateEffect(currentRunService.revealHintLevel(), revealedLevelCount, { discard: true })
+                Effect.replicateEffect(currentRunService.revealHintLevel, revealedLevelCount, { discard: true })
             ).catch(emptyFn);
         }
     };

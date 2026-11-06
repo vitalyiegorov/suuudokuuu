@@ -6,10 +6,11 @@ minimumReleaseAge: 1440
 
 minimumReleaseAgeExclude:
     - '@rnw-community/*'
+    - '@effect/tsgo'
+    - '@effect/tsgo-*'
 
 patchedDependencies:
-    '@effect/sql-sqlite-wasm@4.0.5': patches/@effect__sql-sqlite-wasm@4.0.5.patch
-    effect@4.0.5: patches/effect@4.0.5.patch
+    '@effect/sql-sqlite-wasm@4.1.2': patches/@effect__sql-sqlite-wasm@4.1.2.patch
 
 allowBuilds:
     esbuild: false

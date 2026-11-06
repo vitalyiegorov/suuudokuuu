@@ -22,7 +22,7 @@ describe('Legacy timeline decoding', () => {
     it.effect('decodes current-run JSON columns without hint metadata', () =>
         Effect.gen(function* () {
             const encodedRun = yield* Schema.encodeEffect(CurrentRunSchema)(initialCurrentRun);
-            const decodedRun = yield* Schema.decodeUnknownEffect(CurrentRunSchema)({
+            const decodedRun = yield* Schema.decodeEffect(CurrentRunSchema)({
                 ...encodedRun,
                 timelineEvents: JSON.stringify([legacyCellEvent]),
                 undoneMoves: JSON.stringify([legacyCellEvent]),
@@ -38,7 +38,7 @@ describe('Legacy timeline decoding', () => {
 
     it.effect('decodes a completed-game row and its frozen legacy replay timeline without hint metadata', () =>
         Effect.gen(function* () {
-            const completedGame = yield* Schema.decodeUnknownEffect(CompletedGameSchema)({
+            const completedGame = yield* Schema.decodeEffect(CompletedGameSchema)({
                 difficulty: DifficultyEnum.Medium,
                 encodedState: '_OwPIThhRGUxFDDkJq4zrJuyYhUEGSYmTqAalQDDhYCWCCwEA',
                 rating: 0,
@@ -51,7 +51,7 @@ describe('Legacy timeline decoding', () => {
                 dailyDayNumber: null
             });
             const decodedState = new GameStateSerializer().decodeState(completedGame.encodedState);
-            const timeline = yield* Schema.decodeUnknownEffect(Schema.Array(TimelineEventSchema))(decodedState.timelineEvents);
+            const timeline = yield* Schema.decodeEffect(Schema.Array(TimelineEventSchema))(decodedState.timelineEvents);
 
             assert.deepStrictEqual(timeline[0], { kind: TimelineEventKindEnum.Cell, cellIndex: 2, value: 4, ts: 7 });
             assert.deepStrictEqual(timeline, decodedState.timelineEvents);

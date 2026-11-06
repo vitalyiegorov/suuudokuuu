@@ -378,12 +378,12 @@ describe('CurrentRunService', () => {
             const hintPenalty = scoring.calculateHintPenalty(penaltyParams);
 
             yield* saveRun({ score: hintPenalty * 2 + 1 });
-            yield* currentRunService.revealHintLevel();
-            yield* currentRunService.revealHintLevel();
+            yield* currentRunService.revealHintLevel;
+            yield* currentRunService.revealHintLevel;
 
             assert.deepInclude(yield* getRun, { score: 1, timelineEvents: [] });
 
-            yield* currentRunService.revealHintLevel();
+            yield* currentRunService.revealHintLevel;
 
             assert.strictEqual((yield* getRun).score, 0);
         }).pipe(Effect.provide(ProgressTestLayer))
