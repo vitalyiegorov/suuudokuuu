@@ -209,7 +209,14 @@ export default ({ config }) =>
                 }
             ],
             ['react-native-document-scanner-plugin', { cameraPermission: 'Scan a sudoku from a newspaper, book or screen.' }],
-            ['expo-image-picker', { photosPermission: false, cameraPermission: false, microphonePermission: false }],
+            [
+                'expo-image-picker',
+                {
+                    photosPermission: 'Choose a photo of a sudoku puzzle to import it.',
+                    cameraPermission: false,
+                    microphonePermission: false
+                }
+            ],
             'expo-font',
             'expo-localization',
             'expo-sharing',
