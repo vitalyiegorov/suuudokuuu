@@ -95,7 +95,7 @@ describe('CurrentRunService', () => {
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 
-    it.effect('keeps a finished run finished when the board regains focus or is paused', () =>
+    it.effect('keeps a finished run finished when the board regains focus, is paused or resumed', () =>
         Effect.gen(function* () {
             const currentRunService = yield* CurrentRunService;
 
@@ -111,6 +111,7 @@ describe('CurrentRunService', () => {
 
             yield* finishRun({}, false, false);
             yield* currentRunService.pause(false);
+            yield* currentRunService.resume;
 
             assert.deepStrictEqual(yield* currentRunService.focus(), { isChallengeRun: false, shouldRunTimer: false });
             assert.strictEqual((yield* getRun).phase, RunPhaseEnum.FINISHED);

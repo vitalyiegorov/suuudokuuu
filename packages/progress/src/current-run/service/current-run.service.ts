@@ -342,7 +342,12 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
             sql.withTransaction(Effect.andThen(tickClock, applyStatsMove(statsMove))).pipe(Effect.orDie);
         const updateRun = (update: (run: CurrentRunType) => CurrentRunType) => updateRunWithStats((run, counts) => [update(run), counts]);
         const restartRun = Effect.flatMap(Clock.currentTimeMillis, nowMs =>
-            sql.withTransaction(applyStatsMove((run, counts) => [restartRunClock(resumeRun(run), nowMs), counts]))
+            sql.withTransaction(
+                applyStatsMove((run, counts) => [
+                    run.phase === RunPhaseEnum.FINISHED ? run : restartRunClock(resumeRun(run), nowMs),
+                    counts
+                ])
+            )
         ).pipe(Effect.orDie);
         const returnToCurrentRun = Effect.flatMap(Clock.currentTimeMillis, nowMs => updateRun(run => returnToRun(run, nowMs)));
         const finishRun = Effect.fn('CurrentRunService.finish')(
