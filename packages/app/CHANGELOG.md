@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.42.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.42.4...v2.42.5) (2026-11-07)
+
+### Performance Improvements
+
+* **app:** paint a static LCP shell and trim boot JS so /play reaches mobile Lighthouse 90+ ([#819](https://github.com/vitalyiegorov/suuudokuuu/issues/819)) ([1242d58](https://github.com/vitalyiegorov/suuudokuuu/commit/1242d58f2e3c3323a865b9bec3579b387a250552)), closes [#818](https://github.com/vitalyiegorov/suuudokuuu/issues/818)
+
+
 ## [2.42.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.42.2...v2.42.3) (2026-11-07)
 
 ### Bug Fixes
