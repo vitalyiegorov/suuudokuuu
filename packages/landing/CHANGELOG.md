@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.42.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.42.3...v2.42.4) (2026-11-07)
+
+### Performance Improvements
+
+* **landing:** inline the CSS so Chrome paint holding stops delaying first paint ([#817](https://github.com/vitalyiegorov/suuudokuuu/issues/817)) ([14d8da6](https://github.com/vitalyiegorov/suuudokuuu/commit/14d8da66f618f111dfccf78259663f8759d4f3e3)), closes [#816](https://github.com/vitalyiegorov/suuudokuuu/issues/816)
+
+
 # [2.42.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.41.1...v2.42.0) (2026-11-06)
 
 **Note:** Version bump only for package @suuudokuuu/landing
