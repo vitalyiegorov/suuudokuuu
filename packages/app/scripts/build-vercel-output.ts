@@ -1,4 +1,4 @@
-import { copyFileSync, cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -90,6 +90,21 @@ const warnAboutClobberedWebExportFiles = (webExportRelativePaths: string[], land
     }
 };
 
+const deferredScriptPattern = /<script src="([^"]+)" defer><\/script>/gu;
+
+const createAppShellDocument = () => {
+    const exportedDocument = readFileSync(webExportEntryFile, 'utf8');
+    const scriptSources = Array.from(exportedDocument.matchAll(deferredScriptPattern), ([, source]) => source);
+
+    if (!isNotEmptyArray(scriptSources)) {
+        throw new Error(`No deferred scripts found in ${webExportEntryFile}`);
+    }
+
+    const scriptLoader = `<script>requestAnimationFrame(function(){setTimeout(function(){${JSON.stringify(scriptSources)}.forEach(function(source){var script=document.createElement("script");script.src=source;script.async=false;document.body.appendChild(script)})})})</script>`;
+
+    return exportedDocument.replaceAll(deferredScriptPattern, '').replace('</body>', `${scriptLoader}</body>`);
+};
+
 const assertStaticDestinationsExist = (routes: { dest?: string }[]) => {
     const htmlDestinations = routes.flatMap(route => (isString(route.dest) && route.dest.endsWith(htmlExtension) ? [route.dest] : []));
     const missingDestinations = htmlDestinations.filter(destination => !existsSync(join(staticOutputDirectory, destination)));
@@ -104,7 +119,7 @@ const composeStaticOutput = () => {
     mkdirSync(functionsOutputDirectory, { recursive: true });
     cpSync(webExportDirectory, staticOutputDirectory, { filter: source => source !== webExportEntryFile, recursive: true });
     mkdirSync(appShellOutputDirectory, { recursive: true });
-    copyFileSync(webExportEntryFile, appShellOutputFile);
+    writeFileSync(appShellOutputFile, createAppShellDocument());
     cpSync(landingExportDirectory, staticOutputDirectory, { recursive: true });
 };
 
