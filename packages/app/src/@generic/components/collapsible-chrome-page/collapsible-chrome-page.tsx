@@ -13,7 +13,7 @@ import {
 import { isDefined } from '@rnw-community/shared';
 
 import { AppScreenChromeConfig, AppScreenChromeHeaderBackdropScrollAnimation } from '../../constants/screen-chrome-config.constant';
-import { backdropRecompositeRef } from '../../utils/backdrop-recomposite-ref.util';
+import { useBackdropRecompositeRef } from '../../hooks/use-backdrop-recomposite-ref.hook';
 import { HeaderBackButton } from '../header-back-button/header-back-button';
 import { Header } from '../header/header';
 import { TabBarInsetContext } from '../main-tab-layout/context/tab-bar-inset.context';
@@ -39,6 +39,7 @@ const ScreenChromeContentInsetTop = AppScreenChromeConfig.headerHeight + 8;
 export const CollapsibleChromePage = (props: Props) => {
     const { children, contentContainerStyle, footer, style, testID, title } = props;
 
+    const backdropRecompositeRef = useBackdropRecompositeRef();
     const tabBarInset = use(TabBarInsetContext);
 
     const footerInset = isDefined(footer) ? CollapsibleChromePageFooterContentInset : 0;
