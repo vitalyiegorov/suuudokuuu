@@ -85,6 +85,7 @@ describe('LegacyStateImportService', () => {
                 Effect.forEach(
                     [
                         [{ isPaused: true, shouldShowPauseScreen: true, shouldResumeOnFocus: false }, RunPhaseEnum.PAUSED],
+                        [{ isPaused: true, shouldShowPauseScreen: false, shouldResumeOnFocus: true }, RunPhaseEnum.AWAY],
                         [{ isPaused: true, shouldShowPauseScreen: false, shouldResumeOnFocus: false }, RunPhaseEnum.FINISHED]
                     ] as const,
                     ([pauseFlags, phase]) =>
