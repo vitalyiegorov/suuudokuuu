@@ -35,7 +35,7 @@ export const FloatingTabBar = ({ state, descriptors, emitter, navigateToTab }: B
 
             <View pointerEvents="box-none" ref={backdropRecompositeRef} style={anchorStyles}>
                 <FloatingTabBarSurface>
-                    <View style={styles.row}>
+                    <View role="tablist" style={styles.row}>
                         {state.routes.map((route, index) => {
                             const { options } = descriptors[route.key];
                             const isFocused = state.index === index;
