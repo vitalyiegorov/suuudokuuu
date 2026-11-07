@@ -104,7 +104,7 @@ const createAppShellDocument = () => {
         throw new Error(`No deferred scripts found in ${webExportEntryFile}`);
     }
 
-    const scriptLoader = `<script>requestAnimationFrame(function(){setTimeout(function(){${JSON.stringify(scriptSources).replaceAll(unsafeScriptCharacterPattern, character => `\\u${character.charCodeAt(0).toString(hexadecimalRadix).padStart(4, '0')}`)}.forEach(function(source){var script=document.createElement("script");script.src=source;script.async=false;document.body.appendChild(script)})})})</script>`;
+    const scriptLoader = `<script>(function(){function load(){${JSON.stringify(scriptSources).replaceAll(unsafeScriptCharacterPattern, character => `\\u${character.charCodeAt(0).toString(hexadecimalRadix).padStart(4, '0')}`)}.forEach(function(source){var script=document.createElement("script");script.src=source;script.async=false;document.body.appendChild(script)})}if(document.visibilityState==="hidden"){load()}else{requestAnimationFrame(function(){setTimeout(load)})}})()</script>`;
 
     return exportedDocument
         .replaceAll(stylesheetPreloadPattern, '')
