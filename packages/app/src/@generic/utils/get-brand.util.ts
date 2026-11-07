@@ -1,4 +1,6 @@
 import { ThemeEnum } from '@suuudokuuu/progress';
+import * as Option from 'effect/Option';
+import * as Schema from 'effect/Schema';
 import Constants from 'expo-constants';
 
 import { BrandSchema } from '../schema/brand.schema';
@@ -13,8 +15,5 @@ const fallbackBrand: BrandType = {
 
 const BrandConfigExtraKey = 'brand';
 
-export const getBrand = (): BrandType => {
-    const parsed = BrandSchema.safeParse(Constants.expoConfig?.extra?.[BrandConfigExtraKey]);
-
-    return parsed.success ? parsed.data : fallbackBrand;
-};
+export const getBrand = (): BrandType =>
+    Option.getOrElse(Schema.decodeUnknownOption(BrandSchema)(Constants.expoConfig?.extra?.[BrandConfigExtraKey]), () => fallbackBrand);

@@ -70,6 +70,7 @@ export const ChallengeModeSwitch = () => {
 
     return (
         <AnimatedPressable
+            aria-checked={isChallengeMode}
             accessibilityHint={t`Challenge runs cannot be paused and record when you leave the app`}
             accessibilityLabel={t`Challenge mode`}
             accessibilityRole="switch"

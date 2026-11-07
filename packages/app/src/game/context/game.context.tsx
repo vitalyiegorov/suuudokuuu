@@ -4,11 +4,11 @@ import { createContext } from 'react';
 
 import { emptyFn } from '@rnw-community/shared';
 
-import { GameEmptySudokuStringConstant } from '../constant/empty-sudoku-string.constant';
+import { GameEmptySudokuOptionsConstant } from '../constant/empty-sudoku-string.constant';
 
 import type { GameContextValueInterface } from '../interface/game-context-value.interface';
 
-const emptyEngine = new FieldEngine({ sudokuString: GameEmptySudokuStringConstant, difficulty: DifficultyEnum.Newbie });
+const emptyEngine = new FieldEngine({ ...GameEmptySudokuOptionsConstant, difficulty: DifficultyEnum.Newbie });
 
 export const GameContext = createContext<GameContextValueInterface>({
     create: emptyFn,

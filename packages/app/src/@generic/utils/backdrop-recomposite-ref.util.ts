@@ -1,3 +1,3 @@
 import { emptyFn } from '@rnw-community/shared';
 
-export const backdropRecompositeRef = emptyFn;
+export const backdropRecompositeRef = (_node: unknown) => emptyFn;
