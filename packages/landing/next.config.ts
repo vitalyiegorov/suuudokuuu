@@ -9,6 +9,7 @@ const nextConfig: NextConfig = {
     },
     experimental: {
         globalNotFound: true,
+        inlineCss: true,
         memoryBasedWorkersCount: true,
         swcPlugins: [['@lingui/swc-plugin', {}]]
     }
