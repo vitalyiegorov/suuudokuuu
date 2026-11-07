@@ -1,7 +1,5 @@
 declare module '*.ttf' {
-    import type { FontSource } from 'expo-font';
-
-    const fontSource: FontSource;
+    const fontSource: number;
 
     export default fontSource;
 }
