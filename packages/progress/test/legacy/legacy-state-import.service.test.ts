@@ -7,6 +7,7 @@ import * as SqlClient from 'effect/sql/SqlClient';
 
 import seedState from '../../../../tests/app-tests/fixtures/screenshot-seed-state.json';
 import { CompletedGameRepository } from '../../src/completed-game/repository/completed-game.repository';
+import { RunPhaseEnum } from '../../src/current-run/enum/run-phase.enum';
 import { CurrentRunRepository } from '../../src/current-run/repository/current-run.repository';
 import { ColorSchemaEnum } from '../../src/custom-theme/enum/color-schema.enum';
 import { ThemeEnum } from '../../src/custom-theme/enum/theme.enum';
@@ -75,6 +76,29 @@ describe('LegacyStateImportService', () => {
 
             assert.isTrue(Option.isNone(yield* currentRunRepository.get));
         }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
+    it.effect('carries the pause state of a legacy run into its phase', () =>
+        Effect.andThen(
+            Effect.flatMap(SettingsRepository, repository => repository.initialize(initialSettings)),
+            () =>
+                Effect.forEach(
+                    [
+                        [{ isPaused: true, shouldShowPauseScreen: true, shouldResumeOnFocus: false }, RunPhaseEnum.PAUSED],
+                        [{ isPaused: true, shouldShowPauseScreen: false, shouldResumeOnFocus: false }, RunPhaseEnum.FINISHED]
+                    ] as const,
+                    ([pauseFlags, phase]) =>
+                        Effect.gen(function* () {
+                            yield* importPersistedRoot(
+                                buildPersistedRoot({ ...seedState.game, ...seedState.sceneStates.hero, ...pauseFlags })
+                            );
+
+                            const currentRun = yield* Effect.flatMap(CurrentRunRepository, repository => repository.get);
+
+                            assert.strictEqual(Option.getOrThrow(currentRun).phase, phase);
+                        })
+                )
+        ).pipe(Effect.provide(ProgressTestLayer))
     );
 });
 
