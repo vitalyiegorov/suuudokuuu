@@ -5,7 +5,7 @@ export const BrandSchema = Schema.Struct({
     appName: Schema.NonEmptyString,
     defaultTheme: Schema.Enum(ThemeEnum),
     links: Schema.Struct({
-        donation: Schema.String.check(Schema.isStartingWith('https://'))
+        donation: Schema.String.check(Schema.isPattern(/^https:\/\/(?:[^\s./]+\.)+[^\s./]+(?:\/\S*)?$/u))
     })
 });
 
