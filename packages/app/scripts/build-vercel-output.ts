@@ -90,6 +90,8 @@ const warnAboutClobberedWebExportFiles = (webExportRelativePaths: string[], land
     }
 };
 
+const stylesheetPreloadPattern = /<link rel="preload" href="[^"]+\.css" as="style">\n?/gu;
+const stylesheetPattern = /<link rel="stylesheet" href="([^"]+)">/gu;
 const deferredScriptPattern = /<script src="([^"]+)" defer><\/script>/gu;
 
 const createAppShellDocument = () => {
@@ -102,7 +104,14 @@ const createAppShellDocument = () => {
 
     const scriptLoader = `<script>requestAnimationFrame(function(){setTimeout(function(){${JSON.stringify(scriptSources)}.forEach(function(source){var script=document.createElement("script");script.src=source;script.async=false;document.body.appendChild(script)})})})</script>`;
 
-    return exportedDocument.replaceAll(deferredScriptPattern, '').replace('</body>', `${scriptLoader}</body>`);
+    return exportedDocument
+        .replaceAll(stylesheetPreloadPattern, '')
+        .replaceAll(
+            stylesheetPattern,
+            (_stylesheetLink, href: string) => `<style>${readFileSync(join(webExportDirectory, href), 'utf8')}</style>`
+        )
+        .replaceAll(deferredScriptPattern, '')
+        .replace('</body>', `${scriptLoader}</body>`);
 };
 
 const assertStaticDestinationsExist = (routes: { dest?: string }[]) => {
