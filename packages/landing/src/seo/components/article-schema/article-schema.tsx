@@ -16,14 +16,17 @@ interface Props {
 export const ArticleSchema = ({ author = ORGANIZATION_SCHEMA, metadata }: Props) => {
     const locale = getActiveLocale();
     const localizedMetadata = localizePageMetadata(metadata, locale);
+    const url = buildLocaleUrl(locale, metadata.path);
     const schema = {
         '@context': SCHEMA_CONTEXT,
         '@type': 'Article',
+        '@id': `${url}#article`,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': url },
         headline: resolvePageHeadline(localizedMetadata),
         description: localizedMetadata.metaDescription,
         datePublished: metadata.publishedAt,
         dateModified: metadata.updatedAt,
-        url: buildLocaleUrl(locale, metadata.path),
+        url,
         image: buildOgImageUrl(metadata),
         inLanguage: locale,
         author,
