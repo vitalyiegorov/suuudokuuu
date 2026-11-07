@@ -1,4 +1,3 @@
-import './i18n-plural-rules.polyfill';
 import { i18n } from '@lingui/core';
 import * as Cause from 'effect/Cause';
 import * as Effect from 'effect/Effect';
@@ -8,7 +7,11 @@ import * as Scope from 'effect/Scope';
 
 import { messages as enMessages } from '../../i18n/locales/en/messages';
 
+import { applyPluralRulesPolyfill } from './i18n-plural-rules.polyfill';
+
 import type { SettingsType } from '@suuudokuuu/progress';
+
+applyPluralRulesPolyfill();
 
 const catalogLoaders: Record<SettingsType['language'], () => Promise<{ messages: typeof enMessages }>> = {
     ar: () => import('../../i18n/locales/ar/messages'),

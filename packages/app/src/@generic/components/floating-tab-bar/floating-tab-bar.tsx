@@ -6,7 +6,7 @@ import { EdgeFade } from '@rnw-community/react-native-screen-chrome';
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { backdropRecompositeRef } from '../../utils/backdrop-recomposite-ref.util';
+import { useBackdropRecompositeRef } from '../../hooks/use-backdrop-recomposite-ref.hook';
 import { FloatingTabBarItem } from '../floating-tab-bar-item/floating-tab-bar-item';
 import { FloatingTabBarSurface } from '../floating-tab-bar-surface/floating-tab-bar-surface';
 import { ScreenChromeThemeProvider } from '../screen-chrome-theme-provider/screen-chrome-theme-provider';
@@ -23,6 +23,7 @@ import type { BottomTabBarProps } from 'expo-router/tabs';
 
 export const FloatingTabBar = ({ state, descriptors, emitter, navigateToTab }: BottomTabBarProps) => {
     const { theme } = use(ThemeContext);
+    const backdropRecompositeRef = useBackdropRecompositeRef();
     const safeAreaInsets = useSafeAreaInsets();
 
     const anchorStyles = [styles.anchor, { bottom: safeAreaInsets.bottom + FloatingTabBarBottomMargin }];
@@ -35,7 +36,7 @@ export const FloatingTabBar = ({ state, descriptors, emitter, navigateToTab }: B
 
             <View pointerEvents="box-none" ref={backdropRecompositeRef} style={anchorStyles}>
                 <FloatingTabBarSurface>
-                    <View style={styles.row}>
+                    <View role="tablist" style={styles.row}>
                         {state.routes.map((route, index) => {
                             const { options } = descriptors[route.key];
                             const isFocused = state.index === index;

@@ -2,7 +2,7 @@ import { View } from 'react-native';
 
 import { EdgeFade, ScreenChromeFrame } from '@rnw-community/react-native-screen-chrome';
 
-import { backdropRecompositeRef } from '../../utils/backdrop-recomposite-ref.util';
+import { useBackdropRecompositeRef } from '../../hooks/use-backdrop-recomposite-ref.hook';
 import { ScreenChromeThemeProvider } from '../screen-chrome-theme-provider/screen-chrome-theme-provider';
 
 import { ChromePageStyles as styles } from './chrome-page.styles';
@@ -21,6 +21,8 @@ interface Props {
 
 export const ChromePage = (props: Props) => {
     const { children, contentStyle, footer, testID, topEdgeFadeProps } = props;
+
+    const backdropRecompositeRef = useBackdropRecompositeRef();
 
     const contentStyles = [styles.content, contentStyle];
 

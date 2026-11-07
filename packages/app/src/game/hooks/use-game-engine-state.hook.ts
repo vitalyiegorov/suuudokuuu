@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { GameEmptySudokuStringConstant } from '../constant/empty-sudoku-string.constant';
+import { GameEmptySudokuOptionsConstant } from '../constant/empty-sudoku-string.constant';
 import { useCurrentRun } from '../query/use-current-run.query';
 import { gameCreateEngine } from '../utils/game-create-engine.util';
 
@@ -19,11 +19,11 @@ export const useGameEngineState = (onInvalidState: OnEventFn<unknown>): [FieldEn
         Result.try(() =>
             isNotEmptyString(sudokuString)
                 ? gameCreateEngine(currentRun)
-                : new FieldEngine({ sudokuString: GameEmptySudokuStringConstant, difficulty })
+                : new FieldEngine({ ...GameEmptySudokuOptionsConstant, difficulty })
         )
     );
     const [engine, setEngine] = useState(() =>
-        Result.getOrElse(initialEngine, () => new FieldEngine({ sudokuString: GameEmptySudokuStringConstant, difficulty }))
+        Result.getOrElse(initialEngine, () => new FieldEngine({ ...GameEmptySudokuOptionsConstant, difficulty }))
     );
 
     useEffect(() => {

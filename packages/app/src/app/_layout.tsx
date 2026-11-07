@@ -1,5 +1,5 @@
 import * as Effect from 'effect/Effect';
-import { useFonts } from 'expo-font';
+import { FontDisplay, useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { Platform } from 'react-native';
@@ -37,7 +37,10 @@ const nativeSheetOptions = { presentation: 'formSheet' as const, sheetGrabberVis
 const modalSheetOptions = Platform.OS === 'web' ? webSheetOptions : nativeSheetOptions;
 
 export default function RootLayout() {
-    const [loaded, error] = useFonts({ Inter_500Medium: inter500Medium, Inter_700Bold: inter700Bold });
+    const [loaded, error] = useFonts({
+        Inter_500Medium: { display: FontDisplay.SWAP, uri: inter500Medium },
+        Inter_700Bold: { display: FontDisplay.SWAP, uri: inter700Bold }
+    });
     const areFontsReady = loaded || isDefined(error) || Platform.OS === 'web';
 
     if (!areFontsReady) {

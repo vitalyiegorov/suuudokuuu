@@ -1,4 +1,4 @@
-import { copyFileSync, cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { basename, dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -90,6 +90,32 @@ const warnAboutClobberedWebExportFiles = (webExportRelativePaths: string[], land
     }
 };
 
+const stylesheetPreloadPattern = /<link rel="preload" href="[^"]+\.css" as="style">\n?/gu;
+const stylesheetPattern = /<link rel="stylesheet" href="([^"]+)">/gu;
+const deferredScriptPattern = /<script src="([^"]+)" defer><\/script>/gu;
+const unsafeScriptCharacterPattern = /[<>\u2028\u2029]/gu;
+const hexadecimalRadix = 16;
+
+const createAppShellDocument = () => {
+    const exportedDocument = readFileSync(webExportEntryFile, 'utf8');
+    const scriptSources = Array.from(exportedDocument.matchAll(deferredScriptPattern), ([, source]) => source);
+
+    if (!isNotEmptyArray(scriptSources)) {
+        throw new Error(`No deferred scripts found in ${webExportEntryFile}`);
+    }
+
+    const scriptLoader = `<script>(function(){function load(){${JSON.stringify(scriptSources).replaceAll(unsafeScriptCharacterPattern, character => `\\u${character.charCodeAt(0).toString(hexadecimalRadix).padStart(4, '0')}`)}.forEach(function(source){var script=document.createElement("script");script.src=source;script.async=false;document.body.appendChild(script)})}if(document.visibilityState==="hidden"){load()}else{requestAnimationFrame(function(){setTimeout(load)})}})()</script>`;
+
+    return exportedDocument
+        .replaceAll(stylesheetPreloadPattern, '')
+        .replaceAll(
+            stylesheetPattern,
+            (_stylesheetLink, href: string) => `<style>${readFileSync(join(webExportDirectory, href), 'utf8')}</style>`
+        )
+        .replaceAll(deferredScriptPattern, '')
+        .replace('</body>', `${scriptLoader}</body>`);
+};
+
 const assertStaticDestinationsExist = (routes: { dest?: string }[]) => {
     const htmlDestinations = routes.flatMap(route => (isString(route.dest) && route.dest.endsWith(htmlExtension) ? [route.dest] : []));
     const missingDestinations = htmlDestinations.filter(destination => !existsSync(join(staticOutputDirectory, destination)));
@@ -104,7 +130,7 @@ const composeStaticOutput = () => {
     mkdirSync(functionsOutputDirectory, { recursive: true });
     cpSync(webExportDirectory, staticOutputDirectory, { filter: source => source !== webExportEntryFile, recursive: true });
     mkdirSync(appShellOutputDirectory, { recursive: true });
-    copyFileSync(webExportEntryFile, appShellOutputFile);
+    writeFileSync(appShellOutputFile, createAppShellDocument());
     cpSync(landingExportDirectory, staticOutputDirectory, { recursive: true });
 };
 

@@ -12,3 +12,6 @@ import '@formatjs/intl-pluralrules/locale-data/sv.js';
 import '@formatjs/intl-pluralrules/locale-data/uk.js';
 import '@formatjs/intl-pluralrules/locale-data/ur.js';
 import '@formatjs/intl-pluralrules/locale-data/zh.js';
+import { emptyFn } from '@rnw-community/shared';
+
+export const applyPluralRulesPolyfill = emptyFn;

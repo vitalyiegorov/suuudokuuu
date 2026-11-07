@@ -101,6 +101,10 @@ export const DifficultyComplexityRail = (props: Props) => {
                     accessibilityLabel={railAccessibilityLabel}
                     accessibilityRole="adjustable"
                     accessibilityValue={railAccessibilityValue}
+                    aria-valuemax={DifficultyComplexitySliderMaxIndex}
+                    aria-valuemin={0}
+                    aria-valuenow={selectedIndex}
+                    aria-valuetext={currentDifficultyLabel}
                     accessible
                     onAccessibilityAction={handleAccessibilityAction}
                     onLayout={handleRailLayout}
