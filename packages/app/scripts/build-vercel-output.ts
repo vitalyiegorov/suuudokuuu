@@ -93,6 +93,8 @@ const warnAboutClobberedWebExportFiles = (webExportRelativePaths: string[], land
 const stylesheetPreloadPattern = /<link rel="preload" href="[^"]+\.css" as="style">\n?/gu;
 const stylesheetPattern = /<link rel="stylesheet" href="([^"]+)">/gu;
 const deferredScriptPattern = /<script src="([^"]+)" defer><\/script>/gu;
+const unsafeScriptCharacterPattern = /[<>\u2028\u2029]/gu;
+const hexadecimalRadix = 16;
 
 const createAppShellDocument = () => {
     const exportedDocument = readFileSync(webExportEntryFile, 'utf8');
@@ -102,7 +104,7 @@ const createAppShellDocument = () => {
         throw new Error(`No deferred scripts found in ${webExportEntryFile}`);
     }
 
-    const scriptLoader = `<script>requestAnimationFrame(function(){setTimeout(function(){${JSON.stringify(scriptSources)}.forEach(function(source){var script=document.createElement("script");script.src=source;script.async=false;document.body.appendChild(script)})})})</script>`;
+    const scriptLoader = `<script>requestAnimationFrame(function(){setTimeout(function(){${JSON.stringify(scriptSources).replaceAll(unsafeScriptCharacterPattern, character => `\\u${character.charCodeAt(0).toString(hexadecimalRadix).padStart(4, '0')}`)}.forEach(function(source){var script=document.createElement("script");script.src=source;script.async=false;document.body.appendChild(script)})})})</script>`;
 
     return exportedDocument
         .replaceAll(stylesheetPreloadPattern, '')
