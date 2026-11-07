@@ -3,6 +3,7 @@ import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import * as Schema from 'effect/Schema';
 
 import { DifficultySchema } from '../../@generic/schema/difficulty.schema';
+import { RunPhaseEnum } from '../enum/run-phase.enum';
 
 export const CellTimelineEventSchema = Schema.Struct({
     kind: Schema.Literal(TimelineEventKindEnum.Cell),
@@ -50,9 +51,7 @@ export const CurrentRunSchema = Schema.Struct({
     elapsedTime: Schema.Number,
     elapsedRemainderMs: Schema.Number,
     clockCheckpointMs: Schema.Number,
-    isPaused: Schema.BooleanFromBit,
-    shouldShowPauseScreen: Schema.BooleanFromBit,
-    shouldResumeOnFocus: Schema.BooleanFromBit,
+    phase: Schema.Enum(RunPhaseEnum),
     showAutoCandidates: Schema.BooleanFromBit,
     inputMode: Schema.Literals(['normal', 'candidate']),
     candidates: Schema.fromJsonString(Schema.Record(Schema.String, Schema.Array(Schema.Number))),

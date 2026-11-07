@@ -7,6 +7,7 @@ import * as Option from 'effect/Option';
 import * as TestClock from 'effect/testing/TestClock';
 
 import { CompletedGameRepository } from '../../src/completed-game/repository/completed-game.repository';
+import { RunPhaseEnum } from '../../src/current-run/enum/run-phase.enum';
 import { CurrentRunService } from '../../src/current-run/service/current-run.service';
 import { SudokuScoring } from '../../src/scoring/class/sudoku-scoring';
 import { defaultScoringConfig } from '../../src/scoring/constant/default-scoring-config.constant';
@@ -143,7 +144,10 @@ describe('run clock', () => {
 
             yield* Deferred.succeed(pendingWrites, true);
 
-            assert.deepInclude(Option.getOrThrow(yield* Fiber.join(resetFiber)), { isPaused: true, hasNewPersonalBestScore: false });
+            assert.deepInclude(Option.getOrThrow(yield* Fiber.join(resetFiber)), {
+                phase: RunPhaseEnum.FINISHED,
+                hasNewPersonalBestScore: false
+            });
             assert.lengthOf(yield* Effect.flatMap(CompletedGameRepository, repository => repository.findAll), 1);
         }).pipe(Effect.provide(ProgressTestLayer))
     );

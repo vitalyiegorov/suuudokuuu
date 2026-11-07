@@ -6,6 +6,7 @@ import * as Effect from 'effect/Effect';
 import * as Option from 'effect/Option';
 
 import { ReactivityKeyEnum } from '../../src/@generic/enum/reactivity-key.enum';
+import { RunPhaseEnum } from '../../src/current-run/enum/run-phase.enum';
 import { CurrentRunRepository } from '../../src/current-run/repository/current-run.repository';
 import { ProgressTestLayer } from '../progress-test.layer';
 import { trackInvalidations } from '../track-invalidations.util';
@@ -23,9 +24,7 @@ const currentRun: CurrentRunType = {
     elapsedTime: 10,
     elapsedRemainderMs: 0,
     clockCheckpointMs: 1_760_000_100_000,
-    isPaused: false,
-    shouldShowPauseScreen: false,
-    shouldResumeOnFocus: true,
+    phase: RunPhaseEnum.PLAYING,
     showAutoCandidates: true,
     inputMode: 'candidate',
     candidates: { '2': [1, 2, 4] },
@@ -79,10 +78,10 @@ describe('CurrentRunRepository', () => {
                 clockCheckpointMs: currentRun.clockCheckpointMs + secondTickMs
             });
 
-            yield* currentRunRepository.save({ ...currentRun, isPaused: true });
+            yield* currentRunRepository.save({ ...currentRun, phase: RunPhaseEnum.PAUSED });
             yield* currentRunRepository.tick(currentRun.clockCheckpointMs + pausedTickMs);
 
-            assert.deepStrictEqual(yield* currentRunRepository.get, Option.some({ ...currentRun, isPaused: true }));
+            assert.deepStrictEqual(yield* currentRunRepository.get, Option.some({ ...currentRun, phase: RunPhaseEnum.PAUSED }));
             assert.deepStrictEqual(invalidatedKeys, [
                 ReactivityKeyEnum.RunClock,
                 ReactivityKeyEnum.RunClock,

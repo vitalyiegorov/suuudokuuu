@@ -50,6 +50,7 @@ export const useSettingsOptionSheetConfig = (setting: string | null): SettingsOp
         }
         isSaving.current = true;
         void updateSettings(patch).then(() => {
+            isSaving.current = false;
             if (isDefined(patch.language)) {
                 appRuntime.runFork(i18nActivateLanguage(patch.language).pipe(Effect.tapCause(logErrorCause)));
             }

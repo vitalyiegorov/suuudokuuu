@@ -1,4 +1,4 @@
-import { CurrentRunService } from '@suuudokuuu/progress';
+import { CurrentRunService, RunPhaseEnum } from '@suuudokuuu/progress';
 import * as Effect from 'effect/Effect';
 import { useFocusEffect } from 'expo-router';
 import { useCallback } from 'react';
@@ -12,8 +12,8 @@ import { useCurrentRun } from '../../../game/query/use-current-run.query';
 import { SettingsPageContent } from '../../../settings/component/settings-page-content/settings-page-content';
 
 export const GameSettingsScreen = () => {
-    const { isPaused, sudokuString } = useCurrentRun();
-    const shouldPause = isNotEmptyString(sudokuString) && !isPaused;
+    const { phase, sudokuString } = useCurrentRun();
+    const shouldPause = isNotEmptyString(sudokuString) && phase === RunPhaseEnum.PLAYING;
 
     useFocusEffect(
         useCallback(() => {

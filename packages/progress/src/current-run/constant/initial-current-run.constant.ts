@@ -1,5 +1,7 @@
 import { DifficultyEnum } from '@suuudokuuu/generator';
 
+import { RunPhaseEnum } from '../enum/run-phase.enum';
+
 import type { CurrentRunType } from '../type/current-run.type';
 
 export const initialCurrentRun: CurrentRunType = {
@@ -13,9 +15,7 @@ export const initialCurrentRun: CurrentRunType = {
     elapsedTime: 0,
     elapsedRemainderMs: 0,
     clockCheckpointMs: 0,
-    isPaused: false,
-    shouldShowPauseScreen: false,
-    shouldResumeOnFocus: false,
+    phase: RunPhaseEnum.PLAYING,
     showAutoCandidates: false,
     inputMode: 'normal',
     candidates: {},

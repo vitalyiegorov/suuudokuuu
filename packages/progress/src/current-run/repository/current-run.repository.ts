@@ -7,6 +7,7 @@ import * as SqlClient from 'effect/sql/SqlClient';
 import * as SqlSchema from 'effect/sql/SqlSchema';
 
 import { ReactivityKeyEnum } from '../../@generic/enum/reactivity-key.enum';
+import { RunPhaseEnum } from '../enum/run-phase.enum';
 import { CurrentRunSchema } from '../schema/current-run.schema';
 
 import type { CurrentRunType } from '../type/current-run.type';
@@ -40,7 +41,7 @@ export class CurrentRunRepository extends Context.Service<CurrentRunRepository>(
                             SET elapsed_time = elapsed_time + (SELECT total_ms FROM clock) / 1000,
                                 elapsed_remainder_ms = (SELECT total_ms FROM clock) % 1000,
                                 clock_checkpoint_ms = CAST(${nowMs} AS INTEGER)
-                            WHERE is_paused = 0 AND clock_checkpoint_ms > 0`
+                            WHERE phase = ${RunPhaseEnum.PLAYING} AND clock_checkpoint_ms > 0`
                     )
                     .pipe(Effect.orDie)
         };
