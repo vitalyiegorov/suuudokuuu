@@ -2,11 +2,15 @@ import { assert, describe, it } from '@effect/vitest';
 import { DifficultyEnum } from '@suuudokuuu/generator';
 import { makeTestSqlClientLayer } from '@suuudokuuu/test-kit/client';
 import * as Effect from 'effect/Effect';
+import * as Layer from 'effect/Layer';
+import * as Option from 'effect/Option';
 import * as Schema from 'effect/Schema';
 import * as Migrator from 'effect/sql/Migrator';
 import * as SqlClient from 'effect/sql/SqlClient';
 
 import { initialCurrentRun } from '../../src/current-run/constant/initial-current-run.constant';
+import { RunPhaseEnum } from '../../src/current-run/enum/run-phase.enum';
+import { CurrentRunRepository } from '../../src/current-run/repository/current-run.repository';
 import { CurrentRunSchema } from '../../src/current-run/schema/current-run.schema';
 import { initialMigration } from '../../src/migration/0001-initial.migration';
 import { completedGameDailyDayNumberMigration } from '../../src/migration/0002-completed-game-daily-day-number.migration';
@@ -14,6 +18,8 @@ import { storeReviewMigration } from '../../src/migration/0003-store-review.migr
 import { currentRunEliminatedCandidatesMigration } from '../../src/migration/0004-current-run-eliminated-candidates.migration';
 import { techniqueCampaignMigration } from '../../src/migration/0005-technique-campaign.migration';
 import { hintsOnHardDifficultiesDefaultMigration } from '../../src/migration/0006-hints-on-hard-difficulties-default.migration';
+import { dropTechniqueCampaignMigration } from '../../src/migration/0007-drop-technique-campaign.migration';
+import { currentRunWallClockMigration } from '../../src/migration/0008-current-run-wall-clock.migration';
 import { runDatabaseMigrations } from '../../src/migration/run-database-migrations.util';
 import { SettingsSchema } from '../../src/settings/schema/settings.schema';
 import { initialSettings } from '../progress-fixtures';
@@ -30,6 +36,32 @@ const gameFinishedBeforeUpgrade = {
     maxMistakes: 3,
     completedAt: 1000
 };
+
+const migrationsBeforePhase = {
+    '0001_initial': initialMigration,
+    '0002_completed_game_daily_day_number': completedGameDailyDayNumberMigration,
+    '0003_store_review': storeReviewMigration,
+    '0004_current_run_eliminated_candidates': currentRunEliminatedCandidatesMigration,
+    '0005_technique_campaign': techniqueCampaignMigration,
+    '0006_hints_on_hard_difficulties_default': hintsOnHardDifficultiesDefaultMigration,
+    '0007_drop_technique_campaign': dropTechniqueCampaignMigration,
+    '0008_current_run_wall_clock': currentRunWallClockMigration
+};
+
+const pauseFlagPhases = [
+    [0, 0, 0, RunPhaseEnum.PLAYING],
+    [1, 1, 0, RunPhaseEnum.PAUSED],
+    [1, 0, 1, RunPhaseEnum.AWAY],
+    [1, 0, 0, RunPhaseEnum.FINISHED]
+] as const;
+
+const encodeRunBeforePhase = (isPaused: number, shouldShowPauseScreen: number, shouldResumeOnFocus: number) =>
+    Effect.map(Schema.encodeEffect(CurrentRunSchema)(initialCurrentRun), ({ phase, ...run }) => ({
+        ...run,
+        isPaused,
+        shouldShowPauseScreen,
+        shouldResumeOnFocus
+    }));
 
 describe('database migrations', () => {
     it.effect('creates every table once', () =>
@@ -61,7 +93,8 @@ describe('database migrations', () => {
                 [5, 'technique_campaign'],
                 [6, 'hints_on_hard_difficulties_default'],
                 [7, 'drop_technique_campaign'],
-                [8, 'current_run_wall_clock']
+                [8, 'current_run_wall_clock'],
+                [9, 'current_run_phase']
             ]);
             assert.deepStrictEqual(yield* sql`SELECT daily_day_number, score FROM completed_games`, [{ dailyDayNumber: null, score: 900 }]);
         }).pipe(Effect.provide(makeTestSqlClientLayer()))
@@ -78,8 +111,11 @@ describe('database migrations', () => {
                 })
             });
 
-            const { eliminatedCandidates, elapsedRemainderMs, clockCheckpointMs, ...runBeforeUpgrade } =
-                yield* Schema.encodeEffect(CurrentRunSchema)(initialCurrentRun);
+            const { eliminatedCandidates, elapsedRemainderMs, clockCheckpointMs, ...runBeforeUpgrade } = yield* encodeRunBeforePhase(
+                0,
+                0,
+                0
+            );
 
             yield* sql`INSERT INTO current_run ${sql.insert({ id: 1, ...runBeforeUpgrade })}`;
 
@@ -88,7 +124,8 @@ describe('database migrations', () => {
                 [5, 'technique_campaign'],
                 [6, 'hints_on_hard_difficulties_default'],
                 [7, 'drop_technique_campaign'],
-                [8, 'current_run_wall_clock']
+                [8, 'current_run_wall_clock'],
+                [9, 'current_run_phase']
             ]);
             assert.deepStrictEqual(
                 yield* sql`SELECT eliminated_candidates, elapsed_remainder_ms, clock_checkpoint_ms, score FROM current_run`,
@@ -115,7 +152,8 @@ describe('database migrations', () => {
             assert.deepStrictEqual(yield* runDatabaseMigrations, [
                 [6, 'hints_on_hard_difficulties_default'],
                 [7, 'drop_technique_campaign'],
-                [8, 'current_run_wall_clock']
+                [8, 'current_run_wall_clock'],
+                [9, 'current_run_phase']
             ]);
             assert.deepStrictEqual(yield* sql`SELECT allow_hints_on_hard_difficulties, has_timer FROM settings`, [
                 { allowHintsOnHardDifficulties: 1, hasTimer: 1 }
@@ -142,9 +180,24 @@ describe('database migrations', () => {
 
             assert.deepStrictEqual(yield* runDatabaseMigrations, [
                 [7, 'drop_technique_campaign'],
-                [8, 'current_run_wall_clock']
+                [8, 'current_run_wall_clock'],
+                [9, 'current_run_phase']
             ]);
             assert.deepStrictEqual(yield* sql`SELECT name FROM sqlite_master WHERE name IN ('campaign_progress', 'technique_mastery')`, []);
         }).pipe(Effect.provide(makeTestSqlClientLayer()))
+    );
+
+    it.effect('folds the pause flags of a run saved before the upgrade into its phase', () =>
+        Effect.forEach(pauseFlagPhases, ([isPaused, shouldShowPauseScreen, shouldResumeOnFocus, phase]) =>
+            Effect.gen(function* () {
+                const sql = yield* SqlClient.SqlClient;
+
+                yield* Migrator.make({})({ loader: Migrator.fromRecord(migrationsBeforePhase) });
+                yield* sql`INSERT INTO current_run ${sql.insert({ id: 1, ...(yield* encodeRunBeforePhase(isPaused, shouldShowPauseScreen, shouldResumeOnFocus)) })}`;
+
+                assert.deepStrictEqual(yield* runDatabaseMigrations, [[9, 'current_run_phase']]);
+                assert.deepInclude(Option.getOrThrow(yield* Effect.flatMap(CurrentRunRepository, repository => repository.get)), { phase });
+            }).pipe(Effect.provide(CurrentRunRepository.layer.pipe(Layer.provideMerge(makeTestSqlClientLayer()))))
+        )
     );
 });

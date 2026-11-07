@@ -4,6 +4,7 @@ import * as Schema from 'effect/Schema';
 import * as Struct from 'effect/Struct';
 
 import { CompletedGameSchema } from '../../completed-game/schema/completed-game.schema';
+import { RunPhaseEnum } from '../../current-run/enum/run-phase.enum';
 import { CurrentRunSchema } from '../../current-run/schema/current-run.schema';
 import { CustomThemeSchema } from '../../custom-theme/schema/custom-theme.schema';
 import { DifficultyStatsSchema } from '../../difficulty-stats/schema/difficulty-stats.schema';
@@ -64,6 +65,18 @@ const decodeLegacyHistory = Effect.fn('decodeLegacyHistory')(function* (value: u
     });
 });
 
+const getLegacyRunPhase = (game: Record<string, unknown>): RunPhaseEnum => {
+    if (game['isPaused'] !== true) {
+        return RunPhaseEnum.PLAYING;
+    }
+
+    if (game['shouldShowPauseScreen'] === true) {
+        return RunPhaseEnum.PAUSED;
+    }
+
+    return game['shouldResumeOnFocus'] === true ? RunPhaseEnum.AWAY : RunPhaseEnum.FINISHED;
+};
+
 export const decodeLegacyState = Effect.fn('decodeLegacyState')(function* (
     slices: Record<string, unknown>,
     initialSettings: SettingsType,
@@ -98,6 +111,7 @@ export const decodeLegacyState = Effect.fn('decodeLegacyState')(function* (
         game: {
             ...legacyInitialGameState,
             ...game,
+            phase: getLegacyRunPhase(game),
             ...(inboundVersion < TimelinePersistVersion && { timelineEvents: [], challengeTimelineEvents: [] }),
             ...(inboundVersion < StatsPackPersistVersion && {
                 undoneMoves: [],

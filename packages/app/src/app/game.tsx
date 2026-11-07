@@ -1,4 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
+import { RunPhaseEnum } from '@suuudokuuu/progress';
 import { Redirect } from 'expo-router';
 
 import { isNotEmptyString } from '@rnw-community/shared';
@@ -13,7 +14,8 @@ import { PauseScreen } from '../screens/components/pause-screen/pause.screen';
 
 export default function GamePage() {
     const { t } = useLingui();
-    const { shouldShowPauseScreen, sudokuString } = useCurrentRun();
+    const { phase, sudokuString } = useCurrentRun();
+    const shouldShowPauseScreen = phase === RunPhaseEnum.PAUSED;
     const isGameStarted = isNotEmptyString(sudokuString);
     const title = shouldShowPauseScreen ? t`Game paused` : t`Be wise, be smart, be quick...`;
     const description = t`Solve a Sudoku puzzle online with hints, notes, and mistake tracking.`;

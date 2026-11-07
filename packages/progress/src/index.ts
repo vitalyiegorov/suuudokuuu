@@ -20,6 +20,7 @@ export type { CustomThemeType } from './custom-theme/type/custom-theme.type';
 export type { ThemeColorsType } from './custom-theme/type/theme-colors.type';
 
 export { initialCurrentRun } from './current-run/constant/initial-current-run.constant';
+export { RunPhaseEnum } from './current-run/enum/run-phase.enum';
 export { CurrentRunRepository } from './current-run/repository/current-run.repository';
 export { CurrentRunService } from './current-run/service/current-run.service';
 export type { CurrentRunType } from './current-run/type/current-run.type';

@@ -20,6 +20,7 @@ import { PlayerStatsRepository } from '../../player-stats/repository/player-stat
 import { SudokuScoring } from '../../scoring/class/sudoku-scoring';
 import { defaultScoringConfig } from '../../scoring/constant/default-scoring-config.constant';
 import { initialCurrentRun } from '../constant/initial-current-run.constant';
+import { RunPhaseEnum } from '../enum/run-phase.enum';
 import { CurrentRunRepository } from '../repository/current-run.repository';
 import { gameStateToString } from '../utils/game-state-to-string.util';
 
@@ -81,18 +82,15 @@ const applyTechniqueUsageDelta = (
     return nextCounts;
 };
 
-const resumeRun = (run: CurrentRunType): CurrentRunType => ({
-    ...run,
-    isPaused: false,
-    shouldShowPauseScreen: false,
-    shouldResumeOnFocus: false
-});
+const resumeRun = (run: CurrentRunType): CurrentRunType => ({ ...run, phase: RunPhaseEnum.PLAYING });
 
 const restartRunClock = (run: CurrentRunType, nowMs: number): CurrentRunType =>
     run.isChallengeRun && run.clockCheckpointMs > 0 ? run : { ...run, clockCheckpointMs: nowMs };
 
 const pauseRun = (run: CurrentRunType, shouldShowPauseScreen: boolean): CurrentRunType =>
-    run.isChallengeRun ? run : { ...run, isPaused: true, shouldShowPauseScreen, shouldResumeOnFocus: !shouldShowPauseScreen };
+    run.isChallengeRun || run.phase === RunPhaseEnum.FINISHED
+        ? run
+        : { ...run, phase: shouldShowPauseScreen ? RunPhaseEnum.PAUSED : RunPhaseEnum.AWAY };
 
 const anchorChallengeClock = (run: CurrentRunType, nowMs: number): CurrentRunType =>
     run.wallClockStartMs === 0 ? { ...run, wallClockStartMs: nowMs - run.elapsedTime * MillisecondsPerSecond } : run;
@@ -344,7 +342,12 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
             sql.withTransaction(Effect.andThen(tickClock, applyStatsMove(statsMove))).pipe(Effect.orDie);
         const updateRun = (update: (run: CurrentRunType) => CurrentRunType) => updateRunWithStats((run, counts) => [update(run), counts]);
         const restartRun = Effect.flatMap(Clock.currentTimeMillis, nowMs =>
-            sql.withTransaction(applyStatsMove((run, counts) => [restartRunClock(resumeRun(run), nowMs), counts]))
+            sql.withTransaction(
+                applyStatsMove((run, counts) => [
+                    run.phase === RunPhaseEnum.FINISHED ? run : restartRunClock(resumeRun(run), nowMs),
+                    counts
+                ])
+            )
         ).pipe(Effect.orDie);
         const returnToCurrentRun = Effect.flatMap(Clock.currentTimeMillis, nowMs => updateRun(run => returnToRun(run, nowMs)));
         const finishRun = Effect.fn('CurrentRunService.finish')(
@@ -367,9 +370,7 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
                 yield* currentRunRepository.save({
                     ...run,
                     hasNewPersonalBestScore,
-                    isPaused: true,
-                    shouldShowPauseScreen: false,
-                    shouldResumeOnFocus: false
+                    phase: RunPhaseEnum.FINISHED
                 });
                 yield* playerStatsRepository.save(getFinishedPlayerStats(playerStats, run, isWon, nowMs));
                 yield* difficultyStatsRepository.save(getFinishedStats(stats, run, isWon, isChallenge));
@@ -417,14 +418,14 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
                     return { isChallengeRun: false, shouldRunTimer: false };
                 }
 
-                const { isChallengeRun, isPaused, shouldResumeOnFocus } = currentRun.value;
-                const shouldRunTimer = !isPaused || shouldResumeOnFocus;
+                const { isChallengeRun, phase } = currentRun.value;
+                const shouldRunTimer = phase === RunPhaseEnum.PLAYING || phase === RunPhaseEnum.AWAY;
 
-                if (isChallengeRun) {
-                    yield* returnToCurrentRun;
-                } else if (shouldRunTimer) {
-                    yield* restartRun;
+                if (!shouldRunTimer) {
+                    return { isChallengeRun, shouldRunTimer };
                 }
+
+                yield* isChallengeRun ? returnToCurrentRun : restartRun;
 
                 return { isChallengeRun, shouldRunTimer };
             }),

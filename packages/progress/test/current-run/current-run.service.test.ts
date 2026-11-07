@@ -10,6 +10,7 @@ import * as TestClock from 'effect/testing/TestClock';
 import { getDayNumber } from '../../src/@generic/utils/get-day-number.util';
 import { CompletedGameRepository } from '../../src/completed-game/repository/completed-game.repository';
 import { initialCurrentRun } from '../../src/current-run/constant/initial-current-run.constant';
+import { RunPhaseEnum } from '../../src/current-run/enum/run-phase.enum';
 import { CurrentRunRepository } from '../../src/current-run/repository/current-run.repository';
 import { CurrentRunService } from '../../src/current-run/service/current-run.service';
 import { DifficultyStatsRepository } from '../../src/difficulty-stats/repository/difficulty-stats.repository';
@@ -78,19 +79,42 @@ describe('CurrentRunService', () => {
             yield* saveRun();
             yield* currentRunService.pause(false);
 
-            assert.deepInclude(yield* getRun, { isPaused: true, shouldShowPauseScreen: false, shouldResumeOnFocus: true });
+            assert.deepInclude(yield* getRun, { phase: RunPhaseEnum.AWAY });
             assert.deepStrictEqual(yield* currentRunService.focus(), { isChallengeRun: false, shouldRunTimer: true });
-            assert.deepInclude(yield* getRun, { isPaused: false, shouldResumeOnFocus: false });
+            assert.deepInclude(yield* getRun, { phase: RunPhaseEnum.PLAYING });
 
             yield* currentRunService.pause();
 
-            assert.deepInclude(yield* getRun, { isPaused: true, shouldShowPauseScreen: true, shouldResumeOnFocus: false });
+            assert.deepInclude(yield* getRun, { phase: RunPhaseEnum.PAUSED });
             assert.deepStrictEqual(yield* currentRunService.focus(), { isChallengeRun: false, shouldRunTimer: false });
 
             yield* saveRun({ isChallengeRun: true });
             yield* currentRunService.pause();
 
-            assert.isFalse((yield* getRun).isPaused);
+            assert.strictEqual((yield* getRun).phase, RunPhaseEnum.PLAYING);
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
+    it.effect('keeps a finished run finished when the board regains focus, is paused or resumed', () =>
+        Effect.gen(function* () {
+            const currentRunService = yield* CurrentRunService;
+
+            yield* finishRun(
+                { isChallengeRun: true, wallClockStartMs: 1, timelineEvents: [{ kind: TimelineEventKindEnum.Away, ts: 0 }] },
+                true,
+                true
+            );
+            const finishedChallengeRun = yield* getRun;
+
+            assert.deepStrictEqual(yield* currentRunService.focus(), { isChallengeRun: true, shouldRunTimer: false });
+            assert.deepStrictEqual(yield* getRun, finishedChallengeRun);
+
+            yield* finishRun({}, false, false);
+            yield* currentRunService.pause(false);
+            yield* currentRunService.resume;
+
+            assert.deepStrictEqual(yield* currentRunService.focus(), { isChallengeRun: false, shouldRunTimer: false });
+            assert.strictEqual((yield* getRun).phase, RunPhaseEnum.FINISHED);
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 
@@ -143,10 +167,10 @@ describe('CurrentRunService', () => {
             const currentRunService = yield* CurrentRunService;
 
             yield* TestClock.setTime(wallClockStartMs);
-            yield* saveRun({ isPaused: true, challengeState: 'rival' });
+            yield* saveRun({ phase: RunPhaseEnum.PAUSED, challengeState: 'rival' });
             yield* currentRunService.load(yield* getRun);
 
-            assert.deepInclude(yield* getRun, { isPaused: false, wallClockStartMs });
+            assert.deepInclude(yield* getRun, { phase: RunPhaseEnum.PLAYING, wallClockStartMs });
 
             yield* currentRunService.reset;
 
@@ -292,7 +316,7 @@ describe('CurrentRunService', () => {
             yield* TestClock.setTime(firstDayMs);
             yield* finishRun({ score: 500, elapsedTime: 100, rating: 3.4, dailyDayNumber: firstDay }, true, false);
 
-            assert.deepInclude(yield* getRun, { hasNewPersonalBestScore: true, isPaused: true, shouldResumeOnFocus: false });
+            assert.deepInclude(yield* getRun, { hasNewPersonalBestScore: true, phase: RunPhaseEnum.FINISHED });
 
             yield* TestClock.setTime(firstDayMs + dayInMilliseconds);
             yield* finishRun(
