@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.42.6](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.42.5...v2.42.6) (2026-11-08)
+
+### Performance Improvements
+
+* **landing:** cap Next.js build workers at 4 ([#821](https://github.com/vitalyiegorov/suuudokuuu/issues/821)) ([91e2ef7](https://github.com/vitalyiegorov/suuudokuuu/commit/91e2ef752259e327f54bd0ae12a1cb90b9034a2b))
+
+
 ## [2.42.5](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.42.4...v2.42.5) (2026-11-07)
 
 ### Performance Improvements
