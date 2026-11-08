@@ -41,8 +41,6 @@ on:
             - 'pnpm-workspace.yaml'
             - '.github/workflows/seed-native-cache.yml'
             - '.github/workflows/mobile-e2e.yml'
-    schedule:
-        - cron: '0 3 * * *'
 
 permissions:
     contents: read
