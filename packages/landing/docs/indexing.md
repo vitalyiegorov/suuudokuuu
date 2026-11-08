@@ -107,7 +107,7 @@ Both scripts no-op with an explanatory message when `INDEXNOW_KEY` is absent, an
 
 `--dry-run` needs no key at all, which makes it usable as a CI assertion that the submitted list is the sitemap list.
 
-`--daily` narrows the list to the pages a day rollover changes: `/daily-sudoku`, the build date's `/daily-sudoku/<YYYY-MM-DD>` page and its `/daily-sudoku/archive/<YYYY-MM>` month, all filtered out of `buildIndexablePages()`. `--recent` narrows the list to pages whose metadata `updatedAt` falls in the last 7 days and skips the IndexNow call when none does; `--daily` includes those pages too. In `main.yml` push deploys pass `--recent`, the scheduled daily run passes `--daily`, and only a manual `workflow_dispatch` run submits the whole sitemap, so deploys do not make crawlers refetch every page.
+`--daily` narrows the list to the pages a day rollover changes: `/daily-sudoku`, the build date's `/daily-sudoku/<YYYY-MM-DD>` page and its `/daily-sudoku/archive/<YYYY-MM>` month, all filtered out of `buildIndexablePages()`. `--recent` narrows the list to pages whose metadata `updatedAt` falls in the last 7 days and skips the IndexNow call when none does; In `main.yml` push deploys pass `--recent`, the scheduled daily run passes `--daily`, and only a manual `workflow_dispatch` run submits the whole sitemap, so deploys do not make crawlers refetch every page.
 
 ### 5.3 Deploy order
 
