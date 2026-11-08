@@ -24,16 +24,22 @@ const DAILY_CHANGED_PATHS = new Set([
 
 const isDryRun = process.argv.includes('--dry-run');
 const isDailyRun = process.argv.includes('--daily');
-const isRecentRun = isDailyRun || process.argv.includes('--recent');
+const isRecentRun = process.argv.includes('--recent');
 const recentUpdateThreshold = Date.now() - RECENT_UPDATE_WINDOW_DAYS * MILLISECONDS_PER_DAY;
 const { host } = new URL(SITE_ORIGIN);
 const indexablePages = buildIndexablePages();
-const submittedPages = isRecentRun
-    ? indexablePages.filter(
-          ({ pageMetadata }) =>
-              Date.parse(pageMetadata.updatedAt) >= recentUpdateThreshold || (isDailyRun && DAILY_CHANGED_PATHS.has(pageMetadata.path))
-      )
-    : indexablePages;
+const getSubmittedPages = () => {
+    if (isDailyRun) {
+        return indexablePages.filter(({ pageMetadata }) => DAILY_CHANGED_PATHS.has(pageMetadata.path));
+    }
+
+    if (isRecentRun) {
+        return indexablePages.filter(({ pageMetadata }) => Date.parse(pageMetadata.updatedAt) >= recentUpdateThreshold);
+    }
+
+    return indexablePages;
+};
+const submittedPages = getSubmittedPages();
 const urlList = submittedPages.map(({ url }) => url);
 const foreignUrls = urlList.filter(url => new URL(url).host !== host);
 
