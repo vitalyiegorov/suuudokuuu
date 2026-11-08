@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
         unoptimized: true
     },
     experimental: {
+        cpus: 4,
         globalNotFound: true,
         inlineCss: true,
         memoryBasedWorkersCount: true,
