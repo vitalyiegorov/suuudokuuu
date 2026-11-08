@@ -1,4 +1,4 @@
-import { getErrorMessage, isNotEmptyArray, isNotEmptyString } from '@rnw-community/shared';
+import { getErrorMessage, isEmptyArray, isNotEmptyArray, isNotEmptyString } from '@rnw-community/shared';
 
 import { buildDailyPuzzlePageMetadata } from '../src/app/(en)/daily-sudoku/[date]/metadata';
 import { buildDailyArchivePageMetadata } from '../src/app/(en)/daily-sudoku/archive/[month]/metadata';
@@ -13,6 +13,8 @@ import { SITE_ORIGIN } from '../src/seo/constants/site.constant';
 const HTTP_OK = 200;
 const HTTP_ACCEPTED = 202;
 const ACCEPTED_STATUS_CODES = [HTTP_OK, HTTP_ACCEPTED];
+const MILLISECONDS_PER_DAY = 86_400_000;
+const RECENT_UPDATE_WINDOW_DAYS = 7;
 
 const DAILY_CHANGED_PATHS = new Set([
     dailySudokuPageMetadata.path,
@@ -22,10 +24,15 @@ const DAILY_CHANGED_PATHS = new Set([
 
 const isDryRun = process.argv.includes('--dry-run');
 const isDailyRun = process.argv.includes('--daily');
+const isRecentRun = isDailyRun || process.argv.includes('--recent');
+const recentUpdateThreshold = Date.now() - RECENT_UPDATE_WINDOW_DAYS * MILLISECONDS_PER_DAY;
 const { host } = new URL(SITE_ORIGIN);
 const indexablePages = buildIndexablePages();
-const submittedPages = isDailyRun
-    ? indexablePages.filter(({ pageMetadata }) => DAILY_CHANGED_PATHS.has(pageMetadata.path))
+const submittedPages = isRecentRun
+    ? indexablePages.filter(
+          ({ pageMetadata }) =>
+              Date.parse(pageMetadata.updatedAt) >= recentUpdateThreshold || (isDailyRun && DAILY_CHANGED_PATHS.has(pageMetadata.path))
+      )
     : indexablePages;
 const urlList = submittedPages.map(({ url }) => url);
 const foreignUrls = urlList.filter(url => new URL(url).host !== host);
@@ -84,6 +91,8 @@ const submitToIndexNow = (key: string): void => {
 if (isDryRun) {
     console.log(urlList.join('\n'));
     console.log(`${urlList.length} sitemap-derived URLs for ${host}`);
+} else if (isEmptyArray(urlList)) {
+    console.log(`No page was updated in the last ${RECENT_UPDATE_WINDOW_DAYS} days, skipping IndexNow submission.`);
 } else {
     const indexNowKey = resolveIndexNowKey();
 

@@ -174,5 +174,5 @@ jobs:
             - name: Submit changed pages to IndexNow
               env:
                   INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
-                  INDEXNOW_MODE: ${{ github.event_name == 'schedule' && '--daily' || '' }}
+                  INDEXNOW_MODE: ${{ github.event_name == 'schedule' && '--daily' || github.event_name == 'push' && '--recent' || '' }}
               run: pnpm --filter @suuudokuuu/landing submit:indexnow ${INDEXNOW_MODE:+"$INDEXNOW_MODE"}
