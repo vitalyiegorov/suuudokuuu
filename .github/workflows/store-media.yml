@@ -83,7 +83,7 @@ jobs:
                   mkdir -p preview
                   node tests/app-tests/scripts/compose-app-preview.ts --recording="$raw/app-preview.mp4" --taps="$raw/app-preview.taps.json" --output=preview/01_IPHONE_67.mp4
                   ffprobe -v error -show_entries stream=codec_name,width,height,duration -of csv=p=0 preview/01_IPHONE_67.mp4
-            - uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+            - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
               with:
                   name: app-store-preview
                   path: preview/01_IPHONE_67.mp4
