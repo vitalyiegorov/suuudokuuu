@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.42.8](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.42.7...v2.42.8) (2026-11-08)
+
+### Bug Fixes
+
+* **landing:** keep the daily IndexNow run to the three daily pages ([#823](https://github.com/vitalyiegorov/suuudokuuu/issues/823)) ([df93570](https://github.com/vitalyiegorov/suuudokuuu/commit/df93570e7546237749232f0982ff05bd75e204f5)), closes [#822](https://github.com/vitalyiegorov/suuudokuuu/issues/822)
+
+
 ## [2.42.7](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.42.6...v2.42.7) (2026-11-08)
 
 ### Bug Fixes
