@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.42.9](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.42.8...v2.42.9) (2026-11-10)
+
+### Bug Fixes
+
+* **grid-vision:** read boards cut off by the page and skip pencil marks ([#828](https://github.com/vitalyiegorov/suuudokuuu/issues/828)) ([335dfb2](https://github.com/vitalyiegorov/suuudokuuu/commit/335dfb208d1bc920dd309ba72950177e7706d4b1))
+
+
 ## [2.42.8](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.42.7...v2.42.8) (2026-11-08)
 
 ### Bug Fixes
