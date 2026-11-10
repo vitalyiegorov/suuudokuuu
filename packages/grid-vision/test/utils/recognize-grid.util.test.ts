@@ -171,6 +171,7 @@ describe('recognizeGrid', () => {
         const puzzle = Array.from(gridFixtures[0].expected, (digit, cell) => (cell % clueStep === 0 ? digit : '.')).join('');
         const { canvas, context, margin, cellSize } = renderPrintedGrid(puzzle);
 
+        context.resetTransform();
         context.font = `bold ${Math.round(PENCIL_MARK_CELL_RATIO * cellSize)}px sans-serif`;
         context.textAlign = 'center';
         context.textBaseline = 'middle';
