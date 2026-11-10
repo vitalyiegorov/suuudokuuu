@@ -16,13 +16,14 @@ pnpm capture:fixtures
 
 ## Pipeline
 
-`read-grid-glyphs.util.ts` owns steps 1 to 4, `extract-cell-glyph.util.ts` step 5, and `recognize-grid.util.ts` step 6.
+`read-grid-glyphs.util.ts` owns steps 1 to 4 with `find-grid-corners.util.ts` for step 2 and `fit-grid-corners.util.ts` for the cut-off fallback of step 4, `extract-cell-glyph.util.ts` step 5, and `recognize-grid.util.ts` step 6.
 
 1. Box-average the image down to a 640 px longest side and convert it to luma.
 2. Threshold it with integral-image local means (`adaptive-threshold.util.ts`) and label the ink (`label-components.util.ts`), once as is and once after a small dilation that bridges the gaps between separately drawn boxes. The three largest grid-sized components become candidates, with corners at the extremes of `x + y` and `x - y`.
 3. Warp each candidate to 450 px through a 4-point homography (`solve-homography.util.ts`), flip it to dark ink on a light board by the heavier intensity tail around the median, and threshold it again.
 4. Reject candidates whose inner box lines do not stand out from the cell centers in both directions, and keep the candidate whose ten line positions stand out most. The search repeats on the inverted image only when nothing qualifies.
-5. Crop each cell, erase rows and columns that are mostly ink near the cell edge, keep the central components, treat too little ink as empty, and sample the rest into a 28x28 glyph scaled to a 20 px box.
+    - When both still find nothing, the board is assumed to be cut off by its surroundings (a screenshot whose card or scroll edge hides part of a row, so the frame fuses with the page around it). The fallback drops ink thicker than a line (`keep-thin-ink.util.ts`) before labeling, then fits the line grid inside each warped candidate: per third of the board it finds the offset and pitch whose ten lines collect the most long ink runs, box lines counting double, and refines them by least squares over the inner lines only, because the outer ones are the unreliable ones. The fitted corners may lie outside the image; ink outside the candidate's bounding box is cleared.
+5. Crop each cell, erase rows and columns that are mostly ink near the cell edge, keep the central components, treat too little ink as empty, and sample the rest into a 28x28 glyph scaled to a 20 px box. A cell whose tallest stroke (pieces closer than 3 px count as one stroke) is under 60% of the board's median stroke height holds pencil marks and is read as empty.
 6. Run the 784-96-9 ReLU MLP over the int8 weights in `constants/digit-classifier-weights.constant.ts` and return the best digit, its softmax probability, the runner-up, and an 81-cell handwriting mask: sample original RGBA at retained ink pixels through the winning homography and compare mean luma and chroma against the filled-cell medians (no flags below three filled cells).
 
 ## Runtime Rules

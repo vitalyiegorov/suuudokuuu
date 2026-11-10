@@ -1,5 +1,6 @@
 import { readFileSync } from 'node:fs';
 
+import { createCanvas } from '@napi-rs/canvas';
 import jpeg from 'jpeg-js';
 import { describe, expect, it } from 'vitest';
 
@@ -8,6 +9,7 @@ import { SeededRandom } from '../../scripts/shared/seeded-random';
 import { GridRecognitionKindEnum, recognizeGrid } from '../../src';
 
 import type { GridRecognitionType } from '../../src';
+import type { Canvas } from '@napi-rs/canvas';
 
 const FIXTURE_DIRECTORY = new URL('../fixtures/', import.meta.url);
 const NO_GRID = 'none';
@@ -16,6 +18,11 @@ const SPARSE_GRID_SEED = 2606;
 const MINIMUM_HANDWRITTEN_ACCURACY = 0.95;
 const MINIMUM_CELL_ACCURACY = 0.98;
 const MINIMUM_EXACT_FIXTURE_RATIO = 0.8;
+const GRID_SIZE = 9;
+const FLAT_GRID_SEED = 32;
+const PAGE_MARGIN = 60;
+const HIDDEN_CELL_RATIO = 0.4;
+const PENCIL_MARK_CELL_RATIO = 0.22;
 
 const fixtures = readFileSync(new URL('manifest.txt', FIXTURE_DIRECTORY), 'utf8')
     .trim()
@@ -39,6 +46,33 @@ const readPuzzleString = (recognition: GridRecognitionType): string =>
 
 const countMatchingCells = (actual: string, expected: string): number =>
     Array.from(expected).filter((cell, index) => actual[index] === cell).length;
+
+const renderPrintedGrid = () => {
+    const canvas = renderFlatGrid(new SeededRandom(FLAT_GRID_SEED), gridFixtures[0].expected, 'sans-serif');
+    const context = canvas.getContext('2d');
+    const middleRow = context.getImageData(0, canvas.height / 2, canvas.width, 1).data;
+    const margin = middleRow.findIndex((value, index) => index % 4 === 0 && Math.abs(value - middleRow[0]) > 40) / 4;
+
+    return { canvas, context, margin, cellSize: (canvas.width - 2 * margin) / GRID_SIZE };
+};
+
+const recognizeOnDarkPage = (canvas: Canvas, hiddenX: number, hiddenY: number) => {
+    const width = canvas.width - Math.abs(hiddenX);
+    const height = canvas.height - Math.abs(hiddenY);
+    const page = createCanvas(width + 2 * PAGE_MARGIN, height + 2 * PAGE_MARGIN);
+    const context = page.getContext('2d');
+
+    context.fillStyle = '#0e1113';
+    context.fillRect(0, 0, page.width, page.height);
+    context.drawImage(canvas, Math.max(0, hiddenX), Math.max(0, hiddenY), width, height, PAGE_MARGIN, PAGE_MARGIN, width, height);
+
+    return readPuzzleString(recognizeGrid(context.getImageData(0, 0, page.width, page.height)));
+};
+
+const readInnerCells = (puzzleString: string): string =>
+    Array.from(puzzleString)
+        .filter((_, cell) => cell % GRID_SIZE > 0 && cell % GRID_SIZE < GRID_SIZE - 1 && cell >= GRID_SIZE && cell < CELL_COUNT - GRID_SIZE)
+        .join('');
 
 describe('recognizeGrid', () => {
     const recognitions = gridFixtures.map(fixture => recognizeFixture(fixture.file));
@@ -117,6 +151,41 @@ describe('recognizeGrid', () => {
         expect(recognition.kind === GridRecognitionKindEnum.RECOGNIZED ? recognition.handwritten : []).toEqual(
             Array.from({ length: CELL_COUNT }, () => false)
         );
+    });
+
+    it.each([
+        [1, 0],
+        [-1, 0],
+        [0, 1],
+        [0, -1]
+    ])('should read a board cut off by the surrounding page at (%i, %i)', (directionX, directionY) => {
+        const { canvas, margin, cellSize } = renderPrintedGrid();
+        const hidden = Math.round(margin + HIDDEN_CELL_RATIO * cellSize);
+
+        expect(readInnerCells(recognizeOnDarkPage(canvas, directionX * hidden, directionY * hidden))).toBe(
+            readInnerCells(gridFixtures[0].expected)
+        );
+    });
+
+    it('should leave cells that hold only pencil marks empty', () => {
+        const { canvas, context, margin, cellSize } = renderPrintedGrid();
+
+        context.font = `bold ${Math.round(PENCIL_MARK_CELL_RATIO * cellSize)}px sans-serif`;
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        Array.from(gridFixtures[0].expected).forEach((digit, cell) => {
+            if (digit === '.') {
+                ['2', '5', '8'].forEach((mark, row) => {
+                    context.fillText(
+                        mark,
+                        margin + ((cell % GRID_SIZE) + 0.5) * cellSize,
+                        margin + (Math.floor(cell / GRID_SIZE) + (2 * row + 1) / 6) * cellSize
+                    );
+                });
+            }
+        });
+
+        expect(recognizeOnDarkPage(canvas, 0, 0).replaceAll(/\d/gu, '#')).toBe(gridFixtures[0].expected.replaceAll(/\d/gu, '#'));
     });
 
     it('should report a missing grid for images without a sudoku', () => {

@@ -13,6 +13,7 @@ const CENTRAL_RADIUS_RATIO = 0.3;
 const MINIMUM_PIECE_AREA = 4;
 const MINIMUM_INK_AREA = 30;
 const MINIMUM_GLYPH_HEIGHT_RATIO = 0.3;
+const STROKE_GAP = 3;
 const GLYPH_BOX_SIZE = 20;
 const SUPERSAMPLE_COUNT = 3;
 const PIXEL_CENTER = 0.5;
@@ -69,6 +70,25 @@ const mergePieces = (pieces: readonly ConnectedComponentInterface[]): ConnectedC
     maxY: Math.max(...pieces.map(piece => piece.maxY))
 });
 
+const measureStrokeHeight = (pieces: readonly ConnectedComponentInterface[]): number => {
+    const ordered = [...pieces].sort((first, second) => first.minY - second.minY);
+    const strokes = ordered.map((seed, index) =>
+        ordered
+            .slice(index + 1)
+            .reduce(
+                (stroke, piece) =>
+                    piece.minY - stroke.maxY <= STROKE_GAP &&
+                    piece.minX - stroke.maxX <= STROKE_GAP &&
+                    stroke.minX - piece.maxX <= STROKE_GAP
+                        ? mergePieces([stroke, piece])
+                        : stroke,
+                seed
+            )
+    );
+
+    return Math.max(...strokes.map(stroke => stroke.maxY - stroke.minY + 1));
+};
+
 const sampleGlyphPixel = (
     isGlyphLabel: Uint8Array,
     labels: Int32Array,
@@ -96,7 +116,7 @@ export const extractCellGlyph = (
     row: number,
     column: number,
     visitInk: ((x: number, y: number) => void) | null = null
-): Float32Array | null => {
+) => {
     const { labels, components } = labelComponents(eraseGridLines(cropCell(mask, row, column)));
     const pieces = components.filter(isCentralPiece);
     const bounds = pieces.length > 0 ? mergePieces(pieces) : null;
@@ -122,5 +142,10 @@ export const extractCellGlyph = (
         }
     }
 
-    return Float32Array.from({ length: GLYPH_PIXEL_COUNT }, (_, glyphIndex) => sampleGlyphPixel(isGlyphLabel, labels, bounds, glyphIndex));
+    return {
+        glyph: Float32Array.from({ length: GLYPH_PIXEL_COUNT }, (_, glyphIndex) =>
+            sampleGlyphPixel(isGlyphLabel, labels, bounds, glyphIndex)
+        ),
+        strokeHeight: measureStrokeHeight(pieces)
+    };
 };
