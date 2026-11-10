@@ -25,6 +25,7 @@ const CELL_THRESHOLD_SENSITIVITY = 0.15;
 const MINIMUM_LINE_CONTRAST = 0.25;
 const PENCIL_MARK_HEIGHT_RATIO = 0.6;
 const VISIBLE_INSET = 1;
+const DIGIT_HEIGHT_QUANTILE = 0.9;
 const INNER_BOX_LINE_POSITIONS = [WARPED_GRID_SIZE / 3, (2 * WARPED_GRID_SIZE) / 3];
 const WARPED_TARGET_CORNERS: readonly PointInterface[] = [
     { x: 0, y: 0 },
@@ -271,7 +272,7 @@ export const readGridGlyphs = (image: RgbaImageInterface) => {
         .filter(ink => ink !== null)
         .map(ink => ink.strokeHeight)
         .sort((first, second) => first - second);
-    const minimumStrokeHeight = PENCIL_MARK_HEIGHT_RATIO * (strokeHeights[Math.floor(strokeHeights.length / 2)] ?? 0);
+    const minimumStrokeHeight = PENCIL_MARK_HEIGHT_RATIO * (strokeHeights[Math.floor(DIGIT_HEIGHT_QUANTILE * strokeHeights.length)] ?? 0);
 
     return cells.map(ink =>
         ink === null || ink.strokeHeight < minimumStrokeHeight

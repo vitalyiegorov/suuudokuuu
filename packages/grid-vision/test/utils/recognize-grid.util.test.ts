@@ -47,8 +47,8 @@ const readPuzzleString = (recognition: GridRecognitionType): string =>
 const countMatchingCells = (actual: string, expected: string): number =>
     Array.from(expected).filter((cell, index) => actual[index] === cell).length;
 
-const renderPrintedGrid = () => {
-    const canvas = renderFlatGrid(new SeededRandom(FLAT_GRID_SEED), gridFixtures[0].expected, 'sans-serif');
+const renderPrintedGrid = (puzzle: string) => {
+    const canvas = renderFlatGrid(new SeededRandom(FLAT_GRID_SEED), puzzle, 'sans-serif');
     const context = canvas.getContext('2d');
     const middleRow = context.getImageData(0, canvas.height / 2, canvas.width, 1).data;
     const margin = middleRow.findIndex((value, index) => index % 4 === 0 && Math.abs(value - middleRow[0]) > 40) / 4;
@@ -159,7 +159,7 @@ describe('recognizeGrid', () => {
         [0, 1],
         [0, -1]
     ])('should read a board cut off by the surrounding page at (%i, %i)', (directionX, directionY) => {
-        const { canvas, margin, cellSize } = renderPrintedGrid();
+        const { canvas, margin, cellSize } = renderPrintedGrid(gridFixtures[0].expected);
         const hidden = Math.round(margin + HIDDEN_CELL_RATIO * cellSize);
 
         expect(readInnerCells(recognizeOnDarkPage(canvas, directionX * hidden, directionY * hidden))).toBe(
@@ -167,13 +167,14 @@ describe('recognizeGrid', () => {
         );
     });
 
-    it('should leave cells that hold only pencil marks empty', () => {
-        const { canvas, context, margin, cellSize } = renderPrintedGrid();
+    it.each([1, 2])('should leave cells that hold only pencil marks empty with every %i. clue printed', clueStep => {
+        const puzzle = Array.from(gridFixtures[0].expected, (digit, cell) => (cell % clueStep === 0 ? digit : '.')).join('');
+        const { canvas, context, margin, cellSize } = renderPrintedGrid(puzzle);
 
         context.font = `bold ${Math.round(PENCIL_MARK_CELL_RATIO * cellSize)}px sans-serif`;
         context.textAlign = 'center';
         context.textBaseline = 'middle';
-        Array.from(gridFixtures[0].expected).forEach((digit, cell) => {
+        Array.from(puzzle).forEach((digit, cell) => {
             if (digit === '.') {
                 ['2', '5', '8'].forEach((mark, row) => {
                     context.fillText(
@@ -185,7 +186,7 @@ describe('recognizeGrid', () => {
             }
         });
 
-        expect(recognizeOnDarkPage(canvas, 0, 0).replaceAll(/\d/gu, '#')).toBe(gridFixtures[0].expected.replaceAll(/\d/gu, '#'));
+        expect(recognizeOnDarkPage(canvas, 0, 0).replaceAll(/\d/gu, '#')).toBe(puzzle.replaceAll(/\d/gu, '#'));
     });
 
     it('should report a missing grid for images without a sudoku', () => {
