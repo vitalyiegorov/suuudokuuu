@@ -2,160 +2,101 @@
 
 # Suuudokuuu
 
-> Sudoku game to help **_Ukraine_** win the war against `russia`.
+An open-source Sudoku game for iOS, Android and the web, built with [React Native](https://reactnative.dev/) and [Expo](https://expo.dev/). The app links to a donation page that supports Ukraine.
 
-Unique. modern, open source [React Native](https://reactnative.dev/) / [Expo](https://expo.dev/) Sudoku game with a lot of features.
+| [![Play in your browser](packages/app/assets/chrome.png)](https://www.suuudokuuu.com/) | [![Download on the App Store](packages/app/assets/appstore-badge.png)](https://apps.apple.com/app/suuudokuuu/id6449440933) | [![Get it on Google Play](packages/app/assets/google-play-badge.png)](https://play.google.com/store/apps/details?id=com.vitaliiyehorov.suuudokuuu) |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 
-Feel free to create an `issue`, `feature request` or `pull request` if you have any **_suggestions_** or **_ideas_**.
-
-## Play now! Do not hesitate
-
-| [![Play directly in your browser!](packages/app/assets/chrome.png)](https://www.suuudokuuu.com/) | [![Download on the App Store](packages/app/assets/appstore-badge.png)](https://apps.apple.com/ua/app/suuudokuuu/id6449440933) | [![Download on the Play Market](packages/app/assets/google-play-badge.png)](https://apps.apple.com/ua/app/suuudokuuu/id6449440933) |
-| ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-
-![Play directly in your browser!](packages/app/assets/gameplay.gif)]
+![Gameplay](packages/app/assets/gameplay.gif)
 
 ## Features
 
-### Monorepo architecture
+- **Seven difficulty tiers**: Newbie, Easy, Medium, Hard, Nightmare, Hell and Infinity. Each tier is defined by the solving techniques its puzzles need. Hell and Infinity come from bundled, verified puzzle collections.
+- **A difficulty rating on every puzzle**, on the [Sudoku Explainer](https://www.suuudokuuu.com/guides/sudoku-difficulty-rating) scale.
+- **Hints that teach**: a hint names the technique and walks through it step by step before it shows the answer.
+- **Replay** of every finished game, move by move, with the techniques used.
+- **Challenges**: share a puzzle and your recorded run as a link, and a friend plays the same grid against your time.
+- **Daily puzzle** with a streak.
+- **Import from a photo**: scan a printed puzzle with the camera, or pick a photo or screenshot. Recognition runs on the device and the image is not uploaded.
+- **Themes**: built-in themes plus a theme editor, in light and dark.
+- **13 languages**: Arabic, Bengali, Chinese, English, French, German, Hindi, Indonesian, Portuguese, Spanish, Swedish, Ukrainian and Urdu.
+- **Offline play**: puzzles are generated on the device or taken from the bundled collections, and progress is stored locally.
+- No ads and no account.
 
-Project is using a monorepo approach with [TurboRepo](https://turborepo.com/) to manage multiple packages in a single repository.
+The website at [www.suuudokuuu.com](https://www.suuudokuuu.com/) also hosts guides such as [how to play](https://www.suuudokuuu.com/how-to-play), [solving techniques](https://www.suuudokuuu.com/techniques), [clues versus difficulty](https://www.suuudokuuu.com/guides/sudoku-clues-vs-difficulty) and [technique frequency by difficulty](https://www.suuudokuuu.com/guides/technique-frequency-by-difficulty).
 
-### Internalization(i18n)
+## Quick start
 
-The app supports multiple languages, which is detected by [expo-localization](https://docs.expo.dev/versions/latest/sdk/localization/) including:
+Requirements: Node 26 (see [`.nvmrc`](.nvmrc)) and pnpm 12 (pinned in [`package.json`](package.json) `packageManager`).
 
-- Ukrainian
-- English
-- French
-- German
-- Spanish
+```bash
+pnpm install                               # also builds the workspace packages
+pnpm --filter @suuudokuuu/app web          # the app in a browser
+pnpm --filter @suuudokuuu/app ios          # or android; needs the native toolchain
+pnpm --filter @suuudokuuu/landing start    # the website
+```
 
-> i18n is implemented using [Lingui](https://lingui.dev/) library
+Common root commands:
 
-### App versioning and release management
+```bash
+pnpm build          # build all packages (Turborepo)
+pnpm test           # unit tests (Vitest)
+pnpm format         # oxfmt
+pnpm ts             # type check
+pnpm lint           # type-aware oxlint
+pnpm deadcode       # Knip
+pnpm cpd            # copy-paste detection (jscpd)
+pnpm i18n:sync      # extract and compile Lingui catalogs
+```
 
-The app uses [semantic versioning](https://semver.org/) to manage versions with [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/)
-meaning each commit and pull request has a strict format, which allows to generate beautiful changelogs and release notes automatically.
+Before you open a pull request, run the validation sequence from the repo root:
 
-A [github PR workflow](.github/workflows/pr.yml#29) has a step to validate the PR title using [commitlint](https://commitlint.js.org/) to ensure that the PR title follows the conventional commits format.
+```bash
+pnpm format && pnpm ts && pnpm lint && pnpm deadcode && pnpm cpd
+```
 
-> Users can automatically see current app version on home page using [expo-constants](https://docs.expo.dev/versions/latest/sdk/constants/)
-
-#### Native versions
-
-App uses [fingerprint](https://expo.dev/blog/understanding-and-comparing-fingerprints-in-expo-apps) [runtimeVersion](https://docs.expo.dev/eas-update/runtime-versions/) policy ensure that expo-updates are applied to the correct version of the app.
-
-> To automate `user-facing` app version `app.cofig.js` takes it from the `package.json` file of the `app` package, which is updated automatically by [lerna](https://lerna.js.org/).
-
-[Expo tutorial on app versioning](https://docs.expo.dev/tutorial/eas/manage-app-versions/)
-
-#### Release management
-
-The app uses [lerna](https://lerna.js.org/) to manage versions of the packages in the monorepo, generate changelogs for each package if it was changed, and create [Github releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases).
-
-### Enterprise-grade CI/CD
-
-[EAS](https://expo.dev/eas) over the air updates are used to deliver the PRs and production updates to the users, 2 channels are used:
-
-- `development` - for the pull requests
-- `production` - for the master branch
-
-All changes are represented as `pull requests`, each pipeline runs:
-
-- [Formatting](https://oxc.rs/docs/guide/usage/formatter) and [linting](https://oxc.rs/docs/guide/usage/linter) to ensure code quality
-- [Type checking](https://www.typescriptlang.org/) to ensure type safety
-- [Unit tests](https://vitest.dev/) to ensure code correctness
-- [Copy-paste detection](https://github.com/kucherenko/jscpd) to ensure code uniqueness
-- [Dead code detection](https://knip.dev/) to ensure code cleanliness
-- [CodeQL](https://codeql.github.com/) to ensure code security
-- [tester-army e2e](https://github.com/tester-army/e2e) tests on iOS and Android to ensure app functionality
-
-> These strict rules ensure that the code is of high quality, secure, and maintainable.
-> Also this is very helpful for Copilot and other AI tools
-
-#### Pull requests
-
-Each pull request creates an EAS preview for the `iOS`, `Android` and `Web` platforms, all info is published as comments to the PR, and web deployment is created.
-
-#### Master branch
-
-Each commit to the `master` branch:
-
-- creates an EAS OTA update for the `iOS`, `Android` and `Web` production platforms.
-- creates a new [GitHub release](#app-versioning-and-release-management) with the changelog for the release
-
-> Production Web is hosted on [Vercel](https://vercel.com/), maybe we will migrate to EAS hosting when it becomes stable.
-
-Each commit
-
-#### [AppStore](https://www.apple.com/app-store/) and [Google Play](https://play.google.com/console)
-
-Special manual [GitHub Workflow](./.github/workflows/native-publish.yml) is used to build and publish the app to the stores.
-
-> For the iOS app is published ti the TestFlight, for the Play Market it is published to the internal testing track.
-
-Then after manual review the app can be published to the production track.
-
-#### Internal distribution and testing
-
-For testing on `real devices` special manual [GitHub Workflow](./.github/workflows/native-dev-release.yml) is used to build the app for internal distribution.
-
-> You need to register your device in the Expo dashboard to be able to install the development build.
-
-[Register your IOS device](https://expo.dev/register-device/c1da1a6e-616b-40a3-93ba-45bef53696e5)
-
-### Auto-candidates
-
-The app supports `auto-candidates mode`, which allows you to fill the candidates automatically based on the current state of the board.
-
-### Web keyboard support
-
-Use your arrow keys to navigate through the Sudoku board, press any number `1-9` to fill the cell.
-
-> `Tab` activates auto-candidate mode
-
-### Sharing puzzles
-
-You can share the current puzzle with your friends via a link, which will open the app with the same puzzle, score, mistakes and timer.
-
-> [Expo - Sharing](https://docs.expo.dev/versions/latest/sdk/sharing/)
->
-> [Expo - Linking](https://docs.expo.dev/versions/latest/sdk/linking/)
->
-> [Expo - Router](https://docs.expo.dev/linking/overview/#use-expo-router-to-handle-deep-linking)
-
-### Theming support
-
-You can switch between light and dark themes, OS/Browser theme is detected automatically initially.
-
-> [React navigation theming](https://reactnavigation.org/docs/themes/)
->
-> [React native - Appearance](https://reactnative.dev/docs/appearance)
->
-> [React native - useColorTheme](https://reactnative.dev/docs/usecolorscheme)
-
-### Universal links
-
-Sharing a link to `https://suuudokuuu.com/` will open the app on your device if it is installed, otherwise it will open the web version of the app.
-
-> [Expo iOS Universal Links](https://docs.expo.dev/linking/ios-universal-links/)
->
-> [Expo - Android Linking](https://docs.expo.dev/linking/android-app-links/)
->
-> [Expo - iOS Linking](https://docs.expo.dev/linking/ios-universal-links/)
-
-### Animation
-
-The app uses [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/) for smooth animations and transitions.
-
-> Cell text animations are implemented using single `SharedValue` to optimize the performance, prop flag triggers the animation.
+Run `pnpm test` as well when you change behaviour, algorithms, serialization, persistence or scoring, and `pnpm i18n:check` when you change user-facing text.
 
 ## Packages
 
-- [app](packages/app/readme.md) - React Native / Expo application package
-- [generator](packages/generator/readme.md) - Sudoku puzzle generator
-- [app-tests](tests/app-tests/AGENTS.md) - store capture tooling and e2e fixtures for the app package
+| Path                                                       | Purpose                                                                              |
+| ---------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| [`packages/app`](packages/app/AGENTS.md)                   | Expo game app: UI, routes, SQLite platform layers, app runtime                       |
+| [`packages/ui`](packages/ui/AGENTS.md)                     | Shared React Native components, hooks and the theme contract                         |
+| [`packages/progress`](packages/progress/AGENTS.md)         | Persisted SQL schema, migrations, repositories and player-progress services (Effect) |
+| [`packages/landing`](packages/landing/AGENTS.md)           | Static Next.js content and SEO site for www.suuudokuuu.com                           |
+| [`packages/generator`](packages/generator/AGENTS.md)       | Sudoku generation, gameplay state, navigation and scoring                            |
+| [`packages/solver-core`](packages/solver-core)             | Shared solver contract, grid utilities and conformance helpers                       |
+| [`packages/solver-dlx`](packages/solver-dlx)               | Dancing Links exact-cover solver                                                     |
+| [`packages/solver-bitmask`](packages/solver-bitmask)       | Typed-array bitmask solver                                                           |
+| [`packages/techniques`](packages/techniques/AGENTS.md)     | Solving-technique detection and the logical-solve driver                             |
+| [`packages/rating`](packages/rating/AGENTS.md)             | Sudoku Explainer difficulty rating                                                   |
+| [`packages/puzzle-forge`](packages/puzzle-forge/AGENTS.md) | Technique-aware puzzle sourcing per difficulty tier                                  |
+| [`packages/field-core`](packages/field-core/AGENTS.md)     | Headless interactive field engine and technique step-script player                   |
+| [`packages/field-dom`](packages/field-dom/AGENTS.md)       | React DOM board renderer                                                             |
+| [`packages/encoder`](packages/encoder/AGENTS.md)           | Compact encoding of game state for share links and replays                           |
+| [`packages/hell-corpus`](packages/hell-corpus)             | Bundled, verified Hell and Infinity puzzle corpora                                   |
+| [`packages/grid-vision`](packages/grid-vision/AGENTS.md)   | On-device recognition of a Sudoku grid and its digits from an image                  |
+| [`tests/test-kit`](tests/test-kit)                         | Shared Vitest config and in-memory SQLite test harness                               |
+| [`tests/app-tests`](tests/app-tests/AGENTS.md)             | Store screenshot and app preview capture, and the E2E database fixtures              |
+| [`tests/web-tests`](tests/web-tests/AGENTS.md)             | Playwright E2E tests against the Expo web export                                     |
+| [`e2e`](e2e/AGENTS.md)                                     | iOS and Android E2E suite (standalone npm project, not a pnpm workspace)             |
+
+Each linked `AGENTS.md` describes that package's rules and structure. The root [`AGENTS.md`](AGENTS.md) holds the engineering rules for the whole repo.
+
+## Continuous integration and releases
+
+- **Pull requests** ([`pr.yml`](.github/workflows/pr.yml)) run formatting, type checks, lint, dead-code and copy-paste detection, unit tests and a Lingui catalog check. When a change can affect the app, they also run mobile and web E2E and publish a Vercel web preview and an EAS Update preview. The PR title must follow [Conventional Commits](https://www.conventionalcommits.org/) ([`pr-title.yml`](.github/workflows/pr-title.yml)).
+- **Merges to `main`** ([`main.yml`](.github/workflows/main.yml)) sync the Lingui catalogs, run `pnpm release` (Lerna bumps versions from the commit history, writes the changelog and creates a GitHub release) and deploy the web app and the website to Vercel.
+- **Store builds** ([`native-publish.yml`](.github/workflows/native-publish.yml), manual) build the released version with EAS and upload it to App Store Connect and the Google Play internal track, together with the store metadata from [`packages/app/fastlane`](packages/app/fastlane).
+- **Store release** ([`store-release.yml`](.github/workflows/store-release.yml), manual, dry run by default) submits the iOS build for App Review and promotes the Android build from internal to production.
+- **Over-the-air updates** ([`ota-production.yml`](.github/workflows/ota-production.yml), manual, dry run by default) publish an EAS Update to the production channel only when the last store build has the same runtime version.
+
+## Contributing
+
+Bug reports, ideas and pull requests are welcome in [GitHub issues](https://github.com/vitalyiegorov/suuudokuuu/issues). Read the root [`AGENTS.md`](AGENTS.md) and the `AGENTS.md` of every package you touch, use Conventional Commits for commit messages and PR titles, and run the validation sequence above before you push.
+
+To report a security issue, follow [`SECURITY.md`](SECURITY.md).
 
 ## Acknowledgements
 
@@ -168,4 +109,4 @@ Our Hell and Infinity difficulty levels stand on data curated by the wider Sudok
 
 ## License
 
-Suuudokuuu is licensed under the [O'SAASY License](LICENSE) — an MIT-style license with one condition: you may not offer the Software itself as a competing hosted or SaaS product. Learn more at [osaasy.dev](https://osaasy.dev).
+Suuudokuuu is licensed under the [O'SAASY License](LICENSE): the MIT terms, including keeping the copyright and permission notice, plus one added condition: you may not offer the Software itself as a competing hosted or SaaS product. Learn more at [osaasy.dev](https://osaasy.dev).

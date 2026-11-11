@@ -1,21 +1,18 @@
 # Security Policy
 
-## Supported Versions
+## Supported versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Only the latest released version of Suuudokuuu receives security fixes: the current App Store and Google Play builds, the web app at https://www.suuudokuuu.com and the `main` branch.
 
-| Version | Supported          |
-| ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
-| 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
-| < 4.0   | :x:                |
+## Reporting a vulnerability
 
-## Reporting a Vulnerability
+Report vulnerabilities privately through GitHub: open the repository's **Security** tab and choose **Report a vulnerability** ([direct link](https://github.com/vitalyiegorov/suuudokuuu/security/advisories/new)). Do not open a public issue, pull request or discussion for a security problem.
 
-Use this section to tell people how to report a vulnerability.
+Please include:
 
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+- the affected platform (iOS, Android or web) and the app version, shown in the app settings;
+- what the issue is and what an attacker could do with it;
+- steps or a proof of concept to reproduce it;
+- any fix or mitigation you suggest.
+
+Suuudokuuu is maintained by volunteers. Reports are handled on a best-effort basis, and there is no bug bounty.

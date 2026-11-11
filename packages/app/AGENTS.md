@@ -37,7 +37,7 @@ src/
 ├── daily/              # Daily streak hero, week strip, results, recent solves, status derivation, date utils
 ├── game/               # Game context, board UI, hooks, serializers
 ├── history/            # Completed game history and replay UI
-├── i18n/locales/       # Lingui catalogs: en, uk, fr, de, es
+├── i18n/locales/       # Lingui catalogs: ar, bn, de, en, es, fr, hi, id, pt, sv, uk, ur, zh
 ├── scoring/            # SudokuScoring and score explanation UI
 ├── screens/            # Screen-level components used by routes
 ├── settings/           # Preferences and settings UI
@@ -118,14 +118,14 @@ Persisted state is SQLite owned by Effect v4 services in `@suuudokuuu/progress`.
 
 1. `@suuudokuuu/field-core` owns interactive field state: the `Sudoku` grid of record, the selected cell, notes/candidates, input mode, the auto-candidates flag, mistake counting, and completion detection. `GameProvider` creates the `FieldEngine` and `GameContext` exposes `{ create, createFromState, engine, isCreatingGame, snapshot }`.
 2. Read the board through `snapshot` (`snapshot.field`, `snapshot.selectedCell`, `snapshot.inputMode`, `snapshot.candidates`) and through `engine.Sudoku` predicates. `engine.Sudoku` is not reference-stable across undo, so never store it in state or a ref.
-3. Board input goes through `engine.selectCell`, `engine.inputValue` and `engine.toggleCandidate`. Scoring, the timeline log, haptics, confetti and routing stay app-side and are driven by the `moveApplied`, `mistake` and `completed` engine events subscribed in `game.screen.tsx`.
+3. Board input goes through `engine.selectCell`, `engine.inputValue` and `engine.toggleCandidate`. Scoring, the timeline log, haptics, confetti and routing stay app-side and are driven by the `moveApplied`, `mistake` and `completed` engine events subscribed in `screens/components/game-screen/hooks/use-game-engine-events.hook.ts`.
 4. The `current_run` row keeps `candidates`, `eliminatedCandidates`, `inputMode` and `showAutoCandidates` as a persistence mirror written by the same `CurrentRunService` calls that already carry timeline and scoring data. Every engine mutation that changes one of them calls its matching method in the same handler (`gameToggleInputMode`, `gameToggleAutoCandidates`, `gameToggleCellCandidate` pair the engine call with the write), and the call carries the engine-derived values read off `engine.serialize()`. The service copies that payload instead of recomputing candidate pruning or mode flipping, so there is only one implementation of each rule. `hint` is the exception: it must be called before `engine.applyStepScript()` so the `Hint` timeline event precedes the placement's `Cell` event, so it still applies its own eliminations to the mirror.
 5. `GameProvider` enters a new run with `router.dismissTo('/game')`, never `router.replace('/game')`. A deep link can land on top of a live game screen, and a second mounted game screen would handle every engine event twice: each move saved twice, the run recorded twice, and an unencodable timeline that loses the replay and techniques. `e2e/tests/22.challenge-over-live-game.e2e.ts` covers it.
 6. The persisted `sudokuString` format is the unchanged `Sudoku.toString()` grid. Saved games, share links and replays depend on it, so it must never change shape.
 
 ### Undo and redo
 
-1. `@suuudokuuu/field-core` owns the history itself. `UndoButton`, `RedoButton` and the web `Cmd/Ctrl+Z` shortcut all go through `useGameHistoryControls`, which calls `engine.undo()` / `engine.redo()` and, only when the engine reports a step was taken, calls `CurrentRunService.undo` / `redo` with `gameGetFieldStatePayload(engine)`. That payload is the mirror update, so the persisted `sudokuString`, `candidates` and `eliminatedCandidates` are written by the same handler that moved the engine.
+1. `@suuudokuuu/field-core` owns the history itself. `UndoButton`, `RedoButton` and the web `Cmd/Ctrl+Z` shortcut all go through `gameGetHistoryControls` in `game/utils/game-get-history-controls.util.ts`, which calls `engine.undo()` / `engine.redo()` and, only when the engine reports a step was taken, calls `CurrentRunService.undo` / `redo` with `gameGetFieldStatePayload(engine)`. That payload is the mirror update, so the persisted `sudokuString`, `candidates` and `eliminatedCandidates` are written by the same handler that moved the engine.
 2. The service derives what happened by comparing the payload grid to the persisted one. A different grid means a placement was taken back or replayed; an identical grid means it was a note edit, which is free and touches nothing but the mirror.
 3. A wrong value never reaches the board — it is counted as a mistake and discarded — so the engine never records it in history and undo can never erase a mistake. `mistakes` is what happened, not what is on the board, and undo leaves it alone.
 4. Every `save` writes the awarded points onto its `TimelineEventKindEnum.Cell` event as `score`, next to `technique`. Undoing a placement removes that event from the timeline, returns its `score`, and charges `SudokuScoring.calculateUndoPenalty`. Returning the award is what stops a place/undo/place loop from farming points; redo pops the event back with a fresh think-time delta and re-awards it. `techniqueUsageCounts` in `player_stats` follows the same event in the same transaction.
@@ -187,7 +187,7 @@ Consumers therefore prefer the stored technique and only fall back to re-derivin
 
 - `classifyTimelineMove` uses it. It runs in the task right after the tap that plays a cell, so the full registry would still block the JS thread for most of a second on a hard board.
 - `getSudokuAtStep` uses it for the one step being scrubbed, for the same reason.
-- `getChallengeTechniqueEvents` does not. It is the legacy-record fallback: a whole run replayed once per screen open, off any tap budget, so it uses the full registry and keeps the labels a legacy link deserves.
+- `getRunTechniqueEvents` uses it too, through `classifyTimelineMove`, for the legacy-record fallback: a move without a stored technique is reclassified on the interactive ladder.
 
 That split matters because the interactive ladder is a fidelity trade, not a free win. A move that only an AIC or a forcing chain could justify records `Guess`; measured over twelve replayed Infinity games that is about 7 % of moves. Nothing else changes meaning, so scoring, challenge tiers, and the technique tiles keep theirs.
 
@@ -258,7 +258,8 @@ The import sheet offers native document scanning, web camera capture, Photos on 
    their themed `:focus-visible` ring. `tests/web-tests/specs/13.cell-focus-ring-alignment.spec.ts` pins
    both halves of this.
 4. Blurred chrome on web (the published `EdgeFade` layers, the `FloatingTabBar` `BlurView` surface)
-   is recomposited by `useBackdropRecomposite` from `@generic/hooks/use-backdrop-recomposite`. The
+   is recomposited by `useBackdropRecompositeRef` from `@generic/hooks/use-backdrop-recomposite-ref.hook`,
+   which attaches `backdropRecompositeRef` from `@generic/utils/backdrop-recomposite-ref.util(.web).ts`. The
    published chrome primitives own no such hook, so the page ref lives on the outer `View` of
    `ChromePage` and `CollapsibleChromePage`, which contains every chrome blur layer of that screen; the
    tab bar keeps its own ref on the existing anchor. Do not introduce a new wrapper View inside the tab
