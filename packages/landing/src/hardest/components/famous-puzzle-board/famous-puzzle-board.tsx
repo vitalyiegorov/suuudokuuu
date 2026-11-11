@@ -1,4 +1,4 @@
-import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { DifficultyEnum, Sudoku } from '@suuudokuuu/generator';
 import { ratePuzzle } from '@suuudokuuu/rating';
 
 import { isDefined } from '@rnw-community/shared';
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const FamousPuzzleBoard = ({ children, puzzle }: Props) => {
-    const sudoku = Sudoku.fromString(puzzle.givens, { ...defaultSudokuConfig });
+    const sudoku = Sudoku.fromString(puzzle.givens);
     const sudokuString = sudoku.toString();
     const solutionString = sudoku.FullField.flatMap(row => row.map(cell => cell.value)).join('');
     const boardPuzzle = { sudokuString, solutionString };

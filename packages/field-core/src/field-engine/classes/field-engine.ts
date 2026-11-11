@@ -1,4 +1,4 @@
-import { Sudoku, defaultSudokuConfig, emptyScoredCells } from '@suuudokuuu/generator';
+import { Sudoku, emptyScoredCells } from '@suuudokuuu/generator';
 
 import { isDefined } from '@rnw-community/shared';
 
@@ -51,7 +51,7 @@ export class FieldEngine extends FieldStore {
         this.difficulty = options.difficulty;
         this.sudoku = isDefined(options.solutionString)
             ? Sudoku.fromPuzzleAndSolution(options.sudokuString, options.solutionString)
-            : Sudoku.fromString(options.sudokuString, { ...defaultSudokuConfig });
+            : Sudoku.fromString(options.sudokuString);
         this.candidateState = { candidates: options.candidates ?? {}, eliminatedCandidates: options.eliminatedCandidates ?? {} };
         this.inputMode = options.inputMode ?? 'normal';
         this.showAutoCandidates = options.showAutoCandidates ?? false;
@@ -288,7 +288,7 @@ export class FieldEngine extends FieldStore {
             return false;
         }
         if (state.sudokuString !== this.sudoku.toString()) {
-            this.sudoku = Sudoku.fromString(state.sudokuString, { ...defaultSudokuConfig });
+            this.sudoku = Sudoku.fromString(state.sudokuString);
         }
 
         this.candidateState = cloneCandidateState(state);

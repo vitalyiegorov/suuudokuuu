@@ -25,7 +25,10 @@ export class SerializableSudoku {
 
     protected readonly emptyField: FieldInterface = [];
 
-    constructor(protected config: SudokuConfigInterface = defaultSudokuConfig) {
+    protected config: SudokuConfigInterface;
+
+    constructor(config: SudokuConfigInterface = defaultSudokuConfig) {
+        this.config = { ...config, difficultyBlankCells: { ...config.difficultyBlankCells } };
         this.emptyField = createEmptyField(this.config);
     }
 
@@ -151,12 +154,9 @@ export class SerializableSudoku {
             throw new Error('Invalid string format: Puzzle does not match the supplied solution');
         }
 
-        const config = { ...defaultSudokuConfig };
-        const [gameField, difficulty] = SerializableSudoku.convertFieldFromString(puzzleString, config);
+        const [gameField, difficulty] = SerializableSudoku.convertFieldFromString(puzzleString, defaultSudokuConfig);
 
-        config.difficulty = difficulty;
-
-        return SerializableSudoku.restoreFields(new this(config), gameField, solvedGrid);
+        return SerializableSudoku.restoreFields(new this({ ...defaultSudokuConfig, difficulty }), gameField, solvedGrid);
     }
 
     protected static populateFromString<T extends SerializableSudoku>(game: T, fieldString: string, config: SudokuConfigInterface): T {

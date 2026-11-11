@@ -9,7 +9,7 @@ const puzzle = '53..7....6..195....98....6.8...6...34..8.3..17...2...6.6....28..
 describe('Sudoku - Additional Cell Methods', () => {
     describe('cell navigation helpers', () => {
         it('getCellRight() navigation', () => {
-            const sudoku = Sudoku.fromString(puzzle, { ...defaultSudokuConfig });
+            const sudoku = Sudoku.fromString(puzzle);
 
             expect(sudoku.getCellRight({ x: 3, y: 4, group: 0, value: 5 })).toMatchObject({ x: 4, y: 4 });
             expect(sudoku.getCellRight({ x: 8, y: 4, group: 0, value: 5 })).toStrictEqual({ x: 8, y: 4, group: 0, value: 5 });
@@ -17,21 +17,21 @@ describe('Sudoku - Additional Cell Methods', () => {
         });
 
         it('getCellLeft() navigation', () => {
-            const sudoku = Sudoku.fromString(puzzle, { ...defaultSudokuConfig });
+            const sudoku = Sudoku.fromString(puzzle);
 
             expect(sudoku.getCellLeft({ x: 3, y: 4, group: 0, value: 5 })).toMatchObject({ x: 2, y: 4 });
             expect(sudoku.getCellLeft({ x: 0, y: 4, group: 0, value: 5 })).toStrictEqual({ x: 0, y: 4, group: 0, value: 5 });
         });
 
         it('getCellUp() navigation', () => {
-            const sudoku = Sudoku.fromString(puzzle, { ...defaultSudokuConfig });
+            const sudoku = Sudoku.fromString(puzzle);
 
             expect(sudoku.getCellUp({ x: 3, y: 4, group: 0, value: 5 })).toMatchObject({ x: 3, y: 3 });
             expect(sudoku.getCellUp({ x: 3, y: 0, group: 0, value: 5 })).toStrictEqual({ x: 3, y: 0, group: 0, value: 5 });
         });
 
         it('getCellDown() navigation', () => {
-            const sudoku = Sudoku.fromString(puzzle, { ...defaultSudokuConfig });
+            const sudoku = Sudoku.fromString(puzzle);
 
             expect(sudoku.getCellDown({ x: 3, y: 4, group: 0, value: 5 })).toMatchObject({ x: 3, y: 5 });
             expect(sudoku.getCellDown({ x: 3, y: 8, group: 0, value: 5 })).toStrictEqual({ x: 3, y: 8, group: 0, value: 5 });
@@ -42,7 +42,7 @@ describe('Sudoku - Additional Cell Methods', () => {
 describe('Sudoku - Cell Validation', () => {
     describe('cell validation helpers', () => {
         it('isBlankCell() validation', () => {
-            const sudoku = Sudoku.fromString(puzzle, { ...defaultSudokuConfig });
+            const sudoku = Sudoku.fromString(puzzle);
             const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
             const nonBlankCell = sudoku.Field.flat().find(cell => cell.value !== defaultSudokuConfig.blankCellValue);
 
@@ -52,7 +52,7 @@ describe('Sudoku - Cell Validation', () => {
         });
 
         it('isCorrectValue() validation', () => {
-            const sudoku = Sudoku.fromString(puzzle, { ...defaultSudokuConfig });
+            const sudoku = Sudoku.fromString(puzzle);
 
             const blankCell = sudoku.Field.flat().find(cell => cell.value === defaultSudokuConfig.blankCellValue);
             const nonBlankCell = sudoku.Field.flat().find(cell => cell.value !== defaultSudokuConfig.blankCellValue);
@@ -63,7 +63,7 @@ describe('Sudoku - Cell Validation', () => {
         });
 
         it('isCellWrong() validation with correct value', () => {
-            const sudoku = Sudoku.fromString(puzzle, { ...defaultSudokuConfig });
+            const sudoku = Sudoku.fromString(puzzle);
 
             const [[filledCell]] = sudoku.Field;
             const differentCell = { x: 1, y: 1, group: 1, value: 8 };
@@ -77,7 +77,7 @@ describe('Sudoku - Cell Validation', () => {
 describe('Sudoku - Scoring', () => {
     describe('scoring helpers', () => {
         it('isScoredCell() returns true when game is won', () => {
-            const sudoku = Sudoku.fromString(puzzle, { ...defaultSudokuConfig });
+            const sudoku = Sudoku.fromString(puzzle);
 
             const wonScoredCells = { ...emptyScoredCells, isWon: true };
 
