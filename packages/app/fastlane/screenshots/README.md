@@ -22,12 +22,12 @@ capture workflow seeds app state and captures with platform tools; see
 ## Current sets
 
 Both iOS appearance variants are committed for all 11 App Store locales. Each
-locale has nine iPhone screenshots at 1320×2868 and six landscape iPad
+locale has ten iPhone screenshots at 1320×2868 and six landscape iPad
 screenshots at 2752×2064:
 
 | Prefix    | Device                 | Resolution | App Store slot |
 | --------- | ---------------------- | ---------- | -------------- |
-| `01`-`09` | iPhone 17 Pro Max      | 1320×2868  | iPhone 6.9"    |
+| `01`-`10` | iPhone 17 Pro Max      | 1320×2868  | iPhone 6.9"    |
 | `21`-`26` | iPad Pro 13" landscape | 2752×2064  | iPad 13"       |
 
 `deliver` assigns each image to a device slot by its exact pixel resolution, so
@@ -51,7 +51,7 @@ open an editable version, pick the locale, select App Previews and Screenshots,
 then iPhone Duo. View All Sizes in Media Manager exposes the Duo upload input.
 The Console observed on 2026-10-11 groups both resolutions in one Duo carousel
 with a combined limit of ten screenshots. Choose an ordered gallery from the
-prepared folders; do not upload both complete nine-image folders together.
+prepared folders; do not upload both complete ten-image folders together.
 Wait for processing, reload the version, and verify the thumbnails persisted.
 Move the sets into the `deliver` path once it gains the display type.
 
@@ -81,27 +81,29 @@ flows happen to capture them in:
    what the app looks like, no marketing artifice.
 2. `02-hell` — a real forcing-chain Hell puzzle. The differentiator: not a
    marketing difficulty label but a visibly brutal board.
-3. `06-rival` — "Get challenged.", the accept-challenge screen. First half of
-   a two-shot challenge story: the live-race premise plus anticheat, still
-   inside the guaranteed-visible first-3 zone.
-4. `14-challenge-live` — "Race them live.", mid-race with the rival's live
+3. `16-import` — "Scan any sudoku.", the review sheet after scanning a paper
+   puzzle with handwritten digits kept as progress. Third so it stays inside
+   the guaranteed-visible first-3 zone.
+4. `06-rival` — "Get challenged.", the accept-challenge screen. First half of
+   a two-shot challenge story: the live-race premise plus anticheat.
+5. `14-challenge-live` — "Race them live.", mid-race with the rival's live
    position and technique badges. Second half of the challenge story;
-   composed with the _same_ layout variant as shot 3 (see "Design system" in
+   composed with the _same_ layout variant as shot 4 (see "Design system" in
    `design/README.md`) so the pair reads as one connected two-part scene
    instead of two unrelated shots that happen to be adjacent.
-5. `05-customization` — two framed iPhones side by side in one canvas,
+6. `05-customization` — two framed iPhones side by side in one canvas,
    the colorful theme editor (English) and the localized theme list
    (Ukrainian), proving per-cell theming and language breadth in a single
    shot instead of two separate ones.
-6. `07-replay` — move-by-move replay, a depth feature for engaged users.
-7. `10-stats` — personal progress and solving-technique statistics.
-8. `08_iphone_infinity.png` — the bundled extreme-difficulty Infinity tier.
-9. The opposite-mode hero closes the set: `09_iphone_hero-board-light.png`
-   in the dark variant, and `09_iphone_hero-board-dark.png` in the light
-   variant. It reuses the airy board from shot 1 with its own copy to show the
-   design in the other mode.
+7. `07-replay` — move-by-move replay, a depth feature for engaged users.
+8. `10-stats` — personal progress and solving-technique statistics.
+9. `09_iphone_infinity.png` — the bundled extreme-difficulty Infinity tier.
+10. The opposite-mode hero closes the set: `10_iphone_hero-board-light.png`
+    in the dark variant, and `10_iphone_hero-board-dark.png` in the light
+    variant. It reuses the airy board from shot 1 with its own copy to show the
+    design in the other mode.
 
-The two variants mirror each other exactly: the same nine iPhone and six
+The two variants mirror each other exactly: the same ten iPhone and six
 iPad scenes in the same order and layouts, each shot using its own variant's
 appearance for both the app capture and the canvas palette, with only the
 closing shot and its caption flipped. That keeps a variant switch a pure brand
@@ -152,7 +154,8 @@ the Play phone screenshots; `android` composes only the Play phone set and
 `tablet` only the Play 7" and 10" sets. There are 11 iOS locales and 13 Play
 locales; the script maps the locale names between the app, Apple, and Google
 Play. Each Play locale has eight phone screenshots and five 7" and five 10"
-tablet screenshots at 1080×1920.
+tablet screenshots at 1080×1920. Play caps a phone set at eight, so the Play
+phone set carries `16-import` third and drops `14-challenge-live`.
 
 The script (requires ImageMagick 7, `magick` on `PATH`, and the frame assets
 above) uses Inter Black from

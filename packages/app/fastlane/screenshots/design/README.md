@@ -9,7 +9,7 @@ gitignored.
 ## Current screenshot sets
 
 The iOS manifests in `compose-screenshots.sh` produce the same story in both
-appearance variants. Each of the 11 Apple locales has 9 iPhone screenshots at
+appearance variants. Each of the 11 Apple locales has 10 iPhone screenshots at
 1320×2868 and 6 landscape iPad screenshots at 2752×2064. Output is staged and
 replaces a committed set only after every scene for that variant succeeds.
 The `all` command also composes the Play sets: 8 phone screenshots at
@@ -21,13 +21,14 @@ The iPhone order is:
 
 1. `01-hero-board` — airy Nightmare board with pencil marks.
 2. `02-hell` — a real forcing-chain puzzle.
-3. `06-rival` — challenge acceptance and the competitive premise.
-4. `14-challenge-live` — the matching mid-race story beat.
-5. `05-customization` — the two-phone theme editor and Ukrainian theme list.
-6. `07-replay` — move-by-move replay.
-7. `10-stats` — progress and technique statistics.
-8. `08_iphone_infinity.png` — the bundled extreme-difficulty Infinity tier.
-9. `01-hero-board` — the same board in the opposite appearance.
+3. `16-import` — the review sheet after scanning a paper puzzle with handwritten digits.
+4. `06-rival` — challenge acceptance and the competitive premise.
+5. `14-challenge-live` — the matching mid-race story beat.
+6. `05-customization` — the two-phone theme editor and Ukrainian theme list.
+7. `07-replay` — move-by-move replay.
+8. `10-stats` — progress and technique statistics.
+9. `09_iphone_infinity.png` — the bundled extreme-difficulty Infinity tier.
+10. `01-hero-board` — the same board in the opposite appearance.
 
 The iPad set contains `01-hero-board`, `02-hell`, `14-challenge-live`,
 `04-editor`, `25_ipad_infinity.png`, and `26_ipad_home.png`. It omits the
@@ -76,7 +77,7 @@ gameplay and statistics phones. The statistics phone sits in front so its
 technique arsenal and progress remain visible.
 
 Sources are `variants/dark/ios/<locale>/01_iphone_hero-board.png` and
-`07_iphone_stats.png`, both 1320×2868. Gameplay is cropped at x124 with a
+`08_iphone_stats.png`, both 1320×2868. Gameplay is cropped at x124 with a
 1072×2240 rectangle; its y coordinate follows the center top frame edge
 because localized captions change the phone position. Statistics uses a
 1032×2220 crop at `+152+32`. Exterior background is removed by a connected

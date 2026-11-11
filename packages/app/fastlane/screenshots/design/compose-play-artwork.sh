@@ -107,7 +107,7 @@ render_locale() {
     bn-BD|ur) source_locale='en-US' ;;
   esac
   gameplay_source="$IOS_SOURCE_DIR/$source_locale/01_iphone_hero-board.png"
-  stats_source="$IOS_SOURCE_DIR/$source_locale/07_iphone_stats.png"
+  stats_source="$IOS_SOURCE_DIR/$source_locale/08_iphone_stats.png"
   for source in "$gameplay_source" "$stats_source"; do
     [[ -s "$source" && -r "$source" ]] || fail "committed iOS source missing or unreadable: $source"
     [[ "$(magick identify -format '%m %w %h' "$source")" == 'PNG 1320 2868' ]] || fail "iOS source must be a 1320x2868 PNG: $source"

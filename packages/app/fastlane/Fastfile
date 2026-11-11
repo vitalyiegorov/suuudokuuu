@@ -134,10 +134,10 @@ def verify_rgb_screenshot(path)
 end
 
 def expected_iphone_filenames(variant)
-  filenames = %w[hero-board hell challenge-accept challenge-live customization replay stats infinity].each_with_index.map do |scene, index|
+  filenames = %w[hero-board hell import challenge-accept challenge-live customization replay stats infinity].each_with_index.map do |scene, index|
     format("%02d_iphone_%s.png", index + 1, scene)
   end
-  filenames << "09_iphone_hero-board-#{variant == 'dark' ? 'light' : 'dark'}.png"
+  filenames << "10_iphone_hero-board-#{variant == 'dark' ? 'light' : 'dark'}.png"
 end
 
 def verify_iphone_duo_screenshots(path)
