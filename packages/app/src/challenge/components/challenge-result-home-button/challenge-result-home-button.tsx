@@ -4,7 +4,8 @@ import { emptyFn } from '@rnw-community/shared';
 
 import { GameResultHomeButton } from '../../../@generic/components/game-result-home-button/game-result-home-button';
 import { runCurrentRunCommand } from '../../../game/utils/run-current-run-command.util';
-import { ChallengeResultFooterSelectors } from '../challenge-result-footer/challenge-result-footer.selectors';
+
+import { ChallengeResultFooterSelectors } from './challenge-result-footer.selectors';
 
 export const ChallengeResultHomeButton = () => {
     const { t } = useLingui();

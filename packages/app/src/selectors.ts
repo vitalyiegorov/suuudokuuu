@@ -12,7 +12,7 @@ export * from './challenge/components/challenge-race-hud/challenge-race-hud.sele
 export * from './challenge/components/challenge-record-hud/challenge-record-hud.selectors';
 export * from './challenge/components/challenge-run-stats/challenge-run-stats.selectors';
 export * from './challenge/components/challenge-run-summary/challenge-run-summary.selectors';
-export * from './challenge/components/challenge-result-footer/challenge-result-footer.selectors';
+export * from './challenge/components/challenge-result-home-button/challenge-result-footer.selectors';
 export * from './challenge/components/challenge-result-screen/challenge-result-screen.selectors';
 export * from './challenge/components/challenge-try-again-button/challenge-try-again-button.selectors';
 export * from './daily/components/daily-week-card/daily-week-card.selectors';
