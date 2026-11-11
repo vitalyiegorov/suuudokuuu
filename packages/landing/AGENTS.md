@@ -78,6 +78,14 @@ src/
 │   ├── constants/           # IndexNow env-var name, endpoint and key pattern, llms.txt section names
 │   ├── interfaces/          # the indexable page view model
 │   └── utils/               # buildIndexablePages (the one URL enumeration), llms.txt builder, IndexNow key helpers
+├── learn/
+│   └── components/          # the hint demo and its intent-gated live board island
+├── play/
+│   └── components/          # the open-in-the-app call to action with store badges
+├── puzzle/
+│   ├── components/          # static puzzle board, its rows and cells, and the playable board wrapper
+│   ├── interfaces/          # puzzle board row and cell view models
+│   └── utils/               # givens parser, clue counter, shared-puzzle URL builder
 ├── rating/
 │   ├── components/          # tier-ladder and technique-frequency tables, SE range and tier band renderers
 │   ├── constants/           # committed rated puzzle sample and the technique ladder order
@@ -90,6 +98,13 @@ src/
 │   ├── registries/          # metadata-only aggregators consumed by sitemap.ts
 │   ├── types/               # sitemap change frequency, slot component type
 │   └── utils/               # metadata factory, locale URLs, alternates, slot toolkit, node text extraction
+├── solver/
+│   ├── classes/             # SolvePathBuilder
+│   ├── components/          # entry grid and pad, outcome notices, solution and step list
+│   ├── constants/           # entry grid size, digits and blank characters
+│   ├── interfaces/          # solve path, step, solution and invalid-grid view models
+│   ├── types/               # solver outcome union
+│   └── utils/               # solving, shared-puzzle decoding, entry selection and replacement
 └── techniques/
     ├── components/          # zero-JS example board, the playable-board island, TL;DR box, prev/next chain
     ├── constants/           # field-dom label contracts and technique display names
@@ -195,7 +210,7 @@ Root-level files that are not routes — `llms.txt` and the IndexNow key file �
 
 ### 9. One URL enumeration
 
-`buildIndexablePages()` in `src/indexing/utils/build-indexable-pages.util.ts` is the only enumeration of the site's URLs. `sitemap.ts`, `llms.txt` and `scripts/submit-indexnow.ts` all derive from it. Never rebuild a URL list by walking `PAGE_METADATA_REGISTRY` in submitting or listing code — two enumerations drift, and a submitted set that no longer matches the crawlable set corrupts search-console signals. See `docs/seo-pages.md` §4 and `docs/indexing.md`.
+`buildIndexablePages()` in `src/indexing/utils/build-indexable-pages.util.ts` is the only enumeration of the site's URLs. `sitemap.ts`, `llms.txt` and `scripts/submit-indexnow.ts` all derive from it. Never build a submitted or sitemap URL list from `PAGE_METADATA_REGISTRY`; other registry readers, such as the site header and the Open Graph image generator, do not produce URL lists — two enumerations drift, and a submitted set that no longer matches the crawlable set corrupts search-console signals. See `docs/seo-pages.md` §4 and `docs/indexing.md`.
 
 ### 10. No network fonts
 
@@ -236,7 +251,7 @@ English is served from the site root. Every other locale is served under `/<loca
 
 ## Technique pages and the worked-example pipeline
 
-Every page under `src/app/techniques/<slug>` renders a board that comes from the real solver rather than from hand-drawn markup.
+Every page under `src/app/(en)/techniques/<slug>` renders a board that comes from the real solver rather than from hand-drawn markup.
 
 ```tsx
 const EXAMPLE_BOARD = '..7..1..2..8..7..1912..3745...';
@@ -255,9 +270,9 @@ Filtering the registry matters. `findNextStep` returns the first strategy in the
 To add a technique page:
 
 1. Find a board where the technique fires. Boards from `packages/techniques/src/**/*.spec.ts` work, and so does any real solve position.
-2. Create `src/app/techniques/<slug>/metadata.ts` with `...buildTechniquePageNames(SolutionTechniqueEnum.<Member>)` in place of `title` and `headline` and a keyword-first `metaTitle`, and register it in `page-metadata.registry.ts`.
+2. Create `src/app/(en)/techniques/<slug>/metadata.ts` with `...buildTechniquePageNames(SolutionTechniqueEnum.<Member>)` in place of `title` and `headline` and a keyword-first `metaTitle`, and register it in `page-metadata.registry.ts`.
 3. Copy the structure of an existing technique page: `TechniquePageHeader metadata=`, a definition-first opening sentence, `TechniqueSummary`, prose sections, `TechniqueWorkedExample`, `HowTo` with `HowToStep` children, a mistakes list, `FaqPage` with `Faq`/`FaqQuestion`/`FaqAnswer` children, and `TechniqueNavigation`.
-4. Pass the page’s `SolutionTechniqueEnum` member as the `technique` prop to `TechniqueNavigation`. Its previous and next links derive from `TECHNIQUE_PAGE_LADDER`; never hand-wire neighbouring sidecars. The optional `previous` and `next` props remain temporarily for the seven route files protected by open PR #531 and must be removed when those callers migrate.
+4. Pass the page’s `SolutionTechniqueEnum` member as the `technique` prop to `TechniqueNavigation`. Its previous and next links derive from `TECHNIQUE_PAGE_LADDER`; never hand-wire neighbouring sidecars.
 5. Write 600 to 900 words of copy inline. Use typographic apostrophes; `react/no-unescaped-entities` rejects raw `'` in JSX text.
 6. Keep the `max-lines-per-function` disable on the page component. Long-form copy in a route file is the reason it is there.
 
@@ -287,7 +302,7 @@ The build date is `LANDING_BUILD_DATE` when it is a `YYYY-MM-DD` string, else to
 
 ## Guide pages and the generated solve data
 
-The guides under `src/app/guides` publish measured numbers, never hand-written ones. `TierLadderTable` and `TechniqueFrequencyTable` call `getTierTechniqueReports()` during static generation; the reports are committed in `tier-technique-reports.constant.ts` and both guides read that same data.
+The guides under `src/app/(en)/guides` publish measured numbers, never hand-written ones. `TierLadderTable` and `TechniqueFrequencyTable` call `getTierTechniqueReports()` during static generation; the reports are committed in `tier-technique-reports.constant.ts` and both guides read that same data.
 
 `RATING_SAMPLE_PUZZLES` in `src/rating/constants/rating-sample.constant.ts` is a committed, fixed sample of `RATING_SAMPLE_SIZE` rated puzzles per difficulty, each entry a `{ puzzle, rating, isRatingCeiling }` record. Sourcing is random and the Hell corpus is large, so the sample is frozen in source to keep every build deterministic and every published number reproducible. The file is written by `scripts/generate-rating-sample.ts` (`pnpm --filter @suuudokuuu/landing generate:rating-sample`): the five generated tiers come from `forgePuzzle(difficulty)` in `@suuudokuuu/puzzle-forge`, retried until the board is in band so the sample proves the tier contract; the Hell entries are spread evenly across `@suuudokuuu/hell-corpus`, which carry a verified rating. The same script writes the derived reports, and `check:tier-reports` checks them against the fixed sample. Regenerating the sample changes every number on both guides, the six rated difficulty landers and their printable booklets, so treat it as data, not as code to tidy.
 

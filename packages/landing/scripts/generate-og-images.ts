@@ -17,7 +17,7 @@ import {
 } from '../src/seo/constants/og-image.constant';
 import { SITE_NAME, SITE_TAGLINE } from '../src/seo/constants/site.constant';
 import { PAGE_METADATA_REGISTRY } from '../src/seo/registries/page-metadata.registry';
-import { getOgImageSlug } from '../src/seo/utils/get-og-image-path.util';
+import { getOgImageSlug, hasSharedOgImage } from '../src/seo/utils/get-og-image-path.util';
 
 import { createPublicDirectory } from './utils/create-public-directory.util';
 import { handleGeneratorError } from './utils/handle-generator-error.util';
@@ -268,7 +268,9 @@ const renderOgImage = async (kicker: string, title: string): Promise<Buffer> => 
 };
 
 const generateOgImages = async (): Promise<void> => {
-    for (const pageMetadata of PAGE_METADATA_REGISTRY) {
+    const ownImagePages = PAGE_METADATA_REGISTRY.filter(({ path }) => !hasSharedOgImage(path));
+
+    for (const pageMetadata of ownImagePages) {
         const kicker = getOgImageKicker(pageMetadata.path);
         const buffer = await renderOgImage(kicker, pageMetadata.title);
         const fileName = `${getOgImageSlug(pageMetadata.path)}.png`;
@@ -276,7 +278,7 @@ const generateOgImages = async (): Promise<void> => {
         writePublicArtifact(OUTPUT_DIRECTORY, fileName, buffer);
     }
 
-    console.log(`Generated ${PAGE_METADATA_REGISTRY.length} OG images in ${OUTPUT_DIRECTORY}`);
+    console.log(`Generated ${ownImagePages.length} OG images in ${OUTPUT_DIRECTORY}`);
 };
 
 generateOgImages().catch(handleGeneratorError);

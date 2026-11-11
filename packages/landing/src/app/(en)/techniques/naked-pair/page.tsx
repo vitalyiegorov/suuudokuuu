@@ -13,8 +13,6 @@ import { TechniqueNavigation } from '../../../../techniques/components/technique
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../../techniques/components/technique-worked-example/technique-worked-example';
-import { boxLineReductionPageMetadata } from '../box-line-reduction/metadata';
-import { nakedTriplePageMetadata } from '../naked-triple/metadata';
 
 import { nakedPairPageMetadata } from './metadata';
 
@@ -130,7 +128,7 @@ const NakedPairPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={nakedTriplePageMetadata} previous={boxLineReductionPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.NakedPair} />
     </main>
 );
 
