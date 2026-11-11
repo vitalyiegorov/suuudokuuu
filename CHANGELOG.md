@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.43.1](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.43.0...v2.43.1) (2026-11-11)
+
+### Bug Fixes
+
+* **app:** expect ten iPhone screenshots in the store preflight ([#831](https://github.com/vitalyiegorov/suuudokuuu/issues/831)) ([1e0b816](https://github.com/vitalyiegorov/suuudokuuu/commit/1e0b816b99640391c66e8ce9b89d9f3e983d9963))
+
+
 # [2.43.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.42.9...v2.43.0) (2026-11-11)
 
 ### Features
