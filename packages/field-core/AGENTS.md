@@ -37,7 +37,7 @@ src/
 ├── @generic/
 │   ├── classes/typed-event-emitter.ts   # Map-typed on/emit, no `any`
 │   ├── types/unsubscribe.type.ts
-│   └── utils/                           # getCellKey, cloneFieldCells
+│   └── utils/                           # getCellKey
 ├── field-engine/
 │   ├── classes/
 │   │   ├── field-store.ts               # subscribe/getSnapshot/on + snapshot cache

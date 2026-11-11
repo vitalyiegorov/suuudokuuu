@@ -1,8 +1,7 @@
-import { Sudoku, emptyScoredCells } from '@suuudokuuu/generator';
+import { Sudoku, cloneField, emptyScoredCells } from '@suuudokuuu/generator';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { cloneFieldCells } from '../../@generic/utils/clone-field-cells.util';
 import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { HintLevelEnum } from '../../step-script/enums/hint-level.enum';
 import { StepScriptStepKindEnum } from '../../step-script/enums/step-script-step-kind.enum';
@@ -211,7 +210,7 @@ export class FieldEngine extends FieldStore {
 
     protected override createSnapshot(): FieldSnapshotInterface {
         return {
-            field: cloneFieldCells(this.sudoku.Field),
+            field: cloneField(this.sudoku.Field),
             difficulty: this.difficulty,
             sudokuString: this.sudoku.toString(),
             ...this.candidateState,
