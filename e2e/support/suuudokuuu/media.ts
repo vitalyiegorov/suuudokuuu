@@ -1,5 +1,7 @@
-import { copyFileSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { dirname, isAbsolute, join, resolve } from 'node:path';
+import { DatabaseSync } from 'node:sqlite';
 import { setTimeout as sleep } from 'node:timers/promises';
 
 import { test as base } from '@e2e-dev/mobile';
@@ -13,11 +15,11 @@ import {
     localeIdentifierFor,
     sceneScreenshotBaseName
 } from '../../../tests/app-tests/scripts/screenshot-scenes.ts';
-import { persistRootDatabase } from '../../../tests/app-tests/scripts/seed-app-state.ts';
 
 import {
     BUNDLE_IDS,
     backgroundFor,
+    DATABASES,
     byText,
     expectId,
     openLink,
@@ -195,6 +197,24 @@ const SCENES: Record<string, Scene> = {
     }
 };
 
+function sceneDatabase(cell: Cell, seed: Scene['seed']): Buffer {
+    const directory = mkdtempSync(join(tmpdir(), 'suuudokuuu-scene-'));
+    const path = join(directory, 'suuudokuuu.db');
+    try {
+        copyFileSync(new URL(`${seed?.sceneState === undefined ? 'screenshot' : `screenshot-${seed.sceneState}`}.db`, DATABASES), path);
+        const database = new DatabaseSync(path);
+        database
+            .prepare('UPDATE settings SET language = ?, is_dark_color_schema = ?, last_game_difficulty = ?')
+            .run(cell.locale, Number(cell.appearance === 'dark'), seed?.difficulty ?? DefaultSeedDifficulty);
+        database.prepare('UPDATE current_run SET wall_clock_start_ms = ? - elapsed_time * 1000').run(Date.now());
+        database.close();
+
+        return readFileSync(path);
+    } finally {
+        rmSync(directory, { force: true, recursive: true });
+    }
+}
+
 const SCENE_NAMES = new Map(AllScenes.map(scene => [scene.name, sceneScreenshotBaseName(scene)]));
 
 const list = (value: string | undefined, fallback: string): string[] =>
@@ -267,15 +287,7 @@ class Media extends Suuudokuuu {
         await (this.ctx.device.unstable_raw.platform === 'ios'
             ? mustExec(this.api, lease, ['ui', 'appearance', cell.appearance])
             : mustExec(this.api, lease, ['shell', `cmd uimode night ${cell.appearance === 'dark' ? 'yes' : 'no'}`]));
-        await this.start(
-            undefined,
-            persistRootDatabase({
-                appearance: cell.appearance,
-                difficulty: scene.seed?.difficulty ?? DefaultSeedDifficulty,
-                language: cell.locale,
-                sceneState: scene.seed?.sceneState
-            })
-        );
+        await this.start(sceneDatabase(cell, scene.seed));
         await scene.run(this, cell);
         await sleep(SETTLE_MS);
         await this.screenshot(cell.path);

@@ -19,7 +19,7 @@ type Platform = keyof typeof BUNDLE_IDS;
 
 const bundleId = (platform: Platform): string => process.env.E2E_APP_ID ?? BUNDLE_IDS[platform];
 
-const DATABASES = new URL('../../../tests/app-tests/fixtures/databases/', import.meta.url);
+export const DATABASES = new URL('../../../tests/app-tests/fixtures/databases/', import.meta.url);
 
 export interface Ctx {
     readonly screen: Screen;
@@ -113,7 +113,7 @@ export async function seconds(ctx: Ctx, testId: string): Promise<number> {
 interface DeviceState {
     readonly importPhoto: (ctx: Ctx, api: SimlockApi, lease: string, photo: Buffer) => Promise<boolean>;
     readonly prepare: (api: SimlockApi, lease: string) => Promise<void>;
-    readonly seed: (api: SimlockApi, lease: string, database?: Buffer, legacyStorage?: Buffer) => Promise<void>;
+    readonly seed: (api: SimlockApi, lease: string, database?: Buffer) => Promise<void>;
 }
 
 const DEVICE_STATES: Record<Platform, DeviceState> = {
@@ -140,7 +140,7 @@ const DEVICE_STATES: Record<Platform, DeviceState> = {
                 await mustExec(api, lease, ['spawn', 'defaults', 'write', ...setting]);
             }
         },
-        seed: async (api, lease, database, legacyStorage) => {
+        seed: async (api, lease, database) => {
             await exec(api, lease, ['terminate', bundleId('ios')]);
             const container = (await mustExec(api, lease, ['get_app_container', bundleId('ios'), 'data'])).trim();
             if (!container.startsWith('/')) {
@@ -149,11 +149,6 @@ const DEVICE_STATES: Record<Platform, DeviceState> = {
             await mustDrop(api, lease, ['rm', `${container}/Library`, 'suuudokuuu.db']);
             if (database !== undefined) {
                 await writeFile(api, lease, `${container}/Library/suuudokuuu.db`, database);
-            }
-            if (legacyStorage !== undefined) {
-                await mustDrop(api, lease, ['mkdir', `${container}/Documents/SQLite`]);
-                await mustDrop(api, lease, ['rm', `${container}/Documents/SQLite`, 'ExpoSQLiteStorage']);
-                await writeFile(api, lease, `${container}/Documents/SQLite/ExpoSQLiteStorage`, legacyStorage);
             }
         }
     },
@@ -178,7 +173,7 @@ const DEVICE_STATES: Record<Platform, DeviceState> = {
         prepare: async (api, lease) => {
             await mustExec(api, lease, ['root']);
         },
-        seed: async (api, lease, database, legacyStorage) => {
+        seed: async (api, lease, database) => {
             const directory = `/data/data/${bundleId('android')}/databases`;
             const installed = `${directory}/suuudokuuu.db`;
             await mustExec(api, lease, ['shell', `am force-stop ${bundleId('android')} && mkdir -p ${directory} && rm -f ${installed}*`]);
@@ -191,19 +186,6 @@ const DEVICE_STATES: Record<Platform, DeviceState> = {
                         `base64 -d > ${installed} && chown $(stat -c %u:%g /data/data/${bundleId('android')}) ${directory} ${installed} && restorecon ${directory} ${installed}`
                     ],
                     database.toString('base64')
-                );
-            }
-            if (legacyStorage !== undefined) {
-                const root = `/data/data/${bundleId('android')}`;
-                const storage = `${root}/files/SQLite`;
-                await mustExec(
-                    api,
-                    lease,
-                    [
-                        'shell',
-                        `mkdir -p ${storage} && rm -f ${storage}/ExpoSQLiteStorage* && base64 -d > ${storage}/ExpoSQLiteStorage && chown -R $(stat -c %u:%g ${root}) ${root}/files && restorecon -R ${root}/files`
-                    ],
-                    legacyStorage.toString('base64')
                 );
             }
         }
@@ -224,7 +206,7 @@ export class Suuudokuuu {
         return this.#lease;
     }
 
-    async start(fixture?: string, legacyStorage?: Buffer): Promise<void> {
+    async start(fixture?: string | Buffer): Promise<void> {
         const lease = await this.lease();
         const state = DEVICE_STATES[this.ctx.device.unstable_raw.platform];
         if (!prepared.has(lease)) {
@@ -232,12 +214,7 @@ export class Suuudokuuu {
             prepared.add(lease);
         }
         await phase('seed', () =>
-            state.seed(
-                this.api,
-                lease,
-                fixture === undefined ? undefined : readFileSync(new URL(`${fixture}.db`, DATABASES)),
-                legacyStorage
-            )
+            state.seed(this.api, lease, typeof fixture === 'string' ? readFileSync(new URL(`${fixture}.db`, DATABASES)) : fixture)
         );
         await phase('launch', async () => {
             await this.ctx.app.open();

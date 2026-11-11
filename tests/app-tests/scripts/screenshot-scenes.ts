@@ -30,7 +30,7 @@ export const AllScenes: Scene[] = [
     {
         deepLink: 'suuudokuuu://game',
         name: 'challenge-live',
-        sceneState: 'challengeLive',
+        sceneState: 'challenge-live',
         seedDifficulty: 'Nightmare'
     },
     {
