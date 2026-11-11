@@ -1,5 +1,8 @@
 suuudokuuu adalah Sudoku seperti seharusnya: cepat, cantik, dan jujur soal tingkat kesulitan. Tujuh level, dari papan Pemula yang santai sampai Tak Terhingga — sudoku tersulit yang pernah disusun. Tanpa iklan yang menyamar jadi teka-teki, tanpa akun, tanpa ribet. Cuma kamu dan papannya.
 
+PINDAI SUDOKU DAN LANJUTKAN BERMAIN
+Arahkan kamera ke teka-teki di koran atau buku, atau pilih foto atau tangkapan layar. Kisi dikenali di perangkat Anda, dan foto Anda tidak pernah keluar dari perangkat. Sudah mulai di kertas? Angka tulisan tangan Anda ikut terbawa sebagai progres Anda. Periksa papannya, pastikan hanya ada satu solusi dan lihat tingkat kesulitannya, lalu bermain.
+
 SETIAP SUDOKU ADA PERINGKATNYA
 Kebanyakan aplikasi menempelkan label "expert" pada sebuah papan dan berharap kamu tidak memeriksanya lebih jauh. Kami menaruh angka di situ. Setiap sudoku punya peringkat pada skala Sudoku Explainer (SE), dari 1.0 sampai 12.0, skala yang dipakai pemain serius, dan peringkat itu tampil langsung di label level pada papan, di riwayatmu, serta di setiap tautan yang kamu bagikan. Penjelasan bawaan memberi tahu apa yang sebenarnya diukur angka itu: seberapa berat penalarannya, bukan sesedikit apa petunjuknya.
 

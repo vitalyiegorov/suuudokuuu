@@ -1,5 +1,8 @@
 suuudokuuu ist ein Sudoku-Rätselspiel und Logiktraining mit sieben Schwierigkeitsstufen von Anfänger bis Unendlich und einer Sudoku-Explainer-Wertung (SE) für jedes Rätsel. Spiele klassisches Sudoku offline und ohne Konto, löse die tägliche Herausforderung, lerne Techniken mit Schritt-für-Schritt-Tipps und schicke Freunden dein genaues Rätsel. Keine Werbung.
 
+SUDOKU SCANNEN UND WEITERSPIELEN
+Richte die Kamera auf ein Rätsel in der Zeitung oder im Buch oder wähle ein Foto oder einen Screenshot. Das Gitter wird auf deinem Gerät erkannt, und deine Fotos verlassen es nie. Schon auf Papier begonnen? Deine handschriftlichen Ziffern kommen als Fortschritt mit. Prüfe das Brett, sieh, dass es genau eine Lösung hat und wie schwer es ist, und spiel los.
+
 JEDES RÄTSEL BEWERTET
 Jedes Rätsel trägt eine Bewertung auf der Sudoku-Explainer-Skala (SE) von 1.0 bis 12.0 – derselben Skala, mit der erfahrene Löser vergleichen. Sie steht direkt neben der Schwierigkeitsstufe auf dem Brett, in deinem Verlauf und in jedem Link, den du teilst. Eine eingebaute Erklärung zeigt dir, was die Zahl wirklich misst: wie schwer ein Rätsel zu durchdenken ist, und nicht, wie wenige Vorgaben es hat.
 

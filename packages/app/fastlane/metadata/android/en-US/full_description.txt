@@ -1,5 +1,8 @@
 suuudokuuu is a Sudoku puzzle game with seven difficulty levels, from Newbie to Infinity, and a Sudoku Explainer (SE) rating on every board. Play classic sudoku offline with no account, take on a daily challenge, learn techniques from step-by-step hints, and send a friend your exact puzzle. No ads.
 
+SCAN A SUDOKU AND KEEP PLAYING
+Point the camera at a puzzle in a newspaper or a book, or pick a photo or a screenshot. The grid is read on your device, and your photos never leave it. Already started on paper? Your handwritten digits come along as your progress. Check the board, see that it has exactly one solution and how hard it is, then play.
+
 EVERY PUZZLE, RATED
 Every puzzle carries a Sudoku Explainer rating on the 1.0 to 12.0 scale serious solvers use, shown right in the level pill on the board, in your history, and on every link you share. A built-in explainer tells you what the number actually measures — how hard the puzzle is to reason through, not how few clues it has.
 

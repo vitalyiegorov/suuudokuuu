@@ -1,5 +1,8 @@
 Un sudoku para cada momento: empieza con un tablero tranquilo, enfrenta el reto diario o llega hasta Infinito. suuudokuuu tiene siete niveles de dificultad, sin anuncios ni cuentas. Tú eliges cómo jugar.
 
+ESCANEA UN SUDOKU Y CONTINÚA
+Apunta la cámara a un sudoku del periódico o de un libro, o elige una foto o una captura de pantalla. El reconocimiento se hace en tu dispositivo y tus fotos nunca salen de él. ¿Ya lo habías empezado en papel? Los números que escribiste a mano se conservan como tu avance. Revisa el tablero, confirma que tiene una sola solución y qué tan difícil es, y juega.
+
 DIFICULTAD QUE PUEDES COMPARAR
 Cada tablero muestra una calificación Sudoku Explainer (SE). Esta cifra refleja el razonamiento necesario para resolverlo, no solo la cantidad de números iniciales. Puedes verla mientras juegas y en tu historial.
 

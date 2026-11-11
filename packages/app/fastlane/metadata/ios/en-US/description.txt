@@ -1,5 +1,8 @@
 suuudokuuu is Sudoku the way it should be: fast, beautiful, and honest about difficulty. Seven levels, from a gentle Newbie board to Infinity — the hardest Sudoku puzzles ever composed. No ads pretending to be puzzles, no accounts, no nonsense. Just you and the grid.
 
+SCAN A SUDOKU AND KEEP PLAYING
+Point the camera at a puzzle in a newspaper or a book, or pick a photo or a screenshot. The grid is read on your device, and your photos never leave it. Already started on paper? Your handwritten digits come along as your progress. Check the board, see that it has exactly one solution and how hard it is, then play.
+
 EVERY PUZZLE, RATED
 Most apps label a board "expert" and hope you don't look closer. We put a number on it. Every puzzle carries a Sudoku Explainer rating on the 1.0 to 12.0 scale serious solvers use, shown right in the level pill on the board, in your history, and on every link you share. A built-in explainer tells you what the number actually measures — how hard the puzzle is to reason through, not how few clues it has.
 
