@@ -24,6 +24,6 @@ Ett nytt sudoku varje dag, med en svit som räknar hur många dagar i rad du lö
 ALLT ANNAT DU VILL HA
 • Teknikmedveten poängsättning
 • 13 språk
-• Öppen källkod
+• Offentlig källkod
 
 Läs mer på www.suuudokuuu.com.

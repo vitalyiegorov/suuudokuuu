@@ -34,7 +34,7 @@ TUDO MAIS QUE VOCÊ QUERIA
 • 13 idiomas
 • Funciona totalmente offline
 • Sem conta, sem cadastro, nunca
-• Grátis e de código aberto
+• Grátis, com código-fonte público
 
 suuudokuuu foi feito pra quem realmente ama Sudoku, não pra quem quer te vender uma assinatura. Baixe, escolha uma dificuldade e descubra qual é o seu número.
 
