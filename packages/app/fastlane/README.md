@@ -277,31 +277,28 @@ fastlane 2.240.1 can load age-rating settings from a JSON file passed through
 metadata files. No age-rating JSON is committed here, so these verified
 questionnaire settings remain managed in App Store Connect.
 
-## Screenshot pipeline (manual, committed to the repo)
+## Screenshot pipeline (committed to the repo)
 
-Store media is generated **manually, on demand** — never in CI — because it
-changes rarely. The final framed assets are committed to the repo and only
-uploaded when explicitly requested.
+Store media is regenerated on demand, because it changes rarely. The final
+framed assets are committed to the repo and only uploaded when explicitly
+requested.
 
-1. Capture raw screens (only when the UI meaningfully changed): run
-   `APP_ID=com.vitalyiegorov.suuudokuuu pnpm --filter @suuudokuuu/app-tests screenshots:capture`
-   on an iPhone 17 Pro Max simulator (the 6.9" 1320×2868 store slot, the
-   default `DEVICE_CLASS=iphone`). For the 13" iPad landscape slot
-   (2752×2064), boot an "iPad Pro 13-inch (M4)" simulator (or closest
-   available) and run the same command with `DEVICE_CLASS=ipad` and that
-   simulator's UDID:
+1. Capture raw screens (only when the UI meaningfully changed) with the `e2e`
+   media capture, from Linux against the simlock farm: an iPhone 17 Pro Max
+   for the 6.9" 1320×2868 store slot and a Pixel 6 for the Play phone set.
 
     ```bash
-    APP_ID=com.vitalyiegorov.suuudokuuu SIMULATOR_UDID=<iphone-udid> \
-        pnpm --filter @suuudokuuu/app-tests screenshots:capture
-    DEVICE_CLASS=ipad APP_ID=com.vitalyiegorov.suuudokuuu SIMULATOR_UDID=<ipad-udid> \
-        pnpm --filter @suuudokuuu/app-tests screenshots:capture
+    cd e2e
+    SIMLOCK_URL=https://simlock.vitaliiyehorov.dev SIMLOCK_TOKEN=<token> E2E_APP_PATH=<path>/Base.app \
+        SCREENSHOT_DEVICE='iPhone 17 Pro Max' SCREENSHOT_LOCALES=en SCREENSHOT_APPEARANCES=light,dark \
+        npx e2e run --config media.config.ts --target ios
+    cd .. && rsync -a e2e/.e2e/media/raw/ packages/app/fastlane/screenshots/raw/
     ```
 
-    Pass `SIMULATOR_UDID` explicitly whenever more than one simulator may be
-    booted. Raw captures land under `fastlane/screenshots/raw/` (gitignored).
-    See `tests/app-tests/docs/store-screenshot-capture.md` for the seeded
-    capture flow, platform commands, and verification checklist.
+    Raw captures land under `e2e/.e2e/media/raw/` at the layout the composer
+    reads from `fastlane/screenshots/raw/` (gitignored). See
+    `tests/app-tests/docs/store-screenshot-capture.md` for the setup, the
+    Android command, the scene selection, and the verification checklist.
 
 2. Compose the screenshots and Play artwork from the repository root:
 

@@ -42,5 +42,5 @@
             "ignoreDependencies": ["@mobile-ci/e2e-simlock", "agent-device"]
         }
     },
-    "ignoreBinaries": ["adb", "convert", "ffmpeg", "sips"]
+    "ignoreBinaries": ["ffmpeg"]
 }

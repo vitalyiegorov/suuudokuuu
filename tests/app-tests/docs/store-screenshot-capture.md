@@ -1,80 +1,99 @@
 # Store screenshot capture
 
 The canonical reference for producing the committed App Store and Play Store
-screenshot sets. Read this before touching
-`tests/app-tests/scripts/capture-store-screenshots.ts`, the screenshot flows,
-or `packages/app/fastlane/screenshots/`. The store-media skill
+screenshot sets. Read this before touching the e2e media capture
+(`e2e/media.config.ts`, `e2e/media/`, `e2e/support/suuudokuuu/media.ts`), the
+scene list in `tests/app-tests/scripts/screenshot-scenes.ts`, or
+`packages/app/fastlane/screenshots/`. The store-media skill
 (`.agents/skills/store-media/SKILL.md`) owns listing texts, captions, design
 decisions, and publishing; this document owns the capture mechanics.
 
 ## TL;DR
 
+Capture runs from Linux against devices leased from the simlock farm, with the
+`e2e` project's media config. Set the project up once as `e2e/AGENTS.md`
+"Running" describes (`npm ci` and the `@mobile-ci/e2e-simlock` fetch).
+
 ```bash
-# 0. Non-negotiable: the installed app must be the current build.
-xcrun simctl listapps <udid> | grep -A4 <bundle-id>   # compare against packages/app/package.json version
+# 0. Non-negotiable: capture the current build. Take the apps from the newest
+#    successful mobile-e2e.yml run on main and check its head SHA.
+gh run list --workflow mobile-e2e.yml --branch main --status success -L 1 --json databaseId,headSha
+gh run download <run> -n ios-e2e-app-e2e       # Base.app, inside a tar.gz
+gh run download <run> -n android-e2e-app-e2e   # app-release.apk
 
-# 1. Capture one locale, both appearances (iPhone):
-APP_ID=<bundle-id> SIMULATOR_UDID=<udid> \
-  pnpm --filter @suuudokuuu/app-tests screenshots:capture --locales=de --appearances=light,dark
+# 1. iPhone, one locale, both appearances:
+cd e2e
+SIMLOCK_URL=https://simlock.vitaliiyehorov.dev SIMLOCK_TOKEN=<token> E2E_APP_PATH=<path>/Base.app E2E_WORKERS=2 \
+  SCREENSHOT_DEVICE='iPhone 17 Pro Max' SCREENSHOT_LOCALES=de SCREENSHOT_APPEARANCES=light,dark \
+  npx e2e run --config media.config.ts --target ios
 
-# 2. iPad landscape:
-DEVICE_CLASS=ipad ORIENTATION=landscape APP_ID=<bundle-id> SIMULATOR_UDID=<udid> \
-  pnpm --filter @suuudokuuu/app-tests screenshots:capture --locales=de
+# 2. Android (Pixel 6, API 35 google_apis):
+SIMLOCK_URL=https://simlock.vitaliiyehorov.dev SIMLOCK_TOKEN=<token> E2E_APP_PATH=<path>/app-release.apk E2E_WORKERS=2 \
+  SCREENSHOT_PLATFORM=android SCREENSHOT_LOCALES=de \
+  npx e2e run --config media.config.ts --target android
 
-# 3. Android (rootable google_apis AVD, wm size 1080x2340, density 440):
-APP_ID=<package> pnpm --filter @suuudokuuu/app-tests screenshots:capture \
-  --platform=android --serial=<adb-serial> --locales=de
-
-# 3b. Play tablets (google_apis AVDs: Nexus 7 2013 for 7", Nexus 10 for 10"), one raw root each:
-APP_ID=<package> pnpm --filter @suuudokuuu/app-tests screenshots:capture \
-  --platform=android --serial=<adb-serial> --appearances=dark \
-  --scenes=hero-board,challenge-live,editor,replay,stats \
-  --output-dir=packages/app/fastlane/screenshots/raw/tablet7   # or raw/tablet10
-
-# 4. Compose store sets (staging dir, swap-on-success):
+# 3. Hand the raws to compose and compose the store sets (staging dir, swap-on-success):
+cd .. && rsync -a e2e/.e2e/media/raw/ packages/app/fastlane/screenshots/raw/
 bash packages/app/fastlane/screenshots/design/compose-screenshots.sh de-DE all
-bash packages/app/fastlane/screenshots/design/compose-screenshots.sh de-DE tablet
 bash packages/app/fastlane/screenshots/design/compose-screenshots.sh de-DE duo   # from the iPhone raws
 ```
 
-A full locale (both appearances) takes ~1.6 minutes. All 13 locales across
-iPhone, iPad, and Android fit in well under an hour.
+`SCREENSHOT_SCENES` narrows the scenes (default: every scene in `SCENES`),
+`SCREENSHOT_LOCALES` the locales (default `en`), and `SCREENSHOT_APPEARANCES`
+the appearances (default `dark`). `SCREENSHOT_DEVICE` picks the leased model
+and, for an iPad, the `ipad` raw directory. `SCREENSHOT_PLATFORM=android`
+must accompany `--target android`: it selects the `android` raw directory.
+The cells are sharded over the four `media/capture-*.e2e.ts` files, so
+`E2E_WORKERS` leases that many devices in parallel. Get a token as
+`~/.agent-config/simlock.md` describes.
+
+Raws land at `e2e/.e2e/media/raw/ios/{iphone,ipad}/<locale>/<appearance>/<NN-scene>.png`
+and `e2e/.e2e/media/raw/android/<locale>/<appearance>/<NN-scene>.png`, the same
+layout `compose-screenshots.sh` reads under the gitignored
+`packages/app/fastlane/screenshots/raw/`.
+
+CI's `store-screenshots.yml` runs the same capture with mobile-ci's
+`SCREENSHOT_PLAN` (the cells and their output paths), and `store-media.yml`
+captures the scenes outside the store set and records the App Store preview.
 
 ## How it works
 
-Capture is three `simctl`/`adb` calls per scene, with no UI driving and no
-accessibility tree:
+Each cell is one e2e test (`Media.capture` in `media.ts`):
 
-1. **Seed state.** `scripts/seed-app-state.ts` writes the persisted redux
-   blob straight into the app's storage: one `persist:root` row in a plain
-   `storage(key, value)` SQLite table (the legacy `expo-sqlite` kv-store layout), at
-   `<data container>/Documents/SQLite/ExpoSQLiteStorage` on iOS
-   (`simctl get_app_container <udid> <app> data`) and
-   `/data/data/<pkg>/files/SQLite/ExpoSQLiteStorage` on Android. Each
-   top-level reducer is a JSON string inside the outer JSON object
-   (double-encoded, the legacy redux-persist convention). The blob carries the
-   language, the appearance, a fully rated history for all seven
-   difficulties, and per-scene game states. On the next launch the boot-time
+1. **Prepare the device once per lease.** `Suuudokuuu.start()` sets up the
+   device (deep-link prompt, Reduce Motion, Android root); the media capture
+   adds the clean status bar and, on Android, `wm size 1080x2340` and
+   `wm density 440` for the 1080x1920 Play composition.
+2. **Set the locale and appearance.** iOS writes `AppleLanguages` and
+   `AppleLocale` to the simulator's global preferences and sets the simulator
+   appearance (a native sheet's status bar follows it); Android runs
+   `cmd locale set-app-locales` and `cmd uimode night`, because the app's
+   `Appearance.setColorScheme` recreates the activity when the system night
+   mode differs, which flashes the light window and pauses a running game.
+   The app's own language comes from the seeded `settings.language`; the
+   device locale aligns OS-derived strings with it.
+3. **Seed state.** `persistRootDatabase()` in `scripts/seed-app-state.ts`
+   builds the persisted redux blob as one `persist:root` row in a plain
+   `storage(key, value)` SQLite table (the legacy `expo-sqlite` kv-store
+   layout), and `Suuudokuuu.start()` installs it through simlock's exec API
+   at `Documents/SQLite/ExpoSQLiteStorage` in the iOS data container (with
+   E2EDrop) or `/data/data/<pkg>/files/SQLite/ExpoSQLiteStorage` on Android,
+   then launches the app. Each top-level reducer is a JSON string inside the
+   outer JSON object (double-encoded, the legacy redux-persist convention).
+   The blob carries the language, the appearance, a fully rated history for
+   all seven difficulties, and per-scene game states. On launch the boot-time
    legacy import (`LegacyStateImportService` in `packages/progress`) runs the
-   frozen migrations, replaces the app's SQLite progress tables with the blob,
-   and deletes the row.
-2. **Launch with the locale.**
-   `xcrun simctl launch <udid> <app> -AppleLanguages "(<lang>)" -AppleLocale <id>`
-   (Android: `adb shell cmd locale set-app-locales <pkg> --locales <lang>`,
-   then `am start`). The app's own language comes from the seeded
-   `settings.language`; the launch arguments align the _device_ locale so
-   OS-derived strings match too.
-3. **Deep-link and shoot.** `simctl openurl` the scene's deep link, settle
-   briefly, `simctl io screenshot` (Android: `adb exec-out screencap -p`).
+   frozen migrations, replaces the app's SQLite progress tables with the
+   blob, and deletes the row.
+4. **Drive the scene and shoot.** A deep-link scene opens its link and waits
+   for the screen's root selector; `win`, `pause`, `import` and `app-preview`
+   play, background, or pick a photo instead. The cell then settles for 6 s
+   and takes the still.
 
 Scene definitions live in `scripts/screenshot-scenes.ts`: each scene carries
-its `deepLink` and optional `sceneState`/`seedDifficulty`. A scene without a
-`deepLink` (currently the win, pause and import scenes) needs real gameplay or a
-photo picked from the device library, so the `e2e`
-media capture (`e2e/support/suuudokuuu/media.ts`) drives it and writes it at the
-same raw path; this runner skips it and refuses it by name. CI's store capture
-(`store-screenshots.yml`) is that same e2e capture, from Linux against the simlock
-farm. Device commands are in `scripts/capture-device.ts`.
+its order (the `NN-` file prefix), its optional `deepLink` and
+`sceneState`/`seedDifficulty`. The `SCENES` map in `media.ts` decides how each
+one is driven; a new scene needs an entry in both.
 
 The App Store preview comes from `store-media.yml`: the e2e capture records the
 scripted game and logs each tap, and `scripts/compose-app-preview.ts` cuts the
@@ -82,24 +101,24 @@ recording to human pacing with tap indicators, into the `app-store-preview`
 artifact. Put its `01_IPHONE_67.mp4` at `fastlane/app-previews/en-US/` for the
 `ios_app_previews` lane.
 
-For iPad landscape captures, the macOS runner reads pixel dimensions with
-`sips` and rotates portrait pixel captures by 90 degrees. Images that already
-have landscape dimensions stay unchanged.
+The capture does not produce the iPad landscape raws (`raw/ios/ipad-landscape`)
+or the Play tablet raws (`raw/tablet7`, `raw/tablet10`) the compose script
+reads for those sets: the simulator is not rotated and Android has one raw
+root. Recapturing those sets needs that support added to `media.ts` first.
 
 ## Why it is built this way
 
 The first pipeline drove every scene through the UI and switched language
 through the in-app sheet, costing ~40 minutes per locale; the statistics
 scene additionally needed complete games played through the UI at ~20 minutes
-per game. Measured on the same simulator and build, the current path runs
-`themes` in 6s (was 47s) and `stats` in 6s (was 99s). Three facts make it
-possible, all verified on-device:
+per game. Seeding the persisted state makes a scene a few seconds. Three facts
+make it possible, all verified on-device:
 
 - The app's language is persisted redux `settings.language`, not an OS
   setting. The old set-OS-language + uninstall + reinstall + re-prime +
   re-seed ritual for below-the-fold locales (ar, bn, id, pt, ur) was never
   necessary.
-- Every screenshot scene is a pure function of the `persist:root` row.
+- Every deep-link screenshot scene is a pure function of the `persist:root` row.
 - The row is directly writable while the app is terminated.
 
 **Do not migrate this to fastlane `snapshot`/`screengrab`.** They require a
@@ -107,56 +126,40 @@ UI-test target inside the native project, but `packages/app/ios` and
 `packages/app/android` are gitignored under continuous native generation, so
 a target would be destroyed on every `expo prebuild` and need a config plugin
 to re-inject, plus Swift and Espresso scene code. The fastlane lanes in this
-repo only upload. `snapshot`'s one real trick — per-locale launch arguments —
-is exactly what step 2 above already does.
+repo only upload. `snapshot`'s one real trick, per-locale launch arguments, is
+what step 2 above already does.
 
 ## Prerequisites and invariants
 
-- **Verify the installed build first.** A stale binary produces plausible
-  screenshots with outdated UI; an entire 10-locale set was once shot on a
-  2.1.0 build while the repo was at 2.5.1 and had to be redone. Compare the
-  installed version against `packages/app/package.json` before every session.
-- **Build with `STORE_CAPTURE=1`.** The capture build is the production variant, so
-  the store rating prompt after a won puzzle would fire on the win scene. The flag
-  sets `extra.isE2E` and skips it. CI exports it through `build-env`; a local
-  `expo run:ios`/`expo run:android` capture build must export it too.
-- **Terminate the app before seeding.** A running app holds the SQLite WAL
-  and overwrites the seed on exit. The seeder force-stops first; keep it so.
-- **Android needs a rootable emulator** for the state write: build the AVD
-  from a `google_apis` system image (`adb root` is refused on
-  `google_apis_playstore`, and `run-as` is refused on release builds). Set
-  `wm size 1080x2340` and `wm density 440` for the 1080x1920 Play
-  composition. Locale switching alone needs no root (API 33+).
-- **Android Hell needs a scrolled Home capture.** At the initial scroll
-  position, the floating tabs cover the Start puzzle button. After seeding
-  and launching the Hell scene for each locale, swipe Home upward until the
-  full button sits above the tabs, then save `02-hell.png` before composing.
-  The 2.20.0 Play set was captured this way on `emulator-5554`.
-- **Android tablets:** the seeder pulls `files/SQLite/ExpoSQLiteStorage`,
-  which the app creates on its first launch, so launch once after a fresh
-  install; the Pixel Launcher taskbar is captured unless
-  `pm disable-user --user 0 com.google.android.apps.nexuslauncher`; software-GL
-  emulators need `CAPTURE_LAUNCH_SETTLE_MS=12000` and
-  `CAPTURE_SCENE_SETTLE_MS=8000` or shots catch a blank screen.
-- **Status bar:** launch arguments do not touch the system status bar, so the
-  runner applies `simctl status_bar override` (9:41, full bars, 100%
-  battery) and Android SystemUI demo mode. `--status-bar=real` restores the
-  device clock. Mixing overridden and real-clock shots in one committed set
-  looks broken — recapture the whole set when changing this.
+- **Verify the build first.** A stale binary produces plausible screenshots
+  with outdated UI; an entire 10-locale set was once shot on a 2.1.0 build
+  while the repo was at 2.5.1 and had to be redone. Check the head SHA of the
+  run the app came from before every session.
+- **The win scene needs the rating prompt off.** A production-variant capture
+  build must be built with `STORE_CAPTURE=1`: the store rating prompt after a
+  won puzzle would otherwise fire on the win scene. The flag sets
+  `extra.isE2E` and skips it; `store-screenshots.yml` exports it through
+  `build-env`. The E2E build that `mobile-e2e.yml` publishes already has it.
+- **Android leases the API 35 `google_apis` image**: it is rootable, which the
+  state write needs, while the ATD image's screenshots are black.
+- **Android Hell scrolls Home.** At the initial scroll position the floating
+  tabs cover the Start puzzle button, so the `hell` scene scrolls it clear on
+  Android before the still.
+- **iOS leases a full simulator** (`deviceMode: 'full'` in `media.config.ts`):
+  a slimmed one has no photo library for the `import` scene. Stills come from
+  the XCTest runner, which draws no Dynamic Island.
+- **Status bar:** the capture applies `simctl status_bar override` (9:41, full
+  bars, 100% battery) and Android SystemUI demo mode once per lease.
+  `SCREENSHOT_STATUS_BAR=real` keeps the device clock. Mixing overridden and
+  real-clock shots in one committed set looks broken; recapture the whole set
+  when changing this.
+- **Settle time:** every cell waits 6 s before its still. One second caught
+  Android's result screen mid-fade, because a screen's entry fade outlasts its
+  testIDs appearing.
 - The seeder reads the persist version from
   `packages/progress/src/legacy/utils/make-legacy-migrations.util.ts` and the
   language list from `languages.constant.ts` at run time, so a migration bump
   or a new locale fails loudly instead of drifting silently.
-- **Prime deep links once on every fresh simulator, iPhone and iPad.** iOS's
-  "Open in <app>?" custom-scheme dialog strands every scene until it is
-  primed once, on either device class - on iOS 26.2 the iPhone 17 Pro Max
-  simulator stranded every scene on the dialog exactly like the iPad. A
-  single tap on "Open" via a UI driver (`npx serve-sim tap`) primes it. The iPad additionally
-  queues the dialog across relaunch, so `simctl erase` it and reinstall
-  before priming.
-- `CAPTURE_LAUNCH_SETTLE_MS` and `CAPTURE_SCENE_SETTLE_MS` override the
-  post-launch and post-deep-link settle delays; both exist because a loaded
-  macstudio needed longer settles than the ~3.5s/~2s defaults.
 
 ## The seed fixture
 

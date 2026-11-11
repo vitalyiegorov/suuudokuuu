@@ -1,21 +1,12 @@
 # App Tests Package
 
-This package hosts the store-screenshot capture pipeline
-(`scripts/capture-store-screenshots.ts` and friends), the App Store preview
-composer (`scripts/compose-app-preview.ts`), and the database fixtures the `e2e`
-suite installs. Read `docs/store-screenshot-capture.md` before touching the
-capture pipeline or capturing store screenshots. UI scenarios live in `e2e`.
-
-The Android store capture smoke job in `mobile-e2e.yml` runs only when the workflow is started manually (`gh workflow run mobile-e2e.yml --ref <branch>`), never on pull requests or pushes to main, because a second emulator per run overloads the Linux runner host. It downloads the E2E APK,
-boots a rootable API 34 emulator, and captures all thirteen direct-link scenes
-in English and dark appearance. Its five-minute timeout starts after APK
-installation and emulator warm-up. `--verify` fails on an unknown or empty
-scene selection, a changed or missing app process, AndroidRuntime errors, or
-an invalid or blank screenshot. Raw captures and the JSON report are CI
-artifacts only; the job never composes or commits store assets. The win,
-pause and import scenes are not direct-link scenes: the `e2e` media capture drives them. Verification uses the app PID, per-scene logcat,
-and ImageMagick image statistics without a UI hierarchy, so running game
-clocks do not block capture.
+This package hosts the store-screenshot scene list and seed state
+(`scripts/screenshot-scenes.ts`, `scripts/seed-app-state.ts` and
+`fixtures/screenshot-seed-state.json`) that the `e2e` media capture uses, the
+App Store preview composer (`scripts/compose-app-preview.ts`), and the
+database fixtures the `e2e` suite installs. Read
+`docs/store-screenshot-capture.md` before touching the capture or capturing
+store screenshots. UI scenarios and the capture itself live in `e2e`.
 
 ## Database fixtures
 

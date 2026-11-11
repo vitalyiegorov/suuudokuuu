@@ -15,7 +15,20 @@ import {
 } from '../../../tests/app-tests/scripts/screenshot-scenes.ts';
 import { persistRootDatabase } from '../../../tests/app-tests/scripts/seed-app-state.ts';
 
-import { BUNDLE_IDS, backgroundFor, byText, expectId, openLink, Suuudokuuu, tapId, WAIT_LAUNCH, WAIT_SLOW, type Ctx } from './core.ts';
+import {
+    BUNDLE_IDS,
+    backgroundFor,
+    byText,
+    expectId,
+    openLink,
+    scrollDown,
+    scrollToId,
+    Suuudokuuu,
+    tapId,
+    WAIT_LAUNCH,
+    WAIT_SLOW,
+    type Ctx
+} from './core.ts';
 import { acceptSharedChallenge, openSharedChallenge, startNewGame } from './game.ts';
 
 interface Cell {
@@ -114,10 +127,31 @@ const deepLinkScene = (name: string, readyId: string): Scene => {
     };
 };
 
+const HELL = deepLinkScene('hell', 'HomeScreenSelectors.Root');
+
 const SCENES: Record<string, Scene> = {
-    home: deepLinkScene('home', 'HomeScreenSelectors.Root'),
     'hero-board': deepLinkScene('hero-board', 'GameScreenSelectors.Root'),
+    hell: {
+        ...HELL,
+        run: async (media, cell) => {
+            await HELL.run(media, cell);
+            if (media.ctx.device.unstable_raw.platform === 'android') {
+                await scrollToId(media.ctx, 'HomeScreenSelectors.StartButton');
+                await scrollDown(media.ctx);
+            }
+        }
+    },
+    themes: deepLinkScene('themes', 'themes-screen'),
+    editor: deepLinkScene('editor', 'theme-editor-screen'),
+    rival: deepLinkScene('rival', 'ChallengeAcceptScreenSelectors.Root'),
+    replay: deepLinkScene('replay', 'ReplayControlsSelectors.Root'),
+    settings: deepLinkScene('settings', 'SettingsScreenSelectors.Root'),
+    home: deepLinkScene('home', 'HomeScreenSelectors.Root'),
     stats: deepLinkScene('stats', 'HistoryScreenSelectors.Root'),
+    scoring: deepLinkScene('scoring', 'ScoringScreenSelectors.Root'),
+    history: deepLinkScene('history', 'HistoryGamesScreenSelectors.Root'),
+    'challenge-live': deepLinkScene('challenge-live', 'GameScreenSelectors.Root'),
+    infinity: deepLinkScene('infinity', 'GameScreenSelectors.Root'),
     win: {
         run: async ({ ctx }) => {
             await openSharedChallenge(ctx, WIN_CHALLENGE);
@@ -230,9 +264,9 @@ class Media extends Suuudokuuu {
             prepared.add(lease);
         }
         await this.setLocale(lease, cell.locale);
-        if (this.ctx.device.unstable_raw.platform === 'ios') {
-            await mustExec(this.api, lease, ['ui', 'appearance', cell.appearance]);
-        }
+        await (this.ctx.device.unstable_raw.platform === 'ios'
+            ? mustExec(this.api, lease, ['ui', 'appearance', cell.appearance])
+            : mustExec(this.api, lease, ['shell', `cmd uimode night ${cell.appearance === 'dark' ? 'yes' : 'no'}`]));
         await this.start(
             undefined,
             persistRootDatabase({
