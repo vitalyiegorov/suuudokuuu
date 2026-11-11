@@ -109,4 +109,4 @@ Our Hell and Infinity difficulty levels stand on data curated by the wider Sudok
 
 ## License
 
-Suuudokuuu is licensed under the [O'SAASY License](LICENSE): an MIT-style license with one condition, that you may not offer the Software itself as a competing hosted or SaaS product. Learn more at [osaasy.dev](https://osaasy.dev).
+Suuudokuuu is licensed under the [O'SAASY License](LICENSE): the MIT terms, including keeping the copyright and permission notice, plus one added condition: you may not offer the Software itself as a competing hosted or SaaS product. Learn more at [osaasy.dev](https://osaasy.dev).
