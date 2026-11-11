@@ -17,6 +17,7 @@ export default defineConfig({
     fullyParallel: true,
     forbidOnly: isCi,
     retries: isCi ? 1 : 0,
+    ...(isCi && { workers: '100%' }),
     reporter: [['list'], ['html', { open: 'never' }], ...(isCi ? [['github'] as const] : [])],
     use: {
         baseURL: `http://127.0.0.1:${webServerPort}`,
