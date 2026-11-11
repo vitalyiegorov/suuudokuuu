@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.43.7](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.43.6...v2.43.7) (2026-11-11)
+
+### Bug Fixes
+
+* **app:** say seven difficulty levels in the play page description ([#837](https://github.com/vitalyiegorov/suuudokuuu/issues/837)) ([2769171](https://github.com/vitalyiegorov/suuudokuuu/commit/2769171f9184a7ced8c811c308ebfbe8e742fbc2))
+
+
 ## [2.43.6](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.43.5...v2.43.6) (2026-11-11)
 
 **Note:** Version bump only for package @suuudokuuu/app
