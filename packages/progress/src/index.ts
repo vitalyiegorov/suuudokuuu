@@ -38,9 +38,6 @@ export type { PlayerStatsType } from './player-stats/type/player-stats.type';
 
 export { defaultScoringConfig } from './scoring/constant/default-scoring-config.constant';
 
-export { LegacyKvStoreConstant } from './legacy/constant/legacy-kv-store.constant';
-export { LegacyStateImportService } from './legacy/service/legacy-state-import.service';
-
 export { StoreReviewService } from './store-review/service/store-review.service';
 
 export { BackupService } from './backup/service/backup.service';
