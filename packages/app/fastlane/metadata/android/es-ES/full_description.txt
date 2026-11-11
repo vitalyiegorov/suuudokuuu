@@ -1,7 +1,7 @@
 suuudokuuu es un juego de sudoku y de lógica con siete niveles de dificultad, de Novato a Infinito, y una valoración Sudoku Explainer (SE) en cada tablero. Juega al sudoku clásico sin conexión y sin cuenta, supera el reto diario, aprende técnicas con pistas paso a paso y envía a un amigo tu puzle exacto. Sin anuncios.
 
 ESCANEA UN SUDOKU Y SIGUE JUGANDO
-Apunta la cámara a un sudoku de un periódico o un libro, o elige una foto o una captura de pantalla. La cuadrícula se reconoce en tu dispositivo y tus fotos nunca salen de él. ¿Lo empezaste en papel? Tus dígitos escritos a mano te acompañan como tu progreso. Revisa el tablero, comprueba que tiene una única solución y lo difícil que es, y juega.
+Apunta la cámara a un sudoku de un periódico o un libro, o elige una foto o una captura de pantalla. La cuadrícula se reconoce en tu dispositivo y tus fotos nunca salen de él. ¿Lo empezaste en papel? Los dígitos que escribiste a mano se guardan como tu progreso. Revisa el tablero, comprueba que tiene una única solución y lo difícil que es, y juega.
 
 CADA SUDOKU, CON SU VALORACIÓN
 suuudokuuu puntúa cada sudoku en la escala Sudoku Explainer (SE), de 1.0 a 12.0, la misma que usan los solucionadores serios. La valoración se ve en la etiqueta de nivel del tablero, en tu historial y en cada enlace que compartes. Una explicación integrada te cuenta qué mide de verdad ese número: lo difícil que es razonar un sudoku, no solo cuántas pistas tiene.

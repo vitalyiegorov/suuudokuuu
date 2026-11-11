@@ -1,7 +1,7 @@
 suuudokuuu ist Sudoku, wie es sein sollte: schnell, schön und ehrlich bei der Schwierigkeit. Sieben Stufen, von einem sanften Anfänger-Brett bis Unendlich – den schwersten Sudoku-Rätseln, die je komponiert wurden. Keine Werbung, die sich als Rätsel tarnt, kein Konto, kein Schnickschnack. Nur du und das Gitter.
 
 SUDOKU SCANNEN UND WEITERSPIELEN
-Richte die Kamera auf ein Rätsel in der Zeitung oder im Buch oder wähle ein Foto oder einen Screenshot. Das Gitter wird auf deinem Gerät erkannt, und deine Fotos verlassen es nie. Schon auf Papier begonnen? Deine handschriftlichen Ziffern kommen als Fortschritt mit. Prüfe das Brett, sieh, dass es genau eine Lösung hat und wie schwer es ist, und spiel los.
+Richte die Kamera auf ein Rätsel in der Zeitung oder im Buch oder wähle ein Foto oder einen Screenshot. Das Gitter wird auf deinem Gerät erkannt, und deine Fotos verlassen es nie. Schon auf Papier begonnen? Deine handschriftlichen Ziffern kommen als Fortschritt mit. Prüfe das Brett: Es hat genau eine Lösung, und du siehst, wie schwer es ist. Dann spiel los.
 
 JEDES RÄTSEL BEWERTET
 Die meisten Apps schreiben „Experte“ auf ein Brett und hoffen, dass du nicht genauer hinschaust. Wir setzen eine Zahl darauf. Jedes Rätsel trägt eine Bewertung auf der Sudoku-Explainer-Skala (SE) von 1.0 bis 12.0 – derselben Skala, mit der erfahrene Löser vergleichen. Sie steht direkt neben der Schwierigkeitsstufe auf dem Brett, in deinem Verlauf und in jedem Link, den du teilst. Eine eingebaute Erklärung zeigt dir, was die Zahl wirklich misst: wie schwer ein Rätsel zu durchdenken ist, und nicht, wie wenige Vorgaben es hat.

@@ -373,7 +373,7 @@ and the 1024×1024 board sits at x=2240, y=384. Search artwork covers all
 twelve App Store locales. Captions use Inter and script-specific Noto fonts,
 with right-to-left shaping where needed.
 
-Play feature graphics use committed localized `07_iphone_stats.png`
+Play feature graphics use committed localized `08_iphone_stats.png`
 screenshots as their source, showing actual technique and progress stats
 instead of a generic board. For bn-BD and ur, use the committed localized
 `07_phone_stats.png` Play phone screenshots. The English proof crop is
@@ -386,7 +386,7 @@ search hint is a fresh authentic RTL capture.
 The event artwork is a reusable Infinity template: a native vector off-white
 ∞ over a flat near-black background, with the authentic Infinity board at
 24% opacity and clipped inside the symbol. The English source is
-`08_iphone_infinity.png`, cropped at 920×920 from x=200, y=626. Keep the
+`09_iphone_infinity.png`, cropped at 920×920 from x=200, y=626. Keep the
 artwork free of baked-in event names, text, logos, and heavy red accents.
 “Infinity Challenge” appears only in a review mockup; no qualifying event
 has been identified, and it is not a real event name or a promised release.

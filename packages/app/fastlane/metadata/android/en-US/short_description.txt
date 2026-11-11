@@ -1,1 +1,1 @@
-Scan any sudoku and keep solving. Offline, daily challenge, hints that teach.
+Scan a sudoku and keep solving. Offline, daily challenge, hints that teach.
