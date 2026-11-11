@@ -25,7 +25,6 @@ export const metadata: Metadata = buildPageMetadata(nishioForcingChainPageMetada
 
 const EXAMPLE_BOARD = '16.........3..15...9.8...716....2.3....75...4....9...82.1.....6..6.......8.5...4.';
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const NishioForcingChainPage = () => (
     <main>
         <TechniquePageHeader metadata={nishioForcingChainPageMetadata} />

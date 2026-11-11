@@ -42,7 +42,6 @@ interface Props {
 const [PREVIEW_PUZZLE] = PRINTABLE_BOOKLET_PUZZLES[DifficultyEnum.Medium];
 const mediumReport = getTierTechniqueReport(DifficultyEnum.Medium);
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 export const PrintableMediumSudokuPage = ({ locale }: Props) => {
     activateLocale(locale);
     const { t } = useLingui();

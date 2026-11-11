@@ -41,7 +41,6 @@ interface Props {
 const [PREVIEW_PUZZLE] = PRINTABLE_BOOKLET_PUZZLES[DifficultyEnum.Easy];
 const easyReport = getTierTechniqueReport(DifficultyEnum.Easy);
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 export const PrintableEasySudokuPage = ({ locale }: Props) => {
     activateLocale(locale);
     const { t } = useLingui();

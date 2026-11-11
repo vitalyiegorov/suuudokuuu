@@ -25,7 +25,6 @@ export const metadata: Metadata = buildPageMetadata(bugPageMetadata);
 
 const EXAMPLE_BOARD = '3861794527..6549384..328176.6.947315934215867.7.836294643581729...762543..7493681';
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const BugPage = () => (
     <main>
         <TechniquePageHeader metadata={bugPageMetadata} />

@@ -35,7 +35,6 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(techniqueFrequencyByDifficultyPageMetadata);
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const TechniqueFrequencyByDifficultyPage = () => {
     const reports = getTierTechniqueReports();
     const observedTechniqueCount = TECHNIQUE_LADDER.filter(technique =>

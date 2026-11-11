@@ -56,7 +56,6 @@ const PRINTABLE_TIER_ITEMS = [
     printableInfinitySudokuPageMetadata
 ];
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 export const PrintableSudokuPage = ({ locale }: Props) => {
     activateLocale(locale);
     const { t } = useLingui();

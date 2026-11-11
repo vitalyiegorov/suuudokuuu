@@ -24,7 +24,6 @@ export const metadata: Metadata = buildPageMetadata(boxLineReductionPageMetadata
 
 const EXAMPLE_BOARD = '.486.1.23.362...411.2.3486.2.1...63..8435621.36.12..846..8134.241.7623.8823...176';
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const BoxLineReductionPage = () => (
     <main>
         <TechniquePageHeader metadata={boxLineReductionPageMetadata} />

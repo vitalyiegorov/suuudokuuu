@@ -48,7 +48,6 @@ const X_WING_BOARD = '953168742862734..1417..28367.6..3.2...1.4...7..5.7..6..38.
 
 const BOARD_CAPTION = 'The highlighted cells are the pattern the solver found on this board.';
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SudokuTipsPage = () => (
     <main>
         <ArticleSchema metadata={sudokuTipsPageMetadata} />

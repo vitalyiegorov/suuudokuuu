@@ -26,7 +26,6 @@ export const metadata: Metadata = buildPageMetadata(skyscraperPageMetadata);
 
 const EXAMPLE_BOARD = '.2...9.1....8.4..9.7..23.....536..4..1...5...6....7.3.2.6..14..1.....9.3.5...61..';
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SkyscraperPage = () => (
     <main>
         <TechniquePageHeader metadata={skyscraperPageMetadata} />

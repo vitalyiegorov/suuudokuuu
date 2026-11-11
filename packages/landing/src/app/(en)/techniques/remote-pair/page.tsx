@@ -25,7 +25,6 @@ export const metadata: Metadata = buildPageMetadata(remotePairPageMetadata);
 
 const EXAMPLE_BOARD = '79541..3.418...7.9623798.54.719....33.4.759.19.21...7...6.49317139..72...473.1.95';
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const RemotePairPage = () => (
     <main>
         <TechniquePageHeader metadata={remotePairPageMetadata} />

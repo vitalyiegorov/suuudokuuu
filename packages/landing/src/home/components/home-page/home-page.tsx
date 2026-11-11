@@ -54,7 +54,6 @@ const difficultyPages = [
     infinitySudokuPageMetadata
 ];
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 export const HomePage = ({ locale }: Props) => {
     activateLocale(locale);
     const pageMetadata = localizePageMetadata(homePageMetadata, locale);
