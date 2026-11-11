@@ -5,6 +5,7 @@ import * as core from '../support/suuudokuuu/core.ts';
 import * as game from '../support/suuudokuuu/game.ts';
 import { test } from '../support/suuudokuuu/test.ts';
 
+const BOARD_PHOTO = new URL('../../packages/grid-vision/test/fixtures/app-classic-light-390.jpg', import.meta.url);
 const IMPORT_LINK = 'suuudokuuu://import?puzzle=003020600900305001001806400008102900700000008006708200002609500800203009005010300';
 
 async function status(ctx: core.Ctx, text: string | RegExp, timeout = core.WAIT_QUICK): Promise<void> {
@@ -76,7 +77,7 @@ test('25 import puzzle', async ({ suuudokuuu }) => {
         await core.scrollToId(ctx, 'HomeScreenSelectors.ImportLink');
         await core.scrollDown(ctx);
         await core.tapId(ctx, 'HomeScreenSelectors.ImportLink');
-        if (!(await suuudokuuu.importPhoto())) {
+        if (!(await suuudokuuu.importPhoto(BOARD_PHOTO))) {
             return;
         }
         await status(ctx, /One solution/u, core.WAIT_LAUNCH);

@@ -19,7 +19,7 @@ const env = (name: string): string => {
 
 process.env.E2E_SESSION ??= `e2e-${randomBytes(4).toString('hex')}`;
 
-type Lease = Pick<SimlockOptions, 'animations' | 'imageTag' | 'iosScreenshotBackend' | 'osVersion'>;
+type Lease = Pick<SimlockOptions, 'animations' | 'deviceMode' | 'imageTag' | 'iosScreenshotBackend' | 'osVersion'>;
 
 export const target = (platform: keyof typeof BUNDLE_IDS, device: string, lease: Lease = {}, videoTouches = true) => ({
     name: platform,
