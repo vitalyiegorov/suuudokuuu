@@ -1,9 +1,8 @@
-import { defaultSudokuConfig } from '@suuudokuuu/generator';
+import { defaultSudokuConfig, getCellKey } from '@suuudokuuu/generator';
 import { ForcingOutcomeKindEnum } from '@suuudokuuu/techniques';
 
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { HintLevelEnum } from '../enums/hint-level.enum';
 import { HintRegionKindEnum } from '../enums/hint-region-kind.enum';
 import { StepScriptStepKindEnum } from '../enums/step-script-step-kind.enum';

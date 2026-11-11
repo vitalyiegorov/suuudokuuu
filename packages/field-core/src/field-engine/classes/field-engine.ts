@@ -1,8 +1,7 @@
-import { Sudoku, cloneField, emptyScoredCells } from '@suuudokuuu/generator';
+import { Sudoku, cloneField, emptyScoredCells, getCellKey } from '@suuudokuuu/generator';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { HintLevelEnum } from '../../step-script/enums/hint-level.enum';
 import { StepScriptStepKindEnum } from '../../step-script/enums/step-script-step-kind.enum';
 import {

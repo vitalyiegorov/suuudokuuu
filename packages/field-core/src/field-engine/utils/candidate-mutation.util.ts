@@ -1,4 +1,4 @@
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { getCellKey } from '@suuudokuuu/generator';
 
 import type { StepScriptCandidateInterface } from '../../step-script/interfaces/step-script-candidate.interface';
 import type { FieldCandidateStateInterface } from '../interfaces/field-candidate-state.interface';

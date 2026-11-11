@@ -1,4 +1,4 @@
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
+import { getCellKey } from '@suuudokuuu/generator';
 
 import type { FieldCandidatesType } from '../types/field-candidates.type';
 import type { CellInterface, Sudoku } from '@suuudokuuu/generator';
