@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.43.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.43.3...v2.43.4) (2026-11-11)
+
+### Bug Fixes
+
+* **generator:** stop parsed puzzles sharing one config, and ignore a second finish ([#834](https://github.com/vitalyiegorov/suuudokuuu/issues/834)) ([ab5868d](https://github.com/vitalyiegorov/suuudokuuu/commit/ab5868dccd90fa581fffb47066cfbd01bd7f2fbe))
+
+
 ## [2.43.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.43.2...v2.43.3) (2026-11-11)
 
 **Note:** Version bump only for package @suuudokuuu/root

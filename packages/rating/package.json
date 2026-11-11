@@ -1,6 +1,6 @@
 {
     "name": "@suuudokuuu/rating",
-    "version": "2.41.1",
+    "version": "2.43.4",
     "private": true,
     "files": [
         "dist/**/*"
