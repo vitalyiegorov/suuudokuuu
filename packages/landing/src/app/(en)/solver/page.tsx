@@ -24,6 +24,7 @@ import { sudokuDifficultyRatingPageMetadata } from '../guides/sudoku-difficulty-
 import { hardestSudokuPuzzlesPageMetadata } from '../hardest-sudoku-puzzles/metadata';
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
 import { homePageMetadata } from '../metadata';
+import { sudokuScannerPageMetadata } from '../sudoku-scanner/metadata';
 import { techniquesPageMetadata } from '../techniques/metadata';
 
 import { solverPageMetadata } from './metadata';
@@ -153,7 +154,9 @@ const SolverPage = () => (
                 Click a cell and type a digit, or use the on-screen pad. Arrow keys move around the grid and Backspace clears a cell. If you
                 already have the puzzle as text, paste it into the box below the grid — digits for the givens; dots, zeros, dashes, x, * or
                 _ for the blanks; spaces, line breaks, | and + are ignored. If the text does not add up to exactly 81 cells, the box says
-                how many it found instead of guessing. A share link copied from the Suuudokuuu app works in the same box.
+                how many it found instead of guessing. A share link copied from the Suuudokuuu app works in the same box. To play a printed
+                puzzle rather than solve it here, the app’s <Link href={sudokuScannerPageMetadata.path}>sudoku scanner</Link> reads it from
+                a photo.
             </HowToStep>
             <HowToStep name="Solve step by step">
                 Press Solve step by step. The validity and uniqueness checks run first and report honestly if a digit repeats or the grid
