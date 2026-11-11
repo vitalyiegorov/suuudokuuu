@@ -13,8 +13,6 @@ import { TechniqueNavigation } from '../../../../techniques/components/technique
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../../techniques/components/technique-worked-example/technique-worked-example';
-import { hiddenSinglePageMetadata } from '../hidden-single/metadata';
-import { pointingTriplePageMetadata } from '../pointing-triple/metadata';
 
 import { pointingPairPageMetadata } from './metadata';
 
@@ -133,7 +131,7 @@ const PointingPairPage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={pointingTriplePageMetadata} previous={hiddenSinglePageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.PointingPair} />
     </main>
 );
 

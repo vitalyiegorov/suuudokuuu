@@ -13,8 +13,6 @@ import { TechniqueNavigation } from '../../../../techniques/components/technique
 import { TechniquePageHeader } from '../../../../techniques/components/technique-page-header/technique-page-header';
 import { TechniqueSummary } from '../../../../techniques/components/technique-summary/technique-summary';
 import { TechniqueWorkedExample } from '../../../../techniques/components/technique-worked-example/technique-worked-example';
-import { boxLineReductionPageMetadata } from '../box-line-reduction/metadata';
-import { pointingPairPageMetadata } from '../pointing-pair/metadata';
 
 import { pointingTriplePageMetadata } from './metadata';
 
@@ -134,7 +132,7 @@ const PointingTriplePage = () => (
                 </FaqAnswer>
             </Faq>
         </FaqPage>
-        <TechniqueNavigation next={boxLineReductionPageMetadata} previous={pointingPairPageMetadata} />
+        <TechniqueNavigation technique={SolutionTechniqueEnum.PointingTriple} />
     </main>
 );
 
