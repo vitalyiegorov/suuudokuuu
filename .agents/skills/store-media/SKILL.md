@@ -55,7 +55,7 @@ before relying on them.
   `Framefile.json`, README.
 - `packages/app/fastlane/screenshots/raw/{ios,android}/` - gitignored captures.
 - `packages/app/fastlane/screenshots/variants/{dark,light}/ios/<locale>/` -
-  committed, framed sets: 9 iPhone (1320x2868) + 6 iPad (2752x2064) per
+  committed, framed sets: 10 iPhone (1320x2868) + 6 iPad (2752x2064) per
   locale, one full mirrored set per appearance (only the closing shot flips
   to the opposite appearance).
 - `packages/app/fastlane/metadata/android/<locale>/images/phoneScreenshots/` -
@@ -75,9 +75,9 @@ before relying on them.
   `submit.production.android.track` in `eas.json` and resolve the version code
   with `google_play_track_version_codes` (supply cannot infer one when it
   uploads no binary).
-- `e2e/support/suuudokuuu/media.ts` - the e2e capture CI runs, and the only one for the win and pause scenes.
+- `e2e/support/suuudokuuu/media.ts` - the e2e capture CI runs, and the only one for the win, pause and import scenes.
 - `tests/app-tests/scripts/capture-store-screenshots.ts` - local direct-link runner.
-- `tests/app-tests/scripts/screenshot-scenes.ts` defines all fifteen scenes: thirteen direct-link captures and two e2e-driven ones. The runner rotates landscape pixels with `sips` and rejects remaining EXIF orientation metadata other than 1.
+- `tests/app-tests/scripts/screenshot-scenes.ts` defines all sixteen scenes: thirteen direct-link captures and three e2e-driven ones. The runner rotates landscape pixels with `sips` and rejects remaining EXIF orientation metadata other than 1.
 - `.github/workflows/native-publish.yml` - store publish; `fastlane
   store_preflight` gates both jobs; metadata pushes after each `eas submit`;
   screenshots upload only with the `push_screenshots` checkbox. It uploads
@@ -147,7 +147,9 @@ Screenshots, end to end:
   themes + languages merged into one two-device combo (EN editor + UK
   themes); replay uses the redesigned screen; one closing opposite-mode
   shot per variant (dark closer in the light set, light closer in the dark
-  set - caption keys `01-hero-board-dark`/`01-hero-board-light`).
+  set - caption keys `01-hero-board-dark`/`01-hero-board-light`); the photo
+  import shot (`16-import`) sits third, and the Play phone set, capped at
+  eight, drops `14-challenge-live` for it.
 - Captures are clipped to the frame's enclosed screen cutout (flood-fill
   mask in `frame_capture`) - the cutout bounding box overlaps the frame's
   transparent outer corners, so an unmasked square capture pokes past the

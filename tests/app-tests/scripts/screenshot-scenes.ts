@@ -41,7 +41,8 @@ export const AllScenes: Scene[] = [
         name: 'infinity',
         sceneState: 'infinity',
         seedDifficulty: 'Infinity'
-    }
+    },
+    { name: 'import' }
 ];
 
 const LocaleIdentifiers: Record<string, string> = {

@@ -1,1 +1,1 @@
-Sudoku offline: dagens utmaning, tips som lär ut, SE-betyg 1.0 till 12.0.
+Skanna ett sudoku och fortsätt lösa. Offline, dagens utmaning, lärorika tips.

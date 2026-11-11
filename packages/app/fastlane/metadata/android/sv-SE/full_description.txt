@@ -1,5 +1,8 @@
 suuudokuuu är ett sudokuspel med sju svårighetsnivåer, från Nybörjare till Oändlighet, och ett Sudoku Explainer-betyg (SE) på varje pussel. Spela klassisk sudoku offline utan konto, ta dagens utmaning, lär dig tekniker med tips steg för steg och skicka ditt exakta pussel till en vän. Inga annonser.
 
+SKANNA ETT SUDOKU OCH FORTSÄTT SPELA
+Rikta kameran mot ett pussel i en tidning eller en bok, eller välj ett foto eller en skärmbild. Rutnätet känns igen på din enhet, och dina foton lämnar den aldrig. Började du på papper? Dina handskrivna siffror följer med som dina framsteg. Granska brädet, se att det har exakt en lösning och hur svårt det är, och spela sedan.
+
 VARJE PUSSEL BETYGSATT
 Varje pussel får ett betyg på Sudoku Explainer-skalan (SE), 1.0 till 12.0, samma skala som seriösa lösare använder. Betyget syns direkt vid svårighetsgraden på brädet, i din historik och i varje länk du delar. En inbyggd förklaring berättar vad siffran faktiskt mäter: hur svårt pusslet är att resonera sig igenom, inte hur få ledtrådar det har.
 

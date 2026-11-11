@@ -12,8 +12,8 @@ in English and dark appearance. Its five-minute timeout starts after APK
 installation and emulator warm-up. `--verify` fails on an unknown or empty
 scene selection, a changed or missing app process, AndroidRuntime errors, or
 an invalid or blank screenshot. Raw captures and the JSON report are CI
-artifacts only; the job never composes or commits store assets. The win and
-pause scenes are not direct-link scenes: the `e2e` media capture drives them. Verification uses the app PID, per-scene logcat,
+artifacts only; the job never composes or commits store assets. The win,
+pause and import scenes are not direct-link scenes: the `e2e` media capture drives them. Verification uses the app PID, per-scene logcat,
 and ImageMagick image statistics without a UI hierarchy, so running game
 clocks do not block capture.
 

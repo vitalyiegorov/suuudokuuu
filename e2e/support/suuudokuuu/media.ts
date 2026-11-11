@@ -4,6 +4,8 @@ import { setTimeout as sleep } from 'node:timers/promises';
 
 import { test as base } from '@e2e-dev/mobile';
 import { exec, mustExec } from '@mobile-ci/e2e-simlock/exec';
+import { byId } from '@mobile-ci/e2e-simlock/steps';
+import { expect } from 'e2e';
 
 import {
     AllScenes,
@@ -13,7 +15,7 @@ import {
 } from '../../../tests/app-tests/scripts/screenshot-scenes.ts';
 import { persistRootDatabase } from '../../../tests/app-tests/scripts/seed-app-state.ts';
 
-import { BUNDLE_IDS, backgroundFor, byText, expectId, openLink, Suuudokuuu, tapId, WAIT_SLOW, type Ctx } from './core.ts';
+import { BUNDLE_IDS, backgroundFor, byText, expectId, openLink, Suuudokuuu, tapId, WAIT_LAUNCH, WAIT_SLOW, type Ctx } from './core.ts';
 import { acceptSharedChallenge, openSharedChallenge, startNewGame } from './game.ts';
 
 interface Cell {
@@ -72,8 +74,12 @@ const IOS_STATUS_BAR = [
     'active',
     '--wifiBars',
     '3',
+    '--cellularMode',
+    'active',
+    '--cellularBars',
+    '4',
     '--batteryState',
-    'charged',
+    'discharging',
     '--batteryLevel',
     '100'
 ];
@@ -126,6 +132,18 @@ const SCENES: Record<string, Scene> = {
             await startNewGame(ctx);
             await backgroundFor(ctx, BACKGROUNDED_MS);
             await expectId(ctx, 'PauseScreenSelectors.TimeValue');
+        }
+    },
+    import: {
+        run: async media => {
+            const { ctx } = media;
+            await openLink(ctx, 'suuudokuuu://import');
+            await expectId(ctx, 'ImportScreenSelectors.PhotosButton', WAIT_SLOW);
+            if (!(await media.importPhoto(new URL('import-photo.jpg', import.meta.url)))) {
+                throw new Error('the import scene needs a photo in the device library');
+            }
+            await expect(byId(ctx.screen, 'ImportScreenSelectors.PlayButton')).toBeEnabled({ timeout: WAIT_LAUNCH });
+            await expectId(ctx, 'ImportScreenSelectors.Guidance');
         }
     },
     'app-preview': {
@@ -212,6 +230,9 @@ class Media extends Suuudokuuu {
             prepared.add(lease);
         }
         await this.setLocale(lease, cell.locale);
+        if (this.ctx.device.unstable_raw.platform === 'ios') {
+            await mustExec(this.api, lease, ['ui', 'appearance', cell.appearance]);
+        }
         await this.start(
             undefined,
             persistRootDatabase({

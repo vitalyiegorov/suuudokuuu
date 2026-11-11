@@ -1,5 +1,8 @@
 suuudokuuu é Sudoku como deveria ser: rápido, bonito e honesto sobre a dificuldade. Sete níveis, do tranquilo tabuleiro Iniciante até o Infinito: os sudokus mais difíceis já compostos. Sem anúncios disfarçados de quebra-cabeça, sem conta, sem enrolação. Só você e a grade.
 
+ESCANEIE UM SUDOKU E CONTINUE JOGANDO
+Aponte a câmera para um sudoku no jornal ou em um livro, ou escolha uma foto ou uma captura de tela. A grade é reconhecida no seu aparelho, e suas fotos nunca saem dele. Já começou no papel? Seus dígitos escritos à mão vêm junto como seu progresso. Confira a grade, veja que ela tem uma única solução e o quanto é difícil, e jogue.
+
 TODO SUDOKU TEM SUA AVALIAÇÃO
 A maioria dos apps escreve "Especialista" numa grade e torce pra você não olhar de perto. A gente coloca um número. O Suuudokuuu avalia cada sudoku na escala Sudoku Explainer (SE), de 1.0 a 12.0, a mesma que os solucionadores experientes usam. A avaliação aparece no selo de nível do tabuleiro, no seu histórico e em todo link que você compartilha. Uma explicação embutida conta o que esse número mede de verdade: o quanto um sudoku é difícil de raciocinar, e não apenas quantas pistas ele tem.
 

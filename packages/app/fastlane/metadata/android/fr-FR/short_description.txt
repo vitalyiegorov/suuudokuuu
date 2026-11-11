@@ -1,1 +1,1 @@
-Sudoku hors ligne : défi du jour, indices qui expliquent, note de 1.0 à 12.0.
+Scannez un sudoku et continuez. Hors ligne, défi du jour, indices clairs.

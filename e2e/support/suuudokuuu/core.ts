@@ -111,13 +111,26 @@ export async function seconds(ctx: Ctx, testId: string): Promise<number> {
 }
 
 interface DeviceState {
-    readonly importPhoto?: (ctx: Ctx, api: SimlockApi, lease: string, photo: Buffer) => Promise<void>;
+    readonly importPhoto: (ctx: Ctx, api: SimlockApi, lease: string, photo: Buffer) => Promise<boolean>;
     readonly prepare: (api: SimlockApi, lease: string) => Promise<void>;
     readonly seed: (api: SimlockApi, lease: string, database?: Buffer, legacyStorage?: Buffer) => Promise<void>;
 }
 
 const DEVICE_STATES: Record<Platform, DeviceState> = {
     ios: {
+        importPhoto: async (ctx, api, lease, photo) => {
+            const path = `${(await mustExec(api, lease, ['get_app_container', bundleId('ios'), 'data'])).trim()}/tmp/import-puzzle.jpg`;
+            await writeFile(api, lease, path, photo);
+            if ((await exec(api, lease, ['addmedia', path])).exitCode !== 0) {
+                console.log("[skip] Photos import: a slim simulator has no photo library, lease it with deviceMode 'full'");
+
+                return false;
+            }
+            await tapId(ctx, 'ImportScreenSelectors.PhotosButton');
+            await ctx.screen.getByTestId('PXGGridLayout-Info').first().tap();
+
+            return true;
+        },
         prepare: async (api, lease) => {
             for (const setting of [
                 ['.GlobalPreferences', 'AppleLanguages', '-array', 'en-US'],
@@ -159,6 +172,8 @@ const DEVICE_STATES: Record<Platform, DeviceState> = {
             ]);
             await tapId(ctx, 'ImportScreenSelectors.PhotosButton');
             await ctx.screen.getByTestId('com.google.android.providers.media.module:id/icon_thumbnail').first().tap();
+
+            return true;
         },
         prepare: async (api, lease) => {
             await mustExec(api, lease, ['root']);
@@ -232,21 +247,8 @@ export class Suuudokuuu {
         });
     }
 
-    async importPhoto(): Promise<boolean> {
-        const { importPhoto } = DEVICE_STATES[this.ctx.device.unstable_raw.platform];
-        if (importPhoto === undefined) {
-            console.log('[skip] Photos import: iOS farm addmedia fails with PHPhotosErrorDomain 3301 (LaunchdSimError 133)');
-
-            return false;
-        }
-        await importPhoto(
-            this.ctx,
-            this.api,
-            await this.lease(),
-            readFileSync(new URL('../../../packages/grid-vision/test/fixtures/app-classic-light-390.jpg', import.meta.url))
-        );
-
-        return true;
+    async importPhoto(file: URL): Promise<boolean> {
+        return DEVICE_STATES[this.ctx.device.unstable_raw.platform].importPhoto(this.ctx, this.api, await this.lease(), readFileSync(file));
     }
 
     async #prepare(state: DeviceState, lease: string): Promise<void> {

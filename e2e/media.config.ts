@@ -6,7 +6,7 @@ export default {
     ...runOptions,
     tests: 'media/**/*.e2e.ts',
     targets: [
-        target('ios', process.env.SCREENSHOT_DEVICE ?? 'iPhone 17 Pro Max', { iosScreenshotBackend: 'runner' }, false),
+        target('ios', process.env.SCREENSHOT_DEVICE ?? 'iPhone 17 Pro Max', { deviceMode: 'full', iosScreenshotBackend: 'runner' }, false),
         target('android', process.env.SCREENSHOT_DEVICE ?? 'Pixel 6', { osVersion: '35', imageTag: 'google_apis' }, false)
     ],
     video: 'off'

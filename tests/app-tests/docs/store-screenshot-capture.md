@@ -69,7 +69,8 @@ accessibility tree:
 
 Scene definitions live in `scripts/screenshot-scenes.ts`: each scene carries
 its `deepLink` and optional `sceneState`/`seedDifficulty`. A scene without a
-`deepLink` (currently the win and pause scenes) needs real gameplay, so the `e2e`
+`deepLink` (currently the win, pause and import scenes) needs real gameplay or a
+photo picked from the device library, so the `e2e`
 media capture (`e2e/support/suuudokuuu/media.ts`) drives it and writes it at the
 same raw path; this runner skips it and refuses it by name. CI's store capture
 (`store-screenshots.yml`) is that same e2e capture, from Linux against the simlock

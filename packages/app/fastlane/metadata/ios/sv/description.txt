@@ -1,5 +1,8 @@
 suuudokuuu är Sudoku som det ska vara: snabbt, snyggt och ärligt om svårighetsgraden. Sju nivåer, från ett milt Nybörjare-bräde till Oändlighet – de svåraste sudokupussel som någonsin komponerats. Inga annonser som låtsas vara pussel, inga konton, inget krångel. Bara du och rutnätet.
 
+SKANNA ETT SUDOKU OCH FORTSÄTT SPELA
+Rikta kameran mot ett pussel i en tidning eller en bok, eller välj ett foto eller en skärmbild. Rutnätet känns igen på din enhet, och dina foton lämnar den aldrig. Började du på papper? Dina handskrivna siffror följer med som dina framsteg. Granska brädet, se att det har exakt en lösning och hur svårt det är, och spela sedan.
+
 VARJE PUSSEL BETYGSATT
 De flesta appar sätter ”expert” på ett bräde och hoppas att du inte tittar närmare. Vi sätter en siffra på det. Varje pussel får ett betyg på Sudoku Explainer-skalan (SE), 1.0 till 12.0, samma skala som seriösa lösare använder. Betyget syns direkt vid svårighetsgraden på brädet, i din historik och i varje länk du delar. En inbyggd förklaring berättar vad siffran faktiskt mäter: hur svårt pusslet är att resonera sig igenom, inte hur få ledtrådar det har.
 

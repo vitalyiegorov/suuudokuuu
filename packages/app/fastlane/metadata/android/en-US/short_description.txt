@@ -1,1 +1,1 @@
-Offline sudoku: daily challenge, hints that teach, every puzzle rated 1.0-12.0.
+Scan a sudoku and keep solving. Offline, daily challenge, hints that teach.
