@@ -27,6 +27,6 @@ Jeden Tag ein neues Sudoku, dazu eine Serie, die zählt, an wie vielen Tagen in 
 ALLES ANDERE, WAS DU WILLST
 • Technikbewusste Wertung
 • 13 Sprachen
-• Open Source
+• Öffentlicher Quellcode
 
 Mehr auf www.suuudokuuu.com.

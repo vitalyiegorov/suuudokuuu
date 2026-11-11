@@ -34,7 +34,7 @@ EVERYTHING ELSE YOU'D WANT
 • 13 languages
 • Works fully offline
 • No account, no sign-up, ever
-• Free and open-source
+• Free, with public source code
 
 suuudokuuu is built for people who actually love Sudoku, not people who want to be sold a subscription. Download it, pick a difficulty, and find out what your number is.
 

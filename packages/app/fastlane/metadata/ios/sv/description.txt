@@ -34,7 +34,7 @@ ALLT ANNAT DU VILL HA
 • 13 språk
 • Fungerar helt offline
 • Inget konto, ingen registrering, aldrig
-• Gratis och öppen källkod
+• Gratis, med offentlig källkod
 
 suuudokuuu är byggt för dig som verkligen älskar Sudoku, inte för dig som ska säljas ett abonnemang. Ladda ner, välj svårighetsgrad och ta reda på vilken siffra som är din.
 

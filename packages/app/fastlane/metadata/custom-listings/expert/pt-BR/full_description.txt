@@ -24,6 +24,6 @@ Um sudoku novo todo dia, com uma sequência que conta quantos dias seguidos voc�
 TUDO MAIS QUE VOCÊ QUERIA
 • Pontuação que reconhece técnicas
 • 13 idiomas
-• Código aberto
+• Código-fonte público
 
 Saiba mais em www.suuudokuuu.com.

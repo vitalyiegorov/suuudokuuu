@@ -2,7 +2,7 @@
 
 # Suuudokuuu
 
-An open-source Sudoku game for iOS, Android and the web, built with [React Native](https://reactnative.dev/) and [Expo](https://expo.dev/). The app links to a donation page that supports Ukraine.
+A source-available Sudoku game for iOS, Android and the web, built with [React Native](https://reactnative.dev/) and [Expo](https://expo.dev/). The app links to a donation page that supports Ukraine.
 
 | [![Play in your browser](packages/app/assets/chrome.png)](https://www.suuudokuuu.com/) | [![Download on the App Store](packages/app/assets/appstore-badge.png)](https://apps.apple.com/app/suuudokuuu/id6449440933) | [![Get it on Google Play](packages/app/assets/google-play-badge.png)](https://play.google.com/store/apps/details?id=com.vitaliiyehorov.suuudokuuu) |
 | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |

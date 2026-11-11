@@ -21,6 +21,6 @@ Consulta tus estadísticas, tu solución más difícil y las técnicas que has u
 • Pistas con explicaciones y anotaciones
 • Repetición de partidas y retos para compartir
 • Temas personalizables y modo claro u oscuro
-• Juego sin conexión, gratis y de código abierto
+• Juego sin conexión y gratis, con código fuente público
 
 Más información en www.suuudokuuu.com.

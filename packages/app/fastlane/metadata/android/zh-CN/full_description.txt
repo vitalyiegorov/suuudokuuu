@@ -27,6 +27,6 @@ suuudokuuu 用 Sudoku Explainer（SE）量表为每道数独评分，从 1.0 到
 你想要的一切都在这里
 • 识别技巧的计分系统
 • 支持 13 种语言
-• 开源
+• 源代码公开
 
 访问 www.suuudokuuu.com 了解更多。

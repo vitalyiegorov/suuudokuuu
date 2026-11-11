@@ -24,6 +24,6 @@ Un sudoku nuevo cada día, con una racha que cuenta cuántos días seguidos lo r
 TODO LO DEMÁS QUE PODRÍAS QUERER
 • Puntuación que reconoce técnicas
 • 13 idiomas
-• Código abierto
+• Código fuente público
 
 Más información en www.suuudokuuu.com.
