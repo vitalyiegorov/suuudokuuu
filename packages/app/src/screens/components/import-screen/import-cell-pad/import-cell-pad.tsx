@@ -1,6 +1,7 @@
 import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
-import { AppButton, CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui';
+import { AppButton } from '@suuudokuuu/ui';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import LucideDelete from 'lucide-react-native/icons/delete';
 import { Text, View, type LayoutChangeEvent } from 'react-native';
 

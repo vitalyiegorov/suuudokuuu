@@ -6,11 +6,17 @@ import { CustomThemeSchemaVersion } from '../constant/custom-theme.constant';
 import { isCustomThemeId } from '../type-guard/is-custom-theme-id.type-guard';
 
 import { cloneThemeColors } from './clone-theme-colors.util';
-import { generateCustomThemeId } from './generate-custom-theme-id.util';
 import { getTheme } from './get-theme.util';
 
-import type { ThemeIdType } from '../types/theme-id.type';
+import type { CustomThemeIdType, ThemeIdType } from '../types/theme-id.type';
 import type { CustomThemeType } from '@suuudokuuu/progress';
+
+const Base36Radix = 36;
+const RandomSegmentStart = 2;
+const RandomSegmentEnd = 8;
+
+const generateCustomThemeId = (): CustomThemeIdType =>
+    `custom-${Date.now().toString(Base36Radix)}-${Math.random().toString(Base36Radix).slice(RandomSegmentStart, RandomSegmentEnd)}`;
 
 const createFromPreset = (name: string, presetTheme: ThemeEnum, createdAt: number): CustomThemeType => ({
     id: generateCustomThemeId(),

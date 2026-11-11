@@ -14,8 +14,6 @@ import {
 import { DifficultyComplexityPreviewCell } from '../difficulty-complexity-preview-cell/difficulty-complexity-preview-cell';
 import { DifficultyComplexitySliderStyles as styles } from '../difficulty-complexity-slider.styles';
 
-import { difficultyComplexityPreviewGetColors } from './utils/difficulty-complexity-preview-get-colors.util';
-
 interface Props {
     readonly children: ReactNode;
     readonly isChallengeMode: boolean;
@@ -31,9 +29,8 @@ export const DifficultyComplexityPreview = (props: Props) => {
     const activeCellCount = DifficultyComplexitySliderActiveCellBaseCount + selectedIndex * DifficultyComplexitySliderActiveCellStep;
     const activeCellOpacity =
         DifficultyComplexitySliderPreviewCellBaseOpacity + selectedIndex * DifficultyComplexitySliderPreviewCellOpacityStep;
-    const previewColors = difficultyComplexityPreviewGetColors(theme);
-    const previewBorderColor = isChallengeMode ? theme.colors.text.primary : previewColors.borderColor;
-    const previewStyles = [styles.preview, { backgroundColor: previewColors.backgroundColor, borderColor: previewBorderColor }];
+    const previewBorderColor = isChallengeMode ? theme.colors.text.primary : theme.colors.surface.border;
+    const previewStyles = [styles.preview, { backgroundColor: 'transparent', borderColor: previewBorderColor }];
     const challengeConditions = isChallengeMode ? <ChallengeConditionsRow /> : null;
     const previewGridFrameStyles = [styles.previewGridFrame, { borderColor: theme.colors.surface.border }];
     const titleStyles = [styles.previewTitle, { color: theme.colors.text.primary }];

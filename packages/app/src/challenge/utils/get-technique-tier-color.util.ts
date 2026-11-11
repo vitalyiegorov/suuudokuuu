@@ -1,6 +1,6 @@
 import { ChallengeTechniqueTierEnum } from '../enums/challenge-technique-tier.enum';
 
-import type { ThemeInterface } from '@suuudokuuu/ui';
+import type { ThemeInterface } from '@suuudokuuu/ui/theme';
 
 type TierColorSurface = 'default' | 'inverted';
 type TierColorResolver = (theme: Pick<ThemeInterface, 'colors'>) => string;

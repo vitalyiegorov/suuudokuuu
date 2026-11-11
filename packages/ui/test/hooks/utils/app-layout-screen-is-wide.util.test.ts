@@ -8,6 +8,14 @@ const DesktopViewportHeight = 1200;
 const IPadProLandscapeWidth = 1366;
 
 describe('appLayoutScreenIsWide', () => {
+    it('returns true when width meets the breakpoint and aspect ratio is landscape', () => {
+        expect(appLayoutScreenIsWide({ width: Breakpoints.lg, height: Breakpoints.md })).toBe(true);
+    });
+
+    it('returns true at the inclusive width boundary when aspect ratio is landscape', () => {
+        expect(appLayoutScreenIsWide({ width: Breakpoints.md, height: Breakpoints.md / 2 })).toBe(true);
+    });
+
     it('returns true for a large desktop viewport taller than a portrait tablet', () => {
         expect(appLayoutScreenIsWide({ width: DesktopViewportWidth, height: DesktopViewportHeight })).toBe(true);
     });
@@ -22,5 +30,14 @@ describe('appLayoutScreenIsWide', () => {
 
     it('returns false when width is below the breakpoint even in landscape', () => {
         expect(appLayoutScreenIsWide({ width: Breakpoints.sm, height: Breakpoints.xs })).toBe(false);
+        expect(appLayoutScreenIsWide({ width: 700, height: 400 })).toBe(false);
+    });
+
+    it('returns false when width meets the breakpoint but the aspect ratio is portrait', () => {
+        expect(appLayoutScreenIsWide({ width: 800, height: 1200 })).toBe(false);
+    });
+
+    it('returns false for a square viewport at the breakpoint width', () => {
+        expect(appLayoutScreenIsWide({ width: Breakpoints.md, height: Breakpoints.md })).toBe(false);
     });
 });

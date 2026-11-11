@@ -1,4 +1,4 @@
-import { ContentWidthConstant } from '@suuudokuuu/ui';
+import { ContentWidthConstant } from '@suuudokuuu/ui/theme';
 import { StyleSheet } from 'react-native';
 
 export const StickyFooterBandStyles = StyleSheet.create({

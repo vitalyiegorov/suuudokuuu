@@ -1,4 +1,4 @@
-import { ContentWidthConstant } from '@suuudokuuu/ui';
+import { ContentWidthConstant } from '@suuudokuuu/ui/theme';
 
 import { SCREEN_CHROME_DEFAULT_CONFIG } from '@rnw-community/react-native-screen-chrome';
 

@@ -4,9 +4,11 @@ import { use } from 'react';
 import { isDefined } from '@rnw-community/shared';
 
 import { GameContext } from '../context/game.context';
-import { gameMergeCandidateValues } from '../utils/game-merge-candidate-values.util';
 
 import type { CellInterface } from '@suuudokuuu/generator';
+
+const gameMergeCandidateValues = (candidates: number[], extraCandidates: number[]): number[] =>
+    extraCandidates.length === 0 ? candidates : [...new Set([...candidates, ...extraCandidates])].sort((left, right) => left - right);
 
 export const useFieldCellState = (cell: CellInterface) => {
     const { engine, snapshot } = use(GameContext);

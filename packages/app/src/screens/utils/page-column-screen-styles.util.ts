@@ -1,4 +1,4 @@
-import type { UnistylesThemeInterface } from '@suuudokuuu/ui';
+import type { UnistylesThemeInterface } from '@suuudokuuu/ui/theme';
 
 export const pageColumnScrollViewStyle = (theme: UnistylesThemeInterface) => ({
     maxWidth: theme.contentWidth.standard,

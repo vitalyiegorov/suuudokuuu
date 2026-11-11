@@ -9,11 +9,13 @@ import { AppLinkButton } from '../../../../../@generic/components/app-link-butto
 import { ThemeContext } from '../../../../../theme/context/theme.context';
 import { BetaScreenSelectors } from '../../beta-screen.selectors';
 import { BetaCommitUrlPrefix } from '../../constant/beta-url.constant';
-import { formatBetaDate } from '../../utils/format-beta-date.util';
 
 import { BetaReleaseDetailsStyles as styles } from './beta-release-details.styles';
 
 import type { BetaRelease } from '../../schema/beta-release.schema';
+
+const formatBetaDate = (date: string, locale: string): string =>
+    new Intl.DateTimeFormat(locale, { dateStyle: 'medium', timeStyle: 'short' }).format(new Date(date));
 
 interface Props {
     readonly release: BetaRelease;

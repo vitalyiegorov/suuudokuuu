@@ -4,7 +4,6 @@ import { use } from 'react';
 
 import { isNotEmptyString } from '@rnw-community/shared';
 
-import { GameResultActionsLayout } from '../../../../@generic/components/game-result-actions-layout/game-result-actions-layout';
 import { GameResultHomeButton } from '../../../../@generic/components/game-result-home-button/game-result-home-button';
 import { GlassIconButton } from '../../../../@generic/components/glass-icon-button/glass-icon-button';
 import { PlayAgainButton } from '../../../../@generic/components/play-again-button/play-again-button';
@@ -62,8 +61,8 @@ export const WinnerScreenActions = ({ gameState, retrySetup }: Props) => {
     }
 
     return (
-        <GameResultActionsLayout homeAction={homeAction}>
+        <ScreenActionBar right={homeAction}>
             <PlayAgainButton isLoading={isCreatingGame} onPress={handlePlayAgain} style={styles.button} />
-        </GameResultActionsLayout>
+        </ScreenActionBar>
     );
 };
