@@ -72,27 +72,25 @@ Each cell is one e2e test (`Media.capture` in `media.ts`):
    mode differs, which flashes the light window and pauses a running game.
    The app's own language comes from the seeded `settings.language`; the
    device locale aligns OS-derived strings with it.
-3. **Seed state.** `persistRootDatabase()` in `scripts/seed-app-state.ts`
-   builds the persisted redux blob as one `persist:root` row in a plain
-   `storage(key, value)` SQLite table (the legacy `expo-sqlite` kv-store
-   layout), and `Suuudokuuu.start()` installs it through simlock's exec API
-   at `Documents/SQLite/ExpoSQLiteStorage` in the iOS data container (with
-   E2EDrop) or `/data/data/<pkg>/files/SQLite/ExpoSQLiteStorage` on Android,
-   then launches the app. Each top-level reducer is a JSON string inside the
-   outer JSON object (double-encoded, the legacy redux-persist convention).
-   The blob carries the language, the appearance, a fully rated history for
-   all seven difficulties, and per-scene game states. On launch the boot-time
-   legacy import (`LegacyStateImportService` in `packages/progress`) runs the
-   frozen migrations, replaces the app's SQLite progress tables with the
-   blob, and deletes the row.
+3. **Seed state.** `sceneDatabase()` in `media.ts` copies the scene's
+   committed database (`tests/app-tests/fixtures/databases/screenshot.db`, or
+   `screenshot-<sceneState>.db` for a scene with a `sceneState`), writes the
+   cell's language, appearance and seed difficulty into its `settings` row
+   with `node:sqlite` (a challenge run keeps its stored wall clock of 0, which
+   the app anchors to now when the game screen gains focus), and
+   `Suuudokuuu.start()` installs the result as the app database (`suuudokuuu.db`
+   in the iOS `Library` directory with E2EDrop, `databases/` on Android)
+   through simlock's exec API, then launches the app. Every database carries a
+   fully rated history for all seven difficulties; the scene databases add the
+   in-progress run their scene shows.
 4. **Drive the scene and shoot.** A deep-link scene opens its link and waits
    for the screen's root selector; `win`, `pause`, `import` and `app-preview`
    play, background, or pick a photo instead. The cell then settles for 6 s
    and takes the still.
 
 Scene definitions live in `scripts/screenshot-scenes.ts`: each scene carries
-its order (the `NN-` file prefix), its optional `deepLink` and
-`sceneState`/`seedDifficulty`. The `SCENES` map in `media.ts` decides how each
+its order (the `NN-` file prefix), its optional `deepLink`, `sceneState` (which
+database it installs) and `seedDifficulty`. The `SCENES` map in `media.ts` decides how each
 one is driven; a new scene needs an entry in both.
 
 The App Store preview comes from `store-media.yml`: the e2e capture records the
@@ -111,15 +109,14 @@ root. Recapturing those sets needs that support added to `media.ts` first.
 The first pipeline drove every scene through the UI and switched language
 through the in-app sheet, costing ~40 minutes per locale; the statistics
 scene additionally needed complete games played through the UI at ~20 minutes
-per game. Seeding the persisted state makes a scene a few seconds. Three facts
-make it possible, all verified on-device:
+per game. Seeding the database makes a scene a few seconds. Three facts make it
+possible, all verified on-device:
 
-- The app's language is persisted redux `settings.language`, not an OS
-  setting. The old set-OS-language + uninstall + reinstall + re-prime +
-  re-seed ritual for below-the-fold locales (ar, bn, id, pt, ur) was never
-  necessary.
-- Every deep-link screenshot scene is a pure function of the `persist:root` row.
-- The row is directly writable while the app is terminated.
+- The app's language is the persisted `settings.language`, not an OS setting.
+  The old set-OS-language + uninstall + reinstall + re-prime + re-seed ritual
+  for below-the-fold locales (ar, bn, id, pt, ur) was never necessary.
+- Every deep-link screenshot scene is a pure function of the app database.
+- The database is directly writable while the app is terminated.
 
 **Do not migrate this to fastlane `snapshot`/`screengrab`.** They require a
 UI-test target inside the native project, but `packages/app/ios` and
@@ -156,43 +153,35 @@ what step 2 above already does.
 - **Settle time:** every cell waits 6 s before its still. One second caught
   Android's result screen mid-fade, because a screen's entry fade outlasts its
   testIDs appearing.
-- The seeder reads the persist version from
-  `packages/progress/src/legacy/utils/make-legacy-migrations.util.ts` and the
-  language list from `languages.constant.ts` at run time, so a migration bump
-  or a new locale fails loudly instead of drifting silently.
+- A cell's locale is written into `settings.language` as is, so the capture
+  plan rejects any locale outside `AllLocales` in `screenshot-scenes.ts` (the
+  app's thirteen languages) before a device is leased.
 
 ## The seed fixture
 
-`tests/app-tests/fixtures/screenshot-seed-state.json` holds the rated
-seven-difficulty history plus `sceneStates` for the scenes that used to need
-real gameplay (`hero`: in-progress Nightmare board with pencil marks;
-`challengeLive`: accepted challenge mid-race). Both blobs were captured from
-state the app itself persisted, so they cannot drift from the reducers.
+`scripts/seed-database-fixtures.ts` builds the screenshot databases next to the
+e2e fixtures, through the same `packages/progress` migrations and services the
+app runs, so they always match the current schema:
 
-The app no longer writes `persist:root` itself (state lives in the SQLite
-tables of `suuudokuuu.db`), so the fixture is now frozen in the legacy shape
-and edited by hand. It was originally captured from the legacy storage row
-before the SQLite migration, and the current app cannot regenerate it.
+- `fixtures/screenshot-backup.json` is a `BackupService` backup (version 1): ten
+  completed games, the rated stats of all seven difficulties, and player stats
+  with the solver profile the stats scene shows. The Newbie game completed at
+  `SeededReplayCompletedAt` (`screenshot-scenes.ts`) is the one the `replay`
+  scene opens. The seed imports it into every screenshot database.
+- `screenshotSettings` in the seed script is the settings row (the
+  `black-and-white` theme); the capture overwrites its language, appearance
+  and last difficulty per cell.
+- Each scene database adds one `current_run`: `screenshot-hero` the airy
+  Nightmare board with pencil marks, `screenshot-challenge-live` an accepted
+  challenge mid-race against the rival link it stores (its timeline and time
+  are decoded from that link), `screenshot-infinity` an Infinity board, and
+  `screenshot-preview` the Medium board the App Store preview plays, with the
+  timer hidden. `screenshot` has no run.
 
-The fixture is not, and cannot be, kept in sync with every `SettingsState`
-field by hand: it once fell three fields behind (`allowHintsOnHardDifficulties`,
-`motionPreference`, `calmMode`), crashing `DailyScreen` on every tab route
-until it was hand-patched mid-session. `packages/app/src` cannot be imported
-from the seeder — its relative imports lack extensions, which plain `node`
-rejects, and the `settings` slice additionally pulls in the real
-`react-native` package, which neither plain `node` nor `tsx` can parse. So
-the seeder instead stamps the written `_persist.version` at a fixed baseline
-(`SeedFixtureBaselinePersistVersion` in `seed-app-state.ts`, currently 40,
-one below the migration that backfills `settings` against the live
-default settings) rather than the live `LegacyPersistVersion`. This makes the
-boot-time legacy import run every migration newer than the baseline against the
-fixture on the app's first launch after seeding, the same way it would for a
-real upgrading user, so newly added fields backfill automatically. Bump the
-baseline only past a migration you have checked is a no-op for this fixture's
-actual values (`resetBestScores` at 15 and the daily-streak reset inside
-`backfillStatsPackAndDailyRecord` at 41 are destructive in general — they are
-safe here only because the fixture's `bestScore` and daily-streak fields
-already hold values those migrations would produce anyway).
+Change the data there, regenerate with
+`pnpm --filter ./tests/app-tests seed:fixtures`, and commit the databases;
+`seed:check` in PR CI fails when a committed database no longer matches what
+the seed produces. A new schema migration only needs the regeneration.
 
 ## Compose and verify
 

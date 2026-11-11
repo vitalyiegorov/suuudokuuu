@@ -1,16 +1,15 @@
 # App Tests Package
 
-This package hosts the store-screenshot scene list and seed state
-(`scripts/screenshot-scenes.ts`, `scripts/seed-app-state.ts` and
-`fixtures/screenshot-seed-state.json`) that the `e2e` media capture uses, the
-App Store preview composer (`scripts/compose-app-preview.ts`), and the
-database fixtures the `e2e` suite installs. Read
+This package hosts the store-screenshot scene list
+(`scripts/screenshot-scenes.ts`) that the `e2e` media capture uses, the App
+Store preview composer (`scripts/compose-app-preview.ts`), and the database
+fixtures the `e2e` suite and the media capture install. Read
 `docs/store-screenshot-capture.md` before touching the capture or capturing
 store screenshots. UI scenarios and the capture itself live in `e2e`.
 
 ## Database fixtures
 
-`fixtures/databases/<fixture>.db` are finished-game databases the `e2e` suite installs through `Suuudokuuu.start(fixture)`. `scripts/seed-database-fixtures.ts` builds them through the `packages/progress` migrations and services: add fixtures to its `fixtures` map, regenerate with `pnpm --filter ./tests/app-tests seed:fixtures`, and commit the result. `seed:check` in PR CI fails when a committed database no longer matches what the current migrations produce.
+`fixtures/databases/<fixture>.db` are app databases the `e2e` suite installs through `Suuudokuuu.start(fixture)`: finished-game databases for the scenarios, and `screenshot*.db` for the media capture, which imports the `BackupService` backup `fixtures/screenshot-backup.json` and adds each scene's run (`docs/store-screenshot-capture.md` describes them). `scripts/seed-database-fixtures.ts` builds them through the `packages/progress` migrations and services: add fixtures to its `fixtures` map, regenerate with `pnpm --filter ./tests/app-tests seed:fixtures`, and commit the result. `seed:check` in PR CI fails when a committed database no longer matches what the current migrations produce.
 
 ## Selector Rules
 

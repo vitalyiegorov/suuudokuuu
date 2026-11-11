@@ -30,7 +30,7 @@ export const AllScenes: Scene[] = [
     {
         deepLink: 'suuudokuuu://game',
         name: 'challenge-live',
-        sceneState: 'challengeLive',
+        sceneState: 'challenge-live',
         seedDifficulty: 'Nightmare'
     },
     {
@@ -57,6 +57,8 @@ const LocaleIdentifiers: Record<string, string> = {
     ur: 'ur_PK',
     zh: 'zh_CN'
 };
+
+export const AllLocales = Object.keys(LocaleIdentifiers);
 
 export const localeIdentifierFor = (locale: string): string =>
     Object.hasOwn(LocaleIdentifiers, locale) ? LocaleIdentifiers[locale] : DefaultLocaleIdentifier;

@@ -1,8 +1,8 @@
 # AGENTS.md
 
-Suuudokuuu is a source-available Sudoku game built with React Native and Expo. This monorepo has sixteen core packages and one shared test harness: `app` for the game UI and the platform/runtime edge, `ui` for shared React Native components, hooks, and the theme contract, `progress` for the persisted SQL schema, migrations, repositories, reactivity keys, and the player-progress domain services (current run, finishing a run into history and stats, legacy import), `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation, gameplay state, navigation, and scoring, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection and the logical-solve driver, `rating` for Sudoku Explainer difficulty rating, `puzzle-forge` for technique-aware puzzle sourcing per difficulty tier, `field-core` for the headless interactive field engine and technique step-script player, `field-dom` for the React DOM board renderer, `encoder` for compact shareable game-state encoding, `hell-corpus` for the bundled, verified Hell-difficulty and Infinity puzzle corpora, and `grid-vision` for on-device recognition of a sudoku grid and its digits from an image. `tests/test-kit` holds the shared Vitest and in-memory SQLite test harness.
+Suuudokuuu is a source-available Sudoku game built with React Native and Expo. This monorepo has sixteen core packages and one shared test harness: `app` for the game UI and the platform/runtime edge, `ui` for shared React Native components, hooks, and the theme contract, `progress` for the persisted SQL schema, migrations, repositories, reactivity keys, and the player-progress domain services (current run, finishing a run into history and stats, backup), `landing` for the static Next.js content and SEO site, `generator` for Sudoku generation, gameplay state, navigation, and scoring, `solver-core` for the shared solver contract, grid utilities, and conformance helpers, `solver-dlx` for the Dancing Links exact-cover solver, `solver-bitmask` for the typed-array bitmask solver, `techniques` for solving-technique detection and the logical-solve driver, `rating` for Sudoku Explainer difficulty rating, `puzzle-forge` for technique-aware puzzle sourcing per difficulty tier, `field-core` for the headless interactive field engine and technique step-script player, `field-dom` for the React DOM board renderer, `encoder` for compact shareable game-state encoding, `hell-corpus` for the bundled, verified Hell-difficulty and Infinity puzzle corpora, and `grid-vision` for on-device recognition of a sudoku grid and its digits from an image. `tests/test-kit` holds the shared Vitest and in-memory SQLite test harness.
 
-Persistence is Effect v4 services over SQLite (op-sqlite on native, wa-sqlite on web) with `@effect/atom-react` atoms for reads. The pre-SQLite redux-persist payload survives only as the one-time legacy import in `packages/progress`.
+Persistence is Effect v4 services over SQLite (op-sqlite on native, wa-sqlite on web) with `@effect/atom-react` atoms for reads.
 
 ## Canonical Agent Surfaces
 
@@ -52,7 +52,7 @@ Node script entrypoints under `packages/*/scripts` and `tests/app-tests/scripts`
 packages/
 ├── app/                # Expo 58, React Native 0.88, React 19.3 game UI, SQL platform layers, app runtime, boot gate
 ├── ui/                 # Shared React Native components, hooks, and the theme contract
-├── progress/           # Effect v4 persisted schemas, SQL migrations, repositories, reactivity keys, domain services, legacy import
+├── progress/           # Effect v4 persisted schemas, SQL migrations, repositories, reactivity keys, domain services, backup
 ├── generator/          # Pure TypeScript Sudoku generation, gameplay state, navigation, and scoring
 ├── solver-core/        # Shared solver contract, grid constants, and conformance-test helpers
 ├── solver-dlx/         # Dancing Links (DLX) exact-cover Sudoku solver
@@ -97,7 +97,7 @@ tests/
 ## Engineering Rules
 
 1. Do not use `any`. Model unknown data as `unknown`, validate it, then narrow it.
-2. Do not add type assertions such as `as Type`, `@ts-ignore`, or `@ts-expect-error`. `as const` is allowed as a const assertion. Legacy persisted-state migrations are not a precedent for new code.
+2. Do not add type assertions such as `as Type`, `@ts-ignore`, or `@ts-expect-error`. `as const` is allowed as a const assertion.
 3. Do not add explanatory code comments. Prefer clearer names and smaller functions. Existing legacy comments are not a pattern to extend.
 4. Never add `oxlint-disable` comments without explicit approval unless the exact rule is listed in this file's approved disable section.
 5. Use one `const` declaration per variable. Do not create a derived `const` that is used once when inlining it is equally readable, such as `const queryDependencies = [...]` passed straight into one call. Keep a named local when it is needed for hook ordering, type narrowing, repeated use, JSX prop extraction, or genuinely clearer non-trivial logic.

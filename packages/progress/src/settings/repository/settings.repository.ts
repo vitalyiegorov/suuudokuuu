@@ -29,12 +29,9 @@ export class SettingsRepository extends Context.Service<SettingsRepository>()('@
             execute: settings => sql`INSERT OR REPLACE INTO settings ${sql.insert({ id: 1, ...settings })}`
         });
         const get = findSettings().pipe(Effect.orDie);
-        const save = (settings: SettingsType) =>
-            reactivity.mutation([ReactivityKeyEnum.Settings], replaceSettings(settings)).pipe(Effect.orDie);
 
         return {
             get,
-            save,
             initialize: (settings: SettingsType) => insertSettings(settings).pipe(Effect.orDie),
             update: (patch: Partial<SettingsType>) =>
                 reactivity

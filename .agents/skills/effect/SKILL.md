@@ -16,7 +16,7 @@ Every effectful line is Effect. No Promise/async logic, `try`/`throw`, `new Prom
 
 ## Repo layout
 
-- `packages/progress` (`@suuudokuuu/progress`): persisted row models (`Model.Class` / `Schema.Struct`), JSON-column schemas, the migration record, reactivity key constants, repositories, tagged errors, and the domain services (current run, finishing a run into history and stats, legacy import).
+- `packages/progress` (`@suuudokuuu/progress`): persisted row models (`Model.Class` / `Schema.Struct`), JSON-column schemas, the migration record, reactivity key constants, repositories, tagged errors, and the domain services (current run, finishing a run into history and stats, backup).
 - `packages/app`: platform SQL layers (native op-sqlite, web wa-sqlite), `src/@generic/runtime/app.runtime.ts` (provides progress's `ProgressLayer`), atom helpers, boot gate. No unit tests here.
 - `tests/test-kit` (`@suuudokuuu/test-kit`): `makeTestSqlLayer()` (in-memory SQLite + progress migrations + Reactivity) and the shared Vitest config.
 
@@ -31,7 +31,7 @@ Every effectful line is Effect. No Promise/async logic, `try`/`throw`, `new Prom
 - Concurrency and time: `Schedule`, `Effect.retry`/`repeat`, `Effect.timeout`, `Effect.sleep`, `Semaphore`, `FiberMap`/`FiberSet`, `Effect.acquireRelease`. No `Promise.race`, generation counters or boolean cancel flags.
 - Reactivity: reads are atoms (`appAtomRuntime.factory.withReactivity([keys])(appAtomRuntime.atom(effect))`, families via `Atom.family`) read with `useAtomValue`. Every repository write is wrapped in `reactivity.mutation([keys], effect)` with key constants from progress. The run clock has its own key.
 - Runtime edges (`packages/app/src/@generic/runtime/app.runtime.ts`): `appRuntime` (`ManagedRuntime`) runs commands via `runPromise` / `runFork`; the rejection is the original error, so `getErrorMessage(error)` keeps working. When an effect must start from `useEffect`, `runFork` and interrupt the fiber in cleanup. Never `useEffect` + async + cancelled flag.
-- Boot: a keep-alive atom runs migrations and the legacy import; the root layout renders nothing until it succeeds.
+- Boot: a keep-alive atom runs migrations and seeds the default settings row; the root layout renders nothing until it succeeds.
 - Logging: use `Effect.logDebug`/`logError` and `Effect.tapCause(Effect.logError)` at edges. Never `console.*`.
 - Tests: Vitest with `@effect/vitest`, `it.effect` (and `it.layer` for shared layers) in `packages/<pkg>/test/**/*.test.ts` and `tests/*`, never `async` test bodies or `runPromise` inside a test. Provide the database with `makeTestSqlLayer()` from `tests/test-kit`. Assert failures with `Effect.flip`/`Effect.exit`; time-dependent tests use `TestClock`. `app` and `landing` host no test files.
 
