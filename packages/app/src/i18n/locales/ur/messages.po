@@ -1687,8 +1687,8 @@ msgid "Play again"
 msgstr "دوبارہ کھیلیں"
 
 #: src/app/(tabs)/index.tsx
-msgid "Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles in your browser."
-msgstr "چھ درجے مشکل، اشارے اور بغیر اشتہار کے مفت آن لائن سوڈوکو کھیلیں۔ براؤزر میں ہی تیز اور بغیر خلل والی پہیلیاں۔"
+msgid "Play free Sudoku online with seven difficulty levels, hints, and no ads. Fast, distraction-free puzzles in your browser."
+msgstr "سات درجے مشکل، اشارے اور بغیر اشتہار کے مفت آن لائن سوڈوکو کھیلیں۔ براؤزر میں ہی تیز اور بغیر خلل والی پہیلیاں۔"
 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
