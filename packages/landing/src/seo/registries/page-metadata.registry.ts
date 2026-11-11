@@ -37,6 +37,7 @@ import { relaxingSudokuPageMetadata } from '../../app/(en)/relaxing-sudoku/metad
 import { solverPageMetadata } from '../../app/(en)/solver/metadata';
 import { sudokuForSeniorsPageMetadata } from '../../app/(en)/sudoku-for-seniors/metadata';
 import { sudokuKeyboardShortcutsPageMetadata } from '../../app/(en)/sudoku-keyboard-shortcuts/metadata';
+import { sudokuScannerPageMetadata } from '../../app/(en)/sudoku-scanner/metadata';
 import { sudokuTipsPageMetadata } from '../../app/(en)/sudoku-tips/metadata';
 import { easySudokuPageMetadata } from '../../app/(en)/sudoku/easy/metadata';
 import { hardSudokuPageMetadata } from '../../app/(en)/sudoku/hard/metadata';
@@ -174,6 +175,7 @@ export const PAGE_METADATA_REGISTRY: readonly PageMetadataInterface[] = [
     accessibleSudokuPageMetadata,
     sudokuKeyboardShortcutsPageMetadata,
     challengeAFriendPageMetadata,
+    sudokuScannerPageMetadata,
     trackYourProgressPageMetadata,
     aboutPageMetadata
 ];

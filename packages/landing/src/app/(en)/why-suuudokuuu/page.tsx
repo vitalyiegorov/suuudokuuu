@@ -13,6 +13,7 @@ import { buildPageMetadata } from '../../../seo/utils/build-page-metadata.util';
 import { homePageMetadata } from '../metadata';
 import { solverPageMetadata } from '../solver/metadata';
 import { sudokuForSeniorsPageMetadata } from '../sudoku-for-seniors/metadata';
+import { sudokuScannerPageMetadata } from '../sudoku-scanner/metadata';
 import { hellSudokuPageMetadata } from '../sudoku/hell/metadata';
 import { techniquesPageMetadata } from '../techniques/metadata';
 
@@ -83,7 +84,8 @@ const WhySuuudokuuuPage = () => (
             next move — a hidden pair, a pointing triple, an X-Wing — and walks through why it applies, instead of silently revealing a
             digit. If you would rather work through a puzzle you already have on paper or from another source, the{' '}
             <Link href={solverPageMetadata.path}>step-by-step solver</Link> does the same thing: type in a grid and it narrates every move
-            by name, in your browser, with nothing sent to a server.
+            by name, in your browser, with nothing sent to a server. To keep playing that puzzle instead, the{' '}
+            <Link href={sudokuScannerPageMetadata.path}>sudoku scanner</Link> reads it from a photo on your device.
         </p>
         <h2>A transparent alternative</h2>
         <p>

@@ -14,6 +14,7 @@ import { techniqueFrequencyByDifficultyPageMetadata } from '../guides/technique-
 import { howToPlayPageMetadata } from '../how-to-play/metadata';
 import { homePageMetadata } from '../metadata';
 import { solverPageMetadata } from '../solver/metadata';
+import { sudokuScannerPageMetadata } from '../sudoku-scanner/metadata';
 import { sudokuTipsPageMetadata } from '../sudoku-tips/metadata';
 import { easySudokuPageMetadata } from '../sudoku/easy/metadata';
 import { newbieSudokuPageMetadata } from '../sudoku/newbie/metadata';
@@ -63,7 +64,8 @@ const LearnSudokuPage = () => (
             When you are stuck, a hint should explain, not just fill a cell. The{' '}
             <Link href={sudokuHintsDemoPageMetadata.path}>interactive hint demo</Link> lets you try the hint stepper on a live board: it
             names the technique first, then shows the pattern, then walks through the move. Got a puzzle from a book? Paste it into the{' '}
-            <Link href={solverPageMetadata.path}>step-by-step solver</Link>.
+            <Link href={solverPageMetadata.path}>step-by-step solver</Link>, or play it in the app with the{' '}
+            <Link href={sudokuScannerPageMetadata.path}>sudoku scanner</Link>.
         </p>
         <h2>Step 5: Review your solve</h2>
         <p>
