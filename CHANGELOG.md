@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.43.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.42.9...v2.43.0) (2026-11-11)
+
+### Features
+
+* **app:** add the photo import shot and scan copy to the store listings ([#830](https://github.com/vitalyiegorov/suuudokuuu/issues/830)) ([b3b4590](https://github.com/vitalyiegorov/suuudokuuu/commit/b3b45902d6f7ab3b2557e9fce37961933b936fb6))
+
+
 ## [2.42.9](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.42.8...v2.42.9) (2026-11-10)
 
 ### Bug Fixes
