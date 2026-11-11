@@ -807,12 +807,12 @@ importers:
       '@suuudokuuu/rating':
         specifier: workspace:*
         version: link:../rating
+      '@suuudokuuu/solver-bitmask':
+        specifier: workspace:*
+        version: link:../solver-bitmask
       '@suuudokuuu/solver-core':
         specifier: workspace:*
         version: link:../solver-core
-      '@suuudokuuu/solver-dlx':
-        specifier: workspace:*
-        version: link:../solver-dlx
       '@suuudokuuu/techniques':
         specifier: workspace:*
         version: link:../techniques

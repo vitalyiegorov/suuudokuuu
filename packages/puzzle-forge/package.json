@@ -29,8 +29,8 @@
         "@suuudokuuu/generator": "workspace:*",
         "@suuudokuuu/hell-corpus": "workspace:*",
         "@suuudokuuu/rating": "workspace:*",
+        "@suuudokuuu/solver-bitmask": "workspace:*",
         "@suuudokuuu/solver-core": "workspace:*",
-        "@suuudokuuu/solver-dlx": "workspace:*",
         "@suuudokuuu/techniques": "workspace:*"
     },
     "devDependencies": {
