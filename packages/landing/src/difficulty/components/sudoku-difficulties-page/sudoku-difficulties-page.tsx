@@ -46,7 +46,6 @@ const DIFFICULTY_ITEMS = [
     infinitySudokuPageMetadata
 ];
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 export const SudokuDifficultiesPage = ({ locale }: Props) => {
     activateLocale(locale);
     const newbieClueCount = getDifficultyClueCount(DifficultyEnum.Newbie);

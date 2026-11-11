@@ -58,7 +58,6 @@ const lowestRatingLabel = INFINITY_LOWEST_RATING.toFixed(1);
 const highestRatingLabel = INFINITY_HIGHEST_RATING.toFixed(1);
 const minimumRatingLabel = INFINITY_CORPUS_MINIMUM_RATING.toFixed(1);
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 export const InfinitySudokuPage = ({ locale }: Props) => {
     activateLocale(locale);
     const hellReport = getTierTechniqueReport(DifficultyEnum.Hell);

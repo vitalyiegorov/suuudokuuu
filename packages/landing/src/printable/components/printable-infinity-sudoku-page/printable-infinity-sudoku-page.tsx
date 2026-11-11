@@ -44,7 +44,6 @@ const [PREVIEW_PUZZLE] = PRINTABLE_BOOKLET_PUZZLES[DifficultyEnum.Infinity];
 const lowestRatingLabel = INFINITY_LOWEST_RATING.toFixed(1);
 const highestRatingLabel = INFINITY_HIGHEST_RATING.toFixed(1);
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 export const PrintableInfinitySudokuPage = ({ locale }: Props) => {
     activateLocale(locale);
     const { t } = useLingui();

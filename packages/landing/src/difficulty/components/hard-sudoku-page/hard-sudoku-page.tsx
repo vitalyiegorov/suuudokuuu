@@ -48,7 +48,6 @@ interface Props {
     locale: LocaleType;
 }
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 export const HardSudokuPage = ({ locale }: Props) => {
     activateLocale(locale);
     const hardReport = getTierTechniqueReport(DifficultyEnum.Hard);

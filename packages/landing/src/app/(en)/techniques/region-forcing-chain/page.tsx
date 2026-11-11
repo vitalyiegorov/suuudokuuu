@@ -25,7 +25,6 @@ export const metadata: Metadata = buildPageMetadata(regionForcingChainPageMetada
 
 const EXAMPLE_BOARD = '375.9.21.2....13..1........419..572.582..7..1763......8.7..2...9.4....5.6.18...7.';
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const RegionForcingChainPage = () => (
     <main>
         <TechniquePageHeader metadata={regionForcingChainPageMetadata} />

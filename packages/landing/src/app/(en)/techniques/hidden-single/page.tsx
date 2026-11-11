@@ -24,7 +24,6 @@ export const metadata: Metadata = buildPageMetadata(hiddenSinglePageMetadata);
 
 const EXAMPLE_BOARD = '.67..1.82.54..8.711827.3.4.491..685783657.12.27581..3.748192.6.629.8571.513..7298';
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HiddenSinglePage = () => (
     <main>
         <TechniquePageHeader metadata={hiddenSinglePageMetadata} />

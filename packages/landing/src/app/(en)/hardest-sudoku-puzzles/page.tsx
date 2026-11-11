@@ -40,7 +40,6 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = buildPageMetadata(hardestSudokuPuzzlesPageMetadata);
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const HardestSudokuPuzzlesPage = () => (
     <main>
         <ArticleSchema metadata={hardestSudokuPuzzlesPageMetadata} />

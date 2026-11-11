@@ -48,7 +48,6 @@ const TIER_4_FISH_WINGS_CHAINS = TECHNIQUE_PAGE_LADDER.filter(
 
 const TIER_5_UNIQUENESS_FORCING_CHAINS = TECHNIQUE_PAGE_LADDER.filter(technique => technique > SolutionTechniqueEnum.AIC);
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const SolverPage = () => (
     <main>
         <ArticleSchema metadata={solverPageMetadata} />

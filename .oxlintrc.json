@@ -1368,6 +1368,12 @@
             "rules": {
                 "effecttsgo/lazy-effect": "off"
             }
+        },
+        {
+            "files": ["packages/landing/src/app/**/page.tsx", "packages/landing/src/**/components/*-page/*-page.tsx"],
+            "rules": {
+                "max-lines-per-function": "off"
+            }
         }
     ]
 }

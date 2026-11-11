@@ -22,7 +22,6 @@ export const metadata: Metadata = buildPageMetadata(jellyfishPageMetadata);
 
 const EXAMPLE_BOARD = '94.71..32...25..41.12934.87...4.382.42.5..31..6.1.247....64.2.8..4.2.7.325.3..1.4';
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const JellyfishPage = () => (
     <main>
         <TechniquePageHeader metadata={jellyfishPageMetadata} />

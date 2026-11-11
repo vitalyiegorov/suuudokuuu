@@ -24,7 +24,6 @@ export const metadata: Metadata = buildPageMetadata(pointingTriplePageMetadata);
 
 const EXAMPLE_BOARD = '.91.52.4354.937.122.3..4.59.5...3..443...5..612..49537912378465..5491328384526971';
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const PointingTriplePage = () => (
     <main>
         <TechniquePageHeader metadata={pointingTriplePageMetadata} />

@@ -22,7 +22,6 @@ export const metadata: Metadata = buildPageMetadata(uniqueRectanglePageMetadata)
 
 const EXAMPLE_BOARD = '927.54.81185..2..76347..29587624..5334..6587225.873..6468527..95.2...7647.34.6528';
 
-// oxlint-disable-next-line max-lines-per-function -- Long-form article copy belongs in the route file
 const UniqueRectanglePage = () => (
     <main>
         <TechniquePageHeader metadata={uniqueRectanglePageMetadata} />
