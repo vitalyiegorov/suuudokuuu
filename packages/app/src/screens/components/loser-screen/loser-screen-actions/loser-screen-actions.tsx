@@ -3,8 +3,8 @@ import LucideRotateCcw from 'lucide-react-native/icons/rotate-ccw';
 import { use } from 'react';
 
 import { AppLinkButton } from '../../../../@generic/components/app-link-button/app-link-button';
-import { GameResultActionsLayout } from '../../../../@generic/components/game-result-actions-layout/game-result-actions-layout';
 import { GameResultHomeButton } from '../../../../@generic/components/game-result-home-button/game-result-home-button';
+import { ScreenActionBar } from '../../../../@generic/components/screen-action-bar/screen-action-bar';
 import { GameContext } from '../../../../game/context/game.context';
 import { LoserScreenSelectors } from '../loser-screen.selectors';
 
@@ -24,7 +24,7 @@ export const LoserScreenActions = ({ retrySetup }: Props) => {
     const homeAction = <GameResultHomeButton accessibilityLabel={t`Home`} testID={LoserScreenSelectors.BackHomeButton} />;
 
     return (
-        <GameResultActionsLayout homeAction={homeAction}>
+        <ScreenActionBar right={homeAction}>
             <AppLinkButton
                 icon={LucideRotateCcw}
                 isLoading={isCreatingGame}
@@ -35,6 +35,6 @@ export const LoserScreenActions = ({ retrySetup }: Props) => {
                 text={t`Play again`}
                 variant="primary"
             />
-        </GameResultActionsLayout>
+        </ScreenActionBar>
     );
 };

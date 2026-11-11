@@ -7,6 +7,7 @@ import { Text, View } from 'react-native';
 import { isNotEmptyString } from '@rnw-community/shared';
 
 import { ChromeScrollPage } from '../../../@generic/components/chrome-scroll-page/chrome-scroll-page';
+import { ScreenActionBar } from '../../../@generic/components/screen-action-bar/screen-action-bar';
 import { UkraineSupportCard } from '../../../@generic/components/ukraine-support-card/ukraine-support-card';
 import { HomeHrefConstant } from '../../../@generic/constants/home-href.constant';
 import { useTimerText } from '../../../@generic/hooks/use-timer-text.hook';
@@ -20,7 +21,7 @@ import { ChallengeResult } from '../../interfaces/challenge-result.interface';
 import { getChallengeDurationParts } from '../../utils/get-challenge-duration-parts.util';
 import { getChallengeRecordingSummary } from '../../utils/get-challenge-recording-summary.util';
 import { getChallengeRivalRunSummary } from '../../utils/get-challenge-rival-run-summary.util';
-import { ChallengeResultFooter } from '../challenge-result-footer/challenge-result-footer';
+import { ChallengeResultHomeButton } from '../challenge-result-home-button/challenge-result-home-button';
 import { ChallengeResultMarginCard } from '../challenge-result-margin-card/challenge-result-margin-card';
 import { ChallengeResultMedallion } from '../challenge-result-medallion/challenge-result-medallion';
 import { ChallengeResultRivalTimeCard } from '../challenge-result-rival-time-card/challenge-result-rival-time-card';
@@ -82,7 +83,10 @@ export const ChallengeResultScreen = (props: Props) => {
     const pillTextStyle = [styles.pillText, { color: theme.colors.inkText }];
 
     return (
-        <ChromeScrollPage footer={<ChallengeResultFooter>{children}</ChallengeResultFooter>} testID={ChallengeResultScreenSelectors.Root}>
+        <ChromeScrollPage
+            footer={<ScreenActionBar right={<ChallengeResultHomeButton />}>{children}</ScreenActionBar>}
+            testID={ChallengeResultScreenSelectors.Root}
+        >
             <View style={styles.content}>
                 <ChallengeResultMedallion result={result} />
 
