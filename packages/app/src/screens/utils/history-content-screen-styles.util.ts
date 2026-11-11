@@ -1,6 +1,6 @@
 import { pageColumnScrollViewStyle } from './page-column-screen-styles.util';
 
-import type { UnistylesThemeInterface } from '@suuudokuuu/ui';
+import type { UnistylesThemeInterface } from '@suuudokuuu/ui/theme';
 
 export const historyContentScreenStyles = (theme: UnistylesThemeInterface) => ({
     scrollView: pageColumnScrollViewStyle(theme),

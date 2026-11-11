@@ -1,4 +1,4 @@
-import { SpacingConstant } from '@suuudokuuu/ui';
+import { SpacingConstant } from '@suuudokuuu/ui/theme';
 import { useEffect, useState } from 'react';
 import { Gesture } from 'react-native-gesture-handler';
 import { runOnJS, useSharedValue, withTiming } from 'react-native-reanimated';

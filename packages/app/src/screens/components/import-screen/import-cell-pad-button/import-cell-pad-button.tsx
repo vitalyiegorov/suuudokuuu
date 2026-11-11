@@ -1,4 +1,5 @@
-import { AppButton, CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui';
+import { AppButton } from '@suuudokuuu/ui';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { Text } from 'react-native';
 
 import { ImportCellPadStyles as styles } from '../import-cell-pad/import-cell-pad.styles';
