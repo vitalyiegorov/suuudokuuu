@@ -65,6 +65,7 @@ test('round-trips a shared Infinity link end to end with its rating carried onto
 test('pauses an Infinity run when the document backgrounds before game initialization', async ({ page }) => {
     await launchHome(page);
     await page.getByTestId(infinityOptionTestId).click();
+    await expect(page.getByTestId(HomeScreenSelectors.Root).getByText('World-record puzzles', { exact: true })).toBeVisible();
 
     await sendAppToBackground(page);
     await page.getByTestId(HomeScreenSelectors.StartButton).click();
