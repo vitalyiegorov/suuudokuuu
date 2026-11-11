@@ -10,6 +10,7 @@ import { byId } from '@mobile-ci/e2e-simlock/steps';
 import { expect } from 'e2e';
 
 import {
+    AllLocales,
     AllScenes,
     DefaultSeedDifficulty,
     localeIdentifierFor,
@@ -48,7 +49,6 @@ interface Tap {
 
 const SETTLE_MS = 6_000;
 
-const LOCALE = /^[a-z]{2}(?:-[A-Za-z]{2,4})?$/u;
 const BACKGROUNDED_MS = 3_000;
 const WIN_CHALLENGE = 'suuudokuuu://shared/_KGP________9____qXF6FFdMjBWGhJIN-CMqSm5omCUw0KFUm6-t2HxLUAuYMCP-';
 
@@ -206,7 +206,6 @@ function sceneDatabase(cell: Cell, seed: Scene['seed']): Buffer {
         database
             .prepare('UPDATE settings SET language = ?, is_dark_color_schema = ?, last_game_difficulty = ?')
             .run(cell.locale, Number(cell.appearance === 'dark'), seed?.difficulty ?? DefaultSeedDifficulty);
-        database.prepare('UPDATE current_run SET wall_clock_start_ms = ? - elapsed_time * 1000').run(Date.now());
         database.close();
 
         return readFileSync(path);
@@ -237,7 +236,7 @@ function parseCell(value: unknown, index: number): Cell {
     if (typeof test !== 'string' || !Object.hasOwn(SCENES, test)) {
         fail(`cell ${index} names no scene test: ${String(test)}`);
     }
-    if (typeof locale !== 'string' || !LOCALE.test(locale) || (appearance !== 'light' && appearance !== 'dark')) {
+    if (typeof locale !== 'string' || !AllLocales.includes(locale) || (appearance !== 'light' && appearance !== 'dark')) {
         fail(`cell ${index} (${test}) needs a locale and a light or dark appearance`);
     }
     if (typeof path !== 'string' || !isAbsolute(path) || !path.endsWith('.png')) {

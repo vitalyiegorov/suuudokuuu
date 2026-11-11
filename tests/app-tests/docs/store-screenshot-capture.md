@@ -75,8 +75,9 @@ Each cell is one e2e test (`Media.capture` in `media.ts`):
 3. **Seed state.** `sceneDatabase()` in `media.ts` copies the scene's
    committed database (`tests/app-tests/fixtures/databases/screenshot.db`, or
    `screenshot-<sceneState>.db` for a scene with a `sceneState`), writes the
-   cell's language, appearance and seed difficulty into its `settings` row and
-   re-anchors any `current_run` wall clock to now with `node:sqlite`, and
+   cell's language, appearance and seed difficulty into its `settings` row
+   with `node:sqlite` (a challenge run keeps its stored wall clock of 0, which
+   the app anchors to now when the game screen gains focus), and
    `Suuudokuuu.start()` installs the result as the app database (`suuudokuuu.db`
    in the iOS `Library` directory with E2EDrop, `databases/` on Android)
    through simlock's exec API, then launches the app. Every database carries a
@@ -152,9 +153,9 @@ what step 2 above already does.
 - **Settle time:** every cell waits 6 s before its still. One second caught
   Android's result screen mid-fade, because a screen's entry fade outlasts its
   testIDs appearing.
-- A cell's locale is written into `settings.language` as is, so it must be one
-  of the app's `Languages`; any other value fails the app's settings decode at
-  boot and the cell times out on launch.
+- A cell's locale is written into `settings.language` as is, so the capture
+  plan rejects any locale outside `AllLocales` in `screenshot-scenes.ts` (the
+  app's thirteen languages) before a device is leased.
 
 ## The seed fixture
 

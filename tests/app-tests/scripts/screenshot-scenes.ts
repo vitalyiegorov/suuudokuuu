@@ -58,6 +58,8 @@ const LocaleIdentifiers: Record<string, string> = {
     zh: 'zh_CN'
 };
 
+export const AllLocales = Object.keys(LocaleIdentifiers);
+
 export const localeIdentifierFor = (locale: string): string =>
     Object.hasOwn(LocaleIdentifiers, locale) ? LocaleIdentifiers[locale] : DefaultLocaleIdentifier;
 
