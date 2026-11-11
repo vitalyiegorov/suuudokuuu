@@ -64,3 +64,16 @@ tests/app-tests/artifacts
 .superpowers/
 
 .lighthouseci/
+
+.agents/skills/*
+!.agents/skills/effect
+!.agents/skills/effect-v3-to-v4
+!.agents/skills/review-pr
+!.agents/skills/serve-sim
+!.agents/skills/store-media
+.claude/skills/*
+!.claude/skills/effect
+!.claude/skills/effect-v3-to-v4
+!.claude/skills/review-pr
+!.claude/skills/serve-sim
+!.claude/skills/store-media

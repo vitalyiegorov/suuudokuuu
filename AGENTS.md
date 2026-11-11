@@ -10,6 +10,7 @@ Persistence is Effect v4 services over SQLite (op-sqlite on native, wa-sqlite on
 - `CLAUDE.md` is a symlink to `AGENTS.md` at the root and in every package scope.
 - Package-level `AGENTS.md` files override and refine this root file for their own directories.
 - Project skills live in `.agents/skills`. Claude-visible skills in `.claude/skills` must be symlinks to the matching `.agents/skills/<skill>` directory.
+- Only the repo's own skills are committed. Third-party skills are pinned in `skills-lock.json` and restored locally with `npx skills install`; their installed copies are git-ignored. Add one with `npx skills add <source>` and commit only the lock change.
 - Keep instruction text provider-neutral. Put tool-specific behavior in skills or local/global agent config, not in package docs.
 
 ## Commands

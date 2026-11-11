@@ -1,5 +1,5 @@
 {
-    "ignore": ["packages/app/fingerprint.config.js", "packages/hell-corpus/scripts/shared/rate-puzzle-worker.mjs", ".agents/**"],
+    "ignore": ["packages/app/fingerprint.config.js", "packages/hell-corpus/scripts/shared/rate-puzzle-worker.mjs"],
     "ignoreDependencies": [
         "@babel/core",
         "@expo-google-fonts/inter",
