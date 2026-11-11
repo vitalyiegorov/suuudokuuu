@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [2.44.0](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.43.7...v2.44.0) (2026-11-11)
+
+### Features
+
+* **landing:** add the sudoku scanner page ([#829](https://github.com/vitalyiegorov/suuudokuuu/issues/829)) ([b928e31](https://github.com/vitalyiegorov/suuudokuuu/commit/b928e313628506bc8ff00931eea957332f3e2463))
+
+
 ## [2.43.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.43.3...v2.43.4) (2026-11-11)
 
 ### Bug Fixes
