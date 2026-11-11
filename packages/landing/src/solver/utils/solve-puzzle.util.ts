@@ -1,4 +1,4 @@
-import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku } from '@suuudokuuu/generator';
 import { ratePuzzle } from '@suuudokuuu/rating';
 import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
 import { UNIQUENESS_COUNT_LIMIT, formatGridString, parseGridString } from '@suuudokuuu/solver-core';
@@ -57,7 +57,7 @@ const buildSolution = (puzzle: string, solutionBoard: string): SolverSolutionInt
     return {
         kind: 'solved',
         solutionBoard,
-        difficulty: Sudoku.fromString(puzzle, { ...defaultSudokuConfig }).Difficulty,
+        difficulty: Sudoku.fromString(puzzle).Difficulty,
         rating,
         isRatingCeiling: isCeiling,
         hardestTechniqueName: TECHNIQUE_NAMES[hardestTechnique],

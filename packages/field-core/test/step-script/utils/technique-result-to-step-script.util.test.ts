@@ -72,7 +72,7 @@ const hiddenTripleBoard = [
 const aicLoopBoard = '..31...5..4...5...75.2....13..5..71..8..6............9.....4..6.2..5.9..9..7...8.';
 
 const findResult = (board: string[], technique: SolutionTechniqueEnum): TechniqueResultInterface => {
-    const sudoku = Sudoku.fromStrings({ ...defaultSudokuConfig }, ...board);
+    const sudoku = Sudoku.fromStrings(defaultSudokuConfig, ...board);
     const strategies = createTechniqueStrategies().filter(strategy => strategy.technique === technique);
     const result = new TechniqueManager(sudoku, strategies).findNextStep();
 

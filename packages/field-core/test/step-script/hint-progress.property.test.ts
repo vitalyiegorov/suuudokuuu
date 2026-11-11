@@ -1,10 +1,9 @@
-import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { DifficultyEnum, Sudoku, defaultSudokuConfig, getCellKey } from '@suuudokuuu/generator';
 import { getHellCorpusRecord, getInfinityCorpusPuzzle, hellCorpusSize } from '@suuudokuuu/hell-corpus';
 import { createSeededRandom } from '@suuudokuuu/solver-core';
 import { findPlacementChain } from '@suuudokuuu/techniques';
 import { describe, expect, it } from 'vitest';
 
-import { getCellKey } from '../../src/@generic/utils/get-cell-key.util';
 import { FieldEngine } from '../../src/field-engine/classes/field-engine';
 import { StepScriptStepKindEnum } from '../../src/step-script/enums/step-script-step-kind.enum';
 import { findHintStepScript } from '../../src/step-script/utils/find-hint-step-script.util';

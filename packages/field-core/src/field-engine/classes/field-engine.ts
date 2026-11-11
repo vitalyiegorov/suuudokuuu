@@ -1,9 +1,7 @@
-import { Sudoku, defaultSudokuConfig, emptyScoredCells } from '@suuudokuuu/generator';
+import { Sudoku, cloneField, emptyScoredCells, getCellKey } from '@suuudokuuu/generator';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { cloneFieldCells } from '../../@generic/utils/clone-field-cells.util';
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 import { HintLevelEnum } from '../../step-script/enums/hint-level.enum';
 import { StepScriptStepKindEnum } from '../../step-script/enums/step-script-step-kind.enum';
 import {
@@ -51,7 +49,7 @@ export class FieldEngine extends FieldStore {
         this.difficulty = options.difficulty;
         this.sudoku = isDefined(options.solutionString)
             ? Sudoku.fromPuzzleAndSolution(options.sudokuString, options.solutionString)
-            : Sudoku.fromString(options.sudokuString, { ...defaultSudokuConfig });
+            : Sudoku.fromString(options.sudokuString);
         this.candidateState = { candidates: options.candidates ?? {}, eliminatedCandidates: options.eliminatedCandidates ?? {} };
         this.inputMode = options.inputMode ?? 'normal';
         this.showAutoCandidates = options.showAutoCandidates ?? false;
@@ -211,7 +209,7 @@ export class FieldEngine extends FieldStore {
 
     protected override createSnapshot(): FieldSnapshotInterface {
         return {
-            field: cloneFieldCells(this.sudoku.Field),
+            field: cloneField(this.sudoku.Field),
             difficulty: this.difficulty,
             sudokuString: this.sudoku.toString(),
             ...this.candidateState,
@@ -288,7 +286,7 @@ export class FieldEngine extends FieldStore {
             return false;
         }
         if (state.sudokuString !== this.sudoku.toString()) {
-            this.sudoku = Sudoku.fromString(state.sudokuString, { ...defaultSudokuConfig });
+            this.sudoku = Sudoku.fromString(state.sudokuString);
         }
 
         this.candidateState = cloneCandidateState(state);

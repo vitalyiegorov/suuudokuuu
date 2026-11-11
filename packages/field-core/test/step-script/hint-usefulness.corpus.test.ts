@@ -1,12 +1,11 @@
 import { it } from '@effect/vitest';
-import { DifficultyEnum } from '@suuudokuuu/generator';
+import { DifficultyEnum, getCellKey } from '@suuudokuuu/generator';
 import { getHellCorpusRecord, hellCorpusSize } from '@suuudokuuu/hell-corpus';
 import { seTechniqueRatings } from '@suuudokuuu/rating';
 import { CandidateContext, SolutionTechniqueEnum, createTechniqueStrategies } from '@suuudokuuu/techniques';
 import * as Effect from 'effect/Effect';
 import { assert, describe } from 'vitest';
 
-import { getCellKey } from '../../src/@generic/utils/get-cell-key.util';
 import { FieldEngine } from '../../src/field-engine/classes/field-engine';
 import { HintLevelEnum } from '../../src/step-script/enums/hint-level.enum';
 import { StepScriptStepKindEnum } from '../../src/step-script/enums/step-script-step-kind.enum';

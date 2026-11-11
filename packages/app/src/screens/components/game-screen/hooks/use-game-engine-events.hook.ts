@@ -58,7 +58,7 @@ const classifyMove = Effect.fn('useGameEngineEvents.classifyMove')(function* (su
     const currentRunService = yield* CurrentRunService;
     yield* currentRunService.classifyMove({
         cell,
-        technique: classifyTimelineMove(Sudoku.fromString(preMoveString, { ...defaultSudokuConfig }), cell)
+        technique: classifyTimelineMove(Sudoku.fromString(preMoveString), cell)
     });
 });
 

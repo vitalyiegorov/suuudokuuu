@@ -214,7 +214,7 @@ describe('SerializableSudoku - default config', () => {
 
 describe('SerializableSudoku - supplied solution', () => {
     const puzzle = '...469123469123875123875469784596...596231784231784596658947312947312658312658...';
-    const solved = SerializableSudoku.fromString(puzzle, { ...defaultSudokuConfig });
+    const solved = SerializableSudoku.fromString(puzzle);
     const solution = solved.FullField.flatMap(row => row.map(cell => cell.value)).join('');
 
     it('should restore the same game as solving the puzzle', () => {

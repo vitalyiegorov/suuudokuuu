@@ -396,6 +396,22 @@ describe('CurrentRunService', () => {
         }).pipe(Effect.provide(ProgressTestLayer))
     );
 
+    it.effect('ignores a second finish of a run that is already finished', () =>
+        Effect.gen(function* () {
+            const currentRunService = yield* CurrentRunService;
+
+            yield* TestClock.setTime(firstDayMs);
+            yield* finishRun({ score: 900 }, false, false);
+            yield* currentRunService.finish(true, false);
+
+            assert.deepInclude(
+                yield* Effect.flatMap(DifficultyStatsRepository, repository => repository.findByDifficulty(DifficultyEnum.Medium)),
+                { gamesCompleted: 1, gamesLost: 1, gamesWon: 0 }
+            );
+            assert.deepStrictEqual(yield* Effect.flatMap(CompletedGameRepository, repository => repository.findAll), []);
+        }).pipe(Effect.provide(ProgressTestLayer))
+    );
+
     it.effect('charges every revealed hint level without a timeline marker', () =>
         Effect.gen(function* () {
             const currentRunService = yield* CurrentRunService;

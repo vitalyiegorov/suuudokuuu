@@ -36,8 +36,7 @@ The consuming app owns everything the engine deliberately does not know about:
 src/
 ├── @generic/
 │   ├── classes/typed-event-emitter.ts   # Map-typed on/emit, no `any`
-│   ├── types/unsubscribe.type.ts
-│   └── utils/                           # getCellKey, cloneFieldCells
+│   └── types/unsubscribe.type.ts
 ├── field-engine/
 │   ├── classes/
 │   │   ├── field-store.ts               # subscribe/getSnapshot/on + snapshot cache

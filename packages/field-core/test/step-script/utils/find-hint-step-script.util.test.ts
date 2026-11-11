@@ -1,11 +1,10 @@
-import { DifficultyEnum } from '@suuudokuuu/generator';
+import { DifficultyEnum, getCellKey } from '@suuudokuuu/generator';
 import { getInfinityCorpusPuzzle } from '@suuudokuuu/hell-corpus';
 import { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import { isDefined } from '@rnw-community/shared';
 
-import { getCellKey } from '../../../src/@generic/utils/get-cell-key.util';
 import { FieldEngine } from '../../../src/field-engine/classes/field-engine';
 import { StepScriptStepKindEnum } from '../../../src/step-script/enums/step-script-step-kind.enum';
 import { findHintStepScript, findRevealStepScript } from '../../../src/step-script/utils/find-hint-step-script.util';

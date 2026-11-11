@@ -1,8 +1,7 @@
+import { getCellKey } from '@suuudokuuu/generator';
 import { SolutionTechniqueEnum, createTechniqueStrategies, findPlacementChain } from '@suuudokuuu/techniques';
 
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
-
-import { getCellKey } from '../../@generic/utils/get-cell-key.util';
 
 import { techniqueResultToStepScript } from './technique-result-to-step-script.util';
 

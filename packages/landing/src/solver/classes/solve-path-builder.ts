@@ -1,5 +1,5 @@
 import { findRevealStepScript, getCellKey, techniqueResultToStepScript } from '@suuudokuuu/field-core';
-import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { Sudoku } from '@suuudokuuu/generator';
 import { seTechniqueOrder } from '@suuudokuuu/rating';
 import { CandidateContext, TechniqueManager } from '@suuudokuuu/techniques';
 
@@ -48,7 +48,7 @@ export class SolvePathBuilder {
     private revealedCellCount = 0;
 
     constructor(puzzle: string) {
-        this.sudoku = Sudoku.fromString(puzzle, { ...defaultSudokuConfig });
+        this.sudoku = Sudoku.fromString(puzzle);
     }
 
     build(): SolvePathInterface {

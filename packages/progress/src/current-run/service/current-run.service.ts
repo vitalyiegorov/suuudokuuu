@@ -1,6 +1,5 @@
 import { SharedPayloadKindEnum, TimelineEventKindEnum } from '@suuudokuuu/encoder';
-import { getCellKey } from '@suuudokuuu/field-core';
-import { defaultSudokuConfig } from '@suuudokuuu/generator';
+import { defaultSudokuConfig, getCellKey } from '@suuudokuuu/generator';
 import * as Clock from 'effect/Clock';
 import * as Context from 'effect/Context';
 import * as Effect from 'effect/Effect';
@@ -28,7 +27,6 @@ import type { DifficultyStatsType } from '../../difficulty-stats/type/difficulty
 import type { PlayerStatsType } from '../../player-stats/type/player-stats.type';
 import type { CurrentRunType } from '../type/current-run.type';
 import type { CellTimelineEventType, TimelineEventType } from '../type/timeline-event.type';
-import type { StepScriptCandidateInterface } from '@suuudokuuu/field-core';
 import type { CellInterface, ScoredCellsInterface } from '@suuudokuuu/generator';
 import type { SolutionTechniqueEnum } from '@suuudokuuu/techniques';
 
@@ -164,7 +162,7 @@ const chargeHintLevel = (run: CurrentRunType): CurrentRunType => ({
     score: Math.max(run.score - scoring.calculateHintPenalty(run), 0)
 });
 
-const applyHint = (run: CurrentRunType, eliminations: readonly StepScriptCandidateInterface[]): CurrentRunType => {
+const applyHint = (run: CurrentRunType, eliminations: readonly { cell: CellInterface; value: number }[]): CurrentRunType => {
     const candidates = { ...run.candidates };
     const eliminatedCandidates = { ...run.eliminatedCandidates };
 
@@ -358,7 +356,7 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
 
                 const currentRun = yield* currentRunRepository.get;
 
-                if (Option.isNone(currentRun)) {
+                if (Option.isNone(currentRun) || currentRun.value.phase === RunPhaseEnum.FINISHED) {
                     return;
                 }
 
@@ -437,7 +435,7 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
             save: (move: Parameters<typeof saveMove>[1]) => updateRun(run => saveMove(run, move)),
             classifyMove: (move: Parameters<typeof classifyMove>[0]) => updateRunWithStats(classifyMove(move)),
             revealHintLevel: updateRun(chargeHintLevel),
-            hint: (eliminations: readonly StepScriptCandidateInterface[]) => updateRun(run => applyHint(run, eliminations)),
+            hint: (eliminations: readonly { cell: CellInterface; value: number }[]) => updateRun(run => applyHint(run, eliminations)),
             undo: (fieldState: FieldStateType) => updateRunWithStats(undoMove(fieldState)),
             redo: (fieldState: FieldStateType) => updateRunWithStats(redoMove(fieldState)),
             mistake: (cell: CellInterface) => updateRun(run => recordMistake(run, cell)),

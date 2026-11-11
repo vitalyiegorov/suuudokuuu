@@ -1,8 +1,7 @@
-import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
+import { DifficultyEnum, Sudoku, defaultSudokuConfig, getCellKey } from '@suuudokuuu/generator';
 import { ForcingOutcomeKindEnum, SolutionTechniqueEnum, TechniqueManager, createTechniqueStrategies } from '@suuudokuuu/techniques';
 import { describe, expect, it } from 'vitest';
 
-import { getCellKey } from '../../../src/@generic/utils/get-cell-key.util';
 import { FieldEngine } from '../../../src/field-engine/classes/field-engine';
 import { HintLevelEnum } from '../../../src/step-script/enums/hint-level.enum';
 import { StepScriptStepKindEnum } from '../../../src/step-script/enums/step-script-step-kind.enum';

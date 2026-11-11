@@ -396,7 +396,7 @@ describe('FieldEngine', () => {
         it('round-trips a grid string produced by the app format', () => {
             expect.assertions(2);
 
-            const appSudokuString = Sudoku.fromStrings({ ...defaultSudokuConfig }, ...board).toString();
+            const appSudokuString = Sudoku.fromStrings(defaultSudokuConfig, ...board).toString();
             const engine = createEngine({ sudokuString: appSudokuString });
 
             expect(appSudokuString).toBe(boardString);

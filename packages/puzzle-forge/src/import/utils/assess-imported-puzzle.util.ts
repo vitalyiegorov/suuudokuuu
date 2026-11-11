@@ -1,5 +1,6 @@
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { ratePuzzle } from '@suuudokuuu/rating';
+import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
 import {
     BOX_BY_CELL,
     COLUMN_BY_CELL,
@@ -9,7 +10,6 @@ import {
     formatGridString,
     parseGridString
 } from '@suuudokuuu/solver-core';
-import { DLXSolver } from '@suuudokuuu/solver-dlx';
 
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
@@ -55,7 +55,7 @@ export const assessImportedPuzzle = (puzzleString: string): ImportedPuzzleAssess
         return { kind: ImportedPuzzleAssessmentKindEnum.COMPLETE };
     }
 
-    const solver = new DLXSolver();
+    const solver = new BitmaskSolver();
 
     if (solver.countSolutions(grid, UNIQUENESS_COUNT_LIMIT) > 1) {
         return { kind: ImportedPuzzleAssessmentKindEnum.MULTIPLE_SOLUTIONS };
