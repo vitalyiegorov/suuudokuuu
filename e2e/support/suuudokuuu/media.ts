@@ -264,9 +264,9 @@ class Media extends Suuudokuuu {
             prepared.add(lease);
         }
         await this.setLocale(lease, cell.locale);
-        if (this.ctx.device.unstable_raw.platform === 'ios') {
-            await mustExec(this.api, lease, ['ui', 'appearance', cell.appearance]);
-        }
+        await (this.ctx.device.unstable_raw.platform === 'ios'
+            ? mustExec(this.api, lease, ['ui', 'appearance', cell.appearance])
+            : mustExec(this.api, lease, ['shell', `cmd uimode night ${cell.appearance === 'dark' ? 'yes' : 'no'}`]));
         await this.start(
             undefined,
             persistRootDatabase({

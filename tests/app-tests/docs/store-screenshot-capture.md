@@ -64,11 +64,14 @@ Each cell is one e2e test (`Media.capture` in `media.ts`):
    device (deep-link prompt, Reduce Motion, Android root); the media capture
    adds the clean status bar and, on Android, `wm size 1080x2340` and
    `wm density 440` for the 1080x1920 Play composition.
-2. **Set the locale.** iOS writes `AppleLanguages` and `AppleLocale` to the
-   simulator's global preferences and sets the simulator appearance (a native
-   sheet's status bar follows it); Android runs
-   `cmd locale set-app-locales`. The app's own language comes from the seeded
-   `settings.language`; the device locale aligns OS-derived strings with it.
+2. **Set the locale and appearance.** iOS writes `AppleLanguages` and
+   `AppleLocale` to the simulator's global preferences and sets the simulator
+   appearance (a native sheet's status bar follows it); Android runs
+   `cmd locale set-app-locales` and `cmd uimode night`, because the app's
+   `Appearance.setColorScheme` recreates the activity when the system night
+   mode differs, which flashes the light window and pauses a running game.
+   The app's own language comes from the seeded `settings.language`; the
+   device locale aligns OS-derived strings with it.
 3. **Seed state.** `persistRootDatabase()` in `scripts/seed-app-state.ts`
    builds the persisted redux blob as one `persist:root` row in a plain
    `storage(key, value)` SQLite table (the legacy `expo-sqlite` kv-store
