@@ -8,7 +8,7 @@ import { HomeScreen } from '../../screens/components/home-screen/home.screen';
 
 export default function HomePage() {
     const { t } = useLingui();
-    const description = t`Play free Sudoku online with six difficulty levels, hints, and no ads. Fast, distraction-free puzzles in your browser.`;
+    const description = t`Play free Sudoku online with seven difficulty levels, hints, and no ads. Fast, distraction-free puzzles in your browser.`;
 
     return (
         <Page edges={PageHorizontalSafeAreaEdges}>
