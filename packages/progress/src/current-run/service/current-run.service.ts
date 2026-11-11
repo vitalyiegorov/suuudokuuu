@@ -356,7 +356,7 @@ export class CurrentRunService extends Context.Service<CurrentRunService>()('@su
 
                 const currentRun = yield* currentRunRepository.get;
 
-                if (Option.isNone(currentRun)) {
+                if (Option.isNone(currentRun) || currentRun.value.phase === RunPhaseEnum.FINISHED) {
                     return;
                 }
 
