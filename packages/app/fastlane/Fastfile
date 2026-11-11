@@ -30,7 +30,7 @@ APPLE_SCREENSHOT_SLOTS = {
   [2048, 2732] => 'iPad 12.9"',
   [2732, 2048] => 'iPad 12.9"'
 }
-REQUIRED_IOS_SCREENSHOT_COUNTS = { 'iPhone 6.9"' => 9, 'iPad 13"' => 6 }
+REQUIRED_IOS_SCREENSHOT_COUNTS = { 'iPhone 6.9"' => 10, 'iPad 13"' => 6 }
 
 # deliver writes into the editable App Store version, and a freshly uploaded
 # build does not create one on its own. Naming the version explicitly makes
