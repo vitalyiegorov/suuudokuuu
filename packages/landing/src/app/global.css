@@ -762,7 +762,6 @@ strong {
     display: none;
 }
 
-.technique-embed__start,
 .technique-embed__action,
 .solver-entry__solve,
 .solver-entry__action {
@@ -779,18 +778,12 @@ strong {
         background-color var(--landing-transition);
 }
 
-.technique-embed__start:hover,
 .technique-embed__action:hover,
 .solver-entry__action:hover {
     border-color: var(--landing-accent-color);
     background-color: rgb(77 163 255 / 10%);
 }
 
-.technique-embed__start {
-    margin: 1rem 0 0;
-}
-
-.technique-embed__start:focus-visible,
 .technique-embed__action:focus-visible {
     outline: 2px solid var(--landing-accent-color);
     outline-offset: 2px;
