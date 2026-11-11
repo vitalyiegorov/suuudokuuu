@@ -1,9 +1,15 @@
+import { ColorSchemaEnum, ThemeEnum } from '@suuudokuuu/progress';
 import { Breakpoints } from '@suuudokuuu/ui/theme';
 import { Appearance } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { UnistylesThemesConstant } from './constant/unistyles-themes.constant';
-import { getInitialUnistylesThemeName } from './utils/get-initial-unistyles-theme-name.util';
+import { getUnistylesThemeName } from './utils/get-unistyles-theme-name.util';
+
+import type { ColorSchemeName } from 'react-native';
+
+const getInitialUnistylesThemeName = (colorScheme: ColorSchemeName | null | undefined) =>
+    getUnistylesThemeName(ThemeEnum.BlackAndWhite, colorScheme === 'dark' ? ColorSchemaEnum.Dark : ColorSchemaEnum.Light);
 
 StyleSheet.configure({
     settings: {

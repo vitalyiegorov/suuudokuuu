@@ -8,7 +8,6 @@ import { UkraineFlagIcon } from '../../../@generic/components/ukraine-flag-icon/
 import { donationLinkConstant } from '../../../@generic/constants/donation.constant';
 import { getBrand } from '../../../@generic/utils/get-brand.util';
 import { ThemeContext } from '../../../theme/context/theme.context';
-import { settingsAppFooterGetSupportLinkColors } from '../../utils/settings-app-footer-get-support-link-colors.util';
 
 import { SettingsAppFooterSelectors } from './settings-app-footer.selectors';
 import { SettingsAppFooterStyles as styles } from './settings-app-footer.styles';
@@ -23,12 +22,11 @@ export const SettingsAppFooter = ({ version }: Props) => {
 
     const { appName } = getBrand();
     const versionLabel = t`${appName} · v${version}`;
-    const supportLinkColors = settingsAppFooterGetSupportLinkColors(theme);
     const supportButtonStyle = StyleSheet.flatten([
         styles.supportButton,
         {
-            backgroundColor: supportLinkColors.backgroundColor,
-            borderColor: supportLinkColors.borderColor
+            backgroundColor: theme.colors.surface.raised,
+            borderColor: theme.colors.surface.border
         }
     ]);
     const actionStyle = StyleSheet.flatten([
@@ -38,7 +36,7 @@ export const SettingsAppFooter = ({ version }: Props) => {
             borderColor: theme.colors.surface.border
         }
     ]);
-    const supportTextStyles = [styles.supportText, { color: supportLinkColors.textColor }];
+    const supportTextStyles = [styles.supportText, { color: theme.colors.surface.raisedText }];
     const actionTextStyles = [styles.actionText, { color: theme.colors.surface.subtleText }];
     const versionStyles = [styles.version, { color: theme.colors.text.hint }];
 

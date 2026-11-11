@@ -7,9 +7,14 @@ import { ReduceMotionContext } from '../../context/reduce-motion.context';
 import { resolveUnistyleForAnimated } from '../../utils/resolve-unistyle-for-animated.util';
 
 import { AppToggleStyles as styles } from './app-toggle.styles';
-import { AppTogglePressTimingConfig, AppTogglePressedScale, AppToggleSpringConfig } from './constant/app-toggle-animation.constant';
-import { AppToggleDisabledOpacity, AppToggleOffKnobOpacity, AppToggleOffTrackOpacity } from './constant/app-toggle-opacity.constant';
 import { AppToggleHitSlop, AppToggleKnobTravel, AppToggleOffKnobScale } from './constant/app-toggle-size.constant';
+
+const AppToggleSpringConfig = { dampingRatio: 0.85, duration: 220 };
+const AppTogglePressTimingConfig = { duration: 100 };
+const AppTogglePressedScale = 0.94;
+const AppToggleDisabledOpacity = 0.48;
+const AppToggleOffTrackOpacity = 0.14;
+const AppToggleOffKnobOpacity = 0.58;
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 

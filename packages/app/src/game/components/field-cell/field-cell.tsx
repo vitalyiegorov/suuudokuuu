@@ -21,13 +21,13 @@ import { FieldCellSuccessOutline } from '../field-cell-success-outline/field-cel
 import { FieldCellSuccessRing } from '../field-cell-success-ring/field-cell-success-ring';
 
 import { fieldCellGetBackgroundColor } from './utils/field-cell-get-background-color.util';
-import { fieldCellGetOutlineStyle } from './utils/field-cell-get-outline-style.util';
 
 import type { CellInterface } from '@suuudokuuu/generator';
 import type { ReactNode } from 'react';
 
 const ReanimatedPressable = Reanimated.createAnimatedComponent(Pressable);
 
+const ErrorOutlineWidth = 3;
 const instantAnimationConfig = { duration: 0 };
 const successAnimationConfig = { duration: 3 * animationDurationConstant, easing: Easing.out(Easing.cubic) };
 const successHoldConfig = { duration: 3 * animationDurationConstant };
@@ -116,12 +116,13 @@ export const FieldCell = (props: Props) => {
         onSelect(isActive ? undefined : cell);
     };
 
+    const errorOutlineStyle = theme.hasErrorOutline && isWrong ? { borderColor: theme.colors.ink, borderWidth: ErrorOutlineWidth } : null;
     const cellStyles = [
         resolveUnistyleForAnimated(styles.container(cellSize)),
         ...useCellBorderStyles(engine.Sudoku, cell, cellMargin),
         { backgroundColor: cellBackgroundColor },
         successPopAnimatedStyles,
-        fieldCellGetOutlineStyle({ isWrong, theme })
+        errorOutlineStyle
     ];
     const successMarker = isMotionReduced ? <FieldCellSuccessOutline /> : <FieldCellSuccessRing animation={successAnimation} />;
     const cellAccessibilityState = { selected: isActive };
