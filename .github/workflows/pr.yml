@@ -153,6 +153,15 @@ jobs:
             - name: Unit tests
               run: pnpm test:coverage --concurrency=1
 
+            - name: Landing tier reports match the sample
+              env:
+                  BASE_SHA: ${{ github.event.pull_request.base.sha }}
+              run: |
+                  git fetch --no-tags --depth=1 origin "$BASE_SHA"
+                  if ! git diff --quiet "$BASE_SHA" "$GITHUB_SHA" -- packages/rating packages/techniques packages/puzzle-forge packages/landing/src/rating; then
+                    pnpm --filter @suuudokuuu/landing check:tier-reports
+                  fi
+
             - name: Upload coverage reports to Codecov
               uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
 
