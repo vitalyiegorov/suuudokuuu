@@ -10,11 +10,8 @@ const RivalChallengeLink =
 const SeededReplayCompletedAt = 1786911307464;
 const DefaultLocaleIdentifier = 'en_US';
 
-export const HomeDeepLink = 'suuudokuuu://';
+const HomeDeepLink = 'suuudokuuu://';
 export const DefaultSeedDifficulty = 'Hell';
-
-export const AllAppearances = ['light', 'dark'];
-export const AllDeviceClasses = ['iphone', 'ipad'];
 
 export const AllScenes: Scene[] = [
     { deepLink: 'suuudokuuu://game', name: 'hero-board', sceneState: 'hero', seedDifficulty: 'Nightmare' },
@@ -60,8 +57,6 @@ const LocaleIdentifiers: Record<string, string> = {
     ur: 'ur_PK',
     zh: 'zh_CN'
 };
-
-export const AllLocales = Object.keys(LocaleIdentifiers);
 
 export const localeIdentifierFor = (locale: string): string =>
     Object.hasOwn(LocaleIdentifiers, locale) ? LocaleIdentifiers[locale] : DefaultLocaleIdentifier;

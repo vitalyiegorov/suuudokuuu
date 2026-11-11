@@ -3,7 +3,6 @@
     "version": "1.18.0",
     "private": true,
     "scripts": {
-        "screenshots:capture": "node scripts/capture-store-screenshots.ts",
         "seed:check": "tsx --conditions=import scripts/seed-database-fixtures.ts --check",
         "seed:fixtures": "tsx --conditions=import scripts/seed-database-fixtures.ts",
         "ts": "tsrs -p scripts"

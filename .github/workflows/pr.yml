@@ -112,14 +112,6 @@ jobs:
             - name: Install dependencies
               run: pnpm install --frozen-lockfile
 
-            - name: App test script self-tests
-              shell: bash
-              run: |
-                  set -euo pipefail
-                  for test_script in tests/app-tests/scripts/test-*.sh; do
-                    bash "$test_script"
-                  done
-
             - name: E2E seed fixtures are current
               run: pnpm --filter @suuudokuuu/app-tests seed:check
 

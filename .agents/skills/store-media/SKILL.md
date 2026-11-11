@@ -75,9 +75,8 @@ before relying on them.
   `submit.production.android.track` in `eas.json` and resolve the version code
   with `google_play_track_version_codes` (supply cannot infer one when it
   uploads no binary).
-- `e2e/support/suuudokuuu/media.ts` - the e2e capture CI runs, and the only one for the win, pause and import scenes.
-- `tests/app-tests/scripts/capture-store-screenshots.ts` - local direct-link runner.
-- `tests/app-tests/scripts/screenshot-scenes.ts` defines all sixteen scenes: thirteen direct-link captures and three e2e-driven ones. The runner rotates landscape pixels with `sips` and rejects remaining EXIF orientation metadata other than 1.
+- `e2e/support/suuudokuuu/media.ts` - the only store capture, run by CI and locally from Linux against the simlock farm.
+- `tests/app-tests/scripts/screenshot-scenes.ts` defines all sixteen scenes: thirteen deep-link scenes and three the capture drives through gameplay or the photo picker.
 - `.github/workflows/native-publish.yml` - store publish; `fastlane
   store_preflight` gates both jobs; metadata pushes after each `eas submit`;
   screenshots upload only with the `push_screenshots` checkbox. It uploads
@@ -109,10 +108,10 @@ without it, plain English fallback.
 
 Screenshots, end to end:
 
-1. Capture: seeded-state fast path, iPhone, iPad landscape, and Android
-   commands are in `tests/app-tests/docs/store-screenshot-capture.md`. On
-   Android the progress label prints `[iphone/...]`; cosmetic, output goes to
-   `raw/android/`.
+1. Capture: the iPhone and Android commands are in
+   `tests/app-tests/docs/store-screenshot-capture.md`; copy the raws from
+   `e2e/.e2e/media/raw/` into `packages/app/fastlane/screenshots/raw/`. The
+   capture does not produce iPad landscape or Play tablet raws yet.
 2. Compose: `bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all`
    (second arg `light|dark|all|android`); mechanics and the never-clear-first
    rule are in the capture doc's "Compose and verify". Scene manifests are
@@ -242,8 +241,8 @@ Android emulator) are in the capture doc.
 - ImageMagick silently degrades composites to grayscale when a flat
   neutral layer is involved: force `-define png:color-type=2|6` on writes.
 - Landscape captures can arrive in the portrait framebuffer with a PNG eXIf
-  orientation-6 hint; stores need baked pixels. The runner rotates with `sips`
-  and asserts that orientation is 1 or absent before reporting success.
+  orientation-6 hint; stores need baked pixels, so rotate them and check that
+  the orientation is 1 or absent.
 - iPad GameScreen captures show a stray iPadOS predictive-text toolbar
   (suspected hidden hardware-keyboard listener in-app). Still unfixed, and
   present in every committed iPad shot - verified byte-for-byte identical
