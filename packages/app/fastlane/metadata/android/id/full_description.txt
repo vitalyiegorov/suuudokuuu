@@ -27,6 +27,6 @@ Satu sudoku baru setiap hari, lengkap dengan rentetan yang menghitung berapa har
 SEMUA YANG LAIN
 • Skor yang memperhitungkan teknik
 • 13 bahasa
-• Open source
+• Kode sumber publik
 
 Info lengkap di www.suuudokuuu.com.

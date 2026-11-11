@@ -24,6 +24,6 @@ Une nouvelle grille de sudoku chaque jour, avec une série qui compte les jours 
 TOUT LE RESTE QUE VOUS ATTENDEZ
 • Score qui tient compte des techniques
 • 13 langues
-• Open source
+• Code source public
 
 Pour en savoir plus, rendez-vous sur www.suuudokuuu.com.

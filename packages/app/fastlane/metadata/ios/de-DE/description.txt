@@ -34,7 +34,7 @@ ALLES ANDERE, WAS DU WILLST
 • 13 Sprachen
 • Funktioniert komplett offline
 • Kein Konto, keine Anmeldung, nie
-• Kostenlos und Open Source
+• Kostenlos, mit öffentlichem Quellcode
 
 suuudokuuu ist gemacht für Menschen, die Sudoku wirklich lieben – nicht für Menschen, denen man ein Abo verkaufen will. Lad es dir herunter, wähl eine Schwierigkeit und finde heraus, wie deine Zahl lautet.
 

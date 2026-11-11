@@ -34,7 +34,7 @@ SEMUA YANG LAIN
 • 13 bahasa
 • Bisa dimainkan sepenuhnya offline
 • Tanpa akun, tanpa daftar, selamanya
-• Gratis dan open source
+• Gratis, dengan kode sumber publik
 
 suuudokuuu dibuat untuk orang yang benar-benar suka Sudoku, bukan untuk orang yang mau dijejali langganan. Unduh, pilih tingkat kesulitan, dan cari tahu berapa angkamu.
 

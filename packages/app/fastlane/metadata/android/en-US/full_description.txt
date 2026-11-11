@@ -27,6 +27,6 @@ A fresh Sudoku puzzle every day, with a streak that tracks how many days in a ro
 EVERYTHING ELSE YOU'D WANT
 • Technique-aware scoring
 • 13 languages
-• Open source
+• Public source code
 
 Learn more at www.suuudokuuu.com.

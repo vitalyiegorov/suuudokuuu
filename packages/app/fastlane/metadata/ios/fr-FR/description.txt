@@ -34,7 +34,7 @@ TOUT LE RESTE QUE VOUS ATTENDEZ
 • 13 langues
 • Fonctionne entièrement hors ligne
 • Sans compte, sans inscription, jamais
-• Gratuit et open source
+• Gratuit, avec un code source public
 
 suuudokuuu est fait pour celles et ceux qui aiment vraiment le Sudoku, pas pour qu'on leur vende un abonnement. Téléchargez-le, choisissez une difficulté et découvrez quel est votre chiffre.
 
