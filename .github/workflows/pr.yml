@@ -56,10 +56,10 @@ jobs:
                         case "$changed_path" in
                           docs/*)
                             ;;
+                          *.md)
+                            ;;
                           */*)
                             only_documentation_changes=false
-                            ;;
-                          *.md)
                             ;;
                           *)
                             only_documentation_changes=false
@@ -138,6 +138,9 @@ jobs:
             - uses: rnw-community/mobile-ci/actions/e2e-simlock-install@f42a0f863990b5da40b35261f7d610e42215313e # v4.11.1
               with:
                   e2e-dir: e2e
+
+            - name: E2E suite type checks
+              run: npm run ts --prefix e2e
 
             - name: Lint checks
               run: pnpm lint

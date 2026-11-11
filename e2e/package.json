@@ -3,6 +3,7 @@
     "private": true,
     "type": "module",
     "scripts": {
+        "ts": "tsc6 -p .",
         "test:ios": "e2e run --target ios"
     },
     "devDependencies": {
