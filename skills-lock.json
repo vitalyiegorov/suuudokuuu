@@ -52,12 +52,6 @@
             "sourceType": "github",
             "computedHash": "e21044ae7496fc285f1df9ff3fb518a3a20bea6f5216c1f59f4987e12c769a0a"
         },
-        "effect-ts": {
-            "source": "Effect-TS/skills",
-            "sourceType": "github",
-            "skillPath": "skills/effect-ts/SKILL.md",
-            "computedHash": "6bdb9b95aa83071eca2f67ae947b7d398a22e9e6e08f6cfa35de9516b03efa6e"
-        },
         "effect-v3-to-v4": {
             "source": "Effect-TS/skills",
             "sourceType": "github",

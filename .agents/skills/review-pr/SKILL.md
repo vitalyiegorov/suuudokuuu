@@ -1,7 +1,6 @@
 ---
 name: review-pr
-description: Comprehensive PR analysis across all affected packages with private gist output. Also handles addressing human review comments (filtering out AI/bot reviewers).
-invocation: Use when asked to review a PR, analyze PR changes, or address/fix review comments from human reviewers
+description: Comprehensive PR analysis across all affected packages with private gist output. Also handles addressing human review comments (filtering out AI/bot reviewers). Use when asked to review a PR, analyze PR changes, or address/fix review comments from human reviewers.
 ---
 
 # Review PR
