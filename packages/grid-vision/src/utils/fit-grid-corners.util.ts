@@ -1,9 +1,8 @@
-import { CELL_SIZE, GRID_SIZE, LINE_BAND, WARPED_GRID_SIZE } from '../constants/grid-vision.constant';
+import { CELL_SIZE, GRID_SIZE, LINE_BAND, PIXEL_CENTER, WARPED_GRID_SIZE } from '../constants/grid-vision.constant';
 
 import type { BinaryImageInterface } from '../interfaces/binary-image.interface';
 import type { PointInterface } from '../interfaces/point.interface';
 
-const PIXEL_CENTER = 0.5;
 const STRIP_LENGTH = WARPED_GRID_SIZE / 3;
 const FIRST_STRIP_CENTER = STRIP_LENGTH / 2;
 const LAST_STRIP_CENTER = WARPED_GRID_SIZE - STRIP_LENGTH / 2;
