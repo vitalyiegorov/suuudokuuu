@@ -90,6 +90,14 @@ describe('recognizeGrid', () => {
         expect(exactFixtureCount / gridFixtures.length).toBeGreaterThanOrEqual(MINIMUM_EXACT_FIXTURE_RATIO);
     });
 
+    it('should read a dark board with shaded cells and pencil marks exactly, without handwriting flags', () => {
+        const index = gridFixtures.findIndex(fixture => fixture.file === 'app-ios-pencil-marks-dark.jpg');
+        const recognition = recognitions[index];
+
+        expect(puzzleStrings[index]).toBe(gridFixtures[index].expected);
+        expect(recognition.kind === GridRecognitionKindEnum.RECOGNIZED ? recognition.handwritten.some(Boolean) : true).toBe(false);
+    });
+
     it('should identify at least 95% of filled-cell handwriting masks without false flags on other fixtures', () => {
         const cells = gridFixtures.flatMap((fixture, index) => {
             const recognition = recognitions[index];

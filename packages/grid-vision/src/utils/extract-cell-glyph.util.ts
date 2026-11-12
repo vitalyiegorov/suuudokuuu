@@ -1,4 +1,4 @@
-import { CELL_SIZE, GLYPH_PIXEL_COUNT, GLYPH_SIZE } from '../constants/grid-vision.constant';
+import { CELL_SIZE, GLYPH_PIXEL_COUNT, GLYPH_SIZE, PIXEL_CENTER } from '../constants/grid-vision.constant';
 
 import { labelComponents } from './label-components.util';
 
@@ -16,7 +16,6 @@ const MINIMUM_GLYPH_HEIGHT_RATIO = 0.3;
 const STROKE_GAP = 3;
 const GLYPH_BOX_SIZE = 20;
 const SUPERSAMPLE_COUNT = 3;
-const PIXEL_CENTER = 0.5;
 const EDGE_OFFSETS = Array.from({ length: CROP_SIZE }, (_, offset) => offset).filter(
     offset => offset < LINE_ZONE || offset >= CROP_SIZE - LINE_ZONE
 );

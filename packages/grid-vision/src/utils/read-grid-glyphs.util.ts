@@ -1,25 +1,32 @@
-import { CELL_COUNT, CELL_SIZE, GRID_SIZE, LINE_BAND, WARPED_GRID_SIZE } from '../constants/grid-vision.constant';
+import {
+    BLUE_LUMA_WEIGHT,
+    CELL_COUNT,
+    CELL_SIZE,
+    GREEN_LUMA_WEIGHT,
+    GRID_SIZE,
+    LINE_BAND,
+    PIXEL_CENTER,
+    RED_LUMA_WEIGHT,
+    RGBA_CHANNEL_COUNT,
+    WARPED_GRID_SIZE
+} from '../constants/grid-vision.constant';
 
 import { adaptiveThreshold } from './adaptive-threshold.util';
-import { extractCellGlyph } from './extract-cell-glyph.util';
 import { findGridCorners } from './find-grid-corners.util';
 import { fitGridCorners } from './fit-grid-corners.util';
 import { keepThinInk } from './keep-thin-ink.util';
+import { projectPoint } from './project-point.util';
+import { readCellInk } from './read-cell-ink.util';
 import { solveHomography } from './solve-homography.util';
 
 import type { BinaryImageInterface } from '../interfaces/binary-image.interface';
 import type { GrayImageInterface } from '../interfaces/gray-image.interface';
 import type { PointInterface } from '../interfaces/point.interface';
 import type { RgbaImageInterface } from '../interfaces/rgba-image.interface';
+import type { WarpedBoardInterface } from '../interfaces/warped-board.interface';
 
 const MAXIMUM_IMAGE_SIDE = 640;
 const MAXIMUM_GRAY = 255;
-const RGBA_CHANNEL_COUNT = 4;
-const RED_LUMA_WEIGHT = 0.299;
-const GREEN_LUMA_WEIGHT = 0.587;
-const BLUE_LUMA_WEIGHT = 0.114;
-const PIXEL_CENTER = 0.5;
-const INK_CONTRAST = 30;
 const CELL_THRESHOLD_RADIUS = 12;
 const CELL_THRESHOLD_SENSITIVITY = 0.15;
 const MINIMUM_LINE_CONTRAST = 0.25;
@@ -34,7 +41,21 @@ const WARPED_TARGET_CORNERS: readonly PointInterface[] = [
     { x: 0, y: WARPED_GRID_SIZE }
 ];
 
-const averageLuma = (image: RgbaImageInterface, scale: number, outputX: number, outputY: number): number => {
+const toLuma = (image: RgbaImageInterface): GrayImageInterface => ({
+    width: image.width,
+    height: image.height,
+    data: Float32Array.from(
+        { length: image.width * image.height },
+        (_, index) =>
+            RED_LUMA_WEIGHT * image.data[index * RGBA_CHANNEL_COUNT] +
+            GREEN_LUMA_WEIGHT * image.data[index * RGBA_CHANNEL_COUNT + 1] +
+            BLUE_LUMA_WEIGHT * image.data[index * RGBA_CHANNEL_COUNT + 2]
+    )
+});
+
+const measureDownscale = (image: GrayImageInterface): number => Math.max(1, Math.max(image.width, image.height) / MAXIMUM_IMAGE_SIDE);
+
+const averageLuma = (luma: GrayImageInterface, scale: number, outputX: number, outputY: number): number => {
     const startX = Math.floor(outputX * scale);
     const endX = Math.max(startX + 1, Math.floor((outputX + 1) * scale));
     const startY = Math.floor(outputY * scale);
@@ -43,49 +64,51 @@ const averageLuma = (image: RgbaImageInterface, scale: number, outputX: number, 
 
     for (let sourceY = startY; sourceY < endY; sourceY += 1) {
         for (let sourceX = startX; sourceX < endX; sourceX += 1) {
-            const offset = (sourceY * image.width + sourceX) * RGBA_CHANNEL_COUNT;
-
-            sum +=
-                RED_LUMA_WEIGHT * image.data[offset] +
-                GREEN_LUMA_WEIGHT * image.data[offset + 1] +
-                BLUE_LUMA_WEIGHT * image.data[offset + 2];
+            sum += luma.data[sourceY * luma.width + sourceX];
         }
     }
 
     return sum / ((endX - startX) * (endY - startY));
 };
 
-const toGrayscale = (image: RgbaImageInterface): GrayImageInterface => {
-    const scale = Math.max(1, Math.max(image.width, image.height) / MAXIMUM_IMAGE_SIDE);
-    const width = Math.floor(image.width / scale);
-    const height = Math.floor(image.height / scale);
+const downscaleLuma = (luma: GrayImageInterface, scale: number): GrayImageInterface => {
+    const width = Math.floor(luma.width / scale);
+    const height = Math.floor(luma.height / scale);
     const data = new Float32Array(width * height);
 
     for (let index = 0; index < data.length; index += 1) {
-        data[index] = averageLuma(image, scale, index % width, Math.floor(index / width));
+        data[index] = averageLuma(luma, scale, index % width, Math.floor(index / width));
     }
 
     return { width, height, data };
 };
 
+const measureLineDeviation = (board: GrayImageInterface, median: number, linePosition: number, isVertical: boolean): number => {
+    const deviations = Array.from({ length: 2 * LINE_BAND + 1 }, (_, bandOffset) => {
+        const across = Math.min(Math.max(linePosition + bandOffset - LINE_BAND, 0), WARPED_GRID_SIZE - 1);
+        let sum = 0;
+
+        for (let along = 0; along < WARPED_GRID_SIZE; along += 1) {
+            sum += board.data[isVertical ? along * WARPED_GRID_SIZE + across : across * WARPED_GRID_SIZE + along];
+        }
+
+        return sum / WARPED_GRID_SIZE - median;
+    });
+
+    return deviations.reduce((strongest, deviation) => (Math.abs(deviation) > Math.abs(strongest) ? deviation : strongest), 0);
+};
+
 const hasDarkInk = (board: GrayImageInterface): boolean => {
-    const histogram = new Uint32Array(MAXIMUM_GRAY + 1);
-    let median = 0;
-    let darkerCount = 0;
+    const sorted = board.data.slice().sort();
+    const median = sorted[Math.floor(sorted.length / 2)];
 
-    for (const value of board.data) {
-        histogram[Math.round(value)] += 1;
-    }
-
-    while (darkerCount + histogram[median] < board.data.length / 2) {
-        darkerCount += histogram[median];
-        median += 1;
-    }
-
-    const darkTail = histogram.slice(0, Math.max(0, median - INK_CONTRAST)).reduce((total, count) => total + count, 0);
-    const brightTail = histogram.slice(Math.min(MAXIMUM_GRAY + 1, median + INK_CONTRAST + 1)).reduce((total, count) => total + count, 0);
-
-    return darkTail >= brightTail;
+    return (
+        Array.from({ length: GRID_SIZE + 1 }, (_, line) => line * CELL_SIZE).reduce(
+            (total, position) =>
+                total + measureLineDeviation(board, median, position, true) + measureLineDeviation(board, median, position, false),
+            0
+        ) <= 0
+    );
 };
 
 const invertGray = (image: GrayImageInterface): GrayImageInterface => ({ ...image, data: image.data.map(value => MAXIMUM_GRAY - value) });
@@ -106,23 +129,16 @@ const sampleBilinear = (image: GrayImageInterface, x: number, y: number): number
     return topValue * (1 - (clampedY - top)) + bottomValue * (clampedY - top);
 };
 
-const projectPoint = (homography: Float64Array, x: number, y: number): PointInterface => {
-    const [h00, h01, h02, h10, h11, h12, h20, h21, h22] = homography;
-    const depth = h20 * x + h21 * y + h22;
-
-    return { x: (h00 * x + h01 * y + h02) / depth, y: (h10 * x + h11 * y + h12) / depth };
-};
-
 const projectWarpedPixel = (homography: Float64Array, index: number): PointInterface =>
     projectPoint(homography, (index % WARPED_GRID_SIZE) + PIXEL_CENTER, Math.floor(index / WARPED_GRID_SIZE) + PIXEL_CENTER);
 
-const warpBoard = (gray: GrayImageInterface, homography: Float64Array): GrayImageInterface => {
+const warpBoard = (luma: GrayImageInterface, homography: Float64Array): GrayImageInterface => {
     const data = new Float32Array(WARPED_GRID_SIZE * WARPED_GRID_SIZE);
 
     for (let index = 0; index < data.length; index += 1) {
         const source = projectWarpedPixel(homography, index);
 
-        data[index] = sampleBilinear(gray, source.x - PIXEL_CENTER, source.y - PIXEL_CENTER);
+        data[index] = sampleBilinear(luma, source.x - PIXEL_CENTER, source.y - PIXEL_CENTER);
     }
 
     return { width: WARPED_GRID_SIZE, height: WARPED_GRID_SIZE, data };
@@ -167,14 +183,14 @@ const scoreBoard = (mask: BinaryImageInterface): number => {
         : -Infinity;
 };
 
-const readBoard = (gray: GrayImageInterface, corners: readonly PointInterface[], knownIsDarkInk: boolean | null = null) => {
+const readBoard = (luma: GrayImageInterface, corners: readonly PointInterface[], knownIsDarkInk: boolean | null = null) => {
     const homography = solveHomography(WARPED_TARGET_CORNERS, corners);
 
     if (homography === null) {
         return null;
     }
 
-    const board = warpBoard(gray, homography);
+    const board = warpBoard(luma, homography);
     const isDarkInk = knownIsDarkInk ?? hasDarkInk(board);
 
     return {
@@ -185,17 +201,17 @@ const readBoard = (gray: GrayImageInterface, corners: readonly PointInterface[],
     };
 };
 
-const refineBoard = (gray: GrayImageInterface, board: NonNullable<ReturnType<typeof readBoard>> | null) =>
+const refineBoard = (luma: GrayImageInterface, board: NonNullable<ReturnType<typeof readBoard>> | null) =>
     board === null
         ? null
         : readBoard(
-              gray,
+              luma,
               fitGridCorners(keepThinInk(board.mask, LINE_BAND)).map(corner => projectPoint(board.homography, corner.x, corner.y)),
               board.isDarkInk
           );
 
-const readFusedBoard = (gray: GrayImageInterface, corners: readonly PointInterface[]) => {
-    const board = refineBoard(gray, refineBoard(gray, readBoard(gray, corners)));
+const readFusedBoard = (luma: GrayImageInterface, corners: readonly PointInterface[]) => {
+    const board = refineBoard(luma, refineBoard(luma, readBoard(luma, corners)));
     const left = Math.min(...corners.map(corner => corner.x)) + VISIBLE_INSET;
     const right = Math.max(...corners.map(corner => corner.x)) - VISIBLE_INSET;
     const top = Math.min(...corners.map(corner => corner.y)) + VISIBLE_INSET;
@@ -216,58 +232,36 @@ const readFusedBoard = (gray: GrayImageInterface, corners: readonly PointInterfa
           };
 };
 
-const findBestBoardMask = (gray: GrayImageInterface, isInvertedSearch: boolean, isFusedSearch: boolean) =>
+const findBestBoardMask = (luma: GrayImageInterface, gray: GrayImageInterface, isInvertedSearch: boolean, isFusedSearch: boolean) =>
     findGridCorners(isInvertedSearch ? invertGray(gray) : gray, isFusedSearch)
-        .map(corners => (isFusedSearch ? readFusedBoard(gray, corners) : readBoard(gray, corners)))
+        .map(corners => corners.map(corner => ({ x: corner.x * measureDownscale(luma), y: corner.y * measureDownscale(luma) })))
+        .map(corners => (isFusedSearch ? readFusedBoard(luma, corners) : readBoard(luma, corners)))
         .filter(board => board !== null)
         .map(board => ({ ...board, score: scoreBoard(board.mask) }))
         .filter(board => board.score > -Infinity)
-        .reduce<{
-            readonly mask: BinaryImageInterface;
-            readonly homography: Float64Array;
-            readonly isDarkInk: boolean;
-            readonly score: number;
-        } | null>((best, board) => (best === null || board.score > best.score ? board : best), null);
-
-const readCellInk = (image: RgbaImageInterface, homography: Float64Array, mask: BinaryImageInterface, cell: number) => {
-    const scale = Math.max(1, Math.max(image.width, image.height) / MAXIMUM_IMAGE_SIDE);
-    let luma = 0;
-    let chroma = 0;
-    let count = 0;
-    const extracted = extractCellGlyph(mask, Math.floor(cell / GRID_SIZE), cell % GRID_SIZE, (x, y) => {
-        const source = projectPoint(homography, x + PIXEL_CENTER, y + PIXEL_CENTER);
-        const sourceX = Math.min(image.width - 1, Math.max(0, Math.floor(scale * source.x)));
-        const sourceY = Math.min(image.height - 1, Math.max(0, Math.floor(scale * source.y)));
-        const offset = (sourceY * image.width + sourceX) * RGBA_CHANNEL_COUNT;
-        const red = image.data[offset];
-        const green = image.data[offset + 1];
-        const blue = image.data[offset + 2];
-
-        luma += RED_LUMA_WEIGHT * red + GREEN_LUMA_WEIGHT * green + BLUE_LUMA_WEIGHT * blue;
-        chroma += Math.max(red, green, blue) - Math.min(red, green, blue);
-        count += 1;
-    });
-
-    return extracted === null ? null : { ...extracted, luma: luma / count, chroma: chroma / count };
-};
+        .reduce<(WarpedBoardInterface & { readonly score: number }) | null>(
+            (best, board) => (best === null || board.score > best.score ? board : best),
+            null
+        );
 
 export const readGridGlyphs = (image: RgbaImageInterface) => {
     if (image.width <= 0 || image.height <= 0 || image.data.length < image.width * image.height * RGBA_CHANNEL_COUNT) {
         return null;
     }
 
-    const gray = toGrayscale(image);
+    const luma = toLuma(image);
+    const gray = downscaleLuma(luma, measureDownscale(luma));
     const board =
-        findBestBoardMask(gray, false, false) ??
-        findBestBoardMask(gray, true, false) ??
-        findBestBoardMask(gray, false, true) ??
-        findBestBoardMask(gray, true, true);
+        findBestBoardMask(luma, gray, false, false) ??
+        findBestBoardMask(luma, gray, true, false) ??
+        findBestBoardMask(luma, gray, false, true) ??
+        findBestBoardMask(luma, gray, true, true);
 
     if (board === null) {
         return null;
     }
 
-    const cells = Array.from({ length: CELL_COUNT }, (_, cell) => readCellInk(image, board.homography, board.mask, cell));
+    const cells = Array.from({ length: CELL_COUNT }, (_, cell) => readCellInk(image, board, cell));
     const strokeHeights = cells
         .filter(ink => ink !== null)
         .map(ink => ink.strokeHeight)
