@@ -68,7 +68,8 @@ export const readCellInk = (image: RgbaImageInterface, board: WarpedBoardInterfa
         luma: core.reduce((total, pixel) => total + pixel.luma, 0) / core.length,
         chroma: Math.max(
             0,
-            core.reduce((total, pixel) => total + pixel.chroma, 0) / core.length - measureBackgroundChroma(image, board, cell)
+            core.reduce((total, pixel) => total + pixel.chroma, 0) / core.length -
+                (board.isDarkInk ? 0 : measureBackgroundChroma(image, board, cell))
         )
     };
 };

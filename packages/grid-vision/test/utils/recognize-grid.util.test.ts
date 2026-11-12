@@ -23,6 +23,7 @@ const FLAT_GRID_SEED = 32;
 const PAGE_MARGIN = 60;
 const HIDDEN_CELL_RATIO = 0.4;
 const PENCIL_MARK_CELL_RATIO = 0.22;
+const HANDWRITTEN_DIGIT_CELL_RATIO = 0.6;
 
 const fixtures = readFileSync(new URL('manifest.txt', FIXTURE_DIRECTORY), 'utf8')
     .trim()
@@ -196,6 +197,30 @@ describe('recognizeGrid', () => {
         });
 
         expect(recognizeOnDarkPage(canvas, 0, 0).replaceAll(/\d/gu, '#')).toBe(puzzle.replaceAll(/\d/gu, '#'));
+    });
+
+    it('should flag colored handwriting on tinted paper', () => {
+        const puzzle = gridFixtures[0].expected;
+        const cell = puzzle.indexOf('.');
+        const { canvas, context, margin, cellSize } = renderPrintedGrid(puzzle);
+
+        context.resetTransform();
+        context.font = `${Math.round(HANDWRITTEN_DIGIT_CELL_RATIO * cellSize)}px sans-serif`;
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.fillStyle = 'rgb(30, 30, 130)';
+        context.fillText('5', margin + ((cell % GRID_SIZE) + 0.5) * cellSize, margin + (Math.floor(cell / GRID_SIZE) + 0.5) * cellSize);
+        context.globalCompositeOperation = 'multiply';
+        context.fillStyle = 'rgb(255, 230, 180)';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+
+        const recognition = recognizeGrid(context.getImageData(0, 0, canvas.width, canvas.height));
+
+        expect(
+            recognition.kind === GridRecognitionKindEnum.RECOGNIZED
+                ? recognition.handwritten.flatMap((isHandwritten, index) => (isHandwritten ? [index] : []))
+                : []
+        ).toEqual([cell]);
     });
 
     it('should report a missing grid for images without a sudoku', () => {
