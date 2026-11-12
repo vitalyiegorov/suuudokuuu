@@ -41,17 +41,18 @@ const WARPED_TARGET_CORNERS: readonly PointInterface[] = [
     { x: 0, y: WARPED_GRID_SIZE }
 ];
 
-const toLuma = (image: RgbaImageInterface): GrayImageInterface => ({
-    width: image.width,
-    height: image.height,
-    data: Float32Array.from(
-        { length: image.width * image.height },
-        (_, index) =>
-            RED_LUMA_WEIGHT * image.data[index * RGBA_CHANNEL_COUNT] +
-            GREEN_LUMA_WEIGHT * image.data[index * RGBA_CHANNEL_COUNT + 1] +
-            BLUE_LUMA_WEIGHT * image.data[index * RGBA_CHANNEL_COUNT + 2]
-    )
-});
+const toLuma = (image: RgbaImageInterface): GrayImageInterface => {
+    const data = new Float32Array(image.width * image.height);
+
+    for (let index = 0; index < data.length; index += 1) {
+        const offset = index * RGBA_CHANNEL_COUNT;
+
+        data[index] =
+            RED_LUMA_WEIGHT * image.data[offset] + GREEN_LUMA_WEIGHT * image.data[offset + 1] + BLUE_LUMA_WEIGHT * image.data[offset + 2];
+    }
+
+    return { width: image.width, height: image.height, data };
+};
 
 const measureDownscale = (image: GrayImageInterface): number => Math.max(1, Math.max(image.width, image.height) / MAXIMUM_IMAGE_SIDE);
 
@@ -99,8 +100,18 @@ const measureLineDeviation = (board: GrayImageInterface, median: number, linePos
 };
 
 const hasDarkInk = (board: GrayImageInterface): boolean => {
-    const sorted = board.data.slice().sort();
-    const median = sorted[Math.floor(sorted.length / 2)];
+    const histogram = new Uint32Array(MAXIMUM_GRAY + 1);
+    let median = 0;
+    let darkerCount = 0;
+
+    for (const value of board.data) {
+        histogram[Math.round(value)] += 1;
+    }
+
+    while (darkerCount + histogram[median] < board.data.length / 2) {
+        darkerCount += histogram[median];
+        median += 1;
+    }
 
     return (
         Array.from({ length: GRID_SIZE + 1 }, (_, line) => line * CELL_SIZE).reduce(
