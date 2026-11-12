@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.44.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.3...v2.44.4) (2026-11-12)
+
+### Bug Fixes
+
+* **grid-vision:** read dark boards with shaded cells and pencil marks ([#845](https://github.com/vitalyiegorov/suuudokuuu/issues/845)) ([830e3b3](https://github.com/vitalyiegorov/suuudokuuu/commit/830e3b333d414f0bed7a4e9bd990852c78e288cb))
+
+
 ## [2.44.3](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.2...v2.44.3) (2026-11-11)
 
 **Note:** Version bump only for package @suuudokuuu/root
