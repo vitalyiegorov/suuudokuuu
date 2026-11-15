@@ -182,6 +182,10 @@ and must be resolved before the project can be widened:
 - `08.challenge-hud-layout.spec.ts` — the rival-race HUD's `x` is `0` on the iPhone 14 viewport, so
   the "HUD sits right of the board" geometry assertion does not hold at that breakpoint.
 
+## Latency Budget
+
+The daily winner-screen budget (`15.daily-challenge.spec.ts`, tagged `@latency`) is wall-clock time, so it runs only in `chromium-latency` and `mobile-chromium-latency`. Each runs one worker and depends on every other project, so it starts after the parallel run finishes, on a CPU no other browser is using. `chromium` and `mobile-chromium` exclude the tag. A failing dependency skips the latency projects, so the budget runs once the rest of the suite is green. Run it alone with `playwright test --project=chromium-latency --project=mobile-chromium-latency --no-deps`. Do not tag another test `@latency` unless it asserts wall-clock time.
+
 ## Landing Specs
 
 `specs/landing/**` is the whole `landing-chromium` scope: the static Next.js export in
