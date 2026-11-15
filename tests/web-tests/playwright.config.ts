@@ -10,6 +10,7 @@ const defaultWebServerPort = 4173;
 const defaultLandingServerPort = 4174;
 const webServerPort = Number(process.env['WEB_E2E_PORT'] ?? defaultWebServerPort);
 const landingServerPort = Number(process.env['LANDING_E2E_PORT'] ?? defaultLandingServerPort);
+const latencyTag = /@latency/u;
 
 export default defineConfig({
     globalSetup: './global-setup.ts',
@@ -29,11 +30,13 @@ export default defineConfig({
         {
             name: 'chromium',
             testIgnore: /landing\//u,
+            grepInvert: latencyTag,
             use: { ...devices['Desktop Chrome'] }
         },
         {
             name: 'mobile-chromium',
             testIgnore: /landing\//u,
+            grepInvert: latencyTag,
             use: { ...devices['Pixel 7'] }
         },
         {
@@ -45,6 +48,22 @@ export default defineConfig({
             name: 'landing-chromium',
             testDir: './specs/landing',
             use: { ...devices['Desktop Chrome'], baseURL: `http://127.0.0.1:${landingServerPort}` }
+        },
+        {
+            name: 'chromium-latency',
+            testIgnore: /landing\//u,
+            grep: latencyTag,
+            workers: 1,
+            dependencies: ['chromium', 'mobile-chromium', 'mobile-webkit', 'landing-chromium'],
+            use: { ...devices['Desktop Chrome'] }
+        },
+        {
+            name: 'mobile-chromium-latency',
+            testIgnore: /landing\//u,
+            grep: latencyTag,
+            workers: 1,
+            dependencies: ['chromium-latency'],
+            use: { ...devices['Pixel 7'] }
         }
     ],
     webServer: [

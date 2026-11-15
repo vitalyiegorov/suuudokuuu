@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.44.7](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.6...v2.44.7) (2026-11-15)
+
+### Bug Fixes
+
+* **app:** leave Ctrl, Cmd and Alt shortcuts to the browser on the web board ([#849](https://github.com/vitalyiegorov/suuudokuuu/issues/849)) ([9ea77af](https://github.com/vitalyiegorov/suuudokuuu/commit/9ea77af5792d33a5a21a43214229552cfe2667b1)), closes [#711](https://github.com/vitalyiegorov/suuudokuuu/issues/711)
+
+
 ## [2.44.6](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.5...v2.44.6) (2026-11-15)
 
 **Note:** Version bump only for package @suuudokuuu/root
