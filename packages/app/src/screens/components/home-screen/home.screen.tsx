@@ -62,7 +62,7 @@ const homeScreenGetContentInsetTop = (safeAreaTop: number): number =>
 
 // oxlint-disable-next-line max-lines-per-function
 export const HomeScreen = () => {
-    const { create, isCreatingGame } = use(GameContext);
+    const { createFromSettings, isCreatingGame } = use(GameContext);
     const { theme } = use(ThemeContext);
     const { t } = useLingui();
     const { intent, intentVisit } = useLocalSearchParams<{ intent?: string | string[]; intentVisit?: string | string[] }>();
@@ -81,9 +81,7 @@ export const HomeScreen = () => {
     const isGameStarted = isNotEmptyString(currentSudokuString);
     const handleDifficultyChange = (newDifficulty: DifficultyEnum) => void updateSettings({ lastGameDifficulty: newDifficulty });
     const handleMaxMistakes = (newMaxMistakes: number) => () => void updateSettings({ lastGameMaxMistakes: newMaxMistakes });
-    const startNewPuzzle = () => void create({ difficulty, isChallengeRun: isChallengeMode, maxMistakes });
-
-    const handleStart = () => void confirmRunReplacement(startNewPuzzle);
+    const handleStart = () => void confirmRunReplacement(createFromSettings);
 
     const standardMistakesOption = {
         description: t`Three mistakes`,

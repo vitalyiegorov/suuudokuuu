@@ -1,6 +1,6 @@
 import { FieldEngine } from '@suuudokuuu/field-core';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
-import { CurrentRunService } from '@suuudokuuu/progress';
+import { CurrentRunService, SettingsRepository } from '@suuudokuuu/progress';
 import {
     getMatchingEntryCellIndexes,
     isImportedPuzzleCompleted,
@@ -56,6 +56,16 @@ const replayEntries = (
             ),
         { discard: true }
     );
+
+const savedGameSetup = Effect.map(
+    Effect.flatMap(SettingsRepository, settingsRepository => settingsRepository.get),
+    ({ lastGameChallengeMode, lastGameDifficulty, lastGameMaxMistakes }) => ({
+        dailyDayNumber: 0,
+        difficulty: lastGameDifficulty,
+        isChallengeRun: lastGameChallengeMode,
+        maxMistakes: lastGameMaxMistakes
+    })
+);
 
 export const useGameCreation = () => {
     const { isCreatingGame, router, runGameCreation, showAlert } = useGameCreationRunner();
@@ -125,6 +135,8 @@ export const useGameCreation = () => {
     const create = ({ difficulty, isChallengeRun, maxMistakes }: GameSetupInterface) =>
         void runGameCreation(startForgedGame({ difficulty, isChallengeRun, maxMistakes, dailyDayNumber: 0 }));
 
+    const createFromSettings = () => void runGameCreation(Effect.flatMap(savedGameSetup, setup => startForgedGame(setup)));
+
     const createDaily = (maxMistakes: number) =>
         void runGameCreation(
             Clock.currentTimeMillis.pipe(
@@ -143,5 +155,5 @@ export const useGameCreation = () => {
             )
         );
 
-    return { create, createDaily, createFromImport, createFromState, engine, isCreatingGame };
+    return { create, createDaily, createFromImport, createFromSettings, createFromState, engine, isCreatingGame };
 };

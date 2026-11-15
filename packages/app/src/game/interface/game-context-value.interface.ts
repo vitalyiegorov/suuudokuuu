@@ -6,6 +6,7 @@ import type { ImportedPuzzleAssessmentKindEnum, ImportedPuzzleAssessmentType } f
 export interface GameContextValueInterface {
     readonly create: (setup: GameSetupInterface) => void;
     readonly createDaily: (maxMistakes: number) => void;
+    readonly createFromSettings: () => void;
     readonly createFromState: (newState: CurrentRunType) => void;
     readonly createFromImport: (
         sudokuString: string,
