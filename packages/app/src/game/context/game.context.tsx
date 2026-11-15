@@ -14,6 +14,7 @@ export const GameContext = createContext<GameContextValueInterface>({
     create: emptyFn,
     createDaily: emptyFn,
     createFromImport: emptyFn,
+    createFromSettings: emptyFn,
     createFromState: emptyFn,
     engine: emptyEngine,
     isCreatingGame: false,
