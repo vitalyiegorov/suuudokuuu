@@ -1,4 +1,4 @@
-# Re-runs a failed run's failed jobs once when every failure is infrastructure
+# Re-runs a failed run once when every failure is infrastructure
 # (lost runner, exec format error, job not acquired, shutdown signal, disk
 # full, network, timeout). A test failure anywhere means nothing is re-run.
 # rnw-community/mobile-ci#271.
@@ -21,6 +21,7 @@ jobs:
             actions: write
             checks: read
         steps:
-            - uses: rnw-community/mobile-ci/actions/rerun-infra-failures@94e78d391732050f1daf02d1906708f04c5b5a71 # v4.13.2
+            - uses: rnw-community/mobile-ci/actions/rerun-infra-failures@06f8823814334b602aecc5353d9e86e576717f86 # v4.14.0
               with:
                   run-id: ${{ github.event.workflow_run.id }}
+                  scope: all

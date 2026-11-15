@@ -37,7 +37,7 @@ jobs:
         name: Release
         permissions:
             contents: read
-        uses: rnw-community/mobile-ci/.github/workflows/store-release.yml@94e78d391732050f1daf02d1906708f04c5b5a71 # v4.13.2
+        uses: rnw-community/mobile-ci/.github/workflows/store-release.yml@06f8823814334b602aecc5353d9e86e576717f86 # v4.14.0
         with:
             control-runner-labels: '["self-hosted","linux-portable-2x4"]'
             platforms: ${{ inputs.platforms }}

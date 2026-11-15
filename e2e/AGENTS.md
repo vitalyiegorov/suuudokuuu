@@ -28,15 +28,19 @@ It is a standalone npm project, not a pnpm workspace member: mobile-ci hashes th
 6. A new test is done when it passes twice in a row with `E2E_RETRIES=0` on each platform.
 7. Some fixtures are pinned to an older payload on purpose, and a failing assertion is not a reason to re-encode them. The rival link in `08.challenge-accept-preview` predates both the rating trailer and the technique trailer, so it is the only end-to-end coverage of the legacy path: the unknown-rating chip and the `getChallengeTechniqueEvents` replay that derives the rival arsenal when the payload carries no stored techniques. Verify a fixture's payload with `GameStateSerializer.decodeState` from `packages/encoder/dist/esm` before assuming a fixture is stale.
 
+## Reruns
+
+The fleet's artifact store scopes artifacts to one run attempt, so "Re-run failed jobs" cannot work for a suite: its plan job is not rerun, and the new attempt cannot download the app the first attempt uploaded (`Artifact not found for name: android-e2e-app-e2e`). Re-run all jobs instead. `retry-infra-failures.yml` does the same: it retries an infrastructure-only failure with `scope: all`.
+
 ## Running
 
-Use the mobile-ci tag pinned in `.github/workflows/mobile-e2e.yml` (`v4.11.1` below):
+Use the mobile-ci tag pinned in `.github/workflows/mobile-e2e.yml` (`v4.14.0` below):
 
 ```bash
 cd e2e && npm ci
-curl -fsSLO https://raw.githubusercontent.com/rnw-community/mobile-ci/v4.11.1/scripts/fetch-e2e-simlock.sh && bash fetch-e2e-simlock.sh v4.11.1 . && rm fetch-e2e-simlock.sh
+curl -fsSLO https://raw.githubusercontent.com/rnw-community/mobile-ci/v4.14.0/scripts/fetch-e2e-simlock.sh && bash fetch-e2e-simlock.sh v4.14.0 . && rm fetch-e2e-simlock.sh
 SIMLOCK_URL=https://simlock.vitaliiyehorov.dev SIMLOCK_TOKEN=<token> E2E_APP_PATH=<path>/Base.app E2E_WORKERS=4 npx e2e run --target ios
 SIMLOCK_URL=https://simlock.vitaliiyehorov.dev SIMLOCK_TOKEN=<token> E2E_APP_PATH=<path>/app-release.apk E2E_WORKERS=2 npx e2e run --target android
 ```
 
-Download the app from a run of `mobile-e2e.yml`: `gh run download <run> -n ios-e2e-app-e2e` or `-n android-e2e-app-e2e` (arm64-v8a). A failure's `.e2e/results/*/trace.md` holds every step and the accessibility tree at the failure.
+Artifacts uploaded from the self-hosted Linux fleet, including the repacked e2e apps, live in its own store, which `gh run download` and the run page do not list. A failure's `.e2e/results/*/trace.md` holds every step and the accessibility tree at the failure.
