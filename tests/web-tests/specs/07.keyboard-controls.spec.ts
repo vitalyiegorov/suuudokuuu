@@ -107,6 +107,28 @@ test('toggles auto-candidates with the A key', async ({ page }) => {
     await expect.poll(() => tipsButton.evaluate(element => getComputedStyle(element).backgroundColor)).toBe(initialColor);
 });
 
+test('leaves browser shortcuts held with Ctrl, Cmd or Alt to the browser', async ({ page }) => {
+    await launchHome(page);
+    await openSharedChallenge(page, losingSharedChallengeEncodedConstant);
+    await acceptSharedChallenge(page);
+
+    const cell = page.getByTestId(cellTestId(wrongCellY, wrongCellX));
+    await cell.click();
+
+    await page.keyboard.press('Control+5');
+    await page.keyboard.press('Meta+5');
+    await page.keyboard.press('Alt+ArrowRight');
+    await page.keyboard.press('Control+a');
+    await page.keyboard.press('Control+n');
+
+    await expect(cell).toHaveAttribute('aria-label', 'Row 1, column 5, empty');
+    await expect(page.getByTestId(valueButtonTestId(5))).toBeVisible();
+
+    await page.keyboard.press('Shift+5');
+
+    await expect(cell).toHaveAttribute('aria-label', 'Row 1, column 5, empty, notes 5');
+});
+
 test('keeps the root game screen out of the tab order so Tab and Space never outline the whole viewport', async ({ page }) => {
     await launchHome(page);
     await startNewGame(page);

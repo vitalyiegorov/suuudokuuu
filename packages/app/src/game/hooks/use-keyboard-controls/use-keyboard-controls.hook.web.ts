@@ -21,6 +21,9 @@ const DIGIT_CODE_PATTERN = /^(?:Digit|Numpad)([1-9])$/u;
 const isEditableTarget = (target: EventTarget | null): boolean =>
     target instanceof HTMLElement && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable);
 
+const isIgnoredKeyDown = (event: KeyboardEvent): boolean =>
+    event.ctrlKey || event.metaKey || event.altKey || isEditableTarget(event.target);
+
 const isBoardCellTarget = (target: EventTarget | null): boolean =>
     target instanceof HTMLElement && isDefined(target.closest('[role="grid"]'));
 
@@ -45,7 +48,7 @@ export const useKeyboardControls = (
 
         // oxlint-disable-next-line max-statements -- Web keyboard handler branches over every pro-player key binding
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (isEditableTarget(e.target)) {
+            if (isIgnoredKeyDown(e)) {
                 return;
             }
 
@@ -112,7 +115,7 @@ export const useKeyboardControls = (
         };
 
         const handleBoardCellSpace = (e: KeyboardEvent) => {
-            if (e.key === ' ' && !isEditableTarget(e.target) && isBoardCellTarget(e.target)) {
+            if (e.key === ' ' && !isIgnoredKeyDown(e) && isBoardCellTarget(e.target)) {
                 e.preventDefault();
                 e.stopPropagation();
                 handleKeyDown(e);
