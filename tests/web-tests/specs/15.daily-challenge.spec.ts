@@ -59,7 +59,7 @@ const openDailyTab = async (page: Page): Promise<void> => {
     await expect(page.getByTestId(DailyScreenSelectors.Root)).toBeVisible();
 };
 
-const solveTodaysDaily = async (page: Page): Promise<void> => {
+const solveTodaysDaily = async (page: Page): Promise<number> => {
     const { sudoku } = forgeDailyPuzzle(todayDateString);
     const blankCells = sudoku.Field.flat().filter(cell => sudoku.isBlankCell(cell));
     const lastBlankCell = blankCells.pop();
@@ -80,8 +80,9 @@ const solveTodaysDaily = async (page: Page): Promise<void> => {
     await page.getByTestId(cellTestId(lastBlankCell.y, lastBlankCell.x)).click();
     await page.keyboard.press(String(sudoku.getCorrectValue(lastBlankCell)));
 
-    expect(await winnerScreenLatency).toBeLessThan(winnerScreenLatencyBudgetMilliseconds);
     await expect(page.getByTestId(WinnerScreenSelectors.Root)).toBeVisible({ timeout: winnerScreenTimeoutMilliseconds });
+
+    return winnerScreenLatency;
 };
 
 test.beforeEach(async ({ page }) => {
@@ -107,30 +108,34 @@ test('offers today’s puzzle on a fresh profile', async ({ page }) => {
     await expect(dailyScreen.getByTestId(DailyScreenSelectors.ActionButton)).toHaveText('Play today');
 });
 
-test('solving today’s puzzle records its result and swaps the call to action for the next puzzle countdown', async ({ page }) => {
-    test.setTimeout(solveTestTimeoutMilliseconds);
-    await launchHome(page);
-    await openDailyTab(page);
-    await solveTodaysDaily(page);
+test(
+    'solving today’s puzzle records its result and swaps the call to action for the next puzzle countdown',
+    { tag: '@latency' },
+    async ({ page }) => {
+        test.setTimeout(solveTestTimeoutMilliseconds);
+        await launchHome(page);
+        await openDailyTab(page);
+        expect(await solveTodaysDaily(page)).toBeLessThan(winnerScreenLatencyBudgetMilliseconds);
 
-    await page.getByTestId(WinnerScreenSelectors.HomeButton).click();
-    await openDailyTab(page);
+        await page.getByTestId(WinnerScreenSelectors.HomeButton).click();
+        await openDailyTab(page);
 
-    const dailyScreen = page.getByTestId(DailyScreenSelectors.Root);
+        const dailyScreen = page.getByTestId(DailyScreenSelectors.Root);
 
-    await expect(dailyScreen.getByTestId(DailyStreakPillSelectors.Streak)).toHaveText('1');
-    await expect(dailyScreen.getByTestId(`${DailyWeekDaySelectors.Root}.${todayDayNumber}`)).toHaveAttribute(
-        'aria-label',
-        /Solved today$/u
-    );
-    await expect(dailyScreen.getByTestId(DailyTodayResultSelectors.Root)).toBeVisible();
-    await expect(dailyScreen.getByTestId(DailyTodayResultStatsSelectors.Mistakes)).toHaveText('0');
-    await expect(dailyScreen.getByTestId(DailyTodayResultStatsSelectors.Time)).not.toBeEmpty();
-    await expect(dailyScreen.getByTestId(DailyTodayResultStatsSelectors.Score)).not.toBeEmpty();
-    await expect(dailyScreen.getByTestId(DailyNextPuzzleBarSelectors.Countdown)).toHaveText('New puzzle in 14 hr 30 min');
-    await expect(dailyScreen.getByTestId(DailyShareButtonSelectors.Button)).toBeVisible();
-    await expect(dailyScreen.getByTestId(DailyScreenSelectors.ActionButton)).toHaveCount(0);
-});
+        await expect(dailyScreen.getByTestId(DailyStreakPillSelectors.Streak)).toHaveText('1');
+        await expect(dailyScreen.getByTestId(`${DailyWeekDaySelectors.Root}.${todayDayNumber}`)).toHaveAttribute(
+            'aria-label',
+            /Solved today$/u
+        );
+        await expect(dailyScreen.getByTestId(DailyTodayResultSelectors.Root)).toBeVisible();
+        await expect(dailyScreen.getByTestId(DailyTodayResultStatsSelectors.Mistakes)).toHaveText('0');
+        await expect(dailyScreen.getByTestId(DailyTodayResultStatsSelectors.Time)).not.toBeEmpty();
+        await expect(dailyScreen.getByTestId(DailyTodayResultStatsSelectors.Score)).not.toBeEmpty();
+        await expect(dailyScreen.getByTestId(DailyNextPuzzleBarSelectors.Countdown)).toHaveText('New puzzle in 14 hr 30 min');
+        await expect(dailyScreen.getByTestId(DailyShareButtonSelectors.Button)).toBeVisible();
+        await expect(dailyScreen.getByTestId(DailyScreenSelectors.ActionButton)).toHaveCount(0);
+    }
+);
 
 test('daily streak labels follow a language switch without a reload', async ({ page }) => {
     test.setTimeout(solveTestTimeoutMilliseconds);
