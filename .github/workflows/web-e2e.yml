@@ -34,6 +34,7 @@ env:
     TURBO_TEAM: vitalyiegorov
     TURBO_TOKEN: ${{ secrets.VERCEL_TOKEN }}
     EXPO_NO_TELEMETRY: '1'
+    LANDING_BUILD_DATE: '2026-11-14'
 
 jobs:
     playwright:
@@ -67,9 +68,6 @@ jobs:
 
             - name: Export Expo web build
               run: pnpm turbo run export:web --filter=@suuudokuuu/app
-
-            - name: Pin the landing build date to today
-              run: echo "LANDING_BUILD_DATE=$(date -u +%F)" >> "$GITHUB_ENV"
 
             - name: Build landing export
               run: pnpm turbo run build --filter=@suuudokuuu/landing

@@ -298,7 +298,7 @@ Every `/sudoku/<tier>` lander and the home page render `DifficultyBoard difficul
 
 `/daily-sudoku` shows the build day's puzzle and `/daily-sudoku/<YYYY-MM-DD>` keeps every day from `DAILY_ARCHIVE_START_DATE` (`src/daily/constants/daily-archive.constant.ts`) up to the build date, paginated by `/daily-sudoku/archive/<YYYY-MM>`. Every board comes from `forgeSerializablePuzzle(getDailyDifficulty(date), getDailyPuzzleSeed(date))`, the exact call the app's daily challenge makes, so the page and the app show the same grid for a UTC date. The archive is derived, never stored: a past day renders the same board on every build.
 
-The build date is `LANDING_BUILD_DATE` when it is a `YYYY-MM-DD` string, else today in UTC. The production workflow sets it and turbo hashes it, so a cached landing build is never replayed on a later day, and a daily `schedule` trigger on `main.yml` rebuilds and deploys without a release. Each day page runs one `SolvePathBuilder` solve at build time; the month and recent-day lists read only the date and the tier.
+The build date is `LANDING_BUILD_DATE` when it is a `YYYY-MM-DD` string, else today in UTC. The production workflow sets it and turbo hashes it, so a cached landing build is never replayed on a later day, and a daily `schedule` trigger on `main.yml` rebuilds and deploys without a release. Web E2E pins `LANDING_BUILD_DATE` to a fixed day, so the content-overlap baseline, the daily JSON-LD spec and the cached build do not change with the calendar; move that date and rerun `check:content-overlap --write-baseline` together. Each day page runs one `SolvePathBuilder` solve at build time; the month and recent-day lists read only the date and the tier.
 
 ## Guide pages and the generated solve data
 
