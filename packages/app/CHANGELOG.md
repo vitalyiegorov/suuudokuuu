@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.44.8](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.7...v2.44.8) (2026-11-15)
+
+### Bug Fixes
+
+* **app:** start the difficulty picked just before Start ([#850](https://github.com/vitalyiegorov/suuudokuuu/issues/850)) ([a747866](https://github.com/vitalyiegorov/suuudokuuu/commit/a74786609ded24de40b7ee8fdcaca2611037d63e)), closes [#709](https://github.com/vitalyiegorov/suuudokuuu/issues/709)
+
+
 ## [2.44.7](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.6...v2.44.7) (2026-11-15)
 
 ### Bug Fixes
