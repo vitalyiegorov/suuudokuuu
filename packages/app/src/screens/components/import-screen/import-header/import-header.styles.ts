@@ -1,22 +1,22 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-const boardMaxWidth = 480;
+import { ImportCompactFrameHeightConstant } from '../constants/import-compact-frame-height.constant';
 
-export const ImportHeaderStyles = StyleSheet.create(theme => ({
+const narrowFrameWidth = 360;
+
+export const ImportHeaderStyles = StyleSheet.create((theme, rt) => ({
     container: {
         alignItems: 'center',
         alignSelf: 'center',
         flexDirection: 'row',
         flexShrink: 0,
-        gap: theme.spacing.md,
-        maxWidth: boardMaxWidth + theme.spacing.lg * 2,
-        paddingHorizontal: theme.spacing.lg,
-        paddingTop: theme.spacing.xs,
-        width: '100%'
+        gap: theme.spacing.sm,
+        maxWidth: '100%',
+        paddingTop: rt.screen.height < ImportCompactFrameHeightConstant ? 0 : theme.spacing.xs
     },
     resetSlot: { width: 44, height: 44 },
     reset: {
-        alignItems: 'center',
+        alignItems: 'flex-end',
         justifyContent: 'center',
         height: 44,
         width: 44,
@@ -31,6 +31,7 @@ export const ImportHeaderStyles = StyleSheet.create(theme => ({
     },
     title: {
         flex: 1,
+        fontSize: rt.screen.width < narrowFrameWidth ? theme.typography.size.lg : 22,
         marginBottom: 0,
         textAlign: 'left'
     }

@@ -174,7 +174,7 @@ msgstr "{subsetSize, plural, other {Look at row {regionNumber}: # cells there ca
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 
@@ -539,6 +539,10 @@ msgstr "Challenge Won!"
 msgid "Challenges"
 msgstr "Challenges"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Check"
+msgstr "Check"
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "Check out this Sudoku puzzle!"
@@ -600,6 +604,11 @@ msgstr "Close"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "Close hint"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Clue"
+msgstr "Clue"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -664,8 +673,8 @@ msgid "Contradiction, so {cell} is not {value}."
 msgstr "Contradiction, so {cell} is not {value}."
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
-msgstr "Couldn't find a sudoku grid. Try a closer, straighter photo."
+msgid "Couldn't find a sudoku grid"
+msgstr "Couldn't find a sudoku grid"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1468,6 +1477,10 @@ msgstr "Nishio Forcing Chain"
 msgid "no bonus"
 msgstr "no bonus"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No clues yet"
+msgstr "No clues yet"
+
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "No complete development build has been published yet. Please check again later."
@@ -1737,10 +1750,6 @@ msgstr "Presets"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "Primary text"
-
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-msgid "Printed clue"
-msgstr "Printed clue"
 
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
@@ -2272,7 +2281,11 @@ msgstr "Take it slow"
 msgid "Taller marks = sharper techniques"
 msgstr "Taller marks = sharper techniques"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Tap a cell to change it"
+msgstr "Tap a cell to change it"
+
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
 msgid "Tap a cell to type it"
 msgstr "Tap a cell to type it"
 
@@ -2455,6 +2468,10 @@ msgstr "Too many mistakes"
 #: src/app/(tabs)/history.tsx
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Try a closer, straighter photo"
+msgstr "Try a closer, straighter photo"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
 #: src/@generic/components/boot-failure/boot-failure.web.tsx
@@ -2700,6 +2717,10 @@ msgstr "Your browser may ask for permission to install unknown apps. Android wil
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "Your custom colors"
+
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Your entry"
+msgstr "Your entry"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"

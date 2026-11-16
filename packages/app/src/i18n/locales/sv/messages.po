@@ -172,7 +172,7 @@ msgstr "{subsetSize, plural, one {Titta på rad {regionNumber}: # cell där kan 
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, one {Titta på rad {regionNumber}: # siffra får bara plats i # cell.} other {Titta på rad {regionNumber}: # siffror får bara plats i # celler.}}"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, one {# siffra att kontrollera} other {# siffror att kontrollera}}"
 
@@ -537,6 +537,10 @@ msgstr "Utmaning vunnen!"
 msgid "Challenges"
 msgstr "Utmaningar"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Check"
+msgstr "Kontrollera"
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "Kolla in detta sudoku!"
@@ -598,6 +602,11 @@ msgstr "Stäng"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "Stäng ledtråd"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Clue"
+msgstr "Ledtråd"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -662,8 +671,8 @@ msgid "Contradiction, so {cell} is not {value}."
 msgstr "Motsägelse, alltså är {cell} inte {value}."
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
-msgstr "Inget sudokurutnät hittades. Ta bilden närmare och rakare."
+msgid "Couldn't find a sudoku grid"
+msgstr "Inget sudokurutnät hittades"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1466,6 +1475,10 @@ msgstr "Tvingande Nishio-kedja"
 msgid "no bonus"
 msgstr "ingen bonus"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No clues yet"
+msgstr "Inga ledtrådar än"
+
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "Ingen fullständig utvecklingsversion har publicerats ännu. Kom tillbaka senare."
@@ -1735,10 +1748,6 @@ msgstr "Förinställningar"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "Primär text"
-
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-msgid "Printed clue"
-msgstr "Tryckt ledtråd"
 
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
@@ -2270,7 +2279,11 @@ msgstr "Ta det lugnt"
 msgid "Taller marks = sharper techniques"
 msgstr "Högre markeringar = skarpare tekniker"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Tap a cell to change it"
+msgstr "Tryck på en ruta för att ändra den"
+
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
 msgid "Tap a cell to type it"
 msgstr "Tryck på en ruta för att skriva"
 
@@ -2453,6 +2466,10 @@ msgstr "För många misstag"
 #: src/app/(tabs)/history.tsx
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Följ dina lösta sudokun, bästa tider och poäng i alla svårighetsgrader."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Try a closer, straighter photo"
+msgstr "Ta bilden närmare och rakare"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
 #: src/@generic/components/boot-failure/boot-failure.web.tsx
@@ -2698,6 +2715,10 @@ msgstr "Webbläsaren kan be om tillåtelse att installera appar från okända k�
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "Dina anpassade färger"
+
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Your entry"
+msgstr "Din siffra"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"

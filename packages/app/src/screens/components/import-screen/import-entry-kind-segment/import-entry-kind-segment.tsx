@@ -1,4 +1,5 @@
-import { AppButton } from '@suuudokuuu/ui';
+import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
+import { Pressable, Text } from 'react-native';
 
 import { emptyFn } from '@rnw-community/shared';
 
@@ -13,22 +14,30 @@ interface Props {
 }
 
 export const ImportEntryKindSegment = ({ text, testID, isChecked, isDisabled, onPress }: Props) => {
-    const accessibilityState = { checked: isChecked };
+    const accessibilityState = { checked: isChecked, disabled: isDisabled };
     const handlePress = isChecked ? emptyFn : onPress;
-    const variant = isChecked ? 'boardSelected' : 'secondary';
+    const segmentStyles = [styles.segment, isChecked && styles.thumb];
+    const labelStyles = [styles.label, isChecked && styles.thumbLabel];
 
     return (
-        <AppButton
+        <Pressable
             aria-checked={isChecked}
             accessibilityRole="radio"
             accessibilityState={accessibilityState}
             disabled={isDisabled}
             onPress={handlePress}
-            size="compact"
-            style={styles.segment}
+            style={segmentStyles}
             testID={testID}
-            text={text}
-            variant={variant}
-        />
+        >
+            <Text
+                adjustsFontSizeToFit
+                maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                minimumFontScale={0.8}
+                numberOfLines={1}
+                style={labelStyles}
+            >
+                {text}
+            </Text>
+        </Pressable>
     );
 };

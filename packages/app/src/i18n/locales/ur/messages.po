@@ -172,7 +172,7 @@ msgstr "{subsetSize, plural, one {قطار {regionNumber} دیکھیں: وہاں
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, one {قطار {regionNumber} دیکھیں: وہاں # ہندسہ صرف # خانے میں آ سکتا ہے۔} other {قطار {regionNumber} دیکھیں: وہاں # ہندسے صرف # خانوں میں آ سکتے ہیں۔}}"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, one {# ہندسہ چیک کریں} other {# ہندسے چیک کریں}}"
 
@@ -537,6 +537,10 @@ msgstr "چیلنج جیت گئے!"
 msgid "Challenges"
 msgstr "چیلنجز"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Check"
+msgstr "جانچیں"
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "یہ سوڈوکو دیکھیں!"
@@ -598,6 +602,11 @@ msgstr "بند کریں"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "اشارہ بند کریں"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Clue"
+msgstr "اشارہ"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -662,8 +671,8 @@ msgid "Contradiction, so {cell} is not {value}."
 msgstr "تضاد، لہٰذا {cell}، {value} نہیں ہے۔"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
-msgstr "سڈوکو گرڈ نہیں ملا۔ قریب سے سیدھی تصویر لیں۔"
+msgid "Couldn't find a sudoku grid"
+msgstr "سڈوکو گرڈ نہیں ملا"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1466,6 +1475,10 @@ msgstr "نیشیو جبری زنجیر"
 msgid "no bonus"
 msgstr "کوئی بونس نہیں"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No clues yet"
+msgstr "ابھی کوئی اشارہ نہیں"
+
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "ابھی تک کوئی مکمل ڈیولپمنٹ بِلڈ شائع نہیں ہوا۔ براہ کرم بعد میں دوبارہ چیک کریں۔"
@@ -1735,10 +1748,6 @@ msgstr "پری سیٹس"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "بنیادی متن"
-
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-msgid "Printed clue"
-msgstr "چھپا ہوا اشارہ"
 
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
@@ -2270,7 +2279,11 @@ msgstr "آرام سے کھیلیں"
 msgid "Taller marks = sharper techniques"
 msgstr "اونچے نشان = تیز تکنیکیں"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Tap a cell to change it"
+msgstr "بدلنے کے لیے خانے پر ٹیپ کریں"
+
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
 msgid "Tap a cell to type it"
 msgstr "لکھنے کے لیے خانے پر ٹیپ کریں"
 
@@ -2453,6 +2466,10 @@ msgstr "بہت زیادہ غلطیاں"
 #: src/app/(tabs)/history.tsx
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "ہر مشکل درجے پر اپنے حل کیے گئے سوڈوکو، بہترین اوقات اور اسکور دیکھیں۔"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Try a closer, straighter photo"
+msgstr "قریب سے سیدھی تصویر لیں"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
 #: src/@generic/components/boot-failure/boot-failure.web.tsx
@@ -2698,6 +2715,10 @@ msgstr "آپ کا براؤزر نامعلوم ایپس انسٹال کرنے ک�
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "آپ کے مخصوص رنگ"
+
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Your entry"
+msgstr "آپ کا اندراج"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"

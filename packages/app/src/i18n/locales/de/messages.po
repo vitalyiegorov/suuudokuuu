@@ -174,7 +174,7 @@ msgstr "{subsetSize, plural, one {Sieh dir Zeile {regionNumber} an: Dort kann # 
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, one {Sieh dir Zeile {regionNumber} an: Dort passt # Ziffer nur in # Zelle.} other {Sieh dir Zeile {regionNumber} an: Dort passen # Ziffern nur in # Zellen.}}"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, one {# Ziffer prüfen} other {# Ziffern prüfen}}"
 
@@ -539,6 +539,10 @@ msgstr "Duell gewonnen!"
 msgid "Challenges"
 msgstr "Herausforderungen"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Check"
+msgstr "Prüfen"
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "Schau dir dieses Sudoku-Rätsel an!"
@@ -600,6 +604,11 @@ msgstr "Schließen"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "Hinweis schließen"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Clue"
+msgstr "Vorgabe"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -664,8 +673,8 @@ msgid "Contradiction, so {cell} is not {value}."
 msgstr "Widerspruch, also ist {cell} nicht {value}."
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
-msgstr "Kein Sudoku gefunden. Fotografiere es näher und gerader."
+msgid "Couldn't find a sudoku grid"
+msgstr "Kein Sudoku gefunden"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1468,6 +1477,10 @@ msgstr "Nishio-Zwangskette"
 msgid "no bonus"
 msgstr "kein Bonus"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No clues yet"
+msgstr "Noch keine Vorgaben"
+
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "Es wurde noch kein vollständiger Entwicklungs-Build veröffentlicht. Bitte versuche es später erneut."
@@ -1737,10 +1750,6 @@ msgstr "Voreinstellungen"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "Primärer Text"
-
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-msgid "Printed clue"
-msgstr "Gedruckte Vorgabe"
 
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
@@ -2272,7 +2281,11 @@ msgstr "Lass dir Zeit"
 msgid "Taller marks = sharper techniques"
 msgstr "Höhere Markierungen = raffiniertere Techniken"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Tap a cell to change it"
+msgstr "Tippe zum Ändern auf ein Feld"
+
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
 msgid "Tap a cell to type it"
 msgstr "Tippe zum Eingeben auf ein Feld"
 
@@ -2455,6 +2468,10 @@ msgstr "Zu viele Fehler"
 #: src/app/(tabs)/history.tsx
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Verfolge deine gelösten Sudokus, Bestzeiten und Punktzahlen über alle Schwierigkeitsgrade hinweg."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Try a closer, straighter photo"
+msgstr "Fotografiere es näher und gerader"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
 #: src/@generic/components/boot-failure/boot-failure.web.tsx
@@ -2700,6 +2717,10 @@ msgstr "Dein Browser fragt möglicherweise nach der Erlaubnis, Apps aus unbekann
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "Deine eigenen Farben"
+
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Your entry"
+msgstr "Dein Eintrag"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"

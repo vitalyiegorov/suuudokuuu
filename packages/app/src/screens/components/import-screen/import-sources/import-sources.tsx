@@ -13,14 +13,17 @@ import { ImportSourceChip } from '../import-source-chip/import-source-chip';
 
 import { ImportSourcesStyles as styles } from './import-sources.styles';
 
+import type { ReactNode } from 'react';
+
 interface Props {
+    readonly children: ReactNode;
     readonly onScan: () => void;
     readonly onPhotos: () => void;
     readonly onPaste: () => void;
     readonly onType: () => void;
 }
 
-export const ImportSources = ({ onScan, onPhotos, onPaste, onType }: Props) => {
+export const ImportSources = ({ children, onScan, onPhotos, onPaste, onType }: Props) => {
     const { t } = useLingui();
     const { fontScale } = useWindowDimensions();
     const heroStyles = [styles.hero, fontScale >= 2 && styles.compactHero];
@@ -43,6 +46,7 @@ export const ImportSources = ({ onScan, onPhotos, onPaste, onType }: Props) => {
                     <Trans>Newspaper, book or screen</Trans>
                 </BlackText>
             </Pressable>
+            {children}
             <View style={styles.chips}>
                 <ImportSourceChip icon={LucideImage} onPress={onPhotos} testID={ImportScreenSelectors.PhotosButton} text={t`Photos`} />
                 <ImportSourceChip

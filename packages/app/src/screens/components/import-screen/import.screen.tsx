@@ -3,7 +3,7 @@ import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 import { ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
 import { AppButton } from '@suuudokuuu/ui';
-import { MaxFontSizeMultiplierConstant, SpacingConstant } from '@suuudokuuu/ui/theme';
+import { SpacingConstant } from '@suuudokuuu/ui/theme';
 import * as Effect from 'effect/Effect';
 import * as AsyncResult from 'effect/reactivity/AsyncResult';
 import * as Clipboard from 'expo-clipboard';
@@ -13,7 +13,7 @@ import { useIsFocused } from 'expo-router';
 import { use, useEffect, useEffectEvent, useRef, useState } from 'react';
 import { Platform, ScrollView, View, useWindowDimensions } from 'react-native';
 
-import { emptyFn, isDefined, isNotEmptyArray } from '@rnw-community/shared';
+import { emptyFn, isDefined } from '@rnw-community/shared';
 
 import { SheetFrame } from '../../../@generic/components/sheet-frame/sheet-frame';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
@@ -24,14 +24,14 @@ import { LoaderPaintDelayMillisecondsConstant } from '../../../game/constant/loa
 import { GameContext } from '../../../game/context/game.context';
 import { useConfirmRunReplacement } from '../../../game/hooks/use-confirm-run-replacement.hook';
 import { PuzzleGenerationService } from '../../../game/service/puzzle-generation.service';
+import { gameGetBoardGeometry } from '../../../game/utils/game-get-board-geometry.util';
 import { useSettings } from '../../../settings/query/use-settings.query';
 
+import { ImportCompactFrameHeightConstant } from './constants/import-compact-frame-height.constant';
 import { useImportReview } from './hooks/use-import-review.hook';
 import { ImportBoard } from './import-board/import-board';
-import { ImportCellPad } from './import-cell-pad/import-cell-pad';
-import { ImportEntryKind } from './import-entry-kind/import-entry-kind';
+import { ImportControls } from './import-controls/import-controls';
 import { ImportHeader } from './import-header/import-header';
-import { ImportReviewGuidance } from './import-review-guidance/import-review-guidance';
 import { ImportScreenSelectors } from './import-screen.selectors';
 import { ImportScreenStyles as styles } from './import-screen.styles';
 import { ImportSources } from './import-sources/import-sources';
@@ -47,10 +47,16 @@ const ImportWebDetent = 0.95;
 const ImportDetent = Platform.OS === 'web' ? ImportWebDetent : 1;
 const ImportDetents = [ImportDetent];
 const ImportBoardSideMax = 480;
-const ImportBoardCellSizeMin = 28;
+const ImportBoardCellSizeMin = 26;
 const ImportBoardSideMin = defaultSudokuConfig.fieldSize * ImportBoardCellSizeMin;
-const ImportStatusSlotHeight = 64;
-const ImportChromeHeightEstimate = 300;
+const ImportBoardInset = 16;
+const ImportChromeHeightEstimate = 350;
+
+const ImportBoardGeometryOptions = {
+    reservedHeight: 0,
+    fieldSize: defaultSudokuConfig.fieldSize,
+    fieldGroupSize: defaultSudokuConfig.fieldGroupWidth
+};
 interface Props {
     readonly initialText: string;
 }
@@ -61,12 +67,12 @@ export const ImportScreen = ({ initialText }: Props) => {
     const isFocused = useIsFocused();
     const window = useWindowDimensions();
     const { createFromImport, isCreatingGame } = use(GameContext);
-    const { lastGameMaxMistakes } = useSettings();
+    const { cellMargin, lastGameMaxMistakes } = useSettings();
     const confirmRunReplacement = useConfirmRunReplacement();
     const [hapticNotification] = useVibration();
     const { state, puzzleAtom, puzzleString, reset, loadText, loadGrid, input, toggleEntry, moveSelection, update } =
         useImportReview(initialText);
-    const { entryString, isPasteMissed, isGridMissed, isRecognizing, isTyping, scannedCellIndexes, selectedCellIndex } = state;
+    const { entryString, isPasteMissed, isGridMissed, isRecognizing, isTyping, selectedCellIndex } = state;
     const [area, setArea] = useState<LayoutRectangle>(() => ({
         x: 0,
         y: 0,
@@ -91,13 +97,12 @@ export const ImportScreen = ({ initialText }: Props) => {
     const isAssessedCurrent = isDefined(assessed) && assessed.puzzleString === puzzleString;
 
     const hasBoard = hasDigits || isTyping || isRecognizing;
-    const statusSlotHeight = ImportStatusSlotHeight * Math.min(window.fontScale, MaxFontSizeMultiplierConstant);
-    const boardSide = Math.floor(
-        Math.max(
-            ImportBoardSideMin,
-            Math.min(area.width - SpacingConstant.lg * 2, ImportBoardSideMax, area.height - statusSlotHeight - SpacingConstant.sm * 3)
-        )
-    );
+    const boardInset = window.height < ImportCompactFrameHeightConstant ? SpacingConstant.xs : ImportBoardInset;
+    const frameSide = Math.min(area.width - SpacingConstant.lg * 2, ImportBoardSideMax);
+    const boardSide = Math.floor(Math.max(ImportBoardSideMin, Math.min(frameSide, area.height - boardInset)));
+    const frameGeometry = { ...ImportBoardGeometryOptions, cellMargin, availableWidth: frameSide, availableHeight: frameSide };
+    const frameWidth = gameGetBoardGeometry(frameGeometry).boardSize;
+    const boardGeometry = gameGetBoardGeometry({ ...frameGeometry, availableWidth: boardSide, availableHeight: boardSide });
     const handleAreaLayout = (event: LayoutChangeEvent) => {
         if (hasBoard) {
             setArea(event.nativeEvent.layout);
@@ -171,8 +176,10 @@ export const ImportScreen = ({ initialText }: Props) => {
             ? boardAssessed.assessment.cellIndexes.filter(cellIndex => puzzleString[cellIndex] === boardAssessed.puzzleString[cellIndex])
             : [];
     const isPlayDisabled = !isDefined(uniqueAssessment) || isRecognizing;
-    const contentStyles = [styles.content, hasBoard ? styles.boardContent : styles.sourcesContent];
-    const statusSlotStyles = [styles.statusSlot, { height: statusSlotHeight }];
+    const scrollStyles = hasBoard ? [styles.boardScroll, { flexBasis: boardInset + frameWidth }] : styles.scroll;
+    const contentStyles = [styles.content, hasBoard ? { paddingTop: boardInset } : [styles.sourcesContent, { width: frameWidth }]];
+    const statusSlotStyles = [styles.statusSlot, { width: frameWidth }];
+    const dockStyles = [styles.dock, { width: boardGeometry.boardSize }];
     const playButtonStyles = [styles.playButton, isPlayDisabled && styles.disabledButton];
 
     const handlePlay = () => {
@@ -187,9 +194,9 @@ export const ImportScreen = ({ initialText }: Props) => {
     const onPastedImage = useEffectEvent(handlePasteImage);
     const onAssessmentSettled = useEffectEvent(hapticNotification);
     const onSelectedCell = useEffectEvent((cellIndex: number) => {
-        const rowHeight = boardSide / defaultSudokuConfig.fieldSize;
+        const rowHeight = boardGeometry.boardSize / defaultSudokuConfig.fieldSize;
         const rowTop = Math.floor(cellIndex / defaultSudokuConfig.fieldSize) * rowHeight;
-        const offset = Math.max(0, Math.ceil(rowTop + rowHeight - area.height), Math.min(rowTop, scrollOffset.current));
+        const offset = Math.max(0, Math.ceil(boardInset + rowTop + rowHeight - area.height), Math.min(rowTop, scrollOffset.current));
 
         if (offset !== scrollOffset.current) {
             scrollRef.current?.scrollTo({ y: offset, animated: false });
@@ -229,10 +236,19 @@ export const ImportScreen = ({ initialText }: Props) => {
     const handleSelectCell = (cellIndex: number) => void update({ selectedCellIndex: cellIndex === selectedCellIndex ? null : cellIndex });
     const handleScan = () => void handleImageSource(importScreenScanImage);
     const handleType = () => void update({ isTyping: true });
+    const status = (
+        <ImportStatus
+            assessed={boardAssessed}
+            isCheckFailed={isCheckFailed}
+            puzzleString={puzzleString}
+            review={state}
+            uniqueAssessment={uniqueAssessment}
+        />
+    );
 
     return (
         <SheetFrame accessibilityLabel={t`Import a puzzle`} detents={ImportDetents}>
-            <ImportHeader isResetVisible={hasBoard} onReset={handleReset} />
+            <ImportHeader isResetVisible={hasBoard} onReset={handleReset} width={frameWidth} />
             <ScrollView
                 ref={scrollRef}
                 alwaysBounceVertical={false}
@@ -241,44 +257,40 @@ export const ImportScreen = ({ initialText }: Props) => {
                 scrollEventThrottle={16}
                 contentContainerStyle={contentStyles}
                 contentInsetAdjustmentBehavior="never"
-                style={styles.scroll}
+                style={scrollStyles}
                 testID={ImportScreenSelectors.Root}
             >
                 {hasBoard ? (
                     <ImportBoard
-                        side={boardSide}
+                        geometry={boardGeometry}
                         review={state}
                         conflictCellIndexes={conflictCellIndexes}
                         onSelectCell={handleSelectCell}
                         puzzleString={puzzleString}
                     />
                 ) : (
-                    <ImportSources onScan={handleScan} onPhotos={handlePhotos} onPaste={handlePaste} onType={handleType} />
+                    <ImportSources onScan={handleScan} onPhotos={handlePhotos} onPaste={handlePaste} onType={handleType}>
+                        {isPasteMissed || isGridMissed ? <View style={styles.sourceStatus}>{status}</View> : null}
+                    </ImportSources>
                 )}
-
-                {hasBoard || isPasteMissed || isGridMissed ? (
-                    <View style={statusSlotStyles}>
-                        <ImportStatus assessed={boardAssessed} isCheckFailed={isCheckFailed} puzzleString={puzzleString} review={state} />
-                        <ImportReviewGuidance assessment={uniqueAssessment} clueString={puzzleString} review={state} />
-                    </View>
-                ) : null}
             </ScrollView>
             {hasBoard ? (
-                <View style={styles.dock}>
-                    <ImportCellPad isDisabled={!isDefined(selectedCellIndex)} onInput={input} />
-                    {isRecognizing || isNotEmptyArray(scannedCellIndexes) ? (
-                        <ImportEntryKind onToggle={toggleEntry} puzzleString={puzzleString} review={state} />
-                    ) : null}
-                    <AppButton
-                        disabled={isPlayDisabled}
-                        isLoading={isCreatingGame}
-                        onPress={handlePlay}
-                        style={playButtonStyles}
-                        testID={ImportScreenSelectors.PlayButton}
-                        textStyle={styles.buttonText}
-                        text={t`Play`}
-                    />
-                </View>
+                <>
+                    <View style={statusSlotStyles}>{status}</View>
+                    <View style={styles.spare} />
+                    <View style={dockStyles}>
+                        <ImportControls onInput={input} onToggle={toggleEntry} puzzleString={puzzleString} review={state} />
+                        <AppButton
+                            disabled={isPlayDisabled}
+                            isLoading={isCreatingGame}
+                            onPress={handlePlay}
+                            style={playButtonStyles}
+                            testID={ImportScreenSelectors.PlayButton}
+                            textStyle={styles.buttonText}
+                            text={t`Play`}
+                        />
+                    </View>
+                </>
             ) : null}
         </SheetFrame>
     );

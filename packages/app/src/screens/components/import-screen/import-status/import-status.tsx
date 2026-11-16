@@ -13,13 +13,14 @@ import { BlackText } from '../../../../@generic/components/black-text/black-text
 import { formatSeRatingValue } from '../../../../@generic/utils/format-se-rating-value.util';
 import { getDifficultyMessage } from '../../../../@generic/utils/get-difficulty-message.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
+import { ImportReviewGuidance } from '../import-review-guidance/import-review-guidance';
 import { ImportScreenSelectors } from '../import-screen.selectors';
 
 import { ImportStatusStyles as styles } from './import-status.styles';
 
 import type { ImportReviewStateInterface } from '../interface/import-review-state.interface';
 import type { MessageDescriptor } from '@lingui/core';
-import type { ImportedPuzzleAssessmentType } from '@suuudokuuu/puzzle-forge';
+import type { ImportedPuzzleAssessmentType, SerializedPuzzleInterface } from '@suuudokuuu/puzzle-forge';
 
 const { fieldGroupHeight, fieldGroupWidth, fieldSize } = defaultSudokuConfig;
 const digitPattern = /[1-9]/u;
@@ -61,28 +62,25 @@ const getConflictMessage = (puzzleString: string, cellIndexes: readonly number[]
 };
 
 const errorForegroundBlend = 0.25;
+const getClueCount = (text: string) => Array.from(text).filter(cell => digitPattern.test(cell)).length;
 
 interface Props {
     readonly assessed: { readonly assessment: ImportedPuzzleAssessmentType; readonly puzzleString: string } | null;
+    readonly uniqueAssessment: Pick<SerializedPuzzleInterface, 'solutionString'> | null;
     readonly isCheckFailed: boolean;
-    readonly review: Pick<ImportReviewStateInterface, 'isGridMissed' | 'isPasteMissed' | 'isRecognizing'>;
+    readonly review: Pick<
+        ImportReviewStateInterface,
+        'entryString' | 'isGridMissed' | 'isPasteMissed' | 'isRecognizing' | 'uncertainCellIndexes'
+    >;
     readonly puzzleString: string;
 }
 
-export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, review }: Props) => {
-    const { isGridMissed, isPasteMissed, isRecognizing } = review;
+export const ImportStatus = ({ assessed, uniqueAssessment, isCheckFailed, puzzleString, review }: Props) => {
+    const { entryString, isGridMissed, isPasteMissed, isRecognizing } = review;
+    const uncertainCellCount = review.uncertainCellIndexes.length;
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
-    const getClueCount = (text: string) => Array.from(text).filter(cell => digitPattern.test(cell)).length;
-    const getUniqueText = (
-        settledAssessment: Extract<ImportedPuzzleAssessmentType, { readonly kind: ImportedPuzzleAssessmentKindEnum.UNIQUE }>
-    ): string => {
-        const difficulty = t(getDifficultyMessage(settledAssessment.difficulty));
-        const rating = formatSeRatingValue(settledAssessment.rating, settledAssessment.isRatingCeiling);
-
-        return t`One solution · ${difficulty} · SE ${rating}`;
-    };
     const getAssessmentText = ({
         assessment: settledAssessment,
         puzzleString: assessedPuzzleString
@@ -90,74 +88,81 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, review }: 
         if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.CONFLICT) {
             return t(getConflictMessage(assessedPuzzleString, settledAssessment.cellIndexes));
         }
-
         if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.UNIQUE) {
-            return getUniqueText(settledAssessment);
-        }
+            const difficulty = t(getDifficultyMessage(settledAssessment.difficulty));
+            const rating = formatSeRatingValue(settledAssessment.rating, settledAssessment.isRatingCeiling);
 
+            return t`One solution · ${difficulty} · SE ${rating}`;
+        }
         if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.COMPLETE) {
             return t`This puzzle is already complete`;
         }
-
         const clueCount = getClueCount(assessedPuzzleString);
 
         return settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.NO_SOLUTION
             ? t`No solution`
             : t({ message: plural(clueCount, { one: '# clue · more than one solution', other: '# clues · more than one solution' }) });
     };
+    const getSourceText = (): string | null => {
+        if (isRecognizing) {
+            return t`Reading the puzzle…`;
+        }
+        if (isGridMissed) {
+            return t`Couldn't find a sudoku grid`;
+        }
+
+        return isPasteMissed ? t`No puzzle found on the clipboard` : null;
+    };
     const getBoardText = (): string => {
+        if (getClueCount(puzzleString) === 0) {
+            return t`No clues yet`;
+        }
         if (isCheckFailed) {
             return t`This puzzle could not be checked`;
         }
 
         return isDefined(assessed) ? getAssessmentText(assessed) : t`Checking…`;
     };
-    const getSourceStatus = (): string | null => {
-        if (isRecognizing) {
-            return t`Reading the puzzle…`;
-        }
-        if (isGridMissed) {
-            return t`Couldn't find a sudoku grid. Try a closer, straighter photo.`;
-        }
 
-        return isPasteMissed ? t`No puzzle found on the clipboard` : null;
-    };
-    const sourceStatus = getSourceStatus();
-    const getStatusText = (): string => {
-        if (isDefined(sourceStatus)) {
-            return sourceStatus;
-        }
-
-        return getClueCount(puzzleString) > 0 ? getBoardText() : t`Tap a cell to type it`;
-    };
-
-    const statusText = getStatusText();
+    const sourceText = getSourceText();
+    const boardText = getBoardText();
+    const assessmentKind = isCheckFailed ? null : assessed?.assessment.kind;
+    const uncertainText =
+        uncertainCellCount > 0 ? t({ message: plural(uncertainCellCount, { one: '# digit to check', other: '# digits to check' }) }) : null;
+    const isReviewLeading = !isDefined(sourceText) && assessmentKind === ImportedPuzzleAssessmentKindEnum.UNIQUE;
+    const reviewText = isReviewLeading ? uncertainText : null;
+    const statusText = sourceText ?? reviewText ?? boardText;
+    const sourceDetail = isGridMissed && !isRecognizing ? t`Try a closer, straighter photo` : null;
+    const detailLead = sourceDetail ?? (isDefined(reviewText) ? boardText : uncertainText);
     const isError =
-        (isDefined(sourceStatus) && !isRecognizing) ||
+        (isDefined(sourceText) && !isRecognizing) ||
         isCheckFailed ||
-        assessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.CONFLICT ||
-        assessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.NO_SOLUTION;
+        assessmentKind === ImportedPuzzleAssessmentKindEnum.CONFLICT ||
+        assessmentKind === ImportedPuzzleAssessmentKindEnum.NO_SOLUTION;
     const errorColor = interpolateColor(errorForegroundBlend, [0, 1], [theme.colors.danger, theme.colors.text.primary]);
     const color = isError ? errorColor : theme.colors.text.primary;
     const textStyles = [styles.status, { color }];
 
     return (
-        <View
-            accessibilityLabel={statusText}
-            accessibilityLiveRegion="polite"
-            accessible
-            style={styles.container}
-            testID={ImportScreenSelectors.Status}
-        >
-            <View style={styles.message}>
+        <>
+            <View
+                accessibilityLabel={statusText}
+                accessibilityLiveRegion="polite"
+                accessible
+                style={styles.container}
+                testID={ImportScreenSelectors.Status}
+            >
                 {isError ? (
                     <View style={styles.icon}>
                         <LucideCircleExclamationPoint color={color} size={20} />
                     </View>
                 ) : null}
                 {isRecognizing ? <ActivityIndicator color={color} size={20} style={styles.icon} /> : null}
-                <BlackText style={textStyles}>{statusText}</BlackText>
+                <BlackText numberOfLines={2} style={textStyles}>
+                    {statusText}
+                </BlackText>
             </View>
-        </View>
+            <ImportReviewGuidance assessment={uniqueAssessment} clueString={puzzleString} entryString={entryString} lead={detailLead} />
+        </>
     );
 };

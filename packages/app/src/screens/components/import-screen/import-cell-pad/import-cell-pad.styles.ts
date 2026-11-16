@@ -1,18 +1,21 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const ImportCellPadStyles = StyleSheet.create(theme => ({
+import { ImportCompactFrameHeightConstant } from '../constants/import-compact-frame-height.constant';
+
+export const ImportCellPadStyles = StyleSheet.create((theme, rt) => ({
     label: { textAlign: 'center', color: theme.colors.surface.subtleText, fontSize: theme.typography.size.md, fontWeight: '700' },
     button: {
         flexBasis: '17%',
         flexGrow: 1,
-        minWidth: 44,
+        minHeight: rt.screen.height < ImportCompactFrameHeightConstant ? 36 : 44,
+        minWidth: 40,
         paddingHorizontal: 0
     },
-    disabled: { opacity: 0.42 },
     pad: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        gap: theme.spacing.sm,
+        columnGap: theme.spacing.sm,
+        rowGap: rt.screen.height < ImportCompactFrameHeightConstant ? 6 : theme.spacing.sm,
         width: '100%'
     }
 }));

@@ -30,16 +30,16 @@ export const ImportEntryKind = ({ puzzleString, review, onToggle }: Props) => {
     const isEntryChecked = canToggle && isEntry;
     const clueTestId = isEntry ? ImportScreenSelectors.EntryToggleButton : ImportScreenSelectors.EntryActiveButton;
     const entryTestId = isEntry ? ImportScreenSelectors.EntryActiveButton : ImportScreenSelectors.EntryToggleButton;
-    const groupStyles = [styles.group, !canToggle && styles.disabled];
+    const trackStyles = [styles.track, !canToggle && styles.disabled];
 
     return (
-        <View accessibilityLabel={t`Selected digit`} accessibilityRole="radiogroup" style={groupStyles}>
+        <View accessibilityLabel={t`Selected digit`} accessibilityRole="radiogroup" style={trackStyles}>
             <ImportEntryKindSegment
                 isChecked={isClueChecked}
                 isDisabled={!canToggle}
                 onPress={onToggle}
                 testID={clueTestId}
-                text={t`Printed clue`}
+                text={t`Clue`}
             />
             <ImportEntryKindSegment
                 isChecked={isEntryChecked}

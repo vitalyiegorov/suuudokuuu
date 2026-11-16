@@ -5,6 +5,7 @@ export enum ImportScreenSelectors {
     EntryActiveButton = 'ImportScreenSelectors.EntryActiveButton',
     EntryToggleButton = 'ImportScreenSelectors.EntryToggleButton',
     Guidance = 'ImportScreenSelectors.Guidance',
+    Legend = 'ImportScreenSelectors.Legend',
     Sources = 'ImportScreenSelectors.Sources',
     Cell = 'ImportScreenSelectors.Cell',
     ClearButton = 'ImportScreenSelectors.ClearButton',

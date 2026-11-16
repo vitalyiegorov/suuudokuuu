@@ -172,7 +172,7 @@ msgstr "{subsetSize, plural, other {Lihat baris {regionNumber}: # sel di sana ha
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, other {Lihat baris {regionNumber}: # angka di sana hanya muat di # sel.}}"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, other {# angka perlu diperiksa}}"
 
@@ -537,6 +537,10 @@ msgstr "Tantangan menang!"
 msgid "Challenges"
 msgstr "Tantangan"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Check"
+msgstr "Periksa"
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "Coba sudoku ini!"
@@ -598,6 +602,11 @@ msgstr "Tutup"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "Tutup petunjuk"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Clue"
+msgstr "Petunjuk"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -662,8 +671,8 @@ msgid "Contradiction, so {cell} is not {value}."
 msgstr "Kontradiksi, jadi {cell} bukan {value}."
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
-msgstr "Kisi sudoku tidak ditemukan. Ambil foto lebih dekat dan lurus."
+msgid "Couldn't find a sudoku grid"
+msgstr "Kisi sudoku tidak ditemukan"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1466,6 +1475,10 @@ msgstr "Rantai Paksa Nishio"
 msgid "no bonus"
 msgstr "tanpa bonus"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No clues yet"
+msgstr "Belum ada petunjuk"
+
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "Belum ada build pengembangan lengkap yang diterbitkan. Silakan periksa lagi nanti."
@@ -1735,10 +1748,6 @@ msgstr "Preset"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "Teks utama"
-
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-msgid "Printed clue"
-msgstr "Petunjuk tercetak"
 
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
@@ -2270,7 +2279,11 @@ msgstr "Santai saja"
 msgid "Taller marks = sharper techniques"
 msgstr "Tanda lebih tinggi = teknik lebih tajam"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Tap a cell to change it"
+msgstr "Ketuk sel untuk mengubahnya"
+
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
 msgid "Tap a cell to type it"
 msgstr "Ketuk sel untuk mengetik"
 
@@ -2453,6 +2466,10 @@ msgstr "Terlalu banyak kesalahan"
 #: src/app/(tabs)/history.tsx
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Pantau sudoku yang sudah kamu selesaikan, waktu terbaik, dan skor di semua tingkat kesulitan."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Try a closer, straighter photo"
+msgstr "Ambil foto lebih dekat dan lurus"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
 #: src/@generic/components/boot-failure/boot-failure.web.tsx
@@ -2698,6 +2715,10 @@ msgstr "Browsermu mungkin meminta izin untuk menginstal aplikasi dari sumber tid
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "Warna khususmu"
+
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Your entry"
+msgstr "Isian Anda"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"

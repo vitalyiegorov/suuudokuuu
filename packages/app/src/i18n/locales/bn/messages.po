@@ -172,7 +172,7 @@ msgstr "{subsetSize, plural, one {সারি {regionNumber} দেখুন: �
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, one {সারি {regionNumber} দেখুন: সেখানে #টি অঙ্ক শুধু #টি ঘরে বসতে পারে।} other {সারি {regionNumber} দেখুন: সেখানে #টি অঙ্ক শুধু #টি ঘরে বসতে পারে।}}"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, one {#টি অঙ্ক যাচাই করুন} other {#টি অঙ্ক যাচাই করুন}}"
 
@@ -537,6 +537,10 @@ msgstr "চ্যালেঞ্জ জয়!"
 msgid "Challenges"
 msgstr "চ্যালেঞ্জ"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Check"
+msgstr "যাচাই"
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "এই সুডোকুটি দেখুন!"
@@ -598,6 +602,11 @@ msgstr "বন্ধ করুন"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "সংকেত বন্ধ করুন"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Clue"
+msgstr "সূত্র"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -662,8 +671,8 @@ msgid "Contradiction, so {cell} is not {value}."
 msgstr "বিরোধ, তাই {cell} {value} নয়।"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
-msgstr "সুডোকু ছক পাওয়া যায়নি। কাছ থেকে সোজা ছবি তুলুন।"
+msgid "Couldn't find a sudoku grid"
+msgstr "সুডোকু ছক পাওয়া যায়নি"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -1466,6 +1475,10 @@ msgstr "নিশিও বাধ্যকারী শৃঙ্খল"
 msgid "no bonus"
 msgstr "কোনো বোনাস নেই"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No clues yet"
+msgstr "এখনও কোনো সূত্র নেই"
+
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "এখনো কোনো সম্পূর্ণ ডেভেলপমেন্ট বিল্ড প্রকাশিত হয়নি। পরে আবার দেখুন।"
@@ -1735,10 +1748,6 @@ msgstr "প্রিসেট"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Primary text"
 msgstr "প্রাথমিক লেখা"
-
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-msgid "Printed clue"
-msgstr "ছাপা সূত্র"
 
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
@@ -2270,7 +2279,11 @@ msgstr "ধীরে সুস্থে খেলুন"
 msgid "Taller marks = sharper techniques"
 msgstr "উঁচু চিহ্ন = ধারালো কৌশল"
 
-#: src/screens/components/import-screen/import-status/import-status.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Tap a cell to change it"
+msgstr "বদলাতে ঘরে ট্যাপ করুন"
+
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
 msgid "Tap a cell to type it"
 msgstr "লিখতে ঘরে ট্যাপ করুন"
 
@@ -2453,6 +2466,10 @@ msgstr "খুব বেশি ভুল"
 #: src/app/(tabs)/history.tsx
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "সব কঠিনতায় আপনার সমাধান করা সুডোকু, সেরা সময় ও স্কোর দেখে নিন।"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Try a closer, straighter photo"
+msgstr "কাছ থেকে সোজা ছবি তুলুন"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
 #: src/@generic/components/boot-failure/boot-failure.web.tsx
@@ -2698,6 +2715,10 @@ msgstr "আপনার ব্রাউজার অজানা উৎসের
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "আপনার কাস্টম রং"
+
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Your entry"
+msgstr "আপনার অঙ্ক"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"

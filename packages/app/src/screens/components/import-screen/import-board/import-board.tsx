@@ -2,37 +2,28 @@ import { Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { View } from 'react-native';
 
 import { FieldStyles as fieldStyles } from '../../../../game/components/field/field.styles';
-import { gameGetBoardGeometry } from '../../../../game/utils/game-get-board-geometry.util';
-import { useSettings } from '../../../../settings/query/use-settings.query';
 import { ImportCellToneEnum } from '../enums/import-cell-tone.enum';
 import { ImportBoardCell } from '../import-board-cell/import-board-cell';
 
 import { ImportBoardStyles as styles } from './import-board.styles';
 
+import type { BoardGeometryInterface } from '../../../../game/interface/board-geometry.interface';
 import type { ImportReviewStateInterface } from '../interface/import-review-state.interface';
 import type { CellInterface } from '@suuudokuuu/generator';
 
 const { fieldSize } = defaultSudokuConfig;
 
 interface Props {
-    readonly side: number;
+    readonly geometry: BoardGeometryInterface;
     readonly puzzleString: string;
     readonly review: Pick<ImportReviewStateInterface, 'entryString' | 'selectedCellIndex' | 'uncertainCellIndexes'>;
     readonly conflictCellIndexes: readonly number[];
     readonly onSelectCell: (cellIndex: number) => void;
 }
 
-export const ImportBoard = ({ side, puzzleString, review, conflictCellIndexes, onSelectCell }: Props) => {
+export const ImportBoard = ({ geometry, puzzleString, review, conflictCellIndexes, onSelectCell }: Props) => {
     const { entryString, selectedCellIndex, uncertainCellIndexes } = review;
-    const settings = useSettings();
-    const { cellSize, cellMargin } = gameGetBoardGeometry({
-        availableWidth: side,
-        availableHeight: side,
-        reservedHeight: 0,
-        fieldSize,
-        fieldGroupSize: defaultSudokuConfig.fieldGroupWidth,
-        cellMargin: settings.cellMargin
-    });
+    const { boardSize, cellSize, cellMargin } = geometry;
 
     const handleSelect = (cell: CellInterface) => void onSelectCell(cell.y * fieldSize + cell.x);
     const [field] = Sudoku.convertFieldFromString(
@@ -40,7 +31,7 @@ export const ImportBoard = ({ side, puzzleString, review, conflictCellIndexes, o
         defaultSudokuConfig
     );
 
-    const areaStyles = [styles.area, { height: side, width: side }];
+    const areaStyles = [styles.area, { height: boardSize, width: boardSize }];
 
     return (
         <View style={areaStyles}>
