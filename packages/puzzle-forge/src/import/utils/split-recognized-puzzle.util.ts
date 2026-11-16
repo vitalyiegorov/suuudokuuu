@@ -1,15 +1,11 @@
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
 
-interface RecognizedPuzzleInterface {
-    readonly puzzleString: string;
-    readonly confidences: readonly number[];
-    readonly handwritten: readonly boolean[];
-}
+import type { RecognizedPuzzleInterface } from '../../@generic/interfaces/recognized-puzzle.interface';
 
 const cellCount = defaultSudokuConfig.fieldSize ** 2;
 
 export const splitRecognizedPuzzle = (
-    { puzzleString, confidences, handwritten }: RecognizedPuzzleInterface,
+    { puzzleString, confidences, handwritten }: Pick<RecognizedPuzzleInterface, 'confidences' | 'handwritten' | 'puzzleString'>,
     uncertainConfidence: number
 ) => {
     if (puzzleString.length !== cellCount || confidences.length !== cellCount || handwritten.length !== cellCount) {

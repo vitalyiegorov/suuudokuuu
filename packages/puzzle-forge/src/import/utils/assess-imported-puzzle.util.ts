@@ -1,15 +1,7 @@
 import { DifficultyEnum, Sudoku, defaultSudokuConfig } from '@suuudokuuu/generator';
 import { ratePuzzle } from '@suuudokuuu/rating';
 import { BitmaskSolver } from '@suuudokuuu/solver-bitmask';
-import {
-    BOX_BY_CELL,
-    COLUMN_BY_CELL,
-    GRID_BLANK_VALUE,
-    ROW_BY_CELL,
-    UNIQUENESS_COUNT_LIMIT,
-    formatGridString,
-    parseGridString
-} from '@suuudokuuu/solver-core';
+import { GRID_BLANK_VALUE, UNIQUENESS_COUNT_LIMIT, formatGridString, parseGridString } from '@suuudokuuu/solver-core';
 
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
@@ -17,18 +9,9 @@ import { DIFFICULTY_BANDS } from '../../@generic/constants/difficulty-band.const
 import { ImportedPuzzleAssessmentKindEnum } from '../../@generic/enums/imported-puzzle-assessment-kind.enum';
 import { createPuzzleBandMatcher } from '../../forge/utils/match-puzzle-band.util';
 
+import { getConflictingCellIndexes } from './get-conflicting-cell-indexes.util';
+
 import type { ImportedPuzzleAssessmentType } from '../../@generic/types/imported-puzzle-assessment.type';
-
-const cellUnits = [ROW_BY_CELL, COLUMN_BY_CELL, BOX_BY_CELL];
-
-const isConflictingGiven = (grid: Uint8Array, cellIndex: number): boolean =>
-    grid[cellIndex] !== GRID_BLANK_VALUE &&
-    grid.some(
-        (value, otherIndex) =>
-            otherIndex !== cellIndex &&
-            value === grid[cellIndex] &&
-            cellUnits.some(unitByCell => unitByCell[otherIndex] === unitByCell[cellIndex])
-    );
 
 const getDifficulty = (puzzleString: string, isRatingCeiling: boolean): DifficultyEnum => {
     if (isRatingCeiling) {
@@ -45,7 +28,7 @@ const getDifficulty = (puzzleString: string, isRatingCeiling: boolean): Difficul
 
 export const assessImportedPuzzle = (puzzleString: string): ImportedPuzzleAssessmentType => {
     const grid = parseGridString(puzzleString.replaceAll('.', String(GRID_BLANK_VALUE)));
-    const cellIndexes = Array.from(grid.keys()).filter(cellIndex => isConflictingGiven(grid, cellIndex));
+    const cellIndexes = getConflictingCellIndexes(grid);
 
     if (isNotEmptyArray(cellIndexes)) {
         return { kind: ImportedPuzzleAssessmentKindEnum.CONFLICT, cellIndexes };

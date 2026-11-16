@@ -1,5 +1,6 @@
 export type { DifficultyBandInterface } from './@generic/interfaces/difficulty-band.interface';
 export type { ForgedPuzzleInterface } from './@generic/interfaces/forged-puzzle.interface';
+export type { RecognizedPuzzleInterface } from './@generic/interfaces/recognized-puzzle.interface';
 export type { SerializedPuzzleInterface } from './@generic/interfaces/serialized-puzzle.interface';
 export type { ImportedPuzzleAssessmentType } from './@generic/types/imported-puzzle-assessment.type';
 
@@ -15,6 +16,7 @@ export { getDailyDifficulty } from './daily/utils/get-daily-difficulty.util';
 export { getDailyPuzzleSeed } from './daily/utils/get-daily-puzzle-seed.util';
 export { assessImportedPuzzle } from './import/utils/assess-imported-puzzle.util';
 export { splitRecognizedPuzzle } from './import/utils/split-recognized-puzzle.util';
+export { repairRecognizedPuzzle } from './import/utils/repair-recognized-puzzle.util';
 export { getMatchingEntryCellIndexes } from './import/utils/get-matching-entry-cell-indexes.util';
 
 export { isImportedPuzzleCompleted } from './import/utils/is-imported-puzzle-completed.util';
