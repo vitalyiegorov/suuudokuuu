@@ -5,8 +5,9 @@ import jpeg from 'jpeg-js';
 
 import { CELL_COUNT, DIGIT_COUNT, GLYPH_SIZE } from '../src/constants/grid-vision.constant';
 import { findGridBoard } from '../src/utils/find-grid-board.util';
+import { locateKernel } from '../src/utils/locate-kernel.util';
 import { readGridGlyphs } from '../src/utils/read-grid-glyphs.util';
-import { locateKernel, measureLayerOutputSize, runClassifierLayer } from '../src/utils/run-classifier-layer.util';
+import { runClassifierLayer } from '../src/utils/run-classifier-layer.util';
 
 import { WHOLE_IMAGE_REGION, readCanvasRegion } from './shared/read-canvas-region';
 import { registerDigitFonts } from './shared/register-digit-fonts';
@@ -183,7 +184,6 @@ const trainLayer = (
     outputGradient: Float32Array,
     learningRate: number
 ): Float32Array => {
-    const outSize = measureLayerOutputSize(layer);
     const inputGradient = new Float32Array(input.length);
 
     for (let outputIndex = 0; outputIndex < outputGradient.length; outputIndex += 1) {
@@ -191,7 +191,7 @@ const trainLayer = (
 
         if (step !== 0) {
             trainKernel(layer, weights, input, inputGradient, outputIndex, step);
-            biases[Math.floor(outputIndex / outSize ** 2)] -= step;
+            biases[locateKernel(layer, outputIndex).channel] -= step;
         }
     }
 

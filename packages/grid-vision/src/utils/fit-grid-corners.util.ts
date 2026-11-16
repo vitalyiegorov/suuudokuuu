@@ -1,6 +1,6 @@
-import { CELL_SIZE, GRID_SIZE, LINE_BAND, PIXEL_CENTER, WARPED_GRID_SIZE } from '../constants/grid-vision.constant';
+import { LINE_STRIP_LENGTH, CELL_SIZE, GRID_SIZE, LINE_BAND, PIXEL_CENTER, WARPED_GRID_SIZE } from '../constants/grid-vision.constant';
 
-import { LINE_STRIP_LENGTH, measureLineProfile } from './measure-line-profile.util';
+import { measureLineProfile } from './measure-line-profile.util';
 
 import type { BinaryImageInterface } from '../interfaces/binary-image.interface';
 import type { PointInterface } from '../interfaces/point.interface';

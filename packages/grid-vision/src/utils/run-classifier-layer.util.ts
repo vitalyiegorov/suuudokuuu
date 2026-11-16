@@ -1,18 +1,8 @@
+import { locateKernel } from './locate-kernel.util';
+import { measureLayerOutputSize } from './measure-layer-output-size.util';
+
 import type { ClassifierLayerInterface } from '../interfaces/classifier-layer.interface';
 import type { ClassifierParametersInterface } from '../interfaces/classifier-parameters.interface';
-
-export const measureLayerOutputSize = ({ inSize, kernel, stride, padding }: ClassifierLayerInterface): number =>
-    Math.floor((inSize + 2 * padding - kernel) / stride) + 1;
-
-export const locateKernel = (layer: ClassifierLayerInterface, outputIndex: number) => {
-    const outSize = measureLayerOutputSize(layer);
-
-    return {
-        weightOffset: Math.floor(outputIndex / outSize ** 2) * layer.inChannels * layer.kernel ** 2,
-        originY: (Math.floor(outputIndex / outSize) % outSize) * layer.stride - layer.padding,
-        originX: (outputIndex % outSize) * layer.stride - layer.padding
-    };
-};
 
 const sumKernel = (layer: ClassifierLayerInterface, weights: ArrayLike<number>, input: Float32Array, outputIndex: number): number => {
     const { inSize, inChannels, kernel } = layer;

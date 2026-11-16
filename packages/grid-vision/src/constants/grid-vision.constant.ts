@@ -3,6 +3,7 @@ export const CELL_COUNT = GRID_SIZE * GRID_SIZE;
 export const WARPED_GRID_SIZE = 450;
 export const CELL_SIZE = WARPED_GRID_SIZE / GRID_SIZE;
 export const LINE_BAND = 4;
+export const LINE_STRIP_LENGTH = WARPED_GRID_SIZE / 3;
 export const GLYPH_SIZE = 28;
 export const GLYPH_PIXEL_COUNT = GLYPH_SIZE * GLYPH_SIZE;
 export const DIGIT_COUNT = 9;

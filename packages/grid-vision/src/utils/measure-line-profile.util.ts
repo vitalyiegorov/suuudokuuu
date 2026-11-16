@@ -1,8 +1,6 @@
-import { CELL_SIZE, WARPED_GRID_SIZE } from '../constants/grid-vision.constant';
+import { CELL_SIZE, LINE_STRIP_LENGTH, WARPED_GRID_SIZE } from '../constants/grid-vision.constant';
 
 import type { BinaryImageInterface } from '../interfaces/binary-image.interface';
-
-export const LINE_STRIP_LENGTH = WARPED_GRID_SIZE / 3;
 
 export const measureLineProfile = (mask: BinaryImageInterface, isVertical: boolean, stripCenter: number): Float32Array => {
     const profile = new Float32Array(WARPED_GRID_SIZE);
