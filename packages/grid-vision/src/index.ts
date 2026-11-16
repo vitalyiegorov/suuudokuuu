@@ -1,3 +1,4 @@
+export type { GridRegionInterface } from './interfaces/grid-region.interface';
 export type { RgbaImageInterface } from './interfaces/rgba-image.interface';
 export type { GridRecognitionType } from './types/grid-recognition.type';
 

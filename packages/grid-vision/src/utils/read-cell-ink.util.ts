@@ -51,7 +51,7 @@ const measureBackgroundChroma = (image: RgbaImageInterface, board: WarpedBoardIn
 
 export const readCellInk = (image: RgbaImageInterface, board: WarpedBoardInterface, cell: number) => {
     const pixels: ReturnType<typeof readSourcePixel>[] = [];
-    const extracted = extractCellGlyph(board.mask, Math.floor(cell / GRID_SIZE), cell % GRID_SIZE, (x, y) => {
+    const extracted = extractCellGlyph(board, Math.floor(cell / GRID_SIZE), cell % GRID_SIZE, (x, y) => {
         pixels.push(readSourcePixel(image, board.homography, x, y));
     });
 
@@ -66,10 +66,7 @@ export const readCellInk = (image: RgbaImageInterface, board: WarpedBoardInterfa
     return {
         ...extracted,
         luma: core.reduce((total, pixel) => total + pixel.luma, 0) / core.length,
-        chroma: Math.max(
-            0,
-            core.reduce((total, pixel) => total + pixel.chroma, 0) / core.length -
-                (board.isDarkInk ? 0 : measureBackgroundChroma(image, board, cell))
-        )
+        chroma: core.reduce((total, pixel) => total + pixel.chroma, 0) / core.length,
+        backgroundChroma: measureBackgroundChroma(image, board, cell)
     };
 };

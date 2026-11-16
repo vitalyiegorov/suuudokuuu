@@ -17,6 +17,7 @@ import { fitGridCorners } from './fit-grid-corners.util';
 import { keepThinInk } from './keep-thin-ink.util';
 import { projectPoint } from './project-point.util';
 import { readCellInk } from './read-cell-ink.util';
+import { refineGridCorners } from './refine-grid-corners.util';
 import { solveHomography } from './solve-homography.util';
 
 import type { BinaryImageInterface } from '../interfaces/binary-image.interface';
@@ -203,26 +204,29 @@ const readBoard = (luma: GrayImageInterface, corners: readonly PointInterface[],
 
     const board = warpBoard(luma, homography);
     const isDarkInk = knownIsDarkInk ?? hasDarkInk(board);
+    const gray = isDarkInk ? board : invertGray(board);
 
-    return {
-        corners,
-        homography,
-        isDarkInk,
-        mask: adaptiveThreshold(isDarkInk ? board : invertGray(board), CELL_THRESHOLD_RADIUS, CELL_THRESHOLD_SENSITIVITY)
-    };
+    return { corners, homography, isDarkInk, gray, mask: adaptiveThreshold(gray, CELL_THRESHOLD_RADIUS, CELL_THRESHOLD_SENSITIVITY) };
 };
 
-const refineBoard = (luma: GrayImageInterface, board: NonNullable<ReturnType<typeof readBoard>> | null) =>
-    board === null
-        ? null
-        : readBoard(
+const refitBoard = <Board extends WarpedBoardInterface>(
+    luma: GrayImageInterface,
+    board: Board | null,
+    fitCorners: (mask: BinaryImageInterface) => PointInterface[] | null
+) => {
+    const corners = board === null ? null : fitCorners(keepThinInk(board.mask, LINE_BAND));
+
+    return board === null || corners === null
+        ? board
+        : (readBoard(
               luma,
-              fitGridCorners(keepThinInk(board.mask, LINE_BAND)).map(corner => projectPoint(board.homography, corner.x, corner.y)),
+              corners.map(corner => projectPoint(board.homography, corner.x, corner.y)),
               board.isDarkInk
-          );
+          ) ?? board);
+};
 
 const readFusedBoard = (luma: GrayImageInterface, corners: readonly PointInterface[]) => {
-    const board = refineBoard(luma, refineBoard(luma, readBoard(luma, corners)));
+    const board = refitBoard(luma, refitBoard(luma, readBoard(luma, corners), fitGridCorners), fitGridCorners);
     const left = Math.min(...corners.map(corner => corner.x)) + VISIBLE_INSET;
     const right = Math.max(...corners.map(corner => corner.x)) - VISIBLE_INSET;
     const top = Math.min(...corners.map(corner => corner.y)) + VISIBLE_INSET;
@@ -263,8 +267,7 @@ export const readGridGlyphs = (image: RgbaImageInterface) => {
     const luma = toLuma(image);
     const gray = downscaleLuma(luma, measureDownscale(luma));
     const board =
-        findBestBoardMask(luma, gray, false, false) ??
-        findBestBoardMask(luma, gray, true, false) ??
+        refitBoard(luma, findBestBoardMask(luma, gray, false, false) ?? findBestBoardMask(luma, gray, true, false), refineGridCorners) ??
         findBestBoardMask(luma, gray, false, true) ??
         findBestBoardMask(luma, gray, true, true);
 
@@ -273,15 +276,21 @@ export const readGridGlyphs = (image: RgbaImageInterface) => {
     }
 
     const cells = Array.from({ length: CELL_COUNT }, (_, cell) => readCellInk(image, board, cell));
-    const strokeHeights = cells
-        .filter(ink => ink !== null)
-        .map(ink => ink.strokeHeight)
-        .sort((first, second) => first - second);
+    const filled = cells.filter(ink => ink !== null);
+    const strokeHeights = filled.map(ink => ink.strokeHeight).sort((first, second) => first - second);
     const minimumStrokeHeight = PENCIL_MARK_HEIGHT_RATIO * (strokeHeights[Math.floor(DIGIT_HEIGHT_QUANTILE * strokeHeights.length)] ?? 0);
+    const boardChroma = filled.map(ink => ink.backgroundChroma).sort((first, second) => first - second)[Math.floor(filled.length / 2)] ?? 0;
 
-    return cells.map(ink =>
-        ink === null || ink.strokeHeight < minimumStrokeHeight
-            ? null
-            : { glyph: ink.glyph, chroma: ink.chroma, luma: board.isDarkInk ? ink.luma : MAXIMUM_GRAY - ink.luma }
-    );
+    return {
+        corners: board.corners,
+        cells: cells.map(ink =>
+            ink === null || ink.strokeHeight < minimumStrokeHeight
+                ? null
+                : {
+                      glyph: ink.glyph,
+                      chroma: Math.max(0, ink.chroma - Math.max(0, ink.backgroundChroma - boardChroma)),
+                      luma: board.isDarkInk ? ink.luma : MAXIMUM_GRAY - ink.luma
+                  }
+        )
+    };
 };

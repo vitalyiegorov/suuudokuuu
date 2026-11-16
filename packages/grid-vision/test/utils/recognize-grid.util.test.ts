@@ -16,9 +16,10 @@ const NO_GRID = 'none';
 const CELL_COUNT = 81;
 const SPARSE_GRID_SEED = 2606;
 const MINIMUM_HANDWRITTEN_ACCURACY = 0.95;
-const MINIMUM_CELL_ACCURACY = 0.98;
-const MINIMUM_EXACT_FIXTURE_RATIO = 0.8;
+const MINIMUM_CELL_ACCURACY = 0.995;
+const MINIMUM_EXACT_FIXTURE_RATIO = 0.9;
 const GRID_SIZE = 9;
+const PROBABILITY_TOLERANCE = 1e-4;
 const FLAT_GRID_SEED = 32;
 const PAGE_MARGIN = 60;
 const HIDDEN_CELL_RATIO = 0.4;
@@ -36,10 +37,10 @@ const fixtures = readFileSync(new URL('manifest.txt', FIXTURE_DIRECTORY), 'utf8'
 const gridFixtures = fixtures.filter(fixture => fixture.expected !== NO_GRID);
 const noGridFixtures = fixtures.filter(fixture => fixture.expected === NO_GRID);
 
-const recognizeFixture = (file: string): GridRecognitionType => {
+const recognizeFixture = (file: string, sourceScale = 1): GridRecognitionType => {
     const decoded = jpeg.decode(readFileSync(new URL(file, FIXTURE_DIRECTORY)), { useTArray: true });
 
-    return recognizeGrid({ width: decoded.width, height: decoded.height, data: new Uint8ClampedArray(decoded.data) });
+    return recognizeGrid({ width: decoded.width, height: decoded.height, data: new Uint8ClampedArray(decoded.data) }, sourceScale);
 };
 
 const readPuzzleString = (recognition: GridRecognitionType): string =>
@@ -79,7 +80,7 @@ describe('recognizeGrid', () => {
     const recognitions = gridFixtures.map(fixture => recognizeFixture(fixture.file));
     const puzzleStrings = recognitions.map(readPuzzleString);
 
-    it('should recognize at least 98% of cells and 80% of fixtures exactly', () => {
+    it('should recognize at least 99.5% of cells and 90% of fixtures exactly', () => {
         const matchingCellCount = gridFixtures.reduce(
             (total, fixture, index) => total + countMatchingCells(puzzleStrings[index], fixture.expected),
             0
@@ -236,7 +237,23 @@ describe('recognizeGrid', () => {
         });
     });
 
-    it('should return a confidence and an alternative for every cell', () => {
+    it('should ask for a closer read only while the source image holds more detail', () => {
+        const file = 'app-classic-light-390.jpg';
+
+        expect(recognizeFixture(file)).toMatchObject({ closerRegion: null });
+        expect(recognizeFixture(file, 3)).toSatisfy(
+            (result: GridRecognitionType) =>
+                result.kind === GridRecognitionKindEnum.RECOGNIZED &&
+                result.closerRegion !== null &&
+                result.closerRegion.x >= 0 &&
+                result.closerRegion.y >= 0 &&
+                result.closerRegion.width > 0.8 &&
+                result.closerRegion.x + result.closerRegion.width <= 1 &&
+                result.closerRegion.y + result.closerRegion.height <= 1
+        );
+    });
+
+    it('should return a confidence for every cell and the digit probabilities of every filled cell', () => {
         const recognition = recognizeFixture(gridFixtures[0].file);
 
         expect(recognition).toSatisfy(
@@ -244,7 +261,14 @@ describe('recognizeGrid', () => {
                 result.kind === GridRecognitionKindEnum.RECOGNIZED &&
                 result.confidences.length === CELL_COUNT &&
                 result.confidences.every(confidence => confidence >= 0 && confidence <= 1) &&
-                result.alternatives.every((alternative, cell) => (alternative === null) === (result.puzzleString[cell] === '.'))
+                result.probabilities.every(
+                    (digits, cell) =>
+                        (digits === null) === (result.puzzleString[cell] === '.') &&
+                        (digits === null ||
+                            (digits.length === GRID_SIZE &&
+                                Math.abs(digits.reduce((total, probability) => total + probability, 0) - 1) < PROBABILITY_TOLERANCE &&
+                                digits[Number(result.puzzleString[cell]) - 1] === result.confidences[cell]))
+                )
         );
     });
 });
