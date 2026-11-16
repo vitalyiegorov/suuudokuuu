@@ -2,6 +2,7 @@ export enum ImportScreenSelectors {
     ScanButton = 'ImportScreenSelectors.ScanButton',
     PhotosButton = 'ImportScreenSelectors.PhotosButton',
     TypeButton = 'ImportScreenSelectors.TypeButton',
+    EntryActiveButton = 'ImportScreenSelectors.EntryActiveButton',
     EntryToggleButton = 'ImportScreenSelectors.EntryToggleButton',
     Guidance = 'ImportScreenSelectors.Guidance',
     Sources = 'ImportScreenSelectors.Sources',

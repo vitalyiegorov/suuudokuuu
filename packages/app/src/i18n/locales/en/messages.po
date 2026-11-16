@@ -175,10 +175,6 @@ msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fi
 msgstr "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
-msgstr "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
-
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 
@@ -588,7 +584,7 @@ msgstr "Clean black-and-white board"
 msgid "Clean win"
 msgstr "Clean win"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Clear"
 msgstr "Clear"
 
@@ -667,7 +663,7 @@ msgstr "Continue this Sudoku exactly where I left off!"
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "Contradiction, so {cell} is not {value}."
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
 msgstr "Couldn't find a sudoku grid. Try a closer, straighter photo."
 
@@ -995,10 +991,6 @@ msgstr "h"
 msgid "handwritten"
 msgstr "handwritten"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
-msgstr "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
-
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
@@ -1129,6 +1121,7 @@ msgid "Import"
 msgstr "Import"
 
 #: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Import a puzzle"
 msgstr "Import a puzzle"
@@ -1345,14 +1338,6 @@ msgstr "Low contrast"
 msgid "m"
 msgstr "m"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make my entry"
-msgstr "Make my entry"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make printed clue"
-msgstr "Make printed clue"
-
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "Match the reduce motion setting of your device"
@@ -1404,6 +1389,10 @@ msgstr "Move"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "Move the landscape controls panel to the left of the board"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "My entry"
+msgstr "My entry"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1507,7 +1496,7 @@ msgstr "No matter how many penalties, you always earn at least"
 msgid "no pause"
 msgstr "no pause"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No puzzle found on the clipboard"
 msgstr "No puzzle found on the clipboard"
 
@@ -1749,6 +1738,10 @@ msgstr "Presets"
 msgid "Primary text"
 msgstr "Primary text"
 
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Printed clue"
+msgstr "Printed clue"
+
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
@@ -1787,7 +1780,7 @@ msgstr "Raised surface text"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Reading the puzzle…"
 msgstr "Reading the puzzle…"
 
@@ -2005,6 +1998,10 @@ msgstr "Selected cell"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected cell text"
 msgstr "Selected cell text"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Selected digit"
+msgstr "Selected digit"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."

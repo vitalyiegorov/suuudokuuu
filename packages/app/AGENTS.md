@@ -195,7 +195,13 @@ The trade also does not pay off in a bulk replay. Replaying the 59-move Nightmar
 
 ## Import
 
-The import sheet offers native document scanning, web camera capture, Photos on every platform, text paste, web image paste, and manual entry. The `import-screen-read-grid` platform pair converts image URIs to RGBA for local recognition. `puzzle-forge` splits printed clues from handwritten entries and selects entries matching the solution; only clues are assessed, and matching entries are replayed and saved as run progress before Play opens the game.
+The import sheet offers native document scanning, web camera capture, Photos on every platform, text paste, web image paste, and manual entry.
+
+1. **Reading an image.** `import-screen-read-grid.util.ts` is shared by every platform: it reads the whole image at 768 px, recognizes it, and when `grid-vision` reports a `closerRegion` reads that region of the original at 768 px and recognizes again, so a board that is small in a tall screenshot is read at the source's resolution. The `import-screen-open-image` platform pair only decodes the image once and returns pixels for a crop.
+2. **Repair.** The recognition goes through `PuzzleGenerationService.repair` (`repairRecognizedPuzzle` in `puzzle-forge`, on the worker runtime). It splits printed clues from player entries; when the clues conflict or have no solution it tries the classifier's other digits, likeliest first, and keeps the first change that leaves exactly one solution, marking that cell for review; when the clues alone have many solutions it treats every digit as a clue if that gives one solution. The service has a `.web.ts` sibling that the app type check does not compare with the native one, so add a method to both.
+3. **Play.** Only clues are assessed, and entries matching the solution are replayed and saved as run progress before Play opens the game.
+4. **Layout contract.** Nothing on the sheet moves or resizes while the player selects cells, types, changes a digit's kind or deselects. The board side comes only from the measured scroll area and the font scale; the status slot has a fixed height; the pad is always mounted and disabled without a selection; the entry-kind row is present for every scanned board and dimmed when it does not apply. Never size the board from the height of content that changes with the selection. The scroll area scrolls only when the frame is too short for the smallest board, and then only to keep the selected row visible. The stillness test in `tests/web-tests/specs/23.import-puzzle.spec.ts` pins this at four sizes.
+5. **Review.** After a scan the first cell marked for review is selected; an edit on a scanned board moves to the next marked cell or stays put, while a typed board advances to the next cell.
 
 ## Routing And Deep Links
 

@@ -1,28 +1,17 @@
 import { useAtom } from '@effect/atom-react/Hooks';
 import { parsePuzzleText } from '@suuudokuuu/encoder';
-import { splitRecognizedPuzzle } from '@suuudokuuu/puzzle-forge';
 import * as Atom from 'effect/reactivity/Atom';
 import { useReducer, useState } from 'react';
 
-import { isDefined } from '@rnw-community/shared';
+import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { GameEmptySudokuStringConstant } from '../../../../game/constant/empty-sudoku-string.constant';
 
-import type { GridRecognitionType } from '@suuudokuuu/grid-vision';
+import type { ImportReviewStateInterface } from '../interface/import-review-state.interface';
+import type { repairRecognizedPuzzle } from '@suuudokuuu/puzzle-forge';
 import type { SetStateAction } from 'react';
 
-interface ImportReviewState {
-    readonly isPasteMissed: boolean;
-    readonly selectedCellIndex: number | null;
-    readonly entryString: string;
-    readonly uncertainCellIndexes: readonly number[];
-    readonly scannedCellIndexes: readonly number[];
-    readonly isRecognizing: boolean;
-    readonly isGridMissed: boolean;
-    readonly isTyping: boolean;
-}
-
-const initialState: ImportReviewState = {
+const initialState: ImportReviewStateInterface = {
     isPasteMissed: false,
     selectedCellIndex: null,
     entryString: GameEmptySudokuStringConstant,
@@ -32,13 +21,12 @@ const initialState: ImportReviewState = {
     isGridMissed: false,
     isTyping: false
 };
-const ImportUncertainConfidence = 0.9;
 
 export const useImportReview = (initialText: string) => {
     const [puzzleAtom] = useState(() => Atom.make(parsePuzzleText(initialText) ?? GameEmptySudokuStringConstant));
     const [puzzleString, setPuzzleString] = useAtom(puzzleAtom);
     const [state, update] = useReducer(
-        (current: ImportReviewState, patch: Partial<ImportReviewState>) => ({ ...current, ...patch }),
+        (current: ImportReviewStateInterface, patch: Partial<ImportReviewStateInterface>) => ({ ...current, ...patch }),
         initialState
     );
     const reset = () => {
@@ -54,20 +42,15 @@ export const useImportReview = (initialText: string) => {
             update({ isPasteMissed: true, isRecognizing: false });
         }
     };
-    const loadGrid = (result: Extract<GridRecognitionType, { readonly puzzleString: string }>) => {
-        const split = splitRecognizedPuzzle(result, ImportUncertainConfidence);
-        if (!isDefined(split)) {
-            update({ isRecognizing: false, isGridMissed: true });
-
-            return;
-        }
-        setPuzzleString(split.clueString);
+    const loadGrid = ({ clueString, entryString, uncertainCellIndexes }: NonNullable<ReturnType<typeof repairRecognizedPuzzle>>) => {
+        setPuzzleString(clueString);
         update({
             ...initialState,
-            entryString: split.entryString,
+            entryString,
             isTyping: true,
-            uncertainCellIndexes: split.uncertainCellIndexes,
-            scannedCellIndexes: Array.from(result.puzzleString).flatMap((digit, index) => (/[1-9]/u.test(digit) ? [index] : []))
+            selectedCellIndex: uncertainCellIndexes.at(0) ?? null,
+            uncertainCellIndexes,
+            scannedCellIndexes: Array.from(clueString).flatMap((digit, index) => (/[1-9]/u.test(digit + entryString[index]) ? [index] : []))
         });
     };
     const input = (value: number) => {
@@ -75,12 +58,17 @@ export const useImportReview = (initialText: string) => {
         if (!isDefined(index)) {
             return;
         }
+        const uncertainCellIndexes = state.uncertainCellIndexes.filter(cellIndex => cellIndex !== index);
+        const restCellIndex =
+            isNotEmptyArray(state.scannedCellIndexes) || value === 0
+                ? index
+                : Math.min(index + 1, GameEmptySudokuStringConstant.length - 1);
         setPuzzleString(`${puzzleString.slice(0, index)}${value === 0 ? '.' : String(value)}${puzzleString.slice(index + 1)}`);
         update({
             isPasteMissed: false,
             entryString: `${state.entryString.slice(0, index)}.${state.entryString.slice(index + 1)}`,
-            uncertainCellIndexes: state.uncertainCellIndexes.filter(cellIndex => cellIndex !== index),
-            selectedCellIndex: value === 0 ? index : Math.min(index + 1, GameEmptySudokuStringConstant.length - 1)
+            uncertainCellIndexes,
+            selectedCellIndex: uncertainCellIndexes.find(cellIndex => cellIndex > index) ?? uncertainCellIndexes.at(0) ?? restCellIndex
         });
     };
     const toggleEntry = () => {
@@ -100,12 +88,6 @@ export const useImportReview = (initialText: string) => {
             isTyping: true
         });
 
-    const isEntry = isDefined(state.selectedCellIndex) && /[1-9]/u.test(state.entryString[state.selectedCellIndex]);
-    const canToggle =
-        isDefined(state.selectedCellIndex) &&
-        state.scannedCellIndexes.includes(state.selectedCellIndex) &&
-        /[1-9]/u.test(puzzleString[state.selectedCellIndex] + state.entryString[state.selectedCellIndex]);
-
     return {
         state,
         puzzleAtom,
@@ -116,8 +98,6 @@ export const useImportReview = (initialText: string) => {
         input,
         toggleEntry,
         moveSelection,
-        update,
-        canToggle,
-        isEntry
+        update
     };
 };

@@ -175,10 +175,6 @@ msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fi
 msgstr "{subsetSize, plural, one {Sieh dir Zeile {regionNumber} an: Dort passt # Ziffer nur in # Zelle.} other {Sieh dir Zeile {regionNumber} an: Dort passen # Ziffern nur in # Zellen.}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
-msgstr "{uncertainCellCount, plural, one {# Ziffer prüfen. Handschriftliche Ziffern bleiben als dein Fortschritt erhalten. Tippe eine an, um sie zur gedruckten Vorgabe zu machen.} other {# Ziffern prüfen. Handschriftliche Ziffern bleiben als dein Fortschritt erhalten. Tippe eine an, um sie zur gedruckten Vorgabe zu machen.}}"
-
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, one {# Ziffer prüfen} other {# Ziffern prüfen}}"
 
@@ -588,7 +584,7 @@ msgstr "Klares Schwarz-Weiß-Brett"
 msgid "Clean win"
 msgstr "Sauberer Sieg"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Clear"
 msgstr "Leeren"
 
@@ -667,7 +663,7 @@ msgstr "Setze dieses Sudoku genau dort fort, wo ich aufgehört habe!"
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "Widerspruch, also ist {cell} nicht {value}."
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
 msgstr "Kein Sudoku gefunden. Fotografiere es näher und gerader."
 
@@ -995,10 +991,6 @@ msgstr "h"
 msgid "handwritten"
 msgstr "handschriftlich"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
-msgstr "Handschriftliche Ziffern bleiben als dein Fortschritt erhalten. Tippe eine an, um sie zur gedruckten Vorgabe zu machen."
-
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
@@ -1129,6 +1121,7 @@ msgid "Import"
 msgstr "Importieren"
 
 #: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Import a puzzle"
 msgstr "Rätsel importieren"
@@ -1345,14 +1338,6 @@ msgstr "Geringer Kontrast"
 msgid "m"
 msgstr "m"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make my entry"
-msgstr "Zu meinem Eintrag machen"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make printed clue"
-msgstr "Zur gedruckten Vorgabe machen"
-
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "Der Einstellung „Bewegung reduzieren“ deines Geräts folgen"
@@ -1404,6 +1389,10 @@ msgstr "Zug"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "Das Bedienfeld im Querformat links neben das Spielfeld verschieben"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "My entry"
+msgstr "Mein Eintrag"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1507,7 +1496,7 @@ msgstr "Egal wie viele Abzüge es gibt, du bekommst mindestens"
 msgid "no pause"
 msgstr "keine Pause"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No puzzle found on the clipboard"
 msgstr "Kein Rätsel in der Zwischenablage"
 
@@ -1749,6 +1738,10 @@ msgstr "Voreinstellungen"
 msgid "Primary text"
 msgstr "Primärer Text"
 
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Printed clue"
+msgstr "Gedruckte Vorgabe"
+
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
@@ -1787,7 +1780,7 @@ msgstr "Text der erhabenen Oberfläche"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Lies die Datenschutzerklärung von Suuudokuuu zu Datenerfassung, Speicherung und deinen Rechten."
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Reading the puzzle…"
 msgstr "Sudoku wird gelesen…"
 
@@ -2005,6 +1998,10 @@ msgstr "Ausgewählte Zelle"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected cell text"
 msgstr "Text der ausgewählten Zelle"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Selected digit"
+msgstr "Ausgewählte Ziffer"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."

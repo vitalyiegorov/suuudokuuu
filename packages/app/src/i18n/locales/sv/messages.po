@@ -173,10 +173,6 @@ msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fi
 msgstr "{subsetSize, plural, one {Titta på rad {regionNumber}: # siffra får bara plats i # cell.} other {Titta på rad {regionNumber}: # siffror får bara plats i # celler.}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
-msgstr "{uncertainCellCount, plural, one {# siffra att kontrollera. Handskrivna siffror sparas som dina framsteg. Tryck på en för att göra den till en tryckt ledtråd.} other {# siffror att kontrollera. Handskrivna siffror sparas som dina framsteg. Tryck på en för att göra den till en tryckt ledtråd.}}"
-
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, one {# siffra att kontrollera} other {# siffror att kontrollera}}"
 
@@ -586,7 +582,7 @@ msgstr "Rent svartvitt bräde"
 msgid "Clean win"
 msgstr "Ren vinst"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Clear"
 msgstr "Rensa"
 
@@ -665,7 +661,7 @@ msgstr "Fortsätt detta sudoku precis där jag slutade!"
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "Motsägelse, alltså är {cell} inte {value}."
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
 msgstr "Inget sudokurutnät hittades. Ta bilden närmare och rakare."
 
@@ -993,10 +989,6 @@ msgstr "h"
 msgid "handwritten"
 msgstr "handskriven"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
-msgstr "Handskrivna siffror sparas som dina framsteg. Tryck på en för att göra den till en tryckt ledtråd."
-
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
@@ -1127,6 +1119,7 @@ msgid "Import"
 msgstr "Importera"
 
 #: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Import a puzzle"
 msgstr "Importera ett pussel"
@@ -1343,14 +1336,6 @@ msgstr "Låg kontrast"
 msgid "m"
 msgstr "m"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make my entry"
-msgstr "Gör till min inmatning"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make printed clue"
-msgstr "Gör till tryckt ledtråd"
-
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "Följ enhetens inställning för minskad rörelse"
@@ -1402,6 +1387,10 @@ msgstr "Drag"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "Flytta kontrollpanelen i liggande läge till vänster om brädet"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "My entry"
+msgstr "Min inmatning"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1505,7 +1494,7 @@ msgstr "Oavsett straff får du alltid minst"
 msgid "no pause"
 msgstr "ingen paus"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No puzzle found on the clipboard"
 msgstr "Inget pussel i urklipp"
 
@@ -1747,6 +1736,10 @@ msgstr "Förinställningar"
 msgid "Primary text"
 msgstr "Primär text"
 
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Printed clue"
+msgstr "Tryckt ledtråd"
+
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
@@ -1785,7 +1778,7 @@ msgstr "Text för upphöjd yta"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Läs Suuudokuuus integritetspolicy om datainsamling, lagring och dina rättigheter."
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Reading the puzzle…"
 msgstr "Läser sudokut…"
 
@@ -2003,6 +1996,10 @@ msgstr "Vald ruta"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected cell text"
 msgstr "Text för vald ruta"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Selected digit"
+msgstr "Vald siffra"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."

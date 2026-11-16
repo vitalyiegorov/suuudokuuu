@@ -173,10 +173,6 @@ msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fi
 msgstr "{subsetSize, plural, one {पंक्ति {regionNumber} देखें: वहाँ # अंक केवल # सेल में आ सकता है।} other {पंक्ति {regionNumber} देखें: वहाँ # अंक केवल # सेल में आ सकते हैं।}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
-msgstr "{uncertainCellCount, plural, one {# अंक जाँचें. हाथ से लिखे अंक आपकी प्रगति के रूप में रखे जाते हैं। किसी अंक को छपी हुई संख्या बनाने के लिए उस पर टैप करें।} other {# अंक जाँचें. हाथ से लिखे अंक आपकी प्रगति के रूप में रखे जाते हैं। किसी अंक को छपी हुई संख्या बनाने के लिए उस पर टैप करें।}}"
-
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, one {# अंक जाँचें} other {# अंक जाँचें}}"
 
@@ -586,7 +582,7 @@ msgstr "साफ काला-सफेद बोर्ड"
 msgid "Clean win"
 msgstr "स्वच्छ जीत"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Clear"
 msgstr "साफ़ करें"
 
@@ -665,7 +661,7 @@ msgstr "इस सुडोकू को ठीक वहीं से जार
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "विरोधाभास, इसलिए {cell}, {value} नहीं है।"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
 msgstr "सुडोकू ग्रिड नहीं मिला। पास से सीधी तस्वीर लें।"
 
@@ -993,10 +989,6 @@ msgstr "h"
 msgid "handwritten"
 msgstr "हस्तलिखित"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
-msgstr "हाथ से लिखे अंक आपकी प्रगति के रूप में रखे जाते हैं। किसी अंक को छपी हुई संख्या बनाने के लिए उस पर टैप करें।"
-
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
@@ -1127,6 +1119,7 @@ msgid "Import"
 msgstr "इम्पोर्ट करें"
 
 #: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Import a puzzle"
 msgstr "पहेली आयात करें"
@@ -1343,14 +1336,6 @@ msgstr "कम कंट्रास्ट"
 msgid "m"
 msgstr "m"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make my entry"
-msgstr "मेरी प्रविष्टि बनाएँ"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make printed clue"
-msgstr "छपी हुई संख्या बनाएँ"
-
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "अपने डिवाइस की मोशन घटाने वाली सेटिंग का पालन करें"
@@ -1402,6 +1387,10 @@ msgstr "चाल"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "लैंडस्केप कंट्रोल पैनल को बोर्ड के बाईं ओर ले जाएँ"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "My entry"
+msgstr "मेरी प्रविष्टि"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1505,7 +1494,7 @@ msgstr "दंड चाहे जितने हों, आपको हमे
 msgid "no pause"
 msgstr "कोई पॉज़ नहीं"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No puzzle found on the clipboard"
 msgstr "क्लिपबोर्ड में कोई पहेली नहीं मिली"
 
@@ -1747,6 +1736,10 @@ msgstr "प्रीसेट"
 msgid "Primary text"
 msgstr "प्राथमिक टेक्स्ट"
 
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Printed clue"
+msgstr "छपी हुई संख्या"
+
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
@@ -1785,7 +1778,7 @@ msgstr "उठी हुई सतह का टेक्स्ट"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "डेटा संग्रह, भंडारण और आपके अधिकारों पर Suuudokuuu की गोपनीयता नीति पढ़ें।"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Reading the puzzle…"
 msgstr "सुडोकू पढ़ रहे हैं…"
 
@@ -2003,6 +1996,10 @@ msgstr "चुनी हुई सेल"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected cell text"
 msgstr "चुनी हुई सेल का टेक्स्ट"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Selected digit"
+msgstr "चयनित अंक"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."

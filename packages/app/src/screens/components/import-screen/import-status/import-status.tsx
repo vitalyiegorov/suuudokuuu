@@ -17,6 +17,7 @@ import { ImportScreenSelectors } from '../import-screen.selectors';
 
 import { ImportStatusStyles as styles } from './import-status.styles';
 
+import type { ImportReviewStateInterface } from '../interface/import-review-state.interface';
 import type { MessageDescriptor } from '@lingui/core';
 import type { ImportedPuzzleAssessmentType } from '@suuudokuuu/puzzle-forge';
 
@@ -62,14 +63,14 @@ const getConflictMessage = (puzzleString: string, cellIndexes: readonly number[]
 const errorForegroundBlend = 0.25;
 
 interface Props {
-    readonly sourceStatus: string | null;
     readonly assessed: { readonly assessment: ImportedPuzzleAssessmentType; readonly puzzleString: string } | null;
     readonly isCheckFailed: boolean;
-    readonly isRecognizing: boolean;
+    readonly review: Pick<ImportReviewStateInterface, 'isGridMissed' | 'isPasteMissed' | 'isRecognizing'>;
     readonly puzzleString: string;
 }
 
-export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, sourceStatus, isRecognizing }: Props) => {
+export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, review }: Props) => {
+    const { isGridMissed, isPasteMissed, isRecognizing } = review;
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
 
@@ -111,6 +112,17 @@ export const ImportStatus = ({ assessed, isCheckFailed, puzzleString, sourceStat
 
         return isDefined(assessed) ? getAssessmentText(assessed) : t`Checking…`;
     };
+    const getSourceStatus = (): string | null => {
+        if (isRecognizing) {
+            return t`Reading the puzzle…`;
+        }
+        if (isGridMissed) {
+            return t`Couldn't find a sudoku grid. Try a closer, straighter photo.`;
+        }
+
+        return isPasteMissed ? t`No puzzle found on the clipboard` : null;
+    };
+    const sourceStatus = getSourceStatus();
     const getStatusText = (): string => {
         if (isDefined(sourceStatus)) {
             return sourceStatus;

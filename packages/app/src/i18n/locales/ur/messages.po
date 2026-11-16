@@ -173,10 +173,6 @@ msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fi
 msgstr "{subsetSize, plural, one {قطار {regionNumber} دیکھیں: وہاں # ہندسہ صرف # خانے میں آ سکتا ہے۔} other {قطار {regionNumber} دیکھیں: وہاں # ہندسے صرف # خانوں میں آ سکتے ہیں۔}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
-msgstr "{uncertainCellCount, plural, one {# ہندسہ چیک کریں. ہاتھ سے لکھے ہندسے آپ کی پیش رفت کے طور پر رکھے جاتے ہیں۔ کسی ہندسے کو چھپا ہوا اشارہ بنانے کے لیے اسے تھپتھپائیں۔} other {# ہندسے چیک کریں. ہاتھ سے لکھے ہندسے آپ کی پیش رفت کے طور پر رکھے جاتے ہیں۔ کسی ہندسے کو چھپا ہوا اشارہ بنانے کے لیے اسے تھپتھپائیں۔}}"
-
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, one {# ہندسہ چیک کریں} other {# ہندسے چیک کریں}}"
 
@@ -586,7 +582,7 @@ msgstr "صاف سیاہ و سفید بورڈ"
 msgid "Clean win"
 msgstr "شاندار جیت"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Clear"
 msgstr "صاف کریں"
 
@@ -665,7 +661,7 @@ msgstr "اس سوڈوکو کو بالکل وہیں سے جاری رکھو جہا
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "تضاد، لہٰذا {cell}، {value} نہیں ہے۔"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
 msgstr "سڈوکو گرڈ نہیں ملا۔ قریب سے سیدھی تصویر لیں۔"
 
@@ -993,10 +989,6 @@ msgstr "h"
 msgid "handwritten"
 msgstr "ہاتھ سے لکھا ہوا"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
-msgstr "ہاتھ سے لکھے ہندسے آپ کی پیش رفت کے طور پر رکھے جاتے ہیں۔ کسی ہندسے کو چھپا ہوا اشارہ بنانے کے لیے اسے تھپتھپائیں۔"
-
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
@@ -1127,6 +1119,7 @@ msgid "Import"
 msgstr "امپورٹ کریں"
 
 #: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Import a puzzle"
 msgstr "پہیلی درآمد کریں"
@@ -1343,14 +1336,6 @@ msgstr "کم کنٹراسٹ"
 msgid "m"
 msgstr "m"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make my entry"
-msgstr "میرا اندراج بنائیں"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make printed clue"
-msgstr "چھپا ہوا اشارہ بنائیں"
-
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "اپنے آلے کی حرکت کم کرنے والی سیٹنگ کے مطابق چلیں"
@@ -1402,6 +1387,10 @@ msgstr "چال"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "لینڈ اسکیپ کنٹرول پینل کو بورڈ کے بائیں جانب منتقل کریں"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "My entry"
+msgstr "میرا اندراج"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1505,7 +1494,7 @@ msgstr "پنالٹیز کتنی بھی ہوں، آپ کو ہمیشہ کم از �
 msgid "no pause"
 msgstr "کوئی وقفہ نہیں"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No puzzle found on the clipboard"
 msgstr "کلپ بورڈ میں کوئی پہیلی نہیں ملی"
 
@@ -1747,6 +1736,10 @@ msgstr "پری سیٹس"
 msgid "Primary text"
 msgstr "بنیادی متن"
 
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Printed clue"
+msgstr "چھپا ہوا اشارہ"
+
 #: src/app/privacy-policy.tsx
 #: src/screens/components/privacy-policy-screen/privacy-policy.screen.tsx
 #: src/settings/component/settings-app-footer/settings-app-footer.tsx
@@ -1785,7 +1778,7 @@ msgstr "ابھری ہوئی سطح کا متن"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "ڈیٹا جمع کرنے، محفوظ رکھنے اور آپ کے حقوق سے متعلق Suuudokuuu کی پرائیویسی پالیسی پڑھیں۔"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Reading the puzzle…"
 msgstr "سڈوکو پڑھ رہے ہیں…"
 
@@ -2003,6 +1996,10 @@ msgstr "منتخب خانہ"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected cell text"
 msgstr "منتخب خانے کا متن"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Selected digit"
+msgstr "منتخب ہندسہ"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
