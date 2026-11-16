@@ -94,19 +94,35 @@ const measureStrokeHeight = (pieces: readonly ConnectedComponentInterface[]): nu
 };
 
 const measureDarkness = (gray: GrayImageInterface, cropOffset: number, labels: Int32Array, isGlyphLabel: Uint8Array): Float32Array => {
-    const levels = Float32Array.from(
-        labels,
-        (_, pixel) => gray.data[cropOffset + Math.floor(pixel / CROP_SIZE) * gray.width + (pixel % CROP_SIZE)]
-    );
-    const paper = levels.slice().sort()[Math.floor(levels.length / 2)];
-    const inkLevels = levels.filter((_, pixel) => isGlyphLabel[labels[pixel]] === 1).sort();
-    const contrast = Math.max(1, paper - inkLevels[Math.floor(INK_LEVEL_QUANTILE * inkLevels.length)]);
-    const reach = dilateMask(
-        { width: CROP_SIZE, height: CROP_SIZE, data: Uint8Array.from(labels, label => isGlyphLabel[label]) },
-        GLYPH_REACH
-    );
+    const levels = new Float32Array(labels.length);
+    const glyphMask = new Uint8Array(labels.length);
+    let glyphArea = 0;
 
-    return levels.map((level, pixel) => (reach.data[pixel] === 1 ? Math.min(1, Math.max(0, (paper - level) / contrast)) : 0));
+    for (let pixel = 0; pixel < labels.length; pixel += 1) {
+        levels[pixel] = gray.data[cropOffset + Math.floor(pixel / CROP_SIZE) * gray.width + (pixel % CROP_SIZE)];
+        glyphMask[pixel] = isGlyphLabel[labels[pixel]];
+        glyphArea += glyphMask[pixel];
+    }
+
+    const inkLevels = new Float32Array(glyphArea);
+    let inkCount = 0;
+
+    for (let pixel = 0; pixel < labels.length; pixel += 1) {
+        if (glyphMask[pixel] === 1) {
+            inkLevels[inkCount] = levels[pixel];
+            inkCount += 1;
+        }
+    }
+
+    const paper = levels.slice().sort()[Math.floor(levels.length / 2)];
+    const contrast = Math.max(1, paper - inkLevels.sort()[Math.floor(INK_LEVEL_QUANTILE * inkLevels.length)]);
+    const reach = dilateMask({ width: CROP_SIZE, height: CROP_SIZE, data: glyphMask }, GLYPH_REACH).data;
+
+    for (let pixel = 0; pixel < levels.length; pixel += 1) {
+        levels[pixel] = reach[pixel] === 1 ? Math.min(1, Math.max(0, (paper - levels[pixel]) / contrast)) : 0;
+    }
+
+    return levels;
 };
 
 const sampleGlyphPixel = (darkness: Float32Array, bounds: ConnectedComponentInterface, glyphIndex: number): number => {

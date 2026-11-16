@@ -17,21 +17,19 @@ export const locateKernel = (layer: ClassifierLayerInterface, outputIndex: numbe
 const sumKernel = (layer: ClassifierLayerInterface, weights: ArrayLike<number>, input: Float32Array, outputIndex: number): number => {
     const { inSize, inChannels, kernel } = layer;
     const { weightOffset, originY, originX } = locateKernel(layer, outputIndex);
+    const firstY = Math.max(0, -originY);
+    const lastY = Math.min(kernel, inSize - originY);
+    const firstX = Math.max(0, -originX);
+    const lastX = Math.min(kernel, inSize - originX);
     let sum = 0;
 
     for (let channel = 0; channel < inChannels; channel += 1) {
-        for (let kernelY = 0; kernelY < kernel; kernelY += 1) {
-            const inY = originY + kernelY;
+        for (let kernelY = firstY; kernelY < lastY; kernelY += 1) {
+            const weightRow = weightOffset + (channel * kernel + kernelY) * kernel;
+            const inputRow = (channel * inSize + originY + kernelY) * inSize + originX;
 
-            if (inY >= 0 && inY < inSize) {
-                const weightRow = weightOffset + (channel * kernel + kernelY) * kernel;
-                const inputRow = (channel * inSize + inY) * inSize;
-
-                for (let kernelX = 0; kernelX < kernel; kernelX += 1) {
-                    const inX = originX + kernelX;
-
-                    sum += inX >= 0 && inX < inSize ? weights[weightRow + kernelX] * input[inputRow + inX] : 0;
-                }
+            for (let kernelX = firstX; kernelX < lastX; kernelX += 1) {
+                sum += weights[weightRow + kernelX] * input[inputRow + kernelX];
             }
         }
     }
@@ -45,11 +43,14 @@ export const runClassifierLayer = (
     input: Float32Array,
     isRectified: boolean
 ): Float32Array => {
-    const outSize = measureLayerOutputSize(layer);
+    const outArea = measureLayerOutputSize(layer) ** 2;
+    const output = new Float32Array(layer.outChannels * outArea);
 
-    return Float32Array.from({ length: layer.outChannels * outSize ** 2 }, (_, outputIndex) => {
-        const sum = biases[Math.floor(outputIndex / outSize ** 2)] + weightScale * sumKernel(layer, weights, input, outputIndex);
+    for (let outputIndex = 0; outputIndex < output.length; outputIndex += 1) {
+        const sum = biases[Math.floor(outputIndex / outArea)] + weightScale * sumKernel(layer, weights, input, outputIndex);
 
-        return isRectified ? Math.max(0, sum) : sum;
-    });
+        output[outputIndex] = isRectified && sum < 0 ? 0 : sum;
+    }
+
+    return output;
 };

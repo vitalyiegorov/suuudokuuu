@@ -28,15 +28,22 @@ export const importScreenReadGrid = Effect.fn('importScreenReadGrid')(
         const source = yield* importScreenOpenImage(uri);
         const overview = yield* readRegion(source, WholeImageRegion);
         const located = recognizeGrid(overview, Math.max(source.width, source.height) / Math.max(overview.width, overview.height));
+        const closer =
+            located.kind === GridRecognitionKindEnum.LOCATED
+                ? yield* Effect.map(readRegion(source, located.closerRegion), recognizeGrid)
+                : located;
+        const recognized =
+            located.kind === GridRecognitionKindEnum.LOCATED && closer.kind !== GridRecognitionKindEnum.RECOGNIZED
+                ? recognizeGrid(overview)
+                : closer;
 
-        if (located.kind !== GridRecognitionKindEnum.RECOGNIZED) {
+        if (recognized.kind !== GridRecognitionKindEnum.RECOGNIZED) {
             return null;
         }
 
-        const closer = located.closerRegion === null ? located : yield* Effect.map(readRegion(source, located.closerRegion), recognizeGrid);
         const service = yield* PuzzleGenerationService;
 
-        return yield* service.repair(closer.kind === GridRecognitionKindEnum.RECOGNIZED ? closer : located, UncertainConfidence);
+        return yield* service.repair(recognized, UncertainConfidence);
     },
     Effect.scoped,
     Effect.orDie

@@ -7,6 +7,7 @@ import type { RgbaImageInterface } from '@suuudokuuu/grid-vision';
 import type { ActionCrop } from 'expo-image-manipulator';
 
 const MaxSourceSide = 4096;
+const JpegQuality = 0.9;
 
 export const importScreenOpenImage = Effect.fn('importScreenOpenImage')(function* (uri: string) {
     yield* Effect.addFinalizer(() => Effect.ignore(Effect.try(() => void new File(uri).delete())));
@@ -33,7 +34,7 @@ export const importScreenOpenImage = Effect.fn('importScreenOpenImage')(function
             resource => Effect.sync(() => void resource.release())
         );
         const saved = yield* Effect.acquireRelease(
-            Effect.tryPromise(() => image.saveAsync({ base64: true, format: SaveFormat.JPEG })),
+            Effect.tryPromise(() => image.saveAsync({ base64: true, compress: JpegQuality, format: SaveFormat.JPEG })),
             resource => Effect.sync(() => void new File(resource.uri).delete())
         );
         const pixels = decode(

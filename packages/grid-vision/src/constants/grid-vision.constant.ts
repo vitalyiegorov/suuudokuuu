@@ -13,3 +13,4 @@ export const RED_LUMA_WEIGHT = 0.299;
 export const GREEN_LUMA_WEIGHT = 0.587;
 export const BLUE_LUMA_WEIGHT = 0.114;
 export const PIXEL_CENTER = 0.5;
+export const MAXIMUM_GRAY = 255;

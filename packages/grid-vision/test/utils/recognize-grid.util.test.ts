@@ -237,14 +237,13 @@ describe('recognizeGrid', () => {
         });
     });
 
-    it('should ask for a closer read only while the source image holds more detail', () => {
+    it('should only locate the board while the source image holds more detail and read it otherwise', () => {
         const file = 'app-classic-light-390.jpg';
 
-        expect(recognizeFixture(file)).toMatchObject({ closerRegion: null });
+        expect(recognizeFixture(file).kind).toBe(GridRecognitionKindEnum.RECOGNIZED);
         expect(recognizeFixture(file, 3)).toSatisfy(
             (result: GridRecognitionType) =>
-                result.kind === GridRecognitionKindEnum.RECOGNIZED &&
-                result.closerRegion !== null &&
+                result.kind === GridRecognitionKindEnum.LOCATED &&
                 result.closerRegion.x >= 0 &&
                 result.closerRegion.y >= 0 &&
                 result.closerRegion.width > 0.8 &&

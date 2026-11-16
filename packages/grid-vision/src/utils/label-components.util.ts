@@ -1,50 +1,72 @@
 import type { BinaryImageInterface } from '../interfaces/binary-image.interface';
 import type { ConnectedComponentInterface } from '../interfaces/connected-component.interface';
 
-const fillComponent = (mask: BinaryImageInterface, labels: Int32Array, start: number, label: number): ConnectedComponentInterface => {
-    const { width, height, data } = mask;
-    const stack = [start];
-    let area = 0;
-    let minX = width;
-    let maxX = 0;
-    let minY = height;
-    let maxY = 0;
+const findRoot = (parents: number[], label: number): number => {
+    let root = label;
 
-    labels[start] = label;
+    while (parents[root] !== root) {
+        parents[root] = parents[parents[root]];
+        root = parents[root];
+    }
 
-    while (stack.length > 0) {
-        const index = stack.pop() ?? start;
-        const x = index % width;
-        const y = (index - x) / width;
+    return root;
+};
 
-        area += 1;
-        minX = Math.min(minX, x);
-        maxX = Math.max(maxX, x);
-        minY = Math.min(minY, y);
-        maxY = Math.max(maxY, y);
+const joinLabels = (parents: number[], label: number, neighbor: number): number => {
+    if (neighbor === 0 || neighbor === label) {
+        return label;
+    }
 
-        for (let neighborY = Math.max(0, y - 1); neighborY <= Math.min(height - 1, y + 1); neighborY += 1) {
-            for (let neighborX = Math.max(0, x - 1); neighborX <= Math.min(width - 1, x + 1); neighborX += 1) {
-                const neighbor = neighborY * width + neighborX;
+    const neighborRoot = findRoot(parents, neighbor);
+    const root = label === 0 ? neighborRoot : findRoot(parents, label);
 
-                if (data[neighbor] === 1 && labels[neighbor] === 0) {
-                    labels[neighbor] = label;
-                    stack.push(neighbor);
-                }
-            }
+    parents[Math.max(root, neighborRoot)] = Math.min(root, neighborRoot);
+
+    return Math.min(root, neighborRoot);
+};
+
+const labelInk = ({ width, data }: BinaryImageInterface, labels: Int32Array): number[] => {
+    const parents = [0];
+
+    for (let index = 0; index < data.length; index += 1) {
+        if (data[index] === 1) {
+            const column = index % width;
+            const hasRowAbove = index >= width;
+            const west = joinLabels(parents, 0, column > 0 ? labels[index - 1] : 0);
+            const northWest = joinLabels(parents, west, hasRowAbove && column > 0 ? labels[index - width - 1] : 0);
+            const north = joinLabels(parents, northWest, hasRowAbove ? labels[index - width] : 0);
+            const label = joinLabels(parents, north, hasRowAbove && column < width - 1 ? labels[index - width + 1] : 0);
+
+            labels[index] = label === 0 ? parents.push(parents.length) - 1 : label;
         }
     }
 
-    return { label, area, minX, maxX, minY, maxY };
+    return parents;
 };
 
 export const labelComponents = (mask: BinaryImageInterface) => {
     const labels = new Int32Array(mask.width * mask.height);
-    const components: ConnectedComponentInterface[] = [];
+    const parents = labelInk(mask, labels);
+    const componentByRoot = new Int32Array(parents.length);
+    const components: { -readonly [Key in keyof ConnectedComponentInterface]: number }[] = [];
 
-    for (let start = 0; start < mask.data.length; start += 1) {
-        if (mask.data[start] === 1 && labels[start] === 0) {
-            components.push(fillComponent(mask, labels, start, components.length + 1));
+    for (let index = 0; index < labels.length; index += 1) {
+        if (labels[index] !== 0) {
+            const root = findRoot(parents, labels[index]);
+            const x = index % mask.width;
+            const y = (index - x) / mask.width;
+
+            if (componentByRoot[root] === 0) {
+                componentByRoot[root] = components.push({ label: components.length + 1, area: 0, minX: x, maxX: x, minY: y, maxY: y });
+            }
+
+            const component = components[componentByRoot[root] - 1];
+
+            component.area += 1;
+            component.minX = x < component.minX ? x : component.minX;
+            component.maxX = x > component.maxX ? x : component.maxX;
+            component.maxY = y;
+            labels[index] = component.label;
         }
     }
 

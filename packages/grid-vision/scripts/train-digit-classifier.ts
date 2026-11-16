@@ -4,7 +4,7 @@ import { createCanvas } from '@napi-rs/canvas';
 import jpeg from 'jpeg-js';
 
 import { CELL_COUNT, DIGIT_COUNT, GLYPH_SIZE } from '../src/constants/grid-vision.constant';
-import { findCloserRegion } from '../src/utils/find-closer-region.util';
+import { findGridBoard } from '../src/utils/find-grid-board.util';
 import { readGridGlyphs } from '../src/utils/read-grid-glyphs.util';
 import { locateKernel, measureLayerOutputSize, runClassifierLayer } from '../src/utils/run-classifier-layer.util';
 
@@ -59,19 +59,19 @@ const collectGlyphs = (set: typeof TRAINING, families: readonly string[]): Glyph
     const glyphs: Float32Array[] = [];
     const labels: number[] = [];
     let droppedCount = 0;
-    const collect = (image: RgbaImageInterface, puzzle: string) => {
-        const board = readGridGlyphs(image);
-        const misplacedCellCount = board?.cells.filter((glyph, cell) => (glyph === null) !== (puzzle[cell] === '.')).length ?? CELL_COUNT;
+    const collect = (image: RgbaImageInterface, puzzle: string): void => {
+        const board = findGridBoard(image, 1)?.board ?? null;
+        const cells = board === null ? [] : readGridGlyphs(image, board);
+        const misplacedCellCount =
+            board === null ? CELL_COUNT : cells.filter((glyph, cell) => (glyph === null) !== (puzzle[cell] === '.')).length;
 
         droppedCount += misplacedCellCount > MAXIMUM_MISPLACED_CELL_COUNT ? 1 : 0;
-        board?.cells.forEach((glyph, cell) => {
+        cells.forEach((glyph, cell) => {
             if (misplacedCellCount <= MAXIMUM_MISPLACED_CELL_COUNT && glyph !== null && puzzle[cell] !== '.') {
                 glyphs.push(glyph.glyph);
                 labels.push(Number(puzzle[cell]) - 1);
             }
         });
-
-        return board;
     };
 
     for (let photo = 0; photo < set.photoCount; photo += 1) {
@@ -107,16 +107,11 @@ const collectGlyphs = (set: typeof TRAINING, families: readonly string[]): Glyph
         const isSmooth = random.chance(SCREENSHOT.smoothChance);
         const quality = random.integer(SCREENSHOT.jpegQuality);
         const overview = readCanvasRegion(source, WHOLE_IMAGE_REGION, isSmooth, quality);
-        const board = collect(overview, digits);
         const closerRegion =
-            board === null
-                ? null
-                : findCloserRegion(
-                      board.corners,
-                      overview,
-                      Math.max(source.width, source.height) / Math.max(overview.width, overview.height)
-                  );
+            findGridBoard(overview, Math.max(source.width, source.height) / Math.max(overview.width, overview.height))?.closerRegion ??
+            null;
 
+        collect(overview, digits);
         if (closerRegion !== null) {
             collect(readCanvasRegion(source, closerRegion, isSmooth, quality), digits);
         }

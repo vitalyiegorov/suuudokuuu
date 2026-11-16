@@ -31,7 +31,7 @@ const renderScene = (seed: number) => {
 const readScene = (source: Canvas, isSmooth: boolean, quality: number) => {
     const overview = readCanvasRegion(source, WHOLE_IMAGE_REGION, isSmooth, quality);
     const located = recognizeGrid(overview, Math.max(source.width, source.height) / Math.max(overview.width, overview.height));
-    const closerRegion = located.kind === GridRecognitionKindEnum.RECOGNIZED ? located.closerRegion : null;
+    const closerRegion = located.kind === GridRecognitionKindEnum.LOCATED ? located.closerRegion : null;
 
     return {
         closerRegion,

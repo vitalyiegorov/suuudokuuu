@@ -2,7 +2,7 @@ import { HANDWRITTEN_CHROMA_DIFFERENCE, HANDWRITTEN_LUMA_DIFFERENCE } from '../c
 import { GridRecognitionKindEnum } from '../enums/grid-recognition-kind.enum';
 
 import { classifyGlyph } from './classify-glyph.util';
-import { findCloserRegion } from './find-closer-region.util';
+import { findGridBoard } from './find-grid-board.util';
 import { readGridGlyphs } from './read-grid-glyphs.util';
 
 import type { RgbaImageInterface } from '../interfaces/rgba-image.interface';
@@ -44,15 +44,20 @@ const findEntryThreshold = (values: readonly number[], minimumDifference: number
 };
 
 export const recognizeGrid = (image: RgbaImageInterface, sourceScale = 1): GridRecognitionType => {
-    const board = readGridGlyphs(image);
+    const found = findGridBoard(image, sourceScale);
 
-    if (board === null) {
+    if (found === null) {
         return { kind: GridRecognitionKindEnum.GRID_NOT_FOUND };
     }
 
-    const probabilities = board.cells.map(ink => (ink === null ? null : Array.from(classifyGlyph(ink.glyph))));
+    if (found.board === null) {
+        return { kind: GridRecognitionKindEnum.LOCATED, closerRegion: found.closerRegion };
+    }
+
+    const cells = readGridGlyphs(image, found.board);
+    const probabilities = cells.map(ink => (ink === null ? null : Array.from(classifyGlyph(ink.glyph))));
     const confidences = probabilities.map(digits => (digits === null ? 1 : Math.max(...digits)));
-    const filled = board.cells.filter(ink => ink !== null);
+    const filled = cells.filter(ink => ink !== null);
     const lumaThreshold = findEntryThreshold(
         filled.map(ink => ink.luma),
         HANDWRITTEN_LUMA_DIFFERENCE
@@ -64,14 +69,11 @@ export const recognizeGrid = (image: RgbaImageInterface, sourceScale = 1): GridR
 
     return {
         kind: GridRecognitionKindEnum.RECOGNIZED,
-        handwritten: board.cells.map(
-            ink => filled.length >= 3 && ink !== null && (ink.luma > lumaThreshold || ink.chroma > chromaThreshold)
-        ),
+        handwritten: cells.map(ink => filled.length >= 3 && ink !== null && (ink.luma > lumaThreshold || ink.chroma > chromaThreshold)),
         puzzleString: probabilities
             .map((digits, cell) => (digits === null ? EMPTY_CELL : (digits.indexOf(confidences[cell]) + 1).toString()))
             .join(''),
         confidences,
-        probabilities,
-        closerRegion: findCloserRegion(board.corners, image, sourceScale)
+        probabilities
     };
 };
