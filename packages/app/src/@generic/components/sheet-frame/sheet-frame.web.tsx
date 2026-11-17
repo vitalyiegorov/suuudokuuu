@@ -74,7 +74,11 @@ export const SheetFrame = ({ accessibilityLabel, children, detents }: Props) => 
         }
 
         const controls = Array.from(event.currentTarget.querySelectorAll<HTMLElement>(focusableSelector)).filter(
-            element => element.tabIndex >= 0 && !element.matches(':disabled,[aria-disabled="true"]') && element.getClientRects().length > 0
+            element =>
+                element.tabIndex >= 0 &&
+                !element.matches(':disabled,[aria-disabled="true"]') &&
+                element.closest('[inert]') === null &&
+                element.getClientRects().length > 0
         );
         const currentIndex = controls.findIndex(element => element === document.activeElement);
         const nextIndex = event.shiftKey ? Math.max(currentIndex, 0) - 1 : currentIndex + 1;

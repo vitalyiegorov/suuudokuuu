@@ -98,7 +98,7 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
             <Animated.Text allowFontScaling={false} style={digitStyles}>
                 {cellText}
             </Animated.Text>
-            {isUncertain ? <View pointerEvents="none" style={uncertaintyStyles} /> : null}
+            {isUncertain && !isSelected ? <View pointerEvents="none" style={uncertaintyStyles} /> : null}
             {isSelected ? <View pointerEvents="none" style={ringStyles} /> : null}
         </Pressable>
     );

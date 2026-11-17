@@ -1,11 +1,12 @@
-import { CELL_SIZE, GRID_SIZE, LINE_BAND, PIXEL_CENTER, WARPED_GRID_SIZE } from '../constants/grid-vision.constant';
+import { LINE_STRIP_LENGTH, CELL_SIZE, GRID_SIZE, LINE_BAND, PIXEL_CENTER, WARPED_GRID_SIZE } from '../constants/grid-vision.constant';
+
+import { measureLineProfile } from './measure-line-profile.util';
 
 import type { BinaryImageInterface } from '../interfaces/binary-image.interface';
 import type { PointInterface } from '../interfaces/point.interface';
 
-const STRIP_LENGTH = WARPED_GRID_SIZE / 3;
-const FIRST_STRIP_CENTER = STRIP_LENGTH / 2;
-const LAST_STRIP_CENTER = WARPED_GRID_SIZE - STRIP_LENGTH / 2;
+const FIRST_STRIP_CENTER = LINE_STRIP_LENGTH / 2;
+const LAST_STRIP_CENTER = WARPED_GRID_SIZE - LINE_STRIP_LENGTH / 2;
 const MINIMUM_VISIBLE_GRID_RATIO = 0.7;
 const MAXIMUM_PITCH = CELL_SIZE / MINIMUM_VISIBLE_GRID_RATIO;
 const MINIMUM_PITCH_RATIO = 0.9;
@@ -14,25 +15,6 @@ const PITCH_STEP = 0.25;
 const BOX_SIZE = 3;
 const BOX_LINE_WEIGHT = 2;
 const GRID_END_SLACK = 15;
-
-const measureStripProfile = (mask: BinaryImageInterface, isVertical: boolean, stripCenter: number): Float32Array => {
-    const profile = new Float32Array(WARPED_GRID_SIZE);
-
-    for (let position = 0; position < WARPED_GRID_SIZE; position += 1) {
-        let runLength = 0;
-
-        for (let along = stripCenter - STRIP_LENGTH / 2; along <= stripCenter + STRIP_LENGTH / 2; along += 1) {
-            const isInk =
-                along < stripCenter + STRIP_LENGTH / 2 &&
-                mask.data[isVertical ? along * WARPED_GRID_SIZE + position : position * WARPED_GRID_SIZE + along] === 1;
-
-            profile[position] += !isInk && runLength >= CELL_SIZE ? runLength : 0;
-            runLength = isInk ? runLength + 1 : 0;
-        }
-    }
-
-    return profile;
-};
 
 const sumLineBand = (profile: Float32Array, center: number, weigh: (position: number) => number): number => {
     let sum = 0;
@@ -64,7 +46,7 @@ const findLineComb = (profile: Float32Array) => {
 };
 
 const fitGridEdges = (mask: BinaryImageInterface, isVertical: boolean, stripCenter: number) => {
-    const profile = measureStripProfile(mask, isVertical, stripCenter);
+    const profile = measureLineProfile(mask, isVertical, stripCenter);
     const comb = findLineComb(profile);
     const lines = Array.from({ length: GRID_SIZE - 1 }, (_, index) => {
         const line = index + 1;
@@ -72,7 +54,7 @@ const fitGridEdges = (mask: BinaryImageInterface, isVertical: boolean, stripCent
         const weight = sumLineBand(profile, center, () => 1);
 
         return { line, weight, position: sumLineBand(profile, center, position => position) / weight };
-    }).filter(({ weight }) => weight >= STRIP_LENGTH);
+    }).filter(({ weight }) => weight >= LINE_STRIP_LENGTH);
     const lineSum = lines.reduce((total, { line }) => total + line, 0);
     const positionSum = lines.reduce((total, { position }) => total + position, 0);
     const spread = lines.reduce((total, { line }) => total + (line * lines.length - lineSum) ** 2, 0);

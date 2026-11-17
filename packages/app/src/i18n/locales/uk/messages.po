@@ -106,8 +106,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# год} few {# год} many {# год} other {# год}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
-msgstr "{keptCount, plural, one {# ваших записів збережено} other {# ваших записів збережено}}"
+msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
+msgstr "{keptCount, plural, one {# запис збережено} few {# записи збережено} many {# записів збережено} other {# запису збережено}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -174,11 +174,7 @@ msgstr "{subsetSize, plural, one {Подивіться на рядок {regionNu
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, one {Подивіться на рядок {regionNumber}: # цифра там може стояти лише в # клітинці.} few {Подивіться на рядок {regionNumber}: # цифри там можуть стояти лише в # клітинках.} many {Подивіться на рядок {regionNumber}: # цифр там можуть стояти лише в # клітинках.} other {Подивіться на рядок {regionNumber}: # цифри там можуть стояти лише в # клітинках.}}"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
-msgstr "{uncertainCellCount, plural, one {# цифра для перевірки. Рукописні цифри зберігаються як ваш прогрес. Торкніться цифри, щоб зробити її друкованою підказкою.} few {# цифри для перевірки. Рукописні цифри зберігаються як ваш прогрес. Торкніться цифри, щоб зробити її друкованою підказкою.} many {# цифр для перевірки. Рукописні цифри зберігаються як ваш прогрес. Торкніться цифри, щоб зробити її друкованою підказкою.} other {# цифри для перевірки. Рукописні цифри зберігаються як ваш прогрес. Торкніться цифри, щоб зробити її друкованою підказкою.}}"
-
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, one {# цифра для перевірки} few {# цифри для перевірки} many {# цифр для перевірки} other {# цифри для перевірки}}"
 
@@ -543,6 +539,10 @@ msgstr "Виклик виграно!"
 msgid "Challenges"
 msgstr "Виклики"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Check"
+msgstr "Перевірити"
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "Поглянь на це судоку!"
@@ -588,7 +588,7 @@ msgstr "Чиста чорно-біла дошка"
 msgid "Clean win"
 msgstr "Чиста перемога"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Clear"
 msgstr "Очистити"
 
@@ -604,6 +604,11 @@ msgstr "Закрити"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "Закрити підказку"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Clue"
+msgstr "Підказка"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -667,9 +672,9 @@ msgstr "Продовж це судоку саме там, де я зупинив
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "Суперечність, отже {cell} — не {value}."
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
-msgstr "Сітку судоку не знайдено. Сфотографуйте ближче й рівніше."
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Couldn't find a sudoku grid"
+msgstr "Сітку судоку не знайдено"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -995,10 +1000,6 @@ msgstr "h"
 msgid "handwritten"
 msgstr "від руки"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
-msgstr "Рукописні цифри зберігаються як ваш прогрес. Торкніться цифри, щоб зробити її друкованою підказкою."
-
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
@@ -1129,9 +1130,10 @@ msgid "Import"
 msgstr "Імпортувати"
 
 #: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Import a puzzle"
-msgstr "Імпортувати головоломку"
+msgstr "Імпорт головоломки"
 
 #: src/settings/component/settings-backup-section/settings-backup-section.tsx
 msgid "Import backup"
@@ -1345,14 +1347,6 @@ msgstr "Низька контрастність"
 msgid "m"
 msgstr "m"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make my entry"
-msgstr "Зробити моїм записом"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make printed clue"
-msgstr "Зробити друкованою підказкою"
-
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "Відповідати системному налаштуванню зменшення руху"
@@ -1404,6 +1398,11 @@ msgstr "Хід"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "Перемістити панель керування в альбомному режимі ліворуч від дошки"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "My entry"
+msgstr "Мій запис"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1479,6 +1478,10 @@ msgstr "Примусовий ланцюг Нішіо"
 msgid "no bonus"
 msgstr "без бонусу"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No clues yet"
+msgstr "Підказок ще немає"
+
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "Повну збірку для розробки ще не опубліковано. Перевірте пізніше."
@@ -1507,7 +1510,7 @@ msgstr "Попри штрафи, ти завжди отримуєш щонайм
 msgid "no pause"
 msgstr "без паузи"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No puzzle found on the clipboard"
 msgstr "У буфері обміну немає головоломки"
 
@@ -1678,7 +1681,7 @@ msgstr "Поставте {valueList} у позначену клітинку."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-dock/import-dock.tsx
 msgid "Play"
 msgstr "Грати"
 
@@ -1787,7 +1790,7 @@ msgstr "Текст піднятої поверхні"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Ознайомтеся з політикою конфіденційності Suuudokuuu: збір і зберігання даних та ваші права."
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Reading the puzzle…"
 msgstr "Зчитуємо головоломку…"
 
@@ -2005,6 +2008,10 @@ msgstr "Вибрана клітинка"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected cell text"
 msgstr "Текст вибраної клітинки"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Selected digit"
+msgstr "Вибрана цифра"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -2275,9 +2282,13 @@ msgstr "Грайте не поспішаючи"
 msgid "Taller marks = sharper techniques"
 msgstr "Вищі позначки = складніші техніки"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Tap a cell to change it"
+msgstr "Торкніться клітинки, щоб змінити"
+
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Tap a cell to type it"
-msgstr "Торкніться клітинки для введення"
+msgid "Tap a cell, then a digit"
+msgstr "Торкніться клітинки, потім цифри"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
@@ -2459,6 +2470,10 @@ msgstr "Забагато помилок"
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Стежте за розв’язаними судоку, найкращим часом і балами на всіх рівнях складності."
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Try a closer, straighter photo"
+msgstr "Сфотографуйте ближче й рівніше"
+
 #: src/@generic/components/boot-failure/boot-failure.tsx
 #: src/@generic/components/boot-failure/boot-failure.web.tsx
 #: src/screens/components/beta-screen/components/beta-error-status/beta-error-status.tsx
@@ -2475,7 +2490,7 @@ msgstr "Спробуйте по черзі кожну підсвічену мо�
 
 #: src/screens/components/import-screen/import-sources/import-sources.tsx
 msgid "Type it in"
-msgstr "Ввести вручну"
+msgstr "Вручну"
 
 #: src/@generic/components/ukraine-support-card/ukraine-support-card.tsx
 msgid "Ukraine keeps fighting"

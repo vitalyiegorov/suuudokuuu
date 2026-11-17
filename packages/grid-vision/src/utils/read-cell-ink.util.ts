@@ -3,6 +3,7 @@ import {
     CELL_SIZE,
     GREEN_LUMA_WEIGHT,
     GRID_SIZE,
+    MAXIMUM_GRAY,
     PIXEL_CENTER,
     RED_LUMA_WEIGHT,
     RGBA_CHANNEL_COUNT,
@@ -10,7 +11,6 @@ import {
 } from '../constants/grid-vision.constant';
 
 import { extractCellGlyph } from './extract-cell-glyph.util';
-import { projectPoint } from './project-point.util';
 
 import type { RgbaImageInterface } from '../interfaces/rgba-image.interface';
 import type { WarpedBoardInterface } from '../interfaces/warped-board.interface';
@@ -18,41 +18,60 @@ import type { WarpedBoardInterface } from '../interfaces/warped-board.interface'
 const CORE_INK_RATIO = 0.5;
 const BACKGROUND_INSET = 10;
 
-const readSourcePixel = (image: RgbaImageInterface, homography: Float64Array, x: number, y: number) => {
-    const source = projectPoint(homography, x + PIXEL_CENTER, y + PIXEL_CENTER);
-    const sourceX = Math.min(image.width - 1, Math.max(0, Math.floor(source.x)));
-    const sourceY = Math.min(image.height - 1, Math.max(0, Math.floor(source.y)));
-    const offset = (sourceY * image.width + sourceX) * RGBA_CHANNEL_COUNT;
-    const red = image.data[offset];
-    const green = image.data[offset + 1];
-    const blue = image.data[offset + 2];
+const locateSourcePixel = (image: RgbaImageInterface, homography: Float64Array, x: number, y: number): number => {
+    const warpedX = x + PIXEL_CENTER;
+    const warpedY = y + PIXEL_CENTER;
+    const depth = homography[6] * warpedX + homography[7] * warpedY + homography[8];
+    const sourceX = Math.floor((homography[0] * warpedX + homography[1] * warpedY + homography[2]) / depth);
+    const sourceY = Math.floor((homography[3] * warpedX + homography[4] * warpedY + homography[5]) / depth);
 
-    return {
-        luma: RED_LUMA_WEIGHT * red + GREEN_LUMA_WEIGHT * green + BLUE_LUMA_WEIGHT * blue,
-        chroma: Math.max(red, green, blue) - Math.min(red, green, blue)
-    };
+    return (
+        (Math.min(image.height - 1, Math.max(0, sourceY)) * image.width + Math.min(image.width - 1, Math.max(0, sourceX))) *
+        RGBA_CHANNEL_COUNT
+    );
 };
+
+const readChroma = ({ data }: RgbaImageInterface, offset: number): number =>
+    Math.max(data[offset], data[offset + 1], data[offset + 2]) - Math.min(data[offset], data[offset + 1], data[offset + 2]);
 
 const measureBackgroundChroma = (image: RgbaImageInterface, board: WarpedBoardInterface, cell: number): number => {
     const originX = (cell % GRID_SIZE) * CELL_SIZE + BACKGROUND_INSET;
     const originY = Math.floor(cell / GRID_SIZE) * CELL_SIZE + BACKGROUND_INSET;
-    const chromas: number[] = [];
+    const pixelCountByChroma = new Uint16Array(MAXIMUM_GRAY + 1);
+    let pixelCount = 0;
 
     for (let y = originY; y < originY + CELL_SIZE - 2 * BACKGROUND_INSET; y += 1) {
         for (let x = originX; x < originX + CELL_SIZE - 2 * BACKGROUND_INSET; x += 1) {
             if (board.mask.data[y * WARPED_GRID_SIZE + x] === 0) {
-                chromas.push(readSourcePixel(image, board.homography, x, y).chroma);
+                pixelCountByChroma[readChroma(image, locateSourcePixel(image, board.homography, x, y))] += 1;
+                pixelCount += 1;
             }
         }
     }
 
-    return chromas.sort((first, second) => first - second)[Math.floor(chromas.length / 2)] ?? 0;
+    let median = 0;
+    let countedPixelCount = 0;
+
+    for (let chroma = 0; chroma <= MAXIMUM_GRAY && countedPixelCount <= pixelCount / 2; chroma += 1) {
+        countedPixelCount += pixelCountByChroma[chroma];
+        median = chroma;
+    }
+
+    return pixelCount === 0 ? 0 : median;
 };
 
 export const readCellInk = (image: RgbaImageInterface, board: WarpedBoardInterface, cell: number) => {
-    const pixels: ReturnType<typeof readSourcePixel>[] = [];
-    const extracted = extractCellGlyph(board.mask, Math.floor(cell / GRID_SIZE), cell % GRID_SIZE, (x, y) => {
-        pixels.push(readSourcePixel(image, board.homography, x, y));
+    const pixels: { luma: number; chroma: number }[] = [];
+    const extracted = extractCellGlyph(board, Math.floor(cell / GRID_SIZE), cell % GRID_SIZE, (x, y) => {
+        const offset = locateSourcePixel(image, board.homography, x, y);
+
+        pixels.push({
+            luma:
+                RED_LUMA_WEIGHT * image.data[offset] +
+                GREEN_LUMA_WEIGHT * image.data[offset + 1] +
+                BLUE_LUMA_WEIGHT * image.data[offset + 2],
+            chroma: readChroma(image, offset)
+        });
     });
 
     if (extracted === null) {
@@ -66,10 +85,7 @@ export const readCellInk = (image: RgbaImageInterface, board: WarpedBoardInterfa
     return {
         ...extracted,
         luma: core.reduce((total, pixel) => total + pixel.luma, 0) / core.length,
-        chroma: Math.max(
-            0,
-            core.reduce((total, pixel) => total + pixel.chroma, 0) / core.length -
-                (board.isDarkInk ? 0 : measureBackgroundChroma(image, board, cell))
-        )
+        chroma: core.reduce((total, pixel) => total + pixel.chroma, 0) / core.length,
+        backgroundChroma: measureBackgroundChroma(image, board, cell)
     };
 };

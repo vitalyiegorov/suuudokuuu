@@ -1,36 +1,47 @@
-import { recognizeGrid } from '@suuudokuuu/grid-vision';
+import { GridRecognitionKindEnum, recognizeGrid } from '@suuudokuuu/grid-vision';
+import { repairRecognizedPuzzle } from '@suuudokuuu/puzzle-forge';
 import * as Effect from 'effect/Effect';
-import { File } from 'expo-file-system';
-import { ImageManipulator, SaveFormat } from 'expo-image-manipulator';
-import { decode } from 'jpeg-js';
 
 import { LoaderPaintDelayMillisecondsConstant } from '../../../../game/constant/loader-paint-delay.constant';
 
-import type { GridRecognitionType } from '@suuudokuuu/grid-vision';
+import { importScreenOpenImage } from './import-screen-open-image.util';
 
-const MaxImageSide = 768;
+import type { GridRegionInterface } from '@suuudokuuu/grid-vision';
 
-export const importScreenReadGrid: (uri: string) => Effect.Effect<GridRecognitionType> = Effect.fn('importScreenReadGrid')(
+const MaxReadSide = 768;
+const UncertainConfidence = 0.9;
+const WholeImageRegion = { x: 0, y: 0, width: 1, height: 1 };
+
+const readRegion = (source: Effect.Success<ReturnType<typeof importScreenOpenImage>>, region: GridRegionInterface) => {
+    const originX = Math.min(source.width - 1, Math.floor(region.x * source.width));
+    const originY = Math.min(source.height - 1, Math.floor(region.y * source.height));
+    const width = Math.max(1, Math.min(source.width - originX, Math.ceil(region.width * source.width)));
+    const height = Math.max(1, Math.min(source.height - originY, Math.ceil(region.height * source.height)));
+
+    return source.read({ originX, originY, width, height }, Math.min(1, MaxReadSide / Math.max(width, height)));
+};
+
+export const importScreenReadGrid = Effect.fn('importScreenReadGrid')(
     function* (uri: string) {
-        yield* Effect.addFinalizer(() => Effect.ignore(Effect.try(() => void new File(uri).delete())));
+        const source = yield* importScreenOpenImage(uri);
+
         yield* Effect.sleep(LoaderPaintDelayMillisecondsConstant);
 
-        const context = yield* Effect.acquireRelease(
-            Effect.sync(() => ImageManipulator.manipulate(uri, { maxWidth: MaxImageSide, maxHeight: MaxImageSide })),
-            resource => Effect.sync(() => void resource.release())
-        );
-        const image = yield* Effect.acquireRelease(
-            Effect.tryPromise(() => context.renderAsync()),
-            resource => Effect.sync(() => void resource.release())
-        );
-        const saved = yield* Effect.acquireRelease(
-            Effect.tryPromise(() => image.saveAsync({ base64: true, format: SaveFormat.JPEG })),
-            resource => Effect.sync(() => void new File(resource.uri).delete())
-        );
-        const bytes = Uint8Array.from(atob(saved.base64 ?? ''), character => character.charCodeAt(0));
-        const { width, height, data } = decode(bytes, { useTArray: true, formatAsRGBA: true });
+        const overview = yield* readRegion(source, WholeImageRegion);
+        const located = recognizeGrid(overview, Math.max(source.width, source.height) / Math.max(overview.width, overview.height));
+        const closer =
+            located.kind === GridRecognitionKindEnum.LOCATED
+                ? yield* readRegion(source, located.closerRegion).pipe(
+                      Effect.map(recognizeGrid),
+                      Effect.orElseSucceed(() => located)
+                  )
+                : located;
+        const recognized =
+            located.kind === GridRecognitionKindEnum.LOCATED && closer.kind !== GridRecognitionKindEnum.RECOGNIZED
+                ? recognizeGrid(overview)
+                : closer;
 
-        return recognizeGrid({ width, height, data: new Uint8ClampedArray(data) });
+        return recognized.kind === GridRecognitionKindEnum.RECOGNIZED ? repairRecognizedPuzzle(recognized, UncertainConfidence) : null;
     },
     Effect.scoped,
     Effect.orDie

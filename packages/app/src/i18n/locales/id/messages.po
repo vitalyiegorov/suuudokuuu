@@ -104,8 +104,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# jam} other {# jam}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
-msgstr "{keptCount, plural, one {# isian Anda disimpan} other {# isian Anda disimpan}}"
+msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
+msgstr "{keptCount, plural, one {# isian disimpan} other {# isian disimpan}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -172,11 +172,7 @@ msgstr "{subsetSize, plural, other {Lihat baris {regionNumber}: # sel di sana ha
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, other {Lihat baris {regionNumber}: # angka di sana hanya muat di # sel.}}"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
-msgstr "{uncertainCellCount, plural, other {# angka perlu diperiksa. Angka tulisan tangan disimpan sebagai progresmu. Ketuk salah satunya untuk menjadikannya petunjuk tercetak.}}"
-
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, other {# angka perlu diperiksa}}"
 
@@ -541,6 +537,10 @@ msgstr "Tantangan menang!"
 msgid "Challenges"
 msgstr "Tantangan"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Check"
+msgstr "Periksa"
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "Coba sudoku ini!"
@@ -586,7 +586,7 @@ msgstr "Papan hitam-putih yang bersih"
 msgid "Clean win"
 msgstr "Kemenangan bersih"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Clear"
 msgstr "Hapus"
 
@@ -602,6 +602,11 @@ msgstr "Tutup"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "Tutup petunjuk"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Clue"
+msgstr "Petunjuk"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -665,9 +670,9 @@ msgstr "Lanjutkan Sudoku ini tepat di tempat aku berhenti!"
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "Kontradiksi, jadi {cell} bukan {value}."
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
-msgstr "Kisi sudoku tidak ditemukan. Ambil foto lebih dekat dan lurus."
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Couldn't find a sudoku grid"
+msgstr "Kisi sudoku tidak ditemukan"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -993,10 +998,6 @@ msgstr "h"
 msgid "handwritten"
 msgstr "tulisan tangan"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
-msgstr "Angka tulisan tangan disimpan sebagai progresmu. Ketuk salah satunya untuk menjadikannya petunjuk tercetak."
-
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
@@ -1127,6 +1128,7 @@ msgid "Import"
 msgstr "Impor"
 
 #: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Import a puzzle"
 msgstr "Impor teka-teki"
@@ -1343,14 +1345,6 @@ msgstr "Kontras rendah"
 msgid "m"
 msgstr "m"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make my entry"
-msgstr "Jadikan isian saya"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make printed clue"
-msgstr "Jadikan petunjuk tercetak"
-
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "Ikuti pengaturan pengurangan gerak di perangkatmu"
@@ -1402,6 +1396,11 @@ msgstr "Langkah"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "Pindahkan panel kontrol lanskap ke sebelah kiri papan"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "My entry"
+msgstr "Isian saya"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1477,6 +1476,10 @@ msgstr "Rantai Paksa Nishio"
 msgid "no bonus"
 msgstr "tanpa bonus"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No clues yet"
+msgstr "Belum ada petunjuk"
+
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "Belum ada build pengembangan lengkap yang diterbitkan. Silakan periksa lagi nanti."
@@ -1505,7 +1508,7 @@ msgstr "Berapa pun penaltinya, kamu selalu mendapat setidaknya"
 msgid "no pause"
 msgstr "tanpa jeda"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No puzzle found on the clipboard"
 msgstr "Tidak ada teka-teki di papan klip"
 
@@ -1676,7 +1679,7 @@ msgstr "Tempatkan {valueList} di sel yang ditandai."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-dock/import-dock.tsx
 msgid "Play"
 msgstr "Main"
 
@@ -1785,7 +1788,7 @@ msgstr "Teks permukaan terangkat"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Baca kebijakan privasi Suuudokuuu tentang pengumpulan data, penyimpanan, dan hakmu."
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Reading the puzzle…"
 msgstr "Membaca sudoku…"
 
@@ -2003,6 +2006,10 @@ msgstr "Sel terpilih"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected cell text"
 msgstr "Teks sel terpilih"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Selected digit"
+msgstr "Angka terpilih"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -2273,9 +2280,13 @@ msgstr "Santai saja"
 msgid "Taller marks = sharper techniques"
 msgstr "Tanda lebih tinggi = teknik lebih tajam"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Tap a cell to change it"
+msgstr "Ketuk sel untuk mengubahnya"
+
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Tap a cell to type it"
-msgstr "Ketuk sel untuk mengetik"
+msgid "Tap a cell, then a digit"
+msgstr "Ketuk sel, lalu angka"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
@@ -2456,6 +2467,10 @@ msgstr "Terlalu banyak kesalahan"
 #: src/app/(tabs)/history.tsx
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Pantau sudoku yang sudah kamu selesaikan, waktu terbaik, dan skor di semua tingkat kesulitan."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Try a closer, straighter photo"
+msgstr "Ambil foto lebih dekat dan lurus"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
 #: src/@generic/components/boot-failure/boot-failure.web.tsx

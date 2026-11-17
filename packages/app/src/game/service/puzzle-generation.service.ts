@@ -46,6 +46,9 @@ export class PuzzleGenerationService extends Context.Service<PuzzleGenerationSer
             (error: unknown) =>
                 Effect.logWarning('puzzle-worker-fallback', error).pipe(Effect.andThen(Effect.try(job)));
 
+        const runOnWorkerWhenAvailable = <A>(spanName: string, job: (runtime: WorkletRuntime) => Promise<A>, jsThreadJob: () => A) =>
+            workerRuntime.pipe(Effect.matchEffect({ onFailure: runOnJsThread(jsThreadJob), onSuccess: () => runOnWorker(spanName, job) }));
+
         return {
             warm: Effect.asVoid(workerRuntime),
             generate: (difficulty: DifficultyEnum, seed?: number) =>
@@ -53,12 +56,10 @@ export class PuzzleGenerationService extends Context.Service<PuzzleGenerationSer
                     Effect.catch(runOnJsThread(() => forgeSerializablePuzzle(difficulty, seed)))
                 ),
             assess: (puzzleString: string) =>
-                workerRuntime.pipe(
-                    Effect.matchEffect({
-                        onFailure: runOnJsThread(() => assessImportedPuzzle(puzzleString)),
-                        onSuccess: () =>
-                            runOnWorker('puzzle-generation.assess', runtime => runOnRuntimeAsync(runtime, assessOnWorker, puzzleString))
-                    })
+                runOnWorkerWhenAvailable(
+                    'puzzle-generation.assess',
+                    runtime => runOnRuntimeAsync(runtime, assessOnWorker, puzzleString),
+                    () => assessImportedPuzzle(puzzleString)
                 )
         };
     })

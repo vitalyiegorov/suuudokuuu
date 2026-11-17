@@ -1,18 +1,31 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const ImportCellPadStyles = StyleSheet.create(theme => ({
+import { ImportCompactFrameHeightConstant } from '../constants/import-compact-frame-height.constant';
+import { ImportCompactPressHeightConstant } from '../constants/import-compact-press-height.constant';
+import { ImportRegularPressHeightConstant } from '../constants/import-regular-press-height.constant';
+
+export const ImportCellPadStyles = StyleSheet.create((theme, rt) => ({
     label: { textAlign: 'center', color: theme.colors.surface.subtleText, fontSize: theme.typography.size.md, fontWeight: '700' },
-    wrapper: { width: '100%', gap: theme.spacing.sm },
     button: {
-        flexBasis: '17%',
+        flexBasis: 0,
         flexGrow: 1,
-        minWidth: 44,
-        paddingHorizontal: 0
+        height: rt.screen.height < ImportCompactFrameHeightConstant ? ImportCompactPressHeightConstant : ImportRegularPressHeightConstant,
+        paddingVertical: theme.spacing.xs,
+        paddingHorizontal: theme.spacing.xs,
+        justifyContent: 'center'
     },
-    pad: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: theme.spacing.sm,
-        width: '100%'
-    }
+    surface: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        borderRadius: theme.radius.pill,
+        borderWidth: 1,
+        borderColor: theme.colors.surface.border,
+        backgroundColor: theme.colors.surface.subtle
+    },
+    firstButton: { paddingStart: 0 },
+    lastButton: { paddingEnd: 0 },
+    row: { flexDirection: 'row', width: '100%' },
+    pressed: { opacity: 0.85 },
+    pad: { width: '100%' }
 }));

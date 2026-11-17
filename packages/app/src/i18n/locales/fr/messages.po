@@ -106,8 +106,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# h} other {# h}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
-msgstr "{keptCount, plural, one {# de vos chiffres conservés} other {# de vos chiffres conservés}}"
+msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
+msgstr "{keptCount, plural, one {# chiffre conservé} other {# chiffres conservés}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -174,11 +174,7 @@ msgstr "{subsetSize, plural, one {Regardez ligne {regionNumber} : # case ne peu
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, one {Regardez ligne {regionNumber} : # chiffre ne tient que dans # case.} other {Regardez ligne {regionNumber} : # chiffres ne tiennent que dans # cases.}}"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
-msgstr "{uncertainCellCount, plural, one {# chiffre à vérifier. Les chiffres manuscrits sont conservés comme votre progression. Touchez-en un pour en faire un indice imprimé.} other {# chiffres à vérifier. Les chiffres manuscrits sont conservés comme votre progression. Touchez-en un pour en faire un indice imprimé.}}"
-
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, one {# chiffre à vérifier} other {# chiffres à vérifier}}"
 
@@ -543,6 +539,10 @@ msgstr "Défi gagné !"
 msgid "Challenges"
 msgstr "Défis"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Check"
+msgstr "À vérifier"
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "Découvrez cette grille de sudoku !"
@@ -588,7 +588,7 @@ msgstr "Grille noir et blanc nette"
 msgid "Clean win"
 msgstr "Victoire nette"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Clear"
 msgstr "Effacer"
 
@@ -604,6 +604,11 @@ msgstr "Fermer"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "Fermer l’indice"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Clue"
+msgstr "Indice"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -667,9 +672,9 @@ msgstr "Continuez ce sudoku exactement là où je me suis arrêté !"
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "Contradiction : {cell} n’est donc pas {value}."
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
-msgstr "Aucune grille trouvée. Prenez une photo plus proche et plus droite."
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Couldn't find a sudoku grid"
+msgstr "Aucune grille trouvée"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -995,10 +1000,6 @@ msgstr "h"
 msgid "handwritten"
 msgstr "manuscrit"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
-msgstr "Les chiffres manuscrits sont conservés comme votre progression. Touchez-en un pour en faire un indice imprimé."
-
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
@@ -1129,6 +1130,7 @@ msgid "Import"
 msgstr "Importer"
 
 #: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Import a puzzle"
 msgstr "Importer une grille"
@@ -1345,14 +1347,6 @@ msgstr "Faible contraste"
 msgid "m"
 msgstr "m"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make my entry"
-msgstr "En faire ma saisie"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make printed clue"
-msgstr "En faire un indice imprimé"
-
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "Suivre le réglage de réduction des animations de votre appareil"
@@ -1404,6 +1398,11 @@ msgstr "Coup"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "Placer le panneau de commandes en mode paysage à gauche de la grille"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "My entry"
+msgstr "Ma saisie"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1479,6 +1478,10 @@ msgstr "Chaîne forcée Nishio"
 msgid "no bonus"
 msgstr "pas de bonus"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No clues yet"
+msgstr "Aucun indice pour l’instant"
+
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "Aucune version de développement complète n’a encore été publiée. Revenez plus tard."
@@ -1507,7 +1510,7 @@ msgstr "Même avec des pénalités, vous gagnez toujours au moins"
 msgid "no pause"
 msgstr "sans pause"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No puzzle found on the clipboard"
 msgstr "Aucune grille dans le presse-papiers"
 
@@ -1678,7 +1681,7 @@ msgstr "Placez {valueList} dans la case marquée."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-dock/import-dock.tsx
 msgid "Play"
 msgstr "Jouer"
 
@@ -1787,7 +1790,7 @@ msgstr "Texte de la surface surélevée"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "Consultez la politique de confidentialité de Suuudokuuu : collecte des données, stockage et vos droits."
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Reading the puzzle…"
 msgstr "Lecture de la grille…"
 
@@ -2005,6 +2008,10 @@ msgstr "Cellule sélectionnée"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected cell text"
 msgstr "Texte de la cellule sélectionnée"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Selected digit"
+msgstr "Chiffre sélectionné"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -2275,9 +2282,13 @@ msgstr "Prenez votre temps"
 msgid "Taller marks = sharper techniques"
 msgstr "Plus les marques sont hautes, plus les techniques sont pointues"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Tap a cell to change it"
+msgstr "Touchez une case pour la modifier"
+
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Tap a cell to type it"
-msgstr "Touchez une case pour saisir"
+msgid "Tap a cell, then a digit"
+msgstr "Touchez une case, puis un chiffre"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
@@ -2458,6 +2469,10 @@ msgstr "Trop d’erreurs"
 #: src/app/(tabs)/history.tsx
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "Suivez vos grilles de sudoku résolues, vos meilleurs temps et vos scores dans tous les niveaux de difficulté."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Try a closer, straighter photo"
+msgstr "Prenez une photo plus proche et plus droite"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
 #: src/@generic/components/boot-failure/boot-failure.web.tsx

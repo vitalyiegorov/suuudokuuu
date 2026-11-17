@@ -104,8 +104,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, zero {# ساعة} one {# ساعة} two {# ساعتان} few {# ساعات} many {# ساعة} other {# ساعة}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
-msgstr "{keptCount, plural, one {تم الاحتفاظ بـ # من إدخالاتك} other {تم الاحتفاظ بـ # من إدخالاتك}}"
+msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
+msgstr "{keptCount, plural, one {تم حفظ # إدخال} other {تم حفظ # إدخالات}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -172,11 +172,7 @@ msgstr "{subsetSize, plural, zero {انظر إلى الصف {regionNumber}: لا
 msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fit in only # cells.}}"
 msgstr "{subsetSize, plural, zero {انظر إلى الصف {regionNumber}: لا توجد أرقام هناك تناسب خلايا محددة (#).} one {انظر إلى الصف {regionNumber}: رقم واحد هناك لا يناسب إلا خلية واحدة.} two {انظر إلى الصف {regionNumber}: رقمان هناك لا يناسبان إلا خليتين.} few {انظر إلى الصف {regionNumber}: # أرقام هناك لا تناسب إلا # خلايا.} many {انظر إلى الصف {regionNumber}: # رقمًا هناك لا تناسب إلا # خلية.} other {انظر إلى الصف {regionNumber}: # رقم هناك لا تناسب إلا # خلية.}}"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.} other {# digits to check. Handwritten digits are kept as your progress. Tap one to make it a printed clue.}}"
-msgstr "{uncertainCellCount, plural, zero {# أرقام للتحقق. تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا.} one {# رقم للتحقق. تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا.} two {# رقمان للتحقق. تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا.} few {# أرقام للتحقق. تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا.} many {# رقمًا للتحقق. تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا.} other {# رقم للتحقق. تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا.}}"
-
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
 msgstr "{uncertainCellCount, plural, zero {# أرقام للتحقق} one {# رقم للتحقق} two {# رقمان للتحقق} few {# أرقام للتحقق} many {# رقمًا للتحقق} other {# رقم للتحقق}}"
 
@@ -541,6 +537,10 @@ msgstr "فزت بالتحدي!"
 msgid "Challenges"
 msgstr "التحديات"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Check"
+msgstr "للتحقق"
+
 #: src/game/hooks/use-share-game-state/use-share-game-state.hook.ts
 msgid "Check out this Sudoku puzzle!"
 msgstr "جرّب لغز السودوكو هذا!"
@@ -586,7 +586,7 @@ msgstr "لوحة نظيفة بالأبيض والأسود"
 msgid "Clean win"
 msgstr "فوز نظيف"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Clear"
 msgstr "مسح"
 
@@ -602,6 +602,11 @@ msgstr "إغلاق"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "إغلاق التلميح"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Clue"
+msgstr "دليل"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -665,9 +670,9 @@ msgstr "أكمل هذا السودوكو من حيث توقفت تمامًا!"
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "تناقض، لذا {cell} ليس {value}."
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Couldn't find a sudoku grid. Try a closer, straighter photo."
-msgstr "لم نعثر على شبكة سودوكو. التقط صورة أقرب وأكثر استقامة."
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Couldn't find a sudoku grid"
+msgstr "لم نعثر على شبكة سودوكو"
 
 #: src/screens/components/themes-screen/themes.screen.tsx
 msgid "Create theme"
@@ -993,10 +998,6 @@ msgstr "h"
 msgid "handwritten"
 msgstr "مكتوب بخط اليد"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Handwritten digits are kept as your progress. Tap one to make it a printed clue."
-msgstr "تُحفظ الأرقام المكتوبة بخط اليد كتقدمك في الحل. انقر على أحدها لجعله رقمًا مطبوعًا."
-
 #: src/@generic/utils/get-difficulty-message.util.ts
 #: src/scoring/components/scoring.screen.tsx
 msgid "Hard"
@@ -1127,6 +1128,7 @@ msgid "Import"
 msgstr "استيراد"
 
 #: src/screens/components/home-screen/home-screen-play-actions/home-screen-play-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 #: src/screens/components/import-screen/import.screen.tsx
 msgid "Import a puzzle"
 msgstr "استيراد لغز"
@@ -1343,14 +1345,6 @@ msgstr "تباين منخفض"
 msgid "m"
 msgstr "m"
 
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make my entry"
-msgstr "اجعله إدخالي"
-
-#: src/screens/components/import-screen/import.screen.tsx
-msgid "Make printed clue"
-msgstr "اجعله رقمًا مطبوعًا"
-
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Match the reduce motion setting of your device"
 msgstr "المطابقة مع إعداد تقليل الحركة في جهازك"
@@ -1402,6 +1396,11 @@ msgstr "النقلة"
 #: src/screens/components/settings-screen/settings.screen.tsx
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "انقل لوحة التحكم في الوضع الأفقي إلى يسار اللوحة"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "My entry"
+msgstr "إدخالي"
 
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
@@ -1477,6 +1476,10 @@ msgstr "سلسلة إجبار نيشيو"
 msgid "no bonus"
 msgstr "لا مكافأة"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "No clues yet"
+msgstr "لا توجد أدلة بعد"
+
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
 msgstr "لم يُنشر أي إصدار تطوير مكتمل بعد. يُرجى التحقق مرة أخرى لاحقًا."
@@ -1505,7 +1508,7 @@ msgstr "مهما بلغت العقوبات، ستحصل دائمًا على ال
 msgid "no pause"
 msgstr "بلا إيقاف"
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "No puzzle found on the clipboard"
 msgstr "لا يوجد لغز في الحافظة"
 
@@ -1676,7 +1679,7 @@ msgstr "ضع {valueList} في الخلية المميَّزة."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-dock/import-dock.tsx
 msgid "Play"
 msgstr "العب"
 
@@ -1785,7 +1788,7 @@ msgstr "نص السطح المرتفع"
 msgid "Read the Suuudokuuu privacy policy covering data collection, storage, and your rights."
 msgstr "اطّلع على سياسة خصوصية Suuudokuuu بشأن جمع البيانات وتخزينها وحقوقك."
 
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Reading the puzzle…"
 msgstr "جارٍ قراءة السودوكو…"
 
@@ -2003,6 +2006,10 @@ msgstr "الخلية المحددة"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Selected cell text"
 msgstr "نص الخلية المحددة"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+msgid "Selected digit"
+msgstr "الرقم المحدد"
 
 #: src/game/hooks/use-share-game.hook.ts
 msgid "Send the puzzle to solve from scratch, or hand off your run to continue elsewhere."
@@ -2273,9 +2280,13 @@ msgstr "خذ وقتك"
 msgid "Taller marks = sharper techniques"
 msgstr "كلما ارتفعت العلامة زادت براعة التقنية"
 
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Tap a cell to change it"
+msgstr "اضغط على خلية لتغييرها"
+
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Tap a cell to type it"
-msgstr "اضغط على خلية للكتابة"
+msgid "Tap a cell, then a digit"
+msgstr "اضغط على خلية، ثم على رقم"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
@@ -2456,6 +2467,10 @@ msgstr "أخطاء كثيرة جدًا"
 #: src/app/(tabs)/history.tsx
 msgid "Track your solved Sudoku puzzles, best times, and scores across every difficulty."
 msgstr "تابع ألغاز السودوكو التي حللتها وأفضل أوقاتك ونقاطك في كل مستويات الصعوبة."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Try a closer, straighter photo"
+msgstr "التقط صورة أقرب وأكثر استقامة"
 
 #: src/@generic/components/boot-failure/boot-failure.tsx
 #: src/@generic/components/boot-failure/boot-failure.web.tsx
