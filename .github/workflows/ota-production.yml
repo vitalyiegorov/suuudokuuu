@@ -73,7 +73,7 @@ jobs:
 
             - name: Resolve the runtime versions
               id: runtime
-              uses: rnw-community/mobile-ci/actions/ota-runtime-version@06f8823814334b602aecc5353d9e86e576717f86 # v4.14.0
+              uses: rnw-community/mobile-ci/actions/ota-runtime-version@d5fdd5f7dc5e4cb6b352f310a2fa494638a9795f # v4.16.0
               with:
                   app-dir: packages/app
                   eas-profile: production
@@ -118,7 +118,7 @@ jobs:
 
             - name: Publish the EAS update
               if: ${{ !inputs.dry_run }}
-              uses: rnw-community/mobile-ci/actions/eas-update@06f8823814334b602aecc5353d9e86e576717f86 # v4.14.0
+              uses: rnw-community/mobile-ci/actions/eas-update@d5fdd5f7dc5e4cb6b352f310a2fa494638a9795f # v4.16.0
               with:
                   app-dir: packages/app
                   channel: production

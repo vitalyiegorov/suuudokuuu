@@ -34,11 +34,11 @@ The fleet's artifact store scopes artifacts to one run attempt, so "Re-run faile
 
 ## Running
 
-Use the mobile-ci tag pinned in `.github/workflows/mobile-e2e.yml` (`v4.14.0` below):
+Use the mobile-ci tag pinned in `.github/workflows/mobile-e2e.yml` (`v4.16.0` below):
 
 ```bash
 cd e2e && npm ci
-curl -fsSLO https://raw.githubusercontent.com/rnw-community/mobile-ci/v4.14.0/scripts/fetch-e2e-simlock.sh && bash fetch-e2e-simlock.sh v4.14.0 . && rm fetch-e2e-simlock.sh
+curl -fsSLO https://raw.githubusercontent.com/rnw-community/mobile-ci/v4.16.0/scripts/fetch-e2e-simlock.sh && bash fetch-e2e-simlock.sh v4.16.0 . && rm fetch-e2e-simlock.sh
 SIMLOCK_URL=https://simlock.vitaliiyehorov.dev SIMLOCK_TOKEN=<token> E2E_APP_PATH=<path>/Base.app E2E_WORKERS=4 npx e2e run --target ios
 SIMLOCK_URL=https://simlock.vitaliiyehorov.dev SIMLOCK_TOKEN=<token> E2E_APP_PATH=<path>/app-release.apk E2E_WORKERS=2 npx e2e run --target android
 ```
