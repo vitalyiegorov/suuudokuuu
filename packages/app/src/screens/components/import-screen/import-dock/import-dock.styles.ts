@@ -11,7 +11,7 @@ export const ImportDockStyles = StyleSheet.create((theme, rt) => {
             flexShrink: 0,
             flexGrow: 1,
             flexBasis: 0,
-            minHeight: (isCompact ? 184 : 220) + rt.insets.bottom,
+            minHeight: (isCompact ? 188 : 220) + rt.insets.bottom,
             maxWidth: '100%',
             paddingBottom: rt.insets.bottom + (isCompact ? theme.spacing.sm : theme.spacing.md)
         },

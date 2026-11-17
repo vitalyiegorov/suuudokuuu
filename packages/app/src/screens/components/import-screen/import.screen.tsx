@@ -52,7 +52,7 @@ const ImportBoardCellSizeMin = 26;
 const ImportBoardSideMin = defaultSudokuConfig.fieldSize * ImportBoardCellSizeMin;
 const ImportBoardInset = 16;
 const ImportRegularHeaderHeight = 48;
-const ImportRegularDockHeight = 220;
+const ImportRegularDockHeight = 224;
 const ImportRegularChromeHeight =
     ImportSheetHandleHeight + ImportRegularHeaderHeight + ImportBoardInset * 2 + SpacingConstant.xxl + ImportRegularDockHeight;
 
@@ -106,7 +106,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     const fontScale = Math.min(window.fontScale, MaxFontSizeMultiplierConstant);
     const statusHeight = (36 + 20 * (fontScale > 1 ? 2 : 1)) * fontScale + SpacingConstant.xs;
     const boardInset = isCompact ? SpacingConstant.xs : ImportBoardInset;
-    const statusInset = isCompact ? SpacingConstant.sm : ImportBoardInset;
+    const statusInset = isCompact ? SpacingConstant.xs : ImportBoardInset;
     const frameSide = Math.min(area.width - SpacingConstant.lg * 2, ImportBoardSideMax);
     const boardSide = Math.floor(
         Math.max(ImportBoardSideMin, Math.min(frameSide, area.height - (isCompact ? SpacingConstant.sm : boardInset)))

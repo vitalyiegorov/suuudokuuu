@@ -13,12 +13,14 @@ interface Props {
 export const ImportCellPadButton = ({ value, isDisabled, onInput }: Props) => {
     const handlePress = () => void onInput(value);
 
+    const edgeStyle = value % 5 === 1 ? styles.firstButton : value % 5 === 0 && styles.lastButton;
+
     return (
         <Pressable
             disabled={isDisabled}
             onPress={handlePress}
             accessibilityRole="button"
-            style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+            style={({ pressed }) => [styles.button, edgeStyle, pressed && styles.pressed]}
             testID={`${ImportScreenSelectors.PadValue}.${value}`}
         >
             <View pointerEvents="none" style={styles.surface}>

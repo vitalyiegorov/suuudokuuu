@@ -24,21 +24,28 @@ export const ImportCellPad = ({ isDisabled, onInput }: Props) => {
 
     return (
         <View style={styles.pad}>
-            {padValues.map(value => (
-                <ImportCellPadButton isDisabled={isDisabled} key={value} onInput={onInput} value={value} />
-            ))}
-            <Pressable
-                accessibilityLabel={t`Clear cell`}
-                disabled={isDisabled}
-                onPress={handleClear}
-                accessibilityRole="button"
-                style={({ pressed }) => [styles.button, pressed && styles.pressed]}
-                testID={ImportScreenSelectors.ClearButton}
-            >
-                <View pointerEvents="none" style={styles.surface}>
-                    <LucideDelete color={theme.colors.surface.subtleText} size={20} />
-                </View>
-            </Pressable>
+            <View style={styles.row}>
+                {padValues.slice(0, 5).map(value => (
+                    <ImportCellPadButton isDisabled={isDisabled} key={value} onInput={onInput} value={value} />
+                ))}
+            </View>
+            <View style={styles.row}>
+                {padValues.slice(5).map(value => (
+                    <ImportCellPadButton isDisabled={isDisabled} key={value} onInput={onInput} value={value} />
+                ))}
+                <Pressable
+                    accessibilityLabel={t`Clear cell`}
+                    disabled={isDisabled}
+                    onPress={handleClear}
+                    accessibilityRole="button"
+                    style={({ pressed }) => [styles.button, styles.lastButton, pressed && styles.pressed]}
+                    testID={ImportScreenSelectors.ClearButton}
+                >
+                    <View pointerEvents="none" style={styles.surface}>
+                        <LucideDelete color={theme.colors.surface.subtleText} size={20} />
+                    </View>
+                </Pressable>
+            </View>
         </View>
     );
 };
