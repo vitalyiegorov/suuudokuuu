@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.44.9](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.8...v2.44.9) (2026-11-17)
+
+### Bug Fixes
+
+* **app:** read scanned boards reliably and keep the import sheet still ([#863](https://github.com/vitalyiegorov/suuudokuuu/issues/863)) ([0f80488](https://github.com/vitalyiegorov/suuudokuuu/commit/0f804881c75a02402f9dc7f518854e4f3f5c4e2b)), closes [#861](https://github.com/vitalyiegorov/suuudokuuu/issues/861) [#864](https://github.com/vitalyiegorov/suuudokuuu/issues/864)
+
+
 ## [2.44.4](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.3...v2.44.4) (2026-11-12)
 
 ### Bug Fixes
