@@ -6,7 +6,7 @@ import * as Clipboard from 'expo-clipboard';
 import { NotificationFeedbackType } from 'expo-haptics';
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useIsFocused } from 'expo-router';
-import { use, useEffect, useEffectEvent, useRef } from 'react';
+import { use, useEffect, useEffectEvent, useRef, useState } from 'react';
 import { Platform, ScrollView, View, useWindowDimensions } from 'react-native';
 import { useUnistyles } from 'react-native-unistyles';
 
@@ -40,7 +40,7 @@ import { importScreenScanImage } from './utils/import-screen-scan-image.util';
 import { importScreenSubscribeWebInput } from './utils/import-screen-subscribe-web-input.util';
 
 import type * as Fiber from 'effect/Fiber';
-import type { NativeScrollEvent, NativeSyntheticEvent, ScrollViewInstance } from 'react-native';
+import type { LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, ScrollViewInstance } from 'react-native';
 
 const ImportWebDetent = 0.975;
 const ImportDetent = Platform.OS === 'web' ? ImportWebDetent : 1;
@@ -78,6 +78,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     const { entryString, isPasteMissed, isGridMissed, isRecognizing, isTyping, selectedCellIndex } = state;
     const scrollRef = useRef<ScrollViewInstance>(null);
     const scrollOffset = useRef(0);
+    const [measuredSheetHeight, setMeasuredSheetHeight] = useState<number>();
     const { hasDigits, boardAssessed, uniqueAssessment, isCheckFailed, conflictCellIndexes } = useImportAssessment(
         puzzleAtom,
         puzzleString
@@ -94,7 +95,9 @@ export const ImportScreen = ({ initialText }: Props) => {
     const frameGeometry = { ...ImportBoardGeometryOptions, cellMargin, availableWidth: frameSide, availableHeight: frameSide };
     const columnWidth = gameGetBoardGeometry(frameGeometry).boardSize;
     const contentHeight = ImportRegularChromeHeight + columnWidth + statusHeight + rt.insets.bottom;
-    const sheetHeight = Math.min(contentHeight, window.height * ImportDetent);
+    const maximumSheetHeight = Platform.OS === 'web' ? window.height : window.height - rt.insets.top;
+    const calculatedSheetHeight = Math.min(contentHeight, maximumSheetHeight * ImportDetent);
+    const sheetHeight = Math.min(calculatedSheetHeight, measuredSheetHeight ?? calculatedSheetHeight);
     const dockHeight = isCompact ? ImportCompactPressHeightConstant * 4 + SpacingConstant.xs + SpacingConstant.sm : ImportRegularDockHeight;
     const areaHeight = Math.min(
         boardInset + columnWidth,
@@ -111,7 +114,10 @@ export const ImportScreen = ({ initialText }: Props) => {
     );
     const boardGeometry = gameGetBoardGeometry({ ...frameGeometry, availableWidth: boardSide, availableHeight: boardSide });
     const frameWidth = columnWidth - boardGeometry.boardSize < SpacingConstant.sm * 2 ? boardGeometry.boardSize : columnWidth;
-    const detents = [sheetHeight / window.height];
+    const detents = [calculatedSheetHeight / maximumSheetHeight];
+    const handleSheetLayout = (event: LayoutChangeEvent) => {
+        setMeasuredSheetHeight(event.nativeEvent.layout.height);
+    };
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         scrollOffset.current = event.nativeEvent.contentOffset.y;
     };
@@ -224,8 +230,8 @@ export const ImportScreen = ({ initialText }: Props) => {
         />
     );
 
-    return (
-        <SheetFrame accessibilityLabel={t`Import a puzzle`} detents={detents}>
+    const content = (
+        <>
             <ImportHeader isResetVisible={hasBoard} onReset={handleReset} width={frameWidth} />
             <ScrollView
                 ref={scrollRef}
@@ -262,6 +268,18 @@ export const ImportScreen = ({ initialText }: Props) => {
                     </ImportDock>
                 </>
             ) : null}
+        </>
+    );
+
+    return (
+        <SheetFrame accessibilityLabel={t`Import a puzzle`} detents={detents}>
+            {Platform.OS === 'web' ? (
+                content
+            ) : (
+                <View onLayout={handleSheetLayout} style={styles.container}>
+                    {content}
+                </View>
+            )}
         </SheetFrame>
     );
 };
