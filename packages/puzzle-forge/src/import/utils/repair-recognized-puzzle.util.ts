@@ -10,6 +10,7 @@ import type { RecognizedPuzzleInterface } from '../../@generic/interfaces/recogn
 
 const blankCell = '.';
 const repairAttemptLimit = 200;
+const minimumLikelihood = 0.01;
 
 const parseClues = (clueString: string): Uint8Array => parseGridString(clueString.replaceAll(blankCell, String(GRID_BLANK_VALUE)));
 
@@ -39,11 +40,17 @@ const findMisreadCell = (
                 likelihood: probability / confidences[cellIndex]
             }))
         )
-        .filter(({ cellIndex, digit }) => digit !== clueString[cellIndex])
+        .filter(({ cellIndex, digit, likelihood }) => digit !== clueString[cellIndex] && likelihood >= minimumLikelihood)
         .sort((first, second) => second.likelihood - first.likelihood)
         .slice(0, repairAttemptLimit)
         .find(({ cellIndex, digit }) => countSolutions(replaceCell(clueString, cellIndex, digit)) === 1);
 };
+
+const reviewClue = (split: NonNullable<ReturnType<typeof splitRecognizedPuzzle>>, cellIndex: number, digit: string) => ({
+    clueString: replaceCell(split.clueString, cellIndex, digit),
+    entryString: replaceCell(split.entryString, cellIndex, blankCell),
+    uncertainCellIndexes: [...new Set([...split.uncertainCellIndexes, cellIndex])].sort((first, second) => first - second)
+});
 
 export const repairRecognizedPuzzle = (recognized: RecognizedPuzzleInterface, uncertainConfidence: number) => {
     const split = splitRecognizedPuzzle(recognized, uncertainConfidence);
@@ -61,15 +68,17 @@ export const repairRecognizedPuzzle = (recognized: RecognizedPuzzleInterface, un
     if (solutionCount === 0) {
         const misread = findMisreadCell(split.clueString, recognized);
 
-        return isDefined(misread)
-            ? {
-                  ...split,
-                  clueString: replaceCell(split.clueString, misread.cellIndex, misread.digit),
-                  uncertainCellIndexes: [...new Set([...split.uncertainCellIndexes, misread.cellIndex])].sort(
-                      (first, second) => first - second
-                  )
-              }
-            : split;
+        return isDefined(misread) ? reviewClue(split, misread.cellIndex, misread.digit) : split;
+    }
+
+    const misflaggedCellIndex = Array.from(split.entryString, (_, cellIndex) => cellIndex).find(
+        cellIndex =>
+            split.entryString[cellIndex] !== blankCell &&
+            countSolutions(replaceCell(split.clueString, cellIndex, split.entryString[cellIndex])) === 1
+    );
+
+    if (isDefined(misflaggedCellIndex)) {
+        return reviewClue(split, misflaggedCellIndex, split.entryString[misflaggedCellIndex]);
     }
 
     const digitString = Array.from(split.clueString, (digit, cellIndex) =>

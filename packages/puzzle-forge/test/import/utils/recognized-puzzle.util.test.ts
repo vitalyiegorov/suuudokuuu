@@ -16,6 +16,7 @@ const uncertainConfidence = 0.9;
 const emptyPuzzle = '.'.repeat(cellCount);
 const digitCount = defaultSudokuConfig.fieldSize;
 const easyPuzzle = '2.846.9.5.75.....2.9.32.4.896.1438.75......6.7....82..32..1.54......41....9532...';
+const neededClueIndex = 11;
 const readExactly = (puzzleString: string) => ({
     puzzleString,
     confidences: Array.from({ length: cellCount }, () => 1),
@@ -25,7 +26,7 @@ const readExactly = (puzzleString: string) => ({
     )
 });
 const misreadProbability = { wrongDigit: 0.95, printedDigit: 0.03, otherDigit: 0.0025 };
-const misread = (puzzleString: string, cellIndex: number, wrongDigit: number) => {
+const misread = (puzzleString: string, cellIndex: number, wrongDigit: number, printedProbability = misreadProbability.printedDigit) => {
     const exact = readExactly(puzzleString);
 
     return {
@@ -39,9 +40,7 @@ const misread = (puzzleString: string, cellIndex: number, wrongDigit: number) =>
                           return misreadProbability.wrongDigit;
                       }
 
-                      return digitIndex + 1 === Number(puzzleString[cellIndex])
-                          ? misreadProbability.printedDigit
-                          : misreadProbability.otherDigit;
+                      return digitIndex + 1 === Number(puzzleString[cellIndex]) ? printedProbability : misreadProbability.otherDigit;
                   })
                 : probabilities
         )
@@ -123,6 +122,14 @@ describe('recognized puzzle import', () => {
         })
     );
 
+    it.effect('leaves a misread clue alone when the classifier gave the printed digit almost no chance', () =>
+        Effect.sync(() => {
+            const read = misread(easyPuzzle, 0, 3, misreadProbability.otherDigit);
+
+            assert.strictEqual(repairRecognizedPuzzle(read, uncertainConfidence)?.clueString, read.puzzleString);
+        })
+    );
+
     it.effect('keeps entries as progress while the printed clues alone have one solution', () =>
         Effect.sync(() => {
             const assessment = assessImportedPuzzle(easyPuzzle);
@@ -137,6 +144,29 @@ describe('recognized puzzle import', () => {
                 clueString: easyPuzzle,
                 entryString: Array.from(digits, (digit, index) => (read.handwritten[index] ? digit : '.')).join(''),
                 uncertainCellIndexes: []
+            });
+        })
+    );
+
+    it.effect('moves a clue read as an entry back to the clues, marks it for review and keeps the other entries', () =>
+        Effect.sync(() => {
+            const assessment = assessImportedPuzzle(easyPuzzle);
+            const solution = assessment.kind === ImportedPuzzleAssessmentKindEnum.UNIQUE ? assessment.solutionString : '';
+            const digits = `${solution.slice(0, digitCount)}${easyPuzzle.slice(digitCount)}`;
+            const isEntry = (index: number): boolean => easyPuzzle[index] === '.' && index < digitCount;
+            const read = {
+                ...readExactly(digits),
+                handwritten: Array.from(digits, (_, index) => index === neededClueIndex || isEntry(index))
+            };
+
+            assert.strictEqual(
+                assessImportedPuzzle(Array.from(digits, (digit, index) => (read.handwritten[index] ? '.' : digit)).join('')).kind,
+                ImportedPuzzleAssessmentKindEnum.MULTIPLE_SOLUTIONS
+            );
+            assert.deepStrictEqual(repairRecognizedPuzzle(read, uncertainConfidence), {
+                clueString: easyPuzzle,
+                entryString: Array.from(digits, (digit, index) => (isEntry(index) ? digit : '.')).join(''),
+                uncertainCellIndexes: [neededClueIndex]
             });
         })
     );
