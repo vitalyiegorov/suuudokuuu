@@ -2288,6 +2288,10 @@ msgstr "Tryck på en ruta för att ändra den"
 msgid "Tap a cell to type it"
 msgstr "Tryck på en ruta för att skriva"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Tap a cell, then a digit"
+msgstr "Tryck på en ruta och sedan en siffra"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "Text och etiketter"

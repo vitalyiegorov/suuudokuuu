@@ -2290,6 +2290,10 @@ msgstr "Tippe zum Ändern auf ein Feld"
 msgid "Tap a cell to type it"
 msgstr "Tippe zum Eingeben auf ein Feld"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Tap a cell, then a digit"
+msgstr "Tippe auf ein Feld, dann auf eine Ziffer"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "Text und Beschriftungen"

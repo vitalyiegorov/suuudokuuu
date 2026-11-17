@@ -2288,6 +2288,10 @@ msgstr "বদলাতে ঘরে ট্যাপ করুন"
 msgid "Tap a cell to type it"
 msgstr "লিখতে ঘরে ট্যাপ করুন"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Tap a cell, then a digit"
+msgstr "একটি ঘরে ট্যাপ করুন, তারপর একটি সংখ্যায়"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "লেখা ও লেবেল"

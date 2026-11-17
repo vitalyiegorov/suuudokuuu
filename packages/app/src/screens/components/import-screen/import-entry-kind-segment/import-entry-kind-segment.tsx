@@ -1,11 +1,9 @@
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
-import { Pressable, Text } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 
 import { emptyFn } from '@rnw-community/shared';
 
 import { ImportEntryKindSegmentStyles as styles } from './import-entry-kind-segment.styles';
-
-const segmentHitSlop = { top: 8, bottom: 8 };
 
 interface Props {
     readonly text: string;
@@ -17,7 +15,7 @@ interface Props {
 export const ImportEntryKindSegment = ({ text, testID, isChecked, onPress }: Props) => {
     const accessibilityState = { checked: isChecked };
     const handlePress = isChecked ? emptyFn : onPress;
-    const segmentStyles = [styles.segment, isChecked && styles.thumb];
+    const surfaceStyles = [styles.surface, isChecked && styles.thumb];
     const labelStyles = [styles.label, isChecked && styles.thumbLabel];
 
     return (
@@ -25,20 +23,21 @@ export const ImportEntryKindSegment = ({ text, testID, isChecked, onPress }: Pro
             aria-checked={isChecked}
             accessibilityRole="radio"
             accessibilityState={accessibilityState}
-            hitSlop={segmentHitSlop}
             onPress={handlePress}
-            style={segmentStyles}
+            style={styles.segment}
             testID={testID}
         >
-            <Text
-                adjustsFontSizeToFit
-                maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
-                minimumFontScale={0.8}
-                numberOfLines={1}
-                style={labelStyles}
-            >
-                {text}
-            </Text>
+            <View pointerEvents="none" style={surfaceStyles}>
+                <Text
+                    adjustsFontSizeToFit
+                    maxFontSizeMultiplier={CompactMaxFontSizeMultiplierConstant}
+                    minimumFontScale={0.8}
+                    numberOfLines={1}
+                    style={labelStyles}
+                >
+                    {text}
+                </Text>
+            </View>
         </Pressable>
     );
 };

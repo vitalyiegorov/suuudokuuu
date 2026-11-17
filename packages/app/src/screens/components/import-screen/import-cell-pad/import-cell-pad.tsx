@@ -1,10 +1,10 @@
 import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
-import { AppButton } from '@suuudokuuu/ui';
 import LucideDelete from 'lucide-react-native/icons/delete';
-import { View } from 'react-native';
+import { use } from 'react';
+import { Pressable, View } from 'react-native';
 
-import { PanelControlHitSlopConstant } from '../../../../game/constant/panel-control-size.constant';
+import { ThemeContext } from '../../../../theme/context/theme.context';
 import { ImportCellPadButton } from '../import-cell-pad-button/import-cell-pad-button';
 import { ImportScreenSelectors } from '../import-screen.selectors';
 
@@ -18,6 +18,7 @@ interface Props {
 
 export const ImportCellPad = ({ isDisabled, onInput }: Props) => {
     const { t } = useLingui();
+    const { theme } = use(ThemeContext);
 
     const handleClear = () => void onInput(defaultSudokuConfig.blankCellValue);
 
@@ -26,17 +27,18 @@ export const ImportCellPad = ({ isDisabled, onInput }: Props) => {
             {padValues.map(value => (
                 <ImportCellPadButton isDisabled={isDisabled} key={value} onInput={onInput} value={value} />
             ))}
-            <AppButton
+            <Pressable
                 accessibilityLabel={t`Clear cell`}
                 disabled={isDisabled}
-                hitSlop={PanelControlHitSlopConstant}
-                icon={LucideDelete}
                 onPress={handleClear}
-                size="compact"
-                style={styles.button}
+                accessibilityRole="button"
+                style={({ pressed }) => [styles.button, pressed && styles.pressed]}
                 testID={ImportScreenSelectors.ClearButton}
-                variant="secondary"
-            />
+            >
+                <View pointerEvents="none" style={styles.surface}>
+                    <LucideDelete color={theme.colors.surface.subtleText} size={20} />
+                </View>
+            </Pressable>
         </View>
     );
 };

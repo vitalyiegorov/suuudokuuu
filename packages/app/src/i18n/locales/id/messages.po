@@ -2288,6 +2288,10 @@ msgstr "Ketuk sel untuk mengubahnya"
 msgid "Tap a cell to type it"
 msgstr "Ketuk sel untuk mengetik"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Tap a cell, then a digit"
+msgstr "Ketuk sel, lalu angka"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "Teks dan label"

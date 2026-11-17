@@ -17,7 +17,8 @@ export const ImportEntryKind = ({ isEntry, onToggle }: Props) => {
     const entryTestId = isEntry ? ImportScreenSelectors.EntryActiveButton : ImportScreenSelectors.EntryToggleButton;
 
     return (
-        <View accessibilityLabel={t`Selected digit`} accessibilityRole="radiogroup" style={styles.track}>
+        <View accessibilityLabel={t`Selected digit`} accessibilityRole="radiogroup" style={styles.container}>
+            <View pointerEvents="none" style={styles.track} />
             <ImportEntryKindSegment isChecked={!isEntry} onPress={onToggle} testID={clueTestId} text={t`Clue`} />
             <ImportEntryKindSegment isChecked={isEntry} onPress={onToggle} testID={entryTestId} text={t`My entry`} />
         </View>

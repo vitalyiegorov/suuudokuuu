@@ -2288,6 +2288,10 @@ msgstr "اضغط على خلية لتغييرها"
 msgid "Tap a cell to type it"
 msgstr "اضغط على خلية للكتابة"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Tap a cell, then a digit"
+msgstr "اضغط على خلية، ثم على رقم"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "النص والتسميات"

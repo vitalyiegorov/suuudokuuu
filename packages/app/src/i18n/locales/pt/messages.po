@@ -2288,6 +2288,10 @@ msgstr "Toque em uma célula para alterar"
 msgid "Tap a cell to type it"
 msgstr "Toque em uma célula para digitar"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Tap a cell, then a digit"
+msgstr "Toque numa célula e depois num dígito"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "Texto e rótulos"

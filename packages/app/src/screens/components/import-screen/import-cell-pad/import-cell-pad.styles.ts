@@ -5,15 +5,21 @@ import { ImportCompactFrameHeightConstant } from '../constants/import-compact-fr
 export const ImportCellPadStyles = StyleSheet.create((theme, rt) => ({
     label: { textAlign: 'center', color: theme.colors.surface.subtleText, fontSize: theme.typography.size.md, fontWeight: '700' },
     button: {
-        flexBasis: '17%',
-        flexGrow: 1,
-        minHeight: rt.screen.height < ImportCompactFrameHeightConstant ? 36 : 44,
-        paddingHorizontal: 0
+        flexBasis: '20%',
+        height: rt.screen.height < ImportCompactFrameHeightConstant ? 44 : 52,
+        paddingVertical: theme.spacing.xs,
+        paddingHorizontal: theme.spacing.xs * 0.8,
+        justifyContent: 'center'
     },
-    pad: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        gap: theme.spacing.sm,
-        width: '100%'
-    }
+    surface: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+        borderRadius: theme.radius.pill,
+        borderWidth: 1,
+        borderColor: theme.colors.surface.border,
+        backgroundColor: theme.colors.surface.subtle
+    },
+    pressed: { opacity: 0.85 },
+    pad: { flexDirection: 'row', flexWrap: 'wrap', width: '100%' }
 }));

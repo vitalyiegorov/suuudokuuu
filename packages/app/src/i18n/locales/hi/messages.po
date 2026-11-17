@@ -2288,6 +2288,10 @@ msgstr "बदलने के लिए खाने पर टैप करे
 msgid "Tap a cell to type it"
 msgstr "लिखने के लिए खाने पर टैप करें"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Tap a cell, then a digit"
+msgstr "पहले एक खाना टैप करें, फिर एक अंक"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "टेक्स्ट और लेबल"

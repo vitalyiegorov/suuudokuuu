@@ -2290,6 +2290,10 @@ msgstr "Touchez une case pour la modifier"
 msgid "Tap a cell to type it"
 msgstr "Touchez une case pour saisir"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Tap a cell, then a digit"
+msgstr "Touchez une case, puis un chiffre"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "Texte et étiquettes"

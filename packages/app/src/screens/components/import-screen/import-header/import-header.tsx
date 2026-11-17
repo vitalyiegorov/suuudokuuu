@@ -4,7 +4,6 @@ import { use } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { Header } from '../../../../@generic/components/header/header';
-import { PanelControlHitSlopConstant } from '../../../../game/constant/panel-control-size.constant';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import { ImportScreenSelectors } from '../import-screen.selectors';
 
@@ -40,7 +39,6 @@ export const ImportHeader = ({ isResetVisible, width, onReset }: Props) => {
                     <Pressable
                         accessibilityLabel={t`Clear`}
                         accessibilityRole="button"
-                        hitSlop={PanelControlHitSlopConstant}
                         onPress={onReset}
                         style={getResetStyles}
                         testID={ImportScreenSelectors.ResetButton}

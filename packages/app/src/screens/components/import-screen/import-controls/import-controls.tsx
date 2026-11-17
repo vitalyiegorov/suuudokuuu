@@ -1,7 +1,7 @@
 import { View } from 'react-native';
 import Animated from 'react-native-reanimated';
 
-import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
+import { isDefined } from '@rnw-community/shared';
 
 import { useReduceMotion } from '../../../../@generic/hooks/use-reduce-motion.hook';
 import { HiddenFromAccessibilityPropsConstant } from '../../../../game/constant/hidden-from-accessibility-props.constant';
@@ -29,7 +29,6 @@ export const ImportControls = ({ puzzleString, review, onInput, onToggle }: Prop
 
     const isIdle = !isDefined(selectedCellIndex);
     const isLegendHidden = !isIdle || isRecognizing;
-    const hasEntryKind = isRecognizing || isNotEmptyArray(scannedCellIndexes);
     const isEntry = !isIdle && digitPattern.test(entryString[selectedCellIndex]);
     const isEntryKindHidden =
         isIdle || !scannedCellIndexes.includes(selectedCellIndex) || !(isEntry || digitPattern.test(puzzleString[selectedCellIndex]));
@@ -43,15 +42,13 @@ export const ImportControls = ({ puzzleString, review, onInput, onToggle }: Prop
     return (
         <View style={styles.controls}>
             <Animated.View pointerEvents={keysPointerEvents} style={keysStyles} {...(isIdle && HiddenFromAccessibilityPropsConstant)}>
-                {hasEntryKind ? (
-                    <Animated.View
-                        pointerEvents={entryKindPointerEvents}
-                        style={entryKindStyles}
-                        {...(isEntryKindHidden && HiddenFromAccessibilityPropsConstant)}
-                    >
-                        <ImportEntryKind isEntry={isEntry} onToggle={onToggle} />
-                    </Animated.View>
-                ) : null}
+                <Animated.View
+                    pointerEvents={entryKindPointerEvents}
+                    style={entryKindStyles}
+                    {...(isEntryKindHidden && HiddenFromAccessibilityPropsConstant)}
+                >
+                    <ImportEntryKind isEntry={isEntry} onToggle={onToggle} />
+                </Animated.View>
                 <ImportCellPad isDisabled={isIdle} onInput={onInput} />
             </Animated.View>
             <Animated.View pointerEvents="none" style={legendStyles} {...(isLegendHidden && HiddenFromAccessibilityPropsConstant)}>

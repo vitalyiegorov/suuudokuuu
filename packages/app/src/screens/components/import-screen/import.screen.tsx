@@ -40,6 +40,7 @@ import { ImportStatus } from './import-status/import-status';
 import { importScreenReadGrid } from './utils/import-screen-read-grid.util';
 import { importScreenScanImage } from './utils/import-screen-scan-image.util';
 import { importScreenSubscribeWebInput } from './utils/import-screen-subscribe-web-input.util';
+
 import type * as Fiber from 'effect/Fiber';
 import type { LayoutChangeEvent, LayoutRectangle, NativeScrollEvent, NativeSyntheticEvent, ScrollViewInstance } from 'react-native';
 
@@ -50,8 +51,6 @@ const ImportBoardSideMax = 480;
 const ImportBoardCellSizeMin = 26;
 const ImportBoardSideMin = defaultSudokuConfig.fieldSize * ImportBoardCellSizeMin;
 const ImportBoardInset = 16;
-const ImportStatusLineHeight = 20;
-const ImportStatusHintHeight = 36;
 const ImportRegularHeaderHeight = 48;
 const ImportRegularDockHeight = 220;
 const ImportRegularChromeHeight =
@@ -105,17 +104,19 @@ export const ImportScreen = ({ initialText }: Props) => {
     const hasBoard = hasDigits || isTyping || isRecognizing;
     const isCompact = window.height < ImportCompactFrameHeightConstant;
     const fontScale = Math.min(window.fontScale, MaxFontSizeMultiplierConstant);
-    const statusHeight = (ImportStatusHintHeight + ImportStatusLineHeight * (fontScale > 1 ? 2 : 1)) * fontScale + SpacingConstant.xs;
-    const boardInset = isCompact ? 0 : ImportBoardInset;
+    const statusHeight = (36 + 20 * (fontScale > 1 ? 2 : 1)) * fontScale + SpacingConstant.xs;
+    const boardInset = isCompact ? SpacingConstant.xs : ImportBoardInset;
     const statusInset = isCompact ? SpacingConstant.sm : ImportBoardInset;
     const frameSide = Math.min(area.width - SpacingConstant.lg * 2, ImportBoardSideMax);
-    const boardSide = Math.floor(Math.max(ImportBoardSideMin, Math.min(frameSide, area.height - boardInset)));
+    const boardSide = Math.floor(
+        Math.max(ImportBoardSideMin, Math.min(frameSide, area.height - (isCompact ? SpacingConstant.sm : boardInset)))
+    );
     const frameGeometry = { ...ImportBoardGeometryOptions, cellMargin, availableWidth: frameSide, availableHeight: frameSide };
-    const frameWidth = gameGetBoardGeometry(frameGeometry).boardSize;
-    const largestBoard = { ...frameGeometry, availableWidth: ImportBoardSideMax, availableHeight: ImportBoardSideMax };
-    const contentHeight = ImportRegularChromeHeight + gameGetBoardGeometry(largestBoard).boardSize + statusHeight + rt.insets.bottom;
-    const detents = [Math.min(contentHeight / window.height, ImportDetent)];
+    const columnWidth = gameGetBoardGeometry(frameGeometry).boardSize;
     const boardGeometry = gameGetBoardGeometry({ ...frameGeometry, availableWidth: boardSide, availableHeight: boardSide });
+    const frameWidth = columnWidth - boardGeometry.boardSize < 16 ? boardGeometry.boardSize : columnWidth;
+    const contentHeight = ImportRegularChromeHeight + frameWidth + statusHeight + rt.insets.bottom;
+    const detents = [Math.min(contentHeight / window.height, ImportDetent)];
     const handleAreaLayout = (event: LayoutChangeEvent) => {
         if (hasBoard) {
             setArea(event.nativeEvent.layout);
@@ -186,9 +187,9 @@ export const ImportScreen = ({ initialText }: Props) => {
             ? boardAssessed.assessment.cellIndexes.filter(cellIndex => puzzleString[cellIndex] === boardAssessed.puzzleString[cellIndex])
             : [];
     const isPlayDisabled = !isDefined(uniqueAssessment) || isRecognizing;
-    const scrollStyles = hasBoard ? [styles.boardScroll, { flexBasis: boardInset + frameWidth }] : styles.scroll;
+    const scrollStyles = hasBoard ? [styles.boardScroll, { flexBasis: boardInset + columnWidth }] : styles.scroll;
     const contentStyles = [styles.content, hasBoard ? { paddingTop: boardInset } : [styles.sourcesContent, { width: frameWidth }]];
-    const statusSlotStyles = [styles.statusSlot, { width: frameWidth, height: statusInset + statusHeight, paddingTop: statusInset }];
+    const statusSlotStyles = [styles.statusSlot, { width: frameWidth, height: statusInset + statusHeight }];
 
     const handlePlay = () => {
         if (isDefined(uniqueAssessment)) {
@@ -288,7 +289,6 @@ export const ImportScreen = ({ initialText }: Props) => {
             {hasBoard ? (
                 <>
                     <View style={statusSlotStyles}>{status}</View>
-                    <View style={styles.spare} />
                     <ImportDock isPlayDisabled={isPlayDisabled} onPlay={handlePlay} width={frameWidth}>
                         <ImportControls onInput={input} onToggle={toggleEntry} puzzleString={puzzleString} review={state} />
                     </ImportDock>

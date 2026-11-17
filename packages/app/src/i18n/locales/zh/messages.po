@@ -2288,6 +2288,10 @@ msgstr "轻点格子即可修改"
 msgid "Tap a cell to type it"
 msgstr "轻点格子输入"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Tap a cell, then a digit"
+msgstr "先点选单元格，再点数字"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "文字与标签"

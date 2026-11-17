@@ -2290,6 +2290,10 @@ msgstr "Торкніться клітинки, щоб змінити"
 msgid "Tap a cell to type it"
 msgstr "Торкніться клітинки для введення"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Tap a cell, then a digit"
+msgstr "Торкніться клітинки, потім цифри"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "Текст і підписи"

@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { StyleSheet } from 'react-native-unistyles';
 
 import { ImportCompactFrameHeightConstant } from '../constants/import-compact-frame-height.constant';
@@ -6,7 +7,7 @@ const narrowFrameWidth = 360;
 
 export const ImportHeaderStyles = StyleSheet.create((theme, rt) => {
     const isCompact = rt.screen.height < ImportCompactFrameHeightConstant;
-    const resetHeight = isCompact ? 40 : 44;
+    const resetHeight = 44;
 
     return {
         container: {
@@ -16,6 +17,7 @@ export const ImportHeaderStyles = StyleSheet.create((theme, rt) => {
             flexShrink: 0,
             gap: theme.spacing.sm,
             maxWidth: '100%',
+            marginTop: isCompact && Platform.OS === 'web' ? -12 : 0,
             paddingTop: isCompact ? 0 : theme.spacing.xs
         },
         resetSlot: { width: 44, height: resetHeight },

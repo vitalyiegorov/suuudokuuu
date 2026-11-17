@@ -132,8 +132,9 @@ export const ImportStatus = ({ assessed, uniqueAssessment, isCheckFailed, puzzle
     const isReviewLeading = !isDefined(sourceText) && assessmentKind === ImportedPuzzleAssessmentKindEnum.UNIQUE;
     const reviewText = isReviewLeading ? uncertainText : null;
     const statusText = sourceText ?? reviewText ?? boardText;
+    const typedDetail = !isDefined(sourceText) && getClueCount(puzzleString) === 0 ? t`Tap a cell, then a digit` : null;
     const sourceDetail = isGridMissed && !isRecognizing ? t`Try a closer, straighter photo` : null;
-    const detailLead = sourceDetail ?? (isDefined(reviewText) ? boardText : uncertainText);
+    const detailLead = sourceDetail ?? typedDetail ?? (isDefined(reviewText) ? boardText : uncertainText);
     const isError =
         (isDefined(sourceText) && !isRecognizing) ||
         isCheckFailed ||

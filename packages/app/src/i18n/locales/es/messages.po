@@ -2290,6 +2290,10 @@ msgstr "Toca una casilla para cambiarla"
 msgid "Tap a cell to type it"
 msgstr "Toca una casilla para escribir"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Tap a cell, then a digit"
+msgstr "Toca una casilla y luego un número"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"
 msgstr "Texto y etiquetas"
