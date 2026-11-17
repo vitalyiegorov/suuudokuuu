@@ -1,10 +1,11 @@
 import { Trans, useLingui } from '@lingui/react/macro';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
-import { View } from 'react-native';
+import { View, useWindowDimensions } from 'react-native';
 
 import { isDefined, isNotEmptyArray } from '@rnw-community/shared';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
+import { ImportCompactFrameHeightConstant } from '../constants/import-compact-frame-height.constant';
 import { ImportCellToneEnum } from '../enums/import-cell-tone.enum';
 import { ImportLegendSample } from '../import-legend-sample/import-legend-sample';
 import { ImportScreenSelectors } from '../import-screen.selectors';
@@ -22,10 +23,12 @@ interface Props {
 
 export const ImportLegend = ({ puzzleString, review }: Props) => {
     const { t } = useLingui();
+    const { fontScale, height } = useWindowDimensions();
 
     const hasEntries = digitPattern.test(review.entryString);
     const hasUncertain = isNotEmptyArray(review.uncertainCellIndexes);
     const hasDigits = hasEntries || digitPattern.test(puzzleString);
+    const hasSamples = (hasEntries || hasUncertain) && (fontScale <= 1 || height >= ImportCompactFrameHeightConstant);
 
     if (!hasDigits || isDefined(review.selectedCellIndex) || review.isRecognizing) {
         return null;
@@ -33,7 +36,7 @@ export const ImportLegend = ({ puzzleString, review }: Props) => {
 
     return (
         <View style={styles.legend} testID={ImportScreenSelectors.Legend}>
-            {hasEntries || hasUncertain ? (
+            {hasSamples ? (
                 <View style={styles.samples}>
                     <ImportLegendSample text={t`Clue`} tone={ImportCellToneEnum.CLUE} />
                     {hasEntries ? <ImportLegendSample text={t`My entry`} tone={ImportCellToneEnum.ENTRY} /> : null}
