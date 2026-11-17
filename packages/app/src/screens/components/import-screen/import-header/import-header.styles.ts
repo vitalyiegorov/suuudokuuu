@@ -38,7 +38,7 @@ export const ImportHeaderStyles = StyleSheet.create((theme, rt) => {
             flex: 1,
             fontSize: rt.screen.width < narrowFrameWidth ? theme.typography.size.lg : regularTitleSize,
             marginBottom: 0,
-            textAlign: 'left'
+            textAlign: 'auto'
         }
     };
 });
