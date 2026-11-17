@@ -115,9 +115,10 @@ export const ImportScreen = ({ initialText }: Props) => {
     const boardGeometry = gameGetBoardGeometry({ ...frameGeometry, availableWidth: boardSide, availableHeight: boardSide });
     const frameWidth = columnWidth - boardGeometry.boardSize < SpacingConstant.sm * 2 ? boardGeometry.boardSize : columnWidth;
     const detents = [calculatedSheetHeight / maximumSheetHeight];
-    const handleSheetLayout = (event: LayoutChangeEvent) => {
-        setMeasuredSheetHeight(event.nativeEvent.layout.height);
+    const handleScrollLayout = ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
+        setMeasuredSheetHeight(layout.y + layout.height + (hasBoard ? statusInset + statusHeight + dockHeight + rt.insets.bottom : 0));
     };
+    const scrollLayoutProps = Platform.OS !== 'web' && { onLayout: handleScrollLayout };
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         scrollOffset.current = event.nativeEvent.contentOffset.y;
     };
@@ -230,11 +231,12 @@ export const ImportScreen = ({ initialText }: Props) => {
         />
     );
 
-    const content = (
-        <>
+    return (
+        <SheetFrame accessibilityLabel={t`Import a puzzle`} detents={detents}>
             <ImportHeader isResetVisible={hasBoard} onReset={handleReset} width={frameWidth} />
             <ScrollView
                 ref={scrollRef}
+                {...scrollLayoutProps}
                 alwaysBounceVertical={false}
                 onScroll={handleScroll}
                 scrollEventThrottle={16}
@@ -268,18 +270,6 @@ export const ImportScreen = ({ initialText }: Props) => {
                     </ImportDock>
                 </>
             ) : null}
-        </>
-    );
-
-    return (
-        <SheetFrame accessibilityLabel={t`Import a puzzle`} detents={detents}>
-            {Platform.OS === 'web' ? (
-                content
-            ) : (
-                <View onLayout={handleSheetLayout} style={styles.container}>
-                    {content}
-                </View>
-            )}
         </SheetFrame>
     );
 };
