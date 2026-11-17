@@ -151,27 +151,21 @@ const toProbabilities = (logits: Float32Array, temperature: number): Float32Arra
     return exponents.map(value => value / total);
 };
 
-const trainKernel = (
+const visitKernel = (
     layer: ClassifierLayerInterface,
-    weights: Float32Array,
-    input: Float32Array,
-    inputGradient: Float32Array,
     outputIndex: number,
-    step: number
+    visit: (weightIndex: number, inputIndex: number) => void
 ): void => {
     const { inSize, inChannels, kernel } = layer;
     const { weightOffset, originY, originX } = locateKernel(layer, outputIndex);
 
     for (let channel = 0; channel < inChannels; channel += 1) {
-        for (let kernelY = 0; kernelY < kernel; kernelY += 1) {
+        for (let kernelY = Math.max(0, -originY); kernelY < Math.min(kernel, inSize - originY); kernelY += 1) {
             const weightRow = weightOffset + (channel * kernel + kernelY) * kernel;
-            const inputRow = (channel * inSize + originY + kernelY) * inSize;
+            const inputRow = (channel * inSize + originY + kernelY) * inSize + originX;
 
-            for (let kernelX = 0; kernelX < kernel; kernelX += 1) {
-                if (originY + kernelY >= 0 && originY + kernelY < inSize && originX + kernelX >= 0 && originX + kernelX < inSize) {
-                    inputGradient[inputRow + originX + kernelX] += step * weights[weightRow + kernelX];
-                    weights[weightRow + kernelX] -= step * input[inputRow + originX + kernelX];
-                }
+            for (let kernelX = Math.max(0, -originX); kernelX < Math.min(kernel, inSize - originX); kernelX += 1) {
+                visit(weightRow + kernelX, inputRow + kernelX);
             }
         }
     }
@@ -186,16 +180,23 @@ const trainLayer = (
 ): Float32Array => {
     const inputGradient = new Float32Array(input.length);
 
-    for (let outputIndex = 0; outputIndex < outputGradient.length; outputIndex += 1) {
-        const step = learningRate * outputGradient[outputIndex];
-
-        if (step !== 0) {
-            trainKernel(layer, weights, input, inputGradient, outputIndex, step);
-            biases[locateKernel(layer, outputIndex).channel] -= step;
+    outputGradient.forEach((gradient, outputIndex) => {
+        if (gradient !== 0) {
+            visitKernel(layer, outputIndex, (weightIndex, inputIndex) => {
+                inputGradient[inputIndex] += gradient * weights[weightIndex];
+            });
         }
-    }
+    });
+    outputGradient.forEach((gradient, outputIndex) => {
+        if (gradient !== 0) {
+            visitKernel(layer, outputIndex, (weightIndex, inputIndex) => {
+                weights[weightIndex] -= learningRate * gradient * input[inputIndex];
+            });
+            biases[locateKernel(layer, outputIndex).channel] -= learningRate * gradient;
+        }
+    });
 
-    return inputGradient.map(gradient => gradient / learningRate);
+    return inputGradient;
 };
 
 const trainSample = (network: readonly LayerWeightsInterface[], glyph: Float32Array, label: number, learningRate: number): void => {
