@@ -104,8 +104,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# h} other {# h}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
-msgstr "{keptCount, plural, one {# dos seus números mantidos} other {# dos seus números mantidos}}"
+msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
+msgstr "{keptCount, plural, one {# número mantido} other {# números mantidos}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -1398,6 +1398,7 @@ msgid "Move the landscape controls panel to the left of the board"
 msgstr "Mover o painel de controles na horizontal para a esquerda do tabuleiro"
 
 #: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
 msgid "My entry"
 msgstr "Minha entrada"
 
@@ -1678,7 +1679,7 @@ msgstr "Coloque {valueList} na célula marcada."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-dock/import-dock.tsx
 msgid "Play"
 msgstr "Jogar"
 
@@ -2715,10 +2716,6 @@ msgstr "Seu navegador pode pedir permissão para instalar apps de fontes desconh
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "Suas cores personalizadas"
-
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Your entry"
-msgstr "Seu número"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"

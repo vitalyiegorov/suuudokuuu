@@ -4,6 +4,7 @@ import { AppButton } from '@suuudokuuu/ui';
 import LucideDelete from 'lucide-react-native/icons/delete';
 import { View } from 'react-native';
 
+import { PanelControlHitSlopConstant } from '../../../../game/constant/panel-control-size.constant';
 import { ImportCellPadButton } from '../import-cell-pad-button/import-cell-pad-button';
 import { ImportScreenSelectors } from '../import-screen.selectors';
 
@@ -28,6 +29,7 @@ export const ImportCellPad = ({ isDisabled, onInput }: Props) => {
             <AppButton
                 accessibilityLabel={t`Clear cell`}
                 disabled={isDisabled}
+                hitSlop={PanelControlHitSlopConstant}
                 icon={LucideDelete}
                 onPress={handleClear}
                 size="compact"

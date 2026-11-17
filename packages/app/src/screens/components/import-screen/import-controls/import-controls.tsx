@@ -14,6 +14,7 @@ import { ImportControlsStyles as styles } from './import-controls.styles';
 import type { ImportReviewStateInterface } from '../interface/import-review-state.interface';
 
 const fadeDurationMs = 160;
+const digitPattern = /[1-9]/u;
 
 interface Props {
     readonly puzzleString: string;
@@ -23,22 +24,35 @@ interface Props {
 }
 
 export const ImportControls = ({ puzzleString, review, onInput, onToggle }: Props) => {
-    const { isRecognizing, scannedCellIndexes, selectedCellIndex } = review;
+    const { entryString, isRecognizing, scannedCellIndexes, selectedCellIndex } = review;
     const isMotionReduced = useReduceMotion();
 
     const isIdle = !isDefined(selectedCellIndex);
     const isLegendHidden = !isIdle || isRecognizing;
     const hasEntryKind = isRecognizing || isNotEmptyArray(scannedCellIndexes);
+    const isEntry = !isIdle && digitPattern.test(entryString[selectedCellIndex]);
+    const isEntryKindHidden =
+        isIdle || !scannedCellIndexes.includes(selectedCellIndex) || !(isEntry || digitPattern.test(puzzleString[selectedCellIndex]));
     const fade = { transitionDuration: isMotionReduced ? 0 : fadeDurationMs, transitionProperty: 'opacity' as const };
     const keysStyles = [styles.keys, fade, { opacity: isIdle ? 0 : 1 }];
+    const entryKindStyles = [fade, { opacity: isEntryKindHidden ? 0 : 1 }];
     const legendStyles = [styles.legend, fade, { opacity: isLegendHidden ? 0 : 1 }];
     const keysPointerEvents = isIdle ? 'none' : 'auto';
+    const entryKindPointerEvents = isEntryKindHidden ? 'none' : 'auto';
 
     return (
         <View style={styles.controls}>
             <Animated.View pointerEvents={keysPointerEvents} style={keysStyles} {...(isIdle && HiddenFromAccessibilityPropsConstant)}>
+                {hasEntryKind ? (
+                    <Animated.View
+                        pointerEvents={entryKindPointerEvents}
+                        style={entryKindStyles}
+                        {...(isEntryKindHidden && HiddenFromAccessibilityPropsConstant)}
+                    >
+                        <ImportEntryKind isEntry={isEntry} onToggle={onToggle} />
+                    </Animated.View>
+                ) : null}
                 <ImportCellPad isDisabled={isIdle} onInput={onInput} />
-                {hasEntryKind ? <ImportEntryKind onToggle={onToggle} puzzleString={puzzleString} review={review} /> : null}
             </Animated.View>
             <Animated.View pointerEvents="none" style={legendStyles} {...(isLegendHidden && HiddenFromAccessibilityPropsConstant)}>
                 <ImportLegend puzzleString={puzzleString} review={review} />

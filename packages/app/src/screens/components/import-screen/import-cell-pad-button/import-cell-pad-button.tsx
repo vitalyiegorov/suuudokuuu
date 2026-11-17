@@ -2,6 +2,7 @@ import { AppButton } from '@suuudokuuu/ui';
 import { CompactMaxFontSizeMultiplierConstant } from '@suuudokuuu/ui/theme';
 import { Text } from 'react-native';
 
+import { PanelControlHitSlopConstant } from '../../../../game/constant/panel-control-size.constant';
 import { ImportCellPadStyles as styles } from '../import-cell-pad/import-cell-pad.styles';
 import { ImportScreenSelectors } from '../import-screen.selectors';
 
@@ -17,6 +18,7 @@ export const ImportCellPadButton = ({ value, isDisabled, onInput }: Props) => {
     return (
         <AppButton
             disabled={isDisabled}
+            hitSlop={PanelControlHitSlopConstant}
             onPress={handlePress}
             size="compact"
             style={styles.button}

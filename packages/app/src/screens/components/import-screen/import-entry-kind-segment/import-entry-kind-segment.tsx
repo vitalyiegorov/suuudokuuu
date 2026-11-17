@@ -5,16 +5,17 @@ import { emptyFn } from '@rnw-community/shared';
 
 import { ImportEntryKindSegmentStyles as styles } from './import-entry-kind-segment.styles';
 
+const segmentHitSlop = { top: 8, bottom: 8 };
+
 interface Props {
     readonly text: string;
     readonly testID: string;
     readonly isChecked: boolean;
-    readonly isDisabled: boolean;
     readonly onPress: () => void;
 }
 
-export const ImportEntryKindSegment = ({ text, testID, isChecked, isDisabled, onPress }: Props) => {
-    const accessibilityState = { checked: isChecked, disabled: isDisabled };
+export const ImportEntryKindSegment = ({ text, testID, isChecked, onPress }: Props) => {
+    const accessibilityState = { checked: isChecked };
     const handlePress = isChecked ? emptyFn : onPress;
     const segmentStyles = [styles.segment, isChecked && styles.thumb];
     const labelStyles = [styles.label, isChecked && styles.thumbLabel];
@@ -24,7 +25,7 @@ export const ImportEntryKindSegment = ({ text, testID, isChecked, isDisabled, on
             aria-checked={isChecked}
             accessibilityRole="radio"
             accessibilityState={accessibilityState}
-            disabled={isDisabled}
+            hitSlop={segmentHitSlop}
             onPress={handlePress}
             style={segmentStyles}
             testID={testID}

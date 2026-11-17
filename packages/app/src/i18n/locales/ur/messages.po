@@ -104,8 +104,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# گھنٹہ} other {# گھنٹے}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
-msgstr "{keptCount, plural, one {آپ کے # اندراجات محفوظ} other {آپ کے # اندراجات محفوظ}}"
+msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
+msgstr "{keptCount, plural, one {# اندراج محفوظ} other {# اندراجات محفوظ}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -1398,6 +1398,7 @@ msgid "Move the landscape controls panel to the left of the board"
 msgstr "لینڈ اسکیپ کنٹرول پینل کو بورڈ کے بائیں جانب منتقل کریں"
 
 #: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
 msgid "My entry"
 msgstr "میرا اندراج"
 
@@ -1678,7 +1679,7 @@ msgstr "{valueList} کو نشان زدہ خانے میں رکھیں۔"
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-dock/import-dock.tsx
 msgid "Play"
 msgstr "کھیلیں"
 
@@ -2715,10 +2716,6 @@ msgstr "آپ کا براؤزر نامعلوم ایپس انسٹال کرنے ک�
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "آپ کے مخصوص رنگ"
-
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Your entry"
-msgstr "آپ کا اندراج"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"

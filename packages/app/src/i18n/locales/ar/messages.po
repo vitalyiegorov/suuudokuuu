@@ -104,8 +104,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, zero {# ساعة} one {# ساعة} two {# ساعتان} few {# ساعات} many {# ساعة} other {# ساعة}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
-msgstr "{keptCount, plural, one {تم الاحتفاظ بـ # من إدخالاتك} other {تم الاحتفاظ بـ # من إدخالاتك}}"
+msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
+msgstr "{keptCount, plural, one {تم حفظ # إدخال} other {تم حفظ # إدخالات}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -1398,6 +1398,7 @@ msgid "Move the landscape controls panel to the left of the board"
 msgstr "انقل لوحة التحكم في الوضع الأفقي إلى يسار اللوحة"
 
 #: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
 msgid "My entry"
 msgstr "إدخالي"
 
@@ -1678,7 +1679,7 @@ msgstr "ضع {valueList} في الخلية المميَّزة."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-dock/import-dock.tsx
 msgid "Play"
 msgstr "العب"
 
@@ -2715,10 +2716,6 @@ msgstr "قد يطلب متصفحك إذنًا لتثبيت تطبيقات من �
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "ألوانك المخصصة"
-
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Your entry"
-msgstr "إدخالك"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"

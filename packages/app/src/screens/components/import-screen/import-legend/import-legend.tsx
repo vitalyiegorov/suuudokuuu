@@ -32,7 +32,7 @@ export const ImportLegend = ({ puzzleString, review }: Props) => {
             {hasEntries || hasUncertain ? (
                 <View style={styles.samples}>
                     <ImportLegendSample text={t`Clue`} tone={ImportCellToneEnum.CLUE} />
-                    {hasEntries ? <ImportLegendSample text={t`Your entry`} tone={ImportCellToneEnum.ENTRY} /> : null}
+                    {hasEntries ? <ImportLegendSample text={t`My entry`} tone={ImportCellToneEnum.ENTRY} /> : null}
                     {hasUncertain ? <ImportLegendSample text={t`Check`} tone={ImportCellToneEnum.UNCERTAIN} /> : null}
                 </View>
             ) : null}

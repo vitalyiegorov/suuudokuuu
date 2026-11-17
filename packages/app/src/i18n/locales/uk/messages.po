@@ -106,8 +106,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# год} few {# год} many {# год} other {# год}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
-msgstr "{keptCount, plural, one {# ваших записів збережено} other {# ваших записів збережено}}"
+msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
+msgstr "{keptCount, plural, one {# запис збережено} few {# записи збережено} many {# записів збережено} other {# запису збережено}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -1400,6 +1400,7 @@ msgid "Move the landscape controls panel to the left of the board"
 msgstr "Перемістити панель керування в альбомному режимі ліворуч від дошки"
 
 #: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
 msgid "My entry"
 msgstr "Мій запис"
 
@@ -1680,7 +1681,7 @@ msgstr "Поставте {valueList} у позначену клітинку."
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-dock/import-dock.tsx
 msgid "Play"
 msgstr "Грати"
 
@@ -2717,10 +2718,6 @@ msgstr "Браузер може запитати дозвіл на інстал�
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "Твої власні кольори"
-
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Your entry"
-msgstr "Ваш запис"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"

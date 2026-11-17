@@ -8,14 +8,12 @@ export const ImportCellPadStyles = StyleSheet.create((theme, rt) => ({
         flexBasis: '17%',
         flexGrow: 1,
         minHeight: rt.screen.height < ImportCompactFrameHeightConstant ? 36 : 44,
-        minWidth: 40,
         paddingHorizontal: 0
     },
     pad: {
         flexDirection: 'row',
         flexWrap: 'wrap',
-        columnGap: theme.spacing.sm,
-        rowGap: rt.screen.height < ImportCompactFrameHeightConstant ? 6 : theme.spacing.sm,
+        gap: theme.spacing.sm,
         width: '100%'
     }
 }));

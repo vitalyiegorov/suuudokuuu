@@ -1,0 +1,23 @@
+import { StyleSheet } from 'react-native-unistyles';
+
+import { ImportCompactFrameHeightConstant } from '../constants/import-compact-frame-height.constant';
+
+export const ImportDockStyles = StyleSheet.create((theme, rt) => {
+    const isCompact = rt.screen.height < ImportCompactFrameHeightConstant;
+
+    return {
+        dock: {
+            alignSelf: 'center',
+            flexShrink: 0,
+            gap: theme.spacing.sm,
+            maxWidth: '100%',
+            paddingBottom: rt.insets.bottom + (isCompact ? theme.spacing.sm : theme.spacing.md)
+        },
+        playButton: {
+            minHeight: isCompact ? 44 : 52,
+            paddingVertical: isCompact ? theme.spacing.sm : theme.spacing.md
+        },
+        buttonText: { _web: { lineHeight: 'normal' } },
+        disabledButton: { opacity: 0.42 }
+    };
+});

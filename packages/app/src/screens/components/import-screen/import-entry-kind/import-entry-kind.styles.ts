@@ -10,6 +10,5 @@ export const ImportEntryKindStyles = StyleSheet.create((theme, rt) => ({
         height: rt.screen.height < ImportCompactFrameHeightConstant ? 36 : 44,
         padding: theme.spacing.xs,
         width: '100%'
-    },
-    disabled: { opacity: 0.45 }
+    }
 }));

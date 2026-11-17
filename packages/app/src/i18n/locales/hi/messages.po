@@ -104,8 +104,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# घंटा} other {# घंटे}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
-msgstr "{keptCount, plural, one {आपकी # प्रविष्टियाँ रखीं} other {आपकी # प्रविष्टियाँ रखीं}}"
+msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
+msgstr "{keptCount, plural, one {# प्रविष्टि रखी} other {# प्रविष्टियाँ रखीं}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -1398,6 +1398,7 @@ msgid "Move the landscape controls panel to the left of the board"
 msgstr "लैंडस्केप कंट्रोल पैनल को बोर्ड के बाईं ओर ले जाएँ"
 
 #: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
 msgid "My entry"
 msgstr "मेरी प्रविष्टि"
 
@@ -1678,7 +1679,7 @@ msgstr "{valueList} को चिह्नित सेल में रखे�
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-dock/import-dock.tsx
 msgid "Play"
 msgstr "खेलें"
 
@@ -2715,10 +2716,6 @@ msgstr "आपका ब्राउज़र अज्ञात स्रोत
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "आपके कस्टम रंग"
-
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Your entry"
-msgstr "आपकी प्रविष्टि"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"

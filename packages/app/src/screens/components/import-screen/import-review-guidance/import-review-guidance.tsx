@@ -25,8 +25,7 @@ export const ImportReviewGuidance = ({ clueString, entryString, lead, assessment
     const keptCount = isDefined(solutionString) ? getMatchingEntryCellIndexes(entryString, solutionString).length : 0;
     const droppedCount = isDefined(solutionString) ? entryCount - keptCount : 0;
     const isCompleted = isDefined(solutionString) && isImportedPuzzleCompleted(clueString, entryString, solutionString);
-    const keptText =
-        keptCount > 0 ? t({ message: plural(keptCount, { one: '# of your entries kept', other: '# of your entries kept' }) }) : null;
+    const keptText = keptCount > 0 ? t({ message: plural(keptCount, { one: '# entry kept', other: '# entries kept' }) }) : null;
     const droppedText = droppedCount > 0 ? t({ message: plural(droppedCount, { one: '# didn’t match', other: '# didn’t match' }) }) : null;
     const entriesText = isCompleted
         ? t`Already solved on paper. You'll start from the printed clues.`

@@ -104,7 +104,7 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, other {# 小时}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# of your entries kept} other {# of your entries kept}}"
+msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
 msgstr "{keptCount, plural, one {保留了 # 个已填数字} other {保留了 # 个已填数字}}"
 
 #: src/game/utils/game-format-list.util.ts
@@ -1398,6 +1398,7 @@ msgid "Move the landscape controls panel to the left of the board"
 msgstr "将横屏控制面板移到棋盘左侧"
 
 #: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
 msgid "My entry"
 msgstr "我的填入数字"
 
@@ -1678,7 +1679,7 @@ msgstr "将 {valueList} 填入标记的单元格。"
 #: src/@generic/components/native-tab-layout/native-tab-layout.tsx
 #: src/app/(tabs)/index.tsx
 #: src/app/(tabs)/play.tsx
-#: src/screens/components/import-screen/import.screen.tsx
+#: src/screens/components/import-screen/import-dock/import-dock.tsx
 msgid "Play"
 msgstr "开始"
 
@@ -2715,10 +2716,6 @@ msgstr "浏览器可能会请求安装未知来源应用的权限。安装前，
 #: src/settings/hooks/use-settings-option-descriptions.hook.ts
 msgid "Your custom colors"
 msgstr "你的自定义颜色"
-
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Your entry"
-msgstr "你的填入"
 
 #: src/@generic/components/rating-explainer/rating-explainer.tsx
 msgid "Your hardest solve"
