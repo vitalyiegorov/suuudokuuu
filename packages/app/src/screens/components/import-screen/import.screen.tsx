@@ -115,8 +115,15 @@ export const ImportScreen = ({ initialText }: Props) => {
     const boardGeometry = gameGetBoardGeometry({ ...frameGeometry, availableWidth: boardSide, availableHeight: boardSide });
     const frameWidth = columnWidth - boardGeometry.boardSize < SpacingConstant.sm * 2 ? boardGeometry.boardSize : columnWidth;
     const detents = [calculatedSheetHeight / maximumSheetHeight];
+    const dockBoxHeight =
+        sheetHeight -
+        ImportSheetHandleHeight -
+        (isCompact ? ImportCompactPressHeightConstant : ImportRegularHeaderHeight) -
+        statusInset -
+        statusHeight -
+        areaHeight;
     const handleScrollLayout = ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
-        setMeasuredSheetHeight(layout.y + layout.height + (hasBoard ? statusInset + statusHeight + dockHeight + rt.insets.bottom : 0));
+        setMeasuredSheetHeight(layout.y + layout.height + (hasBoard ? statusInset + statusHeight + dockBoxHeight : 0));
     };
     const scrollLayoutProps = Platform.OS !== 'web' && { onLayout: handleScrollLayout };
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -175,7 +182,6 @@ export const ImportScreen = ({ initialText }: Props) => {
             )
         );
     const isPlayDisabled = !isDefined(uniqueAssessment) || isRecognizing;
-    const scrollStyles = hasBoard ? [styles.boardScroll, { flexBasis: boardInset + columnWidth }] : styles.scroll;
     const contentStyles = [styles.content, hasBoard ? { paddingTop: boardInset } : [styles.sourcesContent, { width: frameWidth }]];
     const statusSlotStyles = [styles.statusSlot, { width: frameWidth, height: statusInset + statusHeight, paddingTop: statusInset }];
 
@@ -242,7 +248,7 @@ export const ImportScreen = ({ initialText }: Props) => {
                 scrollEventThrottle={16}
                 contentContainerStyle={contentStyles}
                 contentInsetAdjustmentBehavior="never"
-                style={scrollStyles}
+                style={styles.scroll}
                 testID={ImportScreenSelectors.Root}
             >
                 {hasBoard ? (
@@ -265,7 +271,7 @@ export const ImportScreen = ({ initialText }: Props) => {
                         {status}
                         <ImportLegend puzzleString={puzzleString} review={state} />
                     </View>
-                    <ImportDock isPlayDisabled={isPlayDisabled} onPlay={handlePlay} width={frameWidth}>
+                    <ImportDock height={dockBoxHeight} isPlayDisabled={isPlayDisabled} onPlay={handlePlay} width={frameWidth}>
                         <ImportControls onInput={input} onToggle={toggleEntry} puzzleString={puzzleString} review={state} />
                     </ImportDock>
                 </>

@@ -11,12 +11,6 @@ export const ImportDockStyles = StyleSheet.create((theme, rt) => {
         dock: {
             alignSelf: 'center',
             flexShrink: 0,
-            flexGrow: 1,
-            flexBasis: 0,
-            minHeight:
-                (isCompact
-                    ? ImportCompactPressHeightConstant * 4 + theme.spacing.xs + theme.spacing.sm
-                    : ImportRegularPressHeightConstant * 4 + theme.spacing.xs + theme.spacing.md) + rt.insets.bottom,
             maxWidth: '100%',
             paddingBottom: rt.insets.bottom + (isCompact ? theme.spacing.sm : theme.spacing.md)
         },

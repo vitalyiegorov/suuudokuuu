@@ -4,7 +4,6 @@ export const ImportScreenStyles = StyleSheet.create(theme => ({
     content: { alignSelf: 'center', maxWidth: '100%' },
     sourcesContent: { paddingVertical: theme.spacing.md, flexGrow: 1, justifyContent: 'center' },
     scroll: { flexGrow: 1, flexBasis: 0, flexShrink: 1, minHeight: 0 },
-    boardScroll: { flexGrow: 0, flexShrink: 1, minHeight: 0 },
     statusSlot: {
         alignSelf: 'center',
         flexShrink: 0,
