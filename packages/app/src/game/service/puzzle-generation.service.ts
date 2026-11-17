@@ -1,4 +1,4 @@
-import { assessImportedPuzzle, forgeSerializablePuzzle, repairRecognizedPuzzle } from '@suuudokuuu/puzzle-forge';
+import { assessImportedPuzzle, forgeSerializablePuzzle } from '@suuudokuuu/puzzle-forge';
 import * as Context from 'effect/Context';
 import * as Effect from 'effect/Effect';
 import * as Fiber from 'effect/Fiber';
@@ -7,7 +7,6 @@ import * as Semaphore from 'effect/Semaphore';
 import { createWorkletRuntime, runOnRuntimeAsync } from 'react-native-worklets';
 
 import type { DifficultyEnum } from '@suuudokuuu/generator';
-import type { RecognizedPuzzleInterface } from '@suuudokuuu/puzzle-forge';
 import type { WorkletRuntime } from 'react-native-worklets';
 
 const workerTimeoutMilliseconds = 15_000;
@@ -22,12 +21,6 @@ const assessOnWorker = (puzzleString: string) => {
     'worklet';
 
     return assessImportedPuzzle(puzzleString);
-};
-
-const repairOnWorker = (recognized: RecognizedPuzzleInterface, uncertainConfidence: number) => {
-    'worklet';
-
-    return repairRecognizedPuzzle(recognized, uncertainConfidence);
 };
 
 export class PuzzleGenerationService extends Context.Service<PuzzleGenerationService>()('@suuudokuuu/app/PuzzleGenerationService', {
@@ -67,12 +60,6 @@ export class PuzzleGenerationService extends Context.Service<PuzzleGenerationSer
                     'puzzle-generation.assess',
                     runtime => runOnRuntimeAsync(runtime, assessOnWorker, puzzleString),
                     () => assessImportedPuzzle(puzzleString)
-                ),
-            repair: (recognized: RecognizedPuzzleInterface, uncertainConfidence: number) =>
-                runOnWorkerWhenAvailable(
-                    'puzzle-generation.repair',
-                    runtime => runOnRuntimeAsync(runtime, repairOnWorker, recognized, uncertainConfidence),
-                    () => repairRecognizedPuzzle(recognized, uncertainConfidence)
                 )
         };
     })

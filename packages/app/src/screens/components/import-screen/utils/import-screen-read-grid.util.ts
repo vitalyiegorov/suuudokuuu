@@ -1,8 +1,8 @@
 import { GridRecognitionKindEnum, recognizeGrid } from '@suuudokuuu/grid-vision';
+import { repairRecognizedPuzzle } from '@suuudokuuu/puzzle-forge';
 import * as Effect from 'effect/Effect';
 
 import { LoaderPaintDelayMillisecondsConstant } from '../../../../game/constant/loader-paint-delay.constant';
-import { PuzzleGenerationService } from '../../../../game/service/puzzle-generation.service';
 
 import { importScreenOpenImage } from './import-screen-open-image.util';
 
@@ -23,27 +23,25 @@ const readRegion = (source: Effect.Success<ReturnType<typeof importScreenOpenIma
 
 export const importScreenReadGrid = Effect.fn('importScreenReadGrid')(
     function* (uri: string) {
+        const source = yield* importScreenOpenImage(uri);
+
         yield* Effect.sleep(LoaderPaintDelayMillisecondsConstant);
 
-        const source = yield* importScreenOpenImage(uri);
         const overview = yield* readRegion(source, WholeImageRegion);
         const located = recognizeGrid(overview, Math.max(source.width, source.height) / Math.max(overview.width, overview.height));
         const closer =
             located.kind === GridRecognitionKindEnum.LOCATED
-                ? yield* Effect.map(readRegion(source, located.closerRegion), recognizeGrid)
+                ? yield* readRegion(source, located.closerRegion).pipe(
+                      Effect.map(recognizeGrid),
+                      Effect.orElseSucceed(() => located)
+                  )
                 : located;
         const recognized =
             located.kind === GridRecognitionKindEnum.LOCATED && closer.kind !== GridRecognitionKindEnum.RECOGNIZED
                 ? recognizeGrid(overview)
                 : closer;
 
-        if (recognized.kind !== GridRecognitionKindEnum.RECOGNIZED) {
-            return null;
-        }
-
-        const service = yield* PuzzleGenerationService;
-
-        return yield* service.repair(recognized, UncertainConfidence);
+        return recognized.kind === GridRecognitionKindEnum.RECOGNIZED ? repairRecognizedPuzzle(recognized, UncertainConfidence) : null;
     },
     Effect.scoped,
     Effect.orDie
