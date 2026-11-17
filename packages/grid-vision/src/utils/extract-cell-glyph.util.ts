@@ -53,15 +53,17 @@ const readCellLevels = (gray: GrayImageInterface, row: number, column: number): 
     return levels;
 };
 
-const cropLightInk = (levels: Float32Array): BinaryImageInterface => {
+const cropLightInk = (levels: Float32Array): BinaryImageInterface | null => {
     const background = levels.slice().sort()[Math.floor(levels.length / 2)];
     const data = new Uint8Array(levels.length);
+    let inkArea = 0;
 
     for (let pixel = 0; pixel < data.length; pixel += 1) {
         data[pixel] = levels[pixel] >= background + LIGHT_INK_CONTRAST ? 1 : 0;
+        inkArea += data[pixel];
     }
 
-    return { width: CROP_SIZE, height: CROP_SIZE, data };
+    return inkArea < MINIMUM_INK_AREA ? null : { width: CROP_SIZE, height: CROP_SIZE, data };
 };
 
 const invertLevels = (levels: Float32Array): Float32Array => {
@@ -203,7 +205,8 @@ export const extractCellGlyph = (
 ) => {
     const levels = readCellLevels(board.gray, row, column);
     const darkInk = findGlyphPieces(cropCell(board.mask, row, column));
-    const lightInk = findGlyphPieces(cropLightInk(levels));
+    const lightCrop = cropLightInk(levels);
+    const lightInk = lightCrop === null ? null : findGlyphPieces(lightCrop);
     const isLightInk = lightInk !== null && (darkInk === null || lightInk.bounds.area > LIGHT_INK_AREA_RATIO * darkInk.bounds.area);
     const found = isLightInk ? lightInk : darkInk;
 

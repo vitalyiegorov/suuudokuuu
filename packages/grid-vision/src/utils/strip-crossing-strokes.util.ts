@@ -59,11 +59,17 @@ const eraseCrossingChord = (data: Uint8Array, labels: Int32Array, component: Con
 
 export const stripCrossingStrokes = (crop: BinaryImageInterface): BinaryImageInterface => {
     const { labels, components } = labelComponents(crop);
-    const data = crop.data.slice();
-
     const crossingPieces = components.filter(component => findCrossedEdges(component, crop.width).length > 0);
 
+    if (crossingPieces.length === 0) {
+        return crop;
+    }
+
+    const data = crop.data.slice();
+    const isCrossingLabel = new Uint8Array(components.length + 1);
+
     for (const component of crossingPieces) {
+        isCrossingLabel[component.label] = 1;
         eraseCrossingChord(data, labels, component, crop.width);
     }
 
@@ -75,7 +81,7 @@ export const stripCrossingStrokes = (crop: BinaryImageInterface): BinaryImageInt
     ];
 
     for (let pixel = 0; pixel < data.length; pixel += 1) {
-        data[pixel] = isRemainder[stripped.labels[pixel]] ? 0 : data[pixel];
+        data[pixel] = isCrossingLabel[labels[pixel]] === 1 && isRemainder[stripped.labels[pixel]] ? 0 : data[pixel];
     }
 
     return { ...crop, data };
