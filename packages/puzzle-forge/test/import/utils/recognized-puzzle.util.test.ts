@@ -25,7 +25,7 @@ const readExactly = (puzzleString: string) => ({
         digit === '.' ? null : Array.from({ length: digitCount }, (_, index) => (index + 1 === Number(digit) ? 1 : 0))
     )
 });
-const misreadProbability = { wrongDigit: 0.95, printedDigit: 0.03, otherDigit: 0.0025 };
+const misreadProbability = { wrongDigit: 0.95, likelierDigit: 0.04, printedDigit: 0.03, otherDigit: 0.0025 };
 const misread = (puzzleString: string, cellIndex: number, wrongDigit: number, printedProbability = misreadProbability.printedDigit) => {
     const exact = readExactly(puzzleString);
 
@@ -110,6 +110,32 @@ describe('recognized puzzle import', () => {
 
             assert.strictEqual(assessImportedPuzzle(read.puzzleString).kind, ImportedPuzzleAssessmentKindEnum.NO_SOLUTION);
             assert.strictEqual(repairRecognizedPuzzle(read, uncertainConfidence)?.clueString, easyPuzzle);
+        })
+    );
+
+    it.effect('tries the likelier digit first, moves on when it leaves no solution and keeps earlier doubts in board order', () =>
+        Effect.sync(() => {
+            const read = misread(easyPuzzle, 0, 3);
+            const doubtedCellIndex = 2;
+            const digitAlreadyInRow = 9;
+
+            assert.deepStrictEqual(
+                repairRecognizedPuzzle(
+                    {
+                        ...read,
+                        confidences: read.confidences.map((confidence, index) => (index === doubtedCellIndex ? 0.8 : confidence)),
+                        probabilities: read.probabilities.map((probabilities, index) =>
+                            index === 0 && probabilities !== null
+                                ? probabilities.map((probability, digitIndex) =>
+                                      digitIndex + 1 === digitAlreadyInRow ? misreadProbability.likelierDigit : probability
+                                  )
+                                : probabilities
+                        )
+                    },
+                    uncertainConfidence
+                ),
+                { clueString: easyPuzzle, entryString: emptyPuzzle, uncertainCellIndexes: [0, doubtedCellIndex] }
+            );
         })
     );
 
