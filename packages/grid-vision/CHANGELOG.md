@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.44.10](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.9...v2.44.10) (2026-11-17)
+
+### Bug Fixes
+
+* **grid-vision:** read styled and annotated screenshot boards ([#866](https://github.com/vitalyiegorov/suuudokuuu/issues/866)) ([18240f1](https://github.com/vitalyiegorov/suuudokuuu/commit/18240f13b74a9c8d84c06323338b4fea92e324d3))
+
+
 ## [2.44.9](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.8...v2.44.9) (2026-11-17)
 
 ### Bug Fixes
