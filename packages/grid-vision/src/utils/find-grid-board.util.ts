@@ -220,10 +220,11 @@ const readLatticeBoard = (luma: GrayImageInterface, gray: GrayImageInterface) =>
         const row = Math.floor(index / WARPED_GRID_SIZE / CELL_SIZE);
         const column = Math.floor((index % WARPED_GRID_SIZE) / CELL_SIZE);
 
-        return [row, column].some(
-            (cell, axis) =>
-                (cell === 0 || cell === GRID_SIZE - 1) &&
-                lattice?.[axis === 0 ? 'visibleRows' : 'visibleColumns'][cell === 0 ? 0 : 1] === false
+        return (
+            (row === 0 && lattice?.visibleRows[0] === false) ||
+            (row === GRID_SIZE - 1 && lattice?.visibleRows[1] === false) ||
+            (column === 0 && lattice?.visibleColumns[0] === false) ||
+            (column === GRID_SIZE - 1 && lattice?.visibleColumns[1] === false)
         );
     };
 

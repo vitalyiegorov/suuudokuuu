@@ -23,7 +23,7 @@ export const readGridGlyphs = (image: RgbaImageInterface, board: WarpedBoardInte
             : {
                   glyph: ink.glyph,
                   chroma: Math.max(0, ink.chroma - Math.max(0, ink.backgroundChroma - boardChroma)),
-                  luma: board.isDarkInk ? ink.luma : MAXIMUM_GRAY - ink.luma
+                  luma: ink.isDarkInk ? ink.luma : MAXIMUM_GRAY - ink.luma
               }
     );
 };

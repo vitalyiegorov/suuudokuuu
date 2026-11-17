@@ -78,14 +78,16 @@ export const readCellInk = (image: RgbaImageInterface, board: WarpedBoardInterfa
         return null;
     }
 
+    const isDarkInk = board.isDarkInk !== extracted.isLightInk;
     const core = pixels
-        .sort((first, second) => (board.isDarkInk ? first.luma - second.luma : second.luma - first.luma))
+        .sort((first, second) => (isDarkInk ? first.luma - second.luma : second.luma - first.luma))
         .slice(0, Math.ceil(CORE_INK_RATIO * pixels.length));
 
     return {
         ...extracted,
+        isDarkInk,
         luma: core.reduce((total, pixel) => total + pixel.luma, 0) / core.length,
-        chroma: core.reduce((total, pixel) => total + pixel.chroma, 0) / core.length,
+        chroma: core.map(pixel => pixel.chroma).sort((first, second) => first - second)[Math.floor(core.length / 2)],
         backgroundChroma: measureBackgroundChroma(image, board, cell)
     };
 };

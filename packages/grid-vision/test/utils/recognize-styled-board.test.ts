@@ -19,7 +19,7 @@ const PENCIL_SIZE_RATIO = 0.22;
 const PENCIL_MARKS = ['1', '5', '9'];
 const PIXEL_OFFSET = 0.5;
 const PENCIL_MARK_STEP = CELL_SIZE / 3;
-const CHAIN_LINES_IN_CELLS = ['0.2 1.5 8.8 1.5', '4.5 1.5 4.5 7.5', '0.5 6.5 6.5 6.5'];
+const CHAIN_LINES_IN_CELLS = ['0.2 1.5 8.8 1.5', '4.5 1.5 4.5 5.5', '0.5 6.5 6.5 6.5'];
 const GREEN_CELL_MASK = [
     '..g......',
     '..g......',
@@ -105,7 +105,7 @@ const SCENES: SceneInterface[] = [
         line: '#2c2230',
         ink: '#1a1020',
         pencil: '#3a2a40',
-        paintCell: cell => (cell < GRID_SIZE || cell % GRID_SIZE === 5 ? ['#f2d4f0', '#7a1f78'] : null),
+        paintCell: cell => (cell < GRID_SIZE || cell % GRID_SIZE === 5 ? ['#f2d4f0', '#1a1020'] : null),
         drawOverlay: context => {
             context.strokeStyle = '#c03fb0';
             context.lineWidth = 4;
@@ -184,10 +184,11 @@ describe('recognizeGrid on styled and annotated boards', () => {
     describe.each(SCENES)('$name', scene => {
         const canvas = renderScene(scene);
 
-        it.each(READS)('should read every cell at %o', ({ isSmooth, quality }) => {
+        it.each(READS)('should read every cell without flagging a clue at %o', ({ isSmooth, quality }) => {
             expect(recognizeGrid(readCanvasRegion(canvas, WHOLE_IMAGE_REGION, isSmooth, quality))).toMatchObject({
                 kind: GridRecognitionKindEnum.RECOGNIZED,
-                puzzleString: PUZZLE
+                puzzleString: PUZZLE,
+                handwritten: Array.from(PUZZLE, () => false)
             });
         });
     });

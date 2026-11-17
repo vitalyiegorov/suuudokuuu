@@ -228,6 +228,7 @@ export const extractCellGlyph = (
 
     return {
         glyph: Float32Array.from({ length: GLYPH_PIXEL_COUNT }, (_, glyphIndex) => sampleGlyphPixel(darkness, bounds, glyphIndex)),
-        strokeHeight: measureStrokeHeight(pieces)
+        strokeHeight: measureStrokeHeight(pieces),
+        isLightInk
     };
 };
