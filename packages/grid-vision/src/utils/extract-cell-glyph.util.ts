@@ -1,7 +1,8 @@
-import { CELL_SIZE, GLYPH_PIXEL_COUNT, GLYPH_SIZE, PIXEL_CENTER } from '../constants/grid-vision.constant';
+import { CELL_SIZE, GLYPH_PIXEL_COUNT, GLYPH_SIZE, MAXIMUM_GRAY, PIXEL_CENTER } from '../constants/grid-vision.constant';
 
 import { dilateMask } from './dilate-mask.util';
 import { labelComponents } from './label-components.util';
+import { stripCrossingStrokes } from './strip-crossing-strokes.util';
 
 import type { BinaryImageInterface } from '../interfaces/binary-image.interface';
 import type { ConnectedComponentInterface } from '../interfaces/connected-component.interface';
@@ -21,6 +22,8 @@ const GLYPH_BOX_SIZE = 20;
 const SUPERSAMPLE_COUNT = 3;
 const INK_LEVEL_QUANTILE = 0.1;
 const GLYPH_REACH = 2;
+const LIGHT_INK_CONTRAST = 60;
+const LIGHT_INK_AREA_RATIO = 2;
 const EDGE_OFFSETS = Array.from({ length: CROP_SIZE }, (_, offset) => offset).filter(
     offset => offset < LINE_ZONE || offset >= CROP_SIZE - LINE_ZONE
 );
@@ -37,6 +40,40 @@ const cropCell = (mask: BinaryImageInterface, row: number, column: number): Bina
     }
 
     return { width: CROP_SIZE, height: CROP_SIZE, data };
+};
+
+const readCellLevels = (gray: GrayImageInterface, row: number, column: number): Float32Array => {
+    const levels = new Float32Array(CROP_SIZE * CROP_SIZE);
+    const originOffset = (row * CELL_SIZE + CELL_MARGIN) * gray.width + column * CELL_SIZE + CELL_MARGIN;
+
+    for (let pixel = 0; pixel < levels.length; pixel += 1) {
+        levels[pixel] = gray.data[originOffset + Math.floor(pixel / CROP_SIZE) * gray.width + (pixel % CROP_SIZE)];
+    }
+
+    return levels;
+};
+
+const cropLightInk = (levels: Float32Array): BinaryImageInterface | null => {
+    const background = levels.slice().sort()[Math.floor(levels.length / 2)];
+    const data = new Uint8Array(levels.length);
+    let inkArea = 0;
+
+    for (let pixel = 0; pixel < data.length; pixel += 1) {
+        data[pixel] = levels[pixel] >= background + LIGHT_INK_CONTRAST ? 1 : 0;
+        inkArea += data[pixel];
+    }
+
+    return inkArea < MINIMUM_INK_AREA ? null : { width: CROP_SIZE, height: CROP_SIZE, data };
+};
+
+const invertLevels = (levels: Float32Array): Float32Array => {
+    const inverted = new Float32Array(levels.length);
+
+    for (let pixel = 0; pixel < levels.length; pixel += 1) {
+        inverted[pixel] = MAXIMUM_GRAY - levels[pixel];
+    }
+
+    return inverted;
 };
 
 const eraseGridLines = (crop: BinaryImageInterface): BinaryImageInterface => {
@@ -93,13 +130,11 @@ const measureStrokeHeight = (pieces: readonly ConnectedComponentInterface[]): nu
     return Math.max(...strokes.map(stroke => stroke.maxY - stroke.minY + 1));
 };
 
-const measureDarkness = (gray: GrayImageInterface, cropOffset: number, labels: Int32Array, isGlyphLabel: Uint8Array): Float32Array => {
-    const levels = new Float32Array(labels.length);
+const collectInkLevels = (levels: Float32Array, labels: Int32Array, isGlyphLabel: Uint8Array) => {
     const glyphMask = new Uint8Array(labels.length);
     let glyphArea = 0;
 
     for (let pixel = 0; pixel < labels.length; pixel += 1) {
-        levels[pixel] = gray.data[cropOffset + Math.floor(pixel / CROP_SIZE) * gray.width + (pixel % CROP_SIZE)];
         glyphMask[pixel] = isGlyphLabel[labels[pixel]];
         glyphArea += glyphMask[pixel];
     }
@@ -114,6 +149,11 @@ const measureDarkness = (gray: GrayImageInterface, cropOffset: number, labels: I
         }
     }
 
+    return { glyphMask, inkLevels };
+};
+
+const measureDarkness = (levels: Float32Array, labels: Int32Array, isGlyphLabel: Uint8Array): Float32Array => {
+    const { glyphMask, inkLevels } = collectInkLevels(levels, labels, isGlyphLabel);
     const paper = levels.slice().sort()[Math.floor(levels.length / 2)];
     const contrast = Math.max(1, paper - inkLevels.sort()[Math.floor(INK_LEVEL_QUANTILE * inkLevels.length)]);
     const reach = dilateMask({ width: CROP_SIZE, height: CROP_SIZE, data: glyphMask }, GLYPH_REACH).data;
@@ -142,25 +182,39 @@ const sampleGlyphPixel = (darkness: Float32Array, bounds: ConnectedComponentInte
     return inkSum / (SUPERSAMPLE_COUNT * SUPERSAMPLE_COUNT);
 };
 
+const findGlyphPieces = (crop: BinaryImageInterface) => {
+    const { labels, components } = labelComponents(stripCrossingStrokes(eraseGridLines(crop)));
+    const pieces = components.filter(isCentralPiece);
+    const bounds = pieces.length > 0 ? mergePieces(pieces) : null;
+    const isGlyphLabel = new Uint8Array(components.length + 1);
+
+    for (const piece of pieces) {
+        isGlyphLabel[piece.label] = 1;
+    }
+
+    return bounds === null || bounds.area < MINIMUM_INK_AREA || bounds.maxY - bounds.minY + 1 < MINIMUM_GLYPH_HEIGHT_RATIO * CELL_SIZE
+        ? null
+        : { labels, pieces, bounds, isGlyphLabel };
+};
+
 export const extractCellGlyph = (
     board: Pick<WarpedBoardInterface, 'gray' | 'mask'>,
     row: number,
     column: number,
     visitInk: ((x: number, y: number) => void) | null = null
 ) => {
-    const { labels, components } = labelComponents(eraseGridLines(cropCell(board.mask, row, column)));
-    const pieces = components.filter(isCentralPiece);
-    const bounds = pieces.length > 0 ? mergePieces(pieces) : null;
+    const levels = readCellLevels(board.gray, row, column);
+    const darkInk = findGlyphPieces(cropCell(board.mask, row, column));
+    const lightCrop = cropLightInk(levels);
+    const lightInk = lightCrop === null ? null : findGlyphPieces(lightCrop);
+    const isLightInk = lightInk !== null && (darkInk === null || lightInk.bounds.area > LIGHT_INK_AREA_RATIO * darkInk.bounds.area);
+    const found = isLightInk ? lightInk : darkInk;
 
-    if (bounds === null || bounds.area < MINIMUM_INK_AREA || bounds.maxY - bounds.minY + 1 < MINIMUM_GLYPH_HEIGHT_RATIO * CELL_SIZE) {
+    if (found === null) {
         return null;
     }
 
-    const isGlyphLabel = new Uint8Array(components.length + 1);
-
-    for (const piece of pieces) {
-        isGlyphLabel[piece.label] = 1;
-    }
+    const { labels, pieces, bounds, isGlyphLabel } = found;
 
     if (visitInk !== null) {
         for (let pixel = 0; pixel < labels.length; pixel += 1) {
@@ -173,15 +227,11 @@ export const extractCellGlyph = (
         }
     }
 
-    const darkness = measureDarkness(
-        board.gray,
-        (row * CELL_SIZE + CELL_MARGIN) * board.gray.width + column * CELL_SIZE + CELL_MARGIN,
-        labels,
-        isGlyphLabel
-    );
+    const darkness = measureDarkness(isLightInk ? invertLevels(levels) : levels, labels, isGlyphLabel);
 
     return {
         glyph: Float32Array.from({ length: GLYPH_PIXEL_COUNT }, (_, glyphIndex) => sampleGlyphPixel(darkness, bounds, glyphIndex)),
-        strokeHeight: measureStrokeHeight(pieces)
+        strokeHeight: measureStrokeHeight(pieces),
+        isLightInk
     };
 };
