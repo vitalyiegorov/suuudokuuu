@@ -2284,10 +2284,6 @@ msgstr "标记越高，技巧越精妙"
 msgid "Tap a cell to change it"
 msgstr "轻点格子即可修改"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to type it"
-msgstr "轻点格子输入"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell, then a digit"
 msgstr "先点选单元格，再点数字"

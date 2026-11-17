@@ -2284,10 +2284,6 @@ msgstr "Högre markeringar = skarpare tekniker"
 msgid "Tap a cell to change it"
 msgstr "Tryck på en ruta för att ändra den"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to type it"
-msgstr "Tryck på en ruta för att skriva"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell, then a digit"
 msgstr "Tryck på en ruta och sedan en siffra"

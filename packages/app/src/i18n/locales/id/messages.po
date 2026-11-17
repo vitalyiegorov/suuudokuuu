@@ -2284,10 +2284,6 @@ msgstr "Tanda lebih tinggi = teknik lebih tajam"
 msgid "Tap a cell to change it"
 msgstr "Ketuk sel untuk mengubahnya"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to type it"
-msgstr "Ketuk sel untuk mengetik"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell, then a digit"
 msgstr "Ketuk sel, lalu angka"

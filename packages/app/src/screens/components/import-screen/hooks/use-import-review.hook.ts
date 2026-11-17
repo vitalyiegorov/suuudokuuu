@@ -88,8 +88,11 @@ export const useImportReview = (initialText: string) => {
             isTyping: true
         });
 
+    const selectCell = (cellIndex: number) => void update({ selectedCellIndex: cellIndex === state.selectedCellIndex ? null : cellIndex });
+
     return {
         state,
+        selectCell,
         puzzleAtom,
         puzzleString,
         reset,

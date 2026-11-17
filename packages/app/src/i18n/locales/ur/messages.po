@@ -2284,10 +2284,6 @@ msgstr "اونچے نشان = تیز تکنیکیں"
 msgid "Tap a cell to change it"
 msgstr "بدلنے کے لیے خانے پر ٹیپ کریں"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to type it"
-msgstr "لکھنے کے لیے خانے پر ٹیپ کریں"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell, then a digit"
 msgstr "پہلے کسی خانے پر، پھر کسی ہندسے پر ٹیپ کریں"

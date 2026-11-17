@@ -10,6 +10,8 @@ import { ImportScreenSelectors } from '../import-screen.selectors';
 
 import { ImportCellPadStyles as styles } from './import-cell-pad.styles';
 
+import type { PressableStateCallbackType } from 'react-native';
+
 const padValues = Array.from({ length: defaultSudokuConfig.fieldSize }, (_, index) => index + 1);
 interface Props {
     readonly isDisabled: boolean;
@@ -21,6 +23,8 @@ export const ImportCellPad = ({ isDisabled, onInput }: Props) => {
     const { theme } = use(ThemeContext);
 
     const handleClear = () => void onInput(defaultSudokuConfig.blankCellValue);
+
+    const getButtonStyles = ({ pressed }: PressableStateCallbackType) => [styles.button, styles.lastButton, pressed && styles.pressed];
 
     return (
         <View style={styles.pad}>
@@ -38,7 +42,7 @@ export const ImportCellPad = ({ isDisabled, onInput }: Props) => {
                     disabled={isDisabled}
                     onPress={handleClear}
                     accessibilityRole="button"
-                    style={({ pressed }) => [styles.button, styles.lastButton, pressed && styles.pressed]}
+                    style={getButtonStyles}
                     testID={ImportScreenSelectors.ClearButton}
                 >
                     <View pointerEvents="none" style={styles.surface}>

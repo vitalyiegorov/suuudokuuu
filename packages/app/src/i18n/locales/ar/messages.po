@@ -2284,10 +2284,6 @@ msgstr "كلما ارتفعت العلامة زادت براعة التقنية"
 msgid "Tap a cell to change it"
 msgstr "اضغط على خلية لتغييرها"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to type it"
-msgstr "اضغط على خلية للكتابة"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell, then a digit"
 msgstr "اضغط على خلية، ثم على رقم"

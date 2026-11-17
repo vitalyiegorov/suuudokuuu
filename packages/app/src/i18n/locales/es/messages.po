@@ -2286,10 +2286,6 @@ msgstr "Marcas más altas = técnicas más ingeniosas"
 msgid "Tap a cell to change it"
 msgstr "Toca una casilla para cambiarla"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to type it"
-msgstr "Toca una casilla para escribir"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell, then a digit"
 msgstr "Toca una casilla y luego un número"

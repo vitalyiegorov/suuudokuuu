@@ -1,10 +1,7 @@
-import { useAtomValue } from '@effect/atom-react/Hooks';
 import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
-import { ImportedPuzzleAssessmentKindEnum } from '@suuudokuuu/puzzle-forge';
 import { MaxFontSizeMultiplierConstant, SpacingConstant } from '@suuudokuuu/ui/theme';
 import * as Effect from 'effect/Effect';
-import * as AsyncResult from 'effect/reactivity/AsyncResult';
 import * as Clipboard from 'expo-clipboard';
 import { NotificationFeedbackType } from 'expo-haptics';
 import { launchImageLibraryAsync } from 'expo-image-picker';
@@ -17,22 +14,21 @@ import { emptyFn, isDefined } from '@rnw-community/shared';
 
 import { SheetFrame } from '../../../@generic/components/sheet-frame/sheet-frame';
 import { useVibration } from '../../../@generic/hooks/use-vibration.hook';
-import { appAtomRuntime, appRuntime } from '../../../@generic/runtime/app.runtime';
+import { appRuntime } from '../../../@generic/runtime/app.runtime';
 import { logErrorCause } from '../../../@generic/utils/log-error-cause.util';
-import { GameEmptySudokuStringConstant } from '../../../game/constant/empty-sudoku-string.constant';
-import { LoaderPaintDelayMillisecondsConstant } from '../../../game/constant/loader-paint-delay.constant';
 import { GameContext } from '../../../game/context/game.context';
 import { useConfirmRunReplacement } from '../../../game/hooks/use-confirm-run-replacement.hook';
-import { PuzzleGenerationService } from '../../../game/service/puzzle-generation.service';
 import { gameGetBoardGeometry } from '../../../game/utils/game-get-board-geometry.util';
 import { useSettings } from '../../../settings/query/use-settings.query';
 
 import { ImportCompactFrameHeightConstant } from './constants/import-compact-frame-height.constant';
+import { useImportAssessment } from './hooks/use-import-assessment.hook';
 import { useImportReview } from './hooks/use-import-review.hook';
 import { ImportBoard } from './import-board/import-board';
 import { ImportControls } from './import-controls/import-controls';
 import { ImportDock } from './import-dock/import-dock';
 import { ImportHeader } from './import-header/import-header';
+import { ImportLegend } from './import-legend/import-legend';
 import { ImportScreenSelectors } from './import-screen.selectors';
 import { ImportScreenStyles as styles } from './import-screen.styles';
 import { ImportSources } from './import-sources/import-sources';
@@ -75,7 +71,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     const { cellMargin, lastGameMaxMistakes } = useSettings();
     const confirmRunReplacement = useConfirmRunReplacement();
     const [hapticNotification] = useVibration();
-    const { state, puzzleAtom, puzzleString, reset, loadText, loadGrid, input, toggleEntry, moveSelection, update } =
+    const { state, puzzleAtom, puzzleString, reset, loadText, loadGrid, input, toggleEntry, moveSelection, update, selectCell } =
         useImportReview(initialText);
     const { entryString, isPasteMissed, isGridMissed, isRecognizing, isTyping, selectedCellIndex } = state;
     const [area, setArea] = useState<LayoutRectangle>(() => ({
@@ -86,25 +82,18 @@ export const ImportScreen = ({ initialText }: Props) => {
     }));
     const scrollRef = useRef<ScrollViewInstance>(null);
     const scrollOffset = useRef(0);
-    const [assessmentAtom] = useState(() =>
-        appAtomRuntime.atom(get => {
-            const assessedPuzzleString = get(puzzleAtom);
-
-            return Effect.sleep(LoaderPaintDelayMillisecondsConstant).pipe(
-                Effect.andThen(Effect.flatMap(PuzzleGenerationService, service => service.assess(assessedPuzzleString))),
-                Effect.map(assessment => ({ assessment, puzzleString: assessedPuzzleString }))
-            );
-        })
+    const { hasDigits, boardAssessed, uniqueAssessment, isCheckFailed, conflictCellIndexes } = useImportAssessment(
+        puzzleAtom,
+        puzzleString
     );
-    const assessmentResult = useAtomValue(assessmentAtom);
-    const hasDigits = puzzleString !== GameEmptySudokuStringConstant;
-    const assessed = AsyncResult.isSuccess(assessmentResult) ? assessmentResult.value : null;
-    const isAssessedCurrent = isDefined(assessed) && assessed.puzzleString === puzzleString;
 
     const hasBoard = hasDigits || isTyping || isRecognizing;
     const isCompact = window.height < ImportCompactFrameHeightConstant;
     const fontScale = Math.min(window.fontScale, MaxFontSizeMultiplierConstant);
-    const statusHeight = (36 + 20 * (fontScale > 1 ? 2 : 1)) * fontScale + SpacingConstant.xs;
+    const statusHeight =
+        (SpacingConstant.xl + SpacingConstant.xs + SpacingConstant.lg * (fontScale > 1 ? 2 : 1)) * fontScale +
+        SpacingConstant.xs -
+        (isCompact && Platform.OS === 'web' ? SpacingConstant.md * fontScale : 0);
     const boardInset = isCompact ? SpacingConstant.xs : ImportBoardInset;
     const statusInset = isCompact ? SpacingConstant.xs : ImportBoardInset;
     const frameSide = Math.min(area.width - SpacingConstant.lg * 2, ImportBoardSideMax);
@@ -114,7 +103,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     const frameGeometry = { ...ImportBoardGeometryOptions, cellMargin, availableWidth: frameSide, availableHeight: frameSide };
     const columnWidth = gameGetBoardGeometry(frameGeometry).boardSize;
     const boardGeometry = gameGetBoardGeometry({ ...frameGeometry, availableWidth: boardSide, availableHeight: boardSide });
-    const frameWidth = columnWidth - boardGeometry.boardSize < 16 ? boardGeometry.boardSize : columnWidth;
+    const frameWidth = columnWidth - boardGeometry.boardSize < SpacingConstant.sm * 2 ? boardGeometry.boardSize : columnWidth;
     const contentHeight = ImportRegularChromeHeight + frameWidth + statusHeight + rt.insets.bottom;
     const detents = [Math.min(contentHeight / window.height, ImportDetent)];
     const handleAreaLayout = (event: LayoutChangeEvent) => {
@@ -177,15 +166,6 @@ export const ImportScreen = ({ initialText }: Props) => {
                 Effect.orDie
             )
         );
-    const settledAssessed = assessmentResult.waiting ? null : assessed;
-    const isCheckFailed = AsyncResult.isFailure(assessmentResult) && !assessmentResult.waiting;
-    const boardAssessed = hasDigits && assessed?.puzzleString !== GameEmptySudokuStringConstant ? assessed : null;
-    const uniqueAssessment =
-        isAssessedCurrent && assessed.assessment.kind === ImportedPuzzleAssessmentKindEnum.UNIQUE ? assessed.assessment : null;
-    const conflictCellIndexes =
-        boardAssessed?.assessment.kind === ImportedPuzzleAssessmentKindEnum.CONFLICT
-            ? boardAssessed.assessment.cellIndexes.filter(cellIndex => puzzleString[cellIndex] === boardAssessed.puzzleString[cellIndex])
-            : [];
     const isPlayDisabled = !isDefined(uniqueAssessment) || isRecognizing;
     const scrollStyles = hasBoard ? [styles.boardScroll, { flexBasis: boardInset + columnWidth }] : styles.scroll;
     const contentStyles = [styles.content, hasBoard ? { paddingTop: boardInset } : [styles.sourcesContent, { width: frameWidth }]];
@@ -201,7 +181,6 @@ export const ImportScreen = ({ initialText }: Props) => {
     const onPastedText = useEffectEvent(handleLoadText);
     const onKeyboardInput = useEffectEvent(input);
     const onPastedImage = useEffectEvent((uri: string) => void handleImageSource(Effect.succeed(uri)));
-    const onAssessmentSettled = useEffectEvent(hapticNotification);
     const onSelectedCell = useEffectEvent((cellIndex: number) => {
         const rowHeight = boardGeometry.boardSize / defaultSudokuConfig.fieldSize;
         const rowTop = Math.floor(cellIndex / defaultSudokuConfig.fieldSize) * rowHeight;
@@ -227,22 +206,13 @@ export const ImportScreen = ({ initialText }: Props) => {
     );
 
     useEffect(() => {
-        const settledKind = settledAssessed?.assessment.kind;
-
-        if (settledKind === ImportedPuzzleAssessmentKindEnum.CONFLICT) {
-            onAssessmentSettled(NotificationFeedbackType.Warning);
-        } else if (settledKind === ImportedPuzzleAssessmentKindEnum.UNIQUE) {
-            onAssessmentSettled(NotificationFeedbackType.Success);
-        }
-    }, [settledAssessed]);
-
-    useEffect(() => {
         if (isDefined(selectedCellIndex)) {
             onSelectedCell(selectedCellIndex);
         }
     }, [selectedCellIndex]);
 
-    const handleSelectCell = (cellIndex: number) => void update({ selectedCellIndex: cellIndex === selectedCellIndex ? null : cellIndex });
+    const handleScan = () => void handleImageSource(importScreenScanImage);
+    const handleType = () => void update({ isTyping: true });
     const status = (
         <ImportStatus
             assessed={boardAssessed}
@@ -272,23 +242,21 @@ export const ImportScreen = ({ initialText }: Props) => {
                         geometry={boardGeometry}
                         review={state}
                         conflictCellIndexes={conflictCellIndexes}
-                        onSelectCell={handleSelectCell}
+                        onSelectCell={selectCell}
                         puzzleString={puzzleString}
                     />
                 ) : (
-                    <ImportSources
-                        onScan={() => void handleImageSource(importScreenScanImage)}
-                        onPhotos={handlePhotos}
-                        onPaste={handlePaste}
-                        onType={() => void update({ isTyping: true })}
-                    >
+                    <ImportSources onScan={handleScan} onPhotos={handlePhotos} onPaste={handlePaste} onType={handleType}>
                         {isPasteMissed || isGridMissed ? <View style={styles.sourceStatus}>{status}</View> : null}
                     </ImportSources>
                 )}
             </ScrollView>
             {hasBoard ? (
                 <>
-                    <View style={statusSlotStyles}>{status}</View>
+                    <View style={statusSlotStyles}>
+                        {status}
+                        <ImportLegend puzzleString={puzzleString} review={state} />
+                    </View>
                     <ImportDock isPlayDisabled={isPlayDisabled} onPlay={handlePlay} width={frameWidth}>
                         <ImportControls onInput={input} onToggle={toggleEntry} puzzleString={puzzleString} review={state} />
                     </ImportDock>

@@ -2286,10 +2286,6 @@ msgstr "Höhere Markierungen = raffiniertere Techniken"
 msgid "Tap a cell to change it"
 msgstr "Tippe zum Ändern auf ein Feld"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to type it"
-msgstr "Tippe zum Eingeben auf ein Feld"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell, then a digit"
 msgstr "Tippe auf ein Feld, dann auf eine Ziffer"

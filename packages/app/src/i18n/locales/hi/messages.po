@@ -2284,10 +2284,6 @@ msgstr "ऊँचे निशान = तेज़ तकनीकें"
 msgid "Tap a cell to change it"
 msgstr "बदलने के लिए खाने पर टैप करें"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to type it"
-msgstr "लिखने के लिए खाने पर टैप करें"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell, then a digit"
 msgstr "पहले एक खाना टैप करें, फिर एक अंक"

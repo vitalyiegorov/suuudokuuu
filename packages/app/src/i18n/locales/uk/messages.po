@@ -2286,10 +2286,6 @@ msgstr "Вищі позначки = складніші техніки"
 msgid "Tap a cell to change it"
 msgstr "Торкніться клітинки, щоб змінити"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to type it"
-msgstr "Торкніться клітинки для введення"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell, then a digit"
 msgstr "Торкніться клітинки, потім цифри"

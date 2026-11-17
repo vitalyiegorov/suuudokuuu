@@ -2286,10 +2286,6 @@ msgstr "Taller marks = sharper techniques"
 msgid "Tap a cell to change it"
 msgstr "Tap a cell to change it"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to type it"
-msgstr "Tap a cell to type it"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell, then a digit"
 msgstr "Tap a cell, then a digit"

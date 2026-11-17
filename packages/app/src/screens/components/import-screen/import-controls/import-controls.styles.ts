@@ -1,13 +1,6 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-import { ImportCompactFrameHeightConstant } from '../constants/import-compact-frame-height.constant';
-
-export const ImportControlsStyles = StyleSheet.create((theme, rt) => ({
+export const ImportControlsStyles = StyleSheet.create(theme => ({
     controls: { width: '100%', flexGrow: 1, justifyContent: 'flex-end' },
-    keys: { width: '100%', paddingBottom: theme.spacing.xs },
-    legend: {
-        ...StyleSheet.absoluteFill,
-        alignItems: 'center',
-        paddingTop: rt.screen.height < ImportCompactFrameHeightConstant ? theme.spacing.sm : theme.spacing.sm * 2
-    }
+    keys: { width: '100%', paddingBottom: theme.spacing.xs }
 }));

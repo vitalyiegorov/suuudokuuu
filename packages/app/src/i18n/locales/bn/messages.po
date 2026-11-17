@@ -2284,10 +2284,6 @@ msgstr "উঁচু চিহ্ন = ধারালো কৌশল"
 msgid "Tap a cell to change it"
 msgstr "বদলাতে ঘরে ট্যাপ করুন"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to type it"
-msgstr "লিখতে ঘরে ট্যাপ করুন"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Tap a cell, then a digit"
 msgstr "একটি ঘরে ট্যাপ করুন, তারপর একটি সংখ্যায়"
