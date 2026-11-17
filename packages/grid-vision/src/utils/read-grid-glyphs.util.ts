@@ -1,5 +1,6 @@
 import { CELL_COUNT, MAXIMUM_GRAY } from '../constants/grid-vision.constant';
 
+import { eraseAnnotationStrokes } from './erase-annotation-strokes.util';
 import { readCellInk } from './read-cell-ink.util';
 
 import type { RgbaImageInterface } from '../interfaces/rgba-image.interface';
@@ -9,7 +10,8 @@ const PENCIL_MARK_HEIGHT_RATIO = 0.6;
 const DIGIT_HEIGHT_QUANTILE = 0.9;
 
 export const readGridGlyphs = (image: RgbaImageInterface, board: WarpedBoardInterface) => {
-    const cells = Array.from({ length: CELL_COUNT }, (_, cell) => readCellInk(image, board, cell));
+    const cleanBoard = { ...board, mask: eraseAnnotationStrokes(board.mask) };
+    const cells = Array.from({ length: CELL_COUNT }, (_, cell) => readCellInk(image, cleanBoard, cell));
     const filled = cells.filter(ink => ink !== null);
     const strokeHeights = filled.map(ink => ink.strokeHeight).sort((first, second) => first - second);
     const minimumStrokeHeight = PENCIL_MARK_HEIGHT_RATIO * (strokeHeights[Math.floor(DIGIT_HEIGHT_QUANTILE * strokeHeights.length)] ?? 0);

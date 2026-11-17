@@ -14,7 +14,9 @@ import {
 import { adaptiveThreshold } from './adaptive-threshold.util';
 import { findCloserRegion } from './find-closer-region.util';
 import { findGridCorners } from './find-grid-corners.util';
+import { findGridLattice } from './find-grid-lattice.util';
 import { fitGridCorners } from './fit-grid-corners.util';
+import { hasDarkInk } from './has-dark-ink.util';
 import { keepThinInk } from './keep-thin-ink.util';
 import { projectPoint } from './project-point.util';
 import { refineGridCorners } from './refine-grid-corners.util';
@@ -30,6 +32,8 @@ const MAXIMUM_IMAGE_SIDE = 640;
 const CELL_THRESHOLD_RADIUS = 12;
 const CELL_THRESHOLD_SENSITIVITY = 0.15;
 const MINIMUM_LINE_CONTRAST = 0.25;
+const MINIMUM_FUSED_SCORE = 8;
+const SQUARE_SIDE_TOLERANCE = 0.08;
 const VISIBLE_INSET = 1;
 const INNER_BOX_LINE_POSITIONS = [WARPED_GRID_SIZE / 3, (2 * WARPED_GRID_SIZE) / 3];
 const WARPED_TARGET_CORNERS: readonly PointInterface[] = [
@@ -76,44 +80,6 @@ const downscaleLuma = (luma: GrayImageInterface, scale: number): GrayImageInterf
     }
 
     return { width, height, data };
-};
-
-const measureLineDeviation = (board: GrayImageInterface, median: number, linePosition: number, isVertical: boolean): number => {
-    const deviations = Array.from({ length: 2 * LINE_BAND + 1 }, (_, bandOffset) => {
-        const across = Math.min(Math.max(linePosition + bandOffset - LINE_BAND, 0), WARPED_GRID_SIZE - 1);
-        let sum = 0;
-
-        for (let along = 0; along < WARPED_GRID_SIZE; along += 1) {
-            sum += board.data[isVertical ? along * WARPED_GRID_SIZE + across : across * WARPED_GRID_SIZE + along];
-        }
-
-        return sum / WARPED_GRID_SIZE - median;
-    });
-
-    return deviations.reduce((strongest, deviation) => (Math.abs(deviation) > Math.abs(strongest) ? deviation : strongest), 0);
-};
-
-const hasDarkInk = (board: GrayImageInterface): boolean => {
-    const histogram = new Uint32Array(MAXIMUM_GRAY + 1);
-    let median = 0;
-    let darkerCount = 0;
-
-    for (const value of board.data) {
-        histogram[Math.round(value)] += 1;
-    }
-
-    while (darkerCount + histogram[median] < board.data.length / 2) {
-        darkerCount += histogram[median];
-        median += 1;
-    }
-
-    return (
-        Array.from({ length: GRID_SIZE + 1 }, (_, line) => line * CELL_SIZE).reduce(
-            (total, position) =>
-                total + measureLineDeviation(board, median, position, true) + measureLineDeviation(board, median, position, false),
-            0
-        ) <= 0
-    );
 };
 
 const invertGray = (image: GrayImageInterface): GrayImageInterface => ({ ...image, data: image.data.map(value => MAXIMUM_GRAY - value) });
@@ -236,6 +202,41 @@ const readFusedBoard = (luma: GrayImageInterface, corners: readonly PointInterfa
           };
 };
 
+const readLatticeBoard = (luma: GrayImageInterface, gray: GrayImageInterface) => {
+    const lattice = findGridLattice(gray);
+    const scale = measureDownscale(luma);
+    const board =
+        lattice === null
+            ? null
+            : refitBoard(
+                  luma,
+                  readBoard(
+                      luma,
+                      lattice.corners.map(corner => ({ x: corner.x * scale, y: corner.y * scale }))
+                  ),
+                  refineGridCorners
+              );
+    const isHidden = (index: number): boolean => {
+        const row = Math.floor(index / WARPED_GRID_SIZE / CELL_SIZE);
+        const column = Math.floor((index % WARPED_GRID_SIZE) / CELL_SIZE);
+
+        return [row, column].some(
+            (cell, axis) =>
+                (cell === 0 || cell === GRID_SIZE - 1) &&
+                lattice?.[axis === 0 ? 'visibleRows' : 'visibleColumns'][cell === 0 ? 0 : 1] === false
+        );
+    };
+
+    return board === null || lattice === null
+        ? null
+        : {
+              ...board,
+              isConfident: lattice.isConfident,
+              gray: { ...board.gray, data: board.gray.data.map((value, index) => (isHidden(index) ? MAXIMUM_GRAY : value)) },
+              mask: { ...board.mask, data: board.mask.data.map((value, index) => (isHidden(index) ? 0 : value)) }
+          };
+};
+
 const findBestBoardMask = (luma: GrayImageInterface, gray: GrayImageInterface, isInvertedSearch: boolean, isFusedSearch: boolean) =>
     findGridCorners(isInvertedSearch ? invertGray(gray) : gray, isFusedSearch)
         .filter(
@@ -254,6 +255,22 @@ const findBestBoardMask = (luma: GrayImageInterface, gray: GrayImageInterface, i
             null
         );
 
+const isSquareBoard = (corners: readonly PointInterface[]): boolean => {
+    const sides = corners.map((corner, index) => {
+        const next = corners[(index + 1) % corners.length];
+
+        return Math.hypot(next.x - corner.x, next.y - corner.y);
+    });
+
+    return Math.max(...sides) <= Math.min(...sides) * (1 + SQUARE_SIDE_TOLERANCE);
+};
+
+const isSameBoard = (corners: readonly PointInterface[], others: readonly PointInterface[]): boolean => {
+    const cellSide = Math.hypot(corners[1].x - corners[0].x, corners[1].y - corners[0].y) / GRID_SIZE;
+
+    return corners.every((corner, index) => Math.hypot(corner.x - others[index].x, corner.y - others[index].y) <= cellSide / 2);
+};
+
 export const findGridBoard = (image: RgbaImageInterface, sourceScale: number) => {
     if (image.width <= 0 || image.height <= 0 || image.data.length < image.width * image.height * RGBA_CHANNEL_COUNT) {
         return null;
@@ -262,7 +279,16 @@ export const findGridBoard = (image: RgbaImageInterface, sourceScale: number) =>
     const luma = toLuma(image);
     const gray = downscaleLuma(luma, measureDownscale(luma));
     const plainBoard = findBestBoardMask(luma, gray, false, false) ?? findBestBoardMask(luma, gray, true, false);
-    const board = plainBoard ?? findBestBoardMask(luma, gray, false, true) ?? findBestBoardMask(luma, gray, true, true);
+    const latticeBoard = plainBoard === null ? readLatticeBoard(luma, gray) : null;
+    const fusedBoard =
+        plainBoard === null && (latticeBoard === null || !latticeBoard.isConfident)
+            ? (findBestBoardMask(luma, gray, false, true) ?? findBestBoardMask(luma, gray, true, true))
+            : null;
+    const isFusedTrusted =
+        fusedBoard !== null &&
+        (fusedBoard.score >= MINIMUM_FUSED_SCORE || isSquareBoard(fusedBoard.corners)) &&
+        (latticeBoard === null || !isSameBoard(fusedBoard.corners, latticeBoard.corners));
+    const board = plainBoard ?? (isFusedTrusted ? fusedBoard : null) ?? latticeBoard ?? fusedBoard;
     const closerRegion = board === null ? null : findCloserRegion(board.corners, image, sourceScale);
 
     if (board === null || closerRegion !== null) {
