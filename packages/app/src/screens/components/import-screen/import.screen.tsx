@@ -6,7 +6,7 @@ import * as Clipboard from 'expo-clipboard';
 import { NotificationFeedbackType } from 'expo-haptics';
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useIsFocused } from 'expo-router';
-import { use, useEffect, useEffectEvent, useRef, useState } from 'react';
+import { use, useEffect, useEffectEvent, useRef } from 'react';
 import { Platform, ScrollView, View, useWindowDimensions } from 'react-native';
 import { useUnistyles } from 'react-native-unistyles';
 
@@ -22,6 +22,8 @@ import { gameGetBoardGeometry } from '../../../game/utils/game-get-board-geometr
 import { useSettings } from '../../../settings/query/use-settings.query';
 
 import { ImportCompactFrameHeightConstant } from './constants/import-compact-frame-height.constant';
+import { ImportCompactPressHeightConstant } from './constants/import-compact-press-height.constant';
+import { ImportRegularPressHeightConstant } from './constants/import-regular-press-height.constant';
 import { useImportAssessment } from './hooks/use-import-assessment.hook';
 import { useImportReview } from './hooks/use-import-review.hook';
 import { ImportBoard } from './import-board/import-board';
@@ -38,9 +40,9 @@ import { importScreenScanImage } from './utils/import-screen-scan-image.util';
 import { importScreenSubscribeWebInput } from './utils/import-screen-subscribe-web-input.util';
 
 import type * as Fiber from 'effect/Fiber';
-import type { LayoutChangeEvent, LayoutRectangle, NativeScrollEvent, NativeSyntheticEvent, ScrollViewInstance } from 'react-native';
+import type { NativeScrollEvent, NativeSyntheticEvent, ScrollViewInstance } from 'react-native';
 
-const ImportWebDetent = 0.95;
+const ImportWebDetent = 0.975;
 const ImportDetent = Platform.OS === 'web' ? ImportWebDetent : 1;
 const ImportSheetHandleHeight = Platform.OS === 'web' ? 13 : 0;
 const ImportBoardSideMax = 480;
@@ -48,7 +50,7 @@ const ImportBoardCellSizeMin = 26;
 const ImportBoardSideMin = defaultSudokuConfig.fieldSize * ImportBoardCellSizeMin;
 const ImportBoardInset = 16;
 const ImportRegularHeaderHeight = 48;
-const ImportRegularDockHeight = 224;
+const ImportRegularDockHeight = ImportRegularPressHeightConstant * 4 + SpacingConstant.xs + SpacingConstant.md;
 const ImportRegularChromeHeight =
     ImportSheetHandleHeight + ImportRegularHeaderHeight + ImportBoardInset * 2 + SpacingConstant.xxl + ImportRegularDockHeight;
 
@@ -74,12 +76,6 @@ export const ImportScreen = ({ initialText }: Props) => {
     const { state, puzzleAtom, puzzleString, reset, loadText, loadGrid, input, toggleEntry, moveSelection, update, selectCell } =
         useImportReview(initialText);
     const { entryString, isPasteMissed, isGridMissed, isRecognizing, isTyping, selectedCellIndex } = state;
-    const [area, setArea] = useState<LayoutRectangle>(() => ({
-        x: 0,
-        y: 0,
-        width: window.width,
-        height: window.height * ImportDetent - ImportRegularChromeHeight
-    }));
     const scrollRef = useRef<ScrollViewInstance>(null);
     const scrollOffset = useRef(0);
     const { hasDigits, boardAssessed, uniqueAssessment, isCheckFailed, conflictCellIndexes } = useImportAssessment(
@@ -91,26 +87,31 @@ export const ImportScreen = ({ initialText }: Props) => {
     const isCompact = window.height < ImportCompactFrameHeightConstant;
     const fontScale = Math.min(window.fontScale, MaxFontSizeMultiplierConstant);
     const statusHeight =
-        (SpacingConstant.xl + SpacingConstant.xs + SpacingConstant.lg * (fontScale > 1 ? 2 : 1)) * fontScale +
-        SpacingConstant.xs -
-        (isCompact && Platform.OS === 'web' ? SpacingConstant.md * fontScale : 0);
+        (SpacingConstant.xl + SpacingConstant.xs + SpacingConstant.lg * (fontScale > 1 ? 2 : 1)) * fontScale + SpacingConstant.xs;
     const boardInset = isCompact ? SpacingConstant.xs : ImportBoardInset;
     const statusInset = isCompact ? SpacingConstant.xs : ImportBoardInset;
-    const frameSide = Math.min(area.width - SpacingConstant.lg * 2, ImportBoardSideMax);
-    const boardSide = Math.floor(
-        Math.max(ImportBoardSideMin, Math.min(frameSide, area.height - (isCompact ? SpacingConstant.sm : boardInset)))
-    );
+    const frameSide = Math.min(window.width - SpacingConstant.lg * 2, ImportBoardSideMax);
     const frameGeometry = { ...ImportBoardGeometryOptions, cellMargin, availableWidth: frameSide, availableHeight: frameSide };
     const columnWidth = gameGetBoardGeometry(frameGeometry).boardSize;
+    const contentHeight = ImportRegularChromeHeight + columnWidth + statusHeight + rt.insets.bottom;
+    const sheetHeight = Math.min(contentHeight, window.height * ImportDetent);
+    const dockHeight = isCompact ? ImportCompactPressHeightConstant * 4 + SpacingConstant.xs + SpacingConstant.sm : ImportRegularDockHeight;
+    const areaHeight = Math.min(
+        boardInset + columnWidth,
+        sheetHeight -
+            ImportSheetHandleHeight -
+            (isCompact ? ImportCompactPressHeightConstant : ImportRegularHeaderHeight) -
+            statusInset -
+            statusHeight -
+            dockHeight -
+            rt.insets.bottom
+    );
+    const boardSide = Math.floor(
+        Math.max(ImportBoardSideMin, Math.min(frameSide, areaHeight - (isCompact ? SpacingConstant.sm : boardInset)))
+    );
     const boardGeometry = gameGetBoardGeometry({ ...frameGeometry, availableWidth: boardSide, availableHeight: boardSide });
     const frameWidth = columnWidth - boardGeometry.boardSize < SpacingConstant.sm * 2 ? boardGeometry.boardSize : columnWidth;
-    const contentHeight = ImportRegularChromeHeight + frameWidth + statusHeight + rt.insets.bottom;
-    const detents = [Math.min(contentHeight / window.height, ImportDetent)];
-    const handleAreaLayout = (event: LayoutChangeEvent) => {
-        if (hasBoard) {
-            setArea(event.nativeEvent.layout);
-        }
-    };
+    const detents = [sheetHeight / window.height];
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         scrollOffset.current = event.nativeEvent.contentOffset.y;
     };
@@ -169,7 +170,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     const isPlayDisabled = !isDefined(uniqueAssessment) || isRecognizing;
     const scrollStyles = hasBoard ? [styles.boardScroll, { flexBasis: boardInset + columnWidth }] : styles.scroll;
     const contentStyles = [styles.content, hasBoard ? { paddingTop: boardInset } : [styles.sourcesContent, { width: frameWidth }]];
-    const statusSlotStyles = [styles.statusSlot, { width: frameWidth, height: statusInset + statusHeight }];
+    const statusSlotStyles = [styles.statusSlot, { width: frameWidth, height: statusInset + statusHeight, paddingTop: statusInset }];
 
     const handlePlay = () => {
         if (isDefined(uniqueAssessment)) {
@@ -184,7 +185,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     const onSelectedCell = useEffectEvent((cellIndex: number) => {
         const rowHeight = boardGeometry.boardSize / defaultSudokuConfig.fieldSize;
         const rowTop = Math.floor(cellIndex / defaultSudokuConfig.fieldSize) * rowHeight;
-        const offset = Math.max(0, Math.ceil(boardInset + rowTop + rowHeight - area.height), Math.min(rowTop, scrollOffset.current));
+        const offset = Math.max(0, Math.ceil(boardInset + rowTop + rowHeight - areaHeight), Math.min(rowTop, scrollOffset.current));
 
         if (offset !== scrollOffset.current) {
             scrollRef.current?.scrollTo({ y: offset, animated: false });
@@ -229,7 +230,6 @@ export const ImportScreen = ({ initialText }: Props) => {
             <ScrollView
                 ref={scrollRef}
                 alwaysBounceVertical={false}
-                onLayout={handleAreaLayout}
                 onScroll={handleScroll}
                 scrollEventThrottle={16}
                 contentContainerStyle={contentStyles}

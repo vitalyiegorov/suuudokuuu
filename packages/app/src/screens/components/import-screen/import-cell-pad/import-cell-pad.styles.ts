@@ -23,8 +23,8 @@ export const ImportCellPadStyles = StyleSheet.create((theme, rt) => ({
         borderColor: theme.colors.surface.border,
         backgroundColor: theme.colors.surface.subtle
     },
-    firstButton: { paddingLeft: 0 },
-    lastButton: { paddingRight: 0 },
+    firstButton: { paddingStart: 0 },
+    lastButton: { paddingEnd: 0 },
     row: { flexDirection: 'row', width: '100%' },
     pressed: { opacity: 0.85 },
     pad: { width: '100%' }

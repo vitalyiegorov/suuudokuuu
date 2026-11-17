@@ -15,8 +15,8 @@ export const ImportDockStyles = StyleSheet.create((theme, rt) => {
             flexBasis: 0,
             minHeight:
                 (isCompact
-                    ? ImportCompactPressHeightConstant * 4 + theme.spacing.md
-                    : ImportRegularPressHeightConstant * 4 + theme.spacing.md) + rt.insets.bottom,
+                    ? ImportCompactPressHeightConstant * 4 + theme.spacing.xs + theme.spacing.sm
+                    : ImportRegularPressHeightConstant * 4 + theme.spacing.xs + theme.spacing.md) + rt.insets.bottom,
             maxWidth: '100%',
             paddingBottom: rt.insets.bottom + (isCompact ? theme.spacing.sm : theme.spacing.md)
         },
