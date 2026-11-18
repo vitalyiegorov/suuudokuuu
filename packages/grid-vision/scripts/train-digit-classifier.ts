@@ -134,14 +134,15 @@ const createNetwork = (random: SeededRandom): LayerWeightsInterface[] =>
         };
     });
 
-const runNetwork = (network: readonly LayerWeightsInterface[], glyph: Float32Array): Float32Array[] =>
-    LAYERS.reduce(
-        (activations, layer, index) => [
-            ...activations,
-            runClassifierLayer(layer, network[index], activations[index], index < LAYERS.length - 1)
-        ],
-        [glyph]
-    );
+const runNetwork = (network: readonly LayerWeightsInterface[], glyph: Float32Array): Float32Array[] => {
+    const activations = [glyph];
+
+    for (const [index, layer] of LAYERS.entries()) {
+        activations.push(runClassifierLayer(layer, network[index], activations[index], index < LAYERS.length - 1));
+    }
+
+    return activations;
+};
 
 const toProbabilities = (logits: Float32Array, temperature: number): Float32Array => {
     const largest = Math.max(...logits);
