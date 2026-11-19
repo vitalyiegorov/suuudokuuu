@@ -2,4 +2,4 @@ A importação por foto lê mais sudokus.
 
 • Temas escuros, casas sombreadas ou destacadas, anotações e capturas de tela com linhas traçadas sobre a grade agora são lidos corretamente.
 • As pistas impressas e as suas entradas são distinguidas com mais confiabilidade, e a folha de importação fica parada enquanto você corrige uma casa.
-• “Iniciar sudoku” agora sempre começa a dificuldade que você escolheu, mesmo que você a toque logo antes de iniciar.
+• “Iniciar sudoku” agora começa a dificuldade que você escolheu, mesmo que você a toque logo antes de iniciar.

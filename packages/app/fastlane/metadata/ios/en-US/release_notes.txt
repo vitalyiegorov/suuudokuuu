@@ -2,4 +2,4 @@ Photo import reads more boards.
 
 • Dark themes, shaded or highlighted cells, pencil marks, and screenshots with lines drawn across the grid now read correctly.
 • Printed clues and your own entries are told apart more reliably, and the import sheet stays still while you fix a cell.
-• Start now always begins the difficulty you picked, even when you tap it just before Start.
+• Start now begins the difficulty you picked, even when you tap it just before Start.

@@ -2,4 +2,4 @@ L'import par photo lit davantage de grilles.
 
 • Les thèmes sombres, les cases ombrées ou surlignées, les annotations et les captures d'écran avec des lignes tracées sur la grille sont désormais bien lus.
 • Les indices imprimés et vos propres saisies sont mieux distingués, et la feuille d'import reste immobile pendant que vous corrigez une case.
-• « Lancer la grille » démarre désormais toujours la difficulté choisie, même si vous la touchez juste avant.
+• « Lancer la grille » démarre désormais la difficulté choisie, même si vous la touchez juste avant.

@@ -2,4 +2,4 @@ Impor foto kini membaca lebih banyak teka-teki.
 
 • Tema gelap, kotak yang diarsir atau disorot, tanda pensil, dan tangkapan layar dengan garis di atas kisi kini terbaca dengan benar.
 • Petunjuk tercetak dan isian Anda dibedakan dengan lebih andal, dan lembar impor tetap diam saat Anda memperbaiki kotak.
-• “Mulai teka-teki” kini selalu memulai tingkat kesulitan yang Anda pilih, bahkan jika Anda mengetuknya tepat sebelum itu.
+• “Mulai teka-teki” kini memulai tingkat kesulitan yang Anda pilih, bahkan jika Anda mengetuknya tepat sebelum itu.

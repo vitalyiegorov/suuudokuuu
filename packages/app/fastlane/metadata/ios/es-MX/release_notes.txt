@@ -2,4 +2,4 @@ La importación por foto lee más sudokus.
 
 • Ahora se leen bien los temas oscuros, las casillas sombreadas o resaltadas, las anotaciones y las capturas con líneas trazadas sobre la cuadrícula.
 • Las pistas impresas y tus propias entradas se distinguen con más fiabilidad, y la hoja de importación se queda quieta mientras corriges una casilla.
-• «Iniciar sudoku» ahora siempre empieza con la dificultad que elegiste, incluso si la tocas justo antes de iniciar.
+• «Iniciar sudoku» ahora empieza con la dificultad que elegiste, incluso si la tocas justo antes de iniciar.

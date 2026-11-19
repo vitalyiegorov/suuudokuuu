@@ -2,4 +2,4 @@ Fotoimporten läser fler pussel.
 
 • Mörka teman, skuggade eller markerade rutor, blyertsmarkeringar och skärmdumpar med linjer dragna över rutnätet läses nu korrekt.
 • Tryckta ledtrådar och dina egna inmatningar skiljs åt säkrare, och importbladet ligger stilla medan du rättar en ruta.
-• ”Starta pussel” börjar nu alltid den svårighetsgrad du valde, även om du trycker på den strax före.
+• ”Starta pussel” börjar nu den svårighetsgrad du valde, även om du trycker på den strax före.

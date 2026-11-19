@@ -2,4 +2,4 @@ Der Foto-Import erkennt mehr Rätsel.
 
 • Dunkle Designs, schattierte oder hervorgehobene Felder, Notizen und Screenshots mit Linien quer über dem Raster werden jetzt richtig erkannt.
 • Vorgaben und deine eigenen Einträge werden zuverlässiger unterschieden, und das Import-Blatt bleibt ruhig, während du ein Feld korrigierst.
-• „Rätsel starten“ beginnt jetzt immer mit der gewählten Schwierigkeit, auch wenn du sie kurz vor dem Start antippst.
+• „Rätsel starten“ beginnt jetzt mit der gewählten Schwierigkeit, auch wenn du sie kurz vor dem Start antippst.
