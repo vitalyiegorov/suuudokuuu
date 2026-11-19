@@ -1,5 +1,5 @@
-Importez une grille depuis une photo.
+L'import par photo lit davantage de grilles.
 
-• Scannez une grille dans un journal, un livre ou sur un écran, ou choisissez-en une dans vos photos. La reconnaissance se fait sur votre appareil, et vos photos ne le quittent jamais.
-• Commencée sur papier ? Vos chiffres manuscrits sont conservés comme votre progression.
-• Les chiffres à vérifier sont signalés pour corriger n'importe quelle case avant de jouer.
+• Les thèmes sombres, les cases ombrées ou surlignées, les annotations et les captures d'écran avec des lignes tracées sur la grille sont désormais bien lus.
+• Les indices imprimés et vos propres saisies sont mieux distingués, et la feuille d'import reste immobile pendant que vous corrigez une case.
+• « Lancer la grille » démarre désormais la difficulté choisie, même si vous la touchez juste avant.

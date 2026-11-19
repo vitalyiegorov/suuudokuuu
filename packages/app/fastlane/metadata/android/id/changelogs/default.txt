@@ -1,5 +1,5 @@
-Impor teka-teki dari foto.
+Impor foto kini membaca lebih banyak teka-teki.
 
-• Pindai teka-teki dari koran, buku, atau layar, atau pilih dari foto Anda. Pengenalan berjalan di perangkat Anda, dan foto Anda tidak pernah keluar dari perangkat.
-• Sudah mulai di kertas? Angka tulisan tangan Anda disimpan sebagai progres Anda.
-• Angka yang perlu dicek ditandai, jadi Anda bisa memperbaiki kotak mana pun sebelum bermain.
+• Tema gelap, kotak yang diarsir atau disorot, tanda pensil, dan tangkapan layar dengan garis di atas kisi kini terbaca dengan benar.
+• Petunjuk tercetak dan isian Anda dibedakan dengan lebih andal, dan lembar impor tetap diam saat Anda memperbaiki kotak.
+• “Mulai teka-teki” kini memulai tingkat kesulitan yang Anda pilih, bahkan jika Anda mengetuknya tepat sebelum itu.
