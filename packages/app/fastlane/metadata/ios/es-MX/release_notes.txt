@@ -1,5 +1,5 @@
-Importa un acertijo desde una foto.
+La importación por foto lee más sudokus.
 
-• Escanea un acertijo de un periódico, un libro o una pantalla, o elige uno de tus fotos. El reconocimiento ocurre en tu dispositivo y tus fotos nunca salen de él.
-• ¿Lo empezaste en papel? Tus dígitos escritos a mano se conservan como tu avance.
-• Los dígitos dudosos se marcan para que corrijas cualquier casilla antes de jugar.
+• Ahora se leen bien los temas oscuros, las casillas sombreadas o resaltadas, las anotaciones y las capturas con líneas trazadas sobre la cuadrícula.
+• Las pistas impresas y tus propias entradas se distinguen con más fiabilidad, y la hoja de importación se queda quieta mientras corriges una casilla.
+• «Iniciar sudoku» ahora siempre empieza con la dificultad que elegiste, incluso si la tocas justo antes de iniciar.

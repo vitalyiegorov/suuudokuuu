@@ -1,5 +1,5 @@
-Importera ett pussel från ett foto.
+Fotoimporten läser fler pussel.
 
-• Skanna ett pussel från en tidning, en bok eller en skärm, eller välj ett bland dina foton. Igenkänningen sker på din enhet, och dina foton lämnar den aldrig.
-• Började du på papper? Dina handskrivna siffror sparas som dina framsteg.
-• Osäkra siffror markeras så att du kan rätta vilken ruta som helst innan du spelar.
+• Mörka teman, skuggade eller markerade rutor, blyertsmarkeringar och skärmdumpar med linjer dragna över rutnätet läses nu korrekt.
+• Tryckta ledtrådar och dina egna inmatningar skiljs åt säkrare, och importbladet ligger stilla medan du rättar en ruta.
+• ”Starta pussel” börjar nu alltid den svårighetsgrad du valde, även om du trycker på den strax före.
