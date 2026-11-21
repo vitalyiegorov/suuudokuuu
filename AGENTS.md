@@ -273,6 +273,8 @@ Use these types: `feat`, `fix`, `refactor`, `chore`, `docs`, `ci`, `test`, `i18n
 
 Never mention AI tools, bots, generated output, co-authors, or automation services in commits, PR titles, or PR descriptions.
 
+- PR and issue screenshots and videos go on GitHub itself: attach them with the GitHub CLI `--attach` flag (gh ≥ 2.99). `gh pr create|edit|comment` and `gh issue create|comment` accept repeatable `--attach './before.png#Alt text'`; reference the local path in the body and gh swaps in the uploaded URL. This works in private repos, so never push media to a branch (`pr-media`, `media/*`, `pr-assets/*`) or to another repo. Never upload real user data.
+
 ## Workflow
 
 - Commit after every accepted change. Each user-approved fix or feature increment gets its own focused Conventional Commit, validated first, instead of batching unrelated changes or leaving approved work uncommitted.
