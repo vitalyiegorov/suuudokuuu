@@ -21,7 +21,7 @@ The iPhone order is:
 
 1. `01-hero-board` — airy Nightmare board with pencil marks.
 2. `02-hell` — a real forcing-chain puzzle.
-3. `16-import` — the review sheet after scanning a paper puzzle with handwritten digits.
+3. `16-import` — a camera viewfinder next to the app's review sheet for the same paper puzzle.
 4. `06-rival` — challenge acceptance and the competitive premise.
 5. `14-challenge-live` — the matching mid-race story beat.
 6. `05-customization` — the two-phone theme editor and Ukrainian theme list.
@@ -43,6 +43,25 @@ iPhone shot switches appearance, so selecting the deployed variant is a brand
 choice rather than a different gallery. `deployed-variant.json` currently
 selects dark for iOS; `SCREENSHOT_VARIANT=light|dark` overrides it for a
 one-off upload. Google Play uses one dark-first set with a light-mode closer.
+
+## Import viewfinder
+
+`import-viewfinder.png` is the locale-neutral artwork for the left screen.
+`render-import-viewfinder.sh` projects the grid from
+`e2e/support/suuudokuuu/import-photo.jpg` onto `import-viewfinder-paper.jpg`
+and draws the detection outline and shutter. The right screen is the
+localized app capture from the same fixture, including its handwritten
+entries. iOS uses the existing frame masks and Google Play uses two frameless
+screens.
+
+After recapturing the import scene, pass its ID as the third argument to
+replace only the import shot in each set.
+
+```bash
+bash packages/app/fastlane/screenshots/design/render-import-viewfinder.sh
+bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US all 16-import
+bash packages/app/fastlane/screenshots/design/compose-screenshots.sh en-US duo 16-import
+```
 
 ## Visual system
 
