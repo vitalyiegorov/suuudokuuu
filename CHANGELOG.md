@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.44.13](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.12...v2.44.13) (2026-11-21)
+
+### Performance Improvements
+
+* **landing:** stop viewport prefetch of footer links ([#871](https://github.com/vitalyiegorov/suuudokuuu/issues/871)) ([4126386](https://github.com/vitalyiegorov/suuudokuuu/commit/4126386e87e969ab41c9f20312114118881581fd))
+
+
 ## [2.44.12](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.11...v2.44.12) (2026-11-19)
 
 **Note:** Version bump only for package @suuudokuuu/root
