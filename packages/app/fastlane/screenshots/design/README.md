@@ -52,7 +52,9 @@ one-off upload. Google Play uses one dark-first set with a light-mode closer.
 and draws the detection outline and shutter. The right screen is the
 localized app capture from the same fixture, including its handwritten
 entries. iOS uses the existing frame masks and Google Play uses two frameless
-screens.
+screens. The scanner sits higher so the review sheet can overlap it while
+leaving the paper grid and shutter visible. The wider iPhone Duo and Play
+canvases use a smaller vertical offset and less overlap.
 
 After recapturing the import scene, pass its ID as the third argument to
 replace only the import shot in each set.

@@ -773,19 +773,53 @@ compose_combo() {
   local native_w native_h
   read -r native_w native_h <<<"$(magick identify -format '%w %h' "$right_src")"
 
+  build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
+  if [[ "$scene" != "16-import" ]]; then
+    fit_duo_text_stack "$work/text-stack.png" "$canvas_h" "$height_fraction"
+  fi
+  if [[ "$device" == "android" ]]; then
+    fit_android_text_stack "$work/text-stack.png" "$canvas_h"
+  fi
+
+  local stack_h gap
+  stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
+  gap=$(awk -v h="$canvas_h" -v f="$TEXT_DEVICE_GAP_FRACTION" 'BEGIN { printf "%d", h * f }')
+
   local device_h device_w edge_margin
   device_h=$(awk -v h="$canvas_h" -v f="$height_fraction" 'BEGIN { printf "%d", h * f }')
-  device_w=$((device_h * native_w / native_h))
   edge_margin=$(awk -v h="$canvas_h" -v f="$COMBO_EDGE_MARGIN_FRACTION" 'BEGIN { printf "%d", h * f }')
 
+  local stagger=0
   if [[ "$scene" == "16-import" ]]; then
-    device_w=$(((canvas_w - 3 * edge_margin) / 2))
-    device_h=$((device_w * native_h / native_w))
-    height_fraction=$(awk -v dh="$device_h" -v h="$canvas_h" 'BEGIN { print dh / h }')
+    local stagger_percent=40
+    if [[ -n "$CANVAS_OVERRIDE" ]]; then
+      stagger_percent=22
+    elif [[ "$device" == "android" ]]; then
+      stagger_percent=30
+      edge_margin=$((canvas_w * 2 / 100))
+    fi
+    local max_device_h=$(((canvas_h - 2 * edge_margin - gap - stack_h) * 100 / (100 + stagger_percent)))
+    if (( device_h > max_device_h )); then
+      if [[ "$device" == "iphone" && -z "$CANVAS_OVERRIDE" ]]; then
+        stack_h=$((canvas_h - 2 * edge_margin - gap - device_h - device_h * stagger_percent / 100))
+        magick "$work/text-stack.png" -resize "x$stack_h" -define png:color-type=6 -depth 8 "$work/text-stack.png"
+      else
+        device_h="$max_device_h"
+      fi
+    fi
+    stagger=$((device_h * stagger_percent / 100))
   fi
+
+  device_w=$((device_h * native_w / native_h))
   local left_x="$edge_margin"
   local right_x=$((canvas_w - edge_margin - device_w))
-  if [[ "$scene" != "16-import" ]] && (( right_x > left_x + device_w )); then
+  if [[ "$scene" == "16-import" ]]; then
+    local max_combo_width=$((device_w * 19 / 10))
+    if (( max_combo_width < canvas_w - 2 * edge_margin )); then
+      left_x=$(((canvas_w - max_combo_width) / 2))
+      right_x=$((left_x + max_combo_width - device_w))
+    fi
+  elif (( right_x > left_x + device_w )); then
     right_x=$((left_x + device_w))
   fi
 
@@ -794,28 +828,19 @@ compose_combo() {
   magick "$right_src" -resize "${device_w}x${device_h}!" \
     -define png:color-type=6 -depth 8 "$work/framed-right-scaled.png"
 
-  build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
-  fit_duo_text_stack "$work/text-stack.png" "$canvas_h" "$height_fraction"
-  if [[ "$device" == "android" ]]; then
-    fit_android_text_stack "$work/text-stack.png" "$canvas_h"
-  fi
-  local stack_h
-  stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
-
-  local gap block_h block_top device_y text_y
-  gap=$(awk -v h="$canvas_h" -v f="$TEXT_DEVICE_GAP_FRACTION" 'BEGIN { printf "%d", h * f }')
-  block_h=$((device_h + gap + stack_h))
+  local block_h block_top device_y text_y
+  block_h=$((device_h + stagger + gap + stack_h))
   block_top=$(((canvas_h - block_h) / 2))
   device_y="$block_top"
-  text_y=$((block_top + device_h + gap))
+  text_y=$((block_top + device_h + stagger + gap))
   if [[ "$device" == "android" ]] && (( text_y < canvas_h * 80 / 100 )); then
     text_y=$((canvas_h * 80 / 100))
-    device_y=$((text_y - device_h - gap))
+    device_y=$((text_y - device_h - stagger - gap))
   fi
 
   magick -size "${canvas_w}x${canvas_h}" xc:none \
     "$work/framed-left-scaled.png" -gravity NorthWest -geometry "+${left_x}+${device_y}" -compose Over -composite \
-    "$work/framed-right-scaled.png" -gravity NorthWest -geometry "+${right_x}+${device_y}" -compose Over -composite \
+    "$work/framed-right-scaled.png" -gravity NorthWest -geometry "+${right_x}+$((device_y + stagger))" -compose Over -composite \
     -define png:color-type=6 -depth 8 "$work/device-on-canvas.png"
 
   local background=("$work/bg.png")
