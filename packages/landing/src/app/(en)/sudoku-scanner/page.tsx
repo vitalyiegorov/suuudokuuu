@@ -58,12 +58,12 @@ const SudokuScannerPage = () => (
                 Paste and Type it in are there for puzzles you have as text.
             </HowToStep>
             <HowToStep name="Check the board">
-                The recognized grid appears with any doubtful digits marked. Tap a cell to correct it, and the status line under the board
-                updates as you go.
+                The recognized grid appears with any doubtful digits outlined in dots. Tap a cell to correct it, and the status line under
+                the board updates as you go.
             </HowToStep>
             <HowToStep name="Play">
-                When the status line reports one solution, with the difficulty and the SE rating, press Play. Handwritten entries that fit
-                the solution are already on the board.
+                When the status line says Ready to play, with the difficulty, press Play. Handwritten entries that fit the solution are
+                already on the board.
             </HowToStep>
         </HowTo>
         <h2>Four ways to bring a puzzle in</h2>
@@ -91,19 +91,18 @@ const SudokuScannerPage = () => (
             If you have already filled in some cells by hand, the scanner separates your handwriting from the printed clues by the shade and
             color of the ink. Printed digits become the givens and handwritten ones become your entries. Once the puzzle is checked, entries
             that agree with the solution are kept and the ones that don’t are dropped, so a mistake on paper does not follow you into the
-            game. The review board tells you how many entries were kept and how many didn’t match.
+            game. Before you play, the status line says how many of your digits Play keeps, and any wrong ones are shown in red.
         </p>
         <p>
-            Handwriting in a pen that looks just like the print can be read as a clue, and the other way round. Tap the digit and choose
-            Make my entry or Make printed clue to switch it. If the paper puzzle is already finished, you start again from the printed
-            clues.
+            Handwriting in a pen that looks just like the print can be read as a clue, and the other way round. Tap the digit and switch it
+            between Given and Filled in. If the paper puzzle is already finished, you start again from the printed clues.
         </p>
         <p>Small pencil marks, the candidates written in the corner of a cell, are ignored, so a cell full of notes is read as empty.</p>
         <h2>What the review board checks</h2>
         <p>Before you play, the app solves the puzzle itself and the status line under the board reports what it found:</p>
         <ul>
             <li>
-                One solution, together with the difficulty tier and the Sudoku Explainer rating. The{' '}
+                Ready to play, together with the difficulty tier, when the puzzle has exactly one solution. The{' '}
                 <Link href={sudokuDifficultiesPageMetadata.path}>difficulty levels</Link> page describes each tier, and the{' '}
                 <Link href={sudokuDifficultyRatingPageMetadata.path}>sudoku difficulty rating guide</Link> explains the SE scale.
             </li>
@@ -156,15 +155,15 @@ const SudokuScannerPage = () => (
             <Faq>
                 <FaqQuestion>Can I continue a sudoku I started on paper?</FaqQuestion>
                 <FaqAnswer>
-                    Yes. Your handwritten digits are kept as your progress when they agree with the solution. Any that don’t are dropped,
-                    and the review board tells you how many.
+                    Yes. Your handwritten digits are kept as your progress when they agree with the solution. Any that don’t are shown in
+                    red on the review board and cleared when you press Play.
                 </FaqAnswer>
             </Faq>
             <Faq>
                 <FaqQuestion>How do I check that a sudoku has only one solution?</FaqQuestion>
                 <FaqAnswer>
-                    Import it. The review board solves the puzzle before you play and reports one solution with its difficulty tier and SE
-                    rating, or says what is wrong: a conflict, no solution, or more than one solution.
+                    Import it. The review board solves the puzzle before you play and says Ready to play with its difficulty tier when it
+                    has exactly one solution, or says what is wrong: a conflict, no solution, or more than one solution.
                 </FaqAnswer>
             </Faq>
             <Faq>

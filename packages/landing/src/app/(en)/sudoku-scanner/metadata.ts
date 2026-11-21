@@ -8,7 +8,7 @@ export const sudokuScannerPageMetadata: PageMetadataInterface = {
     metaDescription:
         'Scan a sudoku from a newspaper, book or screenshot and keep playing on your phone. Recognition runs on your device, and the puzzle is checked for one solution.',
     publishedAt: '2026-11-11T00:00:00.000Z',
-    updatedAt: '2026-11-11T00:00:00.000Z',
+    updatedAt: '2026-11-21T00:00:00.000Z',
     changeFrequency: 'monthly',
     priority: 0.6
 };

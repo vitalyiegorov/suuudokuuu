@@ -26,7 +26,7 @@
 #   fastlane frameit download_frames
 #
 # Usage:
-#   packages/app/fastlane/screenshots/design/compose-screenshots.sh [locale] [variant]
+#   packages/app/fastlane/screenshots/design/compose-screenshots.sh [locale] [variant] [scene]
 #
 # `locale` defaults to en-US and must have a design/<locale>/title.strings
 # and design/<locale>/subtitle.strings file. `variant` is light, dark,
@@ -52,6 +52,7 @@ FONT="$APP_DIR/node_modules/@expo-google-fonts/inter/900Black/Inter_900Black.ttf
 
 LOCALE="${1:-en-US}"
 VARIANT="${2:-all}"
+SCENE_FILTER="${3:-}"
 TITLES="$DESIGN_DIR/$LOCALE/title.strings"
 SUBTITLES="$DESIGN_DIR/$LOCALE/subtitle.strings"
 OUT_DIR=""
@@ -75,7 +76,9 @@ publish_stage() {
   fi
 
   mkdir -p "$final_dir"
-  rm -f "$final_dir"/*.png
+  if [[ -z "$SCENE_FILTER" ]]; then
+    rm -f "$final_dir"/*.png
+  fi
   mv "$OUT_DIR"/*.png "$final_dir/"
   echo "published $staged_count screenshots to $final_dir"
 }
@@ -523,6 +526,14 @@ fit_duo_text_stack() {
   fi
 }
 
+fit_android_text_stack() {
+  local stack="$1" canvas_h="$2"
+  local max_height=$((canvas_h * 15 / 100))
+  if (( $(magick identify -format "%h" "$stack") > max_height )); then
+    magick "$stack" -resize "x$max_height" -define png:color-type=6 -depth 8 "$stack"
+  fi
+}
+
 # Given the layout variant and the actual rendered heights of the caption
 # stack and the device block, returns "device_y text_y" (both absolute,
 # North-anchored pixel offsets from the canvas top). Layout A is
@@ -670,20 +681,13 @@ compose_one() {
     frame_capture "$src" "$frame_file" "$cutout_x" "$cutout_y" "$cutout_w" "$cutout_h" "$work/framed-device.png"
   fi
 
-  local HEADLINE_MIN_FRACTION="$HEADLINE_MIN_FRACTION"
-  if [[ "$device" == "android" ]]; then
-    HEADLINE_MIN_FRACTION="0.01"
-  fi
   build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
   fit_duo_text_stack "$work/text-stack.png" "$canvas_h" "$height_fraction"
+  if [[ "$device" == "android" ]]; then
+    fit_android_text_stack "$work/text-stack.png" "$canvas_h"
+  fi
   local stack_h
   stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
-  if [[ "$device" == "android" ]] && (( stack_h > canvas_h * 15 / 100 )); then
-    magick "$work/text-stack.png" -resize "x$((canvas_h * 15 / 100))" \
-      -define png:color-type=6 -depth 8 "$work/text-stack-fitted.png"
-    mv "$work/text-stack-fitted.png" "$work/text-stack.png"
-    stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
-  fi
 
   local frame_h frame_w frame_x max_frame_h
   frame_h=$(awk -v h="$canvas_h" -v f="$height_fraction" 'BEGIN { printf "%d", h * f }')
@@ -721,29 +725,34 @@ compose_one() {
   echo "wrote $OUT_DIR/$out_name (${canvas_w}x${canvas_h}), layout $layout, headline: \"$headline\""
 }
 
-# Special two-device scene for the "full customization" story: the colorful
-# theme editor (English) and the localized theme list (Ukrainian) side by
-# side in one iPhone-sized canvas, as a single combined proof of both
-# per-cell theming and language breadth instead of two separate shots. Both
-# devices are real framed iPhone 17s scaled to the same height, positioned
-# so they fit the canvas width edge-to-edge with the minimum overlap needed
-# — the right (Ukrainian) device is composited on top, so its own content is
-# always fully legible; only the left device's right edge is partly covered.
 compose_combo() {
-  local layout="$1" height_fraction="$2" out_name="$3" caption_key="$4" appearance="${5:-light}"
-  local left_src="$RAW_DIR/iphone/en/$appearance/04-editor.png"
-  local right_src="$RAW_DIR/iphone/uk/$appearance/03-themes.png"
+  local device="$1" scene="$2" appearance="$3" layout="$4" height_fraction="$5" out_name="$6"
+  local left_src right_src
+  if [[ "$scene" == "16-import" ]]; then
+    left_src="$DESIGN_DIR/import-viewfinder.png"
+    if [[ "$device" == "android" ]]; then
+      right_src="$(raw_source_for "$ANDROID_RAW_DIR" "" "$appearance" "$scene")"
+    else
+      right_src="$(raw_source_for "$RAW_DIR" "iphone/" "$appearance" "$scene")"
+    fi
+  else
+    left_src="$RAW_DIR/iphone/en/$appearance/04-editor.png"
+    right_src="$RAW_DIR/iphone/uk/$appearance/03-themes.png"
+  fi
   wait_for_capture "$left_src"
   wait_for_capture "$right_src"
 
   local headline descriptor
-  headline="$(headline_for "$caption_key")"
-  descriptor="$(descriptor_for "$caption_key")"
+  headline="$(headline_for "$scene")"
+  descriptor="$(descriptor_for "$scene")"
 
   local canvas_w canvas_h
   canvas_w="$(magick identify -format "%w" "$left_src")"
   canvas_h="$(magick identify -format "%h" "$left_src")"
-  if [[ -n "$CANVAS_OVERRIDE" ]]; then
+  if [[ "$device" == "android" ]]; then
+    canvas_w=$ANDROID_CANVAS_W
+    canvas_h=$ANDROID_CANVAS_H
+  elif [[ -n "$CANVAS_OVERRIDE" ]]; then
     canvas_w="${CANVAS_OVERRIDE%x*}"
     canvas_h="${CANVAS_OVERRIDE#*x}"
   fi
@@ -754,58 +763,93 @@ compose_combo() {
   magick -size "${canvas_w}x${canvas_h}" "gradient:${BACKGROUND_TOP_HEX}-${BACKGROUND_BOTTOM_HEX}" \
     -define png:color-type=2 -depth 8 "$work/bg.png"
 
-  frame_capture "$left_src" "$IPHONE_FRAME" "$IPHONE_CUTOUT_X" "$IPHONE_CUTOUT_Y" "$IPHONE_CUTOUT_W" "$IPHONE_CUTOUT_H" "$work/framed-left.png"
-  frame_capture "$right_src" "$IPHONE_FRAME" "$IPHONE_CUTOUT_X" "$IPHONE_CUTOUT_Y" "$IPHONE_CUTOUT_W" "$IPHONE_CUTOUT_H" "$work/framed-right.png"
+  if [[ "$device" == "iphone" ]]; then
+    frame_capture "$left_src" "$IPHONE_FRAME" "$IPHONE_CUTOUT_X" "$IPHONE_CUTOUT_Y" "$IPHONE_CUTOUT_W" "$IPHONE_CUTOUT_H" "$work/framed-left.png"
+    frame_capture "$right_src" "$IPHONE_FRAME" "$IPHONE_CUTOUT_X" "$IPHONE_CUTOUT_Y" "$IPHONE_CUTOUT_W" "$IPHONE_CUTOUT_H" "$work/framed-right.png"
+    left_src="$work/framed-left.png"
+    right_src="$work/framed-right.png"
+  fi
 
-  local frame_native_w frame_native_h
-  frame_native_w="$(magick identify -format "%w" "$IPHONE_FRAME")"
-  frame_native_h="$(magick identify -format "%h" "$IPHONE_FRAME")"
+  local native_w native_h
+  read -r native_w native_h <<<"$(magick identify -format '%w %h' "$right_src")"
+
+  build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
+  if [[ "$scene" != "16-import" ]]; then
+    fit_duo_text_stack "$work/text-stack.png" "$canvas_h" "$height_fraction"
+  fi
+  if [[ "$device" == "android" ]]; then
+    fit_android_text_stack "$work/text-stack.png" "$canvas_h"
+  fi
+
+  local stack_h gap
+  stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
+  gap=$(awk -v h="$canvas_h" -v f="$TEXT_DEVICE_GAP_FRACTION" 'BEGIN { printf "%d", h * f }')
 
   local device_h device_w edge_margin
   device_h=$(awk -v h="$canvas_h" -v f="$height_fraction" 'BEGIN { printf "%d", h * f }')
-  device_w=$(awk -v dh="$device_h" -v nw="$frame_native_w" -v nh="$frame_native_h" 'BEGIN { printf "%d", (dh * nw) / nh }')
   edge_margin=$(awk -v h="$canvas_h" -v f="$COMBO_EDGE_MARGIN_FRACTION" 'BEGIN { printf "%d", h * f }')
 
-  magick "$work/framed-left.png" -resize "${device_w}x${device_h}!" \
+  local stagger=0
+  if [[ "$scene" == "16-import" ]]; then
+    local stagger_percent=40
+    if [[ -n "$CANVAS_OVERRIDE" ]]; then
+      stagger_percent=22
+    elif [[ "$device" == "android" ]]; then
+      stagger_percent=30
+      edge_margin=$((canvas_w * 2 / 100))
+    fi
+    local max_device_h=$(((canvas_h - 2 * edge_margin - gap - stack_h) * 100 / (100 + stagger_percent)))
+    if (( device_h > max_device_h )); then
+      if [[ "$device" == "iphone" && -z "$CANVAS_OVERRIDE" ]]; then
+        stack_h=$((canvas_h - 2 * edge_margin - gap - device_h - device_h * stagger_percent / 100))
+        magick "$work/text-stack.png" -resize "x$stack_h" -define png:color-type=6 -depth 8 "$work/text-stack.png"
+      else
+        device_h="$max_device_h"
+      fi
+    fi
+    stagger=$((device_h * stagger_percent / 100))
+  fi
+
+  device_w=$((device_h * native_w / native_h))
+  local left_x="$edge_margin"
+  local right_x=$((canvas_w - edge_margin - device_w))
+  if [[ "$scene" == "16-import" ]]; then
+    local max_combo_width=$((device_w * 19 / 10))
+    if (( max_combo_width < canvas_w - 2 * edge_margin )); then
+      left_x=$(((canvas_w - max_combo_width) / 2))
+      right_x=$((left_x + max_combo_width - device_w))
+    fi
+  elif (( right_x > left_x + device_w )); then
+    right_x=$((left_x + device_w))
+  fi
+
+  magick "$left_src" -resize "${device_w}x${device_h}!" \
     -define png:color-type=6 -depth 8 "$work/framed-left-scaled.png"
-  magick "$work/framed-right.png" -resize "${device_w}x${device_h}!" \
+  magick "$right_src" -resize "${device_w}x${device_h}!" \
     -define png:color-type=6 -depth 8 "$work/framed-right-scaled.png"
 
-  # Both devices span the canvas width edge-to-edge (minus the outer
-  # margins) at their target height; on a portrait canvas, two portrait
-  # phones at a legible height only fit that width with real overlap, so the
-  # overlap is derived from the available width rather than picked as an
-  # arbitrary constant — it is exactly the overlap needed to fit, no more.
-  local available_w total_pair_w overlap_px left_x right_x
-  available_w=$((canvas_w - 2 * edge_margin))
-  total_pair_w=$((2 * device_w))
-  overlap_px=$((total_pair_w - available_w))
-  if (( overlap_px < 0 )); then
-    overlap_px=0
-  fi
-  left_x="$edge_margin"
-  right_x=$((left_x + device_w - overlap_px))
-
-  build_text_stack "$canvas_w" "$canvas_h" "$headline" "$descriptor" "$work/text-stack.png"
-  fit_duo_text_stack "$work/text-stack.png" "$canvas_h" "$height_fraction"
-  local stack_h
-  stack_h="$(magick identify -format "%h" "$work/text-stack.png")"
-
-  local gap block_h block_top device_y text_y
-  gap=$(awk -v h="$canvas_h" -v f="$TEXT_DEVICE_GAP_FRACTION" 'BEGIN { printf "%d", h * f }')
-  block_h=$((device_h + gap + stack_h))
+  local block_h block_top device_y text_y
+  block_h=$((device_h + stagger + gap + stack_h))
   block_top=$(((canvas_h - block_h) / 2))
   device_y="$block_top"
-  text_y=$((block_top + device_h + gap))
+  text_y=$((block_top + device_h + stagger + gap))
+  if [[ "$device" == "android" ]] && (( text_y < canvas_h * 80 / 100 )); then
+    text_y=$((canvas_h * 80 / 100))
+    device_y=$((text_y - device_h - stagger - gap))
+  fi
 
   magick -size "${canvas_w}x${canvas_h}" xc:none \
     "$work/framed-left-scaled.png" -gravity NorthWest -geometry "+${left_x}+${device_y}" -compose Over -composite \
-    "$work/framed-right-scaled.png" -gravity NorthWest -geometry "+${right_x}+${device_y}" -compose Over -composite \
+    "$work/framed-right-scaled.png" -gravity NorthWest -geometry "+${right_x}+$((device_y + stagger))" -compose Over -composite \
     -define png:color-type=6 -depth 8 "$work/device-on-canvas.png"
 
-  build_shadow "$work/device-on-canvas.png" "$canvas_w" "$canvas_h" "$work/shadow.png"
+  local background=("$work/bg.png")
+  if [[ "$device" == "iphone" ]]; then
+    build_shadow "$work/device-on-canvas.png" "$canvas_w" "$canvas_h" "$work/shadow.png"
+    background+=("$work/shadow.png" -compose Over -composite)
+  fi
 
-  magick "$work/bg.png" "$work/shadow.png" -compose Over -composite \
+  magick "${background[@]}" \
     "$work/device-on-canvas.png" -compose Over -composite \
     "$work/text-stack.png" -gravity North -geometry "+0+${text_y}" -compose Over -composite \
     -define png:color-type=2 -depth 8 "$work/final.png"
@@ -813,7 +857,7 @@ compose_combo() {
   mkdir -p "$OUT_DIR"
   cp "$work/final.png" "$OUT_DIR/$out_name"
 
-  echo "wrote $OUT_DIR/$out_name (${canvas_w}x${canvas_h}), layout $layout, headline: \"$headline\" (combo: 04-editor en + 03-themes uk)"
+  echo "wrote $OUT_DIR/$out_name (${canvas_w}x${canvas_h}), layout $layout, headline: \"$headline\""
 }
 
 # device | scene | appearance | layout | device height fraction | output filename | caption key (optional, defaults to scene)
@@ -825,20 +869,17 @@ compose_combo() {
 # two-part story instead of two unrelated scenes that happen to be adjacent.
 # The very first and very last shots in the whole gallery use the taller end
 # of the device height range (0.78), every other shot uses the shorter end
-# (0.74) — see design/README.md "Design system". The combo scene (device
-# field "combo") is dispatched to compose_combo instead of compose_one; its
-# appearance field selects which captures the combo pulls, its scene field
-# is an unused placeholder. The two variant manifests mirror each other:
+# (0.74) — see design/README.md "Design system". The two variant manifests mirror each other:
 # every shot uses its own variant's appearance, and the closing iPhone shot
 # flips to the opposite appearance as the "also does the other mode" proof
 # (dark closer in the light set, light closer in the dark set).
 SCENES_LIGHT=(
   "iphone|01-hero-board|light|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|01_iphone_hero-board.png"
   "iphone|02-hell|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|02_iphone_hell.png"
-  "iphone|16-import|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|03_iphone_import.png"
+  "combo|16-import|light|B|$DEVICE_HEIGHT_FRACTION_COMBO|03_iphone_import.png"
   "iphone|06-rival|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_iphone_challenge-accept.png"
   "iphone|14-challenge-live|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|05_iphone_challenge-live.png"
-  "combo|-|light|B|$DEVICE_HEIGHT_FRACTION_COMBO|06_iphone_customization.png|05-customization"
+  "combo|05-customization|light|B|$DEVICE_HEIGHT_FRACTION_COMBO|06_iphone_customization.png"
   "iphone|07-replay|light|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_replay.png"
   "iphone|10-stats|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_stats.png"
   "iphone|15-infinity|light|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|09_iphone_infinity.png"
@@ -852,13 +893,13 @@ SCENES_LIGHT=(
 )
 
 # Play carries one screenshot set rather than an appearance pair, so the Android
-# manifest mirrors the deployed (dark) App Store story on a single phone. The
+# manifest mirrors the deployed (dark) App Store story. The
 # two-device customization combo is an iPhone-only composition, so Android uses
 # the single editor shot in that slot instead.
 SCENES_ANDROID=(
   "android|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|01_phone_hero-board.png"
   "android|02-hell|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|02_phone_hell.png"
-  "android|16-import|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|03_phone_import.png"
+  "combo|16-import|dark|B|$DEVICE_HEIGHT_FRACTION_COMBO|03_phone_import.png"
   "android|06-rival|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_phone_challenge-accept.png"
   "android|04-editor|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|05_phone_customization.png|04-editor"
   "android|07-replay|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|06_phone_replay.png"
@@ -877,10 +918,10 @@ SCENES_TABLET=(
 SCENES_DARK=(
   "iphone|01-hero-board|dark|A|$DEVICE_HEIGHT_FRACTION_ENDPOINT|01_iphone_hero-board.png"
   "iphone|02-hell|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|02_iphone_hell.png"
-  "iphone|16-import|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|03_iphone_import.png"
+  "combo|16-import|dark|B|$DEVICE_HEIGHT_FRACTION_COMBO|03_iphone_import.png"
   "iphone|06-rival|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|04_iphone_challenge-accept.png"
   "iphone|14-challenge-live|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|05_iphone_challenge-live.png"
-  "combo|-|dark|B|$DEVICE_HEIGHT_FRACTION_COMBO|06_iphone_customization.png|05-customization"
+  "combo|05-customization|dark|B|$DEVICE_HEIGHT_FRACTION_COMBO|06_iphone_customization.png"
   "iphone|07-replay|dark|A|$DEVICE_HEIGHT_FRACTION_DEFAULT|07_iphone_replay.png"
   "iphone|10-stats|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|08_iphone_stats.png"
   "iphone|15-infinity|dark|B|$DEVICE_HEIGHT_FRACTION_DEFAULT|09_iphone_infinity.png"
@@ -914,6 +955,9 @@ run_variant() {
   local entry device scene appearance layout height_fraction out_name caption_key
   for entry in "${scenes[@]}"; do
     IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
+    if [[ -n "$SCENE_FILTER" && "$scene" != "$SCENE_FILTER" ]]; then
+      continue
+    fi
     if [[ -n "$CANVAS_OVERRIDE" ]]; then
       if [[ "$device" == "ipad-landscape" ]]; then
         continue
@@ -921,7 +965,7 @@ run_variant() {
       height_fraction="$DEVICE_HEIGHT_FRACTION_DUO"
     fi
     if [[ "$device" == "combo" ]]; then
-      compose_combo "$layout" "$height_fraction" "$out_name" "$caption_key" "$appearance"
+      compose_combo "iphone" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name"
     else
       compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
     fi
@@ -932,6 +976,7 @@ run_variant() {
 
 run_android() {
   local images_folder="$1"
+  local HEADLINE_MIN_FRACTION="0.01"
   ANDROID_RAW_DIR="$APP_DIR/fastlane/screenshots/raw/$2"
   shift 2
   set_variant_palette "dark"
@@ -941,7 +986,14 @@ run_android() {
   local entry device scene appearance layout height_fraction out_name caption_key
   for entry in "$@"; do
     IFS='|' read -r device scene appearance layout height_fraction out_name caption_key <<<"$entry"
-    compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
+    if [[ -n "$SCENE_FILTER" && "$scene" != "$SCENE_FILTER" ]]; then
+      continue
+    fi
+    if [[ "$device" == "combo" ]]; then
+      compose_combo "android" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name"
+    else
+      compose_one "$device" "$scene" "$appearance" "$layout" "$height_fraction" "$out_name" "$caption_key"
+    fi
   done
 
   publish_stage "$APP_DIR/fastlane/metadata/android/$PLAY_LOCALE/images/$images_folder"
