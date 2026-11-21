@@ -15,7 +15,6 @@ export const ImportScreenStyles = StyleSheet.create((theme, rt) => {
             paddingVertical: isCompact ? theme.spacing.xs : theme.spacing.md
         },
         sourcesContent: { paddingBottom: theme.spacing.xxl * 2 },
-        panel: { flexGrow: 1, flexBasis: 0, flexShrink: 1, minHeight: 0 },
         scroll: { flexGrow: 1, flexBasis: 0, flexShrink: 1, minHeight: 0 },
         statusSlot: {
             alignSelf: 'stretch',

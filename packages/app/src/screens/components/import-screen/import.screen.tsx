@@ -1,6 +1,5 @@
 import { useLingui } from '@lingui/react/macro';
 import { defaultSudokuConfig } from '@suuudokuuu/generator';
-import { getMatchingEntryCellIndexes } from '@suuudokuuu/puzzle-forge';
 import { MaxFontSizeMultiplierConstant, SpacingConstant } from '@suuudokuuu/ui/theme';
 import * as Effect from 'effect/Effect';
 import * as Clipboard from 'expo-clipboard';
@@ -51,6 +50,7 @@ const ImportBoardSideMax = 480;
 const ImportBoardCellSizeMin = 25;
 const ImportBoardSideMin = defaultSudokuConfig.fieldSize * ImportBoardCellSizeMin;
 const ImportStatusLinesHeight = 44;
+const ImportStatusWrapHeight = 18;
 const ImportColumnWidthMin = 240;
 
 const ImportBoardGeometryOptions = {
@@ -77,7 +77,7 @@ export const ImportScreen = ({ initialText }: Props) => {
     const { entryString, isPasteMissed, isGridMissed, isRecognizing, isTyping, selectedCellIndex } = state;
     const scrollRef = useRef<ScrollViewInstance>(null);
     const scrollOffset = useRef(0);
-    const [measuredPanelHeight, setMeasuredPanelHeight] = useState<number>();
+    const [measuredSheetHeight, setMeasuredSheetHeight] = useState<number>();
     const { hasDigits, boardAssessed, uniqueAssessment, isCheckFailed, conflictCellIndexes } = useImportAssessment(
         puzzleAtom,
         puzzleString
@@ -85,27 +85,32 @@ export const ImportScreen = ({ initialText }: Props) => {
 
     const hasBoard = hasDigits || isTyping || isRecognizing;
     const fontScale = Math.min(window.fontScale, MaxFontSizeMultiplierConstant);
-    const isCompact = window.height < ImportCompactFrameHeightConstant;
+    const isCompact = rt.screen.height < ImportCompactFrameHeightConstant;
     const pressHeight = isCompact ? ImportCompactPressHeightConstant : ImportRegularPressHeightConstant;
     const gap = isCompact ? SpacingConstant.sm : SpacingConstant.md;
     const headerHeight = ImportHeaderHeightConstant - (isCompact ? SpacingConstant.md : 0);
     const contentInset = isCompact ? SpacingConstant.xs : SpacingConstant.md;
-    const statusHeight = gap + SpacingConstant.sm + ImportStatusLinesHeight * fontScale + ImportCompactPressHeightConstant;
+    const statusLinesHeight = ImportStatusLinesHeight + (isCompact ? 0 : ImportStatusWrapHeight);
+    const statusHeight = gap + SpacingConstant.sm + statusLinesHeight * fontScale + ImportCompactPressHeightConstant;
     const frameSide = Math.min(window.width - SpacingConstant.md * 2, ImportBoardSideMax);
     const frameGeometry = { ...ImportBoardGeometryOptions, cellMargin, availableWidth: frameSide, availableHeight: frameSide };
     const frameWidth = gameGetBoardGeometry(frameGeometry).boardSize;
     const dockHeight = pressHeight * 3 + gap * 2 + rt.insets.bottom;
     const contentHeight = ImportSheetHandleHeight + headerHeight + frameWidth + statusHeight + contentInset * 2 + dockHeight;
     const maximumSheetHeight = Platform.OS === 'web' ? window.height : window.height - rt.insets.top;
-    const sheetHeight = Math.min(contentHeight, maximumSheetHeight * ImportDetent);
-    const panelHeight = measuredPanelHeight ?? sheetHeight - ImportSheetHandleHeight - headerHeight;
-    const areaHeight = panelHeight - dockHeight - contentInset * 2;
+    const calculatedSheetHeight = Math.min(contentHeight, maximumSheetHeight * ImportDetent);
+    const sheetHeight = Math.min(calculatedSheetHeight, measuredSheetHeight ?? calculatedSheetHeight);
+    const areaHeight = sheetHeight - ImportSheetHandleHeight - headerHeight - dockHeight - contentInset * 2;
     const boardSide = Math.floor(Math.max(ImportBoardSideMin, Math.min(frameSide, areaHeight - statusHeight)));
     const boardGeometry = gameGetBoardGeometry({ ...frameGeometry, availableWidth: boardSide, availableHeight: boardSide });
-    const detents = [sheetHeight / maximumSheetHeight];
+    const detents = [calculatedSheetHeight / maximumSheetHeight];
     const columnWidth = Math.min(frameWidth, Math.max(boardGeometry.boardSize, ImportColumnWidthMin));
-    const handlePanelLayout = ({ nativeEvent: { layout } }: LayoutChangeEvent) => void setMeasuredPanelHeight(layout.height);
-    const panelLayoutProps = Platform.OS !== 'web' && { onLayout: handlePanelLayout };
+    const handleScrollLayout = ({ nativeEvent: { layout } }: LayoutChangeEvent) => {
+        if (layout.height > 0) {
+            setMeasuredSheetHeight(layout.y + layout.height + (hasBoard ? dockHeight : 0));
+        }
+    };
+    const scrollLayoutProps = Platform.OS !== 'web' && { onLayout: handleScrollLayout };
     const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         scrollOffset.current = event.nativeEvent.contentOffset.y;
     };
@@ -161,11 +166,10 @@ export const ImportScreen = ({ initialText }: Props) => {
                 Effect.orDie
             )
         );
-    const matchingEntryCellIndexes = isDefined(uniqueAssessment)
-        ? getMatchingEntryCellIndexes(entryString, uniqueAssessment.solutionString)
-        : [];
     const droppedCellIndexes = isDefined(uniqueAssessment)
-        ? Array.from(entryString).flatMap((digit, index) => (digit !== '.' && !matchingEntryCellIndexes.includes(index) ? [index] : []))
+        ? Array.from(entryString).flatMap((digit, index) =>
+              digit !== '.' && digit !== uniqueAssessment.solutionString[index] ? [index] : []
+          )
         : [];
     const wrongCellIndexes = [...conflictCellIndexes, ...droppedCellIndexes];
     const isPlayDisabled = !isDefined(uniqueAssessment) || isRecognizing;
@@ -227,43 +231,42 @@ export const ImportScreen = ({ initialText }: Props) => {
     return (
         <SheetFrame accessibilityLabel={t`Import a puzzle`} detents={detents}>
             <ImportHeader isResetVisible={hasBoard} onReset={handleReset} width={columnWidth} />
-            <View style={styles.panel} {...panelLayoutProps}>
-                <ScrollView
-                    ref={scrollRef}
-                    alwaysBounceVertical={false}
-                    onScroll={handleScroll}
-                    scrollEventThrottle={16}
-                    contentContainerStyle={contentStyles}
-                    contentInsetAdjustmentBehavior="never"
-                    style={styles.scroll}
-                    testID={ImportScreenSelectors.Root}
-                >
-                    {hasBoard ? (
-                        <>
-                            <ImportBoard
-                                geometry={boardGeometry}
-                                review={state}
-                                conflictCellIndexes={wrongCellIndexes}
-                                onSelectCell={selectCell}
-                                puzzleString={puzzleString}
-                            />
-                            <View style={statusSlotStyles}>
-                                {status}
-                                <ImportCellKind onToggle={toggleEntry} puzzleString={puzzleString} review={state} />
-                            </View>
-                        </>
-                    ) : (
-                        <ImportSources onScan={handleScan} onPhotos={handlePhotos} onPaste={handlePaste} onType={handleType}>
-                            {isPasteMissed || isGridMissed ? status : null}
-                        </ImportSources>
-                    )}
-                </ScrollView>
+            <ScrollView
+                ref={scrollRef}
+                {...scrollLayoutProps}
+                alwaysBounceVertical={false}
+                onScroll={handleScroll}
+                scrollEventThrottle={16}
+                contentContainerStyle={contentStyles}
+                contentInsetAdjustmentBehavior="never"
+                style={styles.scroll}
+                testID={ImportScreenSelectors.Root}
+            >
                 {hasBoard ? (
-                    <ImportDock isPlayDisabled={isPlayDisabled} onPlay={handlePlay} width={columnWidth}>
-                        <ImportCellPad isDisabled={!isDefined(selectedCellIndex)} onInput={input} />
-                    </ImportDock>
-                ) : null}
-            </View>
+                    <>
+                        <ImportBoard
+                            geometry={boardGeometry}
+                            review={state}
+                            conflictCellIndexes={wrongCellIndexes}
+                            onSelectCell={selectCell}
+                            puzzleString={puzzleString}
+                        />
+                        <View style={statusSlotStyles}>
+                            {status}
+                            <ImportCellKind onToggle={toggleEntry} puzzleString={puzzleString} review={state} />
+                        </View>
+                    </>
+                ) : (
+                    <ImportSources onScan={handleScan} onPhotos={handlePhotos} onPaste={handlePaste} onType={handleType}>
+                        {isPasteMissed || isGridMissed ? status : null}
+                    </ImportSources>
+                )}
+            </ScrollView>
+            {hasBoard ? (
+                <ImportDock height={dockHeight} isPlayDisabled={isPlayDisabled} onPlay={handlePlay} width={columnWidth}>
+                    <ImportCellPad isDisabled={!isDefined(selectedCellIndex)} onInput={input} />
+                </ImportDock>
+            ) : null}
         </SheetFrame>
     );
 };

@@ -317,9 +317,7 @@ test('starts from printed clues when handwritten entries complete the puzzle', a
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('This puzzle is already complete');
     await cell(page, '0-4').click();
     await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
-    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toContainText(
-        "Already solved on paper. You'll start from the printed clues."
-    );
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toContainText('Play starts from the printed clues');
     await page.getByTestId(ImportScreenSelectors.PlayButton).click();
     await expect(page).toHaveURL(/\/game$/u);
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();

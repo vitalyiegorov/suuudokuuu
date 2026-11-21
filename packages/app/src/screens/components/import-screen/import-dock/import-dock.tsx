@@ -13,15 +13,16 @@ import type { ReactNode } from 'react';
 interface Props {
     readonly children: ReactNode;
     readonly width: number;
+    readonly height: number;
     readonly isPlayDisabled: boolean;
     readonly onPlay: () => void;
 }
 
-export const ImportDock = ({ children, width, isPlayDisabled, onPlay }: Props) => {
+export const ImportDock = ({ children, width, height, isPlayDisabled, onPlay }: Props) => {
     const { t } = useLingui();
     const { isCreatingGame } = use(GameContext);
 
-    const dockStyles = [styles.dock, { width }];
+    const dockStyles = [styles.dock, { width, height }];
     const playButtonStyles = [styles.playButton, isPlayDisabled && styles.disabledButton];
 
     return (

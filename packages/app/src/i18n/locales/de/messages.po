@@ -107,7 +107,7 @@ msgstr "{hours, plural, one {# Std.} other {# Std.}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
 msgid "{keptCount, plural, one {Play keeps your # digit} other {Play keeps your # digits}}"
-msgstr "{keptCount, plural, one {Das Spiel übernimmt # deiner Ziffern} other {Das Spiel übernimmt # deiner Ziffern}}"
+msgstr "{keptCount, plural, one {Spielen übernimmt deine # Ziffer} other {Spielen übernimmt deine # Ziffern}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -276,10 +276,6 @@ msgstr "Alle Felder einer Zahl (1-9)"
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "All progress will be lost"
 msgstr "Alle Fortschritte gehen verloren"
-
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Already solved on paper. You'll start from the printed clues."
-msgstr "Auf Papier schon gelöst. Du beginnst mit den gedruckten Vorgaben."
 
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "ALS-XZ"
@@ -1695,6 +1691,10 @@ msgstr "Spiele kostenloses Sudoku online mit sieben Schwierigkeitsgraden, Hinwei
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "Spiele auf höheren Schwierigkeitsgraden für größere Multiplikatoren"
+
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "Play starts from the printed clues"
+msgstr "Spielen startet mit den gedruckten Ziffern"
 
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"

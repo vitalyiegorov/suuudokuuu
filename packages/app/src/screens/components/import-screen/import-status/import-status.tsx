@@ -79,8 +79,15 @@ const getSourceDetailMessage = ({ isGridMissed, isPasteMissed, isRecognizing }: 
     return isPasteMissed ? msg`Copy a puzzle link or 81 digits, then paste again` : null;
 };
 
-const errorForegroundBlend = 0.25;
 const getClueCount = (text: string) => Array.from(text).filter(cell => digitPattern.test(cell)).length;
+
+const isEditHintVisible = (review: Props['review'], puzzleString: string, assessmentKind?: ImportedPuzzleAssessmentKindEnum | null) =>
+    (assessmentKind === ImportedPuzzleAssessmentKindEnum.UNIQUE || getClueCount(puzzleString) === 0) &&
+    !isDefined(getSourceMessage(review)) &&
+    !isDefined(review.selectedCellIndex) &&
+    !digitPattern.test(review.entryString);
+
+const errorForegroundBlend = 0.25;
 
 interface Props {
     readonly assessed: { readonly assessment: ImportedPuzzleAssessmentType; readonly puzzleString: string } | null;
@@ -94,7 +101,7 @@ interface Props {
 }
 
 export const ImportStatus = ({ assessed, uniqueAssessment, isCheckFailed, puzzleString, review }: Props) => {
-    const { entryString, isRecognizing, selectedCellIndex } = review;
+    const { entryString, isRecognizing } = review;
     const uncertainCellCount = review.uncertainCellIndexes.length;
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
@@ -144,11 +151,8 @@ export const ImportStatus = ({ assessed, uniqueAssessment, isCheckFailed, puzzle
     const reviewText = isReviewLeading ? uncertainText : null;
     const statusText = sourceText ?? reviewText ?? boardText;
     const sourceDetail = isDefined(sourceDetailMessage) ? t(sourceDetailMessage) : null;
-    const isEditable = assessmentKind === ImportedPuzzleAssessmentKindEnum.UNIQUE || getClueCount(puzzleString) === 0;
-    const editDetail =
-        isEditable && !isDefined(sourceText) && !isDefined(selectedCellIndex) && !digitPattern.test(entryString)
-            ? t`Tap a cell to edit`
-            : null;
+    const sourceAssessment = isDefined(sourceText) ? null : uniqueAssessment;
+    const editDetail = isEditHintVisible(review, puzzleString, assessmentKind) ? t`Tap a cell to edit` : null;
     const detailLead = sourceDetail ?? (isDefined(reviewText) ? null : uncertainText) ?? editDetail;
     const isError =
         (isDefined(sourceText) && !isRecognizing) ||
@@ -178,7 +182,7 @@ export const ImportStatus = ({ assessed, uniqueAssessment, isCheckFailed, puzzle
                     {statusText}
                 </BlackText>
             </View>
-            <ImportReviewGuidance assessment={uniqueAssessment} clueString={puzzleString} entryString={entryString} lead={detailLead} />
+            <ImportReviewGuidance assessment={sourceAssessment} clueString={puzzleString} entryString={entryString} lead={detailLead} />
         </>
     );
 };

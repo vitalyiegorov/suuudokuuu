@@ -275,10 +275,6 @@ msgstr "کسی نمبر کے تمام خانے (1-9)"
 msgid "All progress will be lost"
 msgstr "تمام پیش رفت ضائع ہو جائے گی"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Already solved on paper. You'll start from the printed clues."
-msgstr "کاغذ پر پہلے ہی حل ہو چکا ہے۔ آپ چھپے ہوئے اعداد سے شروع کریں گے۔"
-
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "ALS-XZ"
 msgstr "ALS-XZ"
@@ -1693,6 +1689,10 @@ msgstr "سات درجے مشکل، اشارے اور بغیر اشتہار کے 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "بڑے ملٹی پلائرز کے لیے زیادہ مشکل سطح پر کھیلیں"
+
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "Play starts from the printed clues"
+msgstr "کھیل چھپے ہوئے اشاروں سے شروع ہوگا"
 
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"

@@ -15,6 +15,6 @@ export const ImportSourcesStyles = StyleSheet.create(theme => ({
     title: { color: theme.colors.inkText, fontSize: theme.typography.size.xl, fontWeight: '700', textAlign: 'center' },
     subtitle: { color: theme.colors.inkText, fontSize: theme.typography.size.md, textAlign: 'center' },
     chips: { flexDirection: 'row', gap: theme.spacing.sm },
-    footerSlot: { alignItems: 'center', gap: theme.spacing.xs, minHeight: 48 },
+    footerSlot: { alignItems: 'center', gap: theme.spacing.xs, minHeight: 64 },
     footer: { color: theme.colors.text.hint, textAlign: 'center', fontSize: theme.typography.size.sm }
 }));

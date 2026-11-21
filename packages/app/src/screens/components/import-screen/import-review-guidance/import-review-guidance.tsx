@@ -31,7 +31,7 @@ export const ImportReviewGuidance = ({ clueString, entryString, lead, assessment
         droppedCount > 0
             ? t({ message: plural(droppedCount, { one: 'Play clears # wrong digit in red', other: 'Play clears # wrong digits in red' }) })
             : null;
-    const entriesText = isCompleted ? t`Already solved on paper. You'll start from the printed clues.` : (droppedText ?? keptText);
+    const entriesText = isCompleted ? t`Play starts from the printed clues` : (droppedText ?? keptText);
     const guidance = [lead, entriesText].filter(isNotEmptyString).join(' · ');
 
     return guidance.length > 0 ? (
@@ -39,7 +39,7 @@ export const ImportReviewGuidance = ({ clueString, entryString, lead, assessment
             accessibilityLiveRegion="polite"
             adjustsFontSizeToFit
             minimumFontScale={0.85}
-            numberOfLines={1}
+            numberOfLines={2}
             style={styles.guidance}
             testID={ImportScreenSelectors.Guidance}
         >

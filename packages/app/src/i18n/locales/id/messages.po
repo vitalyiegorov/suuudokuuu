@@ -275,10 +275,6 @@ msgstr "Semua kotak dengan satu angka (1-9)"
 msgid "All progress will be lost"
 msgstr "Semua progres akan hilang"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Already solved on paper. You'll start from the printed clues."
-msgstr "Sudah selesai di kertas. Kamu akan mulai dari angka petunjuk tercetak."
-
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "ALS-XZ"
 msgstr "ALS-XZ"
@@ -1693,6 +1689,10 @@ msgstr "Main sudoku gratis online dengan tujuh tingkat kesulitan, petunjuk, dan 
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "Main di tingkat lebih sulit untuk pengali lebih besar"
+
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "Play starts from the printed clues"
+msgstr "Main dimulai dari angka tercetak"
 
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"

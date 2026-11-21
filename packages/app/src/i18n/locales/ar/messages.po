@@ -275,10 +275,6 @@ msgstr "كل خانات رقم معين (1-9)"
 msgid "All progress will be lost"
 msgstr "سيضيع كل التقدم"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Already solved on paper. You'll start from the printed clues."
-msgstr "حُلّت بالفعل على الورق. ستبدأ من الأرقام المطبوعة."
-
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "ALS-XZ"
 msgstr "ALS-XZ"
@@ -1693,6 +1689,10 @@ msgstr "العب السودوكو مجانًا على الإنترنت بسبع�
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "العب بمستويات أصعب لمضاعفات أكبر"
+
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "Play starts from the printed clues"
+msgstr "يبدأ اللعب من الأرقام المطبوعة"
 
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"

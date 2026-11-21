@@ -275,10 +275,6 @@ msgstr "একটি সংখ্যার সব ঘর (1-9)"
 msgid "All progress will be lost"
 msgstr "সব অগ্রগতি হারিয়ে যাবে"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Already solved on paper. You'll start from the printed clues."
-msgstr "কাগজে ইতিমধ্যে সমাধান করা হয়েছে। আপনি মুদ্রিত সূত্র থেকে শুরু করবেন।"
-
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "ALS-XZ"
 msgstr "ALS-XZ"
@@ -1693,6 +1689,10 @@ msgstr "সাতটি কঠিনতার স্তর, সংকেত আ�
 #: src/scoring/components/scoring.screen.tsx
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "বড় গুণকের জন্য বেশি কঠিনতায় খেলুন"
+
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "Play starts from the printed clues"
+msgstr "খেলা ছাপা সূত্রের অঙ্ক থেকে শুরু হবে"
 
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"
