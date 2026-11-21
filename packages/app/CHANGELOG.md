@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.44.14](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.13...v2.44.14) (2026-11-21)
+
+### Bug Fixes
+
+* **app:** rework the import puzzle sheet layout and copy ([#872](https://github.com/vitalyiegorov/suuudokuuu/issues/872)) ([ebf5279](https://github.com/vitalyiegorov/suuudokuuu/commit/ebf52797629e66293e64a1d00b9757b9f1591d38))
+
+
 ## [2.44.12](https://github.com/vitalyiegorov/suuudokuuu/compare/v2.44.11...v2.44.12) (2026-11-19)
 
 **Note:** Version bump only for package @suuudokuuu/app
