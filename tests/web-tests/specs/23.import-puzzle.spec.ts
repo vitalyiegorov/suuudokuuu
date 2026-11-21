@@ -366,7 +366,7 @@ test('plays and restores handwritten progress recognized from a photo', async ({
     }
 });
 
-test('reserves the clear slot and shows the kind of the selected handwritten entry', async ({ page }) => {
+test('reserves the back slot and shows the kind of the selected handwritten entry', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await openImportFromPlay(page);
     const titleBounds = await page.getByTestId(ImportScreenSelectors.Title).boundingBox();
@@ -702,7 +702,7 @@ for (const viewport of [
     }
 }
 
-test('tabs from Clear to Play past inert editing controls on an unselected board', async ({ context, page }) => {
+test('tabs from Back to Play past inert editing controls on an unselected board', async ({ context, page }) => {
     await openImportFromPlay(page);
     await page.getByTestId(ImportScreenSelectors.TypeButton).click();
     await writeClipboard(context, page, uniquePuzzle);

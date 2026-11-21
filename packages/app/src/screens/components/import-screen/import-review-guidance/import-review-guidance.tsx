@@ -1,10 +1,12 @@
 import { plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
 import { getMatchingEntryCellIndexes, isImportedPuzzleCompleted } from '@suuudokuuu/puzzle-forge';
+import { useWindowDimensions } from 'react-native';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
+import { ImportCompactFrameHeightConstant } from '../constants/import-compact-frame-height.constant';
 import { ImportScreenSelectors } from '../import-screen.selectors';
 
 import { ImportReviewGuidanceStyles as styles } from './import-review-guidance.styles';
@@ -20,6 +22,7 @@ interface Props {
 
 export const ImportReviewGuidance = ({ clueString, entryString, lead, assessment }: Props) => {
     const { t } = useLingui();
+    const { height } = useWindowDimensions();
     const solutionString = assessment?.solutionString ?? null;
     const entryCount = Array.from(entryString).filter(digit => /[1-9]/u.test(digit)).length;
     const keptCount = isDefined(solutionString) ? getMatchingEntryCellIndexes(entryString, solutionString).length : 0;
@@ -32,6 +35,7 @@ export const ImportReviewGuidance = ({ clueString, entryString, lead, assessment
             ? t({ message: plural(droppedCount, { one: 'Play clears # wrong digit in red', other: 'Play clears # wrong digits in red' }) })
             : null;
     const entriesText = isCompleted ? t`Play starts from the printed clues` : (droppedText ?? keptText);
+    const lineCount = height < ImportCompactFrameHeightConstant ? 1 : 2;
     const guidance = [lead, entriesText].filter(isNotEmptyString).join(' · ');
 
     return guidance.length > 0 ? (
@@ -39,7 +43,7 @@ export const ImportReviewGuidance = ({ clueString, entryString, lead, assessment
             accessibilityLiveRegion="polite"
             adjustsFontSizeToFit
             minimumFontScale={0.85}
-            numberOfLines={2}
+            numberOfLines={lineCount}
             style={styles.guidance}
             testID={ImportScreenSelectors.Guidance}
         >
