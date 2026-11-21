@@ -46,7 +46,8 @@ export const ImportBoard = ({ geometry, puzzleString, review, conflictCellIndexe
                             const entryTone = isUncertain ? ImportCellToneEnum.UNCERTAIN_ENTRY : ImportCellToneEnum.ENTRY;
                             const clueTone = isUncertain ? ImportCellToneEnum.UNCERTAIN : ImportCellToneEnum.CLUE;
                             const tone = isEntry ? entryTone : clueTone;
-                            const cellTone = conflictCellIndexes.includes(cellIndex) ? ImportCellToneEnum.CONFLICT : tone;
+                            const conflictTone = isUncertain ? ImportCellToneEnum.UNCERTAIN_CONFLICT : ImportCellToneEnum.CONFLICT;
+                            const cellTone = conflictCellIndexes.includes(cellIndex) ? conflictTone : tone;
 
                             return (
                                 <ImportBoardCell

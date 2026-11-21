@@ -19,8 +19,8 @@ export const ImportEntryKind = ({ isEntry, onToggle }: Props) => {
     return (
         <View accessibilityLabel={t`Selected digit`} accessibilityRole="radiogroup" style={styles.container}>
             <View pointerEvents="none" style={styles.track} />
-            <ImportEntryKindSegment isChecked={!isEntry} onPress={onToggle} testID={clueTestId} text={t`Clue`} />
-            <ImportEntryKindSegment isChecked={isEntry} onPress={onToggle} testID={entryTestId} text={t`My entry`} />
+            <ImportEntryKindSegment isChecked={!isEntry} onPress={onToggle} testID={clueTestId} text={t`Given`} />
+            <ImportEntryKindSegment isChecked={isEntry} onPress={onToggle} testID={entryTestId} text={t`Filled in`} />
         </View>
     );
 };

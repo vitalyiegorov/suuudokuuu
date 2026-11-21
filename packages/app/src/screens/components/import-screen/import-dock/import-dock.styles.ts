@@ -11,6 +11,7 @@ export const ImportDockStyles = StyleSheet.create((theme, rt) => {
         dock: {
             alignSelf: 'center',
             flexShrink: 0,
+            gap: isCompact ? theme.spacing.sm : theme.spacing.md,
             maxWidth: '100%',
             paddingBottom: rt.insets.bottom + (isCompact ? theme.spacing.sm : theme.spacing.md)
         },

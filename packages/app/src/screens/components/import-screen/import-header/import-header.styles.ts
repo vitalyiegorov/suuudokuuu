@@ -1,13 +1,14 @@
 import { StyleSheet } from 'react-native-unistyles';
 
 import { ImportCompactFrameHeightConstant } from '../constants/import-compact-frame-height.constant';
+import { ImportHeaderHeightConstant } from '../constants/import-header-height.constant';
 
 const narrowFrameWidth = 360;
 const regularTitleSize = 22;
+const resetSize = 44;
 
 export const ImportHeaderStyles = StyleSheet.create((theme, rt) => {
     const isCompact = rt.screen.height < ImportCompactFrameHeightConstant;
-    const resetHeight = 44;
 
     return {
         container: {
@@ -15,24 +16,22 @@ export const ImportHeaderStyles = StyleSheet.create((theme, rt) => {
             alignSelf: 'center',
             flexDirection: 'row',
             flexShrink: 0,
-            gap: theme.spacing.sm,
+            height: ImportHeaderHeightConstant - (isCompact ? theme.spacing.md : 0),
             maxWidth: '100%',
-            paddingTop: isCompact ? 0 : theme.spacing.xs
+            paddingTop: isCompact ? 0 : theme.spacing.sm
         },
-        resetSlot: { width: 44, height: resetHeight },
+        resetSlot: { flexShrink: 0, height: resetSize, width: resetSize },
         reset: {
-            alignItems: 'flex-end',
+            alignItems: 'flex-start',
+            height: resetSize,
             justifyContent: 'center',
-            height: resetHeight,
-            width: 44,
-            borderRadius: theme.radius.sm,
+            width: resetSize,
             _web: {
                 cursor: 'pointer'
             }
         },
         resetPressed: {
-            opacity: 0.6,
-            transform: [{ scale: 0.97 }]
+            opacity: 0.6
         },
         title: {
             flex: 1,

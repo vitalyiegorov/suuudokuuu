@@ -63,10 +63,12 @@ export const useImportReview = (initialText: string) => {
             isNotEmptyArray(state.scannedCellIndexes) || value === 0
                 ? index
                 : Math.min(index + 1, GameEmptySudokuStringConstant.length - 1);
-        setPuzzleString(`${puzzleString.slice(0, index)}${value === 0 ? '.' : String(value)}${puzzleString.slice(index + 1)}`);
+        const isEntry = state.entryString[index] !== '.' && value !== 0;
+        const digit = value === 0 ? '.' : String(value);
+        setPuzzleString(`${puzzleString.slice(0, index)}${isEntry ? '.' : digit}${puzzleString.slice(index + 1)}`);
         update({
             isPasteMissed: false,
-            entryString: `${state.entryString.slice(0, index)}.${state.entryString.slice(index + 1)}`,
+            entryString: `${state.entryString.slice(0, index)}${isEntry ? digit : '.'}${state.entryString.slice(index + 1)}`,
             uncertainCellIndexes,
             selectedCellIndex: uncertainCellIndexes.find(cellIndex => cellIndex > index) ?? uncertainCellIndexes.at(0) ?? restCellIndex
         });

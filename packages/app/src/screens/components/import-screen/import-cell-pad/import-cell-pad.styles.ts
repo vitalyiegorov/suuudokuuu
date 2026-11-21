@@ -27,5 +27,6 @@ export const ImportCellPadStyles = StyleSheet.create((theme, rt) => ({
     lastButton: { paddingEnd: 0 },
     row: { flexDirection: 'row', width: '100%' },
     pressed: { opacity: 0.85 },
-    pad: { width: '100%' }
+    pad: { width: '100%' },
+    disabledPad: { opacity: 0.5 }
 }));

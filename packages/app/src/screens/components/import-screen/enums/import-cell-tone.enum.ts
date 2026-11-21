@@ -1,5 +1,6 @@
 export enum ImportCellToneEnum {
     CONFLICT = 'CONFLICT',
+    UNCERTAIN_CONFLICT = 'UNCERTAIN_CONFLICT',
     CLUE = 'CLUE',
     ENTRY = 'ENTRY',
     UNCERTAIN_ENTRY = 'UNCERTAIN_ENTRY',

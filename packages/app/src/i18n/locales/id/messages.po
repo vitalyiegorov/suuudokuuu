@@ -72,8 +72,8 @@ msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (salinan)"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{droppedCount, plural, one {# didn’t match} other {# didn’t match}}"
-msgstr "{droppedCount, plural, one {# tidak cocok} other {# tidak cocok}}"
+msgid "{droppedCount, plural, one {Play clears # wrong digit in red} other {Play clears # wrong digits in red}}"
+msgstr "{droppedCount, plural, other {Main menghapus # angka salah berwarna merah}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -104,8 +104,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# jam} other {# jam}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
-msgstr "{keptCount, plural, one {# isian disimpan} other {# isian disimpan}}"
+msgid "{keptCount, plural, one {Play keeps your # digit} other {Play keeps your # digits}}"
+msgstr "{keptCount, plural, other {Permainan menyimpan # angka Anda}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -173,8 +173,8 @@ msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fi
 msgstr "{subsetSize, plural, other {Lihat baris {regionNumber}: # angka di sana hanya muat di # sel.}}"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
-msgstr "{uncertainCellCount, plural, other {# angka perlu diperiksa}}"
+msgid "{uncertainCellCount, plural, one {Check the dotted digit} other {Check the # dotted digits}}"
+msgstr "{uncertainCellCount, plural, other {Periksa # angka bertitik}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -275,10 +275,6 @@ msgstr "Semua kotak dengan satu angka (1-9)"
 msgid "All progress will be lost"
 msgstr "Semua progres akan hilang"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Already solved on paper. You'll start from the printed clues."
-msgstr "Sudah selesai di kertas. Kamu akan mulai dari angka petunjuk tercetak."
-
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "ALS-XZ"
 msgstr "ALS-XZ"
@@ -348,6 +344,7 @@ msgstr "Hindari kesalahan: itu mengurangi poin."
 #: src/@generic/components/header-back-button/header-back-button.tsx
 #: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Back"
 msgstr "Kembali"
 
@@ -586,10 +583,6 @@ msgstr "Papan hitam-putih yang bersih"
 msgid "Clean win"
 msgstr "Kemenangan bersih"
 
-#: src/screens/components/import-screen/import-header/import-header.tsx
-msgid "Clear"
-msgstr "Hapus"
-
 #: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
 msgid "Clear cell"
 msgstr "Kosongkan sel"
@@ -602,11 +595,6 @@ msgstr "Tutup"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "Tutup petunjuk"
-
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Clue"
-msgstr "Petunjuk"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -669,6 +657,10 @@ msgstr "Lanjutkan Sudoku ini tepat di tempat aku berhenti!"
 #: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "Kontradiksi, jadi {cell} bukan {value}."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Copy a puzzle link or 81 digits, then paste again"
+msgstr "Salin tautan teka-teki atau 81 angka, lalu tempel lagi"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Couldn't find a sudoku grid"
@@ -840,6 +832,10 @@ msgstr "English"
 msgid "Enter a theme name"
 msgstr "Masukkan nama tema"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Enter the printed clues"
+msgstr "Masukkan angka petunjuk tercetak"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error cell"
 msgstr "Sel kesalahan"
@@ -887,6 +883,11 @@ msgstr "Umpan balik"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Filled cell"
 msgstr "Sel terisi"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Filled in"
+msgstr "Diisi"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -969,6 +970,11 @@ msgstr "Umum"
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "Mulai ringan"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Given"
+msgstr "Diberikan"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Gold"
@@ -1397,11 +1403,6 @@ msgstr "Langkah"
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "Pindahkan panel kontrol lanskap ke sebelah kiri papan"
 
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "My entry"
-msgstr "Isian saya"
-
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
 msgstr "Tema saya"
@@ -1475,10 +1476,6 @@ msgstr "Rantai Paksa Nishio"
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
 msgstr "tanpa bonus"
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "No clues yet"
-msgstr "Belum ada petunjuk"
 
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
@@ -1580,10 +1577,6 @@ msgstr "Salah satu ujung rantai selalu benar dan setiap kandidat yang ditandai b
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "One of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
 msgstr "Salah satu grup harus memuat {valueList}, dan setiap sel yang ditandai melihat setiap {valueList} di kedua grup, sehingga {eliminationList}."
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "One solution · {difficulty} · SE {rating}"
-msgstr "Satu solusi · {difficulty} · SE {rating}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {value} is left for {cellName}, with {removedList} gone."
@@ -1697,6 +1690,10 @@ msgstr "Main sudoku gratis online dengan tujuh tingkat kesulitan, petunjuk, dan 
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "Main di tingkat lebih sulit untuk pengali lebih besar"
 
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "Play starts from the printed clues"
+msgstr "Main dimulai dari angka tercetak"
+
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"
 msgstr "Beruntun main"
@@ -1795,6 +1792,10 @@ msgstr "Membaca sudoku…"
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Ready for a real challenge"
 msgstr "Siap menghadapi tantangan sesungguhnya"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Ready to play · {difficulty}"
+msgstr "Siap dimainkan · {difficulty}"
 
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
@@ -2280,13 +2281,9 @@ msgstr "Santai saja"
 msgid "Taller marks = sharper techniques"
 msgstr "Tanda lebih tinggi = teknik lebih tajam"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to change it"
-msgstr "Ketuk sel untuk mengubahnya"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Tap a cell, then a digit"
-msgstr "Ketuk sel, lalu angka"
+msgid "Tap a cell to edit"
+msgstr "Ketuk sel untuk mengedit"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"

@@ -72,8 +72,8 @@ msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (कॉपी)"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{droppedCount, plural, one {# didn’t match} other {# didn’t match}}"
-msgstr "{droppedCount, plural, one {# मेल नहीं खाए} other {# मेल नहीं खाए}}"
+msgid "{droppedCount, plural, one {Play clears # wrong digit in red} other {Play clears # wrong digits in red}}"
+msgstr "{droppedCount, plural, one {खेलने पर लाल रंग का # गलत अंक हटेगा} other {खेलने पर लाल रंग के # गलत अंक हटेंगे}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -104,8 +104,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# घंटा} other {# घंटे}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
-msgstr "{keptCount, plural, one {# प्रविष्टि रखी} other {# प्रविष्टियाँ रखीं}}"
+msgid "{keptCount, plural, one {Play keeps your # digit} other {Play keeps your # digits}}"
+msgstr "{keptCount, plural, one {खेल आपका # अंक रखेगा} other {खेल आपके # अंक रखेगा}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -173,8 +173,8 @@ msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fi
 msgstr "{subsetSize, plural, one {पंक्ति {regionNumber} देखें: वहाँ # अंक केवल # सेल में आ सकता है।} other {पंक्ति {regionNumber} देखें: वहाँ # अंक केवल # सेल में आ सकते हैं।}}"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
-msgstr "{uncertainCellCount, plural, one {# अंक जाँचें} other {# अंक जाँचें}}"
+msgid "{uncertainCellCount, plural, one {Check the dotted digit} other {Check the # dotted digits}}"
+msgstr "{uncertainCellCount, plural, one {बिंदीदार अंक जाँचें} other {# बिंदीदार अंक जाँचें}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -275,10 +275,6 @@ msgstr "किसी अंक की सभी कोशिकाएँ (1-9)"
 msgid "All progress will be lost"
 msgstr "सारी प्रगति खो जाएगी"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Already solved on paper. You'll start from the printed clues."
-msgstr "कागज़ पर पहले ही हल हो चुका है। आप छपे हुए अंकों से शुरू करेंगे।"
-
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "ALS-XZ"
 msgstr "ALS-XZ"
@@ -348,6 +344,7 @@ msgstr "गलतियों से बचें: वे आपके अंक
 #: src/@generic/components/header-back-button/header-back-button.tsx
 #: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Back"
 msgstr "वापस"
 
@@ -586,10 +583,6 @@ msgstr "साफ काला-सफेद बोर्ड"
 msgid "Clean win"
 msgstr "स्वच्छ जीत"
 
-#: src/screens/components/import-screen/import-header/import-header.tsx
-msgid "Clear"
-msgstr "साफ़ करें"
-
 #: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
 msgid "Clear cell"
 msgstr "खाना साफ़ करें"
@@ -602,11 +595,6 @@ msgstr "बंद करें"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "संकेत बंद करें"
-
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Clue"
-msgstr "संकेत"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -669,6 +657,10 @@ msgstr "इस सुडोकू को ठीक वहीं से जार
 #: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "विरोधाभास, इसलिए {cell}, {value} नहीं है।"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Copy a puzzle link or 81 digits, then paste again"
+msgstr "पहेली लिंक या 81 अंक कॉपी करें, फिर दोबारा पेस्ट करें"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Couldn't find a sudoku grid"
@@ -840,6 +832,10 @@ msgstr "English"
 msgid "Enter a theme name"
 msgstr "थीम का नाम दर्ज करें"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Enter the printed clues"
+msgstr "छपे हुए संकेत अंक दर्ज करें"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error cell"
 msgstr "त्रुटि वाली सेल"
@@ -887,6 +883,11 @@ msgstr "प्रतिक्रिया"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Filled cell"
 msgstr "भरी हुई सेल"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Filled in"
+msgstr "भरा गया"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -969,6 +970,11 @@ msgstr "सामान्य"
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "आरामदायक शुरुआत"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Given"
+msgstr "दिया गया"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Gold"
@@ -1397,11 +1403,6 @@ msgstr "चाल"
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "लैंडस्केप कंट्रोल पैनल को बोर्ड के बाईं ओर ले जाएँ"
 
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "My entry"
-msgstr "मेरी प्रविष्टि"
-
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
 msgstr "मेरी थीम"
@@ -1475,10 +1476,6 @@ msgstr "निशियो बाध्यकारी शृंखला"
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
 msgstr "कोई बोनस नहीं"
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "No clues yet"
-msgstr "अभी कोई संकेत नहीं"
 
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
@@ -1580,10 +1577,6 @@ msgstr "चेन का एक सिरा हमेशा सही होत
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "One of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
 msgstr "एक समूह में {valueList} होना ही चाहिए, और हर चिह्नित सेल दोनों समूहों के हर {valueList} को देखती है, इसलिए {eliminationList}।"
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "One solution · {difficulty} · SE {rating}"
-msgstr "एक हल · {difficulty} · SE {rating}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {value} is left for {cellName}, with {removedList} gone."
@@ -1697,6 +1690,10 @@ msgstr "सात कठिनाई स्तर, संकेत और बि
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "बड़े गुणकों के लिए कठिन स्तरों पर खेलें"
 
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "Play starts from the printed clues"
+msgstr "खेल छपे हुए संकेत अंकों से शुरू होगा"
+
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"
 msgstr "खेल का सिलसिला"
@@ -1795,6 +1792,10 @@ msgstr "सुडोकू पढ़ रहे हैं…"
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Ready for a real challenge"
 msgstr "असली चुनौती के लिए तैयार हैं?"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Ready to play · {difficulty}"
+msgstr "खेलने के लिए तैयार · {difficulty}"
 
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
@@ -2280,13 +2281,9 @@ msgstr "आराम से खेलें"
 msgid "Taller marks = sharper techniques"
 msgstr "ऊँचे निशान = तेज़ तकनीकें"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to change it"
-msgstr "बदलने के लिए खाने पर टैप करें"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Tap a cell, then a digit"
-msgstr "पहले एक खाना टैप करें, फिर एक अंक"
+msgid "Tap a cell to edit"
+msgstr "बदलने के लिए किसी खाने पर टैप करें"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"

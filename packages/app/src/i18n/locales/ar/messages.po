@@ -72,8 +72,8 @@ msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (نسخة)"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{droppedCount, plural, one {# didn’t match} other {# didn’t match}}"
-msgstr "{droppedCount, plural, one {# لم تتطابق} other {# لم تتطابق}}"
+msgid "{droppedCount, plural, one {Play clears # wrong digit in red} other {Play clears # wrong digits in red}}"
+msgstr "{droppedCount, plural, zero {لن يُمسح أي رقم} one {اللعب يمسح الرقم الخاطئ الأحمر} two {اللعب يمسح الرقمين الخاطئين الأحمرين} few {اللعب يمسح # أرقام خاطئة باللون الأحمر} many {اللعب يمسح # رقمًا خاطئًا باللون الأحمر} other {اللعب يمسح # رقم خاطئ باللون الأحمر}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -104,8 +104,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, zero {# ساعة} one {# ساعة} two {# ساعتان} few {# ساعات} many {# ساعة} other {# ساعة}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
-msgstr "{keptCount, plural, one {تم حفظ # إدخال} other {تم حفظ # إدخالات}}"
+msgid "{keptCount, plural, one {Play keeps your # digit} other {Play keeps your # digits}}"
+msgstr "{keptCount, plural, zero {لن تحتفظ اللعبة بأي رقم} one {ستحتفظ اللعبة برقم واحد من أرقامك} two {ستحتفظ اللعبة برقمين من أرقامك} few {ستحتفظ اللعبة بـ # أرقام من أرقامك} many {ستحتفظ اللعبة بـ # رقمًا من أرقامك} other {ستحتفظ اللعبة بـ # رقم من أرقامك}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -173,8 +173,8 @@ msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fi
 msgstr "{subsetSize, plural, zero {انظر إلى الصف {regionNumber}: لا توجد أرقام هناك تناسب خلايا محددة (#).} one {انظر إلى الصف {regionNumber}: رقم واحد هناك لا يناسب إلا خلية واحدة.} two {انظر إلى الصف {regionNumber}: رقمان هناك لا يناسبان إلا خليتين.} few {انظر إلى الصف {regionNumber}: # أرقام هناك لا تناسب إلا # خلايا.} many {انظر إلى الصف {regionNumber}: # رقمًا هناك لا تناسب إلا # خلية.} other {انظر إلى الصف {regionNumber}: # رقم هناك لا تناسب إلا # خلية.}}"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
-msgstr "{uncertainCellCount, plural, zero {# أرقام للتحقق} one {# رقم للتحقق} two {# رقمان للتحقق} few {# أرقام للتحقق} many {# رقمًا للتحقق} other {# رقم للتحقق}}"
+msgid "{uncertainCellCount, plural, one {Check the dotted digit} other {Check the # dotted digits}}"
+msgstr "{uncertainCellCount, plural, zero {لا أرقام للتحقق} one {تحقّق من الرقم المنقّط} two {تحقّق من الرقمين المنقّطين} few {تحقّق من # أرقام منقّطة} many {تحقّق من # رقمًا منقّطًا} other {تحقّق من # رقم منقّط}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -275,10 +275,6 @@ msgstr "كل خانات رقم معين (1-9)"
 msgid "All progress will be lost"
 msgstr "سيضيع كل التقدم"
 
-#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "Already solved on paper. You'll start from the printed clues."
-msgstr "حُلّت بالفعل على الورق. ستبدأ من الأرقام المطبوعة."
-
 #: src/@generic/constants/technique-labels.constant.ts
 msgid "ALS-XZ"
 msgstr "ALS-XZ"
@@ -348,6 +344,7 @@ msgstr "تجنب الأخطاء: فهي تخصم من نقاطك."
 #: src/@generic/components/header-back-button/header-back-button.tsx
 #: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Back"
 msgstr "رجوع"
 
@@ -586,10 +583,6 @@ msgstr "لوحة نظيفة بالأبيض والأسود"
 msgid "Clean win"
 msgstr "فوز نظيف"
 
-#: src/screens/components/import-screen/import-header/import-header.tsx
-msgid "Clear"
-msgstr "مسح"
-
 #: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
 msgid "Clear cell"
 msgstr "مسح الخلية"
@@ -602,11 +595,6 @@ msgstr "إغلاق"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "إغلاق التلميح"
-
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Clue"
-msgstr "دليل"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -669,6 +657,10 @@ msgstr "أكمل هذا السودوكو من حيث توقفت تمامًا!"
 #: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "تناقض، لذا {cell} ليس {value}."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Copy a puzzle link or 81 digits, then paste again"
+msgstr "انسخ رابط اللغز أو 81 رقمًا ثم الصق مجددًا"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Couldn't find a sudoku grid"
@@ -840,6 +832,10 @@ msgstr "English"
 msgid "Enter a theme name"
 msgstr "أدخل اسم السمة"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Enter the printed clues"
+msgstr "أدخل الأرقام المطبوعة"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error cell"
 msgstr "خلية الخطأ"
@@ -887,6 +883,11 @@ msgstr "التنبيهات"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Filled cell"
 msgstr "الخلية المملوءة"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Filled in"
+msgstr "مُدخل"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -969,6 +970,11 @@ msgstr "عام"
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "بداية سهلة"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Given"
+msgstr "مُعطى"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Gold"
@@ -1397,11 +1403,6 @@ msgstr "النقلة"
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "انقل لوحة التحكم في الوضع الأفقي إلى يسار اللوحة"
 
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "My entry"
-msgstr "إدخالي"
-
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
 msgstr "سمتي"
@@ -1475,10 +1476,6 @@ msgstr "سلسلة إجبار نيشيو"
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
 msgstr "لا مكافأة"
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "No clues yet"
-msgstr "لا توجد أدلة بعد"
 
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
@@ -1580,10 +1577,6 @@ msgstr "أحد طرفي السلسلة صحيح دائماً وكل مرشح م�
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "One of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
 msgstr "يجب أن تحمل إحدى المجموعتين {valueList}، وكل خلية مميَّزة ترى كل {valueList} في المجموعتين، لذا {eliminationList}."
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "One solution · {difficulty} · SE {rating}"
-msgstr "حل واحد · {difficulty} · SE {rating}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {value} is left for {cellName}, with {removedList} gone."
@@ -1697,6 +1690,10 @@ msgstr "العب السودوكو مجانًا على الإنترنت بسبع�
 msgid "Play on higher difficulties for bigger multipliers"
 msgstr "العب بمستويات أصعب لمضاعفات أكبر"
 
+#: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
+msgid "Play starts from the printed clues"
+msgstr "يبدأ اللعب من الأرقام المطبوعة"
+
 #: src/history/components/history-progress-box/history-progress-box.tsx
 msgid "Play streak"
 msgstr "تتابع اللعب"
@@ -1795,6 +1792,10 @@ msgstr "جارٍ قراءة السودوكو…"
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Ready for a real challenge"
 msgstr "مستعد لتحدٍ حقيقي"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Ready to play · {difficulty}"
+msgstr "جاهز للعب · {difficulty}"
 
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
@@ -2280,13 +2281,9 @@ msgstr "خذ وقتك"
 msgid "Taller marks = sharper techniques"
 msgstr "كلما ارتفعت العلامة زادت براعة التقنية"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to change it"
-msgstr "اضغط على خلية لتغييرها"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Tap a cell, then a digit"
-msgstr "اضغط على خلية، ثم على رقم"
+msgid "Tap a cell to edit"
+msgstr "اضغط على خانة لتعديلها"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"

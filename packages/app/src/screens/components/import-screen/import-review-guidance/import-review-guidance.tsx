@@ -1,10 +1,12 @@
 import { plural } from '@lingui/core/macro';
 import { useLingui } from '@lingui/react/macro';
 import { getMatchingEntryCellIndexes, isImportedPuzzleCompleted } from '@suuudokuuu/puzzle-forge';
+import { useWindowDimensions } from 'react-native';
 
 import { isDefined, isNotEmptyString } from '@rnw-community/shared';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
+import { ImportCompactFrameHeightConstant } from '../constants/import-compact-frame-height.constant';
 import { ImportScreenSelectors } from '../import-screen.selectors';
 
 import { ImportReviewGuidanceStyles as styles } from './import-review-guidance.styles';
@@ -20,24 +22,28 @@ interface Props {
 
 export const ImportReviewGuidance = ({ clueString, entryString, lead, assessment }: Props) => {
     const { t } = useLingui();
+    const { height } = useWindowDimensions();
     const solutionString = assessment?.solutionString ?? null;
     const entryCount = Array.from(entryString).filter(digit => /[1-9]/u.test(digit)).length;
     const keptCount = isDefined(solutionString) ? getMatchingEntryCellIndexes(entryString, solutionString).length : 0;
     const droppedCount = isDefined(solutionString) ? entryCount - keptCount : 0;
     const isCompleted = isDefined(solutionString) && isImportedPuzzleCompleted(clueString, entryString, solutionString);
-    const keptText = keptCount > 0 ? t({ message: plural(keptCount, { one: '# entry kept', other: '# entries kept' }) }) : null;
-    const droppedText = droppedCount > 0 ? t({ message: plural(droppedCount, { one: '# didn’t match', other: '# didn’t match' }) }) : null;
-    const entriesText = isCompleted
-        ? t`Already solved on paper. You'll start from the printed clues.`
-        : [keptText, droppedText].filter(isDefined).join(' · ');
-    const guidance = [lead, entriesText].filter(isNotEmptyString).join('\n');
+    const keptText =
+        keptCount > 0 ? t({ message: plural(keptCount, { one: 'Play keeps your # digit', other: 'Play keeps your # digits' }) }) : null;
+    const droppedText =
+        droppedCount > 0
+            ? t({ message: plural(droppedCount, { one: 'Play clears # wrong digit in red', other: 'Play clears # wrong digits in red' }) })
+            : null;
+    const entriesText = isCompleted ? t`Play starts from the printed clues` : (droppedText ?? keptText);
+    const lineCount = height < ImportCompactFrameHeightConstant ? 1 : 2;
+    const guidance = [lead, entriesText].filter(isNotEmptyString).join(' · ');
 
     return guidance.length > 0 ? (
         <BlackText
             accessibilityLiveRegion="polite"
             adjustsFontSizeToFit
             minimumFontScale={0.85}
-            numberOfLines={2}
+            numberOfLines={lineCount}
             style={styles.guidance}
             testID={ImportScreenSelectors.Guidance}
         >

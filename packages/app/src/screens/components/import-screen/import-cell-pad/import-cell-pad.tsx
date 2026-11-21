@@ -24,10 +24,11 @@ export const ImportCellPad = ({ isDisabled, onInput }: Props) => {
 
     const handleClear = () => void onInput(defaultSudokuConfig.blankCellValue);
 
+    const padStyles = [styles.pad, isDisabled && styles.disabledPad];
     const getButtonStyles = ({ pressed }: PressableStateCallbackType) => [styles.button, styles.lastButton, pressed && styles.pressed];
 
     return (
-        <View style={styles.pad}>
+        <View style={padStyles}>
             <View style={styles.row}>
                 {padValues.slice(0, 5).map(value => (
                     <ImportCellPadButton isDisabled={isDisabled} key={value} onInput={onInput} value={value} />

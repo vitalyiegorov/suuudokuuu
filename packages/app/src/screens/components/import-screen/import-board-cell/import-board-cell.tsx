@@ -49,9 +49,12 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
     const fontSize = useCellFontSize(cellSize);
     const borderStyles = useCellBorderStyles(boardSudoku, cell, cellMargin);
 
-    const isConflict = tone === ImportCellToneEnum.CONFLICT;
+    const isConflict = tone === ImportCellToneEnum.CONFLICT || tone === ImportCellToneEnum.UNCERTAIN_CONFLICT;
     const isEntry = tone === ImportCellToneEnum.ENTRY || tone === ImportCellToneEnum.UNCERTAIN_ENTRY;
-    const isUncertain = tone === ImportCellToneEnum.UNCERTAIN || tone === ImportCellToneEnum.UNCERTAIN_ENTRY;
+    const isUncertain =
+        tone === ImportCellToneEnum.UNCERTAIN ||
+        tone === ImportCellToneEnum.UNCERTAIN_ENTRY ||
+        tone === ImportCellToneEnum.UNCERTAIN_CONFLICT;
     const isEmpty = cell.value === defaultSudokuConfig.blankCellValue;
     const valueBackgroundColor = isEmpty || isEntry ? theme.colors.surface.raised : theme.colors.board.filled;
     const backgroundColor = isConflict ? applyColorAlpha(theme.colors.danger, conflictTintAlpha) : valueBackgroundColor;
@@ -69,7 +72,7 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
     const accessibilityLabel = [cellLabel, ...(isEntry ? [t`handwritten`] : []), ...(isUncertain ? [t`check this digit`] : [])].join(', ');
     const accessibilityState = { selected: isSelected };
     const errorColor = interpolateColor(errorForegroundBlend, [0, 1], [theme.colors.danger, theme.colors.text.primary]);
-    const uncertaintyStyles = [styles.uncertainty, { borderColor: theme.colors.text.primary }];
+    const uncertaintyStyles = [styles.uncertainty, isSelected && styles.selectedUncertainty, { borderColor: theme.colors.text.primary }];
     const digitColor = isEntry ? accentColor : theme.colors.text.primary;
     const textStyles = {
         animationDelay: cell.y * digitEnterRowDelayMs,
@@ -98,7 +101,7 @@ export const ImportBoardCell = ({ cell, cellSize, cellMargin, isSelected, tone, 
             <Animated.Text allowFontScaling={false} style={digitStyles}>
                 {cellText}
             </Animated.Text>
-            {isUncertain && !isSelected ? <View pointerEvents="none" style={uncertaintyStyles} /> : null}
+            {isUncertain ? <View pointerEvents="none" style={uncertaintyStyles} /> : null}
             {isSelected ? <View pointerEvents="none" style={ringStyles} /> : null}
         </Pressable>
     );
