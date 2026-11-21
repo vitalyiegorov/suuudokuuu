@@ -41,25 +41,25 @@ export const SiteFooter = () => {
                         <p className="site-footer__group-title">
                             <Trans>Learn</Trans>
                         </p>
-                        <Link href={learnSudokuPageMetadata.path}>
+                        <Link prefetch={false} href={learnSudokuPageMetadata.path}>
                             <Trans>Learn sudoku</Trans>
                         </Link>
-                        <Link href={buildLocalizedPagePath(howToPlayPageMetadata)}>
+                        <Link prefetch={false} href={buildLocalizedPagePath(howToPlayPageMetadata)}>
                             <Trans>How to play</Trans>
                         </Link>
-                        <Link href={sudokuTipsPageMetadata.path}>
+                        <Link prefetch={false} href={sudokuTipsPageMetadata.path}>
                             <Trans>Sudoku tips</Trans>
                         </Link>
-                        <Link href={techniquesPageMetadata.path}>
+                        <Link prefetch={false} href={techniquesPageMetadata.path}>
                             <Trans>Sudoku techniques</Trans>
                         </Link>
-                        <Link href={glossaryPageMetadata.path}>
+                        <Link prefetch={false} href={glossaryPageMetadata.path}>
                             <Trans>Sudoku glossary</Trans>
                         </Link>
-                        <Link href={sudokuDifficultyRatingPageMetadata.path}>
+                        <Link prefetch={false} href={sudokuDifficultyRatingPageMetadata.path}>
                             <Trans>Difficulty rating</Trans>
                         </Link>
-                        <Link href={sudokuCluesVsDifficultyPageMetadata.path}>
+                        <Link prefetch={false} href={sudokuCluesVsDifficultyPageMetadata.path}>
                             <Trans>Clues versus difficulty</Trans>
                         </Link>
                     </div>
@@ -67,13 +67,13 @@ export const SiteFooter = () => {
                         <p className="site-footer__group-title">
                             <Trans>Play</Trans>
                         </p>
-                        <Link href={dailySudokuPageMetadata.path}>
+                        <Link prefetch={false} href={dailySudokuPageMetadata.path}>
                             <Trans>Daily sudoku</Trans>
                         </Link>
-                        <Link href={buildLocalizedPagePath(sudokuDifficultiesPageMetadata)}>
+                        <Link prefetch={false} href={buildLocalizedPagePath(sudokuDifficultiesPageMetadata)}>
                             <Trans>Difficulty levels</Trans>
                         </Link>
-                        <Link href={solverPageMetadata.path}>
+                        <Link prefetch={false} href={solverPageMetadata.path}>
                             <Trans>Sudoku solver</Trans>
                         </Link>
                         <a href={SITE_PLAY_URL}>
@@ -84,13 +84,13 @@ export const SiteFooter = () => {
                         <p className="site-footer__group-title">
                             <Trans>Print</Trans>
                         </p>
-                        <Link href={buildLocalizedPagePath(printableSudokuPageMetadata)}>
+                        <Link prefetch={false} href={buildLocalizedPagePath(printableSudokuPageMetadata)}>
                             <Trans>Printable sudoku</Trans>
                         </Link>
-                        <Link href={largePrintSudokuPageMetadata.path}>
+                        <Link prefetch={false} href={largePrintSudokuPageMetadata.path}>
                             <Trans>Large print sudoku</Trans>
                         </Link>
-                        <Link href={sudokuForSeniorsPageMetadata.path}>
+                        <Link prefetch={false} href={sudokuForSeniorsPageMetadata.path}>
                             <Trans>Sudoku for seniors</Trans>
                         </Link>
                     </div>
@@ -98,10 +98,10 @@ export const SiteFooter = () => {
                         <p className="site-footer__group-title">
                             <Trans>Project</Trans>
                         </p>
-                        <Link href={whySuuudokuuuPageMetadata.path}>
+                        <Link prefetch={false} href={whySuuudokuuuPageMetadata.path}>
                             <Trans>Why {SITE_NAME}</Trans>
                         </Link>
-                        <Link href={aboutPageMetadata.path}>
+                        <Link prefetch={false} href={aboutPageMetadata.path}>
                             <Trans>About</Trans>
                         </Link>
                         <a href={SITE_GITHUB_URL}>
@@ -110,7 +110,7 @@ export const SiteFooter = () => {
                         <a href={SITE_PRIVACY_URL}>
                             <Trans>Privacy policy</Trans>
                         </a>
-                        <Link href={termsOfUsePageMetadata.path}>
+                        <Link prefetch={false} href={termsOfUsePageMetadata.path}>
                             <Trans>Terms of use</Trans>
                         </Link>
                     </div>
@@ -119,9 +119,12 @@ export const SiteFooter = () => {
             <p className="site-footer__note">
                 <Trans>
                     Free and source-available under the {SITE_LICENSE} license. No ads, no account, no tracking in the game — read{' '}
-                    <Link href={whySuuudokuuuPageMetadata.path}>why</Link> or browse the <a href={SITE_GITHUB_URL}>full source on GitHub</a>
-                    . Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a
-                    service mark of Apple Inc. Google Play and the Google Play logo are trademarks of Google LLC.
+                    <Link prefetch={false} href={whySuuudokuuuPageMetadata.path}>
+                        why
+                    </Link>{' '}
+                    or browse the <a href={SITE_GITHUB_URL}>full source on GitHub</a>. Apple and the Apple logo are trademarks of Apple
+                    Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc. Google Play and the Google
+                    Play logo are trademarks of Google LLC.
                 </Trans>
             </p>
         </footer>
