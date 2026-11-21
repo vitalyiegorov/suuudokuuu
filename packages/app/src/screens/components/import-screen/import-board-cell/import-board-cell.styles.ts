@@ -9,6 +9,7 @@ export const ImportBoardCellStyles = StyleSheet.create({
         borderWidth: 2,
         borderStyle: 'dotted'
     },
+    selectedUncertainty: { margin: 6 },
     ring: {
         ...StyleSheet.absoluteFill,
         borderWidth: 3

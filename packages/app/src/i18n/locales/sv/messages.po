@@ -72,8 +72,8 @@ msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (kopia)"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{droppedCount, plural, one {# didn’t match} other {# didn’t match}}"
-msgstr "{droppedCount, plural, one {# stämde inte} other {# stämde inte}}"
+msgid "{droppedCount, plural, one {Play clears # wrong digit in red} other {Play clears # wrong digits in red}}"
+msgstr "{droppedCount, plural, one {Spela rensar # fel siffra i rött} other {Spela rensar # fel siffror i rött}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -104,8 +104,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# tim} other {# tim}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
-msgstr "{keptCount, plural, one {# siffra sparad} other {# siffror sparade}}"
+msgid "{keptCount, plural, one {Play keeps your # digit} other {Play keeps your # digits}}"
+msgstr "{keptCount, plural, one {Spelet behåller # av dina siffror} other {Spelet behåller # av dina siffror}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -173,8 +173,8 @@ msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fi
 msgstr "{subsetSize, plural, one {Titta på rad {regionNumber}: # siffra får bara plats i # cell.} other {Titta på rad {regionNumber}: # siffror får bara plats i # celler.}}"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
-msgstr "{uncertainCellCount, plural, one {# siffra att kontrollera} other {# siffror att kontrollera}}"
+msgid "{uncertainCellCount, plural, one {Check the dotted digit} other {Check the # dotted digits}}"
+msgstr "{uncertainCellCount, plural, one {Kontrollera den prickade siffran} other {Kontrollera de # prickade siffrorna}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -348,6 +348,7 @@ msgstr "Undvik misstag: de kostar poäng."
 #: src/@generic/components/header-back-button/header-back-button.tsx
 #: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Back"
 msgstr "Tillbaka"
 
@@ -586,10 +587,6 @@ msgstr "Rent svartvitt bräde"
 msgid "Clean win"
 msgstr "Ren vinst"
 
-#: src/screens/components/import-screen/import-header/import-header.tsx
-msgid "Clear"
-msgstr "Rensa"
-
 #: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
 msgid "Clear cell"
 msgstr "Töm ruta"
@@ -602,11 +599,6 @@ msgstr "Stäng"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "Stäng ledtråd"
-
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Clue"
-msgstr "Ledtråd"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -669,6 +661,10 @@ msgstr "Fortsätt detta sudoku precis där jag slutade!"
 #: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "Motsägelse, alltså är {cell} inte {value}."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Copy a puzzle link or 81 digits, then paste again"
+msgstr "Kopiera en länk eller 81 siffror och klistra in igen"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Couldn't find a sudoku grid"
@@ -840,6 +836,10 @@ msgstr "English"
 msgid "Enter a theme name"
 msgstr "Ange ett temanamn"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Enter the printed clues"
+msgstr "Skriv in de tryckta siffrorna"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error cell"
 msgstr "Felruta"
@@ -887,6 +887,11 @@ msgstr "Feedback"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Filled cell"
 msgstr "Ifylld ruta"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Filled in"
+msgstr "Ifylld"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -969,6 +974,11 @@ msgstr "Allmänt"
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "Mjuk start"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Given"
+msgstr "Given"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Gold"
@@ -1397,11 +1407,6 @@ msgstr "Drag"
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "Flytta kontrollpanelen i liggande läge till vänster om brädet"
 
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "My entry"
-msgstr "Min inmatning"
-
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
 msgstr "Mitt tema"
@@ -1475,10 +1480,6 @@ msgstr "Tvingande Nishio-kedja"
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
 msgstr "ingen bonus"
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "No clues yet"
-msgstr "Inga ledtrådar än"
 
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
@@ -1580,10 +1581,6 @@ msgstr "Ena änden av kedjan är alltid sann och varje markerad kandidat krockar
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "One of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
 msgstr "En av grupperna måste innehålla {valueList}, och varje markerad cell ser alla {valueList} i båda grupperna, så {eliminationList}."
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "One solution · {difficulty} · SE {rating}"
-msgstr "En lösning · {difficulty} · SE {rating}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {value} is left for {cellName}, with {removedList} gone."
@@ -1795,6 +1792,10 @@ msgstr "Läser sudokut…"
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Ready for a real challenge"
 msgstr "Redo för en riktig utmaning"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Ready to play · {difficulty}"
+msgstr "Redo att spela · {difficulty}"
 
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
@@ -2280,13 +2281,9 @@ msgstr "Ta det lugnt"
 msgid "Taller marks = sharper techniques"
 msgstr "Högre markeringar = skarpare tekniker"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to change it"
-msgstr "Tryck på en ruta för att ändra den"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Tap a cell, then a digit"
-msgstr "Tryck på en ruta och sedan en siffra"
+msgid "Tap a cell to edit"
+msgstr "Tryck på en ruta för att ändra"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"

@@ -24,12 +24,11 @@ test('25 import puzzle', async ({ suuudokuuu }) => {
         await core.expectId(ctx, 'ImportScreenSelectors.ScanButton', core.WAIT_QUICK);
         await core.expectId(ctx, 'ImportScreenSelectors.PhotosButton', core.WAIT_QUICK);
         await core.tapId(ctx, 'ImportScreenSelectors.TypeButton');
-        await status(ctx, 'No clues yet');
-        await core.expectIdText(ctx, 'ImportScreenSelectors.Guidance', 'Tap a cell, then a digit');
+        await status(ctx, 'Enter the printed clues');
+        await core.expectNoId(ctx, 'ImportScreenSelectors.Guidance', core.WAIT_QUICK);
     });
 
     await core.phase('type, conflict, clear, reset', async () => {
-        await core.tapId(ctx, 'ImportScreenSelectors.Cell.0-0');
         await core.tapId(ctx, 'ImportScreenSelectors.PadValue.5');
         await status(ctx, '1 clue · more than one solution');
         await core.tapId(ctx, 'ImportScreenSelectors.PadValue.5');
@@ -55,7 +54,7 @@ test('25 import puzzle', async ({ suuudokuuu }) => {
 
     await core.phase('import from a link and play', async () => {
         await core.openLink(ctx, IMPORT_LINK);
-        await status(ctx, 'One solution · Newbie · SE 2.3', core.WAIT_DEFAULT);
+        await status(ctx, 'Ready to play · Newbie', core.WAIT_DEFAULT);
         await core.tapId(ctx, 'ImportScreenSelectors.PlayButton');
         await core.expectId(ctx, 'GameScreenSelectors.Root');
         await game.pauseCurrentGame(ctx);
@@ -66,7 +65,7 @@ test('25 import puzzle', async ({ suuudokuuu }) => {
 
     await core.phase('import over a live run', async () => {
         await core.openLink(ctx, IMPORT_LINK);
-        await status(ctx, 'One solution · Newbie · SE 2.3', core.WAIT_DEFAULT);
+        await status(ctx, 'Ready to play · Newbie', core.WAIT_DEFAULT);
         await core.tapId(ctx, 'ImportScreenSelectors.PlayButton');
         await core.expectText(ctx, 'Stop current run?', core.WAIT_QUICK);
         await ctx.screen.getByRole('button', { name: 'OK' }).last().tap();
@@ -81,7 +80,7 @@ test('25 import puzzle', async ({ suuudokuuu }) => {
         if (!(await suuudokuuu.importPhoto(BOARD_PHOTO))) {
             return;
         }
-        await status(ctx, /One solution/u, core.WAIT_LAUNCH);
+        await status(ctx, /Ready to play/u, core.WAIT_LAUNCH);
         await core.expectIdText(ctx, 'ImportScreenSelectors.Cell.0-0', /^Row 1, column 1, 5$/u);
         await core.expectIdText(ctx, 'ImportScreenSelectors.Cell.8-1', /^Row 9, column 2, 6$/u);
         await core.tapId(ctx, 'ImportScreenSelectors.PlayButton');

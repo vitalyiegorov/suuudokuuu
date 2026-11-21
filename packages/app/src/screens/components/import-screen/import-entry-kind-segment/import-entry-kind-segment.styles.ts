@@ -12,7 +12,7 @@ export const ImportEntryKindSegmentStyles = StyleSheet.create(theme => ({
         _web: { cursor: 'pointer' }
     },
     surface: { alignItems: 'center', justifyContent: 'center', width: '100%', flex: 1, borderRadius: theme.radius.pill },
-    thumb: { backgroundColor: theme.colors.surface.raised },
+    thumb: { backgroundColor: theme.colors.surface.subtle },
     label: { color: theme.colors.surface.subtleHint, fontSize: 15, fontWeight: '700', textAlign: 'center' },
-    thumbLabel: { color: theme.colors.surface.raisedText }
+    thumbLabel: { color: theme.colors.text.primary }
 }));

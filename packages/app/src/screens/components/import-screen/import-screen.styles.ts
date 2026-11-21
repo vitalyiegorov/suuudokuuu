@@ -1,14 +1,27 @@
 import { StyleSheet } from 'react-native-unistyles';
 
-export const ImportScreenStyles = StyleSheet.create(theme => ({
-    content: { alignSelf: 'center', maxWidth: '100%' },
-    sourcesContent: { paddingVertical: theme.spacing.md, flexGrow: 1, justifyContent: 'center' },
-    scroll: { flexGrow: 1, flexBasis: 0, flexShrink: 1, minHeight: 0 },
-    statusSlot: {
-        alignSelf: 'center',
-        flexShrink: 0,
-        gap: theme.spacing.xs,
-        maxWidth: '100%'
-    },
-    sourceStatus: { alignItems: 'center', gap: theme.spacing.xs }
-}));
+import { ImportCompactFrameHeightConstant } from './constants/import-compact-frame-height.constant';
+
+export const ImportScreenStyles = StyleSheet.create((theme, rt) => {
+    const isCompact = rt.screen.height < ImportCompactFrameHeightConstant;
+
+    return {
+        content: {
+            alignItems: 'center',
+            alignSelf: 'center',
+            flexGrow: 1,
+            justifyContent: 'center',
+            maxWidth: '100%',
+            paddingVertical: isCompact ? theme.spacing.xs : theme.spacing.md
+        },
+        sourcesContent: { paddingBottom: theme.spacing.xxl * 2 },
+        panel: { flexGrow: 1, flexBasis: 0, flexShrink: 1, minHeight: 0 },
+        scroll: { flexGrow: 1, flexBasis: 0, flexShrink: 1, minHeight: 0 },
+        statusSlot: {
+            alignSelf: 'stretch',
+            flexShrink: 0,
+            gap: theme.spacing.xs,
+            paddingTop: isCompact ? theme.spacing.sm : theme.spacing.md
+        }
+    };
+});

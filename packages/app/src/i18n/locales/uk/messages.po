@@ -74,8 +74,8 @@ msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (копія)"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{droppedCount, plural, one {# didn’t match} other {# didn’t match}}"
-msgstr "{droppedCount, plural, one {# не збігається} other {# не збігається}}"
+msgid "{droppedCount, plural, one {Play clears # wrong digit in red} other {Play clears # wrong digits in red}}"
+msgstr "{droppedCount, plural, one {Гра видалить # хибну цифру (червону)} few {Гра видалить # хибні цифри (червоні)} many {Гра видалить # хибних цифр (червоних)} other {Гра видалить # хибної цифри}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -106,8 +106,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# год} few {# год} many {# год} other {# год}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
-msgstr "{keptCount, plural, one {# запис збережено} few {# записи збережено} many {# записів збережено} other {# запису збережено}}"
+msgid "{keptCount, plural, one {Play keeps your # digit} other {Play keeps your # digits}}"
+msgstr "{keptCount, plural, one {Гра збереже вашу # цифру} few {Гра збереже ваші # цифри} many {Гра збереже ваших # цифр} other {Гра збереже # вашої цифри}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -175,8 +175,8 @@ msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fi
 msgstr "{subsetSize, plural, one {Подивіться на рядок {regionNumber}: # цифра там може стояти лише в # клітинці.} few {Подивіться на рядок {regionNumber}: # цифри там можуть стояти лише в # клітинках.} many {Подивіться на рядок {regionNumber}: # цифр там можуть стояти лише в # клітинках.} other {Подивіться на рядок {regionNumber}: # цифри там можуть стояти лише в # клітинках.}}"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
-msgstr "{uncertainCellCount, plural, one {# цифра для перевірки} few {# цифри для перевірки} many {# цифр для перевірки} other {# цифри для перевірки}}"
+msgid "{uncertainCellCount, plural, one {Check the dotted digit} other {Check the # dotted digits}}"
+msgstr "{uncertainCellCount, plural, one {Перевірте цифру в пунктирі} few {Перевірте # цифри в пунктирі} many {Перевірте # цифр у пунктирі} other {Перевірте # цифри в пунктирі}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -350,6 +350,7 @@ msgstr "Уникай помилок: вони знімають бали."
 #: src/@generic/components/header-back-button/header-back-button.tsx
 #: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Back"
 msgstr "Назад"
 
@@ -588,10 +589,6 @@ msgstr "Чиста чорно-біла дошка"
 msgid "Clean win"
 msgstr "Чиста перемога"
 
-#: src/screens/components/import-screen/import-header/import-header.tsx
-msgid "Clear"
-msgstr "Очистити"
-
 #: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
 msgid "Clear cell"
 msgstr "Очистити клітинку"
@@ -604,11 +601,6 @@ msgstr "Закрити"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "Закрити підказку"
-
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Clue"
-msgstr "Підказка"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -671,6 +663,10 @@ msgstr "Продовж це судоку саме там, де я зупинив
 #: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "Суперечність, отже {cell} — не {value}."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Copy a puzzle link or 81 digits, then paste again"
+msgstr "Скопіюйте посилання або 81 цифру й вставте знову"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Couldn't find a sudoku grid"
@@ -842,6 +838,10 @@ msgstr "English"
 msgid "Enter a theme name"
 msgstr "Введи назву теми"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Enter the printed clues"
+msgstr "Введіть надруковані цифри"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error cell"
 msgstr "Клітинка з помилкою"
@@ -889,6 +889,11 @@ msgstr "Зворотний зв'язок"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Filled cell"
 msgstr "Заповнена клітинка"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Filled in"
+msgstr "Вписана"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -971,6 +976,11 @@ msgstr "Загальне"
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "М’який старт"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Given"
+msgstr "Дана"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Gold"
@@ -1399,11 +1409,6 @@ msgstr "Хід"
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "Перемістити панель керування в альбомному режимі ліворуч від дошки"
 
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "My entry"
-msgstr "Мій запис"
-
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
 msgstr "Моя тема"
@@ -1477,10 +1482,6 @@ msgstr "Примусовий ланцюг Нішіо"
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
 msgstr "без бонусу"
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "No clues yet"
-msgstr "Підказок ще немає"
 
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
@@ -1582,10 +1583,6 @@ msgstr "Один кінець ланцюга завжди істинний, а �
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "One of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
 msgstr "Одна з груп має містити {valueList}, а кожна позначена клітинка бачить усі {valueList} в обох групах, тож {eliminationList}."
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "One solution · {difficulty} · SE {rating}"
-msgstr "Один розв’язок · {difficulty} · SE {rating}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {value} is left for {cellName}, with {removedList} gone."
@@ -1797,6 +1794,10 @@ msgstr "Зчитуємо головоломку…"
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Ready for a real challenge"
 msgstr "Готові до справжнього виклику?"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Ready to play · {difficulty}"
+msgstr "Готово до гри · {difficulty}"
 
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
@@ -2282,13 +2283,9 @@ msgstr "Грайте не поспішаючи"
 msgid "Taller marks = sharper techniques"
 msgstr "Вищі позначки = складніші техніки"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to change it"
-msgstr "Торкніться клітинки, щоб змінити"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Tap a cell, then a digit"
-msgstr "Торкніться клітинки, потім цифри"
+msgid "Tap a cell to edit"
+msgstr "Торкніться клітинки, щоб змінити"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"

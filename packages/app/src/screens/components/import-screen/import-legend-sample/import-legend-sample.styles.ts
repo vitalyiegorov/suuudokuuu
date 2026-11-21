@@ -5,7 +5,7 @@ export const ImportLegendSampleStyles = StyleSheet.create(theme => ({
     cell: {
         alignItems: 'center',
         backgroundColor: theme.colors.board.filled,
-        borderColor: theme.colors.ink,
+        borderColor: theme.colors.surface.border,
         borderWidth: 1,
         height: 24,
         justifyContent: 'center',

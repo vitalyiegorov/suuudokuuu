@@ -74,8 +74,8 @@ msgid "{draftThemeName} copy"
 msgstr "{draftThemeName} (Kopie)"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{droppedCount, plural, one {# didn’t match} other {# didn’t match}}"
-msgstr "{droppedCount, plural, one {# stimmen nicht überein} other {# stimmen nicht überein}}"
+msgid "{droppedCount, plural, one {Play clears # wrong digit in red} other {Play clears # wrong digits in red}}"
+msgstr "{droppedCount, plural, one {Spielen entfernt # falsche Ziffer (rot)} other {Spielen entfernt # falsche Ziffern (rot)}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{durationText} faster"
@@ -106,8 +106,8 @@ msgid "{hours, plural, one {# hr} other {# hr}}"
 msgstr "{hours, plural, one {# Std.} other {# Std.}}"
 
 #: src/screens/components/import-screen/import-review-guidance/import-review-guidance.tsx
-msgid "{keptCount, plural, one {# entry kept} other {# entries kept}}"
-msgstr "{keptCount, plural, one {# Eintrag behalten} other {# Einträge behalten}}"
+msgid "{keptCount, plural, one {Play keeps your # digit} other {Play keeps your # digits}}"
+msgstr "{keptCount, plural, one {Das Spiel übernimmt # deiner Ziffern} other {Das Spiel übernimmt # deiner Ziffern}}"
 
 #: src/game/utils/game-format-list.util.ts
 msgid "{leadingItems} and {lastItem}"
@@ -175,8 +175,8 @@ msgid "{subsetSize, plural, other {Look at row {regionNumber}: # digits there fi
 msgstr "{subsetSize, plural, one {Sieh dir Zeile {regionNumber} an: Dort passt # Ziffer nur in # Zelle.} other {Sieh dir Zeile {regionNumber} an: Dort passen # Ziffern nur in # Zellen.}}"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "{uncertainCellCount, plural, one {# digit to check} other {# digits to check}}"
-msgstr "{uncertainCellCount, plural, one {# Ziffer prüfen} other {# Ziffern prüfen}}"
+msgid "{uncertainCellCount, plural, one {Check the dotted digit} other {Check the # dotted digits}}"
+msgstr "{uncertainCellCount, plural, one {Prüfe die gepunktete Ziffer} other {Prüfe die # gepunkteten Ziffern}}"
 
 #: src/challenge/hooks/use-challenge-result-margin-text.hook.ts
 msgid "{value, plural, one {# day} other {# days}}"
@@ -350,6 +350,7 @@ msgstr "Vermeide Fehler - sie kosten dich Punkte!"
 #: src/@generic/components/header-back-button/header-back-button.tsx
 #: src/game/components/hint-stepper-back/hint-stepper-back.tsx
 #: src/history/components/replay-actions/replay-actions.tsx
+#: src/screens/components/import-screen/import-header/import-header.tsx
 msgid "Back"
 msgstr "Zurück"
 
@@ -588,10 +589,6 @@ msgstr "Klares Schwarz-Weiß-Brett"
 msgid "Clean win"
 msgstr "Sauberer Sieg"
 
-#: src/screens/components/import-screen/import-header/import-header.tsx
-msgid "Clear"
-msgstr "Leeren"
-
 #: src/screens/components/import-screen/import-cell-pad/import-cell-pad.tsx
 msgid "Clear cell"
 msgstr "Zelle leeren"
@@ -604,11 +601,6 @@ msgstr "Schließen"
 #: src/game/components/hint-panel-header/hint-panel-header.tsx
 msgid "Close hint"
 msgstr "Hinweis schließen"
-
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Clue"
-msgstr "Vorgabe"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Colorblind safe"
@@ -671,6 +663,10 @@ msgstr "Setze dieses Sudoku genau dort fort, wo ich aufgehört habe!"
 #: src/game/components/hint-chain-sentence/hint-chain-sentence.tsx
 msgid "Contradiction, so {cell} is not {value}."
 msgstr "Widerspruch, also ist {cell} nicht {value}."
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Copy a puzzle link or 81 digits, then paste again"
+msgstr "Kopiere einen Rätsel-Link oder 81 Ziffern und füge erneut ein"
 
 #: src/screens/components/import-screen/import-status/import-status.tsx
 msgid "Couldn't find a sudoku grid"
@@ -842,6 +838,10 @@ msgstr "English"
 msgid "Enter a theme name"
 msgstr "Gib einen Themennamen ein"
 
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Enter the printed clues"
+msgstr "Gib die gedruckten Ziffern ein"
+
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Error cell"
 msgstr "Fehlerzelle"
@@ -889,6 +889,11 @@ msgstr "Feedback"
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Filled cell"
 msgstr "Ausgefüllte Zelle"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Filled in"
+msgstr "Eingetragen"
 
 #: src/screens/components/winner-screen/winner-result-hero/winner-result-hero.tsx
 msgid "Final score"
@@ -971,6 +976,11 @@ msgstr "Allgemein"
 #: src/screens/components/home-screen/utils/home-screen-get-difficulty-description.util.ts
 msgid "Gentle start"
 msgstr "Sanfter Start"
+
+#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
+#: src/screens/components/import-screen/import-legend/import-legend.tsx
+msgid "Given"
+msgstr "Vorgegeben"
 
 #: src/settings/hooks/use-settings-option-labels.hook.ts
 msgid "Gold"
@@ -1399,11 +1409,6 @@ msgstr "Zug"
 msgid "Move the landscape controls panel to the left of the board"
 msgstr "Das Bedienfeld im Querformat links neben das Spielfeld verschieben"
 
-#: src/screens/components/import-screen/import-entry-kind/import-entry-kind.tsx
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "My entry"
-msgstr "Mein Eintrag"
-
 #: src/screens/components/theme-editor-screen/theme-editor.screen.tsx
 msgid "My theme"
 msgstr "Mein Thema"
@@ -1477,10 +1482,6 @@ msgstr "Nishio-Zwangskette"
 #: src/scoring/components/scoring.screen.tsx
 msgid "no bonus"
 msgstr "kein Bonus"
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "No clues yet"
-msgstr "Noch keine Vorgaben"
 
 #: src/screens/components/beta-screen/components/beta-empty-status/beta-empty-status.tsx
 msgid "No complete development build has been published yet. Please check again later."
@@ -1582,10 +1583,6 @@ msgstr "Ein Ende der Kette ist immer wahr, und jeder markierte Kandidat widerspr
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "One of the groups must hold {valueList}, and each marked cell sees every {valueList} in both groups, so {eliminationList}."
 msgstr "Eine der Gruppen muss {valueList} enthalten, und jede markierte Zelle sieht jedes {valueList} in beiden Gruppen, daher gilt: {eliminationList}."
-
-#: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "One solution · {difficulty} · SE {rating}"
-msgstr "Eine Lösung · {difficulty} · SE {rating}"
 
 #: src/game/utils/game-get-step-narration.util.ts
 msgid "Only {value} is left for {cellName}, with {removedList} gone."
@@ -1797,6 +1794,10 @@ msgstr "Sudoku wird gelesen…"
 #: src/screens/components/home-screen/home-screen-intent-spotlight/home-screen-intent-spotlight.tsx
 msgid "Ready for a real challenge"
 msgstr "Bereit für eine echte Herausforderung"
+
+#: src/screens/components/import-screen/import-status/import-status.tsx
+msgid "Ready to play · {difficulty}"
+msgstr "Bereit zum Spielen · {difficulty}"
 
 #: src/daily/components/daily-recent-solves/daily-recent-solves.tsx
 msgid "Recent solves"
@@ -2282,13 +2283,9 @@ msgstr "Lass dir Zeit"
 msgid "Taller marks = sharper techniques"
 msgstr "Höhere Markierungen = raffiniertere Techniken"
 
-#: src/screens/components/import-screen/import-legend/import-legend.tsx
-msgid "Tap a cell to change it"
-msgstr "Tippe zum Ändern auf ein Feld"
-
 #: src/screens/components/import-screen/import-status/import-status.tsx
-msgid "Tap a cell, then a digit"
-msgstr "Tippe auf ein Feld, dann auf eine Ziffer"
+msgid "Tap a cell to edit"
+msgstr "Tippe auf ein Feld zum Bearbeiten"
 
 #: src/settings/hooks/use-theme-token-labels.hook.ts
 msgid "Text and labels"

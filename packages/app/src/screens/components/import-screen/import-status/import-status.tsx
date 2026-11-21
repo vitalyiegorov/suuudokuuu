@@ -10,7 +10,6 @@ import { interpolateColor } from 'react-native-reanimated';
 import { isDefined } from '@rnw-community/shared';
 
 import { BlackText } from '../../../../@generic/components/black-text/black-text';
-import { formatSeRatingValue } from '../../../../@generic/utils/format-se-rating-value.util';
 import { getDifficultyMessage } from '../../../../@generic/utils/get-difficulty-message.util';
 import { ThemeContext } from '../../../../theme/context/theme.context';
 import { ImportReviewGuidance } from '../import-review-guidance/import-review-guidance';
@@ -61,6 +60,25 @@ const getConflictMessage = (puzzleString: string, cellIndexes: readonly number[]
         : msg`These cells conflict`;
 };
 
+const getSourceMessage = ({ isGridMissed, isPasteMissed, isRecognizing }: Props['review']): MessageDescriptor | null => {
+    if (isRecognizing) {
+        return msg`Reading the puzzle…`;
+    }
+    if (isGridMissed) {
+        return msg`Couldn't find a sudoku grid`;
+    }
+
+    return isPasteMissed ? msg`No puzzle found on the clipboard` : null;
+};
+
+const getSourceDetailMessage = ({ isGridMissed, isPasteMissed, isRecognizing }: Props['review']): MessageDescriptor | null => {
+    if (isGridMissed && !isRecognizing) {
+        return msg`Try a closer, straighter photo`;
+    }
+
+    return isPasteMissed ? msg`Copy a puzzle link or 81 digits, then paste again` : null;
+};
+
 const errorForegroundBlend = 0.25;
 const getClueCount = (text: string) => Array.from(text).filter(cell => digitPattern.test(cell)).length;
 
@@ -70,13 +88,13 @@ interface Props {
     readonly isCheckFailed: boolean;
     readonly review: Pick<
         ImportReviewStateInterface,
-        'entryString' | 'isGridMissed' | 'isPasteMissed' | 'isRecognizing' | 'uncertainCellIndexes'
+        'entryString' | 'isGridMissed' | 'isPasteMissed' | 'isRecognizing' | 'selectedCellIndex' | 'uncertainCellIndexes'
     >;
     readonly puzzleString: string;
 }
 
 export const ImportStatus = ({ assessed, uniqueAssessment, isCheckFailed, puzzleString, review }: Props) => {
-    const { entryString, isGridMissed, isPasteMissed, isRecognizing } = review;
+    const { entryString, isRecognizing, selectedCellIndex } = review;
     const uncertainCellCount = review.uncertainCellIndexes.length;
     const { t } = useLingui();
     const { theme } = use(ThemeContext);
@@ -90,9 +108,8 @@ export const ImportStatus = ({ assessed, uniqueAssessment, isCheckFailed, puzzle
         }
         if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.UNIQUE) {
             const difficulty = t(getDifficultyMessage(settledAssessment.difficulty));
-            const rating = formatSeRatingValue(settledAssessment.rating, settledAssessment.isRatingCeiling);
 
-            return t`One solution · ${difficulty} · SE ${rating}`;
+            return t`Ready to play · ${difficulty}`;
         }
         if (settledAssessment.kind === ImportedPuzzleAssessmentKindEnum.COMPLETE) {
             return t`This puzzle is already complete`;
@@ -103,19 +120,9 @@ export const ImportStatus = ({ assessed, uniqueAssessment, isCheckFailed, puzzle
             ? t`No solution`
             : t({ message: plural(clueCount, { one: '# clue · more than one solution', other: '# clues · more than one solution' }) });
     };
-    const getSourceText = (): string | null => {
-        if (isRecognizing) {
-            return t`Reading the puzzle…`;
-        }
-        if (isGridMissed) {
-            return t`Couldn't find a sudoku grid`;
-        }
-
-        return isPasteMissed ? t`No puzzle found on the clipboard` : null;
-    };
     const getBoardText = (): string => {
         if (getClueCount(puzzleString) === 0) {
-            return t`No clues yet`;
+            return t`Enter the printed clues`;
         }
         if (isCheckFailed) {
             return t`This puzzle could not be checked`;
@@ -124,17 +131,25 @@ export const ImportStatus = ({ assessed, uniqueAssessment, isCheckFailed, puzzle
         return isDefined(assessed) ? getAssessmentText(assessed) : t`Checking…`;
     };
 
-    const sourceText = getSourceText();
+    const sourceMessage = getSourceMessage(review);
+    const sourceDetailMessage = getSourceDetailMessage(review);
+    const sourceText = isDefined(sourceMessage) ? t(sourceMessage) : null;
     const boardText = getBoardText();
     const assessmentKind = isCheckFailed ? null : assessed?.assessment.kind;
     const uncertainText =
-        uncertainCellCount > 0 ? t({ message: plural(uncertainCellCount, { one: '# digit to check', other: '# digits to check' }) }) : null;
+        uncertainCellCount > 0
+            ? t({ message: plural(uncertainCellCount, { one: 'Check the dotted digit', other: 'Check the # dotted digits' }) })
+            : null;
     const isReviewLeading = !isDefined(sourceText) && assessmentKind === ImportedPuzzleAssessmentKindEnum.UNIQUE;
     const reviewText = isReviewLeading ? uncertainText : null;
     const statusText = sourceText ?? reviewText ?? boardText;
-    const typedDetail = !isDefined(sourceText) && getClueCount(puzzleString) === 0 ? t`Tap a cell, then a digit` : null;
-    const sourceDetail = isGridMissed && !isRecognizing ? t`Try a closer, straighter photo` : null;
-    const detailLead = sourceDetail ?? typedDetail ?? (isDefined(reviewText) ? boardText : uncertainText);
+    const sourceDetail = isDefined(sourceDetailMessage) ? t(sourceDetailMessage) : null;
+    const isEditable = assessmentKind === ImportedPuzzleAssessmentKindEnum.UNIQUE || getClueCount(puzzleString) === 0;
+    const editDetail =
+        isEditable && !isDefined(sourceText) && !isDefined(selectedCellIndex) && !digitPattern.test(entryString)
+            ? t`Tap a cell to edit`
+            : null;
+    const detailLead = sourceDetail ?? (isDefined(reviewText) ? null : uncertainText) ?? editDetail;
     const isError =
         (isDefined(sourceText) && !isRecognizing) ||
         isCheckFailed ||

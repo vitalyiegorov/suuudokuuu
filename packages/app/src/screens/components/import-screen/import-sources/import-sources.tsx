@@ -46,7 +46,6 @@ export const ImportSources = ({ children, onScan, onPhotos, onPaste, onType }: P
                     <Trans>Newspaper, book or screen</Trans>
                 </BlackText>
             </Pressable>
-            {children}
             <View style={styles.chips}>
                 <ImportSourceChip icon={LucideImage} onPress={onPhotos} testID={ImportScreenSelectors.PhotosButton} text={t`Photos`} />
                 <ImportSourceChip
@@ -57,9 +56,13 @@ export const ImportSources = ({ children, onScan, onPhotos, onPaste, onType }: P
                 />
                 <ImportSourceChip icon={LucidePencil} onPress={onType} testID={ImportScreenSelectors.TypeButton} text={t`Type it in`} />
             </View>
-            <BlackText style={styles.footer}>
-                <Trans>Recognized on your device</Trans>
-            </BlackText>
+            <View style={styles.footerSlot}>
+                {children ?? (
+                    <BlackText style={styles.footer}>
+                        <Trans>Recognized on your device</Trans>
+                    </BlackText>
+                )}
+            </View>
         </View>
     );
 };

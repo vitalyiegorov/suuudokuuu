@@ -24,11 +24,11 @@ const selectedCellSizeMin = 28;
 const uniquePuzzle = '003020600900305001001806400008102900700000008006708200002609500800203009005010300';
 const uniquePuzzleLink = `https://www.sudokuwiki.org/sudoku.htm?bd=${uniquePuzzle}`;
 const sheetBackdropPosition = { x: 10, y: 10 };
-const emptyStatus = 'No clues yet';
+const emptyStatus = 'Enter the printed clues';
 const fixtureDirectory = resolve(__dirname, '../../../packages/grid-vision/test/fixtures');
 const photoPuzzle = '5...794.......8..7.7.3542.8..4..3579.3.4.1..2...7..3..9...4..6..5..8...3.68......';
 const photoSolution = '581279436342618957679354218214863579735491682896725341923147865457986123168532794';
-const uniqueStatus = 'One solution · Newbie · SE 2.3';
+const uniqueStatus = 'Ready to play · Newbie';
 const singleClueStatus = '1 clue · more than one solution';
 const gameScreenTimeoutMilliseconds = 15000;
 const pauseScreenTimeoutMilliseconds = 10000;
@@ -46,29 +46,6 @@ const writeClipboard = async (context: BrowserContext, page: Page, text: string)
 };
 
 const cell = (page: Page, cellKey: string) => page.getByTestId(`${ImportScreenSelectors.Cell}.${cellKey}`);
-
-const expectHiddenControl = async (control: Locator): Promise<void> => {
-    await expect
-        .poll(() =>
-            control.evaluate(element => {
-                for (let ancestor: Element | null = element; ancestor !== null; ancestor = ancestor.parentElement) {
-                    if (getComputedStyle(ancestor).opacity === '0') {
-                        return true;
-                    }
-                }
-
-                return false;
-            })
-        )
-        .toBe(true);
-    await expect.poll(() => control.evaluate(element => element.closest('[inert][aria-hidden="true"]') !== null)).toBe(true);
-    await control.evaluate(element => {
-        if (element instanceof HTMLElement) {
-            element.focus();
-        }
-    });
-    await expect(control).not.toBeFocused();
-};
 
 const expectPressTarget = async (control: Locator): Promise<void> => {
     await expect(control).toBeVisible();
@@ -90,6 +67,7 @@ test('pastes a puzzle link anywhere on the sheet', async ({ context, page }) => 
     await writeClipboard(context, page, uniquePuzzleLink);
     await page.keyboard.press('ControlOrMeta+V');
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(uniqueStatus);
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveText('Tap a cell to edit');
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
 });
 
@@ -98,23 +76,31 @@ test('types on the board with the pad and keyboard, names conflicts and closes f
 
     await page.getByTestId(ImportScreenSelectors.TypeButton).click();
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(emptyStatus);
-    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveText('Tap a cell, then a digit');
-    for (const control of [
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveCount(0);
+    const padControls = [
         ...Array.from({ length: 9 }, (_, index) => page.getByTestId(`${ImportScreenSelectors.PadValue}.${index + 1}`)),
-        page.getByTestId(ImportScreenSelectors.ClearButton),
-        page.getByTestId(ImportScreenSelectors.EntryToggleButton),
-        page.getByTestId(ImportScreenSelectors.EntryActiveButton)
-    ]) {
-        await expectHiddenControl(control);
+        page.getByTestId(ImportScreenSelectors.ClearButton)
+    ];
+    for (const control of padControls) {
+        await expect(control).toBeVisible();
+        await expect(control).toBeEnabled();
     }
     await cell(page, '0-0').click();
+    for (const control of padControls) {
+        await expect(control).toBeVisible();
+        await expect(control).toBeDisabled();
+    }
+    await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toHaveCount(0);
+    await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toHaveCount(0);
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveText('Tap a cell to edit');
+    await cell(page, '0-0').click();
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveCount(0);
     await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeEnabled();
-    await expectHiddenControl(page.getByTestId(ImportScreenSelectors.EntryToggleButton));
     await page.keyboard.press('ControlOrMeta+5');
     await expect(cell(page, '0-0')).toHaveAccessibleName('Row 1, column 1, empty');
     await page.getByTestId(`${ImportScreenSelectors.PadValue}.5`).click();
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(singleClueStatus);
-    await expectHiddenControl(page.getByTestId(ImportScreenSelectors.EntryToggleButton));
+    await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toHaveCount(0);
 
     await page.keyboard.press('5');
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('Two 5s in row 1');
@@ -140,6 +126,7 @@ test('reads the clipboard from the Paste puzzle button and reports text that is 
     await writeClipboard(context, page, 'not a sudoku');
     await page.getByTestId(ImportScreenSelectors.PasteButton).click();
     await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText('No puzzle found on the clipboard');
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveText('Copy a puzzle link or 81 digits, then paste again');
 
     await writeClipboard(context, page, uniquePuzzle);
     await page.getByTestId(ImportScreenSelectors.PasteButton).click();
@@ -257,7 +244,7 @@ test('recognizes a photo and starts the puzzle', async ({ page }) => {
     await openImportFromPlay(page);
     await pickPhoto(page, 'app-classic-light-390.jpg');
     await expectPhotoDigits(page);
-    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/One solution/u);
+    await expect(page.getByTestId(ImportScreenSelectors.Status)).toHaveText(/Ready to play/u);
     await page.getByTestId(ImportScreenSelectors.PlayButton).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
 });
@@ -296,7 +283,8 @@ test('keeps matching handwritten entries, drops wrong entries and starts with no
     await cell(page, '0-6').click();
     await page.getByTestId(`${ImportScreenSelectors.PadValue}.2`).click();
     await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
-    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveText('1 entry kept · 1 didn’t match');
+    await expect(cell(page, '0-6')).toHaveAccessibleName(/2, wrong/u);
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveText('Play clears 1 wrong digit in red');
     await page.getByTestId(ImportScreenSelectors.PlayButton).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
     await expect(page.getByTestId(cellTestId(0, 4))).toHaveAccessibleName('Row 1, column 5, 7');
@@ -362,7 +350,7 @@ test('plays and restores handwritten progress recognized from a photo', async ({
     await openImportFromPlay(page);
     await pickPhoto(page, file);
     await expect(page.getByTestId(ImportScreenSelectors.PlayButton)).toBeEnabled();
-    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveText(/entries? kept/u);
+    await expect(page.getByTestId(ImportScreenSelectors.Guidance)).toHaveText(/^Play keeps your \d+ digits?$/u);
     await page.getByTestId(ImportScreenSelectors.PlayButton).click();
     await expect(page.getByTestId(GameScreenSelectors.Root)).toBeVisible();
     for (const [index, mark] of Array.from(handwriting).entries()) {
@@ -393,11 +381,11 @@ test('reserves the clear slot and shows the kind of the selected handwritten ent
         .first()
         .click();
     await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toBeInViewport({ ratio: 1 });
-    await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toHaveAccessibleName('Clue');
+    await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toHaveAccessibleName('Given');
     await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).not.toBeChecked();
-    await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toHaveAccessibleName('My entry');
+    await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toHaveAccessibleName('Filled in');
     await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toBeChecked();
-    await expect(page.getByTestId(ImportScreenSelectors.Root)).not.toContainText('0 didn’t match');
+    await expect(page.getByTestId(ImportScreenSelectors.Root)).not.toContainText('Play clears 0');
 });
 
 test('keeps the selected row and pad visible while typing at twice the text size', async ({ page }) => {
@@ -412,7 +400,6 @@ test('keeps the selected row and pad visible while typing at twice the text size
     await expect
         .poll(() => statusText.evaluate(element => Number.parseFloat(getComputedStyle(element).fontSize)))
         .toBeGreaterThan(initialFontSize);
-    await cell(page, '0-0').click();
     await expect(cell(page, '0-0')).toBeInViewport({ ratio: 1 });
     await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
     const firstKey = await page.getByTestId(`${ImportScreenSelectors.PadValue}.1`).boundingBox();
@@ -444,7 +431,6 @@ test('pins Play while typing, selecting a cell and loading a unique puzzle', asy
     await expect(play).toBeVisible();
     const typingBounds = await play.boundingBox();
     expect(typingBounds).not.toBeNull();
-    await cell(page, '0-0').click();
     await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeInViewport({ ratio: 1 });
     expect((await play.boundingBox())?.y).toBe(typingBounds?.y);
     await writeClipboard(context, page, uniquePuzzle);
@@ -510,7 +496,7 @@ for (const viewport of [
                     scroll !== null &&
                     selected.y >= scroll.y &&
                     selected.y + selected.height <= scroll.y + scroll.height &&
-                    toggle.y >= scroll.y + scroll.height &&
+                    toggle.y >= selected.y + selected.height &&
                     toggle.y + toggle.height <= play.y
                 );
             })
@@ -529,13 +515,13 @@ test('marks uncertain digits recognized from a photo for review', async ({ page 
     await uncertainCell.click();
     await expect(page.getByTestId(ImportScreenSelectors.Legend)).toContainText('Check');
     await uncertainCell.click();
-    await expect(reviewStatus).toContainText('digits to check');
-    const uncertainCellCount = Number.parseInt((await reviewStatus.textContent()) ?? '', 10);
+    await expect(reviewStatus).toContainText('dotted digits');
+    const uncertainCellCount = Number.parseInt(((await reviewStatus.textContent()) ?? '').replace(/\D+/u, ''), 10);
 
     await page.keyboard.press('Backspace');
-    await expect(reviewStatus).toHaveText(new RegExp(`^${uncertainCellCount - 1} digits? to check`, 'u'));
+    await expect(reviewStatus).toHaveText(new RegExp(`^Check the ${uncertainCellCount - 1} dotted digits?`, 'u'));
     await page.keyboard.press('Backspace');
-    await expect(reviewStatus).toHaveText(new RegExp(`^${uncertainCellCount - 2} digits? to check`, 'u'));
+    await expect(reviewStatus).toHaveText(new RegExp(`^Check the ${uncertainCellCount - 2} dotted digits?`, 'u'));
 });
 
 for (const { width, height, textScale } of [
@@ -599,10 +585,10 @@ for (const { width, height, textScale } of [
         }
         await entryCell.click();
         await entryCell.click();
-        await expect(page.getByTestId(ImportScreenSelectors.Legend)).toContainText('Clue');
-        await expect(page.getByTestId(ImportScreenSelectors.Legend)).toContainText('My entry');
-        await expect(page.getByTestId(ImportScreenSelectors.Legend)).toContainText('Tap a cell to change it');
-        await expectHiddenControl(page.getByTestId(ImportScreenSelectors.ClearButton));
+        await expect(page.getByTestId(ImportScreenSelectors.Legend)).toContainText('Given');
+        await expect(page.getByTestId(ImportScreenSelectors.Legend)).toContainText('Filled in');
+        await expect(page.getByTestId(ImportScreenSelectors.Legend)).not.toContainText('Tap a cell to change it');
+        await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeDisabled();
         const boxes = await readSettledBoxes();
 
         expect(boxes).not.toContain(null);
@@ -610,9 +596,9 @@ for (const { width, height, textScale } of [
             await expect(element).toBeInViewport({ ratio: 1 });
         }
         await emptyCell.click();
-        await expect(page.getByTestId(ImportScreenSelectors.Legend)).toHaveCount(0);
+        await expect(page.getByTestId(ImportScreenSelectors.Legend)).toBeVisible();
         await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeEnabled();
-        await expectHiddenControl(page.getByTestId(ImportScreenSelectors.EntryToggleButton));
+        await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toHaveCount(0);
         for (const value of Array.from({ length: 9 }, (_, index) => index + 1)) {
             await expectPressTarget(page.getByTestId(`${ImportScreenSelectors.PadValue}.${value}`));
         }
@@ -620,23 +606,26 @@ for (const { width, height, textScale } of [
         await expectPressTarget(page.getByTestId(ImportScreenSelectors.ResetButton));
         expect(await readSettledBoxes()).toEqual(boxes);
         await clueCell.click();
-        await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toHaveAccessibleName('Clue');
+        await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toHaveAccessibleName('Given');
         await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toBeChecked();
         await expectPressTarget(page.getByTestId(ImportScreenSelectors.EntryActiveButton));
         await expectPressTarget(page.getByTestId(ImportScreenSelectors.EntryToggleButton));
         expect(await readSettledBoxes()).toEqual(boxes);
         await entryCell.click();
-        await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toHaveAccessibleName('My entry');
+        await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toHaveAccessibleName('Filled in');
         expect(await readSettledBoxes()).toEqual(boxes);
+        await page.getByTestId(`${ImportScreenSelectors.PadValue}.2`).click();
+        await expect(entryCell).toHaveAccessibleName(/, 2(, |$)/u);
+        await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toHaveAccessibleName('Filled in');
         await page.getByTestId(ImportScreenSelectors.EntryToggleButton).click();
-        await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toHaveAccessibleName('Clue');
+        await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toHaveAccessibleName('Given');
         expect(await readSettledBoxes()).toEqual(boxes);
         await page.getByTestId(`${ImportScreenSelectors.PadValue}.1`).click();
         await expect(entryCell).toHaveText('1');
         expect(await readSettledBoxes()).toEqual(boxes);
         await entryCell.click();
-        await expectHiddenControl(page.getByTestId(ImportScreenSelectors.ClearButton));
-        await expectHiddenControl(page.getByTestId(ImportScreenSelectors.EntryToggleButton));
+        await expect(page.getByTestId(ImportScreenSelectors.ClearButton)).toBeDisabled();
+        await expect(page.getByTestId(ImportScreenSelectors.EntryToggleButton)).toHaveCount(0);
         await expect(page.getByTestId(ImportScreenSelectors.Legend)).toBeVisible();
         expect(await readSettledBoxes()).toEqual(boxes);
     });
@@ -722,7 +711,7 @@ test('tabs from Clear to Play past inert editing controls on an unselected board
     await page.keyboard.press('ControlOrMeta+V');
     const play = page.getByTestId(ImportScreenSelectors.PlayButton);
     await expect(play).toBeEnabled();
-    await expectHiddenControl(page.getByTestId(ImportScreenSelectors.EntryActiveButton));
+    await expect(page.getByTestId(ImportScreenSelectors.EntryActiveButton)).toHaveCount(0);
     await page.getByTestId(ImportScreenSelectors.ResetButton).focus();
     await page.keyboard.press('Tab');
     await expect(play).toBeFocused();
