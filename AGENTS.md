@@ -273,7 +273,7 @@ Use these types: `feat`, `fix`, `refactor`, `chore`, `docs`, `ci`, `test`, `i18n
 
 Never mention AI tools, bots, generated output, co-authors, or automation services in commits, PR titles, or PR descriptions.
 
-- PR and issue screenshots and videos go on GitHub itself: attach them with the GitHub CLI `--attach` flag (gh ≥ 2.99). `gh pr create|edit|comment` and `gh issue create|comment` accept repeatable `--attach './before.png#Alt text'`; reference the local path in the body and gh swaps in the uploaded URL. This works in private repos, so never push media to a branch (`pr-media`, `media/*`, `pr-assets/*`) or to another repo. Never upload real user data. Uploading needs a user login (`gh auth login`); GitHub App installation tokens cannot upload attachments, so without a user login ask the owner to attach the media, never push it to a branch.
+- PR and issue screenshots and videos go on GitHub itself: attach them with the GitHub CLI `--attach` flag (gh ≥ 2.99). `gh pr create|edit|comment` and `gh issue create|comment` accept repeatable `--attach './before.png#Alt text'`; reference the file in the body as Markdown, `![Before](./before.png)`, outside code spans, and gh swaps in the uploaded URL. This works in private repos, so never push media to a branch (`pr-media`, `media/*`, `pr-assets/*`) or to another repo. Never upload real user data. Uploading needs a user login (`gh auth login`); GitHub App installation tokens cannot upload attachments, so without a user login ask the owner to attach the media, never push it to a branch.
 
 ## Workflow
 
